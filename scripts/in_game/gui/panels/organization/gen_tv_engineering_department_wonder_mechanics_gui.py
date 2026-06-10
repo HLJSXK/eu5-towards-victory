@@ -61,6 +61,11 @@ SUITABILITY_KNOWLEDGE_COLUMN_SPACING = 8
 SUITABILITY_ROW_LABEL_MAX_WIDTH = 168
 SUITABILITY_ROW_HIDDEN_MAX_WIDTH = 214
 SUITABILITY_LOCATION_CONDITION_ROW_HEIGHT = 22
+PREVIEW_TOP_CARD_HEIGHT = 32
+PREVIEW_CONTENT_WIDTH = 484
+PREVIEW_MODIFIER_COLUMNS_WIDTH = 468
+PREVIEW_MODIFIER_COLUMN_WIDTH = 230
+PREVIEW_MODIFIER_COLUMN_SPACING = 8
 
 
 def eq(var: str, value: int) -> str:
@@ -130,6 +135,11 @@ def dynamic_localized_text_key(prefix: str, var_name: str) -> str:
 
 def dynamic_image_texture(var_name: str) -> str:
     return f"GetConceptTexture(Concatenate('tv_wonder_display_image_', {fixed_point_to_int_string(player_var(var_name))}))"
+
+
+def dynamic_display_modifier_key(var_name: str, suffix: str) -> str:
+    id_string = fixed_point_to_int_string(player_var(var_name))
+    return f"Concatenate('tv_wonder_display_', Concatenate({id_string}, '{suffix}'))"
 
 
 def dynamic_ritual_concept_key(style: int) -> str:
@@ -581,21 +591,130 @@ def hold_button(action_name: str, visible: str) -> str:
     )
 
 
-def preview_widget(var_name: str, visible: str | None = None) -> str:
-    var_expr = player_var(var_name)
-    visible_expr = visible or f"{var_expr}.IsSet"
-    return "\n".join(
+def preview_location_card(id_var_name: str) -> list[str]:
+    visible_expr = f"{player_var(id_var_name)}.IsSet"
+    text_expr = dynamic_localized_text_key("TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_", id_var_name)
+    return [
+        f"{T}widget = {{",
+        f'{T}{T}visible = "[{visible_expr}]"',
+        f"{T}{T}size = {{ 100% {PREVIEW_TOP_CARD_HEIGHT} }}",
+        f"{T}{T}parentanchor = top",
+        f"{T}{T}widgetanchor = top",
+        f"{T}{T}using = bg_text_mask_container_dark_blue",
+        f"{T}{T}hbox = {{",
+        f"{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}{T}layoutpolicy_vertical = fixed",
+        f"{T}{T}{T}margin = {{ 8 5 }}",
+        f"{T}{T}{T}text_single = {{",
+        f'{T}{T}{T}{T}text = "[{text_expr}]"',
+        f"{T}{T}{T}{T}max_width = {PREVIEW_CONTENT_WIDTH}",
+        f"{T}{T}{T}{T}fontsize = 13",
+        f"{T}{T}{T}{T}align = nobaseline|left",
+        f"{T}{T}{T}}}",
+        f"{T}{T}{T}expand = {{}}",
+        f"{T}{T}}}",
+        f"{T}}}",
+    ]
+
+
+def preview_modifier_column(indent: int, *, title_key: str, modifier_key: str) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}vbox = {{",
+        f"{prefix}{T}layoutpolicy_horizontal = fixed",
+        f"{prefix}{T}layoutpolicy_vertical = shrinking",
+        f"{prefix}{T}minimumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
+        f"{prefix}{T}maximumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
+        f"{prefix}{T}spacing = 2",
+        f"{prefix}{T}text_single = {{",
+        f'{prefix}{T}{T}text = "{title_key}"',
+        f"{prefix}{T}{T}max_width = {PREVIEW_MODIFIER_COLUMN_WIDTH}",
+        f"{prefix}{T}{T}align = left|nobaseline",
+        f"{prefix}{T}{T}fontsize = 13",
+        f"{prefix}{T}}}",
+        f"{prefix}{T}TooltipStringPairList = {{",
+        f"{prefix}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{prefix}{T}{T}maximumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
+        f'{prefix}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }} }}',
+        f'{prefix}{T}{T}blockoverride "field_text_format" {{',
+        f"{prefix}{T}{T}{T}fontsize = 13",
+        f"{prefix}{T}{T}}}",
+        f'{prefix}{T}{T}blockoverride "row_size" {{',
+        f"{prefix}{T}{T}{T}maximumsize = {{ -1 22 }}",
+        f"{prefix}{T}{T}{T}minimumsize = {{ -1 22 }}",
+        f"{prefix}{T}{T}}}",
+        f'{prefix}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def preview_effect_card(id_var_name: str) -> list[str]:
+    visible_expr = f"{player_var(id_var_name)}.IsSet"
+    country_modifier_key = dynamic_display_modifier_key(id_var_name, "_level_1")
+    local_modifier_key = dynamic_display_modifier_key(id_var_name, "_local_level_1")
+    lines = [
+        f"{T}widget = {{",
+        f'{T}{T}visible = "[{visible_expr}]"',
+        f"{T}{T}size = {{ 100% -1 }}",
+        f"{T}{T}parentanchor = bottom",
+        f"{T}{T}widgetanchor = bottom",
+        f"{T}{T}using = bg_text_mask_container_dark_blue",
+        f"{T}{T}vbox = {{",
+        f"{T}{T}{T}set_parent_size_to_minimum = yes",
+        f"{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}{T}margin = {{ 8 7 }}",
+        f"{T}{T}{T}spacing = 4",
+        f"{T}{T}{T}ignoreinvisible = yes",
+        f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = {PREVIEW_CONTENT_WIDTH} fontsize = 14 align = nobaseline|left }}',
+        f"{T}{T}{T}hbox = {{",
+        f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}{T}{T}size = {{ {PREVIEW_MODIFIER_COLUMNS_WIDTH} -1 }}",
+        f"{T}{T}{T}{T}spacing = {PREVIEW_MODIFIER_COLUMN_SPACING}",
+        f"{T}{T}{T}{T}ignoreinvisible = yes",
+    ]
+    lines.extend(
+        preview_modifier_column(
+            4,
+            title_key="TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE",
+            modifier_key=country_modifier_key,
+        )
+    )
+    lines.extend(
+        preview_modifier_column(
+            4,
+            title_key="TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE",
+            modifier_key=local_modifier_key,
+        )
+    )
+    lines.extend(
         [
-            "widget = {",
-            f'{T}visible = "[{visible_expr}]"',
-            f"{T}size = {{ 100% 100% }}",
-            f"{T}background = {{",
-            f'{T}{T}texture = "[{dynamic_image_texture(var_name)}]"',
-            f"{T}{T}fittype = centercrop",
+            f"{T}{T}{T}}}",
+            f"{T}{T}}}",
             f"{T}}}",
-            "}",
         ]
     )
+    return lines
+
+
+def preview_widget(image_var_name: str, id_var_name: str, visible: str | None = None) -> str:
+    var_expr = player_var(image_var_name)
+    visible_expr = visible or f"{var_expr}.IsSet"
+    lines = [
+        "widget = {",
+        f'{T}visible = "[{visible_expr}]"',
+        f"{T}size = {{ 100% 100% }}",
+        f"{T}background = {{",
+        f'{T}{T}texture = "[{dynamic_image_texture(image_var_name)}]"',
+        f"{T}{T}fittype = centercrop",
+        f"{T}}}",
+    ]
+    lines.extend(preview_location_card(id_var_name))
+    lines.extend(preview_effect_card(id_var_name))
+    lines.append("}")
+    return "\n".join(lines)
 
 
 def suitability_representatives(wonders: list[dict]) -> list[dict]:
@@ -613,9 +732,9 @@ def generate() -> str:
 
     lines = render_header(SCRIPT_REL)
     lines.append("### BEGIN TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
-    lines.append(preview_widget("tv_wonder_locked_image_display_id"))
+    lines.append(preview_widget("tv_wonder_locked_image_display_id", "tv_wonder_locked_display_id"))
     proposal_preview_visible = f"And(Not({player_var('tv_wonder_locked')}.IsSet), {player_var('tv_wonder_proposal')}.IsSet)"
-    lines.append(preview_widget("tv_wonder_proposal", proposal_preview_visible))
+    lines.append(preview_widget("tv_wonder_proposal", "tv_wonder_proposal", proposal_preview_visible))
     lines.append("### END TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_TEXTS")

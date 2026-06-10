@@ -11,6 +11,100 @@ widget = {
 		texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_image_display_id').GetValue))))]"
 		fittype = centercrop
 	}
+	widget = {
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').IsSet]"
+		size = { 100% 32 }
+		parentanchor = top
+		widgetanchor = top
+		using = bg_text_mask_container_dark_blue
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			margin = { 8 5 }
+			text_single = {
+				text = "[Localize(Concatenate('TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').GetValue))))]"
+				max_width = 484
+				fontsize = 13
+				align = nobaseline|left
+			}
+			expand = {}
+		}
+	}
+	widget = {
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').IsSet]"
+		size = { 100% -1 }
+		parentanchor = bottom
+		widgetanchor = bottom
+		using = bg_text_mask_container_dark_blue
+		vbox = {
+			set_parent_size_to_minimum = yes
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = shrinking
+			margin = { 8 7 }
+			spacing = 4
+			ignoreinvisible = yes
+			text_single = { text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = 484 fontsize = 14 align = nobaseline|left }
+			hbox = {
+				layoutpolicy_horizontal = fixed
+				layoutpolicy_vertical = shrinking
+				size = { 468 -1 }
+				spacing = 8
+				ignoreinvisible = yes
+				vbox = {
+					layoutpolicy_horizontal = fixed
+					layoutpolicy_vertical = shrinking
+					minimumsize = { 230 -1 }
+					maximumsize = { 230 -1 }
+					spacing = 2
+					text_single = {
+						text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
+						max_width = 230
+						align = left|nobaseline
+						fontsize = 13
+					}
+					TooltipStringPairList = {
+						layoutpolicy_horizontal = fixed
+						maximumsize = { 230 -1 }
+						blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
+						blockoverride "field_text_format" {
+							fontsize = 13
+						}
+						blockoverride "row_size" {
+							maximumsize = { -1 22 }
+							minimumsize = { -1 22 }
+						}
+						textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').GetValue)), '_level_1')))]"
+					}
+				}
+				vbox = {
+					layoutpolicy_horizontal = fixed
+					layoutpolicy_vertical = shrinking
+					minimumsize = { 230 -1 }
+					maximumsize = { 230 -1 }
+					spacing = 2
+					text_single = {
+						text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
+						max_width = 230
+						align = left|nobaseline
+						fontsize = 13
+					}
+					TooltipStringPairList = {
+						layoutpolicy_horizontal = fixed
+						maximumsize = { 230 -1 }
+						blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
+						blockoverride "field_text_format" {
+							fontsize = 13
+						}
+						blockoverride "row_size" {
+							maximumsize = { -1 22 }
+							minimumsize = { -1 22 }
+						}
+						textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').GetValue)), '_local_level_1')))]"
+					}
+				}
+			}
+		}
+	}
 }
 widget = {
 	visible = "[And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet)]"
@@ -18,6 +112,100 @@ widget = {
 	background = {
 		texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]"
 		fittype = centercrop
+	}
+	widget = {
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet]"
+		size = { 100% 32 }
+		parentanchor = top
+		widgetanchor = top
+		using = bg_text_mask_container_dark_blue
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			margin = { 8 5 }
+			text_single = {
+				text = "[Localize(Concatenate('TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]"
+				max_width = 484
+				fontsize = 13
+				align = nobaseline|left
+			}
+			expand = {}
+		}
+	}
+	widget = {
+		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet]"
+		size = { 100% -1 }
+		parentanchor = bottom
+		widgetanchor = bottom
+		using = bg_text_mask_container_dark_blue
+		vbox = {
+			set_parent_size_to_minimum = yes
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = shrinking
+			margin = { 8 7 }
+			spacing = 4
+			ignoreinvisible = yes
+			text_single = { text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = 484 fontsize = 14 align = nobaseline|left }
+			hbox = {
+				layoutpolicy_horizontal = fixed
+				layoutpolicy_vertical = shrinking
+				size = { 468 -1 }
+				spacing = 8
+				ignoreinvisible = yes
+				vbox = {
+					layoutpolicy_horizontal = fixed
+					layoutpolicy_vertical = shrinking
+					minimumsize = { 230 -1 }
+					maximumsize = { 230 -1 }
+					spacing = 2
+					text_single = {
+						text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
+						max_width = 230
+						align = left|nobaseline
+						fontsize = 13
+					}
+					TooltipStringPairList = {
+						layoutpolicy_horizontal = fixed
+						maximumsize = { 230 -1 }
+						blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
+						blockoverride "field_text_format" {
+							fontsize = 13
+						}
+						blockoverride "row_size" {
+							maximumsize = { -1 22 }
+							minimumsize = { -1 22 }
+						}
+						textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue)), '_level_1')))]"
+					}
+				}
+				vbox = {
+					layoutpolicy_horizontal = fixed
+					layoutpolicy_vertical = shrinking
+					minimumsize = { 230 -1 }
+					maximumsize = { 230 -1 }
+					spacing = 2
+					text_single = {
+						text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
+						max_width = 230
+						align = left|nobaseline
+						fontsize = 13
+					}
+					TooltipStringPairList = {
+						layoutpolicy_horizontal = fixed
+						maximumsize = { 230 -1 }
+						blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
+						blockoverride "field_text_format" {
+							fontsize = 13
+						}
+						blockoverride "row_size" {
+							maximumsize = { -1 22 }
+							minimumsize = { -1 22 }
+						}
+						textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue)), '_local_level_1')))]"
+					}
+				}
+			}
+		}
 	}
 }
 ### END TV_WONDER_MECHANICS_PREVIEW_WIDGETS

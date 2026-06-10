@@ -37,6 +37,7 @@ CONCEPT_NAME_PREFIX = "game_concept_"
 WONDER_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
 WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
+ENGINEERING_PREVIEW_LOCATION_TEXT_PREFIX = "TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_"
 
 LOCALIZATION_LINE_RE = re.compile(r'^(?P<indent>\s*)(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value>"(?:[^"\\]|\\.)*")\s*$')
 LOCALIZATION_HEADER_RE = re.compile(r"^l_[A-Za-z_]+:\s*$")
@@ -187,6 +188,39 @@ def _engineering_gui_text_route_pairs() -> list[tuple[str, str]]:
     return pairs
 
 
+def preview_location_text_key(wonder: dict[str, Any]) -> str:
+    return f"{ENGINEERING_PREVIEW_LOCATION_TEXT_PREFIX}{int(wonder['id'])}"
+
+
+def _engineering_preview_location_text_values() -> list[tuple[str, str, str]]:
+    wonders, _ = load_all_wonder_mechanics_data()
+    values: list[tuple[str, str, str]] = []
+    for wonder in wonders:
+        key = preview_location_text_key(wonder)
+        if wonder.get("is_unique"):
+            location = wonder.get("location")
+            if not location:
+                raise KeyError(f"Unique wonder {wonder['key']!r} is missing its fixed location")
+            english = (
+                "@location! This is a unique [tv_wonder_construction|E] that can be built at "
+                f"[ShowLocationName('{location}')], its fixed [location|E]"
+            )
+            simp_chinese = (
+                "@location! 这是一个[tv_wonder_construction|E]独特奇观，可以建造在"
+                f"[ShowLocationName('{location}')]这一[location|E]"
+            )
+        else:
+            english = (
+                "@location! This is a generic [tv_wonder_construction|E] that can be built "
+                "across multiple eligible [location|E] sites"
+            )
+            simp_chinese = (
+                "@location! 这是一个[tv_wonder_construction|E]通用奇观，可以建造在多个符合条件的[location|E]"
+            )
+        values.append((key, english, simp_chinese))
+    return values
+
+
 def _display_modifier_pairs() -> list[tuple[str, str]]:
     wonders, _ = load_all_wonder_mechanics_data()
     pairs: list[tuple[str, str]] = []
@@ -250,6 +284,9 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                     f"{WONDER_LOCALIZATION_FILE} ({language})"
                 )
             language_values[route_key] = language_values[source_key]
+    for route_key, english, simp_chinese in _engineering_preview_location_text_values():
+        expanded["english"][route_key] = english
+        expanded["simp_chinese"][route_key] = simp_chinese
     for source_key, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -295,6 +332,9 @@ def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
     for _, route_key in _engineering_gui_text_route_pairs():
+        for language in LANGUAGES:
+            collapsed[language].pop(route_key, None)
+    for route_key, _, _ in _engineering_preview_location_text_values():
         for language in LANGUAGES:
             collapsed[language].pop(route_key, None)
     for _, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs():
