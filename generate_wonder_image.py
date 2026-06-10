@@ -250,10 +250,12 @@ def load_task_config(config: dict[str, Any]) -> list[dict[str, Any]]:
 
     tasks: list[dict[str, Any]] = []
     for task in load_wonder_image_tasks(include_unique=include_unique):
-        if task["is_unique"] and not include_unique:
-            continue
-        if not task["is_unique"] and not include_generic:
-            continue
+        is_stage = bool(task.get("is_stage", False))
+        if not is_stage:
+            if task["is_unique"] and not include_unique:
+                continue
+            if not task["is_unique"] and not include_generic:
+                continue
 
         normalized_key = normalize_task_key(task["key"])
         normalized_name = normalize_task_key(task["name"])
@@ -278,6 +280,7 @@ def load_task_config(config: dict[str, Any]) -> list[dict[str, Any]]:
             merged_task = deep_merge(merged_task, override)
         merged_task["key"] = task["key"]
         merged_task["is_unique"] = task["is_unique"]
+        merged_task["is_stage"] = is_stage
         tasks.append(merged_task)
 
     if not tasks:

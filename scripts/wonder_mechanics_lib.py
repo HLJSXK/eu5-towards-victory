@@ -21,6 +21,14 @@ UNIQUE_WONDER_MAX_ID = 201
 WONDER_MECHANICS_MIN_ID = ALL_WONDER_MIN_ID
 WONDER_MECHANICS_MAX_ID = UNIQUE_WONDER_MAX_ID
 PARTS = ["foundation", "body", "function", "decoration"]
+FIXED_WONDER_STAGE_IMAGE_TASKS = [
+    {"id": -1, "key": "stage_construction", "name": "tv_wonder_construction"},
+    {"id": -2, "key": "stage_foundation", "name": "tv_wonder_foundation"},
+    {"id": -3, "key": "stage_body", "name": "tv_wonder_body"},
+    {"id": -4, "key": "stage_function", "name": "tv_wonder_function"},
+    {"id": -5, "key": "stage_decoration", "name": "tv_wonder_decoration"},
+    {"id": -6, "key": "stage_complete", "name": "tv_wonder_complete"},
+]
 GAME_CONCEPT_DECL_RE = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
 ROMAN_NUMERALS = {
     1: "I",
@@ -790,14 +798,14 @@ def save_yaml_document(path: Path, payload: object, *, preserve_leading_comments
         path.write_text(body, encoding="utf-8")
 
 
-def load_generic_wonder_image_prompts(path: Path = GENERIC_WONDER_IMAGE_PROMPTS_FILE) -> dict[str, str]:
+def _load_wonder_image_prompt_section(path: Path, section: str) -> dict[str, str]:
     if not path.exists():
         return {}
 
     raw = load_yaml(path) or {}
-    prompts = raw.get("generic_wonder_image_prompts", {})
+    prompts = raw.get(section, {})
     if not isinstance(prompts, dict):
-        raise ValueError("generic_wonder_image_prompts must be a mapping")
+        raise ValueError(f"{section} must be a mapping")
 
     normalized: dict[str, str] = {}
     for key, prompt in prompts.items():
@@ -809,6 +817,30 @@ def load_generic_wonder_image_prompts(path: Path = GENERIC_WONDER_IMAGE_PROMPTS_
             raise ValueError(f"Wonder image prompt for {normalized_key} cannot be empty")
         normalized[normalized_key] = normalized_prompt
     return normalized
+
+
+def load_generic_wonder_image_prompts(path: Path = GENERIC_WONDER_IMAGE_PROMPTS_FILE) -> dict[str, str]:
+    return _load_wonder_image_prompt_section(path, "generic_wonder_image_prompts")
+
+
+def load_fixed_wonder_stage_image_prompts(path: Path = GENERIC_WONDER_IMAGE_PROMPTS_FILE) -> dict[str, str]:
+    prompts = _load_wonder_image_prompt_section(path, "fixed_wonder_stage_image_prompts")
+    expected_keys = {task["key"] for task in FIXED_WONDER_STAGE_IMAGE_TASKS}
+
+    missing_prompts = sorted(expected_keys - set(prompts))
+    if missing_prompts:
+        raise ValueError(
+            "Missing fixed wonder stage image prompts for: "
+            + ", ".join(missing_prompts)
+        )
+
+    extra_prompts = sorted(set(prompts) - expected_keys)
+    if extra_prompts:
+        raise ValueError(
+            "Unknown fixed wonder stage image prompt keys: "
+            + ", ".join(extra_prompts)
+        )
+    return prompts
 
 
 def load_manual_game_concept_ids(path: Path = MANUAL_TV_GAME_CONCEPTS_FILE) -> set[str]:
@@ -1394,6 +1426,7 @@ def wonder_image_prompt(wonder: dict, generic_prompts: dict[str, str] | None = N
 
 def load_wonder_image_tasks(*, include_unique: bool = True) -> list[dict]:
     wonders, _ = load_all_wonder_mechanics_data(include_unique=include_unique)
+    stage_prompts = load_fixed_wonder_stage_image_prompts()
     generic_prompts = load_generic_wonder_image_prompts()
     generic_keys = {wonder["key"] for wonder in wonders if not wonder.get("is_unique")}
 
@@ -1411,7 +1444,17 @@ def load_wonder_image_tasks(*, include_unique: bool = True) -> list[dict]:
             + ", ".join(extra_generic_prompts)
         )
 
-    tasks: list[dict] = []
+    tasks: list[dict] = [
+        {
+            "id": int(task["id"]),
+            "key": str(task["key"]),
+            "name": str(task["name"]),
+            "prompt": stage_prompts[str(task["key"])],
+            "is_unique": False,
+            "is_stage": True,
+        }
+        for task in FIXED_WONDER_STAGE_IMAGE_TASKS
+    ]
     for wonder in wonders:
         tasks.append(
             {
@@ -1420,6 +1463,7 @@ def load_wonder_image_tasks(*, include_unique: bool = True) -> list[dict]:
                 "name": wonder_image_name(wonder),
                 "prompt": wonder_image_prompt(wonder, generic_prompts),
                 "is_unique": bool(wonder.get("is_unique")),
+                "is_stage": False,
             }
         )
     return tasks

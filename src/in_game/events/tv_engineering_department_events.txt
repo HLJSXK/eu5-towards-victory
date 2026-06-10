@@ -8,6 +8,7 @@ tv_engineering_department.10 = {
 	type = country_event
 	title = tv_engineering_department.10.t
 	desc = tv_engineering_department.10.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = bad
 
 	option = {
@@ -21,6 +22,7 @@ tv_engineering_department.20 = {
 	type = country_event
 	title = tv_engineering_department.20.t
 	desc = tv_engineering_department.20.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = bad
 
 	option = {
@@ -33,6 +35,7 @@ tv_engineering_department.30 = {
 	type = country_event
 	title = tv_engineering_department.30.t
 	desc = tv_engineering_department.30.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -47,6 +50,7 @@ tv_engineering_department.100 = {
 	type = country_event
 	title = tv_engineering_department.100.t
 	desc = tv_engineering_department.100.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -59,6 +63,7 @@ tv_engineering_department.101 = {
 	type = country_event
 	title = tv_engineering_department.101.t
 	desc = tv_engineering_department.101.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = bad
 
 	option = {
@@ -71,6 +76,7 @@ tv_engineering_department.102 = {
 	type = country_event
 	title = tv_engineering_department.102.t
 	desc = tv_engineering_department.102.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -83,6 +89,7 @@ tv_engineering_department.103 = {
 	type = country_event
 	title = tv_engineering_department.103.t
 	desc = tv_engineering_department.103.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = bad
 
 	option = {
@@ -95,6 +102,7 @@ tv_engineering_department.104 = {
 	type = country_event
 	title = tv_engineering_department.104.t
 	desc = tv_engineering_department.104.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -107,6 +115,7 @@ tv_engineering_department.105 = {
 	type = country_event
 	title = tv_engineering_department.105.t
 	desc = tv_engineering_department.105.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = bad
 
 	option = {
@@ -119,6 +128,7 @@ tv_engineering_department.200 = {
 	type = country_event
 	title = tv_engineering_department.200.t
 	desc = tv_engineering_department.200.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -148,6 +158,7 @@ tv_engineering_department.201 = {
 	type = country_event
 	title = tv_engineering_department.201.t
 	desc = tv_engineering_department.201.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_complete.dds"
 	outcome = good
 
 	immediate = {
@@ -178,10 +189,101 @@ tv_engineering_department.201 = {
 	}
 }
 
+tv_engineering_department.204 = {
+	type = country_event
+	title = tv_engineering_department.200.t
+	desc = tv_engineering_department.200.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_body.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.200.a
+		if = {
+			limit = {
+				tv_wonder_construction_site_selected_trigger = yes
+				has_variable = tv_wonder_previous_level
+				var:tv_wonder_last_completed_part ?= { this >= 1 }
+				var:tv_wonder_last_completed_part ?= { this <= 4 }
+				var:tv_wonder_last_completed_unit ?= { this >= 1 }
+				var:tv_wonder_last_completed_unit ?= { this <= 6 }
+			}
+			tv_wonder_construct_module_for_last_completed_part_effect = yes
+			tv_change_wonder_domestic_support_effect = { value = 10 }
+			tv_wonder_after_unit_completed_event_effect = yes
+		}
+		else = {
+			hidden_effect = {
+				remove_variable = tv_wonder_previous_level
+			}
+		}
+	}
+}
+
+tv_engineering_department.205 = {
+	type = country_event
+	title = tv_engineering_department.200.t
+	desc = tv_engineering_department.200.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_function.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.200.a
+		if = {
+			limit = {
+				tv_wonder_construction_site_selected_trigger = yes
+				has_variable = tv_wonder_previous_level
+				var:tv_wonder_last_completed_part ?= { this >= 1 }
+				var:tv_wonder_last_completed_part ?= { this <= 4 }
+				var:tv_wonder_last_completed_unit ?= { this >= 1 }
+				var:tv_wonder_last_completed_unit ?= { this <= 6 }
+			}
+			tv_wonder_construct_module_for_last_completed_part_effect = yes
+			tv_change_wonder_domestic_support_effect = { value = 10 }
+			tv_wonder_after_unit_completed_event_effect = yes
+		}
+		else = {
+			hidden_effect = {
+				remove_variable = tv_wonder_previous_level
+			}
+		}
+	}
+}
+
+tv_engineering_department.206 = {
+	type = country_event
+	title = tv_engineering_department.200.t
+	desc = tv_engineering_department.200.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_decoration.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.200.a
+		if = {
+			limit = {
+				tv_wonder_construction_site_selected_trigger = yes
+				has_variable = tv_wonder_previous_level
+				var:tv_wonder_last_completed_part ?= { this >= 1 }
+				var:tv_wonder_last_completed_part ?= { this <= 4 }
+				var:tv_wonder_last_completed_unit ?= { this >= 1 }
+				var:tv_wonder_last_completed_unit ?= { this <= 6 }
+			}
+			tv_wonder_construct_module_for_last_completed_part_effect = yes
+			tv_change_wonder_domestic_support_effect = { value = 10 }
+			tv_wonder_after_unit_completed_event_effect = yes
+		}
+		else = {
+			hidden_effect = {
+				remove_variable = tv_wonder_previous_level
+			}
+		}
+	}
+}
+
 tv_engineering_department.202 = {
 	type = country_event
 	title = tv_engineering_department.202.t
 	desc = tv_engineering_department.202.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -193,6 +295,7 @@ tv_engineering_department.203 = {
 	type = country_event
 	title = tv_engineering_department.203.t
 	desc = tv_engineering_department.203.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -216,6 +319,7 @@ tv_engineering_department.300 = {
 			desc = tv_engineering_department.300.d_low
 		}
 	}
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	immediate = {
@@ -238,6 +342,7 @@ tv_engineering_department.310 = {
 	type = country_event
 	title = tv_engineering_department.310.t
 	desc = tv_engineering_department.310.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -250,6 +355,7 @@ tv_engineering_department.311 = {
 	type = country_event
 	title = tv_engineering_department.311.t
 	desc = tv_engineering_department.311.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = bad
 
 	option = {
@@ -262,6 +368,7 @@ tv_engineering_department.312 = {
 	type = country_event
 	title = tv_engineering_department.312.t
 	desc = tv_engineering_department.312.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -274,6 +381,7 @@ tv_engineering_department.313 = {
 	type = country_event
 	title = tv_engineering_department.313.t
 	desc = tv_engineering_department.313.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = bad
 
 	option = {
@@ -286,6 +394,7 @@ tv_engineering_department.314 = {
 	type = country_event
 	title = tv_engineering_department.314.t
 	desc = tv_engineering_department.314.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = good
 
 	option = {
@@ -298,6 +407,7 @@ tv_engineering_department.315 = {
 	type = country_event
 	title = tv_engineering_department.315.t
 	desc = tv_engineering_department.315.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = bad
 
 	option = {
@@ -310,6 +420,7 @@ tv_engineering_department.320 = {
 	type = country_event
 	title = tv_engineering_department.320.t
 	desc = tv_engineering_department.320.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = neutral
 
 	option = {
@@ -326,6 +437,7 @@ tv_engineering_department.321 = {
 	type = country_event
 	title = tv_engineering_department.321.t
 	desc = tv_engineering_department.321.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = neutral
 
 	option = {
@@ -342,6 +454,7 @@ tv_engineering_department.322 = {
 	type = country_event
 	title = tv_engineering_department.322.t
 	desc = tv_engineering_department.322.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction.dds"
 	outcome = neutral
 
 	option = {

@@ -1826,7 +1826,21 @@ tv_wonder_after_unit_completed_effect = {
 		trigger_event_non_silently = { id = tv_engineering_department.201 }
 	}
 	else = {
-		trigger_event_non_silently = { id = tv_engineering_department.200 }
+		if = {
+			limit = { var:tv_wonder_last_completed_part ?= 2 }
+			trigger_event_non_silently = { id = tv_engineering_department.204 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_last_completed_part ?= 3 }
+			trigger_event_non_silently = { id = tv_engineering_department.205 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_last_completed_part ?= 4 }
+			trigger_event_non_silently = { id = tv_engineering_department.206 }
+		}
+		else = {
+			trigger_event_non_silently = { id = tv_engineering_department.200 }
+		}
 	}
 }
 

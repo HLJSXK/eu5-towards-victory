@@ -21,11 +21,13 @@ from wonder_mechanics_lib import (
     finalization_world_event_id,
     load_all_wonder_mechanics,
     render_header,
+    wonder_image_name,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_wonder_finalization_events.txt"
 SCRIPT_REL = "scripts/in_game/events/gen_tv_wonder_finalization_events.py"
 T = "\t"
+WONDER_IMAGE_DIR = "gfx/interface/icons/towards_victory/wonders"
 
 GENERIC_FINALIZATION_DESC_SUFFIXES = {
     "sacred_mountain": "sacred",
@@ -69,6 +71,10 @@ def world_desc_key(wonder: dict, loc_keys: set[str]) -> str:
     suffix = GENERIC_FINALIZATION_DESC_SUFFIXES.get(wonder["key"], wonder["key"])
     desc_key = f"tv_engineering_department.600.d_{suffix}"
     return desc_key if desc_key in loc_keys else "tv_engineering_department.600.d"
+
+
+def wonder_event_image(wonder: dict) -> str:
+    return f"{WONDER_IMAGE_DIR}/{wonder_image_name(wonder)}.dds"
 
 
 def append_desc(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
@@ -131,6 +137,7 @@ def append_event(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
     lines.append(f"{T}type = country_event")
     lines.append(f"{T}title = tv_engineering_department.500.t")
     append_desc(lines, wonder, loc_keys)
+    lines.append(f'{T}image = "{wonder_event_image(wonder)}"')
     lines.append(f"{T}outcome = good")
     lines.append("")
     append_finalization_option(lines, wonder)
@@ -143,6 +150,7 @@ def append_world_news_event(lines: list[str], wonder: dict, loc_keys: set[str]) 
     lines.append(f"{T}type = country_event")
     lines.append(f"{T}title = tv_engineering_department.600.t")
     lines.append(f"{T}desc = {world_desc_key(wonder, loc_keys)}")
+    lines.append(f'{T}image = "{wonder_event_image(wonder)}"')
     lines.append(f"{T}outcome = neutral")
     lines.append("")
     lines.append(f"{T}option = {{")
