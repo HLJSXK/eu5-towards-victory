@@ -502,8 +502,18 @@ GUI_SUFFIX = """\
 \t# -- Philosophy tab: reuse the vanilla resolutions slot ---------------------
 \tblockoverride "organization_resolutions_content" {
 \t\tmargin = { 0 0 }
+\t\tlayoutpolicy_vertical = expanding
 
-\t\tvbox = {
+\t\tscrollarea = {
+\t\t\tusing = layoutpolicy_expanding
+\t\t\tscrollbarpolicy_horizontal = always_off
+
+\t\t\tscrollbar_vertical = {
+\t\t\t\tusing = Scrollbar_Vertical
+\t\t\t}
+
+\t\t\tscrollwidget = {
+\t\t\t\tvbox = {
 \t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
 \t\t\tlayoutpolicy_vertical = fixed
@@ -1029,8 +1039,8 @@ GUI_SUFFIX = """\
 \t\t\t}
 
 \t\t}
-
-\t\texpand = {}
+\t\t\t}
+\t\t}
 \t}
 
 \t# -- Medicine tab: enable the custom tab slot -------------------------------
