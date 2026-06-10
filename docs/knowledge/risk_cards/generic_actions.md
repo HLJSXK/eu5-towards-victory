@@ -26,7 +26,9 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    `hidden_effect` hides output but is not a select-trigger pre-evaluation barrier. If an
    action effect initializes variables and then calls a helper that compares those variables,
    make the helper use `has_variable` / `var:X ?= ...` before direct comparisons, or guard the
-   helper so it runs only after persistent prerequisite state exists.
+   helper so it runs only after persistent prerequisite state exists. This applies even when the
+   helper itself sets the display variable to 0 before comparing it; the pre-evaluator may not
+   commit that write before reading the later `var:X` line.
 
 4. Hide cleanup-only helper calls.
    If a generic action effect only clears variables, removes list entries, strips stale modifiers,

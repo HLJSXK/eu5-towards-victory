@@ -229,7 +229,7 @@ tv_wonder_update_construction_progress_display_effect = {
 	}
 	if = {
 		limit = {
-			var:tv_wonder_remaining_progress > 0
+			var:tv_wonder_remaining_progress ?= { this > 0 }
 			var:tv_wonder_monthly_construction_progress ?= { this > 0 }
 		}
 		set_variable = {

@@ -708,8 +708,8 @@
   correction: "Hide action widgets until their prerequisite state exists, re-check prerequisites inside the action effect, and make reusable effects safe under pre-evaluation by using optional variable reads (var:X ?= ...) or threshold-style comparisons instead of direct var:X comparisons against variables set earlier in the same chain."
   category: script
   scope: any
-  source: "runtime error.log: tv_wonder_select_construction_site -> tv_wonder_update_wonder_level_effect (tv_wonder_body_units/function_units/decoration_units unset during action hover)"
-  notes: "EU5 generic action card and tooltip rendering can pre-evaluate the action effect without committing preceding set_variable writes. A helper that initializes construction variables and then immediately reads them with direct var:X comparisons can spam Failed to fetch variable / Invalid left side errors while the card is merely visible or hovered."
+  source: "runtime error.log: tv_wonder_select_construction_site -> tv_wonder_update_wonder_level_effect (tv_wonder_body_units/function_units/decoration_units unset during action hover); tv_wonder_select_construction_site -> tv_wonder_update_construction_progress_display_effect (tv_wonder_remaining_progress unset after announcing a completed survey)"
+  notes: "EU5 generic action card and tooltip rendering can pre-evaluate the action effect without committing preceding set_variable writes. A helper that initializes construction variables and then immediately reads them with direct var:X comparisons can spam Failed to fetch variable / Invalid left side errors while the card is merely visible, hovered, or clicked. Even a display refresh that sets a variable to 0 before comparing it needs optional reads if it is reachable from a visible generic action."
 
 - id: generic_action_hidden_effect_not_hover_boundary
   detectability: advisory
@@ -906,6 +906,16 @@
   scope: any
   source: "runtime error.log: common/scripted_triggers/tv_engineering_department_triggers.txt:311; reference_game_files/game/in_game/common/missions/generic_capital_economy_mission_pack.txt:388 (root.var comparison)"
   notes: "Using prev.var:X as the RHS of a numeric comparison can log 'Invalid right side during comparison 'var'' and make the condition fail every tick. In Engineering Department construction this caused the monthly material check to fail and kept the UI stuck on the materials-insufficient pause state."
+
+- id: comparison_plain_var_numeric_rhs_in_iterator
+  pattern: ''
+  detectability: needs_parser
+  bad: "local_var:X ?= var:Y, local_var:X > var:Y, or similar dynamic numeric comparisons inside an effect/key iterator when var:Y is owned by the outer scope"
+  correction: "Capture the outer-scope value before entering the iterator with set_local_variable, then compare local_var to local_var inside the iterator. For equality, prefer NOT < and NOT > against the captured local instead of ?= var:Y."
+  category: script
+  scope: any
+  source: "runtime error.log: common/scripted_effects/tv_wonder_module_effects.txt:3305, 2026-06-10"
+  notes: "During Engineering Department priority-candidate unregister, a variable-map key iterator compared a map-captured local candidate id against the country-scoped current candidate id with local_var:X ?= var:Y. EU5 logged 'Invalid right side during comparison var'. Capturing the country value into a second local before the iterator and comparing locals avoids the RHS parser path."
 
 - id: nested_location_scope_plain_var_reads_location_store
   pattern: ''

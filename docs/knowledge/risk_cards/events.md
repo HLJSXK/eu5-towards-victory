@@ -18,6 +18,10 @@ called directly from event options.
    `every_location_in_province = {}`, etc.), plain `var:X` now reads that nested scope's variable
    store. Use `root.var:X` for country-owned numeric inputs, or capture the value before the scope
    switch with `set_local_variable` / `local_var:X`.
+   If a visible helper or event-called effect enters a variable-map key iterator, also capture
+   any outer-scope numeric `var:X` before the iterator. Do not compare a map-captured local
+   directly against `var:X` as a dynamic RHS; compare local to local, using `NOT <` and `NOT >`
+   when equality is needed.
    Wonder module/helper rebuilds are a common trap here: for 1..6 level collapse or merge
    logic, prefer one literal branch per level over scratch variables like `*_combinable_levels`,
    `*_current_module_level`, or `*_target_module_level`. For rounded division displays such as

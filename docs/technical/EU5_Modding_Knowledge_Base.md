@@ -747,6 +747,12 @@ every_international_organizations_member_of = {
 }
 ```
 
+This also applies to variable-map key iterators and local-variable comparisons. Do not write
+`local_var:current ?= var:outer_value` inside the iterator; EU5 can log `Invalid right side
+during comparison 'var'`. Capture `var:outer_value` into another local before the iterator.
+For dynamic numeric equality, compare locals with `NOT = { local_var:current < local_var:outer }`
+and `NOT = { local_var:current > local_var:outer }`.
+
 ### 5.6. Ordered Global List Rebuilds
 
 When using `ordered_in_global_list` to build rank 1..N outputs, treat the output variables as a fresh snapshot each time:
@@ -875,7 +881,7 @@ If that visible helper also switches into a location/province block, do not keep
 variable store; use `root.var:X` or a pre-captured `local_var:X` for country-owned numbers such
 as `change_prosperity` or `add_location_modifier years = ...`.
 
-Generic action widgets can hit the same problem while the action card or tooltip is merely visible. If an action effect initializes variables and then calls a visible helper that compares those same variables, action hover pre-evaluation may read them before the initialization is committed. Hide action widgets until their prerequisite state exists, repeat important prerequisites inside the action effect, and write reusable helpers with `var:X ?= ...` or threshold-style comparisons instead of direct reads of values that are only set earlier in the same chain.
+Generic action widgets can hit the same problem while the action card or tooltip is merely visible. If an action effect initializes variables and then calls a visible helper that compares those same variables, action hover pre-evaluation may read them before the initialization is committed. Hide action widgets until their prerequisite state exists, repeat important prerequisites inside the action effect, and write reusable helpers with `var:X ?= ...` or threshold-style comparisons instead of direct reads of values that are only set earlier in the same chain. This also applies to display refresh helpers that set a scratch/display variable to 0 before comparing it later; if the helper is reachable from a visible generic action, the comparison should still be optional.
 
 ### 6.2 On Action Hook Extension
 
