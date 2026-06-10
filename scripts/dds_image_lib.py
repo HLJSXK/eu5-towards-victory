@@ -474,19 +474,28 @@ def build_dds_header(
     height: int,
     data_size: int,
     fourcc: str,
+    mipmap_count: int = 1,
 ) -> bytes:
     if fourcc not in {"DXT1", "DXT5"}:
         raise ValueError("DDS fourcc must be DXT1 or DXT5")
+    if mipmap_count < 1:
+        raise ValueError("mipmap_count must be at least 1")
     ddsd_caps = 0x00000001
     ddsd_height = 0x00000002
     ddsd_width = 0x00000004
+    ddsd_mipmap_count = 0x00020000
     ddsd_pixel_format = 0x00001000
     ddsd_linear_size = 0x00080000
     ddpf_fourcc = 0x00000004
+    ddscaps_complex = 0x00000008
     ddscaps_texture = 0x00001000
+    ddscaps_mipmap = 0x00400000
 
     flags = ddsd_caps | ddsd_height | ddsd_width | ddsd_pixel_format | ddsd_linear_size
     caps = ddscaps_texture
+    if mipmap_count > 1:
+        flags |= ddsd_mipmap_count
+        caps |= ddscaps_complex | ddscaps_mipmap
 
     header = bytearray()
     header += b"DDS "
@@ -498,7 +507,7 @@ def build_dds_header(
         width,
         data_size,
         0,
-        1,
+        mipmap_count,
     )
     header += struct.pack("<11I", *([0] * 11))
     header += struct.pack("<II4sIIIII", 32, ddpf_fourcc, fourcc.encode("ascii"), 0, 0, 0, 0, 0)
@@ -508,13 +517,34 @@ def build_dds_header(
     return bytes(header)
 
 
+def build_mipmap_chain(image: RgbaImage, min_dimension: int = 1) -> list[RgbaImage]:
+    if min_dimension < 1:
+        raise ValueError("mipmap min dimension must be at least 1")
+    levels = [image]
+    current = image
+    while max(current.width, current.height) > min_dimension and (current.width > 1 or current.height > 1):
+        next_width = max(1, current.width // 2)
+        next_height = max(1, current.height // 2)
+        if (next_width, next_height) == (current.width, current.height):
+            break
+        current = resize_rgba(current, next_width, next_height, "stretch")
+        levels.append(current)
+    return levels
+
+
+def encode_dds_level(image: RgbaImage, dds_format: str) -> bytes:
+    return encode_dxt1(image) if dds_format == "DXT1" else encode_dxt5(image)
+
+
 def write_dds(
     image: RgbaImage,
     path: Path,
     dds_format: str = "DXT5",
     overwrite: bool = False,
     opaque_background: tuple[int, int, int] = (0, 0, 0),
-) -> None:
+    mipmaps: bool = False,
+    mipmap_min_dimension: int = 1,
+) -> int:
     dds_format = dds_format.upper()
     if dds_format not in {"DXT1", "DXT5"}:
         raise ValueError("dds_format must be DXT1 or DXT5")
@@ -522,8 +552,13 @@ def write_dds(
         raise FileExistsError(f"refusing to overwrite existing DDS: {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
     out_image = flatten_rgba(image, opaque_background) if dds_format == "DXT1" else image
-    dxt_level = encode_dxt1(out_image) if dds_format == "DXT1" else encode_dxt5(out_image)
-    path.write_bytes(build_dds_header(out_image.width, out_image.height, len(dxt_level), dds_format) + dxt_level)
+    levels = build_mipmap_chain(out_image, mipmap_min_dimension) if mipmaps else [out_image]
+    dxt_levels = [encode_dds_level(level, dds_format) for level in levels]
+    path.write_bytes(
+        build_dds_header(out_image.width, out_image.height, len(dxt_levels[0]), dds_format, len(dxt_levels))
+        + b"".join(dxt_levels)
+    )
+    return len(levels)
 
 
 def _decode_dxt1_color_block(block: bytes, force_four_color: bool) -> list[tuple[int, int, int, int]]:

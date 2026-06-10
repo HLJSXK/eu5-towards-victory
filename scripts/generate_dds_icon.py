@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate EU5 trade-good DDS assets through Packyapi Images API from a
+Generate EU5 DDS assets through Packyapi Images API from a
 natural-language prompt and target-specific style DDS/PNG references.
 
 Usage:
@@ -20,6 +20,7 @@ import argparse
 import base64
 import binascii
 import json
+import math
 import os
 import re
 import sys
@@ -36,14 +37,14 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
-from dds_image_lib import PNG_SIGNATURE, encode_png_rgba, read_image_rgba, resize_rgba, write_dds
+from dds_image_lib import PNG_SIGNATURE, RgbaImage, encode_png_rgba, read_image_rgba, resize_rgba, write_dds
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = REPO_ROOT / "generate_dds_icon_config.json"
 LOCAL_CONFIG_PATH = REPO_ROOT / "generate_dds_icon.local.json"
-DEFAULT_GENERATIONS_ENDPOINT = "https://www.packyapi.com/v1/images/generations"
-DEFAULT_EDITS_ENDPOINT = "https://www.packyapi.com/v1/images/edits"
+DEFAULT_GENERATIONS_ENDPOINT = "https://www.right.codes/draw/v1/images/generations"
+DEFAULT_EDITS_ENDPOINT = "https://www.right.codes/draw/v1/images/edits"
 DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_icons"
 DEFAULT_REF_DIR = DEFAULT_PNG_DIR / "_style_refs"
 DEFAULT_STYLE_UPLOAD_FIELD = "image"
@@ -77,9 +78,32 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
             "a clear focal subject, supporting environment, and no tiny UI-icon-style object pile."
         ),
     },
+    "building_icon": {
+        "label": "building Icon",
+        "path": "src/main_menu/gfx/interface/icons/buildings/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": True,
+        "mipmap_min_dimension": 2,
+        "max_file_size_bytes": 100_000,
+        "image_size": "1024x1024",
+        "prompt_requirements": (
+            "This is a compact building icon. Treat the uploaded reference as the style "
+            "authority: match its simple painterly brushwork, compact crop, low object count, "
+            "and readable 128px silhouette. Communicate a wonder construction worksite with "
+            "exactly 2-3 simple shapes: a small worksite structure, one crane or hoist, and a "
+            "stone foundation. Avoid extra props, busy scenery, crowds, complex scaffolding, "
+            "ornate architecture, or a finished monument."
+        ),
+    },
 }
 
 TARGET_ALIASES = {
+    "building": "building_icon",
+    "buildings": "building_icon",
+    "building_icons": "building_icon",
     "icon": "trade_good_icon",
     "trade_goods_icon": "trade_good_icon",
     "trade_good_icons": "trade_good_icon",
@@ -115,11 +139,16 @@ class TargetSpec:
     height: int
     resize: str
     dds_format: str
+    mipmaps: bool
+    mipmap_min_dimension: int
     opaque_background: tuple[int, int, int]
     max_file_size_bytes: int
     image_size: str
     prompt_requirements: str
     style_reference_paths: tuple[str, ...]
+    asset_name: str
+    image_overrides: dict[str, Any]
+    local_template: dict[str, Any]
 
 
 def deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -223,6 +252,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         "--list-targets",
         action="store_true",
         help="Print supported generation targets and exit.",
+    )
+    parser.add_argument(
+        "--force-api",
+        action="store_true",
+        help="Ignore output.targets.<target>.local_template and call the image API for this target.",
     )
     return parser.parse_args(argv)
 
@@ -367,9 +401,16 @@ def load_target_spec(
     cli_target: str | None,
 ) -> TargetSpec:
     target_name = select_target_name(config, output_config, cli_target)
-    asset_name = safe_slug(str(output_config.get("name") or "generated_icon"))
     preset = TARGET_PRESETS[target_name]
     target_config = deep_merge(preset, target_override(output_config, target_name))
+    asset_name = safe_slug(
+        str(
+            target_config.get("asset_name")
+            or target_config.get("output_name")
+            or output_config.get("name")
+            or "generated_icon"
+        )
+    )
 
     width = int(target_config.get("width") or preset["width"])
     height = int(target_config.get("height") or preset["height"])
@@ -396,6 +437,10 @@ def load_target_spec(
     resize = str(target_config.get("resize") or preset["resize"]).lower().strip()
     if resize not in {"cover", "contain", "stretch"}:
         raise ValueError("resize mode must be cover, contain, or stretch")
+    mipmaps = bool(target_config.get("mipmaps", False))
+    mipmap_min_dimension = int(target_config.get("mipmap_min_dimension", 1))
+    if mipmap_min_dimension < 1:
+        raise ValueError("mipmap_min_dimension must be at least 1")
 
     image_size = str(target_config.get("image_size") or preset["image_size"])
     if image_size != "auto":
@@ -404,6 +449,12 @@ def load_target_spec(
     path_template = str(target_config.get("path") or preset["path"])
     path = resolve_repo_path(expand_template(path_template, asset_name, target_name))
     style_reference_paths = target_style_reference_paths(target_config, style_config, target_name, asset_name)
+    image_overrides = target_config.get("image", {})
+    if not isinstance(image_overrides, dict):
+        raise ValueError(f"output.targets.{target_name}.image must be a JSON object")
+    local_template = target_config.get("local_template", {})
+    if not isinstance(local_template, dict):
+        raise ValueError(f"output.targets.{target_name}.local_template must be a JSON object")
 
     return TargetSpec(
         name=target_name,
@@ -413,6 +464,8 @@ def load_target_spec(
         height=height,
         resize=resize,
         dds_format=dds_format,
+        mipmaps=mipmaps,
+        mipmap_min_dimension=mipmap_min_dimension,
         opaque_background=parse_rgb(
             target_config.get("opaque_background", output_config.get("opaque_background", [0, 0, 0]))
         ),
@@ -420,11 +473,14 @@ def load_target_spec(
         image_size=image_size,
         prompt_requirements=str(target_config.get("prompt_requirements") or preset["prompt_requirements"]),
         style_reference_paths=style_reference_paths,
+        asset_name=asset_name,
+        image_overrides=image_overrides,
+        local_template=local_template,
     )
 
 
 def apply_target_image_settings(image_config: dict[str, Any], target: TargetSpec) -> dict[str, Any]:
-    configured = dict(image_config)
+    configured = deep_merge(image_config, target.image_overrides)
     configured["size"] = target.image_size
     return configured
 
@@ -814,14 +870,247 @@ def call_image_api(
     return api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener)
 
 
-def output_asset_name(output_config: dict[str, Any]) -> str:
+def output_asset_name(output_config: dict[str, Any], target: TargetSpec | None = None) -> str:
+    if target is not None:
+        return target.asset_name
     return safe_slug(str(output_config.get("name") or "generated_icon"))
 
 
 def output_artifact_stem(output_config: dict[str, Any], target: TargetSpec) -> str:
-    asset_name = output_asset_name(output_config)
+    asset_name = output_asset_name(output_config, target)
     template = str(output_config.get("artifact_stem") or "{name}_{target}")
     return safe_slug(expand_template(template, asset_name, target.name), default=asset_name)
+
+
+def clamp_channel(value: float) -> int:
+    return max(0, min(255, int(round(value))))
+
+
+def blend_pixel(
+    rgba: bytearray,
+    width: int,
+    height: int,
+    x: int,
+    y: int,
+    color: tuple[int, int, int, int],
+) -> None:
+    if x < 0 or y < 0 or x >= width or y >= height:
+        return
+    src_a = color[3] / 255.0
+    if src_a <= 0:
+        return
+    pos = (y * width + x) * 4
+    dst_a = rgba[pos + 3] / 255.0
+    out_a = src_a + dst_a * (1.0 - src_a)
+    if out_a <= 0:
+        return
+    for channel in range(3):
+        src = color[channel] / 255.0
+        dst = rgba[pos + channel] / 255.0
+        out = (src * src_a + dst * dst_a * (1.0 - src_a)) / out_a
+        rgba[pos + channel] = clamp_channel(out * 255.0)
+    rgba[pos + 3] = clamp_channel(out_a * 255.0)
+
+
+def draw_rect(
+    rgba: bytearray,
+    width: int,
+    height: int,
+    left: int,
+    top: int,
+    right: int,
+    bottom: int,
+    color: tuple[int, int, int, int],
+) -> None:
+    for y in range(top, bottom + 1):
+        for x in range(left, right + 1):
+            blend_pixel(rgba, width, height, x, y, color)
+
+
+def draw_line(
+    rgba: bytearray,
+    width: int,
+    height: int,
+    x0: int,
+    y0: int,
+    x1: int,
+    y1: int,
+    color: tuple[int, int, int, int],
+    thickness: int = 1,
+) -> None:
+    steps = max(abs(x1 - x0), abs(y1 - y0), 1)
+    radius = max(0, thickness // 2)
+    for step in range(steps + 1):
+        t = step / steps
+        x = int(round(x0 + (x1 - x0) * t))
+        y = int(round(y0 + (y1 - y0) * t))
+        for oy in range(-radius, radius + 1):
+            for ox in range(-radius, radius + 1):
+                if ox * ox + oy * oy <= radius * radius + 1:
+                    blend_pixel(rgba, width, height, x + ox, y + oy, color)
+
+
+def draw_circle_outline(
+    rgba: bytearray,
+    width: int,
+    height: int,
+    cx: int,
+    cy: int,
+    radius: int,
+    color: tuple[int, int, int, int],
+    thickness: int = 1,
+) -> None:
+    inner = max(0, radius - thickness)
+    outer_sq = radius * radius
+    inner_sq = inner * inner
+    for y in range(cy - radius - 1, cy + radius + 2):
+        for x in range(cx - radius - 1, cx + radius + 2):
+            dist_sq = (x - cx) * (x - cx) + (y - cy) * (y - cy)
+            if inner_sq <= dist_sq <= outer_sq:
+                blend_pixel(rgba, width, height, x, y, color)
+
+
+def draw_polyline(
+    rgba: bytearray,
+    width: int,
+    height: int,
+    points: list[tuple[int, int]],
+    color: tuple[int, int, int, int],
+    thickness: int = 1,
+) -> None:
+    for start, end in zip(points, points[1:]):
+        draw_line(rgba, width, height, start[0], start[1], end[0], end[1], color, thickness)
+
+
+def color_grade_wonder_worksite(image: RgbaImage) -> RgbaImage:
+    rgba = bytearray(image.rgba)
+    for pos in range(0, len(rgba), 4):
+        alpha = rgba[pos + 3]
+        if alpha == 0:
+            continue
+        x = (pos // 4) % image.width
+        y = (pos // 4) // image.width
+        red, green, blue = rgba[pos], rgba[pos + 1], rgba[pos + 2]
+        brightness = (red + green + blue) / 3.0
+
+        red = (red - 128) * 1.08 + 128
+        green = (green - 128) * 1.06 + 128
+        blue = (blue - 128) * 1.08 + 128
+
+        if abs(red - green) < 20 and abs(green - blue) < 20:
+            red = red * 0.96 + 18
+            green = green * 0.98 + 16
+            blue = blue * 1.04 + 24
+        elif red > green + 8 and green > blue + 6:
+            red = red * 1.15 + 16
+            green = green * 1.08 + 12
+            blue = blue * 0.72 + 6
+
+        if y > image.height * 0.46 and red > blue + 12:
+            red = red * 1.18 + 18
+            green = green * 1.12 + 16
+            blue = blue * 0.70 + 4
+
+        if brightness > 160:
+            red += 8
+            green += 7
+            blue += 5
+
+        if 22 <= x <= 100 and 30 <= y <= 102:
+            red += 4
+            green += 3
+
+        rgba[pos] = clamp_channel(red)
+        rgba[pos + 1] = clamp_channel(green)
+        rgba[pos + 2] = clamp_channel(blue)
+    return RgbaImage(image.width, image.height, bytes(rgba))
+
+
+def render_wonder_worksite_icon(source: RgbaImage) -> RgbaImage:
+    image = color_grade_wonder_worksite(source)
+    rgba = bytearray(image.rgba)
+    width, height = image.width, image.height
+
+    marble = (218, 210, 191, 215)
+    marble_shadow = (124, 116, 104, 165)
+    marble_highlight = (247, 239, 218, 190)
+    bronze = (197, 132, 52, 210)
+    gold = (235, 185, 78, 215)
+    dark_gold = (99, 65, 30, 205)
+
+    draw_rect(rgba, width, height, 21, 108, 107, 119, marble)
+    draw_line(rgba, width, height, 21, 108, 107, 108, marble_highlight, 1)
+    draw_line(rgba, width, height, 21, 119, 107, 119, marble_shadow, 1)
+    draw_line(rgba, width, height, 31, 113, 92, 113, gold, 1)
+    draw_line(rgba, width, height, 44, 109, 39, 118, (152, 146, 134, 105), 1)
+
+    draw_line(rgba, width, height, 12, 47, 54, 28, gold, 1)
+    draw_line(rgba, width, height, 54, 28, 96, 48, gold, 1)
+    draw_line(rgba, width, height, 27, 70, 88, 70, (220, 158, 69, 150), 1)
+
+    draw_line(rgba, width, height, 75, 103, 107, 60, bronze, 2)
+    draw_line(rgba, width, height, 75, 103, 108, 103, bronze, 1)
+    draw_circle_outline(rgba, width, height, 100, 85, 17, gold, 2)
+    for angle in range(0, 360, 90):
+        radians = math.radians(angle)
+        x = 100 + int(round(math.cos(radians) * 15))
+        y = 85 + int(round(math.sin(radians) * 15))
+        draw_line(rgba, width, height, 100, 85, x, y, bronze, 1)
+    draw_circle_outline(rgba, width, height, 100, 85, 4, dark_gold, 1)
+
+    return RgbaImage(width, height, bytes(rgba))
+
+
+def render_local_template_image(target: TargetSpec) -> tuple[RgbaImage, Path, str]:
+    config = target.local_template
+    source_path = resolve_repo_path(
+        config.get("source_path") or (target.style_reference_paths[0] if target.style_reference_paths else None)
+    )
+    if not source_path.exists():
+        raise FileNotFoundError(f"Missing local template source: {source_path}")
+
+    source = resize_rgba(read_image_rgba(source_path), target.width, target.height, target.resize)
+    mode = str(config.get("mode") or "wonder_worksite").strip().lower()
+    if mode != "wonder_worksite":
+        raise ValueError(f"Unsupported local_template.mode {mode!r}; expected wonder_worksite")
+    return render_wonder_worksite_icon(source), source_path, mode
+
+
+def write_local_template_png(output_config: dict[str, Any], image: RgbaImage, target: TargetSpec) -> Path:
+    png_dir = resolve_repo_path(output_config.get("png_dir"), DEFAULT_PNG_DIR)
+    png_path = png_dir / f"{output_artifact_stem(output_config, target)}.png"
+    if png_path.exists() and not bool(output_config.get("overwrite", False)):
+        raise FileExistsError(f"refusing to overwrite existing PNG: {png_path}")
+    png_path.parent.mkdir(parents=True, exist_ok=True)
+    png_path.write_bytes(encode_png_rgba(image))
+    print(f"[png] {display_path(png_path)}")
+    return png_path
+
+
+def write_local_template_metadata(
+    output_config: dict[str, Any],
+    target: TargetSpec,
+    source_path: Path,
+    mode: str,
+    written_target: dict[str, Any],
+) -> None:
+    if not bool(output_config.get("write_metadata", True)):
+        return
+    metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_PNG_DIR)
+    metadata_path = metadata_dir / f"{output_artifact_stem(output_config, target)}.json"
+    metadata_path.parent.mkdir(parents=True, exist_ok=True)
+    metadata = {
+        "generation_target": target.name,
+        "generator": "local_template",
+        "local_template": {
+            "mode": mode,
+            "source_path": display_path(source_path).replace("\\", "/"),
+        },
+        "final_prompt": target.image_overrides.get("natural_prompt") or target.image_overrides.get("prompt") or "",
+        "targets": [written_target],
+    }
+    metadata_path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"[metadata] {display_path(metadata_path)}")
 
 
 def write_generated_png(png_bytes: bytes, output_config: dict[str, Any], target: TargetSpec) -> Path:
@@ -841,12 +1130,14 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
     overwrite = bool(output_config.get("overwrite", False))
     source_image = read_image_rgba(source_png_path)
     target_image = resize_rgba(source_image, target.width, target.height, target.resize)
-    write_dds(
+    dds_levels = write_dds(
         target_image,
         target.path,
         dds_format=target.dds_format,
         overwrite=overwrite,
         opaque_background=target.opaque_background,
+        mipmaps=target.mipmaps,
+        mipmap_min_dimension=target.mipmap_min_dimension,
     )
     file_size = target.path.stat().st_size
     if file_size > target.max_file_size_bytes:
@@ -857,7 +1148,7 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
     print(
         f"[dds] {display_path(target.path)} "
         f"({target.width}x{target.height} {target.dds_format}, resize={target.resize}, "
-        f"levels=1, {format_bytes(file_size)} <= {format_bytes(target.max_file_size_bytes)})"
+        f"levels={dds_levels}, {format_bytes(file_size)} <= {format_bytes(target.max_file_size_bytes)})"
     )
     return {
         "name": target.name,
@@ -867,7 +1158,7 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
         "height": target.height,
         "resize": target.resize,
         "dds_format": target.dds_format,
-        "dds_levels": 1,
+        "dds_levels": dds_levels,
         "file_size_bytes": file_size,
         "max_file_size_bytes": target.max_file_size_bytes,
     }
@@ -957,6 +1248,14 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[png] source={display_path(source_png_path)}")
         written_target = write_target(output_config, source_png_path, target)
         update_existing_metadata_target(output_config, target, written_target)
+        return 0
+
+    if bool(target.local_template.get("enabled", False)) and not bool(args.force_api):
+        local_image, source_path, mode = render_local_template_image(target)
+        print(f"[local-template] mode={mode} source={display_path(source_path)}")
+        png_path = write_local_template_png(output_config, local_image, target)
+        written_target = write_target(output_config, png_path, target)
+        write_local_template_metadata(output_config, target, source_path, mode, written_target)
         return 0
 
     timeout = float(api_config.get("timeout_seconds", 180))

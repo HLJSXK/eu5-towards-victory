@@ -1,8 +1,8 @@
 {
   "api": {
-    "endpoint": "https://www.packyapi.com/v1/images/edits",
-    "generations_endpoint": "https://www.packyapi.com/v1/images/generations",
-    "edits_endpoint": "https://www.packyapi.com/v1/images/edits",
+    "endpoint": "https://www.right.codes/draw/v1/images/edits",
+    "generations_endpoint": "https://www.right.codes/draw/v1/images/generations",
+    "edits_endpoint": "https://www.right.codes/draw/v1/images/edits",
     "api_key_env": [
       "PACKY_API_KEY",
       "PACKY_SORA_TOKEN"
@@ -71,6 +71,31 @@
         "style_reference_paths": [
           "data/generated_icons/_style_refs/icon_goods_marble.dds"
         ]
+      },
+      "building_icon": {
+        "asset_name": "tv_wonder_labor_camp",
+        "path": "src/main_menu/gfx/interface/icons/buildings/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": true,
+        "mipmap_min_dimension": 2,
+        "max_file_size_bytes": 100000,
+        "image_size": "1024x1024",
+        "prompt_requirements": "This is a compact building icon for the Wonder Worksite. Treat the uploaded Construction Center reference as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict a wonder construction worksite using exactly 2-3 simple shapes: one small worksite shed, one crane or hoist wheel, and one pale stone foundation block. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds"
+        ],
+        "local_template": {
+          "enabled": true,
+          "mode": "wonder_worksite",
+          "source_path": "data/generated_icons/_style_refs/construction_center.dds"
+        },
+        "image": {
+          "natural_prompt": "A simple Europa Universalis V building icon in the uploaded vanilla Construction Center style. Match the reference's painterly icon language, compact crop, simple silhouette, and low element count. Show a wonder construction worksite with only three clear elements: a small worksite shed, one crane or hoist wheel, and one pale stone foundation block with restrained bronze accents. Sparse, centered, readable at 128px, premium but not ornate, no text.",
+          "negative_prompt": "busy construction scene, many objects, extra props, many tools, crowds, workers, multiple buildings, complex scaffolding, ornate palace, completed monument, giant statue, landscape background, detailed narrative scene, realistic photo, text, letters, logo, UI frame"
+        }
       }
     }
   }
