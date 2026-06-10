@@ -236,17 +236,8 @@ tv_wonder_organization_logistics_unlocked_trigger = {
 	NOT = { has_variable = tv_wonder_construction_complete }
 }
 
-tv_wonder_labor_camp_below_cap_trigger = {
-	tv_wonder_construction_site_selected_trigger = yes
-	has_variable = tv_wonder_organization_site_level_cap
-	var:tv_wonder_organization_site_level_cap ?= { this > 0 }
-	total_building_levels_including_construction:tv_wonder_labor_camp < {
-		value = var:tv_wonder_organization_site_level_cap
-	}
-}
-
 tv_wonder_has_organized_labor_trigger = {
-	var:tv_wonder_laborers ?= { this > 0 }
+	total_effective_building_levels:tv_wonder_labor_camp > 0
 }
 
 tv_wonder_domestic_support_can_increase_trigger = {

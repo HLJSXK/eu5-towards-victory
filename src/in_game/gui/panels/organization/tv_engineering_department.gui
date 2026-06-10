@@ -6404,8 +6404,8 @@ widget = {
 			card_common = {
 				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
 				layoutpolicy_vertical = fixed
-				minimumsize = { 500 468 }
-				maximumsize = { 500 468 }
+				minimumsize = { 500 600 }
+				maximumsize = { 500 600 }
 
 				blockoverride "common_header_icon_texture" {
 					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
@@ -6417,58 +6417,175 @@ widget = {
 
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 428 }
+						size = { 470 560 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
-							spacing = 7
+							spacing = 8
 							margin = { 4 6 }
 
-							hbox = {
+							widget = {
+								size = { 462 40 }
 								layoutpolicy_horizontal = expanding
-								spacing = 4
-								action_button_diamond = {
-									size = { 470 30 }
-									text = "TV_ENGINEERING_BUILD_LABOR_CAMP_BUTTON"
-									title = "tv_wonder_build_labor_camp"
-									description = "tv_wonder_build_labor_camp_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = { action_name = "tv_wonder_build_labor_camp" }
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									using = bg_geodiplo_situation_overview
+
+									text_single = {
+										margin = { 10 0 }
+										fontsize = 15
+										default_format = "#explanation_link"
+										text = "TV_ENGINEERING_ORGANIZATION_SECTION_TITLE"
+										align = nobaseline|vcenter
+									}
+								}
+							}
+
+							card_common = {
+								layoutpolicy_vertical = fixed
+								minimumsize = { 462 148 }
+								maximumsize = { 462 148 }
+
+								blockoverride "header_size" { size = { -1 0 } }
+								blockoverride "header_decor_templates" {}
+								blockoverride "common_header" {}
+								blockoverride "card_common_bottom_margin" { margin = { 10 8 } }
+								blockoverride "common_bottom_content" {
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										max_width = 442
+										autoresize = yes
+										text = "TV_ENGINEERING_ORGANIZATION_HELP_TEXT"
+										align = nobaseline|left
+									}
 								}
 							}
 
 							hbox = {
 								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = { text = "TV_ENGINEERING_LABOR_PROGRESS_LABEL" align = nobaseline }
-								expand = {}
-								text_single = { raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_laborers').GetValue|0]/[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_labor_cap').GetValue|0]" align = nobaseline }
-							}
-							progressbar = {
-								size = { 462 16 }
-								using = progress_bar_blue_alt
-								min = 0
-								max = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_labor_cap_display').GetValue]"
-								value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_laborers').GetValue]"
-								tooltip = "TV_ENGINEERING_LABOR_PROGRESS_TT"
-							}
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 4
-								text_single = { size = { 72 16 } raw_text = "I" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "II" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "III" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "IV" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "V" align = nobaseline|center }
-								text_single = { size = { 72 16 } raw_text = "VI" align = nobaseline|center }
+								size = { 462 32 }
+								spacing = 8
+								icon = {
+									size = { 30 30 }
+									texture = "gfx/interface/icons/buildings/tv_wonder_labor_camp.dds"
+									texture_density = 2
+								}
+								progressbar = {
+									size = { 330 16 }
+									margin_top = 7
+									using = progress_bar_blue_alt
+									min = 0
+									max = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap_display').GetValue]"
+									value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_effective_worksite_levels').GetValue]"
+									tooltip = "TV_ENGINEERING_WORKSITE_PROGRESS_TT"
+								}
+								text_single = {
+									size = { 86 22 }
+									margin_top = 4
+									raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_effective_worksite_levels').GetValue|0]/[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_organization_site_level_cap').GetValue|0]"
+									align = nobaseline|right
+								}
 							}
 
-							text_multi = {
+							button_regular = {
+								down = "[GetVariableSystem.Exists('ui_library_down_state')]"
+								size = { 462 30 }
+								fontsize = 14
+								text = "TV_ENGINEERING_BUILD_WORKSITE_BUTTON"
+								using = bg_button_flavor_1
+
+								action_tooltip = {
+									click_type = left
+									click_mode = single
+									title = "TV_ENGINEERING_BUILD_WORKSITE_BUTTON"
+									on_action = "[OpenLateralViewWithFilter('production', 'uses_tv_wonder_materials')]"
+								}
+
+								tooltipwidget = {
+									BasicFunctionalTooltip = {}
+								}
+							}
+
+							widget = {
+								size = { 462 40 }
 								layoutpolicy_horizontal = expanding
-								max_width = 462
-								autoresize = yes
-								text = "TV_ENGINEERING_ORG_LOG_HELP_LABOR_TEXT"
-								align = nobaseline|left
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									using = bg_geodiplo_situation_overview
+
+									text_single = {
+										margin = { 10 0 }
+										fontsize = 15
+										default_format = "#explanation_link"
+										text = "TV_ENGINEERING_LOGISTICS_SECTION_TITLE"
+										align = nobaseline|vcenter
+									}
+								}
+							}
+
+							card_common = {
+								layoutpolicy_vertical = fixed
+								minimumsize = { 462 120 }
+								maximumsize = { 462 120 }
+
+								blockoverride "header_size" { size = { -1 0 } }
+								blockoverride "header_decor_templates" {}
+								blockoverride "common_header" {}
+								blockoverride "card_common_bottom_margin" { margin = { 10 8 } }
+								blockoverride "common_bottom_content" {
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										max_width = 442
+										autoresize = yes
+										text = "TV_ENGINEERING_LOGISTICS_HELP_TEXT"
+										align = nobaseline|left
+									}
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								size = { 462 32 }
+								spacing = 8
+								icon = {
+									size = { 30 30 }
+									texture = "gfx/interface/icons/trade_goods/icon_goods_tv_wonder_materials.dds"
+									texture_density = 2
+								}
+								progressbar = {
+									size = { 330 16 }
+									margin_top = 7
+									using = progress_bar_blue_alt
+									min = 0
+									max = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_material_workshop_need_display').GetValue]"
+									value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_effective_material_workshop_levels').GetValue]"
+									tooltip = "TV_ENGINEERING_MATERIAL_WORKSHOP_PROGRESS_TT"
+								}
+								text_single = {
+									size = { 86 22 }
+									margin_top = 4
+									raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_effective_material_workshop_levels').GetValue|0]/[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_material_workshop_need').GetValue|0]"
+									align = nobaseline|right
+								}
+							}
+
+							button_regular = {
+								down = "[GetVariableSystem.Exists('ui_library_down_state')]"
+								size = { 462 30 }
+								fontsize = 14
+								text = "TV_ENGINEERING_BUILD_MATERIAL_WORKSHOP_BUTTON"
+								using = bg_button_flavor_1
+
+								action_tooltip = {
+									click_type = left
+									click_mode = single
+									title = "TV_ENGINEERING_BUILD_MATERIAL_WORKSHOP_BUTTON"
+									on_action = "[OpenLateralViewWithFilter('production', 'tv_wonder_materials')]"
+								}
+
+								tooltipwidget = {
+									BasicFunctionalTooltip = {}
+								}
 							}
 						}
 					}
