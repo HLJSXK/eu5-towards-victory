@@ -72,8 +72,18 @@ tv_wonder_reset_io_progress_effect = {
 			international_organization_type = international_organization_type:tv_engineering_department
 		}
 		set_variable = { name = tv_wonder_domestic_support value = 0 }
+		set_variable = { name = tv_wonder_concept_progress value = 0 }
 		set_variable = { name = tv_wonder_survey_progress value = 0 }
 		set_variable = { name = tv_wonder_construction_progress value = 0 }
+	}
+}
+
+tv_wonder_reset_io_concept_progress_effect = {
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_engineering_department
+		}
+		set_variable = { name = tv_wonder_concept_progress value = 0 }
 	}
 }
 
@@ -729,7 +739,22 @@ tv_wonder_initialize_debate_demands_effect = {
 	tv_wonder_roll_clergy_demand_effect = yes
 }
 
-tv_engineering_on_great_engineer_appointed_effect = {
+tv_wonder_clear_concept_state_effect = {
+	remove_variable = tv_wonder_concept_in_progress
+	remove_variable = tv_wonder_concept_reason
+	remove_variable = tv_wonder_concept_completion_pending
+	tv_wonder_reset_io_concept_progress_effect = yes
+}
+
+tv_wonder_start_concept_effect = {
+	set_variable = { name = tv_wonder_stage value = 0 }
+	set_variable = { name = tv_wonder_concept_in_progress value = 1 }
+	set_variable = { name = tv_wonder_concept_reason value = $reason$ }
+	remove_variable = tv_wonder_concept_completion_pending
+	tv_wonder_reset_io_concept_progress_effect = yes
+}
+
+tv_wonder_complete_appointed_concept_effect = {
 	remove_variable = tv_wonder_priority_declined
 	if = {
 		limit = { NOT = { has_variable = tv_wonder_stage } }
@@ -751,9 +776,50 @@ tv_engineering_on_great_engineer_appointed_effect = {
 	}
 }
 
+tv_wonder_complete_concept_effect = {
+	if = {
+		limit = { var:tv_wonder_concept_reason ?= 1 }
+		tv_wonder_clear_concept_state_effect = yes
+		tv_wonder_complete_appointed_concept_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_concept_reason ?= 2 }
+		tv_wonder_clear_concept_state_effect = yes
+		if = {
+			limit = { tv_wonder_has_great_engineer_trigger = yes }
+			tv_wonder_reroll_proposal_after_rejection_effect = yes
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_concept_reason ?= 3 }
+		tv_wonder_refresh_locked_priority_candidate_effect = yes
+		tv_wonder_clear_project_state_core_effect = yes
+		if = {
+			limit = { tv_wonder_has_great_engineer_trigger = yes }
+			tv_wonder_rebuild_feasible_deck_effect = yes
+			tv_wonder_roll_new_proposal_effect = yes
+		}
+	}
+	else = {
+		tv_wonder_clear_concept_state_effect = yes
+	}
+}
+
+tv_engineering_on_great_engineer_appointed_effect = {
+	if = {
+		limit = {
+			tv_wonder_in_conception_trigger = yes
+			tv_wonder_has_great_engineer_trigger = yes
+		}
+		tv_wonder_start_concept_effect = { reason = 1 }
+	}
+}
+
 tv_engineering_on_great_engineer_removed_effect = {
+	tv_wonder_clear_concept_state_effect = yes
 	if = {
 		limit = { tv_wonder_in_conception_trigger = yes }
+		tv_wonder_clear_proposal_on_great_engineer_effect = yes
 		tv_wonder_clear_current_proposal_effect = yes
 		tv_wonder_clear_feasible_deck_effect = yes
 	}
@@ -788,7 +854,7 @@ tv_wonder_refute_proposal_effect = {
 	add_prestige = -10
 	custom_tooltip = { text = TV_WONDER_GREAT_ENGINEER_NEW_PROPOSAL_TT }
 	hidden_effect = {
-		tv_wonder_reroll_proposal_after_rejection_effect = yes
+		tv_wonder_start_concept_effect = { reason = 2 }
 	}
 }
 
@@ -796,7 +862,7 @@ tv_wonder_bribe_proposal_effect = {
 	change_gold_effect = { scale = -1 }
 	custom_tooltip = { text = TV_WONDER_GREAT_ENGINEER_NEW_PROPOSAL_TT }
 	hidden_effect = {
-		tv_wonder_reroll_proposal_after_rejection_effect = yes
+		tv_wonder_start_concept_effect = { reason = 2 }
 	}
 }
 
@@ -2115,9 +2181,10 @@ tv_wonder_reinitialize_building_state_core_effect = {
 	tv_wonder_initialize_ceremony_runtime_state_effect = yes
 }
 
-tv_wonder_clear_project_state_effect = {
+tv_wonder_clear_project_state_core_effect = {
 	tv_wonder_destroy_labor_camp_effect = yes
 	tv_wonder_clear_current_proposal_effect = yes
+	tv_wonder_clear_concept_state_effect = yes
 	remove_variable = tv_wonder_priority_found
 	remove_variable = tv_wonder_priority_declined
 	remove_variable = tv_wonder_resume_project
@@ -2216,11 +2283,10 @@ tv_wonder_clear_project_state_effect = {
 	tv_wonder_index_clear_selected_ritual_cache_effect = yes
 	set_variable = { name = tv_wonder_stage value = 0 }
 	tv_wonder_reset_io_progress_effect = yes
-	if = {
-		limit = { tv_wonder_has_great_engineer_trigger = yes }
-		tv_wonder_rebuild_feasible_deck_effect = yes
-		tv_wonder_roll_new_proposal_effect = yes
-	}
+}
+
+tv_wonder_clear_project_state_effect = {
+	tv_wonder_clear_project_state_core_effect = yes
 }
 
 tv_wonder_abandon_effect = {

@@ -37,6 +37,8 @@ Finalization routing update: Engineering Department wonder finalization now disp
 
 Towards Victory adds 6 generalized victory paths to EU5: Conquest, Prosperity, Trade, Diplomatic, Cultural, and Scientific. Each path has 5 milestone nodes that grant permanent buffs when reached. Progress is displayed via situation panels; milestones trigger popup events that notify the player and deliver the reward.
 
+Engineering Department concept-stage update: Great Engineer proposal refresh now has an explicit `tv_wonder_stage = 0` substate marked by `tv_wonder_concept_in_progress`. Appointing a Great Engineer, refuting/bribing a proposal, or finishing an inaugurated wonder starts `tv_wonder_concept_progress` at 0 on the Engineering Department IO; monthly_change adds Great Engineer ADM x2 until it reaches 100, then `tv_engineering_department.30` lets the player acknowledge the completed concept. Only that event option runs the delayed cleanup/refresh work: appointment concepts rebuild/restore the feasible deck and roll three proposal slots, rejection/bribe concepts run the old rejection reroll, and post-finalization concepts first refresh saved resume/upgrade priority candidates from the old locked wonder, then clear project state through the no-roll core helper, rebuild the deck, and roll the next proposals. The Engineering Department GUI shows the concept text, `@adm!` icon, progress bar, and `xx/100` value while hiding proposal buttons, accept/refute/bribe actions, and wonder previews during this substate.
+
 Trade League law update: `data/trade_league_laws.yaml` now drives generated `tv_trade_league_laws.txt`, adding five three-level vote-based laws: Customs Union, Maritime Convoys, Merchant Courts, Staple Monopolies, and Investment Code. Each level-1 policy trades roughly one benefit package for one cost, level 2 gives about 1.5x the same benefits for the same cost, and level 3 gives about 3x the same benefits for two distinct costs. AI policy vote bias uses base weights 200/100/0 for levels 1/2/3; levels 2/3 also scale from opinion of the leader (-50..+50 / -100..+100), leader diplomatic reputation (+2/+5 per point), and leader monthly trade income (+5/+10 per 100 income). Trade League law votes use the Grand Merchant law-change availability trigger and mutually block trade-chain, commercial-intelligence, and monopoly maintenance work.
 
 The **Conquest Victory** path (征服胜利) is fully implemented: 5 triggers, 5 reward modifiers, 5 events, and localization in English and Simplified Chinese. Score = direct locations + 0.5 × subject-or-below locations; thresholds at 200 / 400 / 600 / 1200 / 2500.
@@ -607,9 +609,9 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | --- | --- | --- | --- |
 | GUI Icons (`@xxx!`) | 351 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
 | Scripted Triggers | 2542 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 3799 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Scripted Effects | 3805 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2329 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 11912 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 11919 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

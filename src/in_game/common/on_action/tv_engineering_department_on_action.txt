@@ -75,6 +75,31 @@ tv_engineering_department_char_death = {
 	}
 }
 
+tv_engineering_department_concept_monthly_pulse = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		has_variable = tv_wonder_concept_in_progress
+		NOT = { has_variable = tv_wonder_concept_completion_pending }
+		tv_wonder_in_conception_trigger = yes
+		tv_wonder_has_great_engineer_trigger = yes
+	}
+	effect = {
+		hidden_effect = {
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_engineering_department
+					var:tv_wonder_concept_progress >= 100
+					prev = { NOT = { has_variable = tv_wonder_concept_completion_pending } }
+				}
+				prev = {
+					set_variable = { name = tv_wonder_concept_completion_pending value = 1 }
+					trigger_event_non_silently = { id = tv_engineering_department.30 }
+				}
+			}
+		}
+	}
+}
+
 tv_engineering_department_debate_monthly_pulse = {
 	trigger = {
 		has_variable = tv_engineering_department_member

@@ -29,6 +29,20 @@ tv_engineering_department.20 = {
 	}
 }
 
+tv_engineering_department.30 = {
+	type = country_event
+	title = tv_engineering_department.30.t
+	desc = tv_engineering_department.30.d
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.30.a
+		hidden_effect = {
+			tv_wonder_complete_concept_effect = yes
+		}
+	}
+}
+
 tv_engineering_department.100 = {
 	type = country_event
 	title = tv_engineering_department.100.t

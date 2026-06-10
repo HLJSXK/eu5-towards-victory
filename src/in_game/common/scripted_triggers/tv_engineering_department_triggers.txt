@@ -140,6 +140,7 @@ tv_wonder_debate_complete_trigger = {
 tv_wonder_has_open_proposal_trigger = {
 	tv_wonder_in_conception_trigger = yes
 	tv_wonder_has_great_engineer_trigger = yes
+	NOT = { has_variable = tv_wonder_concept_in_progress }
 	OR = {
 		var:tv_wonder_proposal ?= { this >= 1 }
 		var:tv_wonder_proposal_slot_1 ?= { this >= 1 }

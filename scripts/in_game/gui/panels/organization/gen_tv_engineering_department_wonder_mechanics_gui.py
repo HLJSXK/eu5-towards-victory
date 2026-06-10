@@ -129,6 +129,10 @@ def player_var(var_name: str) -> str:
     return f"{PLAYER}.GetVariable('{var_name}')"
 
 
+def concept_in_progress() -> str:
+    return f"{player_var('tv_wonder_concept_in_progress')}.IsSet"
+
+
 def dynamic_localized_text_key(prefix: str, var_name: str) -> str:
     return f"Localize(Concatenate('{prefix}', {fixed_point_to_int_string(player_var(var_name))}))"
 
@@ -194,6 +198,7 @@ def proposal_button(slot: int) -> str:
         [
             f"{slot_var}.IsSet",
             f"{player_var('tv_wonder_proposal')}.IsSet",
+            f"Not({concept_in_progress()})",
             (
                 f"EqualTo_CFixedPoint({player_var('tv_wonder_proposal')}.GetValue, "
                 f"{slot_var}.GetValue)"
@@ -206,7 +211,7 @@ def proposal_button(slot: int) -> str:
     return "\n".join(
         [
             f"widget = {{",
-            f'{T}visible = "[{slot_var}.IsSet]"',
+            f'{T}visible = "[And({slot_var}.IsSet, Not({concept_in_progress()}))]"',
             f"{T}size = {{ 152 30 }}",
             f"{T}action_button_diamond = {{ size = {{ 152 30 }} {action_button_fields(text, title, description, action_name)} }}",
             green_action_button(selected_visible, "152 30", text, title, description, action_name),
@@ -217,7 +222,7 @@ def proposal_button(slot: int) -> str:
 
 def dynamic_proposal_text(prefix: str, max_width: int = 352) -> str:
     return (
-        f'{T}text_multi = {{ visible = "[{player_var("tv_wonder_proposal")}.IsSet]" '
+        f'{T}text_multi = {{ visible = "[And({player_var("tv_wonder_proposal")}.IsSet, Not({concept_in_progress()}))]" '
         f'max_width = {max_width} autoresize = yes text = "[{dynamic_localized_text_key(prefix, "tv_wonder_proposal")}]" '
         f'align = nobaseline|left }}'
     )
@@ -225,7 +230,7 @@ def dynamic_proposal_text(prefix: str, max_width: int = 352) -> str:
 
 def dynamic_locked_text(max_width: int = 352) -> str:
     return (
-        f'{T}text_multi = {{ visible = "[{player_var("tv_wonder_locked_display_id")}.IsSet]" '
+        f'{T}text_multi = {{ visible = "[And({player_var("tv_wonder_locked_display_id")}.IsSet, Not({concept_in_progress()}))]" '
         f'max_width = {max_width} autoresize = yes text = "[{dynamic_localized_text_key("TV_ENGINEERING_LOCKED_TEXT_", "tv_wonder_locked_display_id")}]" '
         f'align = nobaseline|left }}'
     )
@@ -732,8 +737,16 @@ def generate() -> str:
 
     lines = render_header(SCRIPT_REL)
     lines.append("### BEGIN TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
-    lines.append(preview_widget("tv_wonder_locked_image_display_id", "tv_wonder_locked_display_id"))
-    proposal_preview_visible = f"And(Not({player_var('tv_wonder_locked')}.IsSet), {player_var('tv_wonder_proposal')}.IsSet)"
+    locked_preview_visible = (
+        f"And({player_var('tv_wonder_locked_image_display_id')}.IsSet, "
+        f"Not({concept_in_progress()}))"
+    )
+    lines.append(preview_widget("tv_wonder_locked_image_display_id", "tv_wonder_locked_display_id", locked_preview_visible))
+    proposal_preview_visible = (
+        f"And3(Not({player_var('tv_wonder_locked')}.IsSet), "
+        f"{player_var('tv_wonder_proposal')}.IsSet, "
+        f"Not({concept_in_progress()}))"
+    )
     lines.append(preview_widget("tv_wonder_proposal", "tv_wonder_proposal", proposal_preview_visible))
     lines.append("### END TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
     lines.append("")

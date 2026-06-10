@@ -62,6 +62,36 @@ tv_engineering_department = {
 				}
 			}
 		}
+		tv_wonder_concept_progress = {
+			format = "TV_WONDER_CONCEPT_PROGRESS_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_engineering_department_member
+							has_variable = tv_wonder_concept_in_progress
+							tv_wonder_in_conception_trigger = yes
+							custom_tooltip = {
+								text = TV_HAS_GREAT_ENGINEER_CHAR_TT
+								has_variable = tv_great_engineer_char
+							}
+							var:tv_great_engineer_char ?= { is_alive = yes }
+							NOT = { has_variable = tv_wonder_concept_completion_pending }
+						}
+					}
+					add = {
+						desc = "TV_WONDER_CONCEPT_ENGINEER_PROGRESS"
+						value = leader_country.var:tv_great_engineer_char.adm
+						multiply = 2
+					}
+				}
+			}
+		}
 		tv_wonder_survey_progress = {
 			format = "TV_WONDER_SURVEY_PROGRESS_FORMAT"
 			change_format = "VARIABLE_CHANGE_FORMAT"
