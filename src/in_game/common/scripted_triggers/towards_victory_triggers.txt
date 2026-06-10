@@ -14,6 +14,10 @@ tv_conquest_milestone_1 = {
 		has_variable = tv_conquest_score
 		var:tv_conquest_score >= 200
 	}
+	custom_tooltip = {
+	  text = TV_CONQUEST_M1_EXTRA_TRIGGER_DESC
+	  is_subject = no
+	}
 }
 
 tv_conquest_milestone_2 = {

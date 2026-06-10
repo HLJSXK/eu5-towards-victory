@@ -29,6 +29,44 @@ tv_govhouse.2 = {
 	}
 }
 
+tv_govhouse.3 = {
+	type = country_event
+	title = tv_govhouse.3.t
+	desc = tv_govhouse.3.d
+	outcome = bad
+
+	trigger = { hidden_trigger = { is_ai = no } }
+
+	immediate = {
+		hidden_effect = {
+			tv_govhouse_destroy_owned_house_effect = yes
+		}
+	}
+
+	option = {
+		name = tv_govhouse.3.a
+	}
+}
+
+tv_govhouse.4 = {
+	type = country_event
+	title = tv_govhouse.4.t
+	desc = tv_govhouse.4.d
+	outcome = good
+
+	trigger = { hidden_trigger = { is_ai = no } }
+
+	immediate = {
+		hidden_effect = {
+			tv_govhouse_create_effect = yes
+		}
+	}
+
+	option = {
+		name = tv_govhouse.4.a
+	}
+}
+
 tv_govhouse.10 = {
 	type = country_event
 	title = tv_govhouse.10.t

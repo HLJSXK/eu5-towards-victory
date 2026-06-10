@@ -37,7 +37,10 @@ tv_reinitialize_mod = {
 					}
 				}
 				if = {
-					limit = { var:tv_conquest_milestone >= 1 }
+					limit = {
+						is_subject = no
+						var:tv_conquest_milestone >= 1
+					}
 					tv_govhouse_create_effect = yes
 				}
 			}
@@ -168,12 +171,23 @@ tv_reinitialize_mod = {
 				}
 			}
 
-			# Reassign leader for existing IOs (recovery for stale leader_country).
-			every_international_organizations_member_of = {
+			# Reassign leader for existing owned Governor's Houses only.
+			if = {
 				limit = {
-					international_organization_type = international_organization_type:tv_govhouse
+					is_subject = no
+					has_variable = tv_govhouse_member
 				}
-				set_leader_country = scope:actor
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_govhouse
+						OR = {
+							leader_country ?= scope:actor
+							NOT = { exists = leader_country }
+						}
+					}
+					set_leader_country = scope:actor
+				}
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
 			}
 			every_international_organizations_member_of = {
 				limit = {

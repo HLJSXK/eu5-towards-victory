@@ -4,7 +4,7 @@
  tv_govhouse: "Governor's House"
  tv_govhouse_desc: "The [tv_govhouse|E] is the administrative apparatus of a conquering empire. Established when the realm controls 200 locations, it organises the appointment of [tv_local_governor|e]s over conquered regions and commands the [tv_grand_general|E], the supreme military commander of the realm."
  diplomatic_status_tv_govhouse_name: "[tv_govhouse|E] Member"
- diplomatic_status_tv_govhouse_tooltip: "This country has established a [tv_govhouse|E] to administer its conquered territories."
+ diplomatic_status_tv_govhouse_tooltip: "This country belongs to a [tv_govhouse|E] administration, either as its founder or through an attached subject chain."
  tv_govhouse_list_who_tt: "[tv_govhouse|E] members"
  io_opinion_tv_govhouse: "Fellow [tv_govhouse|E] Member"
  TV_GOVHOUSE_GRAND_GENERAL: "Grand General"
@@ -300,6 +300,14 @@
  tv_govhouse.2.t: "[tv_grand_general|E]：The Grand General Has Died"
  tv_govhouse.2.d: "Our [tv_grand_general|E] has died. The news reaches the [tv_govhouse|e] as both a personal loss and an institutional alarm, because command does not pause merely because a commander has fallen. Officers lower their voices, governors wonder which petitions should wait, and the [tv_war_tent|e] feels suddenly too large. Until a successor is appointed, the realm will lack its supreme military commander. Empty authority invites questions, and questions travel quickly through conquered lands."
  tv_govhouse.2.a: "We must appoint a successor."
+
+ tv_govhouse.3.t: "[tv_govhouse|E]：The House Is Dissolved"
+ tv_govhouse.3.d: "Our realm has become a [subject|E], and the [tv_govhouse|E] can no longer stand as an independent imperial administration. Its ledgers, appointments, war plans, and command offices are being folded away under the new political order. Conquest may still shape the country, but the machinery that governed it in our own name has been dismantled."
+ tv_govhouse.3.a: "The old seal is set aside."
+
+ tv_govhouse.4.t: "[tv_govhouse|E]：The House Returns"
+ tv_govhouse.4.d: "Independence has restored the authority needed to govern conquest in our own name. The old score has not been forgotten: our realm still commands enough lands and subjects to require a [tv_govhouse|E], and its offices are being reopened without repeating the first grant of victory."
+ tv_govhouse.4.a: "Raise the seal again."
 
  # ── Balance-of-power backlash events ───────────────────────────────────────
  tv_govhouse.10.t: "[tv_govhouse_power_balance|E]：Murmurs in the District"

@@ -581,7 +581,7 @@
  PERFORM_tv_stop_meditation_ACTION_LOG: "We stopped [tv_academy_meditation|E]."
  PERFORM_tv_stop_meditation_ACTION_MAP: ""
  tv_reinitialize_mod: "Reinitialize Mod"
- tv_reinitialize_mod_desc: "Recreates missing victory-path IOs where possible, repairs duplicate [tv_diplomatic_alliance|E] memberships, and reassigns existing [tv_govhouse|E], [tv_arts_exhibition|E], [tv_engineering_department|E], [tv_trade_league|E], and [tv_academy_of_sciences|E] IO instances so their leader country is the current country."
+ tv_reinitialize_mod_desc: "Recreates missing victory-path IOs where possible, repairs duplicate [tv_diplomatic_alliance|E] memberships, and repairs leadership or subject-chain membership for victory-path IOs that the current country owns."
  PERFORM_tv_reinitialize_mod_ACTION_SETUP: "When we reinitialize the Towards Victory mod."
  PERFORM_tv_reinitialize_mod_ACTION_LOG: "We reinitialized the Towards Victory mod."
  PERFORM_tv_reinitialize_mod_ACTION_MAP: ""

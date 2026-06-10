@@ -3,7 +3,7 @@
  tv_govhouse: "总督府"
  tv_govhouse_desc: "[tv_govhouse|E]是征服帝国的行政体系。当国家控制200处地点后建立，负责向占领地区任命[tv_local_governor|e]，并统领王国最高军事指挥官[tv_grand_general|E]。"
  diplomatic_status_tv_govhouse_name: "[tv_govhouse|E]成员"
- diplomatic_status_tv_govhouse_tooltip: "该国建立了[tv_govhouse|E]，用于管辖其征服领土。"
+ diplomatic_status_tv_govhouse_tooltip: "该国隶属于一套[tv_govhouse|E]行政体系，可能是创设国，也可能是被纳入的附属链成员。"
  tv_govhouse_list_who_tt: "[tv_govhouse|E]成员"
  io_opinion_tv_govhouse: "同为[tv_govhouse|E]成员"
  TV_GOVHOUSE_GRAND_GENERAL: "大将军"
@@ -299,6 +299,14 @@
  tv_govhouse.2.t: "[tv_grand_general|E]：大将军已逝世"
  tv_govhouse.2.d: "我国[tv_grand_general|E]已经逝世。消息抵达[tv_govhouse|e]时，既是一场个人损失，也是一阵制度警铃，因为命令不会只因发令者倒下而暂停。军官压低嗓音，总督们揣测哪些请愿应当等待，[tv_war_tent|e]忽然显得过于空阔。在继任者被任命之前，国家将暂缺最高军事统帅。空置的权威会招来问题，而问题在征服地之间传播得很快。"
  tv_govhouse.2.a: "我们必须任命继任者。"
+
+ tv_govhouse.3.t: "[tv_govhouse|E]：总督府解散"
+ tv_govhouse.3.d: "我国已经成为[subject|E]，[tv_govhouse|E]不再能作为独立帝国行政体系存在。账册、任命、战帐计划与军政衙署都将在新的政治秩序下收束。征服仍会塑造这个国家，但以我国自身名义统御征服地的机器已经被拆解。"
+ tv_govhouse.3.a: "旧印暂且封存。"
+
+ tv_govhouse.4.t: "[tv_govhouse|E]：总督府重建"
+ tv_govhouse.4.d: "独立恢复了以我国自身名义治理征服地所需的权威。旧日成绩并未被遗忘：我国仍拥有足以需要[tv_govhouse|E]的土地与附属链，其衙署将重新开启，但不会重复授予最初的胜利奖励。"
+ tv_govhouse.4.a: "重新启用印玺。"
 
  # ── 权力失衡负面事件 ───────────────────────────────────────────────────────
  tv_govhouse.10.t: "[tv_govhouse_power_balance|E]：地方怨声"

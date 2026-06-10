@@ -20,6 +20,22 @@ on_royal_marriage = {
 	on_actions = { tv_govhouse_royal_marriage }
 }
 
+on_dependency_gained = {
+	on_actions = { tv_govhouse_on_dependency_gained }
+}
+
+on_becoming_free = {
+	on_actions = { tv_govhouse_on_becoming_free }
+}
+
+on_subject_created = {
+	on_actions = { tv_govhouse_on_subject_created }
+}
+
+on_transfer_subject = {
+	on_actions = { tv_govhouse_on_transfer_subject }
+}
+
 # Monthly tick: advance Grand General training and resolve it after 12 months.
 tv_govhouse_training_monthly_pulse = {
 	effect = {
@@ -350,6 +366,124 @@ tv_govhouse_royal_marriage = {
 		}
 		scope:target_2 ?= {
 			tv_govhouse_clear_governor_if_consort_effect = yes
+		}
+	}
+}
+
+tv_govhouse_on_dependency_gained = {
+	effect = {
+		save_scope_as = tv_govhouse_subject_root
+		if = {
+			limit = {
+				OR = {
+					has_variable = tv_govhouse_member
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= root
+					}
+				}
+			}
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_govhouse.3 }
+			}
+			else = {
+				tv_govhouse_destroy_owned_house_effect = yes
+			}
+		}
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+	}
+}
+
+tv_govhouse_on_becoming_free = {
+	effect = {
+		save_scope_as = tv_govhouse_subject_root
+		scope:overlord ?= {
+			if = {
+				limit = { exists = top_overlord }
+				top_overlord ?= {
+					tv_govhouse_remove_subject_chain_from_house_effect = yes
+				}
+			}
+			else = {
+				tv_govhouse_remove_subject_chain_from_house_effect = yes
+			}
+		}
+		tv_govhouse_check_rebuild_after_freedom_effect = yes
+	}
+}
+
+tv_govhouse_on_subject_created = {
+	effect = {
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+	}
+}
+
+tv_govhouse_on_transfer_subject = {
+	effect = {
+		save_scope_as = tv_govhouse_subject_root
+		scope:former_overlord ?= {
+			if = {
+				limit = { exists = top_overlord }
+				top_overlord ?= {
+					tv_govhouse_remove_subject_chain_from_house_effect = yes
+				}
+			}
+			else = {
+				tv_govhouse_remove_subject_chain_from_house_effect = yes
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_variable = tv_govhouse_member
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= root
+					}
+				}
+			}
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_govhouse.3 }
+			}
+			else = {
+				tv_govhouse_destroy_owned_house_effect = yes
+			}
+		}
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
 		}
 	}
 }

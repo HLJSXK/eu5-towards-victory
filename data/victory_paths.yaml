@@ -130,7 +130,11 @@ paths:
         is_short_term: false
         is_long_term: false
         threshold: 200
-        extra_trigger_block: null
+        extra_trigger_block: |
+          custom_tooltip = {
+            text = TV_CONQUEST_M1_EXTRA_TRIGGER_DESC
+            is_subject = no
+          }
         modifier:
           discipline: 0.05
         modifier_name:
@@ -150,6 +154,9 @@ paths:
           trigger_desc:
             en: "[tv_conquest_score|e] ≥ 200"
             zh: "[tv_conquest_score|e] ≥ 200"
+          extra_trigger_desc:
+            en: "Is not a [subject|E]"
+            zh: "不是[subject|E]"
           event_title:
             en: "[tv_conquest_victory|E]：The Empire Grows"
             zh: "[tv_conquest_victory|E]：帝国正在壮大"
