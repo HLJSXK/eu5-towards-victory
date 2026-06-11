@@ -789,6 +789,16 @@
   source: "reference_game_files/game/in_game/common/scripted_effects/on_action_effects.txt:39, reference_game_files/game/in_game/common/on_action/character_death_pulses.txt:57"
   notes: "EU5 does not have a bare trigger_event effect. In scripted_effects and on_action files, the engine reports 'Unknown effect trigger_event'. The two valid variants are trigger_event_non_silently (shows popup) and trigger_event_silently (hidden/background). This distinction does not apply inside event option = { } blocks, which may use a different syntax."
 
+- id: recurring_silent_event_loop_without_guard
+  pattern: ''
+  detectability: advisory
+  bad: "Seeding a delayed trigger_event_silently recurring hidden-event loop without a persistent sentinel, active-prerequisite guard, or teardown cleanup"
+  correction: "Seed the loop once from a lifecycle point, set a persistent sentinel, and call trigger_event_silently = { id = tv_feature.900 days = 1 }. In the hidden = yes country event's immediate block, re-check both the feature prerequisite and sentinel before doing work and before rescheduling itself. Clear the sentinel on teardown so already queued events stop naturally."
+  category: event
+  scope: country
+  source: "Governor's House daily hidden-event test, 2026-06; trigger_event_invalid_in_scripted_effects documents delayed trigger_event_silently object form"
+  notes: "Delayed silent hidden events can implement daily immediate work outside monthly pulses and tooltip-rendered option chains, but every seed starts an independent loop. The sentinel prevents duplicate chains, and the teardown guard prevents a queued event from resurrecting a removed feature."
+
 - id: variable_list_wrong_iteration_syntax
   pattern: 'every_in_variable_list|remove_from_variable_list'
   bad: "every_in_variable_list = { name = X ... } or remove_from_variable_list = { name = X target = Y } for persistent variable lists"

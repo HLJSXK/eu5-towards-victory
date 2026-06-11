@@ -876,6 +876,43 @@ Event options may also pre-evaluate their `effect` stack while building tooltips
 
 For event options, `hidden_effect` hides output but is still part of the option stack that hover rendering can evaluate. It is therefore not a performance boundary. Keep event-option hidden blocks to cheap guards or a scheduler such as a silent trigger, and move heavy hidden work into a `hidden = yes` event's `immediate` block or another path that is not rendered on every tooltip hover. The Engineering Department wonder finalization chain was refactored this way: inauguration options now call a light hidden scheduler, while `tv_engineering_department.6202` runs the expensive per-wonder/per-style construction, cleanup, broadcast, cache, and project-clear logic from its hidden event `immediate`.
 
+For daily or other short-interval background work, a delayed silent hidden event can be used as a self-rescheduling loop. Seed it once from a lifecycle point with a persistent sentinel and `trigger_event_silently = { id = tv_feature.900 days = 1 }`. Define `tv_feature.900` as a `hidden = yes` country event; in `immediate`, first verify both the feature prerequisite and the loop sentinel, then do the daily work and schedule itself again with the same delayed silent trigger. On teardown, clear the active/sentinel variables so any already queued event arrives, fails the guard, and does not reschedule. Keep the numeric event ID below 10000, and never seed the loop repeatedly without a sentinel because each seed creates another independent chain.
+
+```txt
+tv_feature_start_daily_loop_effect = {
+    if = {
+        limit = {
+            has_variable = tv_feature_active
+            NOT = { has_variable = tv_feature_daily_loop_active }
+        }
+        set_variable = { name = tv_feature_daily_loop_active value = 1 }
+        trigger_event_silently = {
+            id = tv_feature.900
+            days = 1
+        }
+    }
+}
+
+tv_feature.900 = {
+    type = country_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = {
+                has_variable = tv_feature_active
+                has_variable = tv_feature_daily_loop_active
+            }
+            # daily work here
+            trigger_event_silently = {
+                id = tv_feature.900
+                days = 1
+            }
+        }
+    }
+}
+```
+
 If a visible option helper needs a derived numeric value, prefer branching from persistent state and using literal effect values instead of writing a temporary variable and later passing `value = prev.var:X` or `value = scope.var:X`. In one Engineering Department finalization chain, the option computed extra building levels in `tv_wonder_final_building_extra_levels`, then a nested helper compared and reused that temporary variable; tooltip pre-evaluation logged invalid-left-side and unset-variable errors before the player clicked the option. The same trap reappeared when Prosperity M1 reinitialized partially built wonders and tried to collapse 1..6 module levels through temporary `*_combinable_levels` / `*_helper_extra_levels` scratch variables, and again when post-unit-completion hover rebuilt helper/module buildings through temporary `*_helper_current_level` / `*_target_module_level` variables. For bounded wonder-module merges or rebuilds, emit one literal branch per level and apply fixed building deltas directly from persistent state. For rounded division displays such as remaining-month counters, prefer verified script-value operators like `ceiling = yes` instead of scratch multiply/check variables. Also re-check persistent prerequisites at the event option boundary because confirmation events can stay open after state changes elsewhere.
 
 If that visible helper also switches into a location/province block, do not keep using plain
