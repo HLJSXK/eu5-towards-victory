@@ -19,6 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 CROP_DATA_PATH = REPO_ROOT / "data" / "wonder_image_crops.json"
 TARGET_ASPECT = (27, 11)
 DEFAULT_OUTPUT_SIZE = (2160, 880)
+CROPPED_SUFFIX = "_cropped"
 
 
 @dataclass(frozen=True)
@@ -48,6 +49,14 @@ def normalize_crop_key(value: str) -> str:
             token = token[: -len(suffix)]
             break
     return token
+
+
+def cropped_wonder_dds_path(dds_path: Path) -> Path:
+    return dds_path.with_name(f"{dds_path.stem}{CROPPED_SUFFIX}{dds_path.suffix}")
+
+
+def cropped_wonder_image_name(stem: str) -> str:
+    return f"{stem}{CROPPED_SUFFIX}"
 
 
 def load_crop_data(path: Path = CROP_DATA_PATH) -> dict[str, Any]:

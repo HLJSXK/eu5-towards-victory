@@ -23,6 +23,7 @@ from wonder_mechanics_lib import (
     render_header,
     wonder_image_name,
 )
+from wonder_image_crop_lib import cropped_wonder_image_name
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_wonder_finalization_events.txt"
 SCRIPT_REL = "scripts/in_game/events/gen_tv_wonder_finalization_events.py"
@@ -74,7 +75,7 @@ def world_desc_key(wonder: dict, loc_keys: set[str]) -> str:
 
 
 def wonder_event_image(wonder: dict) -> str:
-    return f"{WONDER_IMAGE_DIR}/{wonder_image_name(wonder)}.dds"
+    return f"{WONDER_IMAGE_DIR}/{cropped_wonder_image_name(wonder_image_name(wonder))}.dds"
 
 
 def append_desc(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:

@@ -39,6 +39,7 @@ from generate_wonder_image import (  # noqa: E402
 from wonder_image_crop_lib import (  # noqa: E402
     CROP_DATA_PATH,
     TARGET_ASPECT,
+    cropped_wonder_dds_path,
     get_crop_rect_for_image,
     largest_center_crop_rect,
     load_crop_data,
@@ -154,7 +155,7 @@ def task_summary(task: ImageTask, index: int, crop_data: dict[str, Any]) -> dict
         "stem": task.stem,
         "source": task.source,
         "pngPath": repo_relative_path(task.png_path),
-        "ddsPath": repo_relative_path(task.dds_path),
+        "ddsPath": repo_relative_path(cropped_wonder_dds_path(task.dds_path)),
         "width": image_width,
         "height": image_height,
         "saved": saved_rect is not None,
