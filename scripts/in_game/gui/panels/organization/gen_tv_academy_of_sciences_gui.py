@@ -1360,10 +1360,106 @@ def gen_target_entry(advance: dict) -> str:
     )
 
 
+def _extract_block_body(block: str) -> str:
+    open_brace = block.index("{")
+    close_brace = block.rfind("\n\t}")
+    if close_brace == -1:
+        raise ValueError("Could not find block closing brace")
+    return block[open_brace + 1 : close_brace].strip("\n")
+
+
+def _indent_block(text: str) -> str:
+    return "\n".join((T + line) if line else line for line in text.splitlines())
+
+
+def _append_actions_to_research_block(research_block: str, actions_block: str) -> str:
+    actions_body = _indent_block(_extract_block_body(actions_block))
+    insert_at = "\n\t\t}\n\t}"
+    if not research_block.endswith(insert_at):
+        raise ValueError("Research block did not end with expected vbox/blockoverride closing marker")
+    prefix = research_block[: -len(insert_at)]
+    return (
+        prefix
+        + "\n\n"
+        + T * 3
+        + "# Action Buttons\n"
+        + actions_body
+        + insert_at
+    )
+
+
+def swap_academy_tabs(content: str) -> str:
+    """Move Philosophy to overview and Concentrated Research to resolutions."""
+    overview_marker = T + 'blockoverride "organization_overview_list_custom_top_extra" {'
+    actions_marker = T + 'blockoverride "organization_main_actions_extra" {'
+    philosophy_comment = T + "# -- Philosophy tab: reuse the vanilla resolutions slot"
+    philosophy_marker = T + 'blockoverride "organization_resolutions_content" {'
+    medicine_marker = T + "# -- Medicine tab: enable the custom tab slot"
+
+    overview_start = content.index(overview_marker)
+    actions_start = content.index(actions_marker)
+    philosophy_comment_start = content.index(philosophy_comment)
+    philosophy_start = content.index(philosophy_marker, philosophy_comment_start)
+    medicine_start = content.index(medicine_marker)
+
+    research_block = content[overview_start:actions_start].rstrip()
+    actions_block = content[actions_start:philosophy_comment_start].rstrip()
+    philosophy_block = content[philosophy_start:medicine_start].rstrip()
+
+    philosophy_overview = philosophy_block.replace(
+        'blockoverride "organization_resolutions_content"',
+        'blockoverride "organization_overview_list_custom_top_extra"',
+        1,
+    )
+    concentrated_research = _append_actions_to_research_block(
+        research_block.replace(
+            'blockoverride "organization_overview_list_custom_top_extra"',
+            'blockoverride "organization_resolutions_content"',
+            1,
+        ),
+        actions_block,
+    )
+
+    header = content[:overview_start].replace(
+        T + 'blockoverride "organization_main_actions_extra_visible" {\n'
+        + T * 2
+        + "visible = yes\n"
+        + T
+        + "}",
+        T + 'blockoverride "organization_main_actions_extra_visible" {\n'
+        + T * 2
+        + "visible = no\n"
+        + T
+        + "}",
+        1,
+    )
+    header = header.replace('text = "TV_ACADEMY_PHILOSOPHY_TAB"', 'text = "TV_RM_CONCENTRATED_RESEARCH_TAB"', 1)
+    header = header.replace(
+        'tooltip = "TV_ACADEMY_PHILOSOPHY_TAB_TOOLTIP"',
+        'tooltip = "TV_RM_CONCENTRATED_RESEARCH_TAB_TOOLTIP"',
+        1,
+    )
+
+    return (
+        header
+        + T
+        + "# -- Philosophy tab: use the vanilla overview slot -----------------------\n"
+        + philosophy_overview
+        + "\n\n"
+        + T
+        + 'blockoverride "organization_main_actions_extra" {}\n\n'
+        + T
+        + "# -- Concentrated Research tab: use the vanilla resolutions slot ------------\n"
+        + concentrated_research
+        + "\n\n"
+        + content[medicine_start:]
+    )
+
+
 def generate(data: dict) -> str:
     advances = data["locked_advances"]
     entries = "\n".join(gen_target_entry(a) for a in advances)
-    return GUI_PREFIX + entries + "\n" + GUI_SUFFIX
+    return swap_academy_tabs(GUI_PREFIX + entries + "\n" + GUI_SUFFIX)
 
 
 def main() -> None:
