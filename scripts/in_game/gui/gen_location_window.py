@@ -20,14 +20,13 @@ DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
 COMPACT_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
-WONDER_TEXT_COLUMN_WIDTH = 120
-WONDER_PREVIEW_COLUMN_WIDTH = 120
 WONDER_ROW_SPACING = 4
-PANEL_WIDTH = WONDER_TEXT_COLUMN_WIDTH + WONDER_ROW_SPACING + WONDER_PREVIEW_COLUMN_WIDTH
+PANEL_WIDTH = 243
 LOCATION_SCENE_CARD_MARGIN = 8
-PANEL_ROW_HEIGHT = 64
+PANEL_ROW_HEIGHT = 99
 PANEL_SEPARATOR_HEIGHT = 4
-PANEL_PREVIEW_HEIGHT = PANEL_ROW_HEIGHT - 8
+PANEL_TOP_CARD_HEIGHT = 32
+PANEL_NAME_MAX_WIDTH = 168
 TOOLTIP_ROW_WIDTH = 462
 TOOLTIP_TEXT_COLUMN_WIDTH = (TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING) // 2
 TOOLTIP_PREVIEW_COLUMN_WIDTH = TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING - TOOLTIP_TEXT_COLUMN_WIDTH
@@ -189,19 +188,41 @@ def render_level_line(indent: str, *, slot_type: str, slot: int) -> list[str]:
     ]
 
 
-def render_compact_slot_summary(indent: str, *, slot: int) -> list[str]:
-    visible = slot_has_id_expr("compact", slot)
+def render_compact_slot_overlay(indent: str, *, slot: int) -> list[str]:
+    level_var = slot_level_var("compact", slot)
     lines = [
-        f"{indent}text_single = {{",
-        f'{indent}{T}visible = "[{visible}]"',
-        f"{indent}{T}layoutpolicy_horizontal = expanding",
-        f'{indent}{T}text = "[{slot_name_expr("compact", slot)}]"',
-        f"{indent}{T}align = left|nobaseline",
-        f"{indent}{T}autoresize = no",
-        f"{indent}{T}fontsize = 15",
+        f"{indent}widget = {{",
+        f"{indent}{T}size = {{ 100% {PANEL_TOP_CARD_HEIGHT} }}",
+        f"{indent}{T}parentanchor = top",
+        f"{indent}{T}widgetanchor = top",
+        f"{indent}{T}using = bg_text_mask_container_dark_blue",
+        f"{indent}{T}hbox = {{",
+        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}{T}margin = {{ 8 5 }}",
+        f"{indent}{T}{T}spacing = 4",
+        f"{indent}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}text = "[{slot_name_expr("compact", slot)}]"',
+        f"{indent}{T}{T}{T}max_width = {PANEL_NAME_MAX_WIDTH}",
+        f"{indent}{T}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}{T}autoresize = no",
+        f"{indent}{T}{T}{T}fontsize = 13",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}{T}expand = {{}}",
+        f'{indent}{T}{T}text_single = {{',
+        f'{indent}{T}{T}{T}text = "TV_LOCATION_WONDER_LEVEL_SHORT"',
+        f"{indent}{T}{T}{T}align = right|nobaseline",
+        f"{indent}{T}{T}{T}fontsize = 13",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}visible = "[{level_var}.IsSet]"',
+        f'{indent}{T}{T}{T}text = "[{level_var}.GetValue|0]"',
+        f"{indent}{T}{T}{T}align = right|nobaseline",
+        f"{indent}{T}{T}{T}fontsize = 13",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}}}",
         f"{indent}}}",
     ]
-    lines.extend(render_level_line(indent, slot_type="compact", slot=slot))
     return lines
 
 
@@ -226,58 +247,16 @@ def render_compact_slot_row(indent: str, *, slot: int) -> list[str]:
     lines = [
         f"{indent}widget = {{",
         f'{indent}{T}visible = "[{visible}]"',
-        f"{indent}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}size = {{ -1 {PANEL_ROW_HEIGHT} }}",
-        f"{indent}{T}using = bg_dark_paper_card",
-        f"{indent}{T}hbox = {{",
-        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}spacing = {WONDER_ROW_SPACING}",
-        f"{indent}{T}{T}widget = {{",
-        f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{indent}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}size = {{ {WONDER_TEXT_COLUMN_WIDTH} {PANEL_ROW_HEIGHT} }}",
-        f"{indent}{T}{T}{T}vbox = {{",
-        f"{indent}{T}{T}{T}{T}margin_left = 8",
-        f"{indent}{T}{T}{T}{T}margin_right = 8",
-        f"{indent}{T}{T}{T}{T}margin_top = 6",
-        f"{indent}{T}{T}{T}{T}margin_bottom = 6",
-        f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}{T}{T}{T}spacing = 4",
-        f"{indent}{T}{T}{T}{T}ignoreinvisible = yes",
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}size = {{ {PANEL_WIDTH} {PANEL_ROW_HEIGHT} }}",
+        f"{indent}{T}background = {{",
+        f'{indent}{T}{T}texture = "[{slot_image_expr("compact", slot)}]"',
+        f"{indent}{T}{T}fittype = centercrop",
+        f"{indent}{T}}}",
     ]
-    lines.extend(render_compact_slot_summary(indent + T * 4, slot=slot))
-    lines.extend(
-        [
-            f"{indent}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}}}",
-            f"{indent}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{indent}{T}{T}{T}layoutpolicy_vertical = fixed",
-            f"{indent}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {PANEL_ROW_HEIGHT} }}",
-            f"{indent}{T}{T}{T}vbox = {{",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{indent}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{indent}{T}{T}{T}{T}margin_top = 4",
-            f"{indent}{T}{T}{T}{T}margin_bottom = 4",
-            f"{indent}{T}{T}{T}{T}widget = {{",
-            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{indent}{T}{T}{T}{T}{T}layoutpolicy_vertical = fixed",
-            f"{indent}{T}{T}{T}{T}{T}using = bg_cabinet_card_frame",
-            f"{indent}{T}{T}{T}{T}{T}size = {{ {WONDER_PREVIEW_COLUMN_WIDTH} {PANEL_PREVIEW_HEIGHT} }}",
-        ]
-    )
-    lines.extend(render_dynamic_image(indent + T * 6, slot_type="compact", slot=slot, width=WONDER_PREVIEW_COLUMN_WIDTH, height=PANEL_PREVIEW_HEIGHT))
-    lines.extend(
-        [
-            f"{indent}{T}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}{T}}}",
-            f"{indent}{T}{T}{T}}}",
-            f"{indent}{T}{T}}}",
-            f"{indent}}}",
-        ]
-    )
+    lines.extend(render_compact_slot_overlay(indent + T, slot=slot))
+    lines.append(f"{indent}}}")
     return lines
 
 

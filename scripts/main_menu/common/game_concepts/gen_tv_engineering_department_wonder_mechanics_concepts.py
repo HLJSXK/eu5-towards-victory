@@ -12,6 +12,7 @@ from wonder_mechanics_lib import (
     load_all_wonder_mechanics_data,
     render_header,
 )
+from wonder_image_crop_lib import cropped_wonder_image_name
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
 SCRIPT_REL = "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py"
@@ -29,7 +30,7 @@ WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 
 def wonder_image_texture(wonder: dict) -> str:
     image = wonder.get("image", f"tv_wonder_{wonder['key']}")
-    return f"gfx/interface/icons/towards_victory/wonders/{image}.dds"
+    return f"gfx/interface/icons/towards_victory/wonders/{cropped_wonder_image_name(image)}.dds"
 
 
 def generate() -> str:
