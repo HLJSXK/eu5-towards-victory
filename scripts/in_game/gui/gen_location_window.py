@@ -22,7 +22,6 @@ COMPACT_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
 WONDER_ROW_SPACING = 4
 PANEL_WIDTH = 162
-LOCATION_SCENE_CARD_MARGIN = 8
 PANEL_ROW_HEIGHT = 66
 PANEL_SEPARATOR_HEIGHT = 3
 PANEL_TOP_CARD_HEIGHT = 21
@@ -317,7 +316,7 @@ def render_panel_card_variant(indent: str, *, slot_count: int) -> list[str]:
         f"{indent}{T}size = {{ {PANEL_WIDTH} {compact_panel_height(slot_count)} }}",
         f"{indent}{T}parentanchor = right|top",
         f"{indent}{T}widgetanchor = right|top",
-        f"{indent}{T}position = {{ -{LOCATION_SCENE_CARD_MARGIN} {LOCATION_SCENE_CARD_MARGIN} }}",
+        f"{indent}{T}position = {{ 0 0 }}",
         f"{indent}{T}allow_outside = yes",
         f"{indent}{T}using = bg_paper_card",
         f"{indent}{T}using = bg_cabinet_card_frame",
