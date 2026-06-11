@@ -4651,10 +4651,10 @@ lateralview = {
 
 				widget = {
 					visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, Not(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet))]"
-					size = { 709 99 }
+					size = { 162 66 }
 					parentanchor = right|top
 					widgetanchor = right|top
-					position = { 728 8 }
+					position = { -8 8 }
 					allow_outside = yes
 					using = bg_paper_card
 					using = bg_cabinet_card_frame
@@ -4666,141 +4666,47 @@ lateralview = {
 						vbox = {
 							layoutpolicy_horizontal = expanding
 							layoutpolicy_vertical = expanding
-							spacing = 4
+							spacing = 3
 							ignoreinvisible = yes
 								widget = {
 									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 709 99 }
-									hbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 709 99 }
-										spacing = 4
-										widget = {
-											layoutpolicy_horizontal = fixed
+									size = { 162 66 }
+									background = {
+										texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))))]"
+										fittype = centercrop
+									}
+									widget = {
+										size = { 100% 21 }
+										parentanchor = top
+										widgetanchor = top
+										using = bg_text_mask_container_dark_blue
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 243 99 }
-											background = {
-												texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))))]"
-												fittype = centercrop
+											margin = { 5 3 }
+											spacing = 4
+											text_single = {
+												text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))), 'tv_wonder_construction')]"
+												layoutpolicy_horizontal = fixed
+												size = { 100 14 }
+												max_width = 100
+												align = left|nobaseline
+												autoresize = no
+												fontsize = 10
 											}
-											widget = {
-												size = { 100% 32 }
-												parentanchor = top
-												widgetanchor = top
-												using = bg_text_mask_container_dark_blue
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													layoutpolicy_vertical = fixed
-													margin = { 8 5 }
-													spacing = 4
-													text_single = {
-														text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))), 'tv_wonder_construction')]"
-														layoutpolicy_horizontal = fixed
-														size = { 168 18 }
-														max_width = 168
-														align = left|nobaseline
-														autoresize = no
-														fontsize = 13
-													}
-													expand = {}
-													text_single = {
-														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
-														align = right|nobaseline
-														fontsize = 13
-													}
-													text_single = {
-														visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet]"
-														text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue|0]"
-														align = right|nobaseline
-														fontsize = 13
-													}
-												}
+											expand = {}
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = right|nobaseline
+												fontsize = 10
 											}
-										}
-										widget = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 462 99 }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												layoutpolicy_vertical = expanding
-												margin_left = 8
-												margin_right = 8
-												margin_top = 6
-												margin_bottom = 6
-												ignoreinvisible = yes
-												text_single = {
-													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0'))]"
-													text = "TV_LOCATION_WONDER_NO_EFFECT"
-													max_width = 444
-													align = left|nobaseline
-													fontsize = 12
-												}
-												hbox = {
-													visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
-													layoutpolicy_horizontal = fixed
-													layoutpolicy_vertical = shrinking
-													size = { 444 -1 }
-													spacing = 8
-													ignoreinvisible = yes
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-												}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue|0]"
+												align = right|nobaseline
+												fontsize = 10
 											}
 										}
 									}
@@ -4810,10 +4716,10 @@ lateralview = {
 				}
 				widget = {
 					visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, Not(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet))]"
-					size = { 709 202 }
+					size = { 162 135 }
 					parentanchor = right|top
 					widgetanchor = right|top
-					position = { 728 8 }
+					position = { -8 8 }
 					allow_outside = yes
 					using = bg_paper_card
 					using = bg_cabinet_card_frame
@@ -4825,141 +4731,47 @@ lateralview = {
 						vbox = {
 							layoutpolicy_horizontal = expanding
 							layoutpolicy_vertical = expanding
-							spacing = 4
+							spacing = 3
 							ignoreinvisible = yes
 								widget = {
 									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 709 99 }
-									hbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 709 99 }
-										spacing = 4
-										widget = {
-											layoutpolicy_horizontal = fixed
+									size = { 162 66 }
+									background = {
+										texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))))]"
+										fittype = centercrop
+									}
+									widget = {
+										size = { 100% 21 }
+										parentanchor = top
+										widgetanchor = top
+										using = bg_text_mask_container_dark_blue
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 243 99 }
-											background = {
-												texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))))]"
-												fittype = centercrop
+											margin = { 5 3 }
+											spacing = 4
+											text_single = {
+												text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))), 'tv_wonder_construction')]"
+												layoutpolicy_horizontal = fixed
+												size = { 100 14 }
+												max_width = 100
+												align = left|nobaseline
+												autoresize = no
+												fontsize = 10
 											}
-											widget = {
-												size = { 100% 32 }
-												parentanchor = top
-												widgetanchor = top
-												using = bg_text_mask_container_dark_blue
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													layoutpolicy_vertical = fixed
-													margin = { 8 5 }
-													spacing = 4
-													text_single = {
-														text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))), 'tv_wonder_construction')]"
-														layoutpolicy_horizontal = fixed
-														size = { 168 18 }
-														max_width = 168
-														align = left|nobaseline
-														autoresize = no
-														fontsize = 13
-													}
-													expand = {}
-													text_single = {
-														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
-														align = right|nobaseline
-														fontsize = 13
-													}
-													text_single = {
-														visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet]"
-														text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue|0]"
-														align = right|nobaseline
-														fontsize = 13
-													}
-												}
+											expand = {}
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = right|nobaseline
+												fontsize = 10
 											}
-										}
-										widget = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 462 99 }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												layoutpolicy_vertical = expanding
-												margin_left = 8
-												margin_right = 8
-												margin_top = 6
-												margin_bottom = 6
-												ignoreinvisible = yes
-												text_single = {
-													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0'))]"
-													text = "TV_LOCATION_WONDER_NO_EFFECT"
-													max_width = 444
-													align = left|nobaseline
-													fontsize = 12
-												}
-												hbox = {
-													visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
-													layoutpolicy_horizontal = fixed
-													layoutpolicy_vertical = shrinking
-													size = { 444 -1 }
-													spacing = 8
-													ignoreinvisible = yes
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-												}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue|0]"
+												align = right|nobaseline
+												fontsize = 10
 											}
 										}
 									}
@@ -4967,7 +4779,7 @@ lateralview = {
 								widget = {
 									visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet)]"
 									layoutpolicy_horizontal = expanding
-									size = { -1 4 }
+									size = { -1 3 }
 									background = {
 										texture = "gfx/interface/colors/black.dds"
 										alpha = 0.16
@@ -4977,135 +4789,41 @@ lateralview = {
 									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 709 99 }
-									hbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 709 99 }
-										spacing = 4
-										widget = {
-											layoutpolicy_horizontal = fixed
+									size = { 162 66 }
+									background = {
+										texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue))))]"
+										fittype = centercrop
+									}
+									widget = {
+										size = { 100% 21 }
+										parentanchor = top
+										widgetanchor = top
+										using = bg_text_mask_container_dark_blue
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 243 99 }
-											background = {
-												texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue))))]"
-												fittype = centercrop
+											margin = { 5 3 }
+											spacing = 4
+											text_single = {
+												text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue))), 'tv_wonder_construction')]"
+												layoutpolicy_horizontal = fixed
+												size = { 100 14 }
+												max_width = 100
+												align = left|nobaseline
+												autoresize = no
+												fontsize = 10
 											}
-											widget = {
-												size = { 100% 32 }
-												parentanchor = top
-												widgetanchor = top
-												using = bg_text_mask_container_dark_blue
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													layoutpolicy_vertical = fixed
-													margin = { 8 5 }
-													spacing = 4
-													text_single = {
-														text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue))), 'tv_wonder_construction')]"
-														layoutpolicy_horizontal = fixed
-														size = { 168 18 }
-														max_width = 168
-														align = left|nobaseline
-														autoresize = no
-														fontsize = 13
-													}
-													expand = {}
-													text_single = {
-														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
-														align = right|nobaseline
-														fontsize = 13
-													}
-													text_single = {
-														visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet]"
-														text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue|0]"
-														align = right|nobaseline
-														fontsize = 13
-													}
-												}
+											expand = {}
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = right|nobaseline
+												fontsize = 10
 											}
-										}
-										widget = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 462 99 }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												layoutpolicy_vertical = expanding
-												margin_left = 8
-												margin_right = 8
-												margin_top = 6
-												margin_bottom = 6
-												ignoreinvisible = yes
-												text_single = {
-													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)0.0'))]"
-													text = "TV_LOCATION_WONDER_NO_EFFECT"
-													max_width = 444
-													align = left|nobaseline
-													fontsize = 12
-												}
-												hbox = {
-													visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)0.0'))))]"
-													layoutpolicy_horizontal = fixed
-													layoutpolicy_vertical = shrinking
-													size = { 444 -1 }
-													spacing = 8
-													ignoreinvisible = yes
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-												}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue|0]"
+												align = right|nobaseline
+												fontsize = 10
 											}
 										}
 									}
@@ -5115,10 +4833,10 @@ lateralview = {
 				}
 				widget = {
 					visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet]"
-					size = { 709 305 }
+					size = { 162 204 }
 					parentanchor = right|top
 					widgetanchor = right|top
-					position = { 728 8 }
+					position = { -8 8 }
 					allow_outside = yes
 					using = bg_paper_card
 					using = bg_cabinet_card_frame
@@ -5130,141 +4848,47 @@ lateralview = {
 						vbox = {
 							layoutpolicy_horizontal = expanding
 							layoutpolicy_vertical = expanding
-							spacing = 4
+							spacing = 3
 							ignoreinvisible = yes
 								widget = {
 									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 709 99 }
-									hbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 709 99 }
-										spacing = 4
-										widget = {
-											layoutpolicy_horizontal = fixed
+									size = { 162 66 }
+									background = {
+										texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))))]"
+										fittype = centercrop
+									}
+									widget = {
+										size = { 100% 21 }
+										parentanchor = top
+										widgetanchor = top
+										using = bg_text_mask_container_dark_blue
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 243 99 }
-											background = {
-												texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))))]"
-												fittype = centercrop
+											margin = { 5 3 }
+											spacing = 4
+											text_single = {
+												text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))), 'tv_wonder_construction')]"
+												layoutpolicy_horizontal = fixed
+												size = { 100 14 }
+												max_width = 100
+												align = left|nobaseline
+												autoresize = no
+												fontsize = 10
 											}
-											widget = {
-												size = { 100% 32 }
-												parentanchor = top
-												widgetanchor = top
-												using = bg_text_mask_container_dark_blue
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													layoutpolicy_vertical = fixed
-													margin = { 8 5 }
-													spacing = 4
-													text_single = {
-														text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue))), 'tv_wonder_construction')]"
-														layoutpolicy_horizontal = fixed
-														size = { 168 18 }
-														max_width = 168
-														align = left|nobaseline
-														autoresize = no
-														fontsize = 13
-													}
-													expand = {}
-													text_single = {
-														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
-														align = right|nobaseline
-														fontsize = 13
-													}
-													text_single = {
-														visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet]"
-														text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue|0]"
-														align = right|nobaseline
-														fontsize = 13
-													}
-												}
+											expand = {}
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = right|nobaseline
+												fontsize = 10
 											}
-										}
-										widget = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 462 99 }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												layoutpolicy_vertical = expanding
-												margin_left = 8
-												margin_right = 8
-												margin_top = 6
-												margin_bottom = 6
-												ignoreinvisible = yes
-												text_single = {
-													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0'))]"
-													text = "TV_LOCATION_WONDER_NO_EFFECT"
-													max_width = 444
-													align = left|nobaseline
-													fontsize = 12
-												}
-												hbox = {
-													visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue, '(CFixedPoint)0.0'))))]"
-													layoutpolicy_horizontal = fixed
-													layoutpolicy_vertical = shrinking
-													size = { 444 -1 }
-													spacing = 8
-													ignoreinvisible = yes
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-												}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_level').GetValue|0]"
+												align = right|nobaseline
+												fontsize = 10
 											}
 										}
 									}
@@ -5272,7 +4896,7 @@ lateralview = {
 								widget = {
 									visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_1_id').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet)]"
 									layoutpolicy_horizontal = expanding
-									size = { -1 4 }
+									size = { -1 3 }
 									background = {
 										texture = "gfx/interface/colors/black.dds"
 										alpha = 0.16
@@ -5282,135 +4906,41 @@ lateralview = {
 									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 709 99 }
-									hbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 709 99 }
-										spacing = 4
-										widget = {
-											layoutpolicy_horizontal = fixed
+									size = { 162 66 }
+									background = {
+										texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue))))]"
+										fittype = centercrop
+									}
+									widget = {
+										size = { 100% 21 }
+										parentanchor = top
+										widgetanchor = top
+										using = bg_text_mask_container_dark_blue
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 243 99 }
-											background = {
-												texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue))))]"
-												fittype = centercrop
+											margin = { 5 3 }
+											spacing = 4
+											text_single = {
+												text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue))), 'tv_wonder_construction')]"
+												layoutpolicy_horizontal = fixed
+												size = { 100 14 }
+												max_width = 100
+												align = left|nobaseline
+												autoresize = no
+												fontsize = 10
 											}
-											widget = {
-												size = { 100% 32 }
-												parentanchor = top
-												widgetanchor = top
-												using = bg_text_mask_container_dark_blue
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													layoutpolicy_vertical = fixed
-													margin = { 8 5 }
-													spacing = 4
-													text_single = {
-														text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue))), 'tv_wonder_construction')]"
-														layoutpolicy_horizontal = fixed
-														size = { 168 18 }
-														max_width = 168
-														align = left|nobaseline
-														autoresize = no
-														fontsize = 13
-													}
-													expand = {}
-													text_single = {
-														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
-														align = right|nobaseline
-														fontsize = 13
-													}
-													text_single = {
-														visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet]"
-														text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue|0]"
-														align = right|nobaseline
-														fontsize = 13
-													}
-												}
+											expand = {}
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = right|nobaseline
+												fontsize = 10
 											}
-										}
-										widget = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 462 99 }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												layoutpolicy_vertical = expanding
-												margin_left = 8
-												margin_right = 8
-												margin_top = 6
-												margin_bottom = 6
-												ignoreinvisible = yes
-												text_single = {
-													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)0.0'))]"
-													text = "TV_LOCATION_WONDER_NO_EFFECT"
-													max_width = 444
-													align = left|nobaseline
-													fontsize = 12
-												}
-												hbox = {
-													visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue, '(CFixedPoint)0.0'))))]"
-													layoutpolicy_horizontal = fixed
-													layoutpolicy_vertical = shrinking
-													size = { 444 -1 }
-													spacing = 8
-													ignoreinvisible = yes
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-												}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_level').GetValue|0]"
+												align = right|nobaseline
+												fontsize = 10
 											}
 										}
 									}
@@ -5418,7 +4948,7 @@ lateralview = {
 								widget = {
 									visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_2_id').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet)]"
 									layoutpolicy_horizontal = expanding
-									size = { -1 4 }
+									size = { -1 3 }
 									background = {
 										texture = "gfx/interface/colors/black.dds"
 										alpha = 0.16
@@ -5428,135 +4958,41 @@ lateralview = {
 									visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet]"
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									size = { 709 99 }
-									hbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 709 99 }
-										spacing = 4
-										widget = {
-											layoutpolicy_horizontal = fixed
+									size = { 162 66 }
+									background = {
+										texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue))))]"
+										fittype = centercrop
+									}
+									widget = {
+										size = { 100% 21 }
+										parentanchor = top
+										widgetanchor = top
+										using = bg_text_mask_container_dark_blue
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 243 99 }
-											background = {
-												texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue))))]"
-												fittype = centercrop
+											margin = { 5 3 }
+											spacing = 4
+											text_single = {
+												text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue))), 'tv_wonder_construction')]"
+												layoutpolicy_horizontal = fixed
+												size = { 100 14 }
+												max_width = 100
+												align = left|nobaseline
+												autoresize = no
+												fontsize = 10
 											}
-											widget = {
-												size = { 100% 32 }
-												parentanchor = top
-												widgetanchor = top
-												using = bg_text_mask_container_dark_blue
-												hbox = {
-													layoutpolicy_horizontal = expanding
-													layoutpolicy_vertical = fixed
-													margin = { 8 5 }
-													spacing = 4
-													text_single = {
-														text = "[SelectGameConcept(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue))), 'tv_wonder_construction')]"
-														layoutpolicy_horizontal = fixed
-														size = { 168 18 }
-														max_width = 168
-														align = left|nobaseline
-														autoresize = no
-														fontsize = 13
-													}
-													expand = {}
-													text_single = {
-														text = "TV_LOCATION_WONDER_LEVEL_SHORT"
-														align = right|nobaseline
-														fontsize = 13
-													}
-													text_single = {
-														visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet]"
-														text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue|0]"
-														align = right|nobaseline
-														fontsize = 13
-													}
-												}
+											expand = {}
+											text_single = {
+												text = "TV_LOCATION_WONDER_LEVEL_SHORT"
+												align = right|nobaseline
+												fontsize = 10
 											}
-										}
-										widget = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 462 99 }
-											vbox = {
-												layoutpolicy_horizontal = expanding
-												layoutpolicy_vertical = expanding
-												margin_left = 8
-												margin_right = 8
-												margin_top = 6
-												margin_bottom = 6
-												ignoreinvisible = yes
-												text_single = {
-													visible = "[And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)0.0'))]"
-													text = "TV_LOCATION_WONDER_NO_EFFECT"
-													max_width = 444
-													align = left|nobaseline
-													fontsize = 12
-												}
-												hbox = {
-													visible = "[And(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').IsSet, And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_ritual_style').IsSet)), Not(And(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet, EqualTo_CFixedPoint(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue, '(CFixedPoint)0.0'))))]"
-													layoutpolicy_horizontal = fixed
-													layoutpolicy_vertical = shrinking
-													size = { 444 -1 }
-													spacing = 8
-													ignoreinvisible = yes
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue)), Concatenate('_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-													vbox = {
-														layoutpolicy_horizontal = fixed
-														layoutpolicy_vertical = shrinking
-														minimumsize = { 218 -1 }
-														maximumsize = { 218 -1 }
-														spacing = 2
-														text_single = {
-															text = "TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE"
-															max_width = 218
-															align = left|nobaseline
-															fontsize = 12
-														}
-														TooltipStringPairList = {
-															layoutpolicy_horizontal = fixed
-															maximumsize = { 218 -1 }
-															blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-															blockoverride "field_text_format" {
-																fontsize = 12
-															}
-															blockoverride "row_size" {
-																maximumsize = { -1 18 }
-																minimumsize = { -1 18 }
-															}
-															textcontext = "[ShowModifierEffect(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_id').GetValue)), Concatenate('_local_level_', ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue))))))]"
-														}
-														expand = {}
-													}
-												}
+											text_single = {
+												visible = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').IsSet]"
+												text = "[LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_display_slot_3_level').GetValue|0]"
+												align = right|nobaseline
+												fontsize = 10
 											}
 										}
 									}
