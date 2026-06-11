@@ -1442,7 +1442,21 @@ tv_govhouse_war_end_for_country_effect = {
 	}
 }
 
+tv_govhouse_update_general_action_display_effect = {
+	remove_variable = tv_govhouse_annexing_subject_active
+	if = {
+		limit = {
+			NOT = { at_war = yes }
+			any_subject = {
+				is_being_annexed = yes
+			}
+		}
+		set_variable = { name = tv_govhouse_annexing_subject_active value = 1 }
+	}
+}
+
 tv_govhouse_war_tent_monthly_effect = {
+	tv_govhouse_update_general_action_display_effect = yes
 	if = {
 		limit = {
 			custom_tooltip = {

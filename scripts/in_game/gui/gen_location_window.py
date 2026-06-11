@@ -21,7 +21,7 @@ IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
 COMPACT_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
 WONDER_ROW_SPACING = 4
-PANEL_WIDTH = 243
+PANEL_IMAGE_WIDTH = 243
 LOCATION_SCENE_CARD_MARGIN = 8
 LOCATION_SCENE_CARD_OUTSIDE_OFFSET = 270
 PANEL_ROW_HEIGHT = 99
@@ -38,6 +38,12 @@ TOOLTIP_MODIFIER_COLUMN_SPACING = 8
 # Match Engineering Department suitability columns: 444 = 218 + 8 + 218.
 TOOLTIP_MODIFIER_COLUMNS_WIDTH = TOOLTIP_ROW_WIDTH - TOOLTIP_EFFECT_MARGIN_X * 2 - 2
 TOOLTIP_MODIFIER_COLUMN_WIDTH = (TOOLTIP_MODIFIER_COLUMNS_WIDTH - TOOLTIP_MODIFIER_COLUMN_SPACING) // 2
+COMPACT_MODIFIER_PANEL_WIDTH = TOOLTIP_ROW_WIDTH
+COMPACT_MODIFIER_COLUMNS_WIDTH = TOOLTIP_MODIFIER_COLUMNS_WIDTH
+COMPACT_MODIFIER_COLUMN_WIDTH = TOOLTIP_MODIFIER_COLUMN_WIDTH
+COMPACT_MODIFIER_FONT_SIZE = 12
+COMPACT_MODIFIER_ROW_HEIGHT = 18
+PANEL_WIDTH = PANEL_IMAGE_WIDTH + WONDER_ROW_SPACING + COMPACT_MODIFIER_PANEL_WIDTH
 
 
 def location_var(name: str) -> str:
@@ -158,6 +164,10 @@ def compact_panel_height(slot_count: int) -> int:
     return PANEL_ROW_HEIGHT * slot_count + PANEL_SEPARATOR_HEIGHT * (slot_count - 1)
 
 
+def compact_panel_position_x() -> int:
+    return LOCATION_SCENE_CARD_OUTSIDE_OFFSET - LOCATION_SCENE_CARD_MARGIN + PANEL_WIDTH - PANEL_IMAGE_WIDTH
+
+
 def compact_panel_visible_expr(slot_count: int) -> str:
     current_slot = slot_has_id_expr("compact", slot_count)
     if slot_count == COMPACT_SLOT_MAX:
@@ -245,6 +255,128 @@ def render_dynamic_image(indent: str, *, slot_type: str, slot: int, width: int, 
     ]
 
 
+def render_compact_slot_image(indent: str, *, slot: int) -> list[str]:
+    lines = [
+        f"{indent}widget = {{",
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}size = {{ {PANEL_IMAGE_WIDTH} {PANEL_ROW_HEIGHT} }}",
+        f"{indent}{T}background = {{",
+        f'{indent}{T}{T}texture = "[{slot_image_expr("compact", slot)}]"',
+        f"{indent}{T}{T}fittype = centercrop",
+        f"{indent}{T}}}",
+    ]
+    lines.extend(render_compact_slot_overlay(indent + T, slot=slot))
+    lines.append(f"{indent}}}")
+    return lines
+
+
+def render_modifier_column(
+    indent: str,
+    *,
+    title_key: str,
+    modifier_key: str,
+    column_width: int,
+    font_size: int,
+    row_height: int,
+    vertical_policy: str,
+) -> list[str]:
+    return [
+        f"{indent}vbox = {{",
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = {vertical_policy}",
+        f"{indent}{T}minimumsize = {{ {column_width} -1 }}",
+        f"{indent}{T}maximumsize = {{ {column_width} -1 }}",
+        f"{indent}{T}spacing = 2",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "{title_key}"',
+        f"{indent}{T}{T}max_width = {column_width}",
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = {font_size}",
+        f"{indent}{T}}}",
+        f"{indent}{T}TooltipStringPairList = {{",
+        f"{indent}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}{T}maximumsize = {{ {column_width} -1 }}",
+        f'{indent}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {column_width} -1 }} }}',
+        f'{indent}{T}{T}blockoverride "field_text_format" {{',
+        f"{indent}{T}{T}{T}fontsize = {font_size}",
+        f"{indent}{T}{T}}}",
+        f'{indent}{T}{T}blockoverride "row_size" {{',
+        f"{indent}{T}{T}{T}maximumsize = {{ -1 {row_height} }}",
+        f"{indent}{T}{T}{T}minimumsize = {{ -1 {row_height} }}",
+        f"{indent}{T}{T}}}",
+        f'{indent}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
+        f"{indent}{T}}}",
+        f"{indent}{T}expand = {{}}",
+        f"{indent}}}",
+    ]
+
+
+def render_compact_modifier_panel(indent: str, *, slot: int) -> list[str]:
+    visible = slot_has_effect_payload_expr("compact", slot)
+    no_effect_visible = slot_level_is_expr("compact", slot, 0)
+    country_modifier_key = slot_modifier_key_expr("compact", slot)
+    local_modifier_key = slot_local_modifier_key_expr("compact", slot)
+    lines = [
+        f"{indent}widget = {{",
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}size = {{ {COMPACT_MODIFIER_PANEL_WIDTH} {PANEL_ROW_HEIGHT} }}",
+        f"{indent}{T}vbox = {{",
+        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}layoutpolicy_vertical = expanding",
+        f"{indent}{T}{T}margin_left = {TOOLTIP_EFFECT_MARGIN_X}",
+        f"{indent}{T}{T}margin_right = {TOOLTIP_EFFECT_MARGIN_X}",
+        f"{indent}{T}{T}margin_top = 6",
+        f"{indent}{T}{T}margin_bottom = 6",
+        f"{indent}{T}{T}ignoreinvisible = yes",
+        f"{indent}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}visible = "[{no_effect_visible}]"',
+        f'{indent}{T}{T}{T}text = "TV_LOCATION_WONDER_NO_EFFECT"',
+        f"{indent}{T}{T}{T}max_width = {COMPACT_MODIFIER_COLUMNS_WIDTH}",
+        f"{indent}{T}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}{T}fontsize = {COMPACT_MODIFIER_FONT_SIZE}",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}{T}hbox = {{",
+        f'{indent}{T}{T}{T}visible = "[{visible}]"',
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}{T}{T}size = {{ {COMPACT_MODIFIER_COLUMNS_WIDTH} -1 }}",
+        f"{indent}{T}{T}{T}spacing = {TOOLTIP_MODIFIER_COLUMN_SPACING}",
+        f"{indent}{T}{T}{T}ignoreinvisible = yes",
+    ]
+    lines.extend(
+        render_modifier_column(
+            indent + T * 3,
+            title_key="TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE",
+            modifier_key=country_modifier_key,
+            column_width=COMPACT_MODIFIER_COLUMN_WIDTH,
+            font_size=COMPACT_MODIFIER_FONT_SIZE,
+            row_height=COMPACT_MODIFIER_ROW_HEIGHT,
+            vertical_policy="shrinking",
+        )
+    )
+    lines.extend(
+        render_modifier_column(
+            indent + T * 3,
+            title_key="TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE",
+            modifier_key=local_modifier_key,
+            column_width=COMPACT_MODIFIER_COLUMN_WIDTH,
+            font_size=COMPACT_MODIFIER_FONT_SIZE,
+            row_height=COMPACT_MODIFIER_ROW_HEIGHT,
+            vertical_policy="shrinking",
+        )
+    )
+    lines.extend(
+        [
+            f"{indent}{T}{T}}}",
+            f"{indent}{T}}}",
+            f"{indent}}}",
+        ]
+    )
+    return lines
+
+
 def render_compact_slot_row(indent: str, *, slot: int) -> list[str]:
     visible = slot_has_id_expr("compact", slot)
     lines = [
@@ -253,12 +385,19 @@ def render_compact_slot_row(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}layoutpolicy_horizontal = fixed",
         f"{indent}{T}layoutpolicy_vertical = fixed",
         f"{indent}{T}size = {{ {PANEL_WIDTH} {PANEL_ROW_HEIGHT} }}",
-        f"{indent}{T}background = {{",
-        f'{indent}{T}{T}texture = "[{slot_image_expr("compact", slot)}]"',
-        f"{indent}{T}{T}fittype = centercrop",
-        f"{indent}{T}}}",
+        f"{indent}{T}hbox = {{",
+        f"{indent}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}{T}size = {{ {PANEL_WIDTH} {PANEL_ROW_HEIGHT} }}",
+        f"{indent}{T}{T}spacing = {WONDER_ROW_SPACING}",
     ]
-    lines.extend(render_compact_slot_overlay(indent + T, slot=slot))
+    lines.extend(render_compact_slot_image(indent + T * 2, slot=slot))
+    lines.extend(render_compact_modifier_panel(indent + T * 2, slot=slot))
+    lines.extend(
+        [
+            f"{indent}{T}}}",
+        ]
+    )
     lines.append(f"{indent}}}")
     return lines
 
@@ -270,7 +409,7 @@ def render_panel_card_variant(indent: str, *, slot_count: int) -> list[str]:
         f"{indent}{T}size = {{ {PANEL_WIDTH} {compact_panel_height(slot_count)} }}",
         f"{indent}{T}parentanchor = right|top",
         f"{indent}{T}widgetanchor = right|top",
-        f"{indent}{T}position = {{ {LOCATION_SCENE_CARD_OUTSIDE_OFFSET - LOCATION_SCENE_CARD_MARGIN} {LOCATION_SCENE_CARD_MARGIN} }}",
+        f"{indent}{T}position = {{ {compact_panel_position_x()} {LOCATION_SCENE_CARD_MARGIN} }}",
         f"{indent}{T}allow_outside = yes",
         f"{indent}{T}using = bg_paper_card",
         f"{indent}{T}using = bg_cabinet_card_frame",
@@ -367,35 +506,15 @@ def render_tooltip_preview_column(indent: str, *, slot: int) -> list[str]:
 
 
 def render_tooltip_modifier_column(indent: str, *, title_key: str, modifier_key: str) -> list[str]:
-    return [
-        f"{indent}vbox = {{",
-        f"{indent}{T}layoutpolicy_horizontal = fixed",
-        f"{indent}{T}layoutpolicy_vertical = expanding",
-        f"{indent}{T}minimumsize = {{ {TOOLTIP_MODIFIER_COLUMN_WIDTH} -1 }}",
-        f"{indent}{T}maximumsize = {{ {TOOLTIP_MODIFIER_COLUMN_WIDTH} -1 }}",
-        f"{indent}{T}spacing = 2",
-        f"{indent}{T}text_single = {{",
-        f'{indent}{T}{T}text = "{title_key}"',
-        f"{indent}{T}{T}max_width = {TOOLTIP_MODIFIER_COLUMN_WIDTH}",
-        f"{indent}{T}{T}align = left|nobaseline",
-        f"{indent}{T}{T}fontsize = 13",
-        f"{indent}{T}}}",
-        f"{indent}{T}TooltipStringPairList = {{",
-        f"{indent}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{indent}{T}{T}maximumsize = {{ {TOOLTIP_MODIFIER_COLUMN_WIDTH} -1 }}",
-        f'{indent}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {TOOLTIP_MODIFIER_COLUMN_WIDTH} -1 }} }}',
-        f'{indent}{T}{T}blockoverride "field_text_format" {{',
-        f"{indent}{T}{T}{T}fontsize = 13",
-        f"{indent}{T}{T}}}",
-        f'{indent}{T}{T}blockoverride "row_size" {{',
-        f"{indent}{T}{T}{T}maximumsize = {{ -1 22 }}",
-        f"{indent}{T}{T}{T}minimumsize = {{ -1 22 }}",
-        f"{indent}{T}{T}}}",
-        f'{indent}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
-        f"{indent}{T}}}",
-        f"{indent}{T}expand = {{}}",
-        f"{indent}}}",
-    ]
+    return render_modifier_column(
+        indent,
+        title_key=title_key,
+        modifier_key=modifier_key,
+        column_width=TOOLTIP_MODIFIER_COLUMN_WIDTH,
+        font_size=13,
+        row_height=22,
+        vertical_policy="expanding",
+    )
 
 
 def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
