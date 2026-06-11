@@ -40,6 +40,12 @@ TRADE_MONOPOLY_ACTIONS = [
     "tv_trade_cancel_selected_embargo",
 ]
 
+PHILOSOPHY_SELECT_ACTIONS = [
+    f"tv_philosophy_select_slot_{slot}_action_{action}"
+    for slot in range(1, 4)
+    for action in range(1, 7)
+]
+
 TV_ENTRIES = """
 # ── Towards Victory — Generic Action Message Types ───────────────────────────
 
@@ -1046,12 +1052,42 @@ def trade_monopoly_message_entries() -> str:
         )
     return "\n".join(blocks)
 
+
+def philosophy_message_entries() -> str:
+    blocks = ["\n# ---- Generated Academy philosophy controls ----\n"]
+    for action in PHILOSOPHY_SELECT_ACTIONS:
+        blocks.append(
+            f"""PERFORM_{action}_ACTION={{
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = society
+}}
+"""
+        )
+    blocks.append(
+        """PERFORM_tv_philosophy_execute_selected_action_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}
+"""
+    )
+    return "\n".join(blocks)
+
 vanilla_bytes = VANILLA.read_bytes()
 # strip BOM if present
 if vanilla_bytes.startswith(b'\xef\xbb\xbf'):
     vanilla_bytes = vanilla_bytes[3:]
 
-combined_entries = TV_ENTRIES + trade_monopoly_message_entries()
+combined_entries = TV_ENTRIES + trade_monopoly_message_entries() + philosophy_message_entries()
 combined = b'\xef\xbb\xbf' + vanilla_bytes + combined_entries.encode("utf-8")
 OUT.write_bytes(combined)
 print(f"[OK] Written {OUT.relative_to(ROOT)} ({len(combined)} bytes)")

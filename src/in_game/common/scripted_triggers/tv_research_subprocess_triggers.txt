@@ -642,3 +642,91 @@ tv_chief_scientist_available_for_meditation_trigger = {
 		always = yes
 	}
 }
+
+tv_chief_scientist_available_for_philosophy_trigger = {
+	trigger_if = {
+		limit = { tv_chief_scientist_busy_with_concentrated_research_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_concentrated_research_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_treatment_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_treatment_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_chief_scientist_busy_with_meditation_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_meditation_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
+tv_academy_philosophy_can_execute_selected_action_trigger = {
+	custom_tooltip = {
+		text = TV_ACADEMY_PHILOSOPHY_REQUIRES_DEBATE_PHASE_TT
+		var:tv_academy_philosophy_phase ?= 1
+	}
+	custom_tooltip = {
+		text = TV_ACADEMY_PHILOSOPHY_REQUIRES_NO_PENDING_ROUND_TT
+		NOT = { has_variable = tv_academy_philosophy_round_pending }
+	}
+	custom_tooltip = {
+		text = TV_ACADEMY_PHILOSOPHY_REQUIRES_SELECTED_ACTION_TT
+		has_variable = tv_academy_philosophy_selected_slot
+		has_variable = tv_academy_philosophy_selected_action
+	}
+	OR = {
+		AND = {
+			var:tv_academy_philosophy_selected_slot ?= 1
+			var:tv_academy_philosophy_slot_1_allow ?= 1
+			OR = {
+				AND = { var:tv_academy_philosophy_selected_action ?= 1 var:tv_academy_philosophy_slot_1_action ?= 1 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 2 var:tv_academy_philosophy_slot_1_action ?= 2 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 3 var:tv_academy_philosophy_slot_1_action ?= 3 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 4 var:tv_academy_philosophy_slot_1_action ?= 4 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 5 var:tv_academy_philosophy_slot_1_action ?= 5 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 6 var:tv_academy_philosophy_slot_1_action ?= 6 }
+			}
+		}
+		AND = {
+			var:tv_academy_philosophy_selected_slot ?= 2
+			var:tv_academy_philosophy_slot_2_allow ?= 1
+			OR = {
+				AND = { var:tv_academy_philosophy_selected_action ?= 1 var:tv_academy_philosophy_slot_2_action ?= 1 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 2 var:tv_academy_philosophy_slot_2_action ?= 2 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 3 var:tv_academy_philosophy_slot_2_action ?= 3 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 4 var:tv_academy_philosophy_slot_2_action ?= 4 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 5 var:tv_academy_philosophy_slot_2_action ?= 5 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 6 var:tv_academy_philosophy_slot_2_action ?= 6 }
+			}
+		}
+		AND = {
+			var:tv_academy_philosophy_selected_slot ?= 3
+			var:tv_academy_philosophy_slot_3_allow ?= 1
+			OR = {
+				AND = { var:tv_academy_philosophy_selected_action ?= 1 var:tv_academy_philosophy_slot_3_action ?= 1 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 2 var:tv_academy_philosophy_slot_3_action ?= 2 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 3 var:tv_academy_philosophy_slot_3_action ?= 3 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 4 var:tv_academy_philosophy_slot_3_action ?= 4 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 5 var:tv_academy_philosophy_slot_3_action ?= 5 }
+				AND = { var:tv_academy_philosophy_selected_action ?= 6 var:tv_academy_philosophy_slot_3_action ?= 6 }
+			}
+		}
+	}
+}
