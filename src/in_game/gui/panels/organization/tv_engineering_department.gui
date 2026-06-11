@@ -305,6 +305,7 @@ organization_panel = {
 			spacing = 10
 
 			card_common = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet)]"
 				maximumsize = { 500 -1 }
 
 				blockoverride "common_header_icon_texture" {
