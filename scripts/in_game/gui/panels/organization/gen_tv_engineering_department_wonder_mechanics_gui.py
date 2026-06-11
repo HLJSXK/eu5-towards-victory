@@ -70,10 +70,12 @@ PREVIEW_MODIFIER_COLUMN_SPACING = 8
 PROPOSAL_SIZE_ROW_HEIGHT = 24
 PROPOSAL_SIZE_ROW_SPACING = 4
 PROPOSAL_PREVIEW_HEIGHT = PROPOSAL_SIZE_ROW_HEIGHT + PROPOSAL_SIZE_ROW_SPACING + PREVIEW_IMAGE_HEIGHT
+PROPOSAL_SIZE_INACTIVE_ALPHA = 0.18
+PROPOSAL_SIZE_ACTIVE_ALPHA = 1.0
 PROPOSAL_SIZE_INDICATORS = [
-    ("small", "TV_ENGINEERING_WONDER_SIZE_SMALL_LABEL", "color_market_green_texture"),
-    ("medium", "TV_ENGINEERING_WONDER_SIZE_MEDIUM_LABEL", "color_yellow_texture"),
-    ("large", "TV_ENGINEERING_WONDER_SIZE_LARGE_LABEL", "color_mid_red_texture"),
+    ("small", "TV_ENGINEERING_WONDER_SIZE_SMALL_LABEL", "color_market_green_texture", "color_market_green_texture"),
+    ("medium", "TV_ENGINEERING_WONDER_SIZE_MEDIUM_LABEL", "color_yellow_texture", "color_yellow_texture"),
+    ("large", "TV_ENGINEERING_WONDER_SIZE_LARGE_LABEL", "color_mid_red_texture", "color_red_texture"),
 ]
 
 
@@ -728,7 +730,14 @@ def proposal_size_visible(wonders: list[dict], size_key: str) -> str:
     return fold_bool("And", [f"{proposal_var}.IsSet", fold_bool("Or", size_terms)])
 
 
-def proposal_size_segment(indent: int, *, label_key: str, texture: str, active_visible: str) -> list[str]:
+def proposal_size_segment(
+    indent: int,
+    *,
+    label_key: str,
+    inactive_texture: str,
+    active_texture: str,
+    active_visible: str,
+) -> list[str]:
     prefix = T * indent
     return [
         f"{prefix}widget = {{",
@@ -737,19 +746,25 @@ def proposal_size_segment(indent: int, *, label_key: str, texture: str, active_v
         f"{prefix}{T}size = {{ -1 {PROPOSAL_SIZE_ROW_HEIGHT} }}",
         f"{prefix}{T}alwaystransparent = yes",
         f"{prefix}{T}background = {{",
-        f"{prefix}{T}{T}using = {texture}",
-        f"{prefix}{T}{T}alpha = 0.25",
+        f"{prefix}{T}{T}using = {inactive_texture}",
+        f"{prefix}{T}{T}alpha = {PROPOSAL_SIZE_INACTIVE_ALPHA}",
         f"{prefix}{T}}}",
         f"{prefix}{T}widget = {{",
         f'{prefix}{T}{T}visible = "[{active_visible}]"',
         f"{prefix}{T}{T}size = {{ 100% 100% }}",
         f"{prefix}{T}{T}alwaystransparent = yes",
         f"{prefix}{T}{T}background = {{",
-        f"{prefix}{T}{T}{T}using = {texture}",
-        f"{prefix}{T}{T}{T}alpha = 0.95",
+        f"{prefix}{T}{T}{T}using = {active_texture}",
+        f"{prefix}{T}{T}{T}alpha = {PROPOSAL_SIZE_ACTIVE_ALPHA}",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}text = "{label_key}"',
+        f"{prefix}{T}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}{T}parentanchor = center",
+        f"{prefix}{T}{T}{T}align = center|nobaseline",
+        f"{prefix}{T}{T}{T}fontsize = 13",
         f"{prefix}{T}{T}}}",
         f"{prefix}{T}}}",
-        f'{prefix}{T}text_single = {{ text = "{label_key}" size = {{ 100% 100% }} fontsize = 13 align = center|nobaseline }}',
         f"{prefix}}}",
     ]
 
@@ -763,12 +778,13 @@ def proposal_size_row(wonders: list[dict], indent: int) -> list[str]:
         f"{prefix}{T}size = {{ 100% {PROPOSAL_SIZE_ROW_HEIGHT} }}",
         f"{prefix}{T}spacing = 0",
     ]
-    for size_key, label_key, texture in PROPOSAL_SIZE_INDICATORS:
+    for size_key, label_key, inactive_texture, active_texture in PROPOSAL_SIZE_INDICATORS:
         lines.extend(
             proposal_size_segment(
                 indent + 1,
                 label_key=label_key,
-                texture=texture,
+                inactive_texture=inactive_texture,
+                active_texture=active_texture,
                 active_visible=proposal_size_visible(wonders, size_key),
             )
         )
