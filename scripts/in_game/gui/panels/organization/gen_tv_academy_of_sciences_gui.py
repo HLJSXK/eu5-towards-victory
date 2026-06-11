@@ -174,7 +174,7 @@ organization_panel = {
 \t\tvbox = {
 \t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
-\t\t\tlayoutpolicy_vertical = fixed
+\t\t\tlayoutpolicy_vertical = expanding
 \t\t\tignoreinvisible = yes
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
 \t\t\tspacing = 8
@@ -1499,7 +1499,7 @@ def gen_philosophy_block() -> str:
     emit(lines, 4, "vbox = {")
     emit(lines, 5, "margin = { 10 0 }")
     emit(lines, 5, "layoutpolicy_horizontal = expanding")
-    emit(lines, 5, "layoutpolicy_vertical = fixed")
+    emit(lines, 5, "layoutpolicy_vertical = expanding")
     emit(lines, 5, "ignoreinvisible = yes")
     emit(lines, 5, "spacing = 10")
 
@@ -1737,6 +1737,7 @@ def gen_philosophy_block() -> str:
     emit(lines, 6, "}")
     emit(lines, 5, "}")
 
+    emit(lines, 5, "expand = {}")
     emit(lines, 4, "}")
     emit(lines, 3, "}")
     emit(lines, 2, "}")
@@ -1768,6 +1769,9 @@ def _append_actions_to_research_block(research_block: str, actions_block: str) -
         + T * 3
         + "# Action Buttons\n"
         + actions_body
+        + "\n"
+        + T * 3
+        + "expand = {}"
         + insert_at
     )
 

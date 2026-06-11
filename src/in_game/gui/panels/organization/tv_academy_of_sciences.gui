@@ -155,7 +155,7 @@ organization_panel = {
 				vbox = {
 					margin = { 10 0 }
 					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = fixed
+					layoutpolicy_vertical = expanding
 					ignoreinvisible = yes
 					spacing = 10
 					card_common = {
@@ -987,6 +987,7 @@ organization_panel = {
 							left_action = { action_name = "tv_philosophy_execute_selected_action" }
 						}
 					}
+					expand = {}
 				}
 			}
 		}
@@ -999,7 +1000,7 @@ organization_panel = {
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = fixed
+			layoutpolicy_vertical = expanding
 			ignoreinvisible = yes
 			datacontext = "[InternationalOrganizationsView.GetPlayer]"
 			spacing = 8
@@ -1473,6 +1474,7 @@ organization_panel = {
 					action_name = "tv_pause_concentrated_research"
 				}
 			}
+			expand = {}
 		}
 	}
 
