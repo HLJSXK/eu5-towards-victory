@@ -875,7 +875,7 @@ widget = {
 							}
 
 							hbox = {
-								visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet]"
+								visible = no
 								layoutpolicy_horizontal = expanding
 								spacing = 4
 								text_single = { text = "TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL" align = nobaseline }
@@ -886,7 +886,7 @@ widget = {
 								}
 							}
 							progressbar = {
-								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, LessThan_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue, '(CFixedPoint)100.0'))]"
+								visible = no
 								layoutpolicy_horizontal = expanding
 								size = { -1 16 }
 								using = progress_bar_blue_alt
@@ -896,7 +896,7 @@ widget = {
 								tooltip = "TV_ENGINEERING_DOMESTIC_SUPPORT_BAR_TT"
 							}
 							progressbar = {
-								visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue, '(CFixedPoint)100.0'))]"
+								visible = no
 								layoutpolicy_horizontal = expanding
 								size = { -1 16 }
 								progresstexture = "gfx/interface/progressbars/progress_bar_goldish.dds"
@@ -910,7 +910,7 @@ widget = {
 								tooltip = "TV_ENGINEERING_DOMESTIC_SUPPORT_BAR_TT"
 							}
 							hbox = {
-								visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet]"
+								visible = no
 								layoutpolicy_horizontal = expanding
 								spacing = 5
 								text_single = { layoutpolicy_horizontal = expanding size = { -1 18 } text = "TV_ENGINEERING_SUPPORT_BASE_LABEL" align = nobaseline|center }
@@ -919,7 +919,7 @@ widget = {
 
 							vbox = {
 								layoutpolicy_horizontal = expanding
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0')]"
+								visible = no
 								ignoreinvisible = yes
 								spacing = 4
 								text_single = { text = "TV_ENGINEERING_ESTATE_DEMANDS_LABEL" align = nobaseline|left }
@@ -1060,8 +1060,8 @@ widget = {
 
 			card_actions = {
 				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0')]"
-				minimumsize = { 500 110 }
-				maximumsize = { 500 110 }
+				minimumsize = { 500 650 }
+				maximumsize = { 500 650 }
 
 				blockoverride "card_header_text" {
 					text = "TV_ENGINEERING_CONCEPT_ACTIONS_TITLE"
@@ -1076,7 +1076,276 @@ widget = {
 					vbox = {
 						layoutpolicy_horizontal = expanding
 						ignoreinvisible = yes
-						spacing = 2
+						spacing = 6
+
+						hbox = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet]"
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							text_single = { text = "TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL" align = nobaseline }
+							expand = {}
+							text_single = {
+								raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_domestic_support')]"
+								align = nobaseline
+							}
+						}
+						progressbar = {
+							visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, LessThan_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue, '(CFixedPoint)100.0'))]"
+							layoutpolicy_horizontal = expanding
+							size = { -1 16 }
+							using = progress_bar_blue_alt
+							min = 0
+							max = 100
+							value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue]"
+							tooltip = "TV_ENGINEERING_DOMESTIC_SUPPORT_BAR_TT"
+						}
+						progressbar = {
+							visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue, '(CFixedPoint)100.0'))]"
+							layoutpolicy_horizontal = expanding
+							size = { -1 16 }
+							progresstexture = "gfx/interface/progressbars/progress_bar_goldish.dds"
+							noprogresstexture = "gfx/interface/progressbars/progress_bar_blue_alt.dds"
+							texture_density = 2
+							spriteType = Corneredstretched
+							spriteborder = { 12 0 }
+							min = 0
+							max = 100
+							value = "[Subtract_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_wonder_domestic_support').GetValue, '(CFixedPoint)100.0')]"
+							tooltip = "TV_ENGINEERING_DOMESTIC_SUPPORT_BAR_TT"
+						}
+						hbox = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet]"
+							layoutpolicy_horizontal = expanding
+							spacing = 5
+							text_single = { layoutpolicy_horizontal = expanding size = { -1 18 } text = "TV_ENGINEERING_SUPPORT_BASE_LABEL" align = nobaseline|center }
+							text_single = { layoutpolicy_horizontal = expanding size = { -1 18 } text = "TV_ENGINEERING_SUPPORT_RESERVE_LABEL" align = nobaseline|center }
+						}
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0')]"
+							ignoreinvisible = yes
+							spacing = 6
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = fixed
+								size = { 470 154 }
+								spacing = 8
+								margin = { 8 7 }
+								using = bg_paper_card
+								using = bg_cabinet_card_frame
+								text_single = { size = { 28 132 } raw_text = "@nobles!" fontsize = 22 align = nobaseline|center }
+								vbox = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 418 132 }
+									ignoreinvisible = yes
+									spacing = 6
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 418 46 }
+										using = bg_text_mask_container_dark_blue
+										vbox = {
+											margin = { 6 4 }
+											ignoreinvisible = yes
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)1.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_1" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)2.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_2" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)3.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)4.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_4" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)5.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_5" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)6.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_6" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)7.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_7" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)8.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_8" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)9.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_9" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)10.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_10" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)11.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_11" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)12.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_NOBLES_12" align = nobaseline|left }
+										}
+									}
+									hbox = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 418 80 }
+										spacing = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											size = { 242 80 }
+											using = bg_text_mask_container_dark_blue
+											vbox = {
+												margin = { 6 4 }
+												TooltipRequirementsList = {
+													layoutpolicy_horizontal = fixed
+													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_nobles_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
+													maximumsize = { 230 -1 }
+													blockoverride "field_text_format" { fontsize = 13 }
+													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
+													blockoverride "block_title" { block "block_title" { visible = no } }
+													blockoverride "requirementslist_datamodel_is_empty" { visible = no }
+												}
+											}
+										}
+										hbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											size = { 170 30 }
+											spacing = 4
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_nobles_demand" description = "tv_wonder_accept_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_nobles_demand" } }
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_nobles_demand" description = "tv_wonder_refute_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_nobles_demand" } }
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_nobles_demand" description = "tv_wonder_bribe_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_nobles_demand" } }
+										}
+									}
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = fixed
+								size = { 470 154 }
+								spacing = 8
+								margin = { 8 7 }
+								using = bg_paper_card
+								using = bg_cabinet_card_frame
+								text_single = { size = { 28 132 } raw_text = "@burghers!" fontsize = 22 align = nobaseline|center }
+								vbox = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 418 132 }
+									ignoreinvisible = yes
+									spacing = 6
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 418 46 }
+										using = bg_text_mask_container_dark_blue
+										vbox = {
+											margin = { 6 4 }
+											ignoreinvisible = yes
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)1.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_1" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)2.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_2" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)3.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)4.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_4" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)5.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_5" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)6.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_6" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)7.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_7" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)8.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_8" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)9.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_9" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)10.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_10" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)11.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_11" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)12.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_BURGHERS_12" align = nobaseline|left }
+										}
+									}
+									hbox = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 418 80 }
+										spacing = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											size = { 242 80 }
+											using = bg_text_mask_container_dark_blue
+											vbox = {
+												margin = { 6 4 }
+												TooltipRequirementsList = {
+													layoutpolicy_horizontal = fixed
+													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_burghers_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
+													maximumsize = { 230 -1 }
+													blockoverride "field_text_format" { fontsize = 13 }
+													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
+													blockoverride "block_title" { block "block_title" { visible = no } }
+													blockoverride "requirementslist_datamodel_is_empty" { visible = no }
+												}
+											}
+										}
+										hbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											size = { 170 30 }
+											spacing = 4
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_burghers_demand" description = "tv_wonder_accept_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_burghers_demand" } }
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_burghers_demand" description = "tv_wonder_refute_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_burghers_demand" } }
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_burghers_demand" description = "tv_wonder_bribe_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_burghers_demand" } }
+										}
+									}
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = fixed
+								size = { 470 154 }
+								spacing = 8
+								margin = { 8 7 }
+								using = bg_paper_card
+								using = bg_cabinet_card_frame
+								text_single = { size = { 28 132 } raw_text = "@clergy!" fontsize = 22 align = nobaseline|center }
+								vbox = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
+									size = { 418 132 }
+									ignoreinvisible = yes
+									spacing = 6
+									widget = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 418 46 }
+										using = bg_text_mask_container_dark_blue
+										vbox = {
+											margin = { 6 4 }
+											ignoreinvisible = yes
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)1.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_1" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)2.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_2" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)3.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_3" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)4.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_4" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)5.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_5" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)6.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_6" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)7.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_7" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)8.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_8" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)9.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_9" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)10.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_10" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)11.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_11" align = nobaseline|left }
+											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)12.0')]" size = { 406 38 } max_width = 406 autoresize = no default_format = "#flavor" text = "TV_ENGINEERING_DEMAND_CLERGY_12" align = nobaseline|left }
+										}
+									}
+									hbox = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 418 80 }
+										spacing = 6
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											size = { 242 80 }
+											using = bg_text_mask_container_dark_blue
+											vbox = {
+												margin = { 6 4 }
+												TooltipRequirementsList = {
+													layoutpolicy_horizontal = fixed
+													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_clergy_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
+													maximumsize = { 230 -1 }
+													blockoverride "field_text_format" { fontsize = 13 }
+													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
+													blockoverride "block_title" { block "block_title" { visible = no } }
+													blockoverride "requirementslist_datamodel_is_empty" { visible = no }
+												}
+											}
+										}
+										hbox = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											size = { 170 30 }
+											spacing = 4
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_clergy_demand" description = "tv_wonder_accept_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_clergy_demand" } }
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_clergy_demand" description = "tv_wonder_refute_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_clergy_demand" } }
+											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_clergy_demand" description = "tv_wonder_bribe_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_clergy_demand" } }
+										}
+									}
+								}
+							}
+						}
 
 						action_button_diamond = {
 							size = { 470 30 }
