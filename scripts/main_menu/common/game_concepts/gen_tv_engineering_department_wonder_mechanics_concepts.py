@@ -25,12 +25,18 @@ ICONS = {
 }
 WONDER_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+WONDER_FULL_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_full_image_"
 WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 
 
 def wonder_image_texture(wonder: dict) -> str:
     image = wonder.get("image", f"tv_wonder_{wonder['key']}")
     return f"gfx/interface/icons/towards_victory/wonders/{cropped_wonder_image_name(image)}.dds"
+
+
+def wonder_full_image_texture(wonder: dict) -> str:
+    image = wonder.get("image", f"tv_wonder_{wonder['key']}")
+    return f"gfx/interface/icons/towards_victory/wonders/{image}.dds"
 
 
 def generate() -> str:
@@ -61,6 +67,15 @@ def generate() -> str:
             [
                 f"{WONDER_IMAGE_CONCEPT_PREFIX}{wonder['id']} = {{",
                 f'\ttexture = "{wonder_image_texture(wonder)}"',
+                "}",
+                "",
+            ]
+        )
+    for wonder in wonders:
+        lines.extend(
+            [
+                f"{WONDER_FULL_IMAGE_CONCEPT_PREFIX}{wonder['id']} = {{",
+                f'\ttexture = "{wonder_full_image_texture(wonder)}"',
                 "}",
                 "",
             ]

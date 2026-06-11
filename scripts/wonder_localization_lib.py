@@ -36,6 +36,7 @@ WONDER_NAME_PREFIX = "tv_wonder_"
 CONCEPT_NAME_PREFIX = "game_concept_"
 WONDER_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+WONDER_FULL_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_full_image_"
 WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 ENGINEERING_PREVIEW_LOCATION_TEXT_PREFIX = "TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_"
 
@@ -107,6 +108,14 @@ def image_route_concept_desc_key(wonder: dict[str, Any]) -> str:
     return f"{image_route_concept_key(wonder)}_desc"
 
 
+def full_image_route_concept_key(wonder: dict[str, Any]) -> str:
+    return f"{CONCEPT_NAME_PREFIX}{WONDER_FULL_IMAGE_CONCEPT_PREFIX}{wonder['id']}"
+
+
+def full_image_route_concept_desc_key(wonder: dict[str, Any]) -> str:
+    return f"{full_image_route_concept_key(wonder)}_desc"
+
+
 def display_route_concept_key(wonder: dict[str, Any]) -> str:
     return f"{CONCEPT_NAME_PREFIX}{WONDER_DISPLAY_CONCEPT_PREFIX}{wonder['id']}"
 
@@ -153,6 +162,19 @@ def _wonder_image_route_pairs() -> list[tuple[str, str, str, str]]:
             concept_desc_key(wonder),
             image_route_concept_key(wonder),
             image_route_concept_desc_key(wonder),
+        )
+        for wonder in wonders
+    ]
+
+
+def _wonder_full_image_route_pairs() -> list[tuple[str, str, str, str]]:
+    wonders, _ = load_all_wonder_mechanics_data()
+    return [
+        (
+            concept_name_key(wonder),
+            concept_desc_key(wonder),
+            full_image_route_concept_key(wonder),
+            full_image_route_concept_desc_key(wonder),
         )
         for wonder in wonders
     ]
@@ -266,6 +288,15 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 raise KeyError(f"Missing wonder concept localization key {concept_desc!r} in {WONDER_LOCALIZATION_FILE} ({language})")
             language_values[route_concept] = language_values[concept_name]
             language_values[route_concept_desc] = language_values[concept_desc]
+    for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_full_image_route_pairs():
+        for language in LANGUAGES:
+            language_values = expanded[language]
+            if concept_name not in language_values:
+                raise KeyError(f"Missing wonder concept localization key {concept_name!r} in {WONDER_LOCALIZATION_FILE} ({language})")
+            if concept_desc not in language_values:
+                raise KeyError(f"Missing wonder concept localization key {concept_desc!r} in {WONDER_LOCALIZATION_FILE} ({language})")
+            language_values[route_concept] = language_values[concept_name]
+            language_values[route_concept_desc] = language_values[concept_desc]
     for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_display_route_pairs():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -324,6 +355,10 @@ def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -
         for language in LANGUAGES:
             collapsed[language].pop(concept_name, None)
     for _, _, route_concept, route_concept_desc in _wonder_image_route_pairs():
+        for language in LANGUAGES:
+            collapsed[language].pop(route_concept, None)
+            collapsed[language].pop(route_concept_desc, None)
+    for _, _, route_concept, route_concept_desc in _wonder_full_image_route_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)

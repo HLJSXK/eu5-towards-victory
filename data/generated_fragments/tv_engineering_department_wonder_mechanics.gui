@@ -8,7 +8,7 @@ widget = {
 	visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_image_display_id').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]"
 	size = { 100% 100% }
 	background = {
-		texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_image_display_id').GetValue))))]"
+		texture = "[GetConceptTexture(Concatenate('tv_wonder_display_full_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_image_display_id').GetValue))))]"
 		fittype = centercrop
 	}
 	widget = {
@@ -110,7 +110,7 @@ widget = {
 	visible = "[And3(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]"
 	size = { 100% 100% }
 	background = {
-		texture = "[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]"
+		texture = "[GetConceptTexture(Concatenate('tv_wonder_display_full_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]"
 		fittype = centercrop
 	}
 	widget = {

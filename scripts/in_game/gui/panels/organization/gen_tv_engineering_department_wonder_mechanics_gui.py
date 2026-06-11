@@ -138,7 +138,7 @@ def dynamic_localized_text_key(prefix: str, var_name: str) -> str:
 
 
 def dynamic_image_texture(var_name: str) -> str:
-    return f"GetConceptTexture(Concatenate('tv_wonder_display_image_', {fixed_point_to_int_string(player_var(var_name))}))"
+    return f"GetConceptTexture(Concatenate('tv_wonder_display_full_image_', {fixed_point_to_int_string(player_var(var_name))}))"
 
 
 def dynamic_display_modifier_key(var_name: str, suffix: str) -> str:

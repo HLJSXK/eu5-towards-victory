@@ -18,6 +18,7 @@ OVERFLOW_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_toolti
 LOCATION_SCOPE = "LocationView.GetLocation.MakeScope.Self"
 DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+FULL_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_full_image_"
 COMPACT_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
 WONDER_ROW_SPACING = 4
@@ -30,7 +31,13 @@ PANEL_TEXT_HEIGHT = 14
 PANEL_TEXT_FONT_SIZE = 14
 PANEL_TEXT_MARGIN_X = 5
 PANEL_TEXT_MARGIN_Y = 3
-TOOLTIP_ROW_WIDTH = 462
+TOOLTIP_EFFECT_COLUMN_WIDTH = 462
+TOOLTIP_IMAGE_WIDTH = 300
+TOOLTIP_IMAGE_HEIGHT = 200
+TOOLTIP_IMAGE_OVERLAY_HEIGHT = 24
+TOOLTIP_IMAGE_NAME_WIDTH = 205
+TOOLTIP_COLUMN_SPACING = 8
+TOOLTIP_ROW_WIDTH = TOOLTIP_IMAGE_WIDTH + TOOLTIP_COLUMN_SPACING + TOOLTIP_EFFECT_COLUMN_WIDTH
 TOOLTIP_TEXT_COLUMN_WIDTH = (TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING) // 2
 TOOLTIP_PREVIEW_COLUMN_WIDTH = TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING - TOOLTIP_TEXT_COLUMN_WIDTH
 TOOLTIP_PREVIEW_HEIGHT = 110
@@ -38,7 +45,7 @@ TOOLTIP_ROW_SPACING = 6
 TOOLTIP_EFFECT_MARGIN_X = 8
 TOOLTIP_MODIFIER_COLUMN_SPACING = 8
 # Match Engineering Department suitability columns: 444 = 218 + 8 + 218.
-TOOLTIP_MODIFIER_COLUMNS_WIDTH = TOOLTIP_ROW_WIDTH - TOOLTIP_EFFECT_MARGIN_X * 2 - 2
+TOOLTIP_MODIFIER_COLUMNS_WIDTH = TOOLTIP_EFFECT_COLUMN_WIDTH - TOOLTIP_EFFECT_MARGIN_X * 2 - 2
 TOOLTIP_MODIFIER_COLUMN_WIDTH = (TOOLTIP_MODIFIER_COLUMNS_WIDTH - TOOLTIP_MODIFIER_COLUMN_SPACING) // 2
 
 
@@ -116,6 +123,10 @@ def slot_name_expr(slot_type: str, slot: int) -> str:
 
 def slot_image_expr(slot_type: str, slot: int) -> str:
     return f"GetConceptTexture(Concatenate('{IMAGE_CONCEPT_PREFIX}', {slot_id_string(slot_type, slot)}))"
+
+
+def slot_full_image_expr(slot_type: str, slot: int) -> str:
+    return f"GetConceptTexture(Concatenate('{FULL_IMAGE_CONCEPT_PREFIX}', {slot_id_string(slot_type, slot)}))"
 
 
 def slot_modifier_key_expr(slot_type: str, slot: int) -> str:
@@ -245,6 +256,64 @@ def render_dynamic_image(indent: str, *, slot_type: str, slot: int, width: int, 
         f"{indent}{T}}}",
         f"{indent}}}",
     ]
+
+
+def render_tooltip_image_overlay(indent: str, *, slot: int) -> list[str]:
+    level_var = slot_level_var("tooltip", slot)
+    return [
+        f"{indent}widget = {{",
+        f"{indent}{T}size = {{ 100% {TOOLTIP_IMAGE_OVERLAY_HEIGHT} }}",
+        f"{indent}{T}parentanchor = top",
+        f"{indent}{T}widgetanchor = top",
+        f"{indent}{T}using = bg_text_mask_container_dark_blue",
+        f"{indent}{T}hbox = {{",
+        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}{T}margin = {{ {PANEL_TEXT_MARGIN_X} {PANEL_TEXT_MARGIN_Y} }}",
+        f"{indent}{T}{T}spacing = 4",
+        f"{indent}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}text = "[{slot_name_expr("tooltip", slot)}]"',
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}{T}{T}size = {{ {TOOLTIP_IMAGE_NAME_WIDTH} {PANEL_TEXT_HEIGHT} }}",
+        f"{indent}{T}{T}{T}max_width = {TOOLTIP_IMAGE_NAME_WIDTH}",
+        f"{indent}{T}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}{T}autoresize = no",
+        f"{indent}{T}{T}{T}fontsize = {PANEL_TEXT_FONT_SIZE}",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}{T}expand = {{}}",
+        f"{indent}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}text = "TV_LOCATION_WONDER_LEVEL_SHORT"',
+        f"{indent}{T}{T}{T}align = right|nobaseline",
+        f"{indent}{T}{T}{T}fontsize = {PANEL_TEXT_FONT_SIZE}",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}{T}text_single = {{",
+        f'{indent}{T}{T}{T}visible = "[{level_var}.IsSet]"',
+        f'{indent}{T}{T}{T}text = "[{level_var}.GetValue|0]"',
+        f"{indent}{T}{T}{T}align = right|nobaseline",
+        f"{indent}{T}{T}{T}fontsize = {PANEL_TEXT_FONT_SIZE}",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
+
+
+def render_tooltip_full_image(indent: str, *, slot: int) -> list[str]:
+    visible = slot_has_id_expr("tooltip", slot)
+    lines = [
+        f"{indent}widget = {{",
+        f'{indent}{T}visible = "[{visible}]"',
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = fixed",
+        f"{indent}{T}size = {{ {TOOLTIP_IMAGE_WIDTH} {TOOLTIP_IMAGE_HEIGHT} }}",
+        f"{indent}{T}using = bg_cabinet_card_frame",
+        f"{indent}{T}background = {{",
+        f'{indent}{T}{T}texture = "[{slot_full_image_expr("tooltip", slot)}]"',
+        f"{indent}{T}{T}fittype = fill",
+        f"{indent}{T}}}",
+    ]
+    lines.extend(render_tooltip_image_overlay(indent + T, slot=slot))
+    lines.append(f"{indent}}}")
+    return lines
 
 
 def render_compact_slot_image(indent: str, *, slot: int) -> list[str]:
@@ -434,7 +503,7 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
         f"{indent}widget = {{",
         f"{indent}{T}layoutpolicy_horizontal = fixed",
         f"{indent}{T}layoutpolicy_vertical = shrinking",
-        f"{indent}{T}size = {{ {TOOLTIP_ROW_WIDTH} -1 }}",
+        f"{indent}{T}size = {{ {TOOLTIP_EFFECT_COLUMN_WIDTH} -1 }}",
         f"{indent}{T}vbox = {{",
         f"{indent}{T}{T}set_parent_size_to_minimum = yes",
         f"{indent}{T}{T}margin_left = 8",
@@ -516,20 +585,13 @@ def render_tooltip_row(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}minimumsize = {{ {TOOLTIP_ROW_WIDTH} -1 }}",
         f"{indent}{T}using = bg_paper_card",
         f"{indent}{T}using = bg_cabinet_card_frame",
-        f"{indent}{T}vbox = {{",
+        f"{indent}{T}hbox = {{",
         f"{indent}{T}{T}set_parent_size_to_minimum = yes",
         f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
         f"{indent}{T}{T}layoutpolicy_vertical = shrinking",
-        f"{indent}{T}{T}spacing = {WONDER_ROW_SPACING}",
-        f"{indent}{T}{T}hbox = {{",
-        f"{indent}{T}{T}{T}set_parent_size_to_minimum = yes",
-        f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
-        f"{indent}{T}{T}{T}spacing = {WONDER_ROW_SPACING}",
+        f"{indent}{T}{T}spacing = {TOOLTIP_COLUMN_SPACING}",
     ]
-    lines.extend(render_tooltip_text_column(indent + T * 3, slot=slot))
-    lines.extend(render_tooltip_preview_column(indent + T * 3, slot=slot))
-    lines.append(f"{indent}{T}{T}}}")
+    lines.extend(render_tooltip_full_image(indent + T * 2, slot=slot))
     lines.extend(render_tooltip_effect_block(indent + T * 2, slot=slot))
     lines.extend(
         [
