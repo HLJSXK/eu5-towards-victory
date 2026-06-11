@@ -18124,6 +18124,9 @@ tv_wonder_mechanics_clear_location_display_state_effect = {
 	remove_variable = tv_wonder_location_display_id
 	remove_variable = tv_wonder_location_display_level
 	remove_variable = tv_wonder_location_display_ritual_style
+	remove_variable = tv_wonder_map_unique_level
+	remove_variable = tv_wonder_map_generic_level
+	remove_variable = tv_wonder_map_has_potential_unique
 	set_variable = { name = tv_wonder_tooltip_overflow_count value = 0 }
 	remove_variable = tv_wonder_display_slot_1_id
 	remove_variable = tv_wonder_display_slot_1_level
@@ -18171,6 +18174,7 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 				}
 			}
 			scope:tv_wonder_location_display_location = {
+				set_variable = { name = tv_wonder_map_has_potential_unique value = 1 }
 				set_local_variable = { name = tv_wonder_location_display_wonder_id value = prev }
 				set_local_variable = {
 					name = tv_wonder_location_display_building_type
@@ -18239,6 +18243,95 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 						location_building_level = { building_type = local_var:tv_wonder_location_display_building_type value >= 1 }
 					}
 					set_variable = { name = tv_wonder_location_display_level value = 1 }
+				}
+				if = {
+					limit = { var:tv_wonder_location_display_id ?= { this >= 101 } }
+					if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 6 }
+							NOT = { var:tv_wonder_map_unique_level ?= { this >= 6 } }
+						}
+						set_variable = { name = tv_wonder_map_unique_level value = 6 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 5 }
+							NOT = { var:tv_wonder_map_unique_level ?= { this >= 5 } }
+						}
+						set_variable = { name = tv_wonder_map_unique_level value = 5 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 4 }
+							NOT = { var:tv_wonder_map_unique_level ?= { this >= 4 } }
+						}
+						set_variable = { name = tv_wonder_map_unique_level value = 4 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 3 }
+							NOT = { var:tv_wonder_map_unique_level ?= { this >= 3 } }
+						}
+						set_variable = { name = tv_wonder_map_unique_level value = 3 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 2 }
+							NOT = { var:tv_wonder_map_unique_level ?= { this >= 2 } }
+						}
+						set_variable = { name = tv_wonder_map_unique_level value = 2 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 1 }
+							NOT = { var:tv_wonder_map_unique_level ?= { this >= 1 } }
+						}
+						set_variable = { name = tv_wonder_map_unique_level value = 1 }
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 6 }
+							NOT = { var:tv_wonder_map_generic_level ?= { this >= 6 } }
+						}
+						set_variable = { name = tv_wonder_map_generic_level value = 6 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 5 }
+							NOT = { var:tv_wonder_map_generic_level ?= { this >= 5 } }
+						}
+						set_variable = { name = tv_wonder_map_generic_level value = 5 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 4 }
+							NOT = { var:tv_wonder_map_generic_level ?= { this >= 4 } }
+						}
+						set_variable = { name = tv_wonder_map_generic_level value = 4 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 3 }
+							NOT = { var:tv_wonder_map_generic_level ?= { this >= 3 } }
+						}
+						set_variable = { name = tv_wonder_map_generic_level value = 3 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 2 }
+							NOT = { var:tv_wonder_map_generic_level ?= { this >= 2 } }
+						}
+						set_variable = { name = tv_wonder_map_generic_level value = 2 }
+					}
+					else_if = {
+						limit = {
+							var:tv_wonder_location_display_level ?= { this >= 1 }
+							NOT = { var:tv_wonder_map_generic_level ?= { this >= 1 } }
+						}
+						set_variable = { name = tv_wonder_map_generic_level value = 1 }
+					}
 				}
 				tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style }
 				tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style }

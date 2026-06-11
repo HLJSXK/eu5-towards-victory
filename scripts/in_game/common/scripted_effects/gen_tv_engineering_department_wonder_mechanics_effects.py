@@ -10,6 +10,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics_lib import (
     ALL_WONDER_MIN_ID,
     STYLE_3_REWARD_EFFECTS,
+    UNIQUE_WONDER_MIN_ID,
     WONDER_MECHANICS_MAX_ID,
     ceremony_modifier_for_style,
     ceremony_styles,
@@ -67,6 +68,9 @@ LOCATION_DISPLAY_BUILDING_TYPE_LOCAL = "tv_wonder_location_display_building_type
 LOCATION_DISPLAY_ID_VAR = "tv_wonder_location_display_id"
 LOCATION_DISPLAY_LEVEL_VAR = "tv_wonder_location_display_level"
 LOCATION_DISPLAY_RITUAL_STYLE_VAR = "tv_wonder_location_display_ritual_style"
+WONDER_MAP_UNIQUE_LEVEL_VAR = "tv_wonder_map_unique_level"
+WONDER_MAP_GENERIC_LEVEL_VAR = "tv_wonder_map_generic_level"
+WONDER_MAP_HAS_POTENTIAL_UNIQUE_VAR = "tv_wonder_map_has_potential_unique"
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
 ]
@@ -538,6 +542,25 @@ def append_location_display_level_detection(lines: list[str], *, indent: int, bu
         lines.append(f"{prefix}}}")
 
 
+def append_wonder_map_level_update(
+    lines: list[str],
+    *,
+    indent: int,
+    source_level_var: str,
+    target_level_var: str,
+) -> None:
+    prefix = T * indent
+    for level in range(6, 0, -1):
+        head = "if" if level == 6 else "else_if"
+        lines.append(f"{prefix}{head} = {{")
+        lines.append(f"{prefix}{T}limit = {{")
+        lines.append(f"{prefix}{T}{T}var:{source_level_var} ?= {{ this >= {level} }}")
+        lines.append(f"{prefix}{T}{T}NOT = {{ var:{target_level_var} ?= {{ this >= {level} }} }}")
+        lines.append(f"{prefix}{T}}}")
+        lines.append(f"{prefix}{T}set_variable = {{ name = {target_level_var} value = {level} }}")
+        lines.append(f"{prefix}}}")
+
+
 def append_location_display_slot_push(lines: list[str], *, indent: int, compact: bool) -> None:
     prefix = T * indent
     if compact:
@@ -595,6 +618,9 @@ def append_location_display_clear_effect(lines: list[str]) -> None:
     lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_ID_VAR}")
     lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_LEVEL_VAR}")
     lines.append(f"{T}remove_variable = {LOCATION_DISPLAY_RITUAL_STYLE_VAR}")
+    lines.append(f"{T}remove_variable = {WONDER_MAP_UNIQUE_LEVEL_VAR}")
+    lines.append(f"{T}remove_variable = {WONDER_MAP_GENERIC_LEVEL_VAR}")
+    lines.append(f"{T}remove_variable = {WONDER_MAP_HAS_POTENTIAL_UNIQUE_VAR}")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_tooltip_overflow_count value = 0 }}")
     for slot in range(1, DISPLAY_SLOT_MAX + 1):
         lines.append(f"{T}remove_variable = {slot_id_var(slot)}")
@@ -631,6 +657,7 @@ def append_location_display_unique_location_projection(lines: list[str], *, comp
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {WONDER_MAP_HAS_POTENTIAL_UNIQUE_VAR} value = 1 }}")
     lines.append(f"{T}{T}{T}{T}set_local_variable = {{ name = {LOCATION_DISPLAY_WONDER_ID_LOCAL} value = prev }}")
     lines.append(f"{T}{T}{T}{T}set_local_variable = {{")
     lines.append(f"{T}{T}{T}{T}{T}name = {LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}")
@@ -687,6 +714,23 @@ def append_location_display_final_building_projection(lines: list[str], *, compa
         building_var=f"local_var:{LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}",
         var_name=LOCATION_DISPLAY_LEVEL_VAR,
     )
+    lines.append(f"{T}{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{ var:{LOCATION_DISPLAY_ID_VAR} ?= {{ this >= {UNIQUE_WONDER_MIN_ID} }} }}")
+    append_wonder_map_level_update(
+        lines,
+        indent=5,
+        source_level_var=LOCATION_DISPLAY_LEVEL_VAR,
+        target_level_var=WONDER_MAP_UNIQUE_LEVEL_VAR,
+    )
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}else = {{")
+    append_wonder_map_level_update(
+        lines,
+        indent=5,
+        source_level_var=LOCATION_DISPLAY_LEVEL_VAR,
+        target_level_var=WONDER_MAP_GENERIC_LEVEL_VAR,
+    )
+    lines.append(f"{T}{T}{T}{T}}}")
     append_location_display_slot_push(lines, indent=4, compact=compact)
     lines.append(f"{T}{T}{T}{T}remove_local_variable = {LOCATION_DISPLAY_BUILDING_TYPE_LOCAL}")
     lines.append(f"{T}{T}{T}}}")
