@@ -6,6 +6,16 @@
 
 organization_panel = {
 
+	state = {
+		name = _show
+		on_start = "[PdxGuiWidget.PushMapModeOverride('tv_wonder')]"
+	}
+
+	state = {
+		name = _hide
+		on_start = "[PdxGuiWidget.PopMapModeOverride]"
+	}
+
 	blockoverride "organization_overview_tab_visible" {}
 
 	blockoverride "organization_panel_overview_visible" {
