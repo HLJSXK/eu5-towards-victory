@@ -17,7 +17,7 @@ SCRIPT_REL = "scripts/in_game/events/gen_tv_wonder_construction_events.py"
 DATA_REL = "data/wonder_construction_events.yaml"
 T = "\t"
 WONDER_IMAGE_DIR = "gfx/interface/icons/towards_victory/wonders"
-CONSTRUCTION_EVENT_IMAGE = f"{WONDER_IMAGE_DIR}/tv_wonder_construction.dds"
+CONSTRUCTION_EVENT_IMAGE = f"{WONDER_IMAGE_DIR}/tv_wonder_construction_cropped.dds"
 
 
 ENG_EFFECTS = {
