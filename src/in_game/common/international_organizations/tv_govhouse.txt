@@ -40,6 +40,7 @@ tv_govhouse = {
 	# Governor's House laws use the vanilla IO Laws tab with policy votes.
 	# Keep the separate IO parliament tab hidden, matching the Academy pattern.
 	has_parliament = no
+	special_statuses_implemented = { tv_govhouse_supreme_overlord_status tv_govhouse_subject_status }
 
 	variables = {
 		tv_govhouse_authority = {
@@ -297,6 +298,7 @@ tv_govhouse = {
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
+			tv_govhouse_sync_supreme_overlord_status_effect = yes
 		}
 	}
 
