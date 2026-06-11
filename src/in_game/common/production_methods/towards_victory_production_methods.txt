@@ -43,17 +43,16 @@ tv_local_arts_exhibition_maintenance = {
 }
 
 tv_wonder_labor_camp_maintenance = {
-	lumber = 6
-	tools = 2
-	wheat = 4
+	tools = 10
 	tv_wonder_materials = 20
 	category = building_maintenance
 }
 
 tv_wonder_material_dispatch_point_production = {
-	lumber = 1.54
-	stone = 0.77
-	masonry = 0.77
+	lumber = 1.0
+	masonry = 0.7
+	glass = 0.4
+	marble = 0.2
 	produced = tv_wonder_materials
 	output = 1
 	category = building_maintenance
