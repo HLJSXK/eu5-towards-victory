@@ -56,7 +56,8 @@ DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_wonders"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
 from wonder_mechanics_lib import load_wonder_image_tasks  # noqa: E402
-from dds_image_lib import RgbaImage, read_image_rgba, write_dds  # noqa: E402
+from dds_image_lib import RgbaImage, write_dds  # noqa: E402
+from wonder_image_crop_lib import load_crop_data, write_wonder_dds_from_image, write_wonder_dds_from_source  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -645,19 +646,30 @@ def convert_existing_dds(
     dds_path: Path,
     background: tuple[int, int, int],
     label: str,
+    crop_data: dict[str, Any] | None = None,
+    stem: str | None = None,
 ) -> None:
-    image = read_image_rgba(source_path)
-    write_dds(
-        image,
+    crop_data = load_crop_data() if crop_data is None else crop_data
+    result = write_wonder_dds_from_source(
+        source_path,
         dds_path,
+        stem or dds_path.stem,
+        crop_data,
+        background,
         dds_format="DXT1",
         overwrite=True,
-        opaque_background=background,
+        allow_crop=source_path.suffix.lower() == ".png",
     )
     file_size = dds_path.stat().st_size
+    mode = "crop" if result.crop_applied else "direct"
+    crop_note = ""
+    if result.crop_rect is not None:
+        left, top, width, height = result.crop_rect
+        crop_note = f", crop={left:.1f},{top:.1f},{width:.1f}x{height:.1f}"
     print(
         f"{label}: source={pretty_repo_path(source_path)}, "
-        f"levels=1, size={file_size:,} bytes"
+        f"mode={mode}, output={result.output_width}x{result.output_height}, "
+        f"levels={result.levels}, size={file_size:,} bytes{crop_note}"
     )
 
 
@@ -665,10 +677,13 @@ def convert_existing_assets(
     tasks: list[dict[str, Any]],
     background: tuple[int, int, int],
 ) -> int:
+    crop_data = load_crop_data()
     converted = 0
     skipped = 0
     seen_dds_paths: set[Path] = set()
+    seen_png_paths: set[Path] = set()
     dds_dirs: set[Path] = set()
+    png_dds_dirs: dict[Path, Path] = {}
     task_total = len(tasks)
     for index, task in enumerate(tasks, start=1):
         name = str(task.get("name") or "").strip()
@@ -679,7 +694,9 @@ def convert_existing_assets(
         png_path = png_dir / f"{stem}.png"
         dds_path = dds_dir / f"{stem}.dds"
         seen_dds_paths.add(dds_path.resolve())
+        seen_png_paths.add(png_path.resolve())
         dds_dirs.add(dds_dir)
+        png_dds_dirs.setdefault(png_dir, dds_dir)
 
         if not enabled:
             print(f"[skip {index}/{task_total}] {stem}: disabled")
@@ -694,8 +711,36 @@ def convert_existing_assets(
             skipped += 1
             continue
 
-        convert_existing_dds(source_path, dds_path, background, f"[convert {index}/{task_total}] {stem}")
+        convert_existing_dds(
+            source_path,
+            dds_path,
+            background,
+            f"[convert {index}/{task_total}] {stem}",
+            crop_data,
+            stem,
+        )
         converted += 1
+
+    extra_png_total = 0
+    for png_dir, dds_dir in sorted(png_dds_dirs.items(), key=lambda item: str(item[0])):
+        if not png_dir.exists():
+            continue
+        for png_path in sorted(png_dir.glob("*.png")):
+            if png_path.resolve() in seen_png_paths:
+                continue
+            stem = png_path.stem
+            dds_path = dds_dir / f"{stem}.dds"
+            seen_dds_paths.add(dds_path.resolve())
+            extra_png_total += 1
+            convert_existing_dds(
+                png_path,
+                dds_path,
+                background,
+                f"[convert extra png] {stem}",
+                crop_data,
+                stem,
+            )
+            converted += 1
 
     extra_total = 0
     for dds_dir in sorted(dds_dirs):
@@ -703,9 +748,18 @@ def convert_existing_assets(
             if dds_path.resolve() in seen_dds_paths:
                 continue
             extra_total += 1
-            convert_existing_dds(dds_path, dds_path, background, f"[convert extra] {dds_path.stem}")
+            convert_existing_dds(
+                dds_path,
+                dds_path,
+                background,
+                f"[convert extra] {dds_path.stem}",
+                crop_data,
+                dds_path.stem,
+            )
             converted += 1
 
+    if extra_png_total:
+        print(f"[summary] converted extra PNG files not listed in image tasks: {extra_png_total}")
     if extra_total:
         print(f"[summary] converted extra DDS files not listed in image tasks: {extra_total}")
     print(f"[summary] converted={converted}, skipped={skipped}")
@@ -767,6 +821,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.convert_existing_assets:
         return convert_existing_assets(tasks, background)
 
+    crop_data = load_crop_data()
     api_key = resolve_api_key(api_config)
     if proxy_url:
         print(f"[network] proxy={proxy_url}")
@@ -824,8 +879,20 @@ def main(argv: list[str] | None = None) -> int:
                 f"{decoded.width}x{decoded.height} != {expected_width}x{expected_height}"
             )
 
-        write_dxt1_dds(decoded, dds_path, overwrite=overwrite)
-        print(f"[dds] {pretty_repo_path(dds_path)}")
+        result = write_wonder_dds_from_image(
+            decoded_png_to_rgba(decoded),
+            dds_path,
+            stem,
+            crop_data,
+            background,
+            dds_format="DXT1",
+            overwrite=overwrite,
+        )
+        dds_note = f", output={result.output_width}x{result.output_height}"
+        if result.crop_rect is not None:
+            left, top, width, height = result.crop_rect
+            dds_note += f", crop={left:.1f},{top:.1f},{width:.1f}x{height:.1f}"
+        print(f"[dds] {pretty_repo_path(dds_path)}{dds_note}")
 
         if write_metadata_enabled:
             write_metadata(metadata_path, payload, response, revised_prompt)

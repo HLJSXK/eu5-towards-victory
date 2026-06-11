@@ -257,6 +257,22 @@ def _resize_rect(image: RgbaImage, width: int, height: int, rect: tuple[float, f
     return RgbaImage(width=width, height=height, rgba=bytes(out))
 
 
+def crop_resize_rgba(
+    image: RgbaImage,
+    rect: tuple[float, float, float, float],
+    width: int,
+    height: int,
+) -> RgbaImage:
+    left, top, src_width, src_height = rect
+    if src_width <= 0 or src_height <= 0:
+        raise ValueError("crop dimensions must be positive")
+    if left < -0.001 or top < -0.001:
+        raise ValueError("crop rectangle cannot start outside the image")
+    if left + src_width > image.width + 0.001 or top + src_height > image.height + 0.001:
+        raise ValueError("crop rectangle cannot extend outside the image")
+    return _resize_rect(image, width, height, rect)
+
+
 def resize_rgba(image: RgbaImage, width: int, height: int, mode: str = "cover") -> RgbaImage:
     mode = mode.lower().strip()
     if (image.width, image.height) == (width, height):
