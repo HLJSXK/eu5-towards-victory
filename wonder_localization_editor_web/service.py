@@ -33,7 +33,6 @@ from scripts.wonder_mechanics_lib import (
     UNIQUE_WONDERS_FILE,
     WONDERS_FILE,
     authored_final_building_local_modifiers,
-    ceremony_modifier_for_style,
     ceremony_styles,
     dump_yaml_document,
     final_building_for_style,
@@ -47,6 +46,7 @@ from scripts.wonder_mechanics_lib import (
     render_header,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
+    unique_ceremony_modifier_name,
     save_yaml_document,
     site_preference_script_for_key,
     site_trigger_script_for_key,
@@ -76,6 +76,10 @@ ROMAN_NUMERALS = {
 }
 WONDER_LOCALIZATION_DATA_REL = "data/wonder_localization.yaml"
 GENERATED_LOC_DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
+UNIQUE_RITUAL_DESIGNS_REL = "data/unique_wonder_ritual_designs.yaml"
+UNIQUE_RITUAL_PROMPTS_REL = "data/unique_wonder_ritual_prompts.yaml"
+UNIQUE_RITUAL_DESIGNS_FILE = REPO_ROOT / UNIQUE_RITUAL_DESIGNS_REL
+UNIQUE_RITUAL_PROMPTS_FILE = REPO_ROOT / UNIQUE_RITUAL_PROMPTS_REL
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
 MODIFIER_LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "modifier_localization.json"
 GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "data" / "generated_wonders"
@@ -159,6 +163,30 @@ REWARD_LABEL_CANDIDATES = {
     "site_development": ("development", "game_concept_development"),
     "site_prosperity": ("prosperity", "game_concept_prosperity"),
     "site_raw_material_workers": ("raw_material", "game_concept_raw_material"),
+}
+RITUAL_DESIGN_FIELD_LABELS = {
+    "title": "标题",
+    "historical_flavor": "历史氛围",
+    "mode": "模式",
+    "duration": "持续时间",
+    "listeners": "监听器",
+    "confirmation_logic": "确认逻辑",
+    "start_logic": "启动逻辑",
+    "progress_logic": "推进逻辑",
+    "completion_logic": "完成逻辑",
+    "failure_or_timeout_logic": "失败或超时逻辑",
+    "implementation_mapping": "实现映射",
+    "confirmation_trigger_script": "确认触发脚本",
+    "start_effect_script": "启动效果脚本",
+    "snapshot_effect_script": "快照效果脚本",
+    "progress_effect_script": "推进效果脚本",
+    "completion_trigger_script": "完成触发脚本",
+    "completion_effect_script": "完成效果脚本",
+    "intended_rewards": "预期奖励",
+    "permanent_country_modifier": "永久国家修正",
+    "local_building_reward": "本地建筑奖励",
+    "one_time_reward": "一次性奖励",
+    "notes": "备注",
 }
 REWARD_FALLBACK_LABELS = {
     "all_estate_satisfaction": "All Estate Satisfaction",
@@ -925,6 +953,67 @@ def _load_wonder_editor_catalog() -> dict[str, Any]:
     if not isinstance(payload, dict):
         return {}
     return payload
+
+
+def load_unique_ritual_designs_data(path: Path = UNIQUE_RITUAL_DESIGNS_FILE) -> dict[str, Any]:
+    if not path.exists():
+        return {"metadata": {}, "unique_wonders": []}
+    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    if not isinstance(payload, dict):
+        raise TypeError(f"{path} must contain a mapping")
+    unique_wonders = payload.get("unique_wonders", [])
+    if not isinstance(unique_wonders, list):
+        raise TypeError(f"{path}.unique_wonders must be a list")
+    return payload
+
+
+def default_unique_ritual_prompts_data() -> dict[str, Any]:
+    return {
+        "metadata": {
+            "purpose": "AI prompts for implementing unique wonder rituals from the design-only ritual source.",
+            "source_data": UNIQUE_RITUAL_DESIGNS_REL,
+            "generated_game_code": False,
+            "design_policy": (
+                "This file stores user-authored AI prompts only. It is not consumed by game-code "
+                "generators until a later implementation pass defines an explicit schema."
+            ),
+        },
+        "unique_wonders": [],
+    }
+
+
+def load_unique_ritual_prompts_data(path: Path = UNIQUE_RITUAL_PROMPTS_FILE) -> dict[str, Any]:
+    if not path.exists():
+        return default_unique_ritual_prompts_data()
+    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    if not isinstance(payload, dict):
+        raise TypeError(f"{path} must contain a mapping")
+    payload.setdefault("metadata", default_unique_ritual_prompts_data()["metadata"])
+    unique_wonders = payload.setdefault("unique_wonders", [])
+    if not isinstance(unique_wonders, list):
+        raise TypeError(f"{path}.unique_wonders must be a list")
+    return payload
+
+
+def unique_ritual_prompt_index(data: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for entry in data.get("unique_wonders", []):
+        if not isinstance(entry, dict):
+            continue
+        key = str(entry.get("key", "")).strip()
+        if key:
+            index[key] = entry
+    return index
+
+
+def ceremony_modifier_for_style(wonder: dict[str, Any], mechanics: dict[str, Any], style: int) -> tuple[str, dict] | None:
+    del mechanics, style
+    if not wonder.get("is_unique"):
+        return None
+    modifiers = dict(wonder.get("ritual", {}).get("country_modifier", {}))
+    if not modifiers:
+        return None
+    return unique_ceremony_modifier_name(wonder), modifiers
 
 
 def _modifier_option_catalog(
@@ -1990,6 +2079,8 @@ class WonderLocalizationService:
         self.unique_wonders_data: dict[str, Any] = {}
         self.event_suffixes: dict[int, str] = {}
         self.localization_data: dict[str, dict[str, str]] = {}
+        self.unique_ritual_designs_data: dict[str, Any] = {}
+        self.unique_ritual_prompts_data: dict[str, Any] = {}
         self.country_modifier_options: list[dict[str, Any]] = []
         self.local_modifier_options: list[dict[str, Any]] = []
         self.reward_type_options: list[dict[str, Any]] = []
@@ -2014,6 +2105,8 @@ class WonderLocalizationService:
             self.wonders = sorted(self.wonders, key=lambda item: int(item["id"]))
             self.event_suffixes = load_engineering_department_suffix_map()
             self.localization_data = load_wonder_localization_data()
+            self.unique_ritual_designs_data = load_unique_ritual_designs_data()
+            self.unique_ritual_prompts_data = load_unique_ritual_prompts_data()
             (
                 self.country_modifier_options,
                 self.local_modifier_options,
@@ -2035,6 +2128,7 @@ class WonderLocalizationService:
                 "status": "Ready",
                 "wonders": wonders,
                 "current_wonder": self.get_wonder_payload(first_wonder_id) if first_wonder_id is not None else None,
+                "ritual_designs": self._unique_ritual_designs_payload(),
                 "log_text": self.log_text,
             }
 
@@ -2071,6 +2165,8 @@ class WonderLocalizationService:
                 "meta": self._wonder_meta(wonder),
                 "languages": self._serialize_specs(specs),
                 "mechanics": self._serialize_mechanics_specs(mechanics_specs),
+                "ritual_design": self._unique_ritual_design_for_wonder(wonder),
+                "ritual_prompt": self._unique_ritual_prompt_for_wonder(wonder),
                 "status": f"Loaded {wonder['key']}",
             }
 
@@ -2346,6 +2442,48 @@ class WonderLocalizationService:
             regenerate=regenerate,
         )
 
+    def save_unique_ritual_prompt(self, wonder_id: int, prompt: str) -> dict[str, Any]:
+        with self._lock:
+            wonder = self._get_wonder(wonder_id)
+            if not wonder.get("is_unique"):
+                raise ValueError(f"{wonder['key']} is not a unique wonder")
+
+            normalized_prompt = normalize_multiline_editor_text(str(prompt))
+            prompt_entries = [
+                deepcopy(entry)
+                for entry in self.unique_ritual_prompts_data.get("unique_wonders", [])
+                if isinstance(entry, dict) and str(entry.get("key", "")).strip() != wonder["key"]
+            ]
+            if normalized_prompt:
+                design = self._unique_ritual_design_for_wonder(wonder) or {}
+                ritual_design = design.get("ritual_design", {}) if isinstance(design, dict) else {}
+                prompt_entries.append(
+                    {
+                        "id": int(wonder["id"]),
+                        "key": wonder["key"],
+                        "base_key": wonder.get("base_key", ""),
+                        "location": wonder.get("location", ""),
+                        "ritual_title": ritual_design.get("title", ""),
+                        "prompt": normalized_prompt,
+                    }
+                )
+            prompt_entries.sort(key=lambda entry: int(entry.get("id", 0)))
+
+            data = deepcopy(self.unique_ritual_prompts_data or default_unique_ritual_prompts_data())
+            data["unique_wonders"] = prompt_entries
+            self.unique_ritual_prompts_data = data
+            save_yaml_document(UNIQUE_RITUAL_PROMPTS_FILE, data)
+
+            verb = "Saved" if normalized_prompt else "Cleared"
+            status = f"{verb} AI prompt for {wonder['key']} -> {UNIQUE_RITUAL_PROMPTS_REL}"
+            self._append_log(f"[data] {status}\n")
+            return {
+                "status": status,
+                "prompt": self._unique_ritual_prompt_for_wonder(wonder),
+                "ritual_designs": self._unique_ritual_designs_payload(),
+                "log_text": self.log_text,
+            }
+
     def _localization_value(self, language: str, key: str) -> str:
         if language not in self.localization_data:
             raise KeyError(f"Missing language {language} in {WONDER_LOCALIZATION_FILE}")
@@ -2353,6 +2491,65 @@ class WonderLocalizationService:
         if key not in language_values:
             raise KeyError(f"Missing canonical localization key {key} in {WONDER_LOCALIZATION_FILE} ({language})")
         return language_values[key]
+
+    def _unique_ritual_design_by_key(self, wonder_key: str) -> dict[str, Any] | None:
+        for entry in self.unique_ritual_designs_data.get("unique_wonders", []):
+            if isinstance(entry, dict) and entry.get("key") == wonder_key:
+                return entry
+        return None
+
+    def _unique_ritual_prompt_for_wonder(self, wonder: dict[str, Any]) -> dict[str, Any] | None:
+        if not wonder.get("is_unique"):
+            return None
+        entry = unique_ritual_prompt_index(self.unique_ritual_prompts_data).get(wonder["key"], {})
+        return {
+            "source_path": UNIQUE_RITUAL_PROMPTS_REL,
+            "prompt": str(entry.get("prompt", "")),
+            "exists": bool(entry.get("prompt")),
+        }
+
+    def _unique_ritual_design_for_wonder(self, wonder: dict[str, Any]) -> dict[str, Any] | None:
+        if not wonder.get("is_unique"):
+            return None
+        entry = self._unique_ritual_design_by_key(wonder["key"])
+        if entry is None:
+            return None
+        payload = deepcopy(entry)
+        summary = self._wonder_summary(wonder)
+        payload["name_en"] = summary["name_en"]
+        payload["name_zh"] = summary["name_zh"]
+        payload["display_name"] = summary["display_name"]
+        payload["source_path"] = UNIQUE_RITUAL_DESIGNS_REL
+        return payload
+
+    def _unique_ritual_designs_payload(self) -> dict[str, Any]:
+        prompt_index = unique_ritual_prompt_index(self.unique_ritual_prompts_data)
+        entries: list[dict[str, Any]] = []
+        for entry in self.unique_ritual_designs_data.get("unique_wonders", []):
+            if not isinstance(entry, dict):
+                continue
+            payload = deepcopy(entry)
+            try:
+                wonder = self._get_wonder(int(entry["id"]))
+                summary = self._wonder_summary(wonder)
+                payload["name_en"] = summary["name_en"]
+                payload["name_zh"] = summary["name_zh"]
+                payload["display_name"] = summary["display_name"]
+            except Exception:
+                payload["name_en"] = ""
+                payload["name_zh"] = ""
+                payload["display_name"] = str(entry.get("key", ""))
+            payload["prompt"] = str(prompt_index.get(str(entry.get("key", "")), {}).get("prompt", ""))
+            entries.append(payload)
+        entries.sort(key=lambda entry: int(entry.get("id", 0)))
+        return {
+            "source_path": UNIQUE_RITUAL_DESIGNS_REL,
+            "prompt_source_path": UNIQUE_RITUAL_PROMPTS_REL,
+            "field_labels": RITUAL_DESIGN_FIELD_LABELS,
+            "metadata": deepcopy(self.unique_ritual_designs_data.get("metadata", {})),
+            "count": len(entries),
+            "wonders": entries,
+        }
 
     def _get_wonder(self, wonder_id: int) -> dict[str, Any]:
         for wonder in self.wonders:

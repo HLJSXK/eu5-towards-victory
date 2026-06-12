@@ -33,6 +33,10 @@ class SaveWondersRequest(BaseModel):
     regenerate: bool = True
 
 
+class SaveRitualPromptRequest(BaseModel):
+    prompt: str = ""
+
+
 def create_app() -> FastAPI:
     app = FastAPI(
         title="Wonder Localization Editor Web",
@@ -110,6 +114,17 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=404, detail=str(exc)) from exc
         except RuntimeError as exc:
             raise HTTPException(status_code=500, detail=str(exc)) from exc
+        except Exception as exc:
+            raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    @app.post("/api/ritual-prompts/{wonder_id}")
+    def save_ritual_prompt(wonder_id: int, request: SaveRitualPromptRequest) -> dict:
+        try:
+            return service.save_unique_ritual_prompt(wonder_id, request.prompt)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
         except Exception as exc:
             raise HTTPException(status_code=500, detail=str(exc)) from exc
 
