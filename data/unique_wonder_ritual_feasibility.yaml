@@ -10773,3 +10773,633 @@ unique_wonder_ritual_feasibility:
       status: mostly_feasible
       confidence: medium
       summary: "Monthly workshop-quality mechanics are feasible; production/trade keys, supply, labor, credit, and fair-route proxies need verification."
+  - id: 197
+    key: unique_mont_saint_michel
+    name: "Tidal Pilgrimage to the Mount"
+    source_line: 19389
+    source_range: "19389-19579"
+    original_intent_summary: "Represent Mont Saint-Michel as a pilgrimage and tide season: survey safe crossings, train guides, mark causeways, prepare abbey offices, relics, alms, guest houses, walls, gates, and refuge stores, then lead a final low-tide ascent that raises own-faith tolerance and monthly prestige, with ending_war progress only for relevant thanksgiving after coastal danger."
+    start:
+      active_or_automatic: "Player-started timed ritual; monthly pilgrimage and refuge preparation advances automatically, with ending_war reconciliation only for relevant coastal/shrine danger."
+      conditions: "Sponsor controls Avranches and the Mount site, final Mont Saint-Michel building exists, country is not bankrupt, abbey, walls, tidal access, and mainland road are not occupied, besieged, blockaded, destroyed, or in severe unrest, low-tide routes are safe enough, guides and guards are available, recognized religious authority can host the pilgrimage, treasury can fund guards, guides, candles, alms, repairs, food, refuge stores, lanterns, and carts/boats, and war/storm/plague/famine do not make crossing or refuge impossible."
+      possible_implementation: "Initialize tv_ Mont Saint-Michel pilgrimage state: counters for tide survey, guide roster, causeway markers, road escort, abbey office preparation, relic/banner care, alms stores, guest houses, wall/gate inspection, refuge granary, pilgrim register, final low-tide crossing, and thanksgiving service; snapshot tolerance_own, monthly prestige, current prestige, stability, legitimacy, clergy support, treasury, debt, war exhaustion, coastal security, and local occupation/siege/blockade/unrest/devastation/prosperity/abbey/wall/gate/tidal-route/guide/pilgrim-road/guest/refuge/storm/food state."
+      scopes:
+        country: "sponsoring country, own-faith tolerance and prestige reward owner, temporary pilgrimage/refuge burden holder"
+        location: "Avranches mainland gathering point, tidal flats, causeway markers, abbey gates, village street, walls, refectory, guest houses, chapel, treasury, and granaries"
+        building: "final Mont Saint-Michel building"
+        religion_or_authority: "abbot/prior, clergy, own-faith cohesion, pilgrimage, confession, alms, and refuge context"
+        war_or_coast: "ending_war relevance only if the Mount, coast, roads, or pilgrims needed protection"
+    progress:
+      mode: "timed with monthly pilgrimage/refuge counters plus selective ending_war thanksgiving"
+      listener_or_state: "Monthly listener advances tide survey, guide roster, markers, road escort, abbey offices, relic/banner care, alms, guest houses, wall/gate inspection, refuge granary, pilgrim register, crossing preparation, and thanksgiving preparation. ending_war adds progress only if peace enables a relevant thanksgiving crossing after shrine or coastal danger."
+      accumulation: "Six to nine monthly ticks for one pilgrimage and tide season."
+      pause_or_consume: "Pause/decay under bankruptcy, occupation, siege, coastal blockade, severe unrest, storm season, unsafe sands, plague, fire, clergy refusal, road banditry, food/refuge shortage, famine, blocked roads, or war threatening the coast."
+      ui_visibility: "Show tide, guide, marker, road escort, office, relic/banner, alms, guest house, wall/gate, granary, pilgrim register, crossing, and thanksgiving counters plus tide safety, guide availability, refuge stores, road/coastal security, clergy support, and ending-war relevance."
+    completion:
+      condition: "Tide, guide, marker, road escort, office, relic, alms, guest house, wall/gate, granary, pilgrim register, final crossing, and thanksgiving counters complete or above threshold; Avranches/Mount controlled; final building present; country solvent; no occupation/siege/blockade; tidal access safe; abbey open; guides available; refuge stores sufficient; walls guarded; upkeep paid."
+      possible_implementation: "Custom completion trigger reads tv_mont counters and tide/abbey/refuge state; completion removes pilgrimage burden, applies permanent tolerance_own and monthly_prestige country modifiers, grants one-time prestige, clergy support, stability, local prosperity, unrest relief, defensive/refuge readiness, or thanksgiving confidence, records tidal pilgrimage memory, clears transient counters, and retains cooldown/completion flags."
+      scopes:
+        country: "permanent tolerance_own and monthly_prestige rewards plus one-time prestige, clergy, stability, or refuge outcome"
+        location: "Mont Saint-Michel memory for tide markers, guide rosters, pilgrim registers, Saint Michael banners, refuge grain, wall keys, alms stores, and low-tide thanksgiving routes"
+        religion_or_faith: "own-faith tolerance and clergy support context"
+    rewards_and_costs:
+      costs: "Temporary burden for guards, guides, candles, food, repairs, alms, lanterns, boats/carts, guest lodging, refuge stores, and lost tolls while crossings are regulated."
+      rewards: "Permanent tolerance_own and monthly prestige. One-time rewards can include prestige, clergy loyalty, stability, local prosperity, defensive readiness, unrest relief, or thanksgiving prestige/confidence after relevant war."
+      local_effects: "Optional local memory can support pilgrimage prosperity, defense, coastal resilience, refuge readiness, lower own-faith unrest, or route safety."
+    failure_or_expiry: "The pilgrimage can wait for safer tides or another season, but pilgrim attendance, guide readiness, markers, and food/refuge stores decay if postponed too long. Loss of the Mount or Avranches, final-building loss, persistent bankruptcy, occupied/destroyed abbey, impossible tidal access, severe unrest, siege, blockade, storm damage, unsafe sands, plague, fire, road banditry, clergy refusal, famine, or war on the coast pauses/cancels and may reset crossing and refuge counters; ending_war after devastation or occupation requires wall, store, and route reinspection before thanksgiving counts."
+    candidate_interfaces:
+      - *iface_normalized_unique_ritual_schema
+      - *iface_selected_ritual_cache
+      - *iface_ceremony_confirm_action
+      - *iface_custom_confirmation_trigger
+      - *iface_runtime_snapshot_progress
+      - *iface_monthly_listener
+      - *iface_ending_war_listener
+      - *iface_timed_timer
+      - *iface_deferred_completion
+      - *iface_country_modifier_reward
+      - *iface_location_modifier_reward
+      - *iface_site_state_checks
+      - *iface_war_scope_review
+      - name: own-faith tolerance and monthly prestige modifiers
+        kind: modifier
+        scope: country
+        evidence_level: guessed_semantics
+        confidence: low_medium
+        source_basis: "The source names tolerance_own and monthly_prestige; exact modifier keys/scopes were not verified."
+        likely_failure_points: "Own-faith tolerance may be religious-unity, tolerance, unrest, or faith-specific; prestige may use gain/decay keys."
+        verification_needed_later: "Verify tolerance_own, monthly prestige, clergy support, stability, local unrest, defensive/refuge readiness, and pilgrimage prosperity keys/effects."
+      - name: pilgrimage and refuge monthly counters
+        kind: variable_progress_model
+        scope: country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium_high
+        source_basis: "Existing monthly progress patterns can support the source's tide, guide, marker, road escort, office, relic/banner, alms, guest, wall/gate, granary, pilgrim, crossing, and thanksgiving counters."
+        likely_failure_points: "Tide/guide/refuge counters should decay with unsafe seasons; wall repairs and office preparation are more durable."
+        verification_needed_later: "Define essential counters, grouped display, storm-season delay, refuge-store decay, and reinspection after devastation."
+      - name: relevant ending_war thanksgiving hook
+        kind: on_action_progress_or_reconciliation
+        scope: war_to_country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium
+        source_basis: "ending_war listener is verified, while the source requires progress only when peace enables thanksgiving after Mount/coastal/pilgrim danger."
+        likely_failure_points: "War scopes may not expose coastal threat, shrine danger, roads, or pilgrim impact; generic peace progress would dilute the premise."
+        verification_needed_later: "Inspect ending_war scopes for participant, occupation, blockade, coast/location threat, war outcome, and whether Avranches/Mount region can be tested."
+      - name: tide, guide, storm, refuge, wall, clergy, road, blockade, famine, plague, and coastal security checks
+        kind: trigger_or_script_value
+        scope: country_to_location_or_religion
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The design asks these pilgrimage, coastal, religious, and refuge signals to shape start/progress, but exact interfaces were not verified."
+        likely_failure_points: "Tide windows, unsafe sands, guide readiness, refuge grain, storm risk, coastal blockade, pilgrimage roads, and clergy refusal likely need proxies or custom variables."
+        verification_needed_later: "Search for tolerance/religion keys, clergy support, local unrest/devastation/occupation, blockade/coastal war, disease/famine, road/route safety, fort/defense, and food/supply hooks."
+      - name: pilgrimage safety and own-faith reward policy
+        kind: eligibility_or_reward_policy
+        scope: country_or_religion
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The source frames tolerance as own-faith cohesion from disciplined pilgrimage, but does not define non-compatible sponsors or faith mismatch."
+        likely_failure_points: "Generic tolerance rewards may conflict with the shrine identity; too-strict faith gates may make captured wonders unusable."
+        verification_needed_later: "Decide faith compatibility, whether non-compatible sponsors receive prestige/defense instead, and how own-faith tolerance maps to EU5 modifiers."
+    evidence:
+      source_design:
+        - "data/unique_wonder_ritual_designs.yaml:19396-19408 sets timed monthly mode plus ending_war listener for a six-to-nine-month pilgrimage/tide season."
+        - "data/unique_wonder_ritual_designs.yaml:19409-19428 defines Mont Saint-Michel flavor and own-faith tolerance/monthly prestige rewards."
+        - "data/unique_wonder_ritual_designs.yaml:19429-19443 defines Avranches/Mount/final-building/solvency/tide/religion/war checks."
+        - "data/unique_wonder_ritual_designs.yaml:19444-19460 defines snapshots, counters, and temporary pilgrimage burden."
+        - "data/unique_wonder_ritual_designs.yaml:19461-19479 defines monthly pilgrimage/refuge progress and ending_war relevance."
+        - "data/unique_wonder_ritual_designs.yaml:19480-19506 defines completion, pause, decay, and reinspection behavior."
+        - "data/unique_wonder_ritual_designs.yaml:19507-19579 maps implementation candidates and keeps defense as supporting context."
+      implementation_references:
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:144-153 verifies monthly listener dispatch."
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:187-196 verifies ending_war listener dispatch."
+        - "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1291-1452 verifies snapshot/progress/deferred completion dispatch and cleanup."
+        - "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py:456-519 verifies custom confirmation/completion dispatch patterns."
+      inference_notes:
+        - "tolerance_own/monthly_prestige keys, faith compatibility, tide/storm/unsafe sands, guide/refuge store state, coastal blockade, road banditry, famine/plague, and ending_war relevance remain unverified."
+    reusable_patterns:
+      - timed_monthly_pilgrimage_safety_counter
+      - ending_war_thanksgiving_reconciliation
+      - own_faith_tolerance_from_ordered_pilgrimage_and_alms
+      - prestige_from_guarded_tidal_shrine
+      - local_site_memory_for_tide_markers_guides_and_refuge_grain
+    implementation_risks:
+      - "tolerance_own and monthly_prestige keys require verification."
+      - "Faith compatibility and own-faith reward policy need explicit design before scripting."
+      - "Tide, storm, unsafe sands, guide readiness, refuge grain, and coastal blockade likely need custom/proxy state."
+      - "ending_war must test relevant coastal/shrine danger and should not reward unrelated peace."
+      - "Refuge and defense should remain supporting context, not replace tolerance/prestige."
+    unresolved_questions:
+      - "Which exact keys implement tolerance_own and monthly_prestige?"
+      - "How should non-compatible sponsors interact with own-faith pilgrimage rewards?"
+      - "Can tide safety, storm risk, guides, refuge stores, pilgrim roads, and coastal blockade be checked?"
+      - "How can ending_war determine whether the Mount/coast/pilgrims needed protection?"
+      - "Should local memory affect pilgrimage prosperity, defense, coastal resilience, or own-faith unrest?"
+    feasibility:
+      status: needs_design_decision
+      confidence: medium
+      summary: "Monthly pilgrimage/refuge mechanics and ending_war hook are available, but own-faith reward policy, tide safety, refuge proxies, and war relevance need design decisions or verification."
+  - id: 198
+    key: unique_bastille
+    name: "Royal Prison Muster and Arsenal Seal"
+    source_line: 19580
+    source_range: "19580-19777"
+    original_intent_summary: "Represent the Bastille as a capital security audit: inspect towers, gates, drawbridges, keys, guards, arsenal stores, cells, prison registers, royal warrants, city watch coordination, and governor oaths, with ruler death requiring renewed authority and pre-winning-war progress only when Bastille security prevents capital disorder, producing garrison size and monthly legitimacy."
+    start:
+      active_or_automatic: "Player-started timed ritual; monthly fortress/prison/arsenal audit progresses automatically, ruler_death renews key authority, and pre_winning_war can add progress only for relevant capital-security contribution."
+      conditions: "Sponsor controls Paris, final Bastille building exists, country is not bankrupt, fortress is not occupied, besieged, breached, burned, captured, destroyed, or surrounded by severe capital unrest, recognized royal/regency authority can authorize keys and warrants, governor/city command functions, treasury can fund guards, armorers, rations, cell maintenance, engineers, scribes, seals, and patrols, and no prison scandal, city watch refusal, or active siege makes the audit meaningless."
+      possible_implementation: "Initialize tv_ Bastille arsenal-seal state: counters for tower inspection, gate/drawbridge tests, key audit, guard rotations, arsenal inventory, powder/ration ledger, cell inspection, prisoner register reconciliation, warrant seal review, city watch coordination, governor oath, and final arsenal seal; snapshot global garrison size, monthly legitimacy, current legitimacy, stability, treasury, debt, war exhaustion, manpower/garrison reserves, court/noble loyalty, revolt-risk proxies, succession status, and Paris occupation/siege/unrest/devastation/prosperity/fortress/moat/drawbridge/arsenal/powder/guard/register/cell/warrant/city-watch/crowd state."
+      scopes:
+        country: "sponsoring country, garrison-size and legitimacy reward owner, temporary security-audit burden holder"
+        location: "Paris Bastille gatehouse, towers, drawbridge, moat, arsenal rooms, cell corridors, prison courtyards, governor chamber, warrant archive, powder store, and nearby streets"
+        building: "final Bastille building"
+        ruler_or_regent: "recognized ruler/regent/successor whose authority validates keys, warrants, and governor oath"
+        war_or_capital_security: "pre_winning_war relevance only if capital order or fortress security materially supports the war"
+    progress:
+      mode: "timed with monthly capital-security counters plus ruler-death and selective pre-winning-war handling"
+      listener_or_state: "Monthly listener advances towers, gates/drawbridge, keys, guards, arsenal, powder/rations, cells, register, warrants, city watch, governor oath, and seal preparation. ruler_death requires renewed key oaths from the new ruler/regent. pre_winning_war adds progress only if Bastille security prevented capital disorder during a relevant war."
+      accumulation: "Six to nine monthly ticks for one capital security audit."
+      pause_or_consume: "Pause/decay under bankruptcy, occupation, siege, severe capital unrest, prison riot, fire, powder accident/explosion, missing keys, warrant scandal, escaped high-value prisoner, unpaid guards, city watch refusal, succession dispute, court faction violence, fortress breach, or victory accompanied by capital disorder."
+      ui_visibility: "Show tower, gate, key, guard, arsenal, powder/ration, cell, register, warrant, city watch, governor oath, and seal counters plus capital unrest, recognized authority, guard pay, arsenal safety, warrant integrity, and war relevance."
+    completion:
+      condition: "Tower, gate, key, guard, arsenal, powder/ration, cell, register, warrant, city watch, governor oath, and final seal counters complete or above threshold; Paris controlled; final building present; country solvent; Bastille not occupied or under active siege; capital unrest contained; fortress usable; key audit complete; warrants sealed; arsenal inventoried; guards paid; city watch cooperative; ruler/regent authority recognized."
+      possible_implementation: "Custom completion trigger reads tv_bastille counters and capital/security/succession state; completion removes security burden, applies permanent global_garrison_size_modifier and monthly_legitimacy country modifiers, grants one-time legitimacy, garrison reinforcement, manpower, capital unrest relief, prestige, or security readiness, records Bastille arsenal-seal memory, clears transient counters, and retains cooldown/completion flags."
+      scopes:
+        country: "permanent global_garrison_size_modifier and monthly_legitimacy rewards plus one-time legitimacy, garrison, manpower, prestige, or unrest outcome"
+        location: "Paris memory for counted keys, sealed warrant chests, guard rosters, arsenal ledgers, powder stores, drawbridge tests, prison registers, and city watch orders"
+        ruler_or_successor: "accepted authority state controlling post-ruler_death key oath and completion"
+        war: "optional pre_winning_war contribution only for relevant capital-security support"
+    rewards_and_costs:
+      costs: "Temporary burden for guard pay, armory repair, powder safety, prisoner rations, engineer work, scribes, seals, warrant review, cell maintenance, and intensified city patrols."
+      rewards: "Permanent global garrison size and monthly legitimacy. One-time rewards can include legitimacy, capital unrest reduction, garrison reinforcement, manpower, prestige, security readiness, or wartime capital-control benefit if pre_winning_war contributed."
+      local_effects: "Optional local memory can support local garrison size, lower capital unrest, faster fort recovery, city-watch cooperation, or stronger legitimacy during crisis."
+    failure_or_expiry: "Short court delays can pause the audit, but guard readiness, warrant clarity, powder safety, and key confidence decay if postponed too long. Loss of Paris, final-building loss, persistent bankruptcy, captured/destroyed fortress, no recognized ruler/regent, severe capital unrest, siege, prison riot, fire, powder explosion, escaped high-value prisoner, warrant scandal, unpaid guards, city watch refusal, unresolved succession, or fortress breach pauses/cancels and may reset key, warrant, and governor-oath counters; pre_winning_war contribution should be ignored or reversed if victory comes with capital disorder or Bastille breach."
+    candidate_interfaces:
+      - *iface_normalized_unique_ritual_schema
+      - *iface_selected_ritual_cache
+      - *iface_ceremony_confirm_action
+      - *iface_custom_confirmation_trigger
+      - *iface_runtime_snapshot_progress
+      - *iface_monthly_listener
+      - *iface_ruler_death_listener
+      - *iface_pre_winning_war_listener
+      - *iface_timed_timer
+      - *iface_deferred_completion
+      - *iface_country_modifier_reward
+      - *iface_location_modifier_reward
+      - *iface_site_state_checks
+      - *iface_war_scope_review
+      - name: global garrison size and monthly legitimacy modifiers
+        kind: modifier
+        scope: country
+        evidence_level: guessed_semantics
+        confidence: low_medium
+        source_basis: "The source names global_garrison_size_modifier and monthly_legitimacy; exact modifier keys/scopes were not verified."
+        likely_failure_points: "Garrison size may be fort, levy, army, or local garrison scoped; legitimacy gain may depend on government form."
+        verification_needed_later: "Verify global garrison size, monthly legitimacy, manpower/garrison reserves, capital unrest, local garrison, fort recovery, and security readiness keys/effects."
+      - name: capital fortress audit monthly counters
+        kind: variable_progress_model
+        scope: country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium_high
+        source_basis: "Existing monthly progress patterns can support the source's tower, gate, key, guard, arsenal, powder/ration, cell, register, warrant, city-watch, governor-oath, and seal counters."
+        likely_failure_points: "Warrant scandal, missing keys, and prison riot should reset authority counters without discarding all structural inspections."
+        verification_needed_later: "Define essential counters, grouped display, powder safety decay, key/warrant reset, and audit delay rules."
+      - name: ruler death key-oath renewal
+        kind: on_action_progress_or_pause
+        scope: country_or_ruler_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium
+        source_basis: "The ruler_death listener is verified, and the source explicitly requires renewed authority before keys are accepted."
+        likely_failure_points: "Successor/regent authority may not be directly exposed; stale ruler/governor references must be cleared."
+        verification_needed_later: "Inspect ruler_death scopes, successor/regency triggers, legitimacy checks, and how to update location-bound ritual state."
+      - name: relevant pre_winning_war capital-security hook
+        kind: on_action_progress_or_reconciliation
+        scope: war_to_country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium
+        source_basis: "pre_winning_war listener is verified, while the source's requirement that Bastille security prevented capital disorder needs a custom relevance test."
+        likely_failure_points: "War scopes may not expose capital unrest, espionage, fortress contribution, or post-victory disorder; generic war progress would become raw military glory."
+        verification_needed_later: "Inspect pre_winning_war scopes for participant, war target, capital occupation/unrest, siege, nearby location, and whether Paris/Bastille state can be checked."
+      - name: fortress, prison, warrant, arsenal, city watch, capital unrest, prison riot, powder, and scandal checks
+        kind: trigger_or_script_value
+        scope: country_to_location_or_government
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The design asks these capital security and prison-administration signals to shape start/progress, but exact interfaces were not verified."
+        likely_failure_points: "Prison registers, warrants, governor obedience, city watch cooperation, prison scandal, high-value prisoner escape, powder accidents, and capital crowd pressure likely need proxies or custom variables."
+        verification_needed_later: "Search for garrison/fort modifiers, capital unrest/revolt risk, occupation/siege, government legitimacy, court/noble loyalty, prison/event state, powder/fire, city watch, and war hooks."
+      - name: capital coercion and prison-audit policy
+        kind: eligibility_or_reward_policy
+        scope: country_or_government
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The source treats prisoners as administrative records, not celebrants, and frames legitimacy as accountable royal custody."
+        likely_failure_points: "Poor policy could turn the rite into generic repression or ignore scandal/rights tension; too-punitive scandal rules may make recovery impossible."
+        verification_needed_later: "Decide how prison scandals, missing warrants, city watch refusal, escaped prisoners, and capital unrest affect eligibility, failure, and one-time rewards."
+    evidence:
+      source_design:
+        - "data/unique_wonder_ritual_designs.yaml:19587-19599 sets timed monthly mode plus ruler_death and pre_winning_war listeners."
+        - "data/unique_wonder_ritual_designs.yaml:19600-19620 defines Bastille flavor and garrison-size/monthly-legitimacy rewards."
+        - "data/unique_wonder_ritual_designs.yaml:19621-19635 defines Paris/final-building/solvency/fortress/authority/war/ruler_death checks."
+        - "data/unique_wonder_ritual_designs.yaml:19636-19653 defines snapshots, counters, and temporary security burden."
+        - "data/unique_wonder_ritual_designs.yaml:19654-19675 defines monthly audit progress plus ruler_death and pre_winning_war handling."
+        - "data/unique_wonder_ritual_designs.yaml:19676-19702 defines completion, pause, decay, and war-contribution reversal logic."
+        - "data/unique_wonder_ritual_designs.yaml:19703-19777 maps implementation candidates and keeps revolt deterrence as support."
+      implementation_references:
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:144-153 verifies monthly listener dispatch."
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:157-166 verifies ruler_death listener dispatch."
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:170-183 verifies pre_winning_war listener dispatch."
+        - "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1291-1452 verifies snapshot/progress/deferred completion dispatch and cleanup."
+        - "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py:456-519 verifies custom confirmation/completion dispatch patterns."
+      inference_notes:
+        - "Garrison/legitimacy keys, accepted authority, pre_winning_war relevance, prison/warrant/city-watch state, capital unrest, prison scandal, powder accident, and governor obedience remain unverified."
+    reusable_patterns:
+      - timed_monthly_capital_security_audit
+      - ruler_death_key_oath_renewal
+      - pre_winning_war_capital_order_validation
+      - garrison_size_from_audited_guards_arsenal_and_rotations
+      - local_site_memory_for_keys_warrants_arsenal_and_city_watch_orders
+    implementation_risks:
+      - "global_garrison_size_modifier and monthly_legitimacy keys require verification."
+      - "Ruler-death authority and pre-winning-war relevance need explicit design."
+      - "Prison registers, warrants, city watch, scandal, prison riot, and escaped-prisoner state likely need custom/proxy variables."
+      - "The rite should not celebrate prisoners; they are part of custody/record audits."
+      - "War contribution must not become generic military glory and should fail if capital disorder accompanies victory."
+    unresolved_questions:
+      - "Which exact keys implement global_garrison_size_modifier and monthly_legitimacy?"
+      - "What qualifies a ruler/regent as recognized for key and warrant authority?"
+      - "Can capital unrest, city watch cooperation, prison registers, warrants, arsenal safety, and prison scandal be represented directly?"
+      - "How can pre_winning_war verify Bastille security mattered to the war?"
+      - "Should local memory affect local garrison size, capital unrest, fort recovery, or crisis legitimacy?"
+    feasibility:
+      status: needs_design_decision
+      confidence: medium
+      summary: "Monthly security-audit mechanics and hooks exist, but prison/warrant policy, successor authority, and relevant-war capital-security tests need design decisions before structure."
+  - id: 199
+    key: unique_carcassonne_castle
+    name: "Double-Wall Watch of Carcassonne"
+    source_line: 19778
+    source_range: "19778-19968"
+    original_intent_summary: "Represent Carcassonne as a frontier watch season: inspect both wall circuits, gates, towers, keys, weapons, armor, granaries, wells, market and vineyard patrols, village warning networks, and final double-circuit review, with war hooks only when regional defense is actually tested, producing garrison size and land morale."
+    start:
+      active_or_automatic: "Player-started timed ritual; monthly watch and supply progress advances automatically, with pre_winning_war and ending_war used only for relevant regional defense."
+      conditions: "Sponsor controls Carcassonne, final Carcassonne Castle building exists, country is not bankrupt, outer and inner walls, gatehouses, and inner castle are not occupied, under active siege, breached, burned, captured, destroyed, or in severe unrest, recognized local military authority can command the watch, roads are safe enough for village/vineyard representatives, market order is manageable, and treasury can fund guards, masons, grain, weapons, patrol wages, bells, and repairs."
+      possible_implementation: "Initialize tv_ Carcassonne watch state: counters for outer wall survey, inner wall survey, gatehouse test, tower bell roster, key audit, crossbow/artillery stores, armor repair, granary inventory, well/fire-bucket check, market street patrol, vineyard road patrol, village warning network, and final double-circuit review; snapshot global garrison size, land morale, manpower/garrison reserves, stability, prestige, legitimacy, treasury, debt, war exhaustion, military support, and Carcassonne occupation/siege/unrest/devastation/prosperity/wall/gate/tower/armory/granary/well/market/road/vineyard/patrol state."
+      scopes:
+        country: "sponsoring country, garrison-size and morale reward owner, temporary watch-burden holder"
+        location: "Carcassonne outer wall, inner wall, lists, gates, towers, barbicans, castle courtyard, market streets, wells, granaries, armories, vineyard roads, and hill approaches"
+        building: "final Carcassonne Castle building"
+        war_or_frontier: "regional wars where Carcassonne's defenses, roads, garrison, or supply system matter"
+    progress:
+      mode: "timed with monthly frontier-watch counters plus selective war reconciliation"
+      listener_or_state: "Monthly listener advances wall surveys, gate tests, tower bell roster, key audit, weapons/armor repair, granary inventory, well/fire checks, market patrols, vineyard road patrols, village warning network, and final review preparation. pre_winning_war adds progress only when the fortified city helps secure a coming victory; ending_war reconciles casualties, repairs, and stores only when the war tested the region."
+      accumulation: "Six to nine monthly ticks for one frontier watch season."
+      pause_or_consume: "Pause/decay under bankruptcy, occupation, active siege, severe unrest, fire, plague, grain shortage, unpaid guards, breached gates, lost road control, command dispute, village refusal, war devastation, or defeat requiring repair and roster audit."
+      ui_visibility: "Show outer wall, inner wall, gate, tower bell, key, weapons, armor, granary, well/fire, market patrol, vineyard road, village warning, and final review counters plus wall usability, stores, guard pay, road security, command acceptance, and war relevance."
+    completion:
+      condition: "Outer wall, inner wall, gatehouse, tower bell, key, weapons, armor, granary, well/fire, market patrol, vineyard road, village warning, and final review counters complete or above threshold; Carcassonne controlled; final building present; country solvent; no occupation/siege; unrest manageable; double walls usable; gatehouses ready; arms and granaries inventoried; guards paid; patrol roads safe; command recognized."
+      possible_implementation: "Custom completion trigger reads tv_carcassonne counters and defense/war-reconciliation state; completion removes watch burden, applies permanent global_garrison_size_modifier and land_morale_modifier country modifiers, grants one-time garrison reinforcement, manpower, army tradition, prestige, local defense, morale recovery, or unrest relief, records double-wall watch memory, clears transient counters, and retains cooldown/completion flags."
+      scopes:
+        country: "permanent global_garrison_size_modifier and land_morale_modifier rewards plus one-time garrison, manpower, army tradition, prestige, or morale outcome"
+        location: "Carcassonne memory for tower bell rosters, gate keys, crossbow stores, granary measures, repaired walls, market patrols, vineyard road watches, and village warning horns"
+        war: "optional relevant-war scaling from tested defenses, repaired stores, or regional victory/defeat reconciliation"
+    rewards_and_costs:
+      costs: "Temporary burden for guards, masons, grain, crossbow strings, quarrels, powder, bells, patrol wages, repairs, fire buckets, and lost market time during drills."
+      rewards: "Permanent global garrison size and land morale. One-time rewards can include garrison reinforcement, manpower, army tradition, prestige, local defensiveness, unrest relief, morale recovery, or repaired stores after relevant war."
+      local_effects: "Optional local memory can support local defense, supply, fort recovery, route security, or reduced unrest during frontier pressure."
+    failure_or_expiry: "The watch can wait for another season, but guard rosters, stores, road intelligence, and village warnings decay if postponed too long. Loss of Carcassonne, final-building loss, persistent bankruptcy, captured/destroyed walls, active siege, severe unrest, fire, plague, gate breach, granary loss, unpaid guards, village refusal, road insecurity, command dispute, or war devastation pauses/cancels and may reset gate, weapons, and patrol counters; defeat forces new repair and roster audits, while relevant victory confirms the watch only if walls and garrison survived."
+    candidate_interfaces:
+      - *iface_normalized_unique_ritual_schema
+      - *iface_selected_ritual_cache
+      - *iface_ceremony_confirm_action
+      - *iface_custom_confirmation_trigger
+      - *iface_runtime_snapshot_progress
+      - *iface_monthly_listener
+      - *iface_pre_winning_war_listener
+      - *iface_ending_war_listener
+      - *iface_timed_timer
+      - *iface_deferred_completion
+      - *iface_country_modifier_reward
+      - *iface_location_modifier_reward
+      - *iface_site_state_checks
+      - *iface_war_scope_review
+      - name: global garrison size and land morale modifiers
+        kind: modifier
+        scope: country
+        evidence_level: guessed_semantics
+        confidence: low_medium
+        source_basis: "The source names global_garrison_size_modifier and land_morale_modifier; exact modifier keys/scopes were not verified."
+        likely_failure_points: "Garrison size may be fort/local/army scoped; land morale may use army morale or land force morale keys and balance constraints."
+        verification_needed_later: "Verify global garrison size, land morale, local defensiveness, manpower, army tradition, morale recovery, fort recovery, and local unrest keys/effects."
+      - name: double-wall watch monthly counters
+        kind: variable_progress_model
+        scope: country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium_high
+        source_basis: "Existing monthly progress patterns can support the source's outer wall, inner wall, gate, tower bell, key, weapons, armor, granary, well/fire, market patrol, road patrol, village warning, and final review counters."
+        likely_failure_points: "War damage, granary loss, road intelligence, and gate breach should reset targeted counters without discarding all wall surveys."
+        verification_needed_later: "Define essential counters, grouped display, defeat repair audit, victory confirmation, and long-delay store/roster decay."
+      - name: relevant regional defense war hooks
+        kind: on_action_progress_or_reconciliation
+        scope: war_to_country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium
+        source_basis: "pre_winning_war and ending_war listeners are verified, while the source requires relevance to Carcassonne's defenses, roads, or garrison."
+        likely_failure_points: "War scopes may not expose regional defensive contribution, road security, or fort survival; generic war progress would distort the ritual."
+        verification_needed_later: "Inspect war on_action scopes for participant, occupation/siege, war target, nearby locations, battlefront/region, victory/defeat, casualties, and fort survival checks."
+      - name: wall, gate, tower, granary, well, patrol road, village warning, plague, fire, and command checks
+        kind: trigger_or_script_value
+        scope: country_to_location_or_war
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The design asks these fortress, supply, route, and command signals to shape start/progress, but exact interfaces were not verified."
+        likely_failure_points: "Outer/inner wall condition, tower bell rosters, village warnings, vineyard roads, well safety, granary stock, command dispute, and patrol availability likely need proxies or custom variables."
+        verification_needed_later: "Search for fort/garrison/defense modifiers, local siege/occupation/unrest/devastation, road safety, manpower/garrison reserves, local prosperity, disease/fire, and military estate support."
+      - name: regional fortress relevance policy
+        kind: eligibility_or_reward_policy
+        scope: country_or_location_or_war
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The source allows war hooks only when Carcassonne's walls and roads matter to the conflict."
+        likely_failure_points: "No relevance policy would turn every war into progress; too-strict region rules may never trigger."
+        verification_needed_later: "Decide how to test regional relevance, fort survival, road security, defeat repair requirements, and victory confirmation."
+    evidence:
+      source_design:
+        - "data/unique_wonder_ritual_designs.yaml:19785-19798 sets timed monthly mode plus pre_winning_war and ending_war listeners."
+        - "data/unique_wonder_ritual_designs.yaml:19799-19818 defines Carcassonne double-wall flavor and garrison-size/land-morale rewards."
+        - "data/unique_wonder_ritual_designs.yaml:19819-19833 defines Carcassonne/final-building/solvency/wall/authority/road/war checks."
+        - "data/unique_wonder_ritual_designs.yaml:19834-19851 defines snapshots, counters, and temporary watch burden."
+        - "data/unique_wonder_ritual_designs.yaml:19852-19872 defines monthly watch progress and relevant war listener behavior."
+        - "data/unique_wonder_ritual_designs.yaml:19873-19898 defines completion, pause, decay, and defeat/victory recovery behavior."
+        - "data/unique_wonder_ritual_designs.yaml:19899-19968 maps implementation candidates and keeps rewards centered on garrison/morale."
+      implementation_references:
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:144-153 verifies monthly listener dispatch."
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:170-183 verifies pre_winning_war listener dispatch."
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:187-196 verifies ending_war listener dispatch."
+        - "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1291-1452 verifies snapshot/progress/deferred completion dispatch and cleanup."
+        - "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py:456-519 verifies custom confirmation/completion dispatch patterns."
+      inference_notes:
+        - "Garrison/morale keys, regional-war relevance, wall/gate/granary/well state, road/village warning safety, command disputes, fire/plague, and local defensive effects remain unverified."
+    reusable_patterns:
+      - timed_monthly_fortress_watch_counter
+      - pre_winning_war_regional_defense_validation
+      - ending_war_repair_and_roster_reconciliation
+      - garrison_size_from_named_tower_gate_and_store_obligations
+      - morale_from_visible_double_wall_preparedness
+    implementation_risks:
+      - "global_garrison_size_modifier and land_morale_modifier keys require verification."
+      - "War hooks need regional relevance tests and must handle defeat differently from victory."
+      - "Outer/inner wall condition, gate breach, village warning, road security, and granary stock likely need custom/proxy state."
+      - "Defeat should force repair/roster audit before completion."
+      - "Local defense/support outcomes should not replace permanent garrison/morale rewards."
+    unresolved_questions:
+      - "Which exact keys implement global_garrison_size_modifier and land_morale_modifier?"
+      - "How can pre_winning_war and ending_war determine that Carcassonne's region or defenses mattered?"
+      - "Can wall/gate condition, granary stock, well safety, road/vineyard patrols, and village warnings be checked directly?"
+      - "How should defeat, gate breach, or command dispute reset counters?"
+      - "Should local memory affect defense, supply, fort recovery, road security, or unrest?"
+    feasibility:
+      status: mostly_feasible
+      confidence: medium
+      summary: "Monthly fortress-watch mechanics and war hooks are available; garrison/morale keys and regional defense relevance tests need verification."
+  - id: 200
+    key: unique_brest_naval_port
+    name: "Atlantic Fleet Muster at Brest"
+    source_line: 19969
+    source_range: "19969-20164"
+    original_intent_summary: "Represent Brest as a naval arsenal readiness season: survey roadstead and docks, inspect hulls, ropewalks, timber, sails, magazines, crews, pay, articles, victuals, charts, pilots, convoy orders, surgeons, chaplains, and final fleet muster, with war hooks only when Brest's fleet/repairs/Atlantic logistics matter, producing naval morale and naval range."
+    start:
+      active_or_automatic: "Player-started timed ritual; monthly arsenal readiness progresses automatically, with pre_winning_war and ending_war used only for relevant fleet service, repairs, or Atlantic logistics."
+      conditions: "Sponsor controls Brest, final Brest Naval Port building exists, country is not bankrupt, port, roadstead, docks, magazines, and Atlantic approaches are not occupied, blockaded, under siege, destroyed, or in severe unrest, naval command functions, available ships/fleet capacity, sailors, pilots, timber or repair materials exist, treasury can pay wages, victuals, powder, dock labor, rope, tar, sails, and pilots, and no mutiny, powder danger, enemy landing, or blockade makes readiness impossible."
+      possible_implementation: "Initialize tv_ Brest fleet-muster state: counters for roadstead survey, dock/dry-dock inspection, ship hull review, ropewalk audit, timber yard inventory, sail loft inspection, magazine/gun review, crew roll, pay and articles, victual stores, chart and pilot board, convoy orders, surgeon/chaplain roster, and final fleet muster; snapshot naval morale, naval range, sailors, naval tradition/fleet readiness, ship count, treasury, debt, stability, prestige, war exhaustion, blockade state, naval/merchant support, and Brest occupation/blockade/unrest/devastation/prosperity/port/roadstead/dock/dry-dock/ropewalk/timber/sail/magazine/crew/victual/pilot/storm/fire state."
+      scopes:
+        country: "sponsoring country, naval morale and naval range reward owner, temporary arsenal-readiness burden holder"
+        location: "Brest roadstead, stone docks, dry docks, ropewalks, timber yards, magazines, sail lofts, battery platforms, chart rooms, muster quays, and Atlantic channels"
+        building: "final Brest Naval Port building"
+        naval_or_war: "ships, sailors, pilots, blockade, Atlantic fleet context, pre_winning_war contribution, and ending_war repair/loss reconciliation"
+    progress:
+      mode: "timed with monthly fleet-readiness counters plus selective war-service reconciliation"
+      listener_or_state: "Monthly listener advances roadstead, docks, hulls, ropewalks, timber, sails, magazines/guns, crew rolls, pay/articles, victuals, charts/pilots, convoy orders, surgeon/chaplain roster, and final muster. pre_winning_war adds progress only when Brest fleet service contributes to a coming victory; ending_war audits losses, repairs, and returned crews before confirming progress or forcing a new audit after defeat."
+      accumulation: "Nine to twelve monthly ticks for one fleet readiness season."
+      pause_or_consume: "Pause/decay under bankruptcy, occupation, blockade, severe unrest, mutiny, fire, powder accident/explosion, timber shortage, sailor shortage, storm damage, unpaid wages, enemy raid, ship loss, fleet defeat, unsafe magazines, or blocked Atlantic access."
+      ui_visibility: "Show roadstead, dock, hull, ropewalk, timber, sail, magazine, crew, pay/articles, victual, chart/pilot, convoy, surgeon/chaplain, and muster counters plus blockade, magazine safety, ship/crew/material availability, wages, war relevance, and postwar repair state."
+    completion:
+      condition: "Roadstead, dock, hull, ropewalk, timber, sail, magazine, crew, pay/articles, victual, chart/pilot, convoy, surgeon/chaplain, and final muster counters complete or above threshold; Brest controlled; final building present; country solvent; no occupation/blockade; unrest manageable; docks and roadstead usable; magazines safe; crews, ships, pilots, victuals, and charts available; wages paid; naval articles completed."
+      possible_implementation: "Custom completion trigger reads tv_brest_muster counters and naval/war state; completion removes arsenal burden, applies permanent naval_morale_modifier and naval_range country modifiers, grants one-time sailors, naval tradition, prestige, repair capacity, trade protection, local prosperity, blockade recovery, or proven fleet-service reward, records Atlantic fleet muster memory, clears transient counters, and retains cooldown/completion flags."
+      scopes:
+        country: "permanent naval_morale_modifier and naval_range rewards plus one-time sailors, naval tradition, repair, prestige, or trade-protection outcome"
+        location: "Brest memory for roadstead surveys, dry-dock certificates, ropewalk audits, timber inventories, magazine seals, crew rolls, pilot charts, convoy orders, and naval articles"
+        war: "optional relevant-war scaling from fleet service, postwar loss audit, returned crews, or repair completion"
+    rewards_and_costs:
+      costs: "Temporary burden for wages, rope, tar, timber, sails, powder safety, victuals, dock labor, pilots, chart work, surgeons/chaplains, and delayed commercial shipping while the arsenal is reserved."
+      rewards: "Permanent naval morale and naval range. One-time rewards can include sailors, naval tradition, prestige, repair capacity, trade protection, local port prosperity, blockade recovery, or proven fleet service after relevant war."
+      local_effects: "Optional local memory can support local ship repair, sailors, naval supply, blockade recovery, Atlantic operational reach, or magazine safety."
+    failure_or_expiry: "The muster can wait for a later sailing season, but crew readiness, victuals, charts, repair certificates, and pay confidence decay if delayed too long. Loss of Brest, final-building loss, persistent bankruptcy, occupied/destroyed port, persistent Atlantic blockade, severe unrest, mutiny, fire, powder explosion, storm damage, timber/sailor shortage, unpaid wages, enemy raid, or defeat wrecking the mustered fleet pauses/cancels and may reset ship, magazine, crew, and readiness counters; ending_war after victory confirms only after losses/repairs are recorded, while defeat forces a new readiness audit."
+    candidate_interfaces:
+      - *iface_normalized_unique_ritual_schema
+      - *iface_selected_ritual_cache
+      - *iface_ceremony_confirm_action
+      - *iface_custom_confirmation_trigger
+      - *iface_runtime_snapshot_progress
+      - *iface_monthly_listener
+      - *iface_pre_winning_war_listener
+      - *iface_ending_war_listener
+      - *iface_timed_timer
+      - *iface_deferred_completion
+      - *iface_country_modifier_reward
+      - *iface_location_modifier_reward
+      - *iface_site_state_checks
+      - *iface_war_scope_review
+      - name: naval morale and naval range modifiers
+        kind: modifier
+        scope: country
+        evidence_level: guessed_semantics
+        confidence: low_medium
+        source_basis: "The source names naval_morale_modifier and naval_range; exact modifier keys/scopes were not verified."
+        likely_failure_points: "Naval morale may be fleet combat morale or recovery; naval range may not exist directly or may require naval/trade/sea-zone scope."
+        verification_needed_later: "Verify naval morale, naval range, sailors, naval tradition/readiness, repair capacity, trade protection, blockade recovery, local ship repair, and naval supply keys/effects."
+      - name: fleet readiness monthly counters
+        kind: variable_progress_model
+        scope: country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium_high
+        source_basis: "Existing monthly progress patterns can support the source's roadstead, dock, hull, ropewalk, timber, sail, magazine, crew, pay/articles, victual, chart/pilot, convoy, surgeon/chaplain, and muster counters."
+        likely_failure_points: "Pay, crew readiness, victuals, and charts should decay faster than dock certificates; defeat should force targeted reinspection."
+        verification_needed_later: "Define essential counters, grouped display, delay decay, postwar loss audit, and defeat reinspection rules."
+      - name: relevant fleet-service war hooks
+        kind: on_action_progress_or_reconciliation
+        scope: war_to_country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium
+        source_basis: "pre_winning_war and ending_war listeners are verified, while the source requires relevance to Brest's fleet, repairs, or Atlantic logistics."
+        likely_failure_points: "War scopes may not expose fleet origin, repair contribution, blockade, Atlantic theater, returned crews, or naval losses; generic war progress would distort the ritual."
+        verification_needed_later: "Inspect war on_action scopes for naval battles, blockade, occupation, war outcome, participant, fleet/ship losses, port region, and whether Brest state can be checked."
+      - name: port, roadstead, dock, dry dock, ropewalk, timber, sail, magazine, crew, sailor, blockade, mutiny, storm, and fire checks
+        kind: trigger_or_script_value
+        scope: country_to_location_or_naval
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The design asks these naval arsenal and Atlantic-route signals to shape start/progress, but exact interfaces were not verified."
+        likely_failure_points: "Dry dock capacity, ropewalk output, timber supply, sail loft readiness, magazine safety, crew availability, mutiny risk, storm damage, and ship count likely need proxies or custom variables."
+        verification_needed_later: "Search for naval morale/range, sailors, naval tradition, ship count, blockade/sea access, port/shipyard modifiers, repair capacity, local unrest/devastation, fire/storm, and supply shortage hooks."
+      - name: Atlantic readiness and postwar audit policy
+        kind: eligibility_or_reward_policy
+        scope: country_or_location_or_war
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The source requires war listeners only when Brest's fleet, repairs, or Atlantic logistics matter and distinguishes victory confirmation from defeat reinspection."
+        likely_failure_points: "No policy would make all wars count; overly strict naval-theater checks may never trigger; postwar loss audit can race with completion."
+        verification_needed_later: "Decide Atlantic relevance, blockade handling, fleet defeat rules, loss/repair thresholds, and how ending_war updates in-progress counters."
+    evidence:
+      source_design:
+        - "data/unique_wonder_ritual_designs.yaml:19976-19989 sets timed monthly mode plus pre_winning_war and ending_war listeners."
+        - "data/unique_wonder_ritual_designs.yaml:19990-20010 defines Brest arsenal flavor and naval morale/naval range rewards."
+        - "data/unique_wonder_ritual_designs.yaml:20011-20024 defines Brest/final-building/solvency/port/blockade/fleet/material/war checks."
+        - "data/unique_wonder_ritual_designs.yaml:20025-20043 defines snapshots, counters, and temporary arsenal burden."
+        - "data/unique_wonder_ritual_designs.yaml:20044-20065 defines monthly readiness progress and war listener behavior."
+        - "data/unique_wonder_ritual_designs.yaml:20066-20091 defines completion, pause, decay, and postwar audit behavior."
+        - "data/unique_wonder_ritual_designs.yaml:20092-20164 maps implementation candidates and preserves naval morale/range as the permanent theme."
+      implementation_references:
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:144-153 verifies monthly listener dispatch."
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:170-183 verifies pre_winning_war listener dispatch."
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:187-196 verifies ending_war listener dispatch."
+        - "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1291-1452 verifies snapshot/progress/deferred completion dispatch and cleanup."
+        - "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py:456-519 verifies custom confirmation/completion dispatch patterns."
+      inference_notes:
+        - "Naval morale/range keys, fleet-service relevance, blockade/Atlantic theater, ship count, sailor/crew readiness, dry dock/ropewalk/timber/sail/magazine state, mutiny, storm/fire, and postwar loss audit remain unverified."
+    reusable_patterns:
+      - timed_monthly_fleet_readiness_counter
+      - pre_winning_war_fleet_service_validation
+      - ending_war_loss_repair_and_returned_crew_audit
+      - naval_morale_from_paid_crews_articles_guns_and_supplies
+      - naval_range_from_charts_pilots_victuals_and_arsenal_routines
+    implementation_risks:
+      - "naval_morale_modifier and naval_range keys require verification."
+      - "War hooks need fleet/Atlantic relevance tests and must distinguish victory confirmation from defeat reinspection."
+      - "Dry docks, ropewalks, timber, sails, magazines, crew readiness, mutiny, and storm damage likely need custom/proxy state."
+      - "Postwar audits must avoid completing before losses and repairs are recorded."
+      - "Local ship repair/supply should support, not replace, permanent naval morale/range rewards."
+    unresolved_questions:
+      - "Which exact keys implement naval_morale_modifier and naval_range?"
+      - "Can ship count, sailors, naval tradition/readiness, repair capacity, dry docks, ropewalks, timber, sails, and magazines be checked?"
+      - "How can pre_winning_war and ending_war identify Brest-relevant fleet service or Atlantic logistics?"
+      - "How should mutiny, unpaid wages, powder accident, storm damage, and defeat reset counters?"
+      - "Should local memory affect ship repair, sailors, naval supply, blockade recovery, or Atlantic range?"
+    feasibility:
+      status: mostly_feasible
+      confidence: medium
+      summary: "Monthly fleet-readiness mechanics and war hooks are available; naval-range/morale keys, arsenal proxies, and relevant fleet-service tests need verification."
+  - id: 201
+    key: unique_colmar_old_town
+    name: "Alsatian Heritage Fair of the Old Town"
+    source_line: 20165
+    source_range: "20165-20357"
+    original_intent_summary: "Represent Colmar's old town as a civic restoration and fair season: inspect and repair half-timbered facades, canals, bridges, guild signs, charters, market weights, wine stalls, church procession, archives, gates, and watch patrols, then hold a heritage fair that turns maintained civic memory into monthly prestige and legitimacy."
+    start:
+      active_or_automatic: "Player-started timed ritual; monthly civic restoration, archive, guild, market, and fair progress advances automatically."
+      conditions: "Sponsor controls Colmar, final Colmar Old Town building exists, country is not bankrupt, the old town is not occupied, burned, flooded, under siege, destroyed, or in severe unrest, civic authority and guild relations are peaceful, roads are safe for wine merchants and visitors, treasury can fund carpenters, plasterers, painters, masons, guards, notaries, market booths, candles, canal work, and reduced market access, and no fire/flood/plague/religious disorder/market closure makes the procession impossible."
+      possible_implementation: "Initialize tv_ Colmar heritage-fair state: counters for facade survey, timber/plaster repair, canal clearing, bridge inspection, guild sign restoration, guild charter reading, market weight audit, wine stall register, church procession, archive and town seal review, gate key inspection, watch patrol, and final heritage fair; snapshot monthly prestige, monthly legitimacy, current prestige, legitimacy, stability, treasury, debt, burgher/guild support, cultural output proxy, route exposure, and Colmar occupation/siege/unrest/devastation/prosperity/old-town/facade/canal/bridge/guild/market/church/gate/archive/wine/fire/flood/road state."
+      scopes:
+        country: "sponsoring country, prestige and legitimacy reward owner, temporary restoration burden holder"
+        location: "Colmar market square, stone church, half-timbered lanes, canal edges, bridges, wine stalls, guild halls, town archive, fortified gates, merchant cellars, and procession streets"
+        building: "final Colmar Old Town building"
+        civic_or_estate: "council, guild, burgher, church, market, wine trade, archive, and civic legitimacy context"
+    progress:
+      mode: "timed with monthly civic-restoration and fair counters"
+      listener_or_state: "Monthly listener advances facade survey, timber/plaster repair, canal clearing, bridge inspection, guild sign restoration, charter reading, market weight audit, wine stall register, church procession, archive/seal review, gate key inspection, watch patrol, and final fair preparation."
+      accumulation: "Six to nine monthly ticks for one civic restoration and fair season."
+      pause_or_consume: "Pause/decay under bankruptcy, occupation, siege, severe unrest, fire, flood, plague, guild dispute/riot, wine fraud, blocked roads, damaged archives, council legitimacy crisis, religious disorder, market closure, bridge failure, or canal collapse."
+      ui_visibility: "Show facade, timber/plaster, canal, bridge, guild sign, charter, market, wine, church, archive, gate, watch, and fair counters plus guild cooperation, council authority, road safety, archive integrity, fire/flood risk, and market openness."
+    completion:
+      condition: "Facade, timber/plaster, canal, bridge, guild sign, charter, market, wine, church, archive, gate, watch, and final fair counters complete or above threshold; Colmar controlled; final building present; country solvent; no occupation/siege; unrest manageable; streets/canals usable; guilds cooperative; charters valid; market measures certified; roads safe; church and market open; restoration work paid."
+      possible_implementation: "Custom completion trigger reads tv_colmar counters and civic/guild/archive state; completion removes restoration burden, applies permanent monthly_prestige and monthly_legitimacy country modifiers, grants one-time prestige, legitimacy, local prosperity, burgher/guild satisfaction, trade income, civic confidence, or unrest relief, records Alsatian heritage fair memory, clears transient counters, and retains cooldown/completion flags."
+      scopes:
+        country: "permanent monthly_prestige and monthly_legitimacy rewards plus one-time prestige, legitimacy, trade, burgher/guild, or unrest outcome"
+        location: "Colmar memory for repaired timber facades, guild signs, canal clearings, bridge inspections, wine stall registers, charter readings, market weights, gate keys, and town seals"
+    rewards_and_costs:
+      costs: "Temporary burden for craftsmen, paint, timber, plaster, guards, notaries, candles, market booths, canal labor, bridge repair, archive work, and reduced market access while streets are repaired."
+      rewards: "Permanent monthly prestige and monthly legitimacy. One-time rewards can include prestige, legitimacy, local prosperity, burgher/guild satisfaction, wine-fair trade income, unrest relief, or restored civic confidence after fire/flood/occupation."
+      local_effects: "Optional local memory can support local prestige, legitimacy, trade value, reduced unrest, wine trade confidence, or better recovery from fire and flood."
+    failure_or_expiry: "The rite can wait for the next fair season, but facade repairs, guild attendance, wine merchant commitments, fair booths, and visible civic confidence decay if delayed too long. Loss of Colmar, final-building loss, persistent bankruptcy, occupied/destroyed old quarter, fire/flood making the procession route unusable, severe unrest, guild riot, market fraud, canal collapse, bridge failure, plague, archive loss, religious disorder, blocked roads, or war threatening the town pauses/cancels and may reset charter, gate, fair, and market counters; recovery after occupation requires facades, archives, guild signs, and market weights to be reaudited."
+    candidate_interfaces:
+      - *iface_normalized_unique_ritual_schema
+      - *iface_selected_ritual_cache
+      - *iface_ceremony_confirm_action
+      - *iface_custom_confirmation_trigger
+      - *iface_runtime_snapshot_progress
+      - *iface_monthly_listener
+      - *iface_timed_timer
+      - *iface_deferred_completion
+      - *iface_country_modifier_reward
+      - *iface_location_modifier_reward
+      - *iface_site_state_checks
+      - name: monthly prestige and monthly legitimacy modifiers
+        kind: modifier
+        scope: country
+        evidence_level: guessed_semantics
+        confidence: low_medium
+        source_basis: "The source names monthly_prestige and monthly_legitimacy; exact modifier keys/scopes were not verified."
+        likely_failure_points: "Legitimacy gain may depend on government type; prestige may use gain or decay keys; local civic memory may need a local modifier rather than country modifier."
+        verification_needed_later: "Verify monthly prestige, monthly legitimacy, local prosperity, burgher/guild satisfaction, trade income, local prestige/legitimacy, reduced unrest, and fire/flood recovery keys/effects."
+      - name: civic restoration and heritage-fair monthly counters
+        kind: variable_progress_model
+        scope: country_to_location
+        evidence_level: inferred_from_pattern
+        confidence: medium_high
+        source_basis: "Existing monthly progress patterns can support the source's facade, timber/plaster, canal, bridge, guild sign, charter, market, wine, church, archive, gate, watch, and final fair counters."
+        likely_failure_points: "Fire/flood and archive loss should trigger reaudits; guild attendance and wine commitments should decay faster than completed structural repairs."
+        verification_needed_later: "Define essential counters, grouped display, delayed-fair decay, disaster reaudits, and occupation recovery rules."
+      - name: facade, canal, bridge, guild, archive, wine, market, fire, flood, plague, religious tension, and council checks
+        kind: trigger_or_script_value
+        scope: country_to_location_or_civic
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The design asks these civic, commercial, archival, and hazard signals to shape start/progress, but exact interfaces were not verified."
+        likely_failure_points: "Facade condition, canal clearing, bridge safety, guild signs/charters, archive integrity, wine fair, flood risk, religious disorder, and council legitimacy crisis likely need proxies or custom variables."
+        verification_needed_later: "Search for prestige/legitimacy keys, burgher/guild support, local prosperity/unrest/devastation, trade routes/value/income, fire/flood/plague, religious tension, market access, and civic authority proxies."
+      - name: civic memory and guild-order policy
+        kind: eligibility_or_reward_policy
+        scope: country_or_location
+        evidence_level: unsupported_but_plausible
+        confidence: low
+        source_basis: "The source frames the rite as lived civic continuity, not empty ruins; guild, church, council, gates, and households must affirm the same order."
+        likely_failure_points: "Generic heritage prestige could ignore guild/council order; too-strict guild/religious gates may overblock normal civic unrest."
+        verification_needed_later: "Decide how guild disputes, council legitimacy, religious disorder, archive loss, and household maintenance obligations affect eligibility, progress, and one-time rewards."
+    evidence:
+      source_design:
+        - "data/unique_wonder_ritual_designs.yaml:20172-20183 sets timed monthly mode for a six-to-nine-month civic restoration and fair season."
+        - "data/unique_wonder_ritual_designs.yaml:20184-20204 defines Colmar old-town flavor and prestige/legitimacy rewards."
+        - "data/unique_wonder_ritual_designs.yaml:20205-20217 defines Colmar/final-building/solvency/old-town/guild/road/hazard/war checks."
+        - "data/unique_wonder_ritual_designs.yaml:20218-20235 defines snapshots, counters, and temporary restoration burden."
+        - "data/unique_wonder_ritual_designs.yaml:20236-20254 defines monthly civic restoration, guild, market, archive, and road progress."
+        - "data/unique_wonder_ritual_designs.yaml:20255-20281 defines completion, pause, decay, and occupation recovery behavior."
+        - "data/unique_wonder_ritual_designs.yaml:20282-20357 maps implementation candidates and keeps local trade/culture as support."
+      implementation_references:
+        - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:144-153 verifies monthly listener dispatch."
+        - "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1291-1452 verifies snapshot/progress/deferred completion dispatch and cleanup."
+        - "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py:456-519 verifies custom confirmation/completion dispatch patterns."
+      inference_notes:
+        - "Prestige/legitimacy keys, guild/council/burgher support, facade/canal/bridge/archive state, wine trade, fire/flood/plague, religious tension, and civic authority proxies remain unverified."
+    reusable_patterns:
+      - timed_monthly_civic_restoration_counter
+      - prestige_from_visible_urban_heritage_and_repair
+      - legitimacy_from_charters_guilds_gates_and_council_order
+      - disaster_reaudit_for_facades_archives_and_market_weights
+      - local_site_memory_for_guild_signs_canals_charters_and_gate_keys
+    implementation_risks:
+      - "monthly_prestige and monthly_legitimacy keys require verification."
+      - "Guild support, council authority, archive integrity, facade/canal/bridge condition, and flood/fire state likely need custom/proxy variables."
+      - "Heritage-fair delay should decay attendance and wine commitments without losing durable repairs."
+      - "The rite should represent lived civic fabric, not empty ruin reclamation."
+      - "Local trade and culture support should not replace prestige/legitimacy rewards."
+    unresolved_questions:
+      - "Which exact keys implement monthly_prestige and monthly_legitimacy?"
+      - "Can guild/council support, archive integrity, facade condition, canal condition, bridge safety, wine trade, and market weights be checked directly?"
+      - "How should fire, flood, plague, religious disorder, or occupation reset counters?"
+      - "How should guild disputes and council legitimacy crises affect progress without overblocking normal unrest?"
+      - "Should local memory affect trade value, local prestige, legitimacy, unrest, or fire/flood recovery?"
+    feasibility:
+      status: mostly_feasible
+      confidence: medium
+      summary: "Monthly civic-restoration mechanics are feasible; prestige/legitimacy keys and guild, archive, fire/flood, and civic-authority proxies need verification."
