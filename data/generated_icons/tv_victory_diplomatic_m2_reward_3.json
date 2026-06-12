@@ -1,0 +1,34 @@
+{
+  "generation_target": "victory_reward_icon",
+  "payload": {
+    "model": "gpt-image-2",
+    "prompt": "Create a Europa Universalis V victory reward Icon DDS asset.\nSubject: Create a slightly different reward option icon in the same route style: Diplomatic Victory, milestone 2, option 3. Use a treaty scroll, seal, clasped rings, or envoy symbol for diplomatic rewards. Variant 3 uses a compact diagonal composition and a subtly brighter highlight. Keep it only slightly different from the route template. Extreme minimalist EU5 reward icon: one central symbolic subject, at most 1-2 tiny supporting shapes, strong silhouette, readable at 128px, no text, no letters, no logo, no UI frame, no complex scene.\nReference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nTarget format: final DDS target is exactly 128x128 and must stay under 100,000 bytes.\nTarget-specific requirement: Extreme minimalist EU5 reward icon: one central symbolic subject, at most 1-2 tiny supporting shapes, strong silhouette, readable at 128px, no text, no letters, no logo, no UI frame, no complex scene.\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline.\nAvoid:\nbusy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, text, letters, numbers, logo, watermark, realistic photo",
+    "size": "1024x1024",
+    "quality": "high",
+    "output_format": "png",
+    "n": 1,
+    "response_format": "url",
+    "background": "opaque",
+    "moderation": "auto",
+    "user": "towards_victory"
+  },
+  "created": 1781282658,
+  "final_prompt": "Create a Europa Universalis V victory reward Icon DDS asset.\nSubject: Create a slightly different reward option icon in the same route style: Diplomatic Victory, milestone 2, option 3. Use a treaty scroll, seal, clasped rings, or envoy symbol for diplomatic rewards. Variant 3 uses a compact diagonal composition and a subtly brighter highlight. Keep it only slightly different from the route template. Extreme minimalist EU5 reward icon: one central symbolic subject, at most 1-2 tiny supporting shapes, strong silhouette, readable at 128px, no text, no letters, no logo, no UI frame, no complex scene.\nReference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nTarget format: final DDS target is exactly 128x128 and must stay under 100,000 bytes.\nTarget-specific requirement: Extreme minimalist EU5 reward icon: one central symbolic subject, at most 1-2 tiny supporting shapes, strong silhouette, readable at 128px, no text, no letters, no logo, no UI frame, no complex scene.\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline.\nAvoid:\nbusy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, text, letters, numbers, logo, watermark, realistic photo",
+  "revised_prompt": "",
+  "targets": [
+    {
+      "name": "victory_reward_icon",
+      "label": "victory reward Icon",
+      "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_diplomatic_m2_reward_3.dds",
+      "width": 128,
+      "height": 128,
+      "resize": "cover",
+      "dds_format": "DXT5",
+      "dds_levels": 7,
+      "circle_crop": true,
+      "circle_crop_feather_px": 8,
+      "file_size_bytes": 21984,
+      "max_file_size_bytes": 100000
+    }
+  ]
+}
