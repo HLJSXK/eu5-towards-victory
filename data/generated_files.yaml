@@ -225,6 +225,10 @@ generated:
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/in_game/common/static_modifiers/tv_engineering_department_wonder_mechanics_modifiers.txt
 
+  - script: scripts/in_game/common/auto_modifiers/gen_tv_engineering_department_wonder_mechanics_auto_modifiers.py
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: src/in_game/common/auto_modifiers/tv_engineering_department_wonder_mechanics_auto_modifiers.txt
+
   - script: scripts/main_menu/common/static_modifiers/gen_tv_engineering_department_wonder_ritual_auxiliary_location_modifiers.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/main_menu/common/static_modifiers/tv_engineering_department_wonder_ritual_auxiliary_location_modifiers.txt

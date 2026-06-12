@@ -12,20 +12,28 @@ if hasattr(sys.stdout, "reconfigure"):
 try:
     from scripts.wonder_mechanics_lib import (
         ceremony_styles,
+        final_building_country_modifiers,
         final_building_for_style,
+        level_static_modifier_loc,
         load_all_wonder_mechanics_data,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
         ritual_plan_for_style,
+        wonder_auto_base_modifier_name,
+        wonder_auto_style_modifier_name,
     )
 except ModuleNotFoundError:
     from wonder_mechanics_lib import (
         ceremony_styles,
+        final_building_country_modifiers,
         final_building_for_style,
+        level_static_modifier_loc,
         load_all_wonder_mechanics_data,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
         ritual_plan_for_style,
+        wonder_auto_base_modifier_name,
+        wonder_auto_style_modifier_name,
     )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -243,15 +251,29 @@ def _engineering_preview_location_text_values() -> list[tuple[str, str, str]]:
     return values
 
 
-def _display_modifier_pairs() -> list[tuple[str, str]]:
+def _auto_base_modifier_values() -> list[tuple[str, str]]:
     wonders, _ = load_all_wonder_mechanics_data()
-    pairs: list[tuple[str, str]] = []
+    values: list[tuple[str, str]] = []
     for wonder in wonders:
         for level in range(1, 7):
-            source_key = f"STATIC_MODIFIER_NAME_tv_wonder_{wonder['key']}_level_{level}"
-            pairs.append((source_key, f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_level_{level}"))
-            pairs.append((source_key, f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_local_level_{level}"))
-    return pairs
+            values.append(
+                (
+                    f"AUTO_MODIFIER_NAME_{wonder_auto_base_modifier_name(wonder, level)}",
+                    level_static_modifier_loc(wonder["concept"], level),
+                )
+            )
+    return values
+
+
+def _auto_style_modifier_keys() -> list[str]:
+    wonders, mechanics = load_all_wonder_mechanics_data()
+    keys: list[str] = []
+    for wonder in wonders:
+        for style in ceremony_styles(wonder):
+            if not final_building_country_modifiers(wonder, mechanics, style):
+                continue
+            keys.append(f"AUTO_MODIFIER_NAME_{wonder_auto_style_modifier_name(wonder, style)}")
+    return keys
 
 
 def _auxiliary_display_modifier_pairs() -> list[tuple[str, str]]:
@@ -328,15 +350,17 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 )
             language_values[route_concept] = language_values[source_key]
             language_values[route_concept_desc] = language_values[source_key]
-    for source_modifier_loc_key, display_modifier_loc_key in _display_modifier_pairs():
+    for auto_modifier_loc_key, auto_value in _auto_base_modifier_values():
+        for language in LANGUAGES:
+            expanded[language][auto_modifier_loc_key] = auto_value
+    for auto_modifier_loc_key in _auto_style_modifier_keys():
         for language in LANGUAGES:
             language_values = expanded[language]
-            if source_modifier_loc_key not in language_values:
+            if auto_modifier_loc_key not in language_values:
                 raise KeyError(
-                    f"Missing wonder modifier localization key {source_modifier_loc_key!r} in "
+                    f"Missing wonder auto modifier localization key {auto_modifier_loc_key!r} in "
                     f"{WONDER_LOCALIZATION_FILE} ({language})"
                 )
-            language_values[display_modifier_loc_key] = language_values[source_modifier_loc_key]
     for building_name, modifier_loc_key in _auxiliary_display_modifier_pairs():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -376,9 +400,9 @@ def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
-    for _, display_modifier_loc_key in _display_modifier_pairs():
+    for auto_modifier_loc_key, _ in _auto_base_modifier_values():
         for language in LANGUAGES:
-            collapsed[language].pop(display_modifier_loc_key, None)
+            collapsed[language].pop(auto_modifier_loc_key, None)
     for _, modifier_loc_key in _auxiliary_display_modifier_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(modifier_loc_key, None)

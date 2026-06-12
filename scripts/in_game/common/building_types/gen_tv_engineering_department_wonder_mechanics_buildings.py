@@ -10,14 +10,17 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics_lib import (
     authored_final_building_local_modifiers,
     ceremony_styles,
+    final_building_country_modifiers,
     final_building_for_style,
     final_building_maintenance,
     load_all_wonder_mechanics,
     mechanic_key,
+    merge_numeric_modifier_mappings,
     render_header,
     ritual_auxiliary_modifiers,
     ritual_plan_for_style,
     ritual_auxiliary_building,
+    wonder_base_country_modifiers,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "building_types" / "tv_engineering_department_wonder_mechanics_buildings.txt"
@@ -51,20 +54,7 @@ def merge_modifiers(*maps: dict | None) -> dict:
         "local_cultural_tradition": 0.5,
         "local_cultural_influence": 0.5,
     }
-    for mapping in maps:
-        if not mapping:
-            continue
-        for key, value in mapping.items():
-            if (
-                isinstance(value, (int, float))
-                and not isinstance(value, bool)
-                and isinstance(merged.get(key), (int, float))
-                and not isinstance(merged.get(key), bool)
-            ):
-                merged[key] = merged[key] + value
-            else:
-                merged[key] = value
-    return merged
+    return merge_numeric_modifier_mappings(merged, *maps)
 
 
 def split_modifiers(modifiers: dict) -> tuple[dict, dict]:
@@ -215,9 +205,14 @@ def generate() -> str:
     for wonder in wonders:
         building_design = mechanics["buildings"][mechanic_key(wonder)]
         authored_local_modifiers = authored_final_building_local_modifiers(wonder, mechanics)
+        base_country_modifiers = wonder_base_country_modifiers(wonder, mechanics)
         for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)
-            modifiers = merge_modifiers(authored_local_modifiers)
+            modifiers = merge_modifiers(
+                authored_local_modifiers,
+                base_country_modifiers,
+                final_building_country_modifiers(wonder, mechanics, style),
+            )
             maintenance = final_building_maintenance(wonder, building_design, building)
             attributes = building_design.get("final_attributes", {}).get(building, {})
             lines.extend(

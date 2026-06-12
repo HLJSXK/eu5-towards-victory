@@ -65,9 +65,6 @@ PREVIEW_TOP_CARD_HEIGHT = 32
 PREVIEW_PANEL_WIDTH = 470
 PREVIEW_IMAGE_HEIGHT = 333
 PREVIEW_CONTENT_WIDTH = 454
-PREVIEW_MODIFIER_COLUMNS_WIDTH = 454
-PREVIEW_MODIFIER_COLUMN_WIDTH = 223
-PREVIEW_MODIFIER_COLUMN_SPACING = 8
 PROPOSAL_SIZE_ROW_HEIGHT = 24
 PROPOSAL_SIZE_ROW_SPACING = 4
 PROPOSAL_PREVIEW_HEIGHT = PROPOSAL_SIZE_ROW_HEIGHT + PROPOSAL_SIZE_ROW_SPACING + PREVIEW_IMAGE_HEIGHT
@@ -151,11 +148,6 @@ def dynamic_localized_text_key(prefix: str, var_name: str) -> str:
 
 def dynamic_image_texture(var_name: str) -> str:
     return f"GetConceptTexture(Concatenate('tv_wonder_display_full_image_', {fixed_point_to_int_string(player_var(var_name))}))"
-
-
-def dynamic_display_modifier_key(var_name: str, suffix: str) -> str:
-    id_string = fixed_point_to_int_string(player_var(var_name))
-    return f"Concatenate('tv_wonder_display_', Concatenate({id_string}, '{suffix}'))"
 
 
 def dynamic_ritual_concept_key(style: int) -> str:
@@ -634,88 +626,6 @@ def preview_location_card(id_var_name: str) -> list[str]:
     ]
 
 
-def preview_modifier_column(indent: int, *, title_key: str, modifier_key: str) -> list[str]:
-    prefix = T * indent
-    return [
-        f"{prefix}vbox = {{",
-        f"{prefix}{T}layoutpolicy_horizontal = fixed",
-        f"{prefix}{T}layoutpolicy_vertical = shrinking",
-        f"{prefix}{T}minimumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
-        f"{prefix}{T}maximumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
-        f"{prefix}{T}spacing = 2",
-        f"{prefix}{T}text_single = {{",
-        f'{prefix}{T}{T}text = "{title_key}"',
-        f"{prefix}{T}{T}max_width = {PREVIEW_MODIFIER_COLUMN_WIDTH}",
-        f"{prefix}{T}{T}align = left|nobaseline",
-        f"{prefix}{T}{T}fontsize = 13",
-        f"{prefix}{T}}}",
-        f"{prefix}{T}TooltipStringPairList = {{",
-        f"{prefix}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{prefix}{T}{T}maximumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
-        f'{prefix}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }} }}',
-        f'{prefix}{T}{T}blockoverride "field_text_format" {{',
-        f"{prefix}{T}{T}{T}fontsize = 13",
-        f"{prefix}{T}{T}}}",
-        f'{prefix}{T}{T}blockoverride "row_size" {{',
-        f"{prefix}{T}{T}{T}maximumsize = {{ -1 22 }}",
-        f"{prefix}{T}{T}{T}minimumsize = {{ -1 22 }}",
-        f"{prefix}{T}{T}}}",
-        f'{prefix}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
-        f"{prefix}{T}}}",
-        f"{prefix}}}",
-    ]
-
-
-def preview_effect_card(id_var_name: str) -> list[str]:
-    visible_expr = f"{player_var(id_var_name)}.IsSet"
-    country_modifier_key = dynamic_display_modifier_key(id_var_name, "_level_1")
-    local_modifier_key = dynamic_display_modifier_key(id_var_name, "_local_level_1")
-    lines = [
-        f"{T}widget = {{",
-        f'{T}{T}visible = "[{visible_expr}]"',
-        f"{T}{T}size = {{ 100% -1 }}",
-        f"{T}{T}parentanchor = bottom",
-        f"{T}{T}widgetanchor = bottom",
-        f"{T}{T}using = bg_text_mask_container_dark_blue",
-        f"{T}{T}vbox = {{",
-        f"{T}{T}{T}set_parent_size_to_minimum = yes",
-        f"{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{T}{T}{T}layoutpolicy_vertical = shrinking",
-        f"{T}{T}{T}margin = {{ 8 7 }}",
-        f"{T}{T}{T}spacing = 4",
-        f"{T}{T}{T}ignoreinvisible = yes",
-        f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = {PREVIEW_CONTENT_WIDTH} fontsize = 14 align = nobaseline|left }}',
-        f"{T}{T}{T}hbox = {{",
-        f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
-        f"{T}{T}{T}{T}size = {{ {PREVIEW_MODIFIER_COLUMNS_WIDTH} -1 }}",
-        f"{T}{T}{T}{T}spacing = {PREVIEW_MODIFIER_COLUMN_SPACING}",
-        f"{T}{T}{T}{T}ignoreinvisible = yes",
-    ]
-    lines.extend(
-        preview_modifier_column(
-            4,
-            title_key="TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE",
-            modifier_key=country_modifier_key,
-        )
-    )
-    lines.extend(
-        preview_modifier_column(
-            4,
-            title_key="TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE",
-            modifier_key=local_modifier_key,
-        )
-    )
-    lines.extend(
-        [
-            f"{T}{T}{T}}}",
-            f"{T}{T}}}",
-            f"{T}}}",
-        ]
-    )
-    return lines
-
-
 def indent_lines(text: str, level: int) -> list[str]:
     prefix = T * level
     return [f"{prefix}{line}" if line else line for line in text.splitlines()]
@@ -819,7 +729,6 @@ def preview_widget(image_var_name: str, id_var_name: str, visible: str | None = 
         f"{T}}}",
     ]
     lines.extend(preview_location_card(id_var_name))
-    lines.extend(preview_effect_card(id_var_name))
     lines.append("}")
     return "\n".join(lines)
 

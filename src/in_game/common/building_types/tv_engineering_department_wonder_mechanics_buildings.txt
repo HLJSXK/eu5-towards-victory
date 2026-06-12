@@ -32,6 +32,11 @@ tv_wonder_golden_sanctuary = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		clergy_estate_max_tax = 0.1
+		clergy_estate_target_satisfaction = 0.05
+		monthly_towards_spiritualist = 0.05
+		global_crown_estate_power = 0.2
+		revoke_privilege_cost_modifier = -0.2
 	}
 
 	possible_production_methods = {
@@ -76,6 +81,10 @@ tv_wonder_ascetic_mountain = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		clergy_estate_max_tax = 0.1
+		clergy_estate_target_satisfaction = 0.05
+		monthly_towards_spiritualist = 0.05
+		research_speed = 0.05
 	}
 
 	possible_production_methods = {
@@ -120,6 +129,9 @@ tv_wonder_theocratic_center = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		clergy_estate_max_tax = 0.1
+		clergy_estate_target_satisfaction = 0.1
+		monthly_towards_spiritualist = 0.05
 	}
 
 	possible_production_methods = {
@@ -228,6 +240,10 @@ tv_wonder_sun_king_axis = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 0.5
+		monthly_legitimacy = 0.05
+		monthly_towards_centralization = 0.05
+		monthly_prestige = 0.2
+		subject_income_modifier = 0.2
 	}
 
 	possible_production_methods = {
@@ -273,6 +289,9 @@ tv_wonder_military_city = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 0.5
+		monthly_legitimacy = 0.05
+		monthly_towards_centralization = 0.05
+		land_morale_modifier = 0.1
 	}
 
 	possible_production_methods = {
@@ -318,6 +337,9 @@ tv_wonder_civic_capital = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 0.5
+		monthly_legitimacy = 0.05
+		monthly_towards_centralization = 0.05
+		pop_join_rebel_threshold = 0.05
 	}
 
 	possible_production_methods = {
@@ -427,6 +449,9 @@ tv_wonder_golden_trade_port = {
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
 		local_trade_center_power = 0.2
+		monthly_towards_naval = 0.05
+		trade_income = 0.1
+		trade_sea_efficiency = 0.2
 	}
 
 	possible_production_methods = {
@@ -473,6 +498,8 @@ tv_wonder_imperial_naval_port = {
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
 		local_trade_center_power = 0.2
+		monthly_towards_naval = 0.05
+		naval_morale_modifier = 0.1
 	}
 
 	possible_production_methods = {
@@ -519,6 +546,8 @@ tv_wonder_free_trade_metropolis = {
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
 		local_trade_center_power = 0.2
+		monthly_towards_naval = 0.05
+		diplomatic_reputation = 2
 	}
 
 	possible_production_methods = {
@@ -627,6 +656,11 @@ tv_wonder_dynastic_necropolis = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 0.5
+		pop_join_rebel_threshold = -0.025
+		pop_leave_rebels_threshold = -0.025
+		monthly_towards_traditionalist = 0.05
+		monthly_legitimacy = 0.1
+		stability_investment = 0.05
 	}
 
 	possible_production_methods = {
@@ -672,6 +706,10 @@ tv_wonder_ancestor_shrine = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 0.5
+		pop_join_rebel_threshold = -0.025
+		pop_leave_rebels_threshold = -0.025
+		monthly_towards_traditionalist = 0.05
+		stability_investment = -0.1
 	}
 
 	possible_production_methods = {
@@ -717,6 +755,9 @@ tv_wonder_quiet_land = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 0.5
+		pop_join_rebel_threshold = -0.075
+		pop_leave_rebels_threshold = -0.025
+		monthly_towards_traditionalist = 0.05
 	}
 
 	possible_production_methods = {
@@ -824,6 +865,11 @@ tv_wonder_eternal_lighthouse = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		trade_range = 200
+		naval_range = 450
+		colonial_range = 200
+		monthly_towards_naval = 0.05
+		diplomatic_range = 400
 	}
 
 	possible_production_methods = {
@@ -868,6 +914,11 @@ tv_wonder_navigator_lighthouse = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		trade_range = 200
+		naval_range = 200
+		colonial_range = 200
+		monthly_towards_naval = 0.05
+		burghers_estate_target_satisfaction = 0.025
 	}
 
 	possible_production_methods = {
@@ -912,6 +963,11 @@ tv_wonder_long_watch_lighthouse = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		trade_range = 200
+		naval_range = 200
+		colonial_range = 200
+		monthly_towards_naval = 0.05
+		global_maritime_presence_modifier = 0.1
 	}
 
 	possible_production_methods = {
@@ -1020,6 +1076,8 @@ tv_wonder_water_god_workshop = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.05
+		monthly_towards_capital_economy = 0.05
+		global_rural_build_buildings_cost = -0.2
 	}
 
 	possible_production_methods = {
@@ -1065,6 +1123,7 @@ tv_wonder_hydraulic_artisan_guildhall = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.05
+		monthly_towards_capital_economy = 0.05
 	}
 
 	possible_production_methods = {
@@ -1110,6 +1169,7 @@ tv_wonder_waterwheel_workshop = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.05
+		monthly_towards_capital_economy = 0.05
 	}
 
 	possible_production_methods = {
@@ -1218,6 +1278,8 @@ tv_wonder_miners_oath_city = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 0.5
+		monthly_towards_traditional_economy = 0.05
+		peasants_estate_target_satisfaction = 0.05
 	}
 
 	possible_production_methods = {
@@ -1263,6 +1325,8 @@ tv_wonder_royal_mint_city = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 0.5
+		monthly_towards_traditional_economy = 0.05
+		minting_income_factor = 0.1
 	}
 
 	possible_production_methods = {
@@ -1308,6 +1372,7 @@ tv_wonder_deep_shaft_city = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 0.5
+		monthly_towards_traditional_economy = 0.05
 	}
 
 	possible_production_methods = {
@@ -1416,6 +1481,9 @@ tv_wonder_star_catalog_observatory = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_promotion_speed_modifier = 0.25
+		research_speed = 0.05
+		monthly_towards_innovative = 0.05
+		monthly_rebel_growth = -0.001
 	}
 
 	possible_production_methods = {
@@ -1461,6 +1529,9 @@ tv_wonder_nautical_almanac_observatory = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_promotion_speed_modifier = 0.25
+		research_speed = 0.05
+		monthly_towards_innovative = 0.05
+		exploration_mission_speed = 0.1
 	}
 
 	possible_production_methods = {
@@ -1506,6 +1577,8 @@ tv_wonder_eclipse_observatory = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_promotion_speed_modifier = 0.25
+		research_speed = 0.05
+		monthly_towards_innovative = 0.05
 	}
 
 	possible_production_methods = {
@@ -1614,6 +1687,10 @@ tv_wonder_congress_palace = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
+		global_distance_from_capital_speed_propagation = 0.05
+		monthly_towards_centralization = 0.05
+		monthly_prestige = 0.2
+		subject_loyalty = 0.1
 	}
 
 	possible_production_methods = {
@@ -1659,6 +1736,9 @@ tv_wonder_tribute_gallery = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
+		global_distance_from_capital_speed_propagation = 0.05
+		monthly_towards_centralization = 0.05
+		subject_income_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -1704,6 +1784,9 @@ tv_wonder_embassy_palace = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
+		global_distance_from_capital_speed_propagation = 0.05
+		monthly_towards_centralization = 0.05
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -1813,6 +1896,9 @@ tv_wonder_scholars_convocation = {
 		local_cultural_influence = 0.5
 		local_pop_promotion_speed = 0.01
 		local_max_literacy = 10
+		monthly_towards_innovative = 0.05
+		research_speed = 0.05
+		skill_of_new_artists = 0.1
 	}
 
 	possible_production_methods = {
@@ -1859,6 +1945,8 @@ tv_wonder_public_lectures = {
 		local_cultural_influence = 0.5
 		local_pop_promotion_speed = 0.01
 		local_max_literacy = 10
+		monthly_towards_innovative = 0.05
+		global_monthly_literacy = 0.01
 	}
 
 	possible_production_methods = {
@@ -1905,6 +1993,8 @@ tv_wonder_collegiate_charter = {
 		local_cultural_influence = 0.5
 		local_pop_promotion_speed = 0.01
 		local_max_literacy = 10
+		monthly_towards_innovative = 0.05
+		global_pop_promotion_speed_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -2012,6 +2102,10 @@ tv_wonder_dome_consecration = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.002
+		monthly_towards_spiritualist = 0.05
+		tolerance_own = 1
+		global_pop_assimilation_speed_modifier = 0.2
 	}
 
 	possible_production_methods = {
@@ -2056,6 +2150,9 @@ tv_wonder_pilgrim_treasury = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.002
+		monthly_towards_spiritualist = 0.05
+		tax_income_efficiency = 0.05
 	}
 
 	possible_production_methods = {
@@ -2100,6 +2197,9 @@ tv_wonder_celestial_synod = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.002
+		monthly_towards_spiritualist = 0.05
+		clergy_estate_target_satisfaction = 0.05
 	}
 
 	possible_production_methods = {
@@ -2208,6 +2308,9 @@ tv_wonder_beacon_rite_temple = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.01
+		monthly_towards_spiritualist = 0.05
+		monthly_prestige = 0.1
+		war_score_vs_other_religion_efficiency = 0.2
 	}
 
 	possible_production_methods = {
@@ -2253,6 +2356,8 @@ tv_wonder_pilgrim_stair_temple = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.01
+		monthly_towards_spiritualist = 0.05
+		stability_investment = -0.05
 	}
 
 	possible_production_methods = {
@@ -2298,6 +2403,8 @@ tv_wonder_temple_school_tower = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.01
+		monthly_towards_spiritualist = 0.05
+		global_pop_conversion_speed_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -2407,6 +2514,8 @@ tv_wonder_bridge_opening = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		local_monthly_development_modifier = 0.1
+		monthly_towards_free_subjects = 0.05
+		army_movement_speed = 0.25
 	}
 
 	possible_production_methods = {
@@ -2453,6 +2562,8 @@ tv_wonder_river_fair = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		local_monthly_development_modifier = 0.1
+		monthly_towards_free_subjects = 0.05
+		trade_income = 0.05
 	}
 
 	possible_production_methods = {
@@ -2499,6 +2610,8 @@ tv_wonder_canal_authority = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		local_monthly_development_modifier = 0.1
+		monthly_towards_free_subjects = 0.05
+		global_production_efficiency = 0.03
 	}
 
 	possible_production_methods = {
@@ -2608,6 +2721,9 @@ tv_wonder_keel_laying_yard = {
 		local_cultural_influence = 0.5
 		local_ship_build_speed = 0.2
 		max_ships_built_at_same_time = 1
+		ship_build_speed = 0.3
+		monthly_towards_naval = 0.05
+		exploration_preparation_time_modifier = -0.5
 	}
 
 	possible_production_methods = {
@@ -2654,6 +2770,9 @@ tv_wonder_fleet_muster_yard = {
 		local_cultural_influence = 0.5
 		local_ship_build_speed = 0.2
 		max_ships_built_at_same_time = 1
+		ship_build_speed = 0.2
+		monthly_towards_naval = 0.05
+		naval_morale_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -2700,6 +2819,9 @@ tv_wonder_admiralty_yard = {
 		local_cultural_influence = 0.5
 		local_ship_build_speed = 0.2
 		max_ships_built_at_same_time = 1
+		ship_build_speed = 0.2
+		monthly_towards_naval = 0.05
+		naval_range = 100
 	}
 
 	possible_production_methods = {
@@ -2809,6 +2931,9 @@ tv_wonder_bastion_trial_fortress = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
 		local_garrison_size = 250
+		monthly_towards_defensive = 0.05
+		global_garrison_size_modifier = 0.1
+		antagonism_received_modifier = -0.1
 	}
 
 	possible_production_methods = {
@@ -2855,6 +2980,8 @@ tv_wonder_siege_games_fortress = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
 		local_garrison_size = 250
+		monthly_towards_defensive = 0.05
+		siege_ability = 0.05
 	}
 
 	possible_production_methods = {
@@ -2901,6 +3028,8 @@ tv_wonder_arsenal_quarter_fortress = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
 		local_garrison_size = 250
+		monthly_towards_defensive = 0.05
+		fort_limit = 1
 	}
 
 	possible_production_methods = {
@@ -3013,6 +3142,9 @@ tv_wonder_frontier_muster_wall = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
 		local_garrison_size = 250
+		monthly_towards_defensive = 0.05
+		global_manpower_modifier = 0.1
+		stability_cost = -0.2
 	}
 
 	possible_production_methods = {
@@ -3059,6 +3191,8 @@ tv_wonder_signal_fires_wall = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
 		local_garrison_size = 250
+		monthly_towards_defensive = 0.05
+		army_movement_speed = 0.05
 	}
 
 	possible_production_methods = {
@@ -3105,6 +3239,8 @@ tv_wonder_wall_oath = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
 		local_garrison_size = 250
+		monthly_towards_defensive = 0.05
+		land_morale_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -3218,6 +3354,8 @@ tv_wonder_muster_of_arms = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.05
 		local_manpower_modifier = 0.2
+		monthly_towards_offensive = 0.05
+		land_morale_modifier = 0.15
 	}
 
 	possible_production_methods = {
@@ -3265,6 +3403,8 @@ tv_wonder_foundry_contracts = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.05
 		local_manpower_modifier = 0.2
+		monthly_towards_offensive = 0.05
+		global_production_efficiency = 0.05
 	}
 
 	possible_production_methods = {
@@ -3312,6 +3452,8 @@ tv_wonder_master_armourers = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.05
 		local_manpower_modifier = 0.2
+		monthly_towards_offensive = 0.05
+		discipline = 0.025
 	}
 
 	possible_production_methods = {
@@ -3419,6 +3561,10 @@ tv_wonder_national_catalog_library = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_promotion_speed = 0.005
+		monthly_towards_innovative = 0.05
+		research_speed = 0.05
+		research_speed_modifier = 0.2
 	}
 
 	possible_production_methods = {
@@ -3463,6 +3609,9 @@ tv_wonder_copyists_endowment_library = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_promotion_speed = 0.005
+		monthly_towards_innovative = 0.05
+		global_monthly_literacy = 0.01
 	}
 
 	possible_production_methods = {
@@ -3507,6 +3656,9 @@ tv_wonder_legal_deposit_library = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_promotion_speed = 0.005
+		monthly_towards_innovative = 0.05
+		global_pop_promotion_speed_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -3616,6 +3768,10 @@ tv_wonder_irrigation_canal_system = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.1
 		local_distance_from_capital_speed_propagation = 0.2
+		global_monthly_prosperity = 0.05
+		monthly_towards_free_subjects = 0.05
+		global_raw_material_output = 0.05
+		tax_income_efficiency = 0.05
 	}
 
 	possible_production_methods = {
@@ -3662,6 +3818,9 @@ tv_wonder_grain_transport_canal_system = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.1
 		local_distance_from_capital_speed_propagation = 0.2
+		global_monthly_prosperity = 0.05
+		monthly_towards_free_subjects = 0.05
+		trade_income = 0.05
 	}
 
 	possible_production_methods = {
@@ -3708,6 +3867,9 @@ tv_wonder_flood_control_canal_system = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.1
 		local_distance_from_capital_speed_propagation = 0.2
+		global_monthly_prosperity = 0.05
+		monthly_towards_free_subjects = 0.05
+		pop_join_rebel_threshold = 0.05
 	}
 
 	possible_production_methods = {
@@ -3817,6 +3979,9 @@ tv_wonder_grain_terraces = {
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 0.5
 		local_monthly_food_modifier = 0.5
+		monthly_towards_traditional_economy = 0.05
+		global_raw_material_output = 0.05
+		rural_migration_attraction = 0.5
 	}
 
 	possible_production_methods = {
@@ -3863,6 +4028,8 @@ tv_wonder_cash_crop_terraces = {
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 0.5
 		local_monthly_food_modifier = 0.5
+		monthly_towards_traditional_economy = 0.05
+		trade_income = 0.04
 	}
 
 	possible_production_methods = {
@@ -3909,6 +4076,8 @@ tv_wonder_sacred_mountain_terraces = {
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 0.5
 		local_monthly_food_modifier = 0.5
+		monthly_towards_traditional_economy = 0.05
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -4018,6 +4187,9 @@ tv_wonder_estuary_flood_dam = {
 		local_cultural_influence = 0.5
 		local_monthly_food_modifier = 0.2
 		local_population_growth = 0
+		monthly_towards_free_subjects = 0.05
+		global_monthly_prosperity = 0.003
+		peasants_estate_target_satisfaction = 0.025
 	}
 
 	possible_production_methods = {
@@ -4064,6 +4236,8 @@ tv_wonder_marsh_reclamation_dam = {
 		local_cultural_influence = 0.5
 		local_monthly_food_modifier = 0.2
 		local_population_growth = 0
+		monthly_towards_free_subjects = 0.05
+		global_raw_material_output = 0.04
 	}
 
 	possible_production_methods = {
@@ -4110,6 +4284,8 @@ tv_wonder_water_powered_workshops = {
 		local_cultural_influence = 0.5
 		local_monthly_food_modifier = 0.2
 		local_population_growth = 0
+		monthly_towards_free_subjects = 0.05
+		global_production_efficiency = 0.05
 	}
 
 	possible_production_methods = {
@@ -4218,6 +4394,9 @@ tv_wonder_grain_price_granaries = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_food_capacity_modifier = 5000
+		global_food_capacity_modifier = 0.2
+		monthly_towards_traditional_economy = 0.05
+		tax_income_efficiency = 0.07
 	}
 
 	possible_production_methods = {
@@ -4263,6 +4442,9 @@ tv_wonder_wartime_granaries = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_food_capacity_modifier = 5000
+		global_food_capacity_modifier = 0.2
+		monthly_towards_traditional_economy = 0.05
+		global_manpower_modifier = 0.08
 	}
 
 	possible_production_methods = {
@@ -4308,6 +4490,9 @@ tv_wonder_disaster_relief_granaries = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_food_capacity_modifier = 5000
+		global_food_capacity_modifier = 0.2
+		monthly_towards_traditional_economy = 0.05
+		pop_join_rebel_threshold = 0.05
 	}
 
 	possible_production_methods = {
@@ -4417,6 +4602,10 @@ tv_wonder_military_post_roads = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		movement_cost = -0.1
+		monthly_towards_centralization = 0.05
+		army_movement_speed = 0.05
+		global_peasants_migration_allowed = yes
+		global_laborers_migration_allowed = yes
 	}
 
 	possible_production_methods = {
@@ -4463,6 +4652,8 @@ tv_wonder_trade_post_roads = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		movement_cost = -0.1
+		monthly_towards_centralization = 0.05
+		trade_income = 0.05
 	}
 
 	possible_production_methods = {
@@ -4509,6 +4700,8 @@ tv_wonder_royal_tour_avenue = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		movement_cost = -0.1
+		monthly_towards_centralization = 0.05
+		monthly_legitimacy = 0.1
 	}
 
 	possible_production_methods = {
@@ -4618,6 +4811,9 @@ tv_wonder_grain_transport_hub = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.1
 		local_monthly_prosperity = 0.1
+		monthly_towards_mercantilism = 0.05
+		trade_income = 0.04
+		stability_investment = 0.05
 	}
 
 	possible_production_methods = {
@@ -4664,6 +4860,8 @@ tv_wonder_financial_warehouse_hub = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.1
 		local_monthly_prosperity = 0.1
+		monthly_towards_mercantilism = 0.05
+		minting_income_factor = 0.05
 	}
 
 	possible_production_methods = {
@@ -4710,6 +4908,8 @@ tv_wonder_industrial_workshop_belt = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.1
 		local_monthly_prosperity = 0.1
+		monthly_towards_mercantilism = 0.05
+		global_production_efficiency = 0.05
 	}
 
 	possible_production_methods = {
@@ -4820,6 +5020,9 @@ tv_wonder_military_colony_belt = {
 		local_migration_attraction = 1
 		local_rgo_build_time = -0.1
 		local_raw_material_output = 0.1
+		monthly_towards_outward = 0.05
+		global_manpower_modifier = 0.08
+		subject_pays_colonial_cost_modifier = 0.1
 	}
 
 	possible_production_methods = {
@@ -4867,6 +5070,8 @@ tv_wonder_settler_reclamation_belt = {
 		local_migration_attraction = 1
 		local_rgo_build_time = -0.1
 		local_raw_material_output = 0.1
+		monthly_towards_outward = 0.05
+		global_monthly_prosperity = 0.004
 	}
 
 	possible_production_methods = {
@@ -4914,6 +5119,8 @@ tv_wonder_religious_colonization_belt = {
 		local_migration_attraction = 1
 		local_rgo_build_time = -0.1
 		local_raw_material_output = 0.1
+		monthly_towards_outward = 0.05
+		global_pop_conversion_speed_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -5023,6 +5230,9 @@ tv_wonder_beacon_communication_network = {
 		local_cultural_influence = 0.5
 		movement_cost = -0.1
 		local_port_cost_distance_impact = -0.5
+		monthly_towards_naval = 0.05
+		army_movement_speed = 0.04
+		exploration_preparation_time_modifier = -0.2
 	}
 
 	possible_production_methods = {
@@ -5069,6 +5279,8 @@ tv_wonder_coastal_battery_network = {
 		local_cultural_influence = 0.5
 		movement_cost = -0.1
 		local_port_cost_distance_impact = -0.5
+		monthly_towards_naval = 0.05
+		naval_morale_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -5115,6 +5327,8 @@ tv_wonder_customs_patrol_network = {
 		local_cultural_influence = 0.5
 		movement_cost = -0.1
 		local_port_cost_distance_impact = -0.5
+		monthly_towards_naval = 0.05
+		trade_income = 0.04
 	}
 
 	possible_production_methods = {
@@ -5225,6 +5439,8 @@ tv_wonder_crusader_knightly_order = {
 		local_fort_maintenance_cost = -0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
+		monthly_towards_defensive = 0.05
+		land_morale_modifier = 0.15
 	}
 
 	possible_production_methods = {
@@ -5272,6 +5488,8 @@ tv_wonder_frontier_lord_order = {
 		local_fort_maintenance_cost = -0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
+		monthly_towards_defensive = 0.05
+		global_manpower_modifier = 0.06
 	}
 
 	possible_production_methods = {
@@ -5319,6 +5537,8 @@ tv_wonder_mercenary_fortress_system = {
 		local_fort_maintenance_cost = -0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
+		monthly_towards_defensive = 0.05
+		discipline = 0.015
 	}
 
 	possible_production_methods = {
@@ -5427,6 +5647,9 @@ tv_wonder_firearms_tactics_college = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_army_tradition = 0.05
+		monthly_towards_belligerent = 0.05
+		siege_ability = 0.25
 	}
 
 	possible_production_methods = {
@@ -5471,6 +5694,9 @@ tv_wonder_cavalry_tradition_college = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_army_tradition = 0.05
+		monthly_towards_belligerent = 0.05
+		land_morale_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -5515,6 +5741,9 @@ tv_wonder_naval_command_college = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_army_tradition = 0.05
+		monthly_towards_belligerent = 0.05
+		naval_morale_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -5624,6 +5853,9 @@ tv_wonder_worship_clock_bells = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_build_buildings_cost = -0.1
+		monthly_towards_inward = 0.05
+		tolerance_own = 1
+		global_road_building_time = -0.2
 	}
 
 	possible_production_methods = {
@@ -5669,6 +5901,8 @@ tv_wonder_curfew_clock_bells = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_build_buildings_cost = -0.1
+		monthly_towards_inward = 0.05
+		pop_join_rebel_threshold = 0.04
 	}
 
 	possible_production_methods = {
@@ -5714,6 +5948,8 @@ tv_wonder_astronomical_calendar_bells = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_build_buildings_cost = -0.1
+		monthly_towards_inward = 0.05
+		research_speed = 0.04
 	}
 
 	possible_production_methods = {
@@ -5821,6 +6057,11 @@ tv_wonder_court_art_district = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		num_possible_artists = 1
+		artist_salary_modifier = -0.1
+		monthly_towards_innovative = 0.05
+		monthly_prestige = 0.1
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -5865,6 +6106,10 @@ tv_wonder_folk_art_district = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		num_possible_artists = 1
+		artist_salary_modifier = -0.1
+		monthly_towards_innovative = 0.05
+		pop_join_rebel_threshold = 0.04
 	}
 
 	possible_production_methods = {
@@ -5909,6 +6154,10 @@ tv_wonder_foreign_style_district = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		num_possible_artists = 1
+		artist_salary_modifier = -0.1
+		monthly_towards_innovative = 0.05
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -6016,6 +6265,11 @@ tv_wonder_court_theater = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 1
+		cultural_influence_modifier = 0.1
+		skill_of_new_artists = 0.05
+		monthly_towards_humanist = 0.05
+		monthly_prestige = 0.08
+		global_monthly_art_start_chance = 0.2
 	}
 
 	possible_production_methods = {
@@ -6060,6 +6314,10 @@ tv_wonder_religious_theater = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 1
+		cultural_influence_modifier = 0.1
+		skill_of_new_artists = 0.05
+		monthly_towards_humanist = 0.05
+		global_pop_conversion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -6104,6 +6362,10 @@ tv_wonder_popular_festival_ground = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 1
+		cultural_influence_modifier = 0.1
+		skill_of_new_artists = 0.05
+		monthly_towards_humanist = 0.05
+		global_monthly_prosperity = 0.003
 	}
 
 	possible_production_methods = {
@@ -6211,6 +6473,10 @@ tv_wonder_trade_diplomacy_embassies = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		diplomatic_reputation = 2
+		monthly_towards_conciliatory = 0.05
+		trade_income = 0.04
+		monthly_diplomats = 0.1
 	}
 
 	possible_production_methods = {
@@ -6255,6 +6521,8 @@ tv_wonder_intelligence_embassies = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		diplomatic_reputation = 2
+		monthly_towards_conciliatory = 0.05
 	}
 
 	possible_production_methods = {
@@ -6299,6 +6567,9 @@ tv_wonder_religious_diplomacy_embassies = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		diplomatic_reputation = 2
+		monthly_towards_conciliatory = 0.05
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -6406,6 +6677,10 @@ tv_wonder_religious_law_steles = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_rebel_growth = -0.001
+		monthly_towards_inward = 0.05
+		clergy_estate_target_satisfaction = 0.03
+		country_cabinet_efficiency = 0.2
 	}
 
 	possible_production_methods = {
@@ -6450,6 +6725,9 @@ tv_wonder_written_law_steles = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_rebel_growth = -0.001
+		monthly_towards_inward = 0.05
+		stability_investment = -0.05
 	}
 
 	possible_production_methods = {
@@ -6494,6 +6772,9 @@ tv_wonder_imperial_edict_steles = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_rebel_growth = -0.001
+		monthly_towards_inward = 0.05
+		monthly_legitimacy = 0.1
 	}
 
 	possible_production_methods = {
@@ -6603,6 +6884,10 @@ tv_wonder_luxury_goods_market = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.2
 		local_migration_attraction = 1
+		global_trade_center_power = 0.1
+		monthly_towards_free_trade = 0.05
+		trade_income = 0.06
+		spy_network_construction = 0.4
 	}
 
 	possible_production_methods = {
@@ -6649,6 +6934,9 @@ tv_wonder_grain_market = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.2
 		local_migration_attraction = 1
+		global_trade_center_power = 0.1
+		monthly_towards_free_trade = 0.05
+		global_monthly_prosperity = 0.004
 	}
 
 	possible_production_methods = {
@@ -6695,6 +6983,9 @@ tv_wonder_entrepot_market = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.2
 		local_migration_attraction = 1
+		global_trade_center_power = 0.1
+		monthly_towards_free_trade = 0.05
+		trade_range = 150
 	}
 
 	possible_production_methods = {
@@ -6802,6 +7093,9 @@ tv_wonder_silver_gold_standard_mint = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		minting_income_factor = 0.18
+		monthly_towards_capital_economy = 0.05
+		minting_inflation_threshold = 0.05
 	}
 
 	possible_production_methods = {
@@ -6846,6 +7140,9 @@ tv_wonder_copper_coinage_mint = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		minting_income_factor = 0.1
+		monthly_towards_capital_economy = 0.05
+		tax_income_efficiency = 0.04
 	}
 
 	possible_production_methods = {
@@ -6890,6 +7187,10 @@ tv_wonder_international_settlement_mint = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		minting_income_factor = 0.1
+		monthly_towards_capital_economy = 0.05
+		diplomatic_reputation = 1
+		trade_income = 0.04
 	}
 
 	possible_production_methods = {
@@ -7000,6 +7301,9 @@ tv_wonder_artisan_guild_alliance = {
 		local_market_access = 0.1
 		local_monthly_prosperity = 0.1
 		local_trade_center_power = 0.1
+		monthly_towards_plutocracy = 0.05
+		global_production_efficiency = 0.05
+		merchant_maintenance_efficiency = 0.25
 	}
 
 	possible_production_methods = {
@@ -7047,6 +7351,8 @@ tv_wonder_overseas_merchant_guilds = {
 		local_market_access = 0.1
 		local_monthly_prosperity = 0.1
 		local_trade_center_power = 0.1
+		monthly_towards_plutocracy = 0.05
+		trade_income = 0.05
 	}
 
 	possible_production_methods = {
@@ -7094,6 +7400,8 @@ tv_wonder_financial_guilds = {
 		local_market_access = 0.1
 		local_monthly_prosperity = 0.1
 		local_trade_center_power = 0.1
+		monthly_towards_plutocracy = 0.05
+		minting_income_factor = 0.05
 	}
 
 	possible_production_methods = {
@@ -7204,6 +7512,8 @@ tv_wonder_spice_trade_stations = {
 		local_merchant_capacity = 1
 		local_merchant_capacity_modifier = 0.25
 		local_merchant_power = 1
+		monthly_towards_free_trade = 0.05
+		trade_income = 0.11
 	}
 
 	possible_production_methods = {
@@ -7251,6 +7561,9 @@ tv_wonder_slave_trade_stations = {
 		local_merchant_capacity = 1
 		local_merchant_capacity_modifier = 0.25
 		local_merchant_power = 1
+		monthly_towards_free_trade = 0.05
+		global_raw_material_output = 0.05
+		pop_join_rebel_threshold = -0.03
 	}
 
 	possible_production_methods = {
@@ -7298,6 +7611,8 @@ tv_wonder_colonial_supply_stations = {
 		local_merchant_capacity = 1
 		local_merchant_capacity_modifier = 0.25
 		local_merchant_power = 1
+		monthly_towards_free_trade = 0.05
+		naval_range = 150
 	}
 
 	possible_production_methods = {
@@ -7406,6 +7721,9 @@ tv_wonder_textile_workshop_complex = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.05
+		monthly_towards_capital_economy = 0.05
+		global_production_efficiency = 0.05
+		burghers_estate_target_satisfaction = 0.025
 	}
 
 	possible_production_methods = {
@@ -7451,6 +7769,9 @@ tv_wonder_military_workshop_complex = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.05
+		monthly_towards_capital_economy = 0.05
+		global_manpower_modifier = 0.05
+		siege_ability = 0.03
 	}
 
 	possible_production_methods = {
@@ -7496,6 +7817,9 @@ tv_wonder_luxury_craft_workshop_complex = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.05
+		monthly_towards_capital_economy = 0.05
+		trade_income = 0.04
+		monthly_prestige = 0.05
 	}
 
 	possible_production_methods = {
@@ -7604,6 +7928,10 @@ tv_wonder_conquest_monument_group = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_unrest = -0.05
+		cultures_capacity = 0.5
+		monthly_towards_humanist = 0.05
+		monthly_prestige = 0.2
+		land_morale_modifier = 0.03
 	}
 
 	possible_production_methods = {
@@ -7649,6 +7977,10 @@ tv_wonder_national_unity_monument_group = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_unrest = -0.05
+		cultures_capacity = 0.5
+		monthly_towards_humanist = 0.05
+		monthly_legitimacy = 0.1
+		pop_join_rebel_threshold = 0.03
 	}
 
 	possible_production_methods = {
@@ -7694,6 +8026,10 @@ tv_wonder_world_exposition_monument_group = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_unrest = -0.05
+		cultures_capacity = 0.5
+		monthly_towards_humanist = 0.05
+		diplomatic_reputation = 1
+		monthly_prestige = 0.05
 	}
 
 	possible_production_methods = {
@@ -7802,6 +8138,7 @@ tv_wonder_city_charter = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		free_building_levels = 25
+		global_urban_build_buildings_cost = -0.05
 	}
 
 	possible_production_methods = {
@@ -8000,6 +8337,11 @@ tv_wonder_solstice_gathering_circle = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_heretic = 0.5
+		tolerance_heathen = 0.5
+		monthly_towards_traditionalist = 0.05
+		monthly_prestige = 0.11
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -8044,6 +8386,11 @@ tv_wonder_astral_alignment_circle = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_heretic = 0.5
+		tolerance_heathen = 0.5
+		monthly_towards_traditionalist = 0.05
+		research_speed = 0.03
+		global_monthly_literacy = 0.002
 	}
 
 	possible_production_methods = {
@@ -8088,6 +8435,11 @@ tv_wonder_ancestral_moot_circle = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_heretic = 0.5
+		tolerance_heathen = 0.5
+		monthly_towards_traditionalist = 0.05
+		monthly_legitimacy = 0.05
+		pop_join_rebel_threshold = 0.02
 	}
 
 	possible_production_methods = {
@@ -8195,6 +8547,10 @@ tv_wonder_high_choir_cathedral = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_own = 1.5
+		monthly_towards_spiritualist = 0.05
+		clergy_estate_target_satisfaction = 0.04
+		court_spending_cost_modifier = -0.05
 	}
 
 	possible_production_methods = {
@@ -8239,6 +8595,10 @@ tv_wonder_pilgrim_nave_cathedral = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_own = 0.5
+		monthly_towards_spiritualist = 0.05
+		tax_income_efficiency = 0.04
+		global_monthly_prosperity = 0.002
 	}
 
 	possible_production_methods = {
@@ -8283,6 +8643,10 @@ tv_wonder_civic_bells_cathedral = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_own = 0.5
+		monthly_towards_spiritualist = 0.05
+		monthly_prestige = 0.05
+		pop_join_rebel_threshold = 0.03
 	}
 
 	possible_production_methods = {
@@ -8393,6 +8757,10 @@ tv_wonder_scriptorium_monastery = {
 		local_clergy_max_literacy = 10
 		local_pop_conversion_speed = 0.005
 		local_pop_conversion_speed_modifier = 0.2
+		monthly_towards_spiritualist = 0.05
+		research_speed = 0.04
+		global_monthly_literacy = 0.003
+		clergy_estate_target_satisfaction = 0.05
 	}
 
 	possible_production_methods = {
@@ -8440,6 +8808,9 @@ tv_wonder_pilgrim_refectory_monastery = {
 		local_clergy_max_literacy = 10
 		local_pop_conversion_speed = 0.005
 		local_pop_conversion_speed_modifier = 0.2
+		monthly_towards_spiritualist = 0.05
+		global_monthly_prosperity = 0.002
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -8487,6 +8858,9 @@ tv_wonder_fortified_cloister_monastery = {
 		local_clergy_max_literacy = 10
 		local_pop_conversion_speed = 0.005
 		local_pop_conversion_speed_modifier = 0.2
+		monthly_towards_spiritualist = 0.05
+		global_defensive = 0.03
+		global_garrison_size_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -8597,6 +8971,9 @@ tv_wonder_civic_watchtower = {
 		local_max_control = 0.1
 		local_market_access = 0.1
 		local_crown_estate_power = 0.5
+		monthly_towards_inward = 0.05
+		monthly_prestige = 0.1
+		global_estate_power = -0.25
 	}
 
 	possible_production_methods = {
@@ -8644,6 +9021,8 @@ tv_wonder_bell_campanile = {
 		local_max_control = 0.1
 		local_market_access = 0.1
 		local_crown_estate_power = 0.5
+		monthly_towards_inward = 0.05
+		global_defensive = 0.03
 	}
 
 	possible_production_methods = {
@@ -8691,6 +9070,8 @@ tv_wonder_merchant_tower = {
 		local_max_control = 0.1
 		local_market_access = 0.1
 		local_crown_estate_power = 0.5
+		monthly_towards_inward = 0.05
+		global_build_buildings_cost = -0.03
 	}
 
 	possible_production_methods = {
@@ -8798,6 +9179,11 @@ tv_wonder_royal_sculpture_yard = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		pop_join_rebel_threshold = 0.025
+		pop_leave_rebels_threshold = 0.025
+		monthly_towards_humanist = 0.05
+		cultural_tradition_modifier = 0.06
+		antagonism_received_modifier = -0.2
 	}
 
 	possible_production_methods = {
@@ -8842,6 +9228,10 @@ tv_wonder_pilgrim_statue_garden = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		pop_join_rebel_threshold = 0.025
+		pop_leave_rebels_threshold = 0.025
+		monthly_towards_humanist = 0.05
+		global_pop_conversion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -8886,6 +9276,10 @@ tv_wonder_civic_hero_gallery = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		pop_join_rebel_threshold = 0.025
+		pop_leave_rebels_threshold = 0.025
+		monthly_towards_humanist = 0.05
+		monthly_prestige = 0.08
 	}
 
 	possible_production_methods = {
@@ -8995,6 +9389,9 @@ tv_wonder_strait_battery_cannon = {
 		local_cultural_influence = 0.5
 		local_maritime_presence = 0.1
 		local_navy_attrition = 0.05
+		monthly_towards_defensive = 0.05
+		naval_morale_modifier = 0.05
+		trade_sea_efficiency = 0.2
 	}
 
 	possible_production_methods = {
@@ -9041,6 +9438,8 @@ tv_wonder_harbor_chain_cannon = {
 		local_cultural_influence = 0.5
 		local_maritime_presence = 0.1
 		local_navy_attrition = 0.05
+		monthly_towards_defensive = 0.05
+		global_garrison_size_modifier = 0.08
 	}
 
 	possible_production_methods = {
@@ -9087,6 +9486,8 @@ tv_wonder_admiralty_gun_foundry = {
 		local_cultural_influence = 0.5
 		local_maritime_presence = 0.1
 		local_navy_attrition = 0.05
+		monthly_towards_defensive = 0.05
+		fort_limit = 1
 	}
 
 	possible_production_methods = {
@@ -9194,6 +9595,10 @@ tv_wonder_admiralty_navigation_school = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_navy_tradition = 0.05
+		monthly_towards_naval = 0.05
+		naval_range = 150
+		global_maritime_presence_modifier = 0.2
 	}
 
 	possible_production_methods = {
@@ -9238,6 +9643,9 @@ tv_wonder_pilotage_chart_house = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_navy_tradition = 0.05
+		monthly_towards_naval = 0.05
+		global_maritime_presence_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -9282,6 +9690,10 @@ tv_wonder_oceanic_command_academy = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_navy_tradition = 0.05
+		monthly_towards_naval = 0.05
+		naval_morale_modifier = 0.04
+		exploration_mission_speed = 0.05
 	}
 
 	possible_production_methods = {
@@ -9391,6 +9803,10 @@ tv_wonder_chartered_company_exchange = {
 		local_cultural_influence = 0.5
 		local_merchant_power = 5
 		local_merchant_capacity = 2.5
+		global_merchant_power = 0.2
+		global_merchant_capacity_modifier = 0.1
+		monthly_towards_free_trade = 0.05
+		trade_income = 0.1
 	}
 
 	possible_production_methods = {
@@ -9437,6 +9853,9 @@ tv_wonder_overseas_factory_forts = {
 		local_cultural_influence = 0.5
 		local_merchant_power = 5
 		local_merchant_capacity = 2.5
+		global_merchant_power = 0.2
+		global_merchant_capacity_modifier = 0.1
+		monthly_towards_free_trade = 0.05
 	}
 
 	possible_production_methods = {
@@ -9483,6 +9902,9 @@ tv_wonder_colonial_ledger_house = {
 		local_cultural_influence = 0.5
 		local_merchant_power = 5
 		local_merchant_capacity = 2.5
+		global_merchant_power = 0.2
+		global_merchant_capacity_modifier = 0.1
+		monthly_towards_free_trade = 0.05
 	}
 
 	possible_production_methods = {
@@ -9590,6 +10012,10 @@ tv_wonder_estates_convocation_hall = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		country_cabinet_efficiency = 0.1
+		legislative_efficiency = 0.1
+		monthly_towards_conciliatory = 0.05
+		government_reform_slots = 1
 	}
 
 	possible_production_methods = {
@@ -9634,6 +10060,9 @@ tv_wonder_royal_audience_hall = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		country_cabinet_efficiency = 0.1
+		legislative_efficiency = 0.1
+		monthly_towards_conciliatory = 0.05
 	}
 
 	possible_production_methods = {
@@ -9678,6 +10107,9 @@ tv_wonder_public_deliberation_hall = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		country_cabinet_efficiency = 0.1
+		legislative_efficiency = 0.1
+		monthly_towards_conciliatory = 0.05
 	}
 
 	possible_production_methods = {
@@ -9788,6 +10220,8 @@ tv_wonder_wagon_camp_muster = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.01
 		movement_cost = -0.1
+		monthly_towards_decentralization = 0.05
+		global_levy_recruitment_speed_modifier = 0.5
 	}
 
 	possible_production_methods = {
@@ -9835,6 +10269,7 @@ tv_wonder_frontier_sich_camp = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.01
 		movement_cost = -0.1
+		monthly_towards_decentralization = 0.05
 	}
 
 	possible_production_methods = {
@@ -9882,6 +10317,7 @@ tv_wonder_steppe_field_fort = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.01
 		movement_cost = -0.1
+		monthly_towards_decentralization = 0.05
 	}
 
 	possible_production_methods = {
@@ -9990,6 +10426,9 @@ tv_wonder_restored_citadel_ruins = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_build_buildings_cost = -0.1
+		exploration_mission_speed = 0.1
+		monthly_towards_outward = 0.05
+		court_spending_cost_modifier = -0.2
 	}
 
 	possible_production_methods = {
@@ -10035,6 +10474,8 @@ tv_wonder_antiquarian_quarter_ruins = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_build_buildings_cost = -0.1
+		exploration_mission_speed = 0.1
+		monthly_towards_outward = 0.05
 	}
 
 	possible_production_methods = {
@@ -10080,6 +10521,8 @@ tv_wonder_pilgrim_ruins_preserve = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_build_buildings_cost = -0.1
+		exploration_mission_speed = 0.1
+		monthly_towards_outward = 0.05
 	}
 
 	possible_production_methods = {
@@ -10189,6 +10632,10 @@ tv_wonder_royal_retreat_palace = {
 		local_cultural_influence = 0.5
 		local_proximity_source = 10
 		local_crown_estate_power = 0.25
+		monthly_towards_decentralization = 0.05
+		monthly_legitimacy = 0.08
+		monthly_prestige = 0.05
+		government_size = 1
 	}
 
 	possible_production_methods = {
@@ -10235,6 +10682,7 @@ tv_wonder_garden_court_palace = {
 		local_cultural_influence = 0.5
 		local_proximity_source = 10
 		local_crown_estate_power = 0.25
+		monthly_towards_decentralization = 0.05
 	}
 
 	possible_production_methods = {
@@ -10281,6 +10729,9 @@ tv_wonder_diplomatic_pavilion_palace = {
 		local_cultural_influence = 0.5
 		local_proximity_source = 10
 		local_crown_estate_power = 0.25
+		monthly_towards_decentralization = 0.05
+		diplomatic_reputation = 1
+		monthly_prestige = 0.05
 	}
 
 	possible_production_methods = {
@@ -10388,6 +10839,10 @@ tv_wonder_unique_pharos_lighthouse_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		trade_range = 500
+		naval_range = 700
+		colonial_range = 400
+		monthly_towards_naval = 0.1
 	}
 
 	possible_production_methods = {
@@ -10432,6 +10887,10 @@ tv_wonder_unique_hagia_sophia_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.004
+		monthly_towards_spiritualist = 0.1
+		tolerance_own = 1
+		stability_investment = 0.05
 	}
 
 	possible_production_methods = {
@@ -10476,6 +10935,10 @@ tv_wonder_unique_dome_of_the_rock_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.004
+		monthly_towards_spiritualist = 0.1
+		tolerance_own = 1
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -10521,6 +10984,9 @@ tv_wonder_unique_angkor_wat_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.02
+		monthly_towards_spiritualist = 0.1
+		monthly_legitimacy = 0.1
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -10565,6 +11031,11 @@ tv_wonder_unique_potala_palace_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		clergy_estate_max_tax = 0.2
+		clergy_estate_target_satisfaction = 0.1
+		monthly_towards_spiritualist = 0.1
+		global_pop_conversion_speed_modifier = 0.05
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -10610,6 +11081,10 @@ tv_wonder_unique_alhambra_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.4
+		global_distance_from_capital_speed_propagation = 0.1
+		monthly_towards_centralization = 0.1
+		monthly_prestige = 0.08
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -10654,6 +11129,11 @@ tv_wonder_unique_machu_picchu_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		clergy_estate_max_tax = 0.2
+		clergy_estate_target_satisfaction = 0.1
+		monthly_towards_spiritualist = 0.1
+		global_monthly_prosperity = 0.003
+		monthly_legitimacy = 0.05
 	}
 
 	possible_production_methods = {
@@ -10700,6 +11180,9 @@ tv_wonder_unique_himeji_castle_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		global_garrison_size_modifier = 0.1
+		land_morale_modifier = 0.03
 	}
 
 	possible_production_methods = {
@@ -10745,6 +11228,11 @@ tv_wonder_unique_taj_mahal_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 1
+		pop_join_rebel_threshold = -0.05
+		pop_leave_rebels_threshold = -0.05
+		monthly_towards_traditionalist = 0.1
+		monthly_legitimacy = 0.1
+		monthly_prestige = 0.1
 	}
 
 	possible_production_methods = {
@@ -10790,6 +11278,9 @@ tv_wonder_unique_forbidden_city_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 1
+		monthly_legitimacy = 0.25
+		monthly_towards_centralization = 0.1
+		global_distance_from_capital_speed_propagation = 0.05
 	}
 
 	possible_production_methods = {
@@ -10835,6 +11326,9 @@ tv_wonder_unique_topkapi_palace_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.4
+		global_distance_from_capital_speed_propagation = 0.1
+		monthly_towards_centralization = 0.15
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -10879,6 +11373,10 @@ tv_wonder_unique_st_peters_basilica_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.004
+		monthly_towards_spiritualist = 0.1
+		tolerance_own = 1
+		clergy_estate_target_satisfaction = 0.05
 	}
 
 	possible_production_methods = {
@@ -10923,6 +11421,11 @@ tv_wonder_unique_lalibela_churches_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		clergy_estate_max_tax = 0.2
+		clergy_estate_target_satisfaction = 0.1
+		monthly_towards_spiritualist = 0.1
+		global_pop_conversion_speed_modifier = 0.05
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -10969,6 +11472,9 @@ tv_wonder_unique_venetian_arsenal_inaugurated = {
 		local_cultural_influence = 0.5
 		local_ship_build_speed = 0.4
 		max_ships_built_at_same_time = 2
+		ship_build_speed = 0.5
+		monthly_towards_naval = 0.1
+		naval_morale_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -11015,6 +11521,9 @@ tv_wonder_unique_malacca_port_inaugurated = {
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
 		local_trade_center_power = 0.4
+		monthly_towards_naval = 0.1
+		trade_income = 0.05
+		trade_range = 100
 	}
 
 	possible_production_methods = {
@@ -11061,6 +11570,9 @@ tv_wonder_unique_red_fort_delhi_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		monthly_legitimacy = 0.1
+		global_garrison_size_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -11106,6 +11618,9 @@ tv_wonder_unique_versailles_palace_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 1
+		monthly_legitimacy = 0.1
+		monthly_towards_centralization = 0.15
+		monthly_prestige = 0.2
 	}
 
 	possible_production_methods = {
@@ -11152,6 +11667,9 @@ tv_wonder_unique_tenochtitlan_causeways_inaugurated = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
 		local_monthly_development_modifier = 0.2
+		monthly_towards_free_subjects = 0.1
+		army_movement_speed = 0.05
+		global_monthly_prosperity = 0.002
 	}
 
 	possible_production_methods = {
@@ -11198,6 +11716,9 @@ tv_wonder_unique_amsterdam_canal_ring_inaugurated = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.2
 		local_monthly_prosperity = 0.2
+		monthly_towards_mercantilism = 0.1
+		trade_income = 0.05
+		global_production_efficiency = 0.03
 	}
 
 	possible_production_methods = {
@@ -11242,6 +11763,10 @@ tv_wonder_unique_mecca_haram_expansion_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.004
+		monthly_towards_spiritualist = 0.1
+		tolerance_own = 2
+		global_pop_conversion_speed_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -11288,6 +11813,9 @@ tv_wonder_unique_ming_great_wall_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		global_garrison_size_modifier = 0.1
+		army_movement_speed = 0.05
 	}
 
 	possible_production_methods = {
@@ -11332,6 +11860,9 @@ tv_wonder_unique_bank_of_saint_george_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		minting_income_factor = 0.28
+		monthly_towards_capital_economy = 0.1
+		tax_income_efficiency = 0.03
 	}
 
 	possible_production_methods = {
@@ -11377,6 +11908,10 @@ tv_wonder_unique_cahokia_mounds_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_unrest = -0.1
+		cultures_capacity = 1
+		monthly_towards_humanist = 0.1
+		monthly_prestige = 0.1
+		global_monthly_prosperity = 0.003
 	}
 
 	possible_production_methods = {
@@ -11423,6 +11958,10 @@ tv_wonder_unique_great_zimbabwe_inaugurated = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.4
 		local_migration_attraction = 2
+		global_trade_center_power = 0.2
+		monthly_towards_free_trade = 0.1
+		trade_income = 0.06
+		global_raw_material_output = 0.03
 	}
 
 	possible_production_methods = {
@@ -11468,6 +12007,10 @@ tv_wonder_unique_isfahan_square_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 1
+		monthly_legitimacy = 0.1
+		monthly_towards_centralization = 0.1
+		monthly_prestige = 0.1
+		trade_income = 0.03
 	}
 
 	possible_production_methods = {
@@ -11514,6 +12057,10 @@ tv_wonder_unique_grand_canal_inaugurated = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.2
 		local_distance_from_capital_speed_propagation = 0.4
+		global_monthly_prosperity = 0.1
+		monthly_towards_free_subjects = 0.1
+		global_distance_from_capital_speed_propagation = 0.08
+		global_raw_material_output = 0.03
 	}
 
 	possible_production_methods = {
@@ -11560,6 +12107,9 @@ tv_wonder_unique_inca_royal_road_inaugurated = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
 		movement_cost = -0.2
+		monthly_towards_centralization = 0.1
+		army_movement_speed = 0.05
+		global_distance_from_capital_speed_propagation = 0.05
 	}
 
 	possible_production_methods = {
@@ -11605,6 +12155,9 @@ tv_wonder_unique_roman_aqueducts_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.1
+		monthly_towards_capital_economy = 0.1
+		global_monthly_prosperity = 0.003
+		global_production_efficiency = 0.03
 	}
 
 	possible_production_methods = {
@@ -11651,6 +12204,10 @@ tv_wonder_unique_suez_ancient_canal_inaugurated = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.2
 		local_distance_from_capital_speed_propagation = 0.4
+		global_monthly_prosperity = 0.1
+		monthly_towards_free_subjects = 0.1
+		trade_range = 150
+		trade_income = 0.04
 	}
 
 	possible_production_methods = {
@@ -11697,6 +12254,9 @@ tv_wonder_unique_kremlin_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		monthly_legitimacy = 0.1
+		land_morale_modifier = 0.03
 	}
 
 	possible_production_methods = {
@@ -11742,6 +12302,10 @@ tv_wonder_unique_teotihuacan_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_unrest = -0.1
+		cultures_capacity = 1
+		monthly_towards_humanist = 0.1
+		monthly_prestige = 0.1
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -11787,6 +12351,9 @@ tv_wonder_unique_angkor_hydraulic_system_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.1
+		monthly_towards_capital_economy = 0.1
+		global_raw_material_output = 0.04
+		global_monthly_prosperity = 0.003
 	}
 
 	possible_production_methods = {
@@ -11833,6 +12400,9 @@ tv_wonder_unique_dutch_polders_inaugurated = {
 		local_cultural_influence = 0.5
 		local_monthly_food_modifier = 0.4
 		local_population_growth = 0.001
+		monthly_towards_free_subjects = 0.1
+		global_raw_material_output = 0.04
+		global_production_efficiency = 0.03
 	}
 
 	possible_production_methods = {
@@ -11879,6 +12449,9 @@ tv_wonder_unique_machu_picchu_terraces_inaugurated = {
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 1
 		local_monthly_food_modifier = 1
+		monthly_towards_traditional_economy = 0.1
+		global_raw_material_output = 0.05
+		global_monthly_prosperity = 0.002
 	}
 
 	possible_production_methods = {
@@ -11925,6 +12498,9 @@ tv_wonder_unique_british_navy_dockyards_inaugurated = {
 		local_cultural_influence = 0.5
 		local_ship_build_speed = 0.4
 		max_ships_built_at_same_time = 2
+		ship_build_speed = 0.4
+		monthly_towards_naval = 0.1
+		naval_morale_modifier = 0.2
 	}
 
 	possible_production_methods = {
@@ -11972,6 +12548,9 @@ tv_wonder_unique_spanish_silver_fleet_inaugurated = {
 		local_merchant_capacity = 2
 		local_merchant_capacity_modifier = 0.5
 		local_merchant_power = 2
+		monthly_towards_free_trade = 0.1
+		trade_income = 0.06
+		minting_income_factor = 0.05
 	}
 
 	possible_production_methods = {
@@ -12018,6 +12597,9 @@ tv_wonder_unique_ottoman_hajj_road_inaugurated = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
 		movement_cost = -0.2
+		monthly_towards_centralization = 0.1
+		tolerance_own = 1
+		global_distance_from_capital_speed_propagation = 0.05
 	}
 
 	possible_production_methods = {
@@ -12063,6 +12645,9 @@ tv_wonder_unique_persian_qanat_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.1
+		monthly_towards_capital_economy = 0.1
+		global_monthly_prosperity = 0.003
+		global_raw_material_output = 0.03
 	}
 
 	possible_production_methods = {
@@ -12109,6 +12694,9 @@ tv_wonder_unique_longjiang_shipyard_inaugurated = {
 		local_cultural_influence = 0.5
 		local_ship_build_speed = 0.4
 		max_ships_built_at_same_time = 2
+		ship_build_speed = 0.5
+		monthly_towards_naval = 0.1
+		naval_range = 150
 	}
 
 	possible_production_methods = {
@@ -12154,6 +12742,11 @@ tv_wonder_unique_jerusalem_holy_city_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_unrest = -0.1
+		cultures_capacity = 1
+		monthly_towards_humanist = 0.1
+		tolerance_own = 1
+		diplomatic_reputation = 1
+		monthly_prestige = 0.05
 	}
 
 	possible_production_methods = {
@@ -12198,6 +12791,10 @@ tv_wonder_unique_stonehenge_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_heretic = 1
+		tolerance_heathen = 1
+		monthly_towards_traditionalist = 0.1
+		stability_cost = -0.1
 	}
 
 	possible_production_methods = {
@@ -12244,6 +12841,8 @@ tv_wonder_unique_tower_of_london_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		global_crown_estate_power = 0.1
 	}
 
 	possible_production_methods = {
@@ -12288,6 +12887,9 @@ tv_wonder_unique_notre_dame_de_paris_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_own = 1
+		monthly_towards_spiritualist = 0.1
+		num_possible_artists = 1
 	}
 
 	possible_production_methods = {
@@ -12332,6 +12934,9 @@ tv_wonder_unique_st_basils_cathedral_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_own = 1
+		monthly_towards_spiritualist = 0.1
+		monthly_legitimacy = 0.05
 	}
 
 	possible_production_methods = {
@@ -12379,6 +12984,8 @@ tv_wonder_unique_trinity_lavra_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
+		monthly_towards_spiritualist = 0.1
+		research_speed = 0.05
 	}
 
 	possible_production_methods = {
@@ -12424,6 +13031,9 @@ tv_wonder_unique_winter_palace_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 1
+		monthly_legitimacy = 0.1
+		monthly_towards_centralization = 0.1
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -12469,6 +13079,9 @@ tv_wonder_unique_gyeongbokgung_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_crown_estate_power = 1
+		monthly_legitimacy = 0.1
+		monthly_towards_centralization = 0.1
+		country_cabinet_efficiency = 0.2
 	}
 
 	possible_production_methods = {
@@ -12513,6 +13126,10 @@ tv_wonder_unique_changbai_mountain_altar_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		clergy_estate_max_tax = 0.2
+		clergy_estate_target_satisfaction = 0.1
+		monthly_towards_spiritualist = 0.1
+		court_spending_cost_modifier = -0.1
 	}
 
 	possible_production_methods = {
@@ -12559,6 +13176,8 @@ tv_wonder_unique_belgrade_fortress_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		antagonism_received_modifier = -0.1
 	}
 
 	possible_production_methods = {
@@ -12606,6 +13225,8 @@ tv_wonder_unique_meteora_monasteries_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
+		monthly_towards_spiritualist = 0.1
+		stability_investment = 0.05
 	}
 
 	possible_production_methods = {
@@ -12653,6 +13274,9 @@ tv_wonder_unique_belem_tower_inaugurated = {
 		local_max_control = 0.2
 		local_market_access = 0.2
 		local_crown_estate_power = 1
+		monthly_towards_inward = 0.1
+		naval_range = 150
+		trade_income = 0.04
 	}
 
 	possible_production_methods = {
@@ -12700,6 +13324,9 @@ tv_wonder_unique_iberian_inquisition_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
+		monthly_towards_spiritualist = 0.1
+		global_pop_conversion_speed_modifier = 0.08
+		stability_investment = 0.05
 	}
 
 	possible_production_methods = {
@@ -12744,6 +13371,10 @@ tv_wonder_unique_santa_maria_del_fiore_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_own = 1
+		monthly_towards_spiritualist = 0.1
+		monthly_prestige = 0.1
+		cultural_tradition_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -12791,6 +13422,9 @@ tv_wonder_unique_leaning_tower_of_pisa_inaugurated = {
 		local_max_control = 0.2
 		local_market_access = 0.2
 		local_crown_estate_power = 1
+		monthly_towards_inward = 0.1
+		monthly_prestige = 0.08
+		research_speed = 0.03
 	}
 
 	possible_production_methods = {
@@ -12835,6 +13469,9 @@ tv_wonder_unique_milan_cathedral_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_own = 2
+		monthly_towards_spiritualist = 0.1
+		monthly_prestige = 0.08
 	}
 
 	possible_production_methods = {
@@ -12879,6 +13516,10 @@ tv_wonder_unique_vatican_archives_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_promotion_speed = 0.01
+		monthly_towards_innovative = 0.1
+		research_speed = 0.04
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -12923,6 +13564,10 @@ tv_wonder_unique_temple_of_heaven_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.004
+		monthly_towards_spiritualist = 0.1
+		monthly_legitimacy = 0.1
+		tolerance_own = 1
 	}
 
 	possible_production_methods = {
@@ -12969,6 +13614,9 @@ tv_wonder_unique_dujiangyan_inaugurated = {
 		local_cultural_influence = 0.5
 		local_monthly_food_modifier = 0.4
 		local_population_growth = 0.001
+		monthly_towards_free_subjects = 0.1
+		global_production_efficiency = 0.04
+		global_build_buildings_cost = -0.03
 	}
 
 	possible_production_methods = {
@@ -13014,6 +13662,9 @@ tv_wonder_unique_porcelain_tower_of_nanjing_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.02
+		monthly_towards_spiritualist = 0.1
+		monthly_prestige = 0.1
+		global_pop_conversion_speed_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -13059,6 +13710,9 @@ tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.1
+		monthly_towards_capital_economy = 0.1
+		global_production_efficiency = 0.05
+		trade_income = 0.04
 	}
 
 	possible_production_methods = {
@@ -13103,6 +13757,11 @@ tv_wonder_unique_mogao_caves_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		pop_join_rebel_threshold = 0.05
+		pop_leave_rebels_threshold = 0.05
+		monthly_towards_humanist = 0.1
+		cultural_tradition_modifier = 0.06
+		monthly_prestige = 0.08
 	}
 
 	possible_production_methods = {
@@ -13150,6 +13809,9 @@ tv_wonder_unique_canton_thirteen_factories_inaugurated = {
 		local_market_access = 0.2
 		local_monthly_prosperity = 0.2
 		local_trade_center_power = 0.2
+		monthly_towards_plutocracy = 0.1
+		trade_income = 0.05
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -13196,6 +13858,9 @@ tv_wonder_unique_dardanelles_fortress_inaugurated = {
 		local_cultural_influence = 0.5
 		local_maritime_presence = 0.2
 		local_navy_attrition = 0.1
+		monthly_towards_defensive = 0.1
+		naval_morale_modifier = 0.06
+		global_defensive = 0.05
 	}
 
 	possible_production_methods = {
@@ -13243,6 +13908,9 @@ tv_wonder_unique_escorial_monastery_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
+		monthly_towards_spiritualist = 0.1
+		monthly_legitimacy = 0.1
+		stability_investment = 0.05
 	}
 
 	possible_production_methods = {
@@ -13290,6 +13958,9 @@ tv_wonder_unique_toledo_armory_inaugurated = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.1
 		local_manpower_modifier = 0.4
+		monthly_towards_offensive = 0.1
+		land_morale_modifier = 0.05
+		global_manpower_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -13336,6 +14007,9 @@ tv_wonder_unique_camino_de_santiago_inaugurated = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
 		movement_cost = -0.2
+		monthly_towards_centralization = 0.1
+		global_pop_conversion_speed_modifier = 0.05
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -13380,6 +14054,10 @@ tv_wonder_unique_sagres_navigation_school_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		monthly_navy_tradition = 0.1
+		monthly_towards_naval = 0.1
+		naval_range = 150
+		naval_morale_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -13427,6 +14105,9 @@ tv_wonder_unique_milan_arsenal_inaugurated = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.1
 		local_manpower_modifier = 0.4
+		monthly_towards_offensive = 0.1
+		land_morale_modifier = 0.04
+		global_production_efficiency = 0.04
 	}
 
 	possible_production_methods = {
@@ -13473,6 +14154,9 @@ tv_wonder_unique_university_of_bologna_inaugurated = {
 		local_cultural_influence = 0.5
 		local_pop_promotion_speed = 0.02
 		local_max_literacy = 20
+		monthly_towards_innovative = 0.1
+		research_speed = 0.05
+		global_pop_promotion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -13518,6 +14202,9 @@ tv_wonder_unique_carrara_marble_quarries_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 1
+		monthly_towards_traditional_economy = 0.1
+		global_build_buildings_cost = -0.05
+		global_production_efficiency = 0.03
 	}
 
 	possible_production_methods = {
@@ -13564,6 +14251,11 @@ tv_wonder_unique_east_india_company_inaugurated = {
 		local_cultural_influence = 0.5
 		local_merchant_power = 10
 		local_merchant_capacity = 5
+		global_merchant_power = 0.4
+		global_merchant_capacity_modifier = 0.2
+		monthly_towards_free_trade = 0.1
+		trade_income = 0.06
+		subject_pays_trade_company_cost_modifier = 0.08
 	}
 
 	possible_production_methods = {
@@ -13609,6 +14301,10 @@ tv_wonder_unique_peacock_throne_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.4
+		global_distance_from_capital_speed_propagation = 0.1
+		monthly_towards_centralization = 0.1
+		monthly_legitimacy = 0.1
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -13653,6 +14349,10 @@ tv_wonder_unique_varanasi_ghats_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.004
+		monthly_towards_spiritualist = 0.1
+		stability_investment = 0.05
+		global_pop_conversion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -13698,6 +14398,9 @@ tv_wonder_unique_brihadishvara_temple_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.02
+		monthly_towards_spiritualist = 0.1
+		monthly_legitimacy = 0.1
+		global_pop_conversion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -13742,6 +14445,10 @@ tv_wonder_unique_konark_sun_temple_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		tolerance_own = 1
+		monthly_towards_spiritualist = 0.1
+		monthly_prestige = 0.08
+		global_pop_conversion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -13786,6 +14493,10 @@ tv_wonder_unique_fatehpur_sikri_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		country_cabinet_efficiency = 0.28
+		legislative_efficiency = 0.2
+		monthly_towards_conciliatory = 0.1
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -13832,6 +14543,9 @@ tv_wonder_unique_calicut_port_city_inaugurated = {
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
 		local_trade_center_power = 0.4
+		monthly_towards_naval = 0.1
+		trade_income = 0.05
+		trade_range = 150
 	}
 
 	possible_production_methods = {
@@ -13877,6 +14591,9 @@ tv_wonder_unique_wieliczka_salt_mine_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_max_rgo_size_modifier = 1
+		monthly_towards_traditional_economy = 0.1
+		global_production_efficiency = 0.05
+		trade_income = 0.03
 	}
 
 	possible_production_methods = {
@@ -13923,6 +14640,9 @@ tv_wonder_unique_wawel_castle_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		monthly_legitimacy = 0.1
+		land_morale_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -13968,6 +14688,8 @@ tv_wonder_unique_zamosc_ideal_city_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		free_building_levels = 50
+		global_build_buildings_cost = -0.04
+		monthly_prestige = 0.05
 	}
 
 	possible_production_methods = {
@@ -14014,6 +14736,9 @@ tv_wonder_unique_gdansk_port_inaugurated = {
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
 		local_trade_center_power = 0.4
+		monthly_towards_naval = 0.1
+		trade_income = 0.06
+		trade_range = 150
 	}
 
 	possible_production_methods = {
@@ -14061,6 +14786,9 @@ tv_wonder_unique_malbork_castle_inaugurated = {
 		local_fort_maintenance_cost = -0.2
 		local_defensive = 0.5
 		local_hostile_attrition = 0.1
+		monthly_towards_defensive = 0.1
+		land_morale_modifier = 0.05
+		global_manpower_modifier = 0.05
 	}
 
 	possible_production_methods = {
@@ -14105,6 +14833,11 @@ tv_wonder_unique_brest_synagogue_quarter_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		country_cabinet_efficiency = 0.2
+		legislative_efficiency = 0.2
+		monthly_towards_conciliatory = 0.1
+		research_speed = 0.03
+		trade_income = 0.04
 	}
 
 	possible_production_methods = {
@@ -14151,6 +14884,9 @@ tv_wonder_unique_vilnius_university_inaugurated = {
 		local_cultural_influence = 0.5
 		local_pop_promotion_speed = 0.02
 		local_max_literacy = 20
+		monthly_towards_innovative = 0.1
+		research_speed = 0.05
+		global_pop_promotion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -14198,6 +14934,9 @@ tv_wonder_unique_cave_monastery_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
+		monthly_towards_spiritualist = 0.1
+		research_speed = 0.04
+		global_pop_conversion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -14245,6 +14984,9 @@ tv_wonder_unique_zaporizhian_sich_inaugurated = {
 		can_recruit_regiment_in_this_location = yes
 		local_manpower = 0.02
 		movement_cost = -0.2
+		monthly_towards_decentralization = 0.1
+		land_morale_modifier = 0.05
+		global_manpower_modifier = 0.06
 	}
 
 	possible_production_methods = {
@@ -14289,6 +15031,11 @@ tv_wonder_unique_registan_square_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 1.5
+		cultural_influence_modifier = 0.2
+		skill_of_new_artists = 0.1
+		monthly_towards_humanist = 0.1
+		monthly_prestige = 0.08
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -14334,6 +15081,10 @@ tv_wonder_unique_khiva_old_city_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_build_buildings_cost = -0.2
+		exploration_mission_speed = 0.2
+		monthly_towards_outward = 0.1
+		monthly_prestige = 0.05
+		monthly_legitimacy = 0.05
 	}
 
 	possible_production_methods = {
@@ -14379,6 +15130,9 @@ tv_wonder_unique_bukhara_kalyan_minaret_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.02
+		monthly_towards_spiritualist = 0.1
+		monthly_prestige = 0.06
+		global_pop_conversion_speed_modifier = 0.04
 	}
 
 	possible_production_methods = {
@@ -14424,6 +15178,10 @@ tv_wonder_unique_ferghana_palace_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.4
+		global_distance_from_capital_speed_propagation = 0.1
+		monthly_towards_centralization = 0.1
+		diplomatic_reputation = 1
+		monthly_legitimacy = 0.08
 	}
 
 	possible_production_methods = {
@@ -14470,6 +15228,10 @@ tv_wonder_unique_tashkent_old_bazaar_inaugurated = {
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.4
 		local_migration_attraction = 2
+		global_trade_center_power = 0.2
+		monthly_towards_free_trade = 0.1
+		trade_income = 0.05
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -14515,6 +15277,10 @@ tv_wonder_unique_louvre_palace_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.4
+		global_distance_from_capital_speed_propagation = 0.1
+		monthly_towards_centralization = 0.1
+		monthly_prestige = 0.08
+		diplomatic_reputation = 1
 	}
 
 	possible_production_methods = {
@@ -14561,6 +15327,9 @@ tv_wonder_unique_fontainebleau_palace_inaugurated = {
 		local_cultural_influence = 0.5
 		local_proximity_source = 20
 		local_crown_estate_power = 0.5
+		monthly_towards_decentralization = 0.1
+		monthly_prestige = 0.08
+		monthly_legitimacy = 0.05
 	}
 
 	possible_production_methods = {
@@ -14607,6 +15376,9 @@ tv_wonder_unique_bordeaux_port_inaugurated = {
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
 		local_trade_center_power = 0.4
+		monthly_towards_naval = 0.1
+		trade_income = 0.05
+		trade_range = 100
 	}
 
 	possible_production_methods = {
@@ -14653,6 +15425,9 @@ tv_wonder_unique_marseille_old_port_inaugurated = {
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
 		local_trade_center_power = 0.4
+		monthly_towards_naval = 0.1
+		trade_income = 0.04
+		naval_range = 100
 	}
 
 	possible_production_methods = {
@@ -14698,6 +15473,9 @@ tv_wonder_unique_lyon_silk_workshops_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_production_efficiency = 0.1
+		monthly_towards_capital_economy = 0.1
+		global_production_efficiency = 0.05
+		trade_income = 0.04
 	}
 
 	possible_production_methods = {
@@ -14742,6 +15520,11 @@ tv_wonder_unique_mont_saint_michel_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		clergy_estate_max_tax = 0.2
+		clergy_estate_target_satisfaction = 0.1
+		monthly_towards_spiritualist = 0.1
+		tolerance_own = 1
+		monthly_prestige = 0.06
 	}
 
 	possible_production_methods = {
@@ -14788,6 +15571,9 @@ tv_wonder_unique_bastille_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		global_garrison_size_modifier = 0.08
+		monthly_legitimacy = 0.05
 	}
 
 	possible_production_methods = {
@@ -14834,6 +15620,9 @@ tv_wonder_unique_carcassonne_castle_inaugurated = {
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
 		local_garrison_size = 500
+		monthly_towards_defensive = 0.1
+		global_garrison_size_modifier = 0.1
+		land_morale_modifier = 0.03
 	}
 
 	possible_production_methods = {
@@ -14880,6 +15669,10 @@ tv_wonder_unique_brest_naval_port_inaugurated = {
 		local_cultural_influence = 0.5
 		local_ship_build_speed = 0.4
 		max_ships_built_at_same_time = 2
+		ship_build_speed = 0.4
+		monthly_towards_naval = 0.1
+		naval_morale_modifier = 0.05
+		naval_range = 100
 	}
 
 	possible_production_methods = {
@@ -14925,6 +15718,10 @@ tv_wonder_unique_colmar_old_town_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_build_buildings_cost = -0.2
+		exploration_mission_speed = 0.2
+		monthly_towards_outward = 0.1
+		monthly_prestige = 0.05
+		monthly_legitimacy = 0.05
 	}
 
 	possible_production_methods = {

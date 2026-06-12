@@ -2121,19 +2121,6 @@ tv_wonder_apply_finalization_visible_rewards_effect = {
 }
 
 tv_wonder_complete_finalization_cleanup_effect = {
-	remove_country_modifier = tv_wonder_meditation_ceremony_modifier
-	remove_country_modifier = tv_wonder_civic_festival_modifier
-	remove_country_modifier = tv_wonder_free_trade_festival_modifier
-	remove_country_modifier = tv_wonder_ancestor_festival_modifier
-	remove_country_modifier = tv_wonder_water_festival_modifier
-	remove_country_modifier = tv_wonder_star_catalog_modifier
-	remove_country_modifier = tv_wonder_scholars_convocation_ceremony_modifier
-	remove_country_modifier = tv_wonder_dome_consecration_ceremony_modifier
-	remove_country_modifier = tv_wonder_pilgrim_stair_ceremony_modifier
-	remove_country_modifier = tv_wonder_river_fair_ceremony_modifier
-	remove_country_modifier = tv_wonder_bastion_trial_ceremony_modifier
-	remove_country_modifier = tv_wonder_signal_fires_ceremony_modifier
-	remove_country_modifier = tv_wonder_national_catalog_ceremony_modifier
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
 		var:tv_wonder_site ?= {
@@ -2356,19 +2343,6 @@ tv_wonder_clear_project_state_core_effect = {
 	remove_variable = tv_wonder_ritual_timer
 	remove_variable = tv_wonder_ceremony_style
 	remove_variable = tv_wonder_ceremony_locked
-	remove_country_modifier = tv_wonder_meditation_ceremony_modifier
-	remove_country_modifier = tv_wonder_civic_festival_modifier
-	remove_country_modifier = tv_wonder_free_trade_festival_modifier
-	remove_country_modifier = tv_wonder_ancestor_festival_modifier
-	remove_country_modifier = tv_wonder_water_festival_modifier
-	remove_country_modifier = tv_wonder_star_catalog_modifier
-	remove_country_modifier = tv_wonder_scholars_convocation_ceremony_modifier
-	remove_country_modifier = tv_wonder_dome_consecration_ceremony_modifier
-	remove_country_modifier = tv_wonder_pilgrim_stair_ceremony_modifier
-	remove_country_modifier = tv_wonder_river_fair_ceremony_modifier
-	remove_country_modifier = tv_wonder_bastion_trial_ceremony_modifier
-	remove_country_modifier = tv_wonder_signal_fires_ceremony_modifier
-	remove_country_modifier = tv_wonder_national_catalog_ceremony_modifier
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
 		var:tv_wonder_site ?= {

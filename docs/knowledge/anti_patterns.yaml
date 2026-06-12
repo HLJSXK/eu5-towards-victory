@@ -1387,11 +1387,11 @@
   pattern: ''
   only_in_paths: ['building_types']
   bad: "Using capital_country_modifier for a building that can be finalized or created outside the capital, expecting country-wide effects everywhere"
-  correction: "Keep local effects in building modifier/raw_modifier; apply national effects separately with scripted add_country_modifier effects, or require the building to be in the capital."
+  correction: "Keep local effects in building modifier/raw_modifier; for noncapital national effects use Country Auto modifiers gated by owned buildings, or require the building to be in the capital."
   category: modifier
   scope: country
   source: "reference_official_defines/types/building_types.txt:29"
-  notes: "capital_country_modifier is explicitly applied to the country only if the building is built in the capital. Engineering Department wonders may be sited outside the capital, so their national/base/ceremony effects are permanent country modifiers and the final buildings carry local effects only."
+  notes: "capital_country_modifier is explicitly applied to the country only if the building is built in the capital. Engineering Department wonders may be sited outside the capital, so their final buildings carry national/base/ritual country effects only as display data; actual national effects come from building-gated Country Auto modifiers."
 
 - id: gui_text_missing_localization_key
   pattern: ''
@@ -1730,13 +1730,13 @@
   source: "runtime-tested in src/in_game/gui/location_window.gui dynamic wonder display test; reference_official_defines/docs/data_types_uncategorized.txt lists GetConceptTexture"
   notes: "In the location-window test, GetConceptTexture(Concatenate(...)) rendered, but nested, suffix-only, and flat Concatenate expressions that returned raw DDS path strings did not render and produced no useful error log. Static texture paths are parsed by the GUI loader, while runtime texture expressions need a texture-like return value rather than a CString path."
 
-- id: gui_show_modifier_effect_dynamic_key_needs_static_reference
+- id: gui_show_modifier_effect_dynamic_key_static_reference
   pattern: ''
   detectability: advisory
   only_in_paths: ['gui']
-  bad: "Calling ShowModifierEffect with modifier ids built only by GUI Concatenate(...) and never referenced from script effects"
-  correction: "Keep the dynamic GUI id flow, but generate unreachable script references under if = { limit = { always = no } ... } using add_country_modifier/add_location_modifier for every possible modifier id."
+  bad: "Calling ShowModifierEffect with wonder display modifier ids built by GUI Concatenate(...), then keeping unreachable add_country_modifier/add_location_modifier references only to register those ids"
+  correction: "Do not preserve dynamic wonder display static modifiers. Show completed wonder effects through the final building modifier UI and country auto modifiers; for bespoke tooltip previews, generate scripted tooltip effects that reference current auto modifiers or real effect payloads directly."
   category: gui
   scope: modifier
-  source: "Location-window wonder display route, 2026-06; fixed by tv_wonder_mechanics_reference_display_modifiers_effect"
-  notes: "The GUI can build ids such as tv_wonder_display_<id>_level_<level> at runtime, but engine/static lookup paths may not recognize modifier ids that only occur inside Concatenate. The unreachable effect gives the loader static modifier references without changing runtime state."
+  source: "Engineering Department wonder auto-modifier refactor, 2026-06"
+  notes: "The old location-window route generated tv_wonder_display_<id>_level_<level> static modifiers plus an unreachable reference effect. The current architecture removes that compatibility path: building modifier blocks carry display-only country effects, while country auto modifiers provide the actual national effects from owned final buildings."

@@ -21,6 +21,7 @@ UNIQUE_WONDER_MAX_ID = 201
 WONDER_MECHANICS_MIN_ID = ALL_WONDER_MIN_ID
 WONDER_MECHANICS_MAX_ID = UNIQUE_WONDER_MAX_ID
 PARTS = ["foundation", "body", "function", "decoration"]
+FINAL_BUILDING_LEVEL_BY_TYPE_MAP = "tv_wonder_final_building_level_by_type"
 FIXED_WONDER_STAGE_IMAGE_TASKS = [
     {"id": -1, "key": "stage_construction", "name": "tv_wonder_construction"},
     {"id": -2, "key": "stage_foundation", "name": "tv_wonder_foundation"},
@@ -610,6 +611,15 @@ def _validate_string_mapping(value: object, context: str) -> dict[str, str]:
     }
 
 
+def _validate_modifier_by_key_mapping(value: object, context: str) -> dict[str, dict[str, object]]:
+    mapping = _require_mapping(value, context)
+    normalized: dict[str, dict[str, object]] = {}
+    for raw_key, raw_modifiers in mapping.items():
+        key = _require_string(raw_key, f"{context} key")
+        normalized[key] = _validate_modifier_mapping(raw_modifiers, f"{context}.{key}")
+    return normalized
+
+
 def _validate_building_attributes(value: object, context: str) -> dict[str, dict[str, object]]:
     mapping = _require_mapping(value, context)
     normalized: dict[str, dict[str, object]] = {}
@@ -695,10 +705,15 @@ def load_mechanics_source_data(path: Path = MECHANICS_FILE) -> dict:
     designs = _require_mapping(raw.get("designs"), f"{path}.designs")
     site_rules = _validate_site_rules(raw.get("site_rules"), design_keys=set(designs))
     buildings = _validate_buildings_section(raw.get("buildings"), design_keys=set(designs))
+    final_building_country_modifiers = _validate_modifier_by_key_mapping(
+        raw.get("final_building_country_modifiers", {}),
+        f"{path}.final_building_country_modifiers",
+    )
     return {
         **raw,
         "site_rules": site_rules,
         "buildings": buildings,
+        "final_building_country_modifiers": final_building_country_modifiers,
     }
 
 
@@ -1485,31 +1500,58 @@ def scale_numeric_modifier_mapping(mapping: dict[str, object], multiplier: int |
     return scaled
 
 
+def merge_numeric_modifier_mappings(*maps: dict[str, object] | None) -> dict[str, object]:
+    merged: dict[str, object] = {}
+    for mapping in maps:
+        if not mapping:
+            continue
+        for key, value in mapping.items():
+            if (
+                isinstance(value, (int, float))
+                and not isinstance(value, bool)
+                and isinstance(merged.get(key), (int, float))
+                and not isinstance(merged.get(key), bool)
+            ):
+                merged[key] = merged[key] + value
+            else:
+                merged[key] = value
+    return merged
+
+
+def wonder_base_country_modifiers(wonder: dict, mechanics: dict, level: int = 1) -> dict[str, object]:
+    base = mechanics["base_modifiers"].get(mechanic_key(wonder), {})
+    multiplier = wonder.get("base_effect_multiplier", 1) * level
+    return scale_numeric_modifier_mapping(base, multiplier)
+
+
 def authored_final_building_local_modifiers(wonder: dict, mechanics: dict) -> dict[str, object]:
     building_design = mechanics["buildings"][mechanic_key(wonder)]
     modifiers = building_design.get("final_local", {})
     return scale_numeric_modifier_mapping(modifiers, wonder.get("base_effect_multiplier", 1))
 
 
-def ceremony_modifier_for_building(wonder: dict, mechanics: dict, building: str) -> tuple[str, dict] | None:
+def final_building_country_modifiers(wonder: dict, mechanics: dict, style: int) -> dict[str, object]:
     if wonder.get("is_unique"):
-        modifier_data = unique_ritual(wonder).get("country_modifier", {})
-        if not modifier_data:
-            return None
-        return f"tv_wonder_{wonder['key']}_ceremony_modifier", modifier_data
-    modifier_name = mechanics.get("ceremony_modifier_names", {}).get(wonder["key"], {}).get(building, f"{building}_modifier")
-    ceremony_modifiers = mechanics.get("ceremony_modifiers", {})
-    if modifier_name in ceremony_modifiers:
-        return modifier_name, ceremony_modifiers[modifier_name]
-    if building in ceremony_modifiers:
-        return modifier_name, ceremony_modifiers[building]
-    return None
+        return dict(unique_ritual(wonder).get("country_modifier", {}))
+
+    building = final_building_for_style(wonder, style)
+    modifiers = dict(mechanics.get("final_building_country_modifiers", {}).get(building, {}))
+    if style != 1:
+        return modifiers
+
+    ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+    return merge_numeric_modifier_mappings(
+        modifiers,
+        ritual_plan.get("timed", {}).get("blessing_modifier", {}),
+    )
 
 
-def ceremony_modifier_for_style(wonder: dict, mechanics: dict, style: int) -> tuple[str, dict] | None:
-    if style not in wonder["final_buildings"]:
-        return None
-    return ceremony_modifier_for_building(wonder, mechanics, final_building_for_style(wonder, style))
+def wonder_auto_base_modifier_name(wonder: dict, level: int) -> str:
+    return f"tv_wonder_auto_{wonder['key']}_level_{level}"
+
+
+def wonder_auto_style_modifier_name(wonder: dict, style: int) -> str:
+    return f"tv_wonder_auto_{wonder['key']}_style_{style}_country_modifier"
 
 
 def generic_ritual_for_wonder(mechanics: dict, wonder: dict) -> dict:
@@ -1535,9 +1577,3 @@ def ritual_burden_modifier_name(wonder: dict) -> str:
     if wonder.get("is_unique"):
         return f"tv_wonder_{wonder['key']}_ritual_burden_modifier"
     return f"tv_wonder_{wonder['key']}_ritual_burden_modifier"
-
-
-def ritual_blessing_modifier_name(wonder: dict) -> str:
-    if wonder.get("is_unique"):
-        return f"tv_wonder_{wonder['key']}_ritual_blessing_modifier"
-    return f"tv_wonder_{wonder['key']}_ritual_blessing_modifier"

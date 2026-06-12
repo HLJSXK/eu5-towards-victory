@@ -10,8 +10,8 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
+    FINAL_BUILDING_LEVEL_BY_TYPE_MAP,
     PARTS,
-    ceremony_modifier_for_style,
     ceremony_styles,
     construct_final_building_effect_name,
     finalization_event_id,
@@ -22,10 +22,7 @@ from wonder_mechanics_lib import (
     finalization_visible_effect_name,
     finalization_world_event_id,
     load_all_wonder_mechanics,
-    mechanic_key,
     render_header,
-    ritual_blessing_modifier_name,
-    ritual_plan_for_style,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_finalization_effects.txt"
@@ -49,6 +46,17 @@ def change_level_lines(building: str, value: int, indent: int) -> list[str]:
         f"{prefix}{T}owner = prev",
         f"{prefix}}}",
     ]
+
+
+def append_store_final_building_level(lines: list[str], building: str, level: str, indent: int) -> None:
+    prefix = T * indent
+    building_type = building_type_ref(building)
+    lines.append(f"{prefix}remove_from_variable_map = {{ name = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP} key = {building_type} }}")
+    lines.append(
+        f"{prefix}add_to_variable_map = {{ name = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP} "
+        f"key = {building_type} value = {level} }}"
+    )
+    lines.append(f"{prefix}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
 
 
 def append_hidden_event_trigger_effect(lines: list[str]) -> None:
@@ -95,46 +103,12 @@ def append_hidden_event_execute_effect(lines: list[str], wonders: list[dict]) ->
     lines.append("")
 
 
-def clear_base_effect_name(wonder: dict) -> str:
-    return f"tv_wonder_{wonder['key']}_clear_finalization_base_modifiers_effect"
-
-
-def apply_base_effect_name(wonder: dict) -> str:
-    return f"tv_wonder_{wonder['key']}_apply_finalization_base_modifier_effect"
-
-
-def clear_ceremony_effect_name(wonder: dict) -> str:
-    return f"tv_wonder_{wonder['key']}_clear_finalization_ceremony_modifiers_effect"
-
-
-def apply_ceremony_effect_name(wonder: dict) -> str:
-    return f"tv_wonder_{wonder['key']}_apply_finalization_ceremony_modifier_effect"
-
-
 def destroy_intermediate_effect_name(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_destroy_finalization_intermediate_buildings_effect"
 
 
 def broadcast_effect_name(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_broadcast_finalization_completion_event_effect"
-
-
-def base_modifiers_for_wonder(wonder: dict, mechanics: dict) -> dict:
-    return mechanics["base_modifiers"].get(mechanic_key(wonder), {})
-
-
-def unique_ceremony_modifier_names(wonder: dict, mechanics: dict) -> list[str]:
-    if not wonder.get("is_unique"):
-        return []
-    names: list[str] = []
-    for style in ceremony_styles(wonder):
-        ceremony_modifier = ceremony_modifier_for_style(wonder, mechanics, style)
-        if ceremony_modifier is None:
-            continue
-        modifier_name, _ = ceremony_modifier
-        if modifier_name not in names:
-            names.append(modifier_name)
-    return names
 
 
 def append_static_final_building_construction(lines: list[str], building: str, indent: int) -> None:
@@ -152,7 +126,10 @@ def append_static_final_building_construction(lines: list[str], building: str, i
         head = "if" if level == 6 else "else_if"
         lines.append(f"{prefix}{T}{head} = {{")
         lines.append(f"{prefix}{T}{T}limit = {{ prev = {{ var:tv_wonder_level ?= {{ this >= {level} }} }} }}")
-        lines.append(f"{prefix}{T}{T}change_building_level_in_location = {{ building = {building_type_ref(building)} value = {level - 1} owner = prev }}")
+        lines.append(
+            f"{prefix}{T}{T}change_building_level_in_location = {{ "
+            f"building = {building_type_ref(building)} value = {level - 1} owner = prev }}"
+        )
         lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}}}")
     for current_level in range(5, 0, -1):
@@ -165,10 +142,13 @@ def append_static_final_building_construction(lines: list[str], building: str, i
             first_target = False
             lines.append(f"{prefix}{T}{head} = {{")
             lines.append(f"{prefix}{T}{T}limit = {{ prev = {{ var:tv_wonder_level ?= {{ this >= {target_level} }} }} }}")
-            lines.append(f"{prefix}{T}{T}change_building_level_in_location = {{ building = {building_type_ref(building)} value = {delta} owner = prev }}")
+            lines.append(
+                f"{prefix}{T}{T}change_building_level_in_location = {{ "
+                f"building = {building_type_ref(building)} value = {delta} owner = prev }}"
+            )
             lines.append(f"{prefix}{T}}}")
         lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
+    append_store_final_building_level(lines, building, "prev.var:tv_wonder_level", indent)
 
 
 def append_trigger_event_dispatch_effect(lines: list[str], wonders: list[dict]) -> None:
@@ -183,76 +163,6 @@ def append_trigger_event_dispatch_effect(lines: list[str], wonders: list[dict]) 
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
-
-
-def append_clear_base_modifier_effect(lines: list[str], wonder: dict, mechanics: dict) -> None:
-    lines.append(f"{clear_base_effect_name(wonder)} = {{")
-    if base_modifiers_for_wonder(wonder, mechanics):
-        for level in range(1, 7):
-            lines.append(f"{T}remove_country_modifier = tv_wonder_{wonder['key']}_level_{level}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_apply_base_modifier_effect(lines: list[str], wonder: dict, mechanics: dict) -> None:
-    lines.append(f"{apply_base_effect_name(wonder)} = {{")
-    if base_modifiers_for_wonder(wonder, mechanics):
-        for level in range(1, 7):
-            head = "if" if level == 1 else "else_if"
-            lines.append(
-                f"{T}{head} = {{ limit = {{ var:tv_wonder_level ?= {level} }} "
-                f"add_country_modifier = {{ modifier = tv_wonder_{wonder['key']}_level_{level} years = -1 mode = add_and_extend }} }}"
-            )
-    lines.append("}")
-    lines.append("")
-
-
-def append_unique_ceremony_modifier_effects(lines: list[str], wonder: dict, mechanics: dict) -> None:
-    modifier_names = unique_ceremony_modifier_names(wonder, mechanics)
-    if not modifier_names:
-        return
-    lines.append(f"{clear_ceremony_effect_name(wonder)} = {{")
-    for modifier_name in modifier_names:
-        lines.append(f"{T}remove_country_modifier = {modifier_name}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append(f"{apply_ceremony_effect_name(wonder)} = {{")
-    for modifier_name in modifier_names:
-        lines.append(f"{T}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_generic_ritual_blessing_modifier_effects(lines: list[str], wonder: dict, mechanics: dict) -> None:
-    if wonder.get("is_unique"):
-        return
-    ritual_plan = ritual_plan_for_style(wonder, mechanics, 1)
-    if not ritual_plan.get("timed", {}).get("blessing_modifier", {}):
-        return
-
-    modifier_name = ritual_blessing_modifier_name(wonder)
-    lines.append(f"{clear_ceremony_effect_name(wonder)} = {{")
-    lines.append(f"{T}remove_country_modifier = {modifier_name}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append(f"{apply_ceremony_effect_name(wonder)} = {{")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ var:tv_wonder_ceremony_style ?= 1 }}")
-    lines.append(f"{T}{T}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def has_visible_ceremony_modifier(wonder: dict, mechanics: dict) -> bool:
-    if unique_ceremony_modifier_names(wonder, mechanics):
-        return True
-    if wonder.get("is_unique"):
-        return False
-    ritual_plan = ritual_plan_for_style(wonder, mechanics, 1)
-    return bool(ritual_plan.get("timed", {}).get("blessing_modifier", {}))
 
 
 def append_construct_final_building_effect(lines: list[str], wonder: dict, style: int) -> None:
@@ -316,18 +226,10 @@ def append_broadcast_effect(lines: list[str], wonder: dict) -> None:
     lines.append("")
 
 
-def append_visible_effect(lines: list[str], wonder: dict, mechanics: dict) -> None:
+def append_visible_effect(lines: list[str], wonder: dict) -> None:
     lines.append(f"{finalization_visible_effect_name(wonder)} = {{")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_finalization_preview_ready var:tv_wonder_locked ?= {wonder['id']} }}")
-    lines.append(f"{T}{T}hidden_effect = {{")
-    lines.append(f"{T}{T}{T}{clear_base_effect_name(wonder)} = yes")
-    if has_visible_ceremony_modifier(wonder, mechanics):
-        lines.append(f"{T}{T}{T}{clear_ceremony_effect_name(wonder)} = yes")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}{apply_base_effect_name(wonder)} = yes")
-    if has_visible_ceremony_modifier(wonder, mechanics):
-        lines.append(f"{T}{T}{apply_ceremony_effect_name(wonder)} = yes")
     lines.append(f"{T}{T}tv_wonder_apply_finalization_visible_rewards_effect = yes")
     lines.append(f"{T}}}")
     lines.append("}")
@@ -355,21 +257,17 @@ def append_hidden_effect(lines: list[str], wonder: dict, style: int) -> None:
 
 
 def generate() -> str:
-    wonders, mechanics = load_all_wonder_mechanics()
+    wonders, _mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     append_hidden_event_trigger_effect(lines)
     append_hidden_event_execute_effect(lines, wonders)
     append_trigger_event_dispatch_effect(lines, wonders)
     for wonder in wonders:
-        append_clear_base_modifier_effect(lines, wonder, mechanics)
-        append_apply_base_modifier_effect(lines, wonder, mechanics)
-        append_generic_ritual_blessing_modifier_effects(lines, wonder, mechanics)
-        append_unique_ceremony_modifier_effects(lines, wonder, mechanics)
         for style in ceremony_styles(wonder):
             append_construct_final_building_effect(lines, wonder, style)
         append_destroy_intermediate_buildings_effect(lines, wonder)
         append_broadcast_effect(lines, wonder)
-        append_visible_effect(lines, wonder, mechanics)
+        append_visible_effect(lines, wonder)
         for style in ceremony_styles(wonder):
             append_hidden_effect(lines, wonder, style)
     return "\n".join(lines).rstrip() + "\n"
