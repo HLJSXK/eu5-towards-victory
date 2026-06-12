@@ -720,14 +720,14 @@ def indent_lines(text: str, level: int) -> list[str]:
     return [f"{prefix}{line}" if line else line for line in text.splitlines()]
 
 
-def proposal_size_visible(wonders: list[dict], size_key: str) -> str:
-    proposal_var = player_var("tv_wonder_proposal")
+def wonder_size_visible(wonders: list[dict], size_key: str, value_var_name: str) -> str:
+    value_var = player_var(value_var_name)
     size_terms = [
-        f"EqualTo_CFixedPoint({proposal_var}.GetValue, '(CFixedPoint){int(wonder['id'])}.0')"
+        f"EqualTo_CFixedPoint({value_var}.GetValue, '(CFixedPoint){int(wonder['id'])}.0')"
         for wonder in wonders
         if wonder["size"] == size_key
     ]
-    return fold_bool("And", [f"{proposal_var}.IsSet", fold_bool("Or", size_terms)])
+    return fold_bool("And", [f"{value_var}.IsSet", fold_bool("Or", size_terms)])
 
 
 def proposal_size_segment(
@@ -769,15 +769,26 @@ def proposal_size_segment(
     ]
 
 
-def proposal_size_row(wonders: list[dict], indent: int) -> list[str]:
+def proposal_size_row(
+    wonders: list[dict],
+    indent: int,
+    value_var_name: str,
+    visible: str | None = None,
+) -> list[str]:
     prefix = T * indent
     lines = [
         f"{prefix}hbox = {{",
-        f"{prefix}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}layoutpolicy_vertical = fixed",
-        f"{prefix}{T}size = {{ 100% {PROPOSAL_SIZE_ROW_HEIGHT} }}",
-        f"{prefix}{T}spacing = 0",
     ]
+    if visible:
+        lines.append(f'{prefix}{T}visible = "[{visible}]"')
+    lines.extend(
+        [
+            f"{prefix}{T}layoutpolicy_horizontal = expanding",
+            f"{prefix}{T}layoutpolicy_vertical = fixed",
+            f"{prefix}{T}size = {{ -1 {PROPOSAL_SIZE_ROW_HEIGHT} }}",
+            f"{prefix}{T}spacing = 0",
+        ]
+    )
     for size_key, label_key, inactive_texture, active_texture in PROPOSAL_SIZE_INDICATORS:
         lines.extend(
             proposal_size_segment(
@@ -785,7 +796,7 @@ def proposal_size_row(wonders: list[dict], indent: int) -> list[str]:
                 label_key=label_key,
                 inactive_texture=inactive_texture,
                 active_texture=active_texture,
-                active_visible=proposal_size_visible(wonders, size_key),
+                active_visible=wonder_size_visible(wonders, size_key, value_var_name),
             )
         )
     lines.append(f"{prefix}}}")
@@ -798,7 +809,9 @@ def preview_widget(image_var_name: str, id_var_name: str, visible: str | None = 
     lines = [
         "widget = {",
         f'{T}visible = "[{visible_expr}]"',
-        f"{T}size = {{ 100% {PREVIEW_IMAGE_HEIGHT} }}",
+        f"{T}layoutpolicy_horizontal = expanding",
+        f"{T}layoutpolicy_vertical = fixed",
+        f"{T}size = {{ -1 {PREVIEW_IMAGE_HEIGHT} }}",
         f"{T}background = {{",
         f'{T}{T}texture = "[{dynamic_image_texture(image_var_name)}]"',
         f"{T}{T}fittype = centercrop",
@@ -810,11 +823,13 @@ def preview_widget(image_var_name: str, id_var_name: str, visible: str | None = 
     return "\n".join(lines)
 
 
-def proposal_preview_widget(wonders: list[dict], visible: str) -> str:
+def locked_preview_widget(wonders: list[dict], visible: str) -> str:
     lines = [
         "widget = {",
         f'{T}visible = "[{visible}]"',
-        f"{T}size = {{ 100% {PROPOSAL_PREVIEW_HEIGHT} }}",
+        f"{T}layoutpolicy_horizontal = expanding",
+        f"{T}layoutpolicy_vertical = fixed",
+        f"{T}size = {{ -1 {PROPOSAL_PREVIEW_HEIGHT} }}",
         f"{T}vbox = {{",
         f"{T}{T}set_parent_size_to_minimum = yes",
         f"{T}{T}layoutpolicy_horizontal = expanding",
@@ -822,7 +837,33 @@ def proposal_preview_widget(wonders: list[dict], visible: str) -> str:
         f"{T}{T}spacing = {PROPOSAL_SIZE_ROW_SPACING}",
         f"{T}{T}ignoreinvisible = yes",
     ]
-    lines.extend(proposal_size_row(wonders, 2))
+    lines.extend(proposal_size_row(wonders, 2, "tv_wonder_locked_display_id", visible))
+    lines.extend(indent_lines(preview_widget("tv_wonder_locked_image_display_id", "tv_wonder_locked_display_id", visible), 2))
+    lines.extend(
+        [
+            f"{T}}}",
+            "}",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def proposal_preview_widget(wonders: list[dict], visible: str) -> str:
+    proposal_image_visible = f"{player_var('tv_wonder_proposal')}.IsSet"
+    lines = [
+        "widget = {",
+        f'{T}visible = "[{visible}]"',
+        f"{T}layoutpolicy_horizontal = expanding",
+        f"{T}layoutpolicy_vertical = fixed",
+        f"{T}size = {{ -1 {PROPOSAL_PREVIEW_HEIGHT} }}",
+        f"{T}vbox = {{",
+        f"{T}{T}set_parent_size_to_minimum = yes",
+        f"{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}spacing = {PROPOSAL_SIZE_ROW_SPACING}",
+        f"{T}{T}ignoreinvisible = yes",
+    ]
+    lines.extend(proposal_size_row(wonders, 2, "tv_wonder_proposal", proposal_image_visible))
     lines.extend(indent_lines(preview_widget("tv_wonder_proposal", "tv_wonder_proposal"), 2))
     lines.extend(
         [
@@ -852,7 +893,7 @@ def generate() -> str:
         f"And({player_var('tv_wonder_locked_image_display_id')}.IsSet, "
         f"Not({concept_in_progress()}))"
     )
-    lines.append(preview_widget("tv_wonder_locked_image_display_id", "tv_wonder_locked_display_id", locked_preview_visible))
+    lines.append(locked_preview_widget(wonders, locked_preview_visible))
     proposal_preview_visible = (
         f"And3(Not({player_var('tv_wonder_locked')}.IsSet), "
         f"{player_var('tv_wonder_proposal')}.IsSet, "
