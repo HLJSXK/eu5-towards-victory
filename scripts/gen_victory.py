@@ -452,6 +452,9 @@ def gen_localization(data: dict, lang: str) -> str:
         lines.append(kv(f"TV_{PID}_TITLE", ploc["title"][lang]))
         lines.append(kv(f"TV_{PID}_DESCRIPTION", ploc["description"][lang]))
         lines.append(kv(f"TV_{PID}_FLAVOR", ploc["flavor"][lang]))
+        lines.append(kv(f"TV_{PID}_OVERVIEW_TITLE", ploc["overview_card"]["title"][lang]))
+        lines.append(kv(f"TV_{PID}_OVERVIEW_PLAYSTYLE", ploc["overview_card"]["playstyle"][lang]))
+        lines.append(kv(f"TV_{PID}_OVERVIEW_FORMULA", ploc["overview_card"]["formula"][lang]))
         lines.append(kv(f"tv_victory_select_path_{pid}", path["gui"]["tab_label"][lang]))
         lines.append(kv(
             f"tv_victory_select_path_{pid}_desc",

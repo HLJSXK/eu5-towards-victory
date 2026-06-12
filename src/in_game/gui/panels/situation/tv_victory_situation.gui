@@ -1369,6 +1369,76 @@ situation_panel = {
 				layoutpolicy_vertical = fixed
 				ignoreinvisible = yes
 				spacing = 14
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { -1 220 }
+					using = bg_paper_card_situations
+					widget = {
+						layoutpolicy_horizontal = expanding
+						size = { -1 45 }
+						using = bg_card_header_situation
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							margin = { 10 0 }
+							icon = {
+								size = { 30 30 }
+								texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+								texture_density = 2
+								alpha = 1
+							}
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								autoresize = no
+								align = nobaseline|left
+								text = "TV_CONQUEST_OVERVIEW_TITLE"
+							}
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 12 9 }
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 7
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_CONQUEST_OVERVIEW_PLAYSTYLE"
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_CONQUEST_OVERVIEW_FORMULA"
+								}
+							}
+						}
+					}
+				}
 				widget = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
@@ -2951,6 +3021,76 @@ situation_panel = {
 				layoutpolicy_vertical = fixed
 				ignoreinvisible = yes
 				spacing = 14
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { -1 220 }
+					using = bg_paper_card_situations
+					widget = {
+						layoutpolicy_horizontal = expanding
+						size = { -1 45 }
+						using = bg_card_header_situation
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							margin = { 10 0 }
+							icon = {
+								size = { 30 30 }
+								texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+								texture_density = 2
+								alpha = 1
+							}
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								autoresize = no
+								align = nobaseline|left
+								text = "TV_PROSPERITY_OVERVIEW_TITLE"
+							}
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 12 9 }
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 7
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_PROSPERITY_OVERVIEW_PLAYSTYLE"
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_PROSPERITY_OVERVIEW_FORMULA"
+								}
+							}
+						}
+					}
+				}
 				widget = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
@@ -4533,6 +4673,76 @@ situation_panel = {
 				layoutpolicy_vertical = fixed
 				ignoreinvisible = yes
 				spacing = 14
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { -1 220 }
+					using = bg_paper_card_situations
+					widget = {
+						layoutpolicy_horizontal = expanding
+						size = { -1 45 }
+						using = bg_card_header_situation
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							margin = { 10 0 }
+							icon = {
+								size = { 30 30 }
+								texture = "gfx/interface/icons/flat_icons/trade.dds"
+								texture_density = 2
+								alpha = 1
+							}
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								autoresize = no
+								align = nobaseline|left
+								text = "TV_TRADE_OVERVIEW_TITLE"
+							}
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 12 9 }
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 7
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_TRADE_OVERVIEW_PLAYSTYLE"
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_TRADE_OVERVIEW_FORMULA"
+								}
+							}
+						}
+					}
+				}
 				widget = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
@@ -6115,6 +6325,76 @@ situation_panel = {
 				layoutpolicy_vertical = fixed
 				ignoreinvisible = yes
 				spacing = 14
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { -1 220 }
+					using = bg_paper_card_situations
+					widget = {
+						layoutpolicy_horizontal = expanding
+						size = { -1 45 }
+						using = bg_card_header_situation
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							margin = { 10 0 }
+							icon = {
+								size = { 30 30 }
+								texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
+								texture_density = 2
+								alpha = 1
+							}
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								autoresize = no
+								align = nobaseline|left
+								text = "TV_DIPLOMATIC_OVERVIEW_TITLE"
+							}
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 12 9 }
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 7
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_DIPLOMATIC_OVERVIEW_PLAYSTYLE"
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_DIPLOMATIC_OVERVIEW_FORMULA"
+								}
+							}
+						}
+					}
+				}
 				widget = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
@@ -7697,6 +7977,76 @@ situation_panel = {
 				layoutpolicy_vertical = fixed
 				ignoreinvisible = yes
 				spacing = 14
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { -1 220 }
+					using = bg_paper_card_situations
+					widget = {
+						layoutpolicy_horizontal = expanding
+						size = { -1 45 }
+						using = bg_card_header_situation
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							margin = { 10 0 }
+							icon = {
+								size = { 30 30 }
+								texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+								texture_density = 2
+								alpha = 1
+							}
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								autoresize = no
+								align = nobaseline|left
+								text = "TV_CULTURAL_OVERVIEW_TITLE"
+							}
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 12 9 }
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 7
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_CULTURAL_OVERVIEW_PLAYSTYLE"
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_CULTURAL_OVERVIEW_FORMULA"
+								}
+							}
+						}
+					}
+				}
 				widget = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
@@ -9279,6 +9629,76 @@ situation_panel = {
 				layoutpolicy_vertical = fixed
 				ignoreinvisible = yes
 				spacing = 14
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { -1 220 }
+					using = bg_paper_card_situations
+					widget = {
+						layoutpolicy_horizontal = expanding
+						size = { -1 45 }
+						using = bg_card_header_situation
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							margin = { 10 0 }
+							icon = {
+								size = { 30 30 }
+								texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+								texture_density = 2
+								alpha = 1
+							}
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								autoresize = no
+								align = nobaseline|left
+								text = "TV_SCIENCE_OVERVIEW_TITLE"
+							}
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 12 9 }
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 7
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_SCIENCE_OVERVIEW_PLAYSTYLE"
+								}
+							}
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								spacing = 8
+								text_single = {
+									size = { 14 20 }
+									autoresize = no
+									align = center|nobaseline
+									raw_text = "•"
+								}
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									max_width = 430
+									autoresize = yes
+									align = nobaseline|left
+									text = "TV_SCIENCE_OVERVIEW_FORMULA"
+								}
+							}
+						}
+					}
+				}
 				widget = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
