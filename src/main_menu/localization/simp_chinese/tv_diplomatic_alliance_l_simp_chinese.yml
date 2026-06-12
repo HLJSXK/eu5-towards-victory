@@ -14,6 +14,10 @@
  tv_alliance_tier:0 "联盟等级"
  tv_alliance_tier_desc:0 "[tv_diplomatic_alliance|e]的当前制度等级，随成员共同通过升级后的法律而提升。"
  tv_alliance_assembly_desc:0 "[tv_alliance_assembly|E]是成员国审议和表决加强[tv_diplomatic_alliance|E]法律的场所。"
+ MODIFIER_TYPE_NAME_tv_alliance_advocator_can_participate_in_parliament: "$tv_alliance_advocator$参与议会"
+ MODIFIER_TYPE_DESC_tv_alliance_advocator_can_participate_in_parliament: "允许$tv_alliance_advocator$在[tv_diplomatic_alliance|E]的[parliament|e]中提出[parliament_agendas|e]。"
+ MODIFIER_TYPE_NAME_tv_alliance_advocator_agenda_impact: "$tv_alliance_advocator$议程影响"
+ MODIFIER_TYPE_DESC_tv_alliance_advocator_agenda_impact: "修正由$tv_alliance_advocator$集团提出的[parliament_agendas|e]所拥有的支持度。"
 
  # ── 国家互动 ───────────────────────────────────────────────────────────
  tv_seek_diplomatic_support: "寻求外交支持"
