@@ -12,6 +12,8 @@ Usage:
 The script expands a short asset idea into a production prompt for one selected
 target, uploads that target's style-reference images, writes the generated PNG,
 and converts it into one DDS target with enforced dimensions and byte limits.
+It can also run the victory reward icon batch: one route template plus fifteen
+reward-option icons for each of the six victory paths.
 """
 
 from __future__ import annotations
@@ -37,7 +39,15 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
-from dds_image_lib import PNG_SIGNATURE, RgbaImage, encode_png_rgba, read_image_rgba, resize_rgba, write_dds
+from dds_image_lib import (
+    PNG_SIGNATURE,
+    RgbaImage,
+    decode_png_rgba,
+    encode_png_rgba,
+    read_image_rgba,
+    resize_rgba,
+    write_dds,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -48,6 +58,7 @@ DEFAULT_EDITS_ENDPOINT = "https://www.right.codes/draw/v1/images/edits"
 DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_icons"
 DEFAULT_REF_DIR = DEFAULT_PNG_DIR / "_style_refs"
 DEFAULT_STYLE_UPLOAD_FIELD = "image"
+VICTORY_REWARD_BATCH = "victory_reward_icons"
 
 TARGET_PRESETS: dict[str, dict[str, Any]] = {
     "trade_good_icon": {
@@ -57,6 +68,8 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
         "height": 128,
         "resize": "cover",
         "dds_format": "DXT5",
+        "circle_crop": True,
+        "circle_crop_feather_px": 8,
         "max_file_size_bytes": 100_000,
         "image_size": "1024x1024",
         "prompt_requirements": (
@@ -71,6 +84,8 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
         "height": 440,
         "resize": "cover",
         "dds_format": "DXT5",
+        "circle_crop": False,
+        "circle_crop_feather_px": 0,
         "max_file_size_bytes": 1_000_000,
         "image_size": "2160x880",
         "prompt_requirements": (
@@ -87,6 +102,8 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
         "dds_format": "DXT5",
         "mipmaps": True,
         "mipmap_min_dimension": 2,
+        "circle_crop": True,
+        "circle_crop_feather_px": 8,
         "max_file_size_bytes": 100_000,
         "image_size": "1024x1024",
         "prompt_requirements": (
@@ -96,6 +113,26 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
             "exactly 2-3 simple shapes: a small worksite structure, one crane or hoist, and a "
             "stone foundation. Avoid extra props, busy scenery, crowds, complex scaffolding, "
             "ornate architecture, or a finished monument."
+        ),
+    },
+    "victory_reward_icon": {
+        "label": "victory reward Icon",
+        "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": True,
+        "mipmap_min_dimension": 2,
+        "circle_crop": True,
+        "circle_crop_feather_px": 8,
+        "max_file_size_bytes": 100_000,
+        "image_size": "1024x1024",
+        "prompt_requirements": (
+            "This is a compact victory reward icon. Use an extreme minimalist icon design: "
+            "one centered symbolic subject, at most 1-2 small supporting shapes, a simple "
+            "readable silhouette at 128px, restrained EU5-style painterly texture, no text, "
+            "no letters, no logo, no UI frame, and no complex scene."
         ),
     },
 }
@@ -111,7 +148,16 @@ TARGET_ALIASES = {
     "trade_goods_illustration": "trade_good_illustration",
     "trade_goods_icon_illustration": "trade_good_illustration",
     "trade_good_icon_illustration": "trade_good_illustration",
+    "reward_icon": "victory_reward_icon",
+    "victory_reward": "victory_reward_icon",
+    "victory_rewards_icon": "victory_reward_icon",
+    "victory_rewards_icons": VICTORY_REWARD_BATCH,
+    "victory_reward_icons": VICTORY_REWARD_BATCH,
+    "victory_reward_batch": VICTORY_REWARD_BATCH,
+    "victory_rewards": VICTORY_REWARD_BATCH,
 }
+
+BATCH_TARGETS = {VICTORY_REWARD_BATCH}
 
 
 @dataclass(frozen=True)
@@ -149,6 +195,22 @@ class TargetSpec:
     asset_name: str
     image_overrides: dict[str, Any]
     local_template: dict[str, Any]
+    circle_crop: bool
+    circle_crop_feather_px: int
+
+
+@dataclass(frozen=True)
+class BatchIconTask:
+    kind: str
+    path_id: str
+    path_label: str
+    milestone: int | None
+    choice: int | None
+    target: TargetSpec
+    image_config: dict[str, Any]
+    prompt_config: dict[str, Any]
+    output_config: dict[str, Any]
+    allow_missing_style_reference_dry_run: bool = False
 
 
 def deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -230,12 +292,13 @@ def parse_rgb(value: Any, key: str = "opaque_background") -> tuple[int, int, int
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate one configured EU5 trade-good DDS asset.")
+    supported = sorted([*TARGET_PRESETS, *BATCH_TARGETS])
+    parser = argparse.ArgumentParser(description="Generate configured EU5 DDS icon assets.")
     parser.add_argument(
         "--target",
         help=(
             "Generation target to write. Supported values: "
-            f"{', '.join(sorted(TARGET_PRESETS))}. Aliases like icon and illustration are accepted."
+            f"{', '.join(supported)}. Aliases like icon and illustration are accepted."
         ),
     )
     parser.add_argument(
@@ -251,7 +314,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument(
         "--list-targets",
         action="store_true",
-        help="Print supported generation targets and exit.",
+        help="Print supported generation targets and batch modes, then exit.",
     )
     parser.add_argument(
         "--force-api",
@@ -282,6 +345,10 @@ def normalize_target_name(value: Any) -> str:
         return ""
     key = safe_slug(raw)
     return TARGET_ALIASES.get(key, key)
+
+
+def is_batch_target_name(value: str) -> bool:
+    return value in BATCH_TARGETS
 
 
 def parse_path_list(value: Any, key: str) -> list[str]:
@@ -318,14 +385,14 @@ def select_target_name(config: dict[str, Any], output_config: dict[str, Any], cl
         if len(names) == 1:
             target_name = names[0]
         else:
-            valid = ", ".join(sorted(TARGET_PRESETS))
+            valid = ", ".join(sorted([*TARGET_PRESETS, *BATCH_TARGETS]))
             raise ValueError(
                 "Set generation_target (or pass --target) so the helper writes exactly one DDS target. "
                 f"Supported targets: {valid}"
             )
 
-    if target_name not in TARGET_PRESETS:
-        valid = ", ".join(sorted(TARGET_PRESETS))
+    if target_name not in TARGET_PRESETS and not is_batch_target_name(target_name):
+        valid = ", ".join(sorted([*TARGET_PRESETS, *BATCH_TARGETS]))
         raise ValueError(f"Unsupported generation target {raw_target!r}. Supported targets: {valid}")
     return target_name
 
@@ -401,8 +468,24 @@ def load_target_spec(
     cli_target: str | None,
 ) -> TargetSpec:
     target_name = select_target_name(config, output_config, cli_target)
+    if is_batch_target_name(target_name):
+        raise ValueError(f"{target_name} is a batch mode, not a single DDS target")
     preset = TARGET_PRESETS[target_name]
     target_config = deep_merge(preset, target_override(output_config, target_name))
+    return build_target_spec(target_name, target_config, output_config, style_config)
+
+
+def build_target_spec(
+    target_name: str,
+    target_config: dict[str, Any],
+    output_config: dict[str, Any],
+    style_config: dict[str, Any],
+) -> TargetSpec:
+    if target_name not in TARGET_PRESETS:
+        valid = ", ".join(sorted(TARGET_PRESETS))
+        raise ValueError(f"Unsupported single DDS target {target_name!r}. Supported targets: {valid}")
+    preset = TARGET_PRESETS[target_name]
+    target_config = deep_merge(preset, target_config)
     asset_name = safe_slug(
         str(
             target_config.get("asset_name")
@@ -476,6 +559,8 @@ def load_target_spec(
         asset_name=asset_name,
         image_overrides=image_overrides,
         local_template=local_template,
+        circle_crop=bool(target_config.get("circle_crop", False)),
+        circle_crop_feather_px=int(target_config.get("circle_crop_feather_px", 0)),
     )
 
 
@@ -483,6 +568,289 @@ def apply_target_image_settings(image_config: dict[str, Any], target: TargetSpec
     configured = deep_merge(image_config, target.image_overrides)
     configured["size"] = target.image_size
     return configured
+
+
+def clamp_float(value: float, low: float = 0.0, high: float = 1.0) -> float:
+    return max(low, min(high, value))
+
+
+def smoothstep(edge0: float, edge1: float, value: float) -> float:
+    if edge0 == edge1:
+        return 1.0 if value >= edge1 else 0.0
+    t = clamp_float((value - edge0) / (edge1 - edge0))
+    return t * t * (3.0 - 2.0 * t)
+
+
+def apply_circle_icon_crop(image: RgbaImage, feather_px: int) -> RgbaImage:
+    feather = max(0.0, float(feather_px))
+    if feather <= 0:
+        feather = 0.0
+    radius = min(image.width, image.height) / 2.0
+    center_x = image.width / 2.0
+    center_y = image.height / 2.0
+    rgba = bytearray(image.rgba)
+    for y in range(image.height):
+        dy = (y + 0.5) - center_y
+        for x in range(image.width):
+            dx = (x + 0.5) - center_x
+            dist = math.hypot(dx, dy)
+            pos = (y * image.width + x) * 4
+            if dist >= radius:
+                rgba[pos + 3] = 0
+                continue
+            if feather > 0 and dist > radius - feather:
+                falloff = smoothstep(radius, radius - feather, dist)
+                rgba[pos + 3] = int(round(rgba[pos + 3] * falloff))
+    return RgbaImage(image.width, image.height, bytes(rgba))
+
+
+def prepare_target_image(source_image: RgbaImage, target: TargetSpec) -> RgbaImage:
+    image = resize_rgba(source_image, target.width, target.height, target.resize)
+    if target.circle_crop:
+        image = apply_circle_icon_crop(image, target.circle_crop_feather_px)
+    return image
+
+
+def default_victory_reward_paths() -> list[dict[str, str]]:
+    return [
+        {
+            "id": "conquest",
+            "label": "Conquest Victory",
+            "template_prompt": "a single crowned sword silhouette over a tiny laurel mark",
+            "reward_motif": "a crowned sword, shield, or banner symbol for conquest rewards",
+            "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+        },
+        {
+            "id": "prosperity",
+            "label": "Prosperity Victory",
+            "template_prompt": "a single sprouting coin or granary mark",
+            "reward_motif": "a sprouting coin, granary, or civic growth symbol for prosperity rewards",
+            "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+        },
+        {
+            "id": "trade",
+            "label": "Trade Victory",
+            "template_prompt": "a single balanced scale with a small merchant sail accent",
+            "reward_motif": "a scale, merchant sail, coin, or trade route symbol for trade rewards",
+            "style_reference_paths": ["data/generated_icons/_style_refs/icon_goods_marble.dds"],
+        },
+        {
+            "id": "diplomatic",
+            "label": "Diplomatic Victory",
+            "template_prompt": "a single sealed treaty scroll with two small clasped rings",
+            "reward_motif": "a treaty scroll, seal, clasped rings, or envoy symbol for diplomatic rewards",
+            "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+        },
+        {
+            "id": "cultural",
+            "label": "Cultural Victory",
+            "template_prompt": "a single theater mask with a small star accent",
+            "reward_motif": "a theater mask, lyre, manuscript, or star symbol for cultural rewards",
+            "style_reference_paths": ["data/generated_icons/_style_refs/icon_goods_marble.dds"],
+        },
+        {
+            "id": "science",
+            "label": "Scientific Victory",
+            "template_prompt": "a single astrolabe disk with one small spark",
+            "reward_motif": "an astrolabe, compass, lens, or spark symbol for scientific rewards",
+            "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+        },
+    ]
+
+
+def format_task_template(template: str, values: dict[str, Any]) -> str:
+    result = template
+    for key, value in values.items():
+        result = result.replace("{" + key + "}", str(value))
+    return result
+
+
+def output_stem_path(output_config: dict[str, Any], target: TargetSpec, suffix: str) -> Path:
+    return resolve_repo_path(output_config.get(f"{suffix}_dir"), DEFAULT_PNG_DIR) / (
+        f"{output_artifact_stem(output_config, target)}.{suffix}"
+    )
+
+
+def existing_template_reference(output_config: dict[str, Any], target: TargetSpec) -> str:
+    png_path = output_stem_path(output_config, target, "png")
+    if png_path.exists():
+        return display_path(png_path).replace("\\", "/")
+    return display_path(target.path).replace("\\", "/")
+
+
+def victory_batch_config(config: dict[str, Any]) -> dict[str, Any]:
+    value = config.get(VICTORY_REWARD_BATCH, {})
+    if not isinstance(value, dict):
+        raise ValueError(f"{VICTORY_REWARD_BATCH} must be a JSON object")
+    return value
+
+
+def load_victory_path_configs(batch_config: dict[str, Any]) -> list[dict[str, Any]]:
+    raw_paths = batch_config.get("paths", default_victory_reward_paths())
+    if not isinstance(raw_paths, list) or not raw_paths:
+        raise ValueError(f"{VICTORY_REWARD_BATCH}.paths must be a non-empty list")
+    paths: list[dict[str, Any]] = []
+    for index, raw_path in enumerate(raw_paths, start=1):
+        if not isinstance(raw_path, dict):
+            raise ValueError(f"{VICTORY_REWARD_BATCH}.paths[{index}] must be a JSON object")
+        path_id = safe_slug(str(raw_path.get("id") or ""))
+        if not path_id:
+            raise ValueError(f"{VICTORY_REWARD_BATCH}.paths[{index}].id must be set")
+        path_config = dict(raw_path)
+        path_config["id"] = path_id
+        path_config["label"] = str(path_config.get("label") or path_id.replace("_", " ").title())
+        paths.append(path_config)
+    return paths
+
+
+def build_victory_batch_tasks(
+    config: dict[str, Any],
+    output_config: dict[str, Any],
+    style_config: dict[str, Any],
+    image_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+) -> list[BatchIconTask]:
+    batch_config = victory_batch_config(config)
+    target_name = "victory_reward_icon"
+    target_defaults = target_override(output_config, target_name)
+    base_target_config = deep_merge(TARGET_PRESETS[target_name], target_defaults)
+    base_target_config = deep_merge(base_target_config, require_object(batch_config, "target"))
+
+    paths = load_victory_path_configs(batch_config)
+    milestones_raw = batch_config.get("milestones", [1, 2, 3, 4, 5])
+    choices_raw = batch_config.get("choices", [1, 2, 3])
+    if not isinstance(milestones_raw, list) or not all(isinstance(item, int) for item in milestones_raw):
+        raise ValueError(f"{VICTORY_REWARD_BATCH}.milestones must be a list of integers")
+    if not isinstance(choices_raw, list) or not all(isinstance(item, int) for item in choices_raw):
+        raise ValueError(f"{VICTORY_REWARD_BATCH}.choices must be a list of integers")
+
+    output_dir = str(
+        batch_config.get("output_dir")
+        or base_target_config.get("path", TARGET_PRESETS[target_name]["path"]).rsplit("/", 1)[0]
+    )
+    template_name_template = str(batch_config.get("template_name_template") or "tv_victory_{path}_template")
+    reward_name_template = str(
+        batch_config.get("reward_name_template") or "tv_victory_{path}_m{milestone}_reward_{choice}"
+    )
+    artifact_stem_template = str(batch_config.get("artifact_stem") or "{name}")
+    minimalist_rules = str(
+        batch_config.get("minimalist_rules")
+        or (
+            "Extreme minimalist EU5 reward icon: one central symbolic subject, at most 1-2 tiny supporting shapes, "
+            "strong silhouette, readable at 128px, no text, no letters, no logo, no UI frame, no complex scene."
+        )
+    )
+    template_prompt_prefix = str(
+        batch_config.get("template_prompt_prefix")
+        or "Route style template. Create the canonical visual language for this victory path:"
+    )
+    reward_prompt_prefix = str(
+        batch_config.get("reward_prompt_prefix")
+        or "Create a slightly different reward option icon in the same route style:"
+    )
+    choice_variants = batch_config.get(
+        "choice_variants",
+        {
+            "1": "variant 1: use the cleanest frontal silhouette and the calmest accent color.",
+            "2": "variant 2: shift the symbol angle slightly and add one small secondary accent.",
+            "3": "variant 3: use a compact diagonal composition and a subtly brighter highlight.",
+        },
+    )
+    if not isinstance(choice_variants, dict):
+        raise ValueError(f"{VICTORY_REWARD_BATCH}.choice_variants must be a JSON object")
+
+    batch_output_config = dict(output_config)
+    batch_output_config["artifact_stem"] = artifact_stem_template
+    tasks: list[BatchIconTask] = []
+    for path_config in paths:
+        path_id = str(path_config["id"])
+        path_label = str(path_config["label"])
+        values = {"path": path_id}
+        template_name = safe_slug(format_task_template(template_name_template, values))
+        template_refs = parse_path_list(
+            path_config.get("template_style_reference_paths", path_config.get("style_reference_paths", [])),
+            f"{VICTORY_REWARD_BATCH}.paths.{path_id}.style_reference_paths",
+        )
+        template_subject = str(path_config.get("template_prompt") or path_config.get("motif") or path_label)
+        template_target_config = deep_merge(
+            base_target_config,
+            {
+                "asset_name": template_name,
+                "path": f"{output_dir}/{{name}}.dds",
+                "style_reference_paths": template_refs,
+                "prompt_requirements": minimalist_rules,
+                "image": {
+                    "natural_prompt": (
+                        f"{template_prompt_prefix} {path_label}. Subject: {template_subject}. "
+                        f"{minimalist_rules}"
+                    ),
+                    "negative_prompt": (
+                        "busy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, "
+                        "text, letters, numbers, logo, watermark, realistic photo"
+                    ),
+                },
+            },
+        )
+        template_target = build_target_spec(target_name, template_target_config, batch_output_config, style_config)
+        template_image_config = apply_target_image_settings(image_config, template_target)
+        tasks.append(
+            BatchIconTask(
+                kind="template",
+                path_id=path_id,
+                path_label=path_label,
+                milestone=None,
+                choice=None,
+                target=template_target,
+                image_config=template_image_config,
+                prompt_config=prompt_config,
+                output_config=batch_output_config,
+            )
+        )
+
+        motif = str(path_config.get("reward_motif") or path_config.get("motif") or template_subject)
+        template_ref = existing_template_reference(batch_output_config, template_target)
+        for milestone in milestones_raw:
+            for choice in choices_raw:
+                task_values = {"path": path_id, "milestone": milestone, "choice": choice}
+                asset_name = safe_slug(format_task_template(reward_name_template, task_values))
+                variant = str(choice_variants.get(str(choice)) or choice_variants.get(choice) or "")
+                reward_target_config = deep_merge(
+                    base_target_config,
+                    {
+                        "asset_name": asset_name,
+                        "path": f"{output_dir}/{{name}}.dds",
+                        "style_reference_paths": [template_ref],
+                        "prompt_requirements": minimalist_rules,
+                        "image": {
+                            "natural_prompt": (
+                                f"{reward_prompt_prefix} {path_label}, milestone {milestone}, option {choice}. "
+                                f"Use {motif}. {variant} Keep it only slightly different from the route template. "
+                                f"{minimalist_rules}"
+                            ),
+                            "negative_prompt": (
+                                "busy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, "
+                                "text, letters, numbers, logo, watermark, realistic photo"
+                            ),
+                        },
+                    },
+                )
+                reward_target = build_target_spec(target_name, reward_target_config, batch_output_config, style_config)
+                reward_image_config = apply_target_image_settings(image_config, reward_target)
+                tasks.append(
+                    BatchIconTask(
+                        kind="reward",
+                        path_id=path_id,
+                        path_label=path_label,
+                        milestone=milestone,
+                        choice=choice,
+                        target=reward_target,
+                        image_config=reward_image_config,
+                        prompt_config=prompt_config,
+                        output_config=batch_output_config,
+                        allow_missing_style_reference_dry_run=True,
+                    )
+                )
+    return tasks
 
 
 def resolve_api_key(api_config: dict[str, Any]) -> str:
@@ -806,6 +1174,7 @@ def collect_style_references(
     style_config: dict[str, Any],
     target: TargetSpec,
     dry_run: bool,
+    allow_missing_dry_run: bool = False,
 ) -> list[UploadFile]:
     paths = list(target.style_reference_paths)
     if not paths:
@@ -824,6 +1193,9 @@ def collect_style_references(
     for index, raw_path in enumerate(paths, start=1):
         path = resolve_repo_path(raw_path)
         if not path.exists():
+            if dry_run and allow_missing_dry_run:
+                print(f"[style] planned future reference: {display_path(path)}")
+                continue
             raise FileNotFoundError(f"Missing style reference: {path}")
         image = read_image_rgba(path)
         png_bytes = encode_png_rgba(image)
@@ -1076,15 +1448,19 @@ def render_local_template_image(target: TargetSpec) -> tuple[RgbaImage, Path, st
     return render_wonder_worksite_icon(source), source_path, mode
 
 
-def write_local_template_png(output_config: dict[str, Any], image: RgbaImage, target: TargetSpec) -> Path:
+def write_rgba_png(output_config: dict[str, Any], image: RgbaImage, target: TargetSpec) -> Path:
     png_dir = resolve_repo_path(output_config.get("png_dir"), DEFAULT_PNG_DIR)
     png_path = png_dir / f"{output_artifact_stem(output_config, target)}.png"
     if png_path.exists() and not bool(output_config.get("overwrite", False)):
-        raise FileExistsError(f"refusing to overwrite existing PNG: {png_path}")
+        print(f"[png] refreshing intermediate {display_path(png_path)} because DDS target is missing")
     png_path.parent.mkdir(parents=True, exist_ok=True)
     png_path.write_bytes(encode_png_rgba(image))
     print(f"[png] {display_path(png_path)}")
     return png_path
+
+
+def write_local_template_png(output_config: dict[str, Any], image: RgbaImage, target: TargetSpec) -> Path:
+    return write_rgba_png(output_config, prepare_target_image(image, target), target)
 
 
 def write_local_template_metadata(
@@ -1116,20 +1492,50 @@ def write_local_template_metadata(
 def write_generated_png(png_bytes: bytes, output_config: dict[str, Any], target: TargetSpec) -> Path:
     if not png_bytes.startswith(PNG_SIGNATURE):
         raise RuntimeError("Generated image payload is not a PNG")
+    if target.circle_crop:
+        source_image = decode_png_rgba(png_bytes)
+        return write_rgba_png(output_config, prepare_target_image(source_image, target), target)
     png_dir = resolve_repo_path(output_config.get("png_dir"), DEFAULT_PNG_DIR)
     png_path = png_dir / f"{output_artifact_stem(output_config, target)}.png"
     if png_path.exists() and not bool(output_config.get("overwrite", False)):
-        raise FileExistsError(f"refusing to overwrite existing PNG: {png_path}")
+        print(f"[png] refreshing intermediate {display_path(png_path)} because DDS target is missing")
     png_path.parent.mkdir(parents=True, exist_ok=True)
     png_path.write_bytes(png_bytes)
     print(f"[png] {display_path(png_path)}")
     return png_path
 
 
-def write_target(output_config: dict[str, Any], source_png_path: Path, target: TargetSpec) -> dict[str, Any]:
+def write_target(
+    output_config: dict[str, Any],
+    source_png_path: Path,
+    target: TargetSpec,
+    *,
+    source_is_prepared: bool = False,
+) -> dict[str, Any]:
     overwrite = bool(output_config.get("overwrite", False))
+    if target.path.exists() and not overwrite:
+        file_size = target.path.stat().st_size
+        print(f"[skip] {display_path(target.path)} exists; output.overwrite is false")
+        return {
+            "name": target.name,
+            "label": target.label,
+            "path": display_path(target.path).replace("\\", "/"),
+            "width": target.width,
+            "height": target.height,
+            "resize": target.resize,
+            "dds_format": target.dds_format,
+            "dds_levels": None,
+            "circle_crop": target.circle_crop,
+            "circle_crop_feather_px": target.circle_crop_feather_px,
+            "file_size_bytes": file_size,
+            "max_file_size_bytes": target.max_file_size_bytes,
+            "skipped": True,
+        }
     source_image = read_image_rgba(source_png_path)
-    target_image = resize_rgba(source_image, target.width, target.height, target.resize)
+    if source_is_prepared and (source_image.width, source_image.height) == (target.width, target.height):
+        target_image = source_image
+    else:
+        target_image = prepare_target_image(source_image, target)
     dds_levels = write_dds(
         target_image,
         target.path,
@@ -1159,6 +1565,8 @@ def write_target(output_config: dict[str, Any], source_png_path: Path, target: T
         "resize": target.resize,
         "dds_format": target.dds_format,
         "dds_levels": dds_levels,
+        "circle_crop": target.circle_crop,
+        "circle_crop_feather_px": target.circle_crop_feather_px,
         "file_size_bytes": file_size,
         "max_file_size_bytes": target.max_file_size_bytes,
     }
@@ -1216,30 +1624,48 @@ def write_metadata(
     print(f"[metadata] {display_path(metadata_path)}")
 
 
-def main(argv: list[str] | None = None) -> int:
-    args = parse_args(sys.argv[1:] if argv is None else argv)
-    if args.list_targets:
-        for name, preset in TARGET_PRESETS.items():
-            print(
-                f"{name}: {preset['label']} "
-                f"({preset['width']}x{preset['height']}, <= {format_bytes(int(preset['max_file_size_bytes']))})"
-            )
-        return 0
+def should_skip_existing(output_config: dict[str, Any], target: TargetSpec) -> bool:
+    return target.path.exists() and not bool(output_config.get("overwrite", False))
 
-    config = load_config()
-    api_config = require_object(config, "api")
-    prompt_config = require_object(config, "prompt_refinement")
-    image_config = require_object(config, "image")
-    style_config = require_object(config, "style_reference")
-    output_config = require_object(config, "output")
-    target = load_target_spec(config, output_config, style_config, args.target)
-    image_config = apply_target_image_settings(image_config, target)
 
+def print_target_summary(target: TargetSpec) -> None:
     print(
         f"[target] {target.name}: {target.width}x{target.height}, "
         f"request_size={target.image_size}, max={format_bytes(target.max_file_size_bytes)}"
     )
     print(f"[target] output={display_path(target.path)}")
+
+
+def run_target_generation(
+    args: argparse.Namespace,
+    api_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+    image_config: dict[str, Any],
+    style_config: dict[str, Any],
+    output_config: dict[str, Any],
+    target: TargetSpec,
+    *,
+    allow_missing_style_reference_dry_run: bool = False,
+) -> dict[str, Any] | None:
+    print_target_summary(target)
+
+    if should_skip_existing(output_config, target):
+        print(f"[skip] {display_path(target.path)} exists; output.overwrite is false")
+        return {
+            "name": target.name,
+            "label": target.label,
+            "path": display_path(target.path).replace("\\", "/"),
+            "width": target.width,
+            "height": target.height,
+            "resize": target.resize,
+            "dds_format": target.dds_format,
+            "dds_levels": None,
+            "circle_crop": target.circle_crop,
+            "circle_crop_feather_px": target.circle_crop_feather_px,
+            "file_size_bytes": target.path.stat().st_size,
+            "max_file_size_bytes": target.max_file_size_bytes,
+            "skipped": True,
+        }
 
     if args.convert_existing_png:
         source_png_path = resolve_repo_path(args.convert_existing_png)
@@ -1248,15 +1674,15 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[png] source={display_path(source_png_path)}")
         written_target = write_target(output_config, source_png_path, target)
         update_existing_metadata_target(output_config, target, written_target)
-        return 0
+        return written_target
 
     if bool(target.local_template.get("enabled", False)) and not bool(args.force_api):
         local_image, source_path, mode = render_local_template_image(target)
         print(f"[local-template] mode={mode} source={display_path(source_path)}")
         png_path = write_local_template_png(output_config, local_image, target)
-        written_target = write_target(output_config, png_path, target)
+        written_target = write_target(output_config, png_path, target, source_is_prepared=True)
         write_local_template_metadata(output_config, target, source_path, mode, written_target)
-        return 0
+        return written_target
 
     timeout = float(api_config.get("timeout_seconds", 180))
     retry_settings = load_retry_settings(api_config)
@@ -1264,7 +1690,12 @@ def main(argv: list[str] | None = None) -> int:
     opener = build_url_opener(proxy_url)
     if proxy_url:
         print(f"[network] proxy={proxy_url}")
-    style_uploads = collect_style_references(style_config, target, dry_run=bool(args.dry_run))
+    style_uploads = collect_style_references(
+        style_config,
+        target,
+        dry_run=bool(args.dry_run),
+        allow_missing_dry_run=allow_missing_style_reference_dry_run,
+    )
 
     final_prompt = refine_prompt(prompt_config, image_config, target)
     print("[prompt] final prompt:")
@@ -1275,7 +1706,7 @@ def main(argv: list[str] | None = None) -> int:
         print("[dry-run] payload:")
         print(json.dumps(image_payload, ensure_ascii=False, indent=2))
         print("[dry-run] skipped API request and output writes")
-        return 0
+        return None
 
     api_key = resolve_api_key(api_config)
     image_response = call_image_api(
@@ -1290,7 +1721,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     png_bytes, revised_prompt = extract_image_bytes(image_response, timeout, retry_settings, opener)
     png_path = write_generated_png(png_bytes, output_config, target)
-    written_target = write_target(output_config, png_path, target)
+    written_target = write_target(output_config, png_path, target, source_is_prepared=True)
     write_metadata(output_config, target, image_payload, image_response, final_prompt, revised_prompt, [written_target])
     if not bool(output_config.get("keep_png", True)):
         png_path.unlink(missing_ok=True)
@@ -1298,6 +1729,85 @@ def main(argv: list[str] | None = None) -> int:
 
     if revised_prompt:
         print(f"[revised_prompt] {revised_prompt}")
+    return written_target
+
+
+def run_victory_reward_batch(
+    args: argparse.Namespace,
+    config: dict[str, Any],
+    api_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+    image_config: dict[str, Any],
+    style_config: dict[str, Any],
+    output_config: dict[str, Any],
+) -> int:
+    if args.convert_existing_png:
+        raise ValueError("--convert-existing-png is only supported for a single selected target")
+    tasks = build_victory_batch_tasks(config, output_config, style_config, image_config, prompt_config)
+    template_count = sum(1 for task in tasks if task.kind == "template")
+    reward_count = sum(1 for task in tasks if task.kind == "reward")
+    print(f"[batch] {VICTORY_REWARD_BATCH}: templates={template_count}, rewards={reward_count}, total={len(tasks)}")
+    for index, task in enumerate(tasks, start=1):
+        if task.kind == "template":
+            print(f"[batch] {index}/{len(tasks)} template path={task.path_id}")
+        else:
+            print(
+                f"[batch] {index}/{len(tasks)} reward path={task.path_id} "
+                f"m{task.milestone} option={task.choice}"
+            )
+        run_target_generation(
+            args,
+            api_config,
+            task.prompt_config,
+            task.image_config,
+            style_config,
+            task.output_config,
+            task.target,
+            allow_missing_style_reference_dry_run=task.allow_missing_style_reference_dry_run,
+        )
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(sys.argv[1:] if argv is None else argv)
+    if args.list_targets:
+        for name, preset in TARGET_PRESETS.items():
+            print(
+                f"{name}: {preset['label']} "
+                f"({preset['width']}x{preset['height']}, <= {format_bytes(int(preset['max_file_size_bytes']))})"
+            )
+        for name in sorted(BATCH_TARGETS):
+            print(f"{name}: batch mode")
+        return 0
+
+    config = load_config()
+    api_config = require_object(config, "api")
+    prompt_config = require_object(config, "prompt_refinement")
+    image_config = require_object(config, "image")
+    style_config = require_object(config, "style_reference")
+    output_config = require_object(config, "output")
+    selected_target = select_target_name(config, output_config, args.target)
+    if selected_target == VICTORY_REWARD_BATCH:
+        return run_victory_reward_batch(
+            args,
+            config,
+            api_config,
+            prompt_config,
+            image_config,
+            style_config,
+            output_config,
+        )
+    target = load_target_spec(config, output_config, style_config, args.target)
+    image_config = apply_target_image_settings(image_config, target)
+    run_target_generation(
+        args,
+        api_config,
+        prompt_config,
+        image_config,
+        style_config,
+        output_config,
+        target,
+    )
     return 0
 
 
