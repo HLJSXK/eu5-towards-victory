@@ -1034,6 +1034,16 @@ tv_reference_display_modifiers_effect = {
 
 The `always = no` guard prevents runtime state changes while leaving static modifier references in a loaded script file.
 
+`add_country_modifier` validates against static country modifiers, not `common/auto_modifiers`.
+Country Auto modifiers can drive real automatic country effects through their own
+`potential_trigger`, but their ids are invalid database objects for
+`add_country_modifier`, including in scripted-effect tooltip previews. For Engineering
+Department wonders, auto-driven country effects are applied by Country Auto modifiers,
+while generated static mirrors are kept for GUI `ShowModifierEffect` display and
+unreachable database references only. Do not restore old finalization-time static
+grants/removals or route scripted-effect tooltip previews through those old static ids for
+effects whose real lifecycle is building-gated Country Auto modifiers.
+
 For ordinary localization keys such as building names, use `$key$` substitution instead of square-bracket game concept syntax. GUI-bound localized text can parse `[building_key|E]` as a data-system function when `building_key` is not registered as a game concept, producing `Could not find data system function '<key>'`.
 
 `MakeScope.GetVariable('x')` returns a GUI variable wrapper, not an arbitrary typed object constructor. Do not chain `.GetGoods` or `.GetInternationalOrganization` from it. Goods icons/names must come from a real typed goods datacontext such as `Trade.GetGoods` or `GoodsMarketEntry.GetGoods`, or from static generated branches keyed by a saved numeric goods id. `OpenInternationalOrganizationView(...)` likewise needs a typed `InternationalOrganization` object from a verified GUI chain such as `InternationalOrganization.Self`, `OrgItem.GetOrg.Self`, or `GetUniqueInternationalOrganization('hre').Self`; a saved script variable cannot be promoted with `.GetInternationalOrganization`.

@@ -1734,9 +1734,19 @@
   pattern: ''
   detectability: advisory
   only_in_paths: ['gui']
-  bad: "Calling ShowModifierEffect with wonder display modifier ids built by GUI Concatenate(...), then keeping unreachable add_country_modifier/add_location_modifier references only to register those ids"
-  correction: "Do not preserve dynamic wonder display static modifiers. Show completed wonder effects through the final building modifier UI and country auto modifiers; for bespoke tooltip previews, generate scripted tooltip effects that reference current auto modifiers or real effect payloads directly."
+  bad: "Calling ShowModifierEffect with wonder display modifier ids built by GUI Concatenate(...) without generated static modifier definitions and unreachable script references"
+  correction: "Generate matching static display modifiers plus an unreachable always = no script block that references every possible display id through add_country_modifier/add_location_modifier. Use those mirrors for GUI ShowModifierEffect display only; do not route completed wonder grants or scripted-effect tooltip previews through them."
   category: gui
   scope: modifier
-  source: "Engineering Department wonder auto-modifier refactor, 2026-06"
-  notes: "The old location-window route generated tv_wonder_display_<id>_level_<level> static modifiers plus an unreachable reference effect. The current architecture removes that compatibility path: building modifier blocks carry display-only country effects, while country auto modifiers provide the actual national effects from owned final buildings."
+  source: "Engineering Department wonder auto-modifier refactor, 2026-06; follow-up runtime error.log for add_country_modifier invalid database objects, 2026-06"
+  notes: "Building modifier blocks and GUI static mirrors carry display-only country/local effects, while country auto modifiers provide the actual national effects from owned final buildings. Scripted effect previews are a separate parser path: add_country_modifier validates against static/country modifiers, not common/auto_modifiers; the current wonder flow avoids modifier-list previews for auto-driven country effects."
+
+- id: add_country_modifier_auto_modifier_id
+  pattern: 'add_country_modifier\s*=\s*\{[^\n{}]*modifier\s*=\s*[A-Za-z0-9_]*auto[A-Za-z0-9_]*'
+  detectability: advisory
+  bad: "Using add_country_modifier with a modifier id defined only in common/auto_modifiers"
+  correction: "Keep Country Auto modifiers in common/auto_modifiers for actual automatic effects. For tooltip previews or scripted effect lists, emit real non-modifier effect lines or omit the modifier-list preview. Do not pass auto modifier ids to add_country_modifier, and do not restore finalization-time static grants/removals for building-gated wonder effects."
+  category: modifier
+  scope: country
+  source: "runtime error.log, 2026-06: add_country_modifier rejected tv_wonder_auto_unique_*_style_1_country_modifier in tv_engineering_department_wonder_mechanics_effects.txt"
+  notes: "Country Auto modifiers and static country modifiers are separate databases. A Country Auto modifier may have category = country, but add_country_modifier still cannot use its id."

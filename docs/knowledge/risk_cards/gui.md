@@ -112,12 +112,18 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     `GetConceptTexture`, preferably with numeric ids such as
     `tv_wonder_display_image_<id>`.
 
-19. Give dynamic `ShowModifierEffect` routes static script references.
+19. Give dynamic `ShowModifierEffect` routes static definitions and script references.
     If GUI builds modifier ids with `Concatenate(...)`, such as
-    `tv_wonder_display_<id>_level_<level>`, do not rely on the GUI expression as
-    the only reference. Generate an unreachable script block with
-    `if = { limit = { always = no } ... }` that applies every possible country or
-    location display modifier through the correct `add_*_modifier` effect.
+    `tv_wonder_display_<id>_level_<level>` or
+    `tv_wonder_display_<id>_local_level_<level>`, generate matching static
+    display modifiers and an unreachable script block with
+    `if = { limit = { always = no } ... }` that applies every possible country
+    or location display modifier through the correct `add_*_modifier` effect.
+    Scripted-effect tooltip previews have the same database boundary:
+    `add_country_modifier` must target a static country modifier, not a Country
+    Auto modifier from `common/auto_modifiers`. For Engineering Department
+    wonders, use static mirrors for GUI `ShowModifierEffect` display only; keep
+    auto-driven country effects out of scripted grants and tooltip previews.
 
 20. Keep progressbar offsets on a wrapper.
     `progressbar` does not handle `margin_top`; GUI loading logs an unsupported

@@ -42,6 +42,11 @@ TOOLTIP_TEXT_COLUMN_WIDTH = (TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING) // 2
 TOOLTIP_PREVIEW_COLUMN_WIDTH = TOOLTIP_ROW_WIDTH - WONDER_ROW_SPACING - TOOLTIP_TEXT_COLUMN_WIDTH
 TOOLTIP_PREVIEW_HEIGHT = 110
 TOOLTIP_ROW_SPACING = 6
+TOOLTIP_EFFECT_MARGIN_X = 8
+TOOLTIP_MODIFIER_COLUMN_SPACING = 8
+# Match Engineering Department suitability columns: 444 = 218 + 8 + 218.
+TOOLTIP_MODIFIER_COLUMNS_WIDTH = TOOLTIP_EFFECT_COLUMN_WIDTH - TOOLTIP_EFFECT_MARGIN_X * 2 - 2
+TOOLTIP_MODIFIER_COLUMN_WIDTH = (TOOLTIP_MODIFIER_COLUMNS_WIDTH - TOOLTIP_MODIFIER_COLUMN_SPACING) // 2
 
 
 def location_var(name: str) -> str:
@@ -74,6 +79,10 @@ def fixed_point_to_int_string(var_expr: str) -> str:
 
 def slot_id_string(slot_type: str, slot: int) -> str:
     return fixed_point_to_int_string(slot_id_var(slot_type, slot))
+
+
+def slot_level_string(slot_type: str, slot: int) -> str:
+    return fixed_point_to_int_string(slot_level_var(slot_type, slot))
 
 
 def slot_ritual_style_string(slot_type: str, slot: int) -> str:
@@ -118,6 +127,20 @@ def slot_image_expr(slot_type: str, slot: int) -> str:
 
 def slot_full_image_expr(slot_type: str, slot: int) -> str:
     return f"GetConceptTexture(Concatenate('{FULL_IMAGE_CONCEPT_PREFIX}', {slot_id_string(slot_type, slot)}))"
+
+
+def slot_modifier_key_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"Concatenate('{DISPLAY_CONCEPT_PREFIX}', "
+        f"Concatenate({slot_id_string(slot_type, slot)}, Concatenate('_level_', {slot_level_string(slot_type, slot)})))"
+    )
+
+
+def slot_local_modifier_key_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"Concatenate('{DISPLAY_CONCEPT_PREFIX}', "
+        f"Concatenate({slot_id_string(slot_type, slot)}, Concatenate('_local_level_', {slot_level_string(slot_type, slot)})))"
+    )
 
 
 def slot_ritual_effect_key_expr(slot_type: str, slot: int) -> str:
@@ -314,6 +337,47 @@ def render_compact_slot_row(indent: str, *, slot: int) -> list[str]:
     return render_compact_slot_image(indent, slot=slot)
 
 
+def render_modifier_column(
+    indent: str,
+    *,
+    title_key: str,
+    modifier_key: str,
+    column_width: int,
+    font_size: int,
+    row_height: int,
+    vertical_policy: str,
+) -> list[str]:
+    return [
+        f"{indent}vbox = {{",
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = {vertical_policy}",
+        f"{indent}{T}minimumsize = {{ {column_width} -1 }}",
+        f"{indent}{T}maximumsize = {{ {column_width} -1 }}",
+        f"{indent}{T}spacing = 2",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "{title_key}"',
+        f"{indent}{T}{T}max_width = {column_width}",
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = {font_size}",
+        f"{indent}{T}}}",
+        f"{indent}{T}TooltipStringPairList = {{",
+        f"{indent}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}{T}maximumsize = {{ {column_width} -1 }}",
+        f'{indent}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {column_width} -1 }} }}',
+        f'{indent}{T}{T}blockoverride "field_text_format" {{',
+        f"{indent}{T}{T}{T}fontsize = {font_size}",
+        f"{indent}{T}{T}}}",
+        f'{indent}{T}{T}blockoverride "row_size" {{',
+        f"{indent}{T}{T}{T}maximumsize = {{ -1 {row_height} }}",
+        f"{indent}{T}{T}{T}minimumsize = {{ -1 {row_height} }}",
+        f"{indent}{T}{T}}}",
+        f'{indent}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
+        f"{indent}{T}}}",
+        f"{indent}{T}expand = {{}}",
+        f"{indent}}}",
+    ]
+
+
 def render_panel_card_variant(indent: str, *, slot_count: int) -> list[str]:
     lines = [
         f"{indent}widget = {{",
@@ -417,9 +481,23 @@ def render_tooltip_preview_column(indent: str, *, slot: int) -> list[str]:
     return lines
 
 
+def render_tooltip_modifier_column(indent: str, *, title_key: str, modifier_key: str) -> list[str]:
+    return render_modifier_column(
+        indent,
+        title_key=title_key,
+        modifier_key=modifier_key,
+        column_width=TOOLTIP_MODIFIER_COLUMN_WIDTH,
+        font_size=13,
+        row_height=22,
+        vertical_policy="expanding",
+    )
+
+
 def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
     visible = slot_has_effect_payload_expr("tooltip", slot)
     no_effect_visible = slot_level_is_expr("tooltip", slot, 0)
+    country_modifier_key = slot_modifier_key_expr("tooltip", slot)
+    local_modifier_key = slot_local_modifier_key_expr("tooltip", slot)
     ritual_effect_key = slot_ritual_effect_key_expr("tooltip", slot)
     lines = [
         f"{indent}widget = {{",
@@ -443,31 +521,57 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}{T}}}",
         f"{indent}{T}{T}hbox = {{",
         f'{indent}{T}{T}{T}visible = "[{visible}]"',
-        f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
         f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
-        f"{indent}{T}{T}{T}margin_top = 6",
-        f"{indent}{T}{T}{T}text_single = {{",
-        f'{indent}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"',
-        f"{indent}{T}{T}{T}{T}align = left|nobaseline",
-        f"{indent}{T}{T}{T}{T}fontsize = 13",
-        f"{indent}{T}{T}{T}}}",
-        f"{indent}{T}{T}}}",
-        f"{indent}{T}{T}TooltipRequirementsList = {{",
-        f'{indent}{T}{T}{T}visible = "[{visible}]"',
-        f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f'{indent}{T}{T}{T}textcontext = "[ShowScriptedEffectForScope({ritual_effect_key},{LOCATION_SCOPE})]"',
-        f'{indent}{T}{T}{T}blockoverride "block_title" {{',
-        f'{indent}{T}{T}{T}{T}block "block_title" {{',
-        f"{indent}{T}{T}{T}{T}{T}visible = no",
-        f"{indent}{T}{T}{T}{T}}}",
-        f"{indent}{T}{T}{T}}}",
-        f'{indent}{T}{T}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
-        f"{indent}{T}{T}{T}{T}visible = no",
-        f"{indent}{T}{T}{T}}}",
-        f"{indent}{T}{T}}}",
-        f"{indent}{T}}}",
-        f"{indent}}}",
+        f"{indent}{T}{T}{T}size = {{ {TOOLTIP_MODIFIER_COLUMNS_WIDTH} -1 }}",
+        f"{indent}{T}{T}{T}spacing = {TOOLTIP_MODIFIER_COLUMN_SPACING}",
+        f"{indent}{T}{T}{T}ignoreinvisible = yes",
     ]
+    lines.extend(
+        render_tooltip_modifier_column(
+            indent + T * 3,
+            title_key="TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE",
+            modifier_key=country_modifier_key,
+        )
+    )
+    lines.extend(
+        render_tooltip_modifier_column(
+            indent + T * 3,
+            title_key="TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE",
+            modifier_key=local_modifier_key,
+        )
+    )
+    lines.extend(
+        [
+            f"{indent}{T}{T}}}",
+            f"{indent}{T}{T}hbox = {{",
+            f'{indent}{T}{T}{T}visible = "[{visible}]"',
+            f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
+            f"{indent}{T}{T}{T}margin_top = 6",
+            f"{indent}{T}{T}{T}text_single = {{",
+            f'{indent}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_RITUAL_TITLE_PREFIX"',
+            f"{indent}{T}{T}{T}{T}align = left|nobaseline",
+            f"{indent}{T}{T}{T}{T}fontsize = 13",
+            f"{indent}{T}{T}{T}}}",
+            f"{indent}{T}{T}}}",
+            f"{indent}{T}{T}TooltipRequirementsList = {{",
+            f'{indent}{T}{T}{T}visible = "[{visible}]"',
+            f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f'{indent}{T}{T}{T}textcontext = "[ShowScriptedEffectForScope({ritual_effect_key},{LOCATION_SCOPE})]"',
+            f'{indent}{T}{T}{T}blockoverride "block_title" {{',
+            f'{indent}{T}{T}{T}{T}block "block_title" {{',
+            f"{indent}{T}{T}{T}{T}{T}visible = no",
+            f"{indent}{T}{T}{T}{T}}}",
+            f"{indent}{T}{T}{T}}}",
+            f'{indent}{T}{T}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
+            f"{indent}{T}{T}{T}{T}visible = no",
+            f"{indent}{T}{T}{T}}}",
+            f"{indent}{T}{T}}}",
+            f"{indent}{T}}}",
+            f"{indent}}}",
+        ]
+    )
     return lines
 
 

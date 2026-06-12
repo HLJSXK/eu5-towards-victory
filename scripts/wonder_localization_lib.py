@@ -18,9 +18,14 @@ try:
         load_all_wonder_mechanics_data,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
+        ritual_blessing_modifier_name,
         ritual_plan_for_style,
         wonder_auto_base_modifier_name,
         wonder_auto_style_modifier_name,
+        unique_ceremony_modifier_name,
+        wonder_static_base_modifier_name,
+        wonder_static_display_modifier_name,
+        wonder_static_local_display_modifier_name,
     )
 except ModuleNotFoundError:
     from wonder_mechanics_lib import (
@@ -31,9 +36,14 @@ except ModuleNotFoundError:
         load_all_wonder_mechanics_data,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
+        ritual_blessing_modifier_name,
         ritual_plan_for_style,
         wonder_auto_base_modifier_name,
         wonder_auto_style_modifier_name,
+        unique_ceremony_modifier_name,
+        wonder_static_base_modifier_name,
+        wonder_static_display_modifier_name,
+        wonder_static_local_display_modifier_name,
     )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -265,6 +275,18 @@ def _auto_base_modifier_values() -> list[tuple[str, str]]:
     return values
 
 
+def _static_base_modifier_values() -> list[tuple[str, str]]:
+    wonders, _ = load_all_wonder_mechanics_data()
+    values: list[tuple[str, str]] = []
+    for wonder in wonders:
+        for level in range(1, 7):
+            value = level_static_modifier_loc(wonder["concept"], level)
+            values.append((f"STATIC_MODIFIER_NAME_{wonder_static_base_modifier_name(wonder, level)}", value))
+            values.append((f"STATIC_MODIFIER_NAME_{wonder_static_display_modifier_name(wonder, level)}", value))
+            values.append((f"STATIC_MODIFIER_NAME_{wonder_static_local_display_modifier_name(wonder, level)}", value))
+    return values
+
+
 def _auto_style_modifier_keys() -> list[str]:
     wonders, mechanics = load_all_wonder_mechanics_data()
     keys: list[str] = []
@@ -274,6 +296,24 @@ def _auto_style_modifier_keys() -> list[str]:
                 continue
             keys.append(f"AUTO_MODIFIER_NAME_{wonder_auto_style_modifier_name(wonder, style)}")
     return keys
+
+
+def _static_style_modifier_pairs() -> list[tuple[str, str]]:
+    wonders, mechanics = load_all_wonder_mechanics_data()
+    pairs: list[tuple[str, str]] = []
+    for wonder in wonders:
+        for style in ceremony_styles(wonder):
+            auto_key = f"AUTO_MODIFIER_NAME_{wonder_auto_style_modifier_name(wonder, style)}"
+            if wonder.get("is_unique"):
+                if final_building_country_modifiers(wonder, mechanics, style):
+                    pairs.append((auto_key, f"STATIC_MODIFIER_NAME_{unique_ceremony_modifier_name(wonder)}"))
+                continue
+            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+            if ritual_plan["mode"] != "timed":
+                continue
+            if ritual_plan.get("timed", {}).get("blessing_modifier", {}):
+                pairs.append((auto_key, f"STATIC_MODIFIER_NAME_{ritual_blessing_modifier_name(wonder)}"))
+    return pairs
 
 
 def _auxiliary_display_modifier_pairs() -> list[tuple[str, str]]:
@@ -353,6 +393,9 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
     for auto_modifier_loc_key, auto_value in _auto_base_modifier_values():
         for language in LANGUAGES:
             expanded[language][auto_modifier_loc_key] = auto_value
+    for static_modifier_loc_key, static_value in _static_base_modifier_values():
+        for language in LANGUAGES:
+            expanded[language][static_modifier_loc_key] = static_value
     for auto_modifier_loc_key in _auto_style_modifier_keys():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -361,6 +404,15 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                     f"Missing wonder auto modifier localization key {auto_modifier_loc_key!r} in "
                     f"{WONDER_LOCALIZATION_FILE} ({language})"
                 )
+    for auto_modifier_loc_key, static_modifier_loc_key in _static_style_modifier_pairs():
+        for language in LANGUAGES:
+            language_values = expanded[language]
+            if auto_modifier_loc_key not in language_values:
+                raise KeyError(
+                    f"Missing wonder auto modifier localization key {auto_modifier_loc_key!r} in "
+                    f"{WONDER_LOCALIZATION_FILE} ({language})"
+                )
+            language_values[static_modifier_loc_key] = language_values[auto_modifier_loc_key]
     for building_name, modifier_loc_key in _auxiliary_display_modifier_pairs():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -403,6 +455,12 @@ def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -
     for auto_modifier_loc_key, _ in _auto_base_modifier_values():
         for language in LANGUAGES:
             collapsed[language].pop(auto_modifier_loc_key, None)
+    for static_modifier_loc_key, _ in _static_base_modifier_values():
+        for language in LANGUAGES:
+            collapsed[language].pop(static_modifier_loc_key, None)
+    for _, static_modifier_loc_key in _static_style_modifier_pairs():
+        for language in LANGUAGES:
+            collapsed[language].pop(static_modifier_loc_key, None)
     for _, modifier_loc_key in _auxiliary_display_modifier_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(modifier_loc_key, None)

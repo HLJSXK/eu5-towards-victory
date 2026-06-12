@@ -9,10 +9,16 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
     ceremony_styles,
+    final_building_country_modifiers,
     load_all_wonder_mechanics,
     render_header,
+    ritual_blessing_modifier_name,
     ritual_plan_for_style,
     ritual_burden_modifier_name,
+    unique_ceremony_modifier_name,
+    wonder_static_base_modifier_name,
+    wonder_static_display_modifier_name,
+    wonder_base_country_modifiers,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "static_modifiers" / "tv_engineering_department_wonder_mechanics_modifiers.txt"
@@ -53,16 +59,29 @@ def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
+        for level in range(1, 7):
+            modifiers = wonder_base_country_modifiers(wonder, mechanics, level)
+            if modifiers:
+                lines.extend(modifier_block(wonder_static_base_modifier_name(wonder, level), modifiers))
+            lines.extend(modifier_block(wonder_static_display_modifier_name(wonder, level), modifiers))
+    for wonder in wonders:
         for style in ceremony_styles(wonder):
             ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
             if ritual_plan["mode"] == "timed":
                 timed = ritual_plan["timed"]
                 blessing = timed.get("blessing_modifier", {})
                 burden = timed.get("burden_modifier", {})
+                if blessing:
+                    lines.extend(modifier_block(ritual_blessing_modifier_name(wonder), blessing))
                 if burden:
                     lines.extend(modifier_block(ritual_burden_modifier_name(wonder), burden))
                 elif blessing:
                     lines.extend(modifier_block(ritual_burden_modifier_name(wonder), burden_modifiers(blessing)))
+            if not wonder.get("is_unique"):
+                continue
+            modifiers = final_building_country_modifiers(wonder, mechanics, style)
+            if modifiers:
+                lines.extend(modifier_block(unique_ceremony_modifier_name(wonder), modifiers))
     return "\n".join(lines).rstrip() + "\n"
 
 

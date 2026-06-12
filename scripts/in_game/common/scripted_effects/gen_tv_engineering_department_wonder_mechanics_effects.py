@@ -20,6 +20,7 @@ from wonder_mechanics_lib import (
     ritual_plan_for_style,
     ritual_auxiliary_building,
     ritual_auxiliary_display_modifier_name,
+    ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
     ritual_uses_deferred_completion,
     site_preference_lines_for_wonder,
@@ -29,9 +30,11 @@ from wonder_mechanics_lib import (
     suitability_current_actual_variable,
     suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
-    wonder_auto_style_modifier_name,
+    wonder_static_display_modifier_name,
+    wonder_static_local_display_modifier_name,
     wonder_ritual_composite_id,
     wonder_suitability_row_composite_id,
+    unique_ceremony_modifier_name,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_mechanics_effects.txt"
@@ -203,6 +206,8 @@ def country_reward_effect_lines(reward: list[dict], indent: int = 1) -> list[str
                 lines.append(f"{prefix}{effect} = {value}")
             elif scope == "country_value_block":
                 lines.append(f"{prefix}{effect} = {{ value = {value} }}")
+            elif scope == "country_scale_block":
+                lines.append(f"{prefix}{effect} = {{ scale = {value} }}")
             elif scope == "ruler_scalar":
                 lines.append(f"{prefix}ruler ?= {{ {effect} = {value} }}")
             elif scope == "culture_scalar":
@@ -226,8 +231,10 @@ def reward_effect_lines(reward: list[dict], indent: int = 1) -> list[str]:
     prefix = T * indent
     lines: list[str] = []
     for entry in reward:
-        if entry["type"] == "site_prosperity":
-            lines.append(f"{prefix}var:tv_wonder_site ?= {{ change_prosperity = {fmt_value(entry['value'])} }}")
+        reward_type = entry["type"]
+        spec = STYLE_3_REWARD_EFFECTS.get(reward_type, {})
+        if spec.get("scope") == "location_scalar":
+            lines.append(f"{prefix}var:tv_wonder_site ?= {{ {spec['effect']} = {fmt_value(entry['value'])} }}")
         else:
             lines.extend(country_reward_effect_lines([entry], indent))
     return lines
@@ -237,8 +244,10 @@ def location_tooltip_reward_effect_lines(reward: list[dict], indent: int = 1) ->
     prefix = T * indent
     lines: list[str] = []
     for entry in reward:
-        if entry["type"] == "site_prosperity":
-            lines.append(f"{prefix}change_prosperity = {fmt_value(entry['value'])}")
+        reward_type = entry["type"]
+        spec = STYLE_3_REWARD_EFFECTS.get(reward_type, {})
+        if spec.get("scope") == "location_scalar":
+            lines.append(f"{prefix}{spec['effect']} = {fmt_value(entry['value'])}")
         else:
             lines.append(f"{prefix}owner ?= {{")
             lines.extend(country_reward_effect_lines([entry], indent + 1))
@@ -290,6 +299,22 @@ def completion_ritual_payload_lines(ritual_plan: dict, indent: int) -> list[str]
     return lines
 
 
+def add_country_modifier_preview_line(modifier_name: str, years: int, indent: int) -> str:
+    return (
+        f"{T * indent}add_country_modifier = {{ modifier = {modifier_name} "
+        f"years = {years} mode = add_and_extend }}"
+    )
+
+
+def location_owner_country_modifier_preview_lines(modifier_name: str, years: int, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}owner ?= {{",
+        add_country_modifier_preview_line(modifier_name, years, indent + 1),
+        f"{prefix}}}",
+    ]
+
+
 def ritual_requirement_tooltip_effect_name(wonder: dict, style: int) -> str:
     return f"tv_wonder_{wonder['key']}_ritual_{style}_requirement_tooltip_effect"
 
@@ -306,19 +331,30 @@ def ritual_location_tooltip_effect_alias_name(wonder: dict, style: int) -> str:
     return f"tv_wonder_display_{wonder['id']}_ritual_{style}_location_tooltip_effect"
 
 
-def country_modifier_tooltip_lines(modifier_name: str, indent: int) -> list[str]:
-    return [
-        f"{T * indent}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}",
-    ]
-
-
-def location_tooltip_country_modifier_lines(modifier_name: str, indent: int) -> list[str]:
-    prefix = T * indent
-    return [
-        f"{prefix}owner ?= {{",
-        f"{prefix}{T}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}",
-        f"{prefix}}}",
-    ]
+def append_display_modifier_reference_effect(lines: list[str], wonders: list[dict]) -> None:
+    lines.append("tv_wonder_mechanics_reference_display_modifiers_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ always = no }}")
+    lines.append(f"{T}{T}# Static references for dynamic ShowModifierEffect display keys.")
+    for wonder in wonders:
+        for level in range(1, 7):
+            lines.append(
+                f"{T}{T}add_country_modifier = {{ "
+                f"modifier = {wonder_static_display_modifier_name(wonder, level)} "
+                "years = -1 mode = add_and_extend }"
+            )
+    lines.append(f"{T}{T}capital = {{")
+    for wonder in wonders:
+        for level in range(1, 7):
+            lines.append(
+                f"{T}{T}{T}add_location_modifier = {{ "
+                f"modifier = {wonder_static_local_display_modifier_name(wonder, level)} "
+                "years = -1 mode = add_and_extend }"
+            )
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
 
 
 def immediate_ritual_cost_lines(ritual_plan: dict, indent: int) -> list[str]:
@@ -343,9 +379,7 @@ def ritual_requirement_tooltip_lines(wonder: dict, ritual_plan: dict, indent: in
     if mode == "timed":
         timed = ritual_plan.get("timed", {})
         if timed.get("burden_modifier", {}) or timed.get("blessing_modifier", {}):
-            return [
-                f"{T * indent}add_country_modifier = {{ modifier = {ritual_burden_modifier_name(wonder)} years = {timed.get('years', 1)} mode = add_and_extend }}"
-            ]
+            return [add_country_modifier_preview_line(ritual_burden_modifier_name(wonder), timed.get("years", 1), indent)]
         return []
     if mode == "auxiliary_building":
         return [
@@ -360,13 +394,19 @@ def ritual_requirement_tooltip_lines(wonder: dict, ritual_plan: dict, indent: in
 
 def ritual_effect_tooltip_lines(wonder: dict, style: int, ritual_plan: dict, indent: int) -> list[str]:
     if wonder.get("is_unique"):
-        return country_modifier_tooltip_lines(wonder_auto_style_modifier_name(wonder, style), indent)
+        lines: list[str] = []
+        if ritual_plan.get("country_modifier", {}):
+            lines.append(add_country_modifier_preview_line(unique_ceremony_modifier_name(wonder), -1, indent))
+        lines.extend(reward_effect_lines(ritual_plan.get("reward", []), indent))
+        lines.extend(indent_script_block(ritual_plan.get("completion_effect_script", ""), indent))
+        return lines
 
     mode = ritual_plan["mode"]
     if mode == "timed":
         lines: list[str] = []
-        if ritual_plan.get("timed", {}).get("blessing_modifier", {}):
-            lines.extend(country_modifier_tooltip_lines(wonder_auto_style_modifier_name(wonder, style), indent))
+        timed = ritual_plan.get("timed", {})
+        if timed.get("blessing_modifier", {}):
+            lines.append(add_country_modifier_preview_line(ritual_blessing_modifier_name(wonder), timed.get("years", 1), indent))
         lines.extend(completion_ritual_payload_lines(ritual_plan, indent))
         return lines
     if mode == "auxiliary_building":
@@ -384,14 +424,24 @@ def ritual_effect_tooltip_lines(wonder: dict, style: int, ritual_plan: dict, ind
 
 def ritual_location_tooltip_lines(wonder: dict, style: int, ritual_plan: dict, indent: int) -> list[str]:
     if wonder.get("is_unique"):
-        return location_tooltip_country_modifier_lines(wonder_auto_style_modifier_name(wonder, style), indent)
+        lines: list[str] = []
+        if ritual_plan.get("country_modifier", {}):
+            lines.extend(location_owner_country_modifier_preview_lines(unique_ceremony_modifier_name(wonder), -1, indent))
+        lines.extend(location_tooltip_reward_effect_lines(ritual_plan.get("reward", []), indent))
+        return lines
 
     mode = ritual_plan["mode"]
     if mode == "timed":
         lines: list[str] = []
-        blessing_modifier = ritual_plan.get("timed", {}).get("blessing_modifier", {})
-        if blessing_modifier:
-            lines.extend(location_tooltip_country_modifier_lines(wonder_auto_style_modifier_name(wonder, style), indent))
+        timed = ritual_plan.get("timed", {})
+        if timed.get("blessing_modifier", {}):
+            lines.extend(
+                location_owner_country_modifier_preview_lines(
+                    ritual_blessing_modifier_name(wonder),
+                    timed.get("years", 1),
+                    indent,
+                )
+            )
         lines.extend(location_tooltip_reward_effect_lines(ritual_plan.get("reward", []), indent))
         return lines
     if mode == "auxiliary_building":
@@ -1082,6 +1132,7 @@ def generate() -> str:
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(SCRIPT_REL)
+    append_display_modifier_reference_effect(lines, all_wonders)
 
     lines.append("tv_wonder_mechanics_clear_feasible_deck_effect = {")
     lines.append(f"{T}clear_variable_map = {FEASIBLE_GENERIC_DECK_MAP}")
