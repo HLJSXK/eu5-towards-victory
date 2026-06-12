@@ -459,7 +459,7 @@ tv_check_science_milestones_effect = {
 tv_update_all_progress_pct_effect = {
 	set_variable = { name = tv_conquest_progress_pct value = 0 }
 	# ── Conquest Victory ─────────────────────────────────────────────────────
-	# piecewise: thresholds 200/400/600/1200/2500 → each milestone = +20%
+	# piecewise progress: each milestone band contributes 20%
 	if = {
 		limit = {
 			custom_tooltip = {
@@ -512,7 +512,7 @@ tv_update_all_progress_pct_effect = {
 
 	set_variable = { name = tv_prosperity_progress_pct value = 0 }
 	# ── Prosperity Victory ────────────────────────────────────────────────────
-	# piecewise: thresholds 2000/3000/5000/7000/11000 → each milestone = +20%
+	# piecewise progress: each milestone band contributes 20%
 	if = {
 		limit = {
 			custom_tooltip = {
@@ -565,7 +565,7 @@ tv_update_all_progress_pct_effect = {
 
 	set_variable = { name = tv_trade_progress_pct value = 0 }
 	# ── Trade Victory ─────────────────────────────────────────────────────────
-	# piecewise: thresholds 100/200/400/1000/2000 → each milestone = +20%
+	# piecewise progress: each milestone band contributes 20%
 	if = {
 		limit = {
 			custom_tooltip = {
@@ -618,7 +618,7 @@ tv_update_all_progress_pct_effect = {
 
 	set_variable = { name = tv_diplomatic_progress_pct value = 0 }
 	# ── Diplomatic Victory ────────────────────────────────────────────────────
-	# piecewise: thresholds 1/50/500/2500/15000 → each milestone = +20%
+	# piecewise progress: each milestone band contributes 20%
 	if = {
 		limit = {
 			custom_tooltip = {
@@ -670,7 +670,7 @@ tv_update_all_progress_pct_effect = {
 
 	set_variable = { name = tv_cultural_progress_pct value = 0 }
 	# ── Cultural Victory ──────────────────────────────────────────────────────
-	# piecewise: thresholds 50/200/400/800/1600 → each milestone = +20%
+	# piecewise progress: each milestone band contributes 20%
 	if = {
 		limit = {
 			custom_tooltip = {
@@ -723,7 +723,7 @@ tv_update_all_progress_pct_effect = {
 
 	set_variable = { name = tv_science_progress_pct value = 0 }
 	# ── Scientific Victory ────────────────────────────────────────────────────
-	# piecewise: thresholds 100/150/200/300/400 → each milestone = +20%
+	# piecewise progress: each milestone band contributes 20%
 	if = {
 		limit = {
 			custom_tooltip = {

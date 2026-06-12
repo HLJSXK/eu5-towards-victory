@@ -65,7 +65,7 @@ paths:
     # 1对1: Progress pct body — inserted verbatim into tv_update_all_progress_pct_effect
     progress_pct_body: |
       # ── Conquest Victory ─────────────────────────────────────────────────────
-      # piecewise: thresholds 200/400/600/1200/2500 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -136,8 +136,8 @@ paths:
           en: "Playstyle: expand aggressively, subdue rivals, and turn direct rule plus subject land into a single imperial machine."
           zh: "玩法风格：主动扩张、压制对手，并把直属领土与附属国疆域共同纳入帝国机器。"
         formula:
-          en: "Progress: [tv_conquest_score|e] = owned [location|e]s + 0.5 × subject-or-below [location|e]s; thresholds 200/400/600/1,200/2,500 each add 20% progress, capped at 100%."
-          zh: "进程公式：[tv_conquest_score|e] = 直属[location|e]数量 + 0.5 × 附属及其下级国家[location|e]数量；阈值200/400/600/1,200/2,500各提供20%进度，上限100%。"
+          en: "Progress formula: [tv_conquest_score|e] = owned [location|e]s + 0.5 × subject-or-below [location|e]s; victory progress is the current milestone segment's linear share, capped at 100%."
+          zh: "进程公式：[tv_conquest_score|e] = 直属[location|e]数量 + 0.5 × 附属及其下级国家[location|e]数量；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
         en: "[tv_conquest_score|e]: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,500"
         zh: "[tv_conquest_score|e]：[Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,500"
@@ -380,7 +380,7 @@ paths:
 
     progress_pct_body: |
       # ── Prosperity Victory ────────────────────────────────────────────────────
-      # piecewise: thresholds 2000/3000/5000/7000/11000 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -451,8 +451,8 @@ paths:
           en: "Playstyle: cultivate a stable, well-governed realm where population, taxes, development, and construction capacity compound into domestic supremacy."
           zh: "玩法风格：经营稳定且治理良好的国家，让人口、税基、发展度与建设能力共同滚成国内优势。"
         formula:
-          en: "Progress: [tv_prosperity_score|e] = ([population|e] + total owned-location [development|e] + country tax base) × 50/(N+50) × (100+stability)/100 × G/100, where N = owned [location|e]s and G = legitimacy/republican tradition/devotion/tribal cohesion/horde unity; thresholds 2,000/3,000/5,000/7,000/11,000 each add 20%."
-          zh: "进程公式：[tv_prosperity_score|e] = （总[population|e] + 直属地点[development|e]总和 + 国家税基） × 50/(N+50) × (100+稳定度)/100 × G/100；N为直属[location|e]数量，G为合法性/共和传统/虔诚/部落凝聚力/游牧团结；阈值2,000/3,000/5,000/7,000/11,000各提供20%。"
+          en: "Progress formula: [tv_prosperity_score|e] = ([population|e] + total owned-location [development|e] + country tax base) × 50/(owned [location|e]s + 50) × (100 + stability)/100 × [government_power|e]/100; victory progress is the current milestone segment's linear share, capped at 100%."
+          zh: "进程公式：[tv_prosperity_score|e] = （总[population|e] + 直属地点[development|e]总和 + 国家税基） × 50/（直属[location|e]数量 + 50） × （100 + 稳定度）/100 × [government_power|e]/100；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
         en: "[tv_prosperity_score|e]: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 11,000"
         zh: "[tv_prosperity_score|e]：[Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 11,000"
@@ -634,7 +634,7 @@ paths:
 
     progress_pct_body: |
       # ── Trade Victory ─────────────────────────────────────────────────────────
-      # piecewise: thresholds 100/200/400/1000/2000 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -717,8 +717,8 @@ paths:
           en: "Playstyle: dominate [market|e]s, grow [merchant|e] reach, and convert commercial command into a treasury that wins without marching."
           zh: "玩法风格：主导[market|e]、扩张[merchant|e]网络，把商业控制转化为无需行军也能取胜的国库。"
         formula:
-          en: "Progress: [tv_trade_score|e] = monthly [trade_income|e]; thresholds 100/200/400/1,000/2,000 each add 20%. Milestones 3 and 5 also require leading [merchant|e] position in at least 5/10 [market|e]s."
-          zh: "进程公式：[tv_trade_score|e] = 每月[trade_income|e]；阈值100/200/400/1,000/2,000各提供20%。第3/5里程碑还要求至少在5/10个[market|e]中拥有最高[merchant|e]优势。"
+          en: "Progress formula: [tv_trade_score|e] = monthly [trade_income|e]; victory progress is the current milestone segment's linear share, capped at 100%. Milestones 3 and 5 also require leading [merchant|e] position in enough [market|e]s."
+          zh: "进程公式：[tv_trade_score|e] = 每月[trade_income|e]；胜利进度按当前里程碑段线性折算，上限100%。第3/5里程碑还要求主导足够数量的[market|e]。"
       progress_display:
         en: "[tv_trade_score|e]: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
         zh: "[tv_trade_score|e]：[Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
@@ -914,7 +914,7 @@ paths:
 
     progress_pct_body: |
       # ── Diplomatic Victory ────────────────────────────────────────────────────
-      # piecewise: thresholds 1/50/500/2500/15000 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -984,8 +984,8 @@ paths:
           en: "Playstyle: gather supporters, raise alliance tier, and make other thrones depend on your guarantees, assemblies, and diplomatic timing."
           zh: "玩法风格：争取支持国、提升联盟等级，并让诸王座依赖你的保障、议会与外交时机。"
         formula:
-          en: "Progress: [tv_diplomatic_victory_points|e] starts at 1 when two [tv_diplomatic_support|e] countries found the [tv_diplomatic_alliance|e], then gains current [tv_alliance_tier|e] each month; thresholds 1/50/500/2,500/15,000 each add 20%."
-          zh: "进程公式：两个国家提供[tv_diplomatic_support|e]并建立[tv_diplomatic_alliance|e]时，[tv_diplomatic_victory_points|e]起始为1，之后每月增加当前[tv_alliance_tier|e]；阈值1/50/500/2,500/15,000各提供20%。"
+          en: "Progress formula: [tv_diplomatic_victory_points|e] starts at 1 when two [tv_diplomatic_support|e] countries found the [tv_diplomatic_alliance|e], then gains current [tv_alliance_tier|e] each month; victory progress is the current milestone segment's linear share, capped at 100%."
+          zh: "进程公式：两个国家提供[tv_diplomatic_support|e]并建立[tv_diplomatic_alliance|e]时，[tv_diplomatic_victory_points|e]起始为1，之后每月增加当前[tv_alliance_tier|e]；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
         en: "[tv_diplomatic_victory_points|e]: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
         zh: "[tv_diplomatic_victory_points|e]：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
@@ -1180,7 +1180,7 @@ paths:
 
     progress_pct_body: |
       # ── Cultural Victory ──────────────────────────────────────────────────────
-      # piecewise: thresholds 50/200/400/800/1600 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -1251,8 +1251,8 @@ paths:
           en: "Playstyle: patronize [artist|e]s, create [work_of_art|e]s, tour abroad, and turn admiration into durable cultural gravity."
           zh: "玩法风格：赞助[artist|e]、创作[work_of_art|e]、组织海外巡演，把仰慕转化为持久的文化引力。"
         formula:
-          en: "Progress: [tv_cultural_influence_points|e] gain +3 per created [work_of_art|e] and +1 monthly passively; thresholds 50/200/400/800/1,600 each add 20%. Milestones 2-5 also require [tv_arts_intl_influence|e] 25/50/75/100."
-          zh: "进程公式：每创作一件[work_of_art|e]获得+3[tv_cultural_influence_points|e]，并每月被动+1；阈值50/200/400/800/1,600各提供20%。第2-5里程碑还要求[tv_arts_intl_influence|e]达到25/50/75/100。"
+          en: "Progress formula: [tv_cultural_influence_points|e] gains +3 per created [work_of_art|e]; victory progress is the current milestone segment's linear share, capped at 100%. Milestones 2-5 also require rising [tv_arts_intl_influence|e]."
+          zh: "进程公式：每创作一件[work_of_art|e]获得+3[tv_cultural_influence_points|e]；胜利进度按当前里程碑段线性折算，上限100%。第2-5里程碑还要求逐步提升[tv_arts_intl_influence|e]。"
       progress_display:
         en: "[tv_cultural_influence_points|e]: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 1600"
         zh: "[tv_cultural_influence_points|e]：[Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 1600"
@@ -1481,7 +1481,7 @@ paths:
 
     progress_pct_body: |
       # ── Scientific Victory ────────────────────────────────────────────────────
-      # piecewise: thresholds 100/150/200/300/400 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -1712,8 +1712,8 @@ paths:
           en: "Playstyle: race through [advance|e]s, build the [tv_academy_of_sciences|e], and turn scholarship into institutions, production, and long-term momentum."
           zh: "玩法风格：加速研究[advance|e]、建设[tv_academy_of_sciences|e]，把学术转化为制度、生产与长期动能。"
         formula:
-          en: "Progress: [tv_science_score|e] = total researched [advance|e]s; thresholds 100/150/200/300/400 each add 20%. Each milestone also requires [tv_academy_of_sciences|E] level 1/2/3/4/5."
-          zh: "进程公式：[tv_science_score|e] = 已研究[advance|e]总数；阈值100/150/200/300/400各提供20%。每个里程碑还要求[tv_academy_of_sciences|E]等级达到1/2/3/4/5。"
+          en: "Progress formula: [tv_science_score|e] = total researched [advance|e]s; victory progress is the current milestone segment's linear share, capped at 100%. Each milestone also requires the matching [tv_academy_of_sciences|E] level."
+          zh: "进程公式：[tv_science_score|e] = 已研究[advance|e]总数；胜利进度按当前里程碑段线性折算，上限100%。每个里程碑还要求[tv_academy_of_sciences|E]达到对应等级。"
       progress_display:
         en: "[tv_science_score|e]: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
         zh: "[tv_science_score|e]：[Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
