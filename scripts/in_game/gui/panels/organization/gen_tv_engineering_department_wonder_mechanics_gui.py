@@ -62,6 +62,7 @@ SUITABILITY_ROW_LABEL_MAX_WIDTH = 168
 SUITABILITY_ROW_HIDDEN_MAX_WIDTH = 214
 SUITABILITY_LOCATION_CONDITION_ROW_HEIGHT = 22
 PREVIEW_TOP_CARD_HEIGHT = 32
+PREVIEW_PANEL_WIDTH = 470
 PREVIEW_IMAGE_HEIGHT = 333
 PREVIEW_CONTENT_WIDTH = 454
 PREVIEW_MODIFIER_COLUMNS_WIDTH = 454
@@ -785,7 +786,7 @@ def proposal_size_row(
         [
             f"{prefix}{T}layoutpolicy_horizontal = expanding",
             f"{prefix}{T}layoutpolicy_vertical = fixed",
-            f"{prefix}{T}size = {{ -1 {PROPOSAL_SIZE_ROW_HEIGHT} }}",
+            f"{prefix}{T}size = {{ {PREVIEW_PANEL_WIDTH} {PROPOSAL_SIZE_ROW_HEIGHT} }}",
             f"{prefix}{T}spacing = 0",
         ]
     )
@@ -809,9 +810,9 @@ def preview_widget(image_var_name: str, id_var_name: str, visible: str | None = 
     lines = [
         "widget = {",
         f'{T}visible = "[{visible_expr}]"',
-        f"{T}layoutpolicy_horizontal = expanding",
+        f"{T}layoutpolicy_horizontal = fixed",
         f"{T}layoutpolicy_vertical = fixed",
-        f"{T}size = {{ -1 {PREVIEW_IMAGE_HEIGHT} }}",
+        f"{T}size = {{ {PREVIEW_PANEL_WIDTH} {PREVIEW_IMAGE_HEIGHT} }}",
         f"{T}background = {{",
         f'{T}{T}texture = "[{dynamic_image_texture(image_var_name)}]"',
         f"{T}{T}fittype = centercrop",
@@ -827,9 +828,9 @@ def locked_preview_widget(wonders: list[dict], visible: str) -> str:
     lines = [
         "widget = {",
         f'{T}visible = "[{visible}]"',
-        f"{T}layoutpolicy_horizontal = expanding",
+        f"{T}layoutpolicy_horizontal = fixed",
         f"{T}layoutpolicy_vertical = fixed",
-        f"{T}size = {{ -1 {PROPOSAL_PREVIEW_HEIGHT} }}",
+        f"{T}size = {{ {PREVIEW_PANEL_WIDTH} {PROPOSAL_PREVIEW_HEIGHT} }}",
         f"{T}vbox = {{",
         f"{T}{T}set_parent_size_to_minimum = yes",
         f"{T}{T}layoutpolicy_horizontal = expanding",
@@ -853,9 +854,9 @@ def proposal_preview_widget(wonders: list[dict], visible: str) -> str:
     lines = [
         "widget = {",
         f'{T}visible = "[{visible}]"',
-        f"{T}layoutpolicy_horizontal = expanding",
+        f"{T}layoutpolicy_horizontal = fixed",
         f"{T}layoutpolicy_vertical = fixed",
-        f"{T}size = {{ -1 {PROPOSAL_PREVIEW_HEIGHT} }}",
+        f"{T}size = {{ {PREVIEW_PANEL_WIDTH} {PROPOSAL_PREVIEW_HEIGHT} }}",
         f"{T}vbox = {{",
         f"{T}{T}set_parent_size_to_minimum = yes",
         f"{T}{T}layoutpolicy_horizontal = expanding",
