@@ -8,7 +8,7 @@ metadata:
     id_range: "101-201"
   design_decision_audit_2026_06_12:
     purpose: "Apply user-provided common decisions and separate resolved generic questions from item-specific design gaps."
-    coverage_rule: "This metadata supersedes older per-entry unresolved_questions that ask the same generic faith, conversion-reward, water-source, storm, disease, rebel, route-existence, regency-detection, reward-architecture, or local-memory questions. Item-specific policy questions listed below remain unresolved."
+    coverage_rule: "This metadata supersedes older per-entry unresolved_questions that ask the same generic faith, conversion-reward, water-source, storm, disease, rebel, route-existence, regency-detection, reward-architecture, local-memory, three-step ritual flow, stage progress, hard-gate, route-access, authority-cooperation, succession-strictness, war-relevance, disaster-reset, decay, seasonal-calendar, material-supply, protected-community, coercive-mechanic, local-reward-building-family, or one-time-reward-source questions. Item-specific theme, payload, stage text, and exact reward selection questions remain unresolved."
     resolved_common_design_decisions:
       faith_compatibility:
         policy: "Do not check or restrict sponsor faith in this design pass."
@@ -17,14 +17,26 @@ metadata:
         policy: "Do not grant extra conversion rewards in this design pass; all conversion reward payloads, scaling, target selection, and one-time pulses are deferred to later reward control."
         implementation_effect: "Questions such as targeted conversion pulses, non-compatible sponsor reward substitution, or additional conversion bonuses are resolved as omit/defer. Modifier/effect key verification remains an implementation task only when a later reward pass actually uses those rewards."
       reward_architecture:
-        policy: "Every unique ritual completion grants exactly three reward channels: one permanent country/global modifier, one constructed local reward building at the ritual site, and one immediate one-time reward."
-        implementation_effect: "Do not treat country modifier, local building, or immediate reward as optional alternatives. Per-entry design now only decides the theme and mechanical payload of each channel."
+        policy: "Every unique ritual has three stage-completion rewards across the whole event chain: one permanent country/global modifier, one constructed local reward building at the ritual site, and one immediate one-time reward."
+        implementation_effect: "Do not treat country modifier, local building, or immediate reward as optional alternatives. Each ritual must assign the three required reward channels to its three stages exactly once, then decide the theme and mechanical payload of each channel."
+      three_step_event_chain:
+        policy: "Every unique ritual is a three-step event chain. Each step can have several completion methods, but all methods use event choices and a three-month cadence to represent preparation and execution time."
+        implementation_effect: "Replace old monthly-counter architecture with stage variables and a three-month event driver. The Engineering Department panel should expose only the current stage flavor text, current progress, and the reward channel granted when that stage completes."
+      stage_event_options:
+        policy: "For stage events, option 1 pays a small cost and completes the current step; option 2 fails the ritual and requires restarting the current step."
+        implementation_effect: "Former pilgrim/altar/confession/relic/archive/guard/route counters become event-chain stage content rather than persistent granular counters. Do not implement counter durability or partial decay."
+      hard_gate_policy:
+        policy: "All eligibility, progress, material, timing, safety, authority, and route requirements are hard gates."
+        implementation_effect: "Do not use soft progress, bonus progress, or reward scaling for unmet requirements unless a later per-ritual design explicitly adds a separate optional bonus."
       local_memory:
         policy: "All local memory is represented by the constructed local reward building."
         implementation_effect: "Do not implement local memory as a free-floating location flag, hidden variable, or standalone local modifier. If the local outcome needs ongoing effects, put those effects on the local reward building."
       pilgrimage_routes:
-        policy: "Route and distance support exists; use verified route/pathfinding/connectivity interfaces where a ritual needs abstract pilgrimage, trade, or supply access."
-        implementation_effect: "Use can_find_trade_route for market/trade-path style checks, distance_to/distance_to_squared or location_distance_to for distance scoring, and has_road_to/has_road_to_capital/is_connected_to for land-road connectivity where appropriate. Exact shortest-path extraction was not verified, so per-node route memories should use abstract counters unless later verified."
+        policy: "Route and distance support exists. A ritual site is connected if it has land connection to the capital OR is not on the same continent as the capital."
+        implementation_effect: "No extra endpoint ownership check is needed because wonders can only be built on owned locations. Use verified land-road/connectivity/continent interfaces for the hard gate; do not require direct ownership of route endpoints such as Mecca beyond the ritual site itself."
+      authority_and_privileges:
+        policy: "Authority/cooperation requirements are represented by themed privilege events."
+        implementation_effect: "At the relevant step, show an event. Option 1 unlocks and grants a themed privilege using a country modifier from the same country-modifier data source used by the wonder editor; option 2 fails the current step."
       water_sources:
         policy: "A water source is any ritual location that has a river, is coastal/port, or is adjacent to a lake."
         implementation_effect: "At location scope, the later script policy can be represented as OR of has_river, is_coastal, is_port, and is_adjacent_to_lake."
@@ -36,16 +48,66 @@ metadata:
         implementation_effect: "Location disease can use disease_presence or the vanilla has_any_disease_present scripted trigger; country/situation logic can use country_has_disease_outbreak where relevant."
       rebels_and_riots:
         policy: "Use the game's rebel system for riots, unrest revolts, pretenders, and progress-sensitive rebel risk."
-        implementation_effect: "Ritual riot/revolt logic may read any_rebel, rebel_category, rebel_progress, province_rebel_progress, and related rebel selectors. Item-specific reset severity still needs design decisions."
+        implementation_effect: "Ritual riot/revolt logic may read any_rebel, rebel_category, rebel_progress, province_rebel_progress, and related rebel selectors. A disaster or incident causes failure of the current step and requires restarting that step."
       succession_and_regency:
-        policy: "Use has_ruler. has_ruler = yes means a ruler is present; has_ruler = no is the regency/no-ruler state."
-        implementation_effect: "Generic regency detection is resolved. Whether a ritual also requires no pretender rebels, minimum legitimacy/stability, or extra religious/court recognition remains an item-specific design decision only where listed below."
+        policy: "Use a three-level strictness model: level 1 requires not being in a succession-crisis disaster; level 2 also requires not being in regency/no-ruler state; level 3 also requires no pretender rebel."
+        implementation_effect: "Use has_ruler for regency/no-ruler detection and rebel_category = pretender for pretender checks. Per ritual, choose one of the three strictness levels rather than inventing bespoke legitimacy/stability rules."
+      war_relevance:
+        policy: "War relevance is broad. Any war can satisfy war-related ritual hooks."
+        implementation_effect: "Do not require proof that the war involved a specific coast, route, fleet, fortress, theater, objective, or contribution."
+      incident_reset:
+        policy: "Storms, diseases, riots, rebellions, raids, fires, floods, scandals, mutinies, occupation, and similar disruptions fail the current step."
+        implementation_effect: "Do not use partial counter resets, repair debt, delayed decay, or reduced immediate rewards for these incidents in the common architecture."
+      counter_decay:
+        policy: "No counter durability or decay model is used."
+        implementation_effect: "Remove old questions about perishable/durable counters, seasonal delay decay, or long-delay audits from the design blockers."
+      calendar_and_seasons:
+        policy: "Seasonal and calendar rituals use strict timing windows."
+        implementation_effect: "Use strict month/season checks where a ritual invokes solstice, festival season, monsoon, tide season, fair season, or sailing season."
+      materials_and_goods:
+        policy: "All material and supply requirements use real goods."
+        implementation_effect: "When checking accumulated materials, build a special local building at the ritual site and control its construction inputs. When checking output pressure, create a temporary demand in the ritual site's market."
+      protected_community_policy:
+        policy: "Protected-community mechanics are event-driven in three forms: grant a specific estate privilege, require accepting a specific culture, or trade national satisfaction for local satisfaction."
+        implementation_effect: "The satisfaction tradeoff is immediate-scripted and shown through custom tooltip: all other national pops lose 20% satisfaction, while local pops gain 25% satisfaction."
+      coercive_mechanic_policy:
+        policy: "Coercive mechanics are event-driven in three forms: grant a specific estate privilege, require excluding a specific culture, or trade local satisfaction for national satisfaction."
+        implementation_effect: "The satisfaction tradeoff is immediate-scripted and shown through custom tooltip: local pops lose 100% satisfaction, while all other national pops gain 5% satisfaction."
+      local_reward_buildings:
+        policy: "All local reward buildings are unique, not reusable building families."
+        implementation_effect: "Each building uses theme-fitting local modifiers plus estate influence so the local reward and localization stay flavorful."
+      one_time_reward_catalog:
+        policy: "The one-time reward list must be sourced from vanilla event immediate rewards before assigning ritual themes."
+        implementation_effect: "Update the wonder editor's style_3 reward data source from scanned vanilla event effects, then map each ritual's one-time reward to a flavor-appropriate category from that catalog."
     uniform_reward_contract:
       required_completion_rewards:
         - permanent_country_modifier
         - local_building_reward
         - one_time_reward
       audit_note: "Older per-entry prose below may still say optional local memory/site memory/local_effects. Under the current decision, those phrases mean the required local_building_reward channel and should not be read as optional."
+    architecture_coverage_audit_2026_06_13:
+      conclusion: "The current design architecture can cover the unique-wonder ritual requirements at the common-mechanism level. The old per-item unresolved wording should not be treated as a request for user decisions unless it conflicts with the common contract above."
+      resolved_by_architecture:
+        - "Pilgrim/altar/confession/relic/archive/guard/route/material counters are stage-event content, not separate persistent counter tracks requiring user decisions."
+        - "Route access is resolved by owned ritual site plus capital land connection OR different-continent access."
+        - "Authority cooperation is resolved by themed privilege events."
+        - "Succession handling is resolved by the three strictness levels."
+        - "War relevance is broad; any war hook can count."
+        - "Disasters and incidents fail and restart only the current step."
+        - "Counter decay is not used."
+        - "Seasonal and calendar requirements are strict gates."
+        - "Material requirements use real goods through material-stock buildings or temporary market demand."
+        - "Protected and coercive community mechanics use the three event-driven patterns defined above."
+        - "Local memories are unique local reward buildings."
+      not_user_decisions:
+        - "Stage names, flavor text, exact small costs, exact goods, exact local building names, local modifier choices, estate-influence values, and one-time reward values are authoring tasks that can be derived from each ritual's theme."
+        - "Per-entry notes that say 'theme to choose', 'reward flavor to decide', 'reset policy to decide', 'war relevance to decide', or 'route access to decide' are superseded unless they name a genuinely new mechanic not covered above."
+      implementation_gaps_not_design_questions:
+        - "The executable unique-ritual generator still needs a three-stage event-chain schema, three-month driver, current-stage GUI projection, stage reward routing, and current-step restart cleanup. This is implementation work, not a user design decision."
+        - "The privilege-event, protected-community, coercive-community, material-stock-building, and temporary-market-demand templates need to be implemented and verified against EU5 syntax."
+        - "The style_3 one-time reward catalog now covers simple vanilla event-style scalar rewards supported by the existing reward row shape. Complex event effects with extra targets or parameters need a broader reward schema before they can be exposed safely."
+      true_remaining_user_decisions:
+        - "Whether the GUI one-time reward editor should remain limited to simple scalar reward rows, or be expanded to parameterized rewards such as estate-specific satisfaction, culture acceptance/exclusion, targeted opinion, pop satisfaction, and institution-specific progress."
     verified_game_references:
       route_pathfinding:
         - "reference_game_files/game/in_game/common/generic_actions/markets.txt:342-355 uses can_find_trade_route and comments that this is an expensive pathfinding check."

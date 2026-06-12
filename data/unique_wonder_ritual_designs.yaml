@@ -25,11 +25,18 @@ metadata:
   shared_design_contract: >
     Unless an entry says otherwise, confirmation means the sponsor owns and
     controls the wonder location, the final unique wonder building exists, and
-    the sponsor is not bankrupt. Start effects record the sponsor, ritual site,
-    and relevant state snapshot. Timed rituals use monthly progress; war,
-    occupation, bankruptcy, or loss of the site pauses progress unless the entry
-    explicitly designs a cancellation. Completion effects remove temporary
-    burdens and always grant exactly three reward channels: one permanent
+    the sponsor is not bankrupt. Every unique ritual is implemented as a
+    three-step event chain. Each step advances through event-driven choices at a
+    three-month cadence to represent preparation and performance time. A step
+    may offer several completion methods, but all listed requirements are hard
+    gates. When a stage event presents a normal option, option 1 pays a small
+    cost, completes the current stage, grants that stage's reward channel, and
+    starts the next step; option 2 fails the ritual and forces the sponsor to
+    restart the current step. Disasters, incidents, missing hard gates, and
+    refused cooperation also fail the current step rather than causing long-term
+    decay. The Engineering Department panel only shows the current-stage flavor
+    text, progress, and the reward for completing that stage. The three stage
+    completions together grant exactly three reward channels: one permanent
     country/global modifier, one constructed local reward building at the ritual
     site, and one immediate one-time reward. Any older wording about local site
     memory or local memory means the local reward building; do not implement it
@@ -45,6 +52,51 @@ metadata:
       building at the ritual site. The building may carry the local modifier,
       production, service, defense, resilience, or recovery effects that older
       prose called local memory.
+  structured_ritual_contract:
+    stage_count: 3
+    event_cadence_months: 3
+    panel_visibility:
+      - current_stage_flavor_text
+      - current_stage_progress
+      - current_stage_completion_reward
+    requirement_mode: hard_gate
+    progress_model: event_chain
+    event_option_policy:
+      option_1: "Pay a small cost, complete the current step, grant the step reward, and start the next step."
+      option_2: "Fail the ritual and restart the current step."
+    stage_reward_assignment: "The three stage completions grant the three required channels exactly once: permanent_country_modifier, local_building_reward, and one_time_reward."
+    failure_policy: "Any disaster, incident, refused cooperation, or failed hard gate fails the current step and restarts that step."
+    decay_policy: "No counter durability or delay decay is used."
+    access_policy: "A ritual site is connected if it has land connection to the capital OR is not on the same continent as the capital; no extra endpoint ownership check is needed because wonders can only be built in owned locations."
+    war_relevance_policy: "Any war may satisfy a war-relevance hook; no theater, location, route, or contribution proof is required."
+    season_policy: "Seasonal and calendar rituals use strict timing windows."
+    material_policy: >
+      Ritual material accumulation uses real goods. Accumulated materials are
+      represented by special local buildings with controlled construction
+      inputs; output pressure is represented by temporary market demand in the
+      ritual site's market.
+    authority_policy: >
+      Cooperation actors are represented through themed privilege events. The
+      normal choice unlocks and grants the privilege using a themed country
+      modifier from the same country-modifier source used by the wonder editor;
+      refusal fails the current step.
+    succession_policy_levels:
+      - no_succession_crisis_disaster
+      - no_regency
+      - no_pretender_rebel
+    community_policy:
+      protected:
+        - estate_privilege
+        - accepted_culture_requirement
+        - "Immediate scripted tradeoff: all other national pops lose 20% satisfaction; local pops gain 25% satisfaction, shown by custom tooltip."
+      coercive:
+        - estate_privilege
+        - excluded_culture_requirement
+        - "Immediate scripted tradeoff: local pops lose 100% satisfaction; all other national pops gain 5% satisfaction, shown by custom tooltip."
+    local_reward_building_policy: >
+      Every unique ritual reward building is unique rather than a reusable
+      family. It uses a theme-fitting local modifier plus estate influence so
+      localization and local effects stay flavorful.
 
 unique_wonders:
   - id: 101
