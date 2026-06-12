@@ -9,7 +9,6 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
     ceremony_styles,
-    final_building_country_modifiers,
     load_all_wonder_mechanics,
     render_header,
     ritual_blessing_modifier_name,
@@ -79,7 +78,7 @@ def generate() -> str:
                     lines.extend(modifier_block(ritual_burden_modifier_name(wonder), burden_modifiers(blessing)))
             if not wonder.get("is_unique"):
                 continue
-            modifiers = final_building_country_modifiers(wonder, mechanics, style)
+            modifiers = ritual_plan.get("country_modifier", {})
             if modifiers:
                 lines.extend(modifier_block(unique_ceremony_modifier_name(wonder), modifiers))
     return "\n".join(lines).rstrip() + "\n"

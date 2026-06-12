@@ -11,12 +11,10 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
     ceremony_styles,
-    final_building_country_modifiers,
     final_building_for_style,
     load_all_wonder_mechanics,
     render_header,
     wonder_auto_base_modifier_name,
-    wonder_auto_style_modifier_name,
     wonder_base_country_modifiers,
 )
 
@@ -72,15 +70,6 @@ def append_base_potential(lines: list[str], buildings: list[str], level: int, in
     lines.append(f"{prefix}}}")
 
 
-def append_style_potential(lines: list[str], building: str, indent: int) -> None:
-    prefix = T * indent
-    lines.append(f"{prefix}potential_trigger = {{")
-    lines.append(f"{prefix}{T}any_owned_location = {{")
-    lines.append(f"{prefix}{T}{T}has_building = {building_type_ref(building)}")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-
-
 def append_modifier_block(lines: list[str], name: str, modifiers: dict[str, object], potential_lines: list[str]) -> None:
     if not modifiers:
         return
@@ -110,14 +99,6 @@ def generate() -> str:
                 wonder_auto_base_modifier_name(wonder, level),
                 wonder_base_country_modifiers(wonder, mechanics, level),
                 generated_potential_lines(append_base_potential, final_buildings, level),
-            )
-        for style in ceremony_styles(wonder):
-            building = final_building_for_style(wonder, style)
-            append_modifier_block(
-                lines,
-                wonder_auto_style_modifier_name(wonder, style),
-                final_building_country_modifiers(wonder, mechanics, style),
-                generated_potential_lines(append_style_potential, building),
             )
     return "\n".join(lines).rstrip() + "\n"
 

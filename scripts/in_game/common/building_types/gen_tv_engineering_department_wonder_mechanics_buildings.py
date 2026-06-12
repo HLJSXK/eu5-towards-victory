@@ -10,7 +10,6 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics_lib import (
     authored_final_building_local_modifiers,
     ceremony_styles,
-    final_building_country_modifiers,
     final_building_for_style,
     final_building_maintenance,
     load_all_wonder_mechanics,
@@ -211,7 +210,6 @@ def generate() -> str:
             modifiers = merge_modifiers(
                 authored_local_modifiers,
                 base_country_modifiers,
-                final_building_country_modifiers(wonder, mechanics, style),
             )
             maintenance = final_building_maintenance(wonder, building_design, building)
             attributes = building_design.get("final_attributes", {}).get(building, {})

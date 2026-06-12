@@ -713,15 +713,10 @@ def load_mechanics_source_data(path: Path = MECHANICS_FILE) -> dict:
     designs = _require_mapping(raw.get("designs"), f"{path}.designs")
     site_rules = _validate_site_rules(raw.get("site_rules"), design_keys=set(designs))
     buildings = _validate_buildings_section(raw.get("buildings"), design_keys=set(designs))
-    final_building_country_modifiers = _validate_modifier_by_key_mapping(
-        raw.get("final_building_country_modifiers", {}),
-        f"{path}.final_building_country_modifiers",
-    )
     return {
         **raw,
         "site_rules": site_rules,
         "buildings": buildings,
-        "final_building_country_modifiers": final_building_country_modifiers,
     }
 
 
@@ -1538,22 +1533,6 @@ def authored_final_building_local_modifiers(wonder: dict, mechanics: dict) -> di
     return scale_numeric_modifier_mapping(modifiers, wonder.get("base_effect_multiplier", 1))
 
 
-def final_building_country_modifiers(wonder: dict, mechanics: dict, style: int) -> dict[str, object]:
-    if wonder.get("is_unique"):
-        return dict(unique_ritual(wonder).get("country_modifier", {}))
-
-    building = final_building_for_style(wonder, style)
-    modifiers = dict(mechanics.get("final_building_country_modifiers", {}).get(building, {}))
-    if style != 1:
-        return modifiers
-
-    ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
-    return merge_numeric_modifier_mappings(
-        modifiers,
-        ritual_plan.get("timed", {}).get("blessing_modifier", {}),
-    )
-
-
 def wonder_static_base_modifier_name(wonder: dict, level: int) -> str:
     return f"tv_wonder_{wonder['key']}_level_{level}"
 
@@ -1568,10 +1547,6 @@ def wonder_static_local_display_modifier_name(wonder: dict, level: int) -> str:
 
 def wonder_auto_base_modifier_name(wonder: dict, level: int) -> str:
     return f"tv_wonder_auto_{wonder['key']}_level_{level}"
-
-
-def wonder_auto_style_modifier_name(wonder: dict, style: int) -> str:
-    return f"tv_wonder_auto_{wonder['key']}_style_{style}_country_modifier"
 
 
 def unique_ceremony_modifier_name(wonder: dict) -> str:

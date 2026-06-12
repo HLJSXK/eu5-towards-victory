@@ -406,7 +406,7 @@ def ritual_effect_tooltip_lines(wonder: dict, style: int, ritual_plan: dict, ind
         lines: list[str] = []
         timed = ritual_plan.get("timed", {})
         if timed.get("blessing_modifier", {}):
-            lines.append(add_country_modifier_preview_line(ritual_blessing_modifier_name(wonder), timed.get("years", 1), indent))
+            lines.append(add_country_modifier_preview_line(ritual_blessing_modifier_name(wonder), -1, indent))
         lines.extend(completion_ritual_payload_lines(ritual_plan, indent))
         return lines
     if mode == "auxiliary_building":
@@ -438,7 +438,7 @@ def ritual_location_tooltip_lines(wonder: dict, style: int, ritual_plan: dict, i
             lines.extend(
                 location_owner_country_modifier_preview_lines(
                     ritual_blessing_modifier_name(wonder),
-                    timed.get("years", 1),
+                    -1,
                     indent,
                 )
             )
@@ -1429,6 +1429,26 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
+    lines.append("tv_wonder_mechanics_apply_selected_ritual_static_modifier_effect = {")
+    first = True
+    for wonder, style, ritual_plan in ritual_entry_list:
+        modifier_name: str | None = None
+        if wonder.get("is_unique"):
+            if ritual_plan.get("country_modifier", {}):
+                modifier_name = unique_ceremony_modifier_name(wonder)
+        elif ritual_plan["mode"] == "timed" and ritual_plan.get("timed", {}).get("blessing_modifier", {}):
+            modifier_name = ritual_blessing_modifier_name(wonder)
+        if modifier_name is None:
+            continue
+        head = "if" if first else "else_if"
+        first = False
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
+        lines.append(f"{T}{T}add_country_modifier = {{ modifier = {modifier_name} years = -1 mode = add_and_extend }}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
     lines.append("tv_wonder_mechanics_maybe_complete_active_ritual_effect = {")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
@@ -1436,6 +1456,7 @@ def generate() -> str:
     lines.append(f"{T}{T}{T}tv_wonder_selected_ritual_completion_requirements_met_trigger = yes")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_completion_effect = yes")
+    lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_static_modifier_effect = yes")
     lines.append(f"{T}{T}remove_variable = tv_wonder_ritual_in_progress")
     lines.append(f"{T}{T}remove_variable = tv_wonder_ritual_timer")
     lines.append(f"{T}{T}tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes")
@@ -1475,6 +1496,7 @@ def generate() -> str:
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}else = {{")
     lines.append(f"{T}{T}{T}{T}tv_wonder_mechanics_apply_immediate_ritual_effect = yes")
+    lines.append(f"{T}{T}{T}{T}tv_wonder_mechanics_apply_selected_ritual_static_modifier_effect = yes")
     lines.append(f"{T}{T}{T}{T}tv_wonder_finalize_effect = yes")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
@@ -1491,6 +1513,7 @@ def generate() -> str:
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}tv_wonder_mechanics_apply_immediate_ritual_effect = yes")
+    lines.append(f"{T}{T}{T}tv_wonder_mechanics_apply_selected_ritual_static_modifier_effect = yes")
     lines.append(f"{T}{T}{T}tv_wonder_finalize_effect = yes")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
