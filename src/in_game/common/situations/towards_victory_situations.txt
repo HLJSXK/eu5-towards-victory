@@ -21,11 +21,14 @@ tv_victory_situation = {
 	on_start = {
 		# Initialise the AI yearly pulse counter on the situation scope
 		set_variable = { name = tv_ai_pulse_counter value = 0 }
-		# Full initial scan of every country -- seeds best-path variables for leaderboard
+		# Full initial scan of every country -- seeds per-path progress variables for leaderboard
 		every_country = {
+			if = {
+				limit = { NOT = { has_variable = tv_victory_selected_path } }
+				set_variable = { name = tv_victory_selected_path value = 0 }
+			}
 			tv_check_all_milestones_effect = yes
 			tv_update_all_progress_pct_effect = yes
-			tv_update_best_path_effect = yes
 		}
 		# Build initial leaderboard ranking immediately
 		tv_update_leaderboard_effect = yes

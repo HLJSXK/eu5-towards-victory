@@ -15,6 +15,7 @@ ROOT = pathlib.Path(__file__).parent.parent
 VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
 TRADE_GOODS = ROOT / "data/trade_league_goods.yaml"
+VICTORY_PATHS = ROOT / "data/victory_paths.yaml"
 
 DISPLAY_ROW_COUNT = 10
 INTELLIGENCE_ROW_COUNT = 10
@@ -45,6 +46,22 @@ PHILOSOPHY_SELECT_ACTIONS = [
     for slot in range(1, 4)
     for action in range(1, 7)
 ]
+
+
+def victory_reward_action_ids() -> list[str]:
+    with VICTORY_PATHS.open(encoding="utf-8-sig") as file:
+        data = yaml.safe_load(file)
+    paths = sorted(data["paths"], key=lambda path: int(path["gui"]["order"]))
+    actions: list[str] = []
+    for path in paths:
+        actions.append(f"tv_victory_select_path_{path['id']}")
+    for path in paths:
+        pid = path["id"]
+        for milestone in path["milestones"]:
+            n = int(milestone["n"])
+            for choice in range(1, 4):
+                actions.append(f"tv_victory_select_{pid}_m{n}_reward_{choice}")
+    return actions
 
 TV_ENTRIES = """
 # ── Towards Victory — Generic Action Message Types ───────────────────────────
@@ -1082,12 +1099,35 @@ def philosophy_message_entries() -> str:
     )
     return "\n".join(blocks)
 
+
+def victory_reward_message_entries() -> str:
+    blocks = ["\n# ---- Generated victory path UI controls ----\n"]
+    for action in victory_reward_action_ids():
+        blocks.append(
+            f"""PERFORM_{action}_ACTION={{
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = government
+}}
+"""
+        )
+    return "\n".join(blocks)
+
 vanilla_bytes = VANILLA.read_bytes()
 # strip BOM if present
 if vanilla_bytes.startswith(b'\xef\xbb\xbf'):
     vanilla_bytes = vanilla_bytes[3:]
 
-combined_entries = TV_ENTRIES + trade_monopoly_message_entries() + philosophy_message_entries()
+combined_entries = (
+    TV_ENTRIES
+    + trade_monopoly_message_entries()
+    + philosophy_message_entries()
+    + victory_reward_message_entries()
+)
 combined = b'\xef\xbb\xbf' + vanilla_bytes + combined_entries.encode("utf-8")
 OUT.write_bytes(combined)
 print(f"[OK] Written {OUT.relative_to(ROOT)} ({len(combined)} bytes)")

@@ -4,9 +4,9 @@
 
  # ── Section 3: 全球排名 ────────────────────────────────────────────────────
  TV_SECTION3_HEADER:0 "全球排名"
- TV_S3_CONQUEST_SCORE:0 "征服: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
- TV_S3_PROSPERITY_SCORE:0 "繁荣: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
- TV_S3_TRADE_SCORE:0 "贸易: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
- TV_S3_DIPLOMATIC_SCORE:0 "外交: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
- TV_S3_CULTURAL_SCORE:0 "文化: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
- TV_S3_SCIENCE_SCORE:0 "科技: [Country.MakeScope.GetVariable('tv_best_score').GetValue|0]"
+ TV_S3_CONQUEST_SCORE:0 "征服: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0]"
+ TV_S3_PROSPERITY_SCORE:0 "繁荣: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0]"
+ TV_S3_TRADE_SCORE:0 "贸易: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0]"
+ TV_S3_DIPLOMATIC_SCORE:0 "外交: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0]"
+ TV_S3_CULTURAL_SCORE:0 "文化: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0]"
+ TV_S3_SCIENCE_SCORE:0 "科技: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0]"

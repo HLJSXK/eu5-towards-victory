@@ -457,6 +457,7 @@ tv_check_science_milestones_effect = {
 # ═══════════════════════════════════════════════════════════════════════
 
 tv_update_all_progress_pct_effect = {
+	set_variable = { name = tv_conquest_progress_pct value = 0 }
 	# ── Conquest Victory ─────────────────────────────────────────────────────
 	# piecewise: thresholds 200/400/600/1200/2500 → each milestone = +20%
 	if = {
@@ -509,6 +510,7 @@ tv_update_all_progress_pct_effect = {
 		if = { limit = { var:tv_conquest_progress_pct > 100 } set_variable = { name = tv_conquest_progress_pct value = 100 } }
 	}
 
+	set_variable = { name = tv_prosperity_progress_pct value = 0 }
 	# ── Prosperity Victory ────────────────────────────────────────────────────
 	# piecewise: thresholds 2000/3000/5000/7000/11000 → each milestone = +20%
 	if = {
@@ -561,6 +563,7 @@ tv_update_all_progress_pct_effect = {
 		if = { limit = { var:tv_prosperity_progress_pct > 100 } set_variable = { name = tv_prosperity_progress_pct value = 100 } }
 	}
 
+	set_variable = { name = tv_trade_progress_pct value = 0 }
 	# ── Trade Victory ─────────────────────────────────────────────────────────
 	# piecewise: thresholds 100/200/400/1000/2000 → each milestone = +20%
 	if = {
@@ -613,6 +616,7 @@ tv_update_all_progress_pct_effect = {
 		if = { limit = { var:tv_trade_progress_pct > 100 } set_variable = { name = tv_trade_progress_pct value = 100 } }
 	}
 
+	set_variable = { name = tv_diplomatic_progress_pct value = 0 }
 	# ── Diplomatic Victory ────────────────────────────────────────────────────
 	# piecewise: thresholds 1/50/500/2500/15000 → each milestone = +20%
 	if = {
@@ -664,6 +668,7 @@ tv_update_all_progress_pct_effect = {
 		if = { limit = { var:tv_diplomatic_progress_pct > 100 } set_variable = { name = tv_diplomatic_progress_pct value = 100 } }
 	}
 
+	set_variable = { name = tv_cultural_progress_pct value = 0 }
 	# ── Cultural Victory ──────────────────────────────────────────────────────
 	# piecewise: thresholds 50/200/400/800/1600 → each milestone = +20%
 	if = {
@@ -716,6 +721,7 @@ tv_update_all_progress_pct_effect = {
 		if = { limit = { var:tv_cultural_progress_pct > 100 } set_variable = { name = tv_cultural_progress_pct value = 100 } }
 	}
 
+	set_variable = { name = tv_science_progress_pct value = 0 }
 	# ── Scientific Victory ────────────────────────────────────────────────────
 	# piecewise: thresholds 100/150/200/300/400 → each milestone = +20%
 	if = {
@@ -771,85 +777,322 @@ tv_update_all_progress_pct_effect = {
 }
 
 # ═══════════════════════════════════════════════════════════════════════
-# SECTION 4: MILESTONE REWARD EFFECTS
-# Called from events tv.<path>.<n> after the milestone is first reached.
+# SECTION 4: MILESTONE UNLOCK AND REWARD SELECTION EFFECTS
+# Events call tv_unlock_* for non-modifier side effects only.
+# Generic actions call tv_select_*_reward_effect; removal is hidden, current grant is visible.
 # ═══════════════════════════════════════════════════════════════════════
 
 # Conquest Victory
-tv_grant_conquest_milestone_1 = {
-	add_country_modifier = { modifier = tv_conquest_m1_bonus days = -1 }
+tv_unlock_conquest_milestone_1 = {
 	custom_tooltip = { text = tv_conquest_m1_govhouse_tt }
 	hidden_effect = { tv_govhouse_create_effect = yes }
 }
 
-tv_grant_conquest_milestone_2 = {
-	add_country_modifier = { modifier = tv_conquest_m2_bonus days = -1 }
+tv_select_conquest_m1_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_MILESTONE_TT
+				has_variable = tv_conquest_milestone
+			}
+			var:tv_conquest_milestone ?= { this >= 1 }
+			NOT = { var:tv_conquest_m1_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_conquest_m1_bonus }
+		set_variable = { name = tv_conquest_m1_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_conquest_m1_bonus days = -1 }
+	}
 }
 
-tv_grant_conquest_milestone_3 = {
-	add_country_modifier = { modifier = tv_conquest_m3_bonus days = -1 }
+tv_unlock_conquest_milestone_2 = {
+	# No unlock-only side effects for this milestone.
 }
 
-tv_grant_conquest_milestone_4 = {
-	add_country_modifier = { modifier = tv_conquest_m4_bonus days = -1 }
+tv_select_conquest_m2_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_MILESTONE_TT
+				has_variable = tv_conquest_milestone
+			}
+			var:tv_conquest_milestone ?= { this >= 2 }
+			NOT = { var:tv_conquest_m2_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_conquest_m2_bonus }
+		set_variable = { name = tv_conquest_m2_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_conquest_m2_bonus days = -1 }
+	}
 }
 
-tv_grant_conquest_milestone_5 = {
-	add_country_modifier = { modifier = tv_conquest_m5_bonus days = -1 }
+tv_unlock_conquest_milestone_3 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_conquest_m3_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_MILESTONE_TT
+				has_variable = tv_conquest_milestone
+			}
+			var:tv_conquest_milestone ?= { this >= 3 }
+			NOT = { var:tv_conquest_m3_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_conquest_m3_bonus }
+		set_variable = { name = tv_conquest_m3_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_conquest_m3_bonus days = -1 }
+	}
+}
+
+tv_unlock_conquest_milestone_4 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_conquest_m4_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_MILESTONE_TT
+				has_variable = tv_conquest_milestone
+			}
+			var:tv_conquest_milestone ?= { this >= 4 }
+			NOT = { var:tv_conquest_m4_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_conquest_m4_bonus }
+		set_variable = { name = tv_conquest_m4_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_conquest_m4_bonus days = -1 }
+	}
+}
+
+tv_unlock_conquest_milestone_5 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_conquest_m5_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CONQUEST_MILESTONE_TT
+				has_variable = tv_conquest_milestone
+			}
+			var:tv_conquest_milestone ?= { this >= 5 }
+			NOT = { var:tv_conquest_m5_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_conquest_m5_bonus }
+		set_variable = { name = tv_conquest_m5_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_conquest_m5_bonus days = -1 }
+	}
 }
 
 
 # Prosperity Victory
-tv_grant_prosperity_milestone_1 = {
-	add_country_modifier = { modifier = tv_prosperity_m1_bonus days = -1 }
+tv_unlock_prosperity_milestone_1 = {
 	custom_tooltip = { text = tv_prosperity_m1_engineering_department_grant_tt }
 	hidden_effect = { tv_engineering_department_create_effect = yes }
 }
 
-tv_grant_prosperity_milestone_2 = {
-	add_country_modifier = { modifier = tv_prosperity_m2_bonus days = -1 }
+tv_select_prosperity_m1_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_PROSPERITY_MILESTONE_TT
+				has_variable = tv_prosperity_milestone
+			}
+			var:tv_prosperity_milestone ?= { this >= 1 }
+			NOT = { var:tv_prosperity_m1_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_prosperity_m1_bonus }
+		set_variable = { name = tv_prosperity_m1_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_prosperity_m1_bonus days = -1 }
+	}
 }
 
-tv_grant_prosperity_milestone_3 = {
-	add_country_modifier = { modifier = tv_prosperity_m3_bonus days = -1 }
+tv_unlock_prosperity_milestone_2 = {
+	# No unlock-only side effects for this milestone.
 }
 
-tv_grant_prosperity_milestone_4 = {
-	add_country_modifier = { modifier = tv_prosperity_m4_bonus days = -1 }
+tv_select_prosperity_m2_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_PROSPERITY_MILESTONE_TT
+				has_variable = tv_prosperity_milestone
+			}
+			var:tv_prosperity_milestone ?= { this >= 2 }
+			NOT = { var:tv_prosperity_m2_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_prosperity_m2_bonus }
+		set_variable = { name = tv_prosperity_m2_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_prosperity_m2_bonus days = -1 }
+	}
 }
 
-tv_grant_prosperity_milestone_5 = {
-	add_country_modifier = { modifier = tv_prosperity_m5_bonus days = -1 }
+tv_unlock_prosperity_milestone_3 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_prosperity_m3_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_PROSPERITY_MILESTONE_TT
+				has_variable = tv_prosperity_milestone
+			}
+			var:tv_prosperity_milestone ?= { this >= 3 }
+			NOT = { var:tv_prosperity_m3_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_prosperity_m3_bonus }
+		set_variable = { name = tv_prosperity_m3_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_prosperity_m3_bonus days = -1 }
+	}
+}
+
+tv_unlock_prosperity_milestone_4 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_prosperity_m4_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_PROSPERITY_MILESTONE_TT
+				has_variable = tv_prosperity_milestone
+			}
+			var:tv_prosperity_milestone ?= { this >= 4 }
+			NOT = { var:tv_prosperity_m4_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_prosperity_m4_bonus }
+		set_variable = { name = tv_prosperity_m4_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_prosperity_m4_bonus days = -1 }
+	}
+}
+
+tv_unlock_prosperity_milestone_5 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_prosperity_m5_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_PROSPERITY_MILESTONE_TT
+				has_variable = tv_prosperity_milestone
+			}
+			var:tv_prosperity_milestone ?= { this >= 5 }
+			NOT = { var:tv_prosperity_m5_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_prosperity_m5_bonus }
+		set_variable = { name = tv_prosperity_m5_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_prosperity_m5_bonus days = -1 }
+	}
 }
 
 
 # Trade Victory
-tv_grant_trade_milestone_1 = {
-	add_country_modifier = { modifier = tv_trade_m1_bonus days = -1 }
+tv_unlock_trade_milestone_1 = {
 	custom_tooltip = { text = tv_trade_m1_io_grant_tt }
 	hidden_effect = { tv_trade_league_create_effect = yes }
 }
 
-tv_grant_trade_milestone_2 = {
-	add_country_modifier = { modifier = tv_trade_m2_bonus days = -1 }
+tv_select_trade_m1_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_TRADE_MILESTONE_TT
+				has_variable = tv_trade_milestone
+			}
+			var:tv_trade_milestone ?= { this >= 1 }
+			NOT = { var:tv_trade_m1_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_trade_m1_bonus }
+		set_variable = { name = tv_trade_m1_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_trade_m1_bonus days = -1 }
+	}
 }
 
-tv_grant_trade_milestone_3 = {
-	add_country_modifier = { modifier = tv_trade_m3_bonus days = -1 }
+tv_unlock_trade_milestone_2 = {
+	# No unlock-only side effects for this milestone.
 }
 
-tv_grant_trade_milestone_4 = {
-	add_country_modifier = { modifier = tv_trade_m4_bonus days = -1 }
+tv_select_trade_m2_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_TRADE_MILESTONE_TT
+				has_variable = tv_trade_milestone
+			}
+			var:tv_trade_milestone ?= { this >= 2 }
+			NOT = { var:tv_trade_m2_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_trade_m2_bonus }
+		set_variable = { name = tv_trade_m2_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_trade_m2_bonus days = -1 }
+	}
 }
 
-tv_grant_trade_milestone_5 = {
-	add_country_modifier = { modifier = tv_trade_m5_bonus days = -1 }
+tv_unlock_trade_milestone_3 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_trade_m3_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_TRADE_MILESTONE_TT
+				has_variable = tv_trade_milestone
+			}
+			var:tv_trade_milestone ?= { this >= 3 }
+			NOT = { var:tv_trade_m3_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_trade_m3_bonus }
+		set_variable = { name = tv_trade_m3_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_trade_m3_bonus days = -1 }
+	}
+}
+
+tv_unlock_trade_milestone_4 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_trade_m4_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_TRADE_MILESTONE_TT
+				has_variable = tv_trade_milestone
+			}
+			var:tv_trade_milestone ?= { this >= 4 }
+			NOT = { var:tv_trade_m4_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_trade_m4_bonus }
+		set_variable = { name = tv_trade_m4_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_trade_m4_bonus days = -1 }
+	}
+}
+
+tv_unlock_trade_milestone_5 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_trade_m5_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_TRADE_MILESTONE_TT
+				has_variable = tv_trade_milestone
+			}
+			var:tv_trade_milestone ?= { this >= 5 }
+			NOT = { var:tv_trade_m5_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_trade_m5_bonus }
+		set_variable = { name = tv_trade_m5_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_trade_m5_bonus days = -1 }
+	}
 }
 
 
 # Diplomatic Victory
-tv_grant_diplomatic_milestone_1 = {
-	add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
+tv_unlock_diplomatic_milestone_1 = {
 	if = {
 	    limit = {
 	        custom_tooltip = {
@@ -865,26 +1108,105 @@ tv_grant_diplomatic_milestone_1 = {
 	}
 }
 
-tv_grant_diplomatic_milestone_2 = {
-	add_country_modifier = { modifier = tv_diplomatic_m2_bonus days = -1 }
+tv_select_diplomatic_m1_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_DIPLOMATIC_MILESTONE_TT
+				has_variable = tv_diplomatic_milestone
+			}
+			var:tv_diplomatic_milestone ?= { this >= 1 }
+			NOT = { var:tv_diplomatic_m1_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_diplomatic_m1_bonus }
+		set_variable = { name = tv_diplomatic_m1_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
+	}
 }
 
-tv_grant_diplomatic_milestone_3 = {
-	add_country_modifier = { modifier = tv_diplomatic_m3_bonus days = -1 }
+tv_unlock_diplomatic_milestone_2 = {
+	# No unlock-only side effects for this milestone.
 }
 
-tv_grant_diplomatic_milestone_4 = {
-	add_country_modifier = { modifier = tv_diplomatic_m4_bonus days = -1 }
+tv_select_diplomatic_m2_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_DIPLOMATIC_MILESTONE_TT
+				has_variable = tv_diplomatic_milestone
+			}
+			var:tv_diplomatic_milestone ?= { this >= 2 }
+			NOT = { var:tv_diplomatic_m2_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_diplomatic_m2_bonus }
+		set_variable = { name = tv_diplomatic_m2_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_diplomatic_m2_bonus days = -1 }
+	}
 }
 
-tv_grant_diplomatic_milestone_5 = {
-	add_country_modifier = { modifier = tv_diplomatic_m5_bonus days = -1 }
+tv_unlock_diplomatic_milestone_3 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_diplomatic_m3_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_DIPLOMATIC_MILESTONE_TT
+				has_variable = tv_diplomatic_milestone
+			}
+			var:tv_diplomatic_milestone ?= { this >= 3 }
+			NOT = { var:tv_diplomatic_m3_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_diplomatic_m3_bonus }
+		set_variable = { name = tv_diplomatic_m3_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_diplomatic_m3_bonus days = -1 }
+	}
+}
+
+tv_unlock_diplomatic_milestone_4 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_diplomatic_m4_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_DIPLOMATIC_MILESTONE_TT
+				has_variable = tv_diplomatic_milestone
+			}
+			var:tv_diplomatic_milestone ?= { this >= 4 }
+			NOT = { var:tv_diplomatic_m4_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_diplomatic_m4_bonus }
+		set_variable = { name = tv_diplomatic_m4_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_diplomatic_m4_bonus days = -1 }
+	}
+}
+
+tv_unlock_diplomatic_milestone_5 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_diplomatic_m5_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_DIPLOMATIC_MILESTONE_TT
+				has_variable = tv_diplomatic_milestone
+			}
+			var:tv_diplomatic_milestone ?= { this >= 5 }
+			NOT = { var:tv_diplomatic_m5_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_diplomatic_m5_bonus }
+		set_variable = { name = tv_diplomatic_m5_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_diplomatic_m5_bonus days = -1 }
+	}
 }
 
 
 # Cultural Victory
-tv_grant_cultural_milestone_1 = {
-	add_country_modifier = { modifier = tv_cultural_m1_bonus days = -1 }
+tv_unlock_cultural_milestone_1 = {
 	custom_tooltip = { text = tv_cultural_m1_io_grant_tt }
 	hidden_effect = {
 	    set_variable = { name = tv_arts_exhibition_member value = 1 }
@@ -896,26 +1218,105 @@ tv_grant_cultural_milestone_1 = {
 	}
 }
 
-tv_grant_cultural_milestone_2 = {
-	add_country_modifier = { modifier = tv_cultural_m2_bonus days = -1 }
+tv_select_cultural_m1_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CULTURAL_MILESTONE_TT
+				has_variable = tv_cultural_milestone
+			}
+			var:tv_cultural_milestone ?= { this >= 1 }
+			NOT = { var:tv_cultural_m1_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_cultural_m1_bonus }
+		set_variable = { name = tv_cultural_m1_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_cultural_m1_bonus days = -1 }
+	}
 }
 
-tv_grant_cultural_milestone_3 = {
-	add_country_modifier = { modifier = tv_cultural_m3_bonus days = -1 }
+tv_unlock_cultural_milestone_2 = {
+	# No unlock-only side effects for this milestone.
 }
 
-tv_grant_cultural_milestone_4 = {
-	add_country_modifier = { modifier = tv_cultural_m4_bonus days = -1 }
+tv_select_cultural_m2_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CULTURAL_MILESTONE_TT
+				has_variable = tv_cultural_milestone
+			}
+			var:tv_cultural_milestone ?= { this >= 2 }
+			NOT = { var:tv_cultural_m2_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_cultural_m2_bonus }
+		set_variable = { name = tv_cultural_m2_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_cultural_m2_bonus days = -1 }
+	}
 }
 
-tv_grant_cultural_milestone_5 = {
-	add_country_modifier = { modifier = tv_cultural_m5_bonus days = -1 }
+tv_unlock_cultural_milestone_3 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_cultural_m3_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CULTURAL_MILESTONE_TT
+				has_variable = tv_cultural_milestone
+			}
+			var:tv_cultural_milestone ?= { this >= 3 }
+			NOT = { var:tv_cultural_m3_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_cultural_m3_bonus }
+		set_variable = { name = tv_cultural_m3_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_cultural_m3_bonus days = -1 }
+	}
+}
+
+tv_unlock_cultural_milestone_4 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_cultural_m4_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CULTURAL_MILESTONE_TT
+				has_variable = tv_cultural_milestone
+			}
+			var:tv_cultural_milestone ?= { this >= 4 }
+			NOT = { var:tv_cultural_m4_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_cultural_m4_bonus }
+		set_variable = { name = tv_cultural_m4_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_cultural_m4_bonus days = -1 }
+	}
+}
+
+tv_unlock_cultural_milestone_5 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_cultural_m5_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_CULTURAL_MILESTONE_TT
+				has_variable = tv_cultural_milestone
+			}
+			var:tv_cultural_milestone ?= { this >= 5 }
+			NOT = { var:tv_cultural_m5_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_cultural_m5_bonus }
+		set_variable = { name = tv_cultural_m5_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_cultural_m5_bonus days = -1 }
+	}
 }
 
 
 # Science Victory
-tv_grant_science_milestone_1 = {
-	add_country_modifier = { modifier = tv_science_m1_bonus days = -1 }
+tv_unlock_science_milestone_1 = {
 	custom_tooltip = { text = tv_science_m1_io_grant_tt }
 	hidden_effect = {
 	    if = {
@@ -948,19 +1349,99 @@ tv_grant_science_milestone_1 = {
 	}
 }
 
-tv_grant_science_milestone_2 = {
-	add_country_modifier = { modifier = tv_science_m2_bonus days = -1 }
+tv_select_science_m1_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_SCIENCE_MILESTONE_TT
+				has_variable = tv_science_milestone
+			}
+			var:tv_science_milestone ?= { this >= 1 }
+			NOT = { var:tv_science_m1_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_science_m1_bonus }
+		set_variable = { name = tv_science_m1_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_science_m1_bonus days = -1 }
+	}
 }
 
-tv_grant_science_milestone_3 = {
-	add_country_modifier = { modifier = tv_science_m3_bonus days = -1 }
+tv_unlock_science_milestone_2 = {
+	# No unlock-only side effects for this milestone.
 }
 
-tv_grant_science_milestone_4 = {
-	add_country_modifier = { modifier = tv_science_m4_bonus days = -1 }
+tv_select_science_m2_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_SCIENCE_MILESTONE_TT
+				has_variable = tv_science_milestone
+			}
+			var:tv_science_milestone ?= { this >= 2 }
+			NOT = { var:tv_science_m2_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_science_m2_bonus }
+		set_variable = { name = tv_science_m2_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_science_m2_bonus days = -1 }
+	}
 }
 
-tv_grant_science_milestone_5 = {
-	add_country_modifier = { modifier = tv_science_m5_bonus days = -1 }
+tv_unlock_science_milestone_3 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_science_m3_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_SCIENCE_MILESTONE_TT
+				has_variable = tv_science_milestone
+			}
+			var:tv_science_milestone ?= { this >= 3 }
+			NOT = { var:tv_science_m3_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_science_m3_bonus }
+		set_variable = { name = tv_science_m3_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_science_m3_bonus days = -1 }
+	}
+}
+
+tv_unlock_science_milestone_4 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_science_m4_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_SCIENCE_MILESTONE_TT
+				has_variable = tv_science_milestone
+			}
+			var:tv_science_milestone ?= { this >= 4 }
+			NOT = { var:tv_science_m4_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_science_m4_bonus }
+		set_variable = { name = tv_science_m4_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_science_m4_bonus days = -1 }
+	}
+}
+
+tv_unlock_science_milestone_5 = {
+	# No unlock-only side effects for this milestone.
+}
+
+tv_select_science_m5_reward_effect = {
+	if = {
+		limit = {
+			custom_tooltip = {
+				text = TV_HAS_SCIENCE_MILESTONE_TT
+				has_variable = tv_science_milestone
+			}
+			var:tv_science_milestone ?= { this >= 5 }
+			NOT = { var:tv_science_m5_reward_choice ?= $choice$ }
+		}
+		hidden_effect = { remove_country_modifier = tv_science_m5_bonus }
+		set_variable = { name = tv_science_m5_reward_choice value = $choice$ }
+		add_country_modifier = { modifier = tv_science_m5_bonus days = -1 }
+	}
 }
 

@@ -189,16 +189,19 @@ def gen_effects(data: dict) -> str:
     lines.append("")
     lines.append("tv_update_all_progress_pct_effect = {")
     for p in paths:
+        pid = p["id"]
+        lines.append(f"\tset_variable = {{ name = tv_{pid}_progress_pct value = 0 }}")
         if p.get("progress_pct_body"):
             lines.append(indent(p["progress_pct_body"].rstrip()))
             lines.append("")
     lines.append("}")
     lines.append("")
 
-    # Section 4: grant effects
+    # Section 4: unlock and reward selection effects
     lines.append("# " + "═"*71)
-    lines.append("# SECTION 4: MILESTONE REWARD EFFECTS")
-    lines.append("# Called from events tv.<path>.<n> after the milestone is first reached.")
+    lines.append("# SECTION 4: MILESTONE UNLOCK AND REWARD SELECTION EFFECTS")
+    lines.append("# Events call tv_unlock_* for non-modifier side effects only.")
+    lines.append("# Generic actions call tv_select_*_reward_effect; removal is hidden, current grant is visible.")
     lines.append("# " + "═"*71)
     lines.append("")
     for p in paths:
@@ -206,11 +209,29 @@ def gen_effects(data: dict) -> str:
         lines.append(f"# {pid.capitalize()} Victory")
         for m in p["milestones"]:
             n = m["n"]
-            lines.append(f"tv_grant_{pid}_milestone_{n} = {{")
-            if m.get("custom_grant_body"):
-                lines.append(indent(m["custom_grant_body"].rstrip()))
+            modifier = f"tv_{pid}_m{n}_bonus"
+            choice_var = f"tv_{pid}_m{n}_reward_choice"
+            lines.append(f"tv_unlock_{pid}_milestone_{n} = {{")
+            if m.get("unlock_body"):
+                lines.append(indent(m["unlock_body"].rstrip()))
             else:
-                lines.append(f"\tadd_country_modifier = {{ modifier = tv_{pid}_m{n}_bonus days = -1 }}")
+                lines.append("\t# No unlock-only side effects for this milestone.")
+            lines.append(f"}}")
+            lines.append("")
+            lines.append(f"tv_select_{pid}_m{n}_reward_effect = {{")
+            lines.append(f"\tif = {{")
+            lines.append(f"\t\tlimit = {{")
+            lines.append(f"\t\t\tcustom_tooltip = {{")
+            lines.append(f"\t\t\t\ttext = TV_HAS_{pid.upper()}_MILESTONE_TT")
+            lines.append(f"\t\t\t\thas_variable = tv_{pid}_milestone")
+            lines.append(f"\t\t\t}}")
+            lines.append(f"\t\t\tvar:tv_{pid}_milestone ?= {{ this >= {n} }}")
+            lines.append(f"\t\t\tNOT = {{ var:{choice_var} ?= $choice$ }}")
+            lines.append(f"\t\t}}")
+            lines.append(f"\t\thidden_effect = {{ remove_country_modifier = {modifier} }}")
+            lines.append(f"\t\tset_variable = {{ name = {choice_var} value = $choice$ }}")
+            lines.append(f"\t\tadd_country_modifier = {{ modifier = {modifier} days = -1 }}")
+            lines.append(f"\t}}")
             lines.append(f"}}")
             lines.append("")
         lines.append("")
@@ -266,11 +287,14 @@ tv_victory_situation = {{
 \ton_start = {{
 \t\t# Initialise the AI yearly pulse counter on the situation scope
 \t\tset_variable = {{ name = tv_ai_pulse_counter value = 0 }}
-\t\t# Full initial scan of every country -- seeds best-path variables for leaderboard
+\t\t# Full initial scan of every country -- seeds per-path progress variables for leaderboard
 \t\tevery_country = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{ NOT = {{ has_variable = tv_victory_selected_path }} }}
+\t\t\t\tset_variable = {{ name = tv_victory_selected_path value = 0 }}
+\t\t\t}}
 \t\t\ttv_check_all_milestones_effect = yes
 \t\t\ttv_update_all_progress_pct_effect = yes
-\t\t\ttv_update_best_path_effect = yes
 \t\t}}
 \t\t# Build initial leaderboard ranking immediately
 \t\ttv_update_leaderboard_effect = yes
@@ -365,7 +389,7 @@ def gen_events(path: dict) -> str:
         lines.append(f"\toutcome = neutral")
         lines.append(f"\toption = {{")
         lines.append(f"\t\tname = tv_{pid}.{n}.a")
-        lines.append(f"\t\ttv_grant_{pid}_milestone_{n} = yes")
+        lines.append(f"\t\ttv_unlock_{pid}_milestone_{n} = yes")
         lines.append(f"\t}}")
         lines.append(f"}}")
         lines.append("")
@@ -393,11 +417,20 @@ def gen_localization(data: dict, lang: str) -> str:
             return f' {key}:0 "{escaped}"'
         return f' {key}: "{escaped}"'
 
+    def action_message_loc(action: str, setup: str, log: str) -> None:
+        lines.append(kv(f"PERFORM_{action}_ACTION_SETUP", setup))
+        lines.append(kv(f"PERFORM_{action}_ACTION_LOG", log))
+        lines.append(kv(f"PERFORM_{action}_ACTION_MAP", ""))
+
     # Shared situation keys
     lines.append(" # ── Situation ──────────────────────────────────────────────────────────────")
     lines.append(kv("tv_victory_situation", shared["situation_name"][lang]))
     lines.append(kv("tv_victory_situation_desc", shared["situation_desc"][lang]))
     lines.append(kv("TV_VICTORY_SITUATION_TITLE", shared["situation_title"][lang]))
+    lines.append(kv("TV_VICTORY_REWARD_1_LABEL", "I" if lang == "en" else "一"))
+    lines.append(kv("TV_VICTORY_REWARD_2_LABEL", "II" if lang == "en" else "二"))
+    lines.append(kv("TV_VICTORY_REWARD_3_LABEL", "III" if lang == "en" else "三"))
+    lines.append(kv("TV_VICTORY_LOCKED_REWARD", "Locked" if lang == "en" else "未解锁"))
     lines.append("")
     lines.append(" # ── Shared milestone circle labels ─────────────────────────────────────────")
     for n, label in shared["milestone_labels"].items():
@@ -415,9 +448,20 @@ def gen_localization(data: dict, lang: str) -> str:
 
         lines.append("")
         lines.append(f" # ── {pid.capitalize()} Victory ──────────────────────────────────────────────────────────")
+        lines.append(kv(f"TV_{PID}_TAB_LABEL", path["gui"]["tab_label"][lang]))
         lines.append(kv(f"TV_{PID}_TITLE", ploc["title"][lang]))
         lines.append(kv(f"TV_{PID}_DESCRIPTION", ploc["description"][lang]))
         lines.append(kv(f"TV_{PID}_FLAVOR", ploc["flavor"][lang]))
+        lines.append(kv(f"tv_victory_select_path_{pid}", path["gui"]["tab_label"][lang]))
+        lines.append(kv(
+            f"tv_victory_select_path_{pid}_desc",
+            (f"Show the {ploc['title'][lang]} page." if lang == "en" else f"显示{ploc['title'][lang]}页面。"),
+        ))
+        action_message_loc(
+            f"tv_victory_select_path_{pid}",
+            "When we switch victory path pages." if lang == "en" else "当我们切换胜利之路页面时。",
+            "We switched the victory path page." if lang == "en" else "我们切换了胜利之路页面。",
+        )
         lines.append("")
         for m in path["milestones"]:
             n = m["n"]
@@ -427,6 +471,28 @@ def gen_localization(data: dict, lang: str) -> str:
             lines.append(kv(f"TV_{PID}_M{n}_TRIGGER_DESC", mloc["trigger_desc"][lang]))
             if mloc.get("extra_trigger_desc") and mloc["extra_trigger_desc"].get(lang):
                 lines.append(kv(f"TV_{PID}_M{n}_EXTRA_TRIGGER_DESC", mloc["extra_trigger_desc"][lang]))
+            for choice in range(1, 4):
+                reward_title = (
+                    f"{mloc['title'][lang]} - Reward {choice}"
+                    if lang == "en"
+                    else f"{mloc['title'][lang]} - 奖励{choice}"
+                )
+                reward_desc = (
+                    f"Select reward {choice}: [GetModifier('tv_{pid}_m{n}_bonus').GetDesc]"
+                    if lang == "en"
+                    else f"选择奖励{choice}：[GetModifier('tv_{pid}_m{n}_bonus').GetDesc]"
+                )
+                lines.append(kv(f"tv_victory_select_{pid}_m{n}_reward_{choice}", reward_title))
+                lines.append(kv(f"tv_victory_select_{pid}_m{n}_reward_{choice}_desc", reward_desc))
+                action_message_loc(
+                    f"tv_victory_select_{pid}_m{n}_reward_{choice}",
+                    "When we select a victory milestone reward."
+                    if lang == "en"
+                    else "当我们选择胜利里程碑奖励时。",
+                    "We selected a victory milestone reward."
+                    if lang == "en"
+                    else "我们选择了一项胜利里程碑奖励。",
+                )
         lines.append("")
         # Events
         lines.append(f" # ── {pid.capitalize()} Victory Events ───────────────────────────────────────────────")

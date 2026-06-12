@@ -65,6 +65,22 @@ generated:
     output: src/main_menu/localization/simp_chinese/towards_victory_l_simp_chinese.yml
 
   # ── 1:1 feature generators ───────────────────────────────────────────────────
+  - script: scripts/in_game/common/generic_actions/gen_towards_victory_reward_actions.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/common/generic_actions/towards_victory_reward_actions.txt
+
+  - script: scripts/in_game/common/generic_action_ai_lists/gen_towards_victory_reward_actions_list.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/common/generic_action_ai_lists/towards_victory_reward_actions_list.txt
+
+  - script: scripts/in_game/common/scripted_effects/gen_towards_victory_leaderboard.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/common/scripted_effects/towards_victory_leaderboard.txt
+
+  - script: scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py
+    data:   data/victory_paths.yaml
+    output: src/in_game/gui/panels/situation/tv_victory_situation.gui
+
   - script: scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py
     data:   data/io_leaders.yaml
     output: src/in_game/common/generic_actions/tv_io_leader_actions.txt
@@ -158,7 +174,7 @@ generated:
     output: src/in_game/common/on_action/ruler_death_pulses.txt
 
   - script: scripts/in_game/common/on_action/gen_tv_cmf_suppressions.py
-    data:   data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/locked_advances.yaml
+    data:   data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/locked_advances.yaml + data/victory_paths.yaml
     output: src/in_game/common/on_action/tv_cmf_suppressions.txt
 
   - script: scripts/in_game/events/gen_tv_research_d_events.py
