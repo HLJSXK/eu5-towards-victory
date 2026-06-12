@@ -68,6 +68,10 @@ def reward_active_expr(pid: str, n: int, choice: int) -> str:
     return f"And({var}.IsSet, EqualTo_CFixedPoint({var}.GetValue, '{fp(choice)}'))"
 
 
+def reward_modifier_id(pid: str, n: int, choice: int) -> str:
+    return f"tv_{pid}_m{n}_reward_{choice}_bonus"
+
+
 def milestone_label_key(n: int) -> str:
     if n == 3:
         return "TV_MILESTONE_V1_LABEL"
@@ -170,10 +174,14 @@ def append_tooltips(lines: list[str], paths: list[dict]) -> None:
             emit(lines, 4, f'textcontext = "[ShowTriggerConditions(\'tv_{pid}_milestone_{n}\', PlayerScope.Self)]"')
             emit(lines, 3, "}")
             emit(lines, 3, "widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }")
-            emit(lines, 3, "TooltipRowList = {")
-            emit(lines, 4, 'blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }')
-            emit(lines, 4, f'textcontext = "[GetModifier(\'tv_{pid}_m{n}_bonus\').GetDesc]"')
-            emit(lines, 3, "}")
+            for choice in range(1, 4):
+                emit(lines, 3, "TooltipRowList = {")
+                if choice == 1:
+                    emit(lines, 4, 'blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }')
+                else:
+                    emit(lines, 4, 'blockoverride "block_title" { raw_text = "" }')
+                emit(lines, 4, f'textcontext = "[GetModifier(\'{reward_modifier_id(pid, n, choice)}\').GetDesc]"')
+                emit(lines, 3, "}")
             emit(lines, 2, "}")
             emit(lines, 1, "}")
             emit(lines, 0, "}")

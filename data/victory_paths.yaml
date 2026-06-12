@@ -152,11 +152,13 @@ paths:
             text = TV_CONQUEST_M1_EXTRA_TRIGGER_DESC
             is_subject = no
           }
-        modifier:
-          discipline: 0.05
-        modifier_name:
-          en: "Seasoned Legions"
-          zh: "百炼雄师"
+        reward_options:
+          - modifier:
+              discipline: 0.05
+          - modifier:
+              military_tactics: 0.25
+          - modifier:
+              land_morale_modifier: 0.10
         unlock_body: |
           custom_tooltip = { text = tv_conquest_m1_govhouse_tt }
           hidden_effect = { tv_govhouse_create_effect = yes }
@@ -188,11 +190,13 @@ paths:
         is_long_term: false
         threshold: 400
         extra_trigger_block: null
-        modifier:
-          global_manpower_modifier: 0.25
-        modifier_name:
-          en: "Manpower Surge"
-          zh: "兵源汹涌"
+        reward_options:
+          - modifier:
+              naval_damage_done: 0.10
+          - modifier:
+              naval_damage_taken: -0.10
+          - modifier:
+              naval_morale_modifier: 0.10
         loc:
           title:
             en: "Conquest Victory — Milestone 2"
@@ -218,14 +222,13 @@ paths:
         is_long_term: false
         threshold: 600
         extra_trigger_block: null
-        modifier:
-          pop_join_rebel_threshold: -0.05
-          monthly_legitimacy: 0.10
-          monthly_republican_tradition: 0.10
-          monthly_devotion: 0.10
-        modifier_name:
-          en: "Iron Governance"
-          zh: "铁腕治国"
+        reward_options:
+          - modifier:
+              global_pop_conversion_speed: 0.01
+          - modifier:
+              global_pop_assimilation_speed: 0.01
+          - modifier:
+              stability_investment: 0.05
         loc:
           title:
             en: "Conquest Victory — Short-term Victory"
@@ -251,12 +254,13 @@ paths:
         is_long_term: false
         threshold: 1200
         extra_trigger_block: null
-        modifier:
-          global_integration_speed_modifier: 0.25
-          annexation_speed_modifier: 0.25
-        modifier_name:
-          en: "Imperial Absorption"
-          zh: "帝国消化"
+        reward_options:
+          - modifier:
+              global_manpower_modifier: 0.20
+          - modifier:
+              mercenary_maintenance_efficiency: -0.20
+          - modifier:
+              global_levy_size_modifier: 0.10
         loc:
           title:
             en: "Conquest Victory — Milestone 4"
@@ -282,12 +286,13 @@ paths:
         is_long_term: true
         threshold: 2500
         extra_trigger_block: null
-        modifier:
-          global_war_score_efficiency: 0.5
-          siege_ability: 0.5
-        modifier_name:
-          en: "Unstoppable Tide"
-          zh: "势如破竹"
+        reward_options:
+          - modifier:
+              global_integration_speed_modifier: 0.50
+          - modifier:
+              annexation_speed_modifier: 0.50
+          - modifier:
+              global_war_score_efficiency: 0.50
         loc:
           title:
             en: "Conquest Victory — Long-term Victory"
@@ -463,11 +468,13 @@ paths:
         is_long_term: false
         threshold: 2000
         extra_trigger_block: null
-        modifier:
-          global_monthly_prosperity: 0.001
-        modifier_name:
-          en: "Steady Prosperity"
-          zh: "稳步繁荣"
+        reward_options:
+          - modifier:
+              global_monthly_prosperity: 0.001
+          - modifier:
+              global_population_growth: 0.001
+          - modifier:
+              global_monthly_development: 0.001
         unlock_body: |
           custom_tooltip = { text = tv_prosperity_m1_engineering_department_grant_tt }
           hidden_effect = { tv_engineering_department_create_effect = yes }
@@ -496,11 +503,13 @@ paths:
         is_long_term: false
         threshold: 3000
         extra_trigger_block: null
-        modifier:
-          global_population_growth: 0.001
-        modifier_name:
-          en: "Growing Population"
-          zh: "人口滋长"
+        reward_options:
+          - modifier:
+              tax_income_efficiency: 0.025
+          - modifier:
+              global_production_efficiency: 0.05
+          - modifier:
+              global_raw_material_output: 0.10
         loc:
           title:
             en: "Prosperity Victory — Milestone 2"
@@ -526,14 +535,13 @@ paths:
         is_long_term: false
         threshold: 5000
         extra_trigger_block: null
-        modifier:
-          global_build_buildings_cost: -0.25
-          city_upgrade_cost_modifier: -0.25
-          town_upgrade_cost_modifier: -0.25
-          rural_settlement_upgrade_cost_modifier: -0.25
-        modifier_name:
-          en: "Builder's Economy"
-          zh: "建设经济"
+        reward_options:
+          - modifier:
+              global_build_buildings_cost: -0.10
+          - modifier:
+              global_max_rgo_size_modifier_in_rural: 0.20
+          - modifier:
+              global_max_rgo_size_modifier_in_non_rural: 0.20
         loc:
           title:
             en: "Prosperity Victory — Short-term Victory"
@@ -559,12 +567,13 @@ paths:
         is_long_term: false
         threshold: 7000
         extra_trigger_block: null
-        modifier:
-          global_construction_speed: 0.5
-          global_distance_from_capital_speed_propagation: 0.20
-        modifier_name:
-          en: "Construction Boom"
-          zh: "建造大潮"
+        reward_options:
+          - modifier:
+              global_distance_from_capital_speed_propagation: 0.10
+          - modifier:
+              land_cost_on_distance_from_capital_speed_propagation: 0.20
+          - modifier:
+              sea_cost_on_distance_from_capital_when_maritime: -1
         loc:
           title:
             en: "Prosperity Victory — Milestone 4"
@@ -590,12 +599,13 @@ paths:
         is_long_term: true
         threshold: 11000
         extra_trigger_block: null
-        modifier:
-          global_estate_max_tax: 0.5
-          tax_income_efficiency: 0.1
-        modifier_name:
-          en: "Peak Taxation"
-          zh: "税收峰值"
+        reward_options:
+          - modifier:
+              global_estate_max_tax: 0.50
+          - modifier:
+              global_estate_target_satisfaction: 0.10
+          - modifier:
+              monthly_inflation: -0.001
         loc:
           title:
             en: "Prosperity Victory — Long-term Victory"
@@ -729,14 +739,16 @@ paths:
         is_long_term: false
         threshold: 100
         extra_trigger_block: null
-        modifier:
-          merchant_maintenance_efficiency: 0.10
+        reward_options:
+          - modifier:
+              merchant_maintenance_efficiency: 0.10
+          - modifier:
+              global_merchant_capacity_modifier: 0.10
+          - modifier:
+              global_merchant_power: 0.20
         unlock_body: |
           custom_tooltip = { text = tv_trade_m1_io_grant_tt }
           hidden_effect = { tv_trade_league_create_effect = yes }
-        modifier_name:
-          en: "Merchant Efficiency"
-          zh: "商人效率"
         loc:
           title:
             en: "Trade Victory — Milestone 1"
@@ -762,11 +774,13 @@ paths:
         is_long_term: false
         threshold: 200
         extra_trigger_block: null
-        modifier:
-          global_foreign_build_buildings_cost: -0.20
-        modifier_name:
-          en: "Foreign Investment"
-          zh: "海外投资"
+        reward_options:
+          - modifier:
+              global_foreign_build_buildings_cost: -0.10
+          - modifier:
+              diplomatic_reputation: 2
+          - modifier:
+              spy_network_construction: 0.20
         loc:
           title:
             en: "Trade Victory — Milestone 2"
@@ -800,13 +814,13 @@ paths:
           		count >= 5
           	}
           }
-        modifier:
-          naval_range: 500
-          trade_range: 500
-          colonial_range: 500
-        modifier_name:
-          en: "Maritime Reach"
-          zh: "海洋霸权"
+        reward_options:
+          - modifier:
+              diplomatic_range: 1000
+          - modifier:
+              trade_range: 1000
+          - modifier:
+              colonial_range: 1000
         loc:
           title:
             en: "Trade Victory — Short-term Victory"
@@ -832,12 +846,13 @@ paths:
         is_long_term: false
         threshold: 1000
         extra_trigger_block: null
-        modifier:
-          global_trade_center_power: 0.50
-          global_merchant_capacity_modifier: 0.25
-        modifier_name:
-          en: "Market Dominance"
-          zh: "市场支配"
+        reward_options:
+          - modifier:
+              global_trade_protection_factor: 0.50
+          - modifier:
+              global_trade_center_power: 0.25
+          - modifier:
+              colonial_migration_size: 0.10
         loc:
           title:
             en: "Trade Victory — Milestone 4"
@@ -870,13 +885,13 @@ paths:
           		count >= 10
           	}
           }
-        modifier:
-          trade_land_efficiency: 0.10
-          trade_sea_efficiency: 0.10
-          trade_income: 0.25
-        modifier_name:
-          en: "Trade Hegemon"
-          zh: "贸易霸主"
+        reward_options:
+          - modifier:
+              colonial_migration_size: 0.10
+          - modifier:
+              war_no_cb_cost_modifier: -1.00
+          - modifier:
+              trade_income: 0.20
         loc:
           title:
             en: "Trade Victory — Long-term Victory"
@@ -1015,11 +1030,13 @@ paths:
               limit = { var:tv_diplomatic_victory_points < 1 }
               set_variable = { name = tv_diplomatic_victory_points value = 1 }
           }
-        modifier:
-          monthly_diplomats: 0.10
-        modifier_name:
-          en: "Diplomatic Corps"
-          zh: "外交团队"
+        reward_options:
+          - modifier:
+              diplomatic_reputation: 2
+          - modifier:
+              improve_relation_impact: 0.20
+          - modifier:
+              spy_network_construction: 0.20
         loc:
           title:
             en: "Diplomatic Victory — Milestone 1"
@@ -1048,11 +1065,13 @@ paths:
         is_long_term: false
         threshold: 50
         extra_trigger_block: null
-        modifier:
-          diplomatic_reputation: 2
-        modifier_name:
-          en: "Extended Reach"
-          zh: "外交扩容"
+        reward_options:
+          - modifier:
+              diplomatic_capacity_modifier: 0.25
+          - modifier:
+              monthly_diplomats: 0.10
+          - modifier:
+              diplomatic_spending_cost: -0.01
         loc:
           title:
             en: "Diplomatic Victory — Milestone 2"
@@ -1078,11 +1097,13 @@ paths:
         is_long_term: false
         threshold: 500
         extra_trigger_block: null
-        modifier:
-          diplomatic_range: 1000
-        modifier_name:
-          en: "Renowned Statecraft"
-          zh: "享誉外交"
+        reward_options:
+          - modifier:
+              diplomatic_range: 1000
+          - modifier:
+              trade_range: 1000
+          - modifier:
+              colonial_range: 1000
         loc:
           title:
             en: "Diplomatic Victory — Short-term Victory"
@@ -1108,11 +1129,13 @@ paths:
         is_long_term: false
         threshold: 2500
         extra_trigger_block: null
-        modifier:
-          improve_relation_impact: 0.50
-        modifier_name:
-          en: "Grand Strategy"
-          zh: "大国战略"
+        reward_options:
+          - modifier:
+              subject_loyalty: 0.10
+          - modifier:
+              subject_income_modifier: 0.05
+          - modifier:
+              subject_opinions: 10
         loc:
           title:
             en: "Diplomatic Victory — Milestone 4"
@@ -1138,11 +1161,13 @@ paths:
         is_long_term: true
         threshold: 15000
         extra_trigger_block: null
-        modifier:
-          diplomatic_reputation: 10
-        modifier_name:
-          en: "Diplomatic Hegemon"
-          zh: "外交霸主"
+        reward_options:
+          - modifier:
+              diplomatic_reputation: 10
+          - modifier:
+              improve_relation_impact: 1.00
+          - modifier:
+              spy_network_construction: 1.00
         loc:
           title:
             en: "Diplomatic Victory — Long-term Victory"
@@ -1263,11 +1288,13 @@ paths:
         is_long_term: false
         threshold: 50
         extra_trigger_block: null
-        modifier:
-          hire_artist_cost_modifier: -0.50
-        modifier_name:
-          en: "Patron of the Arts"
-          zh: "艺术赞助人"
+        reward_options:
+          - modifier:
+              num_possible_artists: 1
+          - modifier:
+              artist_salary_modifier: -0.10
+          - modifier:
+              hire_artist_cost_modifier: -0.50
         unlock_body: |
           custom_tooltip = { text = tv_cultural_m1_io_grant_tt }
           hidden_effect = {
@@ -1311,11 +1338,13 @@ paths:
           		var:tv_arts_intl_influence >= 25
           	}
           }
-        modifier:
-          cultures_capacity: 2
-        modifier_name:
-          en: "Cultural Breadth"
-          zh: "文化包容"
+        reward_options:
+          - modifier:
+              skill_of_new_artists: 0.10
+          - modifier:
+              artist_monthly_start_chance: 0.20
+          - modifier:
+              country_cabinet_efficiency: 0.10
         loc:
           title:
             en: "Cultural Victory — Milestone 2"
@@ -1352,11 +1381,13 @@ paths:
           		var:tv_arts_intl_influence >= 50
           	}
           }
-        modifier:
-          num_possible_artists: 5
-        modifier_name:
-          en: "House of Artists"
-          zh: "艺术殿堂"
+        reward_options:
+          - modifier:
+              cultural_tradition_modifier: 0.25
+          - modifier:
+              cultural_influence_modifier: 0.25
+          - modifier:
+              monthly_prestige: 0.05
         loc:
           title:
             en: "Cultural Victory — Short-term Victory"
@@ -1393,12 +1424,13 @@ paths:
           		var:tv_arts_intl_influence >= 75
           	}
           }
-        modifier:
-          cultural_influence_modifier: 0.50
-          cultural_tradition_modifier: 0.50
-        modifier_name:
-          en: "Cultural Beacon"
-          zh: "文化灯塔"
+        reward_options:
+          - modifier:
+              global_pop_assimilation_speed_modifier: 0.50
+          - modifier:
+              cultures_capacity: 2
+          - modifier:
+              monthly_rebel_growth: -0.0005
         loc:
           title:
             en: "Cultural Victory — Milestone 4"
@@ -1435,11 +1467,13 @@ paths:
           		var:tv_arts_intl_influence >= 100
           	}
           }
-        modifier:
-          num_possible_artists: 10
-        modifier_name:
-          en: "Cultural Hegemon"
-          zh: "文化霸主"
+        reward_options:
+          - modifier:
+              num_possible_artists: 10
+          - modifier:
+              skill_of_new_artists: 0.30
+          - modifier:
+              cultural_influence_modifier: 1.00
         loc:
           title:
             en: "Cultural Victory — Long-term Victory"
@@ -1729,11 +1763,17 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 1
           }
-        modifier:
-          global_max_literacy: 10
-        modifier_name:
-          en: "Literate Nation"
-          zh: "知识之国"
+        reward_options:
+          - modifier:
+              global_nobles_max_literacy: 10
+              global_clergy_max_literacy: 10
+              global_burghers_max_literacy: 10
+          - modifier:
+              global_peasants_max_literacy: 10
+              global_laborers_max_literacy: 10
+              global_soldiers_max_literacy: 10
+          - modifier:
+              global_max_literacy: 5
         unlock_body: |
           custom_tooltip = { text = tv_science_m1_io_grant_tt }
           hidden_effect = {
@@ -1798,11 +1838,13 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 2
           }
-        modifier:
-          clergy_estate_target_satisfaction: 0.10
-        modifier_name:
-          en: "Age of Learning"
-          zh: "学识时代"
+        reward_options:
+          - modifier:
+              clergy_estate_target_satisfaction: 0.025
+          - modifier:
+              research_speed_modifier: 0.05
+          - modifier:
+              global_institution_growth_modifier: 0.20
         loc:
           title:
             en: "Scientific Victory — Milestone 2"
@@ -1836,11 +1878,13 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 3
           }
-        modifier:
-          global_institution_growth_modifier: 1.0
-        modifier_name:
-          en: "Age of Enlightenment"
-          zh: "启蒙时代"
+        reward_options:
+          - modifier:
+              research_speed: 0.05
+          - modifier:
+              global_monthly_literacy: 0.002
+          - modifier:
+              global_production_efficiency: 0.05
         loc:
           title:
             en: "Scientific Victory — Short-term Victory"
@@ -1874,11 +1918,13 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 4
           }
-        modifier:
-          research_speed_modifier: 0.10
-        modifier_name:
-          en: "Preeminent Science"
-          zh: "科学巅峰"
+        reward_options:
+          - modifier:
+              non_rural_migration_attraction: 1
+          - modifier:
+              rural_migration_attraction: 1
+          - modifier:
+              global_migration_speed_modifier: 0.25
         loc:
           title:
             en: "Scientific Victory — Milestone 4"
@@ -1912,12 +1958,13 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 5
           }
-        modifier:
-          global_institution_growth_modifier: 2.0
-          global_max_literacy: 20
-        modifier_name:
-          en: "Industrial Vanguard"
-          zh: "工业先驱"
+        reward_options:
+          - modifier:
+              research_speed_modifier: 0.10
+          - modifier:
+              research_speed: 0.10
+          - modifier:
+              global_pop_promotion_speed_modifier: 0.50
         loc:
           title:
             en: "Scientific Victory — Long-term Victory"

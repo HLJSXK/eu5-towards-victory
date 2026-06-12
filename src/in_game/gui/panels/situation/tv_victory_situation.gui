@@ -51,7 +51,15 @@ template tv_conquest_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_conquest_m1_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_conquest_m1_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m1_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m1_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -72,7 +80,15 @@ template tv_conquest_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_conquest_m2_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_conquest_m2_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m2_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m2_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -93,7 +109,15 @@ template tv_conquest_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_conquest_m3_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_conquest_m3_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m3_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m3_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -114,7 +138,15 @@ template tv_conquest_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_conquest_m4_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_conquest_m4_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m4_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m4_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -135,7 +167,15 @@ template tv_conquest_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_conquest_m5_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_conquest_m5_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m5_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_conquest_m5_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -188,7 +228,15 @@ template tv_prosperity_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_prosperity_m1_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_prosperity_m1_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m1_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m1_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -209,7 +257,15 @@ template tv_prosperity_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_prosperity_m2_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_prosperity_m2_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m2_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m2_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -230,7 +286,15 @@ template tv_prosperity_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_prosperity_m3_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_prosperity_m3_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m3_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m3_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -251,7 +315,15 @@ template tv_prosperity_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_prosperity_m4_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_prosperity_m4_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m4_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m4_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -272,7 +344,15 @@ template tv_prosperity_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_prosperity_m5_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_prosperity_m5_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m5_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_prosperity_m5_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -325,7 +405,15 @@ template tv_trade_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_trade_m1_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_trade_m1_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m1_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m1_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -346,7 +434,15 @@ template tv_trade_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_trade_m2_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_trade_m2_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m2_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m2_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -367,7 +463,15 @@ template tv_trade_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_trade_m3_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_trade_m3_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m3_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m3_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -388,7 +492,15 @@ template tv_trade_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_trade_m4_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_trade_m4_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m4_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m4_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -409,7 +521,15 @@ template tv_trade_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_trade_m5_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_trade_m5_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m5_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_trade_m5_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -462,7 +582,15 @@ template tv_diplomatic_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_diplomatic_m1_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_diplomatic_m1_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m1_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m1_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -483,7 +611,15 @@ template tv_diplomatic_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_diplomatic_m2_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_diplomatic_m2_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m2_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m2_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -504,7 +640,15 @@ template tv_diplomatic_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_diplomatic_m3_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_diplomatic_m3_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m3_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m3_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -525,7 +669,15 @@ template tv_diplomatic_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_diplomatic_m4_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_diplomatic_m4_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m4_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m4_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -546,7 +698,15 @@ template tv_diplomatic_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_diplomatic_m5_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_diplomatic_m5_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m5_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_diplomatic_m5_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -599,7 +759,15 @@ template tv_cultural_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_cultural_m1_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_cultural_m1_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m1_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m1_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -620,7 +788,15 @@ template tv_cultural_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_cultural_m2_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_cultural_m2_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m2_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m2_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -641,7 +817,15 @@ template tv_cultural_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_cultural_m3_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_cultural_m3_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m3_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m3_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -662,7 +846,15 @@ template tv_cultural_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_cultural_m4_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_cultural_m4_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m4_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m4_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -683,7 +875,15 @@ template tv_cultural_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_cultural_m5_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_cultural_m5_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m5_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_cultural_m5_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -736,7 +936,15 @@ template tv_science_milestone_1_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_science_m1_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_science_m1_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m1_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m1_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -757,7 +965,15 @@ template tv_science_milestone_2_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_science_m2_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_science_m2_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m2_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m2_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -778,7 +994,15 @@ template tv_science_milestone_3_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_science_m3_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_science_m3_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m3_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m3_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -799,7 +1023,15 @@ template tv_science_milestone_4_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_science_m4_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_science_m4_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m4_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m4_reward_3_bonus').GetDesc]"
 			}
 		}
 	}
@@ -820,7 +1052,15 @@ template tv_science_milestone_5_tooltip {
 			widget = { size = { -1 1 } background = { using = color_gold  alpha = 0.3 } }
 			TooltipRowList = {
 				blockoverride "block_title" { text = "TV_TOOLTIP_REWARDS_HEADER" }
-				textcontext = "[GetModifier('tv_science_m5_bonus').GetDesc]"
+				textcontext = "[GetModifier('tv_science_m5_reward_1_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m5_reward_2_bonus').GetDesc]"
+			}
+			TooltipRowList = {
+				blockoverride "block_title" { raw_text = "" }
+				textcontext = "[GetModifier('tv_science_m5_reward_3_bonus').GetDesc]"
 			}
 		}
 	}

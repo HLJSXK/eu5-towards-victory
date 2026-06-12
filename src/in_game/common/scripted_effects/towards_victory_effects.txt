@@ -798,9 +798,24 @@ tv_select_conquest_m1_reward_effect = {
 			var:tv_conquest_milestone ?= { this >= 1 }
 			NOT = { var:tv_conquest_m1_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_conquest_m1_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_conquest_m1_reward_1_bonus
+			remove_country_modifier = tv_conquest_m1_reward_2_bonus
+			remove_country_modifier = tv_conquest_m1_reward_3_bonus
+		}
 		set_variable = { name = tv_conquest_m1_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_conquest_m1_bonus days = -1 }
+		if = {
+			limit = { var:tv_conquest_m1_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_conquest_m1_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m1_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_conquest_m1_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m1_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_conquest_m1_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -818,9 +833,24 @@ tv_select_conquest_m2_reward_effect = {
 			var:tv_conquest_milestone ?= { this >= 2 }
 			NOT = { var:tv_conquest_m2_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_conquest_m2_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_conquest_m2_reward_1_bonus
+			remove_country_modifier = tv_conquest_m2_reward_2_bonus
+			remove_country_modifier = tv_conquest_m2_reward_3_bonus
+		}
 		set_variable = { name = tv_conquest_m2_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_conquest_m2_bonus days = -1 }
+		if = {
+			limit = { var:tv_conquest_m2_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_conquest_m2_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m2_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_conquest_m2_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m2_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_conquest_m2_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -838,9 +868,24 @@ tv_select_conquest_m3_reward_effect = {
 			var:tv_conquest_milestone ?= { this >= 3 }
 			NOT = { var:tv_conquest_m3_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_conquest_m3_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_conquest_m3_reward_1_bonus
+			remove_country_modifier = tv_conquest_m3_reward_2_bonus
+			remove_country_modifier = tv_conquest_m3_reward_3_bonus
+		}
 		set_variable = { name = tv_conquest_m3_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_conquest_m3_bonus days = -1 }
+		if = {
+			limit = { var:tv_conquest_m3_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_conquest_m3_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m3_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_conquest_m3_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m3_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_conquest_m3_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -858,9 +903,24 @@ tv_select_conquest_m4_reward_effect = {
 			var:tv_conquest_milestone ?= { this >= 4 }
 			NOT = { var:tv_conquest_m4_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_conquest_m4_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_conquest_m4_reward_1_bonus
+			remove_country_modifier = tv_conquest_m4_reward_2_bonus
+			remove_country_modifier = tv_conquest_m4_reward_3_bonus
+		}
 		set_variable = { name = tv_conquest_m4_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_conquest_m4_bonus days = -1 }
+		if = {
+			limit = { var:tv_conquest_m4_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_conquest_m4_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m4_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_conquest_m4_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m4_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_conquest_m4_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -878,9 +938,24 @@ tv_select_conquest_m5_reward_effect = {
 			var:tv_conquest_milestone ?= { this >= 5 }
 			NOT = { var:tv_conquest_m5_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_conquest_m5_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_conquest_m5_reward_1_bonus
+			remove_country_modifier = tv_conquest_m5_reward_2_bonus
+			remove_country_modifier = tv_conquest_m5_reward_3_bonus
+		}
 		set_variable = { name = tv_conquest_m5_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_conquest_m5_bonus days = -1 }
+		if = {
+			limit = { var:tv_conquest_m5_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_conquest_m5_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m5_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_conquest_m5_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_conquest_m5_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_conquest_m5_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -901,9 +976,24 @@ tv_select_prosperity_m1_reward_effect = {
 			var:tv_prosperity_milestone ?= { this >= 1 }
 			NOT = { var:tv_prosperity_m1_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_prosperity_m1_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_prosperity_m1_reward_1_bonus
+			remove_country_modifier = tv_prosperity_m1_reward_2_bonus
+			remove_country_modifier = tv_prosperity_m1_reward_3_bonus
+		}
 		set_variable = { name = tv_prosperity_m1_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_prosperity_m1_bonus days = -1 }
+		if = {
+			limit = { var:tv_prosperity_m1_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_prosperity_m1_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m1_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_prosperity_m1_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m1_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_prosperity_m1_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -921,9 +1011,24 @@ tv_select_prosperity_m2_reward_effect = {
 			var:tv_prosperity_milestone ?= { this >= 2 }
 			NOT = { var:tv_prosperity_m2_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_prosperity_m2_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_prosperity_m2_reward_1_bonus
+			remove_country_modifier = tv_prosperity_m2_reward_2_bonus
+			remove_country_modifier = tv_prosperity_m2_reward_3_bonus
+		}
 		set_variable = { name = tv_prosperity_m2_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_prosperity_m2_bonus days = -1 }
+		if = {
+			limit = { var:tv_prosperity_m2_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_prosperity_m2_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m2_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_prosperity_m2_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m2_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_prosperity_m2_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -941,9 +1046,24 @@ tv_select_prosperity_m3_reward_effect = {
 			var:tv_prosperity_milestone ?= { this >= 3 }
 			NOT = { var:tv_prosperity_m3_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_prosperity_m3_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_prosperity_m3_reward_1_bonus
+			remove_country_modifier = tv_prosperity_m3_reward_2_bonus
+			remove_country_modifier = tv_prosperity_m3_reward_3_bonus
+		}
 		set_variable = { name = tv_prosperity_m3_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_prosperity_m3_bonus days = -1 }
+		if = {
+			limit = { var:tv_prosperity_m3_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_prosperity_m3_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m3_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_prosperity_m3_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m3_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_prosperity_m3_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -961,9 +1081,24 @@ tv_select_prosperity_m4_reward_effect = {
 			var:tv_prosperity_milestone ?= { this >= 4 }
 			NOT = { var:tv_prosperity_m4_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_prosperity_m4_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_prosperity_m4_reward_1_bonus
+			remove_country_modifier = tv_prosperity_m4_reward_2_bonus
+			remove_country_modifier = tv_prosperity_m4_reward_3_bonus
+		}
 		set_variable = { name = tv_prosperity_m4_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_prosperity_m4_bonus days = -1 }
+		if = {
+			limit = { var:tv_prosperity_m4_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_prosperity_m4_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m4_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_prosperity_m4_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m4_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_prosperity_m4_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -981,9 +1116,24 @@ tv_select_prosperity_m5_reward_effect = {
 			var:tv_prosperity_milestone ?= { this >= 5 }
 			NOT = { var:tv_prosperity_m5_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_prosperity_m5_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_prosperity_m5_reward_1_bonus
+			remove_country_modifier = tv_prosperity_m5_reward_2_bonus
+			remove_country_modifier = tv_prosperity_m5_reward_3_bonus
+		}
 		set_variable = { name = tv_prosperity_m5_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_prosperity_m5_bonus days = -1 }
+		if = {
+			limit = { var:tv_prosperity_m5_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_prosperity_m5_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m5_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_prosperity_m5_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_prosperity_m5_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_prosperity_m5_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1004,9 +1154,24 @@ tv_select_trade_m1_reward_effect = {
 			var:tv_trade_milestone ?= { this >= 1 }
 			NOT = { var:tv_trade_m1_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_trade_m1_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_trade_m1_reward_1_bonus
+			remove_country_modifier = tv_trade_m1_reward_2_bonus
+			remove_country_modifier = tv_trade_m1_reward_3_bonus
+		}
 		set_variable = { name = tv_trade_m1_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_trade_m1_bonus days = -1 }
+		if = {
+			limit = { var:tv_trade_m1_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_trade_m1_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m1_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_trade_m1_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m1_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_trade_m1_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1024,9 +1189,24 @@ tv_select_trade_m2_reward_effect = {
 			var:tv_trade_milestone ?= { this >= 2 }
 			NOT = { var:tv_trade_m2_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_trade_m2_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_trade_m2_reward_1_bonus
+			remove_country_modifier = tv_trade_m2_reward_2_bonus
+			remove_country_modifier = tv_trade_m2_reward_3_bonus
+		}
 		set_variable = { name = tv_trade_m2_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_trade_m2_bonus days = -1 }
+		if = {
+			limit = { var:tv_trade_m2_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_trade_m2_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m2_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_trade_m2_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m2_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_trade_m2_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1044,9 +1224,24 @@ tv_select_trade_m3_reward_effect = {
 			var:tv_trade_milestone ?= { this >= 3 }
 			NOT = { var:tv_trade_m3_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_trade_m3_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_trade_m3_reward_1_bonus
+			remove_country_modifier = tv_trade_m3_reward_2_bonus
+			remove_country_modifier = tv_trade_m3_reward_3_bonus
+		}
 		set_variable = { name = tv_trade_m3_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_trade_m3_bonus days = -1 }
+		if = {
+			limit = { var:tv_trade_m3_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_trade_m3_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m3_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_trade_m3_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m3_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_trade_m3_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1064,9 +1259,24 @@ tv_select_trade_m4_reward_effect = {
 			var:tv_trade_milestone ?= { this >= 4 }
 			NOT = { var:tv_trade_m4_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_trade_m4_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_trade_m4_reward_1_bonus
+			remove_country_modifier = tv_trade_m4_reward_2_bonus
+			remove_country_modifier = tv_trade_m4_reward_3_bonus
+		}
 		set_variable = { name = tv_trade_m4_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_trade_m4_bonus days = -1 }
+		if = {
+			limit = { var:tv_trade_m4_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_trade_m4_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m4_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_trade_m4_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m4_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_trade_m4_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1084,9 +1294,24 @@ tv_select_trade_m5_reward_effect = {
 			var:tv_trade_milestone ?= { this >= 5 }
 			NOT = { var:tv_trade_m5_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_trade_m5_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_trade_m5_reward_1_bonus
+			remove_country_modifier = tv_trade_m5_reward_2_bonus
+			remove_country_modifier = tv_trade_m5_reward_3_bonus
+		}
 		set_variable = { name = tv_trade_m5_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_trade_m5_bonus days = -1 }
+		if = {
+			limit = { var:tv_trade_m5_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_trade_m5_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m5_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_trade_m5_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_trade_m5_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_trade_m5_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1118,9 +1343,24 @@ tv_select_diplomatic_m1_reward_effect = {
 			var:tv_diplomatic_milestone ?= { this >= 1 }
 			NOT = { var:tv_diplomatic_m1_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_diplomatic_m1_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_diplomatic_m1_reward_1_bonus
+			remove_country_modifier = tv_diplomatic_m1_reward_2_bonus
+			remove_country_modifier = tv_diplomatic_m1_reward_3_bonus
+		}
 		set_variable = { name = tv_diplomatic_m1_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
+		if = {
+			limit = { var:tv_diplomatic_m1_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_diplomatic_m1_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m1_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_diplomatic_m1_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m1_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_diplomatic_m1_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1138,9 +1378,24 @@ tv_select_diplomatic_m2_reward_effect = {
 			var:tv_diplomatic_milestone ?= { this >= 2 }
 			NOT = { var:tv_diplomatic_m2_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_diplomatic_m2_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_diplomatic_m2_reward_1_bonus
+			remove_country_modifier = tv_diplomatic_m2_reward_2_bonus
+			remove_country_modifier = tv_diplomatic_m2_reward_3_bonus
+		}
 		set_variable = { name = tv_diplomatic_m2_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_diplomatic_m2_bonus days = -1 }
+		if = {
+			limit = { var:tv_diplomatic_m2_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_diplomatic_m2_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m2_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_diplomatic_m2_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m2_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_diplomatic_m2_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1158,9 +1413,24 @@ tv_select_diplomatic_m3_reward_effect = {
 			var:tv_diplomatic_milestone ?= { this >= 3 }
 			NOT = { var:tv_diplomatic_m3_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_diplomatic_m3_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_diplomatic_m3_reward_1_bonus
+			remove_country_modifier = tv_diplomatic_m3_reward_2_bonus
+			remove_country_modifier = tv_diplomatic_m3_reward_3_bonus
+		}
 		set_variable = { name = tv_diplomatic_m3_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_diplomatic_m3_bonus days = -1 }
+		if = {
+			limit = { var:tv_diplomatic_m3_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_diplomatic_m3_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m3_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_diplomatic_m3_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m3_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_diplomatic_m3_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1178,9 +1448,24 @@ tv_select_diplomatic_m4_reward_effect = {
 			var:tv_diplomatic_milestone ?= { this >= 4 }
 			NOT = { var:tv_diplomatic_m4_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_diplomatic_m4_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_diplomatic_m4_reward_1_bonus
+			remove_country_modifier = tv_diplomatic_m4_reward_2_bonus
+			remove_country_modifier = tv_diplomatic_m4_reward_3_bonus
+		}
 		set_variable = { name = tv_diplomatic_m4_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_diplomatic_m4_bonus days = -1 }
+		if = {
+			limit = { var:tv_diplomatic_m4_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_diplomatic_m4_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m4_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_diplomatic_m4_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m4_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_diplomatic_m4_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1198,9 +1483,24 @@ tv_select_diplomatic_m5_reward_effect = {
 			var:tv_diplomatic_milestone ?= { this >= 5 }
 			NOT = { var:tv_diplomatic_m5_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_diplomatic_m5_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_diplomatic_m5_reward_1_bonus
+			remove_country_modifier = tv_diplomatic_m5_reward_2_bonus
+			remove_country_modifier = tv_diplomatic_m5_reward_3_bonus
+		}
 		set_variable = { name = tv_diplomatic_m5_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_diplomatic_m5_bonus days = -1 }
+		if = {
+			limit = { var:tv_diplomatic_m5_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_diplomatic_m5_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m5_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_diplomatic_m5_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_diplomatic_m5_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_diplomatic_m5_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1228,9 +1528,24 @@ tv_select_cultural_m1_reward_effect = {
 			var:tv_cultural_milestone ?= { this >= 1 }
 			NOT = { var:tv_cultural_m1_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_cultural_m1_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_cultural_m1_reward_1_bonus
+			remove_country_modifier = tv_cultural_m1_reward_2_bonus
+			remove_country_modifier = tv_cultural_m1_reward_3_bonus
+		}
 		set_variable = { name = tv_cultural_m1_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_cultural_m1_bonus days = -1 }
+		if = {
+			limit = { var:tv_cultural_m1_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_cultural_m1_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m1_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_cultural_m1_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m1_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_cultural_m1_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1248,9 +1563,24 @@ tv_select_cultural_m2_reward_effect = {
 			var:tv_cultural_milestone ?= { this >= 2 }
 			NOT = { var:tv_cultural_m2_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_cultural_m2_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_cultural_m2_reward_1_bonus
+			remove_country_modifier = tv_cultural_m2_reward_2_bonus
+			remove_country_modifier = tv_cultural_m2_reward_3_bonus
+		}
 		set_variable = { name = tv_cultural_m2_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_cultural_m2_bonus days = -1 }
+		if = {
+			limit = { var:tv_cultural_m2_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_cultural_m2_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m2_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_cultural_m2_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m2_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_cultural_m2_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1268,9 +1598,24 @@ tv_select_cultural_m3_reward_effect = {
 			var:tv_cultural_milestone ?= { this >= 3 }
 			NOT = { var:tv_cultural_m3_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_cultural_m3_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_cultural_m3_reward_1_bonus
+			remove_country_modifier = tv_cultural_m3_reward_2_bonus
+			remove_country_modifier = tv_cultural_m3_reward_3_bonus
+		}
 		set_variable = { name = tv_cultural_m3_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_cultural_m3_bonus days = -1 }
+		if = {
+			limit = { var:tv_cultural_m3_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_cultural_m3_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m3_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_cultural_m3_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m3_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_cultural_m3_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1288,9 +1633,24 @@ tv_select_cultural_m4_reward_effect = {
 			var:tv_cultural_milestone ?= { this >= 4 }
 			NOT = { var:tv_cultural_m4_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_cultural_m4_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_cultural_m4_reward_1_bonus
+			remove_country_modifier = tv_cultural_m4_reward_2_bonus
+			remove_country_modifier = tv_cultural_m4_reward_3_bonus
+		}
 		set_variable = { name = tv_cultural_m4_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_cultural_m4_bonus days = -1 }
+		if = {
+			limit = { var:tv_cultural_m4_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_cultural_m4_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m4_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_cultural_m4_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m4_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_cultural_m4_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1308,9 +1668,24 @@ tv_select_cultural_m5_reward_effect = {
 			var:tv_cultural_milestone ?= { this >= 5 }
 			NOT = { var:tv_cultural_m5_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_cultural_m5_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_cultural_m5_reward_1_bonus
+			remove_country_modifier = tv_cultural_m5_reward_2_bonus
+			remove_country_modifier = tv_cultural_m5_reward_3_bonus
+		}
 		set_variable = { name = tv_cultural_m5_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_cultural_m5_bonus days = -1 }
+		if = {
+			limit = { var:tv_cultural_m5_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_cultural_m5_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m5_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_cultural_m5_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_cultural_m5_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_cultural_m5_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1359,9 +1734,24 @@ tv_select_science_m1_reward_effect = {
 			var:tv_science_milestone ?= { this >= 1 }
 			NOT = { var:tv_science_m1_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_science_m1_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_science_m1_reward_1_bonus
+			remove_country_modifier = tv_science_m1_reward_2_bonus
+			remove_country_modifier = tv_science_m1_reward_3_bonus
+		}
 		set_variable = { name = tv_science_m1_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_science_m1_bonus days = -1 }
+		if = {
+			limit = { var:tv_science_m1_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_science_m1_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m1_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_science_m1_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m1_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_science_m1_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1379,9 +1769,24 @@ tv_select_science_m2_reward_effect = {
 			var:tv_science_milestone ?= { this >= 2 }
 			NOT = { var:tv_science_m2_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_science_m2_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_science_m2_reward_1_bonus
+			remove_country_modifier = tv_science_m2_reward_2_bonus
+			remove_country_modifier = tv_science_m2_reward_3_bonus
+		}
 		set_variable = { name = tv_science_m2_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_science_m2_bonus days = -1 }
+		if = {
+			limit = { var:tv_science_m2_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_science_m2_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m2_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_science_m2_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m2_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_science_m2_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1399,9 +1804,24 @@ tv_select_science_m3_reward_effect = {
 			var:tv_science_milestone ?= { this >= 3 }
 			NOT = { var:tv_science_m3_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_science_m3_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_science_m3_reward_1_bonus
+			remove_country_modifier = tv_science_m3_reward_2_bonus
+			remove_country_modifier = tv_science_m3_reward_3_bonus
+		}
 		set_variable = { name = tv_science_m3_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_science_m3_bonus days = -1 }
+		if = {
+			limit = { var:tv_science_m3_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_science_m3_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m3_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_science_m3_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m3_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_science_m3_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1419,9 +1839,24 @@ tv_select_science_m4_reward_effect = {
 			var:tv_science_milestone ?= { this >= 4 }
 			NOT = { var:tv_science_m4_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_science_m4_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_science_m4_reward_1_bonus
+			remove_country_modifier = tv_science_m4_reward_2_bonus
+			remove_country_modifier = tv_science_m4_reward_3_bonus
+		}
 		set_variable = { name = tv_science_m4_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_science_m4_bonus days = -1 }
+		if = {
+			limit = { var:tv_science_m4_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_science_m4_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m4_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_science_m4_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m4_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_science_m4_reward_3_bonus days = -1 }
+		}
 	}
 }
 
@@ -1439,9 +1874,24 @@ tv_select_science_m5_reward_effect = {
 			var:tv_science_milestone ?= { this >= 5 }
 			NOT = { var:tv_science_m5_reward_choice ?= $choice$ }
 		}
-		hidden_effect = { remove_country_modifier = tv_science_m5_bonus }
+		hidden_effect = {
+			remove_country_modifier = tv_science_m5_reward_1_bonus
+			remove_country_modifier = tv_science_m5_reward_2_bonus
+			remove_country_modifier = tv_science_m5_reward_3_bonus
+		}
 		set_variable = { name = tv_science_m5_reward_choice value = $choice$ }
-		add_country_modifier = { modifier = tv_science_m5_bonus days = -1 }
+		if = {
+			limit = { var:tv_science_m5_reward_choice = 1 }
+			add_country_modifier = { modifier = tv_science_m5_reward_1_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m5_reward_choice = 2 }
+			add_country_modifier = { modifier = tv_science_m5_reward_2_bonus days = -1 }
+		}
+		else_if = {
+			limit = { var:tv_science_m5_reward_choice = 3 }
+			add_country_modifier = { modifier = tv_science_m5_reward_3_bonus days = -1 }
+		}
 	}
 }
 
