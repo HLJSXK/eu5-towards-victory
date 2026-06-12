@@ -413,8 +413,8 @@ def append_reward_card(lines: list[str], level: int, path: dict, milestone: dict
 def append_progress_and_rewards(lines: list[str], level: int, path: dict) -> None:
     pid = path["id"]
     icon = path["gui"]["icon"]
-    card_top_offset = 5
-    height = 172 + card_top_offset
+    card_top_offset = 0
+    height = 177
     emit(lines, level, "widget = {")
     emit(lines, level + 1, "layoutpolicy_horizontal = expanding")
     emit(lines, level + 1, "layoutpolicy_vertical = fixed")
@@ -457,21 +457,19 @@ def append_progress_and_rewards(lines: list[str], level: int, path: dict) -> Non
     emit(lines, level + 2, "layoutpolicy_vertical = fixed")
     emit(lines, level + 2, f"size = {{ -1 {height} }}")
     emit(lines, level + 2, "spacing = 0")
-    emit(lines, level + 2, f"widget = {{ size = {{ 22 {height} }} }}")
+    emit(lines, level + 2, f"widget = {{ size = {{ 50 {height} }} }}")
     for milestone in path["milestones"]:
+        emit(lines, level + 2, "expand = {}")
         emit(lines, level + 2, "widget = {")
-        emit(lines, level + 3, "layoutpolicy_horizontal = expanding")
+        emit(lines, level + 3, "layoutpolicy_horizontal = fixed")
         emit(lines, level + 3, "layoutpolicy_vertical = fixed")
-        emit(lines, level + 3, f"size = {{ -1 {height} }}")
+        emit(lines, level + 3, f"size = {{ 56 {height} }}")
         emit(lines, level + 3, "widget = {")
         emit(lines, level + 4, f"position = {{ 0 {card_top_offset} }}")
-        emit(lines, level + 4, "parentanchor = right|top")
-        emit(lines, level + 4, "widgetanchor = hcenter|top")
         emit(lines, level + 4, "size = { 56 172 }")
         append_reward_card(lines, level + 4, path, milestone)
         emit(lines, level + 3, "}")
         emit(lines, level + 2, "}")
-    emit(lines, level + 2, f"widget = {{ size = {{ 28 {height} }} }}")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
