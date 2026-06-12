@@ -7238,18 +7238,25 @@ widget = {
 							margin = { 4 6 }
 
 							widget = {
-								size = { 462 40 }
-								layoutpolicy_horizontal = expanding
+								size = { 462 45 }
 								vbox = {
 									layoutpolicy_horizontal = expanding
-									using = bg_geodiplo_situation_overview
+									using = bg_paper_card_situations
 
-									text_single = {
-										margin = { 10 0 }
-										fontsize = 15
-										default_format = "#explanation_link"
-										text = "TV_ENGINEERING_ORGANIZATION_SECTION_TITLE"
-										align = nobaseline|vcenter
+									widget = {
+										layoutpolicy_horizontal = expanding
+										size = { -1 45 }
+										using = bg_card_header_situation
+
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											spacing = 4
+											expand = {}
+											text_single = {
+												text = "TV_ENGINEERING_ORGANIZATION_SECTION_TITLE"
+											}
+											expand = {}
+										}
 									}
 								}
 							}
@@ -7324,18 +7331,25 @@ widget = {
 							}
 
 							widget = {
-								size = { 462 40 }
-								layoutpolicy_horizontal = expanding
+								size = { 462 45 }
 								vbox = {
 									layoutpolicy_horizontal = expanding
-									using = bg_geodiplo_situation_overview
+									using = bg_paper_card_situations
 
-									text_single = {
-										margin = { 10 0 }
-										fontsize = 15
-										default_format = "#explanation_link"
-										text = "TV_ENGINEERING_LOGISTICS_SECTION_TITLE"
-										align = nobaseline|vcenter
+									widget = {
+										layoutpolicy_horizontal = expanding
+										size = { -1 45 }
+										using = bg_card_header_situation
+
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											spacing = 4
+											expand = {}
+											text_single = {
+												text = "TV_ENGINEERING_LOGISTICS_SECTION_TITLE"
+											}
+											expand = {}
+										}
 									}
 								}
 							}
