@@ -6,6 +6,264 @@ metadata:
   source_index:
     unique_wonder_count: 101
     id_range: "101-201"
+  design_decision_audit_2026_06_12:
+    purpose: "Apply user-provided common decisions and separate resolved generic questions from item-specific design gaps."
+    coverage_rule: "This metadata supersedes older per-entry unresolved_questions that ask the same generic faith, conversion-reward, water-source, storm, disease, rebel, route-existence, regency-detection, reward-architecture, or local-memory questions. Item-specific policy questions listed below remain unresolved."
+    resolved_common_design_decisions:
+      faith_compatibility:
+        policy: "Do not check or restrict sponsor faith in this design pass."
+        implementation_effect: "Remove faith-compatibility gates from the design requirements. Rituals may still carry religious flavor, clergy/custodian counters, or later reward tuning, but no start/progress/completion path should currently block a sponsor because of state faith."
+      conversion_rewards:
+        policy: "Do not grant extra conversion rewards in this design pass; all conversion reward payloads, scaling, target selection, and one-time pulses are deferred to later reward control."
+        implementation_effect: "Questions such as targeted conversion pulses, non-compatible sponsor reward substitution, or additional conversion bonuses are resolved as omit/defer. Modifier/effect key verification remains an implementation task only when a later reward pass actually uses those rewards."
+      reward_architecture:
+        policy: "Every unique ritual completion grants exactly three reward channels: one permanent country/global modifier, one constructed local reward building at the ritual site, and one immediate one-time reward."
+        implementation_effect: "Do not treat country modifier, local building, or immediate reward as optional alternatives. Per-entry design now only decides the theme and mechanical payload of each channel."
+      local_memory:
+        policy: "All local memory is represented by the constructed local reward building."
+        implementation_effect: "Do not implement local memory as a free-floating location flag, hidden variable, or standalone local modifier. If the local outcome needs ongoing effects, put those effects on the local reward building."
+      pilgrimage_routes:
+        policy: "Route and distance support exists; use verified route/pathfinding/connectivity interfaces where a ritual needs abstract pilgrimage, trade, or supply access."
+        implementation_effect: "Use can_find_trade_route for market/trade-path style checks, distance_to/distance_to_squared or location_distance_to for distance scoring, and has_road_to/has_road_to_capital/is_connected_to for land-road connectivity where appropriate. Exact shortest-path extraction was not verified, so per-node route memories should use abstract counters unless later verified."
+      water_sources:
+        policy: "A water source is any ritual location that has a river, is coastal/port, or is adjacent to a lake."
+        implementation_effect: "At location scope, the later script policy can be represented as OR of has_river, is_coastal, is_port, and is_adjacent_to_lake."
+      storm_or_weather_fronts:
+        policy: "Use the game's weather-front/storm system for storm disruption when a ritual needs weather risk."
+        implementation_effect: "Weather-front arrival can be handled through on_storm_reached_location or custom state set from such a hook; if no direct active-weather trigger is verified later, use cached/custom storm-risk variables rather than treating storms as a missing design decision."
+      disease:
+        policy: "Use the game's disease/outbreak system for plague or disease interruption."
+        implementation_effect: "Location disease can use disease_presence or the vanilla has_any_disease_present scripted trigger; country/situation logic can use country_has_disease_outbreak where relevant."
+      rebels_and_riots:
+        policy: "Use the game's rebel system for riots, unrest revolts, pretenders, and progress-sensitive rebel risk."
+        implementation_effect: "Ritual riot/revolt logic may read any_rebel, rebel_category, rebel_progress, province_rebel_progress, and related rebel selectors. Item-specific reset severity still needs design decisions."
+      succession_and_regency:
+        policy: "Use has_ruler. has_ruler = yes means a ruler is present; has_ruler = no is the regency/no-ruler state."
+        implementation_effect: "Generic regency detection is resolved. Whether a ritual also requires no pretender rebels, minimum legitimacy/stability, or extra religious/court recognition remains an item-specific design decision only where listed below."
+    uniform_reward_contract:
+      required_completion_rewards:
+        - permanent_country_modifier
+        - local_building_reward
+        - one_time_reward
+      audit_note: "Older per-entry prose below may still say optional local memory/site memory/local_effects. Under the current decision, those phrases mean the required local_building_reward channel and should not be read as optional."
+    verified_game_references:
+      route_pathfinding:
+        - "reference_game_files/game/in_game/common/generic_actions/markets.txt:342-355 uses can_find_trade_route and comments that this is an expensive pathfinding check."
+        - "reference_game_files/game/in_game/common/generic_actions/pilgrimage.txt:57-59 and 87-90 score holy-site choices with capital.distance_to_squared(target.location)."
+        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:524-528 lists is_connected_to; 614-623 lists distance_to/distance_to_less_than."
+      water_source:
+        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:43-47 lists is_port."
+        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:80-84 lists is_coastal."
+        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:500-503 lists has_river."
+        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:518-521 lists is_adjacent_to_lake."
+      storm_weather:
+        - "reference_game_files/game/in_game/common/on_action/location_pulses.txt:50-58 documents start_weather_system with type = front."
+        - "reference_game_files/game/in_game/common/on_action/location_pulses.txt:1489-1495 shows start_weather_system with type = cyclone."
+        - "reference_game_files/game/in_game/common/on_action/_hardcoded.txt:5226-5228 defines on_storm_reached_location with root = location and scope:weather_system."
+      disease:
+        - "reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt:15-20 defines has_any_disease_present with disease_presence."
+        - "reference_game_files/game/in_game/common/generic_actions/black_death.txt:25-27 uses country_has_disease_outbreak."
+      rebel_state:
+        - "reference_game_files/game/in_game/common/generic_actions/provoke_rebels.txt:4-8 checks any_rebel with rebel_progress > 0.7."
+        - "reference_game_files/game/in_game/common/generic_actions/provoke_rebels.txt:16-33 selects rebels and displays rebel_progress/monthly_progress."
+        - "reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt:260-267 checks any_rebel with rebel_category = pretender."
+      ruler_or_regency:
+        - "reference_game_files/game/in_game/common/trigger_localization/country_triggers.txt:434-438 lists has_ruler as a country trigger."
+        - "reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt:786-788 uses has_ruler = yes before reading ruler.owner."
+    remaining_design_decisions:
+      - id: 112
+        key: unique_st_peters_basilica
+        name: "Apostolic Threshold Dedication"
+        missing_decisions:
+          - "Clergy authority means the rite is not just a crowd visit: bishops/canons/sacristans must be paid, organized, and not in open conflict. Possible carriers: Clergy estate satisfaction, clergy-related privilege/state, religious rebel presence, or a custom clergy_cooperation counter."
+          - "Pilgrim doors/hostels mean Rome can receive and register visitors without disorder. Possible carriers: route access, low unrest, positive prosperity, no disease outbreak, or a custom pilgrim_register counter."
+          - "Altar/confession/relic inventory means the basilica's sacred offices are audited and ready. Possible carriers: progress counters only, or failure incidents from fire/plague/religious scandal; this does not require a new faith gate."
+          - "Local reward building theme to choose: pilgrimage hostels, altar-and-relic offices, or clergy-alms administration."
+      - id: 113
+        key: unique_lalibela_churches
+        name: "New Jerusalem Pilgrimage of the Rock-Hewn Crosses"
+        missing_decisions:
+          - "Tabot/manuscript custody means the churches keep their sacred objects and copied readings secure. Possible carriers: custom tabot_secured/manuscripts_copied counters, fire/plague/occupation reset, or clergy unrest incident."
+          - "Pilgrim camps/passages mean the ravines, tunnels, and lodging remain usable. Possible carriers: water-source check, route access, low unrest, no disease, or a grouped pilgrimage_readiness counter."
+          - "Frontier catechists mean trained teachers leave Lalibela with copied readings. Since extra conversion rewards are deferred, decide whether this is only ritual progress flavor now or stored for a later reward pass."
+          - "Local reward building theme to choose: pilgrim camp, manuscript school, ritual-water/passages office, or catechist dispatch house."
+      - id: 120
+        key: unique_mecca_haram_expansion
+        name: "Kiswah Renewal of the Expanded Haram"
+        missing_decisions:
+          - "Custodian participation means the sanctuary has recognized guards, cleaners, key-holders, scholars, and endowment clerks. Possible carriers: direct Mecca control only, Clergy estate support, or custom custodian_readiness/endowment_funded counters."
+          - "Crowd/lodging/market order means pilgrims can gather without stampede, price disorder, or riot. Possible carriers: low unrest, no rebel progress, no disease, solvency, and one grouped pilgrimage_logistics counter."
+          - "Kiswah preparation means cloth, craftsmen, and ceremony timing are ready. Possible carriers: custom kiswah_prepared counter, luxury/fine cloth supply if later verified, or pure progress stage."
+          - "Hard access condition to decide: direct Mecca control, protected access through subject/ally, or any open route to Mecca."
+      - id: 137
+        key: unique_ottoman_hajj_road
+        name: "Surre Caravan Departure"
+        missing_decisions:
+          - "The road represents a caravan institution: wells, forts, waystations, escorts, stipend chests, and receipt at Mecca. Possible carriers: road/connectivity checks plus route_safety, wells_supplied, escort_ready, and surre_delivered counters."
+          - "Raids and lost supplies mean the caravan is not merely delayed but partially consumed. Decide whether raids reset only escort/supply counters, reset the whole season, or create repair debt."
+          - "Endpoint access to decide: direct Mecca control, protected access through ally/subject, or route-open-only."
+          - "Local reward building theme to choose: caravanserai/waystation office, well-and-fort chain, or Surre treasury dispatch house."
+      - id: 140
+        key: unique_jerusalem_holy_city
+        name: "Keys of the Holy City"
+        missing_decisions:
+          - "Protected communities means the city keeps multiple resident worshipper groups, clergy, judges, and pilgrims under guaranteed access rather than expulsion. Possible carriers: low unrest, no relevant religious rebels, tolerance/unity state if later used, or custom access_guarantees counter."
+          - "Keys/shrine access means gates and holy precincts are physically open and politically accepted. Possible carriers: ownership/control, no siege, route access, and custom shrine_keys_confirmed/custodians_paid counters."
+          - "Diplomatic crisis means a foreign or internal incident challenges access. Possible carriers: random incident, relation penalty, rebel progress, or custom diplomatic_crisis flag."
+          - "Succession renewal to decide: only has_ruler/no-ruler, or also no pretender rebels, minimum stability/legitimacy, and local calm."
+      - id: 148
+        key: unique_changbai_mountain_altar
+        name: "Changbai Ancestral Mountain Investiture"
+        missing_decisions:
+          - "Cultural/dynastic affinity means the mountain is an ancestral legitimacy claim. Decide whether Manchu/Qing-like culture/dynasty is required, gives bonus progress, or is only flavor."
+          - "Banner/noble cooperation means frontier elites accept the investiture. Possible carriers: Nobles estate satisfaction, subject loyalty, no rebel progress, or custom banner_oaths counter."
+          - "Winter route/supply means delegations can physically reach the altar. Possible carriers: route access, winter/severe weather incident, solvency, and custom offerings_delivered counter."
+          - "Regency behavior to decide: regency can complete as court guardianship, slows progress, or waits for a ruler."
+          - "Immediate reward theme to decide under the three-reward rule: treasury refund, legitimacy/prestige pulse, or frontier-loyalty relief."
+      - id: 150
+        key: unique_meteora_monasteries
+        name: "Suspended Liturgy of the Cliff Monasteries"
+        missing_decisions:
+          - "Refuge means the monasteries shelter people and manuscripts during danger. Possible carriers: local unrest, war nearby, disease/fire incidents, or custom refugees_sheltered counter."
+          - "Cliff paths/hoists mean access is difficult but maintainable. Possible carriers: route access, no occupation, custom hoists_repaired/path_secured counters, and incident reset on banditry/fire."
+          - "Monastic trust means the monks keep icons, manuscripts, and food stores safe. Possible carriers: Clergy satisfaction, no religious rebels, custom manuscripts_preserved/food_stores counters."
+          - "Reward flavor to decide: stability/prestige now; research flavor reserved for later; local reward building as refuge storehouse, manuscript scriptorium, or cliff-path watch."
+      - id: 152
+        key: unique_iberian_inquisition
+        name: "Tribunal Register of Toledo"
+        missing_decisions:
+          - "Coercion severity means the tribunal can trade administrative pressure for unrest and legitimacy/estate backlash. Decide whether severity is fixed, selectable, ramps with progress, or is omitted."
+          - "Minority/community tension means registered communities may resist, flee, or suffer abuse. Possible carriers: local unrest, rebel progress, stability loss, custom abuse_reported/community_tension counters."
+          - "Archive/prison/jurisdiction means the tribunal needs records, cells, warrants, and agreement with local authorities. Possible carriers: custom archive_ordered/prison_secured/jurisdiction_settled counters."
+          - "Ethical framing to decide: what costs visibly accompany order rewards so the mechanic does not make coercion harmless."
+      - id: 157
+        key: unique_temple_of_heaven
+        name: "Winter Solstice Sacrifice to Heaven"
+        missing_decisions:
+          - "The sacrifice is a state-cosmos legitimacy rite. Decide whether it requires monarchy/imperial government, any recognized ruler/regency, or no government gate."
+          - "Ruler attendance means the sovereign personally performs the rite; regency means court guardians perform it. Decide whether regency is full substitute, slower progress, or pause."
+          - "Calendar/solstice means timing matters. Possible carriers: current_month check, custom calendar_prepared counter, or pure flavor if strict timing is annoying."
+          - "Harvest/grain/animals mean offerings and agrarian confidence. Possible carriers: food/grain supply if verified, famine/disease incidents, prosperity, or custom offerings_ready counter."
+      - id: 159
+        key: unique_porcelain_tower_of_nanjing
+        name: "Glazed Lantern Rite of the Porcelain Tower"
+        missing_decisions:
+          - "Lanterns/fire/stairs mean the tower becomes a public night spectacle that can burn, crowd, or collapse. Possible carriers: custom lanterns_lit/fire_watch/stairs_inspected counters plus fire incident."
+          - "Pilgrim/river access means visitors and materials arrive through Nanjing's roads and waterways. Possible carriers: route access, river/water source, low unrest, no disease."
+          - "Donors/inscriptions/teaching mean patrons fund lamps and teachers explain the rite. Possible carriers: Burghers/Clergy satisfaction, prestige cost, custom donors_registered/teachings_copied counters."
+          - "Local reward building theme to choose: lantern-watch office, donor inscription hall, fire-safety store, or pilgrim teaching house."
+      - id: 166
+        key: unique_camino_de_santiago
+        name: "Pilgrim Way Blessing of Saint James"
+        missing_decisions:
+          - "The Camino is a managed road network, not just Santiago itself. Decide whether to represent it with auxiliary route nodes, one abstract route_safety counter, or Santiago-only progress."
+          - "Safe-conduct means pilgrims can cross friendly, subject, allied, or foreign land. Possible carriers: diplomatic relations/access, road connectivity, or custom safe_conducts_issued counter."
+          - "Badges/tolls/bridges/bandits mean route institutions can be corrupt or broken. Possible carriers: incident events that reset badge_register/toll_audit/bridge_repair/escort counters."
+          - "Disease and pilgrim deaths can use disease/rebel/unrest incidents; decide whether they pause, reset part of the route, or reduce immediate reward."
+      - id: 171
+        key: unique_east_india_company
+        name: "Charter Seal of the East India Company"
+        missing_decisions:
+          - "The Company can mean a real overseas dependency or only a metropolitan charter office. Decide whether an actual subject/trade company/overseas holding is required."
+          - "Factories/privileges mean overseas posts, warehouses, and treaty rights. Possible carriers: subject existence, market/trade-route checks, owned foreign buildings if verified, or custom factory_privileges counter."
+          - "Ending-war relevance means a peace changed trade access. Decide whether it must prove captured/lost factories, indemnities, sea-lane clauses, treaty privileges, or only broad victory."
+          - "Piracy/convoy disaster means overseas trade can be interrupted. Possible carriers: naval defeat/blockade/privateer incident, custom convoy_secured counter, or abstract risk event."
+      - id: 173
+        key: unique_varanasi_ghats
+        name: "Dawn Lamps on the Varanasi Ghats"
+        missing_decisions:
+          - "Ghats mean managed river steps, lamps, boatmen, priests, cremation capacity, and sanitation. Possible carriers: water-source check, low unrest, no disease, custom lamps_lit/boatmen_ready/sanitation_clean counters."
+          - "Flood/drought/pollution mean the riverfront cannot safely host crowds. Possible carriers: custom flood_damage/drought_stress/pollution_scandal incidents because only basic water source is verified."
+          - "Recovery policy to decide: after flood/disease/pollution, require cleanup only, reinspection of all counters, or a full restart."
+          - "Local reward building theme to choose: ghat lamp office, river sanitation house, pilgrim shelter, or boatmen/ritual registry."
+      - id: 174
+        key: unique_brihadishvara_temple
+        name: "Great Vimana Consecration of Thanjavur"
+        missing_decisions:
+          - "Temple service means oil, grain, flowers, dancers, musicians, bronzes, inscriptions, and village obligations are organized. Possible carriers: custom oil_grain_ready/service_rosters/bronzes_audited counters."
+          - "Temple estate means land revenue and villages fund the service. Possible carriers: Nobles/Clergy estate support, local prosperity, no corruption incident, or custom estate_accounts counter."
+          - "Ruler-death continuation means ancestor/successor rites keep legitimacy stable. Decide whether regency can confirm service, and whether pretender rebels or low legitimacy pause/reset."
+          - "Local reward building theme to choose: temple service office, bronze/lamp treasury, estate-account hall, or procession registry."
+      - id: 175
+        key: unique_konark_sun_temple
+        name: "Solar Chariot Consecration at Konark"
+        missing_decisions:
+          - "Solar festival means timing, dancers, musicians, chariot imagery, lamps, and crowd pilgrimage are coordinated. Possible carriers: current_month, custom festival_ready/performance_roster/lamp_oil counters."
+          - "Missed festival policy to decide: reset all counters, reset only final_consecration readiness, or pause until next season."
+          - "Coastal hazards mean storms, raids, water shortage, and unsafe roads can stop the festival. Possible carriers: storm hook/custom incident, route access, water-source check, rebel/raid incident."
+          - "Local reward building theme to choose: festival pavilion, pilgrim shelter, coastal watch, or solar performance school."
+      - id: 183
+        key: unique_brest_synagogue_quarter
+        name: "Council Register of the Synagogue Quarter"
+        missing_decisions:
+          - "Protected community means the quarter has legal residence, market access, court recognition, schools, and safe-conducts. Possible carriers: custom privileges_confirmed/court_register/safe_conducts counters plus unrest/rebel checks."
+          - "Persecution/expulsion pressure means state or estate policy threatens the protected status. Possible carriers: estate incident, stability/prestige cost, local unrest, or custom persecution_pressure flag."
+          - "Riot/occupation recovery to decide: repair synagogue/school/market counters only, reissue privileges, or full restart after violence."
+          - "Local reward building theme to choose: communal court, scholarship house, market registry, or safe-conduct office."
+      - id: 185
+        key: unique_cave_monastery
+        name: "Cave Lavra Vigil and Chronicle Copying"
+        missing_decisions:
+          - "Relic custody means the caves' relics are inventoried, guarded, and accepted by monastic authority. Possible carriers: custom relics_secured/abbot_recognized counters, Clergy satisfaction, or scandal incident."
+          - "Chronicle copying means scribes preserve texts and teaching lists. Possible carriers: custom manuscripts_copied/scribes_supplied counters; research reward can be later tuning, not a design blocker."
+          - "Disaster reset policy to decide: plague/fire/occupation reset only scribe supplies, reset relic custody, or cancel until re-consecration."
+          - "Local reward building theme to choose: relic custody cell, cave scriptorium, pilgrim vigil shelter, or monastic school."
+      - id: 186
+        key: unique_zaporizhian_sich
+        name: "Sich Rada and River-Fort Oath"
+        missing_decisions:
+          - "Rada/oath means Cossack hosts accept service terms, pay, autonomy, and command. Possible carriers: estate/privilege if present, custom privileges_confirmed/pay_chest/oath_taken counters, rebel_category/progress for revolt risk."
+          - "River-fort readiness means boats, crossings, forges, powder, and watch posts are ready. Possible carriers: river/water access, route access, custom crossings_secured/forge_ready counters."
+          - "Relevant-war test to decide: require Sich/river-frontier participation from war hooks, or accept broad defensive/offensive war state."
+          - "Reset fairness to decide: defeat/unpaid service/betrayal should reset which counters without punishing ordinary losses."
+      - id: 189
+        key: unique_bukhara_kalyan_minaret
+        name: "Kalyan Minaret Call and Madrasa Endowment"
+        missing_decisions:
+          - "Waqf/endowment means revenue, deeds, patron seals, teachers, and student stipends fund worship and study. Possible carriers: custom waqf_deeds/seals_confirmed/students_enrolled counters, solvency, Clergy support."
+          - "Minaret call means public religious order and market trust around the minaret. Possible carriers: low unrest, no disease/fire, custom call_schedule/minaret_repaired counters."
+          - "Patron-seal succession to decide: disputed succession pauses, slows, resets seal counters, or is ignored beyond has_ruler/no-ruler."
+          - "Local reward building theme to choose: waqf office, madrasa endowment hall, minaret repair lodge, or student hostel."
+      - id: 190
+        key: unique_ferghana_palace
+        name: "Kokand Audience of the Valley Gates"
+        missing_decisions:
+          - "Beks/noble audience means local elites accept rank, gifts, and precedence. Possible carriers: Nobles estate satisfaction, no pretender/rebel pressure, custom beks_summoned/gifts_recorded counters."
+          - "Envoys mean outside powers attend safely. Possible carriers: diplomatic relations, route access, no war blocking route, custom envoys_received counter."
+          - "Valley gates/horse/silk/canals mean the palace controls trade and movement through Ferghana. Decide individual counters or one valley_readiness score."
+          - "Succession handling to decide: has_ruler/no-ruler only, or add pretender, legitimacy, stability, and noble calm gates."
+      - id: 192
+        key: unique_louvre_palace
+        name: "Louvre Court Exhibition and Envoy Gallery"
+        missing_decisions:
+          - "Court exhibition means artworks, artists, guards, gallery order, and envoy precedence are staged. Possible carriers: advisor/artist availability if verified, prestige cost, custom artworks_hung/artists_paid/gallery_guarded counters."
+          - "Envoy gallery means foreign representatives can attend without scandal. Possible carriers: diplomatic relations, no court unrest, custom envoys_invited/precedence_settled counters."
+          - "Faction violence/scandal means the court spectacle backfires. Possible carriers: noble unrest, stability loss incident, or custom scandal flag."
+          - "Memorial/succession to decide: has_ruler/no-ruler only, or accepted successor/regent plus stability/pretender checks."
+      - id: 193
+        key: unique_fontainebleau_palace
+        name: "Fontainebleau School Patronage Season"
+        missing_decisions:
+          - "Patronage season means artists, workshops, residence rooms, chapel, hunt, and noble access are funded and scheduled. Possible carriers: custom artists_retained/workshops_open/hunt_ready/chapel_ready counters."
+          - "Forest/road security means the court can reach and remain at Fontainebleau. Possible carriers: route access, no severe unrest, no disease/fire, custom residence_secure counter."
+          - "Favor disputes/faction violence mean patronage creates court conflict. Possible carriers: Nobles satisfaction, stability/prestige incident, rebel progress, or custom favor_dispute flag."
+          - "Memorial/succession to decide: has_ruler/no-ruler only, or accepted successor/regent plus stability/pretender checks."
+      - id: 197
+        key: unique_mont_saint_michel
+        name: "Tidal Pilgrimage to the Mount"
+        missing_decisions:
+          - "Tide crossing means pilgrims need guides, marked sands, low-tide timing, and road escort. Possible carriers: route access, storm hook/custom incident, current month if desired, custom guides_ready/tide_markers counters."
+          - "Refuge means the abbey can shelter people during coastal danger. Possible carriers: food/store counters, walls/gates inspected, no disease, no siege, custom refuge_stores counter."
+          - "War thanksgiving relevance to decide: ending_war must involve coast/Mount/pilgrim protection, or broad defensive war is enough."
+          - "Local reward building theme to choose: guide house, tide-marker office, refuge granary, or abbey wall/gate watch."
+      - id: 198
+        key: unique_bastille
+        name: "Royal Prison Muster and Arsenal Seal"
+        missing_decisions:
+          - "Prison registers/warrants mean confinement is documented and authorized, not just brute force. Possible carriers: custom warrants_sealed/registers_audited counters, legitimacy/stability checks, or scandal incident."
+          - "City watch/governor authority means Paris security institutions cooperate. Possible carriers: low capital unrest, no rebel progress, custom city_watch_cooperates/governor_oath counters."
+          - "Arsenal safety means powder, keys, cells, walls, and guards are inspected. Possible carriers: custom powder_safe/keys_checked/guards_paid counters; fire/explosion/escape incidents reset them."
+          - "Authority and war relevance to decide: has_ruler/no-ruler only or add legitimacy/pretender/stability; pre_winning_war must prove capital/Bastille relevance or broad war progress is enough."
   common_candidate_interfaces:
     normalized_unique_ritual_schema: &iface_normalized_unique_ritual_schema
       name: normalized unique ritual schema
@@ -125,14 +383,14 @@ metadata:
       likely_failure_points: "Every new modifier name/effect must be verified against modifier definitions; wonder global effects should stay on country modifiers, not buildings."
       verification_needed_later: "Check modifier type names in data/index/static_modifiers.txt and official modifier definitions."
     location_modifier_reward: &iface_location_modifier_reward
-      name: local site modifier reward
-      kind: modifier
+      name: local reward building effects
+      kind: building_or_location_modifier
       scope: location
       evidence_level: inferred_from_pattern
       confidence: medium
-      source_basis: "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:385-413 uses add_location_modifier for ritual auxiliary display/local effects."
-      likely_failure_points: "Location-scoped static modifiers need the main_menu TRY_REPLACE pattern; local rewards must enter the saved ritual site safely."
-      verification_needed_later: "Verify location modifier names and site scope path before implementation."
+      source_basis: "User policy requires every unique ritual to construct one local reward building at the ritual site; scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:385-413 shows existing local ritual effect plumbing, but final local memory should be carried by the constructed building."
+      likely_failure_points: "The local reward building type, construction effect path, max level, and attached local modifier names still need implementation-time verification."
+      verification_needed_later: "Define one local reward building per unique ritual or per reusable theme; verify construction and local modifier names before implementation."
     cost_or_resource_effect: &iface_cost_or_resource_effect
       name: cost and one-time resource effects
       kind: scripted_effect
@@ -160,6 +418,60 @@ metadata:
       source_basis: "Existing generated wonder triggers use per-wonder location host/final-building triggers listed in data/index/scripted_triggers.txt; basic bankrupt trigger is present in data/index/trigger_localization.json."
       likely_failure_points: "Exact ownership/control/occupation/blockade/port/devastation trigger names and scope direction need verification."
       verification_needed_later: "Find verified location-scope triggers for owns, controls, occupation, blockade, port/coastal access, devastation, and building presence."
+    route_and_distance_checks: &iface_route_and_distance_checks
+      name: route, distance, and pathfinding checks
+      kind: trigger_or_script_value
+      scope: country_to_location_or_market
+      evidence_level: verified_reference
+      confidence: medium_high
+      source_basis: "reference_game_files/game/in_game/common/generic_actions/markets.txt:342-355 uses can_find_trade_route; reference_game_files/game/in_game/common/generic_actions/pilgrimage.txt:57-59 and 87-90 use capital.distance_to_squared for pilgrimage target scoring; location_triggers.txt lists is_connected_to and distance_to/distance_to_less_than."
+      likely_failure_points: "can_find_trade_route is explicitly expensive and market-oriented; exact shortest-path route extraction and per-route node inspection were not verified."
+      verification_needed_later: "For each ritual, choose between cheap abstract counters, road/connectivity triggers, distance scoring, or the expensive trade-route pathfinding check."
+    water_source_checks: &iface_water_source_checks
+      name: water source checks
+      kind: trigger
+      scope: location
+      evidence_level: verified_reference
+      confidence: high
+      source_basis: "location_triggers.txt lists has_river, is_coastal, is_port, and is_adjacent_to_lake. User policy defines any of these as a water source."
+      likely_failure_points: "Can prove basic river/coast/port/lake adjacency, but not cistern quality, palace channel integrity, drought, illegal taps, or reservoir maintenance without custom state."
+      verification_needed_later: "Use OR = { has_river = yes is_coastal = yes is_port = yes is_adjacent_to_lake = yes } for basic source access; add custom counters for quality/failure states."
+    storm_weather_front_checks: &iface_storm_weather_front_checks
+      name: storm and weather-front checks
+      kind: on_action_or_cached_state
+      scope: location
+      evidence_level: verified_reference
+      confidence: medium
+      source_basis: "location_pulses.txt documents start_weather_system type = front and uses type = cyclone; _hardcoded.txt defines on_storm_reached_location with root = location and scope:weather_system."
+      likely_failure_points: "A direct trigger for current weather-front presence was not verified; safest implementation is a cached/custom storm-disruption variable set from storm hooks or scripted incidents."
+      verification_needed_later: "Before scripting live storm checks, search weather_system trigger support; otherwise treat storm as a custom ritual incident informed by on_storm_reached_location."
+    disease_checks: &iface_disease_checks
+      name: disease and plague checks
+      kind: trigger
+      scope: location_or_country
+      evidence_level: verified_reference
+      confidence: high
+      source_basis: "scripted_triggers/location_triggers.txt:15-20 defines has_any_disease_present using disease_presence; black_death.txt:25-27 uses country_has_disease_outbreak."
+      likely_failure_points: "Exact disease identity, intensity threshold, and closing/recovery semantics are ritual-specific design choices."
+      verification_needed_later: "Choose location disease_presence/has_any_disease_present for site disruption and country_has_disease_outbreak for country-wide plague pressure."
+    rebel_and_riot_checks: &iface_rebel_and_riot_checks
+      name: rebel and riot checks
+      kind: trigger_or_rebel_selector
+      scope: country_or_rebel
+      evidence_level: verified_reference
+      confidence: high
+      source_basis: "provoke_rebels.txt:4-8 checks any_rebel with rebel_progress > 0.7 and :16-33 selects rebels with rebel_progress/monthly_progress columns; disaster_triggers.txt:260-267 checks rebel_category = pretender."
+      likely_failure_points: "Ritual-specific distinction between riot, pretender, minority revolt, guild riot, mutiny, and Cossack revolt still needs design policy."
+      verification_needed_later: "Use any_rebel/rebel_category/rebel_progress for country-level revolt pressure; verify province_rebel_progress or location-specific rebel hooks before tying revolt to a fixed wonder site."
+    ruler_or_regency_check: &iface_ruler_or_regency_check
+      name: ruler or regency check
+      kind: trigger
+      scope: country
+      evidence_level: verified_reference
+      confidence: high
+      source_basis: "country_triggers.txt lists has_ruler; scripted_triggers/country_triggers.txt uses has_ruler = yes before reading ruler.owner. User policy defines has_ruler = no as regency/no-ruler state."
+      likely_failure_points: "has_ruler resolves generic ruler/regency state, but does not by itself encode accepted successor, pretender crisis, religious recognition, or court faction acceptance."
+      verification_needed_later: "Use has_ruler for the generic branch; add item-specific legitimacy, stability, pretender rebel, or authority checks only after design decisions."
 
 unique_wonder_ritual_feasibility:
   - id: 101

@@ -29,7 +29,22 @@ metadata:
     and relevant state snapshot. Timed rituals use monthly progress; war,
     occupation, bankruptcy, or loss of the site pauses progress unless the entry
     explicitly designs a cancellation. Completion effects remove temporary
-    burdens and grant the listed country or local reward direction.
+    burdens and always grant exactly three reward channels: one permanent
+    country/global modifier, one constructed local reward building at the ritual
+    site, and one immediate one-time reward. Any older wording about local site
+    memory or local memory means the local reward building; do not implement it
+    as a free-floating location flag, variable, or standalone local modifier
+    unless that modifier is part of the constructed local building.
+  uniform_reward_contract:
+    required_completion_rewards:
+      - permanent_country_modifier
+      - local_building_reward
+      - one_time_reward
+    local_memory_policy: >
+      Every unique ritual's local memory is the constructed local reward
+      building at the ritual site. The building may carry the local modifier,
+      production, service, defense, resilience, or recovery effects that older
+      prose called local memory.
 
 unique_wonders:
   - id: 101
@@ -125,7 +140,7 @@ unique_wonders:
             Grant a one-time maritime prestige, sailors, shipbuilding momentum,
             naval tradition, or harbor trade reward when the final lighting and
             pilotage oath proves the lighthouse system is functioning.
-        local_site_memory: >
+        local_building_reward: >
           Alexandria should feel like the center of the system. If later
           implementation supports local modifiers, add harbor throughput or
           ship repair benefits to the location rather than only country bonuses.
@@ -327,7 +342,7 @@ unique_wonders:
           path was used, the one-time reward should lean more toward legitimacy;
           if the full eighteen months passed without interruption, it can lean
           more toward clergy satisfaction and prestige.
-        local_site_memory: >
+        local_building_reward: >
           Constantinople should retain a Great Church Endowment Register memory:
           a local note or future modifier representing maintained lamps,
           guarded relics, poor-relief distribution, trained choir and clergy,
@@ -536,7 +551,7 @@ unique_wonders:
           faith. If Jerusalem stayed calm for all twelve cycles, the reward can
           include a small local prosperity or unrest recovery pulse to mark a
           peaceful pilgrimage season.
-        local_site_memory: >
+        local_building_reward: >
           Jerusalem should retain a Custody Covenant memory: maintained lamps,
           registered endowments, guarded gates, clean cisterns, protected
           pilgrim lodgings, and published access rules around the Haram
@@ -749,7 +764,7 @@ unique_wonders:
           strong water conditions, it may include a small local prosperity or
           stability pulse to represent orderly temple service and rice
           distribution.
-        local_site_memory: >
+        local_building_reward: >
           Angkor should retain a Devaraja Causeway Register memory: cleaned
           moats, blessed water points, maintained galleries, copied land grants,
           temple-service lists, and a recognized royal entry route from western
@@ -956,7 +971,7 @@ unique_wonders:
           resolved cleanly, the one-time reward should lean toward legitimacy,
           regency acceptance, or stability; if the full pilgrimage circuit was
           calm, it can lean toward clergy satisfaction and local prosperity.
-        local_site_memory: >
+        local_building_reward: >
           Lhasa should retain a Potala Teaching Circuit memory: registered
           pilgrims, maintained butter lamps, sealed monastic appointments,
           copied teaching licenses, protected caravan roads, and palace stores
@@ -1160,7 +1175,7 @@ unique_wonders:
           one-time reward should lean toward diplomatic reputation or foreign
           opinion; if Granada remained calm for all twelve cycles, it can lean
           toward prestige and local concord.
-        local_site_memory: >
+        local_building_reward: >
           Granada should retain an Alhambra Capitulation Court memory:
           protected water channels, paid artisans, guarded gates, translated
           treaty copies, safe-conduct rolls, and audience customs preserved in
@@ -1362,7 +1377,7 @@ unique_wonders:
           cleanly, the one-time reward should lean toward legitimacy and
           succession acceptance; if all fourteen cycles were uninterrupted, it
           can lean toward prosperity and estate abundance.
-        local_site_memory: >
+        local_building_reward: >
           Picchu should retain an Inti Raymi Estate Register memory: maintained
           ridge paths, verified quipu accounts, blessed water channels, healthy
           terraces, storehouse balances, and a recognized royal ascent route.
@@ -1556,7 +1571,7 @@ unique_wonders:
           one-time reward should lean toward morale or army tradition; if the
           castle completed in peacetime with excellent inventories, it can lean
           toward local readiness and garrison refill.
-        local_site_memory: >
+        local_building_reward: >
           Shikama should retain a White Heron Receipt memory: accepted gate
           keys, mapped approach turns, inspected wells, inventoried armories,
           named watch rotations, and repaired white-plaster keeps. Later
@@ -1750,7 +1765,7 @@ unique_wonders:
           lean toward legitimacy and succession acceptance; if the memorial year
           completed without interruption, it can lean toward prestige and local
           prosperity around Agra's artisans and gardens.
-        local_site_memory: >
+        local_building_reward: >
           Agra should retain a Royal Memorial Ledger memory: maintained
           charbagh channels, paid marble and inlay artisans, guarded cenotaph
           chamber, alms records, riverfront access, and a sealed dynastic
@@ -1982,7 +1997,7 @@ unique_wonders:
           legitimacy and succession acceptance; if the transfer completed
           without route or archive interruption, it can lean toward
           administrative reach and faster provincial response.
-        local_site_memory: >
+        local_building_reward: >
           Dadu should retain a Capital Register of the Meridian Gate memory:
           sealed archive rooms, accepted imperial seals, ministry offices
           aligned to the palace courts, guard rosters at the gates, recalculated
@@ -2213,7 +2228,7 @@ unique_wonders:
           reward should lean toward legitimacy and diplomatic recognition; if
           foreign embassies attended throughout without interruption, it should
           lean toward diplomatic reputation and relations.
-        local_site_memory: >
+        local_building_reward: >
           Constantinople should retain a Gate of Felicity Entry Register memory:
           ordered palace gates, audited Janissary pay, sealed treasury display,
           working divan chamber, robe-of-honor inventories, envoy lodging,
@@ -2444,7 +2459,7 @@ unique_wonders:
           lean toward stability and own-faith tolerance; if the clergy remained
           highly satisfied throughout, it can lean toward clergy estate
           satisfaction and religious authority.
-        local_site_memory: >
+        local_building_reward: >
           Rome should retain an Apostolic Threshold Dedication memory: dedicated
           altar over Peter's tomb, opened pilgrim doors, audited alms, choir
           offices, relic inventory, clergy obligation decree, safe hostels, and
@@ -2679,7 +2694,7 @@ unique_wonders:
           lean toward tolerance_own and legitimacy; if frontier catechists were
           dispatched without interruption, it can lean toward conversion speed
           or immediate local conversion progress.
-        local_site_memory: >
+        local_building_reward: >
           Lalibela should retain a Rock-Hewn New Jerusalem memory: guarded
           ravine approaches, open trenches and tunnels, maintained ritual water,
           copied gospel books, functioning pilgrim camps, recognized village
@@ -2901,7 +2916,7 @@ unique_wonders:
           war review confirmed fleet survival, the reward should lean toward
           morale and prestige; if production completed smoothly in peacetime,
           it can lean toward sailors, dockyard throughput, and local prosperity.
-        local_site_memory: >
+        local_building_reward: >
           Venice should retain an Arsenal Sea Marriage Ledger memory: guarded
           basin gates, certified timber and rope stores, active foundries,
           launch-ready slips, Bucentaur route markers, ring procession records,
@@ -3123,7 +3138,7 @@ unique_wonders:
           completed during wartime without blockade, the reward can lean toward
           merchant trust and trade range; if the full monsoon cycle was calm,
           it can lean toward treasury and local prosperity.
-        local_site_memory: >
+        local_building_reward: >
           Malacca should retain a Monsoon Covenant Ledger memory: recognized
           shahbandars, stamped weights, toll tables, bonded warehouses,
           interpreters, pilot charts, safe-conduct tablets, merchant hostels,
@@ -3350,7 +3365,7 @@ unique_wonders:
           ruler_death accession was resolved, the reward should lean toward
           legitimacy; if a pre_winning_war farman was validated by a secure
           fort, it can lean toward garrison readiness or military confidence.
-        local_site_memory: >
+        local_building_reward: >
           Delhi should retain a Peacock Fort Register memory: accepted throne
           installation, sealed jewel inventory, paid garrison rolls, Lahori
           Gate key register, artillery and powder audits, Nahr-i-Bihisht
@@ -3581,7 +3596,7 @@ unique_wonders:
           resolved cleanly, the reward should lean toward centralization and
           legitimacy; if foreign envoys attended the final mirror-gallery
           reception, it can lean toward prestige and diplomacy.
-        local_site_memory: >
+        local_building_reward: >
           Mantes/Versailles should retain a Sun Court Transfer Register memory:
           noble lodging assignments, lever and coucher lists, ministerial paper
           rooms, Hall of Mirrors reception records, chapel order, functioning
@@ -3809,7 +3824,7 @@ unique_wonders:
           lean toward military movement and morale; if the cycle was peaceful
           and well supplied, it can lean toward prosperity and local food
           resilience.
-        local_site_memory: >
+        local_building_reward: >
           Tenochtitlan should retain a Lake-Causeway Consecration memory:
           repaired paving, tested bridge spans, clear canoe lanes, guarded lake
           patrol routes, working aqueduct, market traffic rules, district labor
@@ -4034,7 +4049,7 @@ unique_wonders:
           survived a flood or credit scare without collapse, the reward can
           lean toward resilience and production; if it finished under calm
           trade conditions, it can lean toward treasury and trade income.
-        local_site_memory: >
+        local_building_reward: >
           Amsterdam should retain a Three-Canal Plot Register memory: surveyed
           geometry, sealed plot deeds, working sluices, stable quay walls,
           bonded warehouses, counting-house ledgers, guild input routes, barge
@@ -4252,7 +4267,7 @@ unique_wonders:
           through difficult conditions, the reward can lean toward tolerance and
           pilgrimage capacity; if scholar networks were strong, it can lean
           toward conversion speed and faith cohesion.
-        local_site_memory: >
+        local_building_reward: >
           Mecca should retain a Kiswah Renewal Ledger memory: prepared cloth,
           functioning arcades, opened gates, water stations, cleaned courtyard,
           endowment accounts, scholar circles, caravan safe-conducts, and crowd
@@ -4516,7 +4531,7 @@ unique_wonders:
             cleanly. If the ritual completed during or soon after a successful
             defensive war, scale part of the reward toward manpower recovery or
             reduced war exhaustion to represent passes that held.
-        local_site_memory:
+        local_building_reward:
           >
             Dadu and the wall site should remember the certified circuit through
             a durable local note: war-office frontier registers, stored signal
@@ -4742,7 +4757,7 @@ unique_wonders:
             began with significant loans and completed the debt-conversion
             counters, scale part of the reward toward debt relief rather than
             raw cash.
-        local_site_memory:
+        local_building_reward:
           >
             Genoa should retain a memory of San Giorgio's certified ledgers:
             locked archives, notarized tax farms, mint assay benches, creditor
@@ -4968,7 +4983,7 @@ unique_wonders:
             prosperity should give more local recovery, while completion from an
             already prosperous Cahokia should give more prestige and diplomatic
             weight among neighboring communities.
-        local_site_memory:
+        local_building_reward:
           >
             Cahokia should remember the aligned timber circle, repaired mound
             faces, cleared plaza, filled storage houses, canoe landing schedule,
@@ -5185,7 +5200,7 @@ unique_wonders:
             protected routes. If raw-material output rose during the ritual,
             scale a portion toward production or local prosperity rather than
             pure cash.
-        local_site_memory:
+        local_building_reward:
           >
             Great Zimbabwe should retain memory of sealed tribute storehouses,
             certified weights, repaired dry-stone walls, cattle tallies, caravan
@@ -5407,7 +5422,7 @@ unique_wonders:
             or reputation bonus if foreign guests were included in the final
             audience. If the ritual absorbs a smooth ruler_death accession, add
             a modest succession-stability reward rather than extra trade cash.
-        local_site_memory:
+        local_building_reward:
           >
             Isfahan should remember the certified maidan order: polo goalposts,
             balcony audience protocols, mosque procession routes, registered
@@ -5622,7 +5637,7 @@ unique_wonders:
             shortages but kept the route open, scale part of the reward toward
             food/supply recovery; if the route was highly prosperous, scale
             toward raw-material or production momentum.
-        local_site_memory:
+        local_building_reward:
           >
             Shangyuan should retain memory of certified canal offices: sealed
             granaries, registered barges, repaired towpaths, calibrated locks,
@@ -5834,7 +5849,7 @@ unique_wonders:
             the successful relay. If pre_winning_war validation contributed,
             scale part of the reward toward reduced campaign strain or military
             tradition, representing a road network proven in action.
-        local_site_memory:
+        local_building_reward:
           >
             Picchu should retain memory of certified chasqui stations, renewed
             rope bridges, repaired stone stairs, filled storehouses, pass guards,
@@ -6042,7 +6057,7 @@ unique_wonders:
             city began devastated or unhealthy but the route remained
             recoverable, scale the reward toward local recovery rather than raw
             wealth.
-        local_site_memory:
+        local_building_reward:
           >
             Rome should retain memory of surveyed springs, cleaned specus
             channels, repaired arches, calibrated distribution tanks, registered
@@ -6242,7 +6257,7 @@ unique_wonders:
             naval supply if the implementation has such a resource. If blockade
             risk was overcome with strong escorts, scale a small portion toward
             naval logistics or prestige from the successful opening convoy.
-        local_site_memory:
+        local_building_reward:
           >
             Suez should remember cleared channels, marked wells, reinforced
             banks, toll tablets, pilot rosters, cargo-seal offices, and a Red Sea
@@ -6450,7 +6465,7 @@ unique_wonders:
             confidence. If pre_winning_war proof contributed, scale part of the
             reward toward army tradition or reduced war exhaustion from a
             campaign fought under the newly confirmed ruler.
-        local_site_memory:
+        local_building_reward:
           >
             Moscow should remember the coronation route through the Kremlin:
             prepared regalia, cathedral oath books, bell proclamations, inspected
@@ -6660,7 +6675,7 @@ unique_wonders:
             without disorder. If the site began with moderate tension but
             stabilized during the rite, scale part of the reward toward
             tolerance or stability rather than cash.
-        local_site_memory:
+        local_building_reward:
           >
             The site should retain memory of cleaned avenues, repaired pyramid
             plaster, registered hearths, incense stores, pilgrim routes, market
@@ -6862,7 +6877,7 @@ unique_wonders:
             after moderate drought management, scale the reward toward
             resilience; if after strong harvest conditions, scale toward surplus
             and production.
-        local_site_memory:
+        local_building_reward:
           >
             Angkor should retain memory of calibrated sluices, repaired
             embankments, dredged canals, registered village water shares,
@@ -7064,7 +7079,7 @@ unique_wonders:
             assessed new lands, and perhaps devastation recovery or flood-risk
             relief. If the project completed after a storm repair phase, scale
             part of the reward toward resilience rather than raw money.
-        local_site_memory:
+        local_building_reward:
           >
             Amsterdam should retain memory of the ring dike, pumping windmills,
             sluice houses, parcel maps, water-tax ledgers, dike-watch rosters,
@@ -7258,7 +7273,7 @@ unique_wonders:
             repaired slopes. If the ritual completed after recovering damaged
             terraces, scale more reward toward recovery; if completed under
             abundance, scale toward surplus and prosperity.
-        local_site_memory:
+        local_building_reward:
           >
             Picchu should retain memory of repaired retaining walls, inspected
             drainage stones, renewed soil layers, cleared irrigation channels,
@@ -7454,7 +7469,7 @@ unique_wonders:
             port. If war listeners validated the rite, scale part of the reward
             toward morale duration or reduced naval war exhaustion rather than
             cash.
-        local_site_memory:
+        local_building_reward:
           >
             Portsmouth should remember certified dry docks, audited victual
             yards, powder magazines, ropewalk supply, sail lofts, crew muster
@@ -7653,7 +7668,7 @@ unique_wonders:
             satisfaction, inflation or currency relief if supported, and local
             prosperity at Sevilla. If the cycle survived wartime convoy risk,
             scale some reward toward naval prestige or reduced trade disruption.
-        local_site_memory:
+        local_building_reward:
           >
             Sevilla should retain memory of Casa ledgers, guarded warehouses,
             assay benches, royal-share chests, mint delivery records, pilot
@@ -7853,7 +7868,7 @@ unique_wonders:
             local prosperity/pilgrimage capacity at Mecca, and perhaps reduced
             unrest among own-faith populations. If the route was secured after
             raids, scale a portion toward route-security or authority recovery.
-        local_site_memory:
+        local_building_reward:
           >
             Mecca and the road should remember surre receipts, guarded wells,
             restored forts, caravan registries, waqf ledgers, safe-conduct
@@ -8048,7 +8063,7 @@ unique_wonders:
             stability or authority reward for enforcing fair shares. If the
             ritual solved moderate drought pressure, scale reward toward
             resilience and unrest relief.
-        local_site_memory:
+        local_building_reward:
           >
             Isfahan should retain memory of surveyed mother wells, cleaned
             shafts, repaired tunnels, calibrated water clocks, sealed share
@@ -8243,7 +8258,7 @@ unique_wonders:
             reputation, and local shipyard prosperity. If ending_war validated
             sea-lane security, scale a portion toward exploration/range momentum
             or reduced naval disruption rather than cash.
-        local_site_memory:
+        local_building_reward:
           >
             Shangyuan should remember standardized timber lots, certified
             slipways, rope and sail stores, pilot chart rooms, interpreter
@@ -8451,7 +8466,7 @@ unique_wonders:
             religious unrest if the settlement completed peacefully. If
             succession renewal occurred, scale part of the reward toward
             legitimacy rather than wealth.
-        local_site_memory:
+        local_building_reward:
           >
             Jerusalem should remember confirmed gate keys, shrine custody
             documents, pilgrim safe-conduct routes, protected dues, guard
@@ -8646,7 +8661,7 @@ unique_wonders:
             unrest reduction, and cultural cohesion. If the country began with
             moderate instability but completed the reckoning peacefully, scale
             the reward toward stability relief rather than money.
-        local_site_memory:
+        local_building_reward:
           >
             Salisbury should remember cleared approaches, protected stones,
             barrow boundaries, recorded horizon marks, assembly calendars,
@@ -8836,7 +8851,7 @@ unique_wonders:
             or treasury confidence from completed inventories and oaths. If
             ruler_death renewal contributed, scale part of the reward toward
             succession stability rather than money.
-        local_site_memory:
+        local_building_reward:
           >
             London should retain memory of sealed jewel chests, key rotations,
             warder oaths, armory inventories, estate charters, prisoner registers,
@@ -9032,7 +9047,7 @@ unique_wonders:
             legitimacy boost from a successful royal entry. If ruler_death
             redirected the rite, scale toward memorial prestige or succession
             legitimacy rather than money.
-        local_site_memory:
+        local_building_reward:
           >
             Paris should retain memory of choir books, workshop contracts,
             sculptor and glazier models, guild banners, relic display routes,
@@ -9217,7 +9232,7 @@ unique_wonders:
             devotion, or reduced unrest from almsgiving and public petitions. If
             ruler_death converted the rite into succession intercession, scale
             part of the reward toward succession stability.
-        local_site_memory:
+        local_building_reward:
           >
             Moscow should retain memory of prepared chapels, icon routes, bell
             schedules, Red Square guard posts, alms stations, victory banners,
@@ -9410,7 +9425,7 @@ unique_wonders:
             clergy satisfaction, stability, or local prosperity from pilgrimage
             and patronage. If the vigil preserved records during a crisis, scale
             a portion toward stability or administrative recovery.
-        local_site_memory:
+        local_building_reward:
           >
             The Lavra should remember inventoried libraries, corrected
             manuscripts, chronicle chests, icon workshops, novice schools,
@@ -9604,7 +9619,7 @@ unique_wonders:
             legitimacy from successful court display, and local prosperity from
             court spending. If ruler_death renewal contributed, scale reward
             toward succession recognition by foreign envoys.
-        local_site_memory:
+        local_building_reward:
           >
             The Neva palace should remember catalogued galleries, sealed
             reception minutes, precedence lists, interpreter rosters, guard
@@ -9797,7 +9812,7 @@ unique_wonders:
             advisor/bureaucrat satisfaction, or administrative progress from a
             successful audience renewal. If ruler_death required a successor
             audience, scale part of the reward toward orderly succession.
-        local_site_memory:
+        local_building_reward:
           >
             Namgyeong should remember gate protocols, rank stones, audience
             dockets, secretariat registers, sealed archives, examination rosters,
@@ -10010,7 +10025,7 @@ unique_wonders:
             from regularizing the ceremonial budget. If a ruler_death listener
             completed a successor investiture, direct part of the reward toward
             succession acceptance rather than generic glory.
-        local_site_memory:
+        local_building_reward:
           >
             Girin Ula should remember the purified altar terraces, safe forest
             approaches, named guides, watch posts, genealogical copies, offering
@@ -10220,7 +10235,7 @@ unique_wonders:
             exhaustion reduction if ending_war completed a clean settlement
             review. The reward should be stronger when patrol records and
             prisoner protocols survived an actual war.
-        local_site_memory:
+        local_building_reward:
           >
             Belgrade should retain memory of marked embrasures, inspected
             magazines, gate rosters, registered river patrols, passport books,
@@ -10427,7 +10442,7 @@ unique_wonders:
             research or manuscript prestige from catalogued copying. Rewards
             should scale with safe pilgrim handling, manuscript preservation,
             and clean petition mediation.
-        local_site_memory:
+        local_building_reward:
           >
             Trikala should remember repaired hoists, stocked cliff granaries,
             guarded paths, copied manuscripts, cleaned icons, sanctuary
@@ -10630,7 +10645,7 @@ unique_wonders:
             satisfaction, treasury/trade income, or explorer readiness. If
             ending_war completed the review, scale part of the reward toward
             restored sea lanes, recovered prize goods, or reduced piracy risk.
-        local_site_memory:
+        local_building_reward:
           >
             Lisbon should remember tide tables, marked sandbanks, pilot rosters,
             copied rutters, inspected artillery, signal lantern routines, ship
@@ -10842,7 +10857,7 @@ unique_wonders:
             one-time reward feel like celebration of punishment; it should come
             from completed records, reconciliations, audit discipline, and
             restored public order.
-        local_site_memory:
+        local_building_reward:
           >
             Toledo should remember licensed notaries, sealed registers, sermon
             inspection books, catechism schedules, custody rolls,
@@ -11048,7 +11063,7 @@ unique_wonders:
             prosperity from the completed festival and patronage cycle. Scale
             rewards upward when accounts are clean and workshops were funded
             throughout.
-        local_site_memory:
+        local_building_reward:
           >
             Florence should remember inspected dome ribs, lantern reports,
             Opera account books, guild procession routes, choir books,
@@ -11240,7 +11255,7 @@ unique_wonders:
             satisfaction, and local prosperity from visitors and scholars.
             Rewards should scale with clean records and safe bell regulation,
             not with reckless spectacle.
-        local_site_memory:
+        local_building_reward:
           >
             Pisa should remember plumb-line marks, soil sample notes,
             foundation trenches, crack ledgers, scaffold inspections,
@@ -11441,7 +11456,7 @@ unique_wonders:
             satisfaction, cultural tradition, construction knowledge, or local
             prosperity. Rewards should scale with clean donor ledgers, safe
             scaffolds, and uninterrupted marble supply.
-        local_site_memory:
+        local_building_reward:
           >
             Milano should remember Candoglia marble marks, canal shipment
             ledgers, crane inspections, scaffold rosters, sculptor models, saint
@@ -11644,7 +11659,7 @@ unique_wonders:
             satisfaction, or reduced corruption/secrecy risk. If ruler_death
             occurred during the cycle, scale part of the reward toward smooth
             transfer of seals and access rights.
-        local_site_memory:
+        local_building_reward:
           >
             Rome should remember sealed archive rooms, key-custody lists, shelf
             marks, bull and brief registers, treaty copies, nuncio dispatch
@@ -11853,7 +11868,7 @@ unique_wonders:
             official satisfaction, local unrest reduction, and harvest
             confidence. If ruler_death occurred, scale part of the reward toward
             successor recognition and reduced mandate anxiety.
-        local_site_memory:
+        local_building_reward:
           >
             Dadu should remember cleaned cypress roads, repaired altar stones,
             purified vessels, calendar tables, harvest-report bundles, fasting
@@ -12058,7 +12073,7 @@ unique_wonders:
             satisfaction, or devastation reduction. Scale rewards with clean
             flood reports, fair water arbitration, and completed auxiliary
             maintenance nodes.
-        local_site_memory:
+        local_building_reward:
           >
             Chengdu should remember gauge stones, Fish Mouth inspection marks,
             dredged Flying Sand Weir cuts, Bottle-Neck clearance records,
@@ -12251,7 +12266,7 @@ unique_wonders:
             conversion progress from the completed illuminated dedication.
             Rewards should scale with safe crowds, clean donor records, and
             repaired tiles.
-        local_site_memory:
+        local_building_reward:
           >
             Shangyuan should remember replaced glazed tiles, lamp inventories,
             lantern-night calendars, copied sutras, sermon rosters, donor
@@ -12440,7 +12455,7 @@ unique_wonders:
             prosperity, prestige goods, or production progress from a successful
             firing register. Scale rewards with clean inspections and exportable
             batches rather than raw kiln volume.
-        local_site_memory:
+        local_building_reward:
           >
             Fuliang should remember clay-washing pits, mold seals, painter
             marks, glaze test shards, kiln firing logs, rejected-piece piles,
@@ -12633,7 +12648,7 @@ unique_wonders:
             Keep conversion or religious teaching as a possible flavor reward
             only if needed; it should not displace the source permanent
             modifiers.
-        local_site_memory:
+        local_building_reward:
           >
             Shazhou should remember stabilized cave doors, mural sketches,
             pigment stores, repaired statues, scaffold notes, copied
@@ -12829,7 +12844,7 @@ unique_wonders:
             diplomatic reputation/favor, local prosperity, tariff efficiency, or
             smuggling reduction. Scale rewards with clean manifests, settled
             complaints, and surviving fire-watch inspections.
-        local_site_memory:
+        local_building_reward:
           >
             Guangzhou should remember hong licenses, factory keys, warehouse
             seals, interpreter rolls, tariff tables, cargo manifests, debt
@@ -13022,7 +13037,7 @@ unique_wonders:
             reduced war exhaustion, or local strait trade/security benefits. If
             war listeners contributed, scale rewards around proven sea-lane
             denial or successful postwar repair.
-        local_site_memory:
+        local_building_reward:
           >
             Gallipoli should remember calibrated gun arcs, powder ledgers, shot
             stores, current soundings, pilot books, signal drills, chain anchor
@@ -13217,7 +13232,7 @@ unique_wonders:
             prestige, corruption reduction, or smoother succession. If
             ruler_death occurred, scale rewards toward verified burial, will,
             and successor recognition rather than generic prestige.
-        local_site_memory:
+        local_building_reward:
           >
             El Escorial should remember cloister rosters, basilica service
             books, library catalogues, sealed council memorials, royal apartment
@@ -13413,7 +13428,7 @@ unique_wonders:
             goods, production efficiency, artisan satisfaction, or prestige from
             public proofing. If pre_winning_war contributed, scale part of the
             reward toward battlefield confidence rather than raw victory score.
-        local_site_memory:
+        local_building_reward:
           >
             Toledo should remember proof marks, broken rejected blades, furnace
             ledgers, tempering trough records, armor rack tags, quartermaster
@@ -13606,7 +13621,7 @@ unique_wonders:
             prosperity, pilgrimage income, reduced unrest along roads, or
             diplomatic favor from protected foreign pilgrims. Scale rewards with
             safe passage and clean complaint records.
-        local_site_memory:
+        local_building_reward:
           >
             Santiago should remember bridge repair lists, hospital ledgers,
             scallop badge registers, safe-conduct seals, sermon rosters, relic
@@ -13794,7 +13809,7 @@ unique_wonders:
             research progress, prestige, or trade-range support. If ending_war
             contributed, scale part of the reward toward captured charts or
             restored sea-lane confidence.
-        local_site_memory:
+        local_building_reward:
           >
             Lagos should remember wind tables, current notes, calibrated
             instruments, pilot exam rolls, corrected charts, rutter copies,
@@ -13986,7 +14001,7 @@ unique_wonders:
             goods, production progress, treasury savings from efficient
             contracting, or artisan satisfaction. If pre_winning_war contributed,
             scale a portion toward confidence in campaign-tested equipment.
-        local_site_memory:
+        local_building_reward:
           >
             Milano should remember sealed foundry contracts, mold patterns,
             proof-fire records, rejected castings, armor templates, magazine
@@ -14174,7 +14189,7 @@ unique_wonders:
             legal legitimacy, burgher/clergy satisfaction, local prosperity, or
             prestige from the convocation. Scale rewards with clean degree
             records and successful foreign student participation.
-        local_site_memory:
+        local_building_reward:
           >
             Bologna should remember matriculation rolls, student nation books,
             lecture schedules, glossed manuscripts, disputation dockets,
@@ -14361,7 +14376,7 @@ unique_wonders:
             prosperity, artisan satisfaction, cultural prestige, or reduced
             infrastructure cost. Scale rewards with successful delivery and
             clean contracts.
-        local_site_memory:
+        local_building_reward:
           >
             Prato should remember quarry contracts, face surveys, block marks,
             wedge lines, sledge road repairs, ox-team rosters, crane checks,
@@ -14559,7 +14574,7 @@ unique_wonders:
             naval reach, diplomatic reputation, subject payment, or reduced
             piracy risk. If ending_war contributed, scale rewards around treaty
             privileges, restored sea lanes, or captured/lost company assets.
-        local_site_memory:
+        local_building_reward:
           >
             London should remember charter seals, subscription books, director
             minutes, factor commissions, warehouse keys, cargo manifests,
@@ -14750,7 +14765,7 @@ unique_wonders:
             vassal loyalty, noble satisfaction, or court cohesion. If ruler_death
             occurred, scale part of the reward toward orderly succession and
             first-darbar recognition.
-        local_site_memory:
+        local_building_reward:
           >
             Delhi should remember sealed jewel inventories, throne repair notes,
             audience seating lists, envoy waiting records, tribute ledgers,
@@ -14935,7 +14950,7 @@ unique_wonders:
             satisfaction, local unrest reduction, pilgrim income, or prestige.
             Rewards should scale with clean sanitation, safe river access, and
             orderly cremation and bathing counters.
-        local_site_memory:
+        local_building_reward:
           >
             Varanasi should remember cleaned steps, water-level marks, lamp
             platforms, priest rosters, boatman registries, cremation wood books,
@@ -15131,7 +15146,7 @@ unique_wonders:
             satisfaction, local prosperity, estate revenue, or cultural prestige.
             If ruler_death occurred, scale part of the reward toward orderly
             dynastic succession and ancestor acknowledgement.
-        local_site_memory:
+        local_building_reward:
           >
             Thanjavur should remember anointed vimana stones, bronze inventories,
             lamp ledgers, dancer and musician rosters, inscription readings,
@@ -15316,7 +15331,7 @@ unique_wonders:
             pilgrimage prosperity, religious unity, or local unrest relief.
             Scale rewards with successful sunrise alignment, repaired sculpture,
             and safe pilgrim routes.
-        local_site_memory:
+        local_building_reward:
           >
             Puri should remember cleaned wheel carvings, shadow marks, repaired
             horse sculptures, dance and music rosters, offering ledgers, lamp
@@ -15505,7 +15520,7 @@ unique_wonders:
             noble satisfaction, diplomatic favor, or reduced corruption from
             cleaner petition sorting. If ruler_death occurred, scale part of the
             reward toward successor confirmation of the forum.
-        local_site_memory:
+        local_building_reward:
           >
             Agra should remember debate agendas, scholar summons, translation
             registers, noble attendance rolls, envoy lodging lists, petition
@@ -15690,7 +15705,7 @@ unique_wonders:
             prosperity, diplomatic access, sailor or convoy support, or piracy
             reduction. Scale rewards with clean weights, open anchorage, and
             settled merchant disputes.
-        local_site_memory:
+        local_building_reward:
           >
             Kozhikode should remember monsoon schedules, pepper sample records,
             calibrated weights, broker licenses, interpreter registers,
@@ -15866,7 +15881,7 @@ unique_wonders:
             Grant one-time treasury, trade income, local prosperity, mining
             output, worker safety, or merchant satisfaction. Scale rewards with
             clean weight audits and low accident disruption.
-        local_site_memory:
+        local_building_reward:
           >
             Wieliczka should remember timber support ledgers, hoist inspections,
             lamp inventories, chamber maps, chapel services, cart batch records,
@@ -16050,7 +16065,7 @@ unique_wonders:
             satisfaction, land morale, manpower, or prestige. If ruler_death
             occurred, scale rewards toward coronation continuity; if
             pre_winning_war contributed, scale only a secondary morale reward.
-        local_site_memory:
+        local_building_reward:
           >
             Krakow should remember regalia inventories, oath rolls, cathedral
             calendars, tomb vigils, guard key books, wall inspections, armory
@@ -16230,7 +16245,7 @@ unique_wonders:
             Grant one-time construction progress, treasury savings, local
             prosperity, burgher satisfaction, academy/scholar support, or
             prestige. Scale rewards with clean plot books and material ledgers.
-        local_site_memory:
+        local_building_reward:
           >
             Krasnystaw should remember survey stakes, street grids, drainage
             plans, foundation standards, market measurements, arcade plot books,
@@ -16410,7 +16425,7 @@ unique_wonders:
             satisfaction, local prosperity, convoy security, or reduced customs
             corruption. Scale rewards with clean scales and successful ship
             dispatches.
-        local_site_memory:
+        local_building_reward:
           >
             Gdansk should remember barge registers, grain moisture notes,
             granary seals, crane inspections, guild scale records, customs
@@ -16618,7 +16633,7 @@ unique_wonders:
             from the successful muster. If war listeners contributed, scale a
             portion toward recovered manpower or morale after campaign service
             rather than money.
-        local_site_memory:
+        local_building_reward:
           >
             Malbork should retain memory of chapter rolls, granary seals,
             repaired armories, stable rosters, river barges, oath days, and
@@ -16827,7 +16842,7 @@ unique_wonders:
             burgher satisfaction, tolerance, or reduced unrest from a completed
             register. If the city recently suffered unrest, part of the reward
             can be framed as restored confidence rather than an economic windfall.
-        local_site_memory:
+        local_building_reward:
           >
             Brest-Litovsk should retain memory of sealed pinkas registers,
             synagogue archive chests, study-house benches, court settlements,
@@ -17031,7 +17046,7 @@ unique_wonders:
             prosperity from students and printers. If the country is recovering
             from instability, part of the reward can be legitimacy from renewed
             recognition of statutes.
-        local_site_memory:
+        local_building_reward:
           >
             Vilnius should retain memory of rectorial statutes, matriculation
             books, printed theses, repaired library catalogues, examination
@@ -17233,7 +17248,7 @@ unique_wonders:
             prestige, conversion momentum, or local prosperity from pilgrims and
             gifts. If the monastery recovered from danger, part of the reward
             can be local unrest relief or restored relic confidence.
-        local_site_memory:
+        local_building_reward:
           >
             Kyiv should retain memory of cave lamp rosters, relic inventories,
             chronicle manuscripts, catechism bundles, repaired icons, pilgrim
@@ -17440,7 +17455,7 @@ unique_wonders:
             service terms. If war listeners contributed, scale part of the
             reward toward morale recovery or manpower after proven campaign
             service.
-        local_site_memory:
+        local_building_reward:
           >
             Kremenchuk should retain memory of rada rolls, blessed standards,
             officer elections, powder ledgers, caulked boats, repaired wagons,
@@ -17637,7 +17652,7 @@ unique_wonders:
             trade income, scholar support, or local prosperity from the festival
             and caravan protections. If route safety was difficult, reward can
             lean toward trade confidence rather than pure prestige.
-        local_site_memory:
+        local_building_reward:
           >
             Samarkand should retain memory of repaired tilework, lecture
             carpets, envoy seating plans, safe-conduct tablets, caravan lists,
@@ -17828,7 +17843,7 @@ unique_wonders:
             urban notable satisfaction, or reduced unrest from the successful
             gate procession. If water security was strained, part of the reward
             can be local recovery rather than pure court honor.
-        local_site_memory:
+        local_building_reward:
           >
             Khiva should retain memory of renewed gate keys, repaired
             mud-brick walls, cleaned wells, toll ledgers, quarter oaths,
@@ -18023,7 +18038,7 @@ unique_wonders:
             local prosperity, research support, or trade income from restored
             waqf markets. If the tower required major repair, part of the reward
             can be local confidence and unrest relief.
-        local_site_memory:
+        local_building_reward:
           >
             Bukhara should retain memory of inspected brickwork, minaret keys,
             muezzin rosters, sealed waqf ledgers, teacher stipends, student
@@ -18221,7 +18236,7 @@ unique_wonders:
             loyalty, trade income, or local prosperity from completed audiences.
             If ruler_death redirected the rite, scale part of the reward toward
             succession legitimacy rather than material gain.
-        local_site_memory:
+        local_building_reward:
           >
             Kokand should retain memory of audience carpets, robe lists, tribute
             trays, horse registers, silk samples, road-gate judgments, envoy
@@ -18415,7 +18430,7 @@ unique_wonders:
             prestige, local prosperity, or reduced unrest after the market peace
             is proclaimed. If banditry or route closure was a major obstacle,
             reward can lean toward route confidence and caravan recovery.
-        local_site_memory:
+        local_building_reward:
           >
             Chach should retain memory of sealed scales, broker licenses,
             money-changing audits, caravan tags, qadi settlements, guarded road
@@ -18606,7 +18621,7 @@ unique_wonders:
             legitimacy, artist support, or court loyalty. If ruler_death
             redirected the rite, scale the one-time reward toward succession
             legitimacy and memorial prestige.
-        local_site_memory:
+        local_building_reward:
           >
             Paris should retain memory of gallery inventories, patronage rolls,
             envoy seating plans, restored facades, guarded Seine approaches,
@@ -18804,7 +18819,7 @@ unique_wonders:
             noble loyalty, artist support, or diplomatic favor from the retreat.
             If ruler_death redirected the rite, scale part of the reward toward
             memorial legitimacy and successor recognition.
-        local_site_memory:
+        local_building_reward:
           >
             Fontainebleau should retain memory of gallery cartoons, stucco
             molds, patronage rolls, garden repairs, hunt rosters, stable
@@ -18992,7 +19007,7 @@ unique_wonders:
             or burgher satisfaction, prestige, or sailors from a successful
             dispatch. If blockades or fraud were overcome, reward can lean
             toward restored trade confidence.
-        local_site_memory:
+        local_building_reward:
           >
             Bordeaux should retain memory of harbor seals, certified cask
             brands, cooper inspections, toll ledgers, pilot rosters, warehouse
@@ -19185,7 +19200,7 @@ unique_wonders:
             merchant satisfaction, or local prosperity. If ending_war
             contributed, scale part of the reward toward reopened sea lanes and
             recovered merchant confidence.
-        local_site_memory:
+        local_building_reward:
           >
             Marseille should retain memory of convoy flags, health books,
             harbor-chain keys, beacon rosters, pilot lists, sealed manifests,
@@ -19372,7 +19387,7 @@ unique_wonders:
             artisan or burgher satisfaction, prestige, or research/innovation
             from improved patterns. If labor unrest was a problem, reward can
             include local unrest relief from mediated workshop order.
-        local_site_memory:
+        local_building_reward:
           >
             Lyon should retain memory of sealed pattern books, dye samples,
             apprentice rolls, inspected looms, merchant ledgers, fair contracts,
@@ -19564,7 +19579,7 @@ unique_wonders:
             prosperity, defensive readiness, or unrest relief. If ending_war
             contributed, scale part of the reward toward thanksgiving prestige
             and renewed confidence in the Mount's refuge role.
-        local_site_memory:
+        local_building_reward:
           >
             Mont Saint-Michel should retain memory of tide markers, guide
             rosters, pilgrim registers, Saint Michael banners, refuge grain,
@@ -19761,7 +19776,7 @@ unique_wonders:
             reinforcement, manpower, prestige, or security readiness. If
             pre_winning_war contributed, scale part of the reward toward
             wartime capital control rather than raw military glory.
-        local_site_memory:
+        local_building_reward:
           >
             Paris should retain memory of counted keys, sealed warrant chests,
             guard rosters, arsenal ledgers, powder stores, drawbridge tests,
@@ -19953,7 +19968,7 @@ unique_wonders:
             prestige, local defensiveness, or unrest relief. If war listeners
             contributed, scale part of the reward toward repaired stores and
             morale after tested defense.
-        local_site_memory:
+        local_building_reward:
           >
             Carcassonne should retain memory of tower bell rosters, gate keys,
             crossbow stores, granary measures, repaired walls, market patrols,
@@ -20150,7 +20165,7 @@ unique_wonders:
             trade protection, or local port prosperity. If war listeners
             contributed, scale part of the reward toward proven fleet service
             and postwar repair rather than generic prestige.
-        local_site_memory:
+        local_building_reward:
           >
             Brest should retain memory of roadstead surveys, dry dock
             certificates, ropewalk audits, timber inventories, magazine seals,
@@ -20342,7 +20357,7 @@ unique_wonders:
             guild satisfaction, trade income from the wine fair, or unrest
             relief. If fire, flood, or occupation had threatened the old town,
             reward can lean toward restored civic confidence.
-        local_site_memory:
+        local_building_reward:
           >
             Colmar should retain memory of repaired timber facades, guild signs,
             canal clearings, bridge inspections, wine stall registers, charter
