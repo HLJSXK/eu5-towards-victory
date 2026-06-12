@@ -112,6 +112,7 @@ STYLE_3_REWARD_EFFECTS = {
     "all_estate_satisfaction": {"effect": "add_all_estate_satisfaction", "scope": "country_value_block"},
     "army_tradition": {"effect": "add_army_tradition", "scope": "country_scalar"},
     "bureaucracy": {"effect": "add_bureaucracy", "scope": "country_scalar"},
+    "celestial_authority": {"effect": "change_celestial_authority", "scope": "country_value_block"},
     "cultural_influence": {"effect": "add_cultural_influence", "scope": "culture_scalar"},
     "cultural_tradition": {"effect": "add_cultural_tradition", "scope": "culture_scalar"},
     "devotion": {"effect": "add_devotion", "scope": "country_scalar"},
@@ -122,6 +123,7 @@ STYLE_3_REWARD_EFFECTS = {
     "harmony": {"effect": "add_harmony", "scope": "country_scalar"},
     "honor": {"effect": "add_honor", "scope": "country_scalar"},
     "horde_unity": {"effect": "add_horde_unity", "scope": "country_scalar"},
+    "imperial_authority": {"effect": "change_imperial_authority", "scope": "country_value_block"},
     "inflation": {"effect": "add_inflation", "scope": "country_scalar"},
     "karma": {"effect": "add_karma", "scope": "country_scalar"},
     "legitimacy": {"effect": "add_legitimacy", "scope": "country_scalar"},
@@ -129,6 +131,8 @@ STYLE_3_REWARD_EFFECTS = {
     "navy_tradition": {"effect": "add_navy_tradition", "scope": "country_scalar"},
     "prestige": {"effect": "add_prestige", "scope": "country_scalar"},
     "purity": {"effect": "add_purity", "scope": "country_scalar"},
+    "papal_authority": {"effect": "change_papal_authority", "scope": "country_value_block"},
+    "religious_influence": {"effect": "add_religious_influence", "scope": "country_scalar"},
     "republican_tradition": {"effect": "add_republican_tradition", "scope": "country_scalar"},
     "research_progress": {"effect": "add_research_progress", "scope": "country_raw"},
     "righteousness": {"effect": "add_righteousness", "scope": "country_scalar"},
@@ -136,8 +140,12 @@ STYLE_3_REWARD_EFFECTS = {
     "ruler_dip": {"effect": "add_dip", "scope": "ruler_scalar"},
     "ruler_mil": {"effect": "add_mil", "scope": "ruler_scalar"},
     "sailors": {"effect": "add_sailors", "scope": "country_scalar"},
+    "scaled_gold": {"effect": "change_gold_effect", "scope": "country_scale_block"},
     "self_control": {"effect": "add_self_control", "scope": "country_scalar"},
+    "site_control": {"effect": "change_control", "scope": "location_scalar"},
+    "site_development": {"effect": "change_development", "scope": "location_scalar"},
     "site_prosperity": {"effect": "change_prosperity", "scope": "location_scalar"},
+    "site_raw_material_workers": {"effect": "change_max_raw_material_workers", "scope": "location_scalar"},
     "stability": {"effect": "add_stability", "scope": "country_scalar"},
     "tribal_cohesion": {"effect": "add_tribal_cohesion", "scope": "country_scalar"},
     "war_exhaustion": {"effect": "add_war_exhaustion", "scope": "country_scalar"},
@@ -1546,12 +1554,24 @@ def final_building_country_modifiers(wonder: dict, mechanics: dict, style: int) 
     )
 
 
+def wonder_static_base_modifier_name(wonder: dict, level: int) -> str:
+    return f"tv_wonder_{wonder['key']}_level_{level}"
+
+
+def wonder_static_display_modifier_name(wonder: dict, level: int) -> str:
+    return f"tv_wonder_display_{wonder['id']}_level_{level}"
+
+
 def wonder_auto_base_modifier_name(wonder: dict, level: int) -> str:
     return f"tv_wonder_auto_{wonder['key']}_level_{level}"
 
 
 def wonder_auto_style_modifier_name(wonder: dict, style: int) -> str:
     return f"tv_wonder_auto_{wonder['key']}_style_{style}_country_modifier"
+
+
+def unique_ceremony_modifier_name(wonder: dict) -> str:
+    return f"tv_wonder_{wonder['key']}_ceremony_modifier"
 
 
 def generic_ritual_for_wonder(mechanics: dict, wonder: dict) -> dict:
@@ -1577,3 +1597,7 @@ def ritual_burden_modifier_name(wonder: dict) -> str:
     if wonder.get("is_unique"):
         return f"tv_wonder_{wonder['key']}_ritual_burden_modifier"
     return f"tv_wonder_{wonder['key']}_ritual_burden_modifier"
+
+
+def ritual_blessing_modifier_name(wonder: dict) -> str:
+    return f"tv_wonder_{wonder['key']}_ritual_blessing_modifier"

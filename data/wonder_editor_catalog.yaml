@@ -432,6 +432,7 @@ style_3_reward_types:
 - all_estate_satisfaction
 - army_tradition
 - bureaucracy
+- celestial_authority
 - cultural_influence
 - cultural_tradition
 - devotion
@@ -442,13 +443,16 @@ style_3_reward_types:
 - harmony
 - honor
 - horde_unity
+- imperial_authority
 - inflation
 - karma
 - legitimacy
 - manpower
 - navy_tradition
+- papal_authority
 - prestige
 - purity
+- religious_influence
 - republican_tradition
 - research_progress
 - righteousness
@@ -456,8 +460,12 @@ style_3_reward_types:
 - ruler_dip
 - ruler_mil
 - sailors
+- scaled_gold
 - self_control
+- site_control
+- site_development
 - site_prosperity
+- site_raw_material_workers
 - stability
 - tribal_cohesion
 - war_exhaustion
@@ -468,6 +476,7 @@ style_3_reward_sources:
   all_estate_satisfaction: add_all_estate_satisfaction
   army_tradition: add_army_tradition
   bureaucracy: add_bureaucracy
+  celestial_authority: change_celestial_authority
   cultural_influence: add_cultural_influence
   cultural_tradition: add_cultural_tradition
   devotion: add_devotion
@@ -478,13 +487,16 @@ style_3_reward_sources:
   harmony: add_harmony
   honor: add_honor
   horde_unity: add_horde_unity
+  imperial_authority: change_imperial_authority
   inflation: add_inflation
   karma: add_karma
   legitimacy: add_legitimacy
   manpower: add_manpower
   navy_tradition: add_navy_tradition
+  papal_authority: change_papal_authority
   prestige: add_prestige
   purity: add_purity
+  religious_influence: add_religious_influence
   republican_tradition: add_republican_tradition
   research_progress: add_research_progress
   righteousness: add_righteousness
@@ -492,8 +504,12 @@ style_3_reward_sources:
   ruler_dip: add_dip
   ruler_mil: add_mil
   sailors: add_sailors
+  scaled_gold: change_gold_effect
   self_control: add_self_control
+  site_control: change_control
+  site_development: change_development
   site_prosperity: change_prosperity
+  site_raw_material_workers: change_max_raw_material_workers
   stability: add_stability
   tribal_cohesion: add_tribal_cohesion
   war_exhaustion: add_war_exhaustion
@@ -505,4 +521,4 @@ scan_summary:
   event_local_static_modifier_count: 310
   country_modifier_count: 330
   local_modifier_count: 92
-  style_3_reward_type_count: 35
+  style_3_reward_type_count: 43
