@@ -505,7 +505,8 @@ function renderMeta() {
     }
 
     if (summary.is_unique) {
-        entries.push(["Start state", meta.exists_at_game_start ? "Level 1" : "Not present"]);
+        const initialLevel = Number(meta.initial_level || 0);
+        entries.push(["Start state", initialLevel > 0 ? `Level ${initialLevel}` : "Not present"]);
     }
 
     if (meta.image?.filename) {

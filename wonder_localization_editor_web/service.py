@@ -2337,12 +2337,14 @@ class WonderLocalizationService:
                 unique_file_changed = True
                 continue
 
-            if spec.target_kind == "unique_exists_at_game_start":
+            if spec.target_kind == "unique_initial_level":
                 parsed = parse_editor_scalar(value)
-                if not isinstance(parsed, bool):
-                    raise ValueError(f"{spec.key} must be yes or no")
+                if not isinstance(parsed, int) or isinstance(parsed, bool):
+                    raise ValueError(f"{spec.key} must be an integer from 0 to 6")
+                if parsed < 0 or parsed > 6:
+                    raise ValueError(f"{spec.key} must be an integer from 0 to 6")
                 entry = self._get_unique_wonder_source(spec.target_key)
-                entry["exists_at_game_start"] = parsed
+                entry["initial_level"] = parsed
                 unique_file_changed = True
                 continue
 
@@ -2662,7 +2664,7 @@ class WonderLocalizationService:
             "key": wonder["key"],
             "concept": wonder["concept"],
             "is_unique": bool(wonder.get("is_unique")),
-            "exists_at_game_start": bool(wonder.get("exists_at_game_start")) if wonder.get("is_unique") else False,
+            "initial_level": int(wonder.get("initial_level", 0)) if wonder.get("is_unique") else 0,
             "kind_label": kind_label,
             "size": size,
             "size_label": wonder_size_label(size),
@@ -2680,7 +2682,7 @@ class WonderLocalizationService:
             "name_en": self._wonder_name(wonder, "english"),
             "name_zh": self._wonder_name(wonder, "simp_chinese"),
             "is_unique": bool(wonder.get("is_unique")),
-            "exists_at_game_start": bool(wonder.get("exists_at_game_start")) if wonder.get("is_unique") else False,
+            "initial_level": int(wonder.get("initial_level", 0)) if wonder.get("is_unique") else 0,
             "size": str(wonder.get("size", "")),
             "size_label": wonder_size_label(wonder.get("size", "")),
             "image": self._wonder_image_info(wonder),
@@ -2959,17 +2961,17 @@ class WonderLocalizationService:
             self._add_mechanics_spec(
                 specs,
                 group="Unique Wonder",
-                label="Exists at game start",
-                key=f"mechanics.unique_exists_at_game_start.{unique_key}",
+                label="Initial level",
+                key=f"mechanics.unique_initial_level.{unique_key}",
                 source_kind="unique",
                 file_path=UNIQUE_WONDERS_FILE,
-                original_value=stringify_editor_scalar(bool(unique_entry["exists_at_game_start"])),
-                field_type="boolean",
-                target_kind="unique_exists_at_game_start",
+                original_value=stringify_editor_scalar(int(unique_entry["initial_level"])),
+                field_type="number",
+                target_kind="unique_initial_level",
                 target_key=unique_key,
                 height=1,
-                help_text="Marks unique wonders that should be constructed at their fixed location during game-start initialization.",
-                target_path=f"unique_wonders[{unique_key}].exists_at_game_start",
+                help_text="Sets the fixed-site unique wonder level at game-start initialization. Use 0 when absent at start.",
+                target_path=f"unique_wonders[{unique_key}].initial_level",
             )
             self._add_mechanics_spec(
                 specs,

@@ -686,7 +686,7 @@ def build_record(
 ) -> dict[str, object]:
     is_unique = bool(wonder.get("is_unique"))
     kind = "unique" if is_unique else "generic"
-    exists_at_game_start = bool(wonder.get("exists_at_game_start")) if is_unique else False
+    initial_level = int(wonder.get("initial_level", 0)) if is_unique else 0
     location_key = ""
     location_name = dict(GENERIC_LOCATION_LABEL)
     location_info: dict[str, Any] | None = None
@@ -845,8 +845,7 @@ def build_record(
         "kind": kind,
         "kind_label": localized_label(KIND_LABELS, kind),
         "is_unique": is_unique,
-        "exists_at_game_start": exists_at_game_start,
-        "start_level": 1 if exists_at_game_start else 0,
+        "initial_level": initial_level,
         "has_map_marker": is_unique,
         "name": localized_pair(loc_data, record_name_key, fallback=loc_data["english"].get(name_key)),
         "description": localized_pair(
@@ -956,20 +955,25 @@ def main() -> int:
     )
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()
+    locations_index = args.locations_index.resolve()
+    reference_loc = args.reference_loc.resolve()
+    modifier_localization_index = args.modifier_localization_index.resolve()
+    trigger_localization_index = args.trigger_localization_index.resolve()
+    out_path = args.out.resolve()
 
     payload = build_payload(
-        args.locations_index,
-        args.reference_loc,
-        args.modifier_localization_index,
-        args.trigger_localization_index,
+        locations_index,
+        reference_loc,
+        modifier_localization_index,
+        trigger_localization_index,
     )
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(
-        f"wrote {args.out.relative_to(REPO_ROOT)} "
+        f"wrote {out_path.relative_to(REPO_ROOT)} "
         f"({payload['counts']['generic_wonders']} generic, "
         f"{payload['counts']['unique_wonders']} unique wonders)"
     )

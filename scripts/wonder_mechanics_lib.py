@@ -277,11 +277,19 @@ def _require_optional_string(value: object, context: str) -> str | None:
     return _require_string(value, context, allow_empty=True)
 
 
-def _require_int(value: object, context: str, *, minimum: int | None = None) -> int:
+def _require_int(
+    value: object,
+    context: str,
+    *,
+    minimum: int | None = None,
+    maximum: int | None = None,
+) -> int:
     if not isinstance(value, int) or isinstance(value, bool):
         raise TypeError(f"{context} must be an int, got {type(value).__name__}")
     if minimum is not None and value < minimum:
         raise ValueError(f"{context} must be >= {minimum}, got {value}")
+    if maximum is not None and value > maximum:
+        raise ValueError(f"{context} must be <= {maximum}, got {value}")
     return value
 
 
@@ -844,7 +852,7 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "image",
                 "prompt",
                 "is_unique",
-                "exists_at_game_start",
+                "initial_level",
                 "mechanic_key",
                 "base_effect_multiplier",
                 "final_buildings",
@@ -873,6 +881,12 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
         )
         if base_effect_multiplier != 2:
             raise ValueError(f"{context}.base_effect_multiplier must be 2 for unique wonders")
+        initial_level = _require_int(
+            wonder["initial_level"],
+            f"{context}.initial_level",
+            minimum=0,
+            maximum=6,
+        )
 
         wonders.append(
             {
@@ -885,10 +899,7 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "image": _require_string(wonder["image"], f"{context}.image"),
                 "prompt": _require_string(wonder["prompt"], f"{context}.prompt"),
                 "is_unique": True,
-                "exists_at_game_start": _require_bool(
-                    wonder["exists_at_game_start"],
-                    f"{context}.exists_at_game_start",
-                ),
+                "initial_level": initial_level,
                 "mechanic_key": _require_string(wonder["mechanic_key"], f"{context}.mechanic_key"),
                 "base_effect_multiplier": base_effect_multiplier,
                 "final_buildings": _validate_final_buildings(wonder["final_buildings"], f"{context}.final_buildings"),

@@ -220,6 +220,11 @@ function kindText(kind = state.activeKind) {
   return kind === "generic" ? t("genericWonder") : t("uniqueWonder");
 }
 
+function startStateText(wonder) {
+  const initialLevel = Number(wonder?.initial_level || 0);
+  return initialLevel > 0 ? t("startLevel")(initialLevel) : t("notPresentAtStart");
+}
+
 function activeKindWonders() {
   return state.wonders.filter((wonder) => wonderKind(wonder) === state.activeKind);
 }
@@ -622,7 +627,7 @@ function renderDetail() {
       ${metaLine(t("base"), localized(wonder.base_name))}
       ${metaLine(t("size"), localized(wonder.size_label))}
       ${metaLine(t("category"), localized(wonder.category_label))}
-      ${wonderKind(wonder) === "unique" ? metaLine(t("startState"), wonder.exists_at_game_start ? t("startLevel")(wonder.start_level || 1) : t("notPresentAtStart")) : ""}
+      ${wonderKind(wonder) === "unique" ? metaLine(t("startState"), startStateText(wonder)) : ""}
     </div>
     ${renderWonderImage(wonder)}
     ${renderLocationSwitcher(wonder)}
@@ -681,7 +686,7 @@ function rebuildHaystacks() {
       localized(wonder.base_name),
       wonder.base_name?.en,
       wonder.base_name?.zh,
-      wonder.exists_at_game_start ? t("startLevel")(wonder.start_level || 1) : t("notPresentAtStart"),
+      startStateText(wonder),
       ...(wonder.construction_requirements || []).flatMap((row) => [
         row.key,
         localized(row.label),
