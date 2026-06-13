@@ -82,7 +82,7 @@ def generate() -> str:
 
 
 def main() -> None:
-    OUT_FILE.write_text(generate(), encoding="utf-8")
+    OUT_FILE.write_text(generate(), encoding="utf-8-sig")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
 
 

@@ -600,6 +600,18 @@
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:9910; reference_game_files/game/in_game/common/building_types/manpower_buildings.txt:29"
   notes: "EU5 logs Malformed token near the numeric literal when a boolean modifier value is emitted as 1. Generated YAML data must preserve bools and render them as yes/no, not Python True/False or 1/0."
 
+- id: wonder_fixed_modifier_thousand_scaled_value
+  pattern: ''
+  detectability: lint
+  validator: wonder_engine_scaled_fixed_modifiers
+  only_in_paths: ['wonder']
+  bad: "Setting fixed-value wonder modifiers such as global_pop_conversion_speed, local_pop_assimilation_speed, local_manpower, or local_sailors above 0.5"
+  correction: "Keep these fixed-value entries at or below 0.5. If a percentage bonus was intended, use the matching *_modifier percent modifier instead."
+  category: modifier
+  scope: wonder
+  source: "User-reported EU5 engine behavior, 2026-06-13; modifier ids verified in reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:4553-4564, 4609-4619, 5080-5092"
+  notes: "EU5 multiplies these fixed-value modifier values by 1000 in game. scripts/validate.py checks wonder paths in src/ and data/ for direct YAML/script assignments to global_pop_assimilation_speed, global_pop_conversion_speed, local_pop_assimilation_speed, local_pop_conversion_speed, local_manpower, and local_sailors; percent *_modifier variants are intentionally excluded."
+
 - id: python_boolean_token_in_common_script
   pattern: '^\s*[A-Za-z0-9_:.]+\s*=\s*(?:True|False)\b'
   detectability: lint

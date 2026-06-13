@@ -63,6 +63,20 @@ VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
 LOCALIZATION_KEY_PATTERN = re.compile(r"^\s+(\w+)\s*:(?:\d+)?")
 GAME_CONCEPT_DECL_PATTERN = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
 EVENT_ID_REFERENCE_PATTERN = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\.([1-9][0-9]{4,})\b")
+WONDER_ENGINE_SCALED_FIXED_MODIFIER_MAX = 0.5
+WONDER_ENGINE_SCALED_FIXED_MODIFIERS = {
+    # Fixed-value modifiers only. Percent *_modifier variants are intentionally excluded.
+    "global_pop_assimilation_speed",
+    "global_pop_conversion_speed",
+    "local_manpower",
+    "local_pop_assimilation_speed",
+    "local_pop_conversion_speed",
+    "local_sailors",
+}
+WONDER_ENGINE_SCALED_FIXED_MODIFIER_RE = re.compile(
+    rf"^\s*(?P<key>{'|'.join(sorted(WONDER_ENGINE_SCALED_FIXED_MODIFIERS))})\s*[:=]\s*"
+    r"(?P<quote>['\"]?)(?P<value>[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?)(?P=quote)\s*(?:#.*)?$"
+)
 GENERIC_ACTION_HIDDEN_ONLY_EFFECTS = {
     "tv_governor_remove_effect": (
         "dismisses a regional governor by clearing variables/lists and rebuilding display state; "
@@ -500,6 +514,28 @@ def check_event_id_numeric_range(path: Path, content: str) -> None:
         )
 
 
+def check_wonder_engine_scaled_fixed_modifiers(path: Path, content: str) -> None:
+    """Catch wonder modifier values that EU5 displays 1000x larger than written."""
+    rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+    if "wonder" not in rel or path.suffix not in {".txt", ".yaml", ".yml"}:
+        return
+
+    for line_num, line in enumerate(content.splitlines(), 1):
+        match = WONDER_ENGINE_SCALED_FIXED_MODIFIER_RE.match(line)
+        if not match:
+            continue
+        value = float(match.group("value"))
+        if value <= WONDER_ENGINE_SCALED_FIXED_MODIFIER_MAX:
+            continue
+        key = match.group("key")
+        issues.append(
+            f"[WONDER_MODIFIER_SCALE] {path.relative_to(REPO_ROOT)}:{line_num} -- "
+            f"{key} = {match.group('value')} exceeds {WONDER_ENGINE_SCALED_FIXED_MODIFIER_MAX}. "
+            "EU5 multiplies this fixed-value modifier by 1000 in game; use a small fixed value, "
+            "or use the matching *_modifier percent modifier when a percentage is intended."
+        )
+
+
 def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
     """Warn when AI-maintained knowledge/workflow files drift out of sync."""
     valid_detectability = {"lint", "needs_parser", "advisory"}
@@ -510,10 +546,10 @@ def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
                 f"[KNOWLEDGE] anti_patterns.yaml:{entry.get('id', '<unknown>')} -- "
                 f"invalid detectability '{detectability}'; use lint, needs_parser, or advisory"
             )
-        if (entry.get("detectability") == "lint") and not entry.get("pattern"):
+        if (entry.get("detectability") == "lint") and not entry.get("pattern") and not entry.get("validator"):
             warnings.append(
                 f"[KNOWLEDGE] anti_patterns.yaml:{entry.get('id', '<unknown>')} -- "
-                "detectability is lint but pattern is empty"
+                "detectability is lint but both pattern and validator are empty"
             )
 
     ai_context = REPO_ROOT / "scripts" / "ai_context.py"
@@ -931,6 +967,7 @@ def main():
             )
             if is_game_content:
                 check_anti_patterns(path, content, anti_patterns)
+                check_wonder_engine_scaled_fixed_modifiers(path, content)
                 check_generic_action_pre_eval_risks(path, content)
                 check_io_policy_ai_scope_recipient_guard(path, content)
                 check_on_action_singleton_effect_delegate(path, content, hardcoded_on_actions)

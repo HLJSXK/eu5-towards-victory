@@ -44,6 +44,15 @@ SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 WONDER_RITUAL_LISTENER_KEYS = ["monthly", "ruler_death", "pre_winning_war", "ending_war"]
 SUPPORTED_RITUAL_LISTENERS = set(WONDER_RITUAL_LISTENER_KEYS)
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
+ENGINE_SCALED_FIXED_MODIFIER_MAX = 0.5
+ENGINE_SCALED_FIXED_MODIFIERS = {
+    "global_pop_assimilation_speed",
+    "global_pop_conversion_speed",
+    "local_manpower",
+    "local_pop_assimilation_speed",
+    "local_pop_conversion_speed",
+    "local_sailors",
+}
 PREFERENCE_CONDITION_SCRIPT_TO_SUITABILITY_ID = {
     "topography = mountains": "topography_mountains",
     "topography = plateau": "topography_plateau",
@@ -282,6 +291,49 @@ def _require_number_text(value: object, context: str) -> str:
     if isinstance(value, (int, float)):
         return str(value)
     return _require_string(value, context)
+
+
+def _numeric_modifier_value(value: object) -> float | None:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value)
+        except ValueError:
+            return None
+    return None
+
+
+def _check_engine_scaled_fixed_modifier_value(key: str, value: object, context: str) -> None:
+    if key not in ENGINE_SCALED_FIXED_MODIFIERS:
+        return
+    numeric_value = _numeric_modifier_value(value)
+    if numeric_value is None or numeric_value <= ENGINE_SCALED_FIXED_MODIFIER_MAX:
+        return
+    raise ValueError(
+        f"{context}.{key} = {value!r} exceeds {ENGINE_SCALED_FIXED_MODIFIER_MAX}. "
+        "EU5 multiplies this fixed-value modifier by 1000 in game; use the small fixed value, "
+        "or use the matching *_modifier percent modifier when a percentage is intended."
+    )
+
+
+def _check_scaled_engine_fixed_modifiers(mapping: dict[str, object], multiplier: int | float, context: str) -> None:
+    for key, value in mapping.items():
+        if key not in ENGINE_SCALED_FIXED_MODIFIERS:
+            continue
+        numeric_value = _numeric_modifier_value(value)
+        if numeric_value is None:
+            continue
+        scaled_value = numeric_value * float(multiplier)
+        if scaled_value <= ENGINE_SCALED_FIXED_MODIFIER_MAX:
+            continue
+        raise ValueError(
+            f"{context}.{key} = {value!r} scales to {scaled_value:g} with multiplier {multiplier:g}, "
+            f"exceeding {ENGINE_SCALED_FIXED_MODIFIER_MAX}. EU5 multiplies this fixed-value modifier "
+            "by 1000 in game; reduce the authored fixed value or use the matching *_modifier percent modifier."
+        )
 
 
 def _require_bool(value: object, context: str) -> bool:
@@ -607,6 +659,7 @@ def _validate_modifier_mapping(value: object, context: str) -> dict[str, object]
             raise TypeError(
                 f"{context}.{key} must be a scalar modifier value; nested maps are not valid shared local effects"
             )
+        _check_engine_scaled_fixed_modifier_value(key, raw_value, context)
         normalized[key] = raw_value
     return normalized
 
@@ -625,6 +678,52 @@ def _validate_modifier_by_key_mapping(value: object, context: str) -> dict[str, 
     for raw_key, raw_modifiers in mapping.items():
         key = _require_string(raw_key, f"{context} key")
         normalized[key] = _validate_modifier_mapping(raw_modifiers, f"{context}.{key}")
+    return normalized
+
+
+def _validate_generic_rituals(value: object, context: str) -> dict[str, dict]:
+    rituals = _require_mapping(value, context)
+    normalized: dict[str, dict] = {}
+    for raw_key, raw_entry in rituals.items():
+        key = _require_string(raw_key, f"{context} key")
+        entry_context = f"{context}.{key}"
+        entry = _require_mapping(raw_entry, entry_context)
+        _expect_keys(
+            entry,
+            required={"style_1", "style_2", "style_3"},
+            optional=set(),
+            context=entry_context,
+        )
+
+        style_1 = _require_mapping(entry["style_1"], f"{entry_context}.style_1")
+        _expect_keys(style_1, required={"country_modifier"}, optional=set(), context=f"{entry_context}.style_1")
+
+        style_2 = _require_mapping(entry["style_2"], f"{entry_context}.style_2")
+        _expect_keys(style_2, required={"local_modifier"}, optional=set(), context=f"{entry_context}.style_2")
+
+        style_3 = _require_mapping(entry["style_3"], f"{entry_context}.style_3")
+        _expect_keys(style_3, required={"cost_type", "reward"}, optional=set(), context=f"{entry_context}.style_3")
+
+        normalized[key] = {
+            "style_1": {
+                **style_1,
+                "country_modifier": _validate_modifier_mapping(
+                    style_1["country_modifier"],
+                    f"{entry_context}.style_1.country_modifier",
+                ),
+            },
+            "style_2": {
+                **style_2,
+                "local_modifier": _validate_modifier_mapping(
+                    style_2["local_modifier"],
+                    f"{entry_context}.style_2.local_modifier",
+                ),
+            },
+            "style_3": {
+                **style_3,
+                "reward": _require_list(style_3["reward"], f"{entry_context}.style_3.reward"),
+            },
+        }
     return normalized
 
 
@@ -713,10 +812,14 @@ def load_mechanics_source_data(path: Path = MECHANICS_FILE) -> dict:
     designs = _require_mapping(raw.get("designs"), f"{path}.designs")
     site_rules = _validate_site_rules(raw.get("site_rules"), design_keys=set(designs))
     buildings = _validate_buildings_section(raw.get("buildings"), design_keys=set(designs))
+    generic_rituals = _validate_generic_rituals(raw.get("generic_rituals"), f"{path}.generic_rituals")
+    base_modifiers = _validate_modifier_by_key_mapping(raw.get("base_modifiers"), f"{path}.base_modifiers")
     return {
         **raw,
         "site_rules": site_rules,
         "buildings": buildings,
+        "generic_rituals": generic_rituals,
+        "base_modifiers": base_modifiers,
     }
 
 
@@ -1020,7 +1123,10 @@ def normalize_unique_ritual(wonder: dict) -> dict:
     runtime_variables = _validate_string_list(
         raw["runtime_variables"], f"unique wonder {wonder['key']}.ritual.runtime_variables"
     )
-    country_modifier = _require_mapping(raw["country_modifier"], f"unique wonder {wonder['key']}.ritual.country_modifier")
+    country_modifier = _validate_modifier_mapping(
+        raw["country_modifier"],
+        f"unique wonder {wonder['key']}.ritual.country_modifier",
+    )
     reward = _require_list(raw["reward"], f"unique wonder {wonder['key']}.ritual.reward")
     confirmation_trigger_script = _validate_script_text(
         raw["confirmation_trigger_script"],
@@ -1071,11 +1177,17 @@ def normalize_unique_ritual(wonder: dict) -> dict:
 
     timed_normalized = {
         "years": _require_int(timed["years"], f"unique wonder {wonder['key']}.ritual.timed.years", minimum=1),
-        "burden_modifier": _require_mapping(timed["burden_modifier"], f"unique wonder {wonder['key']}.ritual.timed.burden_modifier"),
-        "blessing_modifier": _require_mapping(timed["blessing_modifier"], f"unique wonder {wonder['key']}.ritual.timed.blessing_modifier"),
+        "burden_modifier": _validate_modifier_mapping(
+            timed["burden_modifier"],
+            f"unique wonder {wonder['key']}.ritual.timed.burden_modifier",
+        ),
+        "blessing_modifier": _validate_modifier_mapping(
+            timed["blessing_modifier"],
+            f"unique wonder {wonder['key']}.ritual.timed.blessing_modifier",
+        ),
     }
     auxiliary_normalized = {
-        "local_modifier": _require_mapping(
+        "local_modifier": _validate_modifier_mapping(
             auxiliary_building["local_modifier"],
             f"unique wonder {wonder['key']}.ritual.auxiliary_building.local_modifier",
         ),
@@ -1262,6 +1374,26 @@ def load_wonder_data(
     return wonders, mechanics
 
 
+def _validate_generated_engine_scaled_fixed_modifiers(wonders: list[dict], mechanics: dict) -> None:
+    for wonder in wonders:
+        generated_level_6_multiplier = int(wonder.get("base_effect_multiplier", 1)) * 6
+        mechanic = _require_string(wonder["mechanic_key"], f"{wonder['key']}.mechanic_key")
+
+        base_modifiers = mechanics.get("base_modifiers", {}).get(mechanic, {})
+        _check_scaled_engine_fixed_modifiers(
+            base_modifiers,
+            generated_level_6_multiplier,
+            f"generated level-6 base modifiers for {wonder['key']} ({mechanic})",
+        )
+
+        final_local = mechanics.get("buildings", {}).get(mechanic, {}).get("final_local", {})
+        _check_scaled_engine_fixed_modifiers(
+            final_local,
+            generated_level_6_multiplier,
+            f"generated level-6 local display modifiers for {wonder['key']} ({mechanic})",
+        )
+
+
 def load_generic_wonder_mechanics_data() -> tuple[list[dict], dict]:
     wonders, mechanics = load_wonder_data(
         ALL_WONDER_MIN_ID,
@@ -1274,6 +1406,7 @@ def load_generic_wonder_mechanics_data() -> tuple[list[dict], dict]:
     for wonder in wonders:
         if wonder["key"] not in generic_rituals:
             raise ValueError(f"Missing generic ritual data for {wonder['key']}")
+    _validate_generated_engine_scaled_fixed_modifiers(wonders, mechanics)
     return wonders, mechanics
 
 
@@ -1316,6 +1449,7 @@ def load_all_wonder_mechanics_data(*, include_unique: bool = True) -> tuple[list
     wonders, mechanics = load_generic_wonder_mechanics_data()
     if include_unique:
         wonders.extend(load_unique_wonders())
+        _validate_generated_engine_scaled_fixed_modifiers(wonders, mechanics)
     return wonders, mechanics
 
 
