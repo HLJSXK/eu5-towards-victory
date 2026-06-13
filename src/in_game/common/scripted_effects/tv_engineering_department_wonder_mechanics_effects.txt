@@ -18424,18 +18424,21 @@ tv_wonder_mechanics_push_location_display_slot_effect = {
 		set_variable = { name = tv_wonder_display_slot_1_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_display_slot_1_level value = $wonder_level$ }
 		set_variable = { name = tv_wonder_display_slot_1_ritual_style value = $wonder_ritual_style$ }
+		set_variable = { name = tv_wonder_display_slot_1_ritual_completed value = $wonder_ritual_completed$ }
 	}
 	else_if = {
 		limit = { NOT = { has_variable = tv_wonder_display_slot_2_id } }
 		set_variable = { name = tv_wonder_display_slot_2_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_display_slot_2_level value = $wonder_level$ }
 		set_variable = { name = tv_wonder_display_slot_2_ritual_style value = $wonder_ritual_style$ }
+		set_variable = { name = tv_wonder_display_slot_2_ritual_completed value = $wonder_ritual_completed$ }
 	}
 	else_if = {
 		limit = { NOT = { has_variable = tv_wonder_display_slot_3_id } }
 		set_variable = { name = tv_wonder_display_slot_3_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_display_slot_3_level value = $wonder_level$ }
 		set_variable = { name = tv_wonder_display_slot_3_ritual_style value = $wonder_ritual_style$ }
+		set_variable = { name = tv_wonder_display_slot_3_ritual_completed value = $wonder_ritual_completed$ }
 	}
 }
 
@@ -18445,30 +18448,35 @@ tv_wonder_mechanics_push_location_tooltip_slot_effect = {
 		set_variable = { name = tv_wonder_tooltip_slot_1_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_tooltip_slot_1_level value = $wonder_level$ }
 		set_variable = { name = tv_wonder_tooltip_slot_1_ritual_style value = $wonder_ritual_style$ }
+		set_variable = { name = tv_wonder_tooltip_slot_1_ritual_completed value = $wonder_ritual_completed$ }
 	}
 	else_if = {
 		limit = { NOT = { has_variable = tv_wonder_tooltip_slot_2_id } }
 		set_variable = { name = tv_wonder_tooltip_slot_2_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_tooltip_slot_2_level value = $wonder_level$ }
 		set_variable = { name = tv_wonder_tooltip_slot_2_ritual_style value = $wonder_ritual_style$ }
+		set_variable = { name = tv_wonder_tooltip_slot_2_ritual_completed value = $wonder_ritual_completed$ }
 	}
 	else_if = {
 		limit = { NOT = { has_variable = tv_wonder_tooltip_slot_3_id } }
 		set_variable = { name = tv_wonder_tooltip_slot_3_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_tooltip_slot_3_level value = $wonder_level$ }
 		set_variable = { name = tv_wonder_tooltip_slot_3_ritual_style value = $wonder_ritual_style$ }
+		set_variable = { name = tv_wonder_tooltip_slot_3_ritual_completed value = $wonder_ritual_completed$ }
 	}
 	else_if = {
 		limit = { NOT = { has_variable = tv_wonder_tooltip_slot_4_id } }
 		set_variable = { name = tv_wonder_tooltip_slot_4_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_tooltip_slot_4_level value = $wonder_level$ }
 		set_variable = { name = tv_wonder_tooltip_slot_4_ritual_style value = $wonder_ritual_style$ }
+		set_variable = { name = tv_wonder_tooltip_slot_4_ritual_completed value = $wonder_ritual_completed$ }
 	}
 	else_if = {
 		limit = { NOT = { has_variable = tv_wonder_tooltip_slot_5_id } }
 		set_variable = { name = tv_wonder_tooltip_slot_5_id value = $wonder_id$ }
 		set_variable = { name = tv_wonder_tooltip_slot_5_level value = $wonder_level$ }
 		set_variable = { name = tv_wonder_tooltip_slot_5_ritual_style value = $wonder_ritual_style$ }
+		set_variable = { name = tv_wonder_tooltip_slot_5_ritual_completed value = $wonder_ritual_completed$ }
 	}
 	else = {
 		if = {
@@ -18485,6 +18493,7 @@ tv_wonder_mechanics_clear_location_display_state_effect = {
 	remove_variable = tv_wonder_location_display_id
 	remove_variable = tv_wonder_location_display_level
 	remove_variable = tv_wonder_location_display_ritual_style
+	remove_variable = tv_wonder_location_display_ritual_completed
 	remove_variable = tv_wonder_map_unique_level
 	remove_variable = tv_wonder_map_generic_level
 	remove_variable = tv_wonder_map_has_potential_unique
@@ -18492,27 +18501,35 @@ tv_wonder_mechanics_clear_location_display_state_effect = {
 	remove_variable = tv_wonder_display_slot_1_id
 	remove_variable = tv_wonder_display_slot_1_level
 	remove_variable = tv_wonder_display_slot_1_ritual_style
+	remove_variable = tv_wonder_display_slot_1_ritual_completed
 	remove_variable = tv_wonder_display_slot_2_id
 	remove_variable = tv_wonder_display_slot_2_level
 	remove_variable = tv_wonder_display_slot_2_ritual_style
+	remove_variable = tv_wonder_display_slot_2_ritual_completed
 	remove_variable = tv_wonder_display_slot_3_id
 	remove_variable = tv_wonder_display_slot_3_level
 	remove_variable = tv_wonder_display_slot_3_ritual_style
+	remove_variable = tv_wonder_display_slot_3_ritual_completed
 	remove_variable = tv_wonder_tooltip_slot_1_id
 	remove_variable = tv_wonder_tooltip_slot_1_level
 	remove_variable = tv_wonder_tooltip_slot_1_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_1_ritual_completed
 	remove_variable = tv_wonder_tooltip_slot_2_id
 	remove_variable = tv_wonder_tooltip_slot_2_level
 	remove_variable = tv_wonder_tooltip_slot_2_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_2_ritual_completed
 	remove_variable = tv_wonder_tooltip_slot_3_id
 	remove_variable = tv_wonder_tooltip_slot_3_level
 	remove_variable = tv_wonder_tooltip_slot_3_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_3_ritual_completed
 	remove_variable = tv_wonder_tooltip_slot_4_id
 	remove_variable = tv_wonder_tooltip_slot_4_level
 	remove_variable = tv_wonder_tooltip_slot_4_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_4_ritual_completed
 	remove_variable = tv_wonder_tooltip_slot_5_id
 	remove_variable = tv_wonder_tooltip_slot_5_level
 	remove_variable = tv_wonder_tooltip_slot_5_ritual_style
+	remove_variable = tv_wonder_tooltip_slot_5_ritual_completed
 }
 
 tv_wonder_mechanics_refresh_location_display_state_effect = {
@@ -18548,8 +18565,9 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 				set_variable = { name = tv_wonder_location_display_id value = local_var:tv_wonder_location_display_wonder_id }
 				set_variable = { name = tv_wonder_location_display_level value = 0 }
 				set_variable = { name = tv_wonder_location_display_ritual_style value = 0 }
-				tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style }
-				tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style }
+				set_variable = { name = tv_wonder_location_display_ritual_completed value = 0 }
+				tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style wonder_ritual_completed = var:tv_wonder_location_display_ritual_completed }
+				tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style wonder_ritual_completed = var:tv_wonder_location_display_ritual_completed }
 				remove_local_variable = tv_wonder_location_display_building_type
 				remove_local_variable = tv_wonder_location_display_wonder_id
 			}
@@ -18574,8 +18592,21 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 				set_variable = { name = tv_wonder_location_display_id value = "global_variable_map(tv_wonder_final_building_type_to_wonder_id|local_var:tv_wonder_location_display_building_type)" }
 				set_variable = { name = tv_wonder_location_display_ritual_style value = "global_variable_map(tv_wonder_final_building_type_to_ritual_style|local_var:tv_wonder_location_display_building_type)" }
 				set_variable = { name = tv_wonder_location_display_level value = "variable_map(tv_wonder_final_building_level_by_type|local_var:tv_wonder_location_display_building_type)" }
+				set_variable = { name = tv_wonder_location_display_ritual_completed value = 1 }
 				if = {
 					limit = { var:tv_wonder_location_display_id ?= { this >= 101 } }
+					set_local_variable = { name = tv_wonder_location_display_wonder_id value = var:tv_wonder_location_display_id }
+					set_variable = { name = tv_wonder_location_display_ritual_completed value = 0 }
+					owner ?= {
+						if = {
+							limit = {
+								has_variable_map = tv_wonder_unique_ritual_completed
+								is_key_in_variable_map = { name = tv_wonder_unique_ritual_completed target = local_var:tv_wonder_location_display_wonder_id }
+							}
+							prev = { set_variable = { name = tv_wonder_location_display_ritual_completed value = 1 } }
+						}
+					}
+					remove_local_variable = tv_wonder_location_display_wonder_id
 					if = {
 						limit = {
 							var:tv_wonder_location_display_level ?= { this >= 6 }
@@ -18663,8 +18694,8 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 						set_variable = { name = tv_wonder_map_generic_level value = 1 }
 					}
 				}
-				tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style }
-				tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style }
+				tv_wonder_mechanics_push_location_display_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style wonder_ritual_completed = var:tv_wonder_location_display_ritual_completed }
+				tv_wonder_mechanics_push_location_tooltip_slot_effect = { wonder_id = var:tv_wonder_location_display_id wonder_level = var:tv_wonder_location_display_level wonder_ritual_style = var:tv_wonder_location_display_ritual_style wonder_ritual_completed = var:tv_wonder_location_display_ritual_completed }
 				remove_local_variable = tv_wonder_location_display_building_type
 			}
 		}
@@ -20688,406 +20719,608 @@ tv_wonder_mechanics_apply_selected_ritual_static_modifier_effect = {
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10101 }
 		add_country_modifier = { modifier = tv_wonder_unique_pharos_lighthouse_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 101 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 101 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
 		add_country_modifier = { modifier = tv_wonder_unique_hagia_sophia_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 102 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 102 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
 		add_country_modifier = { modifier = tv_wonder_unique_dome_of_the_rock_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 103 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 103 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10401 }
 		add_country_modifier = { modifier = tv_wonder_unique_angkor_wat_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 104 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 104 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10501 }
 		add_country_modifier = { modifier = tv_wonder_unique_potala_palace_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 105 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 105 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
 		add_country_modifier = { modifier = tv_wonder_unique_alhambra_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 106 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 106 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10701 }
 		add_country_modifier = { modifier = tv_wonder_unique_machu_picchu_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 107 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 107 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10801 }
 		add_country_modifier = { modifier = tv_wonder_unique_himeji_castle_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 108 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 108 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10901 }
 		add_country_modifier = { modifier = tv_wonder_unique_taj_mahal_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 109 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 109 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11001 }
 		add_country_modifier = { modifier = tv_wonder_unique_forbidden_city_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 110 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 110 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11101 }
 		add_country_modifier = { modifier = tv_wonder_unique_topkapi_palace_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 111 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 111 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
 		add_country_modifier = { modifier = tv_wonder_unique_st_peters_basilica_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 112 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 112 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11301 }
 		add_country_modifier = { modifier = tv_wonder_unique_lalibela_churches_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 113 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 113 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11401 }
 		add_country_modifier = { modifier = tv_wonder_unique_venetian_arsenal_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 114 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 114 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11501 }
 		add_country_modifier = { modifier = tv_wonder_unique_malacca_port_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 115 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 115 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11601 }
 		add_country_modifier = { modifier = tv_wonder_unique_red_fort_delhi_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 116 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 116 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11701 }
 		add_country_modifier = { modifier = tv_wonder_unique_versailles_palace_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 117 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 117 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11801 }
 		add_country_modifier = { modifier = tv_wonder_unique_tenochtitlan_causeways_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 118 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 118 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11901 }
 		add_country_modifier = { modifier = tv_wonder_unique_amsterdam_canal_ring_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 119 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 119 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12001 }
 		add_country_modifier = { modifier = tv_wonder_unique_mecca_haram_expansion_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 120 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 120 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12101 }
 		add_country_modifier = { modifier = tv_wonder_unique_ming_great_wall_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 121 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 121 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
 		add_country_modifier = { modifier = tv_wonder_unique_bank_of_saint_george_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 122 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 122 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12301 }
 		add_country_modifier = { modifier = tv_wonder_unique_cahokia_mounds_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 123 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 123 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12401 }
 		add_country_modifier = { modifier = tv_wonder_unique_great_zimbabwe_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 124 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 124 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12501 }
 		add_country_modifier = { modifier = tv_wonder_unique_isfahan_square_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 125 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 125 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12601 }
 		add_country_modifier = { modifier = tv_wonder_unique_grand_canal_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 126 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 126 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12701 }
 		add_country_modifier = { modifier = tv_wonder_unique_inca_royal_road_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 127 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 127 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12801 }
 		add_country_modifier = { modifier = tv_wonder_unique_roman_aqueducts_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 128 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 128 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12901 }
 		add_country_modifier = { modifier = tv_wonder_unique_suez_ancient_canal_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 129 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 129 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13001 }
 		add_country_modifier = { modifier = tv_wonder_unique_kremlin_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 130 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 130 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13101 }
 		add_country_modifier = { modifier = tv_wonder_unique_teotihuacan_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 131 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 131 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13201 }
 		add_country_modifier = { modifier = tv_wonder_unique_angkor_hydraulic_system_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 132 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 132 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13301 }
 		add_country_modifier = { modifier = tv_wonder_unique_dutch_polders_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 133 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 133 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13401 }
 		add_country_modifier = { modifier = tv_wonder_unique_machu_picchu_terraces_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 134 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 134 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13501 }
 		add_country_modifier = { modifier = tv_wonder_unique_british_navy_dockyards_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 135 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 135 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13601 }
 		add_country_modifier = { modifier = tv_wonder_unique_spanish_silver_fleet_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 136 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 136 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13701 }
 		add_country_modifier = { modifier = tv_wonder_unique_ottoman_hajj_road_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 137 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 137 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13801 }
 		add_country_modifier = { modifier = tv_wonder_unique_persian_qanat_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 138 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 138 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 13901 }
 		add_country_modifier = { modifier = tv_wonder_unique_longjiang_shipyard_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 139 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 139 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14001 }
 		add_country_modifier = { modifier = tv_wonder_unique_jerusalem_holy_city_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 140 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 140 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14101 }
 		add_country_modifier = { modifier = tv_wonder_unique_stonehenge_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 141 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 141 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14201 }
 		add_country_modifier = { modifier = tv_wonder_unique_tower_of_london_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 142 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 142 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14301 }
 		add_country_modifier = { modifier = tv_wonder_unique_notre_dame_de_paris_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 143 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 143 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14401 }
 		add_country_modifier = { modifier = tv_wonder_unique_st_basils_cathedral_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 144 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 144 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14501 }
 		add_country_modifier = { modifier = tv_wonder_unique_trinity_lavra_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 145 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 145 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14601 }
 		add_country_modifier = { modifier = tv_wonder_unique_winter_palace_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 146 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 146 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14701 }
 		add_country_modifier = { modifier = tv_wonder_unique_gyeongbokgung_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 147 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 147 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14801 }
 		add_country_modifier = { modifier = tv_wonder_unique_changbai_mountain_altar_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 148 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 148 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 14901 }
 		add_country_modifier = { modifier = tv_wonder_unique_belgrade_fortress_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 149 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 149 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15001 }
 		add_country_modifier = { modifier = tv_wonder_unique_meteora_monasteries_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 150 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 150 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15101 }
 		add_country_modifier = { modifier = tv_wonder_unique_belem_tower_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 151 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 151 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15201 }
 		add_country_modifier = { modifier = tv_wonder_unique_iberian_inquisition_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 152 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 152 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15301 }
 		add_country_modifier = { modifier = tv_wonder_unique_santa_maria_del_fiore_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 153 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 153 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15401 }
 		add_country_modifier = { modifier = tv_wonder_unique_leaning_tower_of_pisa_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 154 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 154 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15501 }
 		add_country_modifier = { modifier = tv_wonder_unique_milan_cathedral_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 155 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 155 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15601 }
 		add_country_modifier = { modifier = tv_wonder_unique_vatican_archives_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 156 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 156 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15701 }
 		add_country_modifier = { modifier = tv_wonder_unique_temple_of_heaven_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 157 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 157 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15801 }
 		add_country_modifier = { modifier = tv_wonder_unique_dujiangyan_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 158 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 158 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 15901 }
 		add_country_modifier = { modifier = tv_wonder_unique_porcelain_tower_of_nanjing_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 159 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 159 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16001 }
 		add_country_modifier = { modifier = tv_wonder_unique_jingdezhen_imperial_kilns_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 160 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 160 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16101 }
 		add_country_modifier = { modifier = tv_wonder_unique_mogao_caves_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 161 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 161 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16201 }
 		add_country_modifier = { modifier = tv_wonder_unique_canton_thirteen_factories_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 162 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 162 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16301 }
 		add_country_modifier = { modifier = tv_wonder_unique_dardanelles_fortress_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 163 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 163 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16401 }
 		add_country_modifier = { modifier = tv_wonder_unique_escorial_monastery_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 164 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 164 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16501 }
 		add_country_modifier = { modifier = tv_wonder_unique_toledo_armory_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 165 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 165 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16601 }
 		add_country_modifier = { modifier = tv_wonder_unique_camino_de_santiago_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 166 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 166 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16701 }
 		add_country_modifier = { modifier = tv_wonder_unique_sagres_navigation_school_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 167 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 167 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16801 }
 		add_country_modifier = { modifier = tv_wonder_unique_milan_arsenal_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 168 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 168 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 16901 }
 		add_country_modifier = { modifier = tv_wonder_unique_university_of_bologna_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 169 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 169 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17001 }
 		add_country_modifier = { modifier = tv_wonder_unique_carrara_marble_quarries_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 170 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 170 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17101 }
 		add_country_modifier = { modifier = tv_wonder_unique_east_india_company_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 171 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 171 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17201 }
 		add_country_modifier = { modifier = tv_wonder_unique_peacock_throne_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 172 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 172 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17301 }
 		add_country_modifier = { modifier = tv_wonder_unique_varanasi_ghats_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 173 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 173 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17401 }
 		add_country_modifier = { modifier = tv_wonder_unique_brihadishvara_temple_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 174 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 174 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17501 }
 		add_country_modifier = { modifier = tv_wonder_unique_konark_sun_temple_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 175 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 175 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17601 }
 		add_country_modifier = { modifier = tv_wonder_unique_fatehpur_sikri_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 176 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 176 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17701 }
 		add_country_modifier = { modifier = tv_wonder_unique_calicut_port_city_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 177 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 177 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17801 }
 		add_country_modifier = { modifier = tv_wonder_unique_wieliczka_salt_mine_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 178 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 178 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 17901 }
 		add_country_modifier = { modifier = tv_wonder_unique_wawel_castle_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 179 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 179 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18001 }
 		add_country_modifier = { modifier = tv_wonder_unique_zamosc_ideal_city_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 180 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 180 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18101 }
 		add_country_modifier = { modifier = tv_wonder_unique_gdansk_port_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 181 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 181 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18201 }
 		add_country_modifier = { modifier = tv_wonder_unique_malbork_castle_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 182 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 182 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18301 }
 		add_country_modifier = { modifier = tv_wonder_unique_brest_synagogue_quarter_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 183 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 183 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18401 }
 		add_country_modifier = { modifier = tv_wonder_unique_vilnius_university_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 184 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 184 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18501 }
 		add_country_modifier = { modifier = tv_wonder_unique_cave_monastery_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 185 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 185 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18601 }
 		add_country_modifier = { modifier = tv_wonder_unique_zaporizhian_sich_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 186 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 186 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18701 }
 		add_country_modifier = { modifier = tv_wonder_unique_registan_square_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 187 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 187 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18801 }
 		add_country_modifier = { modifier = tv_wonder_unique_khiva_old_city_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 188 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 188 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 18901 }
 		add_country_modifier = { modifier = tv_wonder_unique_bukhara_kalyan_minaret_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 189 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 189 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19001 }
 		add_country_modifier = { modifier = tv_wonder_unique_ferghana_palace_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 190 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 190 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19101 }
 		add_country_modifier = { modifier = tv_wonder_unique_tashkent_old_bazaar_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 191 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 191 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19201 }
 		add_country_modifier = { modifier = tv_wonder_unique_louvre_palace_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 192 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 192 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19301 }
 		add_country_modifier = { modifier = tv_wonder_unique_fontainebleau_palace_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 193 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 193 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19401 }
 		add_country_modifier = { modifier = tv_wonder_unique_bordeaux_port_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 194 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 194 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19501 }
 		add_country_modifier = { modifier = tv_wonder_unique_marseille_old_port_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 195 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 195 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19601 }
 		add_country_modifier = { modifier = tv_wonder_unique_lyon_silk_workshops_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 196 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 196 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19701 }
 		add_country_modifier = { modifier = tv_wonder_unique_mont_saint_michel_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 197 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 197 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19801 }
 		add_country_modifier = { modifier = tv_wonder_unique_bastille_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 198 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 198 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 19901 }
 		add_country_modifier = { modifier = tv_wonder_unique_carcassonne_castle_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 199 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 199 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 20001 }
 		add_country_modifier = { modifier = tv_wonder_unique_brest_naval_port_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 200 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 200 value = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 20101 }
 		add_country_modifier = { modifier = tv_wonder_unique_colmar_old_town_ceremony_modifier years = -1 mode = add_and_extend }
+		remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 201 }
+		add_to_variable_map = { name = tv_wonder_unique_ritual_completed key = 201 value = 1 }
 	}
 }
 

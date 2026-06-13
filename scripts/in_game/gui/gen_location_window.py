@@ -73,6 +73,10 @@ def slot_ritual_style_var(slot_type: str, slot: int) -> str:
     return compact_slot_var(slot, "ritual_style") if slot_type == "compact" else tooltip_slot_var(slot, "ritual_style")
 
 
+def slot_ritual_completed_var(slot_type: str, slot: int) -> str:
+    return compact_slot_var(slot, "ritual_completed") if slot_type == "compact" else tooltip_slot_var(slot, "ritual_completed")
+
+
 def fixed_point_to_int_string(var_expr: str) -> str:
     return f"ToString_int32(FixedPointToInt({var_expr}.GetValue))"
 
@@ -104,7 +108,8 @@ def slot_has_id_expr(slot_type: str, slot: int) -> str:
 def slot_has_payload_expr(slot_type: str, slot: int) -> str:
     return (
         f"And({slot_id_var(slot_type, slot)}.IsSet, "
-        f"And({slot_level_var(slot_type, slot)}.IsSet, {slot_ritual_style_var(slot_type, slot)}.IsSet))"
+        f"And({slot_level_var(slot_type, slot)}.IsSet, "
+        f"And({slot_ritual_style_var(slot_type, slot)}.IsSet, {slot_ritual_completed_var(slot_type, slot)}.IsSet)))"
     )
 
 
@@ -114,7 +119,19 @@ def slot_level_is_expr(slot_type: str, slot: int, level: int) -> str:
 
 
 def slot_has_effect_payload_expr(slot_type: str, slot: int) -> str:
-    return f"And({slot_has_payload_expr(slot_type, slot)}, Not({slot_level_is_expr(slot_type, slot, 0)}))"
+    return (
+        f"And({slot_has_payload_expr(slot_type, slot)}, "
+        f"And(Not({slot_level_is_expr(slot_type, slot, 0)}), "
+        f"{var_enabled_expr(slot_ritual_completed_var(slot_type, slot))}))"
+    )
+
+
+def slot_no_effect_payload_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"And({slot_has_payload_expr(slot_type, slot)}, "
+        f"Or({slot_level_is_expr(slot_type, slot, 0)}, "
+        f"Not({var_enabled_expr(slot_ritual_completed_var(slot_type, slot))})))"
+    )
 
 
 def slot_name_expr(slot_type: str, slot: int) -> str:
@@ -495,7 +512,7 @@ def render_tooltip_modifier_column(indent: str, *, title_key: str, modifier_key:
 
 def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
     visible = slot_has_effect_payload_expr("tooltip", slot)
-    no_effect_visible = slot_level_is_expr("tooltip", slot, 0)
+    no_effect_visible = slot_no_effect_payload_expr("tooltip", slot)
     country_modifier_key = slot_modifier_key_expr("tooltip", slot)
     local_modifier_key = slot_local_modifier_key_expr("tooltip", slot)
     ritual_effect_key = slot_ritual_effect_key_expr("tooltip", slot)
