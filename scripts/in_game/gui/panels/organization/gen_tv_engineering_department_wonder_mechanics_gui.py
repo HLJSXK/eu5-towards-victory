@@ -68,9 +68,17 @@ PREVIEW_CONTENT_WIDTH = 454
 PREVIEW_MODIFIER_COLUMNS_WIDTH = 454
 PREVIEW_MODIFIER_COLUMN_WIDTH = 223
 PREVIEW_MODIFIER_COLUMN_SPACING = 8
+LOCKED_NAME_CARD_HEIGHT = 30
 PROPOSAL_SIZE_ROW_HEIGHT = 24
 PROPOSAL_SIZE_ROW_SPACING = 4
 PROPOSAL_PREVIEW_HEIGHT = PROPOSAL_SIZE_ROW_HEIGHT + PROPOSAL_SIZE_ROW_SPACING + PREVIEW_IMAGE_HEIGHT
+LOCKED_PREVIEW_HEIGHT = (
+    LOCKED_NAME_CARD_HEIGHT
+    + PROPOSAL_SIZE_ROW_SPACING
+    + PROPOSAL_SIZE_ROW_HEIGHT
+    + PROPOSAL_SIZE_ROW_SPACING
+    + PREVIEW_IMAGE_HEIGHT
+)
 PROPOSAL_SIZE_INACTIVE_ALPHA = 0.18
 PROPOSAL_SIZE_ACTIVE_ALPHA = 1.0
 PROPOSAL_SIZE_INDICATORS = [
@@ -156,6 +164,15 @@ def dynamic_image_texture(var_name: str) -> str:
 def dynamic_display_modifier_key(var_name: str, suffix: str) -> str:
     id_string = fixed_point_to_int_string(player_var(var_name))
     return f"Concatenate('tv_wonder_display_', Concatenate({id_string}, '{suffix}'))"
+
+
+def dynamic_locked_wonder_concept_link() -> str:
+    display_var = player_var("tv_wonder_locked_display_id")
+    id_string = fixed_point_to_int_string(display_var)
+    return (
+        f"[SelectGameConcept({display_var}.IsSet, "
+        f"Concatenate('tv_wonder_display_', {id_string}), 'tv_wonder_construction')]"
+    )
 
 
 def dynamic_ritual_concept_key(style: int) -> str:
@@ -804,6 +821,26 @@ def proposal_size_row(
     return lines
 
 
+def locked_wonder_name_card(indent: int, visible: str) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}widget = {{",
+        f'{prefix}{T}visible = "[{visible}]"',
+        f"{prefix}{T}layoutpolicy_horizontal = fixed",
+        f"{prefix}{T}layoutpolicy_vertical = fixed",
+        f"{prefix}{T}size = {{ {PREVIEW_PANEL_WIDTH} {LOCKED_NAME_CARD_HEIGHT} }}",
+        f"{prefix}{T}using = bg_paper_card_situations",
+        f"{prefix}{T}text_single = {{",
+        f'{prefix}{T}{T}text = "{dynamic_locked_wonder_concept_link()}"',
+        f"{prefix}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}max_width = {PREVIEW_CONTENT_WIDTH}",
+        f"{prefix}{T}{T}fontsize = 15",
+        f"{prefix}{T}{T}align = center|nobaseline",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
 def preview_widget(image_var_name: str, id_var_name: str, visible: str | None = None) -> str:
     var_expr = player_var(image_var_name)
     visible_expr = visible or f"{var_expr}.IsSet"
@@ -830,7 +867,7 @@ def locked_preview_widget(wonders: list[dict], visible: str) -> str:
         f'{T}visible = "[{visible}]"',
         f"{T}layoutpolicy_horizontal = fixed",
         f"{T}layoutpolicy_vertical = fixed",
-        f"{T}size = {{ {PREVIEW_PANEL_WIDTH} {PROPOSAL_PREVIEW_HEIGHT} }}",
+        f"{T}size = {{ {PREVIEW_PANEL_WIDTH} {LOCKED_PREVIEW_HEIGHT} }}",
         f"{T}vbox = {{",
         f"{T}{T}set_parent_size_to_minimum = yes",
         f"{T}{T}layoutpolicy_horizontal = expanding",
@@ -838,6 +875,7 @@ def locked_preview_widget(wonders: list[dict], visible: str) -> str:
         f"{T}{T}spacing = {PROPOSAL_SIZE_ROW_SPACING}",
         f"{T}{T}ignoreinvisible = yes",
     ]
+    lines.extend(locked_wonder_name_card(2, visible))
     lines.extend(proposal_size_row(wonders, 2, "tv_wonder_locked_display_id", visible))
     lines.extend(indent_lines(preview_widget("tv_wonder_locked_image_display_id", "tv_wonder_locked_display_id", visible), 2))
     lines.extend(
