@@ -15,7 +15,6 @@ from wonder_mechanics_lib import (
     ritual_plan_for_style,
     ritual_burden_modifier_name,
     unique_ceremony_modifier_name,
-    wonder_static_base_modifier_name,
     wonder_static_display_modifier_name,
     wonder_base_country_modifiers,
 )
@@ -60,8 +59,6 @@ def generate() -> str:
     for wonder in wonders:
         for level in range(1, 7):
             modifiers = wonder_base_country_modifiers(wonder, mechanics, level)
-            if modifiers:
-                lines.extend(modifier_block(wonder_static_base_modifier_name(wonder, level), modifiers))
             lines.extend(modifier_block(wonder_static_display_modifier_name(wonder, level), modifiers))
     for wonder in wonders:
         for style in ceremony_styles(wonder):

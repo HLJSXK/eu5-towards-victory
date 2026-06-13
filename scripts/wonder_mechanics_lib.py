@@ -1538,10 +1538,6 @@ def authored_final_building_local_modifiers(wonder: dict, mechanics: dict) -> di
     return scale_numeric_modifier_mapping(modifiers, wonder.get("base_effect_multiplier", 1))
 
 
-def wonder_static_base_modifier_name(wonder: dict, level: int) -> str:
-    return f"tv_wonder_{wonder['key']}_level_{level}"
-
-
 def wonder_static_display_modifier_name(wonder: dict, level: int) -> str:
     return f"tv_wonder_display_{wonder['id']}_level_{level}"
 

@@ -3,22 +3,10 @@
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py
 # Do not edit directly - modify the data file and re-run the generator.
 
-tv_wonder_sacred_mountain_level_1 = {
-	clergy_estate_max_tax = 0.1
-	clergy_estate_target_satisfaction = 0.05
-	monthly_towards_spiritualist = 0.05
-}
-
 tv_wonder_display_1_level_1 = {
 	clergy_estate_max_tax = 0.1
 	clergy_estate_target_satisfaction = 0.05
 	monthly_towards_spiritualist = 0.05
-}
-
-tv_wonder_sacred_mountain_level_2 = {
-	clergy_estate_max_tax = 0.2
-	clergy_estate_target_satisfaction = 0.1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_1_level_2 = {
@@ -27,22 +15,10 @@ tv_wonder_display_1_level_2 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_sacred_mountain_level_3 = {
-	clergy_estate_max_tax = 0.3
-	clergy_estate_target_satisfaction = 0.15
-	monthly_towards_spiritualist = 0.15
-}
-
 tv_wonder_display_1_level_3 = {
 	clergy_estate_max_tax = 0.3
 	clergy_estate_target_satisfaction = 0.15
 	monthly_towards_spiritualist = 0.15
-}
-
-tv_wonder_sacred_mountain_level_4 = {
-	clergy_estate_max_tax = 0.4
-	clergy_estate_target_satisfaction = 0.2
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_1_level_4 = {
@@ -51,22 +27,10 @@ tv_wonder_display_1_level_4 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_sacred_mountain_level_5 = {
-	clergy_estate_max_tax = 0.5
-	clergy_estate_target_satisfaction = 0.25
-	monthly_towards_spiritualist = 0.25
-}
-
 tv_wonder_display_1_level_5 = {
 	clergy_estate_max_tax = 0.5
 	clergy_estate_target_satisfaction = 0.25
 	monthly_towards_spiritualist = 0.25
-}
-
-tv_wonder_sacred_mountain_level_6 = {
-	clergy_estate_max_tax = 0.6
-	clergy_estate_target_satisfaction = 0.3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_1_level_6 = {
@@ -75,19 +39,9 @@ tv_wonder_display_1_level_6 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_triumphal_axis_level_1 = {
-	monthly_legitimacy = 0.05
-	monthly_towards_centralization = 0.05
-}
-
 tv_wonder_display_2_level_1 = {
 	monthly_legitimacy = 0.05
 	monthly_towards_centralization = 0.05
-}
-
-tv_wonder_triumphal_axis_level_2 = {
-	monthly_legitimacy = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_2_level_2 = {
@@ -95,19 +49,9 @@ tv_wonder_display_2_level_2 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_triumphal_axis_level_3 = {
-	monthly_legitimacy = 0.15
-	monthly_towards_centralization = 0.15
-}
-
 tv_wonder_display_2_level_3 = {
 	monthly_legitimacy = 0.15
 	monthly_towards_centralization = 0.15
-}
-
-tv_wonder_triumphal_axis_level_4 = {
-	monthly_legitimacy = 0.2
-	monthly_towards_centralization = 0.2
 }
 
 tv_wonder_display_2_level_4 = {
@@ -115,19 +59,9 @@ tv_wonder_display_2_level_4 = {
 	monthly_towards_centralization = 0.2
 }
 
-tv_wonder_triumphal_axis_level_5 = {
-	monthly_legitimacy = 0.25
-	monthly_towards_centralization = 0.25
-}
-
 tv_wonder_display_2_level_5 = {
 	monthly_legitimacy = 0.25
 	monthly_towards_centralization = 0.25
-}
-
-tv_wonder_triumphal_axis_level_6 = {
-	monthly_legitimacy = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_2_level_6 = {
@@ -135,58 +69,28 @@ tv_wonder_display_2_level_6 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_great_port_level_1 = {
-	monthly_towards_naval = 0.05
-}
-
 tv_wonder_display_3_level_1 = {
 	monthly_towards_naval = 0.05
-}
-
-tv_wonder_great_port_level_2 = {
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_3_level_2 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_great_port_level_3 = {
-	monthly_towards_naval = 0.15
-}
-
 tv_wonder_display_3_level_3 = {
 	monthly_towards_naval = 0.15
-}
-
-tv_wonder_great_port_level_4 = {
-	monthly_towards_naval = 0.2
 }
 
 tv_wonder_display_3_level_4 = {
 	monthly_towards_naval = 0.2
 }
 
-tv_wonder_great_port_level_5 = {
-	monthly_towards_naval = 0.25
-}
-
 tv_wonder_display_3_level_5 = {
 	monthly_towards_naval = 0.25
 }
 
-tv_wonder_great_port_level_6 = {
-	monthly_towards_naval = 0.3
-}
-
 tv_wonder_display_3_level_6 = {
 	monthly_towards_naval = 0.3
-}
-
-tv_wonder_giant_necropolis_level_1 = {
-	pop_join_rebel_threshold = -0.025
-	pop_leave_rebels_threshold = -0.025
-	monthly_towards_traditionalist = 0.05
 }
 
 tv_wonder_display_4_level_1 = {
@@ -195,22 +99,10 @@ tv_wonder_display_4_level_1 = {
 	monthly_towards_traditionalist = 0.05
 }
 
-tv_wonder_giant_necropolis_level_2 = {
-	pop_join_rebel_threshold = -0.05
-	pop_leave_rebels_threshold = -0.05
-	monthly_towards_traditionalist = 0.1
-}
-
 tv_wonder_display_4_level_2 = {
 	pop_join_rebel_threshold = -0.05
 	pop_leave_rebels_threshold = -0.05
 	monthly_towards_traditionalist = 0.1
-}
-
-tv_wonder_giant_necropolis_level_3 = {
-	pop_join_rebel_threshold = -0.075
-	pop_leave_rebels_threshold = -0.075
-	monthly_towards_traditionalist = 0.15
 }
 
 tv_wonder_display_4_level_3 = {
@@ -219,22 +111,10 @@ tv_wonder_display_4_level_3 = {
 	monthly_towards_traditionalist = 0.15
 }
 
-tv_wonder_giant_necropolis_level_4 = {
-	pop_join_rebel_threshold = -0.1
-	pop_leave_rebels_threshold = -0.1
-	monthly_towards_traditionalist = 0.2
-}
-
 tv_wonder_display_4_level_4 = {
 	pop_join_rebel_threshold = -0.1
 	pop_leave_rebels_threshold = -0.1
 	monthly_towards_traditionalist = 0.2
-}
-
-tv_wonder_giant_necropolis_level_5 = {
-	pop_join_rebel_threshold = -0.125
-	pop_leave_rebels_threshold = -0.125
-	monthly_towards_traditionalist = 0.25
 }
 
 tv_wonder_display_4_level_5 = {
@@ -243,23 +123,10 @@ tv_wonder_display_4_level_5 = {
 	monthly_towards_traditionalist = 0.25
 }
 
-tv_wonder_giant_necropolis_level_6 = {
-	pop_join_rebel_threshold = -0.15
-	pop_leave_rebels_threshold = -0.15
-	monthly_towards_traditionalist = 0.3
-}
-
 tv_wonder_display_4_level_6 = {
 	pop_join_rebel_threshold = -0.15
 	pop_leave_rebels_threshold = -0.15
 	monthly_towards_traditionalist = 0.3
-}
-
-tv_wonder_great_lighthouse_level_1 = {
-	trade_range = 200
-	naval_range = 200
-	colonial_range = 200
-	monthly_towards_naval = 0.05
 }
 
 tv_wonder_display_5_level_1 = {
@@ -269,25 +136,11 @@ tv_wonder_display_5_level_1 = {
 	monthly_towards_naval = 0.05
 }
 
-tv_wonder_great_lighthouse_level_2 = {
-	trade_range = 400
-	naval_range = 400
-	colonial_range = 400
-	monthly_towards_naval = 0.1
-}
-
 tv_wonder_display_5_level_2 = {
 	trade_range = 400
 	naval_range = 400
 	colonial_range = 400
 	monthly_towards_naval = 0.1
-}
-
-tv_wonder_great_lighthouse_level_3 = {
-	trade_range = 600
-	naval_range = 600
-	colonial_range = 600
-	monthly_towards_naval = 0.15
 }
 
 tv_wonder_display_5_level_3 = {
@@ -297,25 +150,11 @@ tv_wonder_display_5_level_3 = {
 	monthly_towards_naval = 0.15
 }
 
-tv_wonder_great_lighthouse_level_4 = {
-	trade_range = 800
-	naval_range = 800
-	colonial_range = 800
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_5_level_4 = {
 	trade_range = 800
 	naval_range = 800
 	colonial_range = 800
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_great_lighthouse_level_5 = {
-	trade_range = 1000
-	naval_range = 1000
-	colonial_range = 1000
-	monthly_towards_naval = 0.25
 }
 
 tv_wonder_display_5_level_5 = {
@@ -325,13 +164,6 @@ tv_wonder_display_5_level_5 = {
 	monthly_towards_naval = 0.25
 }
 
-tv_wonder_great_lighthouse_level_6 = {
-	trade_range = 1200
-	naval_range = 1200
-	colonial_range = 1200
-	monthly_towards_naval = 0.3
-}
-
 tv_wonder_display_5_level_6 = {
 	trade_range = 1200
 	naval_range = 1200
@@ -339,105 +171,52 @@ tv_wonder_display_5_level_6 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_hydraulic_workshop_level_1 = {
-	monthly_towards_capital_economy = 0.05
-}
-
 tv_wonder_display_6_level_1 = {
 	monthly_towards_capital_economy = 0.05
-}
-
-tv_wonder_hydraulic_workshop_level_2 = {
-	monthly_towards_capital_economy = 0.1
 }
 
 tv_wonder_display_6_level_2 = {
 	monthly_towards_capital_economy = 0.1
 }
 
-tv_wonder_hydraulic_workshop_level_3 = {
-	monthly_towards_capital_economy = 0.15
-}
-
 tv_wonder_display_6_level_3 = {
 	monthly_towards_capital_economy = 0.15
-}
-
-tv_wonder_hydraulic_workshop_level_4 = {
-	monthly_towards_capital_economy = 0.2
 }
 
 tv_wonder_display_6_level_4 = {
 	monthly_towards_capital_economy = 0.2
 }
 
-tv_wonder_hydraulic_workshop_level_5 = {
-	monthly_towards_capital_economy = 0.25
-}
-
 tv_wonder_display_6_level_5 = {
 	monthly_towards_capital_economy = 0.25
-}
-
-tv_wonder_hydraulic_workshop_level_6 = {
-	monthly_towards_capital_economy = 0.3
 }
 
 tv_wonder_display_6_level_6 = {
 	monthly_towards_capital_economy = 0.3
 }
 
-tv_wonder_mining_city_level_1 = {
-	monthly_towards_traditional_economy = 0.05
-}
-
 tv_wonder_display_7_level_1 = {
 	monthly_towards_traditional_economy = 0.05
-}
-
-tv_wonder_mining_city_level_2 = {
-	monthly_towards_traditional_economy = 0.1
 }
 
 tv_wonder_display_7_level_2 = {
 	monthly_towards_traditional_economy = 0.1
 }
 
-tv_wonder_mining_city_level_3 = {
-	monthly_towards_traditional_economy = 0.15
-}
-
 tv_wonder_display_7_level_3 = {
 	monthly_towards_traditional_economy = 0.15
-}
-
-tv_wonder_mining_city_level_4 = {
-	monthly_towards_traditional_economy = 0.2
 }
 
 tv_wonder_display_7_level_4 = {
 	monthly_towards_traditional_economy = 0.2
 }
 
-tv_wonder_mining_city_level_5 = {
-	monthly_towards_traditional_economy = 0.25
-}
-
 tv_wonder_display_7_level_5 = {
 	monthly_towards_traditional_economy = 0.25
 }
 
-tv_wonder_mining_city_level_6 = {
-	monthly_towards_traditional_economy = 0.3
-}
-
 tv_wonder_display_7_level_6 = {
 	monthly_towards_traditional_economy = 0.3
-}
-
-tv_wonder_giant_observatory_level_1 = {
-	research_speed = 0.05
-	monthly_towards_innovative = 0.05
 }
 
 tv_wonder_display_8_level_1 = {
@@ -445,19 +224,9 @@ tv_wonder_display_8_level_1 = {
 	monthly_towards_innovative = 0.05
 }
 
-tv_wonder_giant_observatory_level_2 = {
-	research_speed = 0.1
-	monthly_towards_innovative = 0.1
-}
-
 tv_wonder_display_8_level_2 = {
 	research_speed = 0.1
 	monthly_towards_innovative = 0.1
-}
-
-tv_wonder_giant_observatory_level_3 = {
-	research_speed = 0.15
-	monthly_towards_innovative = 0.15
 }
 
 tv_wonder_display_8_level_3 = {
@@ -465,19 +234,9 @@ tv_wonder_display_8_level_3 = {
 	monthly_towards_innovative = 0.15
 }
 
-tv_wonder_giant_observatory_level_4 = {
-	research_speed = 0.2
-	monthly_towards_innovative = 0.2
-}
-
 tv_wonder_display_8_level_4 = {
 	research_speed = 0.2
 	monthly_towards_innovative = 0.2
-}
-
-tv_wonder_giant_observatory_level_5 = {
-	research_speed = 0.25
-	monthly_towards_innovative = 0.25
 }
 
 tv_wonder_display_8_level_5 = {
@@ -485,19 +244,9 @@ tv_wonder_display_8_level_5 = {
 	monthly_towards_innovative = 0.25
 }
 
-tv_wonder_giant_observatory_level_6 = {
-	research_speed = 0.3
-	monthly_towards_innovative = 0.3
-}
-
 tv_wonder_display_8_level_6 = {
 	research_speed = 0.3
 	monthly_towards_innovative = 0.3
-}
-
-tv_wonder_palace_of_nations_level_1 = {
-	global_distance_from_capital_speed_propagation = 0.05
-	monthly_towards_centralization = 0.05
 }
 
 tv_wonder_display_9_level_1 = {
@@ -505,19 +254,9 @@ tv_wonder_display_9_level_1 = {
 	monthly_towards_centralization = 0.05
 }
 
-tv_wonder_palace_of_nations_level_2 = {
-	global_distance_from_capital_speed_propagation = 0.1
-	monthly_towards_centralization = 0.1
-}
-
 tv_wonder_display_9_level_2 = {
 	global_distance_from_capital_speed_propagation = 0.1
 	monthly_towards_centralization = 0.1
-}
-
-tv_wonder_palace_of_nations_level_3 = {
-	global_distance_from_capital_speed_propagation = 0.15
-	monthly_towards_centralization = 0.15
 }
 
 tv_wonder_display_9_level_3 = {
@@ -525,19 +264,9 @@ tv_wonder_display_9_level_3 = {
 	monthly_towards_centralization = 0.15
 }
 
-tv_wonder_palace_of_nations_level_4 = {
-	global_distance_from_capital_speed_propagation = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_9_level_4 = {
 	global_distance_from_capital_speed_propagation = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_palace_of_nations_level_5 = {
-	global_distance_from_capital_speed_propagation = 0.25
-	monthly_towards_centralization = 0.25
 }
 
 tv_wonder_display_9_level_5 = {
@@ -545,67 +274,33 @@ tv_wonder_display_9_level_5 = {
 	monthly_towards_centralization = 0.25
 }
 
-tv_wonder_palace_of_nations_level_6 = {
-	global_distance_from_capital_speed_propagation = 0.3
-	monthly_towards_centralization = 0.3
-}
-
 tv_wonder_display_9_level_6 = {
 	global_distance_from_capital_speed_propagation = 0.3
 	monthly_towards_centralization = 0.3
-}
-
-tv_wonder_university_city_level_1 = {
-	monthly_towards_innovative = 0.05
 }
 
 tv_wonder_display_10_level_1 = {
 	monthly_towards_innovative = 0.05
 }
 
-tv_wonder_university_city_level_2 = {
-	monthly_towards_innovative = 0.1
-}
-
 tv_wonder_display_10_level_2 = {
 	monthly_towards_innovative = 0.1
-}
-
-tv_wonder_university_city_level_3 = {
-	monthly_towards_innovative = 0.15
 }
 
 tv_wonder_display_10_level_3 = {
 	monthly_towards_innovative = 0.15
 }
 
-tv_wonder_university_city_level_4 = {
-	monthly_towards_innovative = 0.2
-}
-
 tv_wonder_display_10_level_4 = {
 	monthly_towards_innovative = 0.2
-}
-
-tv_wonder_university_city_level_5 = {
-	monthly_towards_innovative = 0.25
 }
 
 tv_wonder_display_10_level_5 = {
 	monthly_towards_innovative = 0.25
 }
 
-tv_wonder_university_city_level_6 = {
-	monthly_towards_innovative = 0.3
-}
-
 tv_wonder_display_10_level_6 = {
 	monthly_towards_innovative = 0.3
-}
-
-tv_wonder_sky_dome_grand_temple_level_1 = {
-	global_pop_conversion_speed = 0.002
-	monthly_towards_spiritualist = 0.05
 }
 
 tv_wonder_display_11_level_1 = {
@@ -613,19 +308,9 @@ tv_wonder_display_11_level_1 = {
 	monthly_towards_spiritualist = 0.05
 }
 
-tv_wonder_sky_dome_grand_temple_level_2 = {
-	global_pop_conversion_speed = 0.004
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_11_level_2 = {
 	global_pop_conversion_speed = 0.004
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_sky_dome_grand_temple_level_3 = {
-	global_pop_conversion_speed = 0.006
-	monthly_towards_spiritualist = 0.15
 }
 
 tv_wonder_display_11_level_3 = {
@@ -633,19 +318,9 @@ tv_wonder_display_11_level_3 = {
 	monthly_towards_spiritualist = 0.15
 }
 
-tv_wonder_sky_dome_grand_temple_level_4 = {
-	global_pop_conversion_speed = 0.008
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_11_level_4 = {
 	global_pop_conversion_speed = 0.008
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_sky_dome_grand_temple_level_5 = {
-	global_pop_conversion_speed = 0.01
-	monthly_towards_spiritualist = 0.25
 }
 
 tv_wonder_display_11_level_5 = {
@@ -653,115 +328,57 @@ tv_wonder_display_11_level_5 = {
 	monthly_towards_spiritualist = 0.25
 }
 
-tv_wonder_sky_dome_grand_temple_level_6 = {
-	global_pop_conversion_speed = 0.012
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_11_level_6 = {
 	global_pop_conversion_speed = 0.012
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_giant_tower_temple_level_1 = {
-	monthly_towards_spiritualist = 0.05
 }
 
 tv_wonder_display_12_level_1 = {
 	monthly_towards_spiritualist = 0.05
 }
 
-tv_wonder_giant_tower_temple_level_2 = {
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_12_level_2 = {
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_giant_tower_temple_level_3 = {
-	monthly_towards_spiritualist = 0.15
 }
 
 tv_wonder_display_12_level_3 = {
 	monthly_towards_spiritualist = 0.15
 }
 
-tv_wonder_giant_tower_temple_level_4 = {
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_12_level_4 = {
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_giant_tower_temple_level_5 = {
-	monthly_towards_spiritualist = 0.25
 }
 
 tv_wonder_display_12_level_5 = {
 	monthly_towards_spiritualist = 0.25
 }
 
-tv_wonder_giant_tower_temple_level_6 = {
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_12_level_6 = {
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_river_extension_level_1 = {
-	monthly_towards_free_subjects = 0.05
 }
 
 tv_wonder_display_13_level_1 = {
 	monthly_towards_free_subjects = 0.05
 }
 
-tv_wonder_river_extension_level_2 = {
-	monthly_towards_free_subjects = 0.1
-}
-
 tv_wonder_display_13_level_2 = {
 	monthly_towards_free_subjects = 0.1
-}
-
-tv_wonder_river_extension_level_3 = {
-	monthly_towards_free_subjects = 0.15
 }
 
 tv_wonder_display_13_level_3 = {
 	monthly_towards_free_subjects = 0.15
 }
 
-tv_wonder_river_extension_level_4 = {
-	monthly_towards_free_subjects = 0.2
-}
-
 tv_wonder_display_13_level_4 = {
 	monthly_towards_free_subjects = 0.2
-}
-
-tv_wonder_river_extension_level_5 = {
-	monthly_towards_free_subjects = 0.25
 }
 
 tv_wonder_display_13_level_5 = {
 	monthly_towards_free_subjects = 0.25
 }
 
-tv_wonder_river_extension_level_6 = {
-	monthly_towards_free_subjects = 0.3
-}
-
 tv_wonder_display_13_level_6 = {
 	monthly_towards_free_subjects = 0.3
-}
-
-tv_wonder_national_shipyard_level_1 = {
-	ship_build_speed = 0.2
-	monthly_towards_naval = 0.05
 }
 
 tv_wonder_display_14_level_1 = {
@@ -769,19 +386,9 @@ tv_wonder_display_14_level_1 = {
 	monthly_towards_naval = 0.05
 }
 
-tv_wonder_national_shipyard_level_2 = {
-	ship_build_speed = 0.4
-	monthly_towards_naval = 0.1
-}
-
 tv_wonder_display_14_level_2 = {
 	ship_build_speed = 0.4
 	monthly_towards_naval = 0.1
-}
-
-tv_wonder_national_shipyard_level_3 = {
-	ship_build_speed = 0.6
-	monthly_towards_naval = 0.15
 }
 
 tv_wonder_display_14_level_3 = {
@@ -789,19 +396,9 @@ tv_wonder_display_14_level_3 = {
 	monthly_towards_naval = 0.15
 }
 
-tv_wonder_national_shipyard_level_4 = {
-	ship_build_speed = 0.8
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_14_level_4 = {
 	ship_build_speed = 0.8
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_national_shipyard_level_5 = {
-	ship_build_speed = 1
-	monthly_towards_naval = 0.25
 }
 
 tv_wonder_display_14_level_5 = {
@@ -809,163 +406,81 @@ tv_wonder_display_14_level_5 = {
 	monthly_towards_naval = 0.25
 }
 
-tv_wonder_national_shipyard_level_6 = {
-	ship_build_speed = 1.2
-	monthly_towards_naval = 0.3
-}
-
 tv_wonder_display_14_level_6 = {
 	ship_build_speed = 1.2
 	monthly_towards_naval = 0.3
-}
-
-tv_wonder_star_fortress_city_level_1 = {
-	monthly_towards_defensive = 0.05
 }
 
 tv_wonder_display_15_level_1 = {
 	monthly_towards_defensive = 0.05
 }
 
-tv_wonder_star_fortress_city_level_2 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_15_level_2 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_star_fortress_city_level_3 = {
-	monthly_towards_defensive = 0.15
 }
 
 tv_wonder_display_15_level_3 = {
 	monthly_towards_defensive = 0.15
 }
 
-tv_wonder_star_fortress_city_level_4 = {
-	monthly_towards_defensive = 0.2
-}
-
 tv_wonder_display_15_level_4 = {
 	monthly_towards_defensive = 0.2
-}
-
-tv_wonder_star_fortress_city_level_5 = {
-	monthly_towards_defensive = 0.25
 }
 
 tv_wonder_display_15_level_5 = {
 	monthly_towards_defensive = 0.25
 }
 
-tv_wonder_star_fortress_city_level_6 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_15_level_6 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_great_wall_level_1 = {
-	monthly_towards_defensive = 0.05
 }
 
 tv_wonder_display_16_level_1 = {
 	monthly_towards_defensive = 0.05
 }
 
-tv_wonder_great_wall_level_2 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_16_level_2 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_great_wall_level_3 = {
-	monthly_towards_defensive = 0.15
 }
 
 tv_wonder_display_16_level_3 = {
 	monthly_towards_defensive = 0.15
 }
 
-tv_wonder_great_wall_level_4 = {
-	monthly_towards_defensive = 0.2
-}
-
 tv_wonder_display_16_level_4 = {
 	monthly_towards_defensive = 0.2
-}
-
-tv_wonder_great_wall_level_5 = {
-	monthly_towards_defensive = 0.25
 }
 
 tv_wonder_display_16_level_5 = {
 	monthly_towards_defensive = 0.25
 }
 
-tv_wonder_great_wall_level_6 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_16_level_6 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_giant_armory_level_1 = {
-	monthly_towards_offensive = 0.05
 }
 
 tv_wonder_display_17_level_1 = {
 	monthly_towards_offensive = 0.05
 }
 
-tv_wonder_giant_armory_level_2 = {
-	monthly_towards_offensive = 0.1
-}
-
 tv_wonder_display_17_level_2 = {
 	monthly_towards_offensive = 0.1
-}
-
-tv_wonder_giant_armory_level_3 = {
-	monthly_towards_offensive = 0.15
 }
 
 tv_wonder_display_17_level_3 = {
 	monthly_towards_offensive = 0.15
 }
 
-tv_wonder_giant_armory_level_4 = {
-	monthly_towards_offensive = 0.2
-}
-
 tv_wonder_display_17_level_4 = {
 	monthly_towards_offensive = 0.2
-}
-
-tv_wonder_giant_armory_level_5 = {
-	monthly_towards_offensive = 0.25
 }
 
 tv_wonder_display_17_level_5 = {
 	monthly_towards_offensive = 0.25
 }
 
-tv_wonder_giant_armory_level_6 = {
-	monthly_towards_offensive = 0.3
-}
-
 tv_wonder_display_17_level_6 = {
 	monthly_towards_offensive = 0.3
-}
-
-tv_wonder_library_of_nation_level_1 = {
-	global_pop_promotion_speed = 0.005
-	monthly_towards_innovative = 0.05
 }
 
 tv_wonder_display_18_level_1 = {
@@ -973,19 +488,9 @@ tv_wonder_display_18_level_1 = {
 	monthly_towards_innovative = 0.05
 }
 
-tv_wonder_library_of_nation_level_2 = {
-	global_pop_promotion_speed = 0.01
-	monthly_towards_innovative = 0.1
-}
-
 tv_wonder_display_18_level_2 = {
 	global_pop_promotion_speed = 0.01
 	monthly_towards_innovative = 0.1
-}
-
-tv_wonder_library_of_nation_level_3 = {
-	global_pop_promotion_speed = 0.015
-	monthly_towards_innovative = 0.15
 }
 
 tv_wonder_display_18_level_3 = {
@@ -993,19 +498,9 @@ tv_wonder_display_18_level_3 = {
 	monthly_towards_innovative = 0.15
 }
 
-tv_wonder_library_of_nation_level_4 = {
-	global_pop_promotion_speed = 0.02
-	monthly_towards_innovative = 0.2
-}
-
 tv_wonder_display_18_level_4 = {
 	global_pop_promotion_speed = 0.02
 	monthly_towards_innovative = 0.2
-}
-
-tv_wonder_library_of_nation_level_5 = {
-	global_pop_promotion_speed = 0.025
-	monthly_towards_innovative = 0.25
 }
 
 tv_wonder_display_18_level_5 = {
@@ -1013,19 +508,9 @@ tv_wonder_display_18_level_5 = {
 	monthly_towards_innovative = 0.25
 }
 
-tv_wonder_library_of_nation_level_6 = {
-	global_pop_promotion_speed = 0.03
-	monthly_towards_innovative = 0.3
-}
-
 tv_wonder_display_18_level_6 = {
 	global_pop_promotion_speed = 0.03
 	monthly_towards_innovative = 0.3
-}
-
-tv_wonder_large_canal_system_level_1 = {
-	global_monthly_prosperity = 0.05
-	monthly_towards_free_subjects = 0.05
 }
 
 tv_wonder_display_19_level_1 = {
@@ -1033,19 +518,9 @@ tv_wonder_display_19_level_1 = {
 	monthly_towards_free_subjects = 0.05
 }
 
-tv_wonder_large_canal_system_level_2 = {
-	global_monthly_prosperity = 0.1
-	monthly_towards_free_subjects = 0.1
-}
-
 tv_wonder_display_19_level_2 = {
 	global_monthly_prosperity = 0.1
 	monthly_towards_free_subjects = 0.1
-}
-
-tv_wonder_large_canal_system_level_3 = {
-	global_monthly_prosperity = 0.15
-	monthly_towards_free_subjects = 0.15
 }
 
 tv_wonder_display_19_level_3 = {
@@ -1053,19 +528,9 @@ tv_wonder_display_19_level_3 = {
 	monthly_towards_free_subjects = 0.15
 }
 
-tv_wonder_large_canal_system_level_4 = {
-	global_monthly_prosperity = 0.2
-	monthly_towards_free_subjects = 0.2
-}
-
 tv_wonder_display_19_level_4 = {
 	global_monthly_prosperity = 0.2
 	monthly_towards_free_subjects = 0.2
-}
-
-tv_wonder_large_canal_system_level_5 = {
-	global_monthly_prosperity = 0.25
-	monthly_towards_free_subjects = 0.25
 }
 
 tv_wonder_display_19_level_5 = {
@@ -1073,115 +538,57 @@ tv_wonder_display_19_level_5 = {
 	monthly_towards_free_subjects = 0.25
 }
 
-tv_wonder_large_canal_system_level_6 = {
-	global_monthly_prosperity = 0.3
-	monthly_towards_free_subjects = 0.3
-}
-
 tv_wonder_display_19_level_6 = {
 	global_monthly_prosperity = 0.3
 	monthly_towards_free_subjects = 0.3
-}
-
-tv_wonder_mountain_terrace_network_level_1 = {
-	monthly_towards_traditional_economy = 0.05
 }
 
 tv_wonder_display_20_level_1 = {
 	monthly_towards_traditional_economy = 0.05
 }
 
-tv_wonder_mountain_terrace_network_level_2 = {
-	monthly_towards_traditional_economy = 0.1
-}
-
 tv_wonder_display_20_level_2 = {
 	monthly_towards_traditional_economy = 0.1
-}
-
-tv_wonder_mountain_terrace_network_level_3 = {
-	monthly_towards_traditional_economy = 0.15
 }
 
 tv_wonder_display_20_level_3 = {
 	monthly_towards_traditional_economy = 0.15
 }
 
-tv_wonder_mountain_terrace_network_level_4 = {
-	monthly_towards_traditional_economy = 0.2
-}
-
 tv_wonder_display_20_level_4 = {
 	monthly_towards_traditional_economy = 0.2
-}
-
-tv_wonder_mountain_terrace_network_level_5 = {
-	monthly_towards_traditional_economy = 0.25
 }
 
 tv_wonder_display_20_level_5 = {
 	monthly_towards_traditional_economy = 0.25
 }
 
-tv_wonder_mountain_terrace_network_level_6 = {
-	monthly_towards_traditional_economy = 0.3
-}
-
 tv_wonder_display_20_level_6 = {
 	monthly_towards_traditional_economy = 0.3
-}
-
-tv_wonder_giant_dam_project_level_1 = {
-	monthly_towards_free_subjects = 0.05
 }
 
 tv_wonder_display_21_level_1 = {
 	monthly_towards_free_subjects = 0.05
 }
 
-tv_wonder_giant_dam_project_level_2 = {
-	monthly_towards_free_subjects = 0.1
-}
-
 tv_wonder_display_21_level_2 = {
 	monthly_towards_free_subjects = 0.1
-}
-
-tv_wonder_giant_dam_project_level_3 = {
-	monthly_towards_free_subjects = 0.15
 }
 
 tv_wonder_display_21_level_3 = {
 	monthly_towards_free_subjects = 0.15
 }
 
-tv_wonder_giant_dam_project_level_4 = {
-	monthly_towards_free_subjects = 0.2
-}
-
 tv_wonder_display_21_level_4 = {
 	monthly_towards_free_subjects = 0.2
-}
-
-tv_wonder_giant_dam_project_level_5 = {
-	monthly_towards_free_subjects = 0.25
 }
 
 tv_wonder_display_21_level_5 = {
 	monthly_towards_free_subjects = 0.25
 }
 
-tv_wonder_giant_dam_project_level_6 = {
-	monthly_towards_free_subjects = 0.3
-}
-
 tv_wonder_display_21_level_6 = {
 	monthly_towards_free_subjects = 0.3
-}
-
-tv_wonder_royal_granary_system_level_1 = {
-	global_food_capacity_modifier = 0.2
-	monthly_towards_traditional_economy = 0.05
 }
 
 tv_wonder_display_22_level_1 = {
@@ -1189,19 +596,9 @@ tv_wonder_display_22_level_1 = {
 	monthly_towards_traditional_economy = 0.05
 }
 
-tv_wonder_royal_granary_system_level_2 = {
-	global_food_capacity_modifier = 0.4
-	monthly_towards_traditional_economy = 0.1
-}
-
 tv_wonder_display_22_level_2 = {
 	global_food_capacity_modifier = 0.4
 	monthly_towards_traditional_economy = 0.1
-}
-
-tv_wonder_royal_granary_system_level_3 = {
-	global_food_capacity_modifier = 0.6
-	monthly_towards_traditional_economy = 0.15
 }
 
 tv_wonder_display_22_level_3 = {
@@ -1209,19 +606,9 @@ tv_wonder_display_22_level_3 = {
 	monthly_towards_traditional_economy = 0.15
 }
 
-tv_wonder_royal_granary_system_level_4 = {
-	global_food_capacity_modifier = 0.8
-	monthly_towards_traditional_economy = 0.2
-}
-
 tv_wonder_display_22_level_4 = {
 	global_food_capacity_modifier = 0.8
 	monthly_towards_traditional_economy = 0.2
-}
-
-tv_wonder_royal_granary_system_level_5 = {
-	global_food_capacity_modifier = 1
-	monthly_towards_traditional_economy = 0.25
 }
 
 tv_wonder_display_22_level_5 = {
@@ -1229,259 +616,129 @@ tv_wonder_display_22_level_5 = {
 	monthly_towards_traditional_economy = 0.25
 }
 
-tv_wonder_royal_granary_system_level_6 = {
-	global_food_capacity_modifier = 1.2
-	monthly_towards_traditional_economy = 0.3
-}
-
 tv_wonder_display_22_level_6 = {
 	global_food_capacity_modifier = 1.2
 	monthly_towards_traditional_economy = 0.3
-}
-
-tv_wonder_imperial_post_road_network_level_1 = {
-	monthly_towards_centralization = 0.05
 }
 
 tv_wonder_display_23_level_1 = {
 	monthly_towards_centralization = 0.05
 }
 
-tv_wonder_imperial_post_road_network_level_2 = {
-	monthly_towards_centralization = 0.1
-}
-
 tv_wonder_display_23_level_2 = {
 	monthly_towards_centralization = 0.1
-}
-
-tv_wonder_imperial_post_road_network_level_3 = {
-	monthly_towards_centralization = 0.15
 }
 
 tv_wonder_display_23_level_3 = {
 	monthly_towards_centralization = 0.15
 }
 
-tv_wonder_imperial_post_road_network_level_4 = {
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_23_level_4 = {
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_imperial_post_road_network_level_5 = {
-	monthly_towards_centralization = 0.25
 }
 
 tv_wonder_display_23_level_5 = {
 	monthly_towards_centralization = 0.25
 }
 
-tv_wonder_imperial_post_road_network_level_6 = {
-	monthly_towards_centralization = 0.3
-}
-
 tv_wonder_display_23_level_6 = {
 	monthly_towards_centralization = 0.3
-}
-
-tv_wonder_canal_hub_city_level_1 = {
-	monthly_towards_mercantilism = 0.05
 }
 
 tv_wonder_display_24_level_1 = {
 	monthly_towards_mercantilism = 0.05
 }
 
-tv_wonder_canal_hub_city_level_2 = {
-	monthly_towards_mercantilism = 0.1
-}
-
 tv_wonder_display_24_level_2 = {
 	monthly_towards_mercantilism = 0.1
-}
-
-tv_wonder_canal_hub_city_level_3 = {
-	monthly_towards_mercantilism = 0.15
 }
 
 tv_wonder_display_24_level_3 = {
 	monthly_towards_mercantilism = 0.15
 }
 
-tv_wonder_canal_hub_city_level_4 = {
-	monthly_towards_mercantilism = 0.2
-}
-
 tv_wonder_display_24_level_4 = {
 	monthly_towards_mercantilism = 0.2
-}
-
-tv_wonder_canal_hub_city_level_5 = {
-	monthly_towards_mercantilism = 0.25
 }
 
 tv_wonder_display_24_level_5 = {
 	monthly_towards_mercantilism = 0.25
 }
 
-tv_wonder_canal_hub_city_level_6 = {
-	monthly_towards_mercantilism = 0.3
-}
-
 tv_wonder_display_24_level_6 = {
 	monthly_towards_mercantilism = 0.3
-}
-
-tv_wonder_frontier_colonization_belt_level_1 = {
-	monthly_towards_outward = 0.05
 }
 
 tv_wonder_display_25_level_1 = {
 	monthly_towards_outward = 0.05
 }
 
-tv_wonder_frontier_colonization_belt_level_2 = {
-	monthly_towards_outward = 0.1
-}
-
 tv_wonder_display_25_level_2 = {
 	monthly_towards_outward = 0.1
-}
-
-tv_wonder_frontier_colonization_belt_level_3 = {
-	monthly_towards_outward = 0.15
 }
 
 tv_wonder_display_25_level_3 = {
 	monthly_towards_outward = 0.15
 }
 
-tv_wonder_frontier_colonization_belt_level_4 = {
-	monthly_towards_outward = 0.2
-}
-
 tv_wonder_display_25_level_4 = {
 	monthly_towards_outward = 0.2
-}
-
-tv_wonder_frontier_colonization_belt_level_5 = {
-	monthly_towards_outward = 0.25
 }
 
 tv_wonder_display_25_level_5 = {
 	monthly_towards_outward = 0.25
 }
 
-tv_wonder_frontier_colonization_belt_level_6 = {
-	monthly_towards_outward = 0.3
-}
-
 tv_wonder_display_25_level_6 = {
 	monthly_towards_outward = 0.3
-}
-
-tv_wonder_coastal_beacon_network_level_1 = {
-	monthly_towards_naval = 0.05
 }
 
 tv_wonder_display_26_level_1 = {
 	monthly_towards_naval = 0.05
 }
 
-tv_wonder_coastal_beacon_network_level_2 = {
-	monthly_towards_naval = 0.1
-}
-
 tv_wonder_display_26_level_2 = {
 	monthly_towards_naval = 0.1
-}
-
-tv_wonder_coastal_beacon_network_level_3 = {
-	monthly_towards_naval = 0.15
 }
 
 tv_wonder_display_26_level_3 = {
 	monthly_towards_naval = 0.15
 }
 
-tv_wonder_coastal_beacon_network_level_4 = {
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_26_level_4 = {
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_coastal_beacon_network_level_5 = {
-	monthly_towards_naval = 0.25
 }
 
 tv_wonder_display_26_level_5 = {
 	monthly_towards_naval = 0.25
 }
 
-tv_wonder_coastal_beacon_network_level_6 = {
-	monthly_towards_naval = 0.3
-}
-
 tv_wonder_display_26_level_6 = {
 	monthly_towards_naval = 0.3
-}
-
-tv_wonder_knightly_fortress_order_level_1 = {
-	monthly_towards_defensive = 0.05
 }
 
 tv_wonder_display_27_level_1 = {
 	monthly_towards_defensive = 0.05
 }
 
-tv_wonder_knightly_fortress_order_level_2 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_27_level_2 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_knightly_fortress_order_level_3 = {
-	monthly_towards_defensive = 0.15
 }
 
 tv_wonder_display_27_level_3 = {
 	monthly_towards_defensive = 0.15
 }
 
-tv_wonder_knightly_fortress_order_level_4 = {
-	monthly_towards_defensive = 0.2
-}
-
 tv_wonder_display_27_level_4 = {
 	monthly_towards_defensive = 0.2
-}
-
-tv_wonder_knightly_fortress_order_level_5 = {
-	monthly_towards_defensive = 0.25
 }
 
 tv_wonder_display_27_level_5 = {
 	monthly_towards_defensive = 0.25
 }
 
-tv_wonder_knightly_fortress_order_level_6 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_27_level_6 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_war_college_system_level_1 = {
-	monthly_army_tradition = 0.05
-	monthly_towards_belligerent = 0.05
 }
 
 tv_wonder_display_28_level_1 = {
@@ -1489,19 +746,9 @@ tv_wonder_display_28_level_1 = {
 	monthly_towards_belligerent = 0.05
 }
 
-tv_wonder_war_college_system_level_2 = {
-	monthly_army_tradition = 0.1
-	monthly_towards_belligerent = 0.1
-}
-
 tv_wonder_display_28_level_2 = {
 	monthly_army_tradition = 0.1
 	monthly_towards_belligerent = 0.1
-}
-
-tv_wonder_war_college_system_level_3 = {
-	monthly_army_tradition = 0.15
-	monthly_towards_belligerent = 0.15
 }
 
 tv_wonder_display_28_level_3 = {
@@ -1509,19 +756,9 @@ tv_wonder_display_28_level_3 = {
 	monthly_towards_belligerent = 0.15
 }
 
-tv_wonder_war_college_system_level_4 = {
-	monthly_army_tradition = 0.2
-	monthly_towards_belligerent = 0.2
-}
-
 tv_wonder_display_28_level_4 = {
 	monthly_army_tradition = 0.2
 	monthly_towards_belligerent = 0.2
-}
-
-tv_wonder_war_college_system_level_5 = {
-	monthly_army_tradition = 0.25
-	monthly_towards_belligerent = 0.25
 }
 
 tv_wonder_display_28_level_5 = {
@@ -1529,68 +766,33 @@ tv_wonder_display_28_level_5 = {
 	monthly_towards_belligerent = 0.25
 }
 
-tv_wonder_war_college_system_level_6 = {
-	monthly_army_tradition = 0.3
-	monthly_towards_belligerent = 0.3
-}
-
 tv_wonder_display_28_level_6 = {
 	monthly_army_tradition = 0.3
 	monthly_towards_belligerent = 0.3
-}
-
-tv_wonder_great_clock_bell_system_level_1 = {
-	monthly_towards_inward = 0.05
 }
 
 tv_wonder_display_29_level_1 = {
 	monthly_towards_inward = 0.05
 }
 
-tv_wonder_great_clock_bell_system_level_2 = {
-	monthly_towards_inward = 0.1
-}
-
 tv_wonder_display_29_level_2 = {
 	monthly_towards_inward = 0.1
-}
-
-tv_wonder_great_clock_bell_system_level_3 = {
-	monthly_towards_inward = 0.15
 }
 
 tv_wonder_display_29_level_3 = {
 	monthly_towards_inward = 0.15
 }
 
-tv_wonder_great_clock_bell_system_level_4 = {
-	monthly_towards_inward = 0.2
-}
-
 tv_wonder_display_29_level_4 = {
 	monthly_towards_inward = 0.2
-}
-
-tv_wonder_great_clock_bell_system_level_5 = {
-	monthly_towards_inward = 0.25
 }
 
 tv_wonder_display_29_level_5 = {
 	monthly_towards_inward = 0.25
 }
 
-tv_wonder_great_clock_bell_system_level_6 = {
-	monthly_towards_inward = 0.3
-}
-
 tv_wonder_display_29_level_6 = {
 	monthly_towards_inward = 0.3
-}
-
-tv_wonder_royal_art_district_level_1 = {
-	num_possible_artists = 1
-	artist_salary_modifier = -0.1
-	monthly_towards_innovative = 0.05
 }
 
 tv_wonder_display_30_level_1 = {
@@ -1599,22 +801,10 @@ tv_wonder_display_30_level_1 = {
 	monthly_towards_innovative = 0.05
 }
 
-tv_wonder_royal_art_district_level_2 = {
-	num_possible_artists = 2
-	artist_salary_modifier = -0.2
-	monthly_towards_innovative = 0.1
-}
-
 tv_wonder_display_30_level_2 = {
 	num_possible_artists = 2
 	artist_salary_modifier = -0.2
 	monthly_towards_innovative = 0.1
-}
-
-tv_wonder_royal_art_district_level_3 = {
-	num_possible_artists = 3
-	artist_salary_modifier = -0.3
-	monthly_towards_innovative = 0.15
 }
 
 tv_wonder_display_30_level_3 = {
@@ -1623,22 +813,10 @@ tv_wonder_display_30_level_3 = {
 	monthly_towards_innovative = 0.15
 }
 
-tv_wonder_royal_art_district_level_4 = {
-	num_possible_artists = 4
-	artist_salary_modifier = -0.4
-	monthly_towards_innovative = 0.2
-}
-
 tv_wonder_display_30_level_4 = {
 	num_possible_artists = 4
 	artist_salary_modifier = -0.4
 	monthly_towards_innovative = 0.2
-}
-
-tv_wonder_royal_art_district_level_5 = {
-	num_possible_artists = 5
-	artist_salary_modifier = -0.5
-	monthly_towards_innovative = 0.25
 }
 
 tv_wonder_display_30_level_5 = {
@@ -1647,22 +825,10 @@ tv_wonder_display_30_level_5 = {
 	monthly_towards_innovative = 0.25
 }
 
-tv_wonder_royal_art_district_level_6 = {
-	num_possible_artists = 6
-	artist_salary_modifier = -0.6
-	monthly_towards_innovative = 0.3
-}
-
 tv_wonder_display_30_level_6 = {
 	num_possible_artists = 6
 	artist_salary_modifier = -0.6
 	monthly_towards_innovative = 0.3
-}
-
-tv_wonder_grand_theater_festival_district_level_1 = {
-	cultural_influence_modifier = 0.1
-	skill_of_new_artists = 0.05
-	monthly_towards_humanist = 0.05
 }
 
 tv_wonder_display_31_level_1 = {
@@ -1671,22 +837,10 @@ tv_wonder_display_31_level_1 = {
 	monthly_towards_humanist = 0.05
 }
 
-tv_wonder_grand_theater_festival_district_level_2 = {
-	cultural_influence_modifier = 0.2
-	skill_of_new_artists = 0.1
-	monthly_towards_humanist = 0.1
-}
-
 tv_wonder_display_31_level_2 = {
 	cultural_influence_modifier = 0.2
 	skill_of_new_artists = 0.1
 	monthly_towards_humanist = 0.1
-}
-
-tv_wonder_grand_theater_festival_district_level_3 = {
-	cultural_influence_modifier = 0.3
-	skill_of_new_artists = 0.15
-	monthly_towards_humanist = 0.15
 }
 
 tv_wonder_display_31_level_3 = {
@@ -1695,22 +849,10 @@ tv_wonder_display_31_level_3 = {
 	monthly_towards_humanist = 0.15
 }
 
-tv_wonder_grand_theater_festival_district_level_4 = {
-	cultural_influence_modifier = 0.4
-	skill_of_new_artists = 0.2
-	monthly_towards_humanist = 0.2
-}
-
 tv_wonder_display_31_level_4 = {
 	cultural_influence_modifier = 0.4
 	skill_of_new_artists = 0.2
 	monthly_towards_humanist = 0.2
-}
-
-tv_wonder_grand_theater_festival_district_level_5 = {
-	cultural_influence_modifier = 0.5
-	skill_of_new_artists = 0.25
-	monthly_towards_humanist = 0.25
 }
 
 tv_wonder_display_31_level_5 = {
@@ -1719,21 +861,10 @@ tv_wonder_display_31_level_5 = {
 	monthly_towards_humanist = 0.25
 }
 
-tv_wonder_grand_theater_festival_district_level_6 = {
-	cultural_influence_modifier = 0.6
-	skill_of_new_artists = 0.3
-	monthly_towards_humanist = 0.3
-}
-
 tv_wonder_display_31_level_6 = {
 	cultural_influence_modifier = 0.6
 	skill_of_new_artists = 0.3
 	monthly_towards_humanist = 0.3
-}
-
-tv_wonder_world_embassy_quarter_level_1 = {
-	diplomatic_reputation = 1
-	monthly_towards_conciliatory = 0.05
 }
 
 tv_wonder_display_32_level_1 = {
@@ -1741,19 +872,9 @@ tv_wonder_display_32_level_1 = {
 	monthly_towards_conciliatory = 0.05
 }
 
-tv_wonder_world_embassy_quarter_level_2 = {
-	diplomatic_reputation = 2
-	monthly_towards_conciliatory = 0.1
-}
-
 tv_wonder_display_32_level_2 = {
 	diplomatic_reputation = 2
 	monthly_towards_conciliatory = 0.1
-}
-
-tv_wonder_world_embassy_quarter_level_3 = {
-	diplomatic_reputation = 3
-	monthly_towards_conciliatory = 0.15
 }
 
 tv_wonder_display_32_level_3 = {
@@ -1761,19 +882,9 @@ tv_wonder_display_32_level_3 = {
 	monthly_towards_conciliatory = 0.15
 }
 
-tv_wonder_world_embassy_quarter_level_4 = {
-	diplomatic_reputation = 4
-	monthly_towards_conciliatory = 0.2
-}
-
 tv_wonder_display_32_level_4 = {
 	diplomatic_reputation = 4
 	monthly_towards_conciliatory = 0.2
-}
-
-tv_wonder_world_embassy_quarter_level_5 = {
-	diplomatic_reputation = 5
-	monthly_towards_conciliatory = 0.25
 }
 
 tv_wonder_display_32_level_5 = {
@@ -1781,19 +892,9 @@ tv_wonder_display_32_level_5 = {
 	monthly_towards_conciliatory = 0.25
 }
 
-tv_wonder_world_embassy_quarter_level_6 = {
-	diplomatic_reputation = 6
-	monthly_towards_conciliatory = 0.3
-}
-
 tv_wonder_display_32_level_6 = {
 	diplomatic_reputation = 6
 	monthly_towards_conciliatory = 0.3
-}
-
-tv_wonder_law_code_stele_project_level_1 = {
-	monthly_rebel_growth = -0.001
-	monthly_towards_inward = 0.05
 }
 
 tv_wonder_display_33_level_1 = {
@@ -1801,19 +902,9 @@ tv_wonder_display_33_level_1 = {
 	monthly_towards_inward = 0.05
 }
 
-tv_wonder_law_code_stele_project_level_2 = {
-	monthly_rebel_growth = -0.001
-	monthly_towards_inward = 0.1
-}
-
 tv_wonder_display_33_level_2 = {
 	monthly_rebel_growth = -0.001
 	monthly_towards_inward = 0.1
-}
-
-tv_wonder_law_code_stele_project_level_3 = {
-	monthly_rebel_growth = -0.002
-	monthly_towards_inward = 0.15
 }
 
 tv_wonder_display_33_level_3 = {
@@ -1821,19 +912,9 @@ tv_wonder_display_33_level_3 = {
 	monthly_towards_inward = 0.15
 }
 
-tv_wonder_law_code_stele_project_level_4 = {
-	monthly_rebel_growth = -0.002
-	monthly_towards_inward = 0.2
-}
-
 tv_wonder_display_33_level_4 = {
 	monthly_rebel_growth = -0.002
 	monthly_towards_inward = 0.2
-}
-
-tv_wonder_law_code_stele_project_level_5 = {
-	monthly_rebel_growth = -0.003
-	monthly_towards_inward = 0.25
 }
 
 tv_wonder_display_33_level_5 = {
@@ -1841,19 +922,9 @@ tv_wonder_display_33_level_5 = {
 	monthly_towards_inward = 0.25
 }
 
-tv_wonder_law_code_stele_project_level_6 = {
-	monthly_rebel_growth = -0.003
-	monthly_towards_inward = 0.3
-}
-
 tv_wonder_display_33_level_6 = {
 	monthly_rebel_growth = -0.003
 	monthly_towards_inward = 0.3
-}
-
-tv_wonder_world_market_level_1 = {
-	global_trade_center_power = 0.1
-	monthly_towards_free_trade = 0.05
 }
 
 tv_wonder_display_34_level_1 = {
@@ -1861,19 +932,9 @@ tv_wonder_display_34_level_1 = {
 	monthly_towards_free_trade = 0.05
 }
 
-tv_wonder_world_market_level_2 = {
-	global_trade_center_power = 0.2
-	monthly_towards_free_trade = 0.1
-}
-
 tv_wonder_display_34_level_2 = {
 	global_trade_center_power = 0.2
 	monthly_towards_free_trade = 0.1
-}
-
-tv_wonder_world_market_level_3 = {
-	global_trade_center_power = 0.3
-	monthly_towards_free_trade = 0.15
 }
 
 tv_wonder_display_34_level_3 = {
@@ -1881,19 +942,9 @@ tv_wonder_display_34_level_3 = {
 	monthly_towards_free_trade = 0.15
 }
 
-tv_wonder_world_market_level_4 = {
-	global_trade_center_power = 0.4
-	monthly_towards_free_trade = 0.2
-}
-
 tv_wonder_display_34_level_4 = {
 	global_trade_center_power = 0.4
 	monthly_towards_free_trade = 0.2
-}
-
-tv_wonder_world_market_level_5 = {
-	global_trade_center_power = 0.5
-	monthly_towards_free_trade = 0.25
 }
 
 tv_wonder_display_34_level_5 = {
@@ -1901,19 +952,9 @@ tv_wonder_display_34_level_5 = {
 	monthly_towards_free_trade = 0.25
 }
 
-tv_wonder_world_market_level_6 = {
-	global_trade_center_power = 0.6
-	monthly_towards_free_trade = 0.3
-}
-
 tv_wonder_display_34_level_6 = {
 	global_trade_center_power = 0.6
 	monthly_towards_free_trade = 0.3
-}
-
-tv_wonder_royal_mint_system_level_1 = {
-	minting_income_factor = 0.1
-	monthly_towards_capital_economy = 0.05
 }
 
 tv_wonder_display_35_level_1 = {
@@ -1921,19 +962,9 @@ tv_wonder_display_35_level_1 = {
 	monthly_towards_capital_economy = 0.05
 }
 
-tv_wonder_royal_mint_system_level_2 = {
-	minting_income_factor = 0.2
-	monthly_towards_capital_economy = 0.1
-}
-
 tv_wonder_display_35_level_2 = {
 	minting_income_factor = 0.2
 	monthly_towards_capital_economy = 0.1
-}
-
-tv_wonder_royal_mint_system_level_3 = {
-	minting_income_factor = 0.3
-	monthly_towards_capital_economy = 0.15
 }
 
 tv_wonder_display_35_level_3 = {
@@ -1941,19 +972,9 @@ tv_wonder_display_35_level_3 = {
 	monthly_towards_capital_economy = 0.15
 }
 
-tv_wonder_royal_mint_system_level_4 = {
-	minting_income_factor = 0.4
-	monthly_towards_capital_economy = 0.2
-}
-
 tv_wonder_display_35_level_4 = {
 	minting_income_factor = 0.4
 	monthly_towards_capital_economy = 0.2
-}
-
-tv_wonder_royal_mint_system_level_5 = {
-	minting_income_factor = 0.5
-	monthly_towards_capital_economy = 0.25
 }
 
 tv_wonder_display_35_level_5 = {
@@ -1961,163 +982,81 @@ tv_wonder_display_35_level_5 = {
 	monthly_towards_capital_economy = 0.25
 }
 
-tv_wonder_royal_mint_system_level_6 = {
-	minting_income_factor = 0.6
-	monthly_towards_capital_economy = 0.3
-}
-
 tv_wonder_display_35_level_6 = {
 	minting_income_factor = 0.6
 	monthly_towards_capital_economy = 0.3
-}
-
-tv_wonder_guild_alliance_level_1 = {
-	monthly_towards_plutocracy = 0.05
 }
 
 tv_wonder_display_36_level_1 = {
 	monthly_towards_plutocracy = 0.05
 }
 
-tv_wonder_guild_alliance_level_2 = {
-	monthly_towards_plutocracy = 0.1
-}
-
 tv_wonder_display_36_level_2 = {
 	monthly_towards_plutocracy = 0.1
-}
-
-tv_wonder_guild_alliance_level_3 = {
-	monthly_towards_plutocracy = 0.15
 }
 
 tv_wonder_display_36_level_3 = {
 	monthly_towards_plutocracy = 0.15
 }
 
-tv_wonder_guild_alliance_level_4 = {
-	monthly_towards_plutocracy = 0.2
-}
-
 tv_wonder_display_36_level_4 = {
 	monthly_towards_plutocracy = 0.2
-}
-
-tv_wonder_guild_alliance_level_5 = {
-	monthly_towards_plutocracy = 0.25
 }
 
 tv_wonder_display_36_level_5 = {
 	monthly_towards_plutocracy = 0.25
 }
 
-tv_wonder_guild_alliance_level_6 = {
-	monthly_towards_plutocracy = 0.3
-}
-
 tv_wonder_display_36_level_6 = {
 	monthly_towards_plutocracy = 0.3
-}
-
-tv_wonder_maritime_trade_station_network_level_1 = {
-	monthly_towards_free_trade = 0.05
 }
 
 tv_wonder_display_37_level_1 = {
 	monthly_towards_free_trade = 0.05
 }
 
-tv_wonder_maritime_trade_station_network_level_2 = {
-	monthly_towards_free_trade = 0.1
-}
-
 tv_wonder_display_37_level_2 = {
 	monthly_towards_free_trade = 0.1
-}
-
-tv_wonder_maritime_trade_station_network_level_3 = {
-	monthly_towards_free_trade = 0.15
 }
 
 tv_wonder_display_37_level_3 = {
 	monthly_towards_free_trade = 0.15
 }
 
-tv_wonder_maritime_trade_station_network_level_4 = {
-	monthly_towards_free_trade = 0.2
-}
-
 tv_wonder_display_37_level_4 = {
 	monthly_towards_free_trade = 0.2
-}
-
-tv_wonder_maritime_trade_station_network_level_5 = {
-	monthly_towards_free_trade = 0.25
 }
 
 tv_wonder_display_37_level_5 = {
 	monthly_towards_free_trade = 0.25
 }
 
-tv_wonder_maritime_trade_station_network_level_6 = {
-	monthly_towards_free_trade = 0.3
-}
-
 tv_wonder_display_37_level_6 = {
 	monthly_towards_free_trade = 0.3
-}
-
-tv_wonder_giant_workshop_complex_level_1 = {
-	monthly_towards_capital_economy = 0.05
 }
 
 tv_wonder_display_38_level_1 = {
 	monthly_towards_capital_economy = 0.05
 }
 
-tv_wonder_giant_workshop_complex_level_2 = {
-	monthly_towards_capital_economy = 0.1
-}
-
 tv_wonder_display_38_level_2 = {
 	monthly_towards_capital_economy = 0.1
-}
-
-tv_wonder_giant_workshop_complex_level_3 = {
-	monthly_towards_capital_economy = 0.15
 }
 
 tv_wonder_display_38_level_3 = {
 	monthly_towards_capital_economy = 0.15
 }
 
-tv_wonder_giant_workshop_complex_level_4 = {
-	monthly_towards_capital_economy = 0.2
-}
-
 tv_wonder_display_38_level_4 = {
 	monthly_towards_capital_economy = 0.2
-}
-
-tv_wonder_giant_workshop_complex_level_5 = {
-	monthly_towards_capital_economy = 0.25
 }
 
 tv_wonder_display_38_level_5 = {
 	monthly_towards_capital_economy = 0.25
 }
 
-tv_wonder_giant_workshop_complex_level_6 = {
-	monthly_towards_capital_economy = 0.3
-}
-
 tv_wonder_display_38_level_6 = {
 	monthly_towards_capital_economy = 0.3
-}
-
-tv_wonder_world_monument_group_level_1 = {
-	cultures_capacity = 0.5
-	monthly_towards_humanist = 0.05
 }
 
 tv_wonder_display_39_level_1 = {
@@ -2125,19 +1064,9 @@ tv_wonder_display_39_level_1 = {
 	monthly_towards_humanist = 0.05
 }
 
-tv_wonder_world_monument_group_level_2 = {
-	cultures_capacity = 1
-	monthly_towards_humanist = 0.1
-}
-
 tv_wonder_display_39_level_2 = {
 	cultures_capacity = 1
 	monthly_towards_humanist = 0.1
-}
-
-tv_wonder_world_monument_group_level_3 = {
-	cultures_capacity = 1.5
-	monthly_towards_humanist = 0.15
 }
 
 tv_wonder_display_39_level_3 = {
@@ -2145,29 +1074,14 @@ tv_wonder_display_39_level_3 = {
 	monthly_towards_humanist = 0.15
 }
 
-tv_wonder_world_monument_group_level_4 = {
-	cultures_capacity = 2
-	monthly_towards_humanist = 0.2
-}
-
 tv_wonder_display_39_level_4 = {
 	cultures_capacity = 2
 	monthly_towards_humanist = 0.2
 }
 
-tv_wonder_world_monument_group_level_5 = {
-	cultures_capacity = 2.5
-	monthly_towards_humanist = 0.25
-}
-
 tv_wonder_display_39_level_5 = {
 	cultures_capacity = 2.5
 	monthly_towards_humanist = 0.25
-}
-
-tv_wonder_world_monument_group_level_6 = {
-	cultures_capacity = 3
-	monthly_towards_humanist = 0.3
 }
 
 tv_wonder_display_39_level_6 = {
@@ -2193,22 +1107,10 @@ tv_wonder_display_40_level_5 = {
 tv_wonder_display_40_level_6 = {
 }
 
-tv_wonder_megalithic_circle_level_1 = {
-	tolerance_heretic = 0.5
-	tolerance_heathen = 0.5
-	monthly_towards_traditionalist = 0.05
-}
-
 tv_wonder_display_41_level_1 = {
 	tolerance_heretic = 0.5
 	tolerance_heathen = 0.5
 	monthly_towards_traditionalist = 0.05
-}
-
-tv_wonder_megalithic_circle_level_2 = {
-	tolerance_heretic = 1
-	tolerance_heathen = 1
-	monthly_towards_traditionalist = 0.1
 }
 
 tv_wonder_display_41_level_2 = {
@@ -2217,22 +1119,10 @@ tv_wonder_display_41_level_2 = {
 	monthly_towards_traditionalist = 0.1
 }
 
-tv_wonder_megalithic_circle_level_3 = {
-	tolerance_heretic = 1.5
-	tolerance_heathen = 1.5
-	monthly_towards_traditionalist = 0.15
-}
-
 tv_wonder_display_41_level_3 = {
 	tolerance_heretic = 1.5
 	tolerance_heathen = 1.5
 	monthly_towards_traditionalist = 0.15
-}
-
-tv_wonder_megalithic_circle_level_4 = {
-	tolerance_heretic = 2
-	tolerance_heathen = 2
-	monthly_towards_traditionalist = 0.2
 }
 
 tv_wonder_display_41_level_4 = {
@@ -2241,22 +1131,10 @@ tv_wonder_display_41_level_4 = {
 	monthly_towards_traditionalist = 0.2
 }
 
-tv_wonder_megalithic_circle_level_5 = {
-	tolerance_heretic = 2.5
-	tolerance_heathen = 2.5
-	monthly_towards_traditionalist = 0.25
-}
-
 tv_wonder_display_41_level_5 = {
 	tolerance_heretic = 2.5
 	tolerance_heathen = 2.5
 	monthly_towards_traditionalist = 0.25
-}
-
-tv_wonder_megalithic_circle_level_6 = {
-	tolerance_heretic = 3
-	tolerance_heathen = 3
-	monthly_towards_traditionalist = 0.3
 }
 
 tv_wonder_display_41_level_6 = {
@@ -2265,19 +1143,9 @@ tv_wonder_display_41_level_6 = {
 	monthly_towards_traditionalist = 0.3
 }
 
-tv_wonder_grand_cathedral_level_1 = {
-	tolerance_own = 0.5
-	monthly_towards_spiritualist = 0.05
-}
-
 tv_wonder_display_42_level_1 = {
 	tolerance_own = 0.5
 	monthly_towards_spiritualist = 0.05
-}
-
-tv_wonder_grand_cathedral_level_2 = {
-	tolerance_own = 1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_42_level_2 = {
@@ -2285,19 +1153,9 @@ tv_wonder_display_42_level_2 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_grand_cathedral_level_3 = {
-	tolerance_own = 1.5
-	monthly_towards_spiritualist = 0.15
-}
-
 tv_wonder_display_42_level_3 = {
 	tolerance_own = 1.5
 	monthly_towards_spiritualist = 0.15
-}
-
-tv_wonder_grand_cathedral_level_4 = {
-	tolerance_own = 2
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_42_level_4 = {
@@ -2305,19 +1163,9 @@ tv_wonder_display_42_level_4 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_grand_cathedral_level_5 = {
-	tolerance_own = 2.5
-	monthly_towards_spiritualist = 0.25
-}
-
 tv_wonder_display_42_level_5 = {
 	tolerance_own = 2.5
 	monthly_towards_spiritualist = 0.25
-}
-
-tv_wonder_grand_cathedral_level_6 = {
-	tolerance_own = 3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_42_level_6 = {
@@ -2325,106 +1173,52 @@ tv_wonder_display_42_level_6 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_great_monastery_level_1 = {
-	monthly_towards_spiritualist = 0.05
-}
-
 tv_wonder_display_43_level_1 = {
 	monthly_towards_spiritualist = 0.05
-}
-
-tv_wonder_great_monastery_level_2 = {
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_43_level_2 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_great_monastery_level_3 = {
-	monthly_towards_spiritualist = 0.15
-}
-
 tv_wonder_display_43_level_3 = {
 	monthly_towards_spiritualist = 0.15
-}
-
-tv_wonder_great_monastery_level_4 = {
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_43_level_4 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_great_monastery_level_5 = {
-	monthly_towards_spiritualist = 0.25
-}
-
 tv_wonder_display_43_level_5 = {
 	monthly_towards_spiritualist = 0.25
-}
-
-tv_wonder_great_monastery_level_6 = {
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_43_level_6 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_city_great_tower_level_1 = {
-	monthly_towards_inward = 0.05
-}
-
 tv_wonder_display_44_level_1 = {
 	monthly_towards_inward = 0.05
-}
-
-tv_wonder_city_great_tower_level_2 = {
-	monthly_towards_inward = 0.1
 }
 
 tv_wonder_display_44_level_2 = {
 	monthly_towards_inward = 0.1
 }
 
-tv_wonder_city_great_tower_level_3 = {
-	monthly_towards_inward = 0.15
-}
-
 tv_wonder_display_44_level_3 = {
 	monthly_towards_inward = 0.15
-}
-
-tv_wonder_city_great_tower_level_4 = {
-	monthly_towards_inward = 0.2
 }
 
 tv_wonder_display_44_level_4 = {
 	monthly_towards_inward = 0.2
 }
 
-tv_wonder_city_great_tower_level_5 = {
-	monthly_towards_inward = 0.25
-}
-
 tv_wonder_display_44_level_5 = {
 	monthly_towards_inward = 0.25
 }
 
-tv_wonder_city_great_tower_level_6 = {
-	monthly_towards_inward = 0.3
-}
-
 tv_wonder_display_44_level_6 = {
 	monthly_towards_inward = 0.3
-}
-
-tv_wonder_great_sculpture_group_level_1 = {
-	pop_join_rebel_threshold = 0.025
-	pop_leave_rebels_threshold = 0.025
-	monthly_towards_humanist = 0.05
 }
 
 tv_wonder_display_45_level_1 = {
@@ -2433,22 +1227,10 @@ tv_wonder_display_45_level_1 = {
 	monthly_towards_humanist = 0.05
 }
 
-tv_wonder_great_sculpture_group_level_2 = {
-	pop_join_rebel_threshold = 0.05
-	pop_leave_rebels_threshold = 0.05
-	monthly_towards_humanist = 0.1
-}
-
 tv_wonder_display_45_level_2 = {
 	pop_join_rebel_threshold = 0.05
 	pop_leave_rebels_threshold = 0.05
 	monthly_towards_humanist = 0.1
-}
-
-tv_wonder_great_sculpture_group_level_3 = {
-	pop_join_rebel_threshold = 0.075
-	pop_leave_rebels_threshold = 0.075
-	monthly_towards_humanist = 0.15
 }
 
 tv_wonder_display_45_level_3 = {
@@ -2457,22 +1239,10 @@ tv_wonder_display_45_level_3 = {
 	monthly_towards_humanist = 0.15
 }
 
-tv_wonder_great_sculpture_group_level_4 = {
-	pop_join_rebel_threshold = 0.1
-	pop_leave_rebels_threshold = 0.1
-	monthly_towards_humanist = 0.2
-}
-
 tv_wonder_display_45_level_4 = {
 	pop_join_rebel_threshold = 0.1
 	pop_leave_rebels_threshold = 0.1
 	monthly_towards_humanist = 0.2
-}
-
-tv_wonder_great_sculpture_group_level_5 = {
-	pop_join_rebel_threshold = 0.125
-	pop_leave_rebels_threshold = 0.125
-	monthly_towards_humanist = 0.25
 }
 
 tv_wonder_display_45_level_5 = {
@@ -2481,69 +1251,34 @@ tv_wonder_display_45_level_5 = {
 	monthly_towards_humanist = 0.25
 }
 
-tv_wonder_great_sculpture_group_level_6 = {
-	pop_join_rebel_threshold = 0.15
-	pop_leave_rebels_threshold = 0.15
-	monthly_towards_humanist = 0.3
-}
-
 tv_wonder_display_45_level_6 = {
 	pop_join_rebel_threshold = 0.15
 	pop_leave_rebels_threshold = 0.15
 	monthly_towards_humanist = 0.3
 }
 
-tv_wonder_coastal_defense_cannon_level_1 = {
-	monthly_towards_defensive = 0.05
-}
-
 tv_wonder_display_46_level_1 = {
 	monthly_towards_defensive = 0.05
-}
-
-tv_wonder_coastal_defense_cannon_level_2 = {
-	monthly_towards_defensive = 0.1
 }
 
 tv_wonder_display_46_level_2 = {
 	monthly_towards_defensive = 0.1
 }
 
-tv_wonder_coastal_defense_cannon_level_3 = {
-	monthly_towards_defensive = 0.15
-}
-
 tv_wonder_display_46_level_3 = {
 	monthly_towards_defensive = 0.15
-}
-
-tv_wonder_coastal_defense_cannon_level_4 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_46_level_4 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_coastal_defense_cannon_level_5 = {
-	monthly_towards_defensive = 0.25
-}
-
 tv_wonder_display_46_level_5 = {
 	monthly_towards_defensive = 0.25
 }
 
-tv_wonder_coastal_defense_cannon_level_6 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_46_level_6 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_naval_school_level_1 = {
-	monthly_navy_tradition = 0.05
-	monthly_towards_naval = 0.05
 }
 
 tv_wonder_display_47_level_1 = {
@@ -2551,19 +1286,9 @@ tv_wonder_display_47_level_1 = {
 	monthly_towards_naval = 0.05
 }
 
-tv_wonder_naval_school_level_2 = {
-	monthly_navy_tradition = 0.1
-	monthly_towards_naval = 0.1
-}
-
 tv_wonder_display_47_level_2 = {
 	monthly_navy_tradition = 0.1
 	monthly_towards_naval = 0.1
-}
-
-tv_wonder_naval_school_level_3 = {
-	monthly_navy_tradition = 0.15
-	monthly_towards_naval = 0.15
 }
 
 tv_wonder_display_47_level_3 = {
@@ -2571,19 +1296,9 @@ tv_wonder_display_47_level_3 = {
 	monthly_towards_naval = 0.15
 }
 
-tv_wonder_naval_school_level_4 = {
-	monthly_navy_tradition = 0.2
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_47_level_4 = {
 	monthly_navy_tradition = 0.2
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_naval_school_level_5 = {
-	monthly_navy_tradition = 0.25
-	monthly_towards_naval = 0.25
 }
 
 tv_wonder_display_47_level_5 = {
@@ -2591,20 +1306,9 @@ tv_wonder_display_47_level_5 = {
 	monthly_towards_naval = 0.25
 }
 
-tv_wonder_naval_school_level_6 = {
-	monthly_navy_tradition = 0.3
-	monthly_towards_naval = 0.3
-}
-
 tv_wonder_display_47_level_6 = {
 	monthly_navy_tradition = 0.3
 	monthly_towards_naval = 0.3
-}
-
-tv_wonder_colonial_trade_company_level_1 = {
-	global_merchant_power = 0.2
-	global_merchant_capacity_modifier = 0.1
-	monthly_towards_free_trade = 0.05
 }
 
 tv_wonder_display_48_level_1 = {
@@ -2613,22 +1317,10 @@ tv_wonder_display_48_level_1 = {
 	monthly_towards_free_trade = 0.05
 }
 
-tv_wonder_colonial_trade_company_level_2 = {
-	global_merchant_power = 0.4
-	global_merchant_capacity_modifier = 0.2
-	monthly_towards_free_trade = 0.1
-}
-
 tv_wonder_display_48_level_2 = {
 	global_merchant_power = 0.4
 	global_merchant_capacity_modifier = 0.2
 	monthly_towards_free_trade = 0.1
-}
-
-tv_wonder_colonial_trade_company_level_3 = {
-	global_merchant_power = 0.6
-	global_merchant_capacity_modifier = 0.3
-	monthly_towards_free_trade = 0.15
 }
 
 tv_wonder_display_48_level_3 = {
@@ -2637,22 +1329,10 @@ tv_wonder_display_48_level_3 = {
 	monthly_towards_free_trade = 0.15
 }
 
-tv_wonder_colonial_trade_company_level_4 = {
-	global_merchant_power = 0.8
-	global_merchant_capacity_modifier = 0.4
-	monthly_towards_free_trade = 0.2
-}
-
 tv_wonder_display_48_level_4 = {
 	global_merchant_power = 0.8
 	global_merchant_capacity_modifier = 0.4
 	monthly_towards_free_trade = 0.2
-}
-
-tv_wonder_colonial_trade_company_level_5 = {
-	global_merchant_power = 1
-	global_merchant_capacity_modifier = 0.5
-	monthly_towards_free_trade = 0.25
 }
 
 tv_wonder_display_48_level_5 = {
@@ -2661,22 +1341,10 @@ tv_wonder_display_48_level_5 = {
 	monthly_towards_free_trade = 0.25
 }
 
-tv_wonder_colonial_trade_company_level_6 = {
-	global_merchant_power = 1.2
-	global_merchant_capacity_modifier = 0.6
-	monthly_towards_free_trade = 0.3
-}
-
 tv_wonder_display_48_level_6 = {
 	global_merchant_power = 1.2
 	global_merchant_capacity_modifier = 0.6
 	monthly_towards_free_trade = 0.3
-}
-
-tv_wonder_great_assembly_hall_level_1 = {
-	country_cabinet_efficiency = 0.1
-	legislative_efficiency = 0.1
-	monthly_towards_conciliatory = 0.05
 }
 
 tv_wonder_display_49_level_1 = {
@@ -2685,22 +1353,10 @@ tv_wonder_display_49_level_1 = {
 	monthly_towards_conciliatory = 0.05
 }
 
-tv_wonder_great_assembly_hall_level_2 = {
-	country_cabinet_efficiency = 0.2
-	legislative_efficiency = 0.2
-	monthly_towards_conciliatory = 0.1
-}
-
 tv_wonder_display_49_level_2 = {
 	country_cabinet_efficiency = 0.2
 	legislative_efficiency = 0.2
 	monthly_towards_conciliatory = 0.1
-}
-
-tv_wonder_great_assembly_hall_level_3 = {
-	country_cabinet_efficiency = 0.3
-	legislative_efficiency = 0.3
-	monthly_towards_conciliatory = 0.15
 }
 
 tv_wonder_display_49_level_3 = {
@@ -2709,22 +1365,10 @@ tv_wonder_display_49_level_3 = {
 	monthly_towards_conciliatory = 0.15
 }
 
-tv_wonder_great_assembly_hall_level_4 = {
-	country_cabinet_efficiency = 0.4
-	legislative_efficiency = 0.4
-	monthly_towards_conciliatory = 0.2
-}
-
 tv_wonder_display_49_level_4 = {
 	country_cabinet_efficiency = 0.4
 	legislative_efficiency = 0.4
 	monthly_towards_conciliatory = 0.2
-}
-
-tv_wonder_great_assembly_hall_level_5 = {
-	country_cabinet_efficiency = 0.5
-	legislative_efficiency = 0.5
-	monthly_towards_conciliatory = 0.25
 }
 
 tv_wonder_display_49_level_5 = {
@@ -2733,69 +1377,34 @@ tv_wonder_display_49_level_5 = {
 	monthly_towards_conciliatory = 0.25
 }
 
-tv_wonder_great_assembly_hall_level_6 = {
-	country_cabinet_efficiency = 0.6
-	legislative_efficiency = 0.6
-	monthly_towards_conciliatory = 0.3
-}
-
 tv_wonder_display_49_level_6 = {
 	country_cabinet_efficiency = 0.6
 	legislative_efficiency = 0.6
 	monthly_towards_conciliatory = 0.3
 }
 
-tv_wonder_mobile_fortress_level_1 = {
-	monthly_towards_decentralization = 0.05
-}
-
 tv_wonder_display_50_level_1 = {
 	monthly_towards_decentralization = 0.05
-}
-
-tv_wonder_mobile_fortress_level_2 = {
-	monthly_towards_decentralization = 0.1
 }
 
 tv_wonder_display_50_level_2 = {
 	monthly_towards_decentralization = 0.1
 }
 
-tv_wonder_mobile_fortress_level_3 = {
-	monthly_towards_decentralization = 0.15
-}
-
 tv_wonder_display_50_level_3 = {
 	monthly_towards_decentralization = 0.15
-}
-
-tv_wonder_mobile_fortress_level_4 = {
-	monthly_towards_decentralization = 0.2
 }
 
 tv_wonder_display_50_level_4 = {
 	monthly_towards_decentralization = 0.2
 }
 
-tv_wonder_mobile_fortress_level_5 = {
-	monthly_towards_decentralization = 0.25
-}
-
 tv_wonder_display_50_level_5 = {
 	monthly_towards_decentralization = 0.25
 }
 
-tv_wonder_mobile_fortress_level_6 = {
-	monthly_towards_decentralization = 0.3
-}
-
 tv_wonder_display_50_level_6 = {
 	monthly_towards_decentralization = 0.3
-}
-
-tv_wonder_ancient_city_ruins_level_1 = {
-	exploration_mission_speed = 0.1
-	monthly_towards_outward = 0.05
 }
 
 tv_wonder_display_51_level_1 = {
@@ -2803,19 +1412,9 @@ tv_wonder_display_51_level_1 = {
 	monthly_towards_outward = 0.05
 }
 
-tv_wonder_ancient_city_ruins_level_2 = {
-	exploration_mission_speed = 0.2
-	monthly_towards_outward = 0.1
-}
-
 tv_wonder_display_51_level_2 = {
 	exploration_mission_speed = 0.2
 	monthly_towards_outward = 0.1
-}
-
-tv_wonder_ancient_city_ruins_level_3 = {
-	exploration_mission_speed = 0.3
-	monthly_towards_outward = 0.15
 }
 
 tv_wonder_display_51_level_3 = {
@@ -2823,19 +1422,9 @@ tv_wonder_display_51_level_3 = {
 	monthly_towards_outward = 0.15
 }
 
-tv_wonder_ancient_city_ruins_level_4 = {
-	exploration_mission_speed = 0.4
-	monthly_towards_outward = 0.2
-}
-
 tv_wonder_display_51_level_4 = {
 	exploration_mission_speed = 0.4
 	monthly_towards_outward = 0.2
-}
-
-tv_wonder_ancient_city_ruins_level_5 = {
-	exploration_mission_speed = 0.5
-	monthly_towards_outward = 0.25
 }
 
 tv_wonder_display_51_level_5 = {
@@ -2843,69 +1432,33 @@ tv_wonder_display_51_level_5 = {
 	monthly_towards_outward = 0.25
 }
 
-tv_wonder_ancient_city_ruins_level_6 = {
-	exploration_mission_speed = 0.6
-	monthly_towards_outward = 0.3
-}
-
 tv_wonder_display_51_level_6 = {
 	exploration_mission_speed = 0.6
 	monthly_towards_outward = 0.3
-}
-
-tv_wonder_summer_palace_level_1 = {
-	monthly_towards_decentralization = 0.05
 }
 
 tv_wonder_display_52_level_1 = {
 	monthly_towards_decentralization = 0.05
 }
 
-tv_wonder_summer_palace_level_2 = {
-	monthly_towards_decentralization = 0.1
-}
-
 tv_wonder_display_52_level_2 = {
 	monthly_towards_decentralization = 0.1
-}
-
-tv_wonder_summer_palace_level_3 = {
-	monthly_towards_decentralization = 0.15
 }
 
 tv_wonder_display_52_level_3 = {
 	monthly_towards_decentralization = 0.15
 }
 
-tv_wonder_summer_palace_level_4 = {
-	monthly_towards_decentralization = 0.2
-}
-
 tv_wonder_display_52_level_4 = {
 	monthly_towards_decentralization = 0.2
-}
-
-tv_wonder_summer_palace_level_5 = {
-	monthly_towards_decentralization = 0.25
 }
 
 tv_wonder_display_52_level_5 = {
 	monthly_towards_decentralization = 0.25
 }
 
-tv_wonder_summer_palace_level_6 = {
-	monthly_towards_decentralization = 0.3
-}
-
 tv_wonder_display_52_level_6 = {
 	monthly_towards_decentralization = 0.3
-}
-
-tv_wonder_unique_pharos_lighthouse_level_1 = {
-	trade_range = 400
-	naval_range = 400
-	colonial_range = 400
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_101_level_1 = {
@@ -2915,25 +1468,11 @@ tv_wonder_display_101_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_pharos_lighthouse_level_2 = {
-	trade_range = 800
-	naval_range = 800
-	colonial_range = 800
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_101_level_2 = {
 	trade_range = 800
 	naval_range = 800
 	colonial_range = 800
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_pharos_lighthouse_level_3 = {
-	trade_range = 1200
-	naval_range = 1200
-	colonial_range = 1200
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_101_level_3 = {
@@ -2943,25 +1482,11 @@ tv_wonder_display_101_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_pharos_lighthouse_level_4 = {
-	trade_range = 1600
-	naval_range = 1600
-	colonial_range = 1600
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_101_level_4 = {
 	trade_range = 1600
 	naval_range = 1600
 	colonial_range = 1600
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_pharos_lighthouse_level_5 = {
-	trade_range = 2000
-	naval_range = 2000
-	colonial_range = 2000
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_101_level_5 = {
@@ -2971,13 +1496,6 @@ tv_wonder_display_101_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_pharos_lighthouse_level_6 = {
-	trade_range = 2400
-	naval_range = 2400
-	colonial_range = 2400
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_101_level_6 = {
 	trade_range = 2400
 	naval_range = 2400
@@ -2985,19 +1503,9 @@ tv_wonder_display_101_level_6 = {
 	monthly_towards_naval = 0.6
 }
 
-tv_wonder_unique_hagia_sophia_level_1 = {
-	global_pop_conversion_speed = 0.004
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_102_level_1 = {
 	global_pop_conversion_speed = 0.004
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_unique_hagia_sophia_level_2 = {
-	global_pop_conversion_speed = 0.008
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_102_level_2 = {
@@ -3005,19 +1513,9 @@ tv_wonder_display_102_level_2 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_unique_hagia_sophia_level_3 = {
-	global_pop_conversion_speed = 0.012
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_102_level_3 = {
 	global_pop_conversion_speed = 0.012
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_unique_hagia_sophia_level_4 = {
-	global_pop_conversion_speed = 0.016
-	monthly_towards_spiritualist = 0.4
 }
 
 tv_wonder_display_102_level_4 = {
@@ -3025,19 +1523,9 @@ tv_wonder_display_102_level_4 = {
 	monthly_towards_spiritualist = 0.4
 }
 
-tv_wonder_unique_hagia_sophia_level_5 = {
-	global_pop_conversion_speed = 0.02
-	monthly_towards_spiritualist = 0.5
-}
-
 tv_wonder_display_102_level_5 = {
 	global_pop_conversion_speed = 0.02
 	monthly_towards_spiritualist = 0.5
-}
-
-tv_wonder_unique_hagia_sophia_level_6 = {
-	global_pop_conversion_speed = 0.024
-	monthly_towards_spiritualist = 0.6
 }
 
 tv_wonder_display_102_level_6 = {
@@ -3045,19 +1533,9 @@ tv_wonder_display_102_level_6 = {
 	monthly_towards_spiritualist = 0.6
 }
 
-tv_wonder_unique_dome_of_the_rock_level_1 = {
-	global_pop_conversion_speed = 0.004
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_103_level_1 = {
 	global_pop_conversion_speed = 0.004
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_unique_dome_of_the_rock_level_2 = {
-	global_pop_conversion_speed = 0.008
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_103_level_2 = {
@@ -3065,19 +1543,9 @@ tv_wonder_display_103_level_2 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_unique_dome_of_the_rock_level_3 = {
-	global_pop_conversion_speed = 0.012
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_103_level_3 = {
 	global_pop_conversion_speed = 0.012
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_unique_dome_of_the_rock_level_4 = {
-	global_pop_conversion_speed = 0.016
-	monthly_towards_spiritualist = 0.4
 }
 
 tv_wonder_display_103_level_4 = {
@@ -3085,19 +1553,9 @@ tv_wonder_display_103_level_4 = {
 	monthly_towards_spiritualist = 0.4
 }
 
-tv_wonder_unique_dome_of_the_rock_level_5 = {
-	global_pop_conversion_speed = 0.02
-	monthly_towards_spiritualist = 0.5
-}
-
 tv_wonder_display_103_level_5 = {
 	global_pop_conversion_speed = 0.02
 	monthly_towards_spiritualist = 0.5
-}
-
-tv_wonder_unique_dome_of_the_rock_level_6 = {
-	global_pop_conversion_speed = 0.024
-	monthly_towards_spiritualist = 0.6
 }
 
 tv_wonder_display_103_level_6 = {
@@ -3105,58 +1563,28 @@ tv_wonder_display_103_level_6 = {
 	monthly_towards_spiritualist = 0.6
 }
 
-tv_wonder_unique_angkor_wat_level_1 = {
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_104_level_1 = {
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_unique_angkor_wat_level_2 = {
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_104_level_2 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_unique_angkor_wat_level_3 = {
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_104_level_3 = {
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_unique_angkor_wat_level_4 = {
-	monthly_towards_spiritualist = 0.4
 }
 
 tv_wonder_display_104_level_4 = {
 	monthly_towards_spiritualist = 0.4
 }
 
-tv_wonder_unique_angkor_wat_level_5 = {
-	monthly_towards_spiritualist = 0.5
-}
-
 tv_wonder_display_104_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_angkor_wat_level_6 = {
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_104_level_6 = {
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_potala_palace_level_1 = {
-	clergy_estate_max_tax = 0.2
-	clergy_estate_target_satisfaction = 0.1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_105_level_1 = {
@@ -3165,22 +1593,10 @@ tv_wonder_display_105_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_potala_palace_level_2 = {
-	clergy_estate_max_tax = 0.4
-	clergy_estate_target_satisfaction = 0.2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_105_level_2 = {
 	clergy_estate_max_tax = 0.4
 	clergy_estate_target_satisfaction = 0.2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_potala_palace_level_3 = {
-	clergy_estate_max_tax = 0.6
-	clergy_estate_target_satisfaction = 0.3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_105_level_3 = {
@@ -3189,22 +1605,10 @@ tv_wonder_display_105_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_potala_palace_level_4 = {
-	clergy_estate_max_tax = 0.8
-	clergy_estate_target_satisfaction = 0.4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_105_level_4 = {
 	clergy_estate_max_tax = 0.8
 	clergy_estate_target_satisfaction = 0.4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_potala_palace_level_5 = {
-	clergy_estate_max_tax = 1
-	clergy_estate_target_satisfaction = 0.5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_105_level_5 = {
@@ -3213,21 +1617,10 @@ tv_wonder_display_105_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_potala_palace_level_6 = {
-	clergy_estate_max_tax = 1.2
-	clergy_estate_target_satisfaction = 0.6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_105_level_6 = {
 	clergy_estate_max_tax = 1.2
 	clergy_estate_target_satisfaction = 0.6
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_alhambra_level_1 = {
-	global_distance_from_capital_speed_propagation = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_106_level_1 = {
@@ -3235,19 +1628,9 @@ tv_wonder_display_106_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_alhambra_level_2 = {
-	global_distance_from_capital_speed_propagation = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_106_level_2 = {
 	global_distance_from_capital_speed_propagation = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_alhambra_level_3 = {
-	global_distance_from_capital_speed_propagation = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_106_level_3 = {
@@ -3255,19 +1638,9 @@ tv_wonder_display_106_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_alhambra_level_4 = {
-	global_distance_from_capital_speed_propagation = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_106_level_4 = {
 	global_distance_from_capital_speed_propagation = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_alhambra_level_5 = {
-	global_distance_from_capital_speed_propagation = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_106_level_5 = {
@@ -3275,20 +1648,9 @@ tv_wonder_display_106_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_alhambra_level_6 = {
-	global_distance_from_capital_speed_propagation = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_106_level_6 = {
 	global_distance_from_capital_speed_propagation = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_machu_picchu_level_1 = {
-	clergy_estate_max_tax = 0.2
-	clergy_estate_target_satisfaction = 0.1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_107_level_1 = {
@@ -3297,22 +1659,10 @@ tv_wonder_display_107_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_machu_picchu_level_2 = {
-	clergy_estate_max_tax = 0.4
-	clergy_estate_target_satisfaction = 0.2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_107_level_2 = {
 	clergy_estate_max_tax = 0.4
 	clergy_estate_target_satisfaction = 0.2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_machu_picchu_level_3 = {
-	clergy_estate_max_tax = 0.6
-	clergy_estate_target_satisfaction = 0.3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_107_level_3 = {
@@ -3321,22 +1671,10 @@ tv_wonder_display_107_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_machu_picchu_level_4 = {
-	clergy_estate_max_tax = 0.8
-	clergy_estate_target_satisfaction = 0.4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_107_level_4 = {
 	clergy_estate_max_tax = 0.8
 	clergy_estate_target_satisfaction = 0.4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_machu_picchu_level_5 = {
-	clergy_estate_max_tax = 1
-	clergy_estate_target_satisfaction = 0.5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_107_level_5 = {
@@ -3345,70 +1683,34 @@ tv_wonder_display_107_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_machu_picchu_level_6 = {
-	clergy_estate_max_tax = 1.2
-	clergy_estate_target_satisfaction = 0.6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_107_level_6 = {
 	clergy_estate_max_tax = 1.2
 	clergy_estate_target_satisfaction = 0.6
 	monthly_towards_spiritualist = 0.6
 }
 
-tv_wonder_unique_himeji_castle_level_1 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_108_level_1 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_unique_himeji_castle_level_2 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_108_level_2 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_unique_himeji_castle_level_3 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_108_level_3 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_unique_himeji_castle_level_4 = {
-	monthly_towards_defensive = 0.4
 }
 
 tv_wonder_display_108_level_4 = {
 	monthly_towards_defensive = 0.4
 }
 
-tv_wonder_unique_himeji_castle_level_5 = {
-	monthly_towards_defensive = 0.5
-}
-
 tv_wonder_display_108_level_5 = {
 	monthly_towards_defensive = 0.5
 }
 
-tv_wonder_unique_himeji_castle_level_6 = {
-	monthly_towards_defensive = 0.6
-}
-
 tv_wonder_display_108_level_6 = {
 	monthly_towards_defensive = 0.6
-}
-
-tv_wonder_unique_taj_mahal_level_1 = {
-	pop_join_rebel_threshold = -0.05
-	pop_leave_rebels_threshold = -0.05
-	monthly_towards_traditionalist = 0.1
 }
 
 tv_wonder_display_109_level_1 = {
@@ -3417,22 +1719,10 @@ tv_wonder_display_109_level_1 = {
 	monthly_towards_traditionalist = 0.1
 }
 
-tv_wonder_unique_taj_mahal_level_2 = {
-	pop_join_rebel_threshold = -0.1
-	pop_leave_rebels_threshold = -0.1
-	monthly_towards_traditionalist = 0.2
-}
-
 tv_wonder_display_109_level_2 = {
 	pop_join_rebel_threshold = -0.1
 	pop_leave_rebels_threshold = -0.1
 	monthly_towards_traditionalist = 0.2
-}
-
-tv_wonder_unique_taj_mahal_level_3 = {
-	pop_join_rebel_threshold = -0.15
-	pop_leave_rebels_threshold = -0.15
-	monthly_towards_traditionalist = 0.3
 }
 
 tv_wonder_display_109_level_3 = {
@@ -3441,22 +1731,10 @@ tv_wonder_display_109_level_3 = {
 	monthly_towards_traditionalist = 0.3
 }
 
-tv_wonder_unique_taj_mahal_level_4 = {
-	pop_join_rebel_threshold = -0.2
-	pop_leave_rebels_threshold = -0.2
-	monthly_towards_traditionalist = 0.4
-}
-
 tv_wonder_display_109_level_4 = {
 	pop_join_rebel_threshold = -0.2
 	pop_leave_rebels_threshold = -0.2
 	monthly_towards_traditionalist = 0.4
-}
-
-tv_wonder_unique_taj_mahal_level_5 = {
-	pop_join_rebel_threshold = -0.25
-	pop_leave_rebels_threshold = -0.25
-	monthly_towards_traditionalist = 0.5
 }
 
 tv_wonder_display_109_level_5 = {
@@ -3465,21 +1743,10 @@ tv_wonder_display_109_level_5 = {
 	monthly_towards_traditionalist = 0.5
 }
 
-tv_wonder_unique_taj_mahal_level_6 = {
-	pop_join_rebel_threshold = -0.3
-	pop_leave_rebels_threshold = -0.3
-	monthly_towards_traditionalist = 0.6
-}
-
 tv_wonder_display_109_level_6 = {
 	pop_join_rebel_threshold = -0.3
 	pop_leave_rebels_threshold = -0.3
 	monthly_towards_traditionalist = 0.6
-}
-
-tv_wonder_unique_forbidden_city_level_1 = {
-	monthly_legitimacy = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_110_level_1 = {
@@ -3487,19 +1754,9 @@ tv_wonder_display_110_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_forbidden_city_level_2 = {
-	monthly_legitimacy = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_110_level_2 = {
 	monthly_legitimacy = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_forbidden_city_level_3 = {
-	monthly_legitimacy = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_110_level_3 = {
@@ -3507,19 +1764,9 @@ tv_wonder_display_110_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_forbidden_city_level_4 = {
-	monthly_legitimacy = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_110_level_4 = {
 	monthly_legitimacy = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_forbidden_city_level_5 = {
-	monthly_legitimacy = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_110_level_5 = {
@@ -3527,19 +1774,9 @@ tv_wonder_display_110_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_forbidden_city_level_6 = {
-	monthly_legitimacy = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_110_level_6 = {
 	monthly_legitimacy = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_topkapi_palace_level_1 = {
-	global_distance_from_capital_speed_propagation = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_111_level_1 = {
@@ -3547,19 +1784,9 @@ tv_wonder_display_111_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_topkapi_palace_level_2 = {
-	global_distance_from_capital_speed_propagation = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_111_level_2 = {
 	global_distance_from_capital_speed_propagation = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_topkapi_palace_level_3 = {
-	global_distance_from_capital_speed_propagation = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_111_level_3 = {
@@ -3567,19 +1794,9 @@ tv_wonder_display_111_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_topkapi_palace_level_4 = {
-	global_distance_from_capital_speed_propagation = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_111_level_4 = {
 	global_distance_from_capital_speed_propagation = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_topkapi_palace_level_5 = {
-	global_distance_from_capital_speed_propagation = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_111_level_5 = {
@@ -3587,19 +1804,9 @@ tv_wonder_display_111_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_topkapi_palace_level_6 = {
-	global_distance_from_capital_speed_propagation = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_111_level_6 = {
 	global_distance_from_capital_speed_propagation = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_st_peters_basilica_level_1 = {
-	global_pop_conversion_speed = 0.004
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_112_level_1 = {
@@ -3607,19 +1814,9 @@ tv_wonder_display_112_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_st_peters_basilica_level_2 = {
-	global_pop_conversion_speed = 0.008
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_112_level_2 = {
 	global_pop_conversion_speed = 0.008
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_st_peters_basilica_level_3 = {
-	global_pop_conversion_speed = 0.012
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_112_level_3 = {
@@ -3627,19 +1824,9 @@ tv_wonder_display_112_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_st_peters_basilica_level_4 = {
-	global_pop_conversion_speed = 0.016
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_112_level_4 = {
 	global_pop_conversion_speed = 0.016
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_st_peters_basilica_level_5 = {
-	global_pop_conversion_speed = 0.02
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_112_level_5 = {
@@ -3647,20 +1834,9 @@ tv_wonder_display_112_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_st_peters_basilica_level_6 = {
-	global_pop_conversion_speed = 0.024
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_112_level_6 = {
 	global_pop_conversion_speed = 0.024
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_lalibela_churches_level_1 = {
-	clergy_estate_max_tax = 0.2
-	clergy_estate_target_satisfaction = 0.1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_113_level_1 = {
@@ -3669,22 +1845,10 @@ tv_wonder_display_113_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_lalibela_churches_level_2 = {
-	clergy_estate_max_tax = 0.4
-	clergy_estate_target_satisfaction = 0.2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_113_level_2 = {
 	clergy_estate_max_tax = 0.4
 	clergy_estate_target_satisfaction = 0.2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_lalibela_churches_level_3 = {
-	clergy_estate_max_tax = 0.6
-	clergy_estate_target_satisfaction = 0.3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_113_level_3 = {
@@ -3693,22 +1857,10 @@ tv_wonder_display_113_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_lalibela_churches_level_4 = {
-	clergy_estate_max_tax = 0.8
-	clergy_estate_target_satisfaction = 0.4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_113_level_4 = {
 	clergy_estate_max_tax = 0.8
 	clergy_estate_target_satisfaction = 0.4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_lalibela_churches_level_5 = {
-	clergy_estate_max_tax = 1
-	clergy_estate_target_satisfaction = 0.5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_113_level_5 = {
@@ -3717,21 +1869,10 @@ tv_wonder_display_113_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_lalibela_churches_level_6 = {
-	clergy_estate_max_tax = 1.2
-	clergy_estate_target_satisfaction = 0.6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_113_level_6 = {
 	clergy_estate_max_tax = 1.2
 	clergy_estate_target_satisfaction = 0.6
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_venetian_arsenal_level_1 = {
-	ship_build_speed = 0.4
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_114_level_1 = {
@@ -3739,19 +1880,9 @@ tv_wonder_display_114_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_venetian_arsenal_level_2 = {
-	ship_build_speed = 0.8
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_114_level_2 = {
 	ship_build_speed = 0.8
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_venetian_arsenal_level_3 = {
-	ship_build_speed = 1.2
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_114_level_3 = {
@@ -3759,19 +1890,9 @@ tv_wonder_display_114_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_venetian_arsenal_level_4 = {
-	ship_build_speed = 1.6
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_114_level_4 = {
 	ship_build_speed = 1.6
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_venetian_arsenal_level_5 = {
-	ship_build_speed = 2
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_114_level_5 = {
@@ -3779,115 +1900,57 @@ tv_wonder_display_114_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_venetian_arsenal_level_6 = {
-	ship_build_speed = 2.4
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_114_level_6 = {
 	ship_build_speed = 2.4
 	monthly_towards_naval = 0.6
-}
-
-tv_wonder_unique_malacca_port_level_1 = {
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_115_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_malacca_port_level_2 = {
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_115_level_2 = {
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_malacca_port_level_3 = {
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_115_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_malacca_port_level_4 = {
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_115_level_4 = {
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_malacca_port_level_5 = {
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_115_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_malacca_port_level_6 = {
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_115_level_6 = {
 	monthly_towards_naval = 0.6
-}
-
-tv_wonder_unique_red_fort_delhi_level_1 = {
-	monthly_towards_defensive = 0.1
 }
 
 tv_wonder_display_116_level_1 = {
 	monthly_towards_defensive = 0.1
 }
 
-tv_wonder_unique_red_fort_delhi_level_2 = {
-	monthly_towards_defensive = 0.2
-}
-
 tv_wonder_display_116_level_2 = {
 	monthly_towards_defensive = 0.2
-}
-
-tv_wonder_unique_red_fort_delhi_level_3 = {
-	monthly_towards_defensive = 0.3
 }
 
 tv_wonder_display_116_level_3 = {
 	monthly_towards_defensive = 0.3
 }
 
-tv_wonder_unique_red_fort_delhi_level_4 = {
-	monthly_towards_defensive = 0.4
-}
-
 tv_wonder_display_116_level_4 = {
 	monthly_towards_defensive = 0.4
-}
-
-tv_wonder_unique_red_fort_delhi_level_5 = {
-	monthly_towards_defensive = 0.5
 }
 
 tv_wonder_display_116_level_5 = {
 	monthly_towards_defensive = 0.5
 }
 
-tv_wonder_unique_red_fort_delhi_level_6 = {
-	monthly_towards_defensive = 0.6
-}
-
 tv_wonder_display_116_level_6 = {
 	monthly_towards_defensive = 0.6
-}
-
-tv_wonder_unique_versailles_palace_level_1 = {
-	monthly_legitimacy = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_117_level_1 = {
@@ -3895,19 +1958,9 @@ tv_wonder_display_117_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_versailles_palace_level_2 = {
-	monthly_legitimacy = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_117_level_2 = {
 	monthly_legitimacy = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_versailles_palace_level_3 = {
-	monthly_legitimacy = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_117_level_3 = {
@@ -3915,19 +1968,9 @@ tv_wonder_display_117_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_versailles_palace_level_4 = {
-	monthly_legitimacy = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_117_level_4 = {
 	monthly_legitimacy = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_versailles_palace_level_5 = {
-	monthly_legitimacy = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_117_level_5 = {
@@ -3935,115 +1978,57 @@ tv_wonder_display_117_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_versailles_palace_level_6 = {
-	monthly_legitimacy = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_117_level_6 = {
 	monthly_legitimacy = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_tenochtitlan_causeways_level_1 = {
-	monthly_towards_free_subjects = 0.1
 }
 
 tv_wonder_display_118_level_1 = {
 	monthly_towards_free_subjects = 0.1
 }
 
-tv_wonder_unique_tenochtitlan_causeways_level_2 = {
-	monthly_towards_free_subjects = 0.2
-}
-
 tv_wonder_display_118_level_2 = {
 	monthly_towards_free_subjects = 0.2
-}
-
-tv_wonder_unique_tenochtitlan_causeways_level_3 = {
-	monthly_towards_free_subjects = 0.3
 }
 
 tv_wonder_display_118_level_3 = {
 	monthly_towards_free_subjects = 0.3
 }
 
-tv_wonder_unique_tenochtitlan_causeways_level_4 = {
-	monthly_towards_free_subjects = 0.4
-}
-
 tv_wonder_display_118_level_4 = {
 	monthly_towards_free_subjects = 0.4
-}
-
-tv_wonder_unique_tenochtitlan_causeways_level_5 = {
-	monthly_towards_free_subjects = 0.5
 }
 
 tv_wonder_display_118_level_5 = {
 	monthly_towards_free_subjects = 0.5
 }
 
-tv_wonder_unique_tenochtitlan_causeways_level_6 = {
-	monthly_towards_free_subjects = 0.6
-}
-
 tv_wonder_display_118_level_6 = {
 	monthly_towards_free_subjects = 0.6
-}
-
-tv_wonder_unique_amsterdam_canal_ring_level_1 = {
-	monthly_towards_mercantilism = 0.1
 }
 
 tv_wonder_display_119_level_1 = {
 	monthly_towards_mercantilism = 0.1
 }
 
-tv_wonder_unique_amsterdam_canal_ring_level_2 = {
-	monthly_towards_mercantilism = 0.2
-}
-
 tv_wonder_display_119_level_2 = {
 	monthly_towards_mercantilism = 0.2
-}
-
-tv_wonder_unique_amsterdam_canal_ring_level_3 = {
-	monthly_towards_mercantilism = 0.3
 }
 
 tv_wonder_display_119_level_3 = {
 	monthly_towards_mercantilism = 0.3
 }
 
-tv_wonder_unique_amsterdam_canal_ring_level_4 = {
-	monthly_towards_mercantilism = 0.4
-}
-
 tv_wonder_display_119_level_4 = {
 	monthly_towards_mercantilism = 0.4
-}
-
-tv_wonder_unique_amsterdam_canal_ring_level_5 = {
-	monthly_towards_mercantilism = 0.5
 }
 
 tv_wonder_display_119_level_5 = {
 	monthly_towards_mercantilism = 0.5
 }
 
-tv_wonder_unique_amsterdam_canal_ring_level_6 = {
-	monthly_towards_mercantilism = 0.6
-}
-
 tv_wonder_display_119_level_6 = {
 	monthly_towards_mercantilism = 0.6
-}
-
-tv_wonder_unique_mecca_haram_expansion_level_1 = {
-	global_pop_conversion_speed = 0.004
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_120_level_1 = {
@@ -4051,19 +2036,9 @@ tv_wonder_display_120_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_mecca_haram_expansion_level_2 = {
-	global_pop_conversion_speed = 0.008
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_120_level_2 = {
 	global_pop_conversion_speed = 0.008
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_mecca_haram_expansion_level_3 = {
-	global_pop_conversion_speed = 0.012
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_120_level_3 = {
@@ -4071,19 +2046,9 @@ tv_wonder_display_120_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_mecca_haram_expansion_level_4 = {
-	global_pop_conversion_speed = 0.016
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_120_level_4 = {
 	global_pop_conversion_speed = 0.016
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_mecca_haram_expansion_level_5 = {
-	global_pop_conversion_speed = 0.02
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_120_level_5 = {
@@ -4091,67 +2056,33 @@ tv_wonder_display_120_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_mecca_haram_expansion_level_6 = {
-	global_pop_conversion_speed = 0.024
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_120_level_6 = {
 	global_pop_conversion_speed = 0.024
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_ming_great_wall_level_1 = {
-	monthly_towards_defensive = 0.1
 }
 
 tv_wonder_display_121_level_1 = {
 	monthly_towards_defensive = 0.1
 }
 
-tv_wonder_unique_ming_great_wall_level_2 = {
-	monthly_towards_defensive = 0.2
-}
-
 tv_wonder_display_121_level_2 = {
 	monthly_towards_defensive = 0.2
-}
-
-tv_wonder_unique_ming_great_wall_level_3 = {
-	monthly_towards_defensive = 0.3
 }
 
 tv_wonder_display_121_level_3 = {
 	monthly_towards_defensive = 0.3
 }
 
-tv_wonder_unique_ming_great_wall_level_4 = {
-	monthly_towards_defensive = 0.4
-}
-
 tv_wonder_display_121_level_4 = {
 	monthly_towards_defensive = 0.4
-}
-
-tv_wonder_unique_ming_great_wall_level_5 = {
-	monthly_towards_defensive = 0.5
 }
 
 tv_wonder_display_121_level_5 = {
 	monthly_towards_defensive = 0.5
 }
 
-tv_wonder_unique_ming_great_wall_level_6 = {
-	monthly_towards_defensive = 0.6
-}
-
 tv_wonder_display_121_level_6 = {
 	monthly_towards_defensive = 0.6
-}
-
-tv_wonder_unique_bank_of_saint_george_level_1 = {
-	minting_income_factor = 0.2
-	monthly_towards_capital_economy = 0.1
 }
 
 tv_wonder_display_122_level_1 = {
@@ -4159,19 +2090,9 @@ tv_wonder_display_122_level_1 = {
 	monthly_towards_capital_economy = 0.1
 }
 
-tv_wonder_unique_bank_of_saint_george_level_2 = {
-	minting_income_factor = 0.4
-	monthly_towards_capital_economy = 0.2
-}
-
 tv_wonder_display_122_level_2 = {
 	minting_income_factor = 0.4
 	monthly_towards_capital_economy = 0.2
-}
-
-tv_wonder_unique_bank_of_saint_george_level_3 = {
-	minting_income_factor = 0.6
-	monthly_towards_capital_economy = 0.3
 }
 
 tv_wonder_display_122_level_3 = {
@@ -4179,19 +2100,9 @@ tv_wonder_display_122_level_3 = {
 	monthly_towards_capital_economy = 0.3
 }
 
-tv_wonder_unique_bank_of_saint_george_level_4 = {
-	minting_income_factor = 0.8
-	monthly_towards_capital_economy = 0.4
-}
-
 tv_wonder_display_122_level_4 = {
 	minting_income_factor = 0.8
 	monthly_towards_capital_economy = 0.4
-}
-
-tv_wonder_unique_bank_of_saint_george_level_5 = {
-	minting_income_factor = 1
-	monthly_towards_capital_economy = 0.5
 }
 
 tv_wonder_display_122_level_5 = {
@@ -4199,19 +2110,9 @@ tv_wonder_display_122_level_5 = {
 	monthly_towards_capital_economy = 0.5
 }
 
-tv_wonder_unique_bank_of_saint_george_level_6 = {
-	minting_income_factor = 1.2
-	monthly_towards_capital_economy = 0.6
-}
-
 tv_wonder_display_122_level_6 = {
 	minting_income_factor = 1.2
 	monthly_towards_capital_economy = 0.6
-}
-
-tv_wonder_unique_cahokia_mounds_level_1 = {
-	cultures_capacity = 1
-	monthly_towards_humanist = 0.1
 }
 
 tv_wonder_display_123_level_1 = {
@@ -4219,19 +2120,9 @@ tv_wonder_display_123_level_1 = {
 	monthly_towards_humanist = 0.1
 }
 
-tv_wonder_unique_cahokia_mounds_level_2 = {
-	cultures_capacity = 2
-	monthly_towards_humanist = 0.2
-}
-
 tv_wonder_display_123_level_2 = {
 	cultures_capacity = 2
 	monthly_towards_humanist = 0.2
-}
-
-tv_wonder_unique_cahokia_mounds_level_3 = {
-	cultures_capacity = 3
-	monthly_towards_humanist = 0.3
 }
 
 tv_wonder_display_123_level_3 = {
@@ -4239,19 +2130,9 @@ tv_wonder_display_123_level_3 = {
 	monthly_towards_humanist = 0.3
 }
 
-tv_wonder_unique_cahokia_mounds_level_4 = {
-	cultures_capacity = 4
-	monthly_towards_humanist = 0.4
-}
-
 tv_wonder_display_123_level_4 = {
 	cultures_capacity = 4
 	monthly_towards_humanist = 0.4
-}
-
-tv_wonder_unique_cahokia_mounds_level_5 = {
-	cultures_capacity = 5
-	monthly_towards_humanist = 0.5
 }
 
 tv_wonder_display_123_level_5 = {
@@ -4259,19 +2140,9 @@ tv_wonder_display_123_level_5 = {
 	monthly_towards_humanist = 0.5
 }
 
-tv_wonder_unique_cahokia_mounds_level_6 = {
-	cultures_capacity = 6
-	monthly_towards_humanist = 0.6
-}
-
 tv_wonder_display_123_level_6 = {
 	cultures_capacity = 6
 	monthly_towards_humanist = 0.6
-}
-
-tv_wonder_unique_great_zimbabwe_level_1 = {
-	global_trade_center_power = 0.2
-	monthly_towards_free_trade = 0.1
 }
 
 tv_wonder_display_124_level_1 = {
@@ -4279,19 +2150,9 @@ tv_wonder_display_124_level_1 = {
 	monthly_towards_free_trade = 0.1
 }
 
-tv_wonder_unique_great_zimbabwe_level_2 = {
-	global_trade_center_power = 0.4
-	monthly_towards_free_trade = 0.2
-}
-
 tv_wonder_display_124_level_2 = {
 	global_trade_center_power = 0.4
 	monthly_towards_free_trade = 0.2
-}
-
-tv_wonder_unique_great_zimbabwe_level_3 = {
-	global_trade_center_power = 0.6
-	monthly_towards_free_trade = 0.3
 }
 
 tv_wonder_display_124_level_3 = {
@@ -4299,19 +2160,9 @@ tv_wonder_display_124_level_3 = {
 	monthly_towards_free_trade = 0.3
 }
 
-tv_wonder_unique_great_zimbabwe_level_4 = {
-	global_trade_center_power = 0.8
-	monthly_towards_free_trade = 0.4
-}
-
 tv_wonder_display_124_level_4 = {
 	global_trade_center_power = 0.8
 	monthly_towards_free_trade = 0.4
-}
-
-tv_wonder_unique_great_zimbabwe_level_5 = {
-	global_trade_center_power = 1
-	monthly_towards_free_trade = 0.5
 }
 
 tv_wonder_display_124_level_5 = {
@@ -4319,19 +2170,9 @@ tv_wonder_display_124_level_5 = {
 	monthly_towards_free_trade = 0.5
 }
 
-tv_wonder_unique_great_zimbabwe_level_6 = {
-	global_trade_center_power = 1.2
-	monthly_towards_free_trade = 0.6
-}
-
 tv_wonder_display_124_level_6 = {
 	global_trade_center_power = 1.2
 	monthly_towards_free_trade = 0.6
-}
-
-tv_wonder_unique_isfahan_square_level_1 = {
-	monthly_legitimacy = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_125_level_1 = {
@@ -4339,19 +2180,9 @@ tv_wonder_display_125_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_isfahan_square_level_2 = {
-	monthly_legitimacy = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_125_level_2 = {
 	monthly_legitimacy = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_isfahan_square_level_3 = {
-	monthly_legitimacy = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_125_level_3 = {
@@ -4359,19 +2190,9 @@ tv_wonder_display_125_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_isfahan_square_level_4 = {
-	monthly_legitimacy = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_125_level_4 = {
 	monthly_legitimacy = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_isfahan_square_level_5 = {
-	monthly_legitimacy = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_125_level_5 = {
@@ -4379,19 +2200,9 @@ tv_wonder_display_125_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_isfahan_square_level_6 = {
-	monthly_legitimacy = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_125_level_6 = {
 	monthly_legitimacy = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_grand_canal_level_1 = {
-	global_monthly_prosperity = 0.1
-	monthly_towards_free_subjects = 0.1
 }
 
 tv_wonder_display_126_level_1 = {
@@ -4399,19 +2210,9 @@ tv_wonder_display_126_level_1 = {
 	monthly_towards_free_subjects = 0.1
 }
 
-tv_wonder_unique_grand_canal_level_2 = {
-	global_monthly_prosperity = 0.2
-	monthly_towards_free_subjects = 0.2
-}
-
 tv_wonder_display_126_level_2 = {
 	global_monthly_prosperity = 0.2
 	monthly_towards_free_subjects = 0.2
-}
-
-tv_wonder_unique_grand_canal_level_3 = {
-	global_monthly_prosperity = 0.3
-	monthly_towards_free_subjects = 0.3
 }
 
 tv_wonder_display_126_level_3 = {
@@ -4419,19 +2220,9 @@ tv_wonder_display_126_level_3 = {
 	monthly_towards_free_subjects = 0.3
 }
 
-tv_wonder_unique_grand_canal_level_4 = {
-	global_monthly_prosperity = 0.4
-	monthly_towards_free_subjects = 0.4
-}
-
 tv_wonder_display_126_level_4 = {
 	global_monthly_prosperity = 0.4
 	monthly_towards_free_subjects = 0.4
-}
-
-tv_wonder_unique_grand_canal_level_5 = {
-	global_monthly_prosperity = 0.5
-	monthly_towards_free_subjects = 0.5
 }
 
 tv_wonder_display_126_level_5 = {
@@ -4439,115 +2230,57 @@ tv_wonder_display_126_level_5 = {
 	monthly_towards_free_subjects = 0.5
 }
 
-tv_wonder_unique_grand_canal_level_6 = {
-	global_monthly_prosperity = 0.6
-	monthly_towards_free_subjects = 0.6
-}
-
 tv_wonder_display_126_level_6 = {
 	global_monthly_prosperity = 0.6
 	monthly_towards_free_subjects = 0.6
-}
-
-tv_wonder_unique_inca_royal_road_level_1 = {
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_127_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_inca_royal_road_level_2 = {
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_127_level_2 = {
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_inca_royal_road_level_3 = {
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_127_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_inca_royal_road_level_4 = {
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_127_level_4 = {
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_inca_royal_road_level_5 = {
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_127_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_inca_royal_road_level_6 = {
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_127_level_6 = {
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_roman_aqueducts_level_1 = {
-	monthly_towards_capital_economy = 0.1
 }
 
 tv_wonder_display_128_level_1 = {
 	monthly_towards_capital_economy = 0.1
 }
 
-tv_wonder_unique_roman_aqueducts_level_2 = {
-	monthly_towards_capital_economy = 0.2
-}
-
 tv_wonder_display_128_level_2 = {
 	monthly_towards_capital_economy = 0.2
-}
-
-tv_wonder_unique_roman_aqueducts_level_3 = {
-	monthly_towards_capital_economy = 0.3
 }
 
 tv_wonder_display_128_level_3 = {
 	monthly_towards_capital_economy = 0.3
 }
 
-tv_wonder_unique_roman_aqueducts_level_4 = {
-	monthly_towards_capital_economy = 0.4
-}
-
 tv_wonder_display_128_level_4 = {
 	monthly_towards_capital_economy = 0.4
-}
-
-tv_wonder_unique_roman_aqueducts_level_5 = {
-	monthly_towards_capital_economy = 0.5
 }
 
 tv_wonder_display_128_level_5 = {
 	monthly_towards_capital_economy = 0.5
 }
 
-tv_wonder_unique_roman_aqueducts_level_6 = {
-	monthly_towards_capital_economy = 0.6
-}
-
 tv_wonder_display_128_level_6 = {
 	monthly_towards_capital_economy = 0.6
-}
-
-tv_wonder_unique_suez_ancient_canal_level_1 = {
-	global_monthly_prosperity = 0.1
-	monthly_towards_free_subjects = 0.1
 }
 
 tv_wonder_display_129_level_1 = {
@@ -4555,19 +2288,9 @@ tv_wonder_display_129_level_1 = {
 	monthly_towards_free_subjects = 0.1
 }
 
-tv_wonder_unique_suez_ancient_canal_level_2 = {
-	global_monthly_prosperity = 0.2
-	monthly_towards_free_subjects = 0.2
-}
-
 tv_wonder_display_129_level_2 = {
 	global_monthly_prosperity = 0.2
 	monthly_towards_free_subjects = 0.2
-}
-
-tv_wonder_unique_suez_ancient_canal_level_3 = {
-	global_monthly_prosperity = 0.3
-	monthly_towards_free_subjects = 0.3
 }
 
 tv_wonder_display_129_level_3 = {
@@ -4575,19 +2298,9 @@ tv_wonder_display_129_level_3 = {
 	monthly_towards_free_subjects = 0.3
 }
 
-tv_wonder_unique_suez_ancient_canal_level_4 = {
-	global_monthly_prosperity = 0.4
-	monthly_towards_free_subjects = 0.4
-}
-
 tv_wonder_display_129_level_4 = {
 	global_monthly_prosperity = 0.4
 	monthly_towards_free_subjects = 0.4
-}
-
-tv_wonder_unique_suez_ancient_canal_level_5 = {
-	global_monthly_prosperity = 0.5
-	monthly_towards_free_subjects = 0.5
 }
 
 tv_wonder_display_129_level_5 = {
@@ -4595,67 +2308,33 @@ tv_wonder_display_129_level_5 = {
 	monthly_towards_free_subjects = 0.5
 }
 
-tv_wonder_unique_suez_ancient_canal_level_6 = {
-	global_monthly_prosperity = 0.6
-	monthly_towards_free_subjects = 0.6
-}
-
 tv_wonder_display_129_level_6 = {
 	global_monthly_prosperity = 0.6
 	monthly_towards_free_subjects = 0.6
-}
-
-tv_wonder_unique_kremlin_level_1 = {
-	monthly_towards_defensive = 0.1
 }
 
 tv_wonder_display_130_level_1 = {
 	monthly_towards_defensive = 0.1
 }
 
-tv_wonder_unique_kremlin_level_2 = {
-	monthly_towards_defensive = 0.2
-}
-
 tv_wonder_display_130_level_2 = {
 	monthly_towards_defensive = 0.2
-}
-
-tv_wonder_unique_kremlin_level_3 = {
-	monthly_towards_defensive = 0.3
 }
 
 tv_wonder_display_130_level_3 = {
 	monthly_towards_defensive = 0.3
 }
 
-tv_wonder_unique_kremlin_level_4 = {
-	monthly_towards_defensive = 0.4
-}
-
 tv_wonder_display_130_level_4 = {
 	monthly_towards_defensive = 0.4
-}
-
-tv_wonder_unique_kremlin_level_5 = {
-	monthly_towards_defensive = 0.5
 }
 
 tv_wonder_display_130_level_5 = {
 	monthly_towards_defensive = 0.5
 }
 
-tv_wonder_unique_kremlin_level_6 = {
-	monthly_towards_defensive = 0.6
-}
-
 tv_wonder_display_130_level_6 = {
 	monthly_towards_defensive = 0.6
-}
-
-tv_wonder_unique_teotihuacan_level_1 = {
-	cultures_capacity = 1
-	monthly_towards_humanist = 0.1
 }
 
 tv_wonder_display_131_level_1 = {
@@ -4663,19 +2342,9 @@ tv_wonder_display_131_level_1 = {
 	monthly_towards_humanist = 0.1
 }
 
-tv_wonder_unique_teotihuacan_level_2 = {
-	cultures_capacity = 2
-	monthly_towards_humanist = 0.2
-}
-
 tv_wonder_display_131_level_2 = {
 	cultures_capacity = 2
 	monthly_towards_humanist = 0.2
-}
-
-tv_wonder_unique_teotihuacan_level_3 = {
-	cultures_capacity = 3
-	monthly_towards_humanist = 0.3
 }
 
 tv_wonder_display_131_level_3 = {
@@ -4683,19 +2352,9 @@ tv_wonder_display_131_level_3 = {
 	monthly_towards_humanist = 0.3
 }
 
-tv_wonder_unique_teotihuacan_level_4 = {
-	cultures_capacity = 4
-	monthly_towards_humanist = 0.4
-}
-
 tv_wonder_display_131_level_4 = {
 	cultures_capacity = 4
 	monthly_towards_humanist = 0.4
-}
-
-tv_wonder_unique_teotihuacan_level_5 = {
-	cultures_capacity = 5
-	monthly_towards_humanist = 0.5
 }
 
 tv_wonder_display_131_level_5 = {
@@ -4703,163 +2362,81 @@ tv_wonder_display_131_level_5 = {
 	monthly_towards_humanist = 0.5
 }
 
-tv_wonder_unique_teotihuacan_level_6 = {
-	cultures_capacity = 6
-	monthly_towards_humanist = 0.6
-}
-
 tv_wonder_display_131_level_6 = {
 	cultures_capacity = 6
 	monthly_towards_humanist = 0.6
-}
-
-tv_wonder_unique_angkor_hydraulic_system_level_1 = {
-	monthly_towards_capital_economy = 0.1
 }
 
 tv_wonder_display_132_level_1 = {
 	monthly_towards_capital_economy = 0.1
 }
 
-tv_wonder_unique_angkor_hydraulic_system_level_2 = {
-	monthly_towards_capital_economy = 0.2
-}
-
 tv_wonder_display_132_level_2 = {
 	monthly_towards_capital_economy = 0.2
-}
-
-tv_wonder_unique_angkor_hydraulic_system_level_3 = {
-	monthly_towards_capital_economy = 0.3
 }
 
 tv_wonder_display_132_level_3 = {
 	monthly_towards_capital_economy = 0.3
 }
 
-tv_wonder_unique_angkor_hydraulic_system_level_4 = {
-	monthly_towards_capital_economy = 0.4
-}
-
 tv_wonder_display_132_level_4 = {
 	monthly_towards_capital_economy = 0.4
-}
-
-tv_wonder_unique_angkor_hydraulic_system_level_5 = {
-	monthly_towards_capital_economy = 0.5
 }
 
 tv_wonder_display_132_level_5 = {
 	monthly_towards_capital_economy = 0.5
 }
 
-tv_wonder_unique_angkor_hydraulic_system_level_6 = {
-	monthly_towards_capital_economy = 0.6
-}
-
 tv_wonder_display_132_level_6 = {
 	monthly_towards_capital_economy = 0.6
-}
-
-tv_wonder_unique_dutch_polders_level_1 = {
-	monthly_towards_free_subjects = 0.1
 }
 
 tv_wonder_display_133_level_1 = {
 	monthly_towards_free_subjects = 0.1
 }
 
-tv_wonder_unique_dutch_polders_level_2 = {
-	monthly_towards_free_subjects = 0.2
-}
-
 tv_wonder_display_133_level_2 = {
 	monthly_towards_free_subjects = 0.2
-}
-
-tv_wonder_unique_dutch_polders_level_3 = {
-	monthly_towards_free_subjects = 0.3
 }
 
 tv_wonder_display_133_level_3 = {
 	monthly_towards_free_subjects = 0.3
 }
 
-tv_wonder_unique_dutch_polders_level_4 = {
-	monthly_towards_free_subjects = 0.4
-}
-
 tv_wonder_display_133_level_4 = {
 	monthly_towards_free_subjects = 0.4
-}
-
-tv_wonder_unique_dutch_polders_level_5 = {
-	monthly_towards_free_subjects = 0.5
 }
 
 tv_wonder_display_133_level_5 = {
 	monthly_towards_free_subjects = 0.5
 }
 
-tv_wonder_unique_dutch_polders_level_6 = {
-	monthly_towards_free_subjects = 0.6
-}
-
 tv_wonder_display_133_level_6 = {
 	monthly_towards_free_subjects = 0.6
-}
-
-tv_wonder_unique_machu_picchu_terraces_level_1 = {
-	monthly_towards_traditional_economy = 0.1
 }
 
 tv_wonder_display_134_level_1 = {
 	monthly_towards_traditional_economy = 0.1
 }
 
-tv_wonder_unique_machu_picchu_terraces_level_2 = {
-	monthly_towards_traditional_economy = 0.2
-}
-
 tv_wonder_display_134_level_2 = {
 	monthly_towards_traditional_economy = 0.2
-}
-
-tv_wonder_unique_machu_picchu_terraces_level_3 = {
-	monthly_towards_traditional_economy = 0.3
 }
 
 tv_wonder_display_134_level_3 = {
 	monthly_towards_traditional_economy = 0.3
 }
 
-tv_wonder_unique_machu_picchu_terraces_level_4 = {
-	monthly_towards_traditional_economy = 0.4
-}
-
 tv_wonder_display_134_level_4 = {
 	monthly_towards_traditional_economy = 0.4
-}
-
-tv_wonder_unique_machu_picchu_terraces_level_5 = {
-	monthly_towards_traditional_economy = 0.5
 }
 
 tv_wonder_display_134_level_5 = {
 	monthly_towards_traditional_economy = 0.5
 }
 
-tv_wonder_unique_machu_picchu_terraces_level_6 = {
-	monthly_towards_traditional_economy = 0.6
-}
-
 tv_wonder_display_134_level_6 = {
 	monthly_towards_traditional_economy = 0.6
-}
-
-tv_wonder_unique_british_navy_dockyards_level_1 = {
-	ship_build_speed = 0.4
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_135_level_1 = {
@@ -4867,19 +2444,9 @@ tv_wonder_display_135_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_british_navy_dockyards_level_2 = {
-	ship_build_speed = 0.8
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_135_level_2 = {
 	ship_build_speed = 0.8
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_british_navy_dockyards_level_3 = {
-	ship_build_speed = 1.2
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_135_level_3 = {
@@ -4887,19 +2454,9 @@ tv_wonder_display_135_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_british_navy_dockyards_level_4 = {
-	ship_build_speed = 1.6
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_135_level_4 = {
 	ship_build_speed = 1.6
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_british_navy_dockyards_level_5 = {
-	ship_build_speed = 2
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_135_level_5 = {
@@ -4907,163 +2464,81 @@ tv_wonder_display_135_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_british_navy_dockyards_level_6 = {
-	ship_build_speed = 2.4
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_135_level_6 = {
 	ship_build_speed = 2.4
 	monthly_towards_naval = 0.6
-}
-
-tv_wonder_unique_spanish_silver_fleet_level_1 = {
-	monthly_towards_free_trade = 0.1
 }
 
 tv_wonder_display_136_level_1 = {
 	monthly_towards_free_trade = 0.1
 }
 
-tv_wonder_unique_spanish_silver_fleet_level_2 = {
-	monthly_towards_free_trade = 0.2
-}
-
 tv_wonder_display_136_level_2 = {
 	monthly_towards_free_trade = 0.2
-}
-
-tv_wonder_unique_spanish_silver_fleet_level_3 = {
-	monthly_towards_free_trade = 0.3
 }
 
 tv_wonder_display_136_level_3 = {
 	monthly_towards_free_trade = 0.3
 }
 
-tv_wonder_unique_spanish_silver_fleet_level_4 = {
-	monthly_towards_free_trade = 0.4
-}
-
 tv_wonder_display_136_level_4 = {
 	monthly_towards_free_trade = 0.4
-}
-
-tv_wonder_unique_spanish_silver_fleet_level_5 = {
-	monthly_towards_free_trade = 0.5
 }
 
 tv_wonder_display_136_level_5 = {
 	monthly_towards_free_trade = 0.5
 }
 
-tv_wonder_unique_spanish_silver_fleet_level_6 = {
-	monthly_towards_free_trade = 0.6
-}
-
 tv_wonder_display_136_level_6 = {
 	monthly_towards_free_trade = 0.6
-}
-
-tv_wonder_unique_ottoman_hajj_road_level_1 = {
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_137_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_ottoman_hajj_road_level_2 = {
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_137_level_2 = {
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_ottoman_hajj_road_level_3 = {
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_137_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_ottoman_hajj_road_level_4 = {
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_137_level_4 = {
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_ottoman_hajj_road_level_5 = {
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_137_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_ottoman_hajj_road_level_6 = {
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_137_level_6 = {
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_persian_qanat_level_1 = {
-	monthly_towards_capital_economy = 0.1
 }
 
 tv_wonder_display_138_level_1 = {
 	monthly_towards_capital_economy = 0.1
 }
 
-tv_wonder_unique_persian_qanat_level_2 = {
-	monthly_towards_capital_economy = 0.2
-}
-
 tv_wonder_display_138_level_2 = {
 	monthly_towards_capital_economy = 0.2
-}
-
-tv_wonder_unique_persian_qanat_level_3 = {
-	monthly_towards_capital_economy = 0.3
 }
 
 tv_wonder_display_138_level_3 = {
 	monthly_towards_capital_economy = 0.3
 }
 
-tv_wonder_unique_persian_qanat_level_4 = {
-	monthly_towards_capital_economy = 0.4
-}
-
 tv_wonder_display_138_level_4 = {
 	monthly_towards_capital_economy = 0.4
-}
-
-tv_wonder_unique_persian_qanat_level_5 = {
-	monthly_towards_capital_economy = 0.5
 }
 
 tv_wonder_display_138_level_5 = {
 	monthly_towards_capital_economy = 0.5
 }
 
-tv_wonder_unique_persian_qanat_level_6 = {
-	monthly_towards_capital_economy = 0.6
-}
-
 tv_wonder_display_138_level_6 = {
 	monthly_towards_capital_economy = 0.6
-}
-
-tv_wonder_unique_longjiang_shipyard_level_1 = {
-	ship_build_speed = 0.4
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_139_level_1 = {
@@ -5071,19 +2546,9 @@ tv_wonder_display_139_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_longjiang_shipyard_level_2 = {
-	ship_build_speed = 0.8
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_139_level_2 = {
 	ship_build_speed = 0.8
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_longjiang_shipyard_level_3 = {
-	ship_build_speed = 1.2
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_139_level_3 = {
@@ -5091,19 +2556,9 @@ tv_wonder_display_139_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_longjiang_shipyard_level_4 = {
-	ship_build_speed = 1.6
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_139_level_4 = {
 	ship_build_speed = 1.6
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_longjiang_shipyard_level_5 = {
-	ship_build_speed = 2
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_139_level_5 = {
@@ -5111,19 +2566,9 @@ tv_wonder_display_139_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_longjiang_shipyard_level_6 = {
-	ship_build_speed = 2.4
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_139_level_6 = {
 	ship_build_speed = 2.4
 	monthly_towards_naval = 0.6
-}
-
-tv_wonder_unique_jerusalem_holy_city_level_1 = {
-	cultures_capacity = 1
-	monthly_towards_humanist = 0.1
 }
 
 tv_wonder_display_140_level_1 = {
@@ -5131,19 +2576,9 @@ tv_wonder_display_140_level_1 = {
 	monthly_towards_humanist = 0.1
 }
 
-tv_wonder_unique_jerusalem_holy_city_level_2 = {
-	cultures_capacity = 2
-	monthly_towards_humanist = 0.2
-}
-
 tv_wonder_display_140_level_2 = {
 	cultures_capacity = 2
 	monthly_towards_humanist = 0.2
-}
-
-tv_wonder_unique_jerusalem_holy_city_level_3 = {
-	cultures_capacity = 3
-	monthly_towards_humanist = 0.3
 }
 
 tv_wonder_display_140_level_3 = {
@@ -5151,19 +2586,9 @@ tv_wonder_display_140_level_3 = {
 	monthly_towards_humanist = 0.3
 }
 
-tv_wonder_unique_jerusalem_holy_city_level_4 = {
-	cultures_capacity = 4
-	monthly_towards_humanist = 0.4
-}
-
 tv_wonder_display_140_level_4 = {
 	cultures_capacity = 4
 	monthly_towards_humanist = 0.4
-}
-
-tv_wonder_unique_jerusalem_holy_city_level_5 = {
-	cultures_capacity = 5
-	monthly_towards_humanist = 0.5
 }
 
 tv_wonder_display_140_level_5 = {
@@ -5171,20 +2596,9 @@ tv_wonder_display_140_level_5 = {
 	monthly_towards_humanist = 0.5
 }
 
-tv_wonder_unique_jerusalem_holy_city_level_6 = {
-	cultures_capacity = 6
-	monthly_towards_humanist = 0.6
-}
-
 tv_wonder_display_140_level_6 = {
 	cultures_capacity = 6
 	monthly_towards_humanist = 0.6
-}
-
-tv_wonder_unique_stonehenge_level_1 = {
-	tolerance_heretic = 1
-	tolerance_heathen = 1
-	monthly_towards_traditionalist = 0.1
 }
 
 tv_wonder_display_141_level_1 = {
@@ -5193,22 +2607,10 @@ tv_wonder_display_141_level_1 = {
 	monthly_towards_traditionalist = 0.1
 }
 
-tv_wonder_unique_stonehenge_level_2 = {
-	tolerance_heretic = 2
-	tolerance_heathen = 2
-	monthly_towards_traditionalist = 0.2
-}
-
 tv_wonder_display_141_level_2 = {
 	tolerance_heretic = 2
 	tolerance_heathen = 2
 	monthly_towards_traditionalist = 0.2
-}
-
-tv_wonder_unique_stonehenge_level_3 = {
-	tolerance_heretic = 3
-	tolerance_heathen = 3
-	monthly_towards_traditionalist = 0.3
 }
 
 tv_wonder_display_141_level_3 = {
@@ -5217,22 +2619,10 @@ tv_wonder_display_141_level_3 = {
 	monthly_towards_traditionalist = 0.3
 }
 
-tv_wonder_unique_stonehenge_level_4 = {
-	tolerance_heretic = 4
-	tolerance_heathen = 4
-	monthly_towards_traditionalist = 0.4
-}
-
 tv_wonder_display_141_level_4 = {
 	tolerance_heretic = 4
 	tolerance_heathen = 4
 	monthly_towards_traditionalist = 0.4
-}
-
-tv_wonder_unique_stonehenge_level_5 = {
-	tolerance_heretic = 5
-	tolerance_heathen = 5
-	monthly_towards_traditionalist = 0.5
 }
 
 tv_wonder_display_141_level_5 = {
@@ -5241,69 +2631,34 @@ tv_wonder_display_141_level_5 = {
 	monthly_towards_traditionalist = 0.5
 }
 
-tv_wonder_unique_stonehenge_level_6 = {
-	tolerance_heretic = 6
-	tolerance_heathen = 6
-	monthly_towards_traditionalist = 0.6
-}
-
 tv_wonder_display_141_level_6 = {
 	tolerance_heretic = 6
 	tolerance_heathen = 6
 	monthly_towards_traditionalist = 0.6
 }
 
-tv_wonder_unique_tower_of_london_level_1 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_142_level_1 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_unique_tower_of_london_level_2 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_142_level_2 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_unique_tower_of_london_level_3 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_142_level_3 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_unique_tower_of_london_level_4 = {
-	monthly_towards_defensive = 0.4
 }
 
 tv_wonder_display_142_level_4 = {
 	monthly_towards_defensive = 0.4
 }
 
-tv_wonder_unique_tower_of_london_level_5 = {
-	monthly_towards_defensive = 0.5
-}
-
 tv_wonder_display_142_level_5 = {
 	monthly_towards_defensive = 0.5
 }
 
-tv_wonder_unique_tower_of_london_level_6 = {
-	monthly_towards_defensive = 0.6
-}
-
 tv_wonder_display_142_level_6 = {
 	monthly_towards_defensive = 0.6
-}
-
-tv_wonder_unique_notre_dame_de_paris_level_1 = {
-	tolerance_own = 1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_143_level_1 = {
@@ -5311,19 +2666,9 @@ tv_wonder_display_143_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_notre_dame_de_paris_level_2 = {
-	tolerance_own = 2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_143_level_2 = {
 	tolerance_own = 2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_notre_dame_de_paris_level_3 = {
-	tolerance_own = 3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_143_level_3 = {
@@ -5331,19 +2676,9 @@ tv_wonder_display_143_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_notre_dame_de_paris_level_4 = {
-	tolerance_own = 4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_143_level_4 = {
 	tolerance_own = 4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_notre_dame_de_paris_level_5 = {
-	tolerance_own = 5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_143_level_5 = {
@@ -5351,19 +2686,9 @@ tv_wonder_display_143_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_notre_dame_de_paris_level_6 = {
-	tolerance_own = 6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_143_level_6 = {
 	tolerance_own = 6
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_st_basils_cathedral_level_1 = {
-	tolerance_own = 1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_144_level_1 = {
@@ -5371,19 +2696,9 @@ tv_wonder_display_144_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_st_basils_cathedral_level_2 = {
-	tolerance_own = 2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_144_level_2 = {
 	tolerance_own = 2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_st_basils_cathedral_level_3 = {
-	tolerance_own = 3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_144_level_3 = {
@@ -5391,19 +2706,9 @@ tv_wonder_display_144_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_st_basils_cathedral_level_4 = {
-	tolerance_own = 4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_144_level_4 = {
 	tolerance_own = 4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_st_basils_cathedral_level_5 = {
-	tolerance_own = 5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_144_level_5 = {
@@ -5411,67 +2716,33 @@ tv_wonder_display_144_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_st_basils_cathedral_level_6 = {
-	tolerance_own = 6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_144_level_6 = {
 	tolerance_own = 6
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_trinity_lavra_level_1 = {
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_145_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_trinity_lavra_level_2 = {
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_145_level_2 = {
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_trinity_lavra_level_3 = {
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_145_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_trinity_lavra_level_4 = {
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_145_level_4 = {
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_trinity_lavra_level_5 = {
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_145_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_trinity_lavra_level_6 = {
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_145_level_6 = {
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_winter_palace_level_1 = {
-	monthly_legitimacy = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_146_level_1 = {
@@ -5479,19 +2750,9 @@ tv_wonder_display_146_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_winter_palace_level_2 = {
-	monthly_legitimacy = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_146_level_2 = {
 	monthly_legitimacy = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_winter_palace_level_3 = {
-	monthly_legitimacy = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_146_level_3 = {
@@ -5499,19 +2760,9 @@ tv_wonder_display_146_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_winter_palace_level_4 = {
-	monthly_legitimacy = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_146_level_4 = {
 	monthly_legitimacy = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_winter_palace_level_5 = {
-	monthly_legitimacy = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_146_level_5 = {
@@ -5519,19 +2770,9 @@ tv_wonder_display_146_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_winter_palace_level_6 = {
-	monthly_legitimacy = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_146_level_6 = {
 	monthly_legitimacy = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_gyeongbokgung_level_1 = {
-	monthly_legitimacy = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_147_level_1 = {
@@ -5539,19 +2780,9 @@ tv_wonder_display_147_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_gyeongbokgung_level_2 = {
-	monthly_legitimacy = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_147_level_2 = {
 	monthly_legitimacy = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_gyeongbokgung_level_3 = {
-	monthly_legitimacy = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_147_level_3 = {
@@ -5559,19 +2790,9 @@ tv_wonder_display_147_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_gyeongbokgung_level_4 = {
-	monthly_legitimacy = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_147_level_4 = {
 	monthly_legitimacy = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_gyeongbokgung_level_5 = {
-	monthly_legitimacy = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_147_level_5 = {
@@ -5579,20 +2800,9 @@ tv_wonder_display_147_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_gyeongbokgung_level_6 = {
-	monthly_legitimacy = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_147_level_6 = {
 	monthly_legitimacy = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_changbai_mountain_altar_level_1 = {
-	clergy_estate_max_tax = 0.2
-	clergy_estate_target_satisfaction = 0.1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_148_level_1 = {
@@ -5601,22 +2811,10 @@ tv_wonder_display_148_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_changbai_mountain_altar_level_2 = {
-	clergy_estate_max_tax = 0.4
-	clergy_estate_target_satisfaction = 0.2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_148_level_2 = {
 	clergy_estate_max_tax = 0.4
 	clergy_estate_target_satisfaction = 0.2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_changbai_mountain_altar_level_3 = {
-	clergy_estate_max_tax = 0.6
-	clergy_estate_target_satisfaction = 0.3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_148_level_3 = {
@@ -5625,22 +2823,10 @@ tv_wonder_display_148_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_changbai_mountain_altar_level_4 = {
-	clergy_estate_max_tax = 0.8
-	clergy_estate_target_satisfaction = 0.4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_148_level_4 = {
 	clergy_estate_max_tax = 0.8
 	clergy_estate_target_satisfaction = 0.4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_changbai_mountain_altar_level_5 = {
-	clergy_estate_max_tax = 1
-	clergy_estate_target_satisfaction = 0.5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_148_level_5 = {
@@ -5649,213 +2835,106 @@ tv_wonder_display_148_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_changbai_mountain_altar_level_6 = {
-	clergy_estate_max_tax = 1.2
-	clergy_estate_target_satisfaction = 0.6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_148_level_6 = {
 	clergy_estate_max_tax = 1.2
 	clergy_estate_target_satisfaction = 0.6
 	monthly_towards_spiritualist = 0.6
 }
 
-tv_wonder_unique_belgrade_fortress_level_1 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_149_level_1 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_unique_belgrade_fortress_level_2 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_149_level_2 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_unique_belgrade_fortress_level_3 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_149_level_3 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_unique_belgrade_fortress_level_4 = {
-	monthly_towards_defensive = 0.4
 }
 
 tv_wonder_display_149_level_4 = {
 	monthly_towards_defensive = 0.4
 }
 
-tv_wonder_unique_belgrade_fortress_level_5 = {
-	monthly_towards_defensive = 0.5
-}
-
 tv_wonder_display_149_level_5 = {
 	monthly_towards_defensive = 0.5
-}
-
-tv_wonder_unique_belgrade_fortress_level_6 = {
-	monthly_towards_defensive = 0.6
 }
 
 tv_wonder_display_149_level_6 = {
 	monthly_towards_defensive = 0.6
 }
 
-tv_wonder_unique_meteora_monasteries_level_1 = {
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_150_level_1 = {
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_unique_meteora_monasteries_level_2 = {
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_150_level_2 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_unique_meteora_monasteries_level_3 = {
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_150_level_3 = {
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_unique_meteora_monasteries_level_4 = {
-	monthly_towards_spiritualist = 0.4
 }
 
 tv_wonder_display_150_level_4 = {
 	monthly_towards_spiritualist = 0.4
 }
 
-tv_wonder_unique_meteora_monasteries_level_5 = {
-	monthly_towards_spiritualist = 0.5
-}
-
 tv_wonder_display_150_level_5 = {
 	monthly_towards_spiritualist = 0.5
-}
-
-tv_wonder_unique_meteora_monasteries_level_6 = {
-	monthly_towards_spiritualist = 0.6
 }
 
 tv_wonder_display_150_level_6 = {
 	monthly_towards_spiritualist = 0.6
 }
 
-tv_wonder_unique_belem_tower_level_1 = {
-	monthly_towards_inward = 0.1
-}
-
 tv_wonder_display_151_level_1 = {
 	monthly_towards_inward = 0.1
-}
-
-tv_wonder_unique_belem_tower_level_2 = {
-	monthly_towards_inward = 0.2
 }
 
 tv_wonder_display_151_level_2 = {
 	monthly_towards_inward = 0.2
 }
 
-tv_wonder_unique_belem_tower_level_3 = {
-	monthly_towards_inward = 0.3
-}
-
 tv_wonder_display_151_level_3 = {
 	monthly_towards_inward = 0.3
-}
-
-tv_wonder_unique_belem_tower_level_4 = {
-	monthly_towards_inward = 0.4
 }
 
 tv_wonder_display_151_level_4 = {
 	monthly_towards_inward = 0.4
 }
 
-tv_wonder_unique_belem_tower_level_5 = {
-	monthly_towards_inward = 0.5
-}
-
 tv_wonder_display_151_level_5 = {
 	monthly_towards_inward = 0.5
-}
-
-tv_wonder_unique_belem_tower_level_6 = {
-	monthly_towards_inward = 0.6
 }
 
 tv_wonder_display_151_level_6 = {
 	monthly_towards_inward = 0.6
 }
 
-tv_wonder_unique_iberian_inquisition_level_1 = {
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_152_level_1 = {
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_unique_iberian_inquisition_level_2 = {
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_152_level_2 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_unique_iberian_inquisition_level_3 = {
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_152_level_3 = {
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_unique_iberian_inquisition_level_4 = {
-	monthly_towards_spiritualist = 0.4
 }
 
 tv_wonder_display_152_level_4 = {
 	monthly_towards_spiritualist = 0.4
 }
 
-tv_wonder_unique_iberian_inquisition_level_5 = {
-	monthly_towards_spiritualist = 0.5
-}
-
 tv_wonder_display_152_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_iberian_inquisition_level_6 = {
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_152_level_6 = {
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_santa_maria_del_fiore_level_1 = {
-	tolerance_own = 1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_153_level_1 = {
@@ -5863,19 +2942,9 @@ tv_wonder_display_153_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_santa_maria_del_fiore_level_2 = {
-	tolerance_own = 2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_153_level_2 = {
 	tolerance_own = 2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_santa_maria_del_fiore_level_3 = {
-	tolerance_own = 3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_153_level_3 = {
@@ -5883,19 +2952,9 @@ tv_wonder_display_153_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_santa_maria_del_fiore_level_4 = {
-	tolerance_own = 4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_153_level_4 = {
 	tolerance_own = 4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_santa_maria_del_fiore_level_5 = {
-	tolerance_own = 5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_153_level_5 = {
@@ -5903,67 +2962,33 @@ tv_wonder_display_153_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_santa_maria_del_fiore_level_6 = {
-	tolerance_own = 6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_153_level_6 = {
 	tolerance_own = 6
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_leaning_tower_of_pisa_level_1 = {
-	monthly_towards_inward = 0.1
 }
 
 tv_wonder_display_154_level_1 = {
 	monthly_towards_inward = 0.1
 }
 
-tv_wonder_unique_leaning_tower_of_pisa_level_2 = {
-	monthly_towards_inward = 0.2
-}
-
 tv_wonder_display_154_level_2 = {
 	monthly_towards_inward = 0.2
-}
-
-tv_wonder_unique_leaning_tower_of_pisa_level_3 = {
-	monthly_towards_inward = 0.3
 }
 
 tv_wonder_display_154_level_3 = {
 	monthly_towards_inward = 0.3
 }
 
-tv_wonder_unique_leaning_tower_of_pisa_level_4 = {
-	monthly_towards_inward = 0.4
-}
-
 tv_wonder_display_154_level_4 = {
 	monthly_towards_inward = 0.4
-}
-
-tv_wonder_unique_leaning_tower_of_pisa_level_5 = {
-	monthly_towards_inward = 0.5
 }
 
 tv_wonder_display_154_level_5 = {
 	monthly_towards_inward = 0.5
 }
 
-tv_wonder_unique_leaning_tower_of_pisa_level_6 = {
-	monthly_towards_inward = 0.6
-}
-
 tv_wonder_display_154_level_6 = {
 	monthly_towards_inward = 0.6
-}
-
-tv_wonder_unique_milan_cathedral_level_1 = {
-	tolerance_own = 1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_155_level_1 = {
@@ -5971,19 +2996,9 @@ tv_wonder_display_155_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_milan_cathedral_level_2 = {
-	tolerance_own = 2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_155_level_2 = {
 	tolerance_own = 2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_milan_cathedral_level_3 = {
-	tolerance_own = 3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_155_level_3 = {
@@ -5991,19 +3006,9 @@ tv_wonder_display_155_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_milan_cathedral_level_4 = {
-	tolerance_own = 4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_155_level_4 = {
 	tolerance_own = 4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_milan_cathedral_level_5 = {
-	tolerance_own = 5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_155_level_5 = {
@@ -6011,19 +3016,9 @@ tv_wonder_display_155_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_milan_cathedral_level_6 = {
-	tolerance_own = 6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_155_level_6 = {
 	tolerance_own = 6
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_vatican_archives_level_1 = {
-	global_pop_promotion_speed = 0.01
-	monthly_towards_innovative = 0.1
 }
 
 tv_wonder_display_156_level_1 = {
@@ -6031,19 +3026,9 @@ tv_wonder_display_156_level_1 = {
 	monthly_towards_innovative = 0.1
 }
 
-tv_wonder_unique_vatican_archives_level_2 = {
-	global_pop_promotion_speed = 0.02
-	monthly_towards_innovative = 0.2
-}
-
 tv_wonder_display_156_level_2 = {
 	global_pop_promotion_speed = 0.02
 	monthly_towards_innovative = 0.2
-}
-
-tv_wonder_unique_vatican_archives_level_3 = {
-	global_pop_promotion_speed = 0.03
-	monthly_towards_innovative = 0.3
 }
 
 tv_wonder_display_156_level_3 = {
@@ -6051,19 +3036,9 @@ tv_wonder_display_156_level_3 = {
 	monthly_towards_innovative = 0.3
 }
 
-tv_wonder_unique_vatican_archives_level_4 = {
-	global_pop_promotion_speed = 0.04
-	monthly_towards_innovative = 0.4
-}
-
 tv_wonder_display_156_level_4 = {
 	global_pop_promotion_speed = 0.04
 	monthly_towards_innovative = 0.4
-}
-
-tv_wonder_unique_vatican_archives_level_5 = {
-	global_pop_promotion_speed = 0.05
-	monthly_towards_innovative = 0.5
 }
 
 tv_wonder_display_156_level_5 = {
@@ -6071,19 +3046,9 @@ tv_wonder_display_156_level_5 = {
 	monthly_towards_innovative = 0.5
 }
 
-tv_wonder_unique_vatican_archives_level_6 = {
-	global_pop_promotion_speed = 0.06
-	monthly_towards_innovative = 0.6
-}
-
 tv_wonder_display_156_level_6 = {
 	global_pop_promotion_speed = 0.06
 	monthly_towards_innovative = 0.6
-}
-
-tv_wonder_unique_temple_of_heaven_level_1 = {
-	global_pop_conversion_speed = 0.004
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_157_level_1 = {
@@ -6091,19 +3056,9 @@ tv_wonder_display_157_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_temple_of_heaven_level_2 = {
-	global_pop_conversion_speed = 0.008
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_157_level_2 = {
 	global_pop_conversion_speed = 0.008
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_temple_of_heaven_level_3 = {
-	global_pop_conversion_speed = 0.012
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_157_level_3 = {
@@ -6111,19 +3066,9 @@ tv_wonder_display_157_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_temple_of_heaven_level_4 = {
-	global_pop_conversion_speed = 0.016
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_157_level_4 = {
 	global_pop_conversion_speed = 0.016
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_temple_of_heaven_level_5 = {
-	global_pop_conversion_speed = 0.02
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_157_level_5 = {
@@ -6131,164 +3076,81 @@ tv_wonder_display_157_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_temple_of_heaven_level_6 = {
-	global_pop_conversion_speed = 0.024
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_157_level_6 = {
 	global_pop_conversion_speed = 0.024
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_dujiangyan_level_1 = {
-	monthly_towards_free_subjects = 0.1
 }
 
 tv_wonder_display_158_level_1 = {
 	monthly_towards_free_subjects = 0.1
 }
 
-tv_wonder_unique_dujiangyan_level_2 = {
-	monthly_towards_free_subjects = 0.2
-}
-
 tv_wonder_display_158_level_2 = {
 	monthly_towards_free_subjects = 0.2
-}
-
-tv_wonder_unique_dujiangyan_level_3 = {
-	monthly_towards_free_subjects = 0.3
 }
 
 tv_wonder_display_158_level_3 = {
 	monthly_towards_free_subjects = 0.3
 }
 
-tv_wonder_unique_dujiangyan_level_4 = {
-	monthly_towards_free_subjects = 0.4
-}
-
 tv_wonder_display_158_level_4 = {
 	monthly_towards_free_subjects = 0.4
-}
-
-tv_wonder_unique_dujiangyan_level_5 = {
-	monthly_towards_free_subjects = 0.5
 }
 
 tv_wonder_display_158_level_5 = {
 	monthly_towards_free_subjects = 0.5
 }
 
-tv_wonder_unique_dujiangyan_level_6 = {
-	monthly_towards_free_subjects = 0.6
-}
-
 tv_wonder_display_158_level_6 = {
 	monthly_towards_free_subjects = 0.6
-}
-
-tv_wonder_unique_porcelain_tower_of_nanjing_level_1 = {
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_159_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_porcelain_tower_of_nanjing_level_2 = {
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_159_level_2 = {
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_porcelain_tower_of_nanjing_level_3 = {
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_159_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_porcelain_tower_of_nanjing_level_4 = {
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_159_level_4 = {
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_porcelain_tower_of_nanjing_level_5 = {
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_159_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_porcelain_tower_of_nanjing_level_6 = {
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_159_level_6 = {
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_jingdezhen_imperial_kilns_level_1 = {
-	monthly_towards_capital_economy = 0.1
 }
 
 tv_wonder_display_160_level_1 = {
 	monthly_towards_capital_economy = 0.1
 }
 
-tv_wonder_unique_jingdezhen_imperial_kilns_level_2 = {
-	monthly_towards_capital_economy = 0.2
-}
-
 tv_wonder_display_160_level_2 = {
 	monthly_towards_capital_economy = 0.2
-}
-
-tv_wonder_unique_jingdezhen_imperial_kilns_level_3 = {
-	monthly_towards_capital_economy = 0.3
 }
 
 tv_wonder_display_160_level_3 = {
 	monthly_towards_capital_economy = 0.3
 }
 
-tv_wonder_unique_jingdezhen_imperial_kilns_level_4 = {
-	monthly_towards_capital_economy = 0.4
-}
-
 tv_wonder_display_160_level_4 = {
 	monthly_towards_capital_economy = 0.4
-}
-
-tv_wonder_unique_jingdezhen_imperial_kilns_level_5 = {
-	monthly_towards_capital_economy = 0.5
 }
 
 tv_wonder_display_160_level_5 = {
 	monthly_towards_capital_economy = 0.5
 }
 
-tv_wonder_unique_jingdezhen_imperial_kilns_level_6 = {
-	monthly_towards_capital_economy = 0.6
-}
-
 tv_wonder_display_160_level_6 = {
 	monthly_towards_capital_economy = 0.6
-}
-
-tv_wonder_unique_mogao_caves_level_1 = {
-	pop_join_rebel_threshold = 0.05
-	pop_leave_rebels_threshold = 0.05
-	monthly_towards_humanist = 0.1
 }
 
 tv_wonder_display_161_level_1 = {
@@ -6297,22 +3159,10 @@ tv_wonder_display_161_level_1 = {
 	monthly_towards_humanist = 0.1
 }
 
-tv_wonder_unique_mogao_caves_level_2 = {
-	pop_join_rebel_threshold = 0.1
-	pop_leave_rebels_threshold = 0.1
-	monthly_towards_humanist = 0.2
-}
-
 tv_wonder_display_161_level_2 = {
 	pop_join_rebel_threshold = 0.1
 	pop_leave_rebels_threshold = 0.1
 	monthly_towards_humanist = 0.2
-}
-
-tv_wonder_unique_mogao_caves_level_3 = {
-	pop_join_rebel_threshold = 0.15
-	pop_leave_rebels_threshold = 0.15
-	monthly_towards_humanist = 0.3
 }
 
 tv_wonder_display_161_level_3 = {
@@ -6321,22 +3171,10 @@ tv_wonder_display_161_level_3 = {
 	monthly_towards_humanist = 0.3
 }
 
-tv_wonder_unique_mogao_caves_level_4 = {
-	pop_join_rebel_threshold = 0.2
-	pop_leave_rebels_threshold = 0.2
-	monthly_towards_humanist = 0.4
-}
-
 tv_wonder_display_161_level_4 = {
 	pop_join_rebel_threshold = 0.2
 	pop_leave_rebels_threshold = 0.2
 	monthly_towards_humanist = 0.4
-}
-
-tv_wonder_unique_mogao_caves_level_5 = {
-	pop_join_rebel_threshold = 0.25
-	pop_leave_rebels_threshold = 0.25
-	monthly_towards_humanist = 0.5
 }
 
 tv_wonder_display_161_level_5 = {
@@ -6345,261 +3183,130 @@ tv_wonder_display_161_level_5 = {
 	monthly_towards_humanist = 0.5
 }
 
-tv_wonder_unique_mogao_caves_level_6 = {
-	pop_join_rebel_threshold = 0.3
-	pop_leave_rebels_threshold = 0.3
-	monthly_towards_humanist = 0.6
-}
-
 tv_wonder_display_161_level_6 = {
 	pop_join_rebel_threshold = 0.3
 	pop_leave_rebels_threshold = 0.3
 	monthly_towards_humanist = 0.6
 }
 
-tv_wonder_unique_canton_thirteen_factories_level_1 = {
-	monthly_towards_plutocracy = 0.1
-}
-
 tv_wonder_display_162_level_1 = {
 	monthly_towards_plutocracy = 0.1
-}
-
-tv_wonder_unique_canton_thirteen_factories_level_2 = {
-	monthly_towards_plutocracy = 0.2
 }
 
 tv_wonder_display_162_level_2 = {
 	monthly_towards_plutocracy = 0.2
 }
 
-tv_wonder_unique_canton_thirteen_factories_level_3 = {
-	monthly_towards_plutocracy = 0.3
-}
-
 tv_wonder_display_162_level_3 = {
 	monthly_towards_plutocracy = 0.3
-}
-
-tv_wonder_unique_canton_thirteen_factories_level_4 = {
-	monthly_towards_plutocracy = 0.4
 }
 
 tv_wonder_display_162_level_4 = {
 	monthly_towards_plutocracy = 0.4
 }
 
-tv_wonder_unique_canton_thirteen_factories_level_5 = {
-	monthly_towards_plutocracy = 0.5
-}
-
 tv_wonder_display_162_level_5 = {
 	monthly_towards_plutocracy = 0.5
-}
-
-tv_wonder_unique_canton_thirteen_factories_level_6 = {
-	monthly_towards_plutocracy = 0.6
 }
 
 tv_wonder_display_162_level_6 = {
 	monthly_towards_plutocracy = 0.6
 }
 
-tv_wonder_unique_dardanelles_fortress_level_1 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_163_level_1 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_unique_dardanelles_fortress_level_2 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_163_level_2 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_unique_dardanelles_fortress_level_3 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_163_level_3 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_unique_dardanelles_fortress_level_4 = {
-	monthly_towards_defensive = 0.4
 }
 
 tv_wonder_display_163_level_4 = {
 	monthly_towards_defensive = 0.4
 }
 
-tv_wonder_unique_dardanelles_fortress_level_5 = {
-	monthly_towards_defensive = 0.5
-}
-
 tv_wonder_display_163_level_5 = {
 	monthly_towards_defensive = 0.5
-}
-
-tv_wonder_unique_dardanelles_fortress_level_6 = {
-	monthly_towards_defensive = 0.6
 }
 
 tv_wonder_display_163_level_6 = {
 	monthly_towards_defensive = 0.6
 }
 
-tv_wonder_unique_escorial_monastery_level_1 = {
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_164_level_1 = {
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_unique_escorial_monastery_level_2 = {
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_164_level_2 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_unique_escorial_monastery_level_3 = {
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_164_level_3 = {
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_unique_escorial_monastery_level_4 = {
-	monthly_towards_spiritualist = 0.4
 }
 
 tv_wonder_display_164_level_4 = {
 	monthly_towards_spiritualist = 0.4
 }
 
-tv_wonder_unique_escorial_monastery_level_5 = {
-	monthly_towards_spiritualist = 0.5
-}
-
 tv_wonder_display_164_level_5 = {
 	monthly_towards_spiritualist = 0.5
-}
-
-tv_wonder_unique_escorial_monastery_level_6 = {
-	monthly_towards_spiritualist = 0.6
 }
 
 tv_wonder_display_164_level_6 = {
 	monthly_towards_spiritualist = 0.6
 }
 
-tv_wonder_unique_toledo_armory_level_1 = {
-	monthly_towards_offensive = 0.1
-}
-
 tv_wonder_display_165_level_1 = {
 	monthly_towards_offensive = 0.1
-}
-
-tv_wonder_unique_toledo_armory_level_2 = {
-	monthly_towards_offensive = 0.2
 }
 
 tv_wonder_display_165_level_2 = {
 	monthly_towards_offensive = 0.2
 }
 
-tv_wonder_unique_toledo_armory_level_3 = {
-	monthly_towards_offensive = 0.3
-}
-
 tv_wonder_display_165_level_3 = {
 	monthly_towards_offensive = 0.3
-}
-
-tv_wonder_unique_toledo_armory_level_4 = {
-	monthly_towards_offensive = 0.4
 }
 
 tv_wonder_display_165_level_4 = {
 	monthly_towards_offensive = 0.4
 }
 
-tv_wonder_unique_toledo_armory_level_5 = {
-	monthly_towards_offensive = 0.5
-}
-
 tv_wonder_display_165_level_5 = {
 	monthly_towards_offensive = 0.5
-}
-
-tv_wonder_unique_toledo_armory_level_6 = {
-	monthly_towards_offensive = 0.6
 }
 
 tv_wonder_display_165_level_6 = {
 	monthly_towards_offensive = 0.6
 }
 
-tv_wonder_unique_camino_de_santiago_level_1 = {
-	monthly_towards_centralization = 0.1
-}
-
 tv_wonder_display_166_level_1 = {
 	monthly_towards_centralization = 0.1
-}
-
-tv_wonder_unique_camino_de_santiago_level_2 = {
-	monthly_towards_centralization = 0.2
 }
 
 tv_wonder_display_166_level_2 = {
 	monthly_towards_centralization = 0.2
 }
 
-tv_wonder_unique_camino_de_santiago_level_3 = {
-	monthly_towards_centralization = 0.3
-}
-
 tv_wonder_display_166_level_3 = {
 	monthly_towards_centralization = 0.3
-}
-
-tv_wonder_unique_camino_de_santiago_level_4 = {
-	monthly_towards_centralization = 0.4
 }
 
 tv_wonder_display_166_level_4 = {
 	monthly_towards_centralization = 0.4
 }
 
-tv_wonder_unique_camino_de_santiago_level_5 = {
-	monthly_towards_centralization = 0.5
-}
-
 tv_wonder_display_166_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_camino_de_santiago_level_6 = {
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_166_level_6 = {
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_sagres_navigation_school_level_1 = {
-	monthly_navy_tradition = 0.1
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_167_level_1 = {
@@ -6607,19 +3314,9 @@ tv_wonder_display_167_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_sagres_navigation_school_level_2 = {
-	monthly_navy_tradition = 0.2
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_167_level_2 = {
 	monthly_navy_tradition = 0.2
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_sagres_navigation_school_level_3 = {
-	monthly_navy_tradition = 0.3
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_167_level_3 = {
@@ -6627,19 +3324,9 @@ tv_wonder_display_167_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_sagres_navigation_school_level_4 = {
-	monthly_navy_tradition = 0.4
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_167_level_4 = {
 	monthly_navy_tradition = 0.4
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_sagres_navigation_school_level_5 = {
-	monthly_navy_tradition = 0.5
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_167_level_5 = {
@@ -6647,164 +3334,81 @@ tv_wonder_display_167_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_sagres_navigation_school_level_6 = {
-	monthly_navy_tradition = 0.6
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_167_level_6 = {
 	monthly_navy_tradition = 0.6
 	monthly_towards_naval = 0.6
-}
-
-tv_wonder_unique_milan_arsenal_level_1 = {
-	monthly_towards_offensive = 0.1
 }
 
 tv_wonder_display_168_level_1 = {
 	monthly_towards_offensive = 0.1
 }
 
-tv_wonder_unique_milan_arsenal_level_2 = {
-	monthly_towards_offensive = 0.2
-}
-
 tv_wonder_display_168_level_2 = {
 	monthly_towards_offensive = 0.2
-}
-
-tv_wonder_unique_milan_arsenal_level_3 = {
-	monthly_towards_offensive = 0.3
 }
 
 tv_wonder_display_168_level_3 = {
 	monthly_towards_offensive = 0.3
 }
 
-tv_wonder_unique_milan_arsenal_level_4 = {
-	monthly_towards_offensive = 0.4
-}
-
 tv_wonder_display_168_level_4 = {
 	monthly_towards_offensive = 0.4
-}
-
-tv_wonder_unique_milan_arsenal_level_5 = {
-	monthly_towards_offensive = 0.5
 }
 
 tv_wonder_display_168_level_5 = {
 	monthly_towards_offensive = 0.5
 }
 
-tv_wonder_unique_milan_arsenal_level_6 = {
-	monthly_towards_offensive = 0.6
-}
-
 tv_wonder_display_168_level_6 = {
 	monthly_towards_offensive = 0.6
-}
-
-tv_wonder_unique_university_of_bologna_level_1 = {
-	monthly_towards_innovative = 0.1
 }
 
 tv_wonder_display_169_level_1 = {
 	monthly_towards_innovative = 0.1
 }
 
-tv_wonder_unique_university_of_bologna_level_2 = {
-	monthly_towards_innovative = 0.2
-}
-
 tv_wonder_display_169_level_2 = {
 	monthly_towards_innovative = 0.2
-}
-
-tv_wonder_unique_university_of_bologna_level_3 = {
-	monthly_towards_innovative = 0.3
 }
 
 tv_wonder_display_169_level_3 = {
 	monthly_towards_innovative = 0.3
 }
 
-tv_wonder_unique_university_of_bologna_level_4 = {
-	monthly_towards_innovative = 0.4
-}
-
 tv_wonder_display_169_level_4 = {
 	monthly_towards_innovative = 0.4
-}
-
-tv_wonder_unique_university_of_bologna_level_5 = {
-	monthly_towards_innovative = 0.5
 }
 
 tv_wonder_display_169_level_5 = {
 	monthly_towards_innovative = 0.5
 }
 
-tv_wonder_unique_university_of_bologna_level_6 = {
-	monthly_towards_innovative = 0.6
-}
-
 tv_wonder_display_169_level_6 = {
 	monthly_towards_innovative = 0.6
-}
-
-tv_wonder_unique_carrara_marble_quarries_level_1 = {
-	monthly_towards_traditional_economy = 0.1
 }
 
 tv_wonder_display_170_level_1 = {
 	monthly_towards_traditional_economy = 0.1
 }
 
-tv_wonder_unique_carrara_marble_quarries_level_2 = {
-	monthly_towards_traditional_economy = 0.2
-}
-
 tv_wonder_display_170_level_2 = {
 	monthly_towards_traditional_economy = 0.2
-}
-
-tv_wonder_unique_carrara_marble_quarries_level_3 = {
-	monthly_towards_traditional_economy = 0.3
 }
 
 tv_wonder_display_170_level_3 = {
 	monthly_towards_traditional_economy = 0.3
 }
 
-tv_wonder_unique_carrara_marble_quarries_level_4 = {
-	monthly_towards_traditional_economy = 0.4
-}
-
 tv_wonder_display_170_level_4 = {
 	monthly_towards_traditional_economy = 0.4
-}
-
-tv_wonder_unique_carrara_marble_quarries_level_5 = {
-	monthly_towards_traditional_economy = 0.5
 }
 
 tv_wonder_display_170_level_5 = {
 	monthly_towards_traditional_economy = 0.5
 }
 
-tv_wonder_unique_carrara_marble_quarries_level_6 = {
-	monthly_towards_traditional_economy = 0.6
-}
-
 tv_wonder_display_170_level_6 = {
 	monthly_towards_traditional_economy = 0.6
-}
-
-tv_wonder_unique_east_india_company_level_1 = {
-	global_merchant_power = 0.4
-	global_merchant_capacity_modifier = 0.2
-	monthly_towards_free_trade = 0.1
 }
 
 tv_wonder_display_171_level_1 = {
@@ -6813,22 +3417,10 @@ tv_wonder_display_171_level_1 = {
 	monthly_towards_free_trade = 0.1
 }
 
-tv_wonder_unique_east_india_company_level_2 = {
-	global_merchant_power = 0.8
-	global_merchant_capacity_modifier = 0.4
-	monthly_towards_free_trade = 0.2
-}
-
 tv_wonder_display_171_level_2 = {
 	global_merchant_power = 0.8
 	global_merchant_capacity_modifier = 0.4
 	monthly_towards_free_trade = 0.2
-}
-
-tv_wonder_unique_east_india_company_level_3 = {
-	global_merchant_power = 1.2
-	global_merchant_capacity_modifier = 0.6
-	monthly_towards_free_trade = 0.3
 }
 
 tv_wonder_display_171_level_3 = {
@@ -6837,22 +3429,10 @@ tv_wonder_display_171_level_3 = {
 	monthly_towards_free_trade = 0.3
 }
 
-tv_wonder_unique_east_india_company_level_4 = {
-	global_merchant_power = 1.6
-	global_merchant_capacity_modifier = 0.8
-	monthly_towards_free_trade = 0.4
-}
-
 tv_wonder_display_171_level_4 = {
 	global_merchant_power = 1.6
 	global_merchant_capacity_modifier = 0.8
 	monthly_towards_free_trade = 0.4
-}
-
-tv_wonder_unique_east_india_company_level_5 = {
-	global_merchant_power = 2
-	global_merchant_capacity_modifier = 1
-	monthly_towards_free_trade = 0.5
 }
 
 tv_wonder_display_171_level_5 = {
@@ -6861,21 +3441,10 @@ tv_wonder_display_171_level_5 = {
 	monthly_towards_free_trade = 0.5
 }
 
-tv_wonder_unique_east_india_company_level_6 = {
-	global_merchant_power = 2.4
-	global_merchant_capacity_modifier = 1.2
-	monthly_towards_free_trade = 0.6
-}
-
 tv_wonder_display_171_level_6 = {
 	global_merchant_power = 2.4
 	global_merchant_capacity_modifier = 1.2
 	monthly_towards_free_trade = 0.6
-}
-
-tv_wonder_unique_peacock_throne_level_1 = {
-	global_distance_from_capital_speed_propagation = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_172_level_1 = {
@@ -6883,19 +3452,9 @@ tv_wonder_display_172_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_peacock_throne_level_2 = {
-	global_distance_from_capital_speed_propagation = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_172_level_2 = {
 	global_distance_from_capital_speed_propagation = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_peacock_throne_level_3 = {
-	global_distance_from_capital_speed_propagation = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_172_level_3 = {
@@ -6903,19 +3462,9 @@ tv_wonder_display_172_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_peacock_throne_level_4 = {
-	global_distance_from_capital_speed_propagation = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_172_level_4 = {
 	global_distance_from_capital_speed_propagation = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_peacock_throne_level_5 = {
-	global_distance_from_capital_speed_propagation = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_172_level_5 = {
@@ -6923,19 +3472,9 @@ tv_wonder_display_172_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_peacock_throne_level_6 = {
-	global_distance_from_capital_speed_propagation = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_172_level_6 = {
 	global_distance_from_capital_speed_propagation = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_varanasi_ghats_level_1 = {
-	global_pop_conversion_speed = 0.004
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_173_level_1 = {
@@ -6943,19 +3482,9 @@ tv_wonder_display_173_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_varanasi_ghats_level_2 = {
-	global_pop_conversion_speed = 0.008
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_173_level_2 = {
 	global_pop_conversion_speed = 0.008
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_varanasi_ghats_level_3 = {
-	global_pop_conversion_speed = 0.012
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_173_level_3 = {
@@ -6963,19 +3492,9 @@ tv_wonder_display_173_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_varanasi_ghats_level_4 = {
-	global_pop_conversion_speed = 0.016
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_173_level_4 = {
 	global_pop_conversion_speed = 0.016
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_varanasi_ghats_level_5 = {
-	global_pop_conversion_speed = 0.02
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_173_level_5 = {
@@ -6983,67 +3502,33 @@ tv_wonder_display_173_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_varanasi_ghats_level_6 = {
-	global_pop_conversion_speed = 0.024
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_173_level_6 = {
 	global_pop_conversion_speed = 0.024
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_brihadishvara_temple_level_1 = {
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_174_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_brihadishvara_temple_level_2 = {
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_174_level_2 = {
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_brihadishvara_temple_level_3 = {
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_174_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_brihadishvara_temple_level_4 = {
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_174_level_4 = {
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_brihadishvara_temple_level_5 = {
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_174_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_brihadishvara_temple_level_6 = {
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_174_level_6 = {
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_konark_sun_temple_level_1 = {
-	tolerance_own = 1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_175_level_1 = {
@@ -7051,19 +3536,9 @@ tv_wonder_display_175_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_konark_sun_temple_level_2 = {
-	tolerance_own = 2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_175_level_2 = {
 	tolerance_own = 2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_konark_sun_temple_level_3 = {
-	tolerance_own = 3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_175_level_3 = {
@@ -7071,19 +3546,9 @@ tv_wonder_display_175_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_konark_sun_temple_level_4 = {
-	tolerance_own = 4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_175_level_4 = {
 	tolerance_own = 4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_konark_sun_temple_level_5 = {
-	tolerance_own = 5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_175_level_5 = {
@@ -7091,20 +3556,9 @@ tv_wonder_display_175_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_konark_sun_temple_level_6 = {
-	tolerance_own = 6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_175_level_6 = {
 	tolerance_own = 6
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_fatehpur_sikri_level_1 = {
-	country_cabinet_efficiency = 0.2
-	legislative_efficiency = 0.2
-	monthly_towards_conciliatory = 0.1
 }
 
 tv_wonder_display_176_level_1 = {
@@ -7113,22 +3567,10 @@ tv_wonder_display_176_level_1 = {
 	monthly_towards_conciliatory = 0.1
 }
 
-tv_wonder_unique_fatehpur_sikri_level_2 = {
-	country_cabinet_efficiency = 0.4
-	legislative_efficiency = 0.4
-	monthly_towards_conciliatory = 0.2
-}
-
 tv_wonder_display_176_level_2 = {
 	country_cabinet_efficiency = 0.4
 	legislative_efficiency = 0.4
 	monthly_towards_conciliatory = 0.2
-}
-
-tv_wonder_unique_fatehpur_sikri_level_3 = {
-	country_cabinet_efficiency = 0.6
-	legislative_efficiency = 0.6
-	monthly_towards_conciliatory = 0.3
 }
 
 tv_wonder_display_176_level_3 = {
@@ -7137,22 +3579,10 @@ tv_wonder_display_176_level_3 = {
 	monthly_towards_conciliatory = 0.3
 }
 
-tv_wonder_unique_fatehpur_sikri_level_4 = {
-	country_cabinet_efficiency = 0.8
-	legislative_efficiency = 0.8
-	monthly_towards_conciliatory = 0.4
-}
-
 tv_wonder_display_176_level_4 = {
 	country_cabinet_efficiency = 0.8
 	legislative_efficiency = 0.8
 	monthly_towards_conciliatory = 0.4
-}
-
-tv_wonder_unique_fatehpur_sikri_level_5 = {
-	country_cabinet_efficiency = 1
-	legislative_efficiency = 1
-	monthly_towards_conciliatory = 0.5
 }
 
 tv_wonder_display_176_level_5 = {
@@ -7161,156 +3591,78 @@ tv_wonder_display_176_level_5 = {
 	monthly_towards_conciliatory = 0.5
 }
 
-tv_wonder_unique_fatehpur_sikri_level_6 = {
-	country_cabinet_efficiency = 1.2
-	legislative_efficiency = 1.2
-	monthly_towards_conciliatory = 0.6
-}
-
 tv_wonder_display_176_level_6 = {
 	country_cabinet_efficiency = 1.2
 	legislative_efficiency = 1.2
 	monthly_towards_conciliatory = 0.6
 }
 
-tv_wonder_unique_calicut_port_city_level_1 = {
-	monthly_towards_naval = 0.1
-}
-
 tv_wonder_display_177_level_1 = {
 	monthly_towards_naval = 0.1
-}
-
-tv_wonder_unique_calicut_port_city_level_2 = {
-	monthly_towards_naval = 0.2
 }
 
 tv_wonder_display_177_level_2 = {
 	monthly_towards_naval = 0.2
 }
 
-tv_wonder_unique_calicut_port_city_level_3 = {
-	monthly_towards_naval = 0.3
-}
-
 tv_wonder_display_177_level_3 = {
 	monthly_towards_naval = 0.3
-}
-
-tv_wonder_unique_calicut_port_city_level_4 = {
-	monthly_towards_naval = 0.4
 }
 
 tv_wonder_display_177_level_4 = {
 	monthly_towards_naval = 0.4
 }
 
-tv_wonder_unique_calicut_port_city_level_5 = {
-	monthly_towards_naval = 0.5
-}
-
 tv_wonder_display_177_level_5 = {
 	monthly_towards_naval = 0.5
-}
-
-tv_wonder_unique_calicut_port_city_level_6 = {
-	monthly_towards_naval = 0.6
 }
 
 tv_wonder_display_177_level_6 = {
 	monthly_towards_naval = 0.6
 }
 
-tv_wonder_unique_wieliczka_salt_mine_level_1 = {
-	monthly_towards_traditional_economy = 0.1
-}
-
 tv_wonder_display_178_level_1 = {
 	monthly_towards_traditional_economy = 0.1
-}
-
-tv_wonder_unique_wieliczka_salt_mine_level_2 = {
-	monthly_towards_traditional_economy = 0.2
 }
 
 tv_wonder_display_178_level_2 = {
 	monthly_towards_traditional_economy = 0.2
 }
 
-tv_wonder_unique_wieliczka_salt_mine_level_3 = {
-	monthly_towards_traditional_economy = 0.3
-}
-
 tv_wonder_display_178_level_3 = {
 	monthly_towards_traditional_economy = 0.3
-}
-
-tv_wonder_unique_wieliczka_salt_mine_level_4 = {
-	monthly_towards_traditional_economy = 0.4
 }
 
 tv_wonder_display_178_level_4 = {
 	monthly_towards_traditional_economy = 0.4
 }
 
-tv_wonder_unique_wieliczka_salt_mine_level_5 = {
-	monthly_towards_traditional_economy = 0.5
-}
-
 tv_wonder_display_178_level_5 = {
 	monthly_towards_traditional_economy = 0.5
-}
-
-tv_wonder_unique_wieliczka_salt_mine_level_6 = {
-	monthly_towards_traditional_economy = 0.6
 }
 
 tv_wonder_display_178_level_6 = {
 	monthly_towards_traditional_economy = 0.6
 }
 
-tv_wonder_unique_wawel_castle_level_1 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_179_level_1 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_unique_wawel_castle_level_2 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_179_level_2 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_unique_wawel_castle_level_3 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_179_level_3 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_unique_wawel_castle_level_4 = {
-	monthly_towards_defensive = 0.4
 }
 
 tv_wonder_display_179_level_4 = {
 	monthly_towards_defensive = 0.4
 }
 
-tv_wonder_unique_wawel_castle_level_5 = {
-	monthly_towards_defensive = 0.5
-}
-
 tv_wonder_display_179_level_5 = {
 	monthly_towards_defensive = 0.5
-}
-
-tv_wonder_unique_wawel_castle_level_6 = {
-	monthly_towards_defensive = 0.6
 }
 
 tv_wonder_display_179_level_6 = {
@@ -7335,106 +3687,52 @@ tv_wonder_display_180_level_5 = {
 tv_wonder_display_180_level_6 = {
 }
 
-tv_wonder_unique_gdansk_port_level_1 = {
-	monthly_towards_naval = 0.1
-}
-
 tv_wonder_display_181_level_1 = {
 	monthly_towards_naval = 0.1
-}
-
-tv_wonder_unique_gdansk_port_level_2 = {
-	monthly_towards_naval = 0.2
 }
 
 tv_wonder_display_181_level_2 = {
 	monthly_towards_naval = 0.2
 }
 
-tv_wonder_unique_gdansk_port_level_3 = {
-	monthly_towards_naval = 0.3
-}
-
 tv_wonder_display_181_level_3 = {
 	monthly_towards_naval = 0.3
-}
-
-tv_wonder_unique_gdansk_port_level_4 = {
-	monthly_towards_naval = 0.4
 }
 
 tv_wonder_display_181_level_4 = {
 	monthly_towards_naval = 0.4
 }
 
-tv_wonder_unique_gdansk_port_level_5 = {
-	monthly_towards_naval = 0.5
-}
-
 tv_wonder_display_181_level_5 = {
 	monthly_towards_naval = 0.5
-}
-
-tv_wonder_unique_gdansk_port_level_6 = {
-	monthly_towards_naval = 0.6
 }
 
 tv_wonder_display_181_level_6 = {
 	monthly_towards_naval = 0.6
 }
 
-tv_wonder_unique_malbork_castle_level_1 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_182_level_1 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_unique_malbork_castle_level_2 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_182_level_2 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_unique_malbork_castle_level_3 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_182_level_3 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_unique_malbork_castle_level_4 = {
-	monthly_towards_defensive = 0.4
 }
 
 tv_wonder_display_182_level_4 = {
 	monthly_towards_defensive = 0.4
 }
 
-tv_wonder_unique_malbork_castle_level_5 = {
-	monthly_towards_defensive = 0.5
-}
-
 tv_wonder_display_182_level_5 = {
 	monthly_towards_defensive = 0.5
 }
 
-tv_wonder_unique_malbork_castle_level_6 = {
-	monthly_towards_defensive = 0.6
-}
-
 tv_wonder_display_182_level_6 = {
 	monthly_towards_defensive = 0.6
-}
-
-tv_wonder_unique_brest_synagogue_quarter_level_1 = {
-	country_cabinet_efficiency = 0.2
-	legislative_efficiency = 0.2
-	monthly_towards_conciliatory = 0.1
 }
 
 tv_wonder_display_183_level_1 = {
@@ -7443,22 +3741,10 @@ tv_wonder_display_183_level_1 = {
 	monthly_towards_conciliatory = 0.1
 }
 
-tv_wonder_unique_brest_synagogue_quarter_level_2 = {
-	country_cabinet_efficiency = 0.4
-	legislative_efficiency = 0.4
-	monthly_towards_conciliatory = 0.2
-}
-
 tv_wonder_display_183_level_2 = {
 	country_cabinet_efficiency = 0.4
 	legislative_efficiency = 0.4
 	monthly_towards_conciliatory = 0.2
-}
-
-tv_wonder_unique_brest_synagogue_quarter_level_3 = {
-	country_cabinet_efficiency = 0.6
-	legislative_efficiency = 0.6
-	monthly_towards_conciliatory = 0.3
 }
 
 tv_wonder_display_183_level_3 = {
@@ -7467,22 +3753,10 @@ tv_wonder_display_183_level_3 = {
 	monthly_towards_conciliatory = 0.3
 }
 
-tv_wonder_unique_brest_synagogue_quarter_level_4 = {
-	country_cabinet_efficiency = 0.8
-	legislative_efficiency = 0.8
-	monthly_towards_conciliatory = 0.4
-}
-
 tv_wonder_display_183_level_4 = {
 	country_cabinet_efficiency = 0.8
 	legislative_efficiency = 0.8
 	monthly_towards_conciliatory = 0.4
-}
-
-tv_wonder_unique_brest_synagogue_quarter_level_5 = {
-	country_cabinet_efficiency = 1
-	legislative_efficiency = 1
-	monthly_towards_conciliatory = 0.5
 }
 
 tv_wonder_display_183_level_5 = {
@@ -7491,166 +3765,82 @@ tv_wonder_display_183_level_5 = {
 	monthly_towards_conciliatory = 0.5
 }
 
-tv_wonder_unique_brest_synagogue_quarter_level_6 = {
-	country_cabinet_efficiency = 1.2
-	legislative_efficiency = 1.2
-	monthly_towards_conciliatory = 0.6
-}
-
 tv_wonder_display_183_level_6 = {
 	country_cabinet_efficiency = 1.2
 	legislative_efficiency = 1.2
 	monthly_towards_conciliatory = 0.6
 }
 
-tv_wonder_unique_vilnius_university_level_1 = {
-	monthly_towards_innovative = 0.1
-}
-
 tv_wonder_display_184_level_1 = {
 	monthly_towards_innovative = 0.1
-}
-
-tv_wonder_unique_vilnius_university_level_2 = {
-	monthly_towards_innovative = 0.2
 }
 
 tv_wonder_display_184_level_2 = {
 	monthly_towards_innovative = 0.2
 }
 
-tv_wonder_unique_vilnius_university_level_3 = {
-	monthly_towards_innovative = 0.3
-}
-
 tv_wonder_display_184_level_3 = {
 	monthly_towards_innovative = 0.3
-}
-
-tv_wonder_unique_vilnius_university_level_4 = {
-	monthly_towards_innovative = 0.4
 }
 
 tv_wonder_display_184_level_4 = {
 	monthly_towards_innovative = 0.4
 }
 
-tv_wonder_unique_vilnius_university_level_5 = {
-	monthly_towards_innovative = 0.5
-}
-
 tv_wonder_display_184_level_5 = {
 	monthly_towards_innovative = 0.5
-}
-
-tv_wonder_unique_vilnius_university_level_6 = {
-	monthly_towards_innovative = 0.6
 }
 
 tv_wonder_display_184_level_6 = {
 	monthly_towards_innovative = 0.6
 }
 
-tv_wonder_unique_cave_monastery_level_1 = {
-	monthly_towards_spiritualist = 0.1
-}
-
 tv_wonder_display_185_level_1 = {
 	monthly_towards_spiritualist = 0.1
-}
-
-tv_wonder_unique_cave_monastery_level_2 = {
-	monthly_towards_spiritualist = 0.2
 }
 
 tv_wonder_display_185_level_2 = {
 	monthly_towards_spiritualist = 0.2
 }
 
-tv_wonder_unique_cave_monastery_level_3 = {
-	monthly_towards_spiritualist = 0.3
-}
-
 tv_wonder_display_185_level_3 = {
 	monthly_towards_spiritualist = 0.3
-}
-
-tv_wonder_unique_cave_monastery_level_4 = {
-	monthly_towards_spiritualist = 0.4
 }
 
 tv_wonder_display_185_level_4 = {
 	monthly_towards_spiritualist = 0.4
 }
 
-tv_wonder_unique_cave_monastery_level_5 = {
-	monthly_towards_spiritualist = 0.5
-}
-
 tv_wonder_display_185_level_5 = {
 	monthly_towards_spiritualist = 0.5
-}
-
-tv_wonder_unique_cave_monastery_level_6 = {
-	monthly_towards_spiritualist = 0.6
 }
 
 tv_wonder_display_185_level_6 = {
 	monthly_towards_spiritualist = 0.6
 }
 
-tv_wonder_unique_zaporizhian_sich_level_1 = {
-	monthly_towards_decentralization = 0.1
-}
-
 tv_wonder_display_186_level_1 = {
 	monthly_towards_decentralization = 0.1
-}
-
-tv_wonder_unique_zaporizhian_sich_level_2 = {
-	monthly_towards_decentralization = 0.2
 }
 
 tv_wonder_display_186_level_2 = {
 	monthly_towards_decentralization = 0.2
 }
 
-tv_wonder_unique_zaporizhian_sich_level_3 = {
-	monthly_towards_decentralization = 0.3
-}
-
 tv_wonder_display_186_level_3 = {
 	monthly_towards_decentralization = 0.3
-}
-
-tv_wonder_unique_zaporizhian_sich_level_4 = {
-	monthly_towards_decentralization = 0.4
 }
 
 tv_wonder_display_186_level_4 = {
 	monthly_towards_decentralization = 0.4
 }
 
-tv_wonder_unique_zaporizhian_sich_level_5 = {
-	monthly_towards_decentralization = 0.5
-}
-
 tv_wonder_display_186_level_5 = {
 	monthly_towards_decentralization = 0.5
 }
 
-tv_wonder_unique_zaporizhian_sich_level_6 = {
-	monthly_towards_decentralization = 0.6
-}
-
 tv_wonder_display_186_level_6 = {
 	monthly_towards_decentralization = 0.6
-}
-
-tv_wonder_unique_registan_square_level_1 = {
-	cultural_influence_modifier = 0.2
-	skill_of_new_artists = 0.1
-	monthly_towards_humanist = 0.1
 }
 
 tv_wonder_display_187_level_1 = {
@@ -7659,22 +3849,10 @@ tv_wonder_display_187_level_1 = {
 	monthly_towards_humanist = 0.1
 }
 
-tv_wonder_unique_registan_square_level_2 = {
-	cultural_influence_modifier = 0.4
-	skill_of_new_artists = 0.2
-	monthly_towards_humanist = 0.2
-}
-
 tv_wonder_display_187_level_2 = {
 	cultural_influence_modifier = 0.4
 	skill_of_new_artists = 0.2
 	monthly_towards_humanist = 0.2
-}
-
-tv_wonder_unique_registan_square_level_3 = {
-	cultural_influence_modifier = 0.6
-	skill_of_new_artists = 0.3
-	monthly_towards_humanist = 0.3
 }
 
 tv_wonder_display_187_level_3 = {
@@ -7683,22 +3861,10 @@ tv_wonder_display_187_level_3 = {
 	monthly_towards_humanist = 0.3
 }
 
-tv_wonder_unique_registan_square_level_4 = {
-	cultural_influence_modifier = 0.8
-	skill_of_new_artists = 0.4
-	monthly_towards_humanist = 0.4
-}
-
 tv_wonder_display_187_level_4 = {
 	cultural_influence_modifier = 0.8
 	skill_of_new_artists = 0.4
 	monthly_towards_humanist = 0.4
-}
-
-tv_wonder_unique_registan_square_level_5 = {
-	cultural_influence_modifier = 1
-	skill_of_new_artists = 0.5
-	monthly_towards_humanist = 0.5
 }
 
 tv_wonder_display_187_level_5 = {
@@ -7707,21 +3873,10 @@ tv_wonder_display_187_level_5 = {
 	monthly_towards_humanist = 0.5
 }
 
-tv_wonder_unique_registan_square_level_6 = {
-	cultural_influence_modifier = 1.2
-	skill_of_new_artists = 0.6
-	monthly_towards_humanist = 0.6
-}
-
 tv_wonder_display_187_level_6 = {
 	cultural_influence_modifier = 1.2
 	skill_of_new_artists = 0.6
 	monthly_towards_humanist = 0.6
-}
-
-tv_wonder_unique_khiva_old_city_level_1 = {
-	exploration_mission_speed = 0.2
-	monthly_towards_outward = 0.1
 }
 
 tv_wonder_display_188_level_1 = {
@@ -7729,19 +3884,9 @@ tv_wonder_display_188_level_1 = {
 	monthly_towards_outward = 0.1
 }
 
-tv_wonder_unique_khiva_old_city_level_2 = {
-	exploration_mission_speed = 0.4
-	monthly_towards_outward = 0.2
-}
-
 tv_wonder_display_188_level_2 = {
 	exploration_mission_speed = 0.4
 	monthly_towards_outward = 0.2
-}
-
-tv_wonder_unique_khiva_old_city_level_3 = {
-	exploration_mission_speed = 0.6
-	monthly_towards_outward = 0.3
 }
 
 tv_wonder_display_188_level_3 = {
@@ -7749,19 +3894,9 @@ tv_wonder_display_188_level_3 = {
 	monthly_towards_outward = 0.3
 }
 
-tv_wonder_unique_khiva_old_city_level_4 = {
-	exploration_mission_speed = 0.8
-	monthly_towards_outward = 0.4
-}
-
 tv_wonder_display_188_level_4 = {
 	exploration_mission_speed = 0.8
 	monthly_towards_outward = 0.4
-}
-
-tv_wonder_unique_khiva_old_city_level_5 = {
-	exploration_mission_speed = 1
-	monthly_towards_outward = 0.5
 }
 
 tv_wonder_display_188_level_5 = {
@@ -7769,67 +3904,33 @@ tv_wonder_display_188_level_5 = {
 	monthly_towards_outward = 0.5
 }
 
-tv_wonder_unique_khiva_old_city_level_6 = {
-	exploration_mission_speed = 1.2
-	monthly_towards_outward = 0.6
-}
-
 tv_wonder_display_188_level_6 = {
 	exploration_mission_speed = 1.2
 	monthly_towards_outward = 0.6
-}
-
-tv_wonder_unique_bukhara_kalyan_minaret_level_1 = {
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_189_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_bukhara_kalyan_minaret_level_2 = {
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_189_level_2 = {
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_bukhara_kalyan_minaret_level_3 = {
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_189_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_bukhara_kalyan_minaret_level_4 = {
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_189_level_4 = {
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_bukhara_kalyan_minaret_level_5 = {
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_189_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_bukhara_kalyan_minaret_level_6 = {
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_189_level_6 = {
 	monthly_towards_spiritualist = 0.6
-}
-
-tv_wonder_unique_ferghana_palace_level_1 = {
-	global_distance_from_capital_speed_propagation = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_190_level_1 = {
@@ -7837,19 +3938,9 @@ tv_wonder_display_190_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_ferghana_palace_level_2 = {
-	global_distance_from_capital_speed_propagation = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_190_level_2 = {
 	global_distance_from_capital_speed_propagation = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_ferghana_palace_level_3 = {
-	global_distance_from_capital_speed_propagation = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_190_level_3 = {
@@ -7857,19 +3948,9 @@ tv_wonder_display_190_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_ferghana_palace_level_4 = {
-	global_distance_from_capital_speed_propagation = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_190_level_4 = {
 	global_distance_from_capital_speed_propagation = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_ferghana_palace_level_5 = {
-	global_distance_from_capital_speed_propagation = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_190_level_5 = {
@@ -7877,19 +3958,9 @@ tv_wonder_display_190_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_ferghana_palace_level_6 = {
-	global_distance_from_capital_speed_propagation = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_190_level_6 = {
 	global_distance_from_capital_speed_propagation = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_tashkent_old_bazaar_level_1 = {
-	global_trade_center_power = 0.2
-	monthly_towards_free_trade = 0.1
 }
 
 tv_wonder_display_191_level_1 = {
@@ -7897,19 +3968,9 @@ tv_wonder_display_191_level_1 = {
 	monthly_towards_free_trade = 0.1
 }
 
-tv_wonder_unique_tashkent_old_bazaar_level_2 = {
-	global_trade_center_power = 0.4
-	monthly_towards_free_trade = 0.2
-}
-
 tv_wonder_display_191_level_2 = {
 	global_trade_center_power = 0.4
 	monthly_towards_free_trade = 0.2
-}
-
-tv_wonder_unique_tashkent_old_bazaar_level_3 = {
-	global_trade_center_power = 0.6
-	monthly_towards_free_trade = 0.3
 }
 
 tv_wonder_display_191_level_3 = {
@@ -7917,19 +3978,9 @@ tv_wonder_display_191_level_3 = {
 	monthly_towards_free_trade = 0.3
 }
 
-tv_wonder_unique_tashkent_old_bazaar_level_4 = {
-	global_trade_center_power = 0.8
-	monthly_towards_free_trade = 0.4
-}
-
 tv_wonder_display_191_level_4 = {
 	global_trade_center_power = 0.8
 	monthly_towards_free_trade = 0.4
-}
-
-tv_wonder_unique_tashkent_old_bazaar_level_5 = {
-	global_trade_center_power = 1
-	monthly_towards_free_trade = 0.5
 }
 
 tv_wonder_display_191_level_5 = {
@@ -7937,19 +3988,9 @@ tv_wonder_display_191_level_5 = {
 	monthly_towards_free_trade = 0.5
 }
 
-tv_wonder_unique_tashkent_old_bazaar_level_6 = {
-	global_trade_center_power = 1.2
-	monthly_towards_free_trade = 0.6
-}
-
 tv_wonder_display_191_level_6 = {
 	global_trade_center_power = 1.2
 	monthly_towards_free_trade = 0.6
-}
-
-tv_wonder_unique_louvre_palace_level_1 = {
-	global_distance_from_capital_speed_propagation = 0.1
-	monthly_towards_centralization = 0.1
 }
 
 tv_wonder_display_192_level_1 = {
@@ -7957,19 +3998,9 @@ tv_wonder_display_192_level_1 = {
 	monthly_towards_centralization = 0.1
 }
 
-tv_wonder_unique_louvre_palace_level_2 = {
-	global_distance_from_capital_speed_propagation = 0.2
-	monthly_towards_centralization = 0.2
-}
-
 tv_wonder_display_192_level_2 = {
 	global_distance_from_capital_speed_propagation = 0.2
 	monthly_towards_centralization = 0.2
-}
-
-tv_wonder_unique_louvre_palace_level_3 = {
-	global_distance_from_capital_speed_propagation = 0.3
-	monthly_towards_centralization = 0.3
 }
 
 tv_wonder_display_192_level_3 = {
@@ -7977,19 +4008,9 @@ tv_wonder_display_192_level_3 = {
 	monthly_towards_centralization = 0.3
 }
 
-tv_wonder_unique_louvre_palace_level_4 = {
-	global_distance_from_capital_speed_propagation = 0.4
-	monthly_towards_centralization = 0.4
-}
-
 tv_wonder_display_192_level_4 = {
 	global_distance_from_capital_speed_propagation = 0.4
 	monthly_towards_centralization = 0.4
-}
-
-tv_wonder_unique_louvre_palace_level_5 = {
-	global_distance_from_capital_speed_propagation = 0.5
-	monthly_towards_centralization = 0.5
 }
 
 tv_wonder_display_192_level_5 = {
@@ -7997,212 +4018,105 @@ tv_wonder_display_192_level_5 = {
 	monthly_towards_centralization = 0.5
 }
 
-tv_wonder_unique_louvre_palace_level_6 = {
-	global_distance_from_capital_speed_propagation = 0.6
-	monthly_towards_centralization = 0.6
-}
-
 tv_wonder_display_192_level_6 = {
 	global_distance_from_capital_speed_propagation = 0.6
 	monthly_towards_centralization = 0.6
-}
-
-tv_wonder_unique_fontainebleau_palace_level_1 = {
-	monthly_towards_decentralization = 0.1
 }
 
 tv_wonder_display_193_level_1 = {
 	monthly_towards_decentralization = 0.1
 }
 
-tv_wonder_unique_fontainebleau_palace_level_2 = {
-	monthly_towards_decentralization = 0.2
-}
-
 tv_wonder_display_193_level_2 = {
 	monthly_towards_decentralization = 0.2
-}
-
-tv_wonder_unique_fontainebleau_palace_level_3 = {
-	monthly_towards_decentralization = 0.3
 }
 
 tv_wonder_display_193_level_3 = {
 	monthly_towards_decentralization = 0.3
 }
 
-tv_wonder_unique_fontainebleau_palace_level_4 = {
-	monthly_towards_decentralization = 0.4
-}
-
 tv_wonder_display_193_level_4 = {
 	monthly_towards_decentralization = 0.4
-}
-
-tv_wonder_unique_fontainebleau_palace_level_5 = {
-	monthly_towards_decentralization = 0.5
 }
 
 tv_wonder_display_193_level_5 = {
 	monthly_towards_decentralization = 0.5
 }
 
-tv_wonder_unique_fontainebleau_palace_level_6 = {
-	monthly_towards_decentralization = 0.6
-}
-
 tv_wonder_display_193_level_6 = {
 	monthly_towards_decentralization = 0.6
-}
-
-tv_wonder_unique_bordeaux_port_level_1 = {
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_194_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_bordeaux_port_level_2 = {
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_194_level_2 = {
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_bordeaux_port_level_3 = {
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_194_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_bordeaux_port_level_4 = {
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_194_level_4 = {
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_bordeaux_port_level_5 = {
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_194_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_bordeaux_port_level_6 = {
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_194_level_6 = {
 	monthly_towards_naval = 0.6
-}
-
-tv_wonder_unique_marseille_old_port_level_1 = {
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_195_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_marseille_old_port_level_2 = {
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_195_level_2 = {
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_marseille_old_port_level_3 = {
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_195_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_marseille_old_port_level_4 = {
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_195_level_4 = {
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_marseille_old_port_level_5 = {
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_195_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_marseille_old_port_level_6 = {
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_195_level_6 = {
 	monthly_towards_naval = 0.6
-}
-
-tv_wonder_unique_lyon_silk_workshops_level_1 = {
-	monthly_towards_capital_economy = 0.1
 }
 
 tv_wonder_display_196_level_1 = {
 	monthly_towards_capital_economy = 0.1
 }
 
-tv_wonder_unique_lyon_silk_workshops_level_2 = {
-	monthly_towards_capital_economy = 0.2
-}
-
 tv_wonder_display_196_level_2 = {
 	monthly_towards_capital_economy = 0.2
-}
-
-tv_wonder_unique_lyon_silk_workshops_level_3 = {
-	monthly_towards_capital_economy = 0.3
 }
 
 tv_wonder_display_196_level_3 = {
 	monthly_towards_capital_economy = 0.3
 }
 
-tv_wonder_unique_lyon_silk_workshops_level_4 = {
-	monthly_towards_capital_economy = 0.4
-}
-
 tv_wonder_display_196_level_4 = {
 	monthly_towards_capital_economy = 0.4
-}
-
-tv_wonder_unique_lyon_silk_workshops_level_5 = {
-	monthly_towards_capital_economy = 0.5
 }
 
 tv_wonder_display_196_level_5 = {
 	monthly_towards_capital_economy = 0.5
 }
 
-tv_wonder_unique_lyon_silk_workshops_level_6 = {
-	monthly_towards_capital_economy = 0.6
-}
-
 tv_wonder_display_196_level_6 = {
 	monthly_towards_capital_economy = 0.6
-}
-
-tv_wonder_unique_mont_saint_michel_level_1 = {
-	clergy_estate_max_tax = 0.2
-	clergy_estate_target_satisfaction = 0.1
-	monthly_towards_spiritualist = 0.1
 }
 
 tv_wonder_display_197_level_1 = {
@@ -8211,22 +4125,10 @@ tv_wonder_display_197_level_1 = {
 	monthly_towards_spiritualist = 0.1
 }
 
-tv_wonder_unique_mont_saint_michel_level_2 = {
-	clergy_estate_max_tax = 0.4
-	clergy_estate_target_satisfaction = 0.2
-	monthly_towards_spiritualist = 0.2
-}
-
 tv_wonder_display_197_level_2 = {
 	clergy_estate_max_tax = 0.4
 	clergy_estate_target_satisfaction = 0.2
 	monthly_towards_spiritualist = 0.2
-}
-
-tv_wonder_unique_mont_saint_michel_level_3 = {
-	clergy_estate_max_tax = 0.6
-	clergy_estate_target_satisfaction = 0.3
-	monthly_towards_spiritualist = 0.3
 }
 
 tv_wonder_display_197_level_3 = {
@@ -8235,22 +4137,10 @@ tv_wonder_display_197_level_3 = {
 	monthly_towards_spiritualist = 0.3
 }
 
-tv_wonder_unique_mont_saint_michel_level_4 = {
-	clergy_estate_max_tax = 0.8
-	clergy_estate_target_satisfaction = 0.4
-	monthly_towards_spiritualist = 0.4
-}
-
 tv_wonder_display_197_level_4 = {
 	clergy_estate_max_tax = 0.8
 	clergy_estate_target_satisfaction = 0.4
 	monthly_towards_spiritualist = 0.4
-}
-
-tv_wonder_unique_mont_saint_michel_level_5 = {
-	clergy_estate_max_tax = 1
-	clergy_estate_target_satisfaction = 0.5
-	monthly_towards_spiritualist = 0.5
 }
 
 tv_wonder_display_197_level_5 = {
@@ -8259,117 +4149,58 @@ tv_wonder_display_197_level_5 = {
 	monthly_towards_spiritualist = 0.5
 }
 
-tv_wonder_unique_mont_saint_michel_level_6 = {
-	clergy_estate_max_tax = 1.2
-	clergy_estate_target_satisfaction = 0.6
-	monthly_towards_spiritualist = 0.6
-}
-
 tv_wonder_display_197_level_6 = {
 	clergy_estate_max_tax = 1.2
 	clergy_estate_target_satisfaction = 0.6
 	monthly_towards_spiritualist = 0.6
 }
 
-tv_wonder_unique_bastille_level_1 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_198_level_1 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_unique_bastille_level_2 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_198_level_2 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_unique_bastille_level_3 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_198_level_3 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_unique_bastille_level_4 = {
-	monthly_towards_defensive = 0.4
 }
 
 tv_wonder_display_198_level_4 = {
 	monthly_towards_defensive = 0.4
 }
 
-tv_wonder_unique_bastille_level_5 = {
-	monthly_towards_defensive = 0.5
-}
-
 tv_wonder_display_198_level_5 = {
 	monthly_towards_defensive = 0.5
-}
-
-tv_wonder_unique_bastille_level_6 = {
-	monthly_towards_defensive = 0.6
 }
 
 tv_wonder_display_198_level_6 = {
 	monthly_towards_defensive = 0.6
 }
 
-tv_wonder_unique_carcassonne_castle_level_1 = {
-	monthly_towards_defensive = 0.1
-}
-
 tv_wonder_display_199_level_1 = {
 	monthly_towards_defensive = 0.1
-}
-
-tv_wonder_unique_carcassonne_castle_level_2 = {
-	monthly_towards_defensive = 0.2
 }
 
 tv_wonder_display_199_level_2 = {
 	monthly_towards_defensive = 0.2
 }
 
-tv_wonder_unique_carcassonne_castle_level_3 = {
-	monthly_towards_defensive = 0.3
-}
-
 tv_wonder_display_199_level_3 = {
 	monthly_towards_defensive = 0.3
-}
-
-tv_wonder_unique_carcassonne_castle_level_4 = {
-	monthly_towards_defensive = 0.4
 }
 
 tv_wonder_display_199_level_4 = {
 	monthly_towards_defensive = 0.4
 }
 
-tv_wonder_unique_carcassonne_castle_level_5 = {
-	monthly_towards_defensive = 0.5
-}
-
 tv_wonder_display_199_level_5 = {
 	monthly_towards_defensive = 0.5
 }
 
-tv_wonder_unique_carcassonne_castle_level_6 = {
-	monthly_towards_defensive = 0.6
-}
-
 tv_wonder_display_199_level_6 = {
 	monthly_towards_defensive = 0.6
-}
-
-tv_wonder_unique_brest_naval_port_level_1 = {
-	ship_build_speed = 0.4
-	monthly_towards_naval = 0.1
 }
 
 tv_wonder_display_200_level_1 = {
@@ -8377,19 +4208,9 @@ tv_wonder_display_200_level_1 = {
 	monthly_towards_naval = 0.1
 }
 
-tv_wonder_unique_brest_naval_port_level_2 = {
-	ship_build_speed = 0.8
-	monthly_towards_naval = 0.2
-}
-
 tv_wonder_display_200_level_2 = {
 	ship_build_speed = 0.8
 	monthly_towards_naval = 0.2
-}
-
-tv_wonder_unique_brest_naval_port_level_3 = {
-	ship_build_speed = 1.2
-	monthly_towards_naval = 0.3
 }
 
 tv_wonder_display_200_level_3 = {
@@ -8397,19 +4218,9 @@ tv_wonder_display_200_level_3 = {
 	monthly_towards_naval = 0.3
 }
 
-tv_wonder_unique_brest_naval_port_level_4 = {
-	ship_build_speed = 1.6
-	monthly_towards_naval = 0.4
-}
-
 tv_wonder_display_200_level_4 = {
 	ship_build_speed = 1.6
 	monthly_towards_naval = 0.4
-}
-
-tv_wonder_unique_brest_naval_port_level_5 = {
-	ship_build_speed = 2
-	monthly_towards_naval = 0.5
 }
 
 tv_wonder_display_200_level_5 = {
@@ -8417,19 +4228,9 @@ tv_wonder_display_200_level_5 = {
 	monthly_towards_naval = 0.5
 }
 
-tv_wonder_unique_brest_naval_port_level_6 = {
-	ship_build_speed = 2.4
-	monthly_towards_naval = 0.6
-}
-
 tv_wonder_display_200_level_6 = {
 	ship_build_speed = 2.4
 	monthly_towards_naval = 0.6
-}
-
-tv_wonder_unique_colmar_old_town_level_1 = {
-	exploration_mission_speed = 0.2
-	monthly_towards_outward = 0.1
 }
 
 tv_wonder_display_201_level_1 = {
@@ -8437,19 +4238,9 @@ tv_wonder_display_201_level_1 = {
 	monthly_towards_outward = 0.1
 }
 
-tv_wonder_unique_colmar_old_town_level_2 = {
-	exploration_mission_speed = 0.4
-	monthly_towards_outward = 0.2
-}
-
 tv_wonder_display_201_level_2 = {
 	exploration_mission_speed = 0.4
 	monthly_towards_outward = 0.2
-}
-
-tv_wonder_unique_colmar_old_town_level_3 = {
-	exploration_mission_speed = 0.6
-	monthly_towards_outward = 0.3
 }
 
 tv_wonder_display_201_level_3 = {
@@ -8457,29 +4248,14 @@ tv_wonder_display_201_level_3 = {
 	monthly_towards_outward = 0.3
 }
 
-tv_wonder_unique_colmar_old_town_level_4 = {
-	exploration_mission_speed = 0.8
-	monthly_towards_outward = 0.4
-}
-
 tv_wonder_display_201_level_4 = {
 	exploration_mission_speed = 0.8
 	monthly_towards_outward = 0.4
 }
 
-tv_wonder_unique_colmar_old_town_level_5 = {
-	exploration_mission_speed = 1
-	monthly_towards_outward = 0.5
-}
-
 tv_wonder_display_201_level_5 = {
 	exploration_mission_speed = 1
 	monthly_towards_outward = 0.5
-}
-
-tv_wonder_unique_colmar_old_town_level_6 = {
-	exploration_mission_speed = 1.2
-	monthly_towards_outward = 0.6
 }
 
 tv_wonder_display_201_level_6 = {

@@ -21,7 +21,6 @@ try:
         ritual_plan_for_style,
         wonder_auto_base_modifier_name,
         unique_ceremony_modifier_name,
-        wonder_static_base_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
     )
@@ -37,7 +36,6 @@ except ModuleNotFoundError:
         ritual_plan_for_style,
         wonder_auto_base_modifier_name,
         unique_ceremony_modifier_name,
-        wonder_static_base_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
     )
@@ -277,7 +275,6 @@ def _static_base_modifier_values() -> list[tuple[str, str]]:
     for wonder in wonders:
         for level in range(1, 7):
             value = level_static_modifier_loc(wonder["concept"], level)
-            values.append((f"STATIC_MODIFIER_NAME_{wonder_static_base_modifier_name(wonder, level)}", value))
             values.append((f"STATIC_MODIFIER_NAME_{wonder_static_display_modifier_name(wonder, level)}", value))
             values.append((f"STATIC_MODIFIER_NAME_{wonder_static_local_display_modifier_name(wonder, level)}", value))
     return values
