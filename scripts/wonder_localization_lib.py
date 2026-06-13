@@ -53,6 +53,7 @@ WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 ENGINEERING_PREVIEW_LOCATION_TEXT_PREFIX = "TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_"
 
 LOCALIZATION_LINE_RE = re.compile(r'^(?P<indent>\s*)(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value>"(?:[^"\\]|\\.)*")\s*$')
+LOCALIZATION_LINE_START_RE = re.compile(r'^\s*(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value_start>".*)$')
 LOCALIZATION_HEADER_RE = re.compile(r"^l_[A-Za-z_]+:\s*$")
 ENGINEERING_DEPARTMENT_500_ID_RE = re.compile(r"var:tv_wonder_locked \?= (?P<id>\d+)")
 ENGINEERING_DEPARTMENT_500_DESC_RE = re.compile(r"desc = tv_engineering_department\.500\.d_(?P<suffix>[A-Za-z0-9_]+?)(?:_(?P<style>\d+))?$")
@@ -97,6 +98,32 @@ def parse_localization_value(raw_value: str) -> str:
         return ast.literal_eval(raw_value)
     except Exception as exc:
         raise ValueError(f"Invalid localization string literal: {raw_value}") from exc
+
+
+def is_complete_localization_value(raw_value: str) -> bool:
+    if not raw_value.startswith('"'):
+        return False
+    escaped = False
+    closing_index: int | None = None
+    for index, character in enumerate(raw_value[1:], start=1):
+        if escaped:
+            escaped = False
+            continue
+        if character == "\\":
+            escaped = True
+            continue
+        if character == '"':
+            closing_index = index
+    return closing_index is not None and not raw_value[closing_index + 1 :].strip()
+
+
+def parse_complete_localization_value(raw_value: str) -> str | None:
+    if not is_complete_localization_value(raw_value):
+        return None
+    value = parse_localization_value(raw_value.replace("\n", "\\n"))
+    if not isinstance(value, str):
+        raise ValueError(f"Localization value must be a string literal: {raw_value}")
+    return value
 
 
 def wonder_name_key(wonder: dict[str, Any]) -> str:
@@ -454,17 +481,43 @@ def load_localization_map(path: Path) -> dict[str, str]:
     if not path.exists():
         raise FileNotFoundError(f"Missing localization file: {path}")
     values: dict[str, str] = {}
+    pending_key: str | None = None
+    pending_value_lines: list[str] = []
+    pending_start_line = 0
     for line_number, raw_line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), start=1):
+        if pending_key is not None:
+            pending_value_lines.append(raw_line)
+            parsed_value = parse_complete_localization_value("\n".join(pending_value_lines))
+            if parsed_value is None:
+                continue
+            values[pending_key] = parsed_value
+            pending_key = None
+            pending_value_lines = []
+            pending_start_line = 0
+            continue
+
         stripped = raw_line.strip()
         if not stripped or stripped.startswith("#") or LOCALIZATION_HEADER_RE.match(stripped):
             continue
         match = LOCALIZATION_LINE_RE.match(raw_line)
-        if match is None:
+        if match is not None:
+            key = match.group("key")
+            if key in values:
+                raise ValueError(f"Duplicate localization key {key!r} in {path}:{line_number}")
+            values[key] = parse_localization_value(match.group("value"))
+            continue
+
+        start_match = LOCALIZATION_LINE_START_RE.match(raw_line)
+        if start_match is None:
             raise ValueError(f"Unparseable localization line in {path}:{line_number}: {raw_line}")
-        key = match.group("key")
+        key = start_match.group("key")
         if key in values:
             raise ValueError(f"Duplicate localization key {key!r} in {path}:{line_number}")
-        values[key] = parse_localization_value(match.group("value"))
+        pending_key = key
+        pending_value_lines = [start_match.group("value_start")]
+        pending_start_line = line_number
+    if pending_key is not None:
+        raise ValueError(f"Unterminated localization string for key {pending_key!r} in {path}:{pending_start_line}")
     return values
 
 

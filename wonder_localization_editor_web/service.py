@@ -47,6 +47,8 @@ from scripts.wonder_mechanics_lib import (
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
     unique_ceremony_modifier_name,
+    wonder_static_display_modifier_name,
+    wonder_static_local_display_modifier_name,
     save_yaml_document,
     site_preference_script_for_key,
     site_trigger_script_for_key,
@@ -1995,7 +1997,8 @@ def required_localization_keys_for_wonder(
         keys.add(f"{wonder_name_key(wonder)}_{part}_desc")
 
     for level in range(1, 7):
-        keys.add(f"STATIC_MODIFIER_NAME_{wonder_name_key(wonder)}_level_{level}")
+        keys.add(f"STATIC_MODIFIER_NAME_{wonder_static_display_modifier_name(wonder, level)}")
+        keys.add(f"STATIC_MODIFIER_NAME_{wonder_static_local_display_modifier_name(wonder, level)}")
 
     if not wonder.get("is_unique"):
         keys.add(f"{wonder_name_key(wonder)}_ritual_annex")
@@ -2080,18 +2083,11 @@ def render_expected_localization_output(language: str, localization_data: dict[s
 
 
 def render_expected_concepts_output(wonders: list[dict[str, Any]]) -> str:
-    lines = render_header(CONCEPT_SCRIPT_REL)
-    for wonder in wonders:
-        texture = CONCEPT_ICONS.get(wonder["category"], CONCEPT_ICONS["infrastructure_category"])
-        lines.extend(
-            [
-                f"{wonder['concept']} = {{",
-                f'\ttexture = "{texture}"',
-                "}",
-                "",
-            ]
-        )
-    return "\n".join(lines).rstrip() + "\n"
+    from scripts.main_menu.common.game_concepts.gen_tv_engineering_department_wonder_mechanics_concepts import (
+        generate,
+    )
+
+    return generate()
 
 
 class WonderLocalizationService:
@@ -3182,8 +3178,16 @@ class WonderLocalizationService:
                     specs,
                     language,
                     "Modifiers",
-                    f"Level {ROMAN_NUMERALS[level]} static modifier",
-                    f"STATIC_MODIFIER_NAME_{wonder_name_key(wonder)}_level_{level}",
+                    f"Level {ROMAN_NUMERALS[level]} national display modifier",
+                    f"STATIC_MODIFIER_NAME_{wonder_static_display_modifier_name(wonder, level)}",
+                    height=2,
+                )
+                self._add_localization_field(
+                    specs,
+                    language,
+                    "Modifiers",
+                    f"Level {ROMAN_NUMERALS[level]} local display modifier",
+                    f"STATIC_MODIFIER_NAME_{wonder_static_local_display_modifier_name(wonder, level)}",
                     height=2,
                 )
 
