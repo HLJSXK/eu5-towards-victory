@@ -65,6 +65,7 @@ FINAL_BUILDING_WONDER_ID_MAP = "tv_wonder_final_building_type_to_wonder_id"
 FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
 UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
+EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL = "tv_wonder_existing_unique_wonders_initialized"
 LOCATION_DISPLAY_SCOPE = "tv_wonder_location_display_location"
 LOCATION_DISPLAY_WONDER_ID_LOCAL = "tv_wonder_location_display_wonder_id"
 LOCATION_DISPLAY_BUILDING_TYPE_LOCAL = "tv_wonder_location_display_building_type"
@@ -651,6 +652,13 @@ def append_location_display_unique_location_projection(lines: list[str], *, comp
     )
     lines.append(f"{T}{T}{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
     lines.append(f"{T}{T}{T}{T}{T}{T}NOT = {{ has_building = prev }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}OR = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}NOT = {{ has_variable_map = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP} }}")
+    lines.append(
+        f"{T}{T}{T}{T}{T}{T}{T}NOT = {{ "
+        f"is_key_in_variable_map = {{ name = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP} target = prev }} }}"
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}}}")
@@ -692,7 +700,6 @@ def append_location_display_final_building_projection(lines: list[str], *, compa
         f"name = {FINAL_BUILDING_RITUAL_STYLE_MAP} target = this }}"
     )
     lines.append(f"{T}{T}{T}{T}scope:{LOCATION_DISPLAY_SCOPE} = {{")
-    lines.append(f"{T}{T}{T}{T}{T}has_building = prev")
     lines.append(f"{T}{T}{T}{T}{T}has_variable_map = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP}")
     lines.append(
         f"{T}{T}{T}{T}{T}is_key_in_variable_map = {{ "
@@ -753,6 +760,36 @@ def append_location_display_effects(lines: list[str]) -> None:
     lines.append("tv_wonder_mechanics_refresh_world_location_display_state_effect = {")
     lines.append(f"{T}every_location_in_the_world = {{")
     lines.append(f"{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_existing_unique_wonders_initialization_effect(lines: list[str], unique_wonders: list[dict]) -> None:
+    existing_wonders = [wonder for wonder in unique_wonders if wonder.get("exists_at_game_start")]
+    lines.append("tv_wonder_initialize_existing_unique_wonders_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}NOT = {{ has_global_variable = {EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL} }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(
+        f"{T}{T}set_global_variable = {{ name = {EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL} value = yes }}"
+    )
+    for wonder in existing_wonders:
+        final_building = wonder["final_buildings"].get(1)
+        if not final_building:
+            raise ValueError(f"{wonder['key']} must define final_buildings[1] for game-start initialization")
+        building_ref = f"building_type:{final_building}"
+        lines.append(f"{T}{T}location:{wonder['location']} = {{")
+        lines.append(f"{T}{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{ NOT = {{ has_building = {building_ref} }} }}")
+        lines.append(
+            f"{T}{T}{T}{T}construct_building = {{ building_type = {building_ref} "
+            'cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }'
+        )
+        lines.append(f"{T}{T}{T}}}")
+        lines.extend(map_replace_lines(FINAL_BUILDING_LEVEL_BY_TYPE_MAP, building_ref, "1", 3))
+        lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -1265,6 +1302,7 @@ def generate() -> str:
 
     append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
 
+    append_existing_unique_wonders_initialization_effect(lines, unique_wonders)
     append_location_display_effects(lines)
     append_suitability_reveal_effect(lines)
 

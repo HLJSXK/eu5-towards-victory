@@ -741,6 +741,7 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "image",
                 "prompt",
                 "is_unique",
+                "exists_at_game_start",
                 "mechanic_key",
                 "base_effect_multiplier",
                 "final_buildings",
@@ -781,6 +782,10 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "image": _require_string(wonder["image"], f"{context}.image"),
                 "prompt": _require_string(wonder["prompt"], f"{context}.prompt"),
                 "is_unique": True,
+                "exists_at_game_start": _require_bool(
+                    wonder["exists_at_game_start"],
+                    f"{context}.exists_at_game_start",
+                ),
                 "mechanic_key": _require_string(wonder["mechanic_key"], f"{context}.mechanic_key"),
                 "base_effect_multiplier": base_effect_multiplier,
                 "final_buildings": _validate_final_buildings(wonder["final_buildings"], f"{context}.final_buildings"),
@@ -1580,3 +1585,19 @@ def ritual_burden_modifier_name(wonder: dict) -> str:
 
 def ritual_blessing_modifier_name(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_ritual_blessing_modifier"
+
+
+def ceremony_modifier_for_style(wonder: dict, mechanics: dict, style: int) -> tuple[str, dict] | None:
+    ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+    if wonder.get("is_unique"):
+        modifiers = ritual_plan.get("country_modifier", {})
+        if modifiers:
+            return unique_ceremony_modifier_name(wonder), modifiers
+        return None
+
+    if ritual_plan.get("mode") != "timed":
+        return None
+    modifiers = ritual_plan.get("timed", {}).get("blessing_modifier", {})
+    if modifiers:
+        return ritual_blessing_modifier_name(wonder), modifiers
+    return None

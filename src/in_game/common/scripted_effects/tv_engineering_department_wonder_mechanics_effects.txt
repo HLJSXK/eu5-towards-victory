@@ -18057,6 +18057,367 @@ tv_wonder_selected_ritual_effect_tooltip_effect = {
 	}
 }
 
+tv_wonder_initialize_existing_unique_wonders_effect = {
+	if = {
+		limit = {
+			NOT = { has_global_variable = tv_wonder_existing_unique_wonders_initialized }
+		}
+		set_global_variable = { name = tv_wonder_existing_unique_wonders_initialized value = yes }
+		location:constantinople = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_hagia_sophia_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_hagia_sophia_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_hagia_sophia_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_hagia_sophia_inaugurated value = 1 }
+		}
+		location:jerusalem = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated value = 1 }
+		}
+		location:angkor = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_angkor_wat_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_angkor_wat_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_angkor_wat_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_angkor_wat_inaugurated value = 1 }
+		}
+		location:granada = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_alhambra_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_alhambra_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_alhambra_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_alhambra_inaugurated value = 1 }
+		}
+		location:lalibela = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_lalibela_churches_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_lalibela_churches_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_lalibela_churches_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_lalibela_churches_inaugurated value = 1 }
+		}
+		location:venice = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_venetian_arsenal_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_venetian_arsenal_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_venetian_arsenal_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_venetian_arsenal_inaugurated value = 1 }
+		}
+		location:mecca = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated value = 1 }
+		}
+		location:cahokia = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_cahokia_mounds_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_cahokia_mounds_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cahokia_mounds_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cahokia_mounds_inaugurated value = 1 }
+		}
+		location:great_zimbabwe = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_great_zimbabwe_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_great_zimbabwe_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_great_zimbabwe_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_great_zimbabwe_inaugurated value = 1 }
+		}
+		location:shangyuan = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_grand_canal_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_grand_canal_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_grand_canal_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_grand_canal_inaugurated value = 1 }
+		}
+		location:rome = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_roman_aqueducts_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_roman_aqueducts_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_roman_aqueducts_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_roman_aqueducts_inaugurated value = 1 }
+		}
+		location:moscow = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_kremlin_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_kremlin_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_kremlin_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_kremlin_inaugurated value = 1 }
+		}
+		location:tenochtitlan = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_teotihuacan_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_teotihuacan_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_teotihuacan_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_teotihuacan_inaugurated value = 1 }
+		}
+		location:angkor = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated value = 1 }
+		}
+		location:amsterdam = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_dutch_polders_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_dutch_polders_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dutch_polders_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dutch_polders_inaugurated value = 1 }
+		}
+		location:isfahan = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_persian_qanat_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_persian_qanat_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_persian_qanat_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_persian_qanat_inaugurated value = 1 }
+		}
+		location:jerusalem = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated value = 1 }
+		}
+		location:salisbury = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_stonehenge_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_stonehenge_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_stonehenge_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_stonehenge_inaugurated value = 1 }
+		}
+		location:london = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_tower_of_london_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_tower_of_london_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_tower_of_london_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_tower_of_london_inaugurated value = 1 }
+		}
+		location:belgrad = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_belgrade_fortress_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_belgrade_fortress_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_belgrade_fortress_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value = 1 }
+		}
+		location:chengdu = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_dujiangyan_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_dujiangyan_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dujiangyan_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dujiangyan_inaugurated value = 1 }
+		}
+		location:fuliang = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated value = 1 }
+		}
+		location:shazhou = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_mogao_caves_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_mogao_caves_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mogao_caves_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mogao_caves_inaugurated value = 1 }
+		}
+		location:toledo = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_toledo_armory_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_toledo_armory_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_toledo_armory_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_toledo_armory_inaugurated value = 1 }
+		}
+		location:santiago_compostela = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_camino_de_santiago_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_camino_de_santiago_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_camino_de_santiago_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_camino_de_santiago_inaugurated value = 1 }
+		}
+		location:bologna = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_university_of_bologna_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_university_of_bologna_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_university_of_bologna_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_university_of_bologna_inaugurated value = 1 }
+		}
+		location:prato = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_carrara_marble_quarries_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_carrara_marble_quarries_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_carrara_marble_quarries_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_carrara_marble_quarries_inaugurated value = 1 }
+		}
+		location:varanasi = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_varanasi_ghats_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_varanasi_ghats_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_varanasi_ghats_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_varanasi_ghats_inaugurated value = 1 }
+		}
+		location:thanjavur = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_brihadishvara_temple_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_brihadishvara_temple_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_brihadishvara_temple_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_brihadishvara_temple_inaugurated value = 1 }
+		}
+		location:puri = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_konark_sun_temple_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_konark_sun_temple_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_konark_sun_temple_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_konark_sun_temple_inaugurated value = 1 }
+		}
+		location:kozhikode = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_calicut_port_city_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_calicut_port_city_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_calicut_port_city_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_calicut_port_city_inaugurated value = 1 }
+		}
+		location:wieliczka = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_wieliczka_salt_mine_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_wieliczka_salt_mine_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_wieliczka_salt_mine_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_wieliczka_salt_mine_inaugurated value = 1 }
+		}
+		location:krakow = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_wawel_castle_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_wawel_castle_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_wawel_castle_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_wawel_castle_inaugurated value = 1 }
+		}
+		location:gdansk = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_gdansk_port_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_gdansk_port_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_gdansk_port_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_gdansk_port_inaugurated value = 1 }
+		}
+		location:malbork = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_malbork_castle_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_malbork_castle_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_malbork_castle_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_malbork_castle_inaugurated value = 1 }
+		}
+		location:kyiv = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_cave_monastery_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_cave_monastery_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cave_monastery_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cave_monastery_inaugurated value = 1 }
+		}
+		location:khiva = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_khiva_old_city_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_khiva_old_city_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_khiva_old_city_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_khiva_old_city_inaugurated value = 1 }
+		}
+		location:bukhara = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_bukhara_kalyan_minaret_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_bukhara_kalyan_minaret_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_bukhara_kalyan_minaret_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_bukhara_kalyan_minaret_inaugurated value = 1 }
+		}
+		location:chach = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_tashkent_old_bazaar_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_tashkent_old_bazaar_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_tashkent_old_bazaar_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_tashkent_old_bazaar_inaugurated value = 1 }
+		}
+		location:bordeaux = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_bordeaux_port_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_bordeaux_port_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_bordeaux_port_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_bordeaux_port_inaugurated value = 1 }
+		}
+		location:marseille = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_marseille_old_port_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_marseille_old_port_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_marseille_old_port_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_marseille_old_port_inaugurated value = 1 }
+		}
+		location:avranches = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_mont_saint_michel_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mont_saint_michel_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value = 1 }
+		}
+		location:carcassonne = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_carcassonne_castle_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_carcassonne_castle_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_carcassonne_castle_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value = 1 }
+		}
+		location:colmar = {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_unique_colmar_old_town_inaugurated } }
+				construct_building = { building_type = building_type:tv_wonder_unique_colmar_old_town_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_colmar_old_town_inaugurated }
+			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_colmar_old_town_inaugurated value = 1 }
+		}
+	}
+}
+
 tv_wonder_mechanics_push_location_display_slot_effect = {
 	if = {
 		limit = { NOT = { has_variable = tv_wonder_display_slot_1_id } }
@@ -18170,6 +18531,10 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 				"global_variable_map(tv_wonder_unique_id_to_final_building_type|this)" = {
 					scope:tv_wonder_location_display_location = {
 						NOT = { has_building = prev }
+						OR = {
+							NOT = { has_variable_map = tv_wonder_final_building_level_by_type }
+							NOT = { is_key_in_variable_map = { name = tv_wonder_final_building_level_by_type target = prev } }
+						}
 					}
 				}
 			}
@@ -18200,7 +18565,6 @@ tv_wonder_mechanics_refresh_location_display_state_effect = {
 			limit = {
 				is_key_in_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style target = this }
 				scope:tv_wonder_location_display_location = {
-					has_building = prev
 					has_variable_map = tv_wonder_final_building_level_by_type
 					is_key_in_variable_map = { name = tv_wonder_final_building_level_by_type target = prev }
 				}
