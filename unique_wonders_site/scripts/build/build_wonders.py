@@ -686,6 +686,7 @@ def build_record(
 ) -> dict[str, object]:
     is_unique = bool(wonder.get("is_unique"))
     kind = "unique" if is_unique else "generic"
+    exists_at_game_start = bool(wonder.get("exists_at_game_start")) if is_unique else False
     location_key = ""
     location_name = dict(GENERIC_LOCATION_LABEL)
     location_info: dict[str, Any] | None = None
@@ -844,6 +845,8 @@ def build_record(
         "kind": kind,
         "kind_label": localized_label(KIND_LABELS, kind),
         "is_unique": is_unique,
+        "exists_at_game_start": exists_at_game_start,
+        "start_level": 1 if exists_at_game_start else 0,
         "has_map_marker": is_unique,
         "name": localized_pair(loc_data, record_name_key, fallback=loc_data["english"].get(name_key)),
         "description": localized_pair(

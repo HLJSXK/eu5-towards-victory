@@ -6,6 +6,15 @@ metadata:
     This file records natural-language ritual logic only. It does not contain
     executable EU5 script and should not be consumed by generators until a later
     implementation pass defines an explicit schema.
+  translation_policy:
+    file: data/unique_wonder_ritual_designs_zh.yaml
+    simp_chinese_field: ritual_design_zh
+    source_field: ritual_design
+    preservation: >
+      Keep the English ritual_design as the source text. Store Simplified
+      Chinese translations in the sidecar file's ritual_design_zh field with
+      the same nested field structure so the prompt-assist GUI can display
+      Chinese while retaining the English original for comparison.
   discovered_content:
     unique_wonder_count: 101
     id_range: "101-201"

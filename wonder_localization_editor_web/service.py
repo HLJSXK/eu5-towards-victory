@@ -77,8 +77,10 @@ ROMAN_NUMERALS = {
 WONDER_LOCALIZATION_DATA_REL = "data/wonder_localization.yaml"
 GENERATED_LOC_DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
 UNIQUE_RITUAL_DESIGNS_REL = "data/unique_wonder_ritual_designs.yaml"
+UNIQUE_RITUAL_DESIGNS_ZH_REL = "data/unique_wonder_ritual_designs_zh.yaml"
 UNIQUE_RITUAL_PROMPTS_REL = "data/unique_wonder_ritual_prompts.yaml"
 UNIQUE_RITUAL_DESIGNS_FILE = REPO_ROOT / UNIQUE_RITUAL_DESIGNS_REL
+UNIQUE_RITUAL_DESIGNS_ZH_FILE = REPO_ROOT / UNIQUE_RITUAL_DESIGNS_ZH_REL
 UNIQUE_RITUAL_PROMPTS_FILE = REPO_ROOT / UNIQUE_RITUAL_PROMPTS_REL
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
 MODIFIER_LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "modifier_localization.json"
@@ -965,6 +967,30 @@ def load_unique_ritual_designs_data(path: Path = UNIQUE_RITUAL_DESIGNS_FILE) -> 
     if not isinstance(unique_wonders, list):
         raise TypeError(f"{path}.unique_wonders must be a list")
     return payload
+
+
+def load_unique_ritual_design_translations_data(path: Path = UNIQUE_RITUAL_DESIGNS_ZH_FILE) -> dict[str, Any]:
+    if not path.exists():
+        return {"metadata": {}, "unique_wonders": []}
+    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    if not isinstance(payload, dict):
+        raise TypeError(f"{path} must contain a mapping")
+    unique_wonders = payload.get("unique_wonders", [])
+    if not isinstance(unique_wonders, list):
+        raise TypeError(f"{path}.unique_wonders must be a list")
+    return payload
+
+
+def unique_ritual_design_translation_index(data: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for entry in data.get("unique_wonders", []):
+        if not isinstance(entry, dict):
+            continue
+        key = str(entry.get("key", "")).strip()
+        ritual_design_zh = entry.get("ritual_design_zh")
+        if key and isinstance(ritual_design_zh, dict):
+            index[key] = entry
+    return index
 
 
 def default_unique_ritual_prompts_data() -> dict[str, Any]:
@@ -2080,6 +2106,7 @@ class WonderLocalizationService:
         self.event_suffixes: dict[int, str] = {}
         self.localization_data: dict[str, dict[str, str]] = {}
         self.unique_ritual_designs_data: dict[str, Any] = {}
+        self.unique_ritual_design_translations_data: dict[str, Any] = {}
         self.unique_ritual_prompts_data: dict[str, Any] = {}
         self.country_modifier_options: list[dict[str, Any]] = []
         self.local_modifier_options: list[dict[str, Any]] = []
@@ -2106,6 +2133,7 @@ class WonderLocalizationService:
             self.event_suffixes = load_engineering_department_suffix_map()
             self.localization_data = load_wonder_localization_data()
             self.unique_ritual_designs_data = load_unique_ritual_designs_data()
+            self.unique_ritual_design_translations_data = load_unique_ritual_design_translations_data()
             self.unique_ritual_prompts_data = load_unique_ritual_prompts_data()
             (
                 self.country_modifier_options,
@@ -2309,6 +2337,15 @@ class WonderLocalizationService:
                 unique_file_changed = True
                 continue
 
+            if spec.target_kind == "unique_exists_at_game_start":
+                parsed = parse_editor_scalar(value)
+                if not isinstance(parsed, bool):
+                    raise ValueError(f"{spec.key} must be yes or no")
+                entry = self._get_unique_wonder_source(spec.target_key)
+                entry["exists_at_game_start"] = parsed
+                unique_file_changed = True
+                continue
+
             if spec.target_kind == "unique_ritual":
                 if spec.field_type == "unique_ritual_editor":
                     parsed = unique_ritual_from_editor_state(value, context=spec.key)
@@ -2508,6 +2545,17 @@ class WonderLocalizationService:
             "exists": bool(entry.get("prompt")),
         }
 
+    def _attach_unique_ritual_translation(self, payload: dict[str, Any]) -> None:
+        translation = unique_ritual_design_translation_index(self.unique_ritual_design_translations_data).get(
+            str(payload.get("key", ""))
+        )
+        payload["translation_source_path"] = UNIQUE_RITUAL_DESIGNS_ZH_REL
+        if not translation:
+            return
+        ritual_design_zh = translation.get("ritual_design_zh")
+        if isinstance(ritual_design_zh, dict):
+            payload["ritual_design_zh"] = deepcopy(ritual_design_zh)
+
     def _unique_ritual_design_for_wonder(self, wonder: dict[str, Any]) -> dict[str, Any] | None:
         if not wonder.get("is_unique"):
             return None
@@ -2520,6 +2568,7 @@ class WonderLocalizationService:
         payload["name_zh"] = summary["name_zh"]
         payload["display_name"] = summary["display_name"]
         payload["source_path"] = UNIQUE_RITUAL_DESIGNS_REL
+        self._attach_unique_ritual_translation(payload)
         return payload
 
     def _unique_ritual_designs_payload(self) -> dict[str, Any]:
@@ -2539,14 +2588,17 @@ class WonderLocalizationService:
                 payload["name_en"] = ""
                 payload["name_zh"] = ""
                 payload["display_name"] = str(entry.get("key", ""))
+            self._attach_unique_ritual_translation(payload)
             payload["prompt"] = str(prompt_index.get(str(entry.get("key", "")), {}).get("prompt", ""))
             entries.append(payload)
         entries.sort(key=lambda entry: int(entry.get("id", 0)))
         return {
             "source_path": UNIQUE_RITUAL_DESIGNS_REL,
+            "translation_source_path": UNIQUE_RITUAL_DESIGNS_ZH_REL,
             "prompt_source_path": UNIQUE_RITUAL_PROMPTS_REL,
             "field_labels": RITUAL_DESIGN_FIELD_LABELS,
             "metadata": deepcopy(self.unique_ritual_designs_data.get("metadata", {})),
+            "translation_metadata": deepcopy(self.unique_ritual_design_translations_data.get("metadata", {})),
             "count": len(entries),
             "wonders": entries,
         }
@@ -2610,6 +2662,7 @@ class WonderLocalizationService:
             "key": wonder["key"],
             "concept": wonder["concept"],
             "is_unique": bool(wonder.get("is_unique")),
+            "exists_at_game_start": bool(wonder.get("exists_at_game_start")) if wonder.get("is_unique") else False,
             "kind_label": kind_label,
             "size": size,
             "size_label": wonder_size_label(size),
@@ -2627,6 +2680,7 @@ class WonderLocalizationService:
             "name_en": self._wonder_name(wonder, "english"),
             "name_zh": self._wonder_name(wonder, "simp_chinese"),
             "is_unique": bool(wonder.get("is_unique")),
+            "exists_at_game_start": bool(wonder.get("exists_at_game_start")) if wonder.get("is_unique") else False,
             "size": str(wonder.get("size", "")),
             "size_label": wonder_size_label(wonder.get("size", "")),
             "image": self._wonder_image_info(wonder),
@@ -2901,6 +2955,21 @@ class WonderLocalizationService:
                 height=2,
                 help_text="Edits data/unique_wonders.yaml location.",
                 target_path=f"unique_wonders[{unique_key}].location",
+            )
+            self._add_mechanics_spec(
+                specs,
+                group="Unique Wonder",
+                label="Exists at game start",
+                key=f"mechanics.unique_exists_at_game_start.{unique_key}",
+                source_kind="unique",
+                file_path=UNIQUE_WONDERS_FILE,
+                original_value=stringify_editor_scalar(bool(unique_entry["exists_at_game_start"])),
+                field_type="boolean",
+                target_kind="unique_exists_at_game_start",
+                target_key=unique_key,
+                height=1,
+                help_text="Marks unique wonders that should be constructed at their fixed location during game-start initialization.",
+                target_path=f"unique_wonders[{unique_key}].exists_at_game_start",
             )
             self._add_mechanics_spec(
                 specs,

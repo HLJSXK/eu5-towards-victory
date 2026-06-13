@@ -1064,6 +1064,25 @@ textarea {
     word-break: break-word;
 }
 
+.ritual-design-translation-state,
+.ritual-design-translation-note {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.ritual-design-translation-state {
+    width: fit-content;
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 252, 246, 0.9);
+}
+
+.ritual-design-translation-note {
+    margin: 0;
+    line-height: 1.5;
+}
+
 .ritual-design-body {
     display: grid;
     gap: 12px;
@@ -1100,6 +1119,18 @@ textarea {
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     background: rgba(255, 252, 246, 0.78);
+}
+
+.ritual-design-original {
+    display: grid;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.ritual-design-original > summary {
+    cursor: pointer;
+    color: var(--accent-strong);
+    font-weight: 700;
 }
 
 .log-panel {

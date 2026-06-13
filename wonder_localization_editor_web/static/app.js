@@ -247,6 +247,9 @@ function setCurrentWonderPayload(wonderPayload) {
 function normalizeFieldValue(element) {
     const scope = element.dataset.fieldScope;
     const fieldType = element.dataset.fieldType || "text";
+    if (fieldType === "boolean" && element.type === "checkbox") {
+        return element.checked ? "yes" : "no";
+    }
     const value = String(element.value ?? "");
     if (scope === "localization") {
         return normalizeLocalizationText(value);
@@ -499,6 +502,10 @@ function renderMeta() {
     }
     if (meta.location) {
         entries.push(["固定地点", meta.location]);
+    }
+
+    if (summary.is_unique) {
+        entries.push(["Start state", meta.exists_at_game_start ? "Level 1" : "Not present"]);
     }
 
     if (meta.image?.filename) {
@@ -1217,6 +1224,14 @@ function createEditorBinding(field, scope) {
     if (isStructuredFieldType(fieldType)) {
         input.type = "hidden";
         input.value = field.original_value;
+    } else if (fieldType === "boolean") {
+        input.type = "checkbox";
+        input.checked = ["yes", "true", "1"].includes(String(field.value || "").trim().toLowerCase());
+        input.value = input.checked ? "yes" : "no";
+        input.addEventListener("change", () => {
+            input.value = input.checked ? "yes" : "no";
+            refreshDirtyState();
+        });
     } else if (fieldType === "select") {
         input.remove();
         const select = createSearchableSelect(field.options || [], field.value, {
@@ -1263,7 +1278,7 @@ function createEditorBinding(field, scope) {
     if (scope === "localization") {
         input.dataset.language = field.language;
     }
-    if (!isStructuredFieldType(fieldType)) {
+    if (!isStructuredFieldType(fieldType) && fieldType !== "boolean") {
         input.addEventListener("input", refreshDirtyState);
         input.addEventListener("change", refreshDirtyState);
     }
@@ -2124,6 +2139,23 @@ const RITUAL_DESIGN_FIELD_ORDER = [
     "notes",
 ];
 
+function ritualDesignForDisplay(design) {
+    const translated = design?.ritual_design_zh;
+    if (translated && typeof translated === "object" && Object.keys(translated).length > 0) {
+        return translated;
+    }
+    return design?.ritual_design || {};
+}
+
+function ritualDesignOriginal(design) {
+    return design?.ritual_design || {};
+}
+
+function ritualDesignHasTranslation(design) {
+    const translated = design?.ritual_design_zh;
+    return Boolean(translated && typeof translated === "object" && Object.keys(translated).length > 0);
+}
+
 function currentRitualDesignEntry() {
     if (!state.currentWonder?.summary?.is_unique) {
         return null;
@@ -2176,6 +2208,56 @@ function ritualDesignEntriesForDisplay(design) {
     return [...ordered, ...keys.filter((key) => !ordered.includes(key))];
 }
 
+function ritualDesignValueToPromptLines(key, value, depth = 0) {
+    if (value === null || value === undefined || value === "") {
+        return [];
+    }
+    const indent = "  ".repeat(depth);
+    const label = ritualDesignLabel(key);
+    if (Array.isArray(value)) {
+        const lines = [`${indent}${label}:`];
+        for (const item of value) {
+            lines.push(`${indent}- ${String(item)}`);
+        }
+        return lines;
+    }
+    if (typeof value === "object") {
+        const lines = [`${indent}${label}:`];
+        for (const nestedKey of ritualDesignEntriesForDisplay(value)) {
+            lines.push(...ritualDesignValueToPromptLines(nestedKey, value[nestedKey], depth + 1));
+        }
+        return lines;
+    }
+    return [`${indent}${label}: ${String(value)}`];
+}
+
+function buildRitualImplementationPrompt(design) {
+    const ritualDesign = ritualDesignForDisplay(design);
+    const lines = [
+        `请实现独特奇观仪式：${design?.display_name || design?.key || ""}`,
+        `奇观 key: ${design?.key || ""}`,
+        `base_key: ${design?.base_key || ""}`,
+        `location: ${design?.location || ""}`,
+        `source_ritual_key: ${design?.source_ritual_key || ""}`,
+        "",
+        "实现要求：",
+        "- 遵守 data/unique_wonder_ritual_designs.yaml 的三阶段事件链与奖励契约。",
+        "- 不要把自然语言设计稿直接接入生成器；先落成明确 schema 和 EU5 脚本。",
+        "- 保留永久国家修正、本地奖励建筑、一次性奖励三种奖励渠道各一次。",
+        "- 修改前按 CLAUDE.md 读取风险上下文，修改后运行 validate.py --changed --fix --ai-report。",
+        "",
+        "仪式设计稿：",
+    ];
+    for (const key of ritualDesignEntriesForDisplay(ritualDesign)) {
+        lines.push(...ritualDesignValueToPromptLines(key, ritualDesign[key]));
+    }
+    if (ritualDesignHasTranslation(design)) {
+        const original = ritualDesignOriginal(design);
+        lines.push("", "英文原文标题：", String(original.title || ""));
+    }
+    return lines.join("\n").trim();
+}
+
 function appendRitualDesignValue(container, key, value) {
     if (value === null || value === undefined || value === "") {
         return;
@@ -2211,10 +2293,9 @@ function appendRitualDesignValue(container, key, value) {
     container.append(field);
 }
 
-function renderRitualDesignBody(design) {
+function renderRitualDesignBody(design, ritualDesign = ritualDesignForDisplay(design)) {
     const body = document.createElement("div");
     body.className = "ritual-design-body";
-    const ritualDesign = design?.ritual_design || {};
     for (const key of ritualDesignEntriesForDisplay(ritualDesign)) {
         appendRitualDesignValue(body, key, ritualDesign[key]);
     }
@@ -2224,8 +2305,9 @@ function renderRitualDesignBody(design) {
 function renderRitualDesignSummary(design, isCurrent) {
     const summary = document.createElement("summary");
     summary.className = "ritual-design-summary";
-    const ritualDesign = design?.ritual_design || {};
+    const ritualDesign = ritualDesignForDisplay(design);
     const listeners = (ritualDesign.listeners || []).join(", ") || "none";
+    const translationState = ritualDesignHasTranslation(design) ? "中文" : "英文原文";
     summary.innerHTML = `
         <span class="ritual-design-title">${escapeHtml(design.display_name || design.key || "")}</span>
         <span class="ritual-design-subtitle">${escapeHtml(ritualDesign.title || "")}</span>
@@ -2234,7 +2316,30 @@ function renderRitualDesignSummary(design, isCurrent) {
             ${isCurrent ? " · 当前奇观" : ""}
         </span>
     `;
+    const badge = document.createElement("span");
+    badge.className = "ritual-design-translation-state";
+    badge.textContent = translationState;
+    summary.append(badge);
     return summary;
+}
+
+function appendOriginalRitualDesign(container, design, { showFallbackNote = true } = {}) {
+    if (!ritualDesignHasTranslation(design)) {
+        if (!showFallbackNote) {
+            return;
+        }
+        const note = document.createElement("p");
+        note.className = "ritual-design-translation-note";
+        note.textContent = "尚未提供中文 ritual_design_zh，当前显示英文原文。";
+        container.append(note);
+        return;
+    }
+    const details = document.createElement("details");
+    details.className = "ritual-design-original";
+    const summary = document.createElement("summary");
+    summary.textContent = "英文原文";
+    details.append(summary, renderRitualDesignBody(design, ritualDesignOriginal(design)));
+    container.append(details);
 }
 
 function renderRitualPromptCard(panel) {
@@ -2263,6 +2368,11 @@ function renderRitualPromptCard(panel) {
 
     const actions = document.createElement("div");
     actions.className = "ritual-prompt-actions";
+    const draftButton = document.createElement("button");
+    draftButton.type = "button";
+    draftButton.className = "secondary-button";
+    draftButton.textContent = "用当前设计生成 Prompt 草稿";
+    draftButton.dataset.ritualPromptControl = "true";
     const saveButton = document.createElement("button");
     saveButton.type = "button";
     saveButton.className = "primary-button";
@@ -2278,10 +2388,19 @@ function renderRitualPromptCard(panel) {
         status.textContent = changed ? "Prompt 尚未保存" : "Prompt 已同步";
     };
     textarea.addEventListener("input", refreshPromptState);
+    draftButton.addEventListener("click", () => {
+        const currentDesign = currentRitualDesignEntry();
+        if (!currentDesign) {
+            return;
+        }
+        textarea.value = buildRitualImplementationPrompt(currentDesign);
+        refreshPromptState();
+        textarea.focus();
+    });
     saveButton.addEventListener("click", () => {
         void saveCurrentRitualPrompt(textarea.value);
     });
-    actions.append(saveButton, status);
+    actions.append(draftButton, saveButton, status);
     section.append(textarea, actions);
     panel.append(section);
     refreshPromptState();
@@ -2306,6 +2425,7 @@ function renderRitualDesignPanel(panel) {
         const card = document.createElement("article");
         card.className = "ritual-design-card current";
         card.append(renderRitualDesignSummary(currentDesign, true), renderRitualDesignBody(currentDesign));
+        appendOriginalRitualDesign(card, currentDesign);
         currentSection.append(card);
         panel.append(currentSection);
     }
@@ -2328,6 +2448,7 @@ function renderRitualDesignPanel(panel) {
         item.className = "ritual-design-card";
         item.open = isCurrent;
         item.append(renderRitualDesignSummary(design, isCurrent), renderRitualDesignBody(design));
+        appendOriginalRitualDesign(item, design, { showFallbackNote: false });
         list.append(item);
     }
     allSection.append(list);
