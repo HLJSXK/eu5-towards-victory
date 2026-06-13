@@ -21,6 +21,12 @@ wonder_localization:
     TV_ENGINEERING_RITUAL_EFFECT_STYLE_3_SUBTITLE: You will immediately receive a return offering.
     TV_ENGINEERING_RITUAL_REQUIREMENT_UNIQUE_NONE: None
     TV_ENGINEERING_RITUAL_EFFECT_UNIQUE_SUBTITLE: The wonder will provide a permanent country modifier.
+    tv_wonder_ownership.800.t: World Wonder Secured
+    tv_wonder_ownership.800.d: The newly acquired province of [SCOPE.sLocation('tv_wonder_ownership_site').GetName] contains a completed [tv_wonder_construction|E]. Its base effects now answer to our rule, and our engineers have recorded it as a possible expansion site if its preserved scale allows further work.
+    tv_wonder_ownership.800.a: Put it to work.
+    tv_wonder_ownership.900.t: A World Wonder Lost
+    tv_wonder_ownership.900.d: With [SCOPE.sLocation('tv_wonder_ownership_site').GetName] lost, the completed [tv_wonder_construction|E] there no longer supports our realm. Any permanent national ceremony benefit tied only to that wonder has been withdrawn from our ledgers.
+    tv_wonder_ownership.900.a: Record the loss.
     TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE: Base effects per level of this [tv_wonder_construction|E]
     TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE: '@location! Suitability Knowledge'
     TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE: '@location! Location Conditions'
@@ -4351,6 +4357,12 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_unique_brest_naval_port_ceremony_modifier: Atlantic Fleet Muster
     STATIC_MODIFIER_NAME_tv_wonder_unique_colmar_old_town_ceremony_modifier: Alsatian Heritage Fair
   simp_chinese:
+    tv_wonder_ownership.800.t: 已掌控世界奇观
+    tv_wonder_ownership.800.d: 新获得的省份[SCOPE.sLocation('tv_wonder_ownership_site').GetName]存在一座已经落成的[tv_wonder_construction|E]。它的基础加成现在归我方统治受益；若该地点保留的规模仍允许扩建，工程师也会将其记录为可扩建候选。
+    tv_wonder_ownership.800.a: 让它为我们效力。
+    tv_wonder_ownership.900.t: 失去一座世界奇观
+    tv_wonder_ownership.900.d: 随着[SCOPE.sLocation('tv_wonder_ownership_site').GetName]失守，当地已经落成的[tv_wonder_construction|E]不再支撑我国。若该奇观曾提供只属于我国的永久国家仪式收益，相关效果已从账册中静默移除。
+    tv_wonder_ownership.900.a: 记下这笔损失。
     game_concept_tv_wonder_colonial_trade_company_desc: 殖民贸易公司是一项专注于殖民商业、特许垄断与海外商馆的[tv_wonder_construction|e]。它偏好港口、城市或大都会。其仪式可侧重于公司特许状、商馆堡垒、殖民账簿。
     TV_ENGINEERING_PROPOSAL_COLONIAL_TRADE_COMPANY_TEXT: '[tv_great_engineer|E]提出[tv_wonder_colonial_trade_company|E]。'
     TV_ENGINEERING_PROPOSAL_RESUME_COLONIAL_TRADE_COMPANY_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_colonial_trade_company|E]，并利用当地已经保留下来的工程部分。'

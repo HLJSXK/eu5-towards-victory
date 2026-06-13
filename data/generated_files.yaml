@@ -189,6 +189,10 @@ generated:
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/in_game/events/tv_wonder_finalization_events.txt
 
+  - script: scripts/in_game/events/gen_tv_wonder_ownership_events.py
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: src/in_game/events/tv_wonder_ownership_events.txt
+
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt
@@ -216,6 +220,10 @@ generated:
   - script: scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/in_game/common/scripted_effects/tv_engineering_department_wonder_mechanics_effects.txt
+
+  - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_ownership_effects.py
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: src/in_game/common/scripted_effects/tv_wonder_ownership_effects.txt
 
   - script: scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
@@ -248,6 +256,14 @@ generated:
   - script: scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml
     output: src/main_menu/localization/simp_chinese/tv_engineering_department_wonder_mechanics_l_simp_chinese.yml
+
+  - script: scripts/main_menu/localization/english/gen_tv_wonder_ownership_l_english.py
+    data:   data/wonder_localization.yaml
+    output: src/main_menu/localization/english/tv_wonder_ownership_l_english.yml
+
+  - script: scripts/main_menu/localization/simp_chinese/gen_tv_wonder_ownership_l_simp_chinese.py
+    data:   data/wonder_localization.yaml
+    output: src/main_menu/localization/simp_chinese/tv_wonder_ownership_l_simp_chinese.yml
 
   - script: scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml

@@ -1,9 +1,5 @@
 ﻿# Towards Victory — Governor's House on_action hooks
 
-on_location_changed_owner = {
-	on_actions = { tv_govhouse_location_changed_owner }
-}
-
 on_character_moved_country = {
 	on_actions = { tv_govhouse_governor_moved_country }
 }

@@ -13,6 +13,14 @@ from wonder_localization_lib import load_wonder_localization_data
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml"
 SCRIPT_REL = "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py"
 DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
+EXCLUDED_LOC_KEYS = {
+    "tv_wonder_ownership.800.t",
+    "tv_wonder_ownership.800.d",
+    "tv_wonder_ownership.800.a",
+    "tv_wonder_ownership.900.t",
+    "tv_wonder_ownership.900.d",
+    "tv_wonder_ownership.900.a",
+}
 
 
 def generate() -> str:
@@ -21,6 +29,8 @@ def generate() -> str:
     for line in render_header(SCRIPT_REL, DATA_REL):
         lines.append(f" {line}")
     for key, value in localization.items():
+        if key in EXCLUDED_LOC_KEYS:
+            continue
         lines.append(loc_line(key, value))
     return "\n".join(lines).rstrip() + "\n"
 

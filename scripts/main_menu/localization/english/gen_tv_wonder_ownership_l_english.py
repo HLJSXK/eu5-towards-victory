@@ -10,17 +10,17 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics_lib import loc_line, render_header
 from wonder_localization_lib import load_wonder_localization_data
 
-OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml"
-SCRIPT_REL = "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py"
-DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
-EXCLUDED_LOC_KEYS = {
+OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_wonder_ownership_l_english.yml"
+SCRIPT_REL = "scripts/main_menu/localization/english/gen_tv_wonder_ownership_l_english.py"
+DATA_REL = "data/wonder_localization.yaml"
+OWNERSHIP_LOC_KEYS = [
     "tv_wonder_ownership.800.t",
     "tv_wonder_ownership.800.d",
     "tv_wonder_ownership.800.a",
     "tv_wonder_ownership.900.t",
     "tv_wonder_ownership.900.d",
     "tv_wonder_ownership.900.a",
-}
+]
 
 
 def generate() -> str:
@@ -28,10 +28,8 @@ def generate() -> str:
     lines = ["l_english:"]
     for line in render_header(SCRIPT_REL, DATA_REL):
         lines.append(f" {line}")
-    for key, value in localization.items():
-        if key in EXCLUDED_LOC_KEYS:
-            continue
-        lines.append(loc_line(key, value))
+    for key in OWNERSHIP_LOC_KEYS:
+        lines.append(loc_line(key, localization[key]))
     return "\n".join(lines).rstrip() + "\n"
 
 

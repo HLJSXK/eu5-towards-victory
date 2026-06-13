@@ -1021,6 +1021,27 @@ def ceremony_styles(wonder: dict) -> list[int]:
     return sorted(int(style) for style in wonder["final_buildings"])
 
 
+def wonder_has_persistent_ritual_country_modifier(wonder: dict, mechanics: dict) -> bool:
+    if wonder.get("is_unique"):
+        return any(
+            bool(ritual_plan_for_style(wonder, mechanics, style).get("country_modifier", {}))
+            for style in ceremony_styles(wonder)
+        )
+    return any(
+        ritual_plan_for_style(wonder, mechanics, style)["mode"] == "timed"
+        and bool(ritual_plan_for_style(wonder, mechanics, style).get("timed", {}).get("blessing_modifier", {}))
+        for style in ceremony_styles(wonder)
+    )
+
+
+def persistent_ritual_country_modifier_name(wonder: dict, mechanics: dict) -> str | None:
+    if not wonder_has_persistent_ritual_country_modifier(wonder, mechanics):
+        return None
+    if wonder.get("is_unique"):
+        return unique_ceremony_modifier_name(wonder)
+    return ritual_blessing_modifier_name(wonder)
+
+
 def finalization_event_id(wonder: dict) -> int:
     return 5000 + int(wonder["id"])
 
@@ -1031,6 +1052,14 @@ def finalization_world_event_id(wonder: dict) -> int:
 
 def finalization_hidden_event_id() -> int:
     return 6202
+
+
+def ownership_gain_event_id(wonder: dict) -> int:
+    return 8000 + int(wonder["id"])
+
+
+def ownership_loss_event_id(wonder: dict) -> int:
+    return 9000 + int(wonder["id"])
 
 
 def finalization_visible_effect_name(wonder: dict) -> str:
