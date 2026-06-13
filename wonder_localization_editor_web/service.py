@@ -92,6 +92,14 @@ GENERATED_LOC_FILES = {
     "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
     "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
 }
+GENERATED_LOC_EXCLUDED_KEYS = {
+    "tv_wonder_ownership.800.t",
+    "tv_wonder_ownership.800.d",
+    "tv_wonder_ownership.800.a",
+    "tv_wonder_ownership.900.t",
+    "tv_wonder_ownership.900.d",
+    "tv_wonder_ownership.900.a",
+}
 GENERATED_LOC_SCRIPT_REL = {
     "english": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
     "simp_chinese": "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
@@ -427,6 +435,15 @@ def parse_editor_scalar(raw_value: object) -> object:
         return int(text)
     except ValueError:
         return text
+
+
+def parse_unique_initial_level(raw_value: object, *, context: str) -> int:
+    parsed = parse_editor_scalar(raw_value)
+    if not isinstance(parsed, int) or isinstance(parsed, bool):
+        raise ValueError(f"{context} must be an integer from 0 to 6")
+    if parsed < 0 or parsed > 6:
+        raise ValueError(f"{context} must be an integer from 0 to 6")
+    return parsed
 
 
 def wonder_size_label(size: object) -> str:
@@ -2077,9 +2094,17 @@ def render_expected_localization_output(language: str, localization_data: dict[s
     lines = [header]
     for line in render_header(GENERATED_LOC_SCRIPT_REL[language], GENERATED_LOC_DATA_REL):
         lines.append(f" {line}")
-    for key, value in localization_data[language].items():
+    for key, value in generated_localization_map(language, localization_data).items():
         lines.append(loc_line(key, value))
     return "\n".join(lines).rstrip() + "\n"
+
+
+def generated_localization_map(language: str, localization_data: dict[str, dict[str, str]]) -> dict[str, str]:
+    return {
+        key: value
+        for key, value in localization_data[language].items()
+        if key not in GENERATED_LOC_EXCLUDED_KEYS
+    }
 
 
 def render_expected_concepts_output(wonders: list[dict[str, Any]]) -> str:
@@ -2334,11 +2359,7 @@ class WonderLocalizationService:
                 continue
 
             if spec.target_kind == "unique_initial_level":
-                parsed = parse_editor_scalar(value)
-                if not isinstance(parsed, int) or isinstance(parsed, bool):
-                    raise ValueError(f"{spec.key} must be an integer from 0 to 6")
-                if parsed < 0 or parsed > 6:
-                    raise ValueError(f"{spec.key} must be an integer from 0 to 6")
+                parsed = parse_unique_initial_level(value, context=spec.key)
                 entry = self._get_unique_wonder_source(spec.target_key)
                 entry["initial_level"] = parsed
                 unique_file_changed = True
@@ -2613,6 +2634,16 @@ class WonderLocalizationService:
                 return wonder
         raise KeyError(f"Unknown unique wonder key: {wonder_key}")
 
+    def _unique_initial_level(self, wonder: dict[str, Any]) -> int:
+        if not wonder.get("is_unique"):
+            return 0
+        unique_key = str(wonder["key"])
+        entry = self._get_unique_wonder_source(unique_key)
+        return parse_unique_initial_level(
+            entry.get("initial_level"),
+            context=f"unique_wonders[{unique_key}].initial_level",
+        )
+
     def _get_generic_wonder_source(self, wonder_key: str) -> dict[str, Any]:
         for wonder in self.wonders_data.get("wonders", []):
             if wonder.get("key") == wonder_key:
@@ -2660,7 +2691,7 @@ class WonderLocalizationService:
             "key": wonder["key"],
             "concept": wonder["concept"],
             "is_unique": bool(wonder.get("is_unique")),
-            "initial_level": int(wonder.get("initial_level", 0)) if wonder.get("is_unique") else 0,
+            "initial_level": self._unique_initial_level(wonder),
             "kind_label": kind_label,
             "size": size,
             "size_label": wonder_size_label(size),
@@ -2678,7 +2709,7 @@ class WonderLocalizationService:
             "name_en": self._wonder_name(wonder, "english"),
             "name_zh": self._wonder_name(wonder, "simp_chinese"),
             "is_unique": bool(wonder.get("is_unique")),
-            "initial_level": int(wonder.get("initial_level", 0)) if wonder.get("is_unique") else 0,
+            "initial_level": self._unique_initial_level(wonder),
             "size": str(wonder.get("size", "")),
             "size_label": wonder_size_label(wonder.get("size", "")),
             "image": self._wonder_image_info(wonder),
@@ -2961,7 +2992,12 @@ class WonderLocalizationService:
                 key=f"mechanics.unique_initial_level.{unique_key}",
                 source_kind="unique",
                 file_path=UNIQUE_WONDERS_FILE,
-                original_value=stringify_editor_scalar(int(unique_entry["initial_level"])),
+                original_value=stringify_editor_scalar(
+                    parse_unique_initial_level(
+                        unique_entry.get("initial_level"),
+                        context=f"unique_wonders[{unique_key}].initial_level",
+                    )
+                ),
                 field_type="number",
                 target_kind="unique_initial_level",
                 target_key=unique_key,
@@ -3343,7 +3379,7 @@ def build_check_report() -> list[str]:
 
     for language, path in GENERATED_LOC_FILES.items():
         generated_map = load_localization_map(path)
-        canonical_map = localization_data[language]
+        canonical_map = generated_localization_map(language, localization_data)
         if generated_map != canonical_map:
             missing = sorted(set(canonical_map) - set(generated_map))
             extra = sorted(set(generated_map) - set(canonical_map))

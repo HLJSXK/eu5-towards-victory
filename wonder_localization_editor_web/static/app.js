@@ -118,6 +118,19 @@ function currentWonderId() {
     return state.currentWonder?.summary?.id ?? null;
 }
 
+function uniqueInitialLevelFieldKey(wonderPayload = state.currentWonder) {
+    const key = wonderPayload?.summary?.key || wonderPayload?.meta?.key || "";
+    return key ? `mechanics.unique_initial_level.${key}` : "";
+}
+
+function parseUniqueInitialLevelValue(rawValue) {
+    const value = String(rawValue ?? "").trim();
+    if (!/^[0-6]$/.test(value)) {
+        return { valid: false, value };
+    }
+    return { valid: true, level: Number.parseInt(value, 10), value };
+}
+
 function draftValueForField(draft, field, scope) {
     if (!draft) {
         return undefined;
@@ -216,6 +229,27 @@ function applyDraftNamePreview(wonderPayload, draft) {
     wonderPayload.summary.display_name = `${wonderPayload.summary.name_zh} / ${wonderPayload.summary.name_en}`;
 }
 
+function applyDraftInitialLevelPreview(wonderPayload, draft) {
+    if (!wonderPayload?.summary?.is_unique) {
+        return;
+    }
+    const fieldKey = uniqueInitialLevelFieldKey(wonderPayload);
+    const draftValue = fieldKey ? draft.mechanics?.[fieldKey] : undefined;
+    if (draftValue === undefined) {
+        return;
+    }
+    const parsed = parseUniqueInitialLevelValue(draftValue);
+    if (!parsed.valid) {
+        return;
+    }
+    wonderPayload.summary.initial_level = parsed.level;
+    wonderPayload.meta.initial_level = parsed.level;
+    const summary = state.wonders.find((wonder) => Number(wonder.id) === Number(wonderPayload.summary.id));
+    if (summary) {
+        summary.initial_level = parsed.level;
+    }
+}
+
 function applyDraftToWonderPayload(wonderPayload) {
     if (!wonderPayload?.summary?.id) {
         return wonderPayload;
@@ -237,6 +271,7 @@ function applyDraftToWonderPayload(wonderPayload) {
         }
     }
     applyDraftNamePreview(wonderPayload, draft);
+    applyDraftInitialLevelPreview(wonderPayload, draft);
     return wonderPayload;
 }
 
@@ -334,6 +369,22 @@ function updateWonderNamePreview(language, value) {
     renderMeta();
 }
 
+function updateUniqueInitialLevelPreview(value) {
+    if (!state.currentWonder?.summary?.is_unique) {
+        return;
+    }
+    const parsed = parseUniqueInitialLevelValue(value);
+    if (parsed.valid) {
+        state.currentWonder.summary.initial_level = parsed.level;
+        state.currentWonder.meta.initial_level = parsed.level;
+        const summary = state.wonders.find((wonder) => Number(wonder.id) === Number(state.currentWonder.summary.id));
+        if (summary) {
+            summary.initial_level = parsed.level;
+        }
+    }
+    renderMeta();
+}
+
 function currentWonderKind() {
     return state.currentWonder?.summary?.is_unique ? "unique" : "generic";
 }
@@ -386,6 +437,28 @@ function renderWonderImage() {
         caption.textContent = image.path || image.filename;
         frame.append(caption);
     }
+}
+
+function currentUniqueInitialLevelState() {
+    if (!state.currentWonder?.summary?.is_unique) {
+        return { valid: true, level: 0, value: "0" };
+    }
+    const draft = state.pageDrafts[String(state.currentWonder.summary.id)];
+    const fieldKey = uniqueInitialLevelFieldKey(state.currentWonder);
+    const draftValue = fieldKey ? draft?.mechanics?.[fieldKey] : undefined;
+    const rawValue =
+        draftValue === undefined
+            ? (state.currentWonder.meta?.initial_level ?? state.currentWonder.summary?.initial_level ?? 0)
+            : draftValue;
+    return parseUniqueInitialLevelValue(rawValue);
+}
+
+function uniqueInitialLevelStartStateLabel() {
+    const stateValue = currentUniqueInitialLevelState();
+    if (!stateValue.valid) {
+        return stateValue.value ? `Invalid level: ${stateValue.value}` : "Invalid level";
+    }
+    return stateValue.level > 0 ? `Level ${stateValue.level}` : "Not present";
 }
 
 function findWonderByKey(key, isUnique = null) {
@@ -505,8 +578,7 @@ function renderMeta() {
     }
 
     if (summary.is_unique) {
-        const initialLevel = Number(meta.initial_level || 0);
-        entries.push(["Start state", initialLevel > 0 ? `Level ${initialLevel}` : "Not present"]);
+        entries.push(["Start state", uniqueInitialLevelStartStateLabel()]);
     }
 
     if (meta.image?.filename) {
@@ -523,13 +595,22 @@ function renderMeta() {
 
 function createSingleLineEditorBinding(field, scope, onInput = null) {
     const input = document.createElement("input");
-    input.type = "text";
+    const fieldType = field.field_type || "text";
+    input.type = fieldType === "number" ? "number" : "text";
     input.value = field.value;
     input.dataset.editorField = "true";
     input.dataset.fieldScope = scope;
-    input.dataset.fieldType = field.field_type || "text";
+    input.dataset.fieldType = fieldType;
     input.dataset.key = field.key;
     input.dataset.originalValue = field.original_value;
+    if (fieldType === "number") {
+        input.step = "1";
+    }
+    if (field.target_kind === "unique_initial_level") {
+        input.min = "0";
+        input.max = "6";
+        input.step = "1";
+    }
     if (scope === "localization") {
         input.dataset.language = field.language;
     }
@@ -2068,6 +2149,9 @@ function buildEditorInput(field, scope) {
     }
     if (isStructuredFieldType(field.field_type || "text")) {
         return renderStructuredFieldByType(field, scope);
+    }
+    if (scope === "mechanics" && field.target_kind === "unique_initial_level") {
+        return createSingleLineEditorBinding(field, scope, updateUniqueInitialLevelPreview);
     }
     return createEditorBinding(field, scope);
 }
