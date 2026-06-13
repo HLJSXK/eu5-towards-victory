@@ -377,7 +377,7 @@ def append_reward_button(lines: list[str], level: int, path: dict, milestone: di
         emit(lines, level + 2, f"alpha = {alpha}")
         emit(lines, level + 2, "icon = {")
         emit(lines, level + 3, "parentanchor = center")
-        emit(lines, level + 3, "size = { 62% 62% }")
+        emit(lines, level + 3, "size = { 100% 100% }")
         emit(lines, level + 3, f'texture = "{icon}"')
         emit(lines, level + 2, "}")
         emit(lines, level + 1, "}")
