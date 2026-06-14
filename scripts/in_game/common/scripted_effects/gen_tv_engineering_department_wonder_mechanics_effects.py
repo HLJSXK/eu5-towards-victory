@@ -81,6 +81,8 @@ WONDER_MAP_GENERIC_LEVEL_VAR = "tv_wonder_map_generic_level"
 WONDER_MAP_HAS_POTENTIAL_UNIQUE_VAR = "tv_wonder_map_has_potential_unique"
 RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
+    "tv_wonder_ritual_months_completed",
+    "tv_wonder_ritual_progress_pct",
 ]
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
@@ -1462,6 +1464,31 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
+    lines.append("tv_wonder_mechanics_refresh_timed_ritual_progress_display_effect = {")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_ritual_progress_pct value = var:tv_wonder_ritual_months_completed }}")
+    lines.append(f"{T}change_variable = {{ name = tv_wonder_ritual_progress_pct multiply = 100 }}")
+    lines.append(f"{T}change_variable = {{ name = tv_wonder_ritual_progress_pct divide = 12 }}")
+    lines.append(f"{T}clamp_variable = {{ name = tv_wonder_ritual_progress_pct min = 0 max = 100 }}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_mechanics_advance_timed_ritual_month_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}tv_wonder_selected_generic_timed_ritual_trigger = yes")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_ritual_in_progress")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_ritual_months_completed }} }}")
+    lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_ritual_months_completed value = 0 }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_ritual_months_completed add = 1 }}")
+    lines.append(f"{T}{T}clamp_variable = {{ name = tv_wonder_ritual_months_completed min = 0 max = 12 }}")
+    lines.append(f"{T}{T}tv_wonder_mechanics_refresh_timed_ritual_progress_display_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
     lines.append("tv_wonder_mechanics_start_timed_ritual_effect = {")
     first = True
     for wonder, style, ritual_plan in ritual_entry_list:
@@ -1476,6 +1503,8 @@ def generate() -> str:
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_in_progress value = 1 }}")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_timer value = 1 years = {timed.get('years', 1)} }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_months_completed value = 0 }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_progress_pct value = 0 }}")
         if timed.get("burden_modifier", {}) or timed.get("blessing_modifier", {}):
             lines.append(f"{T}{T}add_country_modifier = {{ modifier = {ritual_burden_modifier_name(wonder)} years = {timed.get('years', 1)} mode = add_and_extend }}")
         lines.extend(indent_script_block(ritual_plan.get("start_effect_script", ""), 2))

@@ -19943,12 +19943,37 @@ tv_wonder_mechanics_reveal_suitability_knowledge_effect = {
 
 tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {
 	remove_variable = tv_wonder_ritual_auxiliary_building_finished
+	remove_variable = tv_wonder_ritual_months_completed
+	remove_variable = tv_wonder_ritual_progress_pct
 }
 
 tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = {
 }
 
 tv_wonder_mechanics_apply_selected_ritual_progress_effect = {
+}
+
+tv_wonder_mechanics_refresh_timed_ritual_progress_display_effect = {
+	set_variable = { name = tv_wonder_ritual_progress_pct value = var:tv_wonder_ritual_months_completed }
+	change_variable = { name = tv_wonder_ritual_progress_pct multiply = 100 }
+	change_variable = { name = tv_wonder_ritual_progress_pct divide = 12 }
+	clamp_variable = { name = tv_wonder_ritual_progress_pct min = 0 max = 100 }
+}
+
+tv_wonder_mechanics_advance_timed_ritual_month_effect = {
+	if = {
+		limit = {
+			tv_wonder_selected_generic_timed_ritual_trigger = yes
+			has_variable = tv_wonder_ritual_in_progress
+		}
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_ritual_months_completed } }
+			set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		}
+		change_variable = { name = tv_wonder_ritual_months_completed add = 1 }
+		clamp_variable = { name = tv_wonder_ritual_months_completed min = 0 max = 12 }
+		tv_wonder_mechanics_refresh_timed_ritual_progress_display_effect = yes
+	}
 }
 
 tv_wonder_mechanics_start_timed_ritual_effect = {
@@ -19958,6 +19983,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_sacred_mountain_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -19968,6 +19995,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_triumphal_axis_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -19978,6 +20007,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_great_port_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -19988,6 +20019,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_giant_necropolis_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -19998,6 +20031,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_great_lighthouse_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20008,6 +20043,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_hydraulic_workshop_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20018,6 +20055,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_mining_city_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20028,6 +20067,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_giant_observatory_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20038,6 +20079,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_palace_of_nations_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20048,6 +20091,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_university_city_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20058,6 +20103,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_sky_dome_grand_temple_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20068,6 +20115,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_giant_tower_temple_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20078,6 +20127,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_river_extension_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20088,6 +20139,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_national_shipyard_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20098,6 +20151,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_star_fortress_city_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20108,6 +20163,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_great_wall_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20118,6 +20175,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_giant_armory_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20128,6 +20187,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_library_of_nation_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20138,6 +20199,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_large_canal_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20148,6 +20211,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_mountain_terrace_network_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20158,6 +20223,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_giant_dam_project_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20168,6 +20235,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_royal_granary_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20178,6 +20247,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_imperial_post_road_network_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20188,6 +20259,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_canal_hub_city_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20198,6 +20271,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_frontier_colonization_belt_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20208,6 +20283,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_coastal_beacon_network_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20218,6 +20295,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_knightly_fortress_order_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20228,6 +20307,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_war_college_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20238,6 +20319,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_great_clock_bell_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20248,6 +20331,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_royal_art_district_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20258,6 +20343,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_grand_theater_festival_district_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20268,6 +20355,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_world_embassy_quarter_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20278,6 +20367,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_law_code_stele_project_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20288,6 +20379,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_world_market_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20298,6 +20391,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_royal_mint_system_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20308,6 +20403,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_guild_alliance_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20318,6 +20415,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_maritime_trade_station_network_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20328,6 +20427,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_giant_workshop_complex_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20338,6 +20439,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_world_monument_group_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20348,6 +20451,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_city_expansion_project_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20358,6 +20463,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_megalithic_circle_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20368,6 +20475,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_grand_cathedral_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20378,6 +20487,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_great_monastery_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20388,6 +20499,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_city_great_tower_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20398,6 +20511,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_great_sculpture_group_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20408,6 +20523,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_coastal_defense_cannon_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20418,6 +20535,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_naval_school_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20428,6 +20547,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_colonial_trade_company_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20438,6 +20559,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_great_assembly_hall_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20448,6 +20571,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_mobile_fortress_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20458,6 +20583,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_ancient_city_ruins_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -20468,6 +20595,8 @@ tv_wonder_mechanics_start_timed_ritual_effect = {
 		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
 		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
 		set_variable = { name = tv_wonder_ritual_timer value = 1 years = 1 }
+		set_variable = { name = tv_wonder_ritual_months_completed value = 0 }
+		set_variable = { name = tv_wonder_ritual_progress_pct value = 0 }
 		add_country_modifier = { modifier = tv_wonder_summer_palace_ritual_burden_modifier years = 1 mode = add_and_extend }
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
@@ -22584,6 +22713,8 @@ tv_wonder_mechanics_clear_project_state_effect = {
 	clear_variable_map = tv_wonder_feasible_generic_deck
 	clear_variable_map = tv_wonder_feasible_unique_deck
 	remove_variable = tv_wonder_ritual_auxiliary_building_finished
+	remove_variable = tv_wonder_ritual_months_completed
+	remove_variable = tv_wonder_ritual_progress_pct
 	remove_country_modifier = tv_wonder_sacred_mountain_ritual_burden_modifier
 	remove_country_modifier = tv_wonder_triumphal_axis_ritual_burden_modifier
 	remove_country_modifier = tv_wonder_great_port_ritual_burden_modifier

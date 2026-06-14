@@ -68,6 +68,9 @@ PREVIEW_CONTENT_WIDTH = 454
 PREVIEW_MODIFIER_COLUMNS_WIDTH = 454
 PREVIEW_MODIFIER_COLUMN_WIDTH = 223
 PREVIEW_MODIFIER_COLUMN_SPACING = 8
+RITUAL_PROGRESS_MONTHS_VAR = "tv_wonder_ritual_months_completed"
+RITUAL_PROGRESS_PCT_VAR = "tv_wonder_ritual_progress_pct"
+RITUAL_PROGRESS_MAX_MONTHS = 12
 LOCKED_NAME_CARD_HEIGHT = 30
 PROPOSAL_SIZE_ROW_HEIGHT = 24
 PROPOSAL_SIZE_ROW_SPACING = 4
@@ -303,6 +306,58 @@ def active_ritual_visible() -> str:
         f"{player_var('tv_wonder_ceremony_style')}.IsSet, "
         f"{player_var('tv_wonder_selected_ritual_id')}.IsSet)"
     )
+
+
+def ritual_style_1_progress_row(indent: int) -> list[str]:
+    prefix = T * indent
+    progress_visible = (
+        f"And3({active_ritual_visible()}, {player_var('tv_wonder_selected_ritual_style')}.IsSet, "
+        f"{eq('tv_wonder_selected_ritual_style', 1)})"
+    )
+    progress_pct = player_var(RITUAL_PROGRESS_PCT_VAR)
+    progress_months = player_var(RITUAL_PROGRESS_MONTHS_VAR)
+    return [
+        f"{prefix}widget = {{",
+        f'{prefix}{T}visible = "[{progress_visible}]"',
+        f"{prefix}{T}size = {{ 462 24 }}",
+        f"{prefix}{T}hbox = {{",
+        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}{T}spacing = 6",
+        f'{prefix}{T}{T}text_single = {{ raw_text = "@time!" size = {{ 20 24 }} fontsize = 16 align = center|nobaseline }}',
+        f"{prefix}{T}{T}widget = {{",
+        f"{prefix}{T}{T}{T}size = {{ 372 24 }}",
+        f"{prefix}{T}{T}{T}progressbar = {{",
+        f'{prefix}{T}{T}{T}{T}visible = "[{progress_pct}.IsSet]"',
+        f"{prefix}{T}{T}{T}{T}size = {{ 372 16 }}",
+        f"{prefix}{T}{T}{T}{T}using = progress_bar_goldish",
+        f"{prefix}{T}{T}{T}{T}min = 0",
+        f"{prefix}{T}{T}{T}{T}max = 100",
+        f'{prefix}{T}{T}{T}{T}value = "[{progress_pct}.GetValue]"',
+        f"{prefix}{T}{T}{T}}}",
+        f"{prefix}{T}{T}{T}progressbar = {{",
+        f'{prefix}{T}{T}{T}{T}visible = "[Not({progress_pct}.IsSet)]"',
+        f"{prefix}{T}{T}{T}{T}size = {{ 372 16 }}",
+        f"{prefix}{T}{T}{T}{T}using = progress_bar_goldish",
+        f"{prefix}{T}{T}{T}{T}min = 0",
+        f"{prefix}{T}{T}{T}{T}max = 100",
+        f"{prefix}{T}{T}{T}{T}value = 0",
+        f"{prefix}{T}{T}{T}}}",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}visible = "[{progress_months}.IsSet]"',
+        f"{prefix}{T}{T}{T}size = {{ 58 24 }}",
+        f'{prefix}{T}{T}{T}raw_text = "[{progress_months}.GetValue|0]/{RITUAL_PROGRESS_MAX_MONTHS}"',
+        f"{prefix}{T}{T}{T}align = nobaseline|right",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}visible = "[Not({progress_months}.IsSet)]"',
+        f"{prefix}{T}{T}{T}size = {{ 58 24 }}",
+        f'{prefix}{T}{T}{T}raw_text = "0/{RITUAL_PROGRESS_MAX_MONTHS}"',
+        f"{prefix}{T}{T}{T}align = nobaseline|right",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
 
 
 def scripted_effect_tooltip(effect_name: str, indent: int) -> list[str]:
@@ -591,6 +646,7 @@ def active_ritual_display() -> str:
             visible=unique_visible,
         )
     )
+    lines.extend(ritual_style_1_progress_row(2))
     lines.append(f"{T}}}")
     return "\n".join(lines)
 

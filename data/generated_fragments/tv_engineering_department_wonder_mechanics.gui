@@ -5925,6 +5925,46 @@ widget = {
 				}
 			}
 		}
+		widget = {
+			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_style').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+			size = { 462 24 }
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 6
+				text_single = { raw_text = "@time!" size = { 20 24 } fontsize = 16 align = center|nobaseline }
+				widget = {
+					size = { 372 24 }
+					progressbar = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_progress_pct').IsSet]"
+						size = { 372 16 }
+						using = progress_bar_goldish
+						min = 0
+						max = 100
+						value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_progress_pct').GetValue]"
+					}
+					progressbar = {
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_progress_pct').IsSet)]"
+						size = { 372 16 }
+						using = progress_bar_goldish
+						min = 0
+						max = 100
+						value = 0
+					}
+				}
+				text_single = {
+					visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_months_completed').IsSet]"
+					size = { 58 24 }
+					raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_months_completed').GetValue|0]/12"
+					align = nobaseline|right
+				}
+				text_single = {
+					visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_months_completed').IsSet)]"
+					size = { 58 24 }
+					raw_text = "0/12"
+					align = nobaseline|right
+				}
+			}
+		}
 	}
 ### END TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS
 
