@@ -197,6 +197,10 @@ generated:
     data:   data/unique_wonders.yaml + data/wonder_localization.yaml
     output: src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt
 
+  - script: scripts/in_game/events/gen_tv_wonder_unique_hagia_sophia_ritual_events.py
+    data:   data/unique_wonders.yaml + data/wonder_localization.yaml
+    output: src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt
+
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt

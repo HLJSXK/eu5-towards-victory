@@ -95,6 +95,18 @@ PHAROS_ROUTE_KEYS = [
     "gibraltar",
 ]
 PHAROS_ROUTE_IDS = {route_key: index for index, route_key in enumerate(PHAROS_ROUTE_KEYS, start=1)}
+HAGIA_WONDER_ID = 102
+HAGIA_STEPS = range(1, 9)
+HAGIA_STEP_ATTRIBUTE = {
+    1: "add_adm",
+    2: "add_adm",
+    3: "add_dip",
+    4: None,
+    5: "add_dip",
+    6: "add_adm",
+    7: "add_mil",
+    8: "add_mil",
+}
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
     "topography_plateau": "topography = plateau",
@@ -617,6 +629,241 @@ def append_pharos_effects(lines: list[str]) -> None:
     lines.append(f"{T}remove_variable = tv_wonder_pharos_routes_complete_pending_event")
     lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_routes_complete value = 1 }}")
     lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+
+def append_hagia_assign_burden_lines(lines: list[str], step: int, indent: int) -> None:
+    prefix = T * indent
+    attr = HAGIA_STEP_ATTRIBUTE[step]
+    if attr is not None:
+        lines.append(f"{prefix}{attr} = 10")
+    lines.append(f"{prefix}add_character_modifier = {{ modifier = banned_from_cabinet years = -1 mode = add_and_extend }}")
+    lines.append(f"{prefix}add_character_modifier = {{ modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }}")
+
+
+def append_hagia_assignment_effect(lines: list[str], step: int) -> None:
+    lines.append(f"tv_wonder_hagia_assign_step_{step}_effect = {{")
+    lines.append(f"{T}if = {{")
+    if step == 4:
+        lines.append(f"{T}{T}limit = {{ tv_wonder_hagia_step_4_available_trigger = yes has_ruler = yes }}")
+        lines.append(f"{T}{T}ruler ?= {{")
+        lines.append(f"{T}{T}{T}save_scope_as = tv_wonder_hagia_selected_ruler")
+        append_hagia_assign_burden_lines(lines, step, 3)
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_assignee_4 value = scope:tv_wonder_hagia_selected_ruler }}")
+        lines.append(f"{T}{T}add_country_modifier = {{ modifier = tv_wonder_hagia_ruler_procession_modifier years = -1 mode = add_and_extend }}")
+    else:
+        lines.append(f"{T}{T}limit = {{ tv_wonder_hagia_step_{step}_available_trigger = yes exists = scope:target }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_assignee_{step} value = scope:target }}")
+        lines.append(f"{T}{T}scope:target = {{")
+        append_hagia_assign_burden_lines(lines, step, 3)
+        lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_hagia_pending_event")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_hagia_effects(lines: list[str]) -> None:
+    for step in HAGIA_STEPS:
+        append_hagia_assignment_effect(lines, step)
+
+    lines.append("tv_wonder_hagia_retry_step_effect = {")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
+    lines.append(f"{T}remove_variable = tv_wonder_hagia_pending_event")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_advance_step_effect = {")
+    for step in HAGIA_STEPS:
+        head = "if" if step == 1 else "else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_hagia_step ?= {step} }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_step_{step}_done value = 1 }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
+        lines.append(f"{T}{T}remove_variable = tv_wonder_hagia_pending_event")
+        if step < 8:
+            lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_step value = {step + 1} }}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_complete_step_1_effect = {")
+    lines.append(f"{T}change_gold_effect = {{ scale = -1 }}")
+    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_complete_step_2_effect = {")
+    lines.append(f"{T}add_prestige = -10")
+    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_complete_step_3_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ country_has_estate = estate_type:clergy_estate }}")
+    lines.append(f"{T}{T}save_scope_as = tv_wonder_hagia_privilege_country")
+    lines.append(f"{T}{T}\"estate(estate_type:clergy_estate)\" = {{")
+    lines.append(f"{T}{T}{T}estate_privilege:tv_hagia_great_church_endowment_privilege = {{")
+    lines.append(f"{T}{T}{T}{T}scope:tv_wonder_hagia_privilege_country = {{")
+    lines.append(f"{T}{T}{T}{T}{T}grant_estate_privilege = prev")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_hagia_advance_step_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}else = {{")
+    lines.append(f"{T}{T}tv_wonder_hagia_retry_step_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_complete_step_4_effect = {")
+    lines.append(f"{T}remove_country_modifier = tv_wonder_hagia_ruler_procession_modifier")
+    lines.append(f"{T}add_country_modifier = {{ modifier = tv_wonder_hagia_imperial_procession_modifier years = -1 mode = add_and_extend }}")
+    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_complete_step_5_effect = {")
+    lines.append(f"{T}location:constantinople = {{")
+    lines.append(f"{T}{T}add_location_modifier = {{ modifier = tv_wonder_hagia_sanctuary_order_location_modifier years = -1 mode = add_and_extend }}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_roll_step_6_cost_effect = {")
+    lines.append(f"{T}random_list = {{")
+    lines.append(f"{T}{T}33 = {{ set_variable = {{ name = tv_wonder_hagia_step_6_cost value = 1 }} }}")
+    lines.append(f"{T}{T}33 = {{ set_variable = {{ name = tv_wonder_hagia_step_6_cost value = 2 }} }}")
+    lines.append(f"{T}{T}34 = {{ set_variable = {{ name = tv_wonder_hagia_step_6_cost value = 3 }} }}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_complete_step_6_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_hagia_step_6_cost var:tv_wonder_hagia_step_6_cost ?= 1 }}")
+    lines.append(f"{T}{T}change_gold_effect = {{ scale = -1 }}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}else_if = {{")
+    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_hagia_step_6_cost var:tv_wonder_hagia_step_6_cost ?= 2 }}")
+    lines.append(f"{T}{T}add_prestige = -5")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}else = {{")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{ country_has_estate = estate_type:clergy_estate }}")
+    lines.append(f"{T}{T}{T}add_estate_satisfaction = {{ type = estate_type:clergy_estate value = -0.025 }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{ country_has_estate = estate_type:nobles_estate }}")
+    lines.append(f"{T}{T}{T}add_estate_satisfaction = {{ type = estate_type:nobles_estate value = -0.025 }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}remove_variable = tv_wonder_hagia_step_6_cost")
+    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_complete_step_7_effect = {")
+    lines.append(f"{T}change_gold_effect = {{ scale = -1 }}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_hagia_assignee_7 }}")
+    lines.append(f"{T}{T}var:tv_wonder_hagia_assignee_7 ?= {{ save_scope_as = tv_wonder_hagia_icon_painter }}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}location:constantinople = {{")
+    lines.append(f"{T}{T}create_art = {{")
+    lines.append(f"{T}{T}{T}quality = {{ 70 100 }}")
+    lines.append(f"{T}{T}{T}type = work_of_art_type:icon")
+    lines.append(f"{T}{T}{T}key = tv_hagia_sophia_synaxis_icon")
+    lines.append(f"{T}{T}{T}target = scope:tv_wonder_hagia_icon_painter")
+    lines.append(f"{T}{T}{T}artist = scope:tv_wonder_hagia_icon_painter")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_begin_step_8_procession_effect = {")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_prosperity_active value = 1 }}")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
+    lines.append(f"{T}remove_variable = tv_wonder_hagia_pending_event")
+    lines.append(f"{T}location:constantinople = {{")
+    lines.append(f"{T}{T}add_location_modifier = {{ modifier = tv_wonder_hagia_public_procession_location_modifier years = -1 mode = add_and_extend }}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_complete_step_8_effect = {")
+    lines.append(f"{T}location:constantinople = {{")
+    lines.append(f"{T}{T}remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier")
+    lines.append(f"{T}{T}change_prosperity = 0.1")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}add_prestige = 10")
+    lines.append(f"{T}change_gold_effect = {{ scale = 1 }}")
+    lines.append(f"{T}remove_variable = tv_wonder_hagia_pending_event")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_step_8_done value = 1 }}")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_completed value = 1 }}")
+    lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_fire_step_event_effect = {")
+    for step in HAGIA_STEPS:
+        head = "if" if step == 1 else "else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ var:tv_wonder_hagia_step ?= {step} }}")
+        if step == 6:
+            lines.append(f"{T}{T}tv_wonder_hagia_roll_step_6_cost_effect = yes")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_pending_event value = {step} }}")
+        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.{6300 + step} }}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_hagia_monthly_progress_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_hagia_active_trigger = yes }}")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}has_variable = tv_wonder_hagia_prosperity_active")
+    lines.append(f"{T}{T}{T}{T}tv_wonder_hagia_constantinople_prosperous_trigger = yes")
+    lines.append(f"{T}{T}{T}{T}NOT = {{ has_variable = tv_wonder_hagia_pending_event }}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_hagia_pending_event value = 8 }}")
+    lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.6308 }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}else_if = {{")
+    lines.append(f"{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}NOT = {{ has_variable = tv_wonder_hagia_prosperity_active }}")
+    lines.append(f"{T}{T}{T}{T}NOT = {{ has_variable = tv_wonder_hagia_pending_event }}")
+    lines.append(f"{T}{T}{T}{T}OR = {{")
+    for step in HAGIA_STEPS:
+        lines.append(f"{T}{T}{T}{T}{T}AND = {{ var:tv_wonder_hagia_step ?= {step} has_variable = tv_wonder_hagia_assignee_{step} }}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_hagia_months }} }}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}change_variable = {{ name = tv_wonder_hagia_months add = 1 }}")
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{ var:tv_wonder_hagia_months >= 3 }}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
+    lines.append(f"{T}{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{ var:tv_wonder_hagia_step ?= 8 }}")
+    lines.append(f"{T}{T}{T}{T}{T}tv_wonder_hagia_begin_step_8_procession_effect = yes")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}else = {{")
+    lines.append(f"{T}{T}{T}{T}{T}tv_wonder_hagia_fire_step_event_effect = yes")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -1630,6 +1877,7 @@ def generate() -> str:
     max_rows = max(len(suitability_knowledge_for_wonder(mechanics, wonder)) for wonder in all_wonders)
     append_survey_cache_transfer_effects(lines, max_rows)
     append_pharos_effects(lines)
+    append_hagia_effects(lines)
 
     lines.append("tv_wonder_mechanics_apply_survey_site_preference_effect = {")
     for idx, wonder in enumerate(all_wonders):
@@ -1722,6 +1970,11 @@ def generate() -> str:
         lines.append(f"{T}{T}limit = {{ {selected_ritual_limit(wonder, style)} }}")
         for variable in custom_variables:
             lines.append(f"{T}{T}remove_variable = {variable}")
+        if int(wonder["id"]) == HAGIA_WONDER_ID:
+            lines.append(f"{T}{T}remove_country_modifier = tv_wonder_hagia_ruler_procession_modifier")
+            lines.append(f"{T}{T}location:constantinople = {{")
+            lines.append(f"{T}{T}{T}remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier")
+            lines.append(f"{T}{T}}}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -1997,6 +2250,10 @@ def generate() -> str:
                 runtime_cleanup_vars.append(variable)
     for variable in runtime_cleanup_vars:
         lines.append(f"{T}remove_variable = {variable}")
+    lines.append(f"{T}remove_country_modifier = tv_wonder_hagia_ruler_procession_modifier")
+    lines.append(f"{T}location:constantinople = {{")
+    lines.append(f"{T}{T}remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier")
+    lines.append(f"{T}}}")
     for wonder in all_wonders:
         if any(ritual_plan_for_style(wonder, mechanics, style)["mode"] == "timed" for style in ceremony_styles(wonder)):
             lines.append(f"{T}remove_country_modifier = {ritual_burden_modifier_name(wonder)}")

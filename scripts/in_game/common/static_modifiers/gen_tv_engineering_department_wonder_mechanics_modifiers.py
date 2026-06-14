@@ -53,6 +53,11 @@ def modifier_block(name: str, modifiers: dict) -> list[str]:
     return lines
 
 
+def append_hagia_modifiers(lines: list[str]) -> None:
+    lines.extend(modifier_block("tv_wonder_hagia_ruler_procession_modifier", {"monthly_legitimacy": -0.20}))
+    lines.extend(modifier_block("tv_wonder_hagia_imperial_procession_modifier", {"monthly_legitimacy": 0.05}))
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
@@ -78,6 +83,7 @@ def generate() -> str:
             modifiers = ritual_plan.get("country_modifier", {})
             if modifiers:
                 lines.extend(modifier_block(unique_ceremony_modifier_name(wonder), modifiers))
+    append_hagia_modifiers(lines)
     return "\n".join(lines).rstrip() + "\n"
 
 

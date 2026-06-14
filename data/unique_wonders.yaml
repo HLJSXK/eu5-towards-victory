@@ -153,20 +153,48 @@ unique_wonders:
   final_buildings:
     1: tv_wonder_unique_hagia_sophia_inaugurated
   ritual:
-    key: justinian_dedication
+    key: justinianic_synaxis_of_the_great_church
     mode: immediate
     cost_type: null
-    listeners: []
-    runtime_variables: []
+    listeners:
+    - monthly
+    runtime_variables:
+    - tv_wonder_hagia_step
+    - tv_wonder_hagia_months
+    - tv_wonder_hagia_pending_event
+    - tv_wonder_hagia_completed
+    - tv_wonder_hagia_step_6_cost
+    - tv_wonder_hagia_assignee_1
+    - tv_wonder_hagia_assignee_2
+    - tv_wonder_hagia_assignee_3
+    - tv_wonder_hagia_assignee_4
+    - tv_wonder_hagia_assignee_5
+    - tv_wonder_hagia_assignee_6
+    - tv_wonder_hagia_assignee_7
+    - tv_wonder_hagia_assignee_8
+    - tv_wonder_hagia_step_1_done
+    - tv_wonder_hagia_step_2_done
+    - tv_wonder_hagia_step_3_done
+    - tv_wonder_hagia_step_4_done
+    - tv_wonder_hagia_step_5_done
+    - tv_wonder_hagia_step_6_done
+    - tv_wonder_hagia_step_7_done
+    - tv_wonder_hagia_step_8_done
+    - tv_wonder_hagia_prosperity_active
     country_modifier:
       tolerance_own: 1
       stability_investment: 0.05
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: ''
+    start_effect_script: |-
+      set_variable = { name = tv_wonder_hagia_step value = 1 }
+      set_variable = { name = tv_wonder_hagia_months value = 0 }
     snapshot_effect_script: ''
-    progress_effect_script: ''
-    completion_trigger_script: ''
+    progress_effect_script: |-
+      tv_wonder_hagia_monthly_progress_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_hagia_completed
+      var:tv_wonder_hagia_completed ?= 1
     completion_effect_script: ''
     timed:
       years: 1

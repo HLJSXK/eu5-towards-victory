@@ -9820,6 +9820,385 @@ tv_wonder_pharos_finish_ritual_effect = {
 	tv_wonder_complete_active_ritual_effect = yes
 }
 
+tv_wonder_hagia_assign_step_1_effect = {
+	if = {
+		limit = { tv_wonder_hagia_step_1_available_trigger = yes exists = scope:target }
+		set_variable = { name = tv_wonder_hagia_assignee_1 value = scope:target }
+		scope:target = {
+			add_adm = 10
+			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
+			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
+		}
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_assign_step_2_effect = {
+	if = {
+		limit = { tv_wonder_hagia_step_2_available_trigger = yes exists = scope:target }
+		set_variable = { name = tv_wonder_hagia_assignee_2 value = scope:target }
+		scope:target = {
+			add_adm = 10
+			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
+			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
+		}
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_assign_step_3_effect = {
+	if = {
+		limit = { tv_wonder_hagia_step_3_available_trigger = yes exists = scope:target }
+		set_variable = { name = tv_wonder_hagia_assignee_3 value = scope:target }
+		scope:target = {
+			add_dip = 10
+			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
+			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
+		}
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_assign_step_4_effect = {
+	if = {
+		limit = { tv_wonder_hagia_step_4_available_trigger = yes has_ruler = yes }
+		ruler ?= {
+			save_scope_as = tv_wonder_hagia_selected_ruler
+			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
+			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
+		}
+		set_variable = { name = tv_wonder_hagia_assignee_4 value = scope:tv_wonder_hagia_selected_ruler }
+		add_country_modifier = { modifier = tv_wonder_hagia_ruler_procession_modifier years = -1 mode = add_and_extend }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_assign_step_5_effect = {
+	if = {
+		limit = { tv_wonder_hagia_step_5_available_trigger = yes exists = scope:target }
+		set_variable = { name = tv_wonder_hagia_assignee_5 value = scope:target }
+		scope:target = {
+			add_dip = 10
+			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
+			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
+		}
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_assign_step_6_effect = {
+	if = {
+		limit = { tv_wonder_hagia_step_6_available_trigger = yes exists = scope:target }
+		set_variable = { name = tv_wonder_hagia_assignee_6 value = scope:target }
+		scope:target = {
+			add_adm = 10
+			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
+			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
+		}
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_assign_step_7_effect = {
+	if = {
+		limit = { tv_wonder_hagia_step_7_available_trigger = yes exists = scope:target }
+		set_variable = { name = tv_wonder_hagia_assignee_7 value = scope:target }
+		scope:target = {
+			add_mil = 10
+			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
+			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
+		}
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_assign_step_8_effect = {
+	if = {
+		limit = { tv_wonder_hagia_step_8_available_trigger = yes exists = scope:target }
+		set_variable = { name = tv_wonder_hagia_assignee_8 value = scope:target }
+		scope:target = {
+			add_mil = 10
+			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
+			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
+		}
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_retry_step_effect = {
+	set_variable = { name = tv_wonder_hagia_months value = 0 }
+	remove_variable = tv_wonder_hagia_pending_event
+}
+
+tv_wonder_hagia_advance_step_effect = {
+	if = {
+		limit = { var:tv_wonder_hagia_step ?= 1 }
+		set_variable = { name = tv_wonder_hagia_step_1_done value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+		set_variable = { name = tv_wonder_hagia_step value = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 2 }
+		set_variable = { name = tv_wonder_hagia_step_2_done value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+		set_variable = { name = tv_wonder_hagia_step value = 3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 3 }
+		set_variable = { name = tv_wonder_hagia_step_3_done value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+		set_variable = { name = tv_wonder_hagia_step value = 4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 4 }
+		set_variable = { name = tv_wonder_hagia_step_4_done value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+		set_variable = { name = tv_wonder_hagia_step value = 5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 5 }
+		set_variable = { name = tv_wonder_hagia_step_5_done value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+		set_variable = { name = tv_wonder_hagia_step value = 6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 6 }
+		set_variable = { name = tv_wonder_hagia_step_6_done value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+		set_variable = { name = tv_wonder_hagia_step value = 7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 7 }
+		set_variable = { name = tv_wonder_hagia_step_7_done value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+		set_variable = { name = tv_wonder_hagia_step value = 8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 8 }
+		set_variable = { name = tv_wonder_hagia_step_8_done value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		remove_variable = tv_wonder_hagia_pending_event
+	}
+}
+
+tv_wonder_hagia_complete_step_1_effect = {
+	change_gold_effect = { scale = -1 }
+	tv_wonder_hagia_advance_step_effect = yes
+}
+
+tv_wonder_hagia_complete_step_2_effect = {
+	add_prestige = -10
+	tv_wonder_hagia_advance_step_effect = yes
+}
+
+tv_wonder_hagia_complete_step_3_effect = {
+	if = {
+		limit = { country_has_estate = estate_type:clergy_estate }
+		save_scope_as = tv_wonder_hagia_privilege_country
+		"estate(estate_type:clergy_estate)" = {
+			estate_privilege:tv_hagia_great_church_endowment_privilege = {
+				scope:tv_wonder_hagia_privilege_country = {
+					grant_estate_privilege = prev
+				}
+			}
+		}
+		tv_wonder_hagia_advance_step_effect = yes
+	}
+	else = {
+		tv_wonder_hagia_retry_step_effect = yes
+	}
+}
+
+tv_wonder_hagia_complete_step_4_effect = {
+	remove_country_modifier = tv_wonder_hagia_ruler_procession_modifier
+	add_country_modifier = { modifier = tv_wonder_hagia_imperial_procession_modifier years = -1 mode = add_and_extend }
+	tv_wonder_hagia_advance_step_effect = yes
+}
+
+tv_wonder_hagia_complete_step_5_effect = {
+	location:constantinople = {
+		add_location_modifier = { modifier = tv_wonder_hagia_sanctuary_order_location_modifier years = -1 mode = add_and_extend }
+	}
+	tv_wonder_hagia_advance_step_effect = yes
+}
+
+tv_wonder_hagia_roll_step_6_cost_effect = {
+	random_list = {
+		33 = { set_variable = { name = tv_wonder_hagia_step_6_cost value = 1 } }
+		33 = { set_variable = { name = tv_wonder_hagia_step_6_cost value = 2 } }
+		34 = { set_variable = { name = tv_wonder_hagia_step_6_cost value = 3 } }
+	}
+}
+
+tv_wonder_hagia_complete_step_6_effect = {
+	if = {
+		limit = { has_variable = tv_wonder_hagia_step_6_cost var:tv_wonder_hagia_step_6_cost ?= 1 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_wonder_hagia_step_6_cost var:tv_wonder_hagia_step_6_cost ?= 2 }
+		add_prestige = -5
+	}
+	else = {
+		if = {
+			limit = { country_has_estate = estate_type:clergy_estate }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.025 }
+		}
+		if = {
+			limit = { country_has_estate = estate_type:nobles_estate }
+			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.025 }
+		}
+	}
+	remove_variable = tv_wonder_hagia_step_6_cost
+	tv_wonder_hagia_advance_step_effect = yes
+}
+
+tv_wonder_hagia_complete_step_7_effect = {
+	change_gold_effect = { scale = -1 }
+	if = {
+		limit = { has_variable = tv_wonder_hagia_assignee_7 }
+		var:tv_wonder_hagia_assignee_7 ?= { save_scope_as = tv_wonder_hagia_icon_painter }
+	}
+	location:constantinople = {
+		create_art = {
+			quality = { 70 100 }
+			type = work_of_art_type:icon
+			key = tv_hagia_sophia_synaxis_icon
+			target = scope:tv_wonder_hagia_icon_painter
+			artist = scope:tv_wonder_hagia_icon_painter
+		}
+	}
+	tv_wonder_hagia_advance_step_effect = yes
+}
+
+tv_wonder_hagia_begin_step_8_procession_effect = {
+	set_variable = { name = tv_wonder_hagia_prosperity_active value = 1 }
+	set_variable = { name = tv_wonder_hagia_months value = 0 }
+	remove_variable = tv_wonder_hagia_pending_event
+	location:constantinople = {
+		add_location_modifier = { modifier = tv_wonder_hagia_public_procession_location_modifier years = -1 mode = add_and_extend }
+	}
+}
+
+tv_wonder_hagia_complete_step_8_effect = {
+	location:constantinople = {
+		remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier
+		change_prosperity = 0.1
+	}
+	add_prestige = 10
+	change_gold_effect = { scale = 1 }
+	remove_variable = tv_wonder_hagia_pending_event
+	set_variable = { name = tv_wonder_hagia_step_8_done value = 1 }
+	set_variable = { name = tv_wonder_hagia_completed value = 1 }
+	tv_wonder_complete_active_ritual_effect = yes
+}
+
+tv_wonder_hagia_fire_step_event_effect = {
+	if = {
+		limit = { var:tv_wonder_hagia_step ?= 1 }
+		set_variable = { name = tv_wonder_hagia_pending_event value = 1 }
+		trigger_event_non_silently = { id = tv_engineering_department.6301 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 2 }
+		set_variable = { name = tv_wonder_hagia_pending_event value = 2 }
+		trigger_event_non_silently = { id = tv_engineering_department.6302 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 3 }
+		set_variable = { name = tv_wonder_hagia_pending_event value = 3 }
+		trigger_event_non_silently = { id = tv_engineering_department.6303 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 4 }
+		set_variable = { name = tv_wonder_hagia_pending_event value = 4 }
+		trigger_event_non_silently = { id = tv_engineering_department.6304 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 5 }
+		set_variable = { name = tv_wonder_hagia_pending_event value = 5 }
+		trigger_event_non_silently = { id = tv_engineering_department.6305 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 6 }
+		tv_wonder_hagia_roll_step_6_cost_effect = yes
+		set_variable = { name = tv_wonder_hagia_pending_event value = 6 }
+		trigger_event_non_silently = { id = tv_engineering_department.6306 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 7 }
+		set_variable = { name = tv_wonder_hagia_pending_event value = 7 }
+		trigger_event_non_silently = { id = tv_engineering_department.6307 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_hagia_step ?= 8 }
+		set_variable = { name = tv_wonder_hagia_pending_event value = 8 }
+		trigger_event_non_silently = { id = tv_engineering_department.6308 }
+	}
+}
+
+tv_wonder_hagia_monthly_progress_effect = {
+	if = {
+		limit = { tv_wonder_hagia_active_trigger = yes }
+		if = {
+			limit = {
+				has_variable = tv_wonder_hagia_prosperity_active
+				tv_wonder_hagia_constantinople_prosperous_trigger = yes
+				NOT = { has_variable = tv_wonder_hagia_pending_event }
+			}
+			set_variable = { name = tv_wonder_hagia_pending_event value = 8 }
+			trigger_event_non_silently = { id = tv_engineering_department.6308 }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_variable = tv_wonder_hagia_prosperity_active }
+				NOT = { has_variable = tv_wonder_hagia_pending_event }
+				OR = {
+					AND = { var:tv_wonder_hagia_step ?= 1 has_variable = tv_wonder_hagia_assignee_1 }
+					AND = { var:tv_wonder_hagia_step ?= 2 has_variable = tv_wonder_hagia_assignee_2 }
+					AND = { var:tv_wonder_hagia_step ?= 3 has_variable = tv_wonder_hagia_assignee_3 }
+					AND = { var:tv_wonder_hagia_step ?= 4 has_variable = tv_wonder_hagia_assignee_4 }
+					AND = { var:tv_wonder_hagia_step ?= 5 has_variable = tv_wonder_hagia_assignee_5 }
+					AND = { var:tv_wonder_hagia_step ?= 6 has_variable = tv_wonder_hagia_assignee_6 }
+					AND = { var:tv_wonder_hagia_step ?= 7 has_variable = tv_wonder_hagia_assignee_7 }
+					AND = { var:tv_wonder_hagia_step ?= 8 has_variable = tv_wonder_hagia_assignee_8 }
+				}
+			}
+			if = {
+				limit = { NOT = { has_variable = tv_wonder_hagia_months } }
+				set_variable = { name = tv_wonder_hagia_months value = 0 }
+			}
+			change_variable = { name = tv_wonder_hagia_months add = 1 }
+			if = {
+				limit = { var:tv_wonder_hagia_months >= 3 }
+				set_variable = { name = tv_wonder_hagia_months value = 0 }
+				if = {
+					limit = { var:tv_wonder_hagia_step ?= 8 }
+					tv_wonder_hagia_begin_step_8_procession_effect = yes
+				}
+				else = {
+					tv_wonder_hagia_fire_step_event_effect = yes
+				}
+			}
+		}
+	}
+}
+
 tv_wonder_mechanics_apply_survey_site_preference_effect = {
 	if = {
 		limit = {
@@ -20971,6 +21350,35 @@ tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {
 		remove_variable = tv_wonder_pharos_route_gibraltar_passed
 		remove_variable = tv_wonder_pharos_route_gibraltar_owner
 	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
+		remove_variable = tv_wonder_hagia_step
+		remove_variable = tv_wonder_hagia_months
+		remove_variable = tv_wonder_hagia_pending_event
+		remove_variable = tv_wonder_hagia_completed
+		remove_variable = tv_wonder_hagia_step_6_cost
+		remove_variable = tv_wonder_hagia_assignee_1
+		remove_variable = tv_wonder_hagia_assignee_2
+		remove_variable = tv_wonder_hagia_assignee_3
+		remove_variable = tv_wonder_hagia_assignee_4
+		remove_variable = tv_wonder_hagia_assignee_5
+		remove_variable = tv_wonder_hagia_assignee_6
+		remove_variable = tv_wonder_hagia_assignee_7
+		remove_variable = tv_wonder_hagia_assignee_8
+		remove_variable = tv_wonder_hagia_step_1_done
+		remove_variable = tv_wonder_hagia_step_2_done
+		remove_variable = tv_wonder_hagia_step_3_done
+		remove_variable = tv_wonder_hagia_step_4_done
+		remove_variable = tv_wonder_hagia_step_5_done
+		remove_variable = tv_wonder_hagia_step_6_done
+		remove_variable = tv_wonder_hagia_step_7_done
+		remove_variable = tv_wonder_hagia_step_8_done
+		remove_variable = tv_wonder_hagia_prosperity_active
+		remove_country_modifier = tv_wonder_hagia_ruler_procession_modifier
+		location:constantinople = {
+			remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier
+		}
+	}
 }
 
 tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = {
@@ -21028,6 +21436,10 @@ tv_wonder_mechanics_apply_selected_ritual_progress_effect = {
 		    tv_wonder_pharos_roll_route_effect = yes
 		  }
 		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
+		tv_wonder_hagia_monthly_progress_effect = yes
 	}
 }
 
@@ -22077,6 +22489,16 @@ tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect = {
 }
 
 tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {
+	if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_hagia_step value = 1 }
+		set_variable = { name = tv_wonder_hagia_months value = 0 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
 }
 
 tv_wonder_mechanics_apply_immediate_ritual_effect = {
@@ -22288,9 +22710,6 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5203 }
 		var:tv_wonder_site ?= { change_prosperity = 0.5 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
@@ -22906,6 +23325,9 @@ tv_wonder_mechanics_apply_selected_ritual_completion_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
 	}
 }
 
@@ -23845,6 +24267,32 @@ tv_wonder_mechanics_clear_project_state_effect = {
 	remove_variable = tv_wonder_pharos_route_gibraltar_status
 	remove_variable = tv_wonder_pharos_route_gibraltar_passed
 	remove_variable = tv_wonder_pharos_route_gibraltar_owner
+	remove_variable = tv_wonder_hagia_step
+	remove_variable = tv_wonder_hagia_months
+	remove_variable = tv_wonder_hagia_pending_event
+	remove_variable = tv_wonder_hagia_completed
+	remove_variable = tv_wonder_hagia_step_6_cost
+	remove_variable = tv_wonder_hagia_assignee_1
+	remove_variable = tv_wonder_hagia_assignee_2
+	remove_variable = tv_wonder_hagia_assignee_3
+	remove_variable = tv_wonder_hagia_assignee_4
+	remove_variable = tv_wonder_hagia_assignee_5
+	remove_variable = tv_wonder_hagia_assignee_6
+	remove_variable = tv_wonder_hagia_assignee_7
+	remove_variable = tv_wonder_hagia_assignee_8
+	remove_variable = tv_wonder_hagia_step_1_done
+	remove_variable = tv_wonder_hagia_step_2_done
+	remove_variable = tv_wonder_hagia_step_3_done
+	remove_variable = tv_wonder_hagia_step_4_done
+	remove_variable = tv_wonder_hagia_step_5_done
+	remove_variable = tv_wonder_hagia_step_6_done
+	remove_variable = tv_wonder_hagia_step_7_done
+	remove_variable = tv_wonder_hagia_step_8_done
+	remove_variable = tv_wonder_hagia_prosperity_active
+	remove_country_modifier = tv_wonder_hagia_ruler_procession_modifier
+	location:constantinople = {
+		remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier
+	}
 	remove_country_modifier = tv_wonder_sacred_mountain_ritual_burden_modifier
 	remove_country_modifier = tv_wonder_triumphal_axis_ritual_burden_modifier
 	remove_country_modifier = tv_wonder_great_port_ritual_burden_modifier

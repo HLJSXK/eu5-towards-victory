@@ -8018,7 +8018,7 @@ widget = {
 			}
 		}
 		widget = {
-			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))))]"
+			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')), And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0')))))]"
 			layoutpolicy_horizontal = expanding
 			size = { 462 136 }
 			using = bg_text_mask_container_dark_blue
@@ -8058,7 +8058,7 @@ widget = {
 			}
 		}
 		widget = {
-			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))))]"
+			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')), And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0')))))]"
 			layoutpolicy_horizontal = expanding
 			size = { 462 136 }
 			using = bg_text_mask_container_dark_blue
@@ -8651,6 +8651,502 @@ widget = {
 				}
 			}
 		}
+		widget = {
+			visible = "[And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)1.0'))))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 92 }
+			using = bg_text_mask_container_dark_blue
+			widget = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet]"
+				size = { 100% 100% }
+				alwaystransparent = yes
+				background = {
+					using = color_market_green_texture
+					alpha = 0.22
+				}
+			}
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = fixed
+				size = { 100% 100% }
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 64 64 }
+					portrait_standard_head_button = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet]"
+						size = { 64 64 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').GetCharacter]"
+					}
+					action_button_diamond = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)1.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet))]"
+						size = { 64 64 }
+						text = "@characters!"
+						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_1"
+						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_1_DESC"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = { action_name = "tv_wonder_hagia_assign_step_1" }
+					}
+					widget = {
+						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)1.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet))))]"
+						size = { 64 64 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.14
+						}
+						text_single = { raw_text = "@time!" size = { 64 64 } fontsize = 24 align = center|nobaseline }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = shrinking
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						ignoreinvisible = yes
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)1.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_1_WAITING" align = nobaseline|left }
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)1.0')), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_1_ACTIVE" align = nobaseline|left }
+						text_multi = { visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_1_DONE" align = nobaseline|left }
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)2.0'))))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 92 }
+			using = bg_text_mask_container_dark_blue
+			widget = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet]"
+				size = { 100% 100% }
+				alwaystransparent = yes
+				background = {
+					using = color_market_green_texture
+					alpha = 0.22
+				}
+			}
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = fixed
+				size = { 100% 100% }
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 64 64 }
+					portrait_standard_head_button = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet]"
+						size = { 64 64 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').GetCharacter]"
+					}
+					action_button_diamond = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)2.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet))]"
+						size = { 64 64 }
+						text = "@characters!"
+						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_2"
+						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_2_DESC"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = { action_name = "tv_wonder_hagia_assign_step_2" }
+					}
+					widget = {
+						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)2.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet))))]"
+						size = { 64 64 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.14
+						}
+						text_single = { raw_text = "@time!" size = { 64 64 } fontsize = 24 align = center|nobaseline }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = shrinking
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						ignoreinvisible = yes
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)2.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_2_WAITING" align = nobaseline|left }
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)2.0')), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_2_ACTIVE" align = nobaseline|left }
+						text_multi = { visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_2_DONE" align = nobaseline|left }
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)3.0'))))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 92 }
+			using = bg_text_mask_container_dark_blue
+			widget = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet]"
+				size = { 100% 100% }
+				alwaystransparent = yes
+				background = {
+					using = color_market_green_texture
+					alpha = 0.22
+				}
+			}
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = fixed
+				size = { 100% 100% }
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 64 64 }
+					portrait_standard_head_button = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet]"
+						size = { 64 64 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').GetCharacter]"
+					}
+					action_button_diamond = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)3.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet))]"
+						size = { 64 64 }
+						text = "@characters!"
+						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_3"
+						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_3_DESC"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = { action_name = "tv_wonder_hagia_assign_step_3" }
+					}
+					widget = {
+						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)3.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet))))]"
+						size = { 64 64 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.14
+						}
+						text_single = { raw_text = "@time!" size = { 64 64 } fontsize = 24 align = center|nobaseline }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = shrinking
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						ignoreinvisible = yes
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)3.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_3_WAITING" align = nobaseline|left }
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)3.0')), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_3_ACTIVE" align = nobaseline|left }
+						text_multi = { visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_3_DONE" align = nobaseline|left }
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)4.0'))))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 92 }
+			using = bg_text_mask_container_dark_blue
+			widget = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet]"
+				size = { 100% 100% }
+				alwaystransparent = yes
+				background = {
+					using = color_market_green_texture
+					alpha = 0.22
+				}
+			}
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = fixed
+				size = { 100% 100% }
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 64 64 }
+					portrait_standard_head_button = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet]"
+						size = { 64 64 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').GetCharacter]"
+					}
+					action_button_diamond = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)4.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet))]"
+						size = { 64 64 }
+						text = "@characters!"
+						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4"
+						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4_DESC"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = { action_name = "tv_wonder_hagia_assign_step_4" }
+					}
+					widget = {
+						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)4.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet))))]"
+						size = { 64 64 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.14
+						}
+						text_single = { raw_text = "@time!" size = { 64 64 } fontsize = 24 align = center|nobaseline }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = shrinking
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						ignoreinvisible = yes
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)4.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_4_WAITING" align = nobaseline|left }
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)4.0')), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_4_ACTIVE" align = nobaseline|left }
+						text_multi = { visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_4_DONE" align = nobaseline|left }
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)5.0'))))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 92 }
+			using = bg_text_mask_container_dark_blue
+			widget = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet]"
+				size = { 100% 100% }
+				alwaystransparent = yes
+				background = {
+					using = color_market_green_texture
+					alpha = 0.22
+				}
+			}
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = fixed
+				size = { 100% 100% }
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 64 64 }
+					portrait_standard_head_button = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet]"
+						size = { 64 64 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').GetCharacter]"
+					}
+					action_button_diamond = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)5.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet))]"
+						size = { 64 64 }
+						text = "@characters!"
+						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5"
+						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5_DESC"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = { action_name = "tv_wonder_hagia_assign_step_5" }
+					}
+					widget = {
+						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)5.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet))))]"
+						size = { 64 64 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.14
+						}
+						text_single = { raw_text = "@time!" size = { 64 64 } fontsize = 24 align = center|nobaseline }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = shrinking
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						ignoreinvisible = yes
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)5.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_5_WAITING" align = nobaseline|left }
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)5.0')), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_5_ACTIVE" align = nobaseline|left }
+						text_multi = { visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_5_DONE" align = nobaseline|left }
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)6.0'))))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 92 }
+			using = bg_text_mask_container_dark_blue
+			widget = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet]"
+				size = { 100% 100% }
+				alwaystransparent = yes
+				background = {
+					using = color_market_green_texture
+					alpha = 0.22
+				}
+			}
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = fixed
+				size = { 100% 100% }
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 64 64 }
+					portrait_standard_head_button = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet]"
+						size = { 64 64 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').GetCharacter]"
+					}
+					action_button_diamond = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)6.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet))]"
+						size = { 64 64 }
+						text = "@characters!"
+						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6"
+						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6_DESC"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = { action_name = "tv_wonder_hagia_assign_step_6" }
+					}
+					widget = {
+						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)6.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet))))]"
+						size = { 64 64 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.14
+						}
+						text_single = { raw_text = "@time!" size = { 64 64 } fontsize = 24 align = center|nobaseline }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = shrinking
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						ignoreinvisible = yes
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)6.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_6_WAITING" align = nobaseline|left }
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)6.0')), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_6_ACTIVE" align = nobaseline|left }
+						text_multi = { visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_6_DONE" align = nobaseline|left }
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)7.0'))))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 92 }
+			using = bg_text_mask_container_dark_blue
+			widget = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet]"
+				size = { 100% 100% }
+				alwaystransparent = yes
+				background = {
+					using = color_market_green_texture
+					alpha = 0.22
+				}
+			}
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = fixed
+				size = { 100% 100% }
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 64 64 }
+					portrait_standard_head_button = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet]"
+						size = { 64 64 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').GetCharacter]"
+					}
+					action_button_diamond = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)7.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet))]"
+						size = { 64 64 }
+						text = "@characters!"
+						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7"
+						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7_DESC"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = { action_name = "tv_wonder_hagia_assign_step_7" }
+					}
+					widget = {
+						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)7.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet))))]"
+						size = { 64 64 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.14
+						}
+						text_single = { raw_text = "@time!" size = { 64 64 } fontsize = 24 align = center|nobaseline }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = shrinking
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						ignoreinvisible = yes
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)7.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_7_WAITING" align = nobaseline|left }
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)7.0')), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_7_ACTIVE" align = nobaseline|left }
+						text_multi = { visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_7_DONE" align = nobaseline|left }
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))), Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)8.0'))))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 92 }
+			using = bg_text_mask_container_dark_blue
+			widget = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet]"
+				size = { 100% 100% }
+				alwaystransparent = yes
+				background = {
+					using = color_market_green_texture
+					alpha = 0.22
+				}
+			}
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = fixed
+				size = { 100% 100% }
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 64 64 }
+					portrait_standard_head_button = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet]"
+						size = { 64 64 }
+						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').GetCharacter]"
+					}
+					action_button_diamond = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)8.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet))]"
+						size = { 64 64 }
+						text = "@characters!"
+						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8"
+						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8_DESC"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						left_action = { action_name = "tv_wonder_hagia_assign_step_8" }
+					}
+					widget = {
+						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)8.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet))))]"
+						size = { 64 64 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.14
+						}
+						text_single = { raw_text = "@time!" size = { 64 64 } fontsize = 24 align = center|nobaseline }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = shrinking
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+						ignoreinvisible = yes
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)8.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_8_WAITING" align = nobaseline|left }
+						text_multi = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)8.0')), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet))]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_8_ACTIVE" align = nobaseline|left }
+						text_multi = { visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_8_DONE" align = nobaseline|left }
+					}
+				}
+			}
+		}
 	}
 # END GENERATED TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS
 										}
@@ -8676,10 +9172,11 @@ widget = {
 
 
 # BEGIN GENERATED TV_WONDER_MECHANICS_HOLD_BUTTONS
-	action_button_diamond = { visible = "[And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')))))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
-	action_button_diamond = { visible = "[And(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_scaled_gold" } }
-	action_button_diamond = { visible = "[And(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_prestige" } }
+	action_button_diamond = { visible = "[And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')))))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
+	action_button_diamond = { visible = "[And(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_scaled_gold" } }
+	action_button_diamond = { visible = "[And(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_prestige" } }
 	action_button_diamond = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))]" size = { 180 30 } text = "TV_ENGINEERING_PHAROS_BUILD_BUTTON" title = "TV_ENGINEERING_PHAROS_BUILD_BUTTON" description = "TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
+	action_button_diamond = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HAGIA_START_BUTTON" title = "TV_ENGINEERING_HAGIA_START_BUTTON" description = "TV_ENGINEERING_HAGIA_START_BUTTON_DESC" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
 # END GENERATED TV_WONDER_MECHANICS_HOLD_BUTTONS
 									}
 

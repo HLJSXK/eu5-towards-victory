@@ -38,6 +38,8 @@ PHAROS_ROUTE_KEYS = [
     "candia",
     "gibraltar",
 ]
+HAGIA_WONDER_ID = 102
+HAGIA_STEPS = range(1, 9)
 
 
 def trigger_conditions(wonder: dict, mechanics: dict, indent: int = 1) -> list[str]:
@@ -405,6 +407,57 @@ def append_pharos_triggers(lines: list[str]) -> None:
     lines.append("")
 
 
+def append_hagia_triggers(lines: list[str]) -> None:
+    lines.append("tv_wonder_hagia_active_trigger = {")
+    lines.append(f"{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}var:tv_wonder_locked ?= {HAGIA_WONDER_ID}")
+    lines.append(f"{T}has_variable = tv_wonder_ritual_in_progress")
+    lines.append(f"{T}has_variable = tv_wonder_hagia_step")
+    lines.append(f"{T}NOT = {{ has_variable = tv_wonder_hagia_completed }}")
+    lines.append("}")
+    lines.append("")
+
+    for step in HAGIA_STEPS:
+        lines.append(f"tv_wonder_hagia_step_{step}_current_trigger = {{")
+        lines.append(f"{T}tv_wonder_hagia_active_trigger = yes")
+        lines.append(f"{T}var:tv_wonder_hagia_step ?= {step}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_hagia_step_{step}_done_trigger = {{")
+        lines.append(f"{T}has_variable = tv_wonder_hagia_step_{step}_done")
+        lines.append(f"{T}var:tv_wonder_hagia_step_{step}_done ?= 1")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_hagia_step_{step}_visible_trigger = {{")
+        lines.append(f"{T}OR = {{")
+        lines.append(f"{T}{T}tv_wonder_hagia_step_{step}_current_trigger = yes")
+        lines.append(f"{T}{T}tv_wonder_hagia_step_{step}_done_trigger = yes")
+        lines.append(f"{T}}}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_hagia_step_{step}_assigned_trigger = {{")
+        lines.append(f"{T}has_variable = tv_wonder_hagia_assignee_{step}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_hagia_step_{step}_available_trigger = {{")
+        lines.append(f"{T}tv_wonder_hagia_step_{step}_current_trigger = yes")
+        lines.append(f"{T}NOT = {{ has_variable = tv_wonder_hagia_assignee_{step} }}")
+        lines.append(f"{T}NOT = {{ has_variable = tv_wonder_hagia_pending_event }}")
+        if step == 4:
+            lines.append(f"{T}has_ruler = yes")
+        lines.append("}")
+        lines.append("")
+
+    lines.append("tv_wonder_hagia_constantinople_prosperous_trigger = {")
+    lines.append(f"{T}location:constantinople = {{ prosperity >= 1 }}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
@@ -465,6 +518,7 @@ def generate() -> str:
 
     append_site_rule_dispatch_triggers(lines, all_wonders)
     append_pharos_triggers(lines)
+    append_hagia_triggers(lines)
 
     lines.append("tv_wonder_mechanics_has_valid_site_candidate_trigger = {")
     lines.append(f"{T}tv_wonder_site_rule_can_build_locked_wonder_trigger = yes")

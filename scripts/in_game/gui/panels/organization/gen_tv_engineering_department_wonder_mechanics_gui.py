@@ -105,6 +105,9 @@ PHAROS_CARD_WIDTH = 462
 PHAROS_ROW_HEIGHT = 28
 PHAROS_ROUTE_CARD_HEIGHT = 386
 PHAROS_PHASE_CARD_HEIGHT = 126
+HAGIA_WONDER_ID = 102
+HAGIA_CARD_WIDTH = 462
+HAGIA_CARD_HEIGHT = 92
 
 
 def eq(var: str, value: int) -> str:
@@ -122,8 +125,23 @@ def pharos_locked_expr() -> str:
     )
 
 
+def hagia_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked')}.IsSet, "
+        f"{eq('tv_wonder_locked', HAGIA_WONDER_ID)})"
+    )
+
+
 def not_pharos_locked_expr() -> str:
     return f"Not({pharos_locked_expr()})"
+
+
+def not_hagia_locked_expr() -> str:
+    return f"Not({hagia_locked_expr()})"
+
+
+def not_special_unique_locked_expr() -> str:
+    return f"And({not_pharos_locked_expr()}, {not_hagia_locked_expr()})"
 
 
 def fmt_decimal(value: Decimal) -> str:
@@ -840,6 +858,139 @@ def pharos_stage_2_card(indent: int) -> list[str]:
     return lines
 
 
+def hagia_step_visible(step: int) -> str:
+    return fold_bool(
+        "And",
+        [
+            active_ritual_visible(),
+            hagia_locked_expr(),
+            f"Or({var_is_set(f'tv_wonder_hagia_assignee_{step}')}, {var_is_set(f'tv_wonder_hagia_step_{step}_done')}, {hagia_step_current_visible(step)})",
+        ],
+    )
+
+
+def hagia_step_done_visible(step: int) -> str:
+    return var_is_set(f"tv_wonder_hagia_step_{step}_done")
+
+
+def hagia_step_current_visible(step: int) -> str:
+    return f"And({var_is_set('tv_wonder_hagia_step')}, {eq('tv_wonder_hagia_step', step)})"
+
+
+def hagia_step_assigned_visible(step: int) -> str:
+    return var_is_set(f"tv_wonder_hagia_assignee_{step}")
+
+
+def hagia_step_waiting_visible(step: int) -> str:
+    return fold_bool(
+        "And",
+        [
+            hagia_step_current_visible(step),
+            f"Not({hagia_step_assigned_visible(step)})",
+            f"Not({hagia_step_done_visible(step)})",
+        ],
+    )
+
+
+def hagia_step_active_visible(step: int) -> str:
+    return fold_bool(
+        "And",
+        [
+            hagia_step_current_visible(step),
+            hagia_step_assigned_visible(step),
+            f"Not({hagia_step_done_visible(step)})",
+        ],
+    )
+
+
+def hagia_step_portrait(step: int, indent: int) -> list[str]:
+    prefix = T * indent
+    assignee_var = f"tv_wonder_hagia_assignee_{step}"
+    return [
+        f"{prefix}widget = {{",
+        f"{prefix}{T}size = {{ 64 64 }}",
+        f"{prefix}{T}portrait_standard_head_button = {{",
+        f'{prefix}{T}{T}visible = "[{var_is_set(assignee_var)}]"',
+        f"{prefix}{T}{T}size = {{ 64 64 }}",
+        f'{prefix}{T}{T}datacontext = "[{PLAYER}.GetVariable(\'{assignee_var}\').GetCharacter]"',
+        f"{prefix}{T}}}",
+        f"{prefix}{T}action_button_diamond = {{",
+        f'{prefix}{T}{T}visible = "[{hagia_step_waiting_visible(step)}]"',
+        f"{prefix}{T}{T}size = {{ 64 64 }}",
+        f'{prefix}{T}{T}text = "@characters!"',
+        f'{prefix}{T}{T}title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_{step}"',
+        f'{prefix}{T}{T}description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_{step}_DESC"',
+        f'{prefix}{T}{T}actor = "[InternationalOrganizationsView.GetPlayer]"',
+        f'{prefix}{T}{T}left_action = {{ action_name = "tv_wonder_hagia_assign_step_{step}" }}',
+        f"{prefix}{T}}}",
+        f"{prefix}{T}widget = {{",
+        f'{prefix}{T}{T}visible = "[Not(Or({var_is_set(assignee_var)}, {hagia_step_waiting_visible(step)}))]"',
+        f"{prefix}{T}{T}size = {{ 64 64 }}",
+        f"{prefix}{T}{T}alwaystransparent = yes",
+        f"{prefix}{T}{T}background = {{",
+        f"{prefix}{T}{T}{T}using = color_yellow_texture",
+        f"{prefix}{T}{T}{T}alpha = 0.14",
+        f"{prefix}{T}{T}}}",
+        f'{prefix}{T}{T}text_single = {{ raw_text = "@time!" size = {{ 64 64 }} fontsize = 24 align = center|nobaseline }}',
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def hagia_step_card(step: int, indent: int) -> list[str]:
+    prefix = T * indent
+    lines = [
+        f"{prefix}widget = {{",
+        f'{prefix}{T}visible = "[{hagia_step_visible(step)}]"',
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}layoutpolicy_vertical = fixed",
+        f"{prefix}{T}size = {{ {HAGIA_CARD_WIDTH} {HAGIA_CARD_HEIGHT} }}",
+        f"{prefix}{T}using = bg_text_mask_container_dark_blue",
+        f"{prefix}{T}widget = {{",
+        f'{prefix}{T}{T}visible = "[{hagia_step_done_visible(step)}]"',
+        f"{prefix}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}alwaystransparent = yes",
+        f"{prefix}{T}{T}background = {{",
+        f"{prefix}{T}{T}{T}using = color_market_green_texture",
+        f"{prefix}{T}{T}{T}alpha = 0.22",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}}}",
+        f"{prefix}{T}hbox = {{",
+        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}{T}layoutpolicy_vertical = fixed",
+        f"{prefix}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}margin = {{ 8 8 }}",
+        f"{prefix}{T}{T}spacing = 12",
+    ]
+    lines.extend(hagia_step_portrait(step, indent + 2))
+    lines.extend(
+        [
+            f"{prefix}{T}{T}widget = {{",
+            f"{prefix}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f"{prefix}{T}{T}{T}layoutpolicy_vertical = shrinking",
+            f"{prefix}{T}{T}{T}vbox = {{",
+            f"{prefix}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f"{prefix}{T}{T}{T}{T}spacing = 2",
+            f"{prefix}{T}{T}{T}{T}ignoreinvisible = yes",
+            f'{prefix}{T}{T}{T}{T}text_multi = {{ visible = "[{hagia_step_waiting_visible(step)}]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_{step}_WAITING" align = nobaseline|left }}',
+            f'{prefix}{T}{T}{T}{T}text_multi = {{ visible = "[{hagia_step_active_visible(step)}]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_{step}_ACTIVE" align = nobaseline|left }}',
+            f'{prefix}{T}{T}{T}{T}text_multi = {{ visible = "[{hagia_step_done_visible(step)}]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_{step}_DONE" align = nobaseline|left }}',
+            f"{prefix}{T}{T}{T}}}",
+            f"{prefix}{T}{T}}}",
+            f"{prefix}{T}}}",
+            f"{prefix}}}",
+        ]
+    )
+    return lines
+
+
+def hagia_ritual_cards(indent: int) -> list[str]:
+    lines: list[str] = []
+    for step in range(1, 9):
+        lines.extend(hagia_step_card(step, indent))
+    return lines
+
+
 def active_ritual_display() -> str:
     visible = active_ritual_visible()
     is_unique = (
@@ -851,7 +1002,7 @@ def active_ritual_display() -> str:
         f"Not({eq('tv_wonder_locked_is_unique', 1)}))"
     )
     generic_visible = f"And({visible}, {is_generic})"
-    unique_visible = f"And3({visible}, {is_unique}, {not_pharos_locked_expr()})"
+    unique_visible = f"And3({visible}, {is_unique}, {not_special_unique_locked_expr()})"
     lines: list[str] = [
         f"{T}vbox = {{",
         f'{T}{T}visible = "[{visible}]"',
@@ -900,6 +1051,7 @@ def active_ritual_display() -> str:
     lines.extend(ritual_style_1_progress_row(2))
     lines.extend(pharos_stage_1_card(2))
     lines.extend(pharos_stage_2_card(2))
+    lines.extend(hagia_ritual_cards(2))
     lines.append(f"{T}}}")
     return "\n".join(lines)
 
@@ -1294,8 +1446,9 @@ def generate() -> str:
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible(max_wonder_id)
-    generic_hold_visible = f"And({base_visible}, {not_pharos_locked_expr()})"
+    generic_hold_visible = f"And({base_visible}, {not_special_unique_locked_expr()})"
     pharos_hold_visible = f"And({base_visible}, {pharos_locked_expr()})"
+    hagia_hold_visible = f"And({base_visible}, {hagia_locked_expr()})"
     gold_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
     prestige_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
     free_visible = (
@@ -1314,6 +1467,15 @@ def generate() -> str:
             text_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON",
             title_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON",
             desc_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC",
+        )
+    )
+    lines.append(
+        hold_button(
+            "tv_wonder_confirm_ceremony",
+            hagia_hold_visible,
+            text_key="TV_ENGINEERING_HAGIA_START_BUTTON",
+            title_key="TV_ENGINEERING_HAGIA_START_BUTTON",
+            desc_key="TV_ENGINEERING_HAGIA_START_BUTTON_DESC",
         )
     )
     lines.append("### END TV_WONDER_MECHANICS_HOLD_BUTTONS")
