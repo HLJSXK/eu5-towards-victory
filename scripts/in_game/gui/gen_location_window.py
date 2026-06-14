@@ -118,19 +118,31 @@ def slot_level_is_expr(slot_type: str, slot: int, level: int) -> str:
     return f"And({level_var}.IsSet, EqualTo_CFixedPoint({level_var}.GetValue, '(CFixedPoint){level}.0'))"
 
 
-def slot_has_effect_payload_expr(slot_type: str, slot: int) -> str:
+def slot_has_base_effect_payload_expr(slot_type: str, slot: int) -> str:
     return (
         f"And({slot_has_payload_expr(slot_type, slot)}, "
-        f"And(Not({slot_level_is_expr(slot_type, slot, 0)}), "
-        f"{var_enabled_expr(slot_ritual_completed_var(slot_type, slot))}))"
+        f"Not({slot_level_is_expr(slot_type, slot, 0)}))"
     )
 
 
 def slot_no_effect_payload_expr(slot_type: str, slot: int) -> str:
     return (
         f"And({slot_has_payload_expr(slot_type, slot)}, "
-        f"Or({slot_level_is_expr(slot_type, slot, 0)}, "
-        f"Not({var_enabled_expr(slot_ritual_completed_var(slot_type, slot))})))"
+        f"{slot_level_is_expr(slot_type, slot, 0)})"
+    )
+
+
+def slot_has_ritual_effect_payload_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"And({slot_has_base_effect_payload_expr(slot_type, slot)}, "
+        f"{var_enabled_expr(slot_ritual_completed_var(slot_type, slot))})"
+    )
+
+
+def slot_ritual_no_effect_payload_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"And({slot_has_base_effect_payload_expr(slot_type, slot)}, "
+        f"Not({var_enabled_expr(slot_ritual_completed_var(slot_type, slot))}))"
     )
 
 
@@ -511,7 +523,9 @@ def render_tooltip_modifier_column(indent: str, *, title_key: str, modifier_key:
 
 
 def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
-    visible = slot_has_effect_payload_expr("tooltip", slot)
+    base_effect_visible = slot_has_base_effect_payload_expr("tooltip", slot)
+    ritual_effect_visible = slot_has_ritual_effect_payload_expr("tooltip", slot)
+    ritual_no_effect_visible = slot_ritual_no_effect_payload_expr("tooltip", slot)
     no_effect_visible = slot_no_effect_payload_expr("tooltip", slot)
     country_modifier_key = slot_modifier_key_expr("tooltip", slot)
     local_modifier_key = slot_local_modifier_key_expr("tooltip", slot)
@@ -537,7 +551,7 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}{T}{T}}}",
         f"{indent}{T}{T}}}",
         f"{indent}{T}{T}hbox = {{",
-        f'{indent}{T}{T}{T}visible = "[{visible}]"',
+        f'{indent}{T}{T}{T}visible = "[{base_effect_visible}]"',
         f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
         f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
         f"{indent}{T}{T}{T}size = {{ {TOOLTIP_MODIFIER_COLUMNS_WIDTH} -1 }}",
@@ -562,7 +576,7 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
         [
             f"{indent}{T}{T}}}",
             f"{indent}{T}{T}hbox = {{",
-            f'{indent}{T}{T}{T}visible = "[{visible}]"',
+            f'{indent}{T}{T}{T}visible = "[{base_effect_visible}]"',
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
             f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
             f"{indent}{T}{T}{T}margin_top = 6",
@@ -573,7 +587,7 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
             f"{indent}{T}{T}TooltipRequirementsList = {{",
-            f'{indent}{T}{T}{T}visible = "[{visible}]"',
+            f'{indent}{T}{T}{T}visible = "[{ritual_effect_visible}]"',
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
             f'{indent}{T}{T}{T}textcontext = "[ShowScriptedEffectForScope({ritual_effect_key},{LOCATION_SCOPE})]"',
             f'{indent}{T}{T}{T}blockoverride "block_title" {{',
@@ -583,6 +597,12 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
             f"{indent}{T}{T}{T}}}",
             f'{indent}{T}{T}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
             f"{indent}{T}{T}{T}{T}visible = no",
+            f"{indent}{T}{T}{T}}}",
+            f"{indent}{T}{T}}}",
+            f"{indent}{T}{T}TooltipTextBlock = {{",
+            f'{indent}{T}{T}{T}visible = "[{ritual_no_effect_visible}]"',
+            f'{indent}{T}{T}{T}blockoverride "text" {{',
+            f'{indent}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_NO_EFFECT"',
             f"{indent}{T}{T}{T}}}",
             f"{indent}{T}{T}}}",
             f"{indent}{T}}}",
