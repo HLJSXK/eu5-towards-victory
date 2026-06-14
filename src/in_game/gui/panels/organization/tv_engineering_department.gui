@@ -8018,7 +8018,7 @@ widget = {
 			}
 		}
 		widget = {
-			visible = "[And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))]"
+			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))))]"
 			layoutpolicy_horizontal = expanding
 			size = { 462 136 }
 			using = bg_text_mask_container_dark_blue
@@ -8058,7 +8058,7 @@ widget = {
 			}
 		}
 		widget = {
-			visible = "[And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))]"
+			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))))]"
 			layoutpolicy_horizontal = expanding
 			size = { 462 136 }
 			using = bg_text_mask_container_dark_blue
@@ -8084,7 +8084,7 @@ widget = {
 			}
 		}
 		widget = {
-			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_style').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_style').GetValue, '(CFixedPoint)1.0'))]"
+			visible = "[And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_style').IsSet, And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_style').GetValue, '(CFixedPoint)1.0'), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))))]"
 			size = { 462 24 }
 			hbox = {
 				layoutpolicy_horizontal = expanding
@@ -8123,6 +8123,534 @@ widget = {
 				}
 			}
 		}
+		widget = {
+			visible = "[And(And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_stage').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_stage').GetValue, '(CFixedPoint)1.0'))]"
+			layoutpolicy_horizontal = expanding
+			size = { 462 126 }
+			using = bg_text_mask_container_dark_blue
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 8 8 }
+				spacing = 12
+				widget = {
+					size = { 98 98 }
+					piechart = {
+						size = { 88 88 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_privateer_threat_pct').GetValue]" color = { 0.78 0.18 0.12 1 } alpha = 0.82 }
+						pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)100.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_privateer_threat_pct').GetValue)]" color = { 0.06 0.08 0.10 0.78 } }
+						using = bg_circle_piechart_big
+					}
+					text_single = {
+						size = { 88 88 }
+						parentanchor = center
+						widgetanchor = center
+						raw_text = "@ship!"
+						fontsize = 32
+						align = center|nobaseline
+					}
+				}
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					max_width = 328
+					autoresize = yes
+					text = "TV_ENGINEERING_PHAROS_STAGE_1_TEXT"
+					align = nobaseline|left
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And(And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_stage').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_stage').GetValue, '(CFixedPoint)2.0'))]"
+			layoutpolicy_horizontal = expanding
+			size = { 462 386 }
+			using = bg_text_mask_container_dark_blue
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 8 8 }
+				spacing = 7
+				ignoreinvisible = yes
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					size = { 446 92 }
+					spacing = 12
+					widget = {
+						size = { 98 98 }
+						piechart = {
+							size = { 88 88 }
+							parentanchor = center
+							widgetanchor = center
+							using = piechart_angles
+							pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_progress').GetValue]" color = { 0.18 0.58 0.42 1 } alpha = 0.82 }
+							pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_CFixedPoint('(CFixedPoint)8.0', InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_progress').GetValue)]" color = { 0.06 0.08 0.10 0.78 } }
+							using = bg_circle_piechart_big
+						}
+						text_single = {
+							size = { 88 88 }
+							parentanchor = center
+							widgetanchor = center
+							raw_text = "@port!"
+							fontsize = 32
+							align = center|nobaseline
+						}
+					}
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 4
+						text_multi = { max_width = 328 autoresize = yes text = "TV_ENGINEERING_PHAROS_STAGE_2_TEXT" align = nobaseline|left }
+						text_single = {
+							size = { 328 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_progress').GetValue|0]/8"
+							fontsize = 14
+							align = nobaseline|right
+						}
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					alwaystransparent = yes
+					background = {
+						using = color_mid_red_texture
+						alpha = 0.22
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').GetValue, '(CFixedPoint)2.0')))]"
+						size = { 100% 100% }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.24
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 100% 100% }
+						margin = { 6 3 }
+						spacing = 4
+						text_single = { size = { 18 22 } raw_text = "@location!" fontsize = 14 align = nobaseline|left }
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_location').IsSet]"
+							size = { 126 22 }
+							text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_location').GetLocation.GetName]"
+							max_width = 126
+							fontsize = 13
+							align = nobaseline|left
+						}
+						expand = {}
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_owner').IsSet]"
+							size = { 162 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_owner').GetCountry.GetNameWithFlag]"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_owner').IsSet)]"
+							size = { 162 22 }
+							text = "TV_ENGINEERING_PHAROS_NO_OWNER"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').GetValue, '(CFixedPoint)1.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_CONTROLLED" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').GetValue, '(CFixedPoint)2.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_BASING" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_constantinople_status').GetValue, '(CFixedPoint)0.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED" fontsize = 13 align = nobaseline|right }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					alwaystransparent = yes
+					background = {
+						using = color_mid_red_texture
+						alpha = 0.22
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').GetValue, '(CFixedPoint)2.0')))]"
+						size = { 100% 100% }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.24
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 100% 100% }
+						margin = { 6 3 }
+						spacing = 4
+						text_single = { size = { 18 22 } raw_text = "@location!" fontsize = 14 align = nobaseline|left }
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_location').IsSet]"
+							size = { 126 22 }
+							text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_location').GetLocation.GetName]"
+							max_width = 126
+							fontsize = 13
+							align = nobaseline|left
+						}
+						expand = {}
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_owner').IsSet]"
+							size = { 162 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_owner').GetCountry.GetNameWithFlag]"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_owner').IsSet)]"
+							size = { 162 22 }
+							text = "TV_ENGINEERING_PHAROS_NO_OWNER"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').GetValue, '(CFixedPoint)1.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_CONTROLLED" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').GetValue, '(CFixedPoint)2.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_BASING" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_venice_status').GetValue, '(CFixedPoint)0.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED" fontsize = 13 align = nobaseline|right }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					alwaystransparent = yes
+					background = {
+						using = color_mid_red_texture
+						alpha = 0.22
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').GetValue, '(CFixedPoint)2.0')))]"
+						size = { 100% 100% }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.24
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 100% 100% }
+						margin = { 6 3 }
+						spacing = 4
+						text_single = { size = { 18 22 } raw_text = "@location!" fontsize = 14 align = nobaseline|left }
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_location').IsSet]"
+							size = { 126 22 }
+							text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_location').GetLocation.GetName]"
+							max_width = 126
+							fontsize = 13
+							align = nobaseline|left
+						}
+						expand = {}
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_owner').IsSet]"
+							size = { 162 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_owner').GetCountry.GetNameWithFlag]"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_owner').IsSet)]"
+							size = { 162 22 }
+							text = "TV_ENGINEERING_PHAROS_NO_OWNER"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').GetValue, '(CFixedPoint)1.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_CONTROLLED" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').GetValue, '(CFixedPoint)2.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_BASING" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_genoa_status').GetValue, '(CFixedPoint)0.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED" fontsize = 13 align = nobaseline|right }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					alwaystransparent = yes
+					background = {
+						using = color_mid_red_texture
+						alpha = 0.22
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').GetValue, '(CFixedPoint)2.0')))]"
+						size = { 100% 100% }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.24
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 100% 100% }
+						margin = { 6 3 }
+						spacing = 4
+						text_single = { size = { 18 22 } raw_text = "@location!" fontsize = 14 align = nobaseline|left }
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_location').IsSet]"
+							size = { 126 22 }
+							text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_location').GetLocation.GetName]"
+							max_width = 126
+							fontsize = 13
+							align = nobaseline|left
+						}
+						expand = {}
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_owner').IsSet]"
+							size = { 162 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_owner').GetCountry.GetNameWithFlag]"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_owner').IsSet)]"
+							size = { 162 22 }
+							text = "TV_ENGINEERING_PHAROS_NO_OWNER"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').GetValue, '(CFixedPoint)1.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_CONTROLLED" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').GetValue, '(CFixedPoint)2.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_BASING" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_malta_status').GetValue, '(CFixedPoint)0.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED" fontsize = 13 align = nobaseline|right }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					alwaystransparent = yes
+					background = {
+						using = color_mid_red_texture
+						alpha = 0.22
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').GetValue, '(CFixedPoint)2.0')))]"
+						size = { 100% 100% }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.24
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 100% 100% }
+						margin = { 6 3 }
+						spacing = 4
+						text_single = { size = { 18 22 } raw_text = "@location!" fontsize = 14 align = nobaseline|left }
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_location').IsSet]"
+							size = { 126 22 }
+							text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_location').GetLocation.GetName]"
+							max_width = 126
+							fontsize = 13
+							align = nobaseline|left
+						}
+						expand = {}
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_owner').IsSet]"
+							size = { 162 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_owner').GetCountry.GetNameWithFlag]"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_owner').IsSet)]"
+							size = { 162 22 }
+							text = "TV_ENGINEERING_PHAROS_NO_OWNER"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').GetValue, '(CFixedPoint)1.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_CONTROLLED" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').GetValue, '(CFixedPoint)2.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_BASING" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_tunis_status').GetValue, '(CFixedPoint)0.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED" fontsize = 13 align = nobaseline|right }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					alwaystransparent = yes
+					background = {
+						using = color_mid_red_texture
+						alpha = 0.22
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').GetValue, '(CFixedPoint)2.0')))]"
+						size = { 100% 100% }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.24
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 100% 100% }
+						margin = { 6 3 }
+						spacing = 4
+						text_single = { size = { 18 22 } raw_text = "@location!" fontsize = 14 align = nobaseline|left }
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_location').IsSet]"
+							size = { 126 22 }
+							text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_location').GetLocation.GetName]"
+							max_width = 126
+							fontsize = 13
+							align = nobaseline|left
+						}
+						expand = {}
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_owner').IsSet]"
+							size = { 162 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_owner').GetCountry.GetNameWithFlag]"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_owner').IsSet)]"
+							size = { 162 22 }
+							text = "TV_ENGINEERING_PHAROS_NO_OWNER"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').GetValue, '(CFixedPoint)1.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_CONTROLLED" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').GetValue, '(CFixedPoint)2.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_BASING" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_palermo_status').GetValue, '(CFixedPoint)0.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED" fontsize = 13 align = nobaseline|right }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					alwaystransparent = yes
+					background = {
+						using = color_mid_red_texture
+						alpha = 0.22
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').GetValue, '(CFixedPoint)2.0')))]"
+						size = { 100% 100% }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.24
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 100% 100% }
+						margin = { 6 3 }
+						spacing = 4
+						text_single = { size = { 18 22 } raw_text = "@location!" fontsize = 14 align = nobaseline|left }
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_location').IsSet]"
+							size = { 126 22 }
+							text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_location').GetLocation.GetName]"
+							max_width = 126
+							fontsize = 13
+							align = nobaseline|left
+						}
+						expand = {}
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_owner').IsSet]"
+							size = { 162 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_owner').GetCountry.GetNameWithFlag]"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_owner').IsSet)]"
+							size = { 162 22 }
+							text = "TV_ENGINEERING_PHAROS_NO_OWNER"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').GetValue, '(CFixedPoint)1.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_CONTROLLED" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').GetValue, '(CFixedPoint)2.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_BASING" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_candia_status').GetValue, '(CFixedPoint)0.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED" fontsize = 13 align = nobaseline|right }
+					}
+				}
+				widget = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					alwaystransparent = yes
+					background = {
+						using = color_mid_red_texture
+						alpha = 0.22
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').GetValue, '(CFixedPoint)2.0')))]"
+						size = { 100% 100% }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.24
+						}
+					}
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						size = { 100% 100% }
+						margin = { 6 3 }
+						spacing = 4
+						text_single = { size = { 18 22 } raw_text = "@location!" fontsize = 14 align = nobaseline|left }
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_location').IsSet]"
+							size = { 126 22 }
+							text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_location').GetLocation.GetName]"
+							max_width = 126
+							fontsize = 13
+							align = nobaseline|left
+						}
+						expand = {}
+						text_single = {
+							visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_owner').IsSet]"
+							size = { 162 22 }
+							raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_owner').GetCountry.GetNameWithFlag]"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = {
+							visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_owner').IsSet)]"
+							size = { 162 22 }
+							text = "TV_ENGINEERING_PHAROS_NO_OWNER"
+							max_width = 162
+							fontsize = 13
+							align = nobaseline|right
+						}
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').GetValue, '(CFixedPoint)1.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_CONTROLLED" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').GetValue, '(CFixedPoint)2.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_BASING" fontsize = 13 align = nobaseline|right }
+						text_single = { visible = "[Or(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').IsSet), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_pharos_route_gibraltar_status').GetValue, '(CFixedPoint)0.0'))]" size = { 58 22 } text = "TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED" fontsize = 13 align = nobaseline|right }
+					}
+				}
+			}
+		}
 	}
 # END GENERATED TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS
 										}
@@ -8148,9 +8676,10 @@ widget = {
 
 
 # BEGIN GENERATED TV_WONDER_MECHANICS_HOLD_BUTTONS
-	action_button_diamond = { visible = "[And3(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')))))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
-	action_button_diamond = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_scaled_gold" } }
-	action_button_diamond = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_prestige" } }
+	action_button_diamond = { visible = "[And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')))))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
+	action_button_diamond = { visible = "[And(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_scaled_gold" } }
+	action_button_diamond = { visible = "[And(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_prestige" } }
+	action_button_diamond = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)201.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))]" size = { 180 30 } text = "TV_ENGINEERING_PHAROS_BUILD_BUTTON" title = "TV_ENGINEERING_PHAROS_BUILD_BUTTON" description = "TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
 # END GENERATED TV_WONDER_MECHANICS_HOLD_BUTTONS
 									}
 

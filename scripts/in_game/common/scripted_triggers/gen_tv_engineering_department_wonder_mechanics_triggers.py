@@ -28,6 +28,16 @@ FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
 FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
 LOCATION_SURVEYED_MAP = "tv_wonder_surveyed"
 LOCATION_SURVEY_SCALE_TIER_MAP = "tv_wonder_survey_scale_tier"
+PHAROS_ROUTE_KEYS = [
+    "constantinople",
+    "venice",
+    "genoa",
+    "malta",
+    "tunis",
+    "palermo",
+    "candia",
+    "gibraltar",
+]
 
 
 def trigger_conditions(wonder: dict, mechanics: dict, indent: int = 1) -> list[str]:
@@ -323,6 +333,78 @@ def append_site_rule_dispatch_triggers(lines: list[str], wonders: list[dict]) ->
     )
 
 
+def append_pharos_triggers(lines: list[str]) -> None:
+    lines.append("tv_wonder_pharos_alexandria_hostile_privateers_trigger = {")
+    lines.append(f"{T}location:alexandria = {{")
+    lines.append(f"{T}{T}sea_zone = {{")
+    lines.append(f"{T}{T}{T}area = {{")
+    lines.append(f"{T}{T}{T}{T}any_privateer_in_area = {{")
+    lines.append(f"{T}{T}{T}{T}{T}NOT = {{ owner = root }}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    for count in range(1, 5):
+        lines.append(f"tv_wonder_pharos_alexandria_hostile_privateers_at_least_{count}_trigger = {{")
+        lines.append(f"{T}location:alexandria = {{")
+        lines.append(f"{T}{T}sea_zone = {{")
+        lines.append(f"{T}{T}{T}area = {{")
+        lines.append(f"{T}{T}{T}{T}any_privateer_in_area = {{")
+        lines.append(f"{T}{T}{T}{T}{T}count >= {count}")
+        lines.append(f"{T}{T}{T}{T}{T}NOT = {{ owner = root }}")
+        lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}}}")
+        lines.append("}")
+        lines.append("")
+
+    for route_key in PHAROS_ROUTE_KEYS:
+        route_id = PHAROS_ROUTE_KEYS.index(route_key) + 1
+        lines.append(f"tv_wonder_pharos_route_{route_key}_controlled_trigger = {{")
+        lines.append(f"{T}owns = location:{route_key}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_pharos_route_{route_key}_has_owner_trigger = {{")
+        lines.append(f"{T}location:{route_key} = {{ has_owner = yes }}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_pharos_route_{route_key}_basing_trigger = {{")
+        lines.append(f"{T}location:{route_key} = {{")
+        lines.append(f"{T}{T}has_owner = yes")
+        lines.append(f"{T}{T}owner = {{")
+        lines.append(f"{T}{T}{T}gives_fleet_basing_rights_to = root")
+        lines.append(f"{T}{T}{T}receives_fleet_basing_rights_from = root")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}}}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_pharos_route_{route_key}_pending_trigger = {{")
+        lines.append(f"{T}NOT = {{ has_variable = tv_wonder_pharos_route_{route_key}_passed }}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_pharos_route_selected_{route_key}_trigger = {{")
+        lines.append(f"{T}has_variable = tv_wonder_pharos_active_route")
+        lines.append(f"{T}var:tv_wonder_pharos_active_route ?= {route_id}")
+        lines.append("}")
+        lines.append("")
+
+    lines.append("tv_wonder_pharos_has_pending_route_trigger = {")
+    lines.append(f"{T}OR = {{")
+    for route_key in PHAROS_ROUTE_KEYS:
+        lines.append(f"{T}{T}tv_wonder_pharos_route_{route_key}_pending_trigger = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
@@ -382,6 +464,7 @@ def generate() -> str:
     lines.append("")
 
     append_site_rule_dispatch_triggers(lines, all_wonders)
+    append_pharos_triggers(lines)
 
     lines.append("tv_wonder_mechanics_has_valid_site_candidate_trigger = {")
     lines.append(f"{T}tv_wonder_site_rule_can_build_locked_wonder_trigger = yes")

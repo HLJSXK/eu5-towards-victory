@@ -10683,6 +10683,70 @@ tv_wonder_unique_pharos_lighthouse_inaugurated = {
 	}
 }
 
+tv_wonder_unique_pharos_lighthouse_ritual_annex = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 1
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	price = tv_wonder_ritual_annex_medium_price
+
+	build_time = large_port_building_time
+	construction_demand = port_building_construction
+
+	modifier = {
+		harbor_suitability = 0.1
+		local_maritime_presence = 0.1
+		local_burghers_estate_power = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location.owner = {
+				if = {
+					limit = {
+						has_variable = tv_wonder_ritual_in_progress
+						var:tv_wonder_locked ?= 101
+						var:tv_wonder_ceremony_style ?= 1
+					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
+					tv_wonder_complete_active_ritual_effect = yes
+				}
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			owner = {
+				tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect = yes
+			}
+		}
+	}
+}
+
 tv_wonder_unique_hagia_sophia_inaugurated = {
 	is_special = yes
 	is_foreign = no

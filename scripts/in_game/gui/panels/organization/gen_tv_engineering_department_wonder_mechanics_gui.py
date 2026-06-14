@@ -89,10 +89,41 @@ PROPOSAL_SIZE_INDICATORS = [
     ("medium", "TV_ENGINEERING_WONDER_SIZE_MEDIUM_LABEL", "color_yellow_texture", "color_yellow_texture"),
     ("large", "TV_ENGINEERING_WONDER_SIZE_LARGE_LABEL", "color_mid_red_texture", "color_red_texture"),
 ]
+PHAROS_WONDER_ID = 101
+PHAROS_ROUTE_KEYS = [
+    "constantinople",
+    "venice",
+    "genoa",
+    "malta",
+    "tunis",
+    "palermo",
+    "candia",
+    "gibraltar",
+]
+PHAROS_ROUTE_COUNT = len(PHAROS_ROUTE_KEYS)
+PHAROS_CARD_WIDTH = 462
+PHAROS_ROW_HEIGHT = 28
+PHAROS_ROUTE_CARD_HEIGHT = 386
+PHAROS_PHASE_CARD_HEIGHT = 126
 
 
 def eq(var: str, value: int) -> str:
     return f"EqualTo_CFixedPoint({PLAYER}.GetVariable('{var}').GetValue, '(CFixedPoint){value}.0')"
+
+
+def var_is_set(var: str) -> str:
+    return f"{player_var(var)}.IsSet"
+
+
+def pharos_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked')}.IsSet, "
+        f"{eq('tv_wonder_locked', PHAROS_WONDER_ID)})"
+    )
+
+
+def not_pharos_locked_expr() -> str:
+    return f"Not({pharos_locked_expr()})"
 
 
 def fmt_decimal(value: Decimal) -> str:
@@ -312,7 +343,7 @@ def ritual_style_1_progress_row(indent: int) -> list[str]:
     prefix = T * indent
     progress_visible = (
         f"And3({active_ritual_visible()}, {player_var('tv_wonder_selected_ritual_style')}.IsSet, "
-        f"{eq('tv_wonder_selected_ritual_style', 1)})"
+        f"And({eq('tv_wonder_selected_ritual_style', 1)}, {not_pharos_locked_expr()}))"
     )
     progress_pct = player_var(RITUAL_PROGRESS_PCT_VAR)
     progress_months = player_var(RITUAL_PROGRESS_MONTHS_VAR)
@@ -589,6 +620,226 @@ def ritual_info_container(
     return lines
 
 
+def pharos_stage_visible(stage: int) -> str:
+    return fold_bool(
+        "And",
+        [
+            active_ritual_visible(),
+            pharos_locked_expr(),
+            var_is_set("tv_wonder_pharos_stage"),
+            eq("tv_wonder_pharos_stage", stage),
+        ],
+    )
+
+
+def pharos_status_visible(route_key: str, status: int) -> str:
+    status_var = f"tv_wonder_pharos_route_{route_key}_status"
+    return f"And({var_is_set(status_var)}, {eq(status_var, status)})"
+
+
+def pharos_route_success_visible(route_key: str) -> str:
+    return f"Or({pharos_status_visible(route_key, 1)}, {pharos_status_visible(route_key, 2)})"
+
+
+def pharos_route_uncontrolled_visible(route_key: str) -> str:
+    status_var = f"tv_wonder_pharos_route_{route_key}_status"
+    return f"Or(Not({var_is_set(status_var)}), {eq(status_var, 0)})"
+
+
+def pharos_piechart(
+    indent: int,
+    *,
+    value_var: str,
+    max_value: int,
+    icon_text: str,
+    fill_color: str,
+) -> list[str]:
+    prefix = T * indent
+    value_expr = player_var(value_var)
+    return [
+        f"{prefix}widget = {{",
+        f"{prefix}{T}size = {{ 98 98 }}",
+        f"{prefix}{T}piechart = {{",
+        f"{prefix}{T}{T}size = {{ 88 88 }}",
+        f"{prefix}{T}{T}parentanchor = center",
+        f"{prefix}{T}{T}widgetanchor = center",
+        f"{prefix}{T}{T}using = piechart_angles",
+        f"{prefix}{T}{T}pieslice = {{ texture = \"gfx/interface/pie_charts/pie_chart_alpha_80.dds\" value = \"[{value_expr}.GetValue]\" color = {{ {fill_color} }} alpha = 0.82 }}",
+        f"{prefix}{T}{T}pieslice = {{ texture = \"gfx/interface/pie_charts/pie_chart_alpha_80.dds\" value = \"[Subtract_CFixedPoint('(CFixedPoint){max_value}.0', {value_expr}.GetValue)]\" color = {{ 0.06 0.08 0.10 0.78 }} }}",
+        f"{prefix}{T}{T}using = bg_circle_piechart_big",
+        f"{prefix}{T}}}",
+        f"{prefix}{T}text_single = {{",
+        f"{prefix}{T}{T}size = {{ 88 88 }}",
+        f"{prefix}{T}{T}parentanchor = center",
+        f"{prefix}{T}{T}widgetanchor = center",
+        f'{prefix}{T}{T}raw_text = "{icon_text}"',
+        f"{prefix}{T}{T}fontsize = 32",
+        f"{prefix}{T}{T}align = center|nobaseline",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def pharos_stage_1_card(indent: int) -> list[str]:
+    prefix = T * indent
+    lines = [
+        f"{prefix}widget = {{",
+        f'{prefix}{T}visible = "[{pharos_stage_visible(1)}]"',
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}size = {{ {PHAROS_CARD_WIDTH} {PHAROS_PHASE_CARD_HEIGHT} }}",
+        f"{prefix}{T}using = bg_text_mask_container_dark_blue",
+        "",
+        f"{prefix}{T}hbox = {{",
+        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}{T}margin = {{ 8 8 }}",
+        f"{prefix}{T}{T}spacing = 12",
+    ]
+    lines.extend(
+        pharos_piechart(
+            indent + 2,
+            value_var="tv_wonder_pharos_privateer_threat_pct",
+            max_value=100,
+            icon_text="@ship!",
+            fill_color="0.78 0.18 0.12 1",
+        )
+    )
+    lines.extend(
+        [
+            f"{prefix}{T}{T}text_multi = {{",
+            f"{prefix}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f"{prefix}{T}{T}{T}max_width = 328",
+            f"{prefix}{T}{T}{T}autoresize = yes",
+            f'{prefix}{T}{T}{T}text = "TV_ENGINEERING_PHAROS_STAGE_1_TEXT"',
+            f"{prefix}{T}{T}{T}align = nobaseline|left",
+            f"{prefix}{T}{T}}}",
+            f"{prefix}{T}}}",
+            f"{prefix}}}",
+        ]
+    )
+    return lines
+
+
+def pharos_route_row(route_key: str, indent: int) -> list[str]:
+    prefix = T * indent
+    location_var = player_var(f"tv_wonder_pharos_route_{route_key}_location")
+    owner_var = player_var(f"tv_wonder_pharos_route_{route_key}_owner")
+    success_visible = pharos_route_success_visible(route_key)
+    uncontrolled_visible = pharos_route_uncontrolled_visible(route_key)
+    return [
+        f"{prefix}widget = {{",
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}layoutpolicy_vertical = fixed",
+        f"{prefix}{T}size = {{ {PHAROS_CARD_WIDTH - 16} {PHAROS_ROW_HEIGHT} }}",
+        f"{prefix}{T}alwaystransparent = yes",
+        f"{prefix}{T}background = {{",
+        f"{prefix}{T}{T}using = color_mid_red_texture",
+        f"{prefix}{T}{T}alpha = 0.22",
+        f"{prefix}{T}}}",
+        f"{prefix}{T}widget = {{",
+        f'{prefix}{T}{T}visible = "[{success_visible}]"',
+        f"{prefix}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}alwaystransparent = yes",
+        f"{prefix}{T}{T}background = {{",
+        f"{prefix}{T}{T}{T}using = color_market_green_texture",
+        f"{prefix}{T}{T}{T}alpha = 0.24",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}}}",
+        f"{prefix}{T}hbox = {{",
+        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}{T}layoutpolicy_vertical = fixed",
+        f"{prefix}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}margin = {{ 6 3 }}",
+        f"{prefix}{T}{T}spacing = 4",
+        f'{prefix}{T}{T}text_single = {{ size = {{ 18 22 }} raw_text = "@location!" fontsize = 14 align = nobaseline|left }}',
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}visible = "[{location_var}.IsSet]"',
+        f"{prefix}{T}{T}{T}size = {{ 126 22 }}",
+        f'{prefix}{T}{T}{T}text = "[{location_var}.GetLocation.GetName]"',
+        f"{prefix}{T}{T}{T}max_width = 126",
+        f"{prefix}{T}{T}{T}fontsize = 13",
+        f"{prefix}{T}{T}{T}align = nobaseline|left",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}expand = {{}}",
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}visible = "[{owner_var}.IsSet]"',
+        f"{prefix}{T}{T}{T}size = {{ 162 22 }}",
+        f'{prefix}{T}{T}{T}raw_text = "[{owner_var}.GetCountry.GetNameWithFlag]"',
+        f"{prefix}{T}{T}{T}max_width = 162",
+        f"{prefix}{T}{T}{T}fontsize = 13",
+        f"{prefix}{T}{T}{T}align = nobaseline|right",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}visible = "[Not({owner_var}.IsSet)]"',
+        f"{prefix}{T}{T}{T}size = {{ 162 22 }}",
+        f'{prefix}{T}{T}{T}text = "TV_ENGINEERING_PHAROS_NO_OWNER"',
+        f"{prefix}{T}{T}{T}max_width = 162",
+        f"{prefix}{T}{T}{T}fontsize = 13",
+        f"{prefix}{T}{T}{T}align = nobaseline|right",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}text_single = {{ visible = \"[{pharos_status_visible(route_key, 1)}]\" size = {{ 58 22 }} text = \"TV_ENGINEERING_PHAROS_STATUS_CONTROLLED\" fontsize = 13 align = nobaseline|right }}",
+        f"{prefix}{T}{T}text_single = {{ visible = \"[{pharos_status_visible(route_key, 2)}]\" size = {{ 58 22 }} text = \"TV_ENGINEERING_PHAROS_STATUS_BASING\" fontsize = 13 align = nobaseline|right }}",
+        f"{prefix}{T}{T}text_single = {{ visible = \"[{uncontrolled_visible}]\" size = {{ 58 22 }} text = \"TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED\" fontsize = 13 align = nobaseline|right }}",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def pharos_stage_2_card(indent: int) -> list[str]:
+    prefix = T * indent
+    progress_var = player_var("tv_wonder_pharos_route_progress")
+    lines = [
+        f"{prefix}widget = {{",
+        f'{prefix}{T}visible = "[{pharos_stage_visible(2)}]"',
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}size = {{ {PHAROS_CARD_WIDTH} {PHAROS_ROUTE_CARD_HEIGHT} }}",
+        f"{prefix}{T}using = bg_text_mask_container_dark_blue",
+        "",
+        f"{prefix}{T}vbox = {{",
+        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}{T}margin = {{ 8 8 }}",
+        f"{prefix}{T}{T}spacing = 7",
+        f"{prefix}{T}{T}ignoreinvisible = yes",
+        f"{prefix}{T}{T}hbox = {{",
+        f"{prefix}{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}{T}{T}size = {{ {PHAROS_CARD_WIDTH - 16} 92 }}",
+        f"{prefix}{T}{T}{T}spacing = 12",
+    ]
+    lines.extend(
+        pharos_piechart(
+            indent + 3,
+            value_var="tv_wonder_pharos_route_progress",
+            max_value=PHAROS_ROUTE_COUNT,
+            icon_text="@port!",
+            fill_color="0.18 0.58 0.42 1",
+        )
+    )
+    lines.extend(
+        [
+            f"{prefix}{T}{T}{T}vbox = {{",
+            f"{prefix}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
+            f"{prefix}{T}{T}{T}{T}spacing = 4",
+            f"{prefix}{T}{T}{T}{T}text_multi = {{ max_width = 328 autoresize = yes text = \"TV_ENGINEERING_PHAROS_STAGE_2_TEXT\" align = nobaseline|left }}",
+            f"{prefix}{T}{T}{T}{T}text_single = {{",
+            f"{prefix}{T}{T}{T}{T}{T}size = {{ 328 22 }}",
+            f'{prefix}{T}{T}{T}{T}{T}raw_text = "[{progress_var}.GetValue|0]/{PHAROS_ROUTE_COUNT}"',
+            f"{prefix}{T}{T}{T}{T}{T}fontsize = 14",
+            f"{prefix}{T}{T}{T}{T}{T}align = nobaseline|right",
+            f"{prefix}{T}{T}{T}{T}}}",
+            f"{prefix}{T}{T}{T}}}",
+            f"{prefix}{T}{T}}}",
+        ]
+    )
+    for route_key in PHAROS_ROUTE_KEYS:
+        lines.extend(pharos_route_row(route_key, indent + 2))
+    lines.extend(
+        [
+            f"{prefix}{T}}}",
+            f"{prefix}}}",
+        ]
+    )
+    return lines
+
+
 def active_ritual_display() -> str:
     visible = active_ritual_visible()
     is_unique = (
@@ -600,7 +851,7 @@ def active_ritual_display() -> str:
         f"Not({eq('tv_wonder_locked_is_unique', 1)}))"
     )
     generic_visible = f"And({visible}, {is_generic})"
-    unique_visible = f"And({visible}, {is_unique})"
+    unique_visible = f"And3({visible}, {is_unique}, {not_pharos_locked_expr()})"
     lines: list[str] = [
         f"{T}vbox = {{",
         f'{T}{T}visible = "[{visible}]"',
@@ -647,6 +898,8 @@ def active_ritual_display() -> str:
         )
     )
     lines.extend(ritual_style_1_progress_row(2))
+    lines.extend(pharos_stage_1_card(2))
+    lines.extend(pharos_stage_2_card(2))
     lines.append(f"{T}}}")
     return "\n".join(lines)
 
@@ -672,11 +925,18 @@ def selected_ritual_cost_visible(cost_type_id: int) -> str:
     )
 
 
-def hold_button(action_name: str, visible: str) -> str:
+def hold_button(
+    action_name: str,
+    visible: str,
+    *,
+    text_key: str = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON",
+    title_key: str = "tv_wonder_confirm_ceremony",
+    desc_key: str = "tv_wonder_confirm_ceremony_desc",
+) -> str:
     return (
         f'{T}action_button_diamond = {{ visible = "[{visible}]" '
-        'size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" '
-        'description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
+        f'size = {{ 180 30 }} text = "{text_key}" title = "{title_key}" '
+        f'description = "{desc_key}" actor = "[InternationalOrganizationsView.GetPlayer]" '
         f'left_action = {{ action_name = "{action_name}" }} }}'
     )
 
@@ -1034,10 +1294,12 @@ def generate() -> str:
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible(max_wonder_id)
-    gold_visible = f"And({base_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
-    prestige_visible = f"And({base_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
+    generic_hold_visible = f"And({base_visible}, {not_pharos_locked_expr()})"
+    pharos_hold_visible = f"And({base_visible}, {pharos_locked_expr()})"
+    gold_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
+    prestige_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
     free_visible = (
-        f"And3({base_visible}, "
+        f"And3({generic_hold_visible}, "
         f"{PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
         f"Not(Or({selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])}, "
         f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})))"
@@ -1045,6 +1307,15 @@ def generate() -> str:
     lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_prestige", prestige_visible))
+    lines.append(
+        hold_button(
+            "tv_wonder_confirm_ceremony",
+            pharos_hold_visible,
+            text_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON",
+            title_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON",
+            desc_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC",
+        )
+    )
     lines.append("### END TV_WONDER_MECHANICS_HOLD_BUTTONS")
     return "\n".join(lines) + "\n"
 

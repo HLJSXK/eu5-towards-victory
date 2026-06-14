@@ -13,11 +13,57 @@ unique_wonders:
   final_buildings:
     1: tv_wonder_unique_pharos_lighthouse_inaugurated
   ritual:
-    key: harbor_lighting
-    mode: immediate
+    key: harbor_lighting_and_pilotage_oath
+    mode: auxiliary_building
     cost_type: null
-    listeners: []
-    runtime_variables: []
+    listeners:
+    - monthly
+    runtime_variables:
+    - tv_wonder_pharos_stage
+    - tv_wonder_pharos_quarter_month
+    - tv_wonder_pharos_route_progress
+    - tv_wonder_pharos_privateer_threat_pct
+    - tv_wonder_pharos_active_route
+    - tv_wonder_pharos_active_route_id
+    - tv_wonder_pharos_active_route_status
+    - tv_wonder_pharos_active_route_owner
+    - tv_wonder_pharos_event_route_location
+    - tv_wonder_pharos_event_route_owner
+    - tv_wonder_pharos_event_route_has_owner
+    - tv_wonder_pharos_routes_complete_pending_event
+    - tv_wonder_pharos_routes_complete
+    - tv_wonder_pharos_route_constantinople_location
+    - tv_wonder_pharos_route_constantinople_status
+    - tv_wonder_pharos_route_constantinople_passed
+    - tv_wonder_pharos_route_constantinople_owner
+    - tv_wonder_pharos_route_venice_location
+    - tv_wonder_pharos_route_venice_status
+    - tv_wonder_pharos_route_venice_passed
+    - tv_wonder_pharos_route_venice_owner
+    - tv_wonder_pharos_route_genoa_location
+    - tv_wonder_pharos_route_genoa_status
+    - tv_wonder_pharos_route_genoa_passed
+    - tv_wonder_pharos_route_genoa_owner
+    - tv_wonder_pharos_route_malta_location
+    - tv_wonder_pharos_route_malta_status
+    - tv_wonder_pharos_route_malta_passed
+    - tv_wonder_pharos_route_malta_owner
+    - tv_wonder_pharos_route_tunis_location
+    - tv_wonder_pharos_route_tunis_status
+    - tv_wonder_pharos_route_tunis_passed
+    - tv_wonder_pharos_route_tunis_owner
+    - tv_wonder_pharos_route_palermo_location
+    - tv_wonder_pharos_route_palermo_status
+    - tv_wonder_pharos_route_palermo_passed
+    - tv_wonder_pharos_route_palermo_owner
+    - tv_wonder_pharos_route_candia_location
+    - tv_wonder_pharos_route_candia_status
+    - tv_wonder_pharos_route_candia_passed
+    - tv_wonder_pharos_route_candia_owner
+    - tv_wonder_pharos_route_gibraltar_location
+    - tv_wonder_pharos_route_gibraltar_status
+    - tv_wonder_pharos_route_gibraltar_passed
+    - tv_wonder_pharos_route_gibraltar_owner
     country_modifier:
       naval_range: 300
       trade_range: 100
@@ -25,21 +71,74 @@ unique_wonders:
     confirmation_trigger_script: ''
     start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: ''
-    completion_trigger_script: ''
+    progress_effect_script: |-
+      tv_wonder_pharos_refresh_display_effect = yes
+      if = {
+        limit = {
+          has_variable = tv_wonder_ritual_auxiliary_building_finished
+          NOT = { has_variable = tv_wonder_pharos_stage }
+        }
+        set_variable = { name = tv_wonder_pharos_stage value = 1 }
+        set_variable = { name = tv_wonder_pharos_quarter_month value = 0 }
+        set_variable = { name = tv_wonder_pharos_route_progress value = 0 }
+        trigger_event_non_silently = { id = tv_engineering_department.7300 }
+      }
+      else_if = {
+        limit = {
+          has_variable = tv_wonder_pharos_stage
+          var:tv_wonder_pharos_stage ?= 1
+          NOT = { has_variable = tv_wonder_pharos_routes_complete }
+        }
+        tv_wonder_pharos_refresh_display_effect = yes
+        change_variable = { name = tv_wonder_pharos_quarter_month add = 1 }
+        if = {
+          limit = { var:tv_wonder_pharos_quarter_month >= 3 }
+          set_variable = { name = tv_wonder_pharos_quarter_month value = 0 }
+          if = {
+            limit = { tv_wonder_pharos_alexandria_hostile_privateers_trigger = yes }
+            random_list = {
+              33 = { trigger_event_non_silently = { id = tv_engineering_department.7301 } }
+              33 = { trigger_event_non_silently = { id = tv_engineering_department.7302 } }
+              34 = { trigger_event_non_silently = { id = tv_engineering_department.7303 } }
+            }
+          }
+          else = {
+            trigger_event_non_silently = { id = tv_engineering_department.7304 }
+          }
+        }
+      }
+      else_if = {
+        limit = {
+          has_variable = tv_wonder_pharos_stage
+          var:tv_wonder_pharos_stage ?= 2
+          NOT = { has_variable = tv_wonder_pharos_routes_complete }
+        }
+        tv_wonder_pharos_refresh_display_effect = yes
+        change_variable = { name = tv_wonder_pharos_quarter_month add = 1 }
+        if = {
+          limit = { var:tv_wonder_pharos_quarter_month >= 3 }
+          set_variable = { name = tv_wonder_pharos_quarter_month value = 0 }
+          tv_wonder_pharos_roll_route_effect = yes
+        }
+      }
+    completion_trigger_script: |-
+      has_variable = tv_wonder_pharos_routes_complete
+      var:tv_wonder_pharos_routes_complete ?= 1
     completion_effect_script: ''
     timed:
       years: 1
       burden_modifier: {}
       blessing_modifier: {}
     auxiliary_building:
-      local_modifier: {}
+      local_modifier:
+        harbor_suitability: 0.1
+        local_maritime_presence: 0.1
       maintenance: null
-      build_time: null
-      construction_demand: null
-      price: null
+      build_time: large_port_building_time
+      construction_demand: port_building_construction
+      price: tv_wonder_ritual_annex_medium_price
       attributes: {}
-      max_levels: 6
+      max_levels: 1
 - id: 102
   key: unique_hagia_sophia
   base_key: sky_dome_grand_temple

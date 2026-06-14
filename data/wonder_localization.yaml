@@ -1360,9 +1360,49 @@ wonder_localization:
     tv_wonder_unique_pharos_lighthouse_desc: An unconsecrated Pharos Lighthouse preserved as completed construction.
     tv_wonder_unique_pharos_lighthouse_inaugurated: Pharos Lighthouse
     tv_wonder_unique_pharos_lighthouse_inaugurated_desc: A tower of white stone rises from the Alexandrian harbor, turning royal ambition into a light that sailors can trust.
+    tv_wonder_unique_pharos_lighthouse_ritual_annex: Pharos Pilotage Annex
+    tv_wonder_unique_pharos_lighthouse_ritual_annex_desc: A harbor annex of lamp oil, signal screens, mirror frames, and pilot ledgers gathered beneath the Pharos.
     TV_ENGINEERING_CEREMONY_UNIQUE_PHAROS_LIGHTHOUSE_INAUGURATED_BUTTON: Harbor Lighting Rite
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_PHAROS_LIGHTHOUSE_1: Confirm the Harbor Lighting Rite ceremony for the Pharos Lighthouse. The beacon extends naval range and trade range..
     tv_engineering_department.500.d_unique_pharos_lighthouse: A tower of white stone rises from the Alexandrian harbor, turning royal ambition into a light that sailors can trust. The engineer recalls the lighthouse raised on Pharos, where Alexandria made safe navigation a public act of power. The Harbor Lighting Rite now completes the wonder at its fixed historical site. The beacon extends naval range and trade range.
+    TV_ENGINEERING_PHAROS_BUILD_BUTTON: '@port! Raise the Pilot Lamp'
+    TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC: Fit the harbor annex with oil, mirror, rope, and pilot ledger so Alexandria can begin teaching the sea its light.
+    TV_ENGINEERING_PHAROS_STAGE_1_TEXT: The tower cannot swear its light while dark sails haunt the approaches to Alexandria.
+    TV_ENGINEERING_PHAROS_STAGE_2_TEXT: The lamp's oath must travel from quay to quay until every road across the middle sea knows Alexandria's fire.
+    TV_ENGINEERING_PHAROS_STATUS_CONTROLLED: Control
+    TV_ENGINEERING_PHAROS_STATUS_BASING: Basing
+    TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED: Unheld
+    TV_ENGINEERING_PHAROS_NO_OWNER: No harbor flag
+    tv_engineering_department.7300.t: The Lamp-Keepers Take the Stair
+    tv_engineering_department.7300.d: The annex at Alexandria is finished. Oil jars, signal screens, bronze mirrors, and pilot ledgers have climbed into the tower's shadow; the last workmen leave with mortar on their sleeves while harbor men wait for the first order.
+    tv_engineering_department.7300.a: Let the harbor learn its new watch.
+    tv_engineering_department.7301.t: Silver for the Watch Boats
+    tv_engineering_department.7301.d: 'Privateer sails haunt the water beyond Alexandria. The pilots ask for coin before nightfall: wages for oarsmen, pitch for lanterns, and quiet purses for informants who know which coves shelter hungry crews.'
+    tv_engineering_department.7301.a: Pay the oars and dim those sails.
+    tv_engineering_department.7301.b: Let the sea keep its rumors.
+    tv_engineering_department.7302.t: Names Read from the Quay
+    tv_engineering_department.7302.d: The harbor captains gather under the unfinished glare of the Pharos. They ask leave to shame the raiders by name, calling on noble houses and merchant crews to lend their banners to a public hunt.
+    tv_engineering_department.7302.a: Spend our name like fire.
+    tv_engineering_department.7302.b: No proclamation will leave the quay.
+    tv_engineering_department.7303.t: The Merchants' Night Watch
+    tv_engineering_department.7303.d: Alexandria's countinghouses offer ships and lanterns, but not without complaint. They want their clerks kept from the oars and their cargoes spared inspection while the hunt sweeps the bay.
+    tv_engineering_department.7303.a: Borrow their boats before dawn.
+    tv_engineering_department.7303.b: Leave their ledgers closed.
+    tv_engineering_department.7304.t: Clean Water Beneath the Tower
+    tv_engineering_department.7304.d: The pilots return with empty hooks and quiet faces. No hostile privateer dares sit in Alexandria's sea-lanes; the lamps can now look beyond the harbor mouth and speak to farther ports.
+    tv_engineering_department.7304.a: Turn the glass toward the middle sea.
+    tv_engineering_department.7305.t: A Harbor Already Under Our Lantern
+    tv_engineering_department.7305.d: At [SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName], our own harbor officers answer the Pharos oath. The quay needs no bargain; its ropes already run through our hands.
+    tv_engineering_department.7305.a: Mark the route in lampblack.
+    tv_engineering_department.7306.t: A Friendly Quay Answers
+    tv_engineering_department.7306.d: '[SCOPE.sLocation(''tv_wonder_pharos_event_route_location'').GetName] sends back its harbor seal. Our ships may already rest under its walls, and its pilots know the shape of our flags by dusk.'
+    tv_engineering_department.7306.a: Add their fire to the chain.
+    tv_engineering_department.7307.t: Opening a Foreign Harbor
+    tv_engineering_department.7307.d: The route through [SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName] waits behind another ruler's harbor chain. Gifts must pass before ships do; lamp oil, chart copies, and gold enough to make a strange quay hospitable.
+    tv_engineering_department.7307.a: Buy the night mooring.
+    tv_engineering_department.7308.t: The Eighth Light
+    tv_engineering_department.7308.d: The route tablets lie complete. From Gibraltar's teeth to Constantinople's walls, from island harbors to republic quays, the Mediterranean has answered the Pharos. The tower waits only for the final word.
+    tv_engineering_department.7308.a: Let Alexandria hold the sea's horizon.
     game_concept_tv_wonder_unique_hagia_sophia_desc: The rebuilt dome gathers gold, marble, incense, and imperial memory beneath a vault that seems to float. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the same site rules as its generic archetype, and culminates in the Justinianic Rededication Prayer ritual sequence.
     TV_ENGINEERING_PROPOSAL_UNIQUE_HAGIA_SOPHIA_TEXT: The engineer invokes Justinian's rebuilt church in Constantinople, a dome meant to prove that empire could still command heaven and stone.
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_HAGIA_SOPHIA_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_hagia_sophia|E] and reuse the preserved construction at the site.
@@ -6623,9 +6663,49 @@ wonder_localization:
     tv_wonder_unique_pharos_lighthouse_desc: 尚未落成、但已作为完整工程保留下来的法罗斯灯塔。
     tv_wonder_unique_pharos_lighthouse_inaugurated: 法罗斯灯塔
     tv_wonder_unique_pharos_lighthouse_inaugurated_desc: 白石高塔矗立于亚历山大港口，将王权的野心化作水手可以信赖的灯火。
+    tv_wonder_unique_pharos_lighthouse_ritual_annex: 法罗斯引航附楼
+    tv_wonder_unique_pharos_lighthouse_ritual_annex_desc: 油瓮、信号屏、镜架与引航簿汇聚在法罗斯塔下，成为港口点灯前的附楼。
     TV_ENGINEERING_CEREMONY_UNIQUE_PHAROS_LIGHTHOUSE_INAUGURATED_BUTTON: 港口点灯典礼
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_PHAROS_LIGHTHOUSE_1: 确认法罗斯灯塔的港口点灯典礼仪式。灯火延伸海军航程与贸易范围。。
     tv_engineering_department.500.d_unique_pharos_lighthouse: 白石高塔矗立于亚历山大港口，将王权的野心化作水手可以信赖的灯火。 大工程师谈起法罗斯岛上的灯塔：亚历山大曾把安全航行变成一种公开的权力宣言。 如今，港口点灯典礼为这座奇观完成了固定历史地点上的落成。灯火延伸海军航程与贸易范围。
+    TV_ENGINEERING_PHAROS_BUILD_BUTTON: '@port! 升起引航灯'
+    TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC: 将油瓮、铜镜、缆索与引航簿送入港口附楼，使亚历山大的灯火开始教会海面记住它。
+    TV_ENGINEERING_PHAROS_STAGE_1_TEXT: 灯塔尚不能宣誓点火；亚历山大外海仍有黑帆在航道上游荡。
+    TV_ENGINEERING_PHAROS_STAGE_2_TEXT: 灯火的誓言须沿一座座码头传开，直到中海诸路都认得亚历山大的火光。
+    TV_ENGINEERING_PHAROS_STATUS_CONTROLLED: 控制
+    TV_ENGINEERING_PHAROS_STATUS_BASING: 驻港
+    TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED: 未控
+    TV_ENGINEERING_PHAROS_NO_OWNER: 无港旗
+    tv_engineering_department.7300.t: 守灯人登上阶梯
+    tv_engineering_department.7300.d: 亚历山大的附楼已经完工。油瓮、信号屏、青铜镜与引航簿被一层层抬进塔影；最后的工匠带着袖上的灰浆退下，港口的人们等候第一道命令。
+    tv_engineering_department.7300.a: 让港口学会新的守望。
+    tv_engineering_department.7301.t: 巡船之银
+    tv_engineering_department.7301.d: 私掠帆影仍在亚历山大外海徘徊。引航人请求日落前拨出银钱：给桨手的工钱、给灯笼的沥青，还有给那些熟悉隐秘海湾之人的沉默钱袋。
+    tv_engineering_department.7301.a: 支付桨声，压暗那些黑帆。
+    tv_engineering_department.7301.b: 让海面继续保守流言。
+    tv_engineering_department.7302.t: 码头上宣读的名字
+    tv_engineering_department.7302.d: 港口船长们聚在法罗斯尚未完全点亮的辉光下。他们请求以名誉召集追猎，当众念出劫掠者的名字，让贵族旗帜与商船水手一同出海。
+    tv_engineering_department.7302.a: 把我们的名声当作火光撒出去。
+    tv_engineering_department.7302.b: 今日没有檄文离开码头。
+    tv_engineering_department.7303.t: 商人的夜巡
+    tv_engineering_department.7303.d: 亚历山大的账房愿意交出船只与灯笼，却并非毫无怨言。他们要文书免于划桨，要货仓在搜湾之夜免遭盘查。
+    tv_engineering_department.7303.a: 黎明前借走他们的船。
+    tv_engineering_department.7303.b: 让账簿继续合上。
+    tv_engineering_department.7304.t: 塔下清水
+    tv_engineering_department.7304.d: 引航人带着空钩与安静的面容归来。再没有敌对私掠者敢停泊在亚历山大的航道上；灯火终于可以越过港口，向更远的码头说话。
+    tv_engineering_department.7304.a: 将镜面转向中海。
+    tv_engineering_department.7305.t: 已在灯下的港口
+    tv_engineering_department.7305.d: 在[SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName]，我们自己的港务官回应了法罗斯的誓言。那座码头无需讨价还价；缆绳本就穿过我们的手。
+    tv_engineering_department.7305.a: 用灯烟记下这条航路。
+    tv_engineering_department.7306.t: 友港回灯
+    tv_engineering_department.7306.d: '[SCOPE.sLocation(''tv_wonder_pharos_event_route_location'').GetName]送回了港印。我们的船只早已可在其城墙下歇泊，那里的引航人也能在黄昏前认出我们的旗形。'
+    tv_engineering_department.7306.a: 将他们的火加入灯链。
+    tv_engineering_department.7307.t: 开启异邦港链
+    tv_engineering_department.7307.d: 通往[SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName]的航路仍被他国港链拦住。礼物必须先于船只抵达：灯油、海图副本，还有足以使陌生码头变得好客的金银。
+    tv_engineering_department.7307.a: 买下今夜的泊位。
+    tv_engineering_department.7308.t: 第八盏灯
+    tv_engineering_department.7308.d: 航路泥板已经齐备。从直布罗陀的齿岩到君士坦丁堡的城墙，从岛港到共和国码头，地中海已经回应法罗斯。灯塔只等最后一句话。
+    tv_engineering_department.7308.a: 让亚历山大托住海的地平线。
     game_concept_tv_wonder_unique_hagia_sophia_desc: 重建的穹顶收拢黄金、大理石、香烟与帝国记忆，仿佛悬浮于尘世之上。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以查士丁尼重建落成祈祷作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_HAGIA_SOPHIA_TEXT: 大工程师以君士坦丁堡查士丁尼重建的圣堂为例：那座穹顶要证明帝国仍能号令天国与石材。
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_HAGIA_SOPHIA_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_hagia_sophia|E]，并利用当地已经保留下来的工程部分。'

@@ -84,6 +84,17 @@ RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_months_completed",
     "tv_wonder_ritual_progress_pct",
 ]
+PHAROS_ROUTE_KEYS = [
+    "constantinople",
+    "venice",
+    "genoa",
+    "malta",
+    "tunis",
+    "palermo",
+    "candia",
+    "gibraltar",
+]
+PHAROS_ROUTE_IDS = {route_key: index for index, route_key in enumerate(PHAROS_ROUTE_KEYS, start=1)}
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
     "topography_plateau": "topography = plateau",
@@ -330,6 +341,284 @@ def ritual_entries(wonders: list[dict], mechanics: dict) -> list[tuple[dict, int
 def selected_ritual_limit(wonder: dict, style: int) -> str:
     ritual_id = wonder_ritual_composite_id(int(wonder["id"]), int(style))
     return f"var:tv_wonder_selected_ritual_id ?= {ritual_id}"
+
+
+def append_pharos_set_route_projection_lines(lines: list[str], route_key: str, indent: int) -> None:
+    prefix = T * indent
+    route_id = PHAROS_ROUTE_IDS[route_key]
+    location_var = f"tv_wonder_pharos_route_{route_key}_location"
+    status_var = f"tv_wonder_pharos_route_{route_key}_status"
+    owner_var = f"tv_wonder_pharos_route_{route_key}_owner"
+    lines.append(f"{prefix}remove_variable = {location_var}")
+    lines.append(f"{prefix}remove_variable = {owner_var}")
+    lines.append(f"{prefix}location:{route_key} = {{")
+    lines.append(f"{prefix}{T}save_scope_as = tv_wonder_pharos_projection_location")
+    lines.append(
+        f"{prefix}{T}root = {{ set_variable = {{ name = {location_var} value = scope:tv_wonder_pharos_projection_location }} }}"
+    )
+    lines.append(f"{prefix}{T}if = {{")
+    lines.append(f"{prefix}{T}{T}limit = {{ has_owner = yes }}")
+    lines.append(f"{prefix}{T}{T}owner = {{")
+    lines.append(f"{prefix}{T}{T}{T}save_scope_as = tv_wonder_pharos_projection_owner")
+    lines.append(
+        f"{prefix}{T}{T}{T}root = {{ set_variable = {{ name = {owner_var} value = scope:tv_wonder_pharos_projection_owner }} }}"
+    )
+    lines.append(f"{prefix}{T}{T}}}")
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}if = {{")
+    lines.append(f"{prefix}{T}limit = {{ tv_wonder_pharos_route_{route_key}_controlled_trigger = yes }}")
+    lines.append(f"{prefix}{T}set_variable = {{ name = {status_var} value = 1 }}")
+    lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}else_if = {{")
+    lines.append(f"{prefix}{T}limit = {{ tv_wonder_pharos_route_{route_key}_basing_trigger = yes }}")
+    lines.append(f"{prefix}{T}set_variable = {{ name = {status_var} value = 2 }}")
+    lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}else = {{")
+    lines.append(f"{prefix}{T}set_variable = {{ name = {status_var} value = 0 }}")
+    lines.append(f"{prefix}}}")
+    lines.append(f"{prefix}if = {{")
+    lines.append(f"{prefix}{T}limit = {{")
+    lines.append(f"{prefix}{T}{T}has_variable = tv_wonder_pharos_active_route")
+    lines.append(f"{prefix}{T}{T}var:tv_wonder_pharos_active_route ?= {route_id}")
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_active_route_id value = {route_id} }}")
+    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_active_route_status value = var:{status_var} }}")
+    lines.append(f"{prefix}{T}remove_variable = tv_wonder_pharos_active_route_owner")
+    lines.append(f"{prefix}{T}if = {{")
+    lines.append(f"{prefix}{T}{T}limit = {{ has_variable = {owner_var} }}")
+    lines.append(f"{prefix}{T}{T}set_variable = {{ name = tv_wonder_pharos_active_route_owner value = var:{owner_var} }}")
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}}}")
+
+
+def append_pharos_select_route_lines(lines: list[str], route_key: str, indent: int) -> None:
+    prefix = T * indent
+    route_id = PHAROS_ROUTE_IDS[route_key]
+    lines.append(f"{prefix}set_variable = {{ name = tv_wonder_pharos_active_route value = {route_id} }}")
+    lines.append(f"{prefix}set_variable = {{ name = tv_wonder_pharos_active_route_id value = {route_id} }}")
+    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_active_route_status")
+    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_active_route_owner")
+    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_event_route_location")
+    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_event_route_owner")
+    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_event_route_has_owner")
+    lines.append(f"{prefix}location:{route_key} = {{")
+    lines.append(f"{prefix}{T}save_scope_as = tv_wonder_pharos_selected_route_location")
+    lines.append(
+        f"{prefix}{T}root = {{ set_variable = {{ name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location }} }}"
+    )
+    lines.append(f"{prefix}{T}if = {{")
+    lines.append(f"{prefix}{T}{T}limit = {{ has_owner = yes }}")
+    lines.append(f"{prefix}{T}{T}owner = {{")
+    lines.append(f"{prefix}{T}{T}{T}save_scope_as = tv_wonder_pharos_selected_route_owner")
+    lines.append(
+        f"{prefix}{T}{T}{T}root = {{ set_variable = {{ name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner }} }}"
+    )
+    lines.append(f"{prefix}{T}{T}{T}root = {{ set_variable = {{ name = tv_wonder_pharos_event_route_has_owner value = 1 }} }}")
+    lines.append(
+        f"{prefix}{T}{T}{T}root = {{ set_variable = {{ name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner }} }}"
+    )
+    lines.append(f"{prefix}{T}{T}}}")
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}}}")
+
+
+def append_pharos_selected_route_completion_lines(lines: list[str], route_key: str, indent: int) -> None:
+    prefix = T * indent
+    route_id = PHAROS_ROUTE_IDS[route_key]
+    lines.append(f"{prefix}if = {{")
+    lines.append(f"{prefix}{T}limit = {{")
+    lines.append(f"{prefix}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
+    lines.append(f"{prefix}{T}{T}tv_wonder_pharos_route_{route_key}_pending_trigger = yes")
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_route_{route_key}_passed value = 1 }}")
+    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_active_route value = {route_id} }}")
+    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_active_route_id value = {route_id} }}")
+    lines.append(f"{prefix}{T}change_variable = {{ name = tv_wonder_pharos_route_progress add = 1 }}")
+    lines.append(f"{prefix}}}")
+
+
+def append_pharos_effects(lines: list[str]) -> None:
+    lines.append("tv_wonder_pharos_refresh_threat_effect = {")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_privateer_threat_pct value = 0 }}")
+    for count, pct in ((4, 100), (3, 75), (2, 50), (1, 25)):
+        head = "if" if count == 4 else "else_if"
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{ tv_wonder_pharos_alexandria_hostile_privateers_at_least_{count}_trigger = yes }}")
+        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_pharos_privateer_threat_pct value = {pct} }}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_refresh_route_progress_effect = {")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_route_progress value = 0 }}")
+    for route_key in PHAROS_ROUTE_KEYS:
+        lines.append(f"{T}if = {{")
+        lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_pharos_route_{route_key}_passed }}")
+        lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_pharos_route_progress add = 1 }}")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}clamp_variable = {{ name = tv_wonder_pharos_route_progress min = 0 max = {len(PHAROS_ROUTE_KEYS)} }}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_refresh_display_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= 101")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_pharos_refresh_threat_effect = yes")
+    lines.append(f"{T}{T}tv_wonder_pharos_refresh_route_progress_effect = yes")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_id")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_status")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_owner")
+    for route_key in PHAROS_ROUTE_KEYS:
+        append_pharos_set_route_projection_lines(lines, route_key, 2)
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_clear_privateers_effect = {")
+    lines.append(f"{T}location:alexandria = {{")
+    lines.append(f"{T}{T}sea_zone = {{")
+    lines.append(f"{T}{T}{T}area = {{")
+    lines.append(f"{T}{T}{T}{T}every_privateer_in_area = {{")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{ NOT = {{ owner = root }} }}")
+    lines.append(f"{T}{T}{T}{T}{T}change_privateer_power = -0.4")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_enter_stage_2_effect = {")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_stage value = 2 }}")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_quarter_month value = 0 }}")
+    lines.append(f"{T}remove_variable = tv_wonder_pharos_active_route")
+    lines.append(f"{T}remove_variable = tv_wonder_pharos_active_route_id")
+    lines.append(f"{T}remove_variable = tv_wonder_pharos_active_route_status")
+    lines.append(f"{T}remove_variable = tv_wonder_pharos_active_route_owner")
+    lines.append(f"{T}remove_variable = tv_wonder_pharos_event_route_location")
+    lines.append(f"{T}remove_variable = tv_wonder_pharos_event_route_owner")
+    lines.append(f"{T}remove_variable = tv_wonder_pharos_event_route_has_owner")
+    lines.append(f"{T}add_prestige = 5")
+    lines.append(f"{T}change_gold_effect = {{ scale = 1 }}")
+    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_complete_selected_controlled_route_effect = {")
+    for route_key in PHAROS_ROUTE_KEYS:
+        append_pharos_selected_route_completion_lines(lines, route_key, 1)
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_active_route_status value = 1 }}")
+    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
+    lines.append(f"{T}tv_wonder_pharos_maybe_finish_routes_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_complete_selected_basing_route_effect = {")
+    for route_key in PHAROS_ROUTE_KEYS:
+        append_pharos_selected_route_completion_lines(lines, route_key, 1)
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_active_route_status value = 2 }}")
+    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
+    lines.append(f"{T}tv_wonder_pharos_maybe_finish_routes_effect = yes")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_create_selected_route_basing_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ exists = scope:tv_wonder_pharos_event_route_owner }}")
+    lines.append(f"{T}{T}create_relation = {{")
+    lines.append(f"{T}{T}{T}first = root")
+    lines.append(f"{T}{T}{T}second = scope:tv_wonder_pharos_event_route_owner")
+    lines.append(f"{T}{T}{T}type = relation_type:fleet_basing_rights")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}create_relation = {{")
+    lines.append(f"{T}{T}{T}first = scope:tv_wonder_pharos_event_route_owner")
+    lines.append(f"{T}{T}{T}second = root")
+    lines.append(f"{T}{T}{T}type = relation_type:fleet_basing_rights")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_event_route_owner }}")
+    lines.append(f"{T}{T}tv_wonder_pharos_complete_selected_basing_route_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_evaluate_selected_route_effect = {")
+    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
+    first = True
+    for route_key in PHAROS_ROUTE_KEYS:
+        head = "if" if first else "else_if"
+        first = False
+        lines.append(f"{T}{head} = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
+        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_controlled_trigger = yes")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7305 }}")
+        lines.append(f"{T}}}")
+        lines.append(f"{T}else_if = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
+        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_basing_trigger = yes")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7306 }}")
+        lines.append(f"{T}}}")
+        lines.append(f"{T}else_if = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
+        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_has_owner_trigger = yes")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7307 }}")
+        lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_roll_route_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ tv_wonder_pharos_has_pending_route_trigger = yes }}")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_id")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_status")
+    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_owner")
+    lines.append(f"{T}{T}random_list = {{")
+    for route_key in PHAROS_ROUTE_KEYS:
+        lines.append(f"{T}{T}{T}10 = {{")
+        lines.append(f"{T}{T}{T}{T}trigger = {{ tv_wonder_pharos_route_{route_key}_pending_trigger = yes }}")
+        append_pharos_select_route_lines(lines, route_key, 4)
+        lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_pharos_evaluate_selected_route_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}else = {{")
+    lines.append(f"{T}{T}tv_wonder_pharos_maybe_finish_routes_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_maybe_finish_routes_effect = {")
+    lines.append(f"{T}tv_wonder_pharos_refresh_route_progress_effect = yes")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}has_variable = tv_wonder_pharos_route_progress")
+    lines.append(f"{T}{T}{T}var:tv_wonder_pharos_route_progress >= {len(PHAROS_ROUTE_KEYS)}")
+    lines.append(f"{T}{T}{T}NOT = {{ has_variable = tv_wonder_pharos_routes_complete_pending_event }}")
+    lines.append(f"{T}{T}{T}NOT = {{ has_variable = tv_wonder_pharos_routes_complete }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_pharos_routes_complete_pending_event value = 1 }}")
+    lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7308 }}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_wonder_pharos_finish_ritual_effect = {")
+    lines.append(f"{T}remove_variable = tv_wonder_pharos_routes_complete_pending_event")
+    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_routes_complete value = 1 }}")
+    lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
+    lines.append("}")
+    lines.append("")
 
 
 def ritual_runtime_variables(ritual_plan: dict) -> list[str]:
@@ -1340,6 +1629,7 @@ def generate() -> str:
     append_suitability_actual_effects(lines, all_wonders, mechanics, by_key)
     max_rows = max(len(suitability_knowledge_for_wonder(mechanics, wonder)) for wonder in all_wonders)
     append_survey_cache_transfer_effects(lines, max_rows)
+    append_pharos_effects(lines)
 
     lines.append("tv_wonder_mechanics_apply_survey_site_preference_effect = {")
     for idx, wonder in enumerate(all_wonders):

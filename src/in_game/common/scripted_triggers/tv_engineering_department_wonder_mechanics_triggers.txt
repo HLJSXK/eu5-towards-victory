@@ -26847,6 +26847,299 @@ tv_wonder_location_can_host_locked_wonder_trigger = {
 	trigger_else = { always = no }
 }
 
+tv_wonder_pharos_alexandria_hostile_privateers_trigger = {
+	location:alexandria = {
+		sea_zone = {
+			area = {
+				any_privateer_in_area = {
+					NOT = { owner = root }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_pharos_alexandria_hostile_privateers_at_least_1_trigger = {
+	location:alexandria = {
+		sea_zone = {
+			area = {
+				any_privateer_in_area = {
+					count >= 1
+					NOT = { owner = root }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_pharos_alexandria_hostile_privateers_at_least_2_trigger = {
+	location:alexandria = {
+		sea_zone = {
+			area = {
+				any_privateer_in_area = {
+					count >= 2
+					NOT = { owner = root }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_pharos_alexandria_hostile_privateers_at_least_3_trigger = {
+	location:alexandria = {
+		sea_zone = {
+			area = {
+				any_privateer_in_area = {
+					count >= 3
+					NOT = { owner = root }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_pharos_alexandria_hostile_privateers_at_least_4_trigger = {
+	location:alexandria = {
+		sea_zone = {
+			area = {
+				any_privateer_in_area = {
+					count >= 4
+					NOT = { owner = root }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_pharos_route_constantinople_controlled_trigger = {
+	owns = location:constantinople
+}
+
+tv_wonder_pharos_route_constantinople_has_owner_trigger = {
+	location:constantinople = { has_owner = yes }
+}
+
+tv_wonder_pharos_route_constantinople_basing_trigger = {
+	location:constantinople = {
+		has_owner = yes
+		owner = {
+			gives_fleet_basing_rights_to = root
+			receives_fleet_basing_rights_from = root
+		}
+	}
+}
+
+tv_wonder_pharos_route_constantinople_pending_trigger = {
+	NOT = { has_variable = tv_wonder_pharos_route_constantinople_passed }
+}
+
+tv_wonder_pharos_route_selected_constantinople_trigger = {
+	has_variable = tv_wonder_pharos_active_route
+	var:tv_wonder_pharos_active_route ?= 1
+}
+
+tv_wonder_pharos_route_venice_controlled_trigger = {
+	owns = location:venice
+}
+
+tv_wonder_pharos_route_venice_has_owner_trigger = {
+	location:venice = { has_owner = yes }
+}
+
+tv_wonder_pharos_route_venice_basing_trigger = {
+	location:venice = {
+		has_owner = yes
+		owner = {
+			gives_fleet_basing_rights_to = root
+			receives_fleet_basing_rights_from = root
+		}
+	}
+}
+
+tv_wonder_pharos_route_venice_pending_trigger = {
+	NOT = { has_variable = tv_wonder_pharos_route_venice_passed }
+}
+
+tv_wonder_pharos_route_selected_venice_trigger = {
+	has_variable = tv_wonder_pharos_active_route
+	var:tv_wonder_pharos_active_route ?= 2
+}
+
+tv_wonder_pharos_route_genoa_controlled_trigger = {
+	owns = location:genoa
+}
+
+tv_wonder_pharos_route_genoa_has_owner_trigger = {
+	location:genoa = { has_owner = yes }
+}
+
+tv_wonder_pharos_route_genoa_basing_trigger = {
+	location:genoa = {
+		has_owner = yes
+		owner = {
+			gives_fleet_basing_rights_to = root
+			receives_fleet_basing_rights_from = root
+		}
+	}
+}
+
+tv_wonder_pharos_route_genoa_pending_trigger = {
+	NOT = { has_variable = tv_wonder_pharos_route_genoa_passed }
+}
+
+tv_wonder_pharos_route_selected_genoa_trigger = {
+	has_variable = tv_wonder_pharos_active_route
+	var:tv_wonder_pharos_active_route ?= 3
+}
+
+tv_wonder_pharos_route_malta_controlled_trigger = {
+	owns = location:malta
+}
+
+tv_wonder_pharos_route_malta_has_owner_trigger = {
+	location:malta = { has_owner = yes }
+}
+
+tv_wonder_pharos_route_malta_basing_trigger = {
+	location:malta = {
+		has_owner = yes
+		owner = {
+			gives_fleet_basing_rights_to = root
+			receives_fleet_basing_rights_from = root
+		}
+	}
+}
+
+tv_wonder_pharos_route_malta_pending_trigger = {
+	NOT = { has_variable = tv_wonder_pharos_route_malta_passed }
+}
+
+tv_wonder_pharos_route_selected_malta_trigger = {
+	has_variable = tv_wonder_pharos_active_route
+	var:tv_wonder_pharos_active_route ?= 4
+}
+
+tv_wonder_pharos_route_tunis_controlled_trigger = {
+	owns = location:tunis
+}
+
+tv_wonder_pharos_route_tunis_has_owner_trigger = {
+	location:tunis = { has_owner = yes }
+}
+
+tv_wonder_pharos_route_tunis_basing_trigger = {
+	location:tunis = {
+		has_owner = yes
+		owner = {
+			gives_fleet_basing_rights_to = root
+			receives_fleet_basing_rights_from = root
+		}
+	}
+}
+
+tv_wonder_pharos_route_tunis_pending_trigger = {
+	NOT = { has_variable = tv_wonder_pharos_route_tunis_passed }
+}
+
+tv_wonder_pharos_route_selected_tunis_trigger = {
+	has_variable = tv_wonder_pharos_active_route
+	var:tv_wonder_pharos_active_route ?= 5
+}
+
+tv_wonder_pharos_route_palermo_controlled_trigger = {
+	owns = location:palermo
+}
+
+tv_wonder_pharos_route_palermo_has_owner_trigger = {
+	location:palermo = { has_owner = yes }
+}
+
+tv_wonder_pharos_route_palermo_basing_trigger = {
+	location:palermo = {
+		has_owner = yes
+		owner = {
+			gives_fleet_basing_rights_to = root
+			receives_fleet_basing_rights_from = root
+		}
+	}
+}
+
+tv_wonder_pharos_route_palermo_pending_trigger = {
+	NOT = { has_variable = tv_wonder_pharos_route_palermo_passed }
+}
+
+tv_wonder_pharos_route_selected_palermo_trigger = {
+	has_variable = tv_wonder_pharos_active_route
+	var:tv_wonder_pharos_active_route ?= 6
+}
+
+tv_wonder_pharos_route_candia_controlled_trigger = {
+	owns = location:candia
+}
+
+tv_wonder_pharos_route_candia_has_owner_trigger = {
+	location:candia = { has_owner = yes }
+}
+
+tv_wonder_pharos_route_candia_basing_trigger = {
+	location:candia = {
+		has_owner = yes
+		owner = {
+			gives_fleet_basing_rights_to = root
+			receives_fleet_basing_rights_from = root
+		}
+	}
+}
+
+tv_wonder_pharos_route_candia_pending_trigger = {
+	NOT = { has_variable = tv_wonder_pharos_route_candia_passed }
+}
+
+tv_wonder_pharos_route_selected_candia_trigger = {
+	has_variable = tv_wonder_pharos_active_route
+	var:tv_wonder_pharos_active_route ?= 7
+}
+
+tv_wonder_pharos_route_gibraltar_controlled_trigger = {
+	owns = location:gibraltar
+}
+
+tv_wonder_pharos_route_gibraltar_has_owner_trigger = {
+	location:gibraltar = { has_owner = yes }
+}
+
+tv_wonder_pharos_route_gibraltar_basing_trigger = {
+	location:gibraltar = {
+		has_owner = yes
+		owner = {
+			gives_fleet_basing_rights_to = root
+			receives_fleet_basing_rights_from = root
+		}
+	}
+}
+
+tv_wonder_pharos_route_gibraltar_pending_trigger = {
+	NOT = { has_variable = tv_wonder_pharos_route_gibraltar_passed }
+}
+
+tv_wonder_pharos_route_selected_gibraltar_trigger = {
+	has_variable = tv_wonder_pharos_active_route
+	var:tv_wonder_pharos_active_route ?= 8
+}
+
+tv_wonder_pharos_has_pending_route_trigger = {
+	OR = {
+		tv_wonder_pharos_route_constantinople_pending_trigger = yes
+		tv_wonder_pharos_route_venice_pending_trigger = yes
+		tv_wonder_pharos_route_genoa_pending_trigger = yes
+		tv_wonder_pharos_route_malta_pending_trigger = yes
+		tv_wonder_pharos_route_tunis_pending_trigger = yes
+		tv_wonder_pharos_route_palermo_pending_trigger = yes
+		tv_wonder_pharos_route_candia_pending_trigger = yes
+		tv_wonder_pharos_route_gibraltar_pending_trigger = yes
+	}
+}
+
 tv_wonder_mechanics_has_valid_site_candidate_trigger = {
 	tv_wonder_site_rule_can_build_locked_wonder_trigger = yes
 }
@@ -26950,7 +27243,12 @@ tv_wonder_selected_ritual_ending_war_listener_trigger = {
 
 tv_wonder_selected_ritual_custom_completion_requirements_met_trigger = {
 	tv_wonder_has_selected_ceremony_trigger = yes
-	always = no
+	trigger_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10101 }
+		has_variable = tv_wonder_pharos_routes_complete
+		var:tv_wonder_pharos_routes_complete ?= 1
+	}
+	trigger_else = { always = no }
 }
 
 tv_wonder_selected_ritual_completion_requirements_met_trigger = {
