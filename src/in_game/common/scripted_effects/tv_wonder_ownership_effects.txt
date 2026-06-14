@@ -691,6 +691,26 @@ tv_wonder_ownership_trigger_gain_event_effect = {
 		limit = { var:tv_wonder_ownership_event_wonder_id ?= 201 }
 		trigger_event_non_silently = { id = tv_engineering_department.8201 }
 	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 202 }
+		trigger_event_non_silently = { id = tv_engineering_department.8202 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 203 }
+		trigger_event_non_silently = { id = tv_engineering_department.8203 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 204 }
+		trigger_event_non_silently = { id = tv_engineering_department.8204 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 205 }
+		trigger_event_non_silently = { id = tv_engineering_department.8205 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 206 }
+		trigger_event_non_silently = { id = tv_engineering_department.8206 }
+	}
 }
 
 # Intentional per-wonder dispatch: events need static ids and static images.
@@ -1306,6 +1326,26 @@ tv_wonder_ownership_trigger_loss_event_effect = {
 	else_if = {
 		limit = { var:tv_wonder_ownership_event_wonder_id ?= 201 }
 		trigger_event_non_silently = { id = tv_engineering_department.9201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 202 }
+		trigger_event_non_silently = { id = tv_engineering_department.9202 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 203 }
+		trigger_event_non_silently = { id = tv_engineering_department.9203 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 204 }
+		trigger_event_non_silently = { id = tv_engineering_department.9204 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 205 }
+		trigger_event_non_silently = { id = tv_engineering_department.9205 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 206 }
+		trigger_event_non_silently = { id = tv_engineering_department.9206 }
 	}
 }
 

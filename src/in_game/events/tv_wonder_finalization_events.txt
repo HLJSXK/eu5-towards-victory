@@ -4010,6 +4010,91 @@ tv_engineering_department.5201 = {
 	}
 }
 
+tv_engineering_department.5202 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_house_of_wisdom
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_house_of_wisdom_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_house_of_wisdom_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_house_of_wisdom_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5203 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_echmiadzin_cathedral
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_echmiadzin_cathedral_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_echmiadzin_cathedral_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_echmiadzin_cathedral_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5204 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_narikala_fortress
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_narikala_fortress_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_narikala_fortress_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_narikala_fortress_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5205 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_baku_ateshgah
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_baku_ateshgah_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_baku_ateshgah_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_baku_ateshgah_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5206 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_sanaa_old_city
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_sanaa_old_city_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_sanaa_old_city_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_sanaa_old_city_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
 tv_engineering_department.6202 = {
 	type = country_event
 	outcome = neutral
@@ -5851,6 +5936,66 @@ tv_engineering_department.6201 = {
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d_unique_colmar_old_town
 	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_colmar_old_town_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6202 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_house_of_wisdom
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_house_of_wisdom_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6203 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_echmiadzin_cathedral
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_echmiadzin_cathedral_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6204 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_narikala_fortress
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_narikala_fortress_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6205 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_baku_ateshgah
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_baku_ateshgah_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6206 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_sanaa_old_city
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_sanaa_old_city_cropped.dds"
 	outcome = neutral
 
 	option = {

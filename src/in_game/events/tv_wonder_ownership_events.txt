@@ -1844,6 +1844,66 @@ tv_engineering_department.8201 = {
 	}
 }
 
+tv_engineering_department.8202 = {
+	type = country_event
+	title = tv_wonder_ownership.800.t
+	desc = tv_wonder_ownership.800.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_house_of_wisdom_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_wonder_ownership.800.a
+	}
+}
+
+tv_engineering_department.8203 = {
+	type = country_event
+	title = tv_wonder_ownership.800.t
+	desc = tv_wonder_ownership.800.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_echmiadzin_cathedral_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_wonder_ownership.800.a
+	}
+}
+
+tv_engineering_department.8204 = {
+	type = country_event
+	title = tv_wonder_ownership.800.t
+	desc = tv_wonder_ownership.800.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_narikala_fortress_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_wonder_ownership.800.a
+	}
+}
+
+tv_engineering_department.8205 = {
+	type = country_event
+	title = tv_wonder_ownership.800.t
+	desc = tv_wonder_ownership.800.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_baku_ateshgah_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_wonder_ownership.800.a
+	}
+}
+
+tv_engineering_department.8206 = {
+	type = country_event
+	title = tv_wonder_ownership.800.t
+	desc = tv_wonder_ownership.800.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_sanaa_old_city_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_wonder_ownership.800.a
+	}
+}
+
 tv_engineering_department.9001 = {
 	type = country_event
 	title = tv_wonder_ownership.900.t
@@ -6212,6 +6272,161 @@ tv_engineering_department.9201 = {
 					is_key_in_variable_map = { name = tv_wonder_unique_ritual_completed target = 201 }
 				}
 				remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 201 }
+			}
+		}
+		remove_variable = tv_wonder_ownership_loss_retains_same_wonder
+		remove_variable = tv_wonder_ownership_event_wonder_id
+	}
+
+	option = {
+		name = tv_wonder_ownership.900.a
+	}
+}
+
+tv_engineering_department.9202 = {
+	type = country_event
+	title = tv_wonder_ownership.900.t
+	desc = tv_wonder_ownership.900.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_house_of_wisdom_cropped.dds"
+	outcome = bad
+
+	immediate = {
+		# Run before the option renders so the ritual benefit is already gone.
+		set_variable = { name = tv_wonder_ownership_event_wonder_id value = 202 }
+		tv_wonder_ownership_compute_loss_retains_same_wonder_effect = yes
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_ownership_loss_retains_same_wonder } }
+			remove_country_modifier = tv_wonder_unique_house_of_wisdom_ceremony_modifier
+			if = {
+				limit = {
+					has_variable_map = tv_wonder_unique_ritual_completed
+					is_key_in_variable_map = { name = tv_wonder_unique_ritual_completed target = 202 }
+				}
+				remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 202 }
+			}
+		}
+		remove_variable = tv_wonder_ownership_loss_retains_same_wonder
+		remove_variable = tv_wonder_ownership_event_wonder_id
+	}
+
+	option = {
+		name = tv_wonder_ownership.900.a
+	}
+}
+
+tv_engineering_department.9203 = {
+	type = country_event
+	title = tv_wonder_ownership.900.t
+	desc = tv_wonder_ownership.900.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_echmiadzin_cathedral_cropped.dds"
+	outcome = bad
+
+	immediate = {
+		# Run before the option renders so the ritual benefit is already gone.
+		set_variable = { name = tv_wonder_ownership_event_wonder_id value = 203 }
+		tv_wonder_ownership_compute_loss_retains_same_wonder_effect = yes
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_ownership_loss_retains_same_wonder } }
+			remove_country_modifier = tv_wonder_unique_echmiadzin_cathedral_ceremony_modifier
+			if = {
+				limit = {
+					has_variable_map = tv_wonder_unique_ritual_completed
+					is_key_in_variable_map = { name = tv_wonder_unique_ritual_completed target = 203 }
+				}
+				remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 203 }
+			}
+		}
+		remove_variable = tv_wonder_ownership_loss_retains_same_wonder
+		remove_variable = tv_wonder_ownership_event_wonder_id
+	}
+
+	option = {
+		name = tv_wonder_ownership.900.a
+	}
+}
+
+tv_engineering_department.9204 = {
+	type = country_event
+	title = tv_wonder_ownership.900.t
+	desc = tv_wonder_ownership.900.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_narikala_fortress_cropped.dds"
+	outcome = bad
+
+	immediate = {
+		# Run before the option renders so the ritual benefit is already gone.
+		set_variable = { name = tv_wonder_ownership_event_wonder_id value = 204 }
+		tv_wonder_ownership_compute_loss_retains_same_wonder_effect = yes
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_ownership_loss_retains_same_wonder } }
+			remove_country_modifier = tv_wonder_unique_narikala_fortress_ceremony_modifier
+			if = {
+				limit = {
+					has_variable_map = tv_wonder_unique_ritual_completed
+					is_key_in_variable_map = { name = tv_wonder_unique_ritual_completed target = 204 }
+				}
+				remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 204 }
+			}
+		}
+		remove_variable = tv_wonder_ownership_loss_retains_same_wonder
+		remove_variable = tv_wonder_ownership_event_wonder_id
+	}
+
+	option = {
+		name = tv_wonder_ownership.900.a
+	}
+}
+
+tv_engineering_department.9205 = {
+	type = country_event
+	title = tv_wonder_ownership.900.t
+	desc = tv_wonder_ownership.900.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_baku_ateshgah_cropped.dds"
+	outcome = bad
+
+	immediate = {
+		# Run before the option renders so the ritual benefit is already gone.
+		set_variable = { name = tv_wonder_ownership_event_wonder_id value = 205 }
+		tv_wonder_ownership_compute_loss_retains_same_wonder_effect = yes
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_ownership_loss_retains_same_wonder } }
+			remove_country_modifier = tv_wonder_unique_baku_ateshgah_ceremony_modifier
+			if = {
+				limit = {
+					has_variable_map = tv_wonder_unique_ritual_completed
+					is_key_in_variable_map = { name = tv_wonder_unique_ritual_completed target = 205 }
+				}
+				remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 205 }
+			}
+		}
+		remove_variable = tv_wonder_ownership_loss_retains_same_wonder
+		remove_variable = tv_wonder_ownership_event_wonder_id
+	}
+
+	option = {
+		name = tv_wonder_ownership.900.a
+	}
+}
+
+tv_engineering_department.9206 = {
+	type = country_event
+	title = tv_wonder_ownership.900.t
+	desc = tv_wonder_ownership.900.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_sanaa_old_city_cropped.dds"
+	outcome = bad
+
+	immediate = {
+		# Run before the option renders so the ritual benefit is already gone.
+		set_variable = { name = tv_wonder_ownership_event_wonder_id value = 206 }
+		tv_wonder_ownership_compute_loss_retains_same_wonder_effect = yes
+		if = {
+			limit = { NOT = { has_variable = tv_wonder_ownership_loss_retains_same_wonder } }
+			remove_country_modifier = tv_wonder_unique_sanaa_old_city_ceremony_modifier
+			if = {
+				limit = {
+					has_variable_map = tv_wonder_unique_ritual_completed
+					is_key_in_variable_map = { name = tv_wonder_unique_ritual_completed target = 206 }
+				}
+				remove_from_variable_map = { name = tv_wonder_unique_ritual_completed key = 206 }
 			}
 		}
 		remove_variable = tv_wonder_ownership_loss_retains_same_wonder

@@ -4257,3 +4257,208 @@ unique_wonders:
       price: null
       attributes: {}
       max_levels: 6
+- id: 202
+  key: unique_house_of_wisdom
+  base_key: library_of_nation
+  concept: tv_wonder_unique_house_of_wisdom
+  location: baghdad
+  image: tv_wonder_unique_house_of_wisdom
+  prompt: The House of Wisdom in Abbasid Baghdad, manuscript halls, translators comparing Greek, Syriac, Persian, and Arabic texts, astronomers with instruments, copyists, shelves of books, courtyard scholars, Tigris river city beyond, historically grounded world wonder key art, cinematic scholarly interior, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: library_of_nation
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_house_of_wisdom_inaugurated
+  ritual:
+    key: translation_movement_catalog
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.05
+      global_monthly_literacy: 0.003
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 203
+  key: unique_echmiadzin_cathedral
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_echmiadzin_cathedral
+  location: armavir
+  image: tv_wonder_unique_echmiadzin_cathedral
+  prompt: Etchmiadzin Cathedral in medieval Armenia, ancient stone church and bell tower, carved khachkars, clergy procession, pilgrims, monastery walls, Mount Ararat in the distance, historically grounded world wonder key art, cinematic sacred courtyard, ultra-detailed masonry, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_echmiadzin_cathedral_inaugurated
+  ritual:
+    key: apostolic_see_consecration
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tolerance_own: 1
+      clergy_estate_target_satisfaction: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 204
+  key: unique_narikala_fortress
+  base_key: star_fortress_city
+  concept: tv_wonder_unique_narikala_fortress
+  location: tbilisi
+  image: tv_wonder_unique_narikala_fortress
+  prompt: Narikala Fortress above medieval Tbilisi, stone walls and towers on a steep ridge, Kura river below, city roofs, watchfires, mountain approaches, garrison banners, historically grounded world wonder key art, cinematic Caucasus fortress panorama, ultra-detailed masonry, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: star_fortress_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_narikala_fortress_inaugurated
+  ritual:
+    key: kura_watch_muster
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_garrison_size_modifier: 0.08
+      land_morale_modifier: 0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 205
+  key: unique_baku_ateshgah
+  base_key: giant_tower_temple
+  concept: tv_wonder_unique_baku_ateshgah
+  location: baku
+  image: tv_wonder_unique_baku_ateshgah
+  prompt: Baku Ateshgah fire temple on the Absheron peninsula, stone courtyard shrine, central altar flame, pilgrims, caravan road, Caspian wind, oil-fire glow at dusk, historically grounded world wonder key art, cinematic sacred panorama, ultra-detailed stone and firelight, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: giant_tower_temple
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_baku_ateshgah_inaugurated
+  ritual:
+    key: eternal_fire_rite
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.06
+      tolerance_own: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 206
+  key: unique_sanaa_old_city
+  base_key: world_market
+  concept: tv_wonder_unique_sanaa_old_city
+  location: sana_yemen
+  image: tv_wonder_unique_sanaa_old_city
+  prompt: Old City of Sana'a in medieval Yemen, tower houses with white gypsum patterns, crowded souks, caravan merchants, incense, coffee, metalworkers, mosque minarets, mountain light, historically grounded world wonder key art, cinematic urban market panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: world_market
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_sanaa_old_city_inaugurated
+  ritual:
+    key: sanaa_souk_opening
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      trade_income: 0.05
+      diplomatic_reputation: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
