@@ -441,7 +441,7 @@ tv_wonder_golden_trade_port = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		monthly_towards_naval = 0.05
 	}
 
@@ -488,7 +488,7 @@ tv_wonder_imperial_naval_port = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		monthly_towards_naval = 0.05
 	}
 
@@ -535,7 +535,7 @@ tv_wonder_free_trade_metropolis = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		monthly_towards_naval = 0.05
 	}
 
@@ -2274,6 +2274,7 @@ tv_wonder_beacon_rite_temple = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.01
+		local_crown_estate_power = 0.5
 		monthly_towards_spiritualist = 0.05
 	}
 
@@ -2320,6 +2321,7 @@ tv_wonder_pilgrim_stair_temple = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.01
+		local_crown_estate_power = 0.5
 		monthly_towards_spiritualist = 0.05
 	}
 
@@ -2366,6 +2368,7 @@ tv_wonder_temple_school_tower = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.01
+		local_crown_estate_power = 0.5
 		monthly_towards_spiritualist = 0.05
 	}
 
@@ -2616,7 +2619,7 @@ tv_wonder_river_extension_ritual_annex = {
 	construction_demand = basic_construction_needs
 
 	modifier = {
-		local_monthly_development_modifier = 0.2
+		local_disease_resistance = 0.2
 		local_peasants_estate_power = 0.5
 	}
 
@@ -2886,7 +2889,8 @@ tv_wonder_bastion_trial_fortress = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
-		local_garrison_size = 250
+		local_garrison_size = 0.25
+		local_max_control = 0.1
 		monthly_towards_defensive = 0.05
 	}
 
@@ -2933,7 +2937,8 @@ tv_wonder_siege_games_fortress = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
-		local_garrison_size = 250
+		local_garrison_size = 0.25
+		local_max_control = 0.1
 		monthly_towards_defensive = 0.05
 	}
 
@@ -2980,7 +2985,8 @@ tv_wonder_arsenal_quarter_fortress = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
-		local_garrison_size = 250
+		local_garrison_size = 0.25
+		local_max_control = 0.1
 		monthly_towards_defensive = 0.05
 	}
 
@@ -3093,7 +3099,8 @@ tv_wonder_frontier_muster_wall = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
-		local_garrison_size = 250
+		local_garrison_size = 0.25
+		local_frontage_allowed = -0.5
 		monthly_towards_defensive = 0.05
 	}
 
@@ -3140,7 +3147,8 @@ tv_wonder_signal_fires_wall = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
-		local_garrison_size = 250
+		local_garrison_size = 0.25
+		local_frontage_allowed = -0.5
 		monthly_towards_defensive = 0.05
 	}
 
@@ -3187,7 +3195,8 @@ tv_wonder_wall_oath = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.2
-		local_garrison_size = 250
+		local_garrison_size = 0.25
+		local_frontage_allowed = -0.5
 		monthly_towards_defensive = 0.05
 	}
 
@@ -3709,7 +3718,7 @@ tv_wonder_irrigation_canal_system = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.1
 		local_distance_from_capital_speed_propagation = 0.2
-		global_monthly_prosperity = 0.05
+		global_monthly_prosperity = 0.001
 		monthly_towards_free_subjects = 0.05
 	}
 
@@ -3757,7 +3766,7 @@ tv_wonder_grain_transport_canal_system = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.1
 		local_distance_from_capital_speed_propagation = 0.2
-		global_monthly_prosperity = 0.05
+		global_monthly_prosperity = 0.001
 		monthly_towards_free_subjects = 0.05
 	}
 
@@ -3805,7 +3814,7 @@ tv_wonder_flood_control_canal_system = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.1
 		local_distance_from_capital_speed_propagation = 0.2
-		global_monthly_prosperity = 0.05
+		global_monthly_prosperity = 0.001
 		monthly_towards_free_subjects = 0.05
 	}
 
@@ -4731,7 +4740,7 @@ tv_wonder_grain_transport_hub = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.1
-		local_monthly_prosperity = 0.1
+		local_monthly_prosperity = 0.001
 		monthly_towards_mercantilism = 0.05
 	}
 
@@ -4778,7 +4787,7 @@ tv_wonder_financial_warehouse_hub = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.1
-		local_monthly_prosperity = 0.1
+		local_monthly_prosperity = 0.001
 		monthly_towards_mercantilism = 0.05
 	}
 
@@ -4825,7 +4834,7 @@ tv_wonder_industrial_workshop_belt = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.1
-		local_monthly_prosperity = 0.1
+		local_monthly_prosperity = 0.001
 		monthly_towards_mercantilism = 0.05
 	}
 
@@ -5956,6 +5965,7 @@ tv_wonder_court_art_district = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		local_unrest = -0.1
 		num_possible_artists = 1
 		artist_salary_modifier = -0.1
 		monthly_towards_innovative = 0.05
@@ -6003,6 +6013,7 @@ tv_wonder_folk_art_district = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		local_unrest = -0.1
 		num_possible_artists = 1
 		artist_salary_modifier = -0.1
 		monthly_towards_innovative = 0.05
@@ -6050,6 +6061,7 @@ tv_wonder_foreign_style_district = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
+		local_unrest = -0.1
 		num_possible_artists = 1
 		artist_salary_modifier = -0.1
 		monthly_towards_innovative = 0.05
@@ -6159,7 +6171,8 @@ tv_wonder_court_theater = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1
+		local_cultural_influence = 0.5
+		local_unrest = -0.1
 		cultural_influence_modifier = 0.1
 		skill_of_new_artists = 0.05
 		monthly_towards_humanist = 0.05
@@ -6206,7 +6219,8 @@ tv_wonder_religious_theater = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1
+		local_cultural_influence = 0.5
+		local_unrest = -0.1
 		cultural_influence_modifier = 0.1
 		skill_of_new_artists = 0.05
 		monthly_towards_humanist = 0.05
@@ -6253,7 +6267,8 @@ tv_wonder_popular_festival_ground = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1
+		local_cultural_influence = 0.5
+		local_unrest = -0.1
 		cultural_influence_modifier = 0.1
 		skill_of_new_artists = 0.05
 		monthly_towards_humanist = 0.05
@@ -7175,7 +7190,7 @@ tv_wonder_artisan_guild_alliance = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_market_access = 0.1
-		local_monthly_prosperity = 0.1
+		local_monthly_prosperity = 0.001
 		local_trade_center_power = 0.1
 		monthly_towards_plutocracy = 0.05
 	}
@@ -7223,7 +7238,7 @@ tv_wonder_overseas_merchant_guilds = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_market_access = 0.1
-		local_monthly_prosperity = 0.1
+		local_monthly_prosperity = 0.001
 		local_trade_center_power = 0.1
 		monthly_towards_plutocracy = 0.05
 	}
@@ -7271,7 +7286,7 @@ tv_wonder_financial_guilds = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_market_access = 0.1
-		local_monthly_prosperity = 0.1
+		local_monthly_prosperity = 0.001
 		local_trade_center_power = 0.1
 		monthly_towards_plutocracy = 0.05
 	}
@@ -10790,6 +10805,7 @@ tv_wonder_unique_angkor_wat_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.02
+		local_crown_estate_power = 1
 		monthly_towards_spiritualist = 0.1
 	}
 
@@ -10977,7 +10993,8 @@ tv_wonder_unique_himeji_castle_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_max_control = 0.2
 		monthly_towards_defensive = 0.1
 	}
 
@@ -11307,7 +11324,7 @@ tv_wonder_unique_malacca_port_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.4
+		local_trade_center_power = 0.2
 		monthly_towards_naval = 0.1
 	}
 
@@ -11354,7 +11371,8 @@ tv_wonder_unique_red_fort_delhi_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_max_control = 0.2
 		monthly_towards_defensive = 0.1
 	}
 
@@ -11495,7 +11513,7 @@ tv_wonder_unique_amsterdam_canal_ring_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_trade_center_power = 0.2
-		local_monthly_prosperity = 0.2
+		local_monthly_prosperity = 0.002
 		monthly_towards_mercantilism = 0.1
 	}
 
@@ -11588,7 +11606,8 @@ tv_wonder_unique_ming_great_wall_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_frontage_allowed = -1
 		monthly_towards_defensive = 0.1
 	}
 
@@ -11824,7 +11843,7 @@ tv_wonder_unique_grand_canal_inaugurated = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.2
 		local_distance_from_capital_speed_propagation = 0.4
-		global_monthly_prosperity = 0.1
+		global_monthly_prosperity = 0.001
 		monthly_towards_free_subjects = 0.1
 	}
 
@@ -11965,7 +11984,7 @@ tv_wonder_unique_suez_ancient_canal_inaugurated = {
 		local_cultural_influence = 0.5
 		local_monthly_development_modifier = 0.2
 		local_distance_from_capital_speed_propagation = 0.4
-		global_monthly_prosperity = 0.1
+		global_monthly_prosperity = 0.001
 		monthly_towards_free_subjects = 0.1
 	}
 
@@ -12012,7 +12031,8 @@ tv_wonder_unique_kremlin_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_max_control = 0.2
 		monthly_towards_defensive = 0.1
 	}
 
@@ -12577,7 +12597,8 @@ tv_wonder_unique_tower_of_london_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_max_control = 0.2
 		monthly_towards_defensive = 0.1
 	}
 
@@ -12905,7 +12926,8 @@ tv_wonder_unique_belgrade_fortress_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_max_control = 0.2
 		monthly_towards_defensive = 0.1
 	}
 
@@ -13375,6 +13397,7 @@ tv_wonder_unique_porcelain_tower_of_nanjing_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.02
+		local_crown_estate_power = 1
 		monthly_towards_spiritualist = 0.1
 	}
 
@@ -13514,7 +13537,7 @@ tv_wonder_unique_canton_thirteen_factories_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_market_access = 0.2
-		local_monthly_prosperity = 0.2
+		local_monthly_prosperity = 0.002
 		local_trade_center_power = 0.2
 		monthly_towards_plutocracy = 0.1
 	}
@@ -14081,6 +14104,7 @@ tv_wonder_unique_brihadishvara_temple_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.02
+		local_crown_estate_power = 1
 		monthly_towards_spiritualist = 0.1
 	}
 
@@ -14220,7 +14244,7 @@ tv_wonder_unique_calicut_port_city_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.4
+		local_trade_center_power = 0.2
 		monthly_towards_naval = 0.1
 	}
 
@@ -14313,7 +14337,8 @@ tv_wonder_unique_wawel_castle_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_max_control = 0.2
 		monthly_towards_defensive = 0.1
 	}
 
@@ -14405,7 +14430,7 @@ tv_wonder_unique_gdansk_port_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.4
+		local_trade_center_power = 0.2
 		monthly_towards_naval = 0.1
 	}
 
@@ -14688,7 +14713,8 @@ tv_wonder_unique_registan_square_inaugurated = {
 
 	modifier = {
 		local_cultural_tradition = 0.5
-		local_cultural_influence = 1.5
+		local_cultural_influence = 0.5
+		local_unrest = -0.2
 		cultural_influence_modifier = 0.2
 		skill_of_new_artists = 0.1
 		monthly_towards_humanist = 0.1
@@ -14784,6 +14810,7 @@ tv_wonder_unique_bukhara_kalyan_minaret_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_pop_conversion_speed = 0.02
+		local_crown_estate_power = 1
 		monthly_towards_spiritualist = 0.1
 	}
 
@@ -15019,7 +15046,7 @@ tv_wonder_unique_bordeaux_port_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.4
+		local_trade_center_power = 0.2
 		monthly_towards_naval = 0.1
 	}
 
@@ -15066,7 +15093,7 @@ tv_wonder_unique_marseille_old_port_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.4
+		local_trade_center_power = 0.2
 		monthly_towards_naval = 0.1
 	}
 
@@ -15206,7 +15233,8 @@ tv_wonder_unique_bastille_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_max_control = 0.2
 		monthly_towards_defensive = 0.1
 	}
 
@@ -15253,7 +15281,8 @@ tv_wonder_unique_carcassonne_castle_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		local_defensive = 0.4
-		local_garrison_size = 500
+		local_garrison_size = 0.5
+		local_max_control = 0.2
 		monthly_towards_defensive = 0.1
 	}
 

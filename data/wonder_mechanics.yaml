@@ -1231,7 +1231,7 @@ buildings:
   great_port:
     final_local:
       harbor_suitability: 0.1
-      local_trade_center_power: 0.2
+      local_trade_center_power: 0.1
     final_maintenance:
       tv_wonder_golden_trade_port: tv_wonder_port_monument_maintenance
       tv_wonder_imperial_naval_port: tv_wonder_port_monument_maintenance
@@ -1315,6 +1315,7 @@ buildings:
   giant_tower_temple:
     final_local:
       local_pop_conversion_speed: 0.01
+      local_crown_estate_power: 0.5
     final_maintenance:
       tv_wonder_beacon_rite_temple: tv_wonder_sacred_monument_maintenance
       tv_wonder_pilgrim_stair_temple: tv_wonder_sacred_monument_maintenance
@@ -1338,7 +1339,8 @@ buildings:
   star_fortress_city:
     final_local:
       local_defensive: 0.2
-      local_garrison_size: 250
+      local_garrison_size: 0.25
+      local_max_control: 0.1
     final_maintenance:
       tv_wonder_bastion_trial_fortress: tv_wonder_axis_monument_maintenance
       tv_wonder_siege_games_fortress: tv_wonder_axis_monument_maintenance
@@ -1353,7 +1355,8 @@ buildings:
   great_wall:
     final_local:
       local_defensive: 0.2
-      local_garrison_size: 250
+      local_garrison_size: 0.25
+      local_frontage_allowed: -0.5
     final_maintenance:
       tv_wonder_frontier_muster_wall: tv_wonder_axis_monument_maintenance
       tv_wonder_signal_fires_wall: tv_wonder_axis_monument_maintenance
@@ -1412,7 +1415,7 @@ buildings:
   canal_hub_city:
     final_local:
       local_trade_center_power: 0.1
-      local_monthly_prosperity: 0.1
+      local_monthly_prosperity: 0.001
   frontier_colonization_belt:
     final_local:
       local_migration_attraction: 1
@@ -1433,10 +1436,11 @@ buildings:
     final_local:
       local_build_buildings_cost: -0.1
   royal_art_district:
-    final_local: {}
+    final_local:
+      local_unrest: -0.1
   grand_theater_festival_district:
     final_local:
-      local_cultural_influence: 0.5
+      local_unrest: -0.1
   world_embassy_quarter:
     final_local: {}
   law_code_stele_project:
@@ -1450,7 +1454,7 @@ buildings:
   guild_alliance:
     final_local:
       local_market_access: 0.1
-      local_monthly_prosperity: 0.1
+      local_monthly_prosperity: 0.001
       local_trade_center_power: 0.1
   maritime_trade_station_network:
     final_local:
@@ -1769,7 +1773,7 @@ generic_rituals:
         army_movement_speed: 0.2
     style_2:
       local_modifier:
-        local_monthly_development_modifier: 0.2
+        local_disease_resistance: 0.2
     style_3:
       cost_type: scaled_gold
       reward:
@@ -2255,7 +2259,7 @@ base_modifiers:
     global_pop_promotion_speed: 0.005
     monthly_towards_innovative: 0.05
   large_canal_system:
-    global_monthly_prosperity: 0.05
+    global_monthly_prosperity: 0.0005
     monthly_towards_free_subjects: 0.05
   mountain_terrace_network:
     monthly_towards_traditional_economy: 0.05
