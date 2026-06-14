@@ -2,7 +2,19 @@ metadata:
   purpose: AI prompts for implementing unique wonder rituals from the design-only ritual source.
   source_data: data/unique_wonder_ritual_designs.yaml
   generated_game_code: false
-  design_policy: >
-    This file stores user-authored AI prompts only. It is not consumed by game-code
-    generators until a later implementation pass defines an explicit schema.
-unique_wonders: []
+  design_policy: |
+    This file stores user-authored AI prompts only. It is not consumed by game-code generators until a later implementation pass defines an explicit schema.
+unique_wonders:
+- id: 101
+  key: unique_pharos_lighthouse
+  base_key: great_lighthouse
+  location: alexandria
+  ritual_title: Harbor Lighting and Pilotage Oath
+  prompt: |-
+    后端：
+    1.将地中海的8个标志性地点作为判定地点，硬编码
+    2.仪式可以随时开始，点击开始时，付费并在当地开始建造独特附属建筑，该建筑建造完毕后，弹出事件1告知玩家进入阶段1
+    3.阶段1：每3个月检查一次，伊斯坎达利亚海域是否存在敌对海盗，如果存在，弹出事件组2，要求玩家付出少量代价（从多个硬编码中随机一个，参考本mod其他随机事件），消灭当地的海盗，这将导致当地的所有海盗损失40%的力量，玩家也可以选择不付出代价，不发生任何事；如果当地不再有敌对海盗，弹出事件3，奖励一次性奖励，并告知玩家进入阶段2
+    4.阶段2：每3个月，抽取一个标志性地点进行判定：如果该地点已经由玩家拥有，则弹出事件4，告知玩家该地点通过判定；否则，判定该国是否与玩家有双向“驻港权”关系，如果已经有，则弹出事件5，告知玩家该地点通过判定；否则，弹出事件6，要求玩家付出少量代价，并与目标国家建立双向“驻港权”关系。当所有标志性地点都完成判定时，弹出事件7，奖励永久国家buff奖励，并告知玩家仪式成功，触发奇观落成事件
+    前端：
+    仪式面板由3个部分组成，初始只显示一个建造按钮，进入阶段1后，改为显示一个无标题Card，左侧放置一个较大的Piechart，用于展示当地海盗的平均力量，Piechart中心放置海盗Icon，右侧放置一行风味文本：消灭伊斯坎达利亚的海盗以推进仪式；进入阶段2后，改为显示另一个无标题Card，左侧放置一个较大的Piechart，用于展示当前的控制进度，即x/8，Piechart中心放置与海上航线相关的Icon；在该无标题Card下方，放置8行矮无标题Card，每行开始于location icon，随后是标准location link，中间是expander，右侧是标准country 国旗+country link，最后是status：分为“控制”、“驻港”、“未控”。status是控制、驻港时，Card使用不饱和绿色作为底色，否则使用不饱和红色。
