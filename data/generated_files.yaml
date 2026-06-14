@@ -273,6 +273,10 @@ generated:
     data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
     output: src/in_game/gui/location_window.gui
 
+  - script: scripts/compat/gen_tv_meiou_and_taxes_location_window.py
+    data:   reference_mods/3735059838/in_game/gui/location_window.gui + data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    output: submods/tv_meiou_and_taxes_compat/in_game/gui/location_window.gui
+
   - script: scripts/gen_wonder_editor_catalog.py
     data:   reference_game_files/game/in_game/events + reference_game_files/game/main_menu/common/static_modifiers + reference_game_files/game/main_menu/common/modifier_type_definitions
     output: data/wonder_editor_catalog.yaml

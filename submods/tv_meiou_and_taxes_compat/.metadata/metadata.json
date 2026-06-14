@@ -1,0 +1,31 @@
+{
+  "name": "Towards Victory - MEIOU and Taxes Compatibility",
+  "id": "hades.towards_victory.compat.meiou_and_taxes",
+  "version": "0.1.0",
+  "game_id": "eu5",
+  "supported_game_version": "1.2.*",
+  "short_description": "Compatibility patch for running Towards Victory with MEIOU and Taxes.",
+  "tags": [
+    "User Interface",
+    "Compatibility"
+  ],
+  "relationships": [
+    {
+      "rel_type": "dependency",
+      "id": "hades.towards_victory",
+      "display_name": "Towards Victory",
+      "resource_type": "mod",
+      "version": "0.1.*"
+    },
+    {
+      "rel_type": "dependency",
+      "id": "meiou_and_taxes",
+      "display_name": "MEIOU and Taxes",
+      "resource_type": "mod",
+      "version": "0.1.*"
+    }
+  ],
+  "game_custom_data": {
+    "multiplayer_synchronized": true
+  }
+}
