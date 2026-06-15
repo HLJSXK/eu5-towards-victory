@@ -989,14 +989,14 @@ unique_wonders:
       max_levels: 6
 - id: 122
   key: unique_bank_of_saint_george
-  base_key: royal_mint_system
+  base_key: national_bank
   concept: tv_wonder_unique_bank_of_saint_george
   location: genoa
   image: tv_wonder_unique_bank_of_saint_george
   prompt: The Bank of Saint George in medieval Genoa, vaulted banking hall, ledgers, merchant magistrates, state debt documents, guarded coin chests, harbor city beyond, founding ceremony, historically grounded world wonder key art, cinematic interior, ultra-detailed, no modern elements.
   is_unique: true
   initial_level: 0
-  mechanic_key: royal_mint_system
+  mechanic_key: national_bank
   base_effect_multiplier: 2
   final_buildings:
     1: tv_wonder_unique_bank_of_saint_george_inaugurated
@@ -4443,6 +4443,456 @@ unique_wonders:
     country_modifier:
       trade_income: 0.05
       diplomatic_reputation: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 207
+  key: unique_schoenbrunn_palace
+  base_key: palace_of_nations
+  concept: tv_wonder_unique_schoenbrunn_palace
+  location: vienna
+  image: tv_wonder_unique_schoenbrunn_palace
+  prompt: Schonbrunn Palace outside Vienna, yellow Baroque imperial palace, formal gardens, Gloriette hill, court carriages, diplomats and Habsburg officials gathering for a congress of nations, historically grounded world wonder key art, cinematic palace-garden panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: palace_of_nations
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_schoenbrunn_palace_inaugurated
+  ritual:
+    key: habsburg_congress_audience
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      diplomatic_reputation: 1
+      monthly_prestige: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 208
+  key: unique_electoral_conference_hall
+  base_key: great_assembly_hall
+  concept: tv_wonder_unique_electoral_conference_hall
+  location: frankfurt
+  image: tv_wonder_unique_electoral_conference_hall
+  prompt: Electoral conference hall in late medieval Frankfurt, timber and stone council chamber, prince-electors seated under imperial banners, clerks, seals, envoys, crowded civic square outside the Roemer, historically grounded world wonder key art, cinematic imperial assembly interior, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: great_assembly_hall
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_electoral_conference_hall_inaugurated
+  ritual:
+    key: golden_bull_convocation
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.12
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 209
+  key: unique_aachen_cathedral
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_aachen_cathedral
+  location: aachen
+  image: tv_wonder_unique_aachen_cathedral
+  prompt: Aachen Cathedral and Palatine Chapel, octagonal Carolingian chapel, Gothic choir, imperial throne, golden reliquaries, coronation clergy and nobles, pilgrims in the old imperial city, historically grounded world wonder key art, cinematic sacred interior and courtyard, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_aachen_cathedral_inaugurated
+  ritual:
+    key: imperial_coronation_liturgy
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.08
+      clergy_estate_target_satisfaction: 0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 210
+  key: unique_nuremberg_imperial_castle
+  base_key: star_fortress_city
+  concept: tv_wonder_unique_nuremberg_imperial_castle
+  location: nuremberg
+  image: tv_wonder_unique_nuremberg_imperial_castle
+  prompt: Nuremberg Imperial Castle above the free imperial city, sandstone towers, curtain walls, imperial chapel, arsenal courtyards, city roofs and workshops below, banners and guards on the ramparts, historically grounded world wonder key art, cinematic fortified city panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: star_fortress_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_nuremberg_imperial_castle_inaugurated
+  ritual:
+    key: imperial_regalia_guard
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      fort_maintenance_cost: -0.05
+      global_garrison_size_modifier: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 211
+  key: unique_augsburg_bank
+  base_key: national_bank
+  concept: tv_wonder_unique_augsburg_bank
+  location: augsburg
+  image: tv_wonder_unique_augsburg_bank
+  prompt: Augsburg banking house of the Fugger era, Renaissance counting room, merchant bankers, state debt ledgers, imperial loan contracts, guarded vaults, coin chests, couriers, city rooftops and trade streets beyond, historically grounded world wonder key art, cinematic financial interior, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: national_bank
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_augsburg_bank_inaugurated
+  ritual:
+    key: imperial_credit_contracts
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tax_income_efficiency: 0.04
+      merchant_maintenance_efficiency: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 212
+  key: unique_cologne_cathedral
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_cologne_cathedral
+  location: cologne
+  image: tv_wonder_unique_cologne_cathedral
+  prompt: Cologne Cathedral rising over the Rhine, vast Gothic choir and twin tower works, flying buttresses, relic shrine of the Three Kings, cranes and scaffolds, pilgrims and merchants in the cathedral square, historically grounded world wonder key art, cinematic urban sacred panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_cologne_cathedral_inaugurated
+  ritual:
+    key: three_kings_pilgrimage
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_pop_conversion_speed: 0.05
+      monthly_prestige: 0.06
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 213
+  key: unique_hanseatic_kontor
+  base_key: guild_alliance
+  concept: tv_wonder_unique_hanseatic_kontor
+  location: hamburg
+  image: tv_wonder_unique_hanseatic_kontor
+  prompt: Hanseatic Kontor in Hamburg, brick merchant guildhall and warehouse yards, counting rooms, seals, ledgers, Baltic and North Sea goods, cranes on the Elbe, ship masts, burgher merchants negotiating under league banners, historically grounded world wonder key art, cinematic commercial harbor view, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: guild_alliance
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_hanseatic_kontor_inaugurated
+  ritual:
+    key: kontor_ledger_oath
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      trade_income: 0.04
+      merchant_maintenance_efficiency: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 214
+  key: unique_hanseatic_town_hall
+  base_key: great_assembly_hall
+  concept: tv_wonder_unique_hanseatic_town_hall
+  location: lubeck
+  image: tv_wonder_unique_hanseatic_town_hall
+  prompt: Lubeck Hanseatic town hall, brick Gothic facade, council chamber with merchant benches, league envoys, city seals, trade charters, crowded market square and Marienkirche towers nearby, historically grounded world wonder key art, cinematic civic assembly view, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: great_assembly_hall
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_hanseatic_town_hall_inaugurated
+  ritual:
+    key: league_diet_session
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      diplomatic_reputation: 1
+      burghers_estate_target_satisfaction: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 215
+  key: unique_dresden_art_gallery
+  base_key: royal_art_district
+  concept: tv_wonder_unique_dresden_art_gallery
+  location: dresden
+  image: tv_wonder_unique_dresden_art_gallery
+  prompt: Dresden royal art gallery in the Saxon court, Baroque palace gallery rooms, paintings, sculpture, porcelain cabinets, artists, curators, court patrons, Elbe city beyond, historically grounded world wonder key art, cinematic museum-palace interior, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: royal_art_district
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_dresden_art_gallery_inaugurated
+  ritual:
+    key: elector_gallery_opening
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      art_creation_speed: 0.05
+      monthly_prestige: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 216
+  key: unique_munich_royal_brewery
+  base_key: giant_workshop_complex
+  concept: tv_wonder_unique_munich_royal_brewery
+  location: munich
+  image: tv_wonder_unique_munich_royal_brewery
+  prompt: Munich royal brewery and Hofbrauhaus workshops, copper brewing kettles, malt stores, coopers, guild workers, ducal officials, beer hall courtyard, wagons and barrels in a Bavarian city street, historically grounded world wonder key art, cinematic production interior and yard, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: giant_workshop_complex
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_munich_royal_brewery_inaugurated
+  ritual:
+    key: ducal_brewery_charter
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_production_efficiency: 0.04
+      stability_investment: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 217
+  key: unique_heidelberg_university
+  base_key: university_city
+  concept: tv_wonder_unique_heidelberg_university
+  location: heidelberg
+  image: tv_wonder_unique_heidelberg_university
+  prompt: Heidelberg University in a late medieval town, lecture halls, libraries, scholars in robes, students under arcades, manuscripts, the Neckar river and castle hill beyond, ceremonial university charter, historically grounded world wonder key art, cinematic scholarly urban view, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: university_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_heidelberg_university_inaugurated
+  ritual:
+    key: palatine_scholars_convocation
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.04
+      global_monthly_literacy: 0.002
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''

@@ -1121,6 +1121,27 @@ tv_wonder_validate_priority_candidate_for_saved_wonder_effect = {
 		limit = {
 			has_owner = yes
 			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 53 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_national_bank_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_national_bank_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
 			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 101 }
 		}
 		if = {
@@ -3337,6 +3358,237 @@ tv_wonder_validate_priority_candidate_for_saved_wonder_effect = {
 		}
 		else_if = {
 			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_sanaa_old_city_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 207 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_schoenbrunn_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_schoenbrunn_palace_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 208 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_electoral_conference_hall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_electoral_conference_hall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 209 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_aachen_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_aachen_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 210 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_nuremberg_imperial_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_nuremberg_imperial_castle_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 211 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_augsburg_bank_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_augsburg_bank_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 212 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_cologne_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_cologne_cathedral_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 213 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_hanseatic_kontor_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_hanseatic_kontor_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 214 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_hanseatic_town_hall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_hanseatic_town_hall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 215 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_dresden_art_gallery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_dresden_art_gallery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 216 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_munich_royal_brewery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_munich_royal_brewery_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 217 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_heidelberg_university_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_heidelberg_university_trigger = yes }
 			scope:tv_wonder_priority_owner = {
 				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
 				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
@@ -10129,6 +10381,35 @@ tv_wonder_destroy_discovered_generic_intermediate_buildings_at_location_effect =
 			destroy_building_forcefully = "building(building_type:tv_wonder_summer_palace_decoration|scope:tv_wonder_module_owner)"
 		}
 	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_public_credit_bank
+				has_building = building_type:tv_wonder_state_debt_office
+				has_building = building_type:tv_wonder_merchant_clearing_bank
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_national_bank }
+			destroy_building_forcefully = "building(building_type:tv_wonder_national_bank|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_national_bank_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_national_bank_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_national_bank_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_national_bank_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_national_bank_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_national_bank_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_national_bank_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_national_bank_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
 }
 
 tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect = {
@@ -12993,6 +13274,303 @@ tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect = 
 		if = {
 			limit = { has_building = building_type:tv_wonder_unique_sanaa_old_city_decoration }
 			destroy_building_forcefully = "building(building_type:tv_wonder_unique_sanaa_old_city_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_schoenbrunn_palace }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_schoenbrunn_palace|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_schoenbrunn_palace_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_schoenbrunn_palace_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_schoenbrunn_palace_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_schoenbrunn_palace_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_schoenbrunn_palace_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_schoenbrunn_palace_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_schoenbrunn_palace_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_schoenbrunn_palace_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_electoral_conference_hall }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_electoral_conference_hall|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_electoral_conference_hall_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_electoral_conference_hall_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_electoral_conference_hall_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_electoral_conference_hall_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_electoral_conference_hall_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_electoral_conference_hall_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_electoral_conference_hall_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_electoral_conference_hall_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_aachen_cathedral_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_aachen_cathedral }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_aachen_cathedral|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_aachen_cathedral_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_aachen_cathedral_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_aachen_cathedral_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_aachen_cathedral_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_aachen_cathedral_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_aachen_cathedral_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_aachen_cathedral_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_aachen_cathedral_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_nuremberg_imperial_castle }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_nuremberg_imperial_castle|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_nuremberg_imperial_castle_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_nuremberg_imperial_castle_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_nuremberg_imperial_castle_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_nuremberg_imperial_castle_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_nuremberg_imperial_castle_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_nuremberg_imperial_castle_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_nuremberg_imperial_castle_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_nuremberg_imperial_castle_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_augsburg_bank_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_augsburg_bank }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_augsburg_bank|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_augsburg_bank_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_augsburg_bank_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_augsburg_bank_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_augsburg_bank_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_augsburg_bank_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_augsburg_bank_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_augsburg_bank_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_augsburg_bank_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_cologne_cathedral_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_cologne_cathedral }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_cologne_cathedral|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_cologne_cathedral_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_cologne_cathedral_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_cologne_cathedral_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_cologne_cathedral_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_cologne_cathedral_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_cologne_cathedral_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_cologne_cathedral_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_cologne_cathedral_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_kontor }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_kontor|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_kontor_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_kontor_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_kontor_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_kontor_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_kontor_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_kontor_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_kontor_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_kontor_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_town_hall }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_town_hall|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_town_hall_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_town_hall_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_town_hall_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_town_hall_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_town_hall_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_town_hall_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_hanseatic_town_hall_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_hanseatic_town_hall_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_dresden_art_gallery }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_dresden_art_gallery|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_dresden_art_gallery_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_dresden_art_gallery_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_dresden_art_gallery_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_dresden_art_gallery_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_dresden_art_gallery_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_dresden_art_gallery_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_dresden_art_gallery_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_dresden_art_gallery_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_munich_royal_brewery }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_munich_royal_brewery|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_munich_royal_brewery_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_munich_royal_brewery_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_munich_royal_brewery_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_munich_royal_brewery_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_munich_royal_brewery_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_munich_royal_brewery_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_munich_royal_brewery_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_munich_royal_brewery_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_heidelberg_university_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_heidelberg_university }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_heidelberg_university|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_heidelberg_university_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_heidelberg_university_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_heidelberg_university_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_heidelberg_university_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_heidelberg_university_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_heidelberg_university_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_heidelberg_university_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_heidelberg_university_decoration|scope:tv_wonder_module_owner)"
 		}
 	}
 }

@@ -6798,6 +6798,147 @@ tv_wonder_auto_summer_palace_level_6 = {
 	monthly_towards_decentralization = 0.3
 }
 
+tv_wonder_auto_national_bank_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 1 }
+				location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 1 }
+				location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 1 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 2 }
+					location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 2 }
+					location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 2 }
+				}
+			}
+		}
+	}
+	tax_income_efficiency = 0.02
+	merchant_maintenance_efficiency = 0.03
+	monthly_towards_capital_economy = 0.05
+}
+
+tv_wonder_auto_national_bank_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 2 }
+				location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 2 }
+				location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 2 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 3 }
+					location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 3 }
+					location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 3 }
+				}
+			}
+		}
+	}
+	tax_income_efficiency = 0.04
+	merchant_maintenance_efficiency = 0.06
+	monthly_towards_capital_economy = 0.1
+}
+
+tv_wonder_auto_national_bank_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 3 }
+				location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 3 }
+				location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 3 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 4 }
+					location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 4 }
+					location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 4 }
+				}
+			}
+		}
+	}
+	tax_income_efficiency = 0.06
+	merchant_maintenance_efficiency = 0.09
+	monthly_towards_capital_economy = 0.15
+}
+
+tv_wonder_auto_national_bank_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 4 }
+				location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 4 }
+				location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 4 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 5 }
+					location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 5 }
+					location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 5 }
+				}
+			}
+		}
+	}
+	tax_income_efficiency = 0.08
+	merchant_maintenance_efficiency = 0.12
+	monthly_towards_capital_economy = 0.2
+}
+
+tv_wonder_auto_national_bank_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 5 }
+				location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 5 }
+				location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 5 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 6 }
+					location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 6 }
+					location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 6 }
+				}
+			}
+		}
+	}
+	tax_income_efficiency = 0.1
+	merchant_maintenance_efficiency = 0.15
+	monthly_towards_capital_economy = 0.25
+}
+
+tv_wonder_auto_national_bank_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_public_credit_bank value >= 6 }
+				location_building_level = { building_type = building_type:tv_wonder_state_debt_office value >= 6 }
+				location_building_level = { building_type = building_type:tv_wonder_merchant_clearing_bank value >= 6 }
+			}
+		}
+	}
+	tax_income_efficiency = 0.12
+	merchant_maintenance_efficiency = 0.18
+	monthly_towards_capital_economy = 0.3
+}
+
 tv_wonder_auto_unique_pharos_lighthouse_level_1 = {
 	category = country
 	potential_trigger = {
@@ -8715,7 +8856,8 @@ tv_wonder_auto_unique_bank_of_saint_george_level_1 = {
 			}
 		}
 	}
-	minting_income_factor = 0.2
+	tax_income_efficiency = 0.04
+	merchant_maintenance_efficiency = 0.06
 	monthly_towards_capital_economy = 0.1
 }
 
@@ -8731,7 +8873,8 @@ tv_wonder_auto_unique_bank_of_saint_george_level_2 = {
 			}
 		}
 	}
-	minting_income_factor = 0.4
+	tax_income_efficiency = 0.08
+	merchant_maintenance_efficiency = 0.12
 	monthly_towards_capital_economy = 0.2
 }
 
@@ -8747,7 +8890,8 @@ tv_wonder_auto_unique_bank_of_saint_george_level_3 = {
 			}
 		}
 	}
-	minting_income_factor = 0.6
+	tax_income_efficiency = 0.12
+	merchant_maintenance_efficiency = 0.18
 	monthly_towards_capital_economy = 0.3
 }
 
@@ -8763,7 +8907,8 @@ tv_wonder_auto_unique_bank_of_saint_george_level_4 = {
 			}
 		}
 	}
-	minting_income_factor = 0.8
+	tax_income_efficiency = 0.16
+	merchant_maintenance_efficiency = 0.24
 	monthly_towards_capital_economy = 0.4
 }
 
@@ -8779,7 +8924,8 @@ tv_wonder_auto_unique_bank_of_saint_george_level_5 = {
 			}
 		}
 	}
-	minting_income_factor = 1
+	tax_income_efficiency = 0.2
+	merchant_maintenance_efficiency = 0.3
 	monthly_towards_capital_economy = 0.5
 }
 
@@ -8790,7 +8936,8 @@ tv_wonder_auto_unique_bank_of_saint_george_level_6 = {
 			location_building_level = { building_type = building_type:tv_wonder_unique_bank_of_saint_george_inaugurated value >= 6 }
 		}
 	}
-	minting_income_factor = 1.2
+	tax_income_efficiency = 0.24
+	merchant_maintenance_efficiency = 0.36
 	monthly_towards_capital_economy = 0.6
 }
 
@@ -16123,4 +16270,1005 @@ tv_wonder_auto_unique_sanaa_old_city_level_6 = {
 	}
 	global_trade_center_power = 1.2
 	monthly_towards_free_trade = 0.6
+}
+
+tv_wonder_auto_unique_schoenbrunn_palace_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 2 }
+			}
+		}
+	}
+	global_distance_from_capital_speed_propagation = 0.1
+	monthly_towards_centralization = 0.1
+}
+
+tv_wonder_auto_unique_schoenbrunn_palace_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 3 }
+			}
+		}
+	}
+	global_distance_from_capital_speed_propagation = 0.2
+	monthly_towards_centralization = 0.2
+}
+
+tv_wonder_auto_unique_schoenbrunn_palace_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 4 }
+			}
+		}
+	}
+	global_distance_from_capital_speed_propagation = 0.3
+	monthly_towards_centralization = 0.3
+}
+
+tv_wonder_auto_unique_schoenbrunn_palace_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 5 }
+			}
+		}
+	}
+	global_distance_from_capital_speed_propagation = 0.4
+	monthly_towards_centralization = 0.4
+}
+
+tv_wonder_auto_unique_schoenbrunn_palace_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 6 }
+			}
+		}
+	}
+	global_distance_from_capital_speed_propagation = 0.5
+	monthly_towards_centralization = 0.5
+}
+
+tv_wonder_auto_unique_schoenbrunn_palace_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_schoenbrunn_palace_inaugurated value >= 6 }
+		}
+	}
+	global_distance_from_capital_speed_propagation = 0.6
+	monthly_towards_centralization = 0.6
+}
+
+tv_wonder_auto_unique_electoral_conference_hall_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 2 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 0.2
+	legislative_efficiency = 0.2
+	monthly_towards_conciliatory = 0.1
+}
+
+tv_wonder_auto_unique_electoral_conference_hall_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 3 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 0.4
+	legislative_efficiency = 0.4
+	monthly_towards_conciliatory = 0.2
+}
+
+tv_wonder_auto_unique_electoral_conference_hall_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 4 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 0.6
+	legislative_efficiency = 0.6
+	monthly_towards_conciliatory = 0.3
+}
+
+tv_wonder_auto_unique_electoral_conference_hall_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 5 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 0.8
+	legislative_efficiency = 0.8
+	monthly_towards_conciliatory = 0.4
+}
+
+tv_wonder_auto_unique_electoral_conference_hall_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 6 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 1
+	legislative_efficiency = 1
+	monthly_towards_conciliatory = 0.5
+}
+
+tv_wonder_auto_unique_electoral_conference_hall_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_electoral_conference_hall_inaugurated value >= 6 }
+		}
+	}
+	country_cabinet_efficiency = 1.2
+	legislative_efficiency = 1.2
+	monthly_towards_conciliatory = 0.6
+}
+
+tv_wonder_auto_unique_aachen_cathedral_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 2 }
+			}
+		}
+	}
+	tolerance_own = 1
+	monthly_towards_spiritualist = 0.1
+}
+
+tv_wonder_auto_unique_aachen_cathedral_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 3 }
+			}
+		}
+	}
+	tolerance_own = 2
+	monthly_towards_spiritualist = 0.2
+}
+
+tv_wonder_auto_unique_aachen_cathedral_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 4 }
+			}
+		}
+	}
+	tolerance_own = 3
+	monthly_towards_spiritualist = 0.3
+}
+
+tv_wonder_auto_unique_aachen_cathedral_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 5 }
+			}
+		}
+	}
+	tolerance_own = 4
+	monthly_towards_spiritualist = 0.4
+}
+
+tv_wonder_auto_unique_aachen_cathedral_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 6 }
+			}
+		}
+	}
+	tolerance_own = 5
+	monthly_towards_spiritualist = 0.5
+}
+
+tv_wonder_auto_unique_aachen_cathedral_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value >= 6 }
+		}
+	}
+	tolerance_own = 6
+	monthly_towards_spiritualist = 0.6
+}
+
+tv_wonder_auto_unique_nuremberg_imperial_castle_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 2 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.1
+}
+
+tv_wonder_auto_unique_nuremberg_imperial_castle_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 3 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.2
+}
+
+tv_wonder_auto_unique_nuremberg_imperial_castle_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 4 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.3
+}
+
+tv_wonder_auto_unique_nuremberg_imperial_castle_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 5 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.4
+}
+
+tv_wonder_auto_unique_nuremberg_imperial_castle_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 6 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.5
+}
+
+tv_wonder_auto_unique_nuremberg_imperial_castle_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value >= 6 }
+		}
+	}
+	monthly_towards_defensive = 0.6
+}
+
+tv_wonder_auto_unique_augsburg_bank_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 2 }
+			}
+		}
+	}
+	tax_income_efficiency = 0.04
+	merchant_maintenance_efficiency = 0.06
+	monthly_towards_capital_economy = 0.1
+}
+
+tv_wonder_auto_unique_augsburg_bank_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 3 }
+			}
+		}
+	}
+	tax_income_efficiency = 0.08
+	merchant_maintenance_efficiency = 0.12
+	monthly_towards_capital_economy = 0.2
+}
+
+tv_wonder_auto_unique_augsburg_bank_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 4 }
+			}
+		}
+	}
+	tax_income_efficiency = 0.12
+	merchant_maintenance_efficiency = 0.18
+	monthly_towards_capital_economy = 0.3
+}
+
+tv_wonder_auto_unique_augsburg_bank_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 5 }
+			}
+		}
+	}
+	tax_income_efficiency = 0.16
+	merchant_maintenance_efficiency = 0.24
+	monthly_towards_capital_economy = 0.4
+}
+
+tv_wonder_auto_unique_augsburg_bank_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 6 }
+			}
+		}
+	}
+	tax_income_efficiency = 0.2
+	merchant_maintenance_efficiency = 0.3
+	monthly_towards_capital_economy = 0.5
+}
+
+tv_wonder_auto_unique_augsburg_bank_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_augsburg_bank_inaugurated value >= 6 }
+		}
+	}
+	tax_income_efficiency = 0.24
+	merchant_maintenance_efficiency = 0.36
+	monthly_towards_capital_economy = 0.6
+}
+
+tv_wonder_auto_unique_cologne_cathedral_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 2 }
+			}
+		}
+	}
+	tolerance_own = 1
+	monthly_towards_spiritualist = 0.1
+}
+
+tv_wonder_auto_unique_cologne_cathedral_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 3 }
+			}
+		}
+	}
+	tolerance_own = 2
+	monthly_towards_spiritualist = 0.2
+}
+
+tv_wonder_auto_unique_cologne_cathedral_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 4 }
+			}
+		}
+	}
+	tolerance_own = 3
+	monthly_towards_spiritualist = 0.3
+}
+
+tv_wonder_auto_unique_cologne_cathedral_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 5 }
+			}
+		}
+	}
+	tolerance_own = 4
+	monthly_towards_spiritualist = 0.4
+}
+
+tv_wonder_auto_unique_cologne_cathedral_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 6 }
+			}
+		}
+	}
+	tolerance_own = 5
+	monthly_towards_spiritualist = 0.5
+}
+
+tv_wonder_auto_unique_cologne_cathedral_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value >= 6 }
+		}
+	}
+	tolerance_own = 6
+	monthly_towards_spiritualist = 0.6
+}
+
+tv_wonder_auto_unique_hanseatic_kontor_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 2 }
+			}
+		}
+	}
+	monthly_towards_plutocracy = 0.1
+}
+
+tv_wonder_auto_unique_hanseatic_kontor_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 3 }
+			}
+		}
+	}
+	monthly_towards_plutocracy = 0.2
+}
+
+tv_wonder_auto_unique_hanseatic_kontor_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 4 }
+			}
+		}
+	}
+	monthly_towards_plutocracy = 0.3
+}
+
+tv_wonder_auto_unique_hanseatic_kontor_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 5 }
+			}
+		}
+	}
+	monthly_towards_plutocracy = 0.4
+}
+
+tv_wonder_auto_unique_hanseatic_kontor_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 6 }
+			}
+		}
+	}
+	monthly_towards_plutocracy = 0.5
+}
+
+tv_wonder_auto_unique_hanseatic_kontor_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value >= 6 }
+		}
+	}
+	monthly_towards_plutocracy = 0.6
+}
+
+tv_wonder_auto_unique_hanseatic_town_hall_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 2 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 0.2
+	legislative_efficiency = 0.2
+	monthly_towards_conciliatory = 0.1
+}
+
+tv_wonder_auto_unique_hanseatic_town_hall_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 3 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 0.4
+	legislative_efficiency = 0.4
+	monthly_towards_conciliatory = 0.2
+}
+
+tv_wonder_auto_unique_hanseatic_town_hall_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 4 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 0.6
+	legislative_efficiency = 0.6
+	monthly_towards_conciliatory = 0.3
+}
+
+tv_wonder_auto_unique_hanseatic_town_hall_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 5 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 0.8
+	legislative_efficiency = 0.8
+	monthly_towards_conciliatory = 0.4
+}
+
+tv_wonder_auto_unique_hanseatic_town_hall_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 6 }
+			}
+		}
+	}
+	country_cabinet_efficiency = 1
+	legislative_efficiency = 1
+	monthly_towards_conciliatory = 0.5
+}
+
+tv_wonder_auto_unique_hanseatic_town_hall_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value >= 6 }
+		}
+	}
+	country_cabinet_efficiency = 1.2
+	legislative_efficiency = 1.2
+	monthly_towards_conciliatory = 0.6
+}
+
+tv_wonder_auto_unique_dresden_art_gallery_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 2 }
+			}
+		}
+	}
+	num_possible_artists = 2
+	artist_salary_modifier = -0.2
+	monthly_towards_innovative = 0.1
+}
+
+tv_wonder_auto_unique_dresden_art_gallery_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 3 }
+			}
+		}
+	}
+	num_possible_artists = 4
+	artist_salary_modifier = -0.4
+	monthly_towards_innovative = 0.2
+}
+
+tv_wonder_auto_unique_dresden_art_gallery_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 4 }
+			}
+		}
+	}
+	num_possible_artists = 6
+	artist_salary_modifier = -0.6
+	monthly_towards_innovative = 0.3
+}
+
+tv_wonder_auto_unique_dresden_art_gallery_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 5 }
+			}
+		}
+	}
+	num_possible_artists = 8
+	artist_salary_modifier = -0.8
+	monthly_towards_innovative = 0.4
+}
+
+tv_wonder_auto_unique_dresden_art_gallery_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 6 }
+			}
+		}
+	}
+	num_possible_artists = 10
+	artist_salary_modifier = -1
+	monthly_towards_innovative = 0.5
+}
+
+tv_wonder_auto_unique_dresden_art_gallery_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_dresden_art_gallery_inaugurated value >= 6 }
+		}
+	}
+	num_possible_artists = 12
+	artist_salary_modifier = -1.2
+	monthly_towards_innovative = 0.6
+}
+
+tv_wonder_auto_unique_munich_royal_brewery_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 2 }
+			}
+		}
+	}
+	monthly_towards_capital_economy = 0.1
+}
+
+tv_wonder_auto_unique_munich_royal_brewery_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 3 }
+			}
+		}
+	}
+	monthly_towards_capital_economy = 0.2
+}
+
+tv_wonder_auto_unique_munich_royal_brewery_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 4 }
+			}
+		}
+	}
+	monthly_towards_capital_economy = 0.3
+}
+
+tv_wonder_auto_unique_munich_royal_brewery_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 5 }
+			}
+		}
+	}
+	monthly_towards_capital_economy = 0.4
+}
+
+tv_wonder_auto_unique_munich_royal_brewery_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 6 }
+			}
+		}
+	}
+	monthly_towards_capital_economy = 0.5
+}
+
+tv_wonder_auto_unique_munich_royal_brewery_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_munich_royal_brewery_inaugurated value >= 6 }
+		}
+	}
+	monthly_towards_capital_economy = 0.6
+}
+
+tv_wonder_auto_unique_heidelberg_university_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 2 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.1
+}
+
+tv_wonder_auto_unique_heidelberg_university_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 3 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.2
+}
+
+tv_wonder_auto_unique_heidelberg_university_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 4 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.3
+}
+
+tv_wonder_auto_unique_heidelberg_university_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 5 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.4
+}
+
+tv_wonder_auto_unique_heidelberg_university_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 6 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.5
+}
+
+tv_wonder_auto_unique_heidelberg_university_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_heidelberg_university_inaugurated value >= 6 }
+		}
+	}
+	monthly_towards_innovative = 0.6
 }

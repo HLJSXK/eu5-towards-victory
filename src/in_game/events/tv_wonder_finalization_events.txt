@@ -2293,6 +2293,50 @@ tv_engineering_department.5052 = {
 	}
 }
 
+tv_engineering_department.5053 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d
+			}
+			desc = tv_engineering_department.500.d
+		}
+	}
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_national_bank_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_national_bank_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_national_bank_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_national_bank_style_3_construct_final_building_effect = yes
+		}
+		tv_wonder_national_bank_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
 tv_engineering_department.5101 = {
 	type = country_event
 	title = tv_engineering_department.500.t
@@ -4095,7 +4139,194 @@ tv_engineering_department.5206 = {
 	}
 }
 
-tv_engineering_department.6202 = {
+tv_engineering_department.5207 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_schoenbrunn_palace
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_schoenbrunn_palace_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_schoenbrunn_palace_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_schoenbrunn_palace_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5208 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_electoral_conference_hall
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_electoral_conference_hall_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_electoral_conference_hall_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_electoral_conference_hall_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5209 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_aachen_cathedral
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_aachen_cathedral_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_aachen_cathedral_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_aachen_cathedral_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5210 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_nuremberg_imperial_castle
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_nuremberg_imperial_castle_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_nuremberg_imperial_castle_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_nuremberg_imperial_castle_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5211 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_augsburg_bank
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_augsburg_bank_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_augsburg_bank_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_augsburg_bank_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5212 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_cologne_cathedral
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_cologne_cathedral_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_cologne_cathedral_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_cologne_cathedral_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5213 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_hanseatic_kontor
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_hanseatic_kontor_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_hanseatic_kontor_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_hanseatic_kontor_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5214 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_hanseatic_town_hall
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_hanseatic_town_hall_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_hanseatic_town_hall_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_hanseatic_town_hall_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5215 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_dresden_art_gallery
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_dresden_art_gallery_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_dresden_art_gallery_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_dresden_art_gallery_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5216 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_munich_royal_brewery
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_munich_royal_brewery_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_munich_royal_brewery_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_munich_royal_brewery_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5217 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_heidelberg_university
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_heidelberg_university_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_heidelberg_university_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_heidelberg_university_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.6999 = {
 	type = country_event
 	outcome = neutral
 	title = empty_text
@@ -4724,6 +4955,18 @@ tv_engineering_department.6052 = {
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d_summer_palace
 	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_summer_palace_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6053 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_national_bank
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_national_bank_cropped.dds"
 	outcome = neutral
 
 	option = {
@@ -5996,6 +6239,138 @@ tv_engineering_department.6206 = {
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d_unique_sanaa_old_city
 	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_sanaa_old_city_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6207 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_schoenbrunn_palace
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_schoenbrunn_palace_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6208 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_electoral_conference_hall
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_electoral_conference_hall_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6209 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_aachen_cathedral
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_aachen_cathedral_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6210 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_nuremberg_imperial_castle
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_nuremberg_imperial_castle_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6211 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_augsburg_bank
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_augsburg_bank_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6212 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_cologne_cathedral
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_cologne_cathedral_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6213 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_hanseatic_kontor
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_hanseatic_kontor_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6214 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_hanseatic_town_hall
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_hanseatic_town_hall_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6215 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_dresden_art_gallery
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_dresden_art_gallery_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6216 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_munich_royal_brewery
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_munich_royal_brewery_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6217 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_heidelberg_university
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_heidelberg_university_cropped.dds"
 	outcome = neutral
 
 	option = {

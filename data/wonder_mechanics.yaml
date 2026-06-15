@@ -1143,6 +1143,28 @@ designs:
         en: Diplomatic Pavilion Banquet
         completion: 确认外交凉亭宴方案后完成落成仪式。
         effect: 付费仪式后获得 +1 外交官与 +30 威望。
+  national_bank:
+    status: 已实现
+    positioning: 公共信用、国债管理与商人清算
+    site: 首都、城市或大都会。
+    preference: 首都 +10%，城市 +5%，大都会 +10%，发展度 ×0.10。
+    base_effect: 每级：2% 税收收入效率、3% 商人维护效率、0.05 月度资本经济倾向；所在地提升市场接入、贸易中心力量和商人容量。
+    branches:
+      1:
+        zh: 公共信用认购
+        en: Public Credit Subscription
+        completion: 确认公共信用认购方案后完成落成仪式。
+        effect: +8% 税收收入效率。
+      2:
+        zh: 国债管理署
+        en: State Debt Office
+        completion: 确认国债管理署方案后完成落成仪式。
+        effect: 所在地提升市场接入与贸易中心力量。
+      3:
+        zh: 商人清算所
+        en: Merchant Clearing House
+        completion: 支付仪式后获得财政回报。
+        effect: 获得金币并降低通胀。
 buildings:
   colonial_trade_company:
     final_local:
@@ -1562,6 +1584,11 @@ buildings:
         category: military_category
       tv_wonder_oceanic_command_academy:
         category: military_category
+  national_bank:
+    final_local:
+      local_market_access: 0.1
+      local_trade_center_power: 0.1
+      local_merchant_capacity: 1
 generic_rituals:
   colonial_trade_company:
     style_1:
@@ -2193,6 +2220,21 @@ generic_rituals:
       reward:
       - type: research_progress
         value: 15
+  national_bank:
+    style_1:
+      country_modifier:
+        tax_income_efficiency: 0.08
+    style_2:
+      local_modifier:
+        local_market_access: 0.1
+        local_trade_center_power: 0.1
+    style_3:
+      cost_type: scaled_gold
+      reward:
+      - type: gold
+        value: 8000
+      - type: inflation
+        value: -0.05
 base_modifiers:
   colonial_trade_company:
     global_merchant_power: 0.2
@@ -2249,6 +2291,10 @@ base_modifiers:
   national_shipyard:
     ship_build_speed: 0.2
     monthly_towards_naval: 0.05
+  national_bank:
+    tax_income_efficiency: 0.02
+    merchant_maintenance_efficiency: 0.03
+    monthly_towards_capital_economy: 0.05
   star_fortress_city:
     monthly_towards_defensive: 0.05
   great_wall:
@@ -2567,6 +2613,31 @@ site_rules:
   palace_of_nations:
     trigger_script: is_capital = yes
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  national_bank:
+    trigger_script: |-
+      OR = {
+        is_capital = yes
+        location_rank ?= location_rank:city
+        location_rank ?= location_rank:megalopolis
+      }
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
   river_extension:
     trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n}"
     preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:bridge_infrastructure } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { has_building = building_type:tv_wonder_bridge_opening } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nremove_variable = tv_wonder_site_preference_bonus"

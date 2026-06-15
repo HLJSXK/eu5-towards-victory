@@ -1181,6 +1181,38 @@ wonder_localization:
     tv_wonder_international_settlement_mint_desc: The International Settlement branch of the Royal Mint.
     TV_ENGINEERING_CEREMONY_INTERNATIONAL_SETTLEMENT_MINT_BUTTON: International Settlement
     TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_3: Confirm the International Settlement ceremony for the Royal Mint. +1 外交声誉、+4% 贸易收入.
+    game_concept_tv_wonder_national_bank_desc: A National Bank is a [tv_wonder_construction|e] project focused on public credit, state debt administration, and merchant clearing. It prefers the capital, cities, and megalopolises. Its ceremonies can emphasize Public Credit Subscription, State Debt Office, Merchant Clearing House.
+    TV_ENGINEERING_PROPOSAL_NATIONAL_BANK_TEXT: The [tv_great_engineer|E] proposes [tv_wonder_national_bank|E].
+    TV_ENGINEERING_PROPOSAL_RESUME_NATIONAL_BANK_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_national_bank|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_NATIONAL_BANK_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_national_bank|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_NATIONAL_BANK_TEXT: '@lock! Locked Wonder: [tv_wonder_national_bank|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_NATIONAL_BANK: '@city! National Bank'
+    TV_WONDER_LOCK_NATIONAL_BANK_TT: Locks [tv_wonder_national_bank|E] as the Engineering Department's active wonder.
+    tv_wonder_national_bank_foundation: National Bank Foundation
+    tv_wonder_national_bank_foundation_desc: A preserved foundation module for the National Bank.
+    tv_wonder_national_bank_body: National Bank Main Structure
+    tv_wonder_national_bank_body_desc: A preserved main structure module for the National Bank.
+    tv_wonder_national_bank_function: National Bank Functional Works
+    tv_wonder_national_bank_function_desc: A preserved functional works module for the National Bank.
+    tv_wonder_national_bank_decoration: National Bank Crowning Works
+    tv_wonder_national_bank_decoration_desc: A preserved crowning works module for the National Bank.
+    tv_wonder_national_bank: National Bank
+    tv_wonder_national_bank_ritual_annex: National Bank Ritual Annex
+    tv_wonder_national_bank_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the National Bank.
+    tv_wonder_national_bank_desc: An unconsecrated National Bank preserved as completed construction.
+    STATIC_MODIFIER_NAME_tv_wonder_national_bank_ritual_burden_modifier: Public Credit Subscription Ritual Burden
+    tv_wonder_public_credit_bank: Public Credit Subscription
+    tv_wonder_public_credit_bank_desc: The Public Credit Subscription branch of the National Bank.
+    TV_ENGINEERING_CEREMONY_PUBLIC_CREDIT_BANK_BUTTON: Public Credit Subscription
+    TV_ENGINEERING_ACTIVE_RITUAL_NATIONAL_BANK_1: Confirm the Public Credit Subscription ceremony for the National Bank. +8% tax income efficiency.
+    tv_wonder_state_debt_office: State Debt Office
+    tv_wonder_state_debt_office_desc: The State Debt Office branch of the National Bank.
+    TV_ENGINEERING_CEREMONY_STATE_DEBT_OFFICE_BUTTON: State Debt Office
+    TV_ENGINEERING_ACTIVE_RITUAL_NATIONAL_BANK_2: Confirm the State Debt Office ceremony for the National Bank. The site gains market access and trade-center power.
+    tv_wonder_merchant_clearing_bank: Merchant Clearing House
+    tv_wonder_merchant_clearing_bank_desc: The Merchant Clearing House branch of the National Bank.
+    TV_ENGINEERING_CEREMONY_MERCHANT_CLEARING_BANK_BUTTON: Merchant Clearing House
+    TV_ENGINEERING_ACTIVE_RITUAL_NATIONAL_BANK_3: Confirm the Merchant Clearing House ceremony for the National Bank. Pay gold to receive a larger fiscal return and reduce inflation.
     game_concept_tv_wonder_guild_alliance_desc: A Guild Alliance is a [tv_wonder_construction|e] project focused on 城市商业组织. It prefers 非乡村地点。 Its ceremonies can emphasize Artisan Guild Alliance, Overseas Merchant Guilds, Financial Guilds.
     TV_ENGINEERING_PROPOSAL_GUILD_ALLIANCE_TEXT: The [tv_great_engineer|E] proposes [tv_wonder_guild_alliance|E].
     TV_ENGINEERING_PROPOSAL_RESUME_GUILD_ALLIANCE_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_guild_alliance|E] and reuse the preserved construction at the site.
@@ -4289,6 +4321,248 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_SANAA_OLD_CITY_INAUGURATED_BUTTON: Sana'a Souk Opening
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SANAA_OLD_CITY_1: Confirm the Sana'a Souk Opening ceremony for Sana'a Old City. The opening improves trade income and diplomatic reputation.
     tv_engineering_department.500.d_unique_sanaa_old_city: Tower houses, gypsum patterns, crowded souks, caravan merchants, incense, coffee, metalworkers, and minarets make Sana'a Old City a vertical market. The engineer proposes a city where commerce rises floor by floor above the souk. The Sana'a Souk Opening now completes the wonder at its fixed historical site. The opening improves trade income and diplomatic reputation.
+    game_concept_tv_wonder_unique_schoenbrunn_palace_desc: Baroque palace wings, ceremonial gardens, galleries, and diplomatic apartments make Schoenbrunn a courtly stage for imperial congress. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Palace of Nations archetype, and culminates in the Habsburg Congress Audience ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_SCHOENBRUNN_PALACE_TEXT: The engineer points to Schoenbrunn, where gardens and audience rooms can make Habsburg diplomacy look like the natural order of Europe.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_SCHOENBRUNN_PALACE_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_schoenbrunn_palace|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_SCHOENBRUNN_PALACE_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_schoenbrunn_palace|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_SCHOENBRUNN_PALACE_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_schoenbrunn_palace|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SCHOENBRUNN_PALACE: '@city! Schoenbrunn Palace'
+    TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT: Locks [tv_wonder_unique_schoenbrunn_palace|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_schoenbrunn_palace_foundation: Schoenbrunn Palace Foundation
+    tv_wonder_unique_schoenbrunn_palace_foundation_desc: A preserved foundation module for Schoenbrunn Palace.
+    tv_wonder_unique_schoenbrunn_palace_body: Schoenbrunn Palace Main Structure
+    tv_wonder_unique_schoenbrunn_palace_body_desc: A preserved main structure module for Schoenbrunn Palace.
+    tv_wonder_unique_schoenbrunn_palace_function: Schoenbrunn Palace Functional Works
+    tv_wonder_unique_schoenbrunn_palace_function_desc: A preserved functional works module for Schoenbrunn Palace.
+    tv_wonder_unique_schoenbrunn_palace_decoration: Schoenbrunn Palace Crowning Works
+    tv_wonder_unique_schoenbrunn_palace_decoration_desc: A preserved crowning works module for Schoenbrunn Palace.
+    tv_wonder_unique_schoenbrunn_palace: Schoenbrunn Palace
+    tv_wonder_unique_schoenbrunn_palace_desc: An unconsecrated Schoenbrunn Palace preserved as completed construction.
+    tv_wonder_unique_schoenbrunn_palace_inaugurated: Schoenbrunn Palace
+    tv_wonder_unique_schoenbrunn_palace_inaugurated_desc: Baroque palace wings, ceremonial gardens, galleries, and diplomatic apartments make Schoenbrunn a courtly stage for imperial congress.
+    TV_ENGINEERING_CEREMONY_UNIQUE_SCHOENBRUNN_PALACE_INAUGURATED_BUTTON: Habsburg Congress Audience
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SCHOENBRUNN_PALACE_1: Confirm the Habsburg Congress Audience ceremony for Schoenbrunn Palace. The audience improves diplomatic reputation and prestige.
+    tv_engineering_department.500.d_unique_schoenbrunn_palace: Baroque palace wings, ceremonial gardens, galleries, and diplomatic apartments make Schoenbrunn a courtly stage for imperial congress. The engineer points to Schoenbrunn, where gardens and audience rooms can make Habsburg diplomacy look like the natural order of Europe. The Habsburg Congress Audience now completes the wonder at its fixed historical site. The audience improves diplomatic reputation and prestige.
+    game_concept_tv_wonder_unique_electoral_conference_hall_desc: Frankfurt council chambers, prince-elector benches, imperial seals, and civic halls turn royal election into public architecture. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Great Assembly Hall archetype, and culminates in the Golden Bull Convocation ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_ELECTORAL_CONFERENCE_HALL_TEXT: The engineer proposes Frankfurt's electoral conference hall, where the empire's choice of ruler can be given walls, benches, and ritual order.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_ELECTORAL_CONFERENCE_HALL_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_electoral_conference_hall|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_ELECTORAL_CONFERENCE_HALL_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_electoral_conference_hall|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_ELECTORAL_CONFERENCE_HALL_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_electoral_conference_hall|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ELECTORAL_CONFERENCE_HALL: '@city! Electoral Conference Hall'
+    TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT: Locks [tv_wonder_unique_electoral_conference_hall|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_electoral_conference_hall_foundation: Electoral Conference Hall Foundation
+    tv_wonder_unique_electoral_conference_hall_foundation_desc: A preserved foundation module for the Electoral Conference Hall.
+    tv_wonder_unique_electoral_conference_hall_body: Electoral Conference Hall Main Structure
+    tv_wonder_unique_electoral_conference_hall_body_desc: A preserved main structure module for the Electoral Conference Hall.
+    tv_wonder_unique_electoral_conference_hall_function: Electoral Conference Hall Functional Works
+    tv_wonder_unique_electoral_conference_hall_function_desc: A preserved functional works module for the Electoral Conference Hall.
+    tv_wonder_unique_electoral_conference_hall_decoration: Electoral Conference Hall Crowning Works
+    tv_wonder_unique_electoral_conference_hall_decoration_desc: A preserved crowning works module for the Electoral Conference Hall.
+    tv_wonder_unique_electoral_conference_hall: Electoral Conference Hall
+    tv_wonder_unique_electoral_conference_hall_desc: An unconsecrated Electoral Conference Hall preserved as completed construction.
+    tv_wonder_unique_electoral_conference_hall_inaugurated: Electoral Conference Hall
+    tv_wonder_unique_electoral_conference_hall_inaugurated_desc: Frankfurt council chambers, prince-elector benches, imperial seals, and civic halls turn royal election into public architecture.
+    TV_ENGINEERING_CEREMONY_UNIQUE_ELECTORAL_CONFERENCE_HALL_INAUGURATED_BUTTON: Golden Bull Convocation
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ELECTORAL_CONFERENCE_HALL_1: Confirm the Golden Bull Convocation ceremony for the Electoral Conference Hall. The convocation improves legitimacy over time.
+    tv_engineering_department.500.d_unique_electoral_conference_hall: Frankfurt council chambers, prince-elector benches, imperial seals, and civic halls turn royal election into public architecture. The engineer proposes Frankfurt's electoral conference hall, where the empire's choice of ruler can be given walls, benches, and ritual order. The Golden Bull Convocation now completes the wonder at its fixed historical site. The convocation improves legitimacy over time.
+    game_concept_tv_wonder_unique_aachen_cathedral_desc: Carolingian stone, an octagonal chapel, Gothic choir, imperial throne, and golden reliquaries make Aachen Cathedral a shrine of coronation memory. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Grand Cathedral archetype, and culminates in the Imperial Coronation Liturgy ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_AACHEN_CATHEDRAL_TEXT: The engineer invokes Aachen, where Charlemagne's chapel and coronation rites can bind old empire to present rule.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_AACHEN_CATHEDRAL_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_aachen_cathedral|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_AACHEN_CATHEDRAL_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_aachen_cathedral|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_AACHEN_CATHEDRAL_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_aachen_cathedral|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_AACHEN_CATHEDRAL: '@city! Aachen Cathedral'
+    TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT: Locks [tv_wonder_unique_aachen_cathedral|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_aachen_cathedral_foundation: Aachen Cathedral Foundation
+    tv_wonder_unique_aachen_cathedral_foundation_desc: A preserved foundation module for Aachen Cathedral.
+    tv_wonder_unique_aachen_cathedral_body: Aachen Cathedral Main Structure
+    tv_wonder_unique_aachen_cathedral_body_desc: A preserved main structure module for Aachen Cathedral.
+    tv_wonder_unique_aachen_cathedral_function: Aachen Cathedral Functional Works
+    tv_wonder_unique_aachen_cathedral_function_desc: A preserved functional works module for Aachen Cathedral.
+    tv_wonder_unique_aachen_cathedral_decoration: Aachen Cathedral Crowning Works
+    tv_wonder_unique_aachen_cathedral_decoration_desc: A preserved crowning works module for Aachen Cathedral.
+    tv_wonder_unique_aachen_cathedral: Aachen Cathedral
+    tv_wonder_unique_aachen_cathedral_desc: An unconsecrated Aachen Cathedral preserved as completed construction.
+    tv_wonder_unique_aachen_cathedral_inaugurated: Aachen Cathedral
+    tv_wonder_unique_aachen_cathedral_inaugurated_desc: Carolingian stone, an octagonal chapel, Gothic choir, imperial throne, and golden reliquaries make Aachen Cathedral a shrine of coronation memory.
+    TV_ENGINEERING_CEREMONY_UNIQUE_AACHEN_CATHEDRAL_INAUGURATED_BUTTON: Imperial Coronation Liturgy
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_AACHEN_CATHEDRAL_1: Confirm the Imperial Coronation Liturgy ceremony for Aachen Cathedral. The liturgy improves legitimacy and clergy satisfaction.
+    tv_engineering_department.500.d_unique_aachen_cathedral: Carolingian stone, an octagonal chapel, Gothic choir, imperial throne, and golden reliquaries make Aachen Cathedral a shrine of coronation memory. The engineer invokes Aachen, where Charlemagne's chapel and coronation rites can bind old empire to present rule. The Imperial Coronation Liturgy now completes the wonder at its fixed historical site. The liturgy improves legitimacy and clergy satisfaction.
+    game_concept_tv_wonder_unique_nuremberg_imperial_castle_desc: Sandstone towers, imperial chapel, walls, arsenal yards, and free-city roofs make Nuremberg Imperial Castle a fortress of imperial regalia and urban craft. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Star Fortress City archetype, and culminates in the Imperial Regalia Guard ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TEXT: The engineer names Nuremberg Castle, where walls above a workshop city can guard both imperial symbols and military readiness.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_nuremberg_imperial_castle|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_nuremberg_imperial_castle|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_nuremberg_imperial_castle|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_NUREMBERG_IMPERIAL_CASTLE: '@city! Nuremberg Imperial Castle'
+    TV_WONDER_LOCK_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TT: Locks [tv_wonder_unique_nuremberg_imperial_castle|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_nuremberg_imperial_castle_foundation: Nuremberg Imperial Castle Foundation
+    tv_wonder_unique_nuremberg_imperial_castle_foundation_desc: A preserved foundation module for Nuremberg Imperial Castle.
+    tv_wonder_unique_nuremberg_imperial_castle_body: Nuremberg Imperial Castle Main Structure
+    tv_wonder_unique_nuremberg_imperial_castle_body_desc: A preserved main structure module for Nuremberg Imperial Castle.
+    tv_wonder_unique_nuremberg_imperial_castle_function: Nuremberg Imperial Castle Functional Works
+    tv_wonder_unique_nuremberg_imperial_castle_function_desc: A preserved functional works module for Nuremberg Imperial Castle.
+    tv_wonder_unique_nuremberg_imperial_castle_decoration: Nuremberg Imperial Castle Crowning Works
+    tv_wonder_unique_nuremberg_imperial_castle_decoration_desc: A preserved crowning works module for Nuremberg Imperial Castle.
+    tv_wonder_unique_nuremberg_imperial_castle: Nuremberg Imperial Castle
+    tv_wonder_unique_nuremberg_imperial_castle_desc: An unconsecrated Nuremberg Imperial Castle preserved as completed construction.
+    tv_wonder_unique_nuremberg_imperial_castle_inaugurated: Nuremberg Imperial Castle
+    tv_wonder_unique_nuremberg_imperial_castle_inaugurated_desc: Sandstone towers, imperial chapel, walls, arsenal yards, and free-city roofs make Nuremberg Imperial Castle a fortress of imperial regalia and urban craft.
+    TV_ENGINEERING_CEREMONY_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_INAUGURATED_BUTTON: Imperial Regalia Guard
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_1: Confirm the Imperial Regalia Guard ceremony for Nuremberg Imperial Castle. The guard lowers fort maintenance and strengthens garrisons.
+    tv_engineering_department.500.d_unique_nuremberg_imperial_castle: Sandstone towers, imperial chapel, walls, arsenal yards, and free-city roofs make Nuremberg Imperial Castle a fortress of imperial regalia and urban craft. The engineer names Nuremberg Castle, where walls above a workshop city can guard both imperial symbols and military readiness. The Imperial Regalia Guard now completes the wonder at its fixed historical site. The guard lowers fort maintenance and strengthens garrisons.
+    game_concept_tv_wonder_unique_augsburg_bank_desc: Fugger-era counting rooms, vaults, courier desks, imperial loan contracts, and merchant ledgers make Augsburg Bank a machine for public credit. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the National Bank archetype, and culminates in the Imperial Credit Contracts ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_AUGSBURG_BANK_TEXT: The engineer proposes Augsburg Bank, where merchant families can turn imperial loans and clearing ledgers into an institution of state finance.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_AUGSBURG_BANK_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_augsburg_bank|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_AUGSBURG_BANK_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_augsburg_bank|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_AUGSBURG_BANK_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_augsburg_bank|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_AUGSBURG_BANK: '@city! Augsburg Bank'
+    TV_WONDER_LOCK_UNIQUE_AUGSBURG_BANK_TT: Locks [tv_wonder_unique_augsburg_bank|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_augsburg_bank_foundation: Augsburg Bank Foundation
+    tv_wonder_unique_augsburg_bank_foundation_desc: A preserved foundation module for Augsburg Bank.
+    tv_wonder_unique_augsburg_bank_body: Augsburg Bank Main Structure
+    tv_wonder_unique_augsburg_bank_body_desc: A preserved main structure module for Augsburg Bank.
+    tv_wonder_unique_augsburg_bank_function: Augsburg Bank Functional Works
+    tv_wonder_unique_augsburg_bank_function_desc: A preserved functional works module for Augsburg Bank.
+    tv_wonder_unique_augsburg_bank_decoration: Augsburg Bank Crowning Works
+    tv_wonder_unique_augsburg_bank_decoration_desc: A preserved crowning works module for Augsburg Bank.
+    tv_wonder_unique_augsburg_bank: Augsburg Bank
+    tv_wonder_unique_augsburg_bank_desc: An unconsecrated Augsburg Bank preserved as completed construction.
+    tv_wonder_unique_augsburg_bank_inaugurated: Augsburg Bank
+    tv_wonder_unique_augsburg_bank_inaugurated_desc: Fugger-era counting rooms, vaults, courier desks, imperial loan contracts, and merchant ledgers make Augsburg Bank a machine for public credit.
+    TV_ENGINEERING_CEREMONY_UNIQUE_AUGSBURG_BANK_INAUGURATED_BUTTON: Imperial Credit Contracts
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_AUGSBURG_BANK_1: Confirm the Imperial Credit Contracts ceremony for Augsburg Bank. The contracts improve tax efficiency and merchant maintenance.
+    tv_engineering_department.500.d_unique_augsburg_bank: Fugger-era counting rooms, vaults, courier desks, imperial loan contracts, and merchant ledgers make Augsburg Bank a machine for public credit. The engineer proposes Augsburg Bank, where merchant families can turn imperial loans and clearing ledgers into an institution of state finance. The Imperial Credit Contracts now completes the wonder at its fixed historical site. The contracts improve tax efficiency and merchant maintenance.
+    game_concept_tv_wonder_unique_cologne_cathedral_desc: A vast Gothic choir, rising towers, flying buttresses, relic shrines, and Rhine pilgrims make Cologne Cathedral a city-scale argument for sacred prestige. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Grand Cathedral archetype, and culminates in the Three Kings Pilgrimage ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_COLOGNE_CATHEDRAL_TEXT: The engineer points to Cologne Cathedral, where the shrine of the Three Kings can make pilgrimage, trade, and civic faith meet on the Rhine.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_COLOGNE_CATHEDRAL_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_cologne_cathedral|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_COLOGNE_CATHEDRAL_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_cologne_cathedral|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_COLOGNE_CATHEDRAL_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_cologne_cathedral|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_COLOGNE_CATHEDRAL: '@city! Cologne Cathedral'
+    TV_WONDER_LOCK_UNIQUE_COLOGNE_CATHEDRAL_TT: Locks [tv_wonder_unique_cologne_cathedral|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_cologne_cathedral_foundation: Cologne Cathedral Foundation
+    tv_wonder_unique_cologne_cathedral_foundation_desc: A preserved foundation module for Cologne Cathedral.
+    tv_wonder_unique_cologne_cathedral_body: Cologne Cathedral Main Structure
+    tv_wonder_unique_cologne_cathedral_body_desc: A preserved main structure module for Cologne Cathedral.
+    tv_wonder_unique_cologne_cathedral_function: Cologne Cathedral Functional Works
+    tv_wonder_unique_cologne_cathedral_function_desc: A preserved functional works module for Cologne Cathedral.
+    tv_wonder_unique_cologne_cathedral_decoration: Cologne Cathedral Crowning Works
+    tv_wonder_unique_cologne_cathedral_decoration_desc: A preserved crowning works module for Cologne Cathedral.
+    tv_wonder_unique_cologne_cathedral: Cologne Cathedral
+    tv_wonder_unique_cologne_cathedral_desc: An unconsecrated Cologne Cathedral preserved as completed construction.
+    tv_wonder_unique_cologne_cathedral_inaugurated: Cologne Cathedral
+    tv_wonder_unique_cologne_cathedral_inaugurated_desc: A vast Gothic choir, rising towers, flying buttresses, relic shrines, and Rhine pilgrims make Cologne Cathedral a city-scale argument for sacred prestige.
+    TV_ENGINEERING_CEREMONY_UNIQUE_COLOGNE_CATHEDRAL_INAUGURATED_BUTTON: Three Kings Pilgrimage
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_COLOGNE_CATHEDRAL_1: Confirm the Three Kings Pilgrimage ceremony for Cologne Cathedral. The pilgrimage improves conversion and prestige.
+    tv_engineering_department.500.d_unique_cologne_cathedral: A vast Gothic choir, rising towers, flying buttresses, relic shrines, and Rhine pilgrims make Cologne Cathedral a city-scale argument for sacred prestige. The engineer points to Cologne Cathedral, where the shrine of the Three Kings can make pilgrimage, trade, and civic faith meet on the Rhine. The Three Kings Pilgrimage now completes the wonder at its fixed historical site. The pilgrimage improves conversion and prestige.
+    game_concept_tv_wonder_unique_hanseatic_kontor_desc: Brick warehouses, counting rooms, seals, ledgers, cranes, and Elbe ship masts make the Hanseatic Kontor a commercial embassy for league merchants. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Guild Alliance archetype, and culminates in the Kontor Ledger Oath ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_HANSEATIC_KONTOR_TEXT: The engineer proposes a Hanseatic Kontor in Hamburg, where merchants can make league privileges, warehouses, and ledgers speak with one voice.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_HANSEATIC_KONTOR_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_hanseatic_kontor|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_HANSEATIC_KONTOR_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_hanseatic_kontor|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_HANSEATIC_KONTOR_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_hanseatic_kontor|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_HANSEATIC_KONTOR: '@city! Hanseatic Kontor'
+    TV_WONDER_LOCK_UNIQUE_HANSEATIC_KONTOR_TT: Locks [tv_wonder_unique_hanseatic_kontor|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_hanseatic_kontor_foundation: Hanseatic Kontor Foundation
+    tv_wonder_unique_hanseatic_kontor_foundation_desc: A preserved foundation module for the Hanseatic Kontor.
+    tv_wonder_unique_hanseatic_kontor_body: Hanseatic Kontor Main Structure
+    tv_wonder_unique_hanseatic_kontor_body_desc: A preserved main structure module for the Hanseatic Kontor.
+    tv_wonder_unique_hanseatic_kontor_function: Hanseatic Kontor Functional Works
+    tv_wonder_unique_hanseatic_kontor_function_desc: A preserved functional works module for the Hanseatic Kontor.
+    tv_wonder_unique_hanseatic_kontor_decoration: Hanseatic Kontor Crowning Works
+    tv_wonder_unique_hanseatic_kontor_decoration_desc: A preserved crowning works module for the Hanseatic Kontor.
+    tv_wonder_unique_hanseatic_kontor: Hanseatic Kontor
+    tv_wonder_unique_hanseatic_kontor_desc: An unconsecrated Hanseatic Kontor preserved as completed construction.
+    tv_wonder_unique_hanseatic_kontor_inaugurated: Hanseatic Kontor
+    tv_wonder_unique_hanseatic_kontor_inaugurated_desc: Brick warehouses, counting rooms, seals, ledgers, cranes, and Elbe ship masts make the Hanseatic Kontor a commercial embassy for league merchants.
+    TV_ENGINEERING_CEREMONY_UNIQUE_HANSEATIC_KONTOR_INAUGURATED_BUTTON: Kontor Ledger Oath
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_HANSEATIC_KONTOR_1: Confirm the Kontor Ledger Oath ceremony for the Hanseatic Kontor. The oath improves trade income and merchant maintenance.
+    tv_engineering_department.500.d_unique_hanseatic_kontor: Brick warehouses, counting rooms, seals, ledgers, cranes, and Elbe ship masts make the Hanseatic Kontor a commercial embassy for league merchants. The engineer proposes a Hanseatic Kontor in Hamburg, where merchants can make league privileges, warehouses, and ledgers speak with one voice. The Kontor Ledger Oath now completes the wonder at its fixed historical site. The oath improves trade income and merchant maintenance.
+    game_concept_tv_wonder_unique_hanseatic_town_hall_desc: Brick Gothic facades, council chambers, league benches, seals, and market-square charters make Luebeck's Hanseatic Town Hall a civic parliament for merchant cities. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Great Assembly Hall archetype, and culminates in the League Diet Session ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_HANSEATIC_TOWN_HALL_TEXT: The engineer turns to Luebeck's town hall, where the Hanseatic League can become a chamber, a charter, and a vote.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_HANSEATIC_TOWN_HALL_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_hanseatic_town_hall|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_HANSEATIC_TOWN_HALL_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_hanseatic_town_hall|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_HANSEATIC_TOWN_HALL_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_hanseatic_town_hall|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_HANSEATIC_TOWN_HALL: '@city! Hanseatic Town Hall'
+    TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT: Locks [tv_wonder_unique_hanseatic_town_hall|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_hanseatic_town_hall_foundation: Hanseatic Town Hall Foundation
+    tv_wonder_unique_hanseatic_town_hall_foundation_desc: A preserved foundation module for the Hanseatic Town Hall.
+    tv_wonder_unique_hanseatic_town_hall_body: Hanseatic Town Hall Main Structure
+    tv_wonder_unique_hanseatic_town_hall_body_desc: A preserved main structure module for the Hanseatic Town Hall.
+    tv_wonder_unique_hanseatic_town_hall_function: Hanseatic Town Hall Functional Works
+    tv_wonder_unique_hanseatic_town_hall_function_desc: A preserved functional works module for the Hanseatic Town Hall.
+    tv_wonder_unique_hanseatic_town_hall_decoration: Hanseatic Town Hall Crowning Works
+    tv_wonder_unique_hanseatic_town_hall_decoration_desc: A preserved crowning works module for the Hanseatic Town Hall.
+    tv_wonder_unique_hanseatic_town_hall: Hanseatic Town Hall
+    tv_wonder_unique_hanseatic_town_hall_desc: An unconsecrated Hanseatic Town Hall preserved as completed construction.
+    tv_wonder_unique_hanseatic_town_hall_inaugurated: Hanseatic Town Hall
+    tv_wonder_unique_hanseatic_town_hall_inaugurated_desc: Brick Gothic facades, council chambers, league benches, seals, and market-square charters make Luebeck's Hanseatic Town Hall a civic parliament for merchant cities.
+    TV_ENGINEERING_CEREMONY_UNIQUE_HANSEATIC_TOWN_HALL_INAUGURATED_BUTTON: League Diet Session
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_HANSEATIC_TOWN_HALL_1: Confirm the League Diet Session ceremony for the Hanseatic Town Hall. The session improves diplomatic reputation and burgher satisfaction.
+    tv_engineering_department.500.d_unique_hanseatic_town_hall: Brick Gothic facades, council chambers, league benches, seals, and market-square charters make Luebeck's Hanseatic Town Hall a civic parliament for merchant cities. The engineer turns to Luebeck's town hall, where the Hanseatic League can become a chamber, a charter, and a vote. The League Diet Session now completes the wonder at its fixed historical site. The session improves diplomatic reputation and burgher satisfaction.
+    game_concept_tv_wonder_unique_dresden_art_gallery_desc: Baroque gallery rooms, paintings, sculpture, porcelain cabinets, curators, and Saxon court patrons make Dresden Art Gallery a royal district for collecting beauty. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Royal Art District archetype, and culminates in the Elector Gallery Opening ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_DRESDEN_ART_GALLERY_TEXT: The engineer proposes Dresden Art Gallery, where Saxon patronage can turn collections into a courtly engine of prestige.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_DRESDEN_ART_GALLERY_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_dresden_art_gallery|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_DRESDEN_ART_GALLERY_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_dresden_art_gallery|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_DRESDEN_ART_GALLERY_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_dresden_art_gallery|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_DRESDEN_ART_GALLERY: '@city! Dresden Art Gallery'
+    TV_WONDER_LOCK_UNIQUE_DRESDEN_ART_GALLERY_TT: Locks [tv_wonder_unique_dresden_art_gallery|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_dresden_art_gallery_foundation: Dresden Art Gallery Foundation
+    tv_wonder_unique_dresden_art_gallery_foundation_desc: A preserved foundation module for Dresden Art Gallery.
+    tv_wonder_unique_dresden_art_gallery_body: Dresden Art Gallery Main Structure
+    tv_wonder_unique_dresden_art_gallery_body_desc: A preserved main structure module for Dresden Art Gallery.
+    tv_wonder_unique_dresden_art_gallery_function: Dresden Art Gallery Functional Works
+    tv_wonder_unique_dresden_art_gallery_function_desc: A preserved functional works module for Dresden Art Gallery.
+    tv_wonder_unique_dresden_art_gallery_decoration: Dresden Art Gallery Crowning Works
+    tv_wonder_unique_dresden_art_gallery_decoration_desc: A preserved crowning works module for Dresden Art Gallery.
+    tv_wonder_unique_dresden_art_gallery: Dresden Art Gallery
+    tv_wonder_unique_dresden_art_gallery_desc: An unconsecrated Dresden Art Gallery preserved as completed construction.
+    tv_wonder_unique_dresden_art_gallery_inaugurated: Dresden Art Gallery
+    tv_wonder_unique_dresden_art_gallery_inaugurated_desc: Baroque gallery rooms, paintings, sculpture, porcelain cabinets, curators, and Saxon court patrons make Dresden Art Gallery a royal district for collecting beauty.
+    TV_ENGINEERING_CEREMONY_UNIQUE_DRESDEN_ART_GALLERY_INAUGURATED_BUTTON: Elector Gallery Opening
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_DRESDEN_ART_GALLERY_1: Confirm the Elector Gallery Opening ceremony for Dresden Art Gallery. The opening improves culture income and prestige.
+    tv_engineering_department.500.d_unique_dresden_art_gallery: Baroque gallery rooms, paintings, sculpture, porcelain cabinets, curators, and Saxon court patrons make Dresden Art Gallery a royal district for collecting beauty. The engineer proposes Dresden Art Gallery, where Saxon patronage can turn collections into a courtly engine of prestige. The Elector Gallery Opening now completes the wonder at its fixed historical site. The opening improves culture income and prestige.
+    game_concept_tv_wonder_unique_munich_royal_brewery_desc: Copper kettles, malt stores, coopers, ducal officials, beer halls, wagons, and barrels make Munich Royal Brewery a workshop of civic production and court privilege. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Giant Workshop Complex archetype, and culminates in the Ducal Brewery Charter ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_MUNICH_ROYAL_BREWERY_TEXT: The engineer proposes Munich Royal Brewery, where ducal privilege can organize malt, copper, labor, and tavern revenue into a visible industry.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_MUNICH_ROYAL_BREWERY_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_munich_royal_brewery|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_MUNICH_ROYAL_BREWERY_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_munich_royal_brewery|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_MUNICH_ROYAL_BREWERY_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_munich_royal_brewery|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MUNICH_ROYAL_BREWERY: '@city! Munich Royal Brewery'
+    TV_WONDER_LOCK_UNIQUE_MUNICH_ROYAL_BREWERY_TT: Locks [tv_wonder_unique_munich_royal_brewery|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_munich_royal_brewery_foundation: Munich Royal Brewery Foundation
+    tv_wonder_unique_munich_royal_brewery_foundation_desc: A preserved foundation module for Munich Royal Brewery.
+    tv_wonder_unique_munich_royal_brewery_body: Munich Royal Brewery Main Structure
+    tv_wonder_unique_munich_royal_brewery_body_desc: A preserved main structure module for Munich Royal Brewery.
+    tv_wonder_unique_munich_royal_brewery_function: Munich Royal Brewery Functional Works
+    tv_wonder_unique_munich_royal_brewery_function_desc: A preserved functional works module for Munich Royal Brewery.
+    tv_wonder_unique_munich_royal_brewery_decoration: Munich Royal Brewery Crowning Works
+    tv_wonder_unique_munich_royal_brewery_decoration_desc: A preserved crowning works module for Munich Royal Brewery.
+    tv_wonder_unique_munich_royal_brewery: Munich Royal Brewery
+    tv_wonder_unique_munich_royal_brewery_desc: An unconsecrated Munich Royal Brewery preserved as completed construction.
+    tv_wonder_unique_munich_royal_brewery_inaugurated: Munich Royal Brewery
+    tv_wonder_unique_munich_royal_brewery_inaugurated_desc: Copper kettles, malt stores, coopers, ducal officials, beer halls, wagons, and barrels make Munich Royal Brewery a workshop of civic production and court privilege.
+    TV_ENGINEERING_CEREMONY_UNIQUE_MUNICH_ROYAL_BREWERY_INAUGURATED_BUTTON: Ducal Brewery Charter
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MUNICH_ROYAL_BREWERY_1: Confirm the Ducal Brewery Charter ceremony for Munich Royal Brewery. The charter improves production and lowers stability investment.
+    tv_engineering_department.500.d_unique_munich_royal_brewery: Copper kettles, malt stores, coopers, ducal officials, beer halls, wagons, and barrels make Munich Royal Brewery a workshop of civic production and court privilege. The engineer proposes Munich Royal Brewery, where ducal privilege can organize malt, copper, labor, and tavern revenue into a visible industry. The Ducal Brewery Charter now completes the wonder at its fixed historical site. The charter improves production and lowers stability investment.
+    game_concept_tv_wonder_unique_heidelberg_university_desc: Lecture halls, libraries, scholars, students, manuscripts, town arcades, the Neckar, and castle hill make Heidelberg University a city of learning. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the University City archetype, and culminates in the Palatine Scholars Convocation ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_HEIDELBERG_UNIVERSITY_TEXT: The engineer proposes Heidelberg University, where Palatine patronage can turn classrooms, libraries, and town life into a durable republic of scholars.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_HEIDELBERG_UNIVERSITY_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_heidelberg_university|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_HEIDELBERG_UNIVERSITY_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_heidelberg_university|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_HEIDELBERG_UNIVERSITY_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_heidelberg_university|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_HEIDELBERG_UNIVERSITY: '@city! Heidelberg University'
+    TV_WONDER_LOCK_UNIQUE_HEIDELBERG_UNIVERSITY_TT: Locks [tv_wonder_unique_heidelberg_university|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_heidelberg_university_foundation: Heidelberg University Foundation
+    tv_wonder_unique_heidelberg_university_foundation_desc: A preserved foundation module for Heidelberg University.
+    tv_wonder_unique_heidelberg_university_body: Heidelberg University Main Structure
+    tv_wonder_unique_heidelberg_university_body_desc: A preserved main structure module for Heidelberg University.
+    tv_wonder_unique_heidelberg_university_function: Heidelberg University Functional Works
+    tv_wonder_unique_heidelberg_university_function_desc: A preserved functional works module for Heidelberg University.
+    tv_wonder_unique_heidelberg_university_decoration: Heidelberg University Crowning Works
+    tv_wonder_unique_heidelberg_university_decoration_desc: A preserved crowning works module for Heidelberg University.
+    tv_wonder_unique_heidelberg_university: Heidelberg University
+    tv_wonder_unique_heidelberg_university_desc: An unconsecrated Heidelberg University preserved as completed construction.
+    tv_wonder_unique_heidelberg_university_inaugurated: Heidelberg University
+    tv_wonder_unique_heidelberg_university_inaugurated_desc: Lecture halls, libraries, scholars, students, manuscripts, town arcades, the Neckar, and castle hill make Heidelberg University a city of learning.
+    TV_ENGINEERING_CEREMONY_UNIQUE_HEIDELBERG_UNIVERSITY_INAUGURATED_BUTTON: Palatine Scholars Convocation
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_HEIDELBERG_UNIVERSITY_1: Confirm the Palatine Scholars Convocation ceremony for Heidelberg University. The convocation improves research speed and literacy.
+    tv_engineering_department.500.d_unique_heidelberg_university: Lecture halls, libraries, scholars, students, manuscripts, town arcades, the Neckar, and castle hill make Heidelberg University a city of learning. The engineer proposes Heidelberg University, where Palatine patronage can turn classrooms, libraries, and town life into a durable republic of scholars. The Palatine Scholars Convocation now completes the wonder at its fixed historical site. The convocation improves research speed and literacy.
     mapmode_tv_wonder_name: Wonders
     MAPMODE_TV_WONDER: '#T $mapmode_tv_wonder_name$#!
 
@@ -4322,6 +4596,7 @@ wonder_localization:
     tv_engineering_department.600.d_law_code_stele_project: Reports from [SCOPE.sCountry('tv_wonder_builder_country').GetName] say a [tv_wonder_law_code_stele_project|E] has been completed at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Carved statutes, courts, scribes, and public readings now make law visible enough for subjects and envoys to inspect. Distant courts may debate its cost, but none can treat the work as merely local.
     tv_engineering_department.600.d_world_market: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed a [tv_wonder_world_market|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Market halls, warehouses, brokers, and guarded scales now gather regional commerce into one public machine. Merchants abroad will translate the news into prices, routes, and new ambitions.
     tv_engineering_department.600.d_royal_mint_system: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed a [tv_wonder_royal_mint_system|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Coinage halls, assay offices, bullion stores, and tax ledgers now make money answer the crown in public. Merchants abroad will translate the news into prices, routes, and new ambitions.
+    tv_engineering_department.600.d_national_bank: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed a [tv_wonder_national_bank|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Public credit halls, state debt offices, clearing rooms, and guarded vaults now make finance answer government in public. Merchants abroad will translate the news into prices, routes, and new ambitions.
     tv_engineering_department.600.d_guild_alliance: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed a [tv_wonder_guild_alliance|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Guild halls, charters, workshops, and merchant courts now bind urban production to common rules. Merchants abroad will translate the news into prices, routes, and new ambitions.
     tv_engineering_department.600.d_maritime_trade_station_network: Ships and river pilots carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed a [tv_wonder_maritime_trade_station_network|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Warehouses, anchorages, agents, and fortified counting houses now carry the builder's commerce across distant coasts. Every harbor and market with business on the water will have reason to notice.
     tv_engineering_department.600.d_giant_workshop_complex: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed a [tv_wonder_giant_workshop_complex|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Workshops, yards, furnaces, and supervised labor now concentrate craft into an industrial civic body. Merchants abroad will translate the news into prices, routes, and new ambitions.
@@ -4440,6 +4715,17 @@ wonder_localization:
     tv_engineering_department.600.d_unique_narikala_fortress: Military envoys report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_narikala_fortress|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Ridge walls, towers, watchfires, the Kura valley, and Tbilisi below make Narikala Fortress a guardian over Caucasus roads. Rivals will measure it in caution as much as admiration.
     tv_engineering_department.600.d_unique_baku_ateshgah: Pilgrims and clerics report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_baku_ateshgah|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. A stone courtyard shrine, central altar flame, pilgrims, caravan roads, and Caspian wind make the Baku Ateshgah a temple built around fire. Pilgrims and rulers alike will find reasons to speak of it beyond the builder's borders.
     tv_engineering_department.600.d_unique_sanaa_old_city: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_sanaa_old_city|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Tower houses, gypsum patterns, crowded souks, caravan merchants, incense, coffee, metalworkers, and minarets make Sana'a Old City a vertical market. Merchants abroad will translate the news into prices, routes, and new ambitions.
+    tv_engineering_department.600.d_unique_schoenbrunn_palace: Envoys report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_schoenbrunn_palace|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Baroque palace wings, ceremonial gardens, galleries, and diplomatic apartments make Schoenbrunn a courtly stage for imperial congress. Foreign envoys will study it as carefully as any treaty.
+    tv_engineering_department.600.d_unique_electoral_conference_hall: Envoys report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_electoral_conference_hall|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Frankfurt council chambers, prince-elector benches, imperial seals, and civic halls turn royal election into public architecture. Foreign envoys will study it as carefully as any treaty.
+    tv_engineering_department.600.d_unique_aachen_cathedral: Pilgrims and clerics report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_aachen_cathedral|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Carolingian stone, an octagonal chapel, Gothic choir, imperial throne, and golden reliquaries make Aachen Cathedral a shrine of coronation memory. Pilgrims and rulers alike will find reasons to speak of it beyond the builder's borders.
+    tv_engineering_department.600.d_unique_nuremberg_imperial_castle: Military envoys report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_nuremberg_imperial_castle|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Sandstone towers, imperial chapel, walls, arsenal yards, and free-city roofs make Nuremberg Imperial Castle a fortress of imperial regalia and urban craft. Rivals will measure it in caution as much as admiration.
+    tv_engineering_department.600.d_unique_augsburg_bank: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_augsburg_bank|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Fugger-era counting rooms, vaults, courier desks, imperial loan contracts, and merchant ledgers make Augsburg Bank a machine for public credit. Merchants abroad will translate the news into prices, routes, and new ambitions.
+    tv_engineering_department.600.d_unique_cologne_cathedral: Pilgrims and clerics report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_cologne_cathedral|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. A vast Gothic choir, rising towers, flying buttresses, relic shrines, and Rhine pilgrims make Cologne Cathedral a city-scale argument for sacred prestige. Pilgrims and rulers alike will find reasons to speak of it beyond the builder's borders.
+    tv_engineering_department.600.d_unique_hanseatic_kontor: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_hanseatic_kontor|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Brick warehouses, counting rooms, seals, ledgers, cranes, and Elbe ship masts make the Hanseatic Kontor a commercial embassy for league merchants. Merchants abroad will translate the news into prices, routes, and new ambitions.
+    tv_engineering_department.600.d_unique_hanseatic_town_hall: Envoys report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_hanseatic_town_hall|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Brick Gothic facades, council chambers, league benches, seals, and market-square charters make Luebeck's Hanseatic Town Hall a civic parliament for merchant cities. Foreign envoys will study it as carefully as any treaty.
+    tv_engineering_department.600.d_unique_dresden_art_gallery: Reports from [SCOPE.sCountry('tv_wonder_builder_country').GetName] say the [tv_wonder_unique_dresden_art_gallery|E] has been completed at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Baroque gallery rooms, paintings, sculpture, porcelain cabinets, curators, and Saxon court patrons make Dresden Art Gallery a royal district for collecting beauty. Distant courts may debate its cost, but none can treat the work as merely local.
+    tv_engineering_department.600.d_unique_munich_royal_brewery: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_munich_royal_brewery|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Copper kettles, malt stores, coopers, ducal officials, beer halls, wagons, and barrels make Munich Royal Brewery a workshop of civic production and court privilege. Merchants abroad will translate the news into prices, routes, and new ambitions.
+    tv_engineering_department.600.d_unique_heidelberg_university: Scholars carry news that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_heidelberg_university|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Lecture halls, libraries, scholars, students, manuscripts, town arcades, the Neckar, and castle hill make Heidelberg University a city of learning. Distant scholars and patrons will argue over what such investment proves.
     STATIC_MODIFIER_NAME_tv_wonder_sacred_mountain_ritual_blessing_modifier: Royal Sacrifice Blessing
     STATIC_MODIFIER_NAME_tv_wonder_triumphal_axis_ritual_blessing_modifier: Foreign Emissaries Blessing
     STATIC_MODIFIER_NAME_tv_wonder_great_port_ritual_blessing_modifier: Golden Auction Blessing
@@ -4475,6 +4761,7 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_law_code_stele_project_ritual_blessing_modifier: Religious Law Blessing
     STATIC_MODIFIER_NAME_tv_wonder_world_market_ritual_blessing_modifier: Luxury Goods Trade Blessing
     STATIC_MODIFIER_NAME_tv_wonder_royal_mint_system_ritual_blessing_modifier: Silver-Gold Standard Blessing
+    STATIC_MODIFIER_NAME_tv_wonder_national_bank_ritual_blessing_modifier: Public Credit Subscription Blessing
     STATIC_MODIFIER_NAME_tv_wonder_guild_alliance_ritual_blessing_modifier: Artisan Guild Alliance Blessing
     STATIC_MODIFIER_NAME_tv_wonder_maritime_trade_station_network_ritual_blessing_modifier: Spice Trade Blessing
     STATIC_MODIFIER_NAME_tv_wonder_giant_workshop_complex_ritual_blessing_modifier: Textile Manufacturing Blessing
@@ -4598,6 +4885,17 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_unique_narikala_fortress_ceremony_modifier: Kura Watch Muster
     STATIC_MODIFIER_NAME_tv_wonder_unique_baku_ateshgah_ceremony_modifier: Eternal Fire Rite
     STATIC_MODIFIER_NAME_tv_wonder_unique_sanaa_old_city_ceremony_modifier: Sana'a Souk Opening
+    STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier: Habsburg Congress Audience
+    STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier: Golden Bull Convocation
+    STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier: Imperial Coronation Liturgy
+    STATIC_MODIFIER_NAME_tv_wonder_unique_nuremberg_imperial_castle_ceremony_modifier: Imperial Regalia Guard
+    STATIC_MODIFIER_NAME_tv_wonder_unique_augsburg_bank_ceremony_modifier: Imperial Credit Contracts
+    STATIC_MODIFIER_NAME_tv_wonder_unique_cologne_cathedral_ceremony_modifier: Three Kings Pilgrimage
+    STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_kontor_ceremony_modifier: Kontor Ledger Oath
+    STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier: League Diet Session
+    STATIC_MODIFIER_NAME_tv_wonder_unique_dresden_art_gallery_ceremony_modifier: Elector Gallery Opening
+    STATIC_MODIFIER_NAME_tv_wonder_unique_munich_royal_brewery_ceremony_modifier: Ducal Brewery Charter
+    STATIC_MODIFIER_NAME_tv_wonder_unique_heidelberg_university_ceremony_modifier: Palatine Scholars Convocation
   simp_chinese:
     game_concept_tv_wonder_unique_house_of_wisdom_desc: 翻译厅、手稿架、天文学者、抄写员与巴格达庭院让智慧宫成为保存并比较知识的公共机器。此独特[tv_wonder_construction|e]必须在固定历史地点建造，沿用国家图书馆原型，并以翻译运动目录仪式落成。
     TV_ENGINEERING_PROPOSAL_UNIQUE_HOUSE_OF_WISDOM_TEXT: 大工程师提出智慧宫：翻译、天文、医学与国家赞助可以在那里被组织成制度。
@@ -6806,6 +7104,38 @@ wonder_localization:
     tv_wonder_international_settlement_mint_desc: 皇家铸币厂的国际结算仪式分支。
     TV_ENGINEERING_CEREMONY_INTERNATIONAL_SETTLEMENT_MINT_BUTTON: 国际结算
     TV_ENGINEERING_ACTIVE_RITUAL_ROYAL_MINT_SYSTEM_3: 确认皇家铸币厂的国际结算仪式。+1 外交声誉、+4% 贸易收入。
+    game_concept_tv_wonder_national_bank_desc: 国家银行是一项聚焦公共信用、国债管理与商人清算的[tv_wonder_construction|e]项目。它偏好首都、城市与大都会。仪式可转向公共信用认购、国债管理署、商人清算所。
+    TV_ENGINEERING_PROPOSAL_NATIONAL_BANK_TEXT: '[tv_great_engineer|E]提出[tv_wonder_national_bank|E]。'
+    TV_ENGINEERING_PROPOSAL_RESUME_NATIONAL_BANK_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_national_bank|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_NATIONAL_BANK_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_national_bank|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_NATIONAL_BANK_TEXT: '@lock! 已锁定奇观：[tv_wonder_national_bank|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_NATIONAL_BANK: '@city! 国家银行'
+    TV_WONDER_LOCK_NATIONAL_BANK_TT: 将[tv_wonder_national_bank|E]锁定为工程部当前奇观。
+    tv_wonder_national_bank_foundation: 国家银行基础
+    tv_wonder_national_bank_foundation_desc: 国家银行已经保留下来的基础模块。
+    tv_wonder_national_bank_body: 国家银行主体
+    tv_wonder_national_bank_body_desc: 国家银行已经保留下来的主体模块。
+    tv_wonder_national_bank_function: 国家银行功能
+    tv_wonder_national_bank_function_desc: 国家银行已经保留下来的功能模块。
+    tv_wonder_national_bank_decoration: 国家银行封顶装饰
+    tv_wonder_national_bank_decoration_desc: 国家银行已经保留下来的封顶装饰模块。
+    tv_wonder_national_bank: 国家银行
+    tv_wonder_national_bank_ritual_annex: 国家银行仪式附属建筑
+    tv_wonder_national_bank_ritual_annex_desc: 用于完成国家银行第二仪式分支的附属建筑。
+    tv_wonder_national_bank_desc: 尚未落成、但已作为完整工程保留下来的国家银行。
+    STATIC_MODIFIER_NAME_tv_wonder_national_bank_ritual_burden_modifier: 公共信用认购仪式负担
+    tv_wonder_public_credit_bank: 公共信用认购
+    tv_wonder_public_credit_bank_desc: 国家银行的公共信用认购仪式分支。
+    TV_ENGINEERING_CEREMONY_PUBLIC_CREDIT_BANK_BUTTON: 公共信用认购
+    TV_ENGINEERING_ACTIVE_RITUAL_NATIONAL_BANK_1: 确认国家银行的公共信用认购仪式。+8% 税收收入效率。
+    tv_wonder_state_debt_office: 国债管理署
+    tv_wonder_state_debt_office_desc: 国家银行的国债管理署仪式分支。
+    TV_ENGINEERING_CEREMONY_STATE_DEBT_OFFICE_BUTTON: 国债管理署
+    TV_ENGINEERING_ACTIVE_RITUAL_NATIONAL_BANK_2: 确认国家银行的国债管理署仪式。所在地获得市场接入和贸易中心力量。
+    tv_wonder_merchant_clearing_bank: 商人清算所
+    tv_wonder_merchant_clearing_bank_desc: 国家银行的商人清算所仪式分支。
+    TV_ENGINEERING_CEREMONY_MERCHANT_CLEARING_BANK_BUTTON: 商人清算所
+    TV_ENGINEERING_ACTIVE_RITUAL_NATIONAL_BANK_3: 确认国家银行的商人清算所仪式。支付金币以获得更大的财政回报并降低通胀。
     game_concept_tv_wonder_guild_alliance_desc: 商业行会大厅是一项聚焦城市商业组织的[tv_wonder_construction|e]项目。它偏好非乡村地点。仪式可转向手工业联盟、远洋商帮、金融同业。
     TV_ENGINEERING_PROPOSAL_GUILD_ALLIANCE_TEXT: '[tv_great_engineer|E]提出[tv_wonder_guild_alliance|E]。'
     TV_ENGINEERING_PROPOSAL_RESUME_GUILD_ALLIANCE_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_guild_alliance|E]，并利用当地已经保留下来的工程部分。'
@@ -7572,6 +7902,248 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_BANK_OF_SAINT_GEORGE_INAUGURATED_BUTTON: 圣乔治银行成立
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BANK_OF_SAINT_GEORGE_1: 确认圣乔治银行的圣乔治银行成立仪式。银行成立提升铸币收入与税收效率。。
     tv_engineering_department.500.d_unique_bank_of_saint_george: 账簿、国债、商人集团与坚固柜台把公共信用变成制度。 大工程师指出热那亚圣乔治银行：金融在那里学会管理领地与国家债务。 如今，圣乔治银行成立为这座奇观完成了固定历史地点上的落成。银行成立提升铸币收入与税收效率。
+    game_concept_tv_wonder_unique_schoenbrunn_palace_desc: 巴洛克宫翼、礼仪花园、画廊与外交套间让美泉宫成为帝国会议的宫廷舞台。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用万国宫城原型，并以哈布斯堡朝会作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_SCHOENBRUNN_PALACE_TEXT: 大工程师指向美泉宫：园林与觐见厅足以让哈布斯堡外交看起来像欧洲的自然秩序。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_SCHOENBRUNN_PALACE_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_schoenbrunn_palace|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_SCHOENBRUNN_PALACE_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_schoenbrunn_palace|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_SCHOENBRUNN_PALACE_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_schoenbrunn_palace|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SCHOENBRUNN_PALACE: '@city! 美泉宫'
+    TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT: 将[tv_wonder_unique_schoenbrunn_palace|E]锁定为工程部当前奇观。
+    tv_wonder_unique_schoenbrunn_palace_foundation: 美泉宫基础
+    tv_wonder_unique_schoenbrunn_palace_foundation_desc: 美泉宫已经保留下来的基础模块。
+    tv_wonder_unique_schoenbrunn_palace_body: 美泉宫主体
+    tv_wonder_unique_schoenbrunn_palace_body_desc: 美泉宫已经保留下来的主体模块。
+    tv_wonder_unique_schoenbrunn_palace_function: 美泉宫功能
+    tv_wonder_unique_schoenbrunn_palace_function_desc: 美泉宫已经保留下来的功能模块。
+    tv_wonder_unique_schoenbrunn_palace_decoration: 美泉宫封顶装饰
+    tv_wonder_unique_schoenbrunn_palace_decoration_desc: 美泉宫已经保留下来的封顶装饰模块。
+    tv_wonder_unique_schoenbrunn_palace: 美泉宫
+    tv_wonder_unique_schoenbrunn_palace_desc: 尚未落成、但已作为完整工程保留下来的美泉宫。
+    tv_wonder_unique_schoenbrunn_palace_inaugurated: 美泉宫
+    tv_wonder_unique_schoenbrunn_palace_inaugurated_desc: 巴洛克宫翼、礼仪花园、画廊与外交套间让美泉宫成为帝国会议的宫廷舞台。
+    TV_ENGINEERING_CEREMONY_UNIQUE_SCHOENBRUNN_PALACE_INAUGURATED_BUTTON: 哈布斯堡朝会
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SCHOENBRUNN_PALACE_1: 确认美泉宫的哈布斯堡朝会仪式。朝会提升外交声誉与威望。
+    tv_engineering_department.500.d_unique_schoenbrunn_palace: 巴洛克宫翼、礼仪花园、画廊与外交套间让美泉宫成为帝国会议的宫廷舞台。 大工程师指向美泉宫：园林与觐见厅足以让哈布斯堡外交看起来像欧洲的自然秩序。 如今，哈布斯堡朝会为这座奇观完成了固定历史地点上的落成。朝会提升外交声誉与威望。
+    game_concept_tv_wonder_unique_electoral_conference_hall_desc: 法兰克福的议事厅、选帝侯席位、帝国印玺与市民大厅把王位选举变成一座公共建筑。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用大会堂原型，并以金玺会议召集作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_ELECTORAL_CONFERENCE_HALL_TEXT: 大工程师提议法兰克福的选帝会议殿，让帝国选主可以拥有墙壁、长椅与仪式秩序。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_ELECTORAL_CONFERENCE_HALL_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_electoral_conference_hall|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_ELECTORAL_CONFERENCE_HALL_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_electoral_conference_hall|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_ELECTORAL_CONFERENCE_HALL_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_electoral_conference_hall|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ELECTORAL_CONFERENCE_HALL: '@city! 选帝会议殿'
+    TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT: 将[tv_wonder_unique_electoral_conference_hall|E]锁定为工程部当前奇观。
+    tv_wonder_unique_electoral_conference_hall_foundation: 选帝会议殿基础
+    tv_wonder_unique_electoral_conference_hall_foundation_desc: 选帝会议殿已经保留下来的基础模块。
+    tv_wonder_unique_electoral_conference_hall_body: 选帝会议殿主体
+    tv_wonder_unique_electoral_conference_hall_body_desc: 选帝会议殿已经保留下来的主体模块。
+    tv_wonder_unique_electoral_conference_hall_function: 选帝会议殿功能
+    tv_wonder_unique_electoral_conference_hall_function_desc: 选帝会议殿已经保留下来的功能模块。
+    tv_wonder_unique_electoral_conference_hall_decoration: 选帝会议殿封顶装饰
+    tv_wonder_unique_electoral_conference_hall_decoration_desc: 选帝会议殿已经保留下来的封顶装饰模块。
+    tv_wonder_unique_electoral_conference_hall: 选帝会议殿
+    tv_wonder_unique_electoral_conference_hall_desc: 尚未落成、但已作为完整工程保留下来的选帝会议殿。
+    tv_wonder_unique_electoral_conference_hall_inaugurated: 选帝会议殿
+    tv_wonder_unique_electoral_conference_hall_inaugurated_desc: 法兰克福的议事厅、选帝侯席位、帝国印玺与市民大厅把王位选举变成一座公共建筑。
+    TV_ENGINEERING_CEREMONY_UNIQUE_ELECTORAL_CONFERENCE_HALL_INAUGURATED_BUTTON: 金玺会议召集
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ELECTORAL_CONFERENCE_HALL_1: 确认选帝会议殿的金玺会议召集仪式。召集提升正统性与每月正统性。
+    tv_engineering_department.500.d_unique_electoral_conference_hall: 法兰克福的议事厅、选帝侯席位、帝国印玺与市民大厅把王位选举变成一座公共建筑。 大工程师提议法兰克福的选帝会议殿，让帝国选主可以拥有墙壁、长椅与仪式秩序。 如今，金玺会议召集为这座奇观完成了固定历史地点上的落成。召集提升正统性与每月正统性。
+    game_concept_tv_wonder_unique_aachen_cathedral_desc: 加洛林石构、八角礼拜堂、哥特式唱诗班、帝王宝座与金色圣髑盒让亚琛大教堂成为加冕记忆的圣所。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用大教堂原型，并以帝国加冕礼仪作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_AACHEN_CATHEDRAL_TEXT: 大工程师提到亚琛：查理曼礼拜堂与加冕礼可以把旧帝国和今日统治绑在一起。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_AACHEN_CATHEDRAL_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_aachen_cathedral|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_AACHEN_CATHEDRAL_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_aachen_cathedral|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_AACHEN_CATHEDRAL_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_aachen_cathedral|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_AACHEN_CATHEDRAL: '@city! 亚琛大教堂'
+    TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT: 将[tv_wonder_unique_aachen_cathedral|E]锁定为工程部当前奇观。
+    tv_wonder_unique_aachen_cathedral_foundation: 亚琛大教堂基础
+    tv_wonder_unique_aachen_cathedral_foundation_desc: 亚琛大教堂已经保留下来的基础模块。
+    tv_wonder_unique_aachen_cathedral_body: 亚琛大教堂主体
+    tv_wonder_unique_aachen_cathedral_body_desc: 亚琛大教堂已经保留下来的主体模块。
+    tv_wonder_unique_aachen_cathedral_function: 亚琛大教堂功能
+    tv_wonder_unique_aachen_cathedral_function_desc: 亚琛大教堂已经保留下来的功能模块。
+    tv_wonder_unique_aachen_cathedral_decoration: 亚琛大教堂封顶装饰
+    tv_wonder_unique_aachen_cathedral_decoration_desc: 亚琛大教堂已经保留下来的封顶装饰模块。
+    tv_wonder_unique_aachen_cathedral: 亚琛大教堂
+    tv_wonder_unique_aachen_cathedral_desc: 尚未落成、但已作为完整工程保留下来的亚琛大教堂。
+    tv_wonder_unique_aachen_cathedral_inaugurated: 亚琛大教堂
+    tv_wonder_unique_aachen_cathedral_inaugurated_desc: 加洛林石构、八角礼拜堂、哥特式唱诗班、帝王宝座与金色圣髑盒让亚琛大教堂成为加冕记忆的圣所。
+    TV_ENGINEERING_CEREMONY_UNIQUE_AACHEN_CATHEDRAL_INAUGURATED_BUTTON: 帝国加冕礼仪
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_AACHEN_CATHEDRAL_1: 确认亚琛大教堂的帝国加冕礼仪式。礼仪提升正统性与教士满意均衡。
+    tv_engineering_department.500.d_unique_aachen_cathedral: 加洛林石构、八角礼拜堂、哥特式唱诗班、帝王宝座与金色圣髑盒让亚琛大教堂成为加冕记忆的圣所。 大工程师提到亚琛：查理曼礼拜堂与加冕礼可以把旧帝国和今日统治绑在一起。 如今，帝国加冕礼仪为这座奇观完成了固定历史地点上的落成。礼仪提升正统性与教士满意均衡。
+    game_concept_tv_wonder_unique_nuremberg_imperial_castle_desc: 砂岩塔楼、帝王礼拜堂、城墙、军械庭院与自由市屋顶让纽伦堡帝国城堡成为帝国徽记与市民工艺的要塞。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用星形要塞城原型，并以帝国徽记守卫作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TEXT: 大工程师提到纽伦堡帝国城堡：高墙之上的城市既能守护帝国圣物，也能维持军备。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_nuremberg_imperial_castle|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_nuremberg_imperial_castle|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_nuremberg_imperial_castle|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_NUREMBERG_IMPERIAL_CASTLE: '@city! 纽伦堡帝国城堡'
+    TV_WONDER_LOCK_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_TT: 将[tv_wonder_unique_nuremberg_imperial_castle|E]锁定为工程部当前奇观。
+    tv_wonder_unique_nuremberg_imperial_castle_foundation: 纽伦堡帝国城堡基础
+    tv_wonder_unique_nuremberg_imperial_castle_foundation_desc: 纽伦堡帝国城堡已经保留下来的基础模块。
+    tv_wonder_unique_nuremberg_imperial_castle_body: 纽伦堡帝国城堡主体
+    tv_wonder_unique_nuremberg_imperial_castle_body_desc: 纽伦堡帝国城堡已经保留下来的主体模块。
+    tv_wonder_unique_nuremberg_imperial_castle_function: 纽伦堡帝国城堡功能
+    tv_wonder_unique_nuremberg_imperial_castle_function_desc: 纽伦堡帝国城堡已经保留下来的功能模块。
+    tv_wonder_unique_nuremberg_imperial_castle_decoration: 纽伦堡帝国城堡封顶装饰
+    tv_wonder_unique_nuremberg_imperial_castle_decoration_desc: 纽伦堡帝国城堡已经保留下来的封顶装饰模块。
+    tv_wonder_unique_nuremberg_imperial_castle: 纽伦堡帝国城堡
+    tv_wonder_unique_nuremberg_imperial_castle_desc: 尚未落成、但已作为完整工程保留下来的纽伦堡帝国城堡。
+    tv_wonder_unique_nuremberg_imperial_castle_inaugurated: 纽伦堡帝国城堡
+    tv_wonder_unique_nuremberg_imperial_castle_inaugurated_desc: 砂岩塔楼、帝王礼拜堂、城墙、军械庭院与自由市屋顶让纽伦堡帝国城堡成为帝国徽记与市民工艺的要塞。
+    TV_ENGINEERING_CEREMONY_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_INAUGURATED_BUTTON: 帝国徽记守卫
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_NUREMBERG_IMPERIAL_CASTLE_1: 确认纽伦堡帝国城堡的帝国徽记守卫仪式。守卫降低要塞维护并强化驻军。
+    tv_engineering_department.500.d_unique_nuremberg_imperial_castle: 砂岩塔楼、帝王礼拜堂、城墙、军械庭院与自由市屋顶让纽伦堡帝国城堡成为帝国徽记与市民工艺的要塞。 大工程师提到纽伦堡帝国城堡：高墙之上的城市既能守护帝国圣物，也能维持军备。 如今，帝国徽记守卫为这座奇观完成了固定历史地点上的落成。守卫降低要塞维护并强化驻军。
+    game_concept_tv_wonder_unique_augsburg_bank_desc: 富格尔时代的柜台、金库、信使桌、帝国贷款契约与商人账簿让奥格斯堡银行成为公共信用的机器。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用国家银行原型，并以帝国信用契约作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_AUGSBURG_BANK_TEXT: 大工程师提议奥格斯堡银行：商人家族可以把帝国贷款与清算账簿变成国家财政制度。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_AUGSBURG_BANK_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_augsburg_bank|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_AUGSBURG_BANK_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_augsburg_bank|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_AUGSBURG_BANK_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_augsburg_bank|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_AUGSBURG_BANK: '@city! 奥格斯堡银行'
+    TV_WONDER_LOCK_UNIQUE_AUGSBURG_BANK_TT: 将[tv_wonder_unique_augsburg_bank|E]锁定为工程部当前奇观。
+    tv_wonder_unique_augsburg_bank_foundation: 奥格斯堡银行基础
+    tv_wonder_unique_augsburg_bank_foundation_desc: 奥格斯堡银行已经保留下来的基础模块。
+    tv_wonder_unique_augsburg_bank_body: 奥格斯堡银行主体
+    tv_wonder_unique_augsburg_bank_body_desc: 奥格斯堡银行已经保留下来的主体模块。
+    tv_wonder_unique_augsburg_bank_function: 奥格斯堡银行功能
+    tv_wonder_unique_augsburg_bank_function_desc: 奥格斯堡银行已经保留下来的功能模块。
+    tv_wonder_unique_augsburg_bank_decoration: 奥格斯堡银行封顶装饰
+    tv_wonder_unique_augsburg_bank_decoration_desc: 奥格斯堡银行已经保留下来的封顶装饰模块。
+    tv_wonder_unique_augsburg_bank: 奥格斯堡银行
+    tv_wonder_unique_augsburg_bank_desc: 尚未落成、但已作为完整工程保留下来的奥格斯堡银行。
+    tv_wonder_unique_augsburg_bank_inaugurated: 奥格斯堡银行
+    tv_wonder_unique_augsburg_bank_inaugurated_desc: 富格尔时代的柜台、金库、信使桌、帝国贷款契约与商人账簿让奥格斯堡银行成为公共信用的机器。
+    TV_ENGINEERING_CEREMONY_UNIQUE_AUGSBURG_BANK_INAUGURATED_BUTTON: 帝国信用契约
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_AUGSBURG_BANK_1: 确认奥格斯堡银行的帝国信用契约仪式。契约提升税收收入效率与商人维护效率。
+    tv_engineering_department.500.d_unique_augsburg_bank: 富格尔时代的柜台、金库、信使桌、帝国贷款契约与商人账簿让奥格斯堡银行成为公共信用的机器。 大工程师提议奥格斯堡银行：商人家族可以把帝国贷款与清算账簿变成国家财政制度。 如今，帝国信用契约为这座奇观完成了固定历史地点上的落成。契约提升税收收入效率与商人维护效率。
+    game_concept_tv_wonder_unique_cologne_cathedral_desc: 巨大的哥特唱诗班、拔地而起的双塔、飞扶壁、圣髑龛与莱茵朝圣者让科隆大教堂成为城市尺度的神圣雄辩。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用大教堂原型，并以三王朝圣作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_COLOGNE_CATHEDRAL_TEXT: 大工程师指向科隆大教堂：三王圣髑的圣所可以让朝圣、贸易与市民信仰在莱茵河畔相遇。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_COLOGNE_CATHEDRAL_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_cologne_cathedral|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_COLOGNE_CATHEDRAL_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_cologne_cathedral|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_COLOGNE_CATHEDRAL_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_cologne_cathedral|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_COLOGNE_CATHEDRAL: '@city! 科隆大教堂'
+    TV_WONDER_LOCK_UNIQUE_COLOGNE_CATHEDRAL_TT: 将[tv_wonder_unique_cologne_cathedral|E]锁定为工程部当前奇观。
+    tv_wonder_unique_cologne_cathedral_foundation: 科隆大教堂基础
+    tv_wonder_unique_cologne_cathedral_foundation_desc: 科隆大教堂已经保留下来的基础模块。
+    tv_wonder_unique_cologne_cathedral_body: 科隆大教堂主体
+    tv_wonder_unique_cologne_cathedral_body_desc: 科隆大教堂已经保留下来的主体模块。
+    tv_wonder_unique_cologne_cathedral_function: 科隆大教堂功能
+    tv_wonder_unique_cologne_cathedral_function_desc: 科隆大教堂已经保留下来的功能模块。
+    tv_wonder_unique_cologne_cathedral_decoration: 科隆大教堂封顶装饰
+    tv_wonder_unique_cologne_cathedral_decoration_desc: 科隆大教堂已经保留下来的封顶装饰模块。
+    tv_wonder_unique_cologne_cathedral: 科隆大教堂
+    tv_wonder_unique_cologne_cathedral_desc: 尚未落成、但已作为完整工程保留下来的科隆大教堂。
+    tv_wonder_unique_cologne_cathedral_inaugurated: 科隆大教堂
+    tv_wonder_unique_cologne_cathedral_inaugurated_desc: 巨大的哥特唱诗班、拔地而起的双塔、飞扶壁、圣髑龛与莱茵朝圣者让科隆大教堂成为城市尺度的神圣雄辩。
+    TV_ENGINEERING_CEREMONY_UNIQUE_COLOGNE_CATHEDRAL_INAUGURATED_BUTTON: 三王朝圣
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_COLOGNE_CATHEDRAL_1: 确认科隆大教堂的三王朝圣仪式。朝圣提升皈依速度与威望。
+    tv_engineering_department.500.d_unique_cologne_cathedral: 巨大的哥特唱诗班、拔地而起的双塔、飞扶壁、圣髑龛与莱茵朝圣者让科隆大教堂成为城市尺度的神圣雄辩。 大工程师指向科隆大教堂：三王圣髑的圣所可以让朝圣、贸易与市民信仰在莱茵河畔相遇。 如今，三王朝圣为这座奇观完成了固定历史地点上的落成。朝圣提升皈依速度与威望。
+    game_concept_tv_wonder_unique_hanseatic_kontor_desc: 砖砌仓库、账房、印章、账簿、起重机与易北河桅杆让汉萨商会成为同盟商人的商业使馆。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用商业行会大厅原型，并以商馆账簿宣誓作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_HANSEATIC_KONTOR_TEXT: 大工程师提议在汉堡建立汉萨商会，让同盟特权、仓库和账簿以同一个声音说话。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_HANSEATIC_KONTOR_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_hanseatic_kontor|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_HANSEATIC_KONTOR_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_hanseatic_kontor|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_HANSEATIC_KONTOR_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_hanseatic_kontor|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_HANSEATIC_KONTOR: '@city! 汉萨商会'
+    TV_WONDER_LOCK_UNIQUE_HANSEATIC_KONTOR_TT: 将[tv_wonder_unique_hanseatic_kontor|E]锁定为工程部当前奇观。
+    tv_wonder_unique_hanseatic_kontor_foundation: 汉萨商会基础
+    tv_wonder_unique_hanseatic_kontor_foundation_desc: 汉萨商会已经保留下来的基础模块。
+    tv_wonder_unique_hanseatic_kontor_body: 汉萨商会主体
+    tv_wonder_unique_hanseatic_kontor_body_desc: 汉萨商会已经保留下来的主体模块。
+    tv_wonder_unique_hanseatic_kontor_function: 汉萨商会功能
+    tv_wonder_unique_hanseatic_kontor_function_desc: 汉萨商会已经保留下来的功能模块。
+    tv_wonder_unique_hanseatic_kontor_decoration: 汉萨商会封顶装饰
+    tv_wonder_unique_hanseatic_kontor_decoration_desc: 汉萨商会已经保留下来的封顶装饰模块。
+    tv_wonder_unique_hanseatic_kontor: 汉萨商会
+    tv_wonder_unique_hanseatic_kontor_desc: 尚未落成、但已作为完整工程保留下来的汉萨商会。
+    tv_wonder_unique_hanseatic_kontor_inaugurated: 汉萨商会
+    tv_wonder_unique_hanseatic_kontor_inaugurated_desc: 砖砌仓库、账房、印章、账簿、起重机与易北河桅杆让汉萨商会成为同盟商人的商业使馆。
+    TV_ENGINEERING_CEREMONY_UNIQUE_HANSEATIC_KONTOR_INAUGURATED_BUTTON: 商馆账簿宣誓
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_HANSEATIC_KONTOR_1: 确认汉萨商会的商馆账簿宣誓仪式。宣誓提升贸易收入与商人维护效率。
+    tv_engineering_department.500.d_unique_hanseatic_kontor: 砖砌仓库、账房、印章、账簿、起重机与易北河桅杆让汉萨商会成为同盟商人的商业使馆。 大工程师提议在汉堡建立汉萨商会，让同盟特权、仓库和账簿以同一个声音说话。 如今，商馆账簿宣誓为这座奇观完成了固定历史地点上的落成。宣誓提升贸易收入与商人维护效率。
+    game_concept_tv_wonder_unique_hanseatic_town_hall_desc: 砖砌哥特立面、市政议事厅、同盟长席、印玺与市场广场特许状让吕贝克汉萨城市厅成为商人城市的市民议会。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用大会堂原型，并以同盟议会会期作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_HANSEATIC_TOWN_HALL_TEXT: 大工程师转向吕贝克市政厅：汉萨同盟可以在这里成为一间厅堂、一纸特许状和一次投票。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_HANSEATIC_TOWN_HALL_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_hanseatic_town_hall|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_HANSEATIC_TOWN_HALL_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_hanseatic_town_hall|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_HANSEATIC_TOWN_HALL_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_hanseatic_town_hall|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_HANSEATIC_TOWN_HALL: '@city! 汉萨城市厅'
+    TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT: 将[tv_wonder_unique_hanseatic_town_hall|E]锁定为工程部当前奇观。
+    tv_wonder_unique_hanseatic_town_hall_foundation: 汉萨城市厅基础
+    tv_wonder_unique_hanseatic_town_hall_foundation_desc: 汉萨城市厅已经保留下来的基础模块。
+    tv_wonder_unique_hanseatic_town_hall_body: 汉萨城市厅主体
+    tv_wonder_unique_hanseatic_town_hall_body_desc: 汉萨城市厅已经保留下来的主体模块。
+    tv_wonder_unique_hanseatic_town_hall_function: 汉萨城市厅功能
+    tv_wonder_unique_hanseatic_town_hall_function_desc: 汉萨城市厅已经保留下来的功能模块。
+    tv_wonder_unique_hanseatic_town_hall_decoration: 汉萨城市厅封顶装饰
+    tv_wonder_unique_hanseatic_town_hall_decoration_desc: 汉萨城市厅已经保留下来的封顶装饰模块。
+    tv_wonder_unique_hanseatic_town_hall: 汉萨城市厅
+    tv_wonder_unique_hanseatic_town_hall_desc: 尚未落成、但已作为完整工程保留下来的汉萨城市厅。
+    tv_wonder_unique_hanseatic_town_hall_inaugurated: 汉萨城市厅
+    tv_wonder_unique_hanseatic_town_hall_inaugurated_desc: 砖砌哥特立面、市政议事厅、同盟长席、印玺与市场广场特许状让吕贝克汉萨城市厅成为商人城市的市民议会。
+    TV_ENGINEERING_CEREMONY_UNIQUE_HANSEATIC_TOWN_HALL_INAUGURATED_BUTTON: 同盟议会会期
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_HANSEATIC_TOWN_HALL_1: 确认汉萨城市厅的同盟议会会期仪式。会期提升外交声誉与市民满意均衡。
+    tv_engineering_department.500.d_unique_hanseatic_town_hall: 砖砌哥特立面、市政议事厅、同盟长席、印玺与市场广场特许状让吕贝克汉萨城市厅成为商人城市的市民议会。 大工程师转向吕贝克市政厅：汉萨同盟可以在这里成为一间厅堂、一纸特许状和一次投票。 如今，同盟议会会期为这座奇观完成了固定历史地点上的落成。会期提升外交声誉与市民满意均衡。
+    game_concept_tv_wonder_unique_dresden_art_gallery_desc: 巴洛克画廊、绘画、雕塑、瓷器柜、策展人和萨克森宫廷赞助者让德累斯顿艺术馆成为收藏美的王家园区。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用皇家艺术园区原型，并以选侯画廊开幕作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_DRESDEN_ART_GALLERY_TEXT: 大工程师提议德累斯顿艺术馆，让萨克森赞助把收藏变成宫廷威望的机器。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_DRESDEN_ART_GALLERY_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_dresden_art_gallery|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_DRESDEN_ART_GALLERY_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_dresden_art_gallery|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_DRESDEN_ART_GALLERY_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_dresden_art_gallery|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_DRESDEN_ART_GALLERY: '@city! 德累斯顿艺术馆'
+    TV_WONDER_LOCK_UNIQUE_DRESDEN_ART_GALLERY_TT: 将[tv_wonder_unique_dresden_art_gallery|E]锁定为工程部当前奇观。
+    tv_wonder_unique_dresden_art_gallery_foundation: 德累斯顿艺术馆基础
+    tv_wonder_unique_dresden_art_gallery_foundation_desc: 德累斯顿艺术馆已经保留下来的基础模块。
+    tv_wonder_unique_dresden_art_gallery_body: 德累斯顿艺术馆主体
+    tv_wonder_unique_dresden_art_gallery_body_desc: 德累斯顿艺术馆已经保留下来的主体模块。
+    tv_wonder_unique_dresden_art_gallery_function: 德累斯顿艺术馆功能
+    tv_wonder_unique_dresden_art_gallery_function_desc: 德累斯顿艺术馆已经保留下来的功能模块。
+    tv_wonder_unique_dresden_art_gallery_decoration: 德累斯顿艺术馆封顶装饰
+    tv_wonder_unique_dresden_art_gallery_decoration_desc: 德累斯顿艺术馆已经保留下来的封顶装饰模块。
+    tv_wonder_unique_dresden_art_gallery: 德累斯顿艺术馆
+    tv_wonder_unique_dresden_art_gallery_desc: 尚未落成、但已作为完整工程保留下来的德累斯顿艺术馆。
+    tv_wonder_unique_dresden_art_gallery_inaugurated: 德累斯顿艺术馆
+    tv_wonder_unique_dresden_art_gallery_inaugurated_desc: 巴洛克画廊、绘画、雕塑、瓷器柜、策展人和萨克森宫廷赞助者让德累斯顿艺术馆成为收藏美的王家园区。
+    TV_ENGINEERING_CEREMONY_UNIQUE_DRESDEN_ART_GALLERY_INAUGURATED_BUTTON: 选侯画廊开幕
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_DRESDEN_ART_GALLERY_1: 确认德累斯顿艺术馆的选侯画廊开幕仪式。开幕提升文化收入与威望。
+    tv_engineering_department.500.d_unique_dresden_art_gallery: 巴洛克画廊、绘画、雕塑、瓷器柜、策展人和萨克森宫廷赞助者让德累斯顿艺术馆成为收藏美的王家园区。 大工程师提议德累斯顿艺术馆，让萨克森赞助把收藏变成宫廷威望的机器。 如今，选侯画廊开幕为这座奇观完成了固定历史地点上的落成。开幕提升文化收入与威望。
+    game_concept_tv_wonder_unique_munich_royal_brewery_desc: 铜制酿酒锅、麦芽仓、箍桶匠、公爵官员、啤酒厅、货车与木桶让慕尼黑皇家啤酒厂成为市民生产与宫廷特权的工坊。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用巨型工坊原型，并以公爵酿酒特许状作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_MUNICH_ROYAL_BREWERY_TEXT: 大工程师提议慕尼黑皇家啤酒厂，让公爵特权把麦芽、铜器、劳工与酒馆收入组织成可见产业。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_MUNICH_ROYAL_BREWERY_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_munich_royal_brewery|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_MUNICH_ROYAL_BREWERY_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_munich_royal_brewery|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_MUNICH_ROYAL_BREWERY_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_munich_royal_brewery|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_MUNICH_ROYAL_BREWERY: '@city! 慕尼黑皇家啤酒厂'
+    TV_WONDER_LOCK_UNIQUE_MUNICH_ROYAL_BREWERY_TT: 将[tv_wonder_unique_munich_royal_brewery|E]锁定为工程部当前奇观。
+    tv_wonder_unique_munich_royal_brewery_foundation: 慕尼黑皇家啤酒厂基础
+    tv_wonder_unique_munich_royal_brewery_foundation_desc: 慕尼黑皇家啤酒厂已经保留下来的基础模块。
+    tv_wonder_unique_munich_royal_brewery_body: 慕尼黑皇家啤酒厂主体
+    tv_wonder_unique_munich_royal_brewery_body_desc: 慕尼黑皇家啤酒厂已经保留下来的主体模块。
+    tv_wonder_unique_munich_royal_brewery_function: 慕尼黑皇家啤酒厂功能
+    tv_wonder_unique_munich_royal_brewery_function_desc: 慕尼黑皇家啤酒厂已经保留下来的功能模块。
+    tv_wonder_unique_munich_royal_brewery_decoration: 慕尼黑皇家啤酒厂封顶装饰
+    tv_wonder_unique_munich_royal_brewery_decoration_desc: 慕尼黑皇家啤酒厂已经保留下来的封顶装饰模块。
+    tv_wonder_unique_munich_royal_brewery: 慕尼黑皇家啤酒厂
+    tv_wonder_unique_munich_royal_brewery_desc: 尚未落成、但已作为完整工程保留下来的慕尼黑皇家啤酒厂。
+    tv_wonder_unique_munich_royal_brewery_inaugurated: 慕尼黑皇家啤酒厂
+    tv_wonder_unique_munich_royal_brewery_inaugurated_desc: 铜制酿酒锅、麦芽仓、箍桶匠、公爵官员、啤酒厅、货车与木桶让慕尼黑皇家啤酒厂成为市民生产与宫廷特权的工坊。
+    TV_ENGINEERING_CEREMONY_UNIQUE_MUNICH_ROYAL_BREWERY_INAUGURATED_BUTTON: 公爵酿酒特许状
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MUNICH_ROYAL_BREWERY_1: 确认慕尼黑皇家啤酒厂的公爵酿酒特许状仪式。特许状提升生产效率并降低稳定投资花费。
+    tv_engineering_department.500.d_unique_munich_royal_brewery: 铜制酿酒锅、麦芽仓、箍桶匠、公爵官员、啤酒厅、货车与木桶让慕尼黑皇家啤酒厂成为市民生产与宫廷特权的工坊。 大工程师提议慕尼黑皇家啤酒厂，让公爵特权把麦芽、铜器、劳工与酒馆收入组织成可见产业。 如今，公爵酿酒特许状为这座奇观完成了固定历史地点上的落成。特许状提升生产效率并降低稳定投资花费。
+    game_concept_tv_wonder_unique_heidelberg_university_desc: 讲堂、图书馆、学者、学生、手稿、城镇拱廊、内卡河与城堡山让海德堡大学成为一座学问之城。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用大学城原型，并以普法尔茨学者大会作为历史定制落成仪式。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_HEIDELBERG_UNIVERSITY_TEXT: 大工程师提议海德堡大学，让普法尔茨赞助把课堂、图书馆与城镇生活变成持久的学者共同体。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_HEIDELBERG_UNIVERSITY_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_heidelberg_university|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_HEIDELBERG_UNIVERSITY_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_heidelberg_university|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_HEIDELBERG_UNIVERSITY_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_heidelberg_university|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_HEIDELBERG_UNIVERSITY: '@city! 海德堡大学'
+    TV_WONDER_LOCK_UNIQUE_HEIDELBERG_UNIVERSITY_TT: 将[tv_wonder_unique_heidelberg_university|E]锁定为工程部当前奇观。
+    tv_wonder_unique_heidelberg_university_foundation: 海德堡大学基础
+    tv_wonder_unique_heidelberg_university_foundation_desc: 海德堡大学已经保留下来的基础模块。
+    tv_wonder_unique_heidelberg_university_body: 海德堡大学主体
+    tv_wonder_unique_heidelberg_university_body_desc: 海德堡大学已经保留下来的主体模块。
+    tv_wonder_unique_heidelberg_university_function: 海德堡大学功能
+    tv_wonder_unique_heidelberg_university_function_desc: 海德堡大学已经保留下来的功能模块。
+    tv_wonder_unique_heidelberg_university_decoration: 海德堡大学封顶装饰
+    tv_wonder_unique_heidelberg_university_decoration_desc: 海德堡大学已经保留下来的封顶装饰模块。
+    tv_wonder_unique_heidelberg_university: 海德堡大学
+    tv_wonder_unique_heidelberg_university_desc: 尚未落成、但已作为完整工程保留下来的海德堡大学。
+    tv_wonder_unique_heidelberg_university_inaugurated: 海德堡大学
+    tv_wonder_unique_heidelberg_university_inaugurated_desc: 讲堂、图书馆、学者、学生、手稿、城镇拱廊、内卡河与城堡山让海德堡大学成为一座学问之城。
+    TV_ENGINEERING_CEREMONY_UNIQUE_HEIDELBERG_UNIVERSITY_INAUGURATED_BUTTON: 普法尔茨学者大会
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_HEIDELBERG_UNIVERSITY_1: 确认海德堡大学的普法尔茨学者大会仪式。大会提升研究速度与识字率。
+    tv_engineering_department.500.d_unique_heidelberg_university: 讲堂、图书馆、学者、学生、手稿、城镇拱廊、内卡河与城堡山让海德堡大学成为一座学问之城。 大工程师提议海德堡大学，让普法尔茨赞助把课堂、图书馆与城镇生活变成持久的学者共同体。 如今，普法尔茨学者大会为这座奇观完成了固定历史地点上的落成。大会提升研究速度与识字率。
     game_concept_tv_wonder_unique_cahokia_mounds_desc: 土丘金字塔、广场、木栅与太阳方位把河畔城市塑造成礼仪中心。 这是一项必须在固定历史地点建造的独特[tv_wonder_construction|e]工程，沿用其通用原型的地点规则，并以木蛇祭祀终极大典作为历史定制落成仪式。
     TV_ENGINEERING_PROPOSAL_UNIQUE_CAHOKIA_MOUNDS_TEXT: 大工程师研究卡霍基亚：土木工程与木柱圆阵曾组织密西西比世界的权力。
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_CAHOKIA_MOUNDS_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_cahokia_mounds|E]，并利用当地已经保留下来的工程部分。'
@@ -8931,6 +9503,7 @@ wonder_localization:
     tv_engineering_department.600.d_law_code_stele_project: 消息传来：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_law_code_stele_project|E]。法典石碑工程是一项聚焦法统与治理的[tv_wonder_construction|e]项目。远方宫廷或许会争论它的耗费，却无法把这项工程只当作地方消息。
     tv_engineering_department.600.d_world_market: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_world_market|E]。万国大市场是一项聚焦区域贸易中心的[tv_wonder_construction|e]项目。远方商人会把这则消息译成价格、航路与新的野心。
     tv_engineering_department.600.d_royal_mint_system: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_royal_mint_system|E]。皇家铸币厂是一项聚焦金融与税收的[tv_wonder_construction|e]项目。远方商人会把这则消息译成价格、航路与新的野心。
+    tv_engineering_department.600.d_national_bank: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_national_bank|E]。公共信用大厅、国债署、清算房与守卫金库让财政公开服从国家制度。远方商人会把这则消息译成价格、航路与新的野心。
     tv_engineering_department.600.d_guild_alliance: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_guild_alliance|E]。商业行会大厅是一项聚焦城市商业组织的[tv_wonder_construction|e]项目。远方商人会把这则消息译成价格、航路与新的野心。
     tv_engineering_department.600.d_maritime_trade_station_network: 船只与河道引航人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_maritime_trade_station_network|E]。海上贸易站网络是一项聚焦全球贸易扩张的[tv_wonder_construction|e]项目。每一座依靠水路与港口的市场都将有理由注意它。
     tv_engineering_department.600.d_giant_workshop_complex: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_giant_workshop_complex|E]。巨型工坊是一项聚焦手工业集中化的[tv_wonder_construction|e]项目。远方商人会把这则消息译成价格、航路与新的野心。
@@ -8965,6 +9538,17 @@ wonder_localization:
     tv_engineering_department.600.d_unique_mecca_haram_expansion: 朝圣者与教士报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_mecca_haram_expansion|E]。回廊、庭院与朝觐道路围绕克尔白扩展，使圣域容纳一个信众世界。朝圣者与统治者都会把这件事带出建造者的边界。
     tv_engineering_department.600.d_unique_ming_great_wall: 军事使节报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_ming_great_wall|E]。城墙、关隘、军镇、烽燧与边城把北方边疆组织为九处军事边镇。对手会同时用敬意与戒心来衡量它。
     tv_engineering_department.600.d_unique_bank_of_saint_george: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_bank_of_saint_george|E]。账簿、国债、商人集团与坚固柜台把公共信用变成制度。远方商人会把这则消息译成价格、航路与新的野心。
+    tv_engineering_department.600.d_unique_schoenbrunn_palace: 使节报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_schoenbrunn_palace|E]。巴洛克宫翼、礼仪花园、画廊与外交套间让美泉宫成为帝国会议的宫廷舞台。外国使节会像研读条约一样仔细研读它。
+    tv_engineering_department.600.d_unique_electoral_conference_hall: 使节报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_electoral_conference_hall|E]。法兰克福的议事厅、选帝侯席位、帝国印玺与市民大厅把王位选举变成一座公共建筑。外国使节会像研读条约一样仔细研读它。
+    tv_engineering_department.600.d_unique_aachen_cathedral: 朝圣者与教士报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_aachen_cathedral|E]。加洛林石构、八角礼拜堂、哥特式唱诗班、帝王宝座与金色圣髑盒让亚琛大教堂成为加冕记忆的圣所。朝圣者与统治者都会把这件事带出建造者的边界。
+    tv_engineering_department.600.d_unique_nuremberg_imperial_castle: 军事使节报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_nuremberg_imperial_castle|E]。砂岩塔楼、帝王礼拜堂、城墙、军械庭院与自由市屋顶让纽伦堡帝国城堡成为帝国徽记与市民工艺的要塞。对手会同时用敬意与戒心来衡量它。
+    tv_engineering_department.600.d_unique_augsburg_bank: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_augsburg_bank|E]。富格尔时代的柜台、金库、信使桌、帝国贷款契约与商人账簿让奥格斯堡银行成为公共信用的机器。远方商人会把这则消息译成价格、航路与新的野心。
+    tv_engineering_department.600.d_unique_cologne_cathedral: 朝圣者与教士报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_cologne_cathedral|E]。巨大的哥特唱诗班、拔地而起的双塔、飞扶壁、圣髑龛与莱茵朝圣者让科隆大教堂成为城市尺度的神圣雄辩。朝圣者与统治者都会把这件事带出建造者的边界。
+    tv_engineering_department.600.d_unique_hanseatic_kontor: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_hanseatic_kontor|E]。砖砌仓库、账房、印章、账簿、起重机与易北河桅杆让汉萨商会成为同盟商人的商业使馆。远方商人会把这则消息译成价格、航路与新的野心。
+    tv_engineering_department.600.d_unique_hanseatic_town_hall: 使节报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_hanseatic_town_hall|E]。砖砌哥特立面、市政议事厅、同盟长席、印玺与市场广场特许状让吕贝克汉萨城市厅成为商人城市的市民议会。外国使节会像研读条约一样仔细研读它。
+    tv_engineering_department.600.d_unique_dresden_art_gallery: 消息传来：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_dresden_art_gallery|E]。巴洛克画廊、绘画、雕塑、瓷器柜、策展人和萨克森宫廷赞助者让德累斯顿艺术馆成为收藏美的王家园区。远方宫廷或许会争论它的耗费，却无法把这项工程只当作地方消息。
+    tv_engineering_department.600.d_unique_munich_royal_brewery: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_munich_royal_brewery|E]。铜制酿酒锅、麦芽仓、箍桶匠、公爵官员、啤酒厅、货车与木桶让慕尼黑皇家啤酒厂成为市民生产与宫廷特权的工坊。远方商人会把这则消息译成价格、航路与新的野心。
+    tv_engineering_department.600.d_unique_heidelberg_university: 学者传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_heidelberg_university|E]。讲堂、图书馆、学者、学生、手稿、城镇拱廊、内卡河与城堡山让海德堡大学成为一座学问之城。远方学者与赞助人会争论这种投入证明了什么。
     tv_engineering_department.600.d_unique_cahokia_mounds: 消息传来：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_cahokia_mounds|E]。土丘金字塔、广场、木栅与太阳方位把河畔城市塑造成礼仪中心。远方宫廷或许会争论它的耗费，却无法把这项工程只当作地方消息。
     tv_engineering_department.600.d_unique_great_zimbabwe: 消息传来：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_great_zimbabwe|E]。干砌石墙、锥形塔、牛群财富与黄金路线支撑起高地商业王国。远方宫廷或许会争论它的耗费，却无法把这项工程只当作地方消息。
     tv_engineering_department.600.d_unique_isfahan_square: 使节报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_isfahan_square|E]。清真寺、宫殿、巴扎与马球场把首都构成萨法维统治的剧场。外国使节会像研读条约一样研究它。
@@ -9079,6 +9663,7 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_law_code_stele_project_ritual_blessing_modifier: 宗教法永久祝福
     STATIC_MODIFIER_NAME_tv_wonder_world_market_ritual_blessing_modifier: 奢侈品贸易永久祝福
     STATIC_MODIFIER_NAME_tv_wonder_royal_mint_system_ritual_blessing_modifier: 金银本位永久祝福
+    STATIC_MODIFIER_NAME_tv_wonder_national_bank_ritual_blessing_modifier: 公共信用认购永久祝福
     STATIC_MODIFIER_NAME_tv_wonder_guild_alliance_ritual_blessing_modifier: 手工业联盟永久祝福
     STATIC_MODIFIER_NAME_tv_wonder_maritime_trade_station_network_ritual_blessing_modifier: 香料贸易永久祝福
     STATIC_MODIFIER_NAME_tv_wonder_giant_workshop_complex_ritual_blessing_modifier: 纺织制造永久祝福
@@ -9118,6 +9703,17 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_unique_mecca_haram_expansion_ceremony_modifier: 克尔白重建覆盖仪式
     STATIC_MODIFIER_NAME_tv_wonder_unique_ming_great_wall_ceremony_modifier: 九边点烽
     STATIC_MODIFIER_NAME_tv_wonder_unique_bank_of_saint_george_ceremony_modifier: 圣乔治银行成立
+    STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier: 哈布斯堡朝会
+    STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier: 金玺会议召集
+    STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier: 帝国加冕礼仪
+    STATIC_MODIFIER_NAME_tv_wonder_unique_nuremberg_imperial_castle_ceremony_modifier: 帝国徽记守卫
+    STATIC_MODIFIER_NAME_tv_wonder_unique_augsburg_bank_ceremony_modifier: 帝国信用契约
+    STATIC_MODIFIER_NAME_tv_wonder_unique_cologne_cathedral_ceremony_modifier: 三王朝圣
+    STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_kontor_ceremony_modifier: 商馆账簿宣誓
+    STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier: 同盟议会会期
+    STATIC_MODIFIER_NAME_tv_wonder_unique_dresden_art_gallery_ceremony_modifier: 选侯画廊开幕
+    STATIC_MODIFIER_NAME_tv_wonder_unique_munich_royal_brewery_ceremony_modifier: 公爵酿酒特许状
+    STATIC_MODIFIER_NAME_tv_wonder_unique_heidelberg_university_ceremony_modifier: 普法尔茨学者大会
     STATIC_MODIFIER_NAME_tv_wonder_unique_cahokia_mounds_ceremony_modifier: 木蛇祭祀终极大典
     STATIC_MODIFIER_NAME_tv_wonder_unique_great_zimbabwe_ceremony_modifier: 黄金贸易朝贡典礼
     STATIC_MODIFIER_NAME_tv_wonder_unique_isfahan_square_ceremony_modifier: 迁都大典与马球庆典

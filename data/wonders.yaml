@@ -779,6 +779,21 @@ wonders:
   base_key: summer_palace
   mechanic_key: summer_palace
   base_effect_multiplier: 1
+- id: 53
+  key: national_bank
+  concept: tv_wonder_national_bank
+  size: medium
+  category: government_category
+  pop_type: burghers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_public_credit_bank
+    2: tv_wonder_state_debt_office
+    3: tv_wonder_merchant_clearing_bank
+  is_unique: false
+  base_key: national_bank
+  mechanic_key: national_bank
+  base_effect_multiplier: 1
 parts:
 - key: foundation
 - key: body
