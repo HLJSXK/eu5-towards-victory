@@ -66,7 +66,6 @@ FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
 UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
 UNIQUE_RITUAL_COMPLETED_MAP = "tv_wonder_unique_ritual_completed"
-EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL = "tv_wonder_existing_unique_wonders_initialized"
 PRIORITY_CANDIDATE_WONDER_ID_VAR = "tv_wonder_priority_candidate_wonder_id"
 PRIORITY_CANDIDATE_CURRENT_MODE_VAR = "tv_wonder_priority_candidate_current_mode"
 LOCATION_DISPLAY_SCOPE = "tv_wonder_location_display_location"
@@ -1409,34 +1408,37 @@ def append_location_display_effects(lines: list[str]) -> None:
 def append_existing_unique_wonders_initialization_effect(lines: list[str], unique_wonders: list[dict]) -> None:
     existing_wonders = [wonder for wonder in unique_wonders if int(wonder["initial_level"]) > 0]
     lines.append("tv_wonder_initialize_existing_unique_wonders_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}NOT = {{ has_global_variable = {EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL} }}")
-    lines.append(f"{T}{T}}}")
-    lines.append(
-        f"{T}{T}set_global_variable = {{ name = {EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL} value = yes }}"
-    )
     for wonder in existing_wonders:
         initial_level = int(wonder["initial_level"])
         final_building = wonder["final_buildings"].get(1)
         if not final_building:
             raise ValueError(f"{wonder['key']} must define final_buildings[1] for game-start initialization")
         building_ref = f"building_type:{final_building}"
-        lines.append(f"{T}{T}location:{wonder['location']} = {{")
-        lines.append(f"{T}{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}{T}limit = {{ NOT = {{ has_building = {building_ref} }} }}")
+        lines.append(f"{T}location:{wonder['location']} = {{")
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{ NOT = {{ has_building = {building_ref} }} }}")
         lines.append(
-            f"{T}{T}{T}{T}construct_building = {{ building_type = {building_ref} "
+            f"{T}{T}{T}construct_building = {{ building_type = {building_ref} "
             'cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }'
         )
+        lines.append(f"{T}{T}}}")
+        append_raise_building_to_initial_level(lines, building_ref, initial_level, 2)
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}{T}OR = {{")
+        lines.append(f"{T}{T}{T}{T}{T}NOT = {{ has_variable_map = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP} }}")
+        lines.append(
+            f"{T}{T}{T}{T}{T}NOT = {{ is_key_in_variable_map = {{ "
+            f"name = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP} target = {building_ref} }} }}"
+        )
+        lines.append(f"{T}{T}{T}{T}}}")
         lines.append(f"{T}{T}{T}}}")
-        append_raise_building_to_initial_level(lines, building_ref, initial_level, 3)
         lines.extend(map_replace_lines(FINAL_BUILDING_LEVEL_BY_TYPE_MAP, building_ref, str(initial_level), 3))
         append_seed_existing_unique_survey_maps(lines, int(wonder["id"]), 3)
         if initial_level < 6:
             append_register_existing_unique_priority_candidate(lines, int(wonder["id"]), 3)
         lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
+        lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
