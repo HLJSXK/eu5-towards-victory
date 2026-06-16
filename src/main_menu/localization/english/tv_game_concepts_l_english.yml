@@ -105,7 +105,7 @@
 
  game_concept_tv_diplomatic_victory_points: "Diplomatic Victory Points"
  game_concept_tv_dvp: "DVP"
- game_concept_tv_diplomatic_victory_points_desc: "Diplomatic Victory Points (DVP) are earned through the [tv_diplomatic_alliance|e] reform path and diplomatic forecasting. Two countries offering [tv_diplomatic_support|e] found the alliance and grant the first point; later points come from monthly [tv_alliance_tier|e] output. Milestones are 1, 50, 500, 2,500, and 15,000 DVP."
+ game_concept_tv_diplomatic_victory_points_desc: "Diplomatic Victory Points (DVP) are earned through the [tv_diplomatic_alliance|e] reform path and diplomatic forecasting. Two countries offering [tv_diplomatic_support|e] found the alliance and grant the first point; later points come from monthly [tv_alliance_tier|e] output: the alliance leader gains the full tier, while non-leader members gain half. Milestones are 1, 50, 500, 2,500, and 15,000 DVP."
 
  game_concept_tv_cultural_influence_points: "Cultural Influence Points"
  game_concept_tv_cip: "CIP"
@@ -219,7 +219,7 @@
  game_concept_tv_diplomatic_support_desc: "A permanent pledge from another country backing your bid for [tv_diplomatic_victory|e]. Two supporters open the first milestone and found the [tv_diplomatic_alliance|e]."
 
  game_concept_tv_alliance_tier: "Alliance Tier"
- game_concept_tv_alliance_tier_desc: "A 0-15 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases [tv_alliance_tier|e]. Each tier generates 1 [tv_dvp|e] per month for the founder."
+ game_concept_tv_alliance_tier_desc: "A 0-15 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases [tv_alliance_tier|e]. Each tier generates 1 [tv_dvp|e] per month for the alliance leader and 0.5 [tv_dvp|e] for each non-leader member."
 
  game_concept_tv_alliance_cohesion: "Alliance Cohesion"
  game_concept_tv_alliance_cohesion_desc: "A 0-100 [tv_diplomatic_alliance|e] variable measuring cooperation among alliance members. It grows each month from base growth, the leader country's diplomatic reputation, and internal peace. Upgraded alliance laws spend Cohesion to increase [tv_alliance_tier|e]."

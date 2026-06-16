@@ -88,10 +88,23 @@
 				}
 			}
 			if = {
-				limit = { var:tv_alliance_tier > 0 }
+				limit = {
+					var:tv_alliance_tier > 0
+					international_organization_has_leader = yes
+				}
 				set_local_variable = { name = tv_alliance_monthly_dvp value = var:tv_alliance_tier }
 				leader_country ?= {
 					change_variable = { name = tv_diplomatic_victory_points add = local_var:tv_alliance_monthly_dvp }
+				}
+				set_local_variable = { name = tv_alliance_member_monthly_dvp value = var:tv_alliance_tier }
+				change_local_variable = { name = tv_alliance_member_monthly_dvp divide = 2 }
+				every_international_organization_member = {
+					limit = { NOT = { is_leader_of_international_organization = prev } }
+					if = {
+						limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+						set_variable = { name = tv_diplomatic_victory_points value = 0 }
+					}
+					change_variable = { name = tv_diplomatic_victory_points add = local_var:tv_alliance_member_monthly_dvp }
 				}
 			}
 		}
