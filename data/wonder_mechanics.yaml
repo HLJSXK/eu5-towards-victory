@@ -1165,6 +1165,28 @@ designs:
         en: Merchant Clearing House
         completion: 支付仪式后获得财政回报。
         effect: 获得金币并降低通胀。
+  pirate_port:
+    status: 已实现
+    positioning: 私掠港、海盗庇护与港湾防御
+    site: 港口地点。
+    preference: 港口适宜度提供称职度；既有设防、城市或大都会额外提高称职度。
+    base_effect: 每级：允许雇佣私掠船，降低私掠雇佣和维护成本，提高私掠船耐久与海军价值观倾向；所在地提升海上存在、贸易中心力量和防御。
+    branches:
+      1:
+        zh: 私掠船庇护所
+        en: Privateer Haven
+        completion: 确认私掠船庇护所方案后完成落成仪式。
+        effect: 进一步降低私掠雇佣与维护成本，并启用无耻私掠。
+      2:
+        zh: 港湾堡垒
+        en: Harbor Redoubt
+        completion: 完成港湾堡垒附属建筑后完成落成仪式。
+        effect: 所在地提升防御、驻军和海上存在。
+      3:
+        zh: 海盗舰队司令部
+        en: Corsair Admiralty
+        completion: 支付仪式后获得海军传统。
+        effect: +20 海军传统。
 buildings:
   colonial_trade_company:
     final_local:
@@ -1589,6 +1611,22 @@ buildings:
       local_market_access: 0.1
       local_trade_center_power: 0.1
       local_merchant_capacity: 1
+  pirate_port:
+    final_local:
+      local_maritime_presence: 0.15
+      local_trade_center_power: 0.1
+      local_defensive: 0.1
+    final_maintenance:
+      tv_wonder_privateer_haven: tv_wonder_port_monument_maintenance
+      tv_wonder_harbor_redoubt: tv_wonder_axis_monument_maintenance
+      tv_wonder_corsair_admiralty: tv_wonder_port_monument_maintenance
+    final_attributes:
+      tv_wonder_privateer_haven:
+        category: military_category
+      tv_wonder_harbor_redoubt:
+        category: military_category
+      tv_wonder_corsair_admiralty:
+        category: military_category
 generic_rituals:
   colonial_trade_company:
     style_1:
@@ -2235,6 +2273,22 @@ generic_rituals:
         value: 8000
       - type: inflation
         value: -0.05
+  pirate_port:
+    style_1:
+      country_modifier:
+        hire_privateer_cost_modifier: -0.2
+        privateer_maintenance_cost_modifier: -0.1
+        shameless_privateering_modifier: true
+    style_2:
+      local_modifier:
+        local_defensive: 0.2
+        local_garrison_size: 0.25
+        local_maritime_presence: 0.2
+    style_3:
+      cost_type: scaled_gold
+      reward:
+      - type: navy_tradition
+        value: 20
 base_modifiers:
   colonial_trade_company:
     global_merchant_power: 0.2
@@ -2378,6 +2432,12 @@ base_modifiers:
     monthly_towards_defensive: 0.05
   naval_school:
     monthly_navy_tradition: 0.05
+    monthly_towards_naval: 0.05
+  pirate_port:
+    can_hire_privateers: true
+    hire_privateer_cost_modifier: -0.05
+    privateer_maintenance_cost_modifier: -0.03
+    privateer_durability: 0.05
     monthly_towards_naval: 0.05
 site_rules:
   ancient_city_ruins:
@@ -2637,6 +2697,22 @@ site_rules:
       clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
       change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
       tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
+  pirate_port:
+    trigger_script: is_port = yes
+    preference_script: |-
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 20 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
       remove_variable = tv_wonder_site_preference_bonus
   river_extension:
     trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n}"

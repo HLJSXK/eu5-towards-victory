@@ -10849,6 +10849,227 @@ tv_wonder_national_bank_ritual_annex = {
 	}
 }
 
+tv_wonder_privateer_haven = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_maritime_presence = 0.15
+		local_trade_center_power = 0.1
+		local_defensive = 0.1
+		can_hire_privateers = yes
+		hire_privateer_cost_modifier = -0.05
+		privateer_maintenance_cost_modifier = -0.03
+		privateer_durability = 0.05
+		monthly_towards_naval = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_port_monument_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_harbor_redoubt = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_maritime_presence = 0.15
+		local_trade_center_power = 0.1
+		local_defensive = 0.1
+		can_hire_privateers = yes
+		hire_privateer_cost_modifier = -0.05
+		privateer_maintenance_cost_modifier = -0.03
+		privateer_durability = 0.05
+		monthly_towards_naval = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_axis_monument_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_corsair_admiralty = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_maritime_presence = 0.15
+		local_trade_center_power = 0.1
+		local_defensive = 0.1
+		can_hire_privateers = yes
+		hire_privateer_cost_modifier = -0.05
+		privateer_maintenance_cost_modifier = -0.03
+		privateer_durability = 0.05
+		monthly_towards_naval = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_port_monument_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_pirate_port_ritual_annex = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	price = tv_wonder_ritual_annex_small_price
+
+	build_time = small_fort_building
+	construction_demand = fort_construction
+
+	modifier = {
+		local_defensive = 0.2
+		local_garrison_size = 0.25
+		local_maritime_presence = 0.2
+		local_burghers_estate_power = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location.owner = {
+				if = {
+					limit = {
+						has_variable = tv_wonder_ritual_in_progress
+						var:tv_wonder_locked ?= 54
+						var:tv_wonder_ceremony_style ?= 2
+					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
+					tv_wonder_complete_active_ritual_effect = yes
+				}
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			owner = {
+				tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect = yes
+			}
+		}
+	}
+}
+
 tv_wonder_unique_pharos_lighthouse_inaugurated = {
 	is_special = yes
 	is_foreign = no
@@ -16416,6 +16637,293 @@ tv_wonder_unique_heidelberg_university_inaugurated = {
 		local_pop_promotion_speed = 0.02
 		local_max_literacy = 20
 		monthly_towards_innovative = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_fez_old_city_inaugurated = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_build_buildings_cost = -0.2
+		exploration_mission_speed = 0.2
+		monthly_towards_outward = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_kairouan_holy_city_inaugurated = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		global_pop_conversion_speed = 0.004
+		monthly_towards_spiritualist = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_algiers_pirate_port_inaugurated = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_maritime_presence = 0.3
+		local_trade_center_power = 0.2
+		local_defensive = 0.2
+		can_hire_privateers = yes
+		hire_privateer_cost_modifier = -0.1
+		privateer_maintenance_cost_modifier = -0.06
+		privateer_durability = 0.1
+		monthly_towards_naval = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_sankore_university_inaugurated = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_pop_promotion_speed = 0.02
+		local_max_literacy = 20
+		monthly_towards_innovative = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_great_mosque_of_djenne_inaugurated = {
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_pop_conversion_speed = 0.02
+		local_crown_estate_power = 1
+		monthly_towards_spiritualist = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location = {
+				tv_wonder_mechanics_refresh_location_display_state_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_walls_of_benin_inaugurated = {
+	is_special = yes
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = no }
+
+	build_time = large_cultural_building_time
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_defensive = 0.4
+		local_garrison_size = 0.5
+		local_frontage_allowed = -1
+		monthly_towards_defensive = 0.1
 	}
 
 	possible_production_methods = {

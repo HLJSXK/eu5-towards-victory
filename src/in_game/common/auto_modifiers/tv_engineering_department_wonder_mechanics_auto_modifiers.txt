@@ -6939,6 +6939,159 @@ tv_wonder_auto_national_bank_level_6 = {
 	monthly_towards_capital_economy = 0.3
 }
 
+tv_wonder_auto_pirate_port_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 1 }
+				location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 1 }
+				location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 1 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 2 }
+					location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 2 }
+					location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 2 }
+				}
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.05
+	privateer_maintenance_cost_modifier = -0.03
+	privateer_durability = 0.05
+	monthly_towards_naval = 0.05
+}
+
+tv_wonder_auto_pirate_port_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 2 }
+				location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 2 }
+				location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 2 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 3 }
+					location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 3 }
+					location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 3 }
+				}
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.1
+	privateer_maintenance_cost_modifier = -0.06
+	privateer_durability = 0.1
+	monthly_towards_naval = 0.1
+}
+
+tv_wonder_auto_pirate_port_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 3 }
+				location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 3 }
+				location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 3 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 4 }
+					location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 4 }
+					location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 4 }
+				}
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.15
+	privateer_maintenance_cost_modifier = -0.09
+	privateer_durability = 0.15
+	monthly_towards_naval = 0.15
+}
+
+tv_wonder_auto_pirate_port_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 4 }
+				location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 4 }
+				location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 4 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 5 }
+					location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 5 }
+					location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 5 }
+				}
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.2
+	privateer_maintenance_cost_modifier = -0.12
+	privateer_durability = 0.2
+	monthly_towards_naval = 0.2
+}
+
+tv_wonder_auto_pirate_port_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 5 }
+				location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 5 }
+				location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 5 }
+			}
+		}
+		NOT = {
+			any_owned_location = {
+				OR = {
+					location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 6 }
+					location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 6 }
+					location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 6 }
+				}
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.25
+	privateer_maintenance_cost_modifier = -0.15
+	privateer_durability = 0.25
+	monthly_towards_naval = 0.25
+}
+
+tv_wonder_auto_pirate_port_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_privateer_haven value >= 6 }
+				location_building_level = { building_type = building_type:tv_wonder_harbor_redoubt value >= 6 }
+				location_building_level = { building_type = building_type:tv_wonder_corsair_admiralty value >= 6 }
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.3
+	privateer_maintenance_cost_modifier = -0.18
+	privateer_durability = 0.3
+	monthly_towards_naval = 0.3
+}
+
 tv_wonder_auto_unique_pharos_lighthouse_level_1 = {
 	category = country
 	potential_trigger = {
@@ -17271,4 +17424,550 @@ tv_wonder_auto_unique_heidelberg_university_level_6 = {
 		}
 	}
 	monthly_towards_innovative = 0.6
+}
+
+tv_wonder_auto_unique_fez_old_city_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 2 }
+			}
+		}
+	}
+	exploration_mission_speed = 0.2
+	monthly_towards_outward = 0.1
+}
+
+tv_wonder_auto_unique_fez_old_city_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 3 }
+			}
+		}
+	}
+	exploration_mission_speed = 0.4
+	monthly_towards_outward = 0.2
+}
+
+tv_wonder_auto_unique_fez_old_city_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 4 }
+			}
+		}
+	}
+	exploration_mission_speed = 0.6
+	monthly_towards_outward = 0.3
+}
+
+tv_wonder_auto_unique_fez_old_city_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 5 }
+			}
+		}
+	}
+	exploration_mission_speed = 0.8
+	monthly_towards_outward = 0.4
+}
+
+tv_wonder_auto_unique_fez_old_city_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 6 }
+			}
+		}
+	}
+	exploration_mission_speed = 1
+	monthly_towards_outward = 0.5
+}
+
+tv_wonder_auto_unique_fez_old_city_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_fez_old_city_inaugurated value >= 6 }
+		}
+	}
+	exploration_mission_speed = 1.2
+	monthly_towards_outward = 0.6
+}
+
+tv_wonder_auto_unique_kairouan_holy_city_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 2 }
+			}
+		}
+	}
+	global_pop_conversion_speed = 0.004
+	monthly_towards_spiritualist = 0.1
+}
+
+tv_wonder_auto_unique_kairouan_holy_city_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 3 }
+			}
+		}
+	}
+	global_pop_conversion_speed = 0.008
+	monthly_towards_spiritualist = 0.2
+}
+
+tv_wonder_auto_unique_kairouan_holy_city_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 4 }
+			}
+		}
+	}
+	global_pop_conversion_speed = 0.012
+	monthly_towards_spiritualist = 0.3
+}
+
+tv_wonder_auto_unique_kairouan_holy_city_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 5 }
+			}
+		}
+	}
+	global_pop_conversion_speed = 0.016
+	monthly_towards_spiritualist = 0.4
+}
+
+tv_wonder_auto_unique_kairouan_holy_city_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 6 }
+			}
+		}
+	}
+	global_pop_conversion_speed = 0.02
+	monthly_towards_spiritualist = 0.5
+}
+
+tv_wonder_auto_unique_kairouan_holy_city_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value >= 6 }
+		}
+	}
+	global_pop_conversion_speed = 0.024
+	monthly_towards_spiritualist = 0.6
+}
+
+tv_wonder_auto_unique_algiers_pirate_port_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 2 }
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.1
+	privateer_maintenance_cost_modifier = -0.06
+	privateer_durability = 0.1
+	monthly_towards_naval = 0.1
+}
+
+tv_wonder_auto_unique_algiers_pirate_port_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 3 }
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.2
+	privateer_maintenance_cost_modifier = -0.12
+	privateer_durability = 0.2
+	monthly_towards_naval = 0.2
+}
+
+tv_wonder_auto_unique_algiers_pirate_port_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 4 }
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.3
+	privateer_maintenance_cost_modifier = -0.18
+	privateer_durability = 0.3
+	monthly_towards_naval = 0.3
+}
+
+tv_wonder_auto_unique_algiers_pirate_port_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 5 }
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.4
+	privateer_maintenance_cost_modifier = -0.24
+	privateer_durability = 0.4
+	monthly_towards_naval = 0.4
+}
+
+tv_wonder_auto_unique_algiers_pirate_port_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 6 }
+			}
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.5
+	privateer_maintenance_cost_modifier = -0.3
+	privateer_durability = 0.5
+	monthly_towards_naval = 0.5
+}
+
+tv_wonder_auto_unique_algiers_pirate_port_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_algiers_pirate_port_inaugurated value >= 6 }
+		}
+	}
+	can_hire_privateers = yes
+	hire_privateer_cost_modifier = -0.6
+	privateer_maintenance_cost_modifier = -0.36
+	privateer_durability = 0.6
+	monthly_towards_naval = 0.6
+}
+
+tv_wonder_auto_unique_sankore_university_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 2 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.1
+}
+
+tv_wonder_auto_unique_sankore_university_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 3 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.2
+}
+
+tv_wonder_auto_unique_sankore_university_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 4 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.3
+}
+
+tv_wonder_auto_unique_sankore_university_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 5 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.4
+}
+
+tv_wonder_auto_unique_sankore_university_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 6 }
+			}
+		}
+	}
+	monthly_towards_innovative = 0.5
+}
+
+tv_wonder_auto_unique_sankore_university_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_sankore_university_inaugurated value >= 6 }
+		}
+	}
+	monthly_towards_innovative = 0.6
+}
+
+tv_wonder_auto_unique_great_mosque_of_djenne_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 2 }
+			}
+		}
+	}
+	monthly_towards_spiritualist = 0.1
+}
+
+tv_wonder_auto_unique_great_mosque_of_djenne_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 3 }
+			}
+		}
+	}
+	monthly_towards_spiritualist = 0.2
+}
+
+tv_wonder_auto_unique_great_mosque_of_djenne_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 4 }
+			}
+		}
+	}
+	monthly_towards_spiritualist = 0.3
+}
+
+tv_wonder_auto_unique_great_mosque_of_djenne_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 5 }
+			}
+		}
+	}
+	monthly_towards_spiritualist = 0.4
+}
+
+tv_wonder_auto_unique_great_mosque_of_djenne_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 6 }
+			}
+		}
+	}
+	monthly_towards_spiritualist = 0.5
+}
+
+tv_wonder_auto_unique_great_mosque_of_djenne_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value >= 6 }
+		}
+	}
+	monthly_towards_spiritualist = 0.6
+}
+
+tv_wonder_auto_unique_walls_of_benin_level_1 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 1 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 2 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.1
+}
+
+tv_wonder_auto_unique_walls_of_benin_level_2 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 2 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 3 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.2
+}
+
+tv_wonder_auto_unique_walls_of_benin_level_3 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 3 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 4 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.3
+}
+
+tv_wonder_auto_unique_walls_of_benin_level_4 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 4 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 5 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.4
+}
+
+tv_wonder_auto_unique_walls_of_benin_level_5 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 5 }
+		}
+		NOT = {
+			any_owned_location = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 6 }
+			}
+		}
+	}
+	monthly_towards_defensive = 0.5
+}
+
+tv_wonder_auto_unique_walls_of_benin_level_6 = {
+	category = country
+	potential_trigger = {
+		any_owned_location = {
+			location_building_level = { building_type = building_type:tv_wonder_unique_walls_of_benin_inaugurated value >= 6 }
+		}
+	}
+	monthly_towards_defensive = 0.6
 }

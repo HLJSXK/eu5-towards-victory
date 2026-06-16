@@ -2337,6 +2337,50 @@ tv_engineering_department.5053 = {
 	}
 }
 
+tv_engineering_department.5054 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_pirate_port_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_pirate_port_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_pirate_port_3
+			}
+			desc = tv_engineering_department.500.d_pirate_port_1
+		}
+	}
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_pirate_port_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_pirate_port_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_pirate_port_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_pirate_port_style_3_construct_final_building_effect = yes
+		}
+		tv_wonder_pirate_port_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
 tv_engineering_department.5101 = {
 	type = country_event
 	title = tv_engineering_department.500.t
@@ -4326,6 +4370,108 @@ tv_engineering_department.5217 = {
 	}
 }
 
+tv_engineering_department.5218 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_fez_old_city
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_fez_old_city_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_fez_old_city_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_fez_old_city_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5219 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_kairouan_holy_city
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_kairouan_holy_city_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_kairouan_holy_city_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_kairouan_holy_city_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5220 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_algiers_pirate_port
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_algiers_pirate_port_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_algiers_pirate_port_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_algiers_pirate_port_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5221 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_sankore_university
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_sankore_university_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_sankore_university_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_sankore_university_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5222 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_great_mosque_of_djenne
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_great_mosque_of_djenne_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_great_mosque_of_djenne_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_great_mosque_of_djenne_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5223 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_walls_of_benin
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_walls_of_benin_cropped.dds"
+	outcome = good
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_walls_of_benin_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_walls_of_benin_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
 tv_engineering_department.6999 = {
 	type = country_event
 	outcome = neutral
@@ -4967,6 +5113,18 @@ tv_engineering_department.6053 = {
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d_national_bank
 	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_national_bank_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6054 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_pirate_port
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_pirate_port_cropped.dds"
 	outcome = neutral
 
 	option = {
@@ -6371,6 +6529,78 @@ tv_engineering_department.6217 = {
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d_unique_heidelberg_university
 	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_heidelberg_university_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6218 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_fez_old_city
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_fez_old_city_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6219 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_kairouan_holy_city
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_kairouan_holy_city_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6220 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_algiers_pirate_port
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_algiers_pirate_port_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6221 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_sankore_university
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_sankore_university_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6222 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_great_mosque_of_djenne
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_great_mosque_of_djenne_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6223 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_walls_of_benin
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_walls_of_benin_cropped.dds"
 	outcome = neutral
 
 	option = {

@@ -4912,3 +4912,250 @@ unique_wonders:
       price: null
       attributes: {}
       max_levels: 6
+- id: 218
+  key: unique_fez_old_city
+  base_key: ancient_city_ruins
+  concept: tv_wonder_unique_fez_old_city
+  location: fez
+  image: tv_wonder_unique_fez_old_city
+  prompt: Fez old city in the late medieval Maghreb, dense walled medina lanes, madrasas, mosques, dye vats, craft markets, gates, scholars and merchants, Marinid courtyards, restoration ceremony in the ancient city, historically grounded world wonder key art, cinematic urban heritage panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: ancient_city_ruins
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_fez_old_city_inaugurated
+  ritual:
+    key: medina_restoration_rite
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.06
+      monthly_prestige: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 219
+  key: unique_kairouan_holy_city
+  base_key: sky_dome_grand_temple
+  concept: tv_wonder_unique_kairouan_holy_city
+  location: kairouan
+  image: tv_wonder_unique_kairouan_holy_city
+  prompt: Kairouan holy city in medieval Ifriqiya, the Great Mosque precinct with massive walls, prayer halls, arcades, minaret, scholarly courtyards, pilgrims, water basins, and desert light, historically grounded world wonder key art, reverent cinematic sacred city panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: sky_dome_grand_temple
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_kairouan_holy_city_inaugurated
+  ritual:
+    key: ifriqiyan_scholars_synod
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tolerance_own: 1
+      clergy_estate_target_satisfaction: 0.025
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 220
+  key: unique_algiers_pirate_port
+  base_key: pirate_port
+  concept: tv_wonder_unique_algiers_pirate_port
+  location: algiers
+  image: tv_wonder_unique_algiers_pirate_port
+  prompt: Algiers pirate port in the early modern Barbary coast, fortified harbor mole, corsair galleys, lateen sails, cannon batteries, prize ships, warehouses, ransom offices, market quays, sea walls, and captains swearing privateering oaths, historically grounded world wonder key art, cinematic maritime fortress panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: pirate_port
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_algiers_pirate_port_inaugurated
+  ritual:
+    key: corsair_captains_oath
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      can_hire_privateers: true
+      privateer_durability: 0.1
+      shameless_privateering_modifier: true
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 221
+  key: unique_sankore_university
+  base_key: university_city
+  concept: tv_wonder_unique_sankore_university
+  location: timbuktu
+  image: tv_wonder_unique_sankore_university
+  prompt: Sankore University in golden-age Timbuktu, earthen mosque and madrasa courts, scholars with manuscripts, libraries, book markets, students beneath arcades, desert caravans, mudbrick city walls and Sahel light, historically grounded world wonder key art, cinematic scholarly city panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: university_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_sankore_university_inaugurated
+  ritual:
+    key: manuscripts_convocation
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.04
+      global_monthly_literacy: 0.002
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 222
+  key: unique_great_mosque_of_djenne
+  base_key: giant_tower_temple
+  concept: tv_wonder_unique_great_mosque_of_djenne
+  location: djenne
+  image: tv_wonder_unique_great_mosque_of_djenne
+  prompt: Great Mosque of Djenne in medieval Mali, monumental earthen mosque with timber toron beams, towers, buttresses, market square, annual replastering festival, scholars, merchants, and Sahel mudbrick city around it, historically grounded world wonder key art, cinematic sacred urban panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: giant_tower_temple
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_great_mosque_of_djenne_inaugurated
+  ritual:
+    key: banco_replastering_festival
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_pop_conversion_speed_modifier: 0.04
+      monthly_prestige: 0.06
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 223
+  key: unique_walls_of_benin
+  base_key: great_wall
+  concept: tv_wonder_unique_walls_of_benin
+  location: benin
+  image: tv_wonder_unique_walls_of_benin
+  prompt: Walls of Benin around the Edo capital, vast earthen ramparts, moats, gates, palace roads, guards, bronze casters, market processions, forest edge and red earth, historically grounded world wonder key art, cinematic West African defensive urban panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: great_wall
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_walls_of_benin_inaugurated
+  ritual:
+    key: earthwork_gate_muster
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_garrison_size_modifier: 0.06
+      monthly_towards_defensive: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6

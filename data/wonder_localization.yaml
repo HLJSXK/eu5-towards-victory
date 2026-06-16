@@ -4896,6 +4896,187 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_unique_dresden_art_gallery_ceremony_modifier: Elector Gallery Opening
     STATIC_MODIFIER_NAME_tv_wonder_unique_munich_royal_brewery_ceremony_modifier: Ducal Brewery Charter
     STATIC_MODIFIER_NAME_tv_wonder_unique_heidelberg_university_ceremony_modifier: Palatine Scholars Convocation
+    game_concept_tv_wonder_pirate_port_desc: A fortified corsair harbor of quays, prize docks, cannon batteries, ransom offices, warehouses, and sheltered privateer berths. This [tv_wonder_construction|e] requires a port and turns maritime predation into naval reach, cheaper privateering, and local harbor defense.
+    TV_ENGINEERING_PROPOSAL_PIRATE_PORT_TEXT: The [tv_great_engineer|E] proposes [tv_wonder_pirate_port|E].
+    TV_ENGINEERING_PROPOSAL_RESUME_PIRATE_PORT_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_pirate_port|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_PIRATE_PORT_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_pirate_port|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_PIRATE_PORT_TEXT: '@lock! Locked Wonder: [tv_wonder_pirate_port|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_PIRATE_PORT: '@city! Pirate Port'
+    TV_WONDER_LOCK_PIRATE_PORT_TT: Locks [tv_wonder_pirate_port|E] as the Engineering Department's active wonder.
+    tv_wonder_pirate_port_foundation: Pirate Port Foundation
+    tv_wonder_pirate_port_foundation_desc: A preserved foundation module for the Pirate Port.
+    tv_wonder_pirate_port_body: Pirate Port Main Structure
+    tv_wonder_pirate_port_body_desc: A preserved main structure module for the Pirate Port.
+    tv_wonder_pirate_port_function: Pirate Port Functional Works
+    tv_wonder_pirate_port_function_desc: A preserved functional works module for the Pirate Port.
+    tv_wonder_pirate_port_decoration: Pirate Port Crowning Works
+    tv_wonder_pirate_port_decoration_desc: A preserved crowning works module for the Pirate Port.
+    tv_wonder_pirate_port: Pirate Port
+    tv_wonder_pirate_port_ritual_annex: Pirate Port Ritual Annex
+    tv_wonder_pirate_port_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Pirate Port.
+    tv_wonder_pirate_port_desc: An unconsecrated Pirate Port preserved as completed construction.
+    STATIC_MODIFIER_NAME_tv_wonder_pirate_port_ritual_burden_modifier: Privateer Haven Ritual Burden
+    STATIC_MODIFIER_NAME_tv_wonder_pirate_port_ritual_blessing_modifier: Privateer Haven Blessing
+    tv_wonder_privateer_haven: Privateer Haven
+    tv_wonder_privateer_haven_desc: The Privateer Haven branch of the Pirate Port.
+    TV_ENGINEERING_CEREMONY_PRIVATEER_HAVEN_BUTTON: Privateer Haven
+    TV_ENGINEERING_ACTIVE_RITUAL_PIRATE_PORT_1: Confirm the Privateer Haven ceremony for the Pirate Port. The haven lowers privateer costs and legitimizes shameless privateering after its rite.
+    tv_engineering_department.500.d_pirate_port_1: The captains gather under sealed letters, prize ledgers, and harbor guns that will remember which ships are welcome. [tv_wonder_ceremony|E] turns privateering from waterfront rumor into state policy.
+    tv_wonder_harbor_redoubt: Harbor Redoubt
+    tv_wonder_harbor_redoubt_desc: The Harbor Redoubt branch of the Pirate Port.
+    TV_ENGINEERING_CEREMONY_HARBOR_REDOUBT_BUTTON: Harbor Redoubt
+    TV_ENGINEERING_ACTIVE_RITUAL_PIRATE_PORT_2: Confirm the Harbor Redoubt ceremony for the Pirate Port. The redoubt strengthens local defense, garrison size, and maritime presence.
+    tv_engineering_department.500.d_pirate_port_2: Masons set batteries over the quay while harbor pilots mark every shoal and channel. [tv_wonder_ceremony|E] makes the port a refuge for allies and a calculation for enemies.
+    tv_wonder_corsair_admiralty: Corsair Admiralty
+    tv_wonder_corsair_admiralty_desc: The Corsair Admiralty branch of the Pirate Port.
+    TV_ENGINEERING_CEREMONY_CORSAIR_ADMIRALTY_BUTTON: Corsair Admiralty
+    TV_ENGINEERING_ACTIVE_RITUAL_PIRATE_PORT_3: Confirm the Corsair Admiralty ceremony for the Pirate Port. The admiralty grants +20 naval tradition.
+    tv_engineering_department.500.d_pirate_port_3: Prize captains, shipwrights, pilots, and ransom clerks answer to one admiralty desk at last. [tv_wonder_ceremony|E] makes corsair practice a school of naval command.
+    tv_engineering_department.600.d_pirate_port: Reports say [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed a [tv_wonder_pirate_port|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Fortified quays, prize courts, corsair berths, and harbor guns now make the sea around it feel less like open water than disputed property.
+    game_concept_tv_wonder_unique_fez_old_city_desc: Dense medina lanes, madrasas, mosques, dye vats, craft markets, gates, and restored walls make Fez Old City a living urban inheritance. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Ancient City Ruins archetype, and culminates in the Medina Restoration Rite ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_FEZ_OLD_CITY_TEXT: The engineer proposes Fez Old City, where scholarship, craft, and restored medina walls can turn urban memory into authority.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_FEZ_OLD_CITY_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_fez_old_city|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_FEZ_OLD_CITY_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_fez_old_city|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_FEZ_OLD_CITY_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_fez_old_city|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_FEZ_OLD_CITY: '@city! Fez Old City'
+    TV_WONDER_LOCK_UNIQUE_FEZ_OLD_CITY_TT: Locks [tv_wonder_unique_fez_old_city|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_fez_old_city_foundation: Fez Old City Foundation
+    tv_wonder_unique_fez_old_city_foundation_desc: A preserved foundation module for Fez Old City.
+    tv_wonder_unique_fez_old_city_body: Fez Old City Main Structure
+    tv_wonder_unique_fez_old_city_body_desc: A preserved main structure module for Fez Old City.
+    tv_wonder_unique_fez_old_city_function: Fez Old City Functional Works
+    tv_wonder_unique_fez_old_city_function_desc: A preserved functional works module for Fez Old City.
+    tv_wonder_unique_fez_old_city_decoration: Fez Old City Crowning Works
+    tv_wonder_unique_fez_old_city_decoration_desc: A preserved crowning works module for Fez Old City.
+    tv_wonder_unique_fez_old_city: Fez Old City
+    tv_wonder_unique_fez_old_city_desc: An unconsecrated Fez Old City preserved as completed construction.
+    tv_wonder_unique_fez_old_city_inaugurated: Fez Old City
+    tv_wonder_unique_fez_old_city_inaugurated_desc: Dense medina lanes, madrasas, mosques, dye vats, craft markets, gates, and restored walls make Fez Old City a living urban inheritance.
+    TV_ENGINEERING_CEREMONY_UNIQUE_FEZ_OLD_CITY_INAUGURATED_BUTTON: Medina Restoration Rite
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_FEZ_OLD_CITY_1: Confirm the Medina Restoration Rite ceremony for Fez Old City. The rite improves legitimacy and prestige.
+    tv_engineering_department.500.d_unique_fez_old_city: Dense medina lanes, madrasas, mosques, dye vats, craft markets, gates, and restored walls make Fez Old City a living urban inheritance. The engineer proposes a restoration where old lanes can become a public claim of continuity. The Medina Restoration Rite now completes the wonder at its fixed historical site. The rite improves legitimacy and prestige.
+    tv_engineering_department.600.d_unique_fez_old_city: Reports from [SCOPE.sCountry('tv_wonder_builder_country').GetName] say the [tv_wonder_unique_fez_old_city|E] has been completed at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Fez's restored medina now binds scholars, artisans, markets, and gates into one argument for old authority made visible.
+    game_concept_tv_wonder_unique_kairouan_holy_city_desc: The Great Mosque precinct, massive walls, arcades, prayer halls, minaret, scholarly courtyards, and pilgrim routes make Kairouan a holy city of Ifriqiya. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Sky Dome Grand Temple archetype, and culminates in the Ifriqiyan Scholars Synod ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_KAIROUAN_HOLY_CITY_TEXT: The engineer proposes Kairouan Holy City, where mosque, scholarship, pilgrimage, and city walls can make Ifriqiyan sanctity durable.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_KAIROUAN_HOLY_CITY_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_kairouan_holy_city|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_KAIROUAN_HOLY_CITY_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_kairouan_holy_city|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_KAIROUAN_HOLY_CITY_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_kairouan_holy_city|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_KAIROUAN_HOLY_CITY: '@city! Kairouan Holy City'
+    TV_WONDER_LOCK_UNIQUE_KAIROUAN_HOLY_CITY_TT: Locks [tv_wonder_unique_kairouan_holy_city|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_kairouan_holy_city_foundation: Kairouan Holy City Foundation
+    tv_wonder_unique_kairouan_holy_city_foundation_desc: A preserved foundation module for Kairouan Holy City.
+    tv_wonder_unique_kairouan_holy_city_body: Kairouan Holy City Main Structure
+    tv_wonder_unique_kairouan_holy_city_body_desc: A preserved main structure module for Kairouan Holy City.
+    tv_wonder_unique_kairouan_holy_city_function: Kairouan Holy City Functional Works
+    tv_wonder_unique_kairouan_holy_city_function_desc: A preserved functional works module for Kairouan Holy City.
+    tv_wonder_unique_kairouan_holy_city_decoration: Kairouan Holy City Crowning Works
+    tv_wonder_unique_kairouan_holy_city_decoration_desc: A preserved crowning works module for Kairouan Holy City.
+    tv_wonder_unique_kairouan_holy_city: Kairouan Holy City
+    tv_wonder_unique_kairouan_holy_city_desc: An unconsecrated Kairouan Holy City preserved as completed construction.
+    tv_wonder_unique_kairouan_holy_city_inaugurated: Kairouan Holy City
+    tv_wonder_unique_kairouan_holy_city_inaugurated_desc: The Great Mosque precinct, massive walls, arcades, prayer halls, minaret, scholarly courtyards, and pilgrim routes make Kairouan a holy city of Ifriqiya.
+    TV_ENGINEERING_CEREMONY_UNIQUE_KAIROUAN_HOLY_CITY_INAUGURATED_BUTTON: Ifriqiyan Scholars Synod
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_KAIROUAN_HOLY_CITY_1: Confirm the Ifriqiyan Scholars Synod ceremony for Kairouan Holy City. The synod improves true-faith tolerance and clergy satisfaction.
+    tv_engineering_department.500.d_unique_kairouan_holy_city: The Great Mosque precinct, massive walls, arcades, prayer halls, minaret, scholarly courtyards, and pilgrim routes make Kairouan a holy city of Ifriqiya. The engineer proposes a sacred city where learning and pilgrimage can reinforce one another. The Ifriqiyan Scholars Synod now completes the wonder at its fixed historical site. The synod improves true-faith tolerance and clergy satisfaction.
+    tv_engineering_department.600.d_unique_kairouan_holy_city: Pilgrims and jurists report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_kairouan_holy_city|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Kairouan's mosque precinct now makes devotion, law, and urban protection part of the same holy landscape.
+    game_concept_tv_wonder_unique_algiers_pirate_port_desc: Fortified harbor moles, corsair galleys, cannon batteries, prize ships, ransom offices, warehouses, and market quays make Algiers Pirate Port the hard edge of the Barbary coast. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Pirate Port archetype, and culminates in the Corsair Captains' Oath ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_ALGIERS_PIRATE_PORT_TEXT: The engineer proposes Algiers Pirate Port, where harbor stone, lateen sails, and privateering oaths can make coastal raiding into policy.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_ALGIERS_PIRATE_PORT_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_algiers_pirate_port|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_ALGIERS_PIRATE_PORT_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_algiers_pirate_port|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_ALGIERS_PIRATE_PORT_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_algiers_pirate_port|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ALGIERS_PIRATE_PORT: '@city! Algiers Pirate Port'
+    TV_WONDER_LOCK_UNIQUE_ALGIERS_PIRATE_PORT_TT: Locks [tv_wonder_unique_algiers_pirate_port|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_algiers_pirate_port_foundation: Algiers Pirate Port Foundation
+    tv_wonder_unique_algiers_pirate_port_foundation_desc: A preserved foundation module for Algiers Pirate Port.
+    tv_wonder_unique_algiers_pirate_port_body: Algiers Pirate Port Main Structure
+    tv_wonder_unique_algiers_pirate_port_body_desc: A preserved main structure module for Algiers Pirate Port.
+    tv_wonder_unique_algiers_pirate_port_function: Algiers Pirate Port Functional Works
+    tv_wonder_unique_algiers_pirate_port_function_desc: A preserved functional works module for Algiers Pirate Port.
+    tv_wonder_unique_algiers_pirate_port_decoration: Algiers Pirate Port Crowning Works
+    tv_wonder_unique_algiers_pirate_port_decoration_desc: A preserved crowning works module for Algiers Pirate Port.
+    tv_wonder_unique_algiers_pirate_port: Algiers Pirate Port
+    tv_wonder_unique_algiers_pirate_port_desc: An unconsecrated Algiers Pirate Port preserved as completed construction.
+    tv_wonder_unique_algiers_pirate_port_inaugurated: Algiers Pirate Port
+    tv_wonder_unique_algiers_pirate_port_inaugurated_desc: Fortified harbor moles, corsair galleys, cannon batteries, prize ships, ransom offices, warehouses, and market quays make Algiers Pirate Port the hard edge of the Barbary coast.
+    TV_ENGINEERING_CEREMONY_UNIQUE_ALGIERS_PIRATE_PORT_INAUGURATED_BUTTON: Corsair Captains' Oath
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ALGIERS_PIRATE_PORT_1: Confirm the Corsair Captains' Oath ceremony for Algiers Pirate Port. The oath enables privateers, improves privateer durability, and legitimizes shameless privateering.
+    tv_engineering_department.500.d_unique_algiers_pirate_port: Fortified harbor moles, corsair galleys, cannon batteries, prize ships, ransom offices, warehouses, and market quays make Algiers Pirate Port the hard edge of the Barbary coast. The engineer proposes a harbor where licensed violence can be counted, repaired, and sent out again. The Corsair Captains' Oath now completes the wonder at its fixed historical site. The oath enables privateers, improves privateer durability, and legitimizes shameless privateering.
+    tv_engineering_department.600.d_unique_algiers_pirate_port: Sea captains report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_algiers_pirate_port|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Algiers now gathers corsair berths, guns, ransom offices, and prize courts into a harbor that makes every passing sail reconsider its route.
+    game_concept_tv_wonder_unique_sankore_university_desc: Earthen mosque courts, manuscript libraries, book markets, scholars, students, arcades, caravans, and mudbrick streets make Sankore University the learned heart of Timbuktu. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the University City archetype, and culminates in the Manuscripts Convocation ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_SANKORE_UNIVERSITY_TEXT: The engineer proposes Sankore University, where manuscripts, teachers, students, and caravans can turn Timbuktu's learning into an institution.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_SANKORE_UNIVERSITY_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_sankore_university|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_SANKORE_UNIVERSITY_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_sankore_university|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_SANKORE_UNIVERSITY_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_sankore_university|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SANKORE_UNIVERSITY: '@city! Sankore University'
+    TV_WONDER_LOCK_UNIQUE_SANKORE_UNIVERSITY_TT: Locks [tv_wonder_unique_sankore_university|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_sankore_university_foundation: Sankore University Foundation
+    tv_wonder_unique_sankore_university_foundation_desc: A preserved foundation module for Sankore University.
+    tv_wonder_unique_sankore_university_body: Sankore University Main Structure
+    tv_wonder_unique_sankore_university_body_desc: A preserved main structure module for Sankore University.
+    tv_wonder_unique_sankore_university_function: Sankore University Functional Works
+    tv_wonder_unique_sankore_university_function_desc: A preserved functional works module for Sankore University.
+    tv_wonder_unique_sankore_university_decoration: Sankore University Crowning Works
+    tv_wonder_unique_sankore_university_decoration_desc: A preserved crowning works module for Sankore University.
+    tv_wonder_unique_sankore_university: Sankore University
+    tv_wonder_unique_sankore_university_desc: An unconsecrated Sankore University preserved as completed construction.
+    tv_wonder_unique_sankore_university_inaugurated: Sankore University
+    tv_wonder_unique_sankore_university_inaugurated_desc: Earthen mosque courts, manuscript libraries, book markets, scholars, students, arcades, caravans, and mudbrick streets make Sankore University the learned heart of Timbuktu.
+    TV_ENGINEERING_CEREMONY_UNIQUE_SANKORE_UNIVERSITY_INAUGURATED_BUTTON: Manuscripts Convocation
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SANKORE_UNIVERSITY_1: Confirm the Manuscripts Convocation ceremony for Sankore University. The convocation improves research speed and literacy growth.
+    tv_engineering_department.500.d_unique_sankore_university: Earthen mosque courts, manuscript libraries, book markets, scholars, students, arcades, caravans, and mudbrick streets make Sankore University the learned heart of Timbuktu. The engineer proposes a scholarly city where books can travel farther than armies. The Manuscripts Convocation now completes the wonder at its fixed historical site. The convocation improves research speed and literacy growth.
+    tv_engineering_department.600.d_unique_sankore_university: Scholars carry news that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_sankore_university|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Sankore's manuscripts, teachers, and student courts now make Timbuktu a place where learning itself has an address.
+    game_concept_tv_wonder_unique_great_mosque_of_djenne_desc: Monumental earthen towers, timber toron beams, buttresses, a market square, replastering processions, scholars, and Sahel mudbrick streets make the Great Mosque of Djenne a sacred urban landmark. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Giant Tower Temple archetype, and culminates in the Banco Replastering Festival ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TEXT: The engineer proposes the Great Mosque of Djenne, where earth, timber, scholarship, and communal labor can make sacred architecture renewed each year.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_great_mosque_of_djenne|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_great_mosque_of_djenne|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_great_mosque_of_djenne|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_GREAT_MOSQUE_OF_DJENNE: '@city! Great Mosque of Djenne'
+    TV_WONDER_LOCK_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TT: Locks [tv_wonder_unique_great_mosque_of_djenne|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_great_mosque_of_djenne_foundation: Great Mosque of Djenne Foundation
+    tv_wonder_unique_great_mosque_of_djenne_foundation_desc: A preserved foundation module for the Great Mosque of Djenne.
+    tv_wonder_unique_great_mosque_of_djenne_body: Great Mosque of Djenne Main Structure
+    tv_wonder_unique_great_mosque_of_djenne_body_desc: A preserved main structure module for the Great Mosque of Djenne.
+    tv_wonder_unique_great_mosque_of_djenne_function: Great Mosque of Djenne Functional Works
+    tv_wonder_unique_great_mosque_of_djenne_function_desc: A preserved functional works module for the Great Mosque of Djenne.
+    tv_wonder_unique_great_mosque_of_djenne_decoration: Great Mosque of Djenne Crowning Works
+    tv_wonder_unique_great_mosque_of_djenne_decoration_desc: A preserved crowning works module for the Great Mosque of Djenne.
+    tv_wonder_unique_great_mosque_of_djenne: Great Mosque of Djenne
+    tv_wonder_unique_great_mosque_of_djenne_desc: An unconsecrated Great Mosque of Djenne preserved as completed construction.
+    tv_wonder_unique_great_mosque_of_djenne_inaugurated: Great Mosque of Djenne
+    tv_wonder_unique_great_mosque_of_djenne_inaugurated_desc: Monumental earthen towers, timber toron beams, buttresses, a market square, replastering processions, scholars, and Sahel mudbrick streets make the Great Mosque of Djenne a sacred urban landmark.
+    TV_ENGINEERING_CEREMONY_UNIQUE_GREAT_MOSQUE_OF_DJENNE_INAUGURATED_BUTTON: Banco Replastering Festival
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_GREAT_MOSQUE_OF_DJENNE_1: Confirm the Banco Replastering Festival ceremony for the Great Mosque of Djenne. The festival improves conversion speed and prestige.
+    tv_engineering_department.500.d_unique_great_mosque_of_djenne: Monumental earthen towers, timber toron beams, buttresses, a market square, replastering processions, scholars, and Sahel mudbrick streets make the Great Mosque of Djenne a sacred urban landmark. The engineer proposes a mosque whose renewal is also a civic festival. The Banco Replastering Festival now completes the wonder at its fixed historical site. The festival improves conversion speed and prestige.
+    tv_engineering_department.600.d_unique_great_mosque_of_djenne: Merchants and pilgrims report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_great_mosque_of_djenne|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Djenne's earthen towers now rise from a market city whose walls of mud and timber are renewed by public devotion.
+    game_concept_tv_wonder_unique_walls_of_benin_desc: Vast earthen ramparts, moats, gates, palace roads, guarded approaches, bronze casters, market processions, and red earth make the Walls of Benin a defensive urban landscape. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the Great Wall archetype, and culminates in the Earthwork Gate Muster ritual.
+    TV_ENGINEERING_PROPOSAL_UNIQUE_WALLS_OF_BENIN_TEXT: The engineer proposes the Walls of Benin, where earthworks, gates, palace roads, and guarded markets can make the Edo capital difficult to approach and harder to forget.
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_WALLS_OF_BENIN_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_unique_walls_of_benin|E] and reuse the preserved construction at the site.
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_WALLS_OF_BENIN_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_unique_walls_of_benin|E] toward the site's preserved maximum level.
+    TV_ENGINEERING_LOCKED_UNIQUE_WALLS_OF_BENIN_TEXT: '@lock! Locked Wonder: [tv_wonder_unique_walls_of_benin|E].'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_WALLS_OF_BENIN: '@city! Walls of Benin'
+    TV_WONDER_LOCK_UNIQUE_WALLS_OF_BENIN_TT: Locks [tv_wonder_unique_walls_of_benin|E] as the Engineering Department's active wonder.
+    tv_wonder_unique_walls_of_benin_foundation: Walls of Benin Foundation
+    tv_wonder_unique_walls_of_benin_foundation_desc: A preserved foundation module for the Walls of Benin.
+    tv_wonder_unique_walls_of_benin_body: Walls of Benin Main Structure
+    tv_wonder_unique_walls_of_benin_body_desc: A preserved main structure module for the Walls of Benin.
+    tv_wonder_unique_walls_of_benin_function: Walls of Benin Functional Works
+    tv_wonder_unique_walls_of_benin_function_desc: A preserved functional works module for the Walls of Benin.
+    tv_wonder_unique_walls_of_benin_decoration: Walls of Benin Crowning Works
+    tv_wonder_unique_walls_of_benin_decoration_desc: A preserved crowning works module for the Walls of Benin.
+    tv_wonder_unique_walls_of_benin: Walls of Benin
+    tv_wonder_unique_walls_of_benin_desc: An unconsecrated Walls of Benin preserved as completed construction.
+    tv_wonder_unique_walls_of_benin_inaugurated: Walls of Benin
+    tv_wonder_unique_walls_of_benin_inaugurated_desc: Vast earthen ramparts, moats, gates, palace roads, guarded approaches, bronze casters, market processions, and red earth make the Walls of Benin a defensive urban landscape.
+    TV_ENGINEERING_CEREMONY_UNIQUE_WALLS_OF_BENIN_INAUGURATED_BUTTON: Earthwork Gate Muster
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_WALLS_OF_BENIN_1: Confirm the Earthwork Gate Muster ceremony for the Walls of Benin. The muster improves garrison size and defensive value drift.
+    tv_engineering_department.500.d_unique_walls_of_benin: Vast earthen ramparts, moats, gates, palace roads, guarded approaches, bronze casters, market processions, and red earth make the Walls of Benin a defensive urban landscape. The engineer proposes earthworks whose gates can organize palace, market, and army into one protected city. The Earthwork Gate Muster now completes the wonder at its fixed historical site. The muster improves garrison size and defensive value drift.
+    tv_engineering_department.600.d_unique_walls_of_benin: Envoys report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_walls_of_benin|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Benin's earthworks now stretch through gates, moats, palace roads, and markets as a city-sized declaration of control.
+    STATIC_MODIFIER_NAME_tv_wonder_unique_fez_old_city_ceremony_modifier: Medina Restoration Rite
+    STATIC_MODIFIER_NAME_tv_wonder_unique_kairouan_holy_city_ceremony_modifier: Ifriqiyan Scholars Synod
+    STATIC_MODIFIER_NAME_tv_wonder_unique_algiers_pirate_port_ceremony_modifier: Corsair Captains' Oath
+    STATIC_MODIFIER_NAME_tv_wonder_unique_sankore_university_ceremony_modifier: Manuscripts Convocation
+    STATIC_MODIFIER_NAME_tv_wonder_unique_great_mosque_of_djenne_ceremony_modifier: Banco Replastering Festival
+    STATIC_MODIFIER_NAME_tv_wonder_unique_walls_of_benin_ceremony_modifier: Earthwork Gate Muster
   simp_chinese:
     game_concept_tv_wonder_unique_house_of_wisdom_desc: 翻译厅、手稿架、天文学者、抄写员与巴格达庭院让智慧宫成为保存并比较知识的公共机器。此独特[tv_wonder_construction|e]必须在固定历史地点建造，沿用国家图书馆原型，并以翻译运动目录仪式落成。
     TV_ENGINEERING_PROPOSAL_UNIQUE_HOUSE_OF_WISDOM_TEXT: 大工程师提出智慧宫：翻译、天文、医学与国家赞助可以在那里被组织成制度。
@@ -9793,3 +9974,184 @@ wonder_localization:
     STATIC_MODIFIER_NAME_tv_wonder_unique_carcassonne_castle_ceremony_modifier: 双墙守望
     STATIC_MODIFIER_NAME_tv_wonder_unique_brest_naval_port_ceremony_modifier: 大西洋舰队集结
     STATIC_MODIFIER_NAME_tv_wonder_unique_colmar_old_town_ceremony_modifier: 阿尔萨斯遗产集市
+    game_concept_tv_wonder_pirate_port_desc: 一座由防御性码头、战利品泊位、炮台、赎金办公室、仓库和私掠船泊位组成的加固海盗港。此[tv_wonder_construction|e]需要港口，并将海上掠夺转化为海军投送、更低的私掠成本与本地港防。
+    TV_ENGINEERING_PROPOSAL_PIRATE_PORT_TEXT: '[tv_great_engineer|E]提出[tv_wonder_pirate_port|E]。'
+    TV_ENGINEERING_PROPOSAL_RESUME_PIRATE_PORT_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_pirate_port|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_PIRATE_PORT_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_pirate_port|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_PIRATE_PORT_TEXT: '@lock! 已锁定奇观：[tv_wonder_pirate_port|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_PIRATE_PORT: '@city! 海盗港'
+    TV_WONDER_LOCK_PIRATE_PORT_TT: 将[tv_wonder_pirate_port|E]锁定为工程部当前奇观。
+    tv_wonder_pirate_port_foundation: 海盗港基础
+    tv_wonder_pirate_port_foundation_desc: 海盗港已经保留下来的基础模块。
+    tv_wonder_pirate_port_body: 海盗港主体
+    tv_wonder_pirate_port_body_desc: 海盗港已经保留下来的主体模块。
+    tv_wonder_pirate_port_function: 海盗港功能
+    tv_wonder_pirate_port_function_desc: 海盗港已经保留下来的功能模块。
+    tv_wonder_pirate_port_decoration: 海盗港封顶装饰
+    tv_wonder_pirate_port_decoration_desc: 海盗港已经保留下来的封顶装饰模块。
+    tv_wonder_pirate_port: 海盗港
+    tv_wonder_pirate_port_ritual_annex: 海盗港仪式附属建筑
+    tv_wonder_pirate_port_ritual_annex_desc: 用于完成海盗港第二仪式分支的附属建筑。
+    tv_wonder_pirate_port_desc: 尚未落成、但已作为完整工程保留下来的海盗港。
+    STATIC_MODIFIER_NAME_tv_wonder_pirate_port_ritual_burden_modifier: 私掠港仪式负担
+    STATIC_MODIFIER_NAME_tv_wonder_pirate_port_ritual_blessing_modifier: 私掠港赐福
+    tv_wonder_privateer_haven: 私掠船庇护所
+    tv_wonder_privateer_haven_desc: 海盗港的私掠船庇护所分支。
+    TV_ENGINEERING_CEREMONY_PRIVATEER_HAVEN_BUTTON: 私掠船庇护所
+    TV_ENGINEERING_ACTIVE_RITUAL_PIRATE_PORT_1: 确认海盗港的私掠船庇护所仪式。此仪式会降低私掠成本，并将无耻私掠正式化。
+    tv_engineering_department.500.d_pirate_port_1: 船长们在封存文书、战利品账簿与港炮下集结，记下哪些船值得欢迎。[tv_wonder_ceremony|E]把私掠从码头传闻变成国家政策。
+    tv_wonder_harbor_redoubt: 港湾堡垒
+    tv_wonder_harbor_redoubt_desc: 海盗港的港湾堡垒分支。
+    TV_ENGINEERING_CEREMONY_HARBOR_REDOUBT_BUTTON: 港湾堡垒
+    TV_ENGINEERING_ACTIVE_RITUAL_PIRATE_PORT_2: 确认海盗港的港湾堡垒仪式。此仪式会增强当地防御、驻军规模与海上存在。
+    tv_engineering_department.500.d_pirate_port_2: 石匠把炮台架上码头，领航员标出每一处浅滩与水道。[tv_wonder_ceremony|E]让港口既可庇护盟友，也让敌人不敢轻举妄动。
+    tv_wonder_corsair_admiralty: 海盗舰队司令部
+    tv_wonder_corsair_admiralty_desc: 海盗港的海盗舰队司令部分支。
+    TV_ENGINEERING_CEREMONY_CORSAIR_ADMIRALTY_BUTTON: 海盗舰队司令部
+    TV_ENGINEERING_ACTIVE_RITUAL_PIRATE_PORT_3: 确认海盗港的海盗舰队司令部仪式。此仪式会给予+20海军传统。
+    tv_engineering_department.500.d_pirate_port_3: 战利品船长、造船师、领航员与赎金书记终于共同听命于一张司令部桌案。[tv_wonder_ceremony|E]把海盗实践变成海军指挥学。
+    tv_engineering_department.600.d_pirate_port: 消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_pirate_port|E]。加固码头、战利品法庭、私掠泊位与港炮如今让周围海域不再像开阔水面，而更像一处有争议的财产。
+    game_concept_tv_wonder_unique_fez_old_city_desc: 密集的麦地那街巷、经学院、清真寺、染料池、工艺市场、城门与修复城墙让非斯古城成为活着的城市遗产。此独特[tv_wonder_construction|e]项目必须在固定历史地点建造，沿用古城遗迹原型，并以麦地那修复仪式落成。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_FEZ_OLD_CITY_TEXT: 大工程师提议非斯古城，让学术、手工业与修复过的麦地那城墙把城市记忆变成权威。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_FEZ_OLD_CITY_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_fez_old_city|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_FEZ_OLD_CITY_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_fez_old_city|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_FEZ_OLD_CITY_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_fez_old_city|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_FEZ_OLD_CITY: '@city! 非斯古城'
+    TV_WONDER_LOCK_UNIQUE_FEZ_OLD_CITY_TT: 将[tv_wonder_unique_fez_old_city|E]锁定为工程部当前奇观。
+    tv_wonder_unique_fez_old_city_foundation: 非斯古城基础
+    tv_wonder_unique_fez_old_city_foundation_desc: 非斯古城已经保留下来的基础模块。
+    tv_wonder_unique_fez_old_city_body: 非斯古城主体
+    tv_wonder_unique_fez_old_city_body_desc: 非斯古城已经保留下来的主体模块。
+    tv_wonder_unique_fez_old_city_function: 非斯古城功能
+    tv_wonder_unique_fez_old_city_function_desc: 非斯古城已经保留下来的功能模块。
+    tv_wonder_unique_fez_old_city_decoration: 非斯古城封顶装饰
+    tv_wonder_unique_fez_old_city_decoration_desc: 非斯古城已经保留下来的封顶装饰模块。
+    tv_wonder_unique_fez_old_city: 非斯古城
+    tv_wonder_unique_fez_old_city_desc: 尚未落成、但已作为完整工程保留下来的非斯古城。
+    tv_wonder_unique_fez_old_city_inaugurated: 非斯古城
+    tv_wonder_unique_fez_old_city_inaugurated_desc: 密集的麦地那街巷、经学院、清真寺、染料池、工艺市场、城门与修复城墙让非斯古城成为活着的城市遗产。
+    TV_ENGINEERING_CEREMONY_UNIQUE_FEZ_OLD_CITY_INAUGURATED_BUTTON: 麦地那修复仪式
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_FEZ_OLD_CITY_1: 确认非斯古城的麦地那修复仪式。此仪式会提高正统性与威望。
+    tv_engineering_department.500.d_unique_fez_old_city: 密集的麦地那街巷、经学院、清真寺、染料池、工艺市场、城门与修复城墙让非斯古城成为活着的城市遗产。大工程师提议一场修复，让旧街巷本身成为延续性的公共论证。如今麦地那修复仪式为这座固定历史地点上的奇观完成落成。此仪式会提高正统性与威望。
+    tv_engineering_department.600.d_unique_fez_old_city: 来自[SCOPE.sCountry('tv_wonder_builder_country').GetName]的消息称，[SCOPE.sLocation('tv_wonder_completed_site').GetName]上的[tv_wonder_unique_fez_old_city|E]已经完成。修复后的非斯麦地那如今把学者、工匠、市场与城门连成一份可见的古老权威。
+    game_concept_tv_wonder_unique_kairouan_holy_city_desc: 大清真寺院落、宏伟城墙、拱廊、礼拜大厅、宣礼塔、学术庭院与朝圣路线让凯鲁万成为伊弗里基亚的圣城。此独特[tv_wonder_construction|e]项目必须在固定历史地点建造，沿用天穹大圣殿原型，并以伊弗里基亚学者会议仪式落成。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_KAIROUAN_HOLY_CITY_TEXT: 大工程师提议凯鲁万圣城，让清真寺、学术、朝圣与城墙共同巩固伊弗里基亚的神圣性。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_KAIROUAN_HOLY_CITY_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_kairouan_holy_city|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_KAIROUAN_HOLY_CITY_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_kairouan_holy_city|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_KAIROUAN_HOLY_CITY_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_kairouan_holy_city|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_KAIROUAN_HOLY_CITY: '@city! 凯鲁万圣城'
+    TV_WONDER_LOCK_UNIQUE_KAIROUAN_HOLY_CITY_TT: 将[tv_wonder_unique_kairouan_holy_city|E]锁定为工程部当前奇观。
+    tv_wonder_unique_kairouan_holy_city_foundation: 凯鲁万圣城基础
+    tv_wonder_unique_kairouan_holy_city_foundation_desc: 凯鲁万圣城已经保留下来的基础模块。
+    tv_wonder_unique_kairouan_holy_city_body: 凯鲁万圣城主体
+    tv_wonder_unique_kairouan_holy_city_body_desc: 凯鲁万圣城已经保留下来的主体模块。
+    tv_wonder_unique_kairouan_holy_city_function: 凯鲁万圣城功能
+    tv_wonder_unique_kairouan_holy_city_function_desc: 凯鲁万圣城已经保留下来的功能模块。
+    tv_wonder_unique_kairouan_holy_city_decoration: 凯鲁万圣城封顶装饰
+    tv_wonder_unique_kairouan_holy_city_decoration_desc: 凯鲁万圣城已经保留下来的封顶装饰模块。
+    tv_wonder_unique_kairouan_holy_city: 凯鲁万圣城
+    tv_wonder_unique_kairouan_holy_city_desc: 尚未落成、但已作为完整工程保留下来的凯鲁万圣城。
+    tv_wonder_unique_kairouan_holy_city_inaugurated: 凯鲁万圣城
+    tv_wonder_unique_kairouan_holy_city_inaugurated_desc: 大清真寺院落、宏伟城墙、拱廊、礼拜大厅、宣礼塔、学术庭院与朝圣路线让凯鲁万成为伊弗里基亚的圣城。
+    TV_ENGINEERING_CEREMONY_UNIQUE_KAIROUAN_HOLY_CITY_INAUGURATED_BUTTON: 伊弗里基亚学者会议
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_KAIROUAN_HOLY_CITY_1: 确认凯鲁万圣城的伊弗里基亚学者会议仪式。此仪式会提高同信仰容忍度与教士满意度。
+    tv_engineering_department.500.d_unique_kairouan_holy_city: 大清真寺院落、宏伟城墙、拱廊、礼拜大厅、宣礼塔、学术庭院与朝圣路线让凯鲁万成为伊弗里基亚的圣城。大工程师提议一座神圣城市，让学问与朝圣彼此加固。如今伊弗里基亚学者会议为这座固定历史地点上的奇观完成落成。此会议会提高同信仰容忍度与教士满意度。
+    tv_engineering_department.600.d_unique_kairouan_holy_city: 朝圣者与法学家传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_kairouan_holy_city|E]。凯鲁万的大清真寺院落如今把虔敬、法律与城市防护纳入同一片神圣景观。
+    game_concept_tv_wonder_unique_algiers_pirate_port_desc: 加固的港口突堤、私掠桨帆船、炮台、战利品船只、赎金办公室、仓库与集市码头让阿尔及尔海盗港成为巴巴里海岸最硬的一角。此独特[tv_wonder_construction|e]项目必须在固定历史地点建造，沿用海盗港原型，并以海盗船长誓约仪式落成。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_ALGIERS_PIRATE_PORT_TEXT: 大工程师提议阿尔及尔海盗港，让港石、拉丁帆与私掠誓约把海岸劫掠变成政策。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_ALGIERS_PIRATE_PORT_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_algiers_pirate_port|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_ALGIERS_PIRATE_PORT_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_algiers_pirate_port|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_ALGIERS_PIRATE_PORT_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_algiers_pirate_port|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_ALGIERS_PIRATE_PORT: '@city! 阿尔及尔海盗港'
+    TV_WONDER_LOCK_UNIQUE_ALGIERS_PIRATE_PORT_TT: 将[tv_wonder_unique_algiers_pirate_port|E]锁定为工程部当前奇观。
+    tv_wonder_unique_algiers_pirate_port_foundation: 阿尔及尔海盗港基础
+    tv_wonder_unique_algiers_pirate_port_foundation_desc: 阿尔及尔海盗港已经保留下来的基础模块。
+    tv_wonder_unique_algiers_pirate_port_body: 阿尔及尔海盗港主体
+    tv_wonder_unique_algiers_pirate_port_body_desc: 阿尔及尔海盗港已经保留下来的主体模块。
+    tv_wonder_unique_algiers_pirate_port_function: 阿尔及尔海盗港功能
+    tv_wonder_unique_algiers_pirate_port_function_desc: 阿尔及尔海盗港已经保留下来的功能模块。
+    tv_wonder_unique_algiers_pirate_port_decoration: 阿尔及尔海盗港封顶装饰
+    tv_wonder_unique_algiers_pirate_port_decoration_desc: 阿尔及尔海盗港已经保留下来的封顶装饰模块。
+    tv_wonder_unique_algiers_pirate_port: 阿尔及尔海盗港
+    tv_wonder_unique_algiers_pirate_port_desc: 尚未落成、但已作为完整工程保留下来的阿尔及尔海盗港。
+    tv_wonder_unique_algiers_pirate_port_inaugurated: 阿尔及尔海盗港
+    tv_wonder_unique_algiers_pirate_port_inaugurated_desc: 加固的港口突堤、私掠桨帆船、炮台、战利品船只、赎金办公室、仓库与集市码头让阿尔及尔海盗港成为巴巴里海岸最硬的一角。
+    TV_ENGINEERING_CEREMONY_UNIQUE_ALGIERS_PIRATE_PORT_INAUGURATED_BUTTON: 海盗船长誓约
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ALGIERS_PIRATE_PORT_1: 确认阿尔及尔海盗港的海盗船长誓约仪式。此仪式会开启私掠船，提高私掠船耐久，并将无耻私掠正式化。
+    tv_engineering_department.500.d_unique_algiers_pirate_port: 加固的港口突堤、私掠桨帆船、炮台、战利品船只、赎金办公室、仓库与集市码头让阿尔及尔海盗港成为巴巴里海岸最硬的一角。大工程师提议一座港口，让被许可的暴力能够被统计、修复并再次派出。如今海盗船长誓约为这座固定历史地点上的奇观完成落成。此誓约会开启私掠船，提高私掠船耐久，并将无耻私掠正式化。
+    tv_engineering_department.600.d_unique_algiers_pirate_port: 海上船长传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_algiers_pirate_port|E]。阿尔及尔如今把私掠泊位、火炮、赎金办公室与战利品法庭汇成一座港口，让每一片过路船帆都不得不重新计算航线。
+    game_concept_tv_wonder_unique_sankore_university_desc: 泥土清真寺院落、手稿图书馆、书市、学者、学生、拱廊、商队与泥砖街巷让桑科雷大学成为廷巴克图的学术核心。此独特[tv_wonder_construction|e]项目必须在固定历史地点建造，沿用大学城原型，并以手稿集会仪式落成。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_SANKORE_UNIVERSITY_TEXT: 大工程师提议桑科雷大学，让手稿、教师、学生与商队把廷巴克图的学问变成制度。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_SANKORE_UNIVERSITY_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_sankore_university|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_SANKORE_UNIVERSITY_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_sankore_university|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_SANKORE_UNIVERSITY_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_sankore_university|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_SANKORE_UNIVERSITY: '@city! 桑科雷大学'
+    TV_WONDER_LOCK_UNIQUE_SANKORE_UNIVERSITY_TT: 将[tv_wonder_unique_sankore_university|E]锁定为工程部当前奇观。
+    tv_wonder_unique_sankore_university_foundation: 桑科雷大学基础
+    tv_wonder_unique_sankore_university_foundation_desc: 桑科雷大学已经保留下来的基础模块。
+    tv_wonder_unique_sankore_university_body: 桑科雷大学主体
+    tv_wonder_unique_sankore_university_body_desc: 桑科雷大学已经保留下来的主体模块。
+    tv_wonder_unique_sankore_university_function: 桑科雷大学功能
+    tv_wonder_unique_sankore_university_function_desc: 桑科雷大学已经保留下来的功能模块。
+    tv_wonder_unique_sankore_university_decoration: 桑科雷大学封顶装饰
+    tv_wonder_unique_sankore_university_decoration_desc: 桑科雷大学已经保留下来的封顶装饰模块。
+    tv_wonder_unique_sankore_university: 桑科雷大学
+    tv_wonder_unique_sankore_university_desc: 尚未落成、但已作为完整工程保留下来的桑科雷大学。
+    tv_wonder_unique_sankore_university_inaugurated: 桑科雷大学
+    tv_wonder_unique_sankore_university_inaugurated_desc: 泥土清真寺院落、手稿图书馆、书市、学者、学生、拱廊、商队与泥砖街巷让桑科雷大学成为廷巴克图的学术核心。
+    TV_ENGINEERING_CEREMONY_UNIQUE_SANKORE_UNIVERSITY_INAUGURATED_BUTTON: 手稿集会
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SANKORE_UNIVERSITY_1: 确认桑科雷大学的手稿集会仪式。此仪式会提高研究速度与识字率增长。
+    tv_engineering_department.500.d_unique_sankore_university: 泥土清真寺院落、手稿图书馆、书市、学者、学生、拱廊、商队与泥砖街巷让桑科雷大学成为廷巴克图的学术核心。大工程师提议一座学术之城，让书籍传播得比军队更远。如今手稿集会为这座固定历史地点上的奇观完成落成。此集会会提高研究速度与识字率增长。
+    tv_engineering_department.600.d_unique_sankore_university: 学者传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_sankore_university|E]。桑科雷的手稿、教师与学生庭院如今让廷巴克图成为一个连知识都有地址的地方。
+    game_concept_tv_wonder_unique_great_mosque_of_djenne_desc: 巨大的泥土塔楼、木质托龙横木、扶壁、市集广场、再抹灰游行、学者与萨赫勒泥砖街巷让杰内大清真寺成为一处神圣的城市地标。此独特[tv_wonder_construction|e]项目必须在固定历史地点建造，沿用巨塔式神庙原型，并以班科再抹灰节仪式落成。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TEXT: 大工程师提议杰内大清真寺，让泥土、木梁、学术与集体劳作把神圣建筑变成每年更新的工程。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_great_mosque_of_djenne|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_great_mosque_of_djenne|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_great_mosque_of_djenne|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_GREAT_MOSQUE_OF_DJENNE: '@city! 杰内大清真寺'
+    TV_WONDER_LOCK_UNIQUE_GREAT_MOSQUE_OF_DJENNE_TT: 将[tv_wonder_unique_great_mosque_of_djenne|E]锁定为工程部当前奇观。
+    tv_wonder_unique_great_mosque_of_djenne_foundation: 杰内大清真寺基础
+    tv_wonder_unique_great_mosque_of_djenne_foundation_desc: 杰内大清真寺已经保留下来的基础模块。
+    tv_wonder_unique_great_mosque_of_djenne_body: 杰内大清真寺主体
+    tv_wonder_unique_great_mosque_of_djenne_body_desc: 杰内大清真寺已经保留下来的主体模块。
+    tv_wonder_unique_great_mosque_of_djenne_function: 杰内大清真寺功能
+    tv_wonder_unique_great_mosque_of_djenne_function_desc: 杰内大清真寺已经保留下来的功能模块。
+    tv_wonder_unique_great_mosque_of_djenne_decoration: 杰内大清真寺封顶装饰
+    tv_wonder_unique_great_mosque_of_djenne_decoration_desc: 杰内大清真寺已经保留下来的封顶装饰模块。
+    tv_wonder_unique_great_mosque_of_djenne: 杰内大清真寺
+    tv_wonder_unique_great_mosque_of_djenne_desc: 尚未落成、但已作为完整工程保留下来的杰内大清真寺。
+    tv_wonder_unique_great_mosque_of_djenne_inaugurated: 杰内大清真寺
+    tv_wonder_unique_great_mosque_of_djenne_inaugurated_desc: 巨大的泥土塔楼、木质托龙横木、扶壁、市集广场、再抹灰游行、学者与萨赫勒泥砖街巷让杰内大清真寺成为一处神圣的城市地标。
+    TV_ENGINEERING_CEREMONY_UNIQUE_GREAT_MOSQUE_OF_DJENNE_INAUGURATED_BUTTON: 班科再抹灰节
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_GREAT_MOSQUE_OF_DJENNE_1: 确认杰内大清真寺的班科再抹灰节仪式。此仪式会提高改宗速度与威望。
+    tv_engineering_department.500.d_unique_great_mosque_of_djenne: 巨大的泥土塔楼、木质托龙横木、扶壁、市集广场、再抹灰游行、学者与萨赫勒泥砖街巷让杰内大清真寺成为一处神圣的城市地标。大工程师提议一座清真寺，让更新本身也成为城市节庆。如今班科再抹灰节为这座固定历史地点上的奇观完成落成。此节庆会提高改宗速度与威望。
+    tv_engineering_department.600.d_unique_great_mosque_of_djenne: 商人与朝圣者传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_great_mosque_of_djenne|E]。杰内的泥土塔楼如今从一座泥土与木梁反复修补的集市城市中升起。
+    game_concept_tv_wonder_unique_walls_of_benin_desc: 巨大的夯土城垒、壕沟、城门、宫廷道路、守卫通道、青铜铸工、集市游行与红土让贝宁城墙成为一片防御性的城市景观。此独特[tv_wonder_construction|e]项目必须在固定历史地点建造，沿用大城墙原型，并以土垒城门集结仪式落成。
+    TV_ENGINEERING_PROPOSAL_UNIQUE_WALLS_OF_BENIN_TEXT: 大工程师提议贝宁城墙，让土工、城门、宫廷道路与守卫集市把埃多首都变成难以接近、也难以忘记的城市。
+    TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_WALLS_OF_BENIN_TEXT: '[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_walls_of_benin|E]，并利用当地已经保留下来的工程部分。'
+    TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_WALLS_OF_BENIN_TEXT: '[tv_great_engineer|E]建议扩建[tv_wonder_unique_walls_of_benin|E]，继续利用该地点已经保存的最大等级适性。'
+    TV_ENGINEERING_LOCKED_UNIQUE_WALLS_OF_BENIN_TEXT: '@lock! 已锁定奇观：[tv_wonder_unique_walls_of_benin|E]。'
+    TV_ENGINEERING_PROPOSAL_BUTTON_UNIQUE_WALLS_OF_BENIN: '@city! 贝宁城墙'
+    TV_WONDER_LOCK_UNIQUE_WALLS_OF_BENIN_TT: 将[tv_wonder_unique_walls_of_benin|E]锁定为工程部当前奇观。
+    tv_wonder_unique_walls_of_benin_foundation: 贝宁城墙基础
+    tv_wonder_unique_walls_of_benin_foundation_desc: 贝宁城墙已经保留下来的基础模块。
+    tv_wonder_unique_walls_of_benin_body: 贝宁城墙主体
+    tv_wonder_unique_walls_of_benin_body_desc: 贝宁城墙已经保留下来的主体模块。
+    tv_wonder_unique_walls_of_benin_function: 贝宁城墙功能
+    tv_wonder_unique_walls_of_benin_function_desc: 贝宁城墙已经保留下来的功能模块。
+    tv_wonder_unique_walls_of_benin_decoration: 贝宁城墙封顶装饰
+    tv_wonder_unique_walls_of_benin_decoration_desc: 贝宁城墙已经保留下来的封顶装饰模块。
+    tv_wonder_unique_walls_of_benin: 贝宁城墙
+    tv_wonder_unique_walls_of_benin_desc: 尚未落成、但已作为完整工程保留下来的贝宁城墙。
+    tv_wonder_unique_walls_of_benin_inaugurated: 贝宁城墙
+    tv_wonder_unique_walls_of_benin_inaugurated_desc: 巨大的夯土城垒、壕沟、城门、宫廷道路、守卫通道、青铜铸工、集市游行与红土让贝宁城墙成为一片防御性的城市景观。
+    TV_ENGINEERING_CEREMONY_UNIQUE_WALLS_OF_BENIN_INAUGURATED_BUTTON: 土垒城门集结仪式
+    TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_WALLS_OF_BENIN_1: 确认贝宁城墙的土垒城门集结仪式。此仪式会提高驻军规模与防御值变化。
+    tv_engineering_department.500.d_unique_walls_of_benin: 巨大的夯土城垒、壕沟、城门、宫廷道路、守卫通道、青铜铸工、集市游行与红土让贝宁城墙成为一片防御性的城市景观。大工程师提议一套土工，让城门把宫廷、集市与军队组织成一座受保护的城市。如今土垒城门集结仪式为这座固定历史地点上的奇观完成落成。此集结会提高驻军规模与防御值变化。
+    tv_engineering_department.600.d_unique_walls_of_benin: 使节传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_walls_of_benin|E]。贝宁的土工如今穿过城门、壕沟、宫廷道路与集市延展，成为一份城市规模的控制宣言。
+    STATIC_MODIFIER_NAME_tv_wonder_unique_fez_old_city_ceremony_modifier: 麦地那修复仪式
+    STATIC_MODIFIER_NAME_tv_wonder_unique_kairouan_holy_city_ceremony_modifier: 伊弗里基亚学者会议
+    STATIC_MODIFIER_NAME_tv_wonder_unique_algiers_pirate_port_ceremony_modifier: 海盗船长誓约
+    STATIC_MODIFIER_NAME_tv_wonder_unique_sankore_university_ceremony_modifier: 手稿集会
+    STATIC_MODIFIER_NAME_tv_wonder_unique_great_mosque_of_djenne_ceremony_modifier: 班科再抹灰节
+    STATIC_MODIFIER_NAME_tv_wonder_unique_walls_of_benin_ceremony_modifier: 土垒城门集结仪式

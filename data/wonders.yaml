@@ -794,6 +794,21 @@ wonders:
   base_key: national_bank
   mechanic_key: national_bank
   base_effect_multiplier: 1
+- id: 54
+  key: pirate_port
+  concept: tv_wonder_pirate_port
+  size: small
+  category: military_category
+  pop_type: burghers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_privateer_haven
+    2: tv_wonder_harbor_redoubt
+    3: tv_wonder_corsair_admiralty
+  is_unique: false
+  base_key: pirate_port
+  mechanic_key: pirate_port
+  base_effect_multiplier: 1
 parts:
 - key: foundation
 - key: body
