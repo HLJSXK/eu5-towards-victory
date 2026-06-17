@@ -29,6 +29,36 @@ tv_govhouse_expedition_goal_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			global_foreign_build_buildings_cost = -0.10
 			trade_sea_efficiency = 0.10
@@ -44,6 +74,36 @@ tv_govhouse_expedition_goal_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = -20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			tax_income_efficiency = 0.03
 			global_garrison_size_modifier = 0.10
@@ -56,6 +116,36 @@ tv_govhouse_expedition_goal_law = {
 	tv_govhouse_frontier_settlement_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			colonial_migration_size_modifier = 0.15
@@ -70,6 +160,36 @@ tv_govhouse_expedition_goal_law = {
 	tv_govhouse_tributary_system_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			subject_income_modifier = 0.10
@@ -103,6 +223,36 @@ tv_govhouse_governor_appointment_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			monthly_legitimacy = 0.10
 			global_monthly_control = 0.001
@@ -115,6 +265,36 @@ tv_govhouse_governor_appointment_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 60
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			global_nobles_estate_power = 0.50
 			nobles_estate_target_satisfaction = 0.05
@@ -126,6 +306,36 @@ tv_govhouse_governor_appointment_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			global_burghers_estate_power = 0.50
 			trade_income = 0.10
@@ -136,6 +346,36 @@ tv_govhouse_governor_appointment_law = {
 	tv_govhouse_military_land_grants_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			siege_ability = 0.10
@@ -167,6 +407,36 @@ tv_govhouse_local_autonomy_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = -60
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			tax_income_efficiency = 0.03
 			global_monthly_control = 0.002
@@ -179,6 +449,36 @@ tv_govhouse_local_autonomy_law = {
 	tv_govhouse_limited_autonomy_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			global_estate_target_satisfaction = 0.025
@@ -194,6 +494,36 @@ tv_govhouse_local_autonomy_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 60
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			colonial_migration_size_modifier = 0.25
 			global_foreign_build_buildings_cost = -0.10
@@ -205,6 +535,36 @@ tv_govhouse_local_autonomy_law = {
 	tv_govhouse_vassal_autonomy_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 60
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			monthly_rebel_growth = -0.0005
@@ -236,6 +596,36 @@ tv_govhouse_religious_mission_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			tolerance_heathen = 1
 			tolerance_heretic = 1
@@ -247,6 +637,36 @@ tv_govhouse_religious_mission_law = {
 	tv_govhouse_official_mission_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = -20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			global_pop_conversion_speed_modifier = 0.20
@@ -260,6 +680,36 @@ tv_govhouse_religious_mission_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			global_pop_conversion_speed_modifier = 0.40
 			land_morale_modifier = 0.05
@@ -272,6 +722,36 @@ tv_govhouse_religious_mission_law = {
 	tv_govhouse_religious_tolerance_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 60
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			tolerance_heathen = 2
@@ -303,6 +783,36 @@ tv_govhouse_frontier_military_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			discipline = 0.025
 			global_garrison_size_modifier = 0.10
@@ -315,6 +825,36 @@ tv_govhouse_frontier_military_law = {
 	tv_govhouse_local_militia_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			levy_maintenance_modifier = -0.10
@@ -330,6 +870,36 @@ tv_govhouse_frontier_military_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			global_monthly_control = 0.002
 			global_monthly_prosperity = 0.0005
@@ -342,6 +912,36 @@ tv_govhouse_frontier_military_law = {
 	tv_govhouse_mercenary_system_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			mercenary_maintenance_efficiency = 0.10
@@ -374,6 +974,36 @@ tv_govhouse_imperial_integration_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = -20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			subject_income_modifier = 0.10
 			global_bureaucracy_maintenance_cost_modifier = 0.05
@@ -385,6 +1015,36 @@ tv_govhouse_imperial_integration_law = {
 	tv_govhouse_dominion_status_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 60
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			subject_loyalty = 10
@@ -400,6 +1060,36 @@ tv_govhouse_imperial_integration_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = -40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		country_modifier = {
 			global_pop_assimilation_speed_modifier = 0.15
 			global_integration_speed_modifier = 0.15
@@ -412,6 +1102,36 @@ tv_govhouse_imperial_integration_law = {
 	tv_govhouse_plunder_evacuate_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		country_modifier = {
 			global_production_efficiency = 0.10
@@ -444,6 +1164,36 @@ tv_govhouse_grand_general_power_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_general_marching_orders_policy_effect_tt }
 			hidden_effect = {
@@ -461,6 +1211,36 @@ tv_govhouse_grand_general_power_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_general_garrison_orders_policy_effect_tt }
 			hidden_effect = {
@@ -477,6 +1257,36 @@ tv_govhouse_grand_general_power_law = {
 	tv_govhouse_general_supreme_command_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_general_supreme_command_policy_effect_tt }
@@ -513,6 +1323,36 @@ tv_govhouse_administrative_function_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_admin_control_registers_policy_effect_tt }
 			hidden_effect = {
@@ -528,6 +1368,36 @@ tv_govhouse_administrative_function_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_admin_development_surveys_policy_effect_tt }
 			hidden_effect = {
@@ -542,6 +1412,36 @@ tv_govhouse_administrative_function_law = {
 	tv_govhouse_admin_production_offices_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 60
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_admin_production_offices_policy_effect_tt }
@@ -576,6 +1476,36 @@ tv_govhouse_diplomatic_function_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_dip_construction_charters_policy_effect_tt }
 			hidden_effect = {
@@ -591,6 +1521,36 @@ tv_govhouse_diplomatic_function_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_dip_pop_advancement_policy_effect_tt }
 			hidden_effect = {
@@ -605,6 +1565,36 @@ tv_govhouse_diplomatic_function_law = {
 	tv_govhouse_dip_settlement_patronage_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_dip_settlement_patronage_policy_effect_tt }
@@ -639,6 +1629,36 @@ tv_govhouse_military_function_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_mil_order_patrols_policy_effect_tt }
 			hidden_effect = {
@@ -654,6 +1674,36 @@ tv_govhouse_military_function_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_mil_frontier_levies_policy_effect_tt }
 			hidden_effect = {
@@ -668,6 +1718,36 @@ tv_govhouse_military_function_law = {
 	tv_govhouse_mil_fortress_engineers_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_mil_fortress_engineers_policy_effect_tt }
@@ -702,6 +1782,36 @@ tv_govhouse_governor_duty_tendency_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 60
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_duty_restore_policy_effect_tt }
 			hidden_effect = {
@@ -716,6 +1826,36 @@ tv_govhouse_governor_duty_tendency_law = {
 	tv_govhouse_duty_integrate_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = -40
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_duty_integrate_policy_effect_tt }
@@ -732,6 +1872,36 @@ tv_govhouse_governor_duty_tendency_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 0
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_duty_religious_unity_policy_effect_tt }
 			hidden_effect = {
@@ -746,6 +1916,36 @@ tv_govhouse_governor_duty_tendency_law = {
 	tv_govhouse_duty_cultural_unity_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = -20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_duty_cultural_unity_policy_effect_tt }
@@ -762,6 +1962,36 @@ tv_govhouse_governor_duty_tendency_law = {
 		allow = {
 			always = yes
 		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
+		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_duty_recruitment_policy_effect_tt }
 			hidden_effect = {
@@ -776,6 +2006,36 @@ tv_govhouse_governor_duty_tendency_law = {
 	tv_govhouse_duty_order_policy = {
 		allow = {
 			always = yes
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_GOVHOUSE_POLICY_BASE_BIAS"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						has_variable = ai_io_law_target
+						var:ai_io_law_target = scope:policy
+					}
+				}
+				add = {
+					desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+					value = {
+						value = "opinion(scope:recipient.leader_country)"
+						multiply = 0.5
+						min = -100
+						max = 100
+					}
+				}
+				add = {
+					desc = "IO_LEADER_DIP_REP"
+					value = scope:recipient.leader_country.modifier:diplomatic_reputation
+					multiply = 5
+				}
+			}
 		}
 		on_activate = {
 			custom_tooltip = { text = tv_govhouse_duty_order_policy_effect_tt }
