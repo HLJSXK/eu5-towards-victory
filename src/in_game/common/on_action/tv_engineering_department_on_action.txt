@@ -3,6 +3,7 @@
 on_game_start = {
 	on_actions = {
 		tv_wonder_initialize_index_on_game_start
+		tv_wonder_sync_final_building_level_maps_on_game_start
 		tv_wonder_initialize_existing_unique_wonders_on_game_start
 		tv_wonder_initialize_location_display_state_on_game_start
 	}
@@ -11,6 +12,7 @@ on_game_start = {
 on_game_load = {
 	on_actions = {
 		tv_wonder_initialize_index_on_game_load
+		tv_wonder_sync_final_building_level_maps_on_game_load
 		tv_wonder_initialize_existing_unique_wonders_on_game_load
 		tv_wonder_initialize_location_display_state_on_game_load
 	}
@@ -40,6 +42,22 @@ tv_wonder_initialize_index_on_game_load = {
 					tv_wonder_index_refresh_country_cache_effect = yes
 				}
 			}
+		}
+	}
+}
+
+tv_wonder_sync_final_building_level_maps_on_game_start = {
+	effect = {
+		hidden_effect = {
+			tv_wonder_mechanics_sync_world_final_building_level_maps_from_buildings_effect = yes
+		}
+	}
+}
+
+tv_wonder_sync_final_building_level_maps_on_game_load = {
+	effect = {
+		hidden_effect = {
+			tv_wonder_mechanics_sync_world_final_building_level_maps_from_buildings_effect = yes
 		}
 	}
 }

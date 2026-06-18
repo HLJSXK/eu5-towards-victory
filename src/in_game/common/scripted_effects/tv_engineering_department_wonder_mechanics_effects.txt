@@ -21996,6 +21996,57 @@ tv_wonder_selected_ritual_effect_tooltip_effect = {
 	}
 }
 
+tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = {
+	clear_variable_map = tv_wonder_final_building_level_by_type
+	if = {
+		limit = { has_global_variable_map = tv_wonder_final_building_type_to_wonder_id }
+		every_key_in_global_variable_map = {
+			variable = tv_wonder_final_building_type_to_wonder_id
+			limit = {
+				prev = { has_building = prev }
+			}
+			prev = {
+				if = {
+					limit = { location_building_level = { building_type = prev value >= 6 } }
+					remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = prev }
+					add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = prev value = 6 }
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = prev value >= 5 } }
+					remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = prev }
+					add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = prev value = 5 }
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = prev value >= 4 } }
+					remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = prev }
+					add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = prev value = 4 }
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = prev value >= 3 } }
+					remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = prev }
+					add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = prev value = 3 }
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = prev value >= 2 } }
+					remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = prev }
+					add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = prev value = 2 }
+				}
+				else_if = {
+					limit = { location_building_level = { building_type = prev value >= 1 } }
+					remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = prev }
+					add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = prev value = 1 }
+				}
+			}
+		}
+	}
+}
+
+tv_wonder_mechanics_sync_world_final_building_level_maps_from_buildings_effect = {
+	every_location_in_the_world = {
+		tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
+	}
+}
+
 tv_wonder_initialize_existing_unique_wonders_effect = {
 	location:constantinople = {
 		if = {
@@ -22011,6 +22062,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_hagia_sophia_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_hagia_sophia_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 102 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 102 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 102 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 102 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 102 }
@@ -22032,6 +22093,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22054,6 +22116,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dome_of_the_rock_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 103 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 103 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 103 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 103 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 103 }
@@ -22075,6 +22147,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22097,6 +22170,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_angkor_wat_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_angkor_wat_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 104 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 104 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 104 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 104 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 104 }
@@ -22118,6 +22201,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22140,6 +22224,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_alhambra_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_alhambra_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 106 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 106 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 106 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 106 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 106 }
@@ -22161,6 +22255,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22183,6 +22278,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_lalibela_churches_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_lalibela_churches_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 113 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 113 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 113 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 113 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 113 }
@@ -22204,6 +22309,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22226,6 +22332,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_venetian_arsenal_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_venetian_arsenal_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 114 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 114 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 114 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 114 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 114 }
@@ -22247,6 +22363,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22269,6 +22386,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mecca_haram_expansion_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 120 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 120 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 120 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 120 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 120 }
@@ -22290,6 +22417,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22312,6 +22440,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cahokia_mounds_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cahokia_mounds_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 123 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 123 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 123 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 123 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 123 }
@@ -22333,6 +22471,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22355,6 +22494,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_great_zimbabwe_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_great_zimbabwe_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 124 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 124 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 124 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 124 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 124 }
@@ -22376,6 +22525,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22398,6 +22548,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_grand_canal_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_grand_canal_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 126 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 126 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 126 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 126 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 126 }
@@ -22419,6 +22579,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22441,6 +22602,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_roman_aqueducts_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_roman_aqueducts_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 128 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 128 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 128 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 128 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 128 }
@@ -22462,6 +22633,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22484,6 +22656,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_kremlin_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_kremlin_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 130 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 130 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 130 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 130 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 130 }
@@ -22505,6 +22687,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22527,6 +22710,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_teotihuacan_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_teotihuacan_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 131 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 131 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 131 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 131 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 131 }
@@ -22548,6 +22741,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22570,6 +22764,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_angkor_hydraulic_system_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 132 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 132 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 132 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 132 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 132 }
@@ -22591,6 +22795,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22613,6 +22818,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dutch_polders_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dutch_polders_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 133 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 133 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 133 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 133 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 133 }
@@ -22634,6 +22849,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22656,6 +22872,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_persian_qanat_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_persian_qanat_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 138 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 138 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 138 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 138 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 138 }
@@ -22677,6 +22903,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22699,6 +22926,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_jerusalem_holy_city_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 140 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 140 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 140 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 140 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 140 }
@@ -22720,6 +22957,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22742,6 +22980,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_stonehenge_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_stonehenge_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 141 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 141 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 141 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 141 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 141 }
@@ -22763,6 +23011,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22785,6 +23034,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_tower_of_london_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_tower_of_london_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 142 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 142 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 142 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 142 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 142 }
@@ -22806,6 +23065,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22828,6 +23088,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_belgrade_fortress_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_belgrade_fortress_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 149 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 149 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 149 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 149 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 149 }
@@ -22849,6 +23119,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22871,6 +23142,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dujiangyan_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_dujiangyan_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 158 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 158 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 158 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 158 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 158 }
@@ -22892,6 +23173,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22914,6 +23196,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 160 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 160 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 160 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 160 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 160 }
@@ -22935,6 +23227,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -22957,6 +23250,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mogao_caves_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mogao_caves_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 161 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 161 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 161 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 161 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 161 }
@@ -22978,6 +23281,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23000,6 +23304,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_toledo_armory_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_toledo_armory_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 165 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 165 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 165 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 165 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 165 }
@@ -23021,6 +23335,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23043,6 +23358,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_camino_de_santiago_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_camino_de_santiago_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 166 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 166 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 166 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 166 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 166 }
@@ -23064,6 +23389,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23086,6 +23412,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_university_of_bologna_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_university_of_bologna_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 169 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 169 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 169 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 169 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 169 }
@@ -23107,6 +23443,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23129,6 +23466,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_carrara_marble_quarries_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_carrara_marble_quarries_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 170 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 170 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 170 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 170 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 170 }
@@ -23150,6 +23497,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23172,6 +23520,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_varanasi_ghats_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_varanasi_ghats_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 173 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 173 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 173 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 173 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 173 }
@@ -23193,6 +23551,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23215,6 +23574,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_brihadishvara_temple_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_brihadishvara_temple_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 174 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 174 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 174 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 174 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 174 }
@@ -23236,6 +23605,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23258,6 +23628,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_konark_sun_temple_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_konark_sun_temple_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 175 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 175 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 175 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 175 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 175 }
@@ -23279,6 +23659,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23301,6 +23682,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_calicut_port_city_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_calicut_port_city_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 177 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 177 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 177 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 177 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 177 }
@@ -23322,6 +23713,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23344,6 +23736,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_wieliczka_salt_mine_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_wieliczka_salt_mine_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 178 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 178 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 178 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 178 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 178 }
@@ -23365,6 +23767,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23387,6 +23790,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_wawel_castle_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_wawel_castle_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 179 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 179 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 179 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 179 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 179 }
@@ -23408,6 +23821,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23430,6 +23844,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_gdansk_port_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_gdansk_port_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 181 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 181 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 181 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 181 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 181 }
@@ -23451,6 +23875,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23473,6 +23898,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_malbork_castle_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_malbork_castle_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 182 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 182 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 182 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 182 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 182 }
@@ -23494,6 +23929,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23516,6 +23952,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cave_monastery_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cave_monastery_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 185 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 185 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 185 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 185 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 185 }
@@ -23537,6 +23983,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23559,6 +24006,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_khiva_old_city_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_khiva_old_city_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 188 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 188 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 188 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 188 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 188 }
@@ -23580,6 +24037,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23602,6 +24060,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_bukhara_kalyan_minaret_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_bukhara_kalyan_minaret_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 189 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 189 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 189 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 189 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 189 }
@@ -23623,6 +24091,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23645,6 +24114,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_tashkent_old_bazaar_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_tashkent_old_bazaar_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 191 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 191 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 191 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 191 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 191 }
@@ -23666,6 +24145,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23688,6 +24168,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_bordeaux_port_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_bordeaux_port_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 194 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 194 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 194 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 194 }
@@ -23709,6 +24199,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23731,6 +24222,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_marseille_old_port_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_marseille_old_port_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 195 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 195 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 195 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 195 }
@@ -23752,6 +24253,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23774,6 +24276,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mont_saint_michel_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_mont_saint_michel_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 197 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 197 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 197 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 197 }
@@ -23795,6 +24307,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23817,6 +24330,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_carcassonne_castle_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_carcassonne_castle_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 199 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 199 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 199 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 199 }
@@ -23838,6 +24361,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23860,6 +24384,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_colmar_old_town_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_colmar_old_town_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 201 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 201 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 201 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 201 }
@@ -23881,6 +24415,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23903,6 +24438,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_echmiadzin_cathedral_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_echmiadzin_cathedral_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 203 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 203 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 203 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 203 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 203 }
@@ -23924,6 +24469,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23946,6 +24492,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_narikala_fortress_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_narikala_fortress_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 204 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 204 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 204 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 204 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 204 }
@@ -23967,6 +24523,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -23989,6 +24546,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_sanaa_old_city_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_sanaa_old_city_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 206 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 206 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 206 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 206 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 206 }
@@ -24010,6 +24577,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24032,6 +24600,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_aachen_cathedral_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_aachen_cathedral_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 209 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 209 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 209 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 209 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 209 }
@@ -24053,6 +24631,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24075,6 +24654,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_nuremberg_imperial_castle_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 210 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 210 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 210 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 210 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 210 }
@@ -24096,6 +24685,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24118,6 +24708,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cologne_cathedral_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_cologne_cathedral_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 212 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 212 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 212 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 212 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 212 }
@@ -24139,6 +24739,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24161,6 +24762,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_hanseatic_kontor_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 213 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 213 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 213 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 213 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 213 }
@@ -24182,6 +24793,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24204,6 +24816,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_hanseatic_town_hall_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 214 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 214 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 214 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 214 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 214 }
@@ -24225,6 +24847,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24247,6 +24870,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_fez_old_city_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_fez_old_city_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 218 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 218 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 218 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 218 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 218 }
@@ -24268,6 +24901,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24290,6 +24924,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_kairouan_holy_city_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 219 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 219 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 219 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 219 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 219 }
@@ -24311,6 +24955,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24333,6 +24978,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_sankore_university_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_sankore_university_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 221 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 221 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 221 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 221 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 221 }
@@ -24354,6 +25009,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24376,6 +25032,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_great_mosque_of_djenne_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 222 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 222 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 222 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 222 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 222 }
@@ -24397,6 +25063,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
@@ -24419,6 +25086,16 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 			remove_from_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_walls_of_benin_inaugurated }
 			add_to_variable_map = { name = tv_wonder_final_building_level_by_type key = building_type:tv_wonder_unique_walls_of_benin_inaugurated value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_map = tv_wonder_surveyed }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 223 } }
+					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
+					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 223 } }
+				}
+			}
 			remove_from_variable_map = { name = tv_wonder_surveyed key = 223 }
 			add_to_variable_map = { name = tv_wonder_surveyed key = 223 value = 1 }
 			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 223 }
@@ -24440,6 +25117,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				if = {
 					limit = { exists = scope:tv_wonder_priority_owner }
 					scope:tv_wonder_priority_owner = {
+						tv_wonder_unregister_current_site_priority_candidate_effect = yes
 						tv_wonder_register_current_priority_candidate_effect = yes
 						remove_variable = tv_wonder_priority_candidate_wonder_id
 						remove_variable = tv_wonder_priority_candidate_current_mode
