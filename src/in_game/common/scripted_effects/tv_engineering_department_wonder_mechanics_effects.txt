@@ -25128,6 +25128,55 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 	}
 }
 
+tv_wonder_mechanics_refresh_country_auto_level_map_effect = {
+	clear_variable_map = tv_wonder_auto_level_by_wonder_id
+	save_scope_as = tv_wonder_auto_cache_country
+	if = {
+		limit = { has_global_variable_map = tv_wonder_final_building_type_to_wonder_id }
+		every_owned_location = {
+			limit = { has_variable_map = tv_wonder_final_building_level_by_type }
+			save_scope_as = tv_wonder_auto_cache_location
+			every_key_in_variable_map = {
+				variable = tv_wonder_final_building_level_by_type
+				set_local_variable = { name = tv_wonder_auto_cache_final_building_type value = this }
+				if = {
+					limit = {
+						is_key_in_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id target = local_var:tv_wonder_auto_cache_final_building_type }
+					}
+					scope:tv_wonder_auto_cache_location = {
+						set_local_variable = { name = tv_wonder_auto_cache_level value = "variable_map(tv_wonder_final_building_level_by_type|local_var:tv_wonder_auto_cache_final_building_type)" }
+					}
+					scope:tv_wonder_auto_cache_country = {
+						set_local_variable = { name = tv_wonder_auto_cache_wonder_id value = "global_variable_map(tv_wonder_final_building_type_to_wonder_id|local_var:tv_wonder_auto_cache_final_building_type)" }
+						if = {
+							limit = {
+								OR = {
+									NOT = { has_variable_map = tv_wonder_auto_level_by_wonder_id }
+									NOT = { is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = local_var:tv_wonder_auto_cache_wonder_id } }
+								}
+							}
+							remove_from_variable_map = { name = tv_wonder_auto_level_by_wonder_id key = local_var:tv_wonder_auto_cache_wonder_id }
+							add_to_variable_map = { name = tv_wonder_auto_level_by_wonder_id key = local_var:tv_wonder_auto_cache_wonder_id value = local_var:tv_wonder_auto_cache_level }
+						}
+						else = {
+							set_local_variable = { name = tv_wonder_auto_cache_existing_level value = "variable_map(tv_wonder_auto_level_by_wonder_id|local_var:tv_wonder_auto_cache_wonder_id)" }
+							if = {
+								limit = { local_var:tv_wonder_auto_cache_existing_level < local_var:tv_wonder_auto_cache_level }
+								remove_from_variable_map = { name = tv_wonder_auto_level_by_wonder_id key = local_var:tv_wonder_auto_cache_wonder_id }
+								add_to_variable_map = { name = tv_wonder_auto_level_by_wonder_id key = local_var:tv_wonder_auto_cache_wonder_id value = local_var:tv_wonder_auto_cache_level }
+							}
+							remove_local_variable = tv_wonder_auto_cache_existing_level
+						}
+						remove_local_variable = tv_wonder_auto_cache_wonder_id
+					}
+					remove_local_variable = tv_wonder_auto_cache_level
+				}
+				remove_local_variable = tv_wonder_auto_cache_final_building_type
+			}
+		}
+	}
+}
+
 tv_wonder_mechanics_push_location_display_slot_effect = {
 	if = {
 		limit = { NOT = { has_variable = tv_wonder_display_slot_1_id } }
