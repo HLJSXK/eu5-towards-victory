@@ -653,6 +653,53 @@ tv_govhouse_clear_capital_raid_locations_effect = {
 	clear_variable_list = tv_govhouse_tactic_capital_raid_locations
 }
 
+tv_govhouse_remove_active_tactic_modifier_effect = {
+	if = {
+		limit = { var:tv_govhouse_active_tactic ?= 1 }
+		remove_country_modifier = tv_govhouse_tactic_steady_advance
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 2 }
+		remove_country_modifier = tv_govhouse_tactic_careful_advance
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 3 }
+		remove_country_modifier = tv_govhouse_tactic_rapid_advance
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 4 }
+		remove_country_modifier = tv_govhouse_tactic_ambush_general
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 5 }
+		remove_country_modifier = tv_govhouse_tactic_surprise_general
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 6 }
+		remove_country_modifier = tv_govhouse_tactic_guerrilla
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 7 }
+		remove_country_modifier = tv_govhouse_tactic_siege_relief
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 8 }
+		tv_govhouse_clear_capital_raid_locations_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 9 }
+		remove_country_modifier = tv_govhouse_tactic_counterattack
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 10 }
+		remove_country_modifier = tv_govhouse_tactic_forced_march
+	}
+	else_if = {
+		limit = { var:tv_govhouse_active_tactic ?= 11 }
+		remove_country_modifier = tv_govhouse_tactic_encirclement
+	}
+}
+
 tv_govhouse_remove_tactic_modifiers_effect = {
 	remove_country_modifier = tv_govhouse_tactic_steady_advance
 	remove_country_modifier = tv_govhouse_tactic_careful_advance
@@ -968,6 +1015,253 @@ tv_govhouse_apply_active_tactic_modifier_effect = {
 	}
 }
 
+tv_govhouse_apply_pending_tactic_modifier_effect = {
+	save_scope_as = tv_govhouse_tactic_owner
+	if = {
+		limit = {
+			at_war = yes
+			has_variable = tv_conquest_general_char
+			var:tv_conquest_general_char ?= { is_alive = yes }
+			has_variable = tv_govhouse_pending_tactic
+		}
+		tv_govhouse_remove_active_tactic_modifier_effect = yes
+		if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 1 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_steady_advance
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 2 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_careful_advance
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 3 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_rapid_advance
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 4 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_ambush_general
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 5 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_surprise_general
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 6 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_guerrilla
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 7 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_siege_relief
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 8 }
+			tv_govhouse_apply_capital_raid_tactic_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 9 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_counterattack
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 10 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_forced_march
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_govhouse_pending_tactic ?= 11 }
+			add_country_modifier = {
+				modifier = tv_govhouse_tactic_encirclement
+				years = -1
+				mode = replace
+				size = {
+					if = {
+						limit = {
+							any_international_organizations_member_of = {
+								international_organization_type = international_organization_type:tv_govhouse
+								leader_country ?= scope:tv_govhouse_tactic_owner
+								international_organization_has_policy = policy:tv_govhouse_general_supreme_command_policy
+							}
+						}
+						value = 2
+					}
+					else = {
+						value = 1
+					}
+				}
+			}
+		}
+	}
+}
+
 tv_govhouse_pick_pending_tactic_effect = {
 	if = {
 		limit = {
@@ -1029,7 +1323,22 @@ tv_govhouse_pick_pending_tactic_effect = {
 			}
 		}
 		set_variable = { name = tv_govhouse_tactic_offered_this_war value = 1 }
+	}
+}
+
+tv_govhouse_propose_pending_tactic_effect = {
+	tv_govhouse_pick_pending_tactic_effect = yes
+	if = {
+		limit = { has_variable = tv_govhouse_pending_tactic }
 		trigger_event_non_silently = { id = tv_govhouse.40 }
+	}
+}
+
+tv_govhouse_propose_pending_tactic_change_effect = {
+	tv_govhouse_pick_pending_tactic_effect = yes
+	if = {
+		limit = { has_variable = tv_govhouse_pending_tactic }
+		trigger_event_non_silently = { id = tv_govhouse.44 }
 	}
 }
 
@@ -1048,7 +1357,6 @@ tv_govhouse_approve_pending_tactic_effect = {
 			var:tv_conquest_general_char ?= { is_alive = yes }
 		}
 		hidden_effect = {
-			tv_govhouse_remove_tactic_modifiers_effect = yes
 			set_variable = { name = tv_govhouse_active_tactic value = var:tv_govhouse_pending_tactic }
 			remove_variable = tv_govhouse_pending_tactic
 		}
@@ -1357,7 +1665,7 @@ tv_govhouse_war_entry_effect = {
 			NOT = { has_variable = tv_govhouse_active_tactic }
 			NOT = { has_variable = tv_govhouse_pending_tactic }
 		}
-		tv_govhouse_pick_pending_tactic_effect = yes
+		tv_govhouse_propose_pending_tactic_effect = yes
 	}
 	tv_govhouse_trigger_plan_activation_event_effect = yes
 	if = {
@@ -1483,7 +1791,7 @@ tv_govhouse_war_tent_monthly_effect = {
 					NOT = { has_variable = tv_govhouse_pending_tactic }
 					NOT = { has_variable = tv_govhouse_tactic_offered_this_war }
 				}
-				tv_govhouse_pick_pending_tactic_effect = yes
+				tv_govhouse_propose_pending_tactic_effect = yes
 			}
 			else_if = {
 				limit = {
@@ -1491,8 +1799,8 @@ tv_govhouse_war_tent_monthly_effect = {
 					NOT = { has_variable = tv_govhouse_pending_tactic }
 				}
 				random_list = {
-					95 = {}
-					5 = { tv_govhouse_pick_pending_tactic_effect = yes }
+					195 = {}
+					5 = { tv_govhouse_propose_pending_tactic_change_effect = yes }
 				}
 			}
 		}
