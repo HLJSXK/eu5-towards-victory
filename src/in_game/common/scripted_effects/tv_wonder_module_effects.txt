@@ -4047,12 +4047,6 @@ tv_wonder_sync_units_from_buildings_effect = {
 			has_global_variable_map = tv_wonder_id_to_decoration_module_building_type
 			is_key_in_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type target = var:tv_wonder_locked }
 		}
-		var:tv_wonder_site ?= {
-			prev = { set_variable = { name = tv_wonder_foundation_units value = 0 } }
-			prev = { set_variable = { name = tv_wonder_body_units value = 0 } }
-			prev = { set_variable = { name = tv_wonder_function_units value = 0 } }
-			prev = { set_variable = { name = tv_wonder_decoration_units value = 0 } }
-		}
 		set_local_variable = {
 			name = tv_wonder_helper_building_type
 			value = "global_variable_map(tv_wonder_id_to_helper_building_type|var:tv_wonder_locked)"

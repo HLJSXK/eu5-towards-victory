@@ -722,10 +722,6 @@ def main() -> None:
         lines.append(f"{T}{T}{T}has_global_variable_map = {module_map}")
         lines.append(f"{T}{T}{T}is_key_in_global_variable_map = {{ name = {module_map} target = var:tv_wonder_locked }}")
     lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
-    for part in parts:
-        lines.append(f"{T}{T}{T}prev = {{ set_variable = {{ name = tv_wonder_{part['key']}_units value = 0 }} }}")
-    lines.append(f"{T}{T}}}")
     lines.extend(capture_global_map_value(HELPER_BUILDING_TYPE_VAR, HELPER_BUILDING_TYPE_MAP, "var:tv_wonder_locked", 2))
     lines.append(f"{T}{T}var:tv_wonder_site ?= {{")
     lines.extend(set_units_to_at_least_level(f"local_var:{HELPER_BUILDING_TYPE_VAR}", parts, 3))
