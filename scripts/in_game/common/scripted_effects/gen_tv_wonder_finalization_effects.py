@@ -11,7 +11,6 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
     FINAL_BUILDING_LEVEL_BY_TYPE_MAP,
-    PARTS,
     ceremony_styles,
     construct_final_building_effect_name,
     finalization_event_id,
@@ -187,7 +186,9 @@ def append_construct_final_building_effect(lines: list[str], wonder: dict, style
 
 
 def append_destroy_intermediate_buildings_effect(lines: list[str], wonder: dict) -> None:
-    buildings = [f"tv_wonder_{wonder['key']}", *[f"tv_wonder_{wonder['key']}_{part}" for part in PARTS]]
+    # Part module buildings represent unmerged surplus units by finalization time.
+    # Only the merged helper is consumed by the final building.
+    buildings = [f"tv_wonder_{wonder['key']}"]
     lines.append(f"{destroy_intermediate_effect_name(wonder)} = {{")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ tv_wonder_construction_site_selected_trigger = yes }}")
