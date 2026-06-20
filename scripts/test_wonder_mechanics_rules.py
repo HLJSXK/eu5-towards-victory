@@ -18,6 +18,14 @@ TRIGGER_GENERATOR = (
     / "scripted_triggers"
     / "gen_tv_engineering_department_wonder_mechanics_triggers.py"
 )
+EFFECT_GENERATOR = (
+    REPO_ROOT
+    / "scripts"
+    / "in_game"
+    / "common"
+    / "scripted_effects"
+    / "gen_tv_engineering_department_wonder_mechanics_effects.py"
+)
 
 from wonder_mechanics.io import load_all_wonder_mechanics
 from wonder_mechanics.modifiers import (
@@ -37,6 +45,14 @@ def require(condition: bool, message: str) -> None:
 def load_trigger_generator():
     spec = importlib.util.spec_from_file_location("wonder_mechanics_trigger_generator", TRIGGER_GENERATOR)
     require(spec is not None and spec.loader is not None, "Could not load wonder mechanics trigger generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_effect_generator():
+    spec = importlib.util.spec_from_file_location("wonder_mechanics_effect_generator", EFFECT_GENERATOR)
+    require(spec is not None and spec.loader is not None, "Could not load wonder mechanics effect generator.")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -83,12 +99,50 @@ def validate_generated_trigger_scope_layers(wonders: list[dict]) -> None:
         else:
             require(country_gate in can_build, f"{key} can-build trigger must enforce country uniqueness.")
 
+        if int(wonder.get("initial_level") or 0) > 0:
+            expandable = extract_trigger_block(
+                trigger_script,
+                f"tv_wonder_location_has_{key}_expandable_final_building_trigger",
+            )
+            require(
+                f"is_key_in_variable_map = {{ name = tv_wonder_surveyed target = {int(wonder['id'])} }}"
+                in expandable,
+                f"{key} initial final building must remain expandable before its first survey.",
+            )
+
+
+def validate_existing_unique_initialization_does_not_seed_survey_maps(wonders: list[dict]) -> None:
+    location_display_script = load_effect_generator().generate_location_display_effects()
+    init_block = extract_trigger_block(
+        location_display_script,
+        "tv_wonder_initialize_existing_unique_wonders_effect",
+    )
+    existing_unique_ids = [
+        int(wonder["id"])
+        for wonder in wonders
+        if wonder.get("is_unique") and int(wonder.get("initial_level") or 0) > 0
+    ]
+    require(existing_unique_ids, "Expected at least one game-start unique wonder.")
+    for wonder_id in existing_unique_ids:
+        for map_name in (
+            "tv_wonder_surveyed",
+            "tv_wonder_survey_scale_competence",
+            "tv_wonder_survey_logistics_competence",
+            "tv_wonder_survey_organization_competence",
+            "tv_wonder_survey_scale_tier",
+        ):
+            require(
+                f"name = {map_name} key = {wonder_id}" not in init_block,
+                f"Game-start unique wonder {wonder_id} must not seed {map_name}.",
+            )
+
 
 def main() -> None:
     wonders, mechanics = load_all_wonder_mechanics()
 
     validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     validate_generated_trigger_scope_layers(wonders)
+    validate_existing_unique_initialization_does_not_seed_survey_maps(wonders)
 
     small_violations: list[str] = []
     medium_large_non_value: list[str] = []

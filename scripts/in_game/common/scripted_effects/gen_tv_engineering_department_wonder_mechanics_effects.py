@@ -203,14 +203,6 @@ def append_raise_building_to_initial_level(
         lines.append(f"{prefix}}}")
 
 
-def append_seed_existing_unique_survey_maps(lines: list[str], wonder_id: int, indent: int) -> None:
-    lines.extend(map_replace_lines(LOCATION_SURVEYED_MAP, wonder_id, "1", indent))
-    lines.extend(map_replace_lines(LOCATION_SURVEY_SCALE_MAP, wonder_id, "100", indent))
-    lines.extend(map_replace_lines(LOCATION_SURVEY_LOGISTICS_MAP, wonder_id, "100", indent))
-    lines.extend(map_replace_lines(LOCATION_SURVEY_ORGANIZATION_MAP, wonder_id, "100", indent))
-    lines.extend(map_replace_lines(LOCATION_SURVEY_SCALE_TIER_MAP, wonder_id, "6", indent))
-
-
 def append_register_existing_unique_priority_candidate(
     lines: list[str],
     wonder_id: int,
@@ -1040,25 +1032,19 @@ def append_existing_unique_wonders_initialization_effect(lines: list[str], uniqu
         lines.extend(map_replace_lines(FINAL_BUILDING_LEVEL_BY_TYPE_MAP, building_ref, str(initial_level), 3))
         lines.append(f"{T}{T}}}")
 
-        lines.append(f"{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}{T}OR = {{")
-        lines.append(f"{T}{T}{T}{T}{T}NOT = {{ has_variable_map = {LOCATION_SURVEYED_MAP} }}")
-        lines.append(
-            f"{T}{T}{T}{T}{T}NOT = {{ is_key_in_variable_map = {{ "
-            f"name = {LOCATION_SURVEYED_MAP} target = {wonder['id']} }} }}"
-        )
-        lines.append(f"{T}{T}{T}{T}{T}NOT = {{ has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP} }}")
-        lines.append(
-            f"{T}{T}{T}{T}{T}NOT = {{ is_key_in_variable_map = {{ "
-            f"name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder['id']} }} }}"
-        )
-        lines.append(f"{T}{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}}}")
-        append_seed_existing_unique_survey_maps(lines, int(wonder["id"]), 3)
         if initial_level < 6:
+            lines.append(f"{T}{T}if = {{")
+            lines.append(f"{T}{T}{T}limit = {{")
+            lines.append(f"{T}{T}{T}{T}OR = {{")
+            lines.append(f"{T}{T}{T}{T}{T}NOT = {{ has_variable_map = {LOCATION_SURVEYED_MAP} }}")
+            lines.append(
+                f"{T}{T}{T}{T}{T}NOT = {{ is_key_in_variable_map = {{ "
+                f"name = {LOCATION_SURVEYED_MAP} target = {wonder['id']} }} }}"
+            )
+            lines.append(f"{T}{T}{T}{T}}}")
+            lines.append(f"{T}{T}{T}}}")
             append_register_existing_unique_priority_candidate(lines, int(wonder["id"]), 3)
-        lines.append(f"{T}{T}}}")
+            lines.append(f"{T}{T}}}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

@@ -82,27 +82,48 @@ def final_building_level_exact(building: str, level: int, indent: int) -> list[s
     return lines
 
 
-def stored_tier_can_expand_by_id(wonder_id: str, final_building: str, level: int, indent: int) -> list[str]:
+def stored_tier_can_expand_branch(wonder: dict, final_building: str, indent: int) -> list[str]:
     prefix = T * indent
-    lines = final_building_level_exact(final_building, level, indent)
-    lines.append(f"{prefix}has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP}")
-    lines.append(f"{prefix}is_key_in_variable_map = {{ name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder_id} }}")
-    lines.append(f"{prefix}\"variable_map({LOCATION_SURVEY_SCALE_TIER_MAP}|{wonder_id})\" ?= {{ this >= {level + 1} }}")
+    wonder_id = str(int(wonder["id"]))
+    lines = [f"{prefix}AND = {{"]
+    lines.append(f"{prefix}{T}has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP}")
+    lines.append(f"{prefix}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder_id} }}")
+    lines.append(f"{prefix}{T}OR = {{")
+    for level in range(1, 6):
+        lines.append(f"{prefix}{T}{T}AND = {{")
+        lines.extend(final_building_level_exact(final_building, level, indent + 3))
+        lines.append(
+            f"{prefix}{T}{T}{T}\"variable_map({LOCATION_SURVEY_SCALE_TIER_MAP}|{wonder_id})\" ?= "
+            f"{{ this >= {level + 1} }}"
+        )
+        lines.append(f"{prefix}{T}{T}}}")
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}}}")
     return lines
 
 
-def stored_tier_can_expand(wonder: dict, final_building: str, level: int, indent: int) -> list[str]:
-    return stored_tier_can_expand_by_id(str(int(wonder["id"])), final_building, level, indent)
+def unsurveyed_initial_final_building_can_expand(wonder: dict, final_building: str, indent: int) -> list[str]:
+    prefix = T * indent
+    wonder_id = str(int(wonder["id"]))
+    lines = [f"{prefix}AND = {{"]
+    lines.append(f"{prefix}{T}{loc_level(final_building, '>=', 1)}")
+    lines.append(f"{prefix}{T}NOT = {{ {loc_level(final_building, '>=', 6)} }}")
+    lines.append(f"{prefix}{T}OR = {{")
+    lines.append(f"{prefix}{T}{T}NOT = {{ has_variable_map = {LOCATION_SURVEYED_MAP} }}")
+    lines.append(f"{prefix}{T}{T}NOT = {{ is_key_in_variable_map = {{ name = {LOCATION_SURVEYED_MAP} target = {wonder_id} }} }}")
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}}}")
+    return lines
 
 
 def final_building_below_cap_conditions(wonder: dict, indent: int) -> list[str]:
     prefix = T * indent
     lines = [f"{prefix}OR = {{"]
+    allow_unsurveyed_initial = int(wonder.get("initial_level") or 0) > 0
     for final_building in final_buildings(wonder):
-        for level in range(1, 6):
-            lines.append(f"{prefix}{T}AND = {{")
-            lines.extend(stored_tier_can_expand(wonder, final_building, level, indent + 2))
-            lines.append(f"{prefix}{T}}}")
+        lines.extend(stored_tier_can_expand_branch(wonder, final_building, indent + 1))
+        if allow_unsurveyed_initial:
+            lines.extend(unsurveyed_initial_final_building_can_expand(wonder, final_building, indent + 1))
     lines.append(f"{prefix}}}")
     return lines
 

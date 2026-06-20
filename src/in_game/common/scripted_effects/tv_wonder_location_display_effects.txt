@@ -2208,20 +2208,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 102 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 102 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 102 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 102 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 102 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 102 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 102 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 102 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 102 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 102 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 102 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 102 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2262,20 +2250,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 103 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 103 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 103 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 103 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 103 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 103 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 103 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 103 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 103 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 103 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 103 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 103 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2316,20 +2292,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 104 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 104 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 104 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 104 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 104 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 104 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 104 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 104 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 104 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 104 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 104 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 104 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2370,20 +2334,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 106 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 106 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 106 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 106 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 106 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 106 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 106 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 106 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 106 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 106 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 106 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 106 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2424,20 +2376,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 113 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 113 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 113 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 113 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 113 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 113 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 113 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 113 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 113 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 113 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 113 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 113 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2478,20 +2418,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 114 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 114 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 114 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 114 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 114 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 114 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 114 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 114 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 114 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 114 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 114 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 114 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2532,20 +2460,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 120 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 120 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 120 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 120 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 120 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 120 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 120 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 120 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 120 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 120 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 120 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 120 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2586,20 +2502,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 123 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 123 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 123 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 123 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 123 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 123 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 123 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 123 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 123 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 123 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 123 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 123 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2640,20 +2544,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 124 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 124 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 124 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 124 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 124 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 124 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 124 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 124 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 124 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 124 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 124 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 124 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2694,20 +2586,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 126 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 126 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 126 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 126 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 126 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 126 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 126 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 126 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 126 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 126 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 126 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 126 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2748,20 +2628,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 128 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 128 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 128 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 128 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 128 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 128 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 128 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 128 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 128 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 128 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 128 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 128 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2802,20 +2670,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 130 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 130 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 130 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 130 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 130 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 130 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 130 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 130 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 130 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 130 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 130 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 130 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2856,20 +2712,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 131 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 131 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 131 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 131 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 131 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 131 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 131 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 131 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 131 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 131 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 131 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 131 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2910,20 +2754,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 132 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 132 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 132 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 132 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 132 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 132 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 132 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 132 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 132 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 132 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 132 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 132 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -2964,20 +2796,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 133 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 133 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 133 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 133 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 133 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 133 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 133 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 133 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 133 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 133 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 133 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 133 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3018,20 +2838,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 138 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 138 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 138 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 138 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 138 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 138 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 138 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 138 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 138 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 138 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 138 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 138 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3072,20 +2880,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 140 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 140 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 140 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 140 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 140 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 140 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 140 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 140 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 140 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 140 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 140 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 140 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3126,20 +2922,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 141 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 141 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 141 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 141 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 141 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 141 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 141 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 141 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 141 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 141 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 141 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 141 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3180,20 +2964,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 142 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 142 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 142 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 142 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 142 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 142 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 142 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 142 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 142 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 142 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 142 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 142 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3234,20 +3006,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 149 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 149 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 149 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 149 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 149 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 149 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 149 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 149 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 149 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 149 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 149 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 149 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3288,20 +3048,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 158 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 158 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 158 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 158 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 158 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 158 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 158 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 158 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 158 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 158 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 158 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 158 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3342,20 +3090,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 160 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 160 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 160 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 160 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 160 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 160 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 160 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 160 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 160 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 160 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 160 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 160 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3396,20 +3132,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 161 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 161 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 161 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 161 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 161 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 161 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 161 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 161 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 161 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 161 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 161 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 161 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3450,20 +3174,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 165 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 165 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 165 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 165 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 165 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 165 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 165 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 165 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 165 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 165 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 165 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 165 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3504,20 +3216,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 166 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 166 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 166 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 166 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 166 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 166 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 166 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 166 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 166 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 166 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 166 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 166 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3558,20 +3258,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 169 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 169 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 169 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 169 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 169 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 169 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 169 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 169 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 169 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 169 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 169 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 169 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3612,20 +3300,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 170 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 170 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 170 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 170 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 170 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 170 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 170 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 170 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 170 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 170 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 170 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 170 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3666,20 +3342,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 173 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 173 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 173 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 173 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 173 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 173 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 173 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 173 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 173 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 173 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 173 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 173 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3720,20 +3384,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 174 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 174 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 174 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 174 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 174 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 174 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 174 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 174 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 174 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 174 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 174 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 174 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3774,20 +3426,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 175 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 175 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 175 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 175 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 175 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 175 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 175 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 175 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 175 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 175 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 175 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 175 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3828,20 +3468,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 177 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 177 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 177 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 177 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 177 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 177 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 177 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 177 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 177 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 177 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 177 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 177 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3882,20 +3510,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 178 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 178 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 178 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 178 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 178 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 178 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 178 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 178 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 178 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 178 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 178 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 178 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3936,20 +3552,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 179 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 179 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 179 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 179 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 179 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 179 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 179 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 179 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 179 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 179 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 179 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 179 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -3990,20 +3594,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 181 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 181 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 181 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 181 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 181 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 181 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 181 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 181 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 181 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 181 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 181 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 181 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4044,20 +3636,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 182 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 182 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 182 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 182 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 182 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 182 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 182 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 182 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 182 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 182 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 182 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 182 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4098,20 +3678,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 185 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 185 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 185 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 185 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 185 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 185 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 185 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 185 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 185 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 185 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 185 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 185 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4152,20 +3720,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 188 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 188 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 188 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 188 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 188 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 188 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 188 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 188 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 188 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 188 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 188 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 188 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4206,20 +3762,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 189 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 189 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 189 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 189 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 189 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 189 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 189 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 189 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 189 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 189 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 189 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 189 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4260,20 +3804,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 191 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 191 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 191 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 191 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 191 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 191 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 191 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 191 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 191 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 191 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 191 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 191 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4314,20 +3846,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 194 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 194 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 194 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 194 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 194 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 194 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 194 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 194 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 194 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 194 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 194 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 194 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4368,20 +3888,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 195 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 195 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 195 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 195 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 195 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 195 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 195 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 195 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 195 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 195 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 195 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 195 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4422,20 +3930,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 197 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 197 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 197 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 197 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 197 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 197 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 197 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 197 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 197 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 197 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 197 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 197 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4476,20 +3972,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 199 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 199 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 199 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 199 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 199 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 199 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 199 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 199 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 199 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 199 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 199 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 199 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4530,20 +4014,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 201 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 201 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 201 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 201 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 201 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 201 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 201 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 201 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 201 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 201 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 201 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 201 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4584,20 +4056,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 203 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 203 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 203 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 203 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 203 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 203 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 203 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 203 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 203 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 203 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 203 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 203 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4638,20 +4098,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 204 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 204 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 204 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 204 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 204 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 204 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 204 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 204 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 204 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 204 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 204 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 204 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4692,20 +4140,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 206 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 206 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 206 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 206 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 206 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 206 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 206 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 206 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 206 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 206 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 206 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 206 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4746,20 +4182,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 209 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 209 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 209 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 209 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 209 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 209 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 209 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 209 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 209 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 209 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 209 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 209 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4800,20 +4224,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 210 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 210 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 210 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 210 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 210 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 210 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 210 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 210 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 210 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 210 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 210 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 210 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4854,20 +4266,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 212 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 212 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 212 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 212 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 212 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 212 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 212 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 212 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 212 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 212 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 212 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 212 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4908,20 +4308,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 213 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 213 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 213 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 213 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 213 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 213 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 213 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 213 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 213 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 213 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 213 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 213 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -4962,20 +4350,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 214 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 214 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 214 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 214 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 214 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 214 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 214 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 214 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 214 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 214 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 214 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 214 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -5016,20 +4392,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 218 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 218 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 218 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 218 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 218 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 218 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 218 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 218 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 218 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 218 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 218 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 218 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -5070,20 +4434,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 219 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 219 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 219 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 219 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 219 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 219 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 219 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 219 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 219 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 219 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 219 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 219 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -5124,20 +4476,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 221 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 221 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 221 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 221 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 221 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 221 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 221 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 221 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 221 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 221 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 221 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 221 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -5178,20 +4518,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 222 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 222 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 222 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 222 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 222 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 222 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 222 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 222 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 222 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 222 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 222 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 222 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
@@ -5232,20 +4560,8 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 				OR = {
 					NOT = { has_variable_map = tv_wonder_surveyed }
 					NOT = { is_key_in_variable_map = { name = tv_wonder_surveyed target = 223 } }
-					NOT = { has_variable_map = tv_wonder_survey_scale_tier }
-					NOT = { is_key_in_variable_map = { name = tv_wonder_survey_scale_tier target = 223 } }
 				}
 			}
-			remove_from_variable_map = { name = tv_wonder_surveyed key = 223 }
-			add_to_variable_map = { name = tv_wonder_surveyed key = 223 value = 1 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_competence key = 223 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_competence key = 223 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_logistics_competence key = 223 }
-			add_to_variable_map = { name = tv_wonder_survey_logistics_competence key = 223 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_organization_competence key = 223 }
-			add_to_variable_map = { name = tv_wonder_survey_organization_competence key = 223 value = 100 }
-			remove_from_variable_map = { name = tv_wonder_survey_scale_tier key = 223 }
-			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 223 value = 6 }
 			if = {
 				limit = { has_owner = yes }
 				save_scope_as = tv_wonder_priority_site
