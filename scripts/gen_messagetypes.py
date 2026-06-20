@@ -48,6 +48,11 @@ PHILOSOPHY_SELECT_ACTIONS = [
     for action in range(1, 7)
 ]
 
+HAGIA_ASSIGNMENT_ACTIONS = [
+    f"tv_wonder_hagia_assign_step_{step}"
+    for step in range(1, 9)
+]
+
 
 def victory_reward_action_ids() -> list[str]:
     with VICTORY_PATHS.open(encoding="utf-8-sig") as file:
@@ -1092,6 +1097,24 @@ def philosophy_message_entries() -> str:
     return "\n".join(blocks)
 
 
+def hagia_assignment_message_entries() -> str:
+    blocks = ["\n# ---- Generated Hagia Sophia ritual assignment controls ----\n"]
+    for action in HAGIA_ASSIGNMENT_ACTIONS:
+        blocks.append(
+            f"""PERFORM_{action}_ACTION={{
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}}
+"""
+        )
+    return "\n".join(blocks)
+
+
 def victory_reward_message_entries() -> str:
     blocks = ["\n# ---- Generated victory path UI controls ----\n"]
     for action in victory_reward_action_ids():
@@ -1134,6 +1157,7 @@ if vanilla_bytes.startswith(b'\xef\xbb\xbf'):
 
 combined_entries = (
     TV_ENTRIES
+    + hagia_assignment_message_entries()
     + trade_monopoly_message_entries()
     + philosophy_message_entries()
     + victory_reward_message_entries()

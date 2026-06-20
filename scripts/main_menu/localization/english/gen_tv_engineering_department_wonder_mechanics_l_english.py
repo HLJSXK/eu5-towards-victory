@@ -7,12 +7,15 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import loc_line, render_header
+from wonder_mechanics.render import (
+    loc_line,
+    render_header,
+)
 from wonder_localization_lib import load_wonder_localization_data
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml"
 SCRIPT_REL = "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py"
-DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
+DATA_REL = "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
 EXCLUDED_LOC_KEYS = {
     "tv_wonder_ownership.800.t",
     "tv_wonder_ownership.800.d",

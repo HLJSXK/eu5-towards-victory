@@ -7,19 +7,23 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.modifiers import (
     authored_final_building_local_modifiers,
-    ceremony_styles,
-    final_building_for_style,
     final_building_maintenance,
-    load_all_wonder_mechanics,
-    mechanic_key,
     merge_numeric_modifier_mappings,
-    render_header,
+    wonder_base_country_modifiers,
+)
+from wonder_mechanics.naming import (
+    final_building_for_style,
+    mechanic_key,
+)
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import (
+    ceremony_styles,
     ritual_auxiliary_modifiers,
     ritual_plan_for_style,
     ritual_auxiliary_building,
-    wonder_base_country_modifiers,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "building_types" / "tv_engineering_department_wonder_mechanics_buildings.txt"

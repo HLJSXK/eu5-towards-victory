@@ -10,34 +10,38 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 try:
-    from scripts.wonder_mechanics_lib import (
-        ceremony_styles,
+    from scripts.wonder_mechanics.io import load_all_wonder_mechanics_data
+    from scripts.wonder_mechanics.naming import (
         final_building_for_style,
-        level_static_modifier_loc,
-        load_all_wonder_mechanics_data,
-        ritual_auxiliary_building,
-        ritual_auxiliary_display_modifier_name,
-        ritual_blessing_modifier_name,
-        ritual_plan_for_style,
         wonder_auto_modifier_name,
-        unique_ceremony_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
     )
-except ModuleNotFoundError:
-    from wonder_mechanics_lib import (
+    from scripts.wonder_mechanics.render import level_static_modifier_loc
+    from scripts.wonder_mechanics.rituals import (
         ceremony_styles,
-        final_building_for_style,
-        level_static_modifier_loc,
-        load_all_wonder_mechanics_data,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
         ritual_blessing_modifier_name,
         ritual_plan_for_style,
-        wonder_auto_modifier_name,
         unique_ceremony_modifier_name,
+    )
+except ModuleNotFoundError:
+    from wonder_mechanics.io import load_all_wonder_mechanics_data
+    from wonder_mechanics.naming import (
+        final_building_for_style,
+        wonder_auto_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
+    )
+    from wonder_mechanics.render import level_static_modifier_loc
+    from wonder_mechanics.rituals import (
+        ceremony_styles,
+        ritual_auxiliary_building,
+        ritual_auxiliary_display_modifier_name,
+        ritual_blessing_modifier_name,
+        ritual_plan_for_style,
+        unique_ceremony_modifier_name,
     )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

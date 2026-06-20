@@ -10,7 +10,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import STYLE_3_REWARD_EFFECTS
+from wonder_mechanics.rituals import STYLE_3_REWARD_EFFECTS
 
 OUT_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
 MODIFIER_TYPE_DEFINITION_DIR = (

@@ -1,0 +1,1189 @@
+designs:
+  sacred_mountain:
+    status: 已实现
+    positioning: 高地圣所、宗教权威
+    site: 山地、高原或丘陵。
+    preference: 山地 +15%，高原 +7.5%，森林 +10%，树林 +5%。
+    base_effect: 每级：+20% 全局人口皈依速度、+1 正统信仰容忍、+0.05 属灵价值观倾向。
+    branches:
+      1:
+        zh: 王室献祭
+        en: Royal Sacrifice
+        completion: 确认王室献祭方案后立即完成落成仪式。
+        effect: +20% 王室阶级力量。
+      2:
+        zh: 冥想仪式
+        en: Meditation Ceremony
+        completion: 确认冥想仪式方案后立即完成落成仪式。
+        effect: +5% 研究速度。
+      3:
+        zh: 神授仪式
+        en: Divine Investiture
+        completion: 确认神授仪式方案后立即完成落成仪式。
+        effect: +5% 教士满意均衡点。
+  triumphal_axis:
+    status: 已实现
+    positioning: 王权展示、城市秩序
+    site: 城市或大都会。
+    preference: 发展度提供称职度，大都会额外 +5%。
+    base_effect: 每级：+0.10 每月正统性、+0.05 中央集权价值观倾向。
+    branches:
+      1:
+        zh: 外国使节觐见
+        en: Foreign Emissaries
+        completion: 确认外国使节觐见方案后立即完成落成仪式。
+        effect: +0.20 每月威望。
+      2:
+        zh: 凯旋阅兵
+        en: Triumph Parade
+        completion: 确认凯旋阅兵方案后立即完成落成仪式。
+        effect: +10% 陆军士气。
+      3:
+        zh: 公民庆典
+        en: Civic Festival
+        completion: 确认公民庆典方案后立即完成落成仪式。
+        effect: +5% 人口加入叛军阈值。
+  great_port:
+    status: 已实现
+    positioning: 海港贸易、舰队仪式
+    site: 港口。
+    preference: 港口适宜度提供称职度。
+    base_effect: 每级：+0.05 海军价值观倾向；所在地提升港口适宜度、贸易中心力和迁入吸引力。
+    branches:
+      1:
+        zh: 黄金拍卖
+        en: Golden Auction
+        completion: 确认黄金拍卖方案后立即完成落成仪式。
+        effect: +10% 贸易收入。
+      2:
+        zh: 舰队检阅
+        en: Fleet Review
+        completion: 确认舰队检阅方案后立即完成落成仪式。
+        effect: +10% 海军士气。
+      3:
+        zh: 自由贸易节
+        en: Free Trade Festival
+        completion: 确认自由贸易节方案后立即完成落成仪式。
+        effect: +2 外交声誉。
+  giant_necropolis:
+    status: 已实现
+    positioning: 王朝记忆、祖先祭仪
+    site: 乡村地点。
+    preference: 丘陵 +15%，相邻城市 +10%，相邻城镇 +5%。
+    base_effect: 每级：-2% 人口加入叛军阈值、+0.05 传统价值观倾向。
+    branches:
+      1:
+        zh: 王朝合葬
+        en: Dynastic Burial
+        completion: 确认王朝合葬方案后立即完成落成仪式。
+        effect: +0.10 每月正统性。
+      2:
+        zh: 祖先祭仪
+        en: Ancestor Festival
+        completion: 确认祖先祭仪方案后立即完成落成仪式。
+        effect: -10% 稳定度投资花费。
+      3:
+        zh: 寂静之地
+        en: Quiet Land
+        completion: 确认寂静之地方案后立即完成落成仪式。
+        effect: -5% 人口加入叛军阈值。
+  great_lighthouse:
+    status: 已实现
+    positioning: 航海标识、海上控制
+    site: 港口。
+    preference: 港口适宜度提供称职度。
+    base_effect: 每级：+200 贸易范围、+200 海军范围、+0.05 海军价值观倾向。
+    branches:
+      1:
+        zh: 长明火祭
+        en: Eternal Flame
+        completion: 确认长明火祭方案后立即完成落成仪式。
+        effect: +250 海军范围。
+      2:
+        zh: 领航员行会
+        en: Navigator Guild
+        completion: 确认领航员行会方案后立即完成落成仪式。
+        effect: +2.5% 市民满意均衡点。
+      3:
+        zh: 长夜守望
+        en: Long Watch
+        completion: 确认长夜守望方案后立即完成落成仪式。
+        effect: +10% 海上存在。
+  hydraulic_workshop:
+    status: 已实现
+    positioning: 水利工坊、生产组织
+    site: 河流或湖泊沿岸。
+    preference: 总建筑等级提供称职度。
+    base_effect: 每级：+0.05 自由民价值观倾向；所在地提升生产效率。
+    branches:
+      1:
+        zh: 水神大祭
+        en: Water Festival
+        completion: 确认水神大祭方案后立即完成落成仪式。
+        effect: -10% 本地叛乱度。
+      2:
+        zh: 工匠行会法
+        en: Artisan Guild Charter
+        completion: 确认工匠行会法方案后立即完成落成仪式。
+        effect: +10% 本地最大控制力。
+      3:
+        zh: 水轮工坊
+        en: Waterwheel Workshop
+        completion: 确认水轮工坊方案后立即完成落成仪式。
+        effect: -50% 本地建设花费。
+  mining_city:
+    status: 已实现
+    positioning: 采矿都市、金属财政
+    site: 铁、铜、锡、铅、银、金或大理石产地。
+    preference: 发展度提供称职度，乡村额外 +5%。
+    base_effect: 每级：+0.05 传统经济价值观倾向；所在地提升原产雇佣和原料产出。
+    branches:
+      1:
+        zh: 矿工权利宣誓
+        en: Miners' Rights
+        completion: 确认矿工权利宣誓方案后立即完成落成仪式。
+        effect: +2.5% 平民满意均衡点。
+      2:
+        zh: 王家铸币厂
+        en: Royal Mint
+        completion: 确认王家铸币厂方案后立即完成落成仪式。
+        effect: +10% 铸币收入。
+      3:
+        zh: 深井排水
+        en: Deep Drainage
+        completion: 确认深井排水方案后立即完成落成仪式。
+        effect: +5% 本地生产效率。
+  giant_observatory:
+    status: 已实现
+    positioning: 天文观测、航海历算
+    site: 山地、高原或丘陵。
+    preference: 山地 +15%，高原 +7.5%，平均识字率提供称职度。
+    base_effect: 每级：+5% 研究速度、+0.05 创新价值观倾向。
+    branches:
+      1:
+        zh: 星表编纂
+        en: Star Catalog
+        completion: 确认星表编纂方案后立即完成落成仪式。
+        effect: +10 本地最大识字率。
+      2:
+        zh: 航海历书
+        en: Nautical Almanac
+        completion: 确认航海历书方案后立即完成落成仪式。
+        effect: +10% 每月探索进度。
+      3:
+        zh: 日食宣告
+        en: Eclipse Proclamation
+        completion: 确认日食宣告方案后立即完成落成仪式。
+        effect: 无永久修正，但日食事件提供 +100 威望。
+  palace_of_nations:
+    status: 已实现
+    positioning: 外交朝会、贡礼秩序
+    site: 首都。
+    preference: 发展度提供称职度，大都会额外 +5%。
+    base_effect: 每级：+5% 临近度速度、+0.05 中央集权价值观倾向。
+    branches:
+      1:
+        zh: 万国朝会
+        en: Congress of Nations
+        completion: 确认万国朝会方案后立即完成落成仪式。
+        effect: +0.20 每月威望。
+      2:
+        zh: 贡礼长廊
+        en: Tribute Gallery
+        completion: 确认贡礼长廊方案后立即完成落成仪式。
+        effect: +5% 附属国收入贡献。
+      3:
+        zh: 常设使馆区
+        en: Embassy Quarter
+        completion: 确认常设使馆区方案后立即完成落成仪式。
+        effect: +1 外交声誉。
+  university_city:
+    status: 已实现
+    positioning: 学识城市、高等教育
+    site: 非乡村地点。
+    preference: 城市/大都会 +5%，平均识字率提供称职度。
+    base_effect: 每级：+0.05 创新价值观倾向；所在地提升人口晋升速度和最大识字率。
+    branches:
+      1:
+        zh: 学者大会
+        en: Scholars Convocation
+        completion: 确认学者大会方案后立即完成落成仪式。
+        effect: +5% 研究速度。
+      2:
+        zh: 公开讲学
+        en: Public Lectures
+        completion: 确认公开讲学方案后立即完成落成仪式。
+        effect: +0.01 全局每月识字率。
+      3:
+        zh: 学院特许状
+        en: Collegiate Charter
+        completion: 确认学院特许状方案后立即完成落成仪式。
+        effect: +5% 全局人口升级速度修正。
+  sky_dome_grand_temple:
+    status: 已实现
+    positioning: 正信礼仪、圣殿组织
+    site: 正信占优地点。
+    preference: 修道院 +5%，大教堂 +5%，正信占优 +15%。
+    base_effect: 每级：-10% 稳定度投资花费、+5 全局人口皈依速度、+0.05 属灵价值观倾向。
+    branches:
+      1:
+        zh: 穹顶祝圣
+        en: Dome Consecration
+        completion: 确认穹顶祝圣方案后立即完成落成仪式。
+        effect: +1 正信容忍。
+      2:
+        zh: 朝圣金库
+        en: Pilgrim Treasury
+        completion: 确认朝圣金库方案后立即完成落成仪式。
+        effect: +5% 税收收入效率。
+      3:
+        zh: 天穹宗会
+        en: Celestial Synod
+        completion: 确认天穹宗会方案后立即完成落成仪式。
+        effect: +5% 教士满意均衡点。
+  giant_tower_temple:
+    status: 已实现
+    positioning: 塔庙、朝圣阶梯
+    site: 任意己方地点。
+    preference: 修道院 +5%，大教堂 +5%，正信占优 +15%。
+    base_effect: 每级：+0.05 属灵价值观倾向；所在地提升同化和皈依。
+    branches:
+      1:
+        zh: 灯火仪式
+        en: Beacon Rite
+        completion: 确认灯火仪式方案后立即完成落成仪式。
+        effect: +0.10 每月威望。
+      2:
+        zh: 朝圣阶梯
+        en: Pilgrim Stair
+        completion: 确认朝圣阶梯方案后立即完成落成仪式。
+        effect: -5% 稳定度投资花费。
+      3:
+        zh: 神庙学校
+        en: Temple School
+        completion: 确认神庙学校方案后立即完成落成仪式。
+        effect: +5% 全局皈依速度修正。
+  river_extension:
+    status: 已实现
+    positioning: 河道拓宽、交通节点
+    site: 河流或湖泊沿岸。
+    preference: 发展度提供称职度，桥梁基础设施 +5%，相邻开桥典礼奇观 +10%。
+    base_effect: 每级：所在地提升行政传导、发展和皈依。
+    branches:
+      1:
+        zh: 开桥典礼
+        en: Bridge Opening
+        completion: 确认开桥典礼方案后立即完成落成仪式。
+        effect: +5% 陆军移动速度。
+      2:
+        zh: 河市节
+        en: River Fair
+        completion: 确认河市节方案后立即完成落成仪式。
+        effect: +5% 贸易收入。
+      3:
+        zh: 运河署
+        en: Canal Authority
+        completion: 确认运河署方案后立即完成落成仪式。
+        effect: +3% 全局生产效率。
+  national_shipyard:
+    status: 已实现
+    positioning: 造船基地、舰队整备
+    site: 港口。
+    preference: 港口适宜度与发展度提供称职度。
+    base_effect: 每级：+0.05 海军价值观倾向；所在地提升造船速度、并行造船能力和港口适宜度。
+    branches:
+      1:
+        zh: 铺龙骨礼
+        en: Keel Laying
+        completion: 确认铺龙骨礼方案后立即完成落成仪式。
+        effect: +10% 船只建造速度。
+      2:
+        zh: 舰队集结
+        en: Fleet Muster
+        completion: 确认舰队集结方案后立即完成落成仪式。
+        effect: +5% 海军士气。
+      3:
+        zh: 海军署船坞
+        en: Admiralty Yard
+        completion: 确认海军署船坞方案后立即完成落成仪式。
+        effect: +100 海军范围。
+  star_fortress_city:
+    status: 已实现
+    positioning: 城市防御、要塞试验
+    site: 非乡村地点。
+    preference: 山地 +15%，高原 +7.5%，要塞 +5%，城市/大都会 +5%。
+    base_effect: 每级：+0.05 防御价值观倾向；所在地提升防御、驻军和要塞等级。
+    branches:
+      1:
+        zh: 棱堡试验
+        en: Bastion Trial
+        completion: 确认棱堡试验方案后立即完成落成仪式。
+        effect: +10% 全局驻军规模。
+      2:
+        zh: 围城演习
+        en: Siege Games
+        completion: 确认围城演习方案后立即完成落成仪式。
+        effect: +5% 攻城能力。
+      3:
+        zh: 军械城区
+        en: Arsenal Quarter
+        completion: 确认军械城区方案后立即完成落成仪式。
+        effect: +1 要塞上限。
+  great_wall:
+    status: 已实现
+    positioning: 边疆防线、烽火警戒
+    site: 非城市、非大都会地点。
+    preference: 山地 +15%，高原 +7.5%，要塞 +5%，乡村 +5%。
+    base_effect: 每级：+0.05 防御价值观倾向；所在地提升防御、驻军和要塞等级。
+    branches:
+      1:
+        zh: 边疆集结
+        en: Frontier Muster
+        completion: 确认边疆集结方案后立即完成落成仪式。
+        effect: +10% 全局人力。
+      2:
+        zh: 烽火传警
+        en: Signal Fires
+        completion: 确认烽火传警方案后立即完成落成仪式。
+        effect: +5% 陆军移动速度。
+      3:
+        zh: 长城誓言
+        en: Wall Oath
+        completion: 确认长城誓言方案后立即完成落成仪式。
+        effect: +5% 陆军士气。
+  giant_armory:
+    status: 已实现
+    positioning: 军械生产、武备集结
+    site: 非乡村地点。
+    preference: 军械库 +5%，城市/大都会 +5%，发展度提供称职度。
+    base_effect: 每级：+20 最大人力、+0.05 进攻价值观倾向；所在地提升本地人力。
+    branches:
+      1:
+        zh: 武备集结
+        en: Muster of Arms
+        completion: 确认武备集结方案后立即完成落成仪式。
+        effect: +5% 陆军士气。
+      2:
+        zh: 铸造契约
+        en: Foundry Contracts
+        completion: 确认铸造契约方案后立即完成落成仪式。
+        effect: +5% 全局生产效率。
+      3:
+        zh: 大师甲匠
+        en: Master Armourers
+        completion: 确认大师甲匠方案后立即完成落成仪式。
+        effect: +2.5% 训练度。
+  library_of_nation:
+    status: 已实现
+    positioning: 国家学库、知识治理
+    site: 首都。
+    preference: 发展度提供称职度，城市 +5%，大都会 +10%。
+    base_effect: 每级：+5 全局人口晋升速度、+0.05 创新价值观倾向。
+    branches:
+      1:
+        zh: 国家目录
+        en: National Catalog
+        completion: 确认国家目录方案后立即完成落成仪式。
+        effect: +5% 研究速度。
+      2:
+        zh: 抄写员基金
+        en: Copyists Endowment
+        completion: 确认抄写员基金方案后立即完成落成仪式。
+        effect: +0.01 全局每月识字率。
+      3:
+        zh: 法定缴存
+        en: Legal Deposit
+        completion: 确认法定缴存方案后立即完成落成仪式。
+        effect: +5% 全局人口升级速度修正。
+  large_canal_system:
+    status: 已实现
+    positioning: 农业、运输、防灾
+    site: 河流或湖泊沿岸。
+    preference: 河流/湖泊 +10%，乡村 +5%，发展度提供额外称职度。
+    base_effect: 每级：+0.03 中央集权价值观倾向、+0.001 月度繁荣；所在地提升发展和交通。
+    branches:
+      1:
+        zh: 灌溉优先
+        en: Irrigation Priority
+        completion: 确认灌溉优先方案后立即完成落成仪式。
+        effect: +5% 全局原料产出。
+      2:
+        zh: 漕运优先
+        en: Grain Transport Priority
+        completion: 确认漕运优先方案后立即完成落成仪式。
+        effect: +5% 贸易收入。
+      3:
+        zh: 防洪优先
+        en: Flood Control Priority
+        completion: 确认防洪优先方案后立即完成落成仪式。
+        effect: +5% 人口加入叛军阈值。
+  mountain_terrace_network:
+    status: 已实现
+    positioning: 高地开发、人口承载
+    site: 山地、高原或丘陵。
+    preference: 山地 +15%，高原 +7.5%，丘陵 +5%，乡村 +5%。
+    base_effect: 每级：+2% 全局原料产出、+0.001 月度繁荣；所在地提升原产雇佣和原料产出。
+    branches:
+      1:
+        zh: 粮食梯田
+        en: Grain Terraces
+        completion: 确认粮食梯田方案后立即完成落成仪式。
+        effect: +5% 全局原料产出。
+      2:
+        zh: 经济作物梯田
+        en: Cash-Crop Terraces
+        completion: 确认经济作物梯田方案后立即完成落成仪式。
+        effect: +4% 贸易收入。
+      3:
+        zh: 圣山梯田
+        en: Sacred Mountain Terraces
+        completion: 确认圣山梯田方案后立即完成落成仪式。
+        effect: +1 正统信仰容忍。
+  giant_dam_project:
+    status: 已实现
+    positioning: 防洪、控河、权力象征
+    site: 河流、湖泊沿岸或港口。
+    preference: 河流/湖泊 +10%，发展度提供额外称职度。
+    base_effect: 每级：+0.03 中央集权价值观倾向、+2% 全局生产效率；所在地提升防御和生产。
+    branches:
+      1:
+        zh: 河口防洪
+        en: Estuary Flood Defense
+        completion: 确认河口防洪方案后立即完成落成仪式。
+        effect: +0.003 全局月度繁荣。
+      2:
+        zh: 沼泽开垦
+        en: Marsh Reclamation
+        completion: 确认沼泽开垦方案后立即完成落成仪式。
+        effect: +4% 全局原料产出。
+      3:
+        zh: 水力驱动工坊
+        en: Water-Powered Workshops
+        completion: 确认水力驱动工坊方案后立即完成落成仪式。
+        effect: +5% 全局生产效率。
+  royal_granary_system:
+    status: 已实现
+    positioning: 抗饥荒、国家调控
+    site: 任意非荒芜的己方地点。
+    preference: 乡村 +5%，发展度提供额外称职度。
+    base_effect: 每级：+2% 人口加入叛军阈值、+0.001 月度繁荣；所在地提升稳定和迁入吸引力。
+    branches:
+      1:
+        zh: 平抑粮价
+        en: Grain Price Stabilization
+        completion: 确认平抑粮价方案后立即完成落成仪式。
+        effect: +4% 税收收入效率。
+      2:
+        zh: 战时储备
+        en: Wartime Reserves
+        completion: 确认战时储备方案后立即完成落成仪式。
+        effect: +8% 全局人力。
+      3:
+        zh: 赈灾
+        en: Disaster Relief
+        completion: 确认赈灾方案后立即完成落成仪式。
+        effect: +5% 人口加入叛军阈值。
+  imperial_post_road_network:
+    status: 已实现
+    positioning: 行政、通信、军队调动
+    site: 任意己方地点。
+    preference: 发展度提供称职度；城市和大都会额外加成。
+    base_effect: 每级：+5% 临近度速度、+2% 陆军移动速度；所在地提升交通和发展。
+    branches:
+      1:
+        zh: 军事驿道
+        en: Military Post Roads
+        completion: 确认军事驿道方案后立即完成落成仪式。
+        effect: +5% 陆军移动速度。
+      2:
+        zh: 商贸驿道
+        en: Trade Post Roads
+        completion: 确认商贸驿道方案后立即完成落成仪式。
+        effect: +5% 贸易收入。
+      3:
+        zh: 皇家巡游大道
+        en: Royal Tour Avenue
+        completion: 确认皇家巡游大道方案后立即完成落成仪式。
+        effect: +0.10 每月正统性。
+  canal_hub_city:
+    status: 已实现
+    positioning: 区域贸易与物流
+    site: 河流、湖泊沿岸或港口，且不能为乡村。
+    preference: 河流/湖泊 +10%，城市 +5%，发展度提供额外称职度。
+    base_effect: 每级：+2% 贸易收入、+2% 全局生产效率；所在地提升市场和工坊。
+    branches:
+      1:
+        zh: 漕运中心
+        en: Grain Transport Hub
+        completion: 确认漕运中心方案后立即完成落成仪式。
+        effect: +4% 贸易收入。
+      2:
+        zh: 金融货栈
+        en: Financial Warehouse Hub
+        completion: 确认金融货栈方案后立即完成落成仪式。
+        effect: +5% 铸币收入。
+      3:
+        zh: 工业工坊带
+        en: Industrial Workshop Belt
+        completion: 确认工业工坊带方案后立即完成落成仪式。
+        effect: +5% 全局生产效率。
+  frontier_colonization_belt:
+    status: 已实现
+    positioning: 殖民、边疆稳定
+    site: 乡村或边疆开发地点。
+    preference: 乡村 +10%，丘陵/森林/树林提供额外称职度。
+    base_effect: 每级：+2% 全局人口皈依速度、+2% 全局人力；所在地提升迁入和开垦。
+    branches:
+      1:
+        zh: 军屯殖民
+        en: Military Colony Belt
+        completion: 确认军屯殖民方案后立即完成落成仪式。
+        effect: +8% 全局人力。
+      2:
+        zh: 移民垦荒
+        en: Settler Reclamation Belt
+        completion: 确认移民垦荒方案后立即完成落成仪式。
+        effect: +0.004 全局月度繁荣。
+      3:
+        zh: 宗教拓殖
+        en: Religious Colonization Belt
+        completion: 确认宗教拓殖方案后立即完成落成仪式。
+        effect: +5% 全局人口皈依速度。
+  coastal_beacon_network:
+    status: 已实现
+    positioning: 海盗预警、海防
+    site: 港口或海岸地点。
+    preference: 港口 +15%，当地港口适宜度提供额外称职度。
+    base_effect: 每级：+2% 海军士气、+2% 海上存在；所在地提升海岸防御。
+    branches:
+      1:
+        zh: 烽火通讯
+        en: Beacon Communication
+        completion: 确认烽火通讯方案后立即完成落成仪式。
+        effect: +4% 陆军移动速度。
+      2:
+        zh: 炮台防御
+        en: Coastal Battery Defense
+        completion: 确认炮台防御方案后立即完成落成仪式。
+        effect: +5% 海军士气。
+      3:
+        zh: 海关巡查
+        en: Customs Patrol
+        completion: 确认海关巡查方案后立即完成落成仪式。
+        effect: +4% 贸易收入。
+  knightly_fortress_order:
+    status: 已实现
+    positioning: 军事贵族与边疆秩序
+    site: 非乡村地点，或拥有要塞的地点。
+    preference: 要塞 +5%，山地/高原提供额外称职度。
+    base_effect: 每级：+2% 陆军士气、+0.03 传统价值观倾向；所在地提升防御和贵族影响。
+    branches:
+      1:
+        zh: 圣战骑士团
+        en: Crusader Knightly Order
+        completion: 确认圣战骑士团方案后立即完成落成仪式。
+        effect: +5% 陆军士气。
+      2:
+        zh: 边疆领主团
+        en: Frontier Lord Order
+        completion: 确认边疆领主团方案后立即完成落成仪式。
+        effect: +6% 全局人力。
+      3:
+        zh: 雇佣军要塞
+        en: Mercenary Fortress
+        completion: 确认雇佣军要塞方案后立即完成落成仪式。
+        effect: +1.5% 训练度。
+  war_college_system:
+    status: 已实现
+    positioning: 军事理论与军官培养
+    site: 城市、大都会或拥有军械库的地点。
+    preference: 城市/大都会 +5%，军械库 +5%，发展度提供额外称职度。
+    base_effect: 每级：+2% 陆军士气、+1% 攻城能力；所在地提升军事人才培养。
+    branches:
+      1:
+        zh: 火器战术
+        en: Firearms Tactics
+        completion: 确认火器战术方案后立即完成落成仪式。
+        effect: +5% 攻城能力。
+      2:
+        zh: 骑兵传统
+        en: Cavalry Tradition
+        completion: 确认骑兵传统方案后立即完成落成仪式。
+        effect: +4% 陆军士气。
+      3:
+        zh: 海军指挥
+        en: Naval Command
+        completion: 确认海军指挥方案后立即完成落成仪式。
+        effect: +4% 海军士气。
+  great_clock_bell_system:
+    status: 已实现
+    positioning: 宗教秩序、城市时间
+    site: 非乡村地点。
+    preference: 城市/大都会 +5%，修道院或大教堂额外加成。
+    base_effect: 每级：+0.03 属灵价值观倾向、+0.002 全局月度识字率；所在地提升文化传统和皈依。
+    branches:
+      1:
+        zh: 礼拜报时
+        en: Worship Timekeeping
+        completion: 确认礼拜报时方案后立即完成落成仪式。
+        effect: +1 正统信仰容忍。
+      2:
+        zh: 城市宵禁
+        en: Urban Curfew
+        completion: 确认城市宵禁方案后立即完成落成仪式。
+        effect: +4% 人口加入叛军阈值。
+      3:
+        zh: 天文历法
+        en: Astronomical Calendar
+        completion: 确认天文历法方案后立即完成落成仪式。
+        effect: +4% 研究速度。
+  royal_art_district:
+    status: 已实现
+    positioning: 文化繁荣
+    site: 城市、大都会或首都。
+    preference: 首都 +10%，城市/大都会 +5%，发展度提供额外称职度。
+    base_effect: 每级：+0.03 创新价值观倾向、+2% 全局人口晋升速度；所在地提升文化传统与影响。
+    branches:
+      1:
+        zh: 宫廷艺术
+        en: Court Art
+        completion: 确认宫廷艺术方案后立即完成落成仪式。
+        effect: +0.10 每月威望。
+      2:
+        zh: 民间艺术
+        en: Folk Art
+        completion: 确认民间艺术方案后立即完成落成仪式。
+        effect: +4% 人口加入叛军阈值。
+      3:
+        zh: 外来风格融合
+        en: Foreign Style Synthesis
+        completion: 确认外来风格融合方案后立即完成落成仪式。
+        effect: +1 外交声誉。
+  grand_theater_festival_district:
+    status: 已实现
+    positioning: 公共文化
+    site: 非乡村地点。
+    preference: 城市/大都会 +5%，发展度提供额外称职度。
+    base_effect: 每级：+0.03 每月威望、+1% 人口加入叛军阈值；所在地提升文化和稳定。
+    branches:
+      1:
+        zh: 宫廷戏剧
+        en: Court Theater
+        completion: 确认宫廷戏剧方案后立即完成落成仪式。
+        effect: +0.08 每月威望。
+      2:
+        zh: 宗教戏剧
+        en: Religious Theater
+        completion: 确认宗教戏剧方案后立即完成落成仪式。
+        effect: +4% 全局人口皈依速度。
+      3:
+        zh: 群众节庆
+        en: Popular Festival Ground
+        completion: 确认群众节庆方案后立即完成落成仪式。
+        effect: +0.003 全局月度繁荣。
+  world_embassy_quarter:
+    status: 已实现
+    positioning: 外交影响力
+    site: 首都或非乡村地点。
+    preference: 首都 +10%，发展度提供额外称职度。
+    base_effect: 每级：+0.2 外交声誉、+1% 贸易收入；所在地提升文化影响和贸易中心力。
+    branches:
+      1:
+        zh: 商贸外交
+        en: Trade Diplomacy
+        completion: 确认商贸外交方案后立即完成落成仪式。
+        effect: +4% 贸易收入、+1 外交声誉。
+      2:
+        zh: 情报外交
+        en: Intelligence Diplomacy
+        completion: 确认情报外交方案后立即完成落成仪式。
+        effect: +1 外交声誉。
+      3:
+        zh: 宗教外交
+        en: Religious Diplomacy
+        completion: 确认宗教外交方案后立即完成落成仪式。
+        effect: +1 正统信仰容忍、+1 外交声誉。
+  law_code_stele_project:
+    status: 已实现
+    positioning: 法统与治理
+    site: 任意己方地点。
+    preference: 首都 +10%，城市/大都会 +5%，发展度提供额外称职度。
+    base_effect: 每级：+0.03 每月正统性、-1% 稳定度投资花费；所在地提升秩序和法统。
+    branches:
+      1:
+        zh: 宗教法
+        en: Religious Law
+        completion: 确认宗教法方案后立即完成落成仪式。
+        effect: +3% 教士满意均衡点。
+      2:
+        zh: 成文法
+        en: Written Law
+        completion: 确认成文法方案后立即完成落成仪式。
+        effect: -5% 稳定度投资花费。
+      3:
+        zh: 皇权敕令
+        en: Imperial Edicts
+        completion: 确认皇权敕令方案后立即完成落成仪式。
+        effect: +0.10 每月正统性。
+  world_market:
+    status: 已实现
+    positioning: 区域贸易中心
+    site: 城市、大都会或港口。
+    preference: 港口 +10%，城市/大都会 +5%，发展度提供额外称职度。
+    base_effect: 每级：+3% 贸易收入、+0.001 月度繁荣；所在地提升贸易中心力和迁入。
+    branches:
+      1:
+        zh: 奢侈品贸易
+        en: Luxury Goods Trade
+        completion: 确认奢侈品贸易方案后立即完成落成仪式。
+        effect: +6% 贸易收入。
+      2:
+        zh: 粮食贸易
+        en: Grain Trade
+        completion: 确认粮食贸易方案后立即完成落成仪式。
+        effect: +0.004 全局月度繁荣。
+      3:
+        zh: 国际转口
+        en: International Entrepot
+        completion: 确认国际转口方案后立即完成落成仪式。
+        effect: +150 贸易范围。
+  royal_mint_system:
+    status: 已实现
+    positioning: 金融与税收
+    site: 城市、大都会，或金、银、铜产地。
+    preference: 金/银/铜产地 +15%，城市/大都会 +5%。
+    base_effect: 每级：+3% 铸币收入、+1% 税收效率；所在地提升贸易与生产。
+    branches:
+      1:
+        zh: 金银本位
+        en: Silver-Gold Standard
+        completion: 确认金银本位方案后立即完成落成仪式。
+        effect: +8% 铸币收入。
+      2:
+        zh: 铜币流通
+        en: Copper Coinage
+        completion: 确认铜币流通方案后立即完成落成仪式。
+        effect: +4% 税收收入效率。
+      3:
+        zh: 国际结算
+        en: International Settlement
+        completion: 确认国际结算方案后立即完成落成仪式。
+        effect: +1 外交声誉、+4% 贸易收入。
+  guild_alliance:
+    status: 已实现
+    positioning: 城市商业组织
+    site: 非乡村地点。
+    preference: 城市/大都会 +5%，发展度提供额外称职度。
+    base_effect: 每级：+3% 全局生产效率、+1% 贸易收入；所在地提升生产和市民影响。
+    branches:
+      1:
+        zh: 手工业联盟
+        en: Artisan Guild Alliance
+        completion: 确认手工业联盟方案后立即完成落成仪式。
+        effect: +5% 全局生产效率。
+      2:
+        zh: 远洋商帮
+        en: Overseas Merchant Guilds
+        completion: 确认远洋商帮方案后立即完成落成仪式。
+        effect: +5% 贸易收入。
+      3:
+        zh: 金融同业
+        en: Financial Guilds
+        completion: 确认金融同业方案后立即完成落成仪式。
+        effect: +5% 铸币收入。
+  maritime_trade_station_network:
+    status: 已实现
+    positioning: 全球贸易扩张
+    site: 港口。
+    preference: 港口 +15%，港口适宜度和发展度提供额外称职度。
+    base_effect: 每级：+50 贸易范围、+2% 贸易收入；所在地提升贸易与造船。
+    branches:
+      1:
+        zh: 香料贸易
+        en: Spice Trade
+        completion: 确认香料贸易方案后立即完成落成仪式。
+        effect: +6% 贸易收入。
+      2:
+        zh: 奴隶贸易
+        en: Slave Trade
+        completion: 确认奴隶贸易方案后立即完成落成仪式。
+        effect: +5% 全局原料产出，但 -3% 人口加入叛军阈值。
+      3:
+        zh: 殖民补给
+        en: Colonial Supply
+        completion: 确认殖民补给方案后立即完成落成仪式。
+        effect: +150 海军范围。
+  giant_workshop_complex:
+    status: 已实现
+    positioning: 手工业集中化
+    site: 非乡村地点。
+    preference: 城市/大都会 +5%，发展度提供额外称职度。
+    base_effect: 每级：+4% 全局生产效率、+1% 全局人口晋升速度；所在地提升生产和人口晋升。
+    branches:
+      1:
+        zh: 纺织制造
+        en: Textile Manufacturing
+        completion: 确认纺织制造方案后立即完成落成仪式。
+        effect: +5% 全局生产效率。
+      2:
+        zh: 军工制造
+        en: Military Manufacturing
+        completion: 确认军工制造方案后立即完成落成仪式。
+        effect: +5% 全局人力、+3% 攻城能力。
+      3:
+        zh: 奢侈品工艺
+        en: Luxury Craftsmanship
+        completion: 确认奢侈品工艺方案后立即完成落成仪式。
+        effect: +4% 贸易收入、+0.05 每月威望。
+  world_monument_group:
+    status: 已实现
+    positioning: 文明象征与历史记忆
+    site: 首都、城市或大都会。
+    preference: 首都 +10%，城市/大都会 +5%，发展度提供额外称职度。
+    base_effect: 每级：+0.05 每月威望；所在地提升文化传统与影响。
+    branches:
+      1:
+        zh: 征服纪念
+        en: Conquest Memorial
+        completion: 确认征服纪念方案后立即完成落成仪式。
+        effect: +0.10 每月威望、+3% 陆军士气。
+      2:
+        zh: 民族统一
+        en: National Unity
+        completion: 确认民族统一方案后立即完成落成仪式。
+        effect: +0.10 每月正统性、+3% 人口加入叛军阈值。
+      3:
+        zh: 世界博览
+        en: World Exposition
+        completion: 确认世界博览方案后立即完成落成仪式。
+        effect: +1 外交声誉、+0.05 每月威望。
+  city_expansion_project:
+    status: 已实现
+    positioning: 城市空间与地块扩容
+    site: 城市或大都会。
+    preference: 本地总建筑等级 0-100 映射至 0-25%；大都会额外 +5%。
+    base_effect: 每级：所在地点 +20 本地最大建筑等级。
+    branches:
+      1:
+        zh: 城市宪章
+        en: City Charter
+        completion: 城市宪章推行一年后完成落成仪式。
+        effect: -5% 全局城市建筑建造花费。
+      2:
+        zh: 市政方格网
+        en: Civic Grid
+        completion: 完成市政方格网附属建筑后完成落成仪式。
+        effect: +10% 本地月度发展度修正，+2 本地移民吸引力。
+      3:
+        zh: 城区更新
+        en: Urban Renewal
+        completion: 支付城区更新经费后立即完成落成仪式。
+        effect: +300 金币，所在地点 +25% 繁荣度。
+  megalithic_circle:
+    status: 已实现
+    positioning: 史前礼仪、历法记忆与祖灵秩序
+    site: 任意己方地点，乡村、丘陵或开阔高地更佳。
+    preference: 乡村 +10%，丘陵 +5%，森林/树林 +5%，发展度提供额外称职度。
+    base_effect: 每级：0.04 传统价值观倾向、0.001 月度繁荣；所在地提升文化传统和安定。
+    branches:
+      1:
+        zh: 至日集会
+        en: Solstice Gathering
+        completion: 至日集会持续一年后完成落成仪式。
+        effect: +0.06 每月威望，+1 正统信仰容忍。
+      2:
+        zh: 星象准线
+        en: Astral Alignment
+        completion: 完成星象准线附属建筑后完成落成仪式。
+        effect: +5 本地最大识字率，+0.4 本地文化影响。
+      3:
+        zh: 祖灵大会
+        en: Ancestral Moot
+        completion: 献上祖灵大会祭品后立即完成落成仪式。
+        effect: +1 稳定度，+20 文化传统。
+  grand_cathedral:
+    status: 已实现
+    positioning: 主教座堂、城市礼仪与朝圣经济
+    site: 非乡村地点；已有大教堂、正信占优或高发展城市更佳。
+    preference: 大教堂 +10%，城市/大都会 +5%，正信占优 +10%，发展度提供额外称职度。
+    base_effect: 每级：+1 正统信仰容忍、5% 全局人口皈依速度、0.04 属灵价值观倾向；所在地提升皈依与文化影响。
+    branches:
+      1:
+        zh: 高坛奉献礼
+        en: High Choir Dedication
+        completion: 高坛奉献礼持续一年后完成落成仪式。
+        effect: +4% 教士满意均衡点。
+      2:
+        zh: 朝圣中殿
+        en: Pilgrim Nave
+        completion: 完成朝圣中殿附属建筑后完成落成仪式。
+        effect: +1 本地移民吸引力，+0.15 本地贸易中心力量。
+      3:
+        zh: 城钟祝圣
+        en: Civic Bell Consecration
+        completion: 献上城钟祝圣祭品后立即完成落成仪式。
+        effect: +50 威望，+1 稳定度。
+  great_monastery:
+    status: 已实现
+    positioning: 修道院共同体、抄本学术与山地避难
+    site: 任意己方地点；修道院、山地/丘陵或正信占优地点更佳。
+    preference: 修道院 +10%，山地 +10%，丘陵 +5%，正信占优 +5%。
+    base_effect: 每级：3% 研究速度、0.002 全局月度识字率、0.03 属灵价值观倾向；所在地提升识字、皈依与教士影响。
+    branches:
+      1:
+        zh: 缮写院规
+        en: Scriptorium Rule
+        completion: 缮写院规持续一年后完成落成仪式。
+        effect: +4% 研究速度，+0.003 全局月度识字率。
+      2:
+        zh: 香客斋堂
+        en: Pilgrim Refectory
+        completion: 完成香客斋堂附属建筑后完成落成仪式。
+        effect: +1 本地移民吸引力，-5% 本地叛乱度。
+      3:
+        zh: 坚壁回廊
+        en: Fortified Cloister
+        completion: 献上坚壁回廊祭品后立即完成落成仪式。
+        effect: +3000 人力，+1 稳定度。
+  city_great_tower:
+    status: 已实现
+    positioning: 城市高度、钟声与市政守望
+    site: 非乡村地点。
+    preference: 城市/大都会 +5%，发展度提供称职度。
+    base_effect: 每级：+0.05 每月威望、-2% 全局建筑建造花费；所在地提升防御、驻军和贸易中心力量。
+    branches:
+      1:
+        zh: 市政瞭望塔
+        en: Civic Watchtower
+        completion: 确认市政瞭望塔方案后完成落成仪式。
+        effect: +0.05 每月威望。
+      2:
+        zh: 钟楼高塔
+        en: Bell Campanile
+        completion: 确认钟楼高塔方案后完成落成仪式。
+        effect: +10% 本地防御与 +100 本地驻军规模。
+      3:
+        zh: 商人塔楼
+        en: Merchant Tower
+        completion: 确认商人塔楼方案后完成落成仪式。
+        effect: +50 威望与 +1 统治者行政能力。
+  great_sculpture_group:
+    status: 已实现
+    positioning: 巨型雕塑、市民记忆与艺术工坊
+    site: 非乡村地点。
+    preference: 城市/大都会 +5%，发展度提供称职度。
+    base_effect: 每级：+0.05 每月威望、+4% 文化传统修正；所在地提升文化传统与生产效率。
+    branches:
+      1:
+        zh: 王家雕塑庭
+        en: Royal Sculpture Yard
+        completion: 确认王家雕塑庭方案后完成落成仪式。
+        effect: +4% 文化传统修正。
+      2:
+        zh: 朝圣雕像园
+        en: Pilgrim Statue Garden
+        completion: 确认朝圣雕像园方案后完成落成仪式。
+        effect: +0.5 本地文化传统与 +10% 本地生产效率。
+      3:
+        zh: 市民英雄长廊
+        en: Civic Hero Gallery
+        completion: 确认市民英雄长廊方案后完成落成仪式。
+        effect: +20 文化传统与 +30 威望。
+  coastal_defense_cannon:
+    status: 已实现
+    positioning: 海峡炮台、港链与海军火炮
+    site: 港口地点。
+    preference: 港口适宜度提供称职度，要塞额外 +5%。
+    base_effect: 每级：+3% 海军士气、+3% 全局防御、+3% 海上存在；所在地提升防御和驻军。
+    branches:
+      1:
+        zh: 海峡炮台
+        en: Strait Battery
+        completion: 确认海峡炮台方案后完成落成仪式。
+        effect: +6% 全局驻军规模。
+      2:
+        zh: 港链炮台
+        en: Harbor Chain Battery
+        completion: 确认港链炮台方案后完成落成仪式。
+        effect: +25% 本地防御与 +200 本地驻军规模。
+      3:
+        zh: 海军署炮厂
+        en: Admiralty Gun Foundry
+        completion: 确认海军署炮厂方案后完成落成仪式。
+        effect: +15 海军传统与 +30 威望。
+  naval_school:
+    status: 已实现
+    positioning: 海军军官、远洋航法与舰队指挥
+    site: 港口地点。
+    preference: 港口适宜度提供称职度，城市/大都会额外 +5%。
+    base_effect: 每级：+25 海军航程，+1% 海军士气；所在地提升造船速度与贸易中心力量。
+    branches:
+      1:
+        zh: 海军署航法学校
+        en: Admiralty Navigation School
+        completion: 确认海军署航法学校方案后完成落成仪式。
+        effect: +100 海军航程。
+      2:
+        zh: 领航海图馆
+        en: Pilotage Chart House
+        completion: 完成领航海图馆附属建筑后完成落成仪式。
+        effect: +10% 本地造船速度，+10% 本地贸易中心力量。
+      3:
+        zh: 远洋指挥学院
+        en: Oceanic Command Academy
+        completion: 献上远洋指挥学院祭品后完成落成仪式。
+        effect: +15 海军传统，+30 威望。
+  colonial_trade_company:
+    status: 已实现
+    positioning: 殖民商业、特许垄断与海外商馆
+    site: 港口、城市或大都会
+    preference: 港口适宜度、城市等级与发展度提高适性。
+    base_effect: 每级：贸易范围、殖民范围与贸易收入提高；所在地提升贸易中心力量和商人力量。
+    branches:
+      1:
+        zh: 公司特许状
+        en: Company Charter
+        completion: 确认公司特许状方案后完成落成仪式。
+        effect: +5% 贸易公司属国缴纳。
+      2:
+        zh: 商馆堡垒
+        en: Factory Forts
+        completion: 确认商馆堡垒方案后完成落成仪式。
+        effect: +15% 本地贸易中心力量与 +10% 本地防御。
+      3:
+        zh: 殖民账簿
+        en: Colonial Ledgers
+        completion: 确认殖民账簿方案后完成落成仪式。
+        effect: 付费仪式后获得 +500 金币。
+  great_assembly_hall:
+    status: 已实现
+    positioning: 宫廷集会、帝国朝觐与公共议政
+    site: 非乡村地点，尤其首都与发达城市
+    preference: 首都、城市等级与发展度提高适性。
+    base_effect: 每级：内阁效率和月度正统性提高；所在地提升文化影响和繁荣。
+    branches:
+      1:
+        zh: 等级会议
+        en: Estates Convocation
+        completion: 确认等级会议方案后完成落成仪式。
+        effect: +0.08 月度威望。
+      2:
+        zh: 王廷朝会
+        en: Royal Audience
+        completion: 确认王廷朝会方案后完成落成仪式。
+        effect: +0.5 本地文化影响。
+      3:
+        zh: 公共议政
+        en: Public Deliberation
+        completion: 确认公共议政方案后完成落成仪式。
+        effect: 付费仪式后获得 +15 正统性。
+  mobile_fortress:
+    status: 已实现
+    positioning: 边疆营垒、车阵防御与机动军事共同体
+    site: 任意己方地点，偏好乡村边疆地点
+    preference: 乡村地点、既有要塞与发展度提高适性。
+    base_effect: 每级：陆军士气和人力提高；所在地提升防御与敌军损耗。
+    branches:
+      1:
+        zh: 车营集结
+        en: Wagon Camp Muster
+        completion: 确认车营集结方案后完成落成仪式。
+        effect: +4% 陆军士气。
+      2:
+        zh: 边疆塞契
+        en: Frontier Sich
+        completion: 确认边疆塞契方案后完成落成仪式。
+        effect: +15% 本地防御与 +5% 敌军损耗。
+      3:
+        zh: 草原野战堡
+        en: Steppe Field Fort
+        completion: 确认草原野战堡方案后完成落成仪式。
+        effect: 付费仪式后获得 +15 陆军传统。
+  ancient_city_ruins:
+    status: 已实现
+    positioning: 遗产修复、王朝记忆与城市古迹
+    site: 任意己方地点，尤其古老城市与设防地点
+    preference: 城市等级、既有要塞、发展度与识字率提高适性。
+    base_effect: 每级：月度威望和月度正统性提高；所在地提升文化影响和繁荣。
+    branches:
+      1:
+        zh: 城堡修复
+        en: Citadel Restoration
+        completion: 确认城堡修复方案后完成落成仪式。
+        effect: +0.06 月度正统性。
+      2:
+        zh: 博古学街区
+        en: Antiquarian Quarter
+        completion: 确认博古学街区方案后完成落成仪式。
+        effect: +0.5 本地文化影响。
+      3:
+        zh: 朝圣遗址保护区
+        en: Pilgrim Preserve
+        completion: 确认朝圣遗址保护区方案后完成落成仪式。
+        effect: 付费仪式后获得 +1 稳定度。
+  summer_palace:
+    status: 已实现
+    positioning: 季节宫廷、园林外交与王权休憩
+    site: 任意非乡村己方地点，尤其首都、城市和高发展高识字地区
+    preference: 首都、城市等级、发展度与识字率提高适性。
+    base_effect: 每级：月度正统性和月度威望提高；所在地提升文化影响和移民吸引力。
+    branches:
+      1:
+        zh: 王家离宫朝会
+        en: Royal Retreat Audience
+        completion: 确认王家离宫朝会方案后完成落成仪式。
+        effect: +0.08 月度正统性与 +0.05 月度威望。
+      2:
+        zh: 园林宫廷
+        en: Garden Court
+        completion: 确认园林宫廷方案后完成落成仪式。
+        effect: +0.5 本地文化影响与 +1 本地移民吸引力。
+      3:
+        zh: 外交凉亭宴
+        en: Diplomatic Pavilion Banquet
+        completion: 确认外交凉亭宴方案后完成落成仪式。
+        effect: 付费仪式后获得 +1 外交官与 +30 威望。
+  national_bank:
+    status: 已实现
+    positioning: 公共信用、国债管理与商人清算
+    site: 首都、城市或大都会。
+    preference: 首都 +10%，城市 +5%，大都会 +10%，发展度 ×0.10。
+    base_effect: 每级：2% 税收收入效率、3% 商人维护效率、0.05 月度资本经济倾向；所在地提升市场接入、贸易中心力量和商人容量。
+    branches:
+      1:
+        zh: 公共信用认购
+        en: Public Credit Subscription
+        completion: 确认公共信用认购方案后完成落成仪式。
+        effect: +8% 税收收入效率。
+      2:
+        zh: 国债管理署
+        en: State Debt Office
+        completion: 确认国债管理署方案后完成落成仪式。
+        effect: 所在地提升市场接入与贸易中心力量。
+      3:
+        zh: 商人清算所
+        en: Merchant Clearing House
+        completion: 支付仪式后获得财政回报。
+        effect: 获得金币并降低通胀。
+  pirate_port:
+    status: 已实现
+    positioning: 私掠港、海盗庇护与港湾防御
+    site: 港口地点。
+    preference: 港口适宜度提供称职度；既有设防、城市或大都会额外提高称职度。
+    base_effect: 每级：允许雇佣私掠船，降低私掠雇佣和维护成本，提高私掠船耐久与海军价值观倾向；所在地提升海上存在、贸易中心力量和防御。
+    branches:
+      1:
+        zh: 私掠船庇护所
+        en: Privateer Haven
+        completion: 确认私掠船庇护所方案后完成落成仪式。
+        effect: 进一步降低私掠雇佣与维护成本，并启用无耻私掠。
+      2:
+        zh: 港湾堡垒
+        en: Harbor Redoubt
+        completion: 完成港湾堡垒附属建筑后完成落成仪式。
+        effect: 所在地提升防御、驻军和海上存在。
+      3:
+        zh: 海盗舰队司令部
+        en: Corsair Admiralty
+        completion: 支付仪式后获得海军传统。
+        effect: +20 海军传统。

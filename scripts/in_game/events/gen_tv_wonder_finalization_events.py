@@ -10,8 +10,8 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_localization_lib import load_wonder_localization_data
-from wonder_mechanics_lib import (
-    ceremony_styles,
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.naming import (
     construct_final_building_effect_name,
     finalization_event_id,
     finalization_hidden_event_execute_effect_name,
@@ -19,10 +19,10 @@ from wonder_mechanics_lib import (
     finalization_hidden_event_trigger_effect_name,
     finalization_visible_effect_name,
     finalization_world_event_id,
-    load_all_wonder_mechanics,
-    render_header,
     wonder_image_name,
 )
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import ceremony_styles
 from wonder_image_crop_lib import cropped_wonder_image_name
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_wonder_finalization_events.txt"

@@ -289,6 +289,18 @@
   source: "reference_official_defines/docs/data_types_gui.txt"
   notes: "PDX parser rejects non-ASCII quote characters; the failure is silent"
 
+- id: localization_value_raw_physical_newline
+  pattern: ''
+  detectability: lint
+  validator: localization_physical_lines
+  only_in_paths: ['localization']
+  bad: "A localization value contains a real physical newline inside the quoted string"
+  correction: "Keep each localization key/value on one physical line. Generators should render intentional line breaks as \\n inside the quoted value."
+  category: localization
+  scope: any
+  source: "runtime error.log: localization_reader.cpp:445 Invalid character in key name; fixed in scripts/wonder_mechanics/_core.py"
+  notes: "The localization reader treats the continuation line as a new key, causing invalid-character and missing-colon errors. scripts/validate.py checks main-menu localization physical lines."
+
 - id: localization_duplicate_key_across_files
   pattern: ''
   detectability: needs_parser

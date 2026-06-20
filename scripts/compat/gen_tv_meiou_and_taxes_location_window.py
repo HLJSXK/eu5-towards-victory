@@ -9,14 +9,14 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 sys.path.insert(0, str(REPO_ROOT / "scripts" / "in_game" / "gui"))
 
 import gen_location_window as tv_location_window
-from wonder_mechanics_lib import render_header
+from wonder_mechanics.render import render_header
 
 BASE_FILE = REPO_ROOT / "reference_mods" / "3735059838" / "in_game" / "gui" / "location_window.gui"
 OUT_FILE = REPO_ROOT / "submods" / "tv_meiou_and_taxes_compat" / "in_game" / "gui" / "location_window.gui"
 SCRIPT_REL = "scripts/compat/gen_tv_meiou_and_taxes_location_window.py"
 DATA_REL = (
     "reference_mods/3735059838/in_game/gui/location_window.gui + "
-    "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml"
+    "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml"
 )
 OVERLAY_MARKER = "\n\t\t\t\tvbox = {\n\t\t\t\t\texpand = {}\n"
 

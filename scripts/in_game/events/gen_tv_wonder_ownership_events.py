@@ -9,14 +9,14 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
-    load_all_wonder_mechanics,
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.naming import (
     ownership_gain_event_id,
     ownership_loss_event_id,
-    persistent_ritual_country_modifier_name,
-    render_header,
     wonder_image_name,
 )
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import persistent_ritual_country_modifier_name
 from wonder_image_crop_lib import cropped_wonder_image_name
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_wonder_ownership_events.txt"

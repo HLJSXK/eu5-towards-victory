@@ -6,14 +6,12 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-import yaml
-
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.naming import (
     FINAL_BUILDING_LEVEL_BY_TYPE_MAP,
-    ceremony_styles,
     construct_final_building_effect_name,
     finalization_event_id,
     finalization_hidden_event_execute_effect_name,
@@ -22,14 +20,17 @@ from wonder_mechanics_lib import (
     finalization_hidden_effect_name,
     finalization_visible_effect_name,
     finalization_world_event_id,
-    load_all_wonder_mechanics,
-    render_header,
 )
+from wonder_mechanics.render import monthly_country_pulse_event, render_header
+from wonder_mechanics.rituals import ceremony_styles
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_finalization_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py"
-DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml"
-PULSE_REGISTRY = REPO_ROOT / "data" / "pulse_registry.yaml"
+DATA_REL = (
+    "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + "
+    "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + "
+    "data/pulse_registry.yaml"
+)
 T = "\t"
 
 def building_type_ref(building: str) -> str:
@@ -60,15 +61,6 @@ def append_store_final_building_level(lines: list[str], building: str, level: st
         f"key = {building_type} value = {level} }}"
     )
     lines.append(f"{prefix}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
-
-
-def monthly_country_pulse_event_delay_days() -> int:
-    registry = yaml.safe_load(PULSE_REGISTRY.read_text(encoding="utf-8")) or {}
-    return int(registry.get("settings", {}).get("monthly_country_pulse_event_delay_days", 1))
-
-
-def monthly_country_pulse_event(event_id: str) -> str:
-    return f"trigger_event_non_silently = {{ id = {event_id} days = {monthly_country_pulse_event_delay_days()} }}"
 
 
 def append_hidden_event_trigger_effect(lines: list[str]) -> None:
