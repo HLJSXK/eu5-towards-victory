@@ -585,8 +585,8 @@
  TV_DIPLOMATIC_DESCRIPTION: "War leaves only widows and ruins. True power is the art of making every throne your [alliance|e] partner, every border your [guarantee|e], and every prince your debtor."
  TV_DIPLOMATIC_FLAVOR: "\"An army is of little use where reason fails.\""
  TV_DIPLOMATIC_OVERVIEW_TITLE: "[tv_diplomatic_victory|E]：Every Treaty Turns Toward Us"
- TV_DIPLOMATIC_OVERVIEW_PLAYSTYLE: "Playstyle: gather supporters, raise alliance tier, and make other thrones depend on your guarantees, assemblies, and diplomatic timing."
- TV_DIPLOMATIC_OVERVIEW_FORMULA: "Progress formula: [tv_diplomatic_victory_points|e] starts at 1 when two countries provide [tv_diplomatic_support|e], while the [tv_diplomatic_alliance|e] itself is founded through the IO establishment flow. Each month after establishment, the alliance leader gains the full current [tv_alliance_tier|e], while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
+ TV_DIPLOMATIC_OVERVIEW_PLAYSTYLE: "Playstyle: establish the alliance, raise alliance tier, and make other thrones depend on your guarantees, assemblies, and diplomatic timing."
+ TV_DIPLOMATIC_OVERVIEW_FORMULA: "Progress formula: [tv_diplomatic_victory_points|e] starts at 1 when the [tv_diplomatic_alliance|e] is founded through the IO establishment flow. Each month after establishment, the alliance leader gains the full current [tv_alliance_tier|e], while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
  tv_victory_select_path_diplomatic: "Diplomatic"
  tv_victory_select_path_diplomatic_desc: "Show the Diplomatic Victory page."
  PERFORM_tv_victory_select_path_diplomatic_ACTION_SETUP: "When we switch victory path pages."
@@ -594,9 +594,8 @@
  PERFORM_tv_victory_select_path_diplomatic_ACTION_MAP: ""
 
  TV_DIPLOMATIC_M1_TITLE: "Diplomatic Victory — Milestone 1"
- TV_DIPLOMATIC_M1_MEANING: "Two nations have pledged [tv_diplomatic_support|e]. A voice that carries weight in the courts of nations."
+ TV_DIPLOMATIC_M1_MEANING: "The [tv_diplomatic_alliance|e] has taken formal shape. A voice that carries weight in the courts of nations."
  TV_DIPLOMATIC_M1_TRIGGER_DESC: "[tv_diplomatic_victory_points|e] ≥ 1"
- TV_DIPLOMATIC_M1_EXTRA_TRIGGER_DESC: "[tv_diplomatic_support|E] Supporters ≥ 2 or [tv_diplomatic_alliance|E] member"
  tv_victory_select_diplomatic_m1_reward_1: "Diplomatic Victory — Milestone 1 - Reward I"
  tv_victory_select_diplomatic_m1_reward_1_desc: "Select reward I: [GetModifier('tv_diplomatic_m1_reward_1_bonus').GetDesc]"
  PERFORM_tv_victory_select_diplomatic_m1_reward_1_ACTION_SETUP: "When we select a victory milestone reward."
@@ -687,7 +686,7 @@
 
  # ── Diplomatic Victory Events ───────────────────────────────────────────────
  tv_diplomatic.1.t: "[tv_diplomatic_victory|E]：A Voice Among Nations"
- tv_diplomatic.1.d: "Our patient diplomacy has begun to bear fruit in the only form that matters: other courts have chosen to spend their credibility on us. Through [alliance|e]s, [royal_marriage|e]s, promises, dinners, condolences, and carefully timed silences, we have earned a place at the table of [great_power|e]s. Two nations have now pledged [tv_diplomatic_support|e], enough to make our design visible without making it look desperate. The first stones of [tv_diplomatic_alliance|E] are not stones at all, but signatures, witnesses, and shared risk. Enemies will call it intrigue; friends will call it order. Both will be correct enough."
+ tv_diplomatic.1.d: "Our patient diplomacy has begun to bear fruit in the only form that matters: institutions other courts must answer. Through [alliance|e]s, [royal_marriage|e]s, promises, dinners, condolences, and carefully timed silences, we have earned a place at the table of [great_power|e]s. The first stones of the [tv_diplomatic_alliance|E] are not stones at all, but signatures, witnesses, and shared risk. Enemies will call it intrigue; friends will call it order. Both will be correct enough."
  tv_diplomatic.1.a: "Seal friendship until it hardens into policy."
  tv_diplomatic.2.t: "[tv_diplomatic_victory|E]：A Reliable Ally"
  tv_diplomatic.2.d: "Nations now seek us out as [guarantee|e]ors and partners before crisis forces their hand. They have learned that our promises are not decorative phrases kept for weddings and coronations, but tools that survive bad weather. In council chambers abroad, our name is spoken when borders shake, debts sour, and dynastic tempers rise. The [tv_diplomatic_alliance|E] has begun to develop habits of trust, and those habits raise [tv_alliance_tier|E] more surely than grand speeches. Reputation purchased with coin is spent quickly. Reputation earned by arriving when expected becomes a kind of fortress."

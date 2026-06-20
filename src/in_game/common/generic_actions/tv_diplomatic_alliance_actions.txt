@@ -58,13 +58,10 @@ tv_expel_diplomatic_alliance_member = {
 					remove_country_from_international_organization = scope:target
 				}
 				if = {
-					limit = { has_variable = tv_diplomatic_support_count }
-					change_variable = { name = tv_diplomatic_support_count add = -1 }
-					clamp_variable = { name = tv_diplomatic_support_count min = 0 }
+					limit = { has_variable = tv_diplomatic_alliance_member_count }
+					change_variable = { name = tv_diplomatic_alliance_member_count add = -1 }
+					clamp_variable = { name = tv_diplomatic_alliance_member_count min = 0 }
 				}
-			}
-			scope:target = {
-				remove_variable = tv_diplomatic_supporter_of
 			}
 		}
 	}

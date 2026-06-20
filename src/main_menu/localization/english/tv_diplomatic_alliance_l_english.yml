@@ -19,9 +19,7 @@
  MODIFIER_TYPE_NAME_tv_alliance_advocator_agenda_impact: "Agenda Impact for $tv_alliance_advocator$"
  MODIFIER_TYPE_DESC_tv_alliance_advocator_agenda_impact: "This modifies the support that [parliament_agendas|e] proposed by the $tv_alliance_advocator$ group have."
 
- # ── Country Interaction ────────────────────────────────────────────────
- tv_seek_diplomatic_support: "Seek Diplomatic Support"
- tv_seek_diplomatic_support_desc: "Request this nation's [tv_diplomatic_support|E] for our cause. Once granted, their support is permanent unless they cease to exist."
+# ── Country Interaction ────────────────────────────────────────────────
  tv_invite_to_diplomatic_alliance: "Invite to [tv_diplomatic_alliance|E]"
  tv_invite_to_diplomatic_alliance_desc: "Invite this country to join our [tv_diplomatic_alliance|E]. Larger alliances are harder to expand."
  tv_expel_diplomatic_alliance_member: "Expel Alliance Member"
@@ -34,17 +32,6 @@
  TV_ALLIANCE_SIZE: "Alliance Size"
  TV_SAME_RELIGION: "Same Religion"
  TV_DIPLOMATIC_REPUTATION: "Diplomatic Reputation"
-
- # ── Notification Events ────────────────────────────────────────────────
- tv_diplo_alliance.1.t: "[tv_diplomatic_alliance|E]：Diplomatic Momentum"
- tv_diplo_alliance.1.d: "Our reputation has begun to move ahead of our envoys, arriving in foreign courts before the official letters are opened. Yet influence alone will not found a durable [tv_diplomatic_alliance|E]. Friendly rulers must spend something more precious than compliments: they must pledge [tv_diplomatic_support|E] where rivals can see it. The chancery is already preparing lists of likely partners, old favors, marriage ties, shared enemies, and debts not yet called in. Some courts will hesitate, because a signature is easier to display than to retract. That is precisely why it matters."
- tv_diplo_alliance.1.a: "Send envoys with velvet words and hard instructions."
- tv_diplo_alliance_support_unlocked_tt: "Gather 2 [tv_diplomatic_support|E] pledges to satisfy the early support requirement; founding the [tv_diplomatic_alliance|E] uses the IO establishment flow."
-
- tv_diplo_alliance.2.t: "[tv_diplomatic_alliance|E]：A Coalition Takes Shape"
- tv_diplo_alliance.2.d: "Two nations have now pledged [tv_diplomatic_support|E] to our cause, and the court no longer has to speak of possibility in lowered voices. Their signatures give our ambition a public shape, the kind that survives rumor and can be read aloud before suspicious princes. The proposed [tv_diplomatic_alliance|E] is still only ink, seals, and expectation, but ink can bind armies if enough witnesses respect it. Envoys hurry through the corridors with corrected drafts, while clerks argue over precedence and ceremonial phrasing. A coalition is taking shape, and everyone involved understands that shape will cast a shadow."
- tv_diplo_alliance.2.a: "Lay the seals where all can see them."
- tv_diplo_alliance_support_met_tt: "You have gathered 2 [tv_diplomatic_support|E] pledges. Diplomatic Victory Points are set to at least 1; found the [tv_diplomatic_alliance|E] through the IO establishment flow."
 
  # ── Law Category Names ─────────────────────────────────────────────────
  tv_court_protocol: "Court Protocol & Legitimacy"
@@ -136,17 +123,8 @@
  tv_faith_harmony_desc: "Determines the Alliance's stance on religious tolerance and ideological cohesion."
  tv_colonization_sphere_desc: "Defines how Alliance members divide and respect each other's colonial spheres of influence."
 
- # ── Country Interaction — Seek Diplomatic Support ──────────────────────
- dip_tv_seek_diplomatic_support_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"
+ # ── Country Interaction — Alliance Membership ──────────────────────────
  dip_tv_invite_to_diplomatic_alliance_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"
- tv_seek_diplomatic_support_act: "Seek the diplomatic support of [SCOPE.sCountry('recipient').GetName]."
- tv_seek_diplomatic_support_effect_text: "[SCOPE.sCountry('actor').GetName] gains the diplomatic support of [SCOPE.sCountry('recipient').GetName]."
- tv_seek_diplomatic_support_effect_text_past: "[SCOPE.sCountry('actor').GetName] has gained the diplomatic support of [SCOPE.sCountry('recipient').GetName]."
- tv_seek_diplomatic_support_reject_effect_text: "$generic_reject_request_effect_string$"
- tv_seek_diplomatic_support_reject_effect_text_past: "$generic_reject_request_effect_string_past$"
- PROPOSE_tv_seek_diplomatic_support: "Would we like to ask $RECIPIENT$ to formally support our diplomatic endeavors?\n\n$INFO$"
- INCOMING_OFFER_TITLE_tv_seek_diplomatic_support: "Request for Diplomatic Support"
- INCOMING_OFFER_tv_seek_diplomatic_support: "$ACTOR$ is requesting our formal diplomatic support. Do we wish to accept?\n\n$INFO$"
  tv_invite_to_diplomatic_alliance_act: "Invite [SCOPE.sCountry('recipient').GetName] to our [tv_diplomatic_alliance|E]."
  tv_invite_to_diplomatic_alliance_effect_text: "[SCOPE.sCountry('recipient').GetName] joins [SCOPE.sCountry('actor').GetName]'s [tv_diplomatic_alliance|E]."
  tv_invite_to_diplomatic_alliance_effect_text_past: "[SCOPE.sCountry('recipient').GetName] joined [SCOPE.sCountry('actor').GetName]'s [tv_diplomatic_alliance|E]."
@@ -176,13 +154,6 @@
  tv_alliance_assembly: "Alliance Assembly"
 
  # ── Action notification message keys ─────────────────────────────────────────
- WE_PERFORM_tv_seek_diplomatic_support_ACTION_SETUP: "When we seek diplomatic support from another country."
- WE_PERFORM_tv_seek_diplomatic_support_ACTION_LOG: "We sought diplomatic support from [SCOPE.sCountry('target').GetNameWithNoTooltip]."
- WE_PERFORM_tv_seek_diplomatic_support_ACTION_MAP: ""
-
- ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_SETUP: "When another country seeks our diplomatic support."
- ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_LOG: "[SCOPE.sCountry('actor').GetName] sought our diplomatic support."
- ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_MAP: ""
  WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_SETUP: "When we invite another country into our [tv_diplomatic_alliance|E]."
  WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_LOG: "We invited [SCOPE.sCountry('target').GetNameWithNoTooltip] into our [tv_diplomatic_alliance|E]."
  WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_MAP: ""

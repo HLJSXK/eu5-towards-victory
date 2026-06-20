@@ -949,26 +949,6 @@ PERFORM_tv_change_governor_ACTION={
 \tmessage_category = society
 }
 
-WE_PERFORM_tv_seek_diplomatic_support_ACTION={
-\tlog=yes
-\tonmap=no
-\tpopup=no
-\tidle=no
-\toption=yes
-\tpausepopup=no
-\tmessage_category = diplomacy
-}
-
-ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US={
-\tlog=yes
-\tonmap=no
-\tpopup=yes
-\tidle=no
-\toption=yes
-\tpausepopup=no
-\tmessage_category = diplomacy
-}
-
 WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION={
 \tlog=yes
 \tonmap=no

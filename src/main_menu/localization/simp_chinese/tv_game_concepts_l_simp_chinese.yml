@@ -58,8 +58,6 @@
  TV_HAS_DIPLOMATIC_ALLIANCE_MEMBER_TT: "该国家是[tv_diplomatic_alliance|E]成员。"
  TV_HAS_DIPLOMATIC_MILESTONE_TT: "[tv_diplomatic_victory|E]里程碑状态已初始化。"
  TV_HAS_DIPLOMATIC_PROGRESS_PCT_TT: "[tv_diplomatic_victory|E]进度已计算。"
- TV_HAS_DIPLOMATIC_SUPPORT_COUNT_TT: "[tv_diplomatic_support|E]计数已初始化。"
- TV_HAS_DIPLOMATIC_SUPPORTER_OF_TT: "该国家已在支持一名[tv_diplomatic_victory|E]候选者。"
  TV_HAS_DIPLOMATIC_VICTORY_POINTS_TT: "[tv_dvp|E]已初始化。"
  TV_HAS_ENGINEERING_DEPARTMENT_MEMBER_TT: "该国家是[tv_engineering_department|E]成员。"
  TV_HAS_DISPATCHED_ARTISTS_COUNT_TT: "派遣艺术家计数已初始化。"
@@ -105,7 +103,7 @@
 
  game_concept_tv_diplomatic_victory_points: "外交胜利点"
  game_concept_tv_dvp: "DVP"
- game_concept_tv_diplomatic_victory_points_desc: "外交胜利点（DVP）通过外交支持和[tv_diplomatic_alliance|e]改革路线获得。两个国家提供[tv_diplomatic_support|e]会提供第一点；联盟本身通过IO建立流程创立。之后的点数来自每月[tv_alliance_tier|e]产出：联盟领袖获得完整等级，非领袖成员获得一半。里程碑设于1、50、500、2,500和15,000点DVP。"
+ game_concept_tv_diplomatic_victory_points_desc: "外交胜利点（DVP）通过[tv_diplomatic_alliance|e]改革路线获得。通过IO建立流程创立联盟会提供第一点；之后的点数来自每月[tv_alliance_tier|e]产出：联盟领袖获得完整等级，非领袖成员获得一半。里程碑设于1、50、500、2,500和15,000点DVP。"
 
  game_concept_tv_cultural_influence_points: "文化影响力点"
  game_concept_tv_cip: "CIP"
@@ -129,7 +127,7 @@
  game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。[tv_trade_league|e]会通过IO建立流程创立，并在贸易胜利进度解锁前完成；第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"
 
  game_concept_tv_diplomatic_victory: "外交胜利"
- game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。[tv_diplomatic_alliance|e]通过IO建立流程创立；早期进度仍需要2个国家提供[tv_diplomatic_support|e]来获得第一点[tv_dvp|e]。此后的[tv_dvp|e]每月由[tv_alliance_tier|e]产生，里程碑设于1、50、500、2,500和15,000。"
+ game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。[tv_diplomatic_alliance|e]通过IO建立流程创立，并提供第一点[tv_dvp|e]。此后的[tv_dvp|e]每月由[tv_alliance_tier|e]产生，里程碑设于1、50、500、2,500和15,000。"
 
  game_concept_tv_cultural_victory: "文化胜利"
  game_concept_tv_cultural_victory_desc: "以艺术与文化输出塑造文明。[tv_cip|e]永久积累：每创作一件艺术品+3。里程碑设于50、200、400、800和1,600，奖励艺术家技能、威望与文化传统。第2至5里程碑还要求最低[tv_arts_intl_influence|e]分别达到25、50、75和100。"
@@ -205,9 +203,6 @@
 
  game_concept_tv_alliance_assembly: "联盟议会"
  game_concept_tv_alliance_assembly_desc: "[tv_diplomatic_alliance|e]的议会场所。成员在此审议并表决联盟法律，将[tv_alliance_cohesion|e]转化为更高的[tv_alliance_tier|e]。"
-
- game_concept_tv_diplomatic_support: "外交支持"
- game_concept_tv_diplomatic_support_desc: "另一个国家对你的[tv_diplomatic_victory|e]事业作出的永久承诺。获得两个支持国即可满足早期支持条件，并使[tv_dvp|e]至少变为1；[tv_diplomatic_alliance|e]通过IO建立流程创立。"
 
  game_concept_tv_alliance_tier: "联盟等级"
  game_concept_tv_alliance_tier_desc: "[tv_diplomatic_alliance|e]的0至15变量，代表联盟制度的发展程度。通过升级后的联盟法律会消耗[tv_alliance_cohesion|e]并提高[tv_alliance_tier|e]。每点等级每月为联盟领袖提供1点[tv_dvp|e]，并为每个非领袖成员提供0.5点[tv_dvp|e]。"

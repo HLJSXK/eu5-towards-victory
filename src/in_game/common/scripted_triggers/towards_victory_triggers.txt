@@ -220,16 +220,6 @@ tv_diplomatic_milestone_1 = {
 		has_variable = tv_diplomatic_victory_points
 		var:tv_diplomatic_victory_points >= 1
 	}
-	custom_tooltip = {
-		text = TV_DIPLOMATIC_M1_EXTRA_TRIGGER_DESC
-	  OR = {
-	    AND = {
-	      has_variable = tv_diplomatic_support_count
-	      var:tv_diplomatic_support_count >= 2
-	    }
-	    has_variable = tv_diplomatic_alliance_member
-	  }
-	}
 }
 tv_diplomatic_milestone_2 = {
 	custom_tooltip = {

@@ -353,57 +353,6 @@ tv_leaderboard_monthly_pulse = {
 				tv_change_meditation_progress_effect = { value = local_var:meditation_gain }
 			}
 		}
-
-		# ── Diplomatic Unlock Notification Events ────────────────────────────
-		# Fire informational reminder when DVP reaches 50 and the alliance is not founded yet
-		if = {
-			limit = {
-				custom_tooltip = {
-					text = TV_HAS_DIPLOMATIC_VICTORY_POINTS_TT
-					has_variable = tv_diplomatic_victory_points
-				}
-				var:tv_diplomatic_victory_points >= 50
-				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_diplo_unlock_notified }
-				}
-				# Only fire if M1 hasn't been reached yet (support count < 2)
-				OR = {
-					custom_tooltip = {
-						text = TV_HAS_VARIABLE_NOT_SET_TT
-						NOT = { has_variable = tv_diplomatic_support_count }
-					}
-					var:tv_diplomatic_support_count < 2
-				}
-			}
-			set_variable = { name = tv_diplo_unlock_notified value = 1 }
-			trigger_event_non_silently = tv_diplo_alliance.1
-		}
-
-		# Fire informational event when support count reaches 2
-		if = {
-			limit = {
-				custom_tooltip = {
-					text = TV_HAS_DIPLOMATIC_SUPPORT_COUNT_TT
-					has_variable = tv_diplomatic_support_count
-				}
-				var:tv_diplomatic_support_count >= 2
-				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_diplo_support_notified }
-				}
-				# Only fire if M1 hasn't been reached yet
-				OR = {
-					custom_tooltip = {
-						text = TV_HAS_VARIABLE_NOT_SET_TT
-						NOT = { has_variable = tv_diplomatic_milestone }
-					}
-					var:tv_diplomatic_milestone < 1
-				}
-			}
-			set_variable = { name = tv_diplo_support_notified value = 1 }
-			trigger_event_non_silently = tv_diplo_alliance.2
-		}
 	}
 
 }

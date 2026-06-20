@@ -12909,26 +12909,6 @@ PERFORM_tv_change_governor_ACTION={
 	message_category = society
 }
 
-WE_PERFORM_tv_seek_diplomatic_support_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = diplomacy
-}
-
-ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US={
-	log=yes
-	onmap=no
-	popup=yes
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = diplomacy
-}
-
 WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION={
 	log=yes
 	onmap=no
