@@ -21,7 +21,7 @@ HAGIA_ACTIONS = [
     (4, "tv_wonder_hagia_assign_step_4", None, None, None, "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4_DESC"),
     (5, "tv_wonder_hagia_assign_step_5", "tv_wonder_hagia_select_character", "tv_wonder_hagia_no_character_available", "character_info", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5_DESC"),
     (6, "tv_wonder_hagia_assign_step_6", "tv_wonder_hagia_select_character", "tv_wonder_hagia_no_character_available", "character_info", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6_DESC"),
-    (7, "tv_wonder_hagia_assign_step_7", "tv_wonder_hagia_select_noble", "tv_wonder_hagia_no_noble_available", "character_noble", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7_DESC"),
+    (7, "tv_wonder_hagia_assign_step_7", "tv_wonder_hagia_select_noble", "tv_wonder_hagia_no_noble_available", "character_info", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7_DESC"),
     (8, "tv_wonder_hagia_assign_step_8", "tv_wonder_hagia_select_character", "tv_wonder_hagia_no_character_available", "character_info", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8", "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8_DESC"),
 ]
 

@@ -839,6 +839,12 @@ def gen_localization(data: dict, lang: str) -> str:
     ]
 
     def kv(key: str, val: str, version: bool = False) -> str:
+        if (
+            key.startswith("tv_no_")
+            and key.endswith("_headquarters_location_available")
+            and not val.startswith("@trigger_no!")
+        ):
+            val = f"@trigger_no! {val}"
         escaped = val.replace('"', '\\"')
         if version:
             return f' {key}:0 "{escaped}"'

@@ -1413,6 +1413,16 @@
   source: "src/main_menu/localization/english/tv_arts_exhibition_l_english.yml:27"
   notes: "Engine logs: Key X doesn't exist or doesn't start with trigger_no icon. The @trigger_no! inline icon must be the first token in the localization value string."
 
+- id: generic_action_selector_unknown_attribute_column
+  pattern: ''
+  detectability: advisory
+  bad: "Using column = { data = character_noble } or another selector attribute column that is not defined in common/attribute_columns"
+  correction: "Use a defined attribute column such as character_info or character_artist, or add a real common/attribute_columns entry plus localization. Keep eligibility filtering in visible/enabled."
+  category: generic_actions
+  scope: character
+  source: "runtime error.log, 2026-06: character_noble localization fallback; reference_game_files/game/in_game/common/attribute_columns/09_character.txt defines character_info and character_artist"
+  notes: "The selector column data token is an attribute-column id, not a free label for the filtered target type. An undefined column can surface as a startup localization fallback such as character_noble: \"Character noble\"."
+
 - id: character_traits_wrong_directory
   pattern: 'common/character_traits/'
   bad: "Placing character trait definitions in common/character_traits/ (e.g. src/in_game/common/character_traits/my_traits.txt)"
@@ -1798,3 +1808,13 @@
   scope: country
   source: "runtime error.log, 2026-06: add_country_modifier rejected tv_wonder_auto_unique_*_style_1_country_modifier in tv_engineering_department_wonder_mechanics_effects.txt"
   notes: "Country Auto modifiers and static country modifiers are separate databases. A Country Auto modifier may have category = country, but add_country_modifier still cannot use its id."
+
+- id: auto_modifier_missing_name_localization
+  pattern: ''
+  detectability: advisory
+  bad: "Emitting a common/auto_modifiers id without matching AUTO_MODIFIER_NAME_<id> localization"
+  correction: "Generate AUTO_MODIFIER_NAME_<id> for every emitted auto modifier, including hidden hide_effects companions such as *_unscaled."
+  category: localization
+  scope: modifier
+  source: "runtime error.log, 2026-06: AUTO_MODIFIER_NAME_tv_wonder_auto_pirate_port_unscaled and AUTO_MODIFIER_NAME_tv_wonder_auto_unique_algiers_pirate_port_unscaled"
+  notes: "Hidden Country Auto modifiers still load as modifier database entries and the localization system requests their AUTO_MODIFIER_NAME keys during startup."
