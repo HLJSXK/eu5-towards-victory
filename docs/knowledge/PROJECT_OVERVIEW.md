@@ -248,6 +248,7 @@ src/
 │   │   ├── generic_action_ai_lists/       tv_arts_exhibition_list.txt  [MANUAL]
 │   │   │                                  tv_diplomatic_alliance_list.txt  [MANUAL]
 │   │   │                                  tv_engineering_department_list.txt  [MANUAL]
+│   │   │                                  tv_io_establishment_list.txt  [GENERATED — IO establishment build-HQ and appoint-chief action registration]
 │   │   │                                  tv_research_actions_list.txt  [MANUAL]
 │   │   │                                  tv_trade_league_list.txt  [GENERATED — Trade League leader and monopoly actions]
 │   │   │                                  towards_victory_reward_actions_list.txt  [GENERATED - victory path tab and reward action registration]
@@ -379,6 +380,7 @@ Wonder Construction random events are data-driven from `data/wonder_construction
 | `scripts/in_game/common/scripted_effects/gen_towards_victory_leaderboard.py` | data/victory_paths.yaml | src/in_game/common/scripted_effects/towards_victory_leaderboard.txt | After changing victory path ids, order, or per-path leaderboard ranking storage |
 | `scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py` | data/victory_paths.yaml + data/io_establishment.yaml | src/in_game/gui/panels/situation/tv_victory_situation.gui | After changing the main victory situation tabs, disabled-route establishment cards, progress/reward card layout, path icons, progress styles, or leaderboard rows |
 | `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` | data/io_leaders.yaml + data/io_establishment.yaml | src/in_game/common/generic_actions/tv_io_leader_actions.txt | After adding/changing an IO, IO establishment/build-HQ action, or leader action |
+| `scripts/in_game/common/generic_action_ai_lists/gen_tv_io_establishment_list.py` | data/io_establishment.yaml | src/in_game/common/generic_action_ai_lists/tv_io_establishment_list.txt | After changing generated IO establishment/build-HQ action ids |
 | `scripts/in_game/common/generic_actions/gen_tv_philosophy_actions.py` | data/philosophy_debate_actions.yaml | src/in_game/common/generic_actions/tv_philosophy_actions.txt | After changing Academy philosophy debate action slots or action ids |
 | `scripts/in_game/common/international_organizations/gen_tv_trade_league.py` | data/trade_league_goods.yaml + data/trade_league_laws.yaml | src/in_game/common/international_organizations/tv_trade_league.txt | After changing the Trade League IO shell, lawless-start contract, or leader-country monopoly storage contract |
 | `scripts/in_game/common/scripted_effects/gen_tv_trade_league_effects.py` | data/trade_league_goods.yaml | src/in_game/common/scripted_effects/tv_trade_league_effects.txt | After changing Trade League creation, rolling chart history, or monopoly update generation |

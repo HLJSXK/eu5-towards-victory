@@ -89,6 +89,10 @@ generated:
     data:   data/io_leaders.yaml + data/io_establishment.yaml
     output: src/in_game/common/generic_actions/tv_io_leader_actions.txt
 
+  - script: scripts/in_game/common/generic_action_ai_lists/gen_tv_io_establishment_list.py
+    data:   data/io_establishment.yaml
+    output: src/in_game/common/generic_action_ai_lists/tv_io_establishment_list.txt
+
   - script: scripts/in_game/common/generic_actions/gen_tv_philosophy_actions.py
     data:   data/philosophy_debate_actions.yaml
     output: src/in_game/common/generic_actions/tv_philosophy_actions.txt
