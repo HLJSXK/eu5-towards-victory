@@ -79,6 +79,46 @@ wonder_localization:
     PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_SETUP: When we confirm a Prestige wonder ceremony.
     PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_LOG: We confirmed the Prestige wonder ceremony.
     PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_MAP: ''
+    tv_wonder_hagia_assign_step_1: Seal the Vessels
+    tv_wonder_hagia_assign_step_1_desc: Send a trusted hand among the silver, veils, relic chests, and offering doors.
+    tv_wonder_hagia_assign_step_2: Test the Dome
+    tv_wonder_hagia_assign_step_2_desc: Send a trusted hand beneath the ribs, chains, marble walks, and smoke-dark mosaics.
+    tv_wonder_hagia_assign_step_3: Open the Register
+    tv_wonder_hagia_assign_step_3_desc: Send a trusted hand to write the clerical gifts and bread tallies into the book.
+    tv_wonder_hagia_assign_step_4: Walk the Imperial Path
+    tv_wonder_hagia_assign_step_4_desc: Let the ruler rehearse the guarded road from palace to holy threshold.
+    tv_wonder_hagia_assign_step_5: Carry the Feast Orders
+    tv_wonder_hagia_assign_step_5_desc: Send a trusted hand through the chapels with candles, rules, and feast obligations.
+    tv_wonder_hagia_assign_step_6: Count the Offerings
+    tv_wonder_hagia_assign_step_6_desc: Send a trusted hand to match wax tablets, donated coin, and treasury chests.
+    tv_wonder_hagia_assign_step_7: Seat the Noble Witness
+    tv_wonder_hagia_assign_step_7_desc: Seat rank and embassy beneath painted eyes in the gallery.
+    tv_wonder_hagia_assign_step_8: Open the Procession
+    tv_wonder_hagia_assign_step_8_desc: Send the public prayer out from the doors and through the streets.
+    PERFORM_tv_wonder_hagia_assign_step_1_ACTION_SETUP: When we assign a steward to the first Hagia Sophia ritual station.
+    PERFORM_tv_wonder_hagia_assign_step_1_ACTION_LOG: We assigned a steward to seal the Hagia Sophia vessels.
+    PERFORM_tv_wonder_hagia_assign_step_1_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_2_ACTION_SETUP: When we assign a steward to the second Hagia Sophia ritual station.
+    PERFORM_tv_wonder_hagia_assign_step_2_ACTION_LOG: We assigned a steward to test the Hagia Sophia dome.
+    PERFORM_tv_wonder_hagia_assign_step_2_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_3_ACTION_SETUP: When we assign a steward to the third Hagia Sophia ritual station.
+    PERFORM_tv_wonder_hagia_assign_step_3_ACTION_LOG: We assigned a steward to open the Hagia Sophia register.
+    PERFORM_tv_wonder_hagia_assign_step_3_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_4_ACTION_SETUP: When the ruler walks the Hagia Sophia imperial path.
+    PERFORM_tv_wonder_hagia_assign_step_4_ACTION_LOG: The ruler rehearsed the Hagia Sophia imperial path.
+    PERFORM_tv_wonder_hagia_assign_step_4_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_5_ACTION_SETUP: When we assign a steward to the fifth Hagia Sophia ritual station.
+    PERFORM_tv_wonder_hagia_assign_step_5_ACTION_LOG: We assigned a steward to carry the Hagia Sophia feast orders.
+    PERFORM_tv_wonder_hagia_assign_step_5_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_6_ACTION_SETUP: When we assign a steward to the sixth Hagia Sophia ritual station.
+    PERFORM_tv_wonder_hagia_assign_step_6_ACTION_LOG: We assigned a steward to count the Hagia Sophia offerings.
+    PERFORM_tv_wonder_hagia_assign_step_6_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_7_ACTION_SETUP: When we seat a noble witness for the Hagia Sophia ritual.
+    PERFORM_tv_wonder_hagia_assign_step_7_ACTION_LOG: We seated a noble witness for the Hagia Sophia ritual.
+    PERFORM_tv_wonder_hagia_assign_step_7_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_8_ACTION_SETUP: When we assign a steward to open the Hagia Sophia procession.
+    PERFORM_tv_wonder_hagia_assign_step_8_ACTION_LOG: We assigned a steward to open the Hagia Sophia procession.
+    PERFORM_tv_wonder_hagia_assign_step_8_ACTION_MAP: ''
     TV_ENGINEERING_PROPOSAL_SACRED_MOUNTAIN_TEXT: The [tv_great_engineer|E] proposes [tv_wonder_sacred_mountain|E].
     TV_ENGINEERING_PROPOSAL_RESUME_SACRED_MOUNTAIN_TEXT: The [tv_great_engineer|E] wants to complete the existing [tv_wonder_sacred_mountain|E] and reuse the preserved construction at the site.
     TV_ENGINEERING_PROPOSAL_EXPAND_SACRED_MOUNTAIN_TEXT: The [tv_great_engineer|E] wants to expand the existing [tv_wonder_sacred_mountain|E] toward the site's preserved maximum level.
@@ -6121,6 +6161,46 @@ wonder_localization:
     PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_SETUP: 当我们确认威望奇观落成仪式时。
     PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_LOG: 我们确认了威望奇观落成仪式。
     PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION_MAP: ''
+    tv_wonder_hagia_assign_step_1: 封存圣器
+    tv_wonder_hagia_assign_step_1_desc: 派可信之手查验银器、帷幕、圣物箱与奉献小门。
+    tv_wonder_hagia_assign_step_2: 试读穹顶
+    tv_wonder_hagia_assign_step_2_desc: 派可信之手行于肋拱、灯链、大理石路面与烟熏马赛克之间。
+    tv_wonder_hagia_assign_step_3: 打开登记簿
+    tv_wonder_hagia_assign_step_3_desc: 派可信之手将神职馈赠与济贫面包写入教堂簿册。
+    tv_wonder_hagia_assign_step_4: 行走御道
+    tv_wonder_hagia_assign_step_4_desc: 让统治者演练从宫殿到圣门的护卫路线。
+    tv_wonder_hagia_assign_step_5: 传达节令
+    tv_wonder_hagia_assign_step_5_desc: 派可信之手携蜡烛、规条与节日义务走遍各礼拜堂。
+    tv_wonder_hagia_assign_step_6: 清点奉献
+    tv_wonder_hagia_assign_step_6_desc: 派可信之手核对蜡板、捐币与国库箱匣。
+    tv_wonder_hagia_assign_step_7: 安置贵族见证
+    tv_wonder_hagia_assign_step_7_desc: 让等级与使节坐在画廊中，在圣像目光下作证。
+    tv_wonder_hagia_assign_step_8: 开启公开游行
+    tv_wonder_hagia_assign_step_8_desc: 让公共祈祷从铜门流入街巷。
+    PERFORM_tv_wonder_hagia_assign_step_1_ACTION_SETUP: 当我们为圣索菲亚仪式第一站指派执事时。
+    PERFORM_tv_wonder_hagia_assign_step_1_ACTION_LOG: 我们指派执事封存圣索菲亚圣器。
+    PERFORM_tv_wonder_hagia_assign_step_1_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_2_ACTION_SETUP: 当我们为圣索菲亚仪式第二站指派执事时。
+    PERFORM_tv_wonder_hagia_assign_step_2_ACTION_LOG: 我们指派执事试读圣索菲亚穹顶。
+    PERFORM_tv_wonder_hagia_assign_step_2_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_3_ACTION_SETUP: 当我们为圣索菲亚仪式第三站指派执事时。
+    PERFORM_tv_wonder_hagia_assign_step_3_ACTION_LOG: 我们指派执事打开圣索菲亚登记簿。
+    PERFORM_tv_wonder_hagia_assign_step_3_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_4_ACTION_SETUP: 当统治者行走圣索菲亚御道时。
+    PERFORM_tv_wonder_hagia_assign_step_4_ACTION_LOG: 统治者演练了圣索菲亚御道。
+    PERFORM_tv_wonder_hagia_assign_step_4_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_5_ACTION_SETUP: 当我们为圣索菲亚仪式第五站指派执事时。
+    PERFORM_tv_wonder_hagia_assign_step_5_ACTION_LOG: 我们指派执事传达圣索菲亚节令。
+    PERFORM_tv_wonder_hagia_assign_step_5_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_6_ACTION_SETUP: 当我们为圣索菲亚仪式第六站指派执事时。
+    PERFORM_tv_wonder_hagia_assign_step_6_ACTION_LOG: 我们指派执事清点圣索菲亚奉献。
+    PERFORM_tv_wonder_hagia_assign_step_6_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_7_ACTION_SETUP: 当我们为圣索菲亚仪式安置贵族见证时。
+    PERFORM_tv_wonder_hagia_assign_step_7_ACTION_LOG: 我们为圣索菲亚仪式安置了贵族见证。
+    PERFORM_tv_wonder_hagia_assign_step_7_ACTION_MAP: ''
+    PERFORM_tv_wonder_hagia_assign_step_8_ACTION_SETUP: 当我们指派执事开启圣索菲亚公开游行时。
+    PERFORM_tv_wonder_hagia_assign_step_8_ACTION_LOG: 我们指派执事开启了圣索菲亚公开游行。
+    PERFORM_tv_wonder_hagia_assign_step_8_ACTION_MAP: ''
     tv_wonder_confirm_ceremony_scaled_gold: 确认金币仪式
     tv_wonder_confirm_ceremony_scaled_gold_desc: 支付该仪式所需的缩放金币花费，并让已完成的奇观正式落成。
     tv_wonder_confirm_ceremony_prestige: 确认威望仪式
