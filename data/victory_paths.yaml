@@ -159,9 +159,7 @@ paths:
               military_tactics: 0.25
           - modifier:
               land_morale_modifier: 0.10
-        unlock_body: |
-          custom_tooltip = { text = tv_conquest_m1_govhouse_tt }
-          hidden_effect = { tv_govhouse_create_effect = yes }
+        unlock_body: null
         loc:
           title:
             en: "Conquest Victory — Milestone 1"
@@ -475,9 +473,7 @@ paths:
               global_population_growth: 0.001
           - modifier:
               global_monthly_development: 0.001
-        unlock_body: |
-          custom_tooltip = { text = tv_prosperity_m1_engineering_department_grant_tt }
-          hidden_effect = { tv_engineering_department_create_effect = yes }
+        unlock_body: null
         loc:
           title:
             en: "Prosperity Victory — Milestone 1"
@@ -746,9 +742,7 @@ paths:
               global_merchant_capacity_modifier: 0.10
           - modifier:
               global_merchant_power: 0.20
-        unlock_body: |
-          custom_tooltip = { text = tv_trade_m1_io_grant_tt }
-          hidden_effect = { tv_trade_league_create_effect = yes }
+        unlock_body: null
         loc:
           title:
             en: "Trade Victory — Milestone 1"
@@ -999,8 +993,8 @@ paths:
           en: "Playstyle: gather supporters, raise alliance tier, and make other thrones depend on your guarantees, assemblies, and diplomatic timing."
           zh: "玩法风格：争取支持国、提升联盟等级，并让诸王座依赖你的保障、议会与外交时机。"
         formula:
-          en: "Progress formula: [tv_diplomatic_victory_points|e] starts at 1 when two [tv_diplomatic_support|e] countries found the [tv_diplomatic_alliance|e]. Each month, the alliance leader gains the full current [tv_alliance_tier|e], while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
-          zh: "进程公式：两个国家提供[tv_diplomatic_support|e]并建立[tv_diplomatic_alliance|e]时，[tv_diplomatic_victory_points|e]起始为1。之后每月联盟领袖获得完整当前[tv_alliance_tier|e]，非领袖成员获得一半；胜利进度按当前里程碑段线性折算，上限100%。"
+          en: "Progress formula: [tv_diplomatic_victory_points|e] starts at 1 when two countries provide [tv_diplomatic_support|e], while the [tv_diplomatic_alliance|e] itself is founded through the IO establishment flow. Each month after establishment, the alliance leader gains the full current [tv_alliance_tier|e], while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
+          zh: "进程公式：两个国家提供[tv_diplomatic_support|e]时，[tv_diplomatic_victory_points|e]起始为1；[tv_diplomatic_alliance|e]本身通过IO建立流程创立。建立后每月联盟领袖获得完整当前[tv_alliance_tier|e]，非领袖成员获得一半；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
         en: "[tv_diplomatic_victory_points|e]: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
         zh: "[tv_diplomatic_victory_points|e]：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
@@ -1021,20 +1015,7 @@ paths:
               has_variable = tv_diplomatic_alliance_member
             }
           }
-        unlock_body: |
-          if = {
-              limit = {
-                  custom_tooltip = {
-                      text = TV_HAS_VARIABLE_NOT_SET_TT
-                      NOT = { has_variable = tv_diplomatic_victory_points }
-                  }
-              }
-              set_variable = { name = tv_diplomatic_victory_points value = 1 }
-          }
-          else_if = {
-              limit = { var:tv_diplomatic_victory_points < 1 }
-              set_variable = { name = tv_diplomatic_victory_points value = 1 }
-          }
+        unlock_body: null
         reward_options:
           - modifier:
               diplomatic_reputation: 2
@@ -1300,16 +1281,7 @@ paths:
               artist_salary_modifier: -0.10
           - modifier:
               hire_artist_cost_modifier: -0.50
-        unlock_body: |
-          custom_tooltip = { text = tv_cultural_m1_io_grant_tt }
-          hidden_effect = {
-              set_variable = { name = tv_arts_exhibition_member value = 1 }
-              create_international_organization = {
-                  type = international_organization_type:tv_arts_exhibition
-                  add_country_to_international_organization = prev
-                  set_leader_country = prev
-              }
-          }
+        unlock_body: null
         loc:
           title:
             en: "Cultural Victory — Milestone 1"
@@ -1779,37 +1751,7 @@ paths:
               global_soldiers_max_literacy: 10
           - modifier:
               global_max_literacy: 5
-        unlock_body: |
-          custom_tooltip = { text = tv_science_m1_io_grant_tt }
-          hidden_effect = {
-              if = {
-                  limit = {
-                  	custom_tooltip = {
-                  		text = TV_HAS_VARIABLE_NOT_SET_TT
-                  		NOT = { has_variable = tv_academy_io_member }
-                  	}
-                  }
-                  set_variable = { name = tv_academy_io_member value = 1 }
-                  set_variable = { name = tv_research_phase value = 0 }
-                  set_variable = { name = tv_research_interest value = 0 }
-                  set_variable = { name = tv_research_b_done value = 0 }
-                  set_variable = { name = tv_rm_subprocess_a value = 0 }
-                  set_variable = { name = tv_rm_subprocess_b value = 0 }
-                  set_variable = { name = tv_rm_subprocess_c value = 0 }
-                  set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
-                  set_variable = { name = tv_med_progress  value = 0 }
-                  set_variable = { name = tv_med_disp_adm  value = 0 }
-                  set_variable = { name = tv_med_disp_dip  value = 0 }
-                  set_variable = { name = tv_med_disp_mil  value = 0 }
-                  create_international_organization = {
-                      type = international_organization_type:tv_academy_of_sciences
-                      hidden_effect = {
-                          add_country_to_international_organization = prev
-                          set_leader_country = prev
-                      }
-                  }
-              }
-          }
+        unlock_body: null
         loc:
           title:
             en: "Scientific Victory — Milestone 1"

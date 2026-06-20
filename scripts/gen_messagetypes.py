@@ -16,6 +16,7 @@ VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
 TRADE_GOODS = ROOT / "data/trade_league_goods.yaml"
 VICTORY_PATHS = ROOT / "data/victory_paths.yaml"
+IO_ESTABLISHMENT = ROOT / "data/io_establishment.yaml"
 
 DISPLAY_ROW_COUNT = 10
 INTELLIGENCE_ROW_COUNT = 10
@@ -61,6 +62,17 @@ def victory_reward_action_ids() -> list[str]:
             n = int(milestone["n"])
             for choice in range(1, 4):
                 actions.append(f"tv_victory_select_{pid}_m{n}_reward_{choice}")
+    return actions
+
+
+def io_establishment_action_ids() -> list[str]:
+    with IO_ESTABLISHMENT.open(encoding="utf-8") as file:
+        data = yaml.safe_load(file)
+    actions: list[str] = []
+    for path in sorted(data["paths"], key=lambda item: int(item.get("order", 0))):
+        pid = path["id"]
+        actions.append(f"tv_build_{pid}_headquarters")
+        actions.append(f"tv_establish_{pid}_io")
     return actions
 
 TV_ENTRIES = """
@@ -1117,6 +1129,24 @@ def victory_reward_message_entries() -> str:
         )
     return "\n".join(blocks)
 
+
+def io_establishment_message_entries() -> str:
+    blocks = ["\n# ---- Generated IO establishment controls ----\n"]
+    for action in io_establishment_action_ids():
+        blocks.append(
+            f"""PERFORM_{action}_ACTION={{
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = government
+}}
+"""
+        )
+    return "\n".join(blocks)
+
 vanilla_bytes = VANILLA.read_bytes()
 # strip BOM if present
 if vanilla_bytes.startswith(b'\xef\xbb\xbf'):
@@ -1127,6 +1157,7 @@ combined_entries = (
     + trade_monopoly_message_entries()
     + philosophy_message_entries()
     + victory_reward_message_entries()
+    + io_establishment_message_entries()
 )
 combined = b'\xef\xbb\xbf' + vanilla_bytes + combined_entries.encode("utf-8")
 OUT.write_bytes(combined)

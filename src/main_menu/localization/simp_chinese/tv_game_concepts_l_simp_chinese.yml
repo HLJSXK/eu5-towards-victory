@@ -105,7 +105,7 @@
 
  game_concept_tv_diplomatic_victory_points: "外交胜利点"
  game_concept_tv_dvp: "DVP"
- game_concept_tv_diplomatic_victory_points_desc: "外交胜利点（DVP）通过[tv_diplomatic_alliance|e]改革路线和外交预测获得。两个国家提供[tv_diplomatic_support|e]会建立联盟并提供第一点；之后的点数来自每月[tv_alliance_tier|e]产出：联盟领袖获得完整等级，非领袖成员获得一半。里程碑设于1、50、500、2,500和15,000点DVP。"
+ game_concept_tv_diplomatic_victory_points_desc: "外交胜利点（DVP）通过外交支持和[tv_diplomatic_alliance|e]改革路线获得。两个国家提供[tv_diplomatic_support|e]会提供第一点；联盟本身通过IO建立流程创立。之后的点数来自每月[tv_alliance_tier|e]产出：联盟领袖获得完整等级，非领袖成员获得一半。里程碑设于1、50、500、2,500和15,000点DVP。"
 
  game_concept_tv_cultural_influence_points: "文化影响力点"
  game_concept_tv_cip: "CIP"
@@ -126,10 +126,10 @@
  game_concept_tv_prosperity_victory_desc: "建立最富庶、发展最完善的国家。[tv_prosperity_score|e]奖励规模庞大、稳定且治理良好的发展，而不只是单纯的领土数量。里程碑设于2,000、3,000、5,000、7,000和11,000，奖励国内生产、人口增长与建设能力。"
 
  game_concept_tv_trade_victory: "贸易胜利"
- game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。第一里程碑会建立[tv_trade_league|e]；第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"
+ game_concept_tv_trade_victory_desc: "掌控世界商业命脉。[tv_trade_score|e]是你每月贸易收入的月度快照。[tv_trade_league|e]会通过IO建立流程创立，并在贸易胜利进度解锁前完成；第三和第五里程碑还要求主导市场数量（分别为5和10个）。奖励着重商人容量、贸易效率与贸易收入倍增。"
 
  game_concept_tv_diplomatic_victory: "外交胜利"
- game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。第一个里程碑需要2个[tv_diplomatic_support|e]国，会创立[tv_diplomatic_alliance|e]并提供第一点[tv_dvp|e]。此后的[tv_dvp|e]每月由[tv_alliance_tier|e]产生，里程碑设于1、50、500、2,500和15,000。"
+ game_concept_tv_diplomatic_victory_desc: "构建世界上最强大的联盟与影响力网络。[tv_diplomatic_alliance|e]通过IO建立流程创立；早期进度仍需要2个国家提供[tv_diplomatic_support|e]来获得第一点[tv_dvp|e]。此后的[tv_dvp|e]每月由[tv_alliance_tier|e]产生，里程碑设于1、50、500、2,500和15,000。"
 
  game_concept_tv_cultural_victory: "文化胜利"
  game_concept_tv_cultural_victory_desc: "以艺术与文化输出塑造文明。[tv_cip|e]永久积累：每创作一件艺术品+3。里程碑设于50、200、400、800和1,600，奖励艺术家技能、威望与文化传统。第2至5里程碑还要求最低[tv_arts_intl_influence|e]分别达到25、50、75和100。"
@@ -139,7 +139,7 @@
 
  # ── Prosperity Victory Unique Mechanics ───────────────────────────────────
  game_concept_tv_engineering_department: "工程部"
- game_concept_tv_engineering_department_desc: "[tv_prosperity_victory|e]第一里程碑建立的非唯一国际组织。它负责[tv_great_engineer|e]职位，并管理奇观提案、论证、选址、组织、物流和[tv_wonder_construction|e]。"
+ game_concept_tv_engineering_department_desc: "通过[tv_prosperity_victory|e]IO建立流程创立的非唯一国际组织。它负责[tv_great_engineer|e]职位，并管理奇观提案、论证、选址、组织、物流和[tv_wonder_construction|e]。"
 
  game_concept_tv_great_engineer: "大工程师"
  game_concept_tv_great_engineer_desc: "领导[tv_engineering_department|e]的任命角色。[tv_great_engineer|e]以国家变量保存，可在[tv_engineering_department|e]面板中任命、更换或撤职。"
@@ -188,7 +188,7 @@
 
  # -- 贸易胜利独有机制 --------------------------------------------------------
  game_concept_tv_trade_league: "贸易联盟"
- game_concept_tv_trade_league_desc: "[tv_trade_victory|e]第一里程碑建立的非唯一国际组织。盟主可邀请或驱逐成员、任命[tv_grand_merchant|e]，并追踪商品垄断。"
+ game_concept_tv_trade_league_desc: "通过[tv_trade_victory|e]IO建立流程创立的非唯一国际组织。盟主可邀请或驱逐成员、任命[tv_grand_merchant|e]，并追踪商品垄断。"
 
  game_concept_tv_grand_merchant: "大商人"
  game_concept_tv_grand_merchant_desc: "领导[tv_trade_league|e]的任命角色。没有[tv_grand_merchant|e]时，贸易链、商业情报和垄断系统不会激活。"
@@ -207,7 +207,7 @@
  game_concept_tv_alliance_assembly_desc: "[tv_diplomatic_alliance|e]的议会场所。成员在此审议并表决联盟法律，将[tv_alliance_cohesion|e]转化为更高的[tv_alliance_tier|e]。"
 
  game_concept_tv_diplomatic_support: "外交支持"
- game_concept_tv_diplomatic_support_desc: "另一个国家对你的[tv_diplomatic_victory|e]事业作出的永久承诺。获得两个支持国即可开启第一里程碑，并建立[tv_diplomatic_alliance|e]。"
+ game_concept_tv_diplomatic_support_desc: "另一个国家对你的[tv_diplomatic_victory|e]事业作出的永久承诺。获得两个支持国即可满足早期支持条件，并使[tv_dvp|e]至少变为1；[tv_diplomatic_alliance|e]通过IO建立流程创立。"
 
  game_concept_tv_alliance_tier: "联盟等级"
  game_concept_tv_alliance_tier_desc: "[tv_diplomatic_alliance|e]的0至15变量，代表联盟制度的发展程度。通过升级后的联盟法律会消耗[tv_alliance_cohesion|e]并提高[tv_alliance_tier|e]。每点等级每月为联盟领袖提供1点[tv_dvp|e]，并为每个非领袖成员提供0.5点[tv_dvp|e]。"
@@ -226,7 +226,7 @@
  game_concept_tv_local_exhibition_enthusiasm_desc: "[tv_arts_exhibition|e]IO变量，用于[tv_domestic_exhibition|e]。开始时为80，上限为200，每月衰减8；降至0时，展览结束。"
 
  game_concept_tv_arts_exhibition: "文艺展演"
- game_concept_tv_arts_exhibition_desc: "联合文化雄心勃勃国家的国际组织。国家在达到[tv_cultural_victory|e]第一里程碑（50点[tv_cip|e]）后自动加入。成员可派遣[tv_artist_tour|e]，也可举办[tv_domestic_exhibition|e]。[tv_domestic_exhibition|E]需要至少5件艺术品，花费缩放金钱×3.5，使用[tv_local_exhibition_enthusiasm|e]维持，可投入更多展品扩大到相邻本国地点，并在结束时产出按地点数乘算的[tv_cip|e]。"
+ game_concept_tv_arts_exhibition_desc: "联合文化雄心勃勃国家的国际组织。国家通过[tv_cultural_victory|e]IO建立流程创建并加入自己的实例。成员可派遣[tv_artist_tour|e]，也可举办[tv_domestic_exhibition|e]。[tv_domestic_exhibition|E]需要至少5件艺术品，花费缩放金钱×3.5，使用[tv_local_exhibition_enthusiasm|e]维持，可投入更多展品扩大到相邻本国地点，并在结束时产出按地点数乘算的[tv_cip|e]。"
 
  game_concept_tv_chief_artist: "首席艺术家"
  game_concept_tv_chief_artist_desc: "领导[tv_arts_exhibition|e]的任命艺术家。其艺术能力每月贡献[tv_arts_intl_influence|e]，只要仍在宫廷中，也可以主持[tv_arts_exchange|e]。"
@@ -269,7 +269,7 @@
 
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "总督府"
- game_concept_tv_govhouse_desc: "征服胜利第一里程碑解锁的国际组织。创始国可任命[tv_grand_general|e]，并向领土内各地区派遣[tv_local_governor|e]。每位总督可降低其管辖地区内的建造费用与动乱，并提升最大控制力，效果与其军事属性成正比。"
+ game_concept_tv_govhouse_desc: "通过[tv_conquest_victory|e]IO建立流程创立的国际组织。创始国可任命[tv_grand_general|e]，并向领土内各地区派遣[tv_local_governor|e]。每位总督可降低其管辖地区内的建造费用与动乱，并提升最大控制力，效果与其军事属性成正比。"
  game_concept_tv_grand_general: "大将军"
  game_concept_tv_grand_general_desc: "通过[tv_govhouse|e]任命的最高军事统帅。[tv_grand_general|e]可以接受训练、提出战术与[tv_war_plan|e]，并在任期间积累[tv_govhouse_power_consolidation|e]。"
  game_concept_tv_local_governor: "地方总督"

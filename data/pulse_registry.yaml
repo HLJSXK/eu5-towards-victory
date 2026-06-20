@@ -7,6 +7,7 @@
 
 pulses:
   monthly_country_pulse:
+    - tv_io_establishment_monthly_pulse # six IO establishment basic checks, HQ cache, and AI auto-progress
     - tv_leaderboard_monthly_pulse    # leaderboard + touring artist roll + research/medicine/diplo inline
     - tv_cmf_warning_suppressions_monthly_pulse # CMF suppressions for intentional static warning noise
     - tv_io_chief_alert_monthly_pulse # CMF alert for missing TV IO chief great people
