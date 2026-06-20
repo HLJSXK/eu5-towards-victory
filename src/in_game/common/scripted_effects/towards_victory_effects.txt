@@ -310,23 +310,21 @@ tv_io_establishment_ai_progress_effect = {
 			has_variable = tv_conquest_establishment_basic_done
 			NOT = { has_variable = tv_conquest_victory_enabled }
 			NOT = { tv_conquest_establishment_headquarters_done = yes }
-		}
-		capital = {
-			if = {
-				limit = {
-					owner ?= scope:tv_io_establishment_ai_actor
-					is_capital = yes
-					location_and_owner_can_build = { building_type = building_type:tv_conquest_headquarters }
-					NOT = { has_building = building_type:tv_conquest_headquarters }
-					NOT = {
-						any_buildings_in_location = {
-							building_type = building_type:tv_conquest_headquarters
-							building_levels_under_construction >= 1
-						}
+			capital ?= {
+				owner ?= scope:tv_io_establishment_ai_actor
+				is_capital = yes
+				location_and_owner_can_build = { building_type = building_type:tv_conquest_headquarters }
+				NOT = { has_building = building_type:tv_conquest_headquarters }
+				NOT = {
+					any_buildings_in_location = {
+						building_type = building_type:tv_conquest_headquarters
+						building_levels_under_construction >= 1
 					}
 				}
-				construct_building = { building_type = building_type:tv_conquest_headquarters }
 			}
+		}
+		capital = {
+			construct_building = { building_type = building_type:tv_conquest_headquarters }
 		}
 	}
 	if = {
@@ -360,23 +358,21 @@ tv_io_establishment_ai_progress_effect = {
 			has_variable = tv_prosperity_establishment_basic_done
 			NOT = { has_variable = tv_prosperity_victory_enabled }
 			NOT = { tv_prosperity_establishment_headquarters_done = yes }
-		}
-		capital = {
-			if = {
-				limit = {
-					owner ?= scope:tv_io_establishment_ai_actor
-					is_capital = yes
-					location_and_owner_can_build = { building_type = building_type:tv_prosperity_headquarters }
-					NOT = { has_building = building_type:tv_prosperity_headquarters }
-					NOT = {
-						any_buildings_in_location = {
-							building_type = building_type:tv_prosperity_headquarters
-							building_levels_under_construction >= 1
-						}
+			capital ?= {
+				owner ?= scope:tv_io_establishment_ai_actor
+				is_capital = yes
+				location_and_owner_can_build = { building_type = building_type:tv_prosperity_headquarters }
+				NOT = { has_building = building_type:tv_prosperity_headquarters }
+				NOT = {
+					any_buildings_in_location = {
+						building_type = building_type:tv_prosperity_headquarters
+						building_levels_under_construction >= 1
 					}
 				}
-				construct_building = { building_type = building_type:tv_prosperity_headquarters }
 			}
+		}
+		capital = {
+			construct_building = { building_type = building_type:tv_prosperity_headquarters }
 		}
 	}
 	if = {
@@ -409,23 +405,21 @@ tv_io_establishment_ai_progress_effect = {
 			has_variable = tv_trade_establishment_basic_done
 			NOT = { has_variable = tv_trade_victory_enabled }
 			NOT = { tv_trade_establishment_headquarters_done = yes }
-		}
-		capital = {
-			if = {
-				limit = {
-					owner ?= scope:tv_io_establishment_ai_actor
-					is_capital = yes
-					location_and_owner_can_build = { building_type = building_type:tv_trade_headquarters }
-					NOT = { has_building = building_type:tv_trade_headquarters }
-					NOT = {
-						any_buildings_in_location = {
-							building_type = building_type:tv_trade_headquarters
-							building_levels_under_construction >= 1
-						}
+			capital ?= {
+				owner ?= scope:tv_io_establishment_ai_actor
+				is_capital = yes
+				location_and_owner_can_build = { building_type = building_type:tv_trade_headquarters }
+				NOT = { has_building = building_type:tv_trade_headquarters }
+				NOT = {
+					any_buildings_in_location = {
+						building_type = building_type:tv_trade_headquarters
+						building_levels_under_construction >= 1
 					}
 				}
-				construct_building = { building_type = building_type:tv_trade_headquarters }
 			}
+		}
+		capital = {
+			construct_building = { building_type = building_type:tv_trade_headquarters }
 		}
 	}
 	if = {
@@ -458,23 +452,21 @@ tv_io_establishment_ai_progress_effect = {
 			has_variable = tv_diplomatic_establishment_basic_done
 			NOT = { has_variable = tv_diplomatic_victory_enabled }
 			NOT = { tv_diplomatic_establishment_headquarters_done = yes }
-		}
-		capital = {
-			if = {
-				limit = {
-					owner ?= scope:tv_io_establishment_ai_actor
-					is_capital = yes
-					location_and_owner_can_build = { building_type = building_type:tv_diplomatic_headquarters }
-					NOT = { has_building = building_type:tv_diplomatic_headquarters }
-					NOT = {
-						any_buildings_in_location = {
-							building_type = building_type:tv_diplomatic_headquarters
-							building_levels_under_construction >= 1
-						}
+			capital ?= {
+				owner ?= scope:tv_io_establishment_ai_actor
+				is_capital = yes
+				location_and_owner_can_build = { building_type = building_type:tv_diplomatic_headquarters }
+				NOT = { has_building = building_type:tv_diplomatic_headquarters }
+				NOT = {
+					any_buildings_in_location = {
+						building_type = building_type:tv_diplomatic_headquarters
+						building_levels_under_construction >= 1
 					}
 				}
-				construct_building = { building_type = building_type:tv_diplomatic_headquarters }
 			}
+		}
+		capital = {
+			construct_building = { building_type = building_type:tv_diplomatic_headquarters }
 		}
 	}
 	if = {
@@ -506,23 +498,21 @@ tv_io_establishment_ai_progress_effect = {
 			has_variable = tv_cultural_establishment_basic_done
 			NOT = { has_variable = tv_cultural_victory_enabled }
 			NOT = { tv_cultural_establishment_headquarters_done = yes }
-		}
-		capital = {
-			if = {
-				limit = {
-					owner ?= scope:tv_io_establishment_ai_actor
-					is_capital = yes
-					location_and_owner_can_build = { building_type = building_type:tv_cultural_headquarters }
-					NOT = { has_building = building_type:tv_cultural_headquarters }
-					NOT = {
-						any_buildings_in_location = {
-							building_type = building_type:tv_cultural_headquarters
-							building_levels_under_construction >= 1
-						}
+			capital ?= {
+				owner ?= scope:tv_io_establishment_ai_actor
+				is_capital = yes
+				location_and_owner_can_build = { building_type = building_type:tv_cultural_headquarters }
+				NOT = { has_building = building_type:tv_cultural_headquarters }
+				NOT = {
+					any_buildings_in_location = {
+						building_type = building_type:tv_cultural_headquarters
+						building_levels_under_construction >= 1
 					}
 				}
-				construct_building = { building_type = building_type:tv_cultural_headquarters }
 			}
+		}
+		capital = {
+			construct_building = { building_type = building_type:tv_cultural_headquarters }
 		}
 	}
 	if = {
@@ -559,23 +549,21 @@ tv_io_establishment_ai_progress_effect = {
 			has_variable = tv_science_establishment_basic_done
 			NOT = { has_variable = tv_science_victory_enabled }
 			NOT = { tv_science_establishment_headquarters_done = yes }
-		}
-		capital = {
-			if = {
-				limit = {
-					owner ?= scope:tv_io_establishment_ai_actor
-					is_capital = yes
-					location_and_owner_can_build = { building_type = building_type:tv_science_headquarters }
-					NOT = { has_building = building_type:tv_science_headquarters }
-					NOT = {
-						any_buildings_in_location = {
-							building_type = building_type:tv_science_headquarters
-							building_levels_under_construction >= 1
-						}
+			capital ?= {
+				owner ?= scope:tv_io_establishment_ai_actor
+				is_capital = yes
+				location_and_owner_can_build = { building_type = building_type:tv_science_headquarters }
+				NOT = { has_building = building_type:tv_science_headquarters }
+				NOT = {
+					any_buildings_in_location = {
+						building_type = building_type:tv_science_headquarters
+						building_levels_under_construction >= 1
 					}
 				}
-				construct_building = { building_type = building_type:tv_science_headquarters }
 			}
+		}
+		capital = {
+			construct_building = { building_type = building_type:tv_science_headquarters }
 		}
 	}
 	if = {

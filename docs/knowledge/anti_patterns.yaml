@@ -996,6 +996,16 @@
   source: "reference_game_files/game/in_game/events/disaster/chinese_crisis_events.txt:306-311 (change_prosperity = root.var:character_ability_prosperity_variable); runtime error.log: common/scripted_effects/tv_engineering_department_effects.txt:2128-2129"
   notes: "A nested location/province scope does not inherit country `var:` reads. If the numeric lives on the country, plain `var:X` inside the location block fetches the location variable store instead and can log 'Failed to fetch variable' / unset-scope errors."
 
+- id: country_capital_link_non_optional_in_trigger
+  pattern: ''
+  detectability: advisory
+  bad: "Country-scoped pulse, iterator, scripted trigger, or effect `limit` uses a direct `capital = { ... }` link, or puts sibling `exists = capital` before it expecting trigger short-circuiting"
+  correction: "Use the optional link form `capital ?= { ... }` for trigger/limit checks. For effects, put `capital ?= { ... }` in the `limit`, and only enter direct `capital = { ... }` in the effect body after that `if` limit passes."
+  category: scope
+  scope: country
+  source: "runtime error.log: common/scripted_triggers/towards_victory_triggers.txt:487, 2026-06-21; reference_game_files/game/in_game/common/generic_actions/religious_factions.txt:1352"
+  notes: "Some countries can have no valid capital object when yearly/monthly refresh effects run. Trigger blocks do not reliably short-circuit sibling lines, so `exists = capital` beside `capital = { ... }` still allows the direct link to be evaluated and can log `Event target link 'capital' returned an invalid object`."
+
 - id: random_list_inside_random
   pattern: 'random\s*=\s*\{[^}]*random_list'
   bad: "random = { chance = X random_list = { ... } } — nesting random_list as a child of random"

@@ -25,12 +25,17 @@ Load this card before editing `common/on_action/` files or adding monthly/yearly
    On_action callbacks often run from global, country, character, or situation roots. Capture
    needed values with `save_scope_as` or local variables before entering iterators.
 
-5. Do not assume UI tooltip semantics.
+5. Guard nullable country links in broad pulses.
+   Monthly/yearly country refreshes can touch countries without a valid capital. In trigger
+   or `limit` checks, use `capital ?= { ... }`; do not rely on a sibling
+   `exists = capital` line to short-circuit a later direct `capital = { ... }`.
+
+6. Do not assume UI tooltip semantics.
    On_action effects are execution-time, but events they fire can expose option tooltips. If an
    event option reads state written earlier in the same visible chain, use `hidden_effect` or
    optional reads.
 
-6. Keep death cleanup idempotent.
+7. Keep death cleanup idempotent.
    Character/ruler death hooks can fire after variables or lists were already cleaned up by
    another path. Use optional scope links and list removal helpers that tolerate absent entries.
 

@@ -484,7 +484,7 @@ tv_conquest_establishment_basic_done = {
 tv_conquest_establishment_headquarters_done = {
 	custom_tooltip = {
 		text = TV_CONQUEST_ESTABLISHMENT_STEP2_DONE_TT
-		capital = { has_building = building_type:tv_conquest_headquarters }
+		capital ?= { has_building = building_type:tv_conquest_headquarters }
 	}
 }
 
@@ -527,7 +527,7 @@ tv_prosperity_establishment_basic_done = {
 tv_prosperity_establishment_headquarters_done = {
 	custom_tooltip = {
 		text = TV_PROSPERITY_ESTABLISHMENT_STEP2_DONE_TT
-		capital = { has_building = building_type:tv_prosperity_headquarters }
+		capital ?= { has_building = building_type:tv_prosperity_headquarters }
 	}
 }
 
@@ -570,7 +570,7 @@ tv_trade_establishment_basic_done = {
 tv_trade_establishment_headquarters_done = {
 	custom_tooltip = {
 		text = TV_TRADE_ESTABLISHMENT_STEP2_DONE_TT
-		capital = { has_building = building_type:tv_trade_headquarters }
+		capital ?= { has_building = building_type:tv_trade_headquarters }
 	}
 }
 
@@ -613,7 +613,7 @@ tv_diplomatic_establishment_basic_done = {
 tv_diplomatic_establishment_headquarters_done = {
 	custom_tooltip = {
 		text = TV_DIPLOMATIC_ESTABLISHMENT_STEP2_DONE_TT
-		capital = { has_building = building_type:tv_diplomatic_headquarters }
+		capital ?= { has_building = building_type:tv_diplomatic_headquarters }
 	}
 }
 
@@ -656,7 +656,7 @@ tv_cultural_establishment_basic_done = {
 tv_cultural_establishment_headquarters_done = {
 	custom_tooltip = {
 		text = TV_CULTURAL_ESTABLISHMENT_STEP2_DONE_TT
-		capital = { has_building = building_type:tv_cultural_headquarters }
+		capital ?= { has_building = building_type:tv_cultural_headquarters }
 	}
 }
 
@@ -699,7 +699,7 @@ tv_science_establishment_basic_done = {
 tv_science_establishment_headquarters_done = {
 	custom_tooltip = {
 		text = TV_SCIENCE_ESTABLISHMENT_STEP2_DONE_TT
-		capital = { has_building = building_type:tv_science_headquarters }
+		capital ?= { has_building = building_type:tv_science_headquarters }
 	}
 }
 

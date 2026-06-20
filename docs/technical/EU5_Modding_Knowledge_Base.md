@@ -748,6 +748,12 @@ var:tv_wonder_site ?= {
 }
 ```
 
+When country-scoped logic can run for broad country sets, `capital = { ... }` also needs a
+nullable-link guard before the scope switch. In trigger or `limit` checks, use
+`capital ?= { ... }`; do not put `exists = capital` beside a later direct `capital = { ... }`
+and expect short-circuiting. Countries without a valid capital can otherwise log
+`Event target link 'capital' returned an invalid object`.
+
 For effect iterators, capture the number before switching scope and use the local variable inside the iterator:
 
 ```pdx
