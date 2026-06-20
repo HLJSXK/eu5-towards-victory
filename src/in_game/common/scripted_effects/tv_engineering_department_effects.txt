@@ -1699,15 +1699,15 @@ tv_wonder_monthly_survey_event_roll_effect = {
 		var:tv_wonder_survey_site ?= { save_scope_as = tv_wonder_event_location }
 	}
 	set_variable = { name = tv_wonder_survey_event_roll value = { integer_range = { min = 1 max = 100 } } }
-	if = { limit = { var:tv_wonder_survey_event_roll = 1 } trigger_event_non_silently = { id = tv_engineering_department.310 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 2 } trigger_event_non_silently = { id = tv_engineering_department.311 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 3 } trigger_event_non_silently = { id = tv_engineering_department.312 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 4 } trigger_event_non_silently = { id = tv_engineering_department.313 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 5 } trigger_event_non_silently = { id = tv_engineering_department.314 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 6 } trigger_event_non_silently = { id = tv_engineering_department.315 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 7 } trigger_event_non_silently = { id = tv_engineering_department.320 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 8 } trigger_event_non_silently = { id = tv_engineering_department.321 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 9 } trigger_event_non_silently = { id = tv_engineering_department.322 } }
+	if = { limit = { var:tv_wonder_survey_event_roll = 1 } trigger_event_non_silently = { id = tv_engineering_department.310 days = 1 } }
+	else_if = { limit = { var:tv_wonder_survey_event_roll = 2 } trigger_event_non_silently = { id = tv_engineering_department.311 days = 1 } }
+	else_if = { limit = { var:tv_wonder_survey_event_roll = 3 } trigger_event_non_silently = { id = tv_engineering_department.312 days = 1 } }
+	else_if = { limit = { var:tv_wonder_survey_event_roll = 4 } trigger_event_non_silently = { id = tv_engineering_department.313 days = 1 } }
+	else_if = { limit = { var:tv_wonder_survey_event_roll = 5 } trigger_event_non_silently = { id = tv_engineering_department.314 days = 1 } }
+	else_if = { limit = { var:tv_wonder_survey_event_roll = 6 } trigger_event_non_silently = { id = tv_engineering_department.315 days = 1 } }
+	else_if = { limit = { var:tv_wonder_survey_event_roll = 7 } trigger_event_non_silently = { id = tv_engineering_department.320 days = 1 } }
+	else_if = { limit = { var:tv_wonder_survey_event_roll = 8 } trigger_event_non_silently = { id = tv_engineering_department.321 days = 1 } }
+	else_if = { limit = { var:tv_wonder_survey_event_roll = 9 } trigger_event_non_silently = { id = tv_engineering_department.322 days = 1 } }
 	remove_variable = tv_wonder_survey_event_roll
 }
 
@@ -1829,23 +1829,23 @@ tv_wonder_after_unit_completed_effect = {
 	tv_wonder_update_wonder_level_effect = yes
 	if = {
 		limit = { var:tv_wonder_level > var:tv_wonder_previous_level }
-		trigger_event_non_silently = { id = tv_engineering_department.201 }
+		trigger_event_non_silently = { id = tv_engineering_department.201 days = 1 }
 	}
 	else = {
 		if = {
 			limit = { var:tv_wonder_last_completed_part ?= 2 }
-			trigger_event_non_silently = { id = tv_engineering_department.204 }
+			trigger_event_non_silently = { id = tv_engineering_department.204 days = 1 }
 		}
 		else_if = {
 			limit = { var:tv_wonder_last_completed_part ?= 3 }
-			trigger_event_non_silently = { id = tv_engineering_department.205 }
+			trigger_event_non_silently = { id = tv_engineering_department.205 days = 1 }
 		}
 		else_if = {
 			limit = { var:tv_wonder_last_completed_part ?= 4 }
-			trigger_event_non_silently = { id = tv_engineering_department.206 }
+			trigger_event_non_silently = { id = tv_engineering_department.206 days = 1 }
 		}
 		else = {
-			trigger_event_non_silently = { id = tv_engineering_department.200 }
+			trigger_event_non_silently = { id = tv_engineering_department.200 days = 1 }
 		}
 	}
 }
@@ -1963,7 +1963,7 @@ tv_wonder_finish_construction_effect = {
 		tv_wonder_destroy_labor_camp_effect = yes
 		tv_change_wonder_domestic_support_effect = { value = 20 }
 		tv_wonder_initialize_ceremony_runtime_state_effect = yes
-		trigger_event_non_silently = { id = tv_engineering_department.202 }
+		trigger_event_non_silently = { id = tv_engineering_department.202 days = 1 }
 	}
 }
 

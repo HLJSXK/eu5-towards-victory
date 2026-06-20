@@ -6,6 +6,8 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+import yaml
+
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
@@ -26,6 +28,8 @@ from wonder_mechanics_lib import (
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_finalization_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py"
+DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml"
+PULSE_REGISTRY = REPO_ROOT / "data" / "pulse_registry.yaml"
 T = "\t"
 
 def building_type_ref(building: str) -> str:
@@ -56,6 +60,15 @@ def append_store_final_building_level(lines: list[str], building: str, level: st
         f"key = {building_type} value = {level} }}"
     )
     lines.append(f"{prefix}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
+
+
+def monthly_country_pulse_event_delay_days() -> int:
+    registry = yaml.safe_load(PULSE_REGISTRY.read_text(encoding="utf-8")) or {}
+    return int(registry.get("settings", {}).get("monthly_country_pulse_event_delay_days", 1))
+
+
+def monthly_country_pulse_event(event_id: str) -> str:
+    return f"trigger_event_non_silently = {{ id = {event_id} days = {monthly_country_pulse_event_delay_days()} }}"
 
 
 def append_hidden_event_trigger_effect(lines: list[str]) -> None:
@@ -158,7 +171,7 @@ def append_trigger_event_dispatch_effect(lines: list[str], wonders: list[dict]) 
         first = False
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.{finalization_event_id(wonder)} }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event(f'tv_engineering_department.{finalization_event_id(wonder)}')}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -259,7 +272,7 @@ def append_hidden_effect(lines: list[str], wonder: dict, style: int) -> None:
 
 def generate() -> str:
     wonders, _mechanics = load_all_wonder_mechanics()
-    lines = render_header(SCRIPT_REL)
+    lines = render_header(SCRIPT_REL, DATA_REL)
     append_hidden_event_trigger_effect(lines)
     append_hidden_event_execute_effect(lines, wonders)
     append_trigger_event_dispatch_effect(lines, wonders)

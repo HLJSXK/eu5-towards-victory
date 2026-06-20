@@ -94,9 +94,9 @@ tv_govhouse_loyalty_monthly_pulse = {
 				95 = {}
 				5 = {
 					random_list = {
-						1 = { trigger_event_non_silently = { id = tv_grand_general.9 } }
-						1 = { trigger_event_non_silently = { id = tv_grand_general.10 } }
-						1 = { trigger_event_non_silently = { id = tv_grand_general.11 } }
+						1 = { trigger_event_non_silently = { id = tv_grand_general.9 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_grand_general.10 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_grand_general.11 days = 1 } }
 					}
 				}
 			}
@@ -135,20 +135,20 @@ tv_govhouse_negative_monthly_pulse = {
 					}
 					random_list = {
 						295 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.30 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.31 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.32 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.33 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.34 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.30 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.31 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.32 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.33 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.34 days = 1 } }
 					}
 				}
 				else = {
 					random_list = {
 						296 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.30 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.31 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.32 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.33 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.30 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.31 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.32 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.33 days = 1 } }
 					}
 				}
 			}
@@ -168,23 +168,23 @@ tv_govhouse_negative_monthly_pulse = {
 					}
 					random_list = {
 						294 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.24 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.25 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.24 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.25 days = 1 } }
 					}
 				}
 				else_if = {
 					limit = { any_work_of_art_in_country = { always = yes } }
 					random_list = {
 						295 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.24 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.24 days = 1 } }
 					}
 				}
 				else_if = {
@@ -194,30 +194,30 @@ tv_govhouse_negative_monthly_pulse = {
 					}
 					random_list = {
 						295 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.25 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.25 days = 1 } }
 					}
 				}
 				else = {
 					random_list = {
 						296 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 days = 1 } }
 					}
 				}
 			}
 			else = {
 				random_list = {
 					296 = {}
-					1 = { trigger_event_non_silently = { id = tv_govhouse.10 } }
-					1 = { trigger_event_non_silently = { id = tv_govhouse.11 } }
-					1 = { trigger_event_non_silently = { id = tv_govhouse.12 } }
-					1 = { trigger_event_non_silently = { id = tv_govhouse.13 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.10 days = 1 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.11 days = 1 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.12 days = 1 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.13 days = 1 } }
 				}
 			}
 		}
@@ -247,6 +247,7 @@ tv_govhouse_governor_events_monthly_pulse = {
 		}
 	}
 	random_events = {
+		delay = { days = 1 }
 		180 = 0
 		1 = tv_govhouse.100
 		1 = tv_govhouse.101

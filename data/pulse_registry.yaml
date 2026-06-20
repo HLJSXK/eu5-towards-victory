@@ -2,8 +2,16 @@
 # Maps EU5 singleton pulse on_action names to TV mod custom named on_actions
 # that should be injected into their on_actions = {} blocks.
 #
+# Monthly country pulse event rule:
+# Any TV event whose conditions are checked from monthly_country_pulse must be
+# fired with a one-day delay. Direct trigger_event_* calls use days = 1; native
+# on_action events/random_events blocks use delay = { days = 1 } before event ids.
+#
 # To add a new feature hook: append its named on_action here, then re-run:
 #   conda run --no-capture-output -n eu5 python scripts/in_game/common/on_action/gen_tv_pulse_registry.py
+
+settings:
+  monthly_country_pulse_event_delay_days: 1
 
 pulses:
   monthly_country_pulse:

@@ -4,6 +4,8 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+import yaml
+
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
@@ -40,6 +42,8 @@ from wonder_mechanics_lib import (
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_mechanics_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py"
+DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml"
+PULSE_REGISTRY = REPO_ROOT / "data" / "pulse_registry.yaml"
 T = "\t"
 DISPLAY_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
@@ -113,6 +117,17 @@ HAGIA_STEP_ATTRIBUTE = {
     7: "add_mil",
     8: "add_mil",
 }
+
+
+def monthly_country_pulse_event_delay_days() -> int:
+    registry = yaml.safe_load(PULSE_REGISTRY.read_text(encoding="utf-8")) or {}
+    return int(registry.get("settings", {}).get("monthly_country_pulse_event_delay_days", 1))
+
+
+def monthly_country_pulse_event(event_id: str) -> str:
+    return f"trigger_event_non_silently = {{ id = {event_id} days = {monthly_country_pulse_event_delay_days()} }}"
+
+
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
     "topography_plateau": "topography = plateau",
@@ -576,21 +591,21 @@ def append_pharos_effects(lines: list[str]) -> None:
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_controlled_trigger = yes")
         lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7305 }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.7305')}")
         lines.append(f"{T}}}")
         lines.append(f"{T}else_if = {{")
         lines.append(f"{T}{T}limit = {{")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_basing_trigger = yes")
         lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7306 }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.7306')}")
         lines.append(f"{T}}}")
         lines.append(f"{T}else_if = {{")
         lines.append(f"{T}{T}limit = {{")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_has_owner_trigger = yes")
         lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7307 }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.7307')}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -627,7 +642,7 @@ def append_pharos_effects(lines: list[str]) -> None:
     lines.append(f"{T}{T}{T}NOT = {{ has_variable = tv_wonder_pharos_routes_complete }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_pharos_routes_complete_pending_event value = 1 }}")
-    lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7308 }}")
+    lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.7308')}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -827,7 +842,7 @@ def append_hagia_effects(lines: list[str]) -> None:
         if step == 6:
             lines.append(f"{T}{T}tv_wonder_hagia_roll_step_6_cost_effect = yes")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_pending_event value = {step} }}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.{6300 + step} }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event(f'tv_engineering_department.{6300 + step}')}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -842,7 +857,7 @@ def append_hagia_effects(lines: list[str]) -> None:
     lines.append(f"{T}{T}{T}{T}NOT = {{ has_variable = tv_wonder_hagia_pending_event }}")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_hagia_pending_event value = 8 }}")
-    lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.6308 }}")
+    lines.append(f"{T}{T}{T}{monthly_country_pulse_event('tv_engineering_department.6308')}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}else_if = {{")
     lines.append(f"{T}{T}{T}limit = {{")
@@ -1961,7 +1976,7 @@ def generate() -> str:
     by_key = all_wonders_by_key(all_wonders)
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
-    lines = render_header(SCRIPT_REL)
+    lines = render_header(SCRIPT_REL, DATA_REL)
     append_display_modifier_reference_effect(lines, all_wonders)
 
     lines.append("tv_wonder_mechanics_clear_feasible_deck_effect = {")
@@ -2090,7 +2105,7 @@ def generate() -> str:
     lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_survey_competence_average add = var:tv_wonder_logistics_competence }}")
     lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_survey_competence_average add = var:tv_wonder_organization_competence }}")
     lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_survey_competence_average divide = 3 }}")
-    lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.300 }}")
+    lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.300')}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

@@ -47,57 +47,57 @@ tv_leaderboard_monthly_pulse = {
 							# ── Unremarkable +0.1 ──────────────────────────────────────
 							40 = {
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.101 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.101 days = 1 }
 								}
 							}
 							# ── Great Success +0.5 (skill-boosted) ─────────────────────
 							15 = {
 								trigger = { artist_skill < 0.5 }
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.102 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.102 days = 1 }
 								}
 							}
 							25 = {
 								trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.102 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.102 days = 1 }
 								}
 							}
 							40 = {
 								trigger = { artist_skill >= 0.7 }
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.102 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.102 days = 1 }
 								}
 							}
 							# ── Terrible −0.1 (skill-reduced) ──────────────────────────
 							30 = {
 								trigger = { artist_skill < 0.5 }
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.103 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.103 days = 1 }
 								}
 							}
 							15 = {
 								trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.103 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.103 days = 1 }
 								}
 							}
 							5 = {
 								trigger = { artist_skill >= 0.7 }
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.103 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.103 days = 1 }
 								}
 							}
 							# ── Artist Hired +1.0, stays permanently ───────────────────
 							5 = {
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.104 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.104 days = 1 }
 								}
 							}
 							# ── Inspiration: +10% artist_skill_level_gain for 10 years ─
 							10 = {
 								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.105 }
+									trigger_event_non_silently = { id = tv_arts_exhibition.105 days = 1 }
 								}
 							}
 						}
@@ -117,7 +117,7 @@ tv_leaderboard_monthly_pulse = {
 						1 = {
 							set_variable = { name = tv_tour_event_1_fired value = 1 }
 							scope:touring_home = {
-								trigger_event_non_silently = { id = tv_arts_exhibition.201 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.201 days = 1 }
 							}
 						}
 					}
@@ -136,7 +136,7 @@ tv_leaderboard_monthly_pulse = {
 						1 = {
 							set_variable = { name = tv_tour_event_2_fired value = 1 }
 							scope:touring_home = {
-								trigger_event_non_silently = { id = tv_arts_exhibition.202 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.202 days = 1 }
 							}
 						}
 					}
@@ -155,7 +155,7 @@ tv_leaderboard_monthly_pulse = {
 						1 = {
 							set_variable = { name = tv_tour_event_3_fired value = 1 }
 							scope:touring_home = {
-								trigger_event_non_silently = { id = tv_arts_exhibition.203 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.203 days = 1 }
 							}
 						}
 					}
@@ -177,7 +177,7 @@ tv_leaderboard_monthly_pulse = {
 						1 = {
 							set_variable = { name = tv_tour_event_4_fired value = 1 }
 							scope:touring_home = {
-								trigger_event_non_silently = { id = tv_arts_exhibition.204 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.204 days = 1 }
 							}
 						}
 					}
@@ -199,7 +199,7 @@ tv_leaderboard_monthly_pulse = {
 						1 = {
 							set_variable = { name = tv_tour_event_5_fired value = 1 }
 							var:tv_exhibition_home_country ?= {
-								trigger_event_non_silently = { id = tv_arts_exhibition.205 }
+								trigger_event_non_silently = { id = tv_arts_exhibition.205 days = 1 }
 							}
 						}
 					}
@@ -289,7 +289,7 @@ tv_leaderboard_monthly_pulse = {
 			# Detect natural death of patient
 			if = {
 				limit = { NOT = { var:tv_med_target_char ?= { is_alive = yes } } }
-				trigger_event_non_silently = { id = tv_medicine.4 }
+				trigger_event_non_silently = { id = tv_medicine.4 days = 1 }
 				tv_med_cleanup_effect = yes
 			}
 			# Patient alive: accumulate progress and check completion
@@ -331,7 +331,7 @@ tv_leaderboard_monthly_pulse = {
 			# Detect natural death of meditation target.
 			if = {
 				limit = { NOT = { var:tv_meditation_target_char ?= { is_alive = yes } } }
-				trigger_event_non_silently = { id = tv_medicine.21 }
+				trigger_event_non_silently = { id = tv_medicine.21 days = 1 }
 				tv_meditation_cleanup_effect = yes
 			}
 			# Target alive: accumulate progress using the same monthly rate as treatment.

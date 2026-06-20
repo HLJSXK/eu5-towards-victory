@@ -950,6 +950,26 @@ tv_example_on_war_declared = {
 
 For singleton pulse files that are copied from vanilla, use the pulse registry generator rather than hand-editing the generated output.
 
+#### Monthly Country Pulse Event Delay
+
+When `country_monthly_pulse` checks the conditions for a player-facing event, fire that event one day later. The delay separates monthly condition scanning from event execution. Direct scripted-effect/on_action event fires use:
+
+```txt
+trigger_event_non_silently = { id = tv_example.1 days = 1 }
+```
+
+Native on_action `events` and `random_events` blocks use a delay entry before the event ids:
+
+```txt
+random_events = {
+    chance_to_happen = 10
+    delay = { days = 1 }
+    1 = tv_example.1
+}
+```
+
+`on_actions.info` documents `delay = { days = ... }` for event/on_action firing entries, and vanilla/reference scripted effects use `days = 1` inside `trigger_event_*` object forms. In Towards Victory, the configured value is `settings.monthly_country_pulse_event_delay_days` in `data/pulse_registry.yaml`, and `scripts/validate.py` walks registered monthly pulse callbacks plus TV helper calls to enforce the rule.
+
 #### Scripted Effects That Change IO Variables
 
 If a reusable `scripted_effect` changes an International Organization type variable and callers need to show the gain/loss in their option or action tooltip, do not leave the IO-scope `change_variable` bare inside the helper. Wrap the real effect in `custom_description` and register that `text` key under `in_game/common/effect_localization/`.

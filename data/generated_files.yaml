@@ -13,59 +13,59 @@ generated:
 
   # ── gen_victory.py (multi-output exception) ─────────────────────────────────
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_triggers/towards_victory_triggers.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/towards_victory_effects.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/static_modifiers/towards_victory_modifiers.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/situations/towards_victory_situations.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/on_action/towards_victory_yearly.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_conquest_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_prosperity_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_trade_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_diplomatic_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_cultural_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_science_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/tv_io_establishment_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/main_menu/localization/english/towards_victory_l_english.yml
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/main_menu/localization/simp_chinese/towards_victory_l_simp_chinese.yml
 
   # ── 1:1 feature generators ───────────────────────────────────────────────────
@@ -206,11 +206,11 @@ generated:
     output: src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py
-    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_construction_event_effects.py
-    data:   data/wonder_construction_events.yaml
+    data:   data/wonder_construction_events.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_construction_event_effects.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py
@@ -230,7 +230,7 @@ generated:
     output: src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py
-    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml
+    data:   data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/tv_engineering_department_wonder_mechanics_effects.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_ownership_effects.py

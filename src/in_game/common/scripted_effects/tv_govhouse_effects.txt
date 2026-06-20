@@ -597,10 +597,10 @@ tv_training_resolve_effect = {
 			49 = {
 				if = {
 					limit = { var:tv_conquest_general_char ?= { mil >= 100 } }
-					trigger_event_non_silently = { id = tv_grand_general.2 }
+					trigger_event_non_silently = { id = tv_grand_general.2 days = 1 }
 				}
 				else = {
-					trigger_event_non_silently = { id = tv_grand_general.1 }
+					trigger_event_non_silently = { id = tv_grand_general.1 days = 1 }
 				}
 			}
 			49 = {
@@ -616,27 +616,27 @@ tv_training_resolve_effect = {
 					}
 					if = {
 						limit = { var:tv_conquest_general_char ?= { mil >= 100 } }
-						trigger_event_non_silently = { id = tv_grand_general.5 }
+						trigger_event_non_silently = { id = tv_grand_general.5 days = 1 }
 					}
 					else = {
-						trigger_event_non_silently = { id = tv_grand_general.4 }
+						trigger_event_non_silently = { id = tv_grand_general.4 days = 1 }
 					}
 				}
 				else = {
-					trigger_event_non_silently = { id = tv_grand_general.3 }
+					trigger_event_non_silently = { id = tv_grand_general.3 days = 1 }
 				}
 			}
 			1 = {
 				if = {
 					limit = { var:tv_conquest_general_char ?= { has_trait = tv_gg_injured } }
-					trigger_event_non_silently = { id = tv_grand_general.7 }
+					trigger_event_non_silently = { id = tv_grand_general.7 days = 1 }
 				}
 				else = {
-					trigger_event_non_silently = { id = tv_grand_general.6 }
+					trigger_event_non_silently = { id = tv_grand_general.6 days = 1 }
 				}
 			}
 			1 = {
-				trigger_event_non_silently = { id = tv_grand_general.8 }
+				trigger_event_non_silently = { id = tv_grand_general.8 days = 1 }
 			}
 		}
 	}
@@ -1330,7 +1330,7 @@ tv_govhouse_propose_pending_tactic_effect = {
 	tv_govhouse_pick_pending_tactic_effect = yes
 	if = {
 		limit = { has_variable = tv_govhouse_pending_tactic }
-		trigger_event_non_silently = { id = tv_govhouse.40 }
+		trigger_event_non_silently = { id = tv_govhouse.40 days = 1 }
 	}
 }
 
@@ -1338,7 +1338,7 @@ tv_govhouse_propose_pending_tactic_change_effect = {
 	tv_govhouse_pick_pending_tactic_effect = yes
 	if = {
 		limit = { has_variable = tv_govhouse_pending_tactic }
-		trigger_event_non_silently = { id = tv_govhouse.44 }
+		trigger_event_non_silently = { id = tv_govhouse.44 days = 1 }
 	}
 }
 
@@ -1512,7 +1512,7 @@ tv_govhouse_update_plan_progress_effect = {
 			if = {
 				limit = { exists = scope:tv_govhouse_plan_cb_target }
 				set_variable = { name = tv_govhouse_plan_cb_granted value = 1 }
-				trigger_event_non_silently = { id = tv_govhouse.43 }
+				trigger_event_non_silently = { id = tv_govhouse.43 days = 1 }
 			}
 		}
 	}
