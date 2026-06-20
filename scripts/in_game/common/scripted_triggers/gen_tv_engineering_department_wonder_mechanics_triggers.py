@@ -55,6 +55,13 @@ def building_or_block(buildings: list[str], indent: int) -> list[str]:
     return lines
 
 
+def country_fresh_uniqueness_conditions(wonder: dict, indent: int) -> list[str]:
+    if wonder["size"] == "small":
+        return []
+    prefix = T * indent
+    return [f"{prefix}NOT = {{ tv_wonder_country_has_{wonder['key']}_project_or_final_trigger = yes }}"]
+
+
 def intermediate_buildings(wonder: dict) -> list[str]:
     key = wonder["key"]
     return [f"tv_wonder_{key}", *[f"tv_wonder_{key}_{part}" for part in PARTS]]
@@ -136,6 +143,69 @@ def host_site_candidate_conditions(wonder: dict, mechanics: dict, indent: int) -
     return lines
 
 
+def owned_fresh_site_candidate_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
+    prefix = T * indent
+    if wonder.get("is_unique"):
+        return [
+            f"{prefix}owns = location:{wonder['location']}",
+            f"{prefix}location:{wonder['location']} = {{",
+            *fresh_site_candidate_conditions(wonder, mechanics, indent + 1),
+            f"{prefix}}}",
+        ]
+    return [
+        f"{prefix}any_owned_location = {{",
+        *fresh_site_candidate_conditions(wonder, mechanics, indent + 1),
+        f"{prefix}}}",
+    ]
+
+
+def owned_host_site_candidate_conditions(wonder: dict, indent: int) -> list[str]:
+    prefix = T * indent
+    if wonder.get("is_unique"):
+        return [
+            f"{prefix}owns = location:{wonder['location']}",
+            f"{prefix}location:{wonder['location']} = {{",
+            f"{prefix}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes",
+            f"{prefix}}}",
+        ]
+    return [
+        f"{prefix}any_owned_location = {{",
+        f"{prefix}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes",
+        f"{prefix}}}",
+    ]
+
+
+def owned_expandable_final_site_conditions(wonder: dict, indent: int) -> list[str]:
+    prefix = T * indent
+    if wonder.get("is_unique"):
+        return [
+            f"{prefix}owns = location:{wonder['location']}",
+            f"{prefix}location:{wonder['location']} = {{",
+            f"{prefix}{T}tv_wonder_location_is_valid_priority_final_project_for_{wonder['key']}_trigger = yes",
+            f"{prefix}}}",
+        ]
+    return [
+        f"{prefix}any_owned_location = {{",
+        f"{prefix}{T}tv_wonder_location_is_valid_priority_final_project_for_{wonder['key']}_trigger = yes",
+        f"{prefix}}}",
+    ]
+
+
+def country_can_start_project_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
+    prefix = T * indent
+    if wonder["size"] == "small":
+        return owned_host_site_candidate_conditions(wonder, indent)
+
+    lines = [f"{prefix}OR = {{"]
+    lines.append(f"{prefix}{T}AND = {{")
+    lines.extend(country_fresh_uniqueness_conditions(wonder, indent + 2))
+    lines.extend(owned_fresh_site_candidate_conditions(wonder, mechanics, indent + 2))
+    lines.append(f"{prefix}{T}}}")
+    lines.extend(owned_expandable_final_site_conditions(wonder, indent + 1))
+    lines.append(f"{prefix}}}")
+    return lines
+
+
 def player_visible_site_rule_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
     prefix = T * indent
     if wonder.get("is_unique"):
@@ -188,6 +258,16 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict], mechan
         lines.append(f"{T}OR = {{")
         lines.append(f"{T}{T}tv_wonder_location_is_valid_priority_module_project_for_{key}_trigger = yes")
         lines.append(f"{T}{T}tv_wonder_location_is_valid_priority_final_project_for_{key}_trigger = yes")
+        lines.append(f"{T}}}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_wonder_country_has_{key}_project_or_final_trigger = {{")
+        lines.append(f"{T}any_owned_location = {{")
+        lines.append(f"{T}{T}OR = {{")
+        lines.append(f"{T}{T}{T}tv_wonder_location_has_{key}_intermediate_building_trigger = yes")
+        lines.append(f"{T}{T}{T}tv_wonder_location_has_{key}_final_building_trigger = yes")
+        lines.append(f"{T}{T}}}")
         lines.append(f"{T}}}")
         lines.append("}")
         lines.append("")
@@ -470,27 +550,12 @@ def generate() -> str:
         lines.append("}")
         lines.append("")
         lines.append(f"tv_wonder_can_build_{wonder['key']}_trigger = {{")
-        if wonder.get("is_unique"):
-            lines.append(f"{T}owns = location:{wonder['location']}")
-            lines.append(f"{T}location:{wonder['location']} = {{")
-            lines.extend(fresh_site_candidate_conditions(wonder, mechanics, 2))
-            lines.append(f"{T}}}")
-        else:
-            lines.append(f"{T}any_owned_location = {{")
-            lines.extend(fresh_site_candidate_conditions(wonder, mechanics, 2))
-            lines.append(f"{T}}}")
+        lines.extend(country_fresh_uniqueness_conditions(wonder, 1))
+        lines.extend(owned_fresh_site_candidate_conditions(wonder, mechanics, 1))
         lines.append("}")
         lines.append("")
         lines.append(f"tv_wonder_can_start_project_{wonder['key']}_trigger = {{")
-        if wonder.get("is_unique"):
-            lines.append(f"{T}owns = location:{wonder['location']}")
-            lines.append(f"{T}location:{wonder['location']} = {{")
-            lines.append(f"{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
-            lines.append(f"{T}}}")
-        else:
-            lines.append(f"{T}any_owned_location = {{")
-            lines.append(f"{T}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes")
-            lines.append(f"{T}}}")
+        lines.extend(country_can_start_project_conditions(wonder, mechanics, 1))
         lines.append("}")
         lines.append("")
         lines.append(f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger = {{")

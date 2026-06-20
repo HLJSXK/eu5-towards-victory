@@ -45,6 +45,7 @@ WONDER_RITUAL_LISTENER_KEYS = ["monthly", "ruler_death", "pre_winning_war", "end
 SUPPORTED_RITUAL_LISTENERS = set(WONDER_RITUAL_LISTENER_KEYS)
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
 ENGINE_SCALED_FIXED_MODIFIER_MAX = 0.5
+VALUE_MOVEMENT_MODIFIER_PREFIX = "monthly_towards_"
 ENGINE_SCALED_FIXED_MODIFIERS = {
     "global_pop_assimilation_speed",
     "global_pop_conversion_speed",
@@ -1434,6 +1435,44 @@ def _validate_generated_engine_scaled_fixed_modifiers(wonders: list[dict], mecha
         )
 
 
+def is_value_movement_modifier(modifier_key: str) -> bool:
+    return modifier_key.startswith(VALUE_MOVEMENT_MODIFIER_PREFIX)
+
+
+def _base_country_modifiers_for_rules(wonder: dict, mechanics: dict) -> dict[str, object]:
+    mechanic = _require_string(wonder["mechanic_key"], f"{wonder['key']}.mechanic_key")
+    return mechanics.get("base_modifiers", {}).get(mechanic, {})
+
+
+def validate_wonder_size_base_country_modifier_rules(wonders: list[dict], mechanics: dict) -> None:
+    violations: list[str] = []
+    for wonder in wonders:
+        if wonder["size"] != "small":
+            continue
+        invalid = [
+            key
+            for key in _base_country_modifiers_for_rules(wonder, mechanics)
+            if not is_value_movement_modifier(key)
+        ]
+        if invalid:
+            violations.append(
+                f"{wonder['key']} ({wonder['size']}, base {wonder['base_key']}): {', '.join(sorted(invalid))}"
+            )
+    if violations:
+        raise ValueError(
+            "Small wonders may only use value-movement base country modifiers "
+            f"({VALUE_MOVEMENT_MODIFIER_PREFIX}*). Invalid entries: "
+            + "; ".join(violations)
+        )
+
+
+def validate_unique_wonder_single_site_shape(wonder: dict) -> None:
+    key = wonder["key"]
+    _require_string(wonder.get("location"), f"Unique wonder {key}.location")
+    if ceremony_styles(wonder) != [1]:
+        raise ValueError(f"Unique wonder {key} must currently expose exactly one ceremony style")
+
+
 def load_generic_wonder_mechanics_data() -> tuple[list[dict], dict]:
     wonders, mechanics = load_wonder_data(
         ALL_WONDER_MIN_ID,
@@ -1447,6 +1486,7 @@ def load_generic_wonder_mechanics_data() -> tuple[list[dict], dict]:
         if wonder["key"] not in generic_rituals:
             raise ValueError(f"Missing generic ritual data for {wonder['key']}")
     _validate_generated_engine_scaled_fixed_modifiers(wonders, mechanics)
+    validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     return wonders, mechanics
 
 
@@ -1479,8 +1519,7 @@ def load_unique_wonders() -> list[dict]:
             raise ValueError(f"Unique wonder {key} must keep mechanic_key = {base_key}")
         normalized = deepcopy(merged)
         normalized["ritual"] = normalize_unique_ritual(normalized)
-        if ceremony_styles(normalized) != [1]:
-            raise ValueError(f"Unique wonder {key} must currently expose exactly one ceremony style")
+        validate_unique_wonder_single_site_shape(normalized)
         unique_wonders.append(normalized)
     return unique_wonders
 
@@ -1490,6 +1529,7 @@ def load_all_wonder_mechanics_data(*, include_unique: bool = True) -> tuple[list
     if include_unique:
         wonders.extend(load_unique_wonders())
         _validate_generated_engine_scaled_fixed_modifiers(wonders, mechanics)
+        validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     return wonders, mechanics
 
 
