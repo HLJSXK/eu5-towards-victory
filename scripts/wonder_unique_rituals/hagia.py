@@ -323,7 +323,7 @@ def hagia_step_visible(step: int) -> str:
         [
             active_ritual_visible(),
             hagia_locked_expr(),
-            f"Or({var_is_set(f'tv_wonder_hagia_assignee_{step}')}, {var_is_set(f'tv_wonder_hagia_step_{step}_done')}, {hagia_step_current_visible(step)})",
+            f"Or3({var_is_set(f'tv_wonder_hagia_assignee_{step}')}, {var_is_set(f'tv_wonder_hagia_step_{step}_done')}, {hagia_step_current_visible(step)})",
         ],
     )
 
@@ -376,7 +376,7 @@ def hagia_step_portrait(step: int, indent: int) -> list[str]:
         f"{prefix}{T}action_button_diamond = {{",
         f'{prefix}{T}{T}visible = "[{hagia_step_waiting_visible(step)}]"',
         f"{prefix}{T}{T}size = {{ 64 64 }}",
-        f'{prefix}{T}{T}text = "@characters!"',
+        f'{prefix}{T}{T}raw_text = "@characters!"',
         f'{prefix}{T}{T}title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_{step}"',
         f'{prefix}{T}{T}description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_{step}_DESC"',
         f'{prefix}{T}{T}actor = "[InternationalOrganizationsView.GetPlayer]"',

@@ -1366,6 +1366,17 @@
   source: "runtime error.log: pdx_gui_localize.cpp:302 in tv_engineering_department.gui; fixed in src/main_menu/localization/english/tv_engineering_department_l_english.yml"
   notes: "These support buildings have normal localization keys, not game_concept definitions. In GUI-bound localized text, [tv_wonder_labor_camp|E] is parsed as a data-system function and logs Could not find data system function."
 
+- id: localization_getbuilding_function_invalid
+  detectability: lint
+  pattern: '\[GetBuilding\(''[^'']+''\)\.GetName\]'
+  only_in_paths: ['localization', 'io_establishment.yaml']
+  bad: "Using [GetBuilding('building_key').GetName] inside localization text"
+  correction: "Use the localization helper [ShowBuildingTypeName('building_key')] for building-type display names."
+  category: localization
+  scope: building
+  source: "runtime error.log: pdx_data_factory.cpp failed to find type GetBuilding in IO establishment localization; fixed in data/io_establishment.yaml"
+  notes: "EU5 localization exposes ShowBuildingTypeName/ShowBuildingTypeNameWithNoTooltip helpers for building types. GetBuilding('key').GetName is not a valid localization data function and causes GUI-bound localized text parsing to fail."
+
 - id: generic_action_loc_uses_gui_country_binding
   detectability: advisory
   pattern: ''
