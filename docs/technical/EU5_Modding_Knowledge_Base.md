@@ -675,6 +675,14 @@ such as `tv_governor_remove_effect`.
 
 The `exists = scope:<name>` trigger is the vanilla pattern for this (confirmed in `assign_governor.txt` and `assume_fort_command.txt`). The errors appear in `error.log` as "Undefined event target" or "Failed to fetch variable" but the effect still fires correctly once all selections are complete.
 
+Do not mirror target availability in the action `allow` block just to avoid an empty chooser.
+The `select_trigger` definition already supports `none_available_msg_key`, documented by
+vanilla as the localization shown when no targets are available. Put target eligibility in
+the selector's `visible` / `enabled` blocks, let the chooser report the empty-target state,
+and keep `allow` for actor, state, cost, or phase prerequisites. An `allow` trigger that scans
+for "any valid target" performs the same expensive candidate search before the selector does
+its own pass during rendering, tooltip, and AI/list evaluation.
+
 If a later selector filters on a previous selection, keep it in the same interaction-target
 chooser. A later `select_trigger` with `source = world` can lose access to earlier flags such
 as `scope:target`; when its `visible`/`enabled` block asks for that flag, the engine can show

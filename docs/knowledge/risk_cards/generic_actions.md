@@ -44,27 +44,35 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    tooltip logic reads `scope:target` (or another earlier target flag). Use the inherited
    chooser/source or an explicit `interaction_source_list` instead.
 
-7. Wrap selected numeric values in script-value blocks.
+7. Do not pre-scan selector target availability in `allow`.
+   Do not add an `allow` trigger whose only purpose is "there is at least one selectable
+   target" for a later `select_trigger`. That duplicates the selector's candidate pass on
+   action rendering, tooltip evaluation, and AI/list evaluation. Keep actor/state/resource
+   prerequisites in `allow`, put target eligibility in `select_trigger` `visible`/`enabled`,
+   provide `none_available_msg_key`, and keep the final effect guarded with
+   `exists = scope:target`.
+
+8. Wrap selected numeric values in script-value blocks.
    If a selector result or scoped variable is stored or passed to a numeric effect parameter,
    use `value = { value = scope:target_1 }`, `scale = { value = scope:io.var:X }`, or
    `amount = { value = scope:io.var:X }`. Direct dynamic reads in these slots can collapse
    to `1` at runtime.
 
-8. Preserve requested map/id-flow refactors.
+9. Preserve requested map/id-flow refactors.
    If a generic-action pre-evaluation bug appears inside a `variable_map` helper, do not replace
    map key iteration or `random_key_in_variable_map` with generated per-id branches. Save the
    current owner scope before the map callback and write back through that named scope.
 
-9. Run sibling map reads from the saved owner scope inside key iterators.
+10. Run sibling map reads from the saved owner scope inside key iterators.
    In `every_key_in_variable_map` / `ordered_key_in_variable_map`, the callback scope may be
    the numeric key itself. Copy `this` into a `local_var`, then run `is_key_in_variable_map`
    and country-variable reads inside `scope:<saved_owner>` with `target = local_var:<key>`.
 
-10. Do not use inflated `ordered_key_in_variable_map` max values.
+11. Do not use inflated `ordered_key_in_variable_map` max values.
    The engine logs an error when `max` is larger than the current key list. Use
    `every_key_in_variable_map` with a found flag when the live key count is not known.
 
-11. Keep action title/description localization safe under contextless prefetch.
+12. Keep action title/description localization safe under contextless prefetch.
    Generic action title/description localization can be fetched without a GUI datacontext and
    without a script-scope container, even when the real hover later renders correctly. Do not put
    datacontext-dependent `Country.MakeScope` or container-dependent `SCOPE.sCountry('actor')`
@@ -73,7 +81,7 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    a GUI widget/tooltip with an explicit datacontext when it needs non-player scopes.
    Do not "fix" this class by deleting the dynamic tooltip.
 
-11. Register the action outside the action file.
+13. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -92,6 +100,7 @@ tv_example_action = {
 		looking_for_a = character
 		source = actor
 		target_flag = target
+		none_available_msg_key = "tv_example_no_character_available"
 		visible = { is_alive = yes }
 	}
 	effect = {
@@ -127,6 +136,9 @@ rationale.
 - `select_trigger_world_source_reads_previous_target` [needs_parser]: A later selector with
   `source = world` cannot safely read `scope:target` from an earlier selector; omit `source`,
   use a non-world source, or provide an `interaction_source_list`.
+- `generic_action_allow_rechecks_select_target_availability` [advisory]: Do not repeat
+  "has at least one selectable target" scans in `allow`; rely on `select_trigger`
+  `visible`/`enabled` plus `none_available_msg_key` and final `exists = scope:target` guards.
 - `generic_action_hidden_effect_not_hover_boundary` [advisory]: A `hidden_effect` inside a
   generic action can still be evaluated while a select-trigger candidate is merely hovered; make
   helper reads safe with optional variable links or persistent-state guards.

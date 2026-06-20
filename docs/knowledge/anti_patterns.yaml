@@ -913,6 +913,17 @@
   source: "src/in_game/common/generic_actions/tv_trade_league_actions.txt (Trade League embargo country selector fix, 2026-05); reference_game_files/game/in_game/common/country_interactions/force_embargo.txt:33-36"
   notes: "Trade League embargo selected a market, then opened a country selector with source = world and filtered countries by any_owned_location = { market = scope:target }. The selector showed no countries and logged 'Asking for a flag that's not in the interaction target chooser specified'. Removing source = world kept the later selector in the same interaction-target chooser so scope:target remained available."
 
+- id: generic_action_allow_rechecks_select_target_availability
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['generic_actions']
+  bad: "A generic action allow block calls a has-any-valid-target trigger solely to prevent opening an empty select_trigger chooser"
+  correction: "Do not duplicate selector candidate scans in allow. Keep allow for actor/state/resource prerequisites, put target eligibility in select_trigger visible/enabled, provide none_available_msg_key for an empty chooser, and keep the final effect guarded with exists = scope:target."
+  category: performance
+  scope: generic_actions
+  source: "reference_game_files/game/in_game/common/generic_actions/readme.txt:43-44; project performance rule, 2026-06-20"
+  notes: "EU5 already handles a select_trigger with no selectable targets by showing the none_available_msg_key and blocking completion of that selection step. Repeating the same any-target scan in allow charges action rendering, tooltip evaluation, and AI/list evaluation before the chooser performs its own candidate pass."
+
 - id: io_link_invalid_same_tick_creation
   pattern: ''
   bad: "international_organization:type_key used in the same effect call that creates the IO via create_international_organization"
