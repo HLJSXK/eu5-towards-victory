@@ -159,53 +159,6 @@ def owned_fresh_site_candidate_conditions(wonder: dict, mechanics: dict, indent:
     ]
 
 
-def owned_host_site_candidate_conditions(wonder: dict, indent: int) -> list[str]:
-    prefix = T * indent
-    if wonder.get("is_unique"):
-        return [
-            f"{prefix}owns = location:{wonder['location']}",
-            f"{prefix}location:{wonder['location']} = {{",
-            f"{prefix}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes",
-            f"{prefix}}}",
-        ]
-    return [
-        f"{prefix}any_owned_location = {{",
-        f"{prefix}{T}tv_wonder_location_can_host_{wonder['key']}_trigger = yes",
-        f"{prefix}}}",
-    ]
-
-
-def owned_expandable_final_site_conditions(wonder: dict, indent: int) -> list[str]:
-    prefix = T * indent
-    if wonder.get("is_unique"):
-        return [
-            f"{prefix}owns = location:{wonder['location']}",
-            f"{prefix}location:{wonder['location']} = {{",
-            f"{prefix}{T}tv_wonder_location_is_valid_priority_final_project_for_{wonder['key']}_trigger = yes",
-            f"{prefix}}}",
-        ]
-    return [
-        f"{prefix}any_owned_location = {{",
-        f"{prefix}{T}tv_wonder_location_is_valid_priority_final_project_for_{wonder['key']}_trigger = yes",
-        f"{prefix}}}",
-    ]
-
-
-def country_can_start_project_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
-    prefix = T * indent
-    if wonder["size"] == "small":
-        return owned_host_site_candidate_conditions(wonder, indent)
-
-    lines = [f"{prefix}OR = {{"]
-    lines.append(f"{prefix}{T}AND = {{")
-    lines.extend(country_fresh_uniqueness_conditions(wonder, indent + 2))
-    lines.extend(owned_fresh_site_candidate_conditions(wonder, mechanics, indent + 2))
-    lines.append(f"{prefix}{T}}}")
-    lines.extend(owned_expandable_final_site_conditions(wonder, indent + 1))
-    lines.append(f"{prefix}}}")
-    return lines
-
-
 def player_visible_site_rule_conditions(wonder: dict, mechanics: dict, indent: int) -> list[str]:
     prefix = T * indent
     if wonder.get("is_unique"):
@@ -392,13 +345,6 @@ def append_id_dispatch_trigger(
 def append_site_rule_dispatch_triggers(lines: list[str], wonders: list[dict]) -> None:
     append_id_dispatch_trigger(
         lines,
-        "tv_wonder_site_rule_can_build_locked_wonder_trigger",
-        wonders,
-        limit_line=lambda wonder: f"var:tv_wonder_locked ?= {wonder['id']}",
-        target_line=lambda wonder: f"tv_wonder_can_start_project_{wonder['key']}_trigger = yes",
-    )
-    append_id_dispatch_trigger(
-        lines,
         "tv_wonder_site_rule_player_visible_locked_wonder_trigger",
         wonders,
         limit_line=lambda wonder: f"var:tv_wonder_locked ?= {wonder['id']}",
@@ -554,10 +500,6 @@ def generate() -> str:
         lines.extend(owned_fresh_site_candidate_conditions(wonder, mechanics, 1))
         lines.append("}")
         lines.append("")
-        lines.append(f"tv_wonder_can_start_project_{wonder['key']}_trigger = {{")
-        lines.extend(country_can_start_project_conditions(wonder, mechanics, 1))
-        lines.append("}")
-        lines.append("")
         lines.append(f"tv_wonder_player_visible_site_rules_{wonder['key']}_trigger = {{")
         lines.extend(player_visible_site_rule_conditions(wonder, mechanics, 1))
         lines.append("}")
@@ -584,11 +526,6 @@ def generate() -> str:
     append_site_rule_dispatch_triggers(lines, all_wonders)
     append_pharos_triggers(lines)
     append_hagia_triggers(lines)
-
-    lines.append("tv_wonder_mechanics_has_valid_site_candidate_trigger = {")
-    lines.append(f"{T}tv_wonder_site_rule_can_build_locked_wonder_trigger = yes")
-    lines.append("}")
-    lines.append("")
 
     lines.append("tv_wonder_selected_survey_already_cached_trigger = {")
     lines.append(f"{T}has_variable = tv_wonder_locked")

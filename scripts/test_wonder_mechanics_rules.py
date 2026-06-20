@@ -60,6 +60,10 @@ def extract_trigger_block(script: str, name: str) -> str:
 
 def validate_generated_trigger_scope_layers(wonders: list[dict]) -> None:
     trigger_script = load_trigger_generator().generate()
+    require(
+        "tv_wonder_can_start_project_" not in trigger_script,
+        "Generator must not emit country-level start-project target pre-scans for survey selectors.",
+    )
     for wonder in wonders:
         key = wonder["key"]
         country_gate = f"tv_wonder_country_has_{key}_project_or_final_trigger"
@@ -74,13 +78,10 @@ def validate_generated_trigger_scope_layers(wonders: list[dict]) -> None:
         )
 
         can_build = extract_trigger_block(trigger_script, f"tv_wonder_can_build_{key}_trigger")
-        can_start = extract_trigger_block(trigger_script, f"tv_wonder_can_start_project_{key}_trigger")
         if wonder["size"] == "small":
             require(country_gate not in can_build, f"Small can-build trigger for {key} should not be unique-gated.")
-            require(country_gate not in can_start, f"Small can-start trigger for {key} should not be unique-gated.")
         else:
             require(country_gate in can_build, f"{key} can-build trigger must enforce country uniqueness.")
-            require(country_gate in can_start, f"{key} can-start trigger must enforce fresh-site country uniqueness.")
 
 
 def main() -> None:
