@@ -180,6 +180,24 @@ tv_engineering_department.201 = {
 			tv_wonder_materialize_module_buildings_from_unit_vars_effect = yes
 			tv_change_wonder_domestic_support_effect = { value = 20 }
 			tv_wonder_after_unit_completed_event_effect = yes
+			hidden_effect = {
+				if = {
+					limit = {
+						tv_wonder_construction_site_selected_trigger = yes
+						NOT = { has_variable = tv_wonder_construction_complete }
+						var:tv_wonder_level ?= { this >= 1 }
+						OR = {
+							AND = { var:tv_wonder_scale_tier ?= 1 var:tv_wonder_level ?= { this >= 1 } }
+							AND = { var:tv_wonder_scale_tier ?= 2 var:tv_wonder_level ?= { this >= 2 } }
+							AND = { var:tv_wonder_scale_tier ?= 3 var:tv_wonder_level ?= { this >= 3 } }
+							AND = { var:tv_wonder_scale_tier ?= 4 var:tv_wonder_level ?= { this >= 4 } }
+							AND = { var:tv_wonder_scale_tier ?= 5 var:tv_wonder_level ?= { this >= 5 } }
+							AND = { var:tv_wonder_scale_tier ?= 6 var:tv_wonder_level ?= { this >= 6 } }
+						}
+					}
+					tv_wonder_finish_construction_effect = yes
+				}
+			}
 		}
 		else = {
 			hidden_effect = {
