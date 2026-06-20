@@ -983,6 +983,8 @@ Countries are defined in two parts: a **country definition** file in `in_game/se
 
 All text displayed to the player is handled through the localization system. Localization files are in `.yml` format and must be encoded in **UTF-8-BOM**. Each language has its own subfolder and file naming convention (e.g., `_l_english.yml`). The system supports dynamic text, color formatting, and icons. [9]
 
+Keep each localization key/value on one physical line. When a value needs an intentional line break, emit `\n` inside the quoted string; a real newline inside the value makes the next physical line parse as a new key and can produce `Invalid character` / `Missing colon` startup errors.
+
 Event localization scope variables can be read directly from script scopes such as `ROOT` and `THIS`:
 
 ```yaml

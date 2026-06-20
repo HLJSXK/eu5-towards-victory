@@ -1657,7 +1657,12 @@ def upper_key(key: str) -> str:
 
 
 def q(text: str) -> str:
-    return text.replace('"', '\\"')
+    return (
+        text.replace("\r\n", "\n")
+        .replace("\r", "\n")
+        .replace('"', '\\"')
+        .replace("\n", "\\n")
+    )
 
 
 def all_final_buildings(wonders: list[dict]) -> list[str]:

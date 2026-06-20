@@ -61,6 +61,8 @@ TV_IO_ICON_DIR = (
 UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
 LOCALIZATION_KEY_PATTERN = re.compile(r"^\s+(\w+)\s*:(?:\d+)?")
+LOCALIZATION_HEADER_PATTERN = re.compile(r"^l_[A-Za-z_]+:\s*$")
+LOCALIZATION_ENTRY_LINE_PATTERN = re.compile(r"^\s+[A-Za-z0-9_.-]+:(?:\d+)?\s+")
 GAME_CONCEPT_DECL_PATTERN = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
 EVENT_ID_REFERENCE_PATTERN = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\.([1-9][0-9]{4,})\b")
 WONDER_ENGINE_SCALED_FIXED_MODIFIER_MAX = 0.5
@@ -240,6 +242,28 @@ def _iter_yaml_localization_keys(path: Path):
         match = LOCALIZATION_KEY_PATTERN.match(line)
         if match:
             yield match.group(1), line_num
+
+
+def check_loc_physical_lines() -> None:
+    """Catch localization values split across real physical lines."""
+    loc_root = REPO_ROOT / "src" / "main_menu" / "localization"
+    if not loc_root.exists():
+        return
+
+    for loc_file in sorted(loc_root.rglob("*.yml")):
+        for line_num, line in enumerate(loc_file.read_text(encoding="utf-8-sig").splitlines(), 1):
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            if LOCALIZATION_HEADER_PATTERN.match(line):
+                continue
+            if LOCALIZATION_ENTRY_LINE_PATTERN.match(line):
+                continue
+            issues.append(
+                f"[LOCALIZATION] {loc_file.relative_to(REPO_ROOT)}:{line_num} -- "
+                "Malformed localization physical line; keep each key/value on one line and "
+                "escape intentional line breaks as \\n inside the quoted value."
+            )
 
 
 def _iter_game_concept_keys(path: Path):
@@ -975,6 +999,7 @@ def main():
                 check_modifier_names(path, content, modifier_whitelist)
 
         check_game_concept_duplicate_keys()
+        check_loc_physical_lines()
         check_loc_duplicate_keys()
         check_loc_coverage()
         check_trigger_loc_coverage()
