@@ -9,14 +9,14 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.modifiers import wonder_base_country_modifiers
+from wonder_mechanics.naming import (
     TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP,
-    load_all_wonder_mechanics,
-    render_header,
     wonder_auto_modifier_name,
     wonder_auto_unscaled_modifier_name,
-    wonder_base_country_modifiers,
 )
+from wonder_mechanics.render import render_header
 
 OUT_FILE = (
     REPO_ROOT

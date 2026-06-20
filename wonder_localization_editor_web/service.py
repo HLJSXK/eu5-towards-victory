@@ -25,31 +25,40 @@ from scripts.wonder_localization_lib import (
     normalize_editor_text,
     save_wonder_localization_data,
 )
-from scripts.wonder_mechanics_lib import (
-    MECHANICS_FILE,
-    SUPPORTED_RITUAL_COST_TYPES,
-    SUPPORTED_RITUAL_LISTENERS,
-    SUPPORTED_UNIQUE_RITUAL_MODES,
+from scripts.wonder_mechanics.io import (
     UNIQUE_WONDERS_FILE,
+    WONDER_BASE_MODIFIERS_FILE,
+    WONDER_FINAL_BUILDINGS_FILE,
+    WONDER_GENERIC_RITUALS_FILE,
+    WONDER_MECHANICS_DATA_REL,
+    WONDER_SITE_RULES_FILE,
     WONDERS_FILE,
-    authored_final_building_local_modifiers,
-    ceremony_styles,
     dump_yaml_document,
-    final_building_for_style,
     load_all_wonder_mechanics_data,
     load_mechanics_source_data,
     load_unique_wonders_source_data,
     load_wonders_source_data,
-    loc_line,
+    save_mechanics_source_data,
+)
+from scripts.wonder_mechanics.modifiers import authored_final_building_local_modifiers
+from scripts.wonder_mechanics.naming import (
+    final_building_for_style,
     mechanic_key,
+    wonder_static_display_modifier_name,
+    wonder_static_local_display_modifier_name,
+)
+from scripts.wonder_mechanics.render import loc_line, render_header
+from scripts.wonder_mechanics.rituals import (
+    SUPPORTED_RITUAL_COST_TYPES,
+    SUPPORTED_RITUAL_LISTENERS,
+    SUPPORTED_UNIQUE_RITUAL_MODES,
+    ceremony_styles,
     normalize_unique_ritual,
-    render_header,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
     unique_ceremony_modifier_name,
-    wonder_static_display_modifier_name,
-    wonder_static_local_display_modifier_name,
-    save_yaml_document,
+)
+from scripts.wonder_mechanics.schema import (
     site_preference_script_for_key,
     site_trigger_script_for_key,
 )
@@ -77,7 +86,7 @@ ROMAN_NUMERALS = {
     6: "VI",
 }
 WONDER_LOCALIZATION_DATA_REL = "data/wonder_localization.yaml"
-GENERATED_LOC_DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
+GENERATED_LOC_DATA_REL = f"data/wonders.yaml + {WONDER_MECHANICS_DATA_REL} + data/unique_wonders.yaml + data/wonder_localization.yaml"
 UNIQUE_RITUAL_DESIGNS_REL = "data/unique_wonder_ritual_designs.yaml"
 UNIQUE_RITUAL_DESIGNS_ZH_REL = "data/unique_wonder_ritual_designs_zh.yaml"
 UNIQUE_RITUAL_PROMPTS_REL = "data/unique_wonder_ritual_prompts.yaml"
@@ -2433,8 +2442,8 @@ class WonderLocalizationService:
                     changed_files.append(str(WONDER_LOCALIZATION_FILE.relative_to(REPO_ROOT)))
 
                 if changed["mechanics"]:
-                    save_yaml_document(MECHANICS_FILE, self.mechanics_data)
-                    changed_files.append(str(MECHANICS_FILE.relative_to(REPO_ROOT)))
+                    for path in save_mechanics_source_data(self.mechanics_data):
+                        changed_files.append(str(path.relative_to(REPO_ROOT)))
 
                 if changed["wonders"]:
                     save_yaml_document(WONDERS_FILE, self.wonders_data)
@@ -2795,7 +2804,7 @@ class WonderLocalizationService:
                 "base-effect multiplier; edit the prototype wonder to modify the underlying modifier list."
             )
             if inherits_from_prototype
-            else "Structured editor for data/wonder_mechanics.yaml base_modifiers entries."
+            else "Structured editor for data/wonder_base_modifiers.yaml base_modifiers entries."
         )
         base_modifier_mapping = self.mechanics_data.get("base_modifiers", {}).get(prototype_key, {})
         displayed_base_modifier_mapping = (
@@ -2835,7 +2844,7 @@ class WonderLocalizationService:
             label="Build condition template",
             key=f"mechanics.site_trigger.{wonder['key']}",
             source_kind=shared_source_kind,
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_SITE_RULES_FILE,
             original_value=serialize_structured_editor_value(
                 parse_trigger_builder_state(site_trigger_script_for_key(self.mechanics_data, prototype_key))
             ),
@@ -2856,7 +2865,7 @@ class WonderLocalizationService:
             label="Survey preference template",
             key=f"mechanics.site_preference.{wonder['key']}",
             source_kind=shared_source_kind,
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_SITE_RULES_FILE,
             original_value=serialize_structured_editor_value(
                 parse_preference_builder_state(site_preference_script_for_key(self.mechanics_data, prototype_key))
             ),
@@ -2883,7 +2892,7 @@ class WonderLocalizationService:
                 label="Inherited doubled local effects",
                 key=f"mechanics.building_local.inherited.{wonder['key']}",
                 source_kind=shared_source_kind,
-                file_path=MECHANICS_FILE,
+                file_path=WONDER_FINAL_BUILDINGS_FILE,
                 original_value=serialize_structured_editor_value(inherited_local_state),
                 field_type="modifier_table",
                 target_kind="building_local",
@@ -2911,7 +2920,7 @@ class WonderLocalizationService:
                 label="Shared final local effects",
                 key=f"mechanics.building_local.{wonder['key']}.final_local",
                 source_kind=shared_source_kind,
-                file_path=MECHANICS_FILE,
+                file_path=WONDER_FINAL_BUILDINGS_FILE,
                 original_value=serialize_structured_editor_value(final_local_state),
                 field_type="modifier_table",
                 target_kind="building_local",
@@ -2928,7 +2937,7 @@ class WonderLocalizationService:
             label="Per-level base modifiers",
             key=f"mechanics.base_modifiers.{wonder['key']}",
             source_kind=shared_source_kind,
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_BASE_MODIFIERS_FILE,
             original_value=serialize_structured_editor_value(
                 build_modifier_editor_state(
                     displayed_base_modifier_mapping,
@@ -3046,7 +3055,7 @@ class WonderLocalizationService:
             label="Style 1 country modifiers",
             key=f"mechanics.generic_ritual.{wonder['key']}.style_1",
             source_kind="shared",
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_GENERIC_RITUALS_FILE,
             original_value=serialize_structured_editor_value(
                 build_modifier_editor_state(
                     style_1.get("country_modifier", {}),
@@ -3081,7 +3090,7 @@ class WonderLocalizationService:
             label="Style 2 local modifiers",
             key=f"mechanics.generic_ritual.{wonder['key']}.style_2",
             source_kind="shared",
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_GENERIC_RITUALS_FILE,
             original_value=serialize_structured_editor_value(style_2_editor_state),
             field_type="modifier_table",
             target_kind="generic_ritual",
@@ -3098,7 +3107,7 @@ class WonderLocalizationService:
             label="Style 3 reward package",
             key=f"mechanics.generic_ritual.{wonder['key']}.style_3",
             source_kind="shared",
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_GENERIC_RITUALS_FILE,
             original_value=serialize_structured_editor_value(
                 build_reward_editor_state(
                     rows=reward_rows_from_list(style_3.get("reward", [])),

@@ -7,7 +7,10 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import loc_line, render_header
+from wonder_mechanics.render import (
+    loc_line,
+    render_header,
+)
 from wonder_localization_lib import load_wonder_localization_data
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_wonder_ownership_l_english.yml"

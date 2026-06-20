@@ -9,7 +9,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import render_header
+from wonder_mechanics.render import render_header
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_wonder_unique_pharos_lighthouse_ritual_events.txt"
 SCRIPT_REL = "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py"

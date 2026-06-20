@@ -8,9 +8,17 @@ import yaml
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 WONDERS_FILE = REPO_ROOT / "data" / "wonders.yaml"
-MECHANICS_FILE = REPO_ROOT / "data" / "wonder_mechanics.yaml"
+WONDER_DESIGN_NOTES_FILE = REPO_ROOT / "data" / "wonder_design_notes.yaml"
+WONDER_FINAL_BUILDINGS_FILE = REPO_ROOT / "data" / "wonder_final_buildings.yaml"
+WONDER_GENERIC_RITUALS_FILE = REPO_ROOT / "data" / "wonder_generic_rituals.yaml"
+WONDER_BASE_MODIFIERS_FILE = REPO_ROOT / "data" / "wonder_base_modifiers.yaml"
+WONDER_SITE_RULES_FILE = REPO_ROOT / "data" / "wonder_site_rules.yaml"
+WONDER_MECHANICS_DATA_REL = (
+    "data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + "
+    "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml"
+)
 UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
 GENERIC_WONDER_IMAGE_PROMPTS_FILE = REPO_ROOT / "data" / "wonder_image_prompts.yaml"
 MANUAL_TV_GAME_CONCEPTS_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_game_concepts.txt"
@@ -623,18 +631,18 @@ def _validate_suitability_knowledge_rows(value: object, context: str) -> list[di
     return normalized
 
 
-def _validate_site_rules(raw: object, *, design_keys: set[str]) -> dict[str, dict]:
-    context = f"{MECHANICS_FILE}.site_rules"
+def _validate_site_rules(raw: object, *, mechanic_keys: set[str]) -> dict[str, dict]:
+    context = f"{WONDER_SITE_RULES_FILE}.site_rules"
     site_rules = _require_mapping(raw, context)
-    missing = sorted(design_keys - set(site_rules))
+    missing = sorted(mechanic_keys - set(site_rules))
     if missing:
         raise ValueError(f"Missing site_rules entries for: {', '.join(missing)}")
-    extra = sorted(set(site_rules) - design_keys)
+    extra = sorted(set(site_rules) - mechanic_keys)
     if extra:
         raise ValueError(f"Unknown site_rules entries for: {', '.join(extra)}")
 
     normalized: dict[str, dict] = {}
-    for key in sorted(design_keys):
+    for key in sorted(mechanic_keys):
         entry_context = f"{context}.{key}"
         entry = _require_mapping(site_rules[key], entry_context)
         _expect_keys(
@@ -752,13 +760,13 @@ def _validate_building_attributes(value: object, context: str) -> dict[str, dict
     return normalized
 
 
-def _validate_buildings_section(raw: object, *, design_keys: set[str]) -> dict[str, dict]:
-    context = f"{MECHANICS_FILE}.buildings"
+def _validate_buildings_section(raw: object, *, mechanic_keys: set[str]) -> dict[str, dict]:
+    context = f"{WONDER_FINAL_BUILDINGS_FILE}.buildings"
     buildings = _require_mapping(raw, context)
-    missing = sorted(design_keys - set(buildings))
+    missing = sorted(mechanic_keys - set(buildings))
     if missing:
         raise ValueError(f"Missing buildings entries for: {', '.join(missing)}")
-    extra = sorted(set(buildings) - design_keys)
+    extra = sorted(set(buildings) - mechanic_keys)
     if extra:
         raise ValueError(f"Unknown buildings entries for: {', '.join(extra)}")
 
@@ -816,20 +824,56 @@ def load_wonders_source_data(path: Path = WONDERS_FILE) -> dict:
     return normalized
 
 
-def load_mechanics_source_data(path: Path = MECHANICS_FILE) -> dict:
-    raw = load_yaml(path)
-    designs = _require_mapping(raw.get("designs"), f"{path}.designs")
-    site_rules = _validate_site_rules(raw.get("site_rules"), design_keys=set(designs))
-    buildings = _validate_buildings_section(raw.get("buildings"), design_keys=set(designs))
-    generic_rituals = _validate_generic_rituals(raw.get("generic_rituals"), f"{path}.generic_rituals")
-    base_modifiers = _validate_modifier_by_key_mapping(raw.get("base_modifiers"), f"{path}.base_modifiers")
+def load_mechanics_source_data() -> dict:
+    wonders_data = load_wonders_source_data()
+    mechanic_keys = {wonder["mechanic_key"] for wonder in wonders_data["wonders"]}
+
+    design_notes_raw = load_yaml(WONDER_DESIGN_NOTES_FILE)
+    _expect_keys(design_notes_raw, required={"designs"}, optional=set(), context=str(WONDER_DESIGN_NOTES_FILE))
+    designs = _require_mapping(design_notes_raw["designs"], f"{WONDER_DESIGN_NOTES_FILE}.designs")
+
+    site_rules_raw = load_yaml(WONDER_SITE_RULES_FILE)
+    _expect_keys(site_rules_raw, required={"site_rules"}, optional=set(), context=str(WONDER_SITE_RULES_FILE))
+    site_rules = _validate_site_rules(site_rules_raw["site_rules"], mechanic_keys=mechanic_keys)
+
+    buildings_raw = load_yaml(WONDER_FINAL_BUILDINGS_FILE)
+    _expect_keys(buildings_raw, required={"buildings"}, optional=set(), context=str(WONDER_FINAL_BUILDINGS_FILE))
+    buildings = _validate_buildings_section(buildings_raw["buildings"], mechanic_keys=mechanic_keys)
+
+    generic_rituals_raw = load_yaml(WONDER_GENERIC_RITUALS_FILE)
+    _expect_keys(generic_rituals_raw, required={"generic_rituals"}, optional=set(), context=str(WONDER_GENERIC_RITUALS_FILE))
+    generic_rituals = _validate_generic_rituals(
+        generic_rituals_raw["generic_rituals"],
+        f"{WONDER_GENERIC_RITUALS_FILE}.generic_rituals",
+    )
+
+    base_modifiers_raw = load_yaml(WONDER_BASE_MODIFIERS_FILE)
+    _expect_keys(base_modifiers_raw, required={"base_modifiers"}, optional=set(), context=str(WONDER_BASE_MODIFIERS_FILE))
+    base_modifiers = _validate_modifier_by_key_mapping(
+        base_modifiers_raw["base_modifiers"],
+        f"{WONDER_BASE_MODIFIERS_FILE}.base_modifiers",
+    )
     return {
-        **raw,
+        "designs": designs,
         "site_rules": site_rules,
         "buildings": buildings,
         "generic_rituals": generic_rituals,
         "base_modifiers": base_modifiers,
     }
+
+
+def save_mechanics_source_data(mechanics: dict) -> list[Path]:
+    outputs = [
+        (WONDER_FINAL_BUILDINGS_FILE, {"buildings": mechanics.get("buildings", {})}),
+        (WONDER_GENERIC_RITUALS_FILE, {"generic_rituals": mechanics.get("generic_rituals", {})}),
+        (WONDER_BASE_MODIFIERS_FILE, {"base_modifiers": mechanics.get("base_modifiers", {})}),
+        (WONDER_SITE_RULES_FILE, {"site_rules": mechanics.get("site_rules", {})}),
+    ]
+    written: list[Path] = []
+    for path, payload in outputs:
+        save_yaml_document(path, payload)
+        written.append(path)
+    return written
 
 
 def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
@@ -1542,23 +1586,23 @@ def load_all_wonder_mechanics(*, include_unique: bool = True) -> tuple[list[dict
 
 
 def legacy_site_trigger_lines(key: str, indent: int = 1) -> list[str]:
-    raise RuntimeError("Legacy site trigger fallback has been removed; use data/wonder_mechanics.yaml site_rules")
+    raise RuntimeError("Legacy site trigger fallback has been removed; use data/wonder_site_rules.yaml")
 
 
 def legacy_site_preference_lines(key: str, indent: int = 2) -> list[str]:
-    raise RuntimeError("Legacy site preference fallback has been removed; use data/wonder_mechanics.yaml site_rules")
+    raise RuntimeError("Legacy site preference fallback has been removed; use data/wonder_site_rules.yaml")
 
 
 def site_rule_config(mechanics: dict, key: str) -> dict:
-    site_rules = _require_mapping(mechanics.get(SITE_RULES_SECTION), f"{MECHANICS_FILE}.site_rules")
+    site_rules = _require_mapping(mechanics.get(SITE_RULES_SECTION), f"{WONDER_SITE_RULES_FILE}.site_rules")
     if key not in site_rules:
         raise KeyError(f"Missing site_rules entry for {key}")
-    entry = _require_mapping(site_rules[key], f"{MECHANICS_FILE}.site_rules.{key}")
+    entry = _require_mapping(site_rules[key], f"{WONDER_SITE_RULES_FILE}.site_rules.{key}")
     _expect_keys(
         entry,
         required={"trigger_script", "preference_script"},
         optional=set(),
-        context=f"{MECHANICS_FILE}.site_rules.{key}",
+        context=f"{WONDER_SITE_RULES_FILE}.site_rules.{key}",
     )
     return entry
 
@@ -1566,7 +1610,7 @@ def site_rule_config(mechanics: dict, key: str) -> dict:
 def site_trigger_script_for_key(mechanics: dict, key: str) -> str:
     return _validate_script_text(
         site_rule_config(mechanics, key)["trigger_script"],
-        f"{MECHANICS_FILE}.site_rules.{key}.trigger_script",
+        f"{WONDER_SITE_RULES_FILE}.site_rules.{key}.trigger_script",
         allow_empty=False,
     )
 
@@ -1574,7 +1618,7 @@ def site_trigger_script_for_key(mechanics: dict, key: str) -> str:
 def site_preference_script_for_key(mechanics: dict, key: str) -> str:
     return _validate_script_text(
         site_rule_config(mechanics, key)["preference_script"],
-        f"{MECHANICS_FILE}.site_rules.{key}.preference_script",
+        f"{WONDER_SITE_RULES_FILE}.site_rules.{key}.preference_script",
         allow_empty=False,
     )
 
@@ -1582,7 +1626,7 @@ def site_preference_script_for_key(mechanics: dict, key: str) -> str:
 def suitability_knowledge_for_key(mechanics: dict, key: str) -> list[dict[str, str]]:
     return derive_suitability_knowledge_from_preference_script(
         site_preference_script_for_key(mechanics, key),
-        context=f"{MECHANICS_FILE}.site_rules.{key}.preference_script",
+        context=f"{WONDER_SITE_RULES_FILE}.site_rules.{key}.preference_script",
     )
 
 
@@ -1598,7 +1642,7 @@ def site_preference_lines_for_wonder(mechanics: dict, wonder: dict, indent: int 
     return indent_script_block(site_preference_script_for_key(mechanics, mechanic_key(wonder)), indent)
 
 
-def render_header(script_rel: str, data_rel: str = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml") -> list[str]:
+def render_header(script_rel: str, data_rel: str = f"data/wonders.yaml + {WONDER_MECHANICS_DATA_REL} + data/unique_wonders.yaml") -> list[str]:
     return [
         f"# @Generated by {script_rel}",
         f"#   Data:    {data_rel}",

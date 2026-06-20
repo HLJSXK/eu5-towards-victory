@@ -7,7 +7,7 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import render_header
+from wonder_mechanics.render import render_header
 
 VANILLA_FILE = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "gui" / "location_window.gui"
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "gui" / "location_window.gui"

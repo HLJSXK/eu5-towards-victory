@@ -7,19 +7,24 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.naming import (
     PARTS,
+    wonder_ritual_composite_id,
+)
+from wonder_mechanics.render import (
+    indent_script_block,
+    render_header,
+)
+from wonder_mechanics.rituals import (
     WONDER_RITUAL_COST_TYPE_IDS,
     WONDER_RITUAL_LISTENER_KEYS,
     WONDER_RITUAL_MODE_IDS,
     ceremony_styles,
-    indent_script_block,
-    load_all_wonder_mechanics,
-    render_header,
     ritual_plan_for_style,
-    site_trigger_lines_for_wonder,
-    wonder_ritual_composite_id,
 )
+from wonder_mechanics.schema import site_trigger_lines_for_wonder
+from wonder_unique_rituals import append_unique_ritual_triggers
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_engineering_department_wonder_mechanics_triggers.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py"
@@ -28,18 +33,6 @@ FEASIBLE_GENERIC_DECK_MAP = "tv_wonder_feasible_generic_deck"
 FEASIBLE_UNIQUE_DECK_MAP = "tv_wonder_feasible_unique_deck"
 LOCATION_SURVEYED_MAP = "tv_wonder_surveyed"
 LOCATION_SURVEY_SCALE_TIER_MAP = "tv_wonder_survey_scale_tier"
-PHAROS_ROUTE_KEYS = [
-    "constantinople",
-    "venice",
-    "genoa",
-    "malta",
-    "tunis",
-    "palermo",
-    "candia",
-    "gibraltar",
-]
-HAGIA_WONDER_ID = 102
-HAGIA_STEPS = range(1, 9)
 
 
 def trigger_conditions(wonder: dict, mechanics: dict, indent: int = 1) -> list[str]:
@@ -361,129 +354,6 @@ def append_site_rule_dispatch_triggers(lines: list[str], wonders: list[dict]) ->
     )
 
 
-def append_pharos_triggers(lines: list[str]) -> None:
-    lines.append("tv_wonder_pharos_alexandria_hostile_privateers_trigger = {")
-    lines.append(f"{T}location:alexandria = {{")
-    lines.append(f"{T}{T}sea_zone = {{")
-    lines.append(f"{T}{T}{T}area = {{")
-    lines.append(f"{T}{T}{T}{T}any_privateer_in_area = {{")
-    lines.append(f"{T}{T}{T}{T}{T}NOT = {{ owner = root }}")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    for count in range(1, 5):
-        lines.append(f"tv_wonder_pharos_alexandria_hostile_privateers_at_least_{count}_trigger = {{")
-        lines.append(f"{T}location:alexandria = {{")
-        lines.append(f"{T}{T}sea_zone = {{")
-        lines.append(f"{T}{T}{T}area = {{")
-        lines.append(f"{T}{T}{T}{T}any_privateer_in_area = {{")
-        lines.append(f"{T}{T}{T}{T}{T}count >= {count}")
-        lines.append(f"{T}{T}{T}{T}{T}NOT = {{ owner = root }}")
-        lines.append(f"{T}{T}{T}{T}}}")
-        lines.append(f"{T}{T}{T}}}")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}}}")
-        lines.append("}")
-        lines.append("")
-
-    for route_key in PHAROS_ROUTE_KEYS:
-        route_id = PHAROS_ROUTE_KEYS.index(route_key) + 1
-        lines.append(f"tv_wonder_pharos_route_{route_key}_controlled_trigger = {{")
-        lines.append(f"{T}owns = location:{route_key}")
-        lines.append("}")
-        lines.append("")
-
-        lines.append(f"tv_wonder_pharos_route_{route_key}_has_owner_trigger = {{")
-        lines.append(f"{T}location:{route_key} = {{ has_owner = yes }}")
-        lines.append("}")
-        lines.append("")
-
-        lines.append(f"tv_wonder_pharos_route_{route_key}_basing_trigger = {{")
-        lines.append(f"{T}location:{route_key} = {{")
-        lines.append(f"{T}{T}has_owner = yes")
-        lines.append(f"{T}{T}owner = {{")
-        lines.append(f"{T}{T}{T}gives_fleet_basing_rights_to = root")
-        lines.append(f"{T}{T}{T}receives_fleet_basing_rights_from = root")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}}}")
-        lines.append("}")
-        lines.append("")
-
-        lines.append(f"tv_wonder_pharos_route_{route_key}_pending_trigger = {{")
-        lines.append(f"{T}NOT = {{ has_variable = tv_wonder_pharos_route_{route_key}_passed }}")
-        lines.append("}")
-        lines.append("")
-
-        lines.append(f"tv_wonder_pharos_route_selected_{route_key}_trigger = {{")
-        lines.append(f"{T}has_variable = tv_wonder_pharos_active_route")
-        lines.append(f"{T}var:tv_wonder_pharos_active_route ?= {route_id}")
-        lines.append("}")
-        lines.append("")
-
-    lines.append("tv_wonder_pharos_has_pending_route_trigger = {")
-    lines.append(f"{T}OR = {{")
-    for route_key in PHAROS_ROUTE_KEYS:
-        lines.append(f"{T}{T}tv_wonder_pharos_route_{route_key}_pending_trigger = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_hagia_triggers(lines: list[str]) -> None:
-    lines.append("tv_wonder_hagia_active_trigger = {")
-    lines.append(f"{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}var:tv_wonder_locked ?= {HAGIA_WONDER_ID}")
-    lines.append(f"{T}has_variable = tv_wonder_ritual_in_progress")
-    lines.append(f"{T}has_variable = tv_wonder_hagia_step")
-    lines.append(f"{T}NOT = {{ has_variable = tv_wonder_hagia_completed }}")
-    lines.append("}")
-    lines.append("")
-
-    for step in HAGIA_STEPS:
-        lines.append(f"tv_wonder_hagia_step_{step}_current_trigger = {{")
-        lines.append(f"{T}tv_wonder_hagia_active_trigger = yes")
-        lines.append(f"{T}var:tv_wonder_hagia_step ?= {step}")
-        lines.append("}")
-        lines.append("")
-
-        lines.append(f"tv_wonder_hagia_step_{step}_done_trigger = {{")
-        lines.append(f"{T}has_variable = tv_wonder_hagia_step_{step}_done")
-        lines.append(f"{T}var:tv_wonder_hagia_step_{step}_done ?= 1")
-        lines.append("}")
-        lines.append("")
-
-        lines.append(f"tv_wonder_hagia_step_{step}_visible_trigger = {{")
-        lines.append(f"{T}OR = {{")
-        lines.append(f"{T}{T}tv_wonder_hagia_step_{step}_current_trigger = yes")
-        lines.append(f"{T}{T}tv_wonder_hagia_step_{step}_done_trigger = yes")
-        lines.append(f"{T}}}")
-        lines.append("}")
-        lines.append("")
-
-        lines.append(f"tv_wonder_hagia_step_{step}_assigned_trigger = {{")
-        lines.append(f"{T}has_variable = tv_wonder_hagia_assignee_{step}")
-        lines.append("}")
-        lines.append("")
-
-        lines.append(f"tv_wonder_hagia_step_{step}_available_trigger = {{")
-        lines.append(f"{T}tv_wonder_hagia_step_{step}_current_trigger = yes")
-        lines.append(f"{T}NOT = {{ has_variable = tv_wonder_hagia_assignee_{step} }}")
-        lines.append(f"{T}NOT = {{ has_variable = tv_wonder_hagia_pending_event }}")
-        if step == 4:
-            lines.append(f"{T}has_ruler = yes")
-        lines.append("}")
-        lines.append("")
-
-    lines.append("tv_wonder_hagia_constantinople_prosperous_trigger = {")
-    lines.append(f"{T}location:constantinople = {{ prosperity >= 1 }}")
-    lines.append("}")
-    lines.append("")
-
-
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
@@ -524,8 +394,7 @@ def generate() -> str:
     lines.append("")
 
     append_site_rule_dispatch_triggers(lines, all_wonders)
-    append_pharos_triggers(lines)
-    append_hagia_triggers(lines)
+    append_unique_ritual_triggers(lines)
 
     lines.append("tv_wonder_selected_survey_already_cached_trigger = {")
     lines.append(f"{T}has_variable = tv_wonder_locked")

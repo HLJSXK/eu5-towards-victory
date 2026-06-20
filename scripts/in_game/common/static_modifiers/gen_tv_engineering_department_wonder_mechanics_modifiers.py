@@ -7,16 +7,16 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.modifiers import wonder_base_country_modifiers
+from wonder_mechanics.naming import wonder_static_display_modifier_name
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import (
     ceremony_styles,
-    load_all_wonder_mechanics,
-    render_header,
     ritual_blessing_modifier_name,
     ritual_plan_for_style,
     ritual_burden_modifier_name,
     unique_ceremony_modifier_name,
-    wonder_static_display_modifier_name,
-    wonder_base_country_modifiers,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "static_modifiers" / "tv_engineering_department_wonder_mechanics_modifiers.txt"

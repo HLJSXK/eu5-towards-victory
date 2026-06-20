@@ -7,39 +7,51 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.naming import (
     ALL_WONDER_MIN_ID,
     FINAL_BUILDING_LEVEL_BY_TYPE_MAP,
-    STYLE_3_REWARD_EFFECTS,
     TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP,
     UNIQUE_WONDER_MIN_ID,
     WONDER_MECHANICS_MAX_ID,
-    ceremony_styles,
+    mechanic_key,
+    wonder_static_display_modifier_name,
+    wonder_static_local_display_modifier_name,
+    wonder_ritual_composite_id,
+    wonder_suitability_row_composite_id,
+)
+from wonder_mechanics.render import (
     indent_script_block,
-    load_all_wonder_mechanics,
     render_header,
+)
+from wonder_mechanics.rituals import (
+    STYLE_3_REWARD_EFFECTS,
+    ceremony_styles,
     ritual_plan_for_style,
     ritual_auxiliary_building,
     ritual_auxiliary_display_modifier_name,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
     ritual_uses_deferred_completion,
+    unique_ceremony_modifier_name,
+)
+from wonder_mechanics.schema import (
     site_preference_lines_for_wonder,
     SUITABILITY_ACTUAL_MAP,
     SUITABILITY_REVEAL_MAP,
-    mechanic_key,
     suitability_current_actual_variable,
     suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
-    wonder_static_display_modifier_name,
-    wonder_static_local_display_modifier_name,
-    wonder_ritual_composite_id,
-    wonder_suitability_row_composite_id,
-    unique_ceremony_modifier_name,
 )
+from wonder_unique_rituals import append_unique_ritual_effects
+from wonder_unique_rituals.hagia import HAGIA_WONDER_ID
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_mechanics_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py"
+PROPOSAL_SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_proposal_effects.py"
+SURVEY_SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_survey_effects.py"
+RITUAL_SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py"
+LOCATION_DISPLAY_SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_location_display_effects.py"
 T = "\t"
 DISPLAY_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
@@ -90,29 +102,6 @@ RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_months_completed",
     "tv_wonder_ritual_progress_pct",
 ]
-PHAROS_ROUTE_KEYS = [
-    "constantinople",
-    "venice",
-    "genoa",
-    "malta",
-    "tunis",
-    "palermo",
-    "candia",
-    "gibraltar",
-]
-PHAROS_ROUTE_IDS = {route_key: index for index, route_key in enumerate(PHAROS_ROUTE_KEYS, start=1)}
-HAGIA_WONDER_ID = 102
-HAGIA_STEPS = range(1, 9)
-HAGIA_STEP_ATTRIBUTE = {
-    1: "add_adm",
-    2: "add_adm",
-    3: "add_dip",
-    4: None,
-    5: "add_dip",
-    6: "add_adm",
-    7: "add_mil",
-    8: "add_mil",
-}
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
     "topography_plateau": "topography = plateau",
@@ -360,519 +349,6 @@ def ritual_entries(wonders: list[dict], mechanics: dict) -> list[tuple[dict, int
 def selected_ritual_limit(wonder: dict, style: int) -> str:
     ritual_id = wonder_ritual_composite_id(int(wonder["id"]), int(style))
     return f"var:tv_wonder_selected_ritual_id ?= {ritual_id}"
-
-
-def append_pharos_set_route_projection_lines(lines: list[str], route_key: str, indent: int) -> None:
-    prefix = T * indent
-    route_id = PHAROS_ROUTE_IDS[route_key]
-    location_var = f"tv_wonder_pharos_route_{route_key}_location"
-    status_var = f"tv_wonder_pharos_route_{route_key}_status"
-    owner_var = f"tv_wonder_pharos_route_{route_key}_owner"
-    lines.append(f"{prefix}remove_variable = {location_var}")
-    lines.append(f"{prefix}remove_variable = {owner_var}")
-    lines.append(f"{prefix}location:{route_key} = {{")
-    lines.append(f"{prefix}{T}save_scope_as = tv_wonder_pharos_projection_location")
-    lines.append(
-        f"{prefix}{T}root = {{ set_variable = {{ name = {location_var} value = scope:tv_wonder_pharos_projection_location }} }}"
-    )
-    lines.append(f"{prefix}{T}if = {{")
-    lines.append(f"{prefix}{T}{T}limit = {{ has_owner = yes }}")
-    lines.append(f"{prefix}{T}{T}owner = {{")
-    lines.append(f"{prefix}{T}{T}{T}save_scope_as = tv_wonder_pharos_projection_owner")
-    lines.append(
-        f"{prefix}{T}{T}{T}root = {{ set_variable = {{ name = {owner_var} value = scope:tv_wonder_pharos_projection_owner }} }}"
-    )
-    lines.append(f"{prefix}{T}{T}}}")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}if = {{")
-    lines.append(f"{prefix}{T}limit = {{ tv_wonder_pharos_route_{route_key}_controlled_trigger = yes }}")
-    lines.append(f"{prefix}{T}set_variable = {{ name = {status_var} value = 1 }}")
-    lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}else_if = {{")
-    lines.append(f"{prefix}{T}limit = {{ tv_wonder_pharos_route_{route_key}_basing_trigger = yes }}")
-    lines.append(f"{prefix}{T}set_variable = {{ name = {status_var} value = 2 }}")
-    lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}else = {{")
-    lines.append(f"{prefix}{T}set_variable = {{ name = {status_var} value = 0 }}")
-    lines.append(f"{prefix}}}")
-    lines.append(f"{prefix}if = {{")
-    lines.append(f"{prefix}{T}limit = {{")
-    lines.append(f"{prefix}{T}{T}has_variable = tv_wonder_pharos_active_route")
-    lines.append(f"{prefix}{T}{T}var:tv_wonder_pharos_active_route ?= {route_id}")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_active_route_id value = {route_id} }}")
-    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_active_route_status value = var:{status_var} }}")
-    lines.append(f"{prefix}{T}remove_variable = tv_wonder_pharos_active_route_owner")
-    lines.append(f"{prefix}{T}if = {{")
-    lines.append(f"{prefix}{T}{T}limit = {{ has_variable = {owner_var} }}")
-    lines.append(f"{prefix}{T}{T}set_variable = {{ name = tv_wonder_pharos_active_route_owner value = var:{owner_var} }}")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-
-
-def append_pharos_select_route_lines(lines: list[str], route_key: str, indent: int) -> None:
-    prefix = T * indent
-    route_id = PHAROS_ROUTE_IDS[route_key]
-    lines.append(f"{prefix}set_variable = {{ name = tv_wonder_pharos_active_route value = {route_id} }}")
-    lines.append(f"{prefix}set_variable = {{ name = tv_wonder_pharos_active_route_id value = {route_id} }}")
-    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_active_route_status")
-    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_active_route_owner")
-    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_event_route_location")
-    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_event_route_owner")
-    lines.append(f"{prefix}remove_variable = tv_wonder_pharos_event_route_has_owner")
-    lines.append(f"{prefix}location:{route_key} = {{")
-    lines.append(f"{prefix}{T}save_scope_as = tv_wonder_pharos_selected_route_location")
-    lines.append(
-        f"{prefix}{T}root = {{ set_variable = {{ name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location }} }}"
-    )
-    lines.append(f"{prefix}{T}if = {{")
-    lines.append(f"{prefix}{T}{T}limit = {{ has_owner = yes }}")
-    lines.append(f"{prefix}{T}{T}owner = {{")
-    lines.append(f"{prefix}{T}{T}{T}save_scope_as = tv_wonder_pharos_selected_route_owner")
-    lines.append(
-        f"{prefix}{T}{T}{T}root = {{ set_variable = {{ name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner }} }}"
-    )
-    lines.append(f"{prefix}{T}{T}{T}root = {{ set_variable = {{ name = tv_wonder_pharos_event_route_has_owner value = 1 }} }}")
-    lines.append(
-        f"{prefix}{T}{T}{T}root = {{ set_variable = {{ name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner }} }}"
-    )
-    lines.append(f"{prefix}{T}{T}}}")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-
-
-def append_pharos_selected_route_completion_lines(lines: list[str], route_key: str, indent: int) -> None:
-    prefix = T * indent
-    route_id = PHAROS_ROUTE_IDS[route_key]
-    lines.append(f"{prefix}if = {{")
-    lines.append(f"{prefix}{T}limit = {{")
-    lines.append(f"{prefix}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
-    lines.append(f"{prefix}{T}{T}tv_wonder_pharos_route_{route_key}_pending_trigger = yes")
-    lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_route_{route_key}_passed value = 1 }}")
-    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_active_route value = {route_id} }}")
-    lines.append(f"{prefix}{T}set_variable = {{ name = tv_wonder_pharos_active_route_id value = {route_id} }}")
-    lines.append(f"{prefix}{T}change_variable = {{ name = tv_wonder_pharos_route_progress add = 1 }}")
-    lines.append(f"{prefix}}}")
-
-
-def append_pharos_effects(lines: list[str]) -> None:
-    lines.append("tv_wonder_pharos_refresh_threat_effect = {")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_privateer_threat_pct value = 0 }}")
-    for count, pct in ((4, 100), (3, 75), (2, 50), (1, 25)):
-        head = "if" if count == 4 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ tv_wonder_pharos_alexandria_hostile_privateers_at_least_{count}_trigger = yes }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_pharos_privateer_threat_pct value = {pct} }}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_refresh_route_progress_effect = {")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_route_progress value = 0 }}")
-    for route_key in PHAROS_ROUTE_KEYS:
-        lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_pharos_route_{route_key}_passed }}")
-        lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_pharos_route_progress add = 1 }}")
-        lines.append(f"{T}}}")
-    lines.append(f"{T}clamp_variable = {{ name = tv_wonder_pharos_route_progress min = 0 max = {len(PHAROS_ROUTE_KEYS)} }}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_refresh_display_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= 101")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}tv_wonder_pharos_refresh_threat_effect = yes")
-    lines.append(f"{T}{T}tv_wonder_pharos_refresh_route_progress_effect = yes")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_id")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_status")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_owner")
-    for route_key in PHAROS_ROUTE_KEYS:
-        append_pharos_set_route_projection_lines(lines, route_key, 2)
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_clear_privateers_effect = {")
-    lines.append(f"{T}location:alexandria = {{")
-    lines.append(f"{T}{T}sea_zone = {{")
-    lines.append(f"{T}{T}{T}area = {{")
-    lines.append(f"{T}{T}{T}{T}every_privateer_in_area = {{")
-    lines.append(f"{T}{T}{T}{T}{T}limit = {{ NOT = {{ owner = root }} }}")
-    lines.append(f"{T}{T}{T}{T}{T}change_privateer_power = -0.4")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_enter_stage_2_effect = {")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_stage value = 2 }}")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_quarter_month value = 0 }}")
-    lines.append(f"{T}remove_variable = tv_wonder_pharos_active_route")
-    lines.append(f"{T}remove_variable = tv_wonder_pharos_active_route_id")
-    lines.append(f"{T}remove_variable = tv_wonder_pharos_active_route_status")
-    lines.append(f"{T}remove_variable = tv_wonder_pharos_active_route_owner")
-    lines.append(f"{T}remove_variable = tv_wonder_pharos_event_route_location")
-    lines.append(f"{T}remove_variable = tv_wonder_pharos_event_route_owner")
-    lines.append(f"{T}remove_variable = tv_wonder_pharos_event_route_has_owner")
-    lines.append(f"{T}add_prestige = 5")
-    lines.append(f"{T}change_gold_effect = {{ scale = 1 }}")
-    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_complete_selected_controlled_route_effect = {")
-    for route_key in PHAROS_ROUTE_KEYS:
-        append_pharos_selected_route_completion_lines(lines, route_key, 1)
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_active_route_status value = 1 }}")
-    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
-    lines.append(f"{T}tv_wonder_pharos_maybe_finish_routes_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_complete_selected_basing_route_effect = {")
-    for route_key in PHAROS_ROUTE_KEYS:
-        append_pharos_selected_route_completion_lines(lines, route_key, 1)
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_active_route_status value = 2 }}")
-    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
-    lines.append(f"{T}tv_wonder_pharos_maybe_finish_routes_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_create_selected_route_basing_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ exists = scope:tv_wonder_pharos_event_route_owner }}")
-    lines.append(f"{T}{T}create_relation = {{")
-    lines.append(f"{T}{T}{T}first = root")
-    lines.append(f"{T}{T}{T}second = scope:tv_wonder_pharos_event_route_owner")
-    lines.append(f"{T}{T}{T}type = relation_type:fleet_basing_rights")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}create_relation = {{")
-    lines.append(f"{T}{T}{T}first = scope:tv_wonder_pharos_event_route_owner")
-    lines.append(f"{T}{T}{T}second = root")
-    lines.append(f"{T}{T}{T}type = relation_type:fleet_basing_rights")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_event_route_owner }}")
-    lines.append(f"{T}{T}tv_wonder_pharos_complete_selected_basing_route_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_evaluate_selected_route_effect = {")
-    lines.append(f"{T}tv_wonder_pharos_refresh_display_effect = yes")
-    first = True
-    for route_key in PHAROS_ROUTE_KEYS:
-        head = "if" if first else "else_if"
-        first = False
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
-        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_controlled_trigger = yes")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7305 }}")
-        lines.append(f"{T}}}")
-        lines.append(f"{T}else_if = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
-        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_basing_trigger = yes")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7306 }}")
-        lines.append(f"{T}}}")
-        lines.append(f"{T}else_if = {{")
-        lines.append(f"{T}{T}limit = {{")
-        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
-        lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_has_owner_trigger = yes")
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7307 }}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_roll_route_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_pharos_has_pending_route_trigger = yes }}")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_id")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_status")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_pharos_active_route_owner")
-    lines.append(f"{T}{T}random_list = {{")
-    for route_key in PHAROS_ROUTE_KEYS:
-        lines.append(f"{T}{T}{T}10 = {{")
-        lines.append(f"{T}{T}{T}{T}trigger = {{ tv_wonder_pharos_route_{route_key}_pending_trigger = yes }}")
-        append_pharos_select_route_lines(lines, route_key, 4)
-        lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}tv_wonder_pharos_evaluate_selected_route_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else = {{")
-    lines.append(f"{T}{T}tv_wonder_pharos_maybe_finish_routes_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_maybe_finish_routes_effect = {")
-    lines.append(f"{T}tv_wonder_pharos_refresh_route_progress_effect = yes")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}has_variable = tv_wonder_pharos_route_progress")
-    lines.append(f"{T}{T}{T}var:tv_wonder_pharos_route_progress >= {len(PHAROS_ROUTE_KEYS)}")
-    lines.append(f"{T}{T}{T}NOT = {{ has_variable = tv_wonder_pharos_routes_complete_pending_event }}")
-    lines.append(f"{T}{T}{T}NOT = {{ has_variable = tv_wonder_pharos_routes_complete }}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_pharos_routes_complete_pending_event value = 1 }}")
-    lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7308 }}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_pharos_finish_ritual_effect = {")
-    lines.append(f"{T}remove_variable = tv_wonder_pharos_routes_complete_pending_event")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_pharos_routes_complete value = 1 }}")
-    lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-
-def append_hagia_assign_burden_lines(lines: list[str], step: int, indent: int) -> None:
-    prefix = T * indent
-    attr = HAGIA_STEP_ATTRIBUTE[step]
-    if attr is not None:
-        lines.append(f"{prefix}{attr} = 10")
-    lines.append(f"{prefix}add_character_modifier = {{ modifier = banned_from_cabinet years = -1 mode = add_and_extend }}")
-    lines.append(f"{prefix}add_character_modifier = {{ modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }}")
-
-
-def append_hagia_assignment_effect(lines: list[str], step: int) -> None:
-    lines.append(f"tv_wonder_hagia_assign_step_{step}_effect = {{")
-    lines.append(f"{T}if = {{")
-    if step == 4:
-        lines.append(f"{T}{T}limit = {{ tv_wonder_hagia_step_4_available_trigger = yes has_ruler = yes }}")
-        lines.append(f"{T}{T}ruler ?= {{")
-        lines.append(f"{T}{T}{T}save_scope_as = tv_wonder_hagia_selected_ruler")
-        append_hagia_assign_burden_lines(lines, step, 3)
-        lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_assignee_4 value = scope:tv_wonder_hagia_selected_ruler }}")
-        lines.append(f"{T}{T}add_country_modifier = {{ modifier = tv_wonder_hagia_ruler_procession_modifier years = -1 mode = add_and_extend }}")
-    else:
-        lines.append(f"{T}{T}limit = {{ tv_wonder_hagia_step_{step}_available_trigger = yes exists = scope:target }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_assignee_{step} value = scope:target }}")
-        lines.append(f"{T}{T}scope:target = {{")
-        append_hagia_assign_burden_lines(lines, step, 3)
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
-    lines.append(f"{T}{T}remove_variable = tv_wonder_hagia_pending_event")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_hagia_effects(lines: list[str]) -> None:
-    for step in HAGIA_STEPS:
-        append_hagia_assignment_effect(lines, step)
-
-    lines.append("tv_wonder_hagia_retry_step_effect = {")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
-    lines.append(f"{T}remove_variable = tv_wonder_hagia_pending_event")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_advance_step_effect = {")
-    for step in HAGIA_STEPS:
-        head = "if" if step == 1 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_hagia_step ?= {step} }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_step_{step}_done value = 1 }}")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
-        lines.append(f"{T}{T}remove_variable = tv_wonder_hagia_pending_event")
-        if step < 8:
-            lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_step value = {step + 1} }}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_complete_step_1_effect = {")
-    lines.append(f"{T}change_gold_effect = {{ scale = -1 }}")
-    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_complete_step_2_effect = {")
-    lines.append(f"{T}add_prestige = -10")
-    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_complete_step_3_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ country_has_estate = estate_type:clergy_estate }}")
-    lines.append(f"{T}{T}save_scope_as = tv_wonder_hagia_privilege_country")
-    lines.append(f"{T}{T}\"estate(estate_type:clergy_estate)\" = {{")
-    lines.append(f"{T}{T}{T}estate_privilege:tv_hagia_great_church_endowment_privilege = {{")
-    lines.append(f"{T}{T}{T}{T}scope:tv_wonder_hagia_privilege_country = {{")
-    lines.append(f"{T}{T}{T}{T}{T}grant_estate_privilege = prev")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}tv_wonder_hagia_advance_step_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else = {{")
-    lines.append(f"{T}{T}tv_wonder_hagia_retry_step_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_complete_step_4_effect = {")
-    lines.append(f"{T}remove_country_modifier = tv_wonder_hagia_ruler_procession_modifier")
-    lines.append(f"{T}add_country_modifier = {{ modifier = tv_wonder_hagia_imperial_procession_modifier years = -1 mode = add_and_extend }}")
-    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_complete_step_5_effect = {")
-    lines.append(f"{T}location:constantinople = {{")
-    lines.append(f"{T}{T}add_location_modifier = {{ modifier = tv_wonder_hagia_sanctuary_order_location_modifier years = -1 mode = add_and_extend }}")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_roll_step_6_cost_effect = {")
-    lines.append(f"{T}random_list = {{")
-    lines.append(f"{T}{T}33 = {{ set_variable = {{ name = tv_wonder_hagia_step_6_cost value = 1 }} }}")
-    lines.append(f"{T}{T}33 = {{ set_variable = {{ name = tv_wonder_hagia_step_6_cost value = 2 }} }}")
-    lines.append(f"{T}{T}34 = {{ set_variable = {{ name = tv_wonder_hagia_step_6_cost value = 3 }} }}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_complete_step_6_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_hagia_step_6_cost var:tv_wonder_hagia_step_6_cost ?= 1 }}")
-    lines.append(f"{T}{T}change_gold_effect = {{ scale = -1 }}")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else_if = {{")
-    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_hagia_step_6_cost var:tv_wonder_hagia_step_6_cost ?= 2 }}")
-    lines.append(f"{T}{T}add_prestige = -5")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else = {{")
-    lines.append(f"{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ country_has_estate = estate_type:clergy_estate }}")
-    lines.append(f"{T}{T}{T}add_estate_satisfaction = {{ type = estate_type:clergy_estate value = -0.025 }}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ country_has_estate = estate_type:nobles_estate }}")
-    lines.append(f"{T}{T}{T}add_estate_satisfaction = {{ type = estate_type:nobles_estate value = -0.025 }}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}remove_variable = tv_wonder_hagia_step_6_cost")
-    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_complete_step_7_effect = {")
-    lines.append(f"{T}change_gold_effect = {{ scale = -1 }}")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ has_variable = tv_wonder_hagia_assignee_7 }}")
-    lines.append(f"{T}{T}var:tv_wonder_hagia_assignee_7 ?= {{ save_scope_as = tv_wonder_hagia_icon_painter }}")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}location:constantinople = {{")
-    lines.append(f"{T}{T}create_art = {{")
-    lines.append(f"{T}{T}{T}quality = {{ 70 100 }}")
-    lines.append(f"{T}{T}{T}type = work_of_art_type:icon")
-    lines.append(f"{T}{T}{T}key = tv_hagia_sophia_synaxis_icon")
-    lines.append(f"{T}{T}{T}target = scope:tv_wonder_hagia_icon_painter")
-    lines.append(f"{T}{T}{T}artist = scope:tv_wonder_hagia_icon_painter")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}tv_wonder_hagia_advance_step_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_begin_step_8_procession_effect = {")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_prosperity_active value = 1 }}")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
-    lines.append(f"{T}remove_variable = tv_wonder_hagia_pending_event")
-    lines.append(f"{T}location:constantinople = {{")
-    lines.append(f"{T}{T}add_location_modifier = {{ modifier = tv_wonder_hagia_public_procession_location_modifier years = -1 mode = add_and_extend }}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_complete_step_8_effect = {")
-    lines.append(f"{T}location:constantinople = {{")
-    lines.append(f"{T}{T}remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier")
-    lines.append(f"{T}{T}change_prosperity = 0.1")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}add_prestige = 10")
-    lines.append(f"{T}change_gold_effect = {{ scale = 1 }}")
-    lines.append(f"{T}remove_variable = tv_wonder_hagia_pending_event")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_step_8_done value = 1 }}")
-    lines.append(f"{T}set_variable = {{ name = tv_wonder_hagia_completed value = 1 }}")
-    lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_fire_step_event_effect = {")
-    for step in HAGIA_STEPS:
-        head = "if" if step == 1 else "else_if"
-        lines.append(f"{T}{head} = {{")
-        lines.append(f"{T}{T}limit = {{ var:tv_wonder_hagia_step ?= {step} }}")
-        if step == 6:
-            lines.append(f"{T}{T}tv_wonder_hagia_roll_step_6_cost_effect = yes")
-        lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_pending_event value = {step} }}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.{6300 + step} }}")
-        lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_wonder_hagia_monthly_progress_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ tv_wonder_hagia_active_trigger = yes }}")
-    lines.append(f"{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}{T}has_variable = tv_wonder_hagia_prosperity_active")
-    lines.append(f"{T}{T}{T}{T}tv_wonder_hagia_constantinople_prosperous_trigger = yes")
-    lines.append(f"{T}{T}{T}{T}NOT = {{ has_variable = tv_wonder_hagia_pending_event }}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_hagia_pending_event value = 8 }}")
-    lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.6308 }}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}else_if = {{")
-    lines.append(f"{T}{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}{T}NOT = {{ has_variable = tv_wonder_hagia_prosperity_active }}")
-    lines.append(f"{T}{T}{T}{T}NOT = {{ has_variable = tv_wonder_hagia_pending_event }}")
-    lines.append(f"{T}{T}{T}{T}OR = {{")
-    for step in HAGIA_STEPS:
-        lines.append(f"{T}{T}{T}{T}{T}AND = {{ var:tv_wonder_hagia_step ?= {step} has_variable = tv_wonder_hagia_assignee_{step} }}")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}{T}limit = {{ NOT = {{ has_variable = tv_wonder_hagia_months }} }}")
-    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}change_variable = {{ name = tv_wonder_hagia_months add = 1 }}")
-    lines.append(f"{T}{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}{T}limit = {{ var:tv_wonder_hagia_months >= 3 }}")
-    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_hagia_months value = 0 }}")
-    lines.append(f"{T}{T}{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}{T}{T}limit = {{ var:tv_wonder_hagia_step ?= 8 }}")
-    lines.append(f"{T}{T}{T}{T}{T}tv_wonder_hagia_begin_step_8_procession_effect = yes")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}{T}else = {{")
-    lines.append(f"{T}{T}{T}{T}{T}tv_wonder_hagia_fire_step_event_effect = yes")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
 
 
 def ritual_runtime_variables(ritual_plan: dict) -> list[str]:
@@ -1956,14 +1432,11 @@ def append_roll_random_feasible_proposal_effect(lines: list[str], name: str, dec
     lines.append("")
 
 
-def generate() -> str:
-    all_wonders, mechanics = load_all_wonder_mechanics()
-    by_key = all_wonders_by_key(all_wonders)
-    generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
-    unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
-    lines = render_header(SCRIPT_REL)
-    append_display_modifier_reference_effect(lines, all_wonders)
+def finish_lines(lines: list[str]) -> str:
+    return "\n".join(lines).rstrip() + "\n"
 
+
+def append_proposal_effects(lines: list[str], all_wonders: list[dict]) -> None:
     lines.append("tv_wonder_mechanics_clear_feasible_deck_effect = {")
     lines.append(f"{T}clear_variable_map = {FEASIBLE_GENERIC_DECK_MAP}")
     lines.append(f"{T}clear_variable_map = {FEASIBLE_UNIQUE_DECK_MAP}")
@@ -2019,12 +1492,24 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
+
+def generate_proposal_effects(script_rel: str = PROPOSAL_SCRIPT_REL) -> str:
+    all_wonders, _mechanics = load_all_wonder_mechanics()
+    lines = render_header(script_rel)
+    append_proposal_effects(lines, all_wonders)
+    return finish_lines(lines)
+
+
+def append_survey_effects(
+    lines: list[str],
+    all_wonders: list[dict],
+    mechanics: dict,
+    by_key: dict[str, dict],
+) -> None:
     append_current_suitability_display_cache_effects(lines, all_wonders, mechanics)
     append_suitability_actual_effects(lines, all_wonders, mechanics, by_key)
     max_rows = max(len(suitability_knowledge_for_wonder(mechanics, wonder)) for wonder in all_wonders)
     append_survey_cache_transfer_effects(lines, max_rows)
-    append_pharos_effects(lines)
-    append_hagia_effects(lines)
 
     lines.append("tv_wonder_mechanics_apply_survey_site_preference_effect = {")
     for idx, wonder in enumerate(all_wonders):
@@ -2095,14 +1580,20 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
-
-    append_final_building_level_map_sync_effects(lines)
-    append_existing_unique_wonders_initialization_effect(lines, unique_wonders)
-    append_country_auto_level_map_effect(lines)
-    append_location_display_effects(lines)
     append_suitability_reveal_effect(lines)
 
+
+def generate_survey_effects(script_rel: str = SURVEY_SCRIPT_REL) -> str:
+    all_wonders, mechanics = load_all_wonder_mechanics()
+    by_key = all_wonders_by_key(all_wonders)
+    lines = render_header(script_rel)
+    append_survey_effects(lines, all_wonders, mechanics, by_key)
+    return finish_lines(lines)
+
+
+def append_ritual_effects(lines: list[str], all_wonders: list[dict], mechanics: dict) -> None:
+    append_unique_ritual_effects(lines)
+    append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
     ritual_entry_list = ritual_entries(all_wonders, mechanics)
 
     lines.append("tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {")
@@ -2389,6 +1880,36 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
+
+def generate_ritual_effects(script_rel: str = RITUAL_SCRIPT_REL) -> str:
+    all_wonders, mechanics = load_all_wonder_mechanics()
+    lines = render_header(script_rel)
+    append_ritual_effects(lines, all_wonders, mechanics)
+    return finish_lines(lines)
+
+
+def append_location_display_group(lines: list[str], all_wonders: list[dict], unique_wonders: list[dict]) -> None:
+    append_display_modifier_reference_effect(lines, all_wonders)
+    append_final_building_level_map_sync_effects(lines)
+    append_existing_unique_wonders_initialization_effect(lines, unique_wonders)
+    append_country_auto_level_map_effect(lines)
+    append_location_display_effects(lines)
+
+
+def generate_location_display_effects(script_rel: str = LOCATION_DISPLAY_SCRIPT_REL) -> str:
+    all_wonders, _mechanics = load_all_wonder_mechanics()
+    unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
+    lines = render_header(script_rel)
+    append_location_display_group(lines, all_wonders, unique_wonders)
+    return finish_lines(lines)
+
+
+def append_project_state_cleanup_effect(
+    lines: list[str],
+    all_wonders: list[dict],
+    mechanics: dict,
+    ritual_entry_list: list[tuple[dict, int, dict]],
+) -> None:
     lines.append("tv_wonder_mechanics_clear_project_state_effect = {")
     lines.append(f"{T}clear_variable_map = {FEASIBLE_GENERIC_DECK_MAP}")
     lines.append(f"{T}clear_variable_map = {FEASIBLE_UNIQUE_DECK_MAP}")
@@ -2409,7 +1930,17 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
-    return "\n".join(lines).rstrip() + "\n"
+
+def generate() -> str:
+    all_wonders, mechanics = load_all_wonder_mechanics()
+    lines = render_header(SCRIPT_REL)
+    append_project_state_cleanup_effect(
+        lines,
+        all_wonders,
+        mechanics,
+        ritual_entries(all_wonders, mechanics),
+    )
+    return finish_lines(lines)
 
 
 def main() -> None:

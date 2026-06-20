@@ -333,7 +333,7 @@ metadata:
       scope: country
       evidence_level: verified_reference
       confidence: high
-      source_basis: "scripts/wonder_mechanics_lib.py:956-1026 requires key/mode/cost_type/listeners/runtime variables/country modifier/reward and confirmation/start/snapshot/progress/completion script fields for unique rituals."
+      source_basis: "scripts/wonder_mechanics/rituals.py and scripts/wonder_mechanics/schema.py require key/mode/cost_type/listeners/runtime variables/country modifier/reward and confirmation/start/snapshot/progress/completion script fields for unique rituals."
       likely_failure_points: "Schema accepts script payloads, but payload syntax and scope still need the normal 3-Step verification before implementation."
       verification_needed_later: "Re-run ai_context and verify each authored trigger/effect in reference files before generating or editing EU5 script."
     selected_ritual_cache: &iface_selected_ritual_cache
@@ -587,7 +587,7 @@ unique_wonder_ritual_feasibility:
         - "data/unique_wonder_ritual_designs.yaml:92-115 maps confirmation/start/snapshot/progress/completion scripts."
         - "data/unique_wonder_ritual_designs.yaml:116-131 defines country maritime reward and optional Alexandria local memory."
       implementation_references:
-        - "scripts/wonder_mechanics_lib.py:956-1026 validates unique ritual schema fields."
+        - "scripts/wonder_mechanics/rituals.py and scripts/wonder_mechanics/schema.py validate unique ritual schema fields."
         - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:144-153 verifies monthly listener dispatch."
         - "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1319-1452 verifies timed/deferred completion pipeline."
       inference_notes:

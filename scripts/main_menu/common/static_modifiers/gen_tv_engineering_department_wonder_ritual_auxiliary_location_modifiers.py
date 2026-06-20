@@ -7,16 +7,18 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.modifiers import (
     authored_final_building_local_modifiers,
-    load_all_wonder_mechanics,
-    render_header,
+    scale_numeric_modifier_mapping,
+)
+from wonder_mechanics.naming import wonder_static_local_display_modifier_name
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import (
     ritual_auxiliary_display_modifier_name,
     ritual_auxiliary_modifiers,
     ritual_plan_for_style,
-    scale_numeric_modifier_mapping,
     ceremony_styles,
-    wonder_static_local_display_modifier_name,
 )
 
 OUT_FILE = (

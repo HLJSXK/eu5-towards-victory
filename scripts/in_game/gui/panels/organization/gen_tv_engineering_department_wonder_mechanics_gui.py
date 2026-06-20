@@ -8,15 +8,18 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
-    WONDER_RITUAL_COST_TYPE_IDS,
-    load_all_wonder_mechanics_data,
-    mechanic_key,
-    render_header,
+from wonder_mechanics.io import load_all_wonder_mechanics_data
+from wonder_mechanics.naming import mechanic_key
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import WONDER_RITUAL_COST_TYPE_IDS
+from wonder_mechanics.schema import (
     suitability_current_actual_variable,
     suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
 )
+from wonder_unique_rituals import append_unique_ritual_gui
+from wonder_unique_rituals.hagia import HAGIA_WONDER_ID
+from wonder_unique_rituals.pharos import PHAROS_WONDER_ID
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
@@ -89,27 +92,6 @@ PROPOSAL_SIZE_INDICATORS = [
     ("medium", "TV_ENGINEERING_WONDER_SIZE_MEDIUM_LABEL", "color_yellow_texture", "color_yellow_texture"),
     ("large", "TV_ENGINEERING_WONDER_SIZE_LARGE_LABEL", "color_mid_red_texture", "color_red_texture"),
 ]
-PHAROS_WONDER_ID = 101
-PHAROS_ROUTE_KEYS = [
-    "constantinople",
-    "venice",
-    "genoa",
-    "malta",
-    "tunis",
-    "palermo",
-    "candia",
-    "gibraltar",
-]
-PHAROS_ROUTE_COUNT = len(PHAROS_ROUTE_KEYS)
-PHAROS_CARD_WIDTH = 462
-PHAROS_ROW_HEIGHT = 28
-PHAROS_ROUTE_CARD_HEIGHT = 386
-PHAROS_PHASE_CARD_HEIGHT = 126
-HAGIA_WONDER_ID = 102
-HAGIA_CARD_WIDTH = 462
-HAGIA_CARD_HEIGHT = 92
-
-
 def eq(var: str, value: int) -> str:
     return f"EqualTo_CFixedPoint({PLAYER}.GetVariable('{var}').GetValue, '(CFixedPoint){value}.0')"
 
@@ -638,359 +620,6 @@ def ritual_info_container(
     return lines
 
 
-def pharos_stage_visible(stage: int) -> str:
-    return fold_bool(
-        "And",
-        [
-            active_ritual_visible(),
-            pharos_locked_expr(),
-            var_is_set("tv_wonder_pharos_stage"),
-            eq("tv_wonder_pharos_stage", stage),
-        ],
-    )
-
-
-def pharos_status_visible(route_key: str, status: int) -> str:
-    status_var = f"tv_wonder_pharos_route_{route_key}_status"
-    return f"And({var_is_set(status_var)}, {eq(status_var, status)})"
-
-
-def pharos_route_success_visible(route_key: str) -> str:
-    return f"Or({pharos_status_visible(route_key, 1)}, {pharos_status_visible(route_key, 2)})"
-
-
-def pharos_route_uncontrolled_visible(route_key: str) -> str:
-    status_var = f"tv_wonder_pharos_route_{route_key}_status"
-    return f"Or(Not({var_is_set(status_var)}), {eq(status_var, 0)})"
-
-
-def pharos_piechart(
-    indent: int,
-    *,
-    value_var: str,
-    max_value: int,
-    icon_text: str,
-    fill_color: str,
-) -> list[str]:
-    prefix = T * indent
-    value_expr = player_var(value_var)
-    return [
-        f"{prefix}widget = {{",
-        f"{prefix}{T}size = {{ 98 98 }}",
-        f"{prefix}{T}piechart = {{",
-        f"{prefix}{T}{T}size = {{ 88 88 }}",
-        f"{prefix}{T}{T}parentanchor = center",
-        f"{prefix}{T}{T}widgetanchor = center",
-        f"{prefix}{T}{T}using = piechart_angles",
-        f"{prefix}{T}{T}pieslice = {{ texture = \"gfx/interface/pie_charts/pie_chart_alpha_80.dds\" value = \"[{value_expr}.GetValue]\" color = {{ {fill_color} }} alpha = 0.82 }}",
-        f"{prefix}{T}{T}pieslice = {{ texture = \"gfx/interface/pie_charts/pie_chart_alpha_80.dds\" value = \"[Subtract_CFixedPoint('(CFixedPoint){max_value}.0', {value_expr}.GetValue)]\" color = {{ 0.06 0.08 0.10 0.78 }} }}",
-        f"{prefix}{T}{T}using = bg_circle_piechart_big",
-        f"{prefix}{T}}}",
-        f"{prefix}{T}text_single = {{",
-        f"{prefix}{T}{T}size = {{ 88 88 }}",
-        f"{prefix}{T}{T}parentanchor = center",
-        f"{prefix}{T}{T}widgetanchor = center",
-        f'{prefix}{T}{T}raw_text = "{icon_text}"',
-        f"{prefix}{T}{T}fontsize = 32",
-        f"{prefix}{T}{T}align = center|nobaseline",
-        f"{prefix}{T}}}",
-        f"{prefix}}}",
-    ]
-
-
-def pharos_stage_1_card(indent: int) -> list[str]:
-    prefix = T * indent
-    lines = [
-        f"{prefix}widget = {{",
-        f'{prefix}{T}visible = "[{pharos_stage_visible(1)}]"',
-        f"{prefix}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}size = {{ {PHAROS_CARD_WIDTH} {PHAROS_PHASE_CARD_HEIGHT} }}",
-        f"{prefix}{T}using = bg_text_mask_container_dark_blue",
-        "",
-        f"{prefix}{T}hbox = {{",
-        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}{T}margin = {{ 8 8 }}",
-        f"{prefix}{T}{T}spacing = 12",
-    ]
-    lines.extend(
-        pharos_piechart(
-            indent + 2,
-            value_var="tv_wonder_pharos_privateer_threat_pct",
-            max_value=100,
-            icon_text="@ship!",
-            fill_color="0.78 0.18 0.12 1",
-        )
-    )
-    lines.extend(
-        [
-            f"{prefix}{T}{T}text_multi = {{",
-            f"{prefix}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{prefix}{T}{T}{T}max_width = 328",
-            f"{prefix}{T}{T}{T}autoresize = yes",
-            f'{prefix}{T}{T}{T}text = "TV_ENGINEERING_PHAROS_STAGE_1_TEXT"',
-            f"{prefix}{T}{T}{T}align = nobaseline|left",
-            f"{prefix}{T}{T}}}",
-            f"{prefix}{T}}}",
-            f"{prefix}}}",
-        ]
-    )
-    return lines
-
-
-def pharos_route_row(route_key: str, indent: int) -> list[str]:
-    prefix = T * indent
-    location_var = player_var(f"tv_wonder_pharos_route_{route_key}_location")
-    owner_var = player_var(f"tv_wonder_pharos_route_{route_key}_owner")
-    success_visible = pharos_route_success_visible(route_key)
-    uncontrolled_visible = pharos_route_uncontrolled_visible(route_key)
-    return [
-        f"{prefix}widget = {{",
-        f"{prefix}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}layoutpolicy_vertical = fixed",
-        f"{prefix}{T}size = {{ {PHAROS_CARD_WIDTH - 16} {PHAROS_ROW_HEIGHT} }}",
-        f"{prefix}{T}alwaystransparent = yes",
-        f"{prefix}{T}background = {{",
-        f"{prefix}{T}{T}using = color_mid_red_texture",
-        f"{prefix}{T}{T}alpha = 0.22",
-        f"{prefix}{T}}}",
-        f"{prefix}{T}widget = {{",
-        f'{prefix}{T}{T}visible = "[{success_visible}]"',
-        f"{prefix}{T}{T}size = {{ 100% 100% }}",
-        f"{prefix}{T}{T}alwaystransparent = yes",
-        f"{prefix}{T}{T}background = {{",
-        f"{prefix}{T}{T}{T}using = color_market_green_texture",
-        f"{prefix}{T}{T}{T}alpha = 0.24",
-        f"{prefix}{T}{T}}}",
-        f"{prefix}{T}}}",
-        f"{prefix}{T}hbox = {{",
-        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}{T}layoutpolicy_vertical = fixed",
-        f"{prefix}{T}{T}size = {{ 100% 100% }}",
-        f"{prefix}{T}{T}margin = {{ 6 3 }}",
-        f"{prefix}{T}{T}spacing = 4",
-        f'{prefix}{T}{T}text_single = {{ size = {{ 18 22 }} raw_text = "@location!" fontsize = 14 align = nobaseline|left }}',
-        f"{prefix}{T}{T}text_single = {{",
-        f'{prefix}{T}{T}{T}visible = "[{location_var}.IsSet]"',
-        f"{prefix}{T}{T}{T}size = {{ 126 22 }}",
-        f'{prefix}{T}{T}{T}text = "[{location_var}.GetLocation.GetName]"',
-        f"{prefix}{T}{T}{T}max_width = 126",
-        f"{prefix}{T}{T}{T}fontsize = 13",
-        f"{prefix}{T}{T}{T}align = nobaseline|left",
-        f"{prefix}{T}{T}}}",
-        f"{prefix}{T}{T}expand = {{}}",
-        f"{prefix}{T}{T}text_single = {{",
-        f'{prefix}{T}{T}{T}visible = "[{owner_var}.IsSet]"',
-        f"{prefix}{T}{T}{T}size = {{ 162 22 }}",
-        f'{prefix}{T}{T}{T}raw_text = "[{owner_var}.GetCountry.GetNameWithFlag]"',
-        f"{prefix}{T}{T}{T}max_width = 162",
-        f"{prefix}{T}{T}{T}fontsize = 13",
-        f"{prefix}{T}{T}{T}align = nobaseline|right",
-        f"{prefix}{T}{T}}}",
-        f"{prefix}{T}{T}text_single = {{",
-        f'{prefix}{T}{T}{T}visible = "[Not({owner_var}.IsSet)]"',
-        f"{prefix}{T}{T}{T}size = {{ 162 22 }}",
-        f'{prefix}{T}{T}{T}text = "TV_ENGINEERING_PHAROS_NO_OWNER"',
-        f"{prefix}{T}{T}{T}max_width = 162",
-        f"{prefix}{T}{T}{T}fontsize = 13",
-        f"{prefix}{T}{T}{T}align = nobaseline|right",
-        f"{prefix}{T}{T}}}",
-        f"{prefix}{T}{T}text_single = {{ visible = \"[{pharos_status_visible(route_key, 1)}]\" size = {{ 58 22 }} text = \"TV_ENGINEERING_PHAROS_STATUS_CONTROLLED\" fontsize = 13 align = nobaseline|right }}",
-        f"{prefix}{T}{T}text_single = {{ visible = \"[{pharos_status_visible(route_key, 2)}]\" size = {{ 58 22 }} text = \"TV_ENGINEERING_PHAROS_STATUS_BASING\" fontsize = 13 align = nobaseline|right }}",
-        f"{prefix}{T}{T}text_single = {{ visible = \"[{uncontrolled_visible}]\" size = {{ 58 22 }} text = \"TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED\" fontsize = 13 align = nobaseline|right }}",
-        f"{prefix}{T}}}",
-        f"{prefix}}}",
-    ]
-
-
-def pharos_stage_2_card(indent: int) -> list[str]:
-    prefix = T * indent
-    progress_var = player_var("tv_wonder_pharos_route_progress")
-    lines = [
-        f"{prefix}widget = {{",
-        f'{prefix}{T}visible = "[{pharos_stage_visible(2)}]"',
-        f"{prefix}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}size = {{ {PHAROS_CARD_WIDTH} {PHAROS_ROUTE_CARD_HEIGHT} }}",
-        f"{prefix}{T}using = bg_text_mask_container_dark_blue",
-        "",
-        f"{prefix}{T}vbox = {{",
-        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}{T}margin = {{ 8 8 }}",
-        f"{prefix}{T}{T}spacing = 7",
-        f"{prefix}{T}{T}ignoreinvisible = yes",
-        f"{prefix}{T}{T}hbox = {{",
-        f"{prefix}{T}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}{T}{T}size = {{ {PHAROS_CARD_WIDTH - 16} 92 }}",
-        f"{prefix}{T}{T}{T}spacing = 12",
-    ]
-    lines.extend(
-        pharos_piechart(
-            indent + 3,
-            value_var="tv_wonder_pharos_route_progress",
-            max_value=PHAROS_ROUTE_COUNT,
-            icon_text="@port!",
-            fill_color="0.18 0.58 0.42 1",
-        )
-    )
-    lines.extend(
-        [
-            f"{prefix}{T}{T}{T}vbox = {{",
-            f"{prefix}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{prefix}{T}{T}{T}{T}spacing = 4",
-            f"{prefix}{T}{T}{T}{T}text_multi = {{ max_width = 328 autoresize = yes text = \"TV_ENGINEERING_PHAROS_STAGE_2_TEXT\" align = nobaseline|left }}",
-            f"{prefix}{T}{T}{T}{T}text_single = {{",
-            f"{prefix}{T}{T}{T}{T}{T}size = {{ 328 22 }}",
-            f'{prefix}{T}{T}{T}{T}{T}raw_text = "[{progress_var}.GetValue|0]/{PHAROS_ROUTE_COUNT}"',
-            f"{prefix}{T}{T}{T}{T}{T}fontsize = 14",
-            f"{prefix}{T}{T}{T}{T}{T}align = nobaseline|right",
-            f"{prefix}{T}{T}{T}{T}}}",
-            f"{prefix}{T}{T}{T}}}",
-            f"{prefix}{T}{T}}}",
-        ]
-    )
-    for route_key in PHAROS_ROUTE_KEYS:
-        lines.extend(pharos_route_row(route_key, indent + 2))
-    lines.extend(
-        [
-            f"{prefix}{T}}}",
-            f"{prefix}}}",
-        ]
-    )
-    return lines
-
-
-def hagia_step_visible(step: int) -> str:
-    return fold_bool(
-        "And",
-        [
-            active_ritual_visible(),
-            hagia_locked_expr(),
-            f"Or({var_is_set(f'tv_wonder_hagia_assignee_{step}')}, {var_is_set(f'tv_wonder_hagia_step_{step}_done')}, {hagia_step_current_visible(step)})",
-        ],
-    )
-
-
-def hagia_step_done_visible(step: int) -> str:
-    return var_is_set(f"tv_wonder_hagia_step_{step}_done")
-
-
-def hagia_step_current_visible(step: int) -> str:
-    return f"And({var_is_set('tv_wonder_hagia_step')}, {eq('tv_wonder_hagia_step', step)})"
-
-
-def hagia_step_assigned_visible(step: int) -> str:
-    return var_is_set(f"tv_wonder_hagia_assignee_{step}")
-
-
-def hagia_step_waiting_visible(step: int) -> str:
-    return fold_bool(
-        "And",
-        [
-            hagia_step_current_visible(step),
-            f"Not({hagia_step_assigned_visible(step)})",
-            f"Not({hagia_step_done_visible(step)})",
-        ],
-    )
-
-
-def hagia_step_active_visible(step: int) -> str:
-    return fold_bool(
-        "And",
-        [
-            hagia_step_current_visible(step),
-            hagia_step_assigned_visible(step),
-            f"Not({hagia_step_done_visible(step)})",
-        ],
-    )
-
-
-def hagia_step_portrait(step: int, indent: int) -> list[str]:
-    prefix = T * indent
-    assignee_var = f"tv_wonder_hagia_assignee_{step}"
-    return [
-        f"{prefix}widget = {{",
-        f"{prefix}{T}size = {{ 64 64 }}",
-        f"{prefix}{T}portrait_standard_head_button = {{",
-        f'{prefix}{T}{T}visible = "[{var_is_set(assignee_var)}]"',
-        f"{prefix}{T}{T}size = {{ 64 64 }}",
-        f'{prefix}{T}{T}datacontext = "[{PLAYER}.GetVariable(\'{assignee_var}\').GetCharacter]"',
-        f"{prefix}{T}}}",
-        f"{prefix}{T}action_button_diamond = {{",
-        f'{prefix}{T}{T}visible = "[{hagia_step_waiting_visible(step)}]"',
-        f"{prefix}{T}{T}size = {{ 64 64 }}",
-        f'{prefix}{T}{T}text = "@characters!"',
-        f'{prefix}{T}{T}title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_{step}"',
-        f'{prefix}{T}{T}description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_{step}_DESC"',
-        f'{prefix}{T}{T}actor = "[InternationalOrganizationsView.GetPlayer]"',
-        f'{prefix}{T}{T}left_action = {{ action_name = "tv_wonder_hagia_assign_step_{step}" }}',
-        f"{prefix}{T}}}",
-        f"{prefix}{T}widget = {{",
-        f'{prefix}{T}{T}visible = "[Not(Or({var_is_set(assignee_var)}, {hagia_step_waiting_visible(step)}))]"',
-        f"{prefix}{T}{T}size = {{ 64 64 }}",
-        f"{prefix}{T}{T}alwaystransparent = yes",
-        f"{prefix}{T}{T}background = {{",
-        f"{prefix}{T}{T}{T}using = color_yellow_texture",
-        f"{prefix}{T}{T}{T}alpha = 0.14",
-        f"{prefix}{T}{T}}}",
-        f'{prefix}{T}{T}text_single = {{ raw_text = "@time!" size = {{ 64 64 }} fontsize = 24 align = center|nobaseline }}',
-        f"{prefix}{T}}}",
-        f"{prefix}}}",
-    ]
-
-
-def hagia_step_card(step: int, indent: int) -> list[str]:
-    prefix = T * indent
-    lines = [
-        f"{prefix}widget = {{",
-        f'{prefix}{T}visible = "[{hagia_step_visible(step)}]"',
-        f"{prefix}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}layoutpolicy_vertical = fixed",
-        f"{prefix}{T}size = {{ {HAGIA_CARD_WIDTH} {HAGIA_CARD_HEIGHT} }}",
-        f"{prefix}{T}using = bg_text_mask_container_dark_blue",
-        f"{prefix}{T}widget = {{",
-        f'{prefix}{T}{T}visible = "[{hagia_step_done_visible(step)}]"',
-        f"{prefix}{T}{T}size = {{ 100% 100% }}",
-        f"{prefix}{T}{T}alwaystransparent = yes",
-        f"{prefix}{T}{T}background = {{",
-        f"{prefix}{T}{T}{T}using = color_market_green_texture",
-        f"{prefix}{T}{T}{T}alpha = 0.22",
-        f"{prefix}{T}{T}}}",
-        f"{prefix}{T}}}",
-        f"{prefix}{T}hbox = {{",
-        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}{T}layoutpolicy_vertical = fixed",
-        f"{prefix}{T}{T}size = {{ 100% 100% }}",
-        f"{prefix}{T}{T}margin = {{ 8 8 }}",
-        f"{prefix}{T}{T}spacing = 12",
-    ]
-    lines.extend(hagia_step_portrait(step, indent + 2))
-    lines.extend(
-        [
-            f"{prefix}{T}{T}widget = {{",
-            f"{prefix}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{prefix}{T}{T}{T}layoutpolicy_vertical = shrinking",
-            f"{prefix}{T}{T}{T}vbox = {{",
-            f"{prefix}{T}{T}{T}{T}layoutpolicy_horizontal = expanding",
-            f"{prefix}{T}{T}{T}{T}spacing = 2",
-            f"{prefix}{T}{T}{T}{T}ignoreinvisible = yes",
-            f'{prefix}{T}{T}{T}{T}text_multi = {{ visible = "[{hagia_step_waiting_visible(step)}]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_{step}_WAITING" align = nobaseline|left }}',
-            f'{prefix}{T}{T}{T}{T}text_multi = {{ visible = "[{hagia_step_active_visible(step)}]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_{step}_ACTIVE" align = nobaseline|left }}',
-            f'{prefix}{T}{T}{T}{T}text_multi = {{ visible = "[{hagia_step_done_visible(step)}]" max_width = 370 autoresize = yes text = "TV_ENGINEERING_HAGIA_STEP_{step}_DONE" align = nobaseline|left }}',
-            f"{prefix}{T}{T}{T}}}",
-            f"{prefix}{T}{T}}}",
-            f"{prefix}{T}}}",
-            f"{prefix}}}",
-        ]
-    )
-    return lines
-
-
-def hagia_ritual_cards(indent: int) -> list[str]:
-    lines: list[str] = []
-    for step in range(1, 9):
-        lines.extend(hagia_step_card(step, indent))
-    return lines
-
-
 def active_ritual_display() -> str:
     visible = active_ritual_visible()
     is_unique = (
@@ -1049,9 +678,18 @@ def active_ritual_display() -> str:
         )
     )
     lines.extend(ritual_style_1_progress_row(2))
-    lines.extend(pharos_stage_1_card(2))
-    lines.extend(pharos_stage_2_card(2))
-    lines.extend(hagia_ritual_cards(2))
+    append_unique_ritual_gui(
+        lines,
+        2,
+        {
+            "PLAYER": PLAYER,
+            "active_ritual_visible": active_ritual_visible,
+            "eq": eq,
+            "fold_bool": fold_bool,
+            "player_var": player_var,
+            "var_is_set": var_is_set,
+        },
+    )
     lines.append(f"{T}}}")
     return "\n".join(lines)
 

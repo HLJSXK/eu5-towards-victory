@@ -7,22 +7,26 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import (
+    load_all_wonder_mechanics,
+    load_wonders_source_data,
+)
+from wonder_mechanics.naming import (
     PARTS,
+    WONDER_SIZE_IDS,
+    wonder_ritual_composite_id,
+)
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import (
     WONDER_RITUAL_COST_TYPE_IDS,
     WONDER_RITUAL_LISTENER_KEYS,
     WONDER_RITUAL_MODE_IDS,
-    WONDER_SIZE_IDS,
     ceremony_styles,
-    load_all_wonder_mechanics,
-    load_wonders_source_data,
-    render_header,
     ritual_plan_for_style,
     ritual_has_custom_completion_trigger,
     ritual_uses_deferred_completion,
-    suitability_knowledge_for_wonder,
-    wonder_ritual_composite_id,
 )
+from wonder_mechanics.schema import suitability_knowledge_for_wonder
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_index_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_index_effects.py"

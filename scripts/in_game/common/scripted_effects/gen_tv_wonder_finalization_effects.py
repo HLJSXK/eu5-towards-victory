@@ -9,9 +9,9 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.naming import (
     FINAL_BUILDING_LEVEL_BY_TYPE_MAP,
-    ceremony_styles,
     construct_final_building_effect_name,
     finalization_event_id,
     finalization_hidden_event_execute_effect_name,
@@ -20,9 +20,9 @@ from wonder_mechanics_lib import (
     finalization_hidden_effect_name,
     finalization_visible_effect_name,
     finalization_world_event_id,
-    load_all_wonder_mechanics,
-    render_header,
 )
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import ceremony_styles
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_finalization_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py"

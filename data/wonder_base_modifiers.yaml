@@ -1,0 +1,150 @@
+base_modifiers:
+  colonial_trade_company:
+    global_merchant_power: 0.2
+    global_merchant_capacity_modifier: 0.1
+    monthly_towards_free_trade: 0.05
+  great_assembly_hall:
+    country_cabinet_efficiency: 0.1
+    legislative_efficiency: 0.1
+    monthly_towards_conciliatory: 0.05
+  mobile_fortress:
+    monthly_towards_decentralization: 0.05
+  ancient_city_ruins:
+    exploration_mission_speed: 0.1
+    monthly_towards_outward: 0.05
+  summer_palace:
+    monthly_towards_decentralization: 0.05
+  sacred_mountain:
+    clergy_estate_max_tax: 0.1
+    clergy_estate_target_satisfaction: 0.05
+    monthly_towards_spiritualist: 0.05
+  triumphal_axis:
+    monthly_legitimacy: 0.05
+    monthly_towards_centralization: 0.05
+  great_port:
+    monthly_towards_naval: 0.05
+  giant_necropolis:
+    pop_join_rebel_threshold: -0.025
+    pop_leave_rebels_threshold: -0.025
+    monthly_towards_traditionalist: 0.05
+  great_lighthouse:
+    trade_range: 200
+    naval_range: 200
+    colonial_range: 200
+    monthly_towards_naval: 0.05
+  hydraulic_workshop:
+    monthly_towards_capital_economy: 0.05
+  mining_city:
+    monthly_towards_traditional_economy: 0.05
+  giant_observatory:
+    research_speed: 0.05
+    monthly_towards_innovative: 0.05
+  palace_of_nations:
+    global_distance_from_capital_speed_propagation: 0.05
+    monthly_towards_centralization: 0.05
+  university_city:
+    monthly_towards_innovative: 0.05
+  sky_dome_grand_temple:
+    global_pop_conversion_speed: 0.002
+    monthly_towards_spiritualist: 0.05
+  giant_tower_temple:
+    monthly_towards_spiritualist: 0.05
+  river_extension:
+    monthly_towards_free_subjects: 0.05
+  national_shipyard:
+    ship_build_speed: 0.2
+    monthly_towards_naval: 0.05
+  national_bank:
+    tax_income_efficiency: 0.02
+    merchant_maintenance_efficiency: 0.03
+    monthly_towards_capital_economy: 0.05
+  star_fortress_city:
+    monthly_towards_defensive: 0.05
+  great_wall:
+    monthly_towards_defensive: 0.05
+  giant_armory:
+    monthly_towards_offensive: 0.05
+  library_of_nation:
+    global_pop_promotion_speed: 0.005
+    monthly_towards_innovative: 0.05
+  large_canal_system:
+    global_monthly_prosperity: 0.0005
+    monthly_towards_free_subjects: 0.05
+  mountain_terrace_network:
+    monthly_towards_traditional_economy: 0.05
+  giant_dam_project:
+    monthly_towards_free_subjects: 0.05
+  royal_granary_system:
+    global_food_capacity_modifier: 0.2
+    monthly_towards_traditional_economy: 0.05
+  imperial_post_road_network:
+    monthly_towards_centralization: 0.05
+  canal_hub_city:
+    monthly_towards_mercantilism: 0.05
+  frontier_colonization_belt:
+    monthly_towards_outward: 0.05
+  coastal_beacon_network:
+    monthly_towards_naval: 0.05
+  knightly_fortress_order:
+    monthly_towards_defensive: 0.05
+  war_college_system:
+    monthly_army_tradition: 0.05
+    monthly_towards_belligerent: 0.05
+  great_clock_bell_system:
+    monthly_towards_inward: 0.05
+  royal_art_district:
+    num_possible_artists: 1
+    artist_salary_modifier: -0.1
+    monthly_towards_innovative: 0.05
+  grand_theater_festival_district:
+    cultural_influence_modifier: 0.1
+    skill_of_new_artists: 0.05
+    monthly_towards_humanist: 0.05
+  world_embassy_quarter:
+    diplomatic_reputation: 1
+    monthly_towards_conciliatory: 0.05
+  law_code_stele_project:
+    monthly_rebel_growth: -0.0005
+    monthly_towards_inward: 0.05
+  world_market:
+    global_trade_center_power: 0.1
+    monthly_towards_free_trade: 0.05
+  royal_mint_system:
+    minting_income_factor: 0.1
+    monthly_towards_capital_economy: 0.05
+  guild_alliance:
+    monthly_towards_plutocracy: 0.05
+  maritime_trade_station_network:
+    monthly_towards_free_trade: 0.05
+  giant_workshop_complex:
+    monthly_towards_capital_economy: 0.05
+  world_monument_group:
+    cultures_capacity: 0.5
+    monthly_towards_humanist: 0.05
+  city_expansion_project: {}
+  megalithic_circle:
+    tolerance_heretic: 0.5
+    tolerance_heathen: 0.5
+    monthly_towards_traditionalist: 0.05
+  grand_cathedral:
+    tolerance_own: 0.5
+    monthly_towards_spiritualist: 0.05
+  great_monastery:
+    monthly_towards_spiritualist: 0.05
+  city_great_tower:
+    monthly_towards_inward: 0.05
+  great_sculpture_group:
+    pop_join_rebel_threshold: 0.025
+    pop_leave_rebels_threshold: 0.025
+    monthly_towards_humanist: 0.05
+  coastal_defense_cannon:
+    monthly_towards_defensive: 0.05
+  naval_school:
+    monthly_navy_tradition: 0.05
+    monthly_towards_naval: 0.05
+  pirate_port:
+    can_hire_privateers: true
+    hire_privateer_cost_modifier: -0.05
+    privateer_maintenance_cost_modifier: -0.03
+    privateer_durability: 0.05
+    monthly_towards_naval: 0.05

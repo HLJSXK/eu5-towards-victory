@@ -56,7 +56,7 @@ DEFAULT_WONDERS_DIR = (
 DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_wonders"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
-from wonder_mechanics_lib import load_wonder_image_tasks  # noqa: E402
+from wonder_mechanics.io import load_wonder_image_tasks
 from dds_image_lib import RgbaImage, write_dds  # noqa: E402
 from wonder_image_crop_lib import (  # noqa: E402
     cropped_wonder_dds_path,

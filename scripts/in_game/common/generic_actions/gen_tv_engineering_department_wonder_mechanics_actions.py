@@ -7,7 +7,8 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import load_all_wonder_mechanics_data, render_header
+from wonder_mechanics.io import load_all_wonder_mechanics_data
+from wonder_mechanics.render import render_header
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "generic_actions" / "tv_engineering_department_wonder_mechanics_actions.txt"
 SCRIPT_REL = "scripts/in_game/common/generic_actions/gen_tv_engineering_department_wonder_mechanics_actions.py"

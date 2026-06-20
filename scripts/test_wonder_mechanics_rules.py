@@ -19,14 +19,14 @@ TRIGGER_GENERATOR = (
     / "gen_tv_engineering_department_wonder_mechanics_triggers.py"
 )
 
-from wonder_mechanics_lib import (  # noqa: E402
-    ceremony_styles,
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.modifiers import (
     is_value_movement_modifier,
-    load_all_wonder_mechanics,
-    validate_unique_wonder_single_site_shape,
     validate_wonder_size_base_country_modifier_rules,
     wonder_base_country_modifiers,
 )
+from wonder_mechanics.rituals import ceremony_styles
+from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
 
 
 def require(condition: bool, message: str) -> None:
