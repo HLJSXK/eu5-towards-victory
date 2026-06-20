@@ -1760,8 +1760,15 @@ def wonder_static_local_display_modifier_name(wonder: dict, level: int) -> str:
     return f"tv_wonder_display_{wonder['id']}_local_level_{level}"
 
 
-def wonder_auto_base_modifier_name(wonder: dict, level: int) -> str:
-    return f"tv_wonder_auto_{wonder['key']}_level_{level}"
+TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP = "tv_wonder_auto_level_by_wonder_id"
+
+
+def wonder_auto_modifier_name(wonder: dict) -> str:
+    return f"tv_wonder_auto_{wonder['key']}"
+
+
+def wonder_auto_unscaled_modifier_name(wonder: dict) -> str:
+    return f"{wonder_auto_modifier_name(wonder)}_unscaled"
 
 
 def unique_ceremony_modifier_name(wonder: dict) -> str:

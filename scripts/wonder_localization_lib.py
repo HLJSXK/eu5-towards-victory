@@ -19,7 +19,7 @@ try:
         ritual_auxiliary_display_modifier_name,
         ritual_blessing_modifier_name,
         ritual_plan_for_style,
-        wonder_auto_base_modifier_name,
+        wonder_auto_modifier_name,
         unique_ceremony_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
@@ -34,7 +34,7 @@ except ModuleNotFoundError:
         ritual_auxiliary_display_modifier_name,
         ritual_blessing_modifier_name,
         ritual_plan_for_style,
-        wonder_auto_base_modifier_name,
+        wonder_auto_modifier_name,
         unique_ceremony_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
@@ -286,13 +286,7 @@ def _auto_base_modifier_values() -> list[tuple[str, str]]:
     wonders, _ = load_all_wonder_mechanics_data()
     values: list[tuple[str, str]] = []
     for wonder in wonders:
-        for level in range(1, 7):
-            values.append(
-                (
-                    f"AUTO_MODIFIER_NAME_{wonder_auto_base_modifier_name(wonder, level)}",
-                    level_static_modifier_loc(wonder["concept"], level),
-                )
-            )
+        values.append((f"AUTO_MODIFIER_NAME_{wonder_auto_modifier_name(wonder)}", f"[{wonder['concept']}|E]"))
     return values
 
 

@@ -11,6 +11,7 @@ from wonder_mechanics_lib import (
     ALL_WONDER_MIN_ID,
     FINAL_BUILDING_LEVEL_BY_TYPE_MAP,
     STYLE_3_REWARD_EFFECTS,
+    TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP,
     UNIQUE_WONDER_MIN_ID,
     WONDER_MECHANICS_MAX_ID,
     ceremony_styles,
@@ -66,6 +67,12 @@ FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
 UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
 UNIQUE_RITUAL_COMPLETED_MAP = "tv_wonder_unique_ritual_completed"
+AUTO_CACHE_COUNTRY_SCOPE = "tv_wonder_auto_cache_country"
+AUTO_CACHE_LOCATION_SCOPE = "tv_wonder_auto_cache_location"
+AUTO_CACHE_BUILDING_TYPE_LOCAL = "tv_wonder_auto_cache_final_building_type"
+AUTO_CACHE_WONDER_ID_LOCAL = "tv_wonder_auto_cache_wonder_id"
+AUTO_CACHE_LEVEL_LOCAL = "tv_wonder_auto_cache_level"
+AUTO_CACHE_EXISTING_LEVEL_LOCAL = "tv_wonder_auto_cache_existing_level"
 PRIORITY_CANDIDATE_WONDER_ID_VAR = "tv_wonder_priority_candidate_wonder_id"
 PRIORITY_CANDIDATE_CURRENT_MODE_VAR = "tv_wonder_priority_candidate_current_mode"
 LOCATION_DISPLAY_SCOPE = "tv_wonder_location_display_location"
@@ -1437,6 +1444,91 @@ def append_final_building_level_map_sync_effects(lines: list[str]) -> None:
     lines.append("")
 
 
+def append_country_auto_level_map_effect(lines: list[str]) -> None:
+    lines.append("tv_wonder_mechanics_refresh_country_auto_level_map_effect = {")
+    lines.append(f"{T}clear_variable_map = {TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP}")
+    lines.append(f"{T}save_scope_as = {AUTO_CACHE_COUNTRY_SCOPE}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ has_global_variable_map = {FINAL_BUILDING_WONDER_ID_MAP} }}")
+    lines.append(f"{T}{T}every_owned_location = {{")
+    lines.append(f"{T}{T}{T}limit = {{ has_variable_map = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP} }}")
+    lines.append(f"{T}{T}{T}save_scope_as = {AUTO_CACHE_LOCATION_SCOPE}")
+    lines.append(f"{T}{T}{T}every_key_in_variable_map = {{")
+    lines.append(f"{T}{T}{T}{T}variable = {FINAL_BUILDING_LEVEL_BY_TYPE_MAP}")
+    lines.append(
+        f"{T}{T}{T}{T}set_local_variable = {{ "
+        f"name = {AUTO_CACHE_BUILDING_TYPE_LOCAL} value = this }}"
+    )
+    lines.append(f"{T}{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{")
+    lines.append(
+        f"{T}{T}{T}{T}{T}{T}is_key_in_global_variable_map = {{ "
+        f"name = {FINAL_BUILDING_WONDER_ID_MAP} target = local_var:{AUTO_CACHE_BUILDING_TYPE_LOCAL} }}"
+    )
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}scope:{AUTO_CACHE_LOCATION_SCOPE} = {{")
+    lines.append(
+        f"{T}{T}{T}{T}{T}{T}set_local_variable = {{ name = {AUTO_CACHE_LEVEL_LOCAL} "
+        f"value = \"variable_map({FINAL_BUILDING_LEVEL_BY_TYPE_MAP}|local_var:{AUTO_CACHE_BUILDING_TYPE_LOCAL})\" }}"
+    )
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}scope:{AUTO_CACHE_COUNTRY_SCOPE} = {{")
+    lines.append(
+        f"{T}{T}{T}{T}{T}{T}set_local_variable = {{ name = {AUTO_CACHE_WONDER_ID_LOCAL} "
+        f"value = \"global_variable_map({FINAL_BUILDING_WONDER_ID_MAP}|local_var:{AUTO_CACHE_BUILDING_TYPE_LOCAL})\" }}"
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}OR = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}{T}NOT = {{ has_variable_map = {TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP} }}")
+    lines.append(
+        f"{T}{T}{T}{T}{T}{T}{T}{T}{T}NOT = {{ is_key_in_variable_map = {{ "
+        f"name = {TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP} target = local_var:{AUTO_CACHE_WONDER_ID_LOCAL} }} }}"
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}}}")
+    lines.extend(
+        map_replace_lines(
+            TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP,
+            f"local_var:{AUTO_CACHE_WONDER_ID_LOCAL}",
+            f"local_var:{AUTO_CACHE_LEVEL_LOCAL}",
+            7,
+        )
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}else = {{")
+    lines.append(
+        f"{T}{T}{T}{T}{T}{T}{T}set_local_variable = {{ name = {AUTO_CACHE_EXISTING_LEVEL_LOCAL} "
+        f"value = \"variable_map({TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP}|local_var:{AUTO_CACHE_WONDER_ID_LOCAL})\" }}"
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}if = {{")
+    lines.append(
+        f"{T}{T}{T}{T}{T}{T}{T}{T}limit = {{ "
+        f"local_var:{AUTO_CACHE_EXISTING_LEVEL_LOCAL} < local_var:{AUTO_CACHE_LEVEL_LOCAL} }}"
+    )
+    lines.extend(
+        map_replace_lines(
+            TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP,
+            f"local_var:{AUTO_CACHE_WONDER_ID_LOCAL}",
+            f"local_var:{AUTO_CACHE_LEVEL_LOCAL}",
+            8,
+        )
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}remove_local_variable = {AUTO_CACHE_EXISTING_LEVEL_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}remove_local_variable = {AUTO_CACHE_WONDER_ID_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}remove_local_variable = {AUTO_CACHE_LEVEL_LOCAL}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}remove_local_variable = {AUTO_CACHE_BUILDING_TYPE_LOCAL}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def append_existing_unique_wonders_initialization_effect(lines: list[str], unique_wonders: list[dict]) -> None:
     existing_wonders = [wonder for wonder in unique_wonders if int(wonder["initial_level"]) > 0]
     lines.append("tv_wonder_initialize_existing_unique_wonders_effect = {")
@@ -2007,6 +2099,7 @@ def generate() -> str:
 
     append_final_building_level_map_sync_effects(lines)
     append_existing_unique_wonders_initialization_effect(lines, unique_wonders)
+    append_country_auto_level_map_effect(lines)
     append_location_display_effects(lines)
     append_suitability_reveal_effect(lines)
 

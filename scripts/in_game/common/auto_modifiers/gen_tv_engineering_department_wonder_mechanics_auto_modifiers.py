@@ -10,11 +10,11 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics_lib import (
-    ceremony_styles,
-    final_building_for_style,
+    TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP,
     load_all_wonder_mechanics,
     render_header,
-    wonder_auto_base_modifier_name,
+    wonder_auto_modifier_name,
+    wonder_auto_unscaled_modifier_name,
     wonder_base_country_modifiers,
 )
 
@@ -38,68 +38,80 @@ def fmt_value(value: object) -> str:
     return str(value)
 
 
-def building_type_ref(building: str) -> str:
-    return building if building.startswith("building_type:") else f"building_type:{building}"
+def is_numeric_modifier_value(value: object) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
 
 
-def loc_level(building: str, op: str, level: int) -> str:
-    return f"location_building_level = {{ building_type = {building_type_ref(building)} value {op} {level} }}"
+def split_scaled_modifiers(modifiers: dict[str, object]) -> tuple[dict[str, object], dict[str, object]]:
+    scaled: dict[str, object] = {}
+    unscaled: dict[str, object] = {}
+    for key, value in modifiers.items():
+        if is_numeric_modifier_value(value):
+            scaled[key] = value
+        else:
+            unscaled[key] = value
+    return scaled, unscaled
 
 
-def append_owned_building_level_trigger(lines: list[str], buildings: list[str], level: int, indent: int) -> None:
-    prefix = T * indent
-    lines.append(f"{prefix}any_owned_location = {{")
-    if len(buildings) == 1:
-        lines.append(f"{prefix}{T}{loc_level(buildings[0], '>=', level)}")
-    else:
-        lines.append(f"{prefix}{T}OR = {{")
-        for building in buildings:
-            lines.append(f"{prefix}{T}{T}{loc_level(building, '>=', level)}")
-        lines.append(f"{prefix}{T}}}")
-    lines.append(f"{prefix}}}")
-
-
-def append_base_potential(lines: list[str], buildings: list[str], level: int, indent: int) -> None:
+def append_cached_level_potential(lines: list[str], wonder_id: int, indent: int) -> None:
     prefix = T * indent
     lines.append(f"{prefix}potential_trigger = {{")
-    append_owned_building_level_trigger(lines, buildings, level, indent + 1)
-    if level < 6:
-        lines.append(f"{prefix}{T}NOT = {{")
-        append_owned_building_level_trigger(lines, buildings, level + 1, indent + 2)
-        lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}{T}has_variable_map = {TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP}")
+    lines.append(
+        f"{prefix}{T}is_key_in_variable_map = {{ "
+        f"name = {TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP} target = {wonder_id} }}"
+    )
     lines.append(f"{prefix}}}")
 
 
-def append_modifier_block(lines: list[str], name: str, modifiers: dict[str, object], potential_lines: list[str]) -> None:
+def append_modifier_block(
+    lines: list[str],
+    name: str,
+    modifiers: dict[str, object],
+    wonder_id: int,
+    *,
+    scaled: bool,
+    hidden: bool = False,
+) -> None:
     if not modifiers:
         return
     lines.append(f"{name} = {{")
     lines.append(f"{T}category = country")
-    lines.extend(potential_lines)
+    if hidden:
+        lines.append(f"{T}hide_effects = yes")
+    append_cached_level_potential(lines, wonder_id, 1)
+    if scaled:
+        lines.append(f"{T}scales_with = {{")
+        lines.append(f"{T}{T}value = \"variable_map({TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP}|{wonder_id})\"")
+        lines.append(f"{T}}}")
     for key, value in modifiers.items():
         lines.append(f"{T}{key} = {fmt_value(value)}")
     lines.append("}")
     lines.append("")
 
 
-def generated_potential_lines(callback, *args: object) -> list[str]:
-    lines: list[str] = []
-    callback(lines, *args, 1)
-    return lines
-
-
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
     for wonder in wonders:
-        final_buildings = [final_building_for_style(wonder, style) for style in ceremony_styles(wonder)]
-        for level in range(1, 7):
-            append_modifier_block(
-                lines,
-                wonder_auto_base_modifier_name(wonder, level),
-                wonder_base_country_modifiers(wonder, mechanics, level),
-                generated_potential_lines(append_base_potential, final_buildings, level),
-            )
+        scaled_modifiers, unscaled_modifiers = split_scaled_modifiers(
+            wonder_base_country_modifiers(wonder, mechanics, level=1)
+        )
+        append_modifier_block(
+            lines,
+            wonder_auto_modifier_name(wonder),
+            scaled_modifiers,
+            int(wonder["id"]),
+            scaled=True,
+        )
+        append_modifier_block(
+            lines,
+            wonder_auto_unscaled_modifier_name(wonder),
+            unscaled_modifiers,
+            int(wonder["id"]),
+            scaled=False,
+            hidden=True,
+        )
     return "\n".join(lines).rstrip() + "\n"
 
 
