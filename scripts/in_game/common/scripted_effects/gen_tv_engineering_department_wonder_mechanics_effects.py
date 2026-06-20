@@ -22,6 +22,7 @@ from wonder_mechanics.naming import (
 )
 from wonder_mechanics.render import (
     indent_script_block,
+    monthly_country_pulse_event,
     render_header,
 )
 from wonder_mechanics.rituals import (
@@ -52,6 +53,11 @@ PROPOSAL_SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_pro
 SURVEY_SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_survey_effects.py"
 RITUAL_SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py"
 LOCATION_DISPLAY_SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_location_display_effects.py"
+DATA_REL = (
+    "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + "
+    "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml"
+)
+PULSE_DATA_REL = f"{DATA_REL} + data/pulse_registry.yaml"
 T = "\t"
 DISPLAY_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
@@ -1561,7 +1567,7 @@ def append_survey_effects(
     lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_survey_competence_average add = var:tv_wonder_logistics_competence }}")
     lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_survey_competence_average add = var:tv_wonder_organization_competence }}")
     lines.append(f"{T}{T}change_variable = {{ name = tv_wonder_survey_competence_average divide = 3 }}")
-    lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.300 }}")
+    lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.300')}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -1572,7 +1578,7 @@ def append_survey_effects(
 def generate_survey_effects(script_rel: str = SURVEY_SCRIPT_REL) -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     by_key = all_wonders_by_key(all_wonders)
-    lines = render_header(script_rel)
+    lines = render_header(script_rel, PULSE_DATA_REL)
     append_survey_effects(lines, all_wonders, mechanics, by_key)
     return finish_lines(lines)
 
@@ -1869,7 +1875,7 @@ def append_ritual_effects(lines: list[str], all_wonders: list[dict], mechanics: 
 
 def generate_ritual_effects(script_rel: str = RITUAL_SCRIPT_REL) -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
-    lines = render_header(script_rel)
+    lines = render_header(script_rel, PULSE_DATA_REL)
     append_ritual_effects(lines, all_wonders, mechanics)
     return finish_lines(lines)
 

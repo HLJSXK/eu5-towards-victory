@@ -113,15 +113,6 @@
 	can_join_trigger = {
 		is_subject = no
 		is_rebel_country = no
-		custom_tooltip = {
-			text = TV_HAS_DIPLOMATIC_SUPPORTER_OF_TT
-			has_variable = tv_diplomatic_supporter_of
-		}
-		# Must be a supporter of the alliance leader specifically
-		scope:recipient = {
-			international_organization_has_leader = yes
-		}
-		var:tv_diplomatic_supporter_of ?= scope:recipient.leader_country
 	}
 
 	on_creation = {
@@ -133,13 +124,6 @@
 
 	on_joined = {
 		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
-		scope:recipient = {
-			if = {
-				limit = { international_organization_has_leader = yes }
-				leader_country = { save_scope_as = tv_alliance_founder }
-				root = { set_variable = { name = tv_diplomatic_supporter_of value = scope:tv_alliance_founder } }
-			}
-		}
 	}
 
 	on_left = {

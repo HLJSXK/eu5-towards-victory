@@ -12909,26 +12909,6 @@ PERFORM_tv_change_governor_ACTION={
 	message_category = society
 }
 
-WE_PERFORM_tv_seek_diplomatic_support_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = diplomacy
-}
-
-ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US={
-	log=yes
-	onmap=no
-	popup=yes
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = diplomacy
-}
-
 WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION={
 	log=yes
 	onmap=no
@@ -14623,6 +14603,128 @@ PERFORM_tv_victory_select_science_m5_reward_3_ACTION={
 	popup=no
 	idle=no
 	option=no
+	pausepopup=no
+	message_category = government
+}
+
+# ---- Generated IO establishment controls ----
+
+PERFORM_tv_build_conquest_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_conquest_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_prosperity_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_prosperity_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_trade_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_trade_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_diplomatic_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_diplomatic_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_cultural_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_cultural_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_science_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_science_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
 	pausepopup=no
 	message_category = government
 }

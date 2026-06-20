@@ -26,7 +26,7 @@ tv_research_target_completed_pulse = {
 		tv_research_target_already_researched_trigger = yes
 	}
 	effect = {
-		trigger_event_non_silently = { id = tv_research.31 }
+		trigger_event_non_silently = { id = tv_research.31 days = 1 }
 	}
 }
 
@@ -49,12 +49,12 @@ tv_research_a_pulse = {
 	effect = {
 		random_list = {
 			90 = { }
-			5 = { trigger_event_non_silently = { id = tv_research.1 } }
-			1 = { trigger_event_non_silently = { id = tv_research.2 } }
-			1 = { trigger_event_non_silently = { id = tv_research.3 } }
-			1 = { trigger_event_non_silently = { id = tv_research.4 } }
-			1 = { trigger_event_non_silently = { id = tv_research.5 } }
-			1 = { trigger_event_non_silently = { id = tv_research.6 } }
+			5 = { trigger_event_non_silently = { id = tv_research.1 days = 1 } }
+			1 = { trigger_event_non_silently = { id = tv_research.2 days = 1 } }
+			1 = { trigger_event_non_silently = { id = tv_research.3 days = 1 } }
+			1 = { trigger_event_non_silently = { id = tv_research.4 days = 1 } }
+			1 = { trigger_event_non_silently = { id = tv_research.5 days = 1 } }
+			1 = { trigger_event_non_silently = { id = tv_research.6 days = 1 } }
 		}
 	}
 }
@@ -133,6 +133,7 @@ tv_research_d_pulse = {
 				add = -10
 			}
 		}
+		delay = { days = 1 }
 		1 = tv_research.100
 		1 = tv_research.101
 		1 = tv_research.102

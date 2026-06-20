@@ -1,3 +1,5 @@
+from wonder_mechanics.render import monthly_country_pulse_event
+
 T = "\t"
 PHAROS_WONDER_ID = 101
 PHAROS_ROUTE_KEYS = [
@@ -232,21 +234,21 @@ def append_pharos_effects(lines: list[str]) -> None:
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_controlled_trigger = yes")
         lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7305 }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.7305')}")
         lines.append(f"{T}}}")
         lines.append(f"{T}else_if = {{")
         lines.append(f"{T}{T}limit = {{")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_basing_trigger = yes")
         lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7306 }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.7306')}")
         lines.append(f"{T}}}")
         lines.append(f"{T}else_if = {{")
         lines.append(f"{T}{T}limit = {{")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_selected_{route_key}_trigger = yes")
         lines.append(f"{T}{T}{T}tv_wonder_pharos_route_{route_key}_has_owner_trigger = yes")
         lines.append(f"{T}{T}}}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7307 }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.7307')}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -283,7 +285,7 @@ def append_pharos_effects(lines: list[str]) -> None:
     lines.append(f"{T}{T}{T}NOT = {{ has_variable = tv_wonder_pharos_routes_complete }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_pharos_routes_complete_pending_event value = 1 }}")
-    lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.7308 }}")
+    lines.append(f"{T}{T}{monthly_country_pulse_event('tv_engineering_department.7308')}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

@@ -20,6 +20,7 @@ WONDER_MECHANICS_DATA_REL = (
     "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml"
 )
 UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
+PULSE_REGISTRY_FILE = REPO_ROOT / "data" / "pulse_registry.yaml"
 GENERIC_WONDER_IMAGE_PROMPTS_FILE = REPO_ROOT / "data" / "wonder_image_prompts.yaml"
 MANUAL_TV_GAME_CONCEPTS_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_game_concepts.txt"
 ALL_WONDER_MIN_ID = 1
@@ -1650,6 +1651,16 @@ def render_header(script_rel: str, data_rel: str = f"data/wonders.yaml + {WONDER
         "# Do not edit directly - modify the data file and re-run the generator.",
         "",
     ]
+
+
+def monthly_country_pulse_event_delay_days() -> int:
+    registry = yaml.safe_load(PULSE_REGISTRY_FILE.read_text(encoding="utf-8")) or {}
+    return int(registry.get("settings", {}).get("monthly_country_pulse_event_delay_days", 1))
+
+
+def monthly_country_pulse_event(event_id: str) -> str:
+    delay = monthly_country_pulse_event_delay_days()
+    return f"trigger_event_non_silently = {{ id = {event_id} days = {delay} }}"
 
 
 def upper_key(key: str) -> str:

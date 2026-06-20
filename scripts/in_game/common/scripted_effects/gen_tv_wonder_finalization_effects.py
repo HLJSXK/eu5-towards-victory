@@ -21,11 +21,16 @@ from wonder_mechanics.naming import (
     finalization_visible_effect_name,
     finalization_world_event_id,
 )
-from wonder_mechanics.render import render_header
+from wonder_mechanics.render import monthly_country_pulse_event, render_header
 from wonder_mechanics.rituals import ceremony_styles
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_finalization_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py"
+DATA_REL = (
+    "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + "
+    "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + "
+    "data/pulse_registry.yaml"
+)
 T = "\t"
 
 def building_type_ref(building: str) -> str:
@@ -158,7 +163,7 @@ def append_trigger_event_dispatch_effect(lines: list[str], wonders: list[dict]) 
         first = False
         lines.append(f"{T}{head} = {{")
         lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.{finalization_event_id(wonder)} }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event(f'tv_engineering_department.{finalization_event_id(wonder)}')}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -259,7 +264,7 @@ def append_hidden_effect(lines: list[str], wonder: dict, style: int) -> None:
 
 def generate() -> str:
     wonders, _mechanics = load_all_wonder_mechanics()
-    lines = render_header(SCRIPT_REL)
+    lines = render_header(SCRIPT_REL, DATA_REL)
     append_hidden_event_trigger_effect(lines)
     append_hidden_event_execute_effect(lines, wonders)
     append_trigger_event_dispatch_effect(lines, wonders)

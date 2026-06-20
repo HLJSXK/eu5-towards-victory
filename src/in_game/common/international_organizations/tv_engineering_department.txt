@@ -1,6 +1,6 @@
 ﻿# Towards Victory - Engineering Department International Organization
 # Non-unique IO; each country pursuing Prosperity Victory creates its own
-# instance at Prosperity Victory Milestone 1. Country membership flag:
+# instance through the Prosperity IO establishment flow. Country membership flag:
 # tv_engineering_department_member.
 #
 # Leader: Great Engineer character. Selected manually by leader_country via
@@ -15,6 +15,7 @@
 
 tv_engineering_department = {
 	has_target = no
+	unique = no
 	has_leader_country = yes
 	leader_title_key = "TV_ENGINEERING_DEPARTMENT_LEADER"
 	use_regnal_number = no

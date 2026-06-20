@@ -6,62 +6,66 @@
 #   output:    path relative to repo root (the generated src file)
 #   data:      path relative to repo root (the data source file)
 #
-# Multi-output exception: gen_victory.py generates 13 files; listed individually below.
+# Multi-output exception: gen_victory.py generates 14 files; listed individually below.
 # All other entries follow the 1:1 principle (one script → one output file).
 
 generated:
 
   # ── gen_victory.py (multi-output exception) ─────────────────────────────────
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_triggers/towards_victory_triggers.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/towards_victory_effects.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/static_modifiers/towards_victory_modifiers.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/situations/towards_victory_situations.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/on_action/towards_victory_yearly.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_conquest_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_prosperity_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_trade_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_diplomatic_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_cultural_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/in_game/events/towards_victory_science_events.txt
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
+    output: src/in_game/events/tv_io_establishment_events.txt
+
+  - script: scripts/gen_victory.py
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/main_menu/localization/english/towards_victory_l_english.yml
 
   - script: scripts/gen_victory.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml
     output: src/main_menu/localization/simp_chinese/towards_victory_l_simp_chinese.yml
 
   # ── 1:1 feature generators ───────────────────────────────────────────────────
@@ -78,11 +82,11 @@ generated:
     output: src/in_game/common/scripted_effects/towards_victory_leaderboard.txt
 
   - script: scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py
-    data:   data/victory_paths.yaml
+    data:   data/victory_paths.yaml + data/io_establishment.yaml
     output: src/in_game/gui/panels/situation/tv_victory_situation.gui
 
   - script: scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py
-    data:   data/io_leaders.yaml
+    data:   data/io_leaders.yaml + data/io_establishment.yaml
     output: src/in_game/common/generic_actions/tv_io_leader_actions.txt
 
   - script: scripts/in_game/common/generic_actions/gen_tv_philosophy_actions.py
@@ -90,7 +94,7 @@ generated:
     output: src/in_game/common/generic_actions/tv_philosophy_actions.txt
 
   - script: scripts/in_game/common/building_types/gen_towards_victory_buildings.py
-    data:   data/academy_buildings.yaml
+    data:   data/academy_buildings.yaml + data/io_establishment.yaml
     output: src/in_game/common/building_types/towards_victory_buildings.txt
 
   - script: scripts/in_game/common/building_types/gen_tv_wonder_module_buildings.py
@@ -202,11 +206,11 @@ generated:
     output: src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py
-    data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
+    data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_construction_event_effects.py
-    data:   data/wonder_construction_events.yaml
+    data:   data/wonder_construction_events.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_construction_event_effects.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py
@@ -234,11 +238,11 @@ generated:
     output: src/in_game/common/scripted_effects/tv_wonder_proposal_effects.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_survey_effects.py
-    data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
+    data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_survey_effects.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py
-    data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
+    data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_location_display_effects.py

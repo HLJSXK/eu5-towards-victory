@@ -157,7 +157,7 @@ tv_engineering_department_concept_monthly_pulse = {
 				}
 				prev = {
 					set_variable = { name = tv_wonder_concept_completion_pending value = 1 }
-					trigger_event_non_silently = { id = tv_engineering_department.30 }
+					trigger_event_non_silently = { id = tv_engineering_department.30 days = 1 }
 				}
 			}
 		}
@@ -171,6 +171,7 @@ tv_engineering_department_debate_monthly_pulse = {
 		tv_wonder_has_locked_wonder_trigger = yes
 	}
 	random_events = {
+		delay = { days = 1 }
 		94 = 0
 		1 = tv_engineering_department.100
 		1 = tv_engineering_department.101

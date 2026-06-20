@@ -7,6 +7,7 @@
 # Fields:
 #   id        : unique slug (no spaces)
 #   pattern   : Python regex to detect the bad form in source files
+#   validator : Optional named validator in scripts/validate.py for semantic lint rules
 #   detectability: lint | needs_parser | advisory
 #             lint = safe regex/static check; needs_parser = requires brace-aware
 #             or semantic analysis; advisory = human/AI warning only.
@@ -203,6 +204,18 @@
   scope: international_organization
   source: "user-reported runtime stutter from Trade League IO monthly_effect maintenance (2026-05-22)"
   notes: "For this generated high-cardinality system, even hidden IO monthly maintenance was too expensive. A country pulse turns the work into a cheap country membership/leader check before the heavy IO refresh runs."
+
+- id: monthly_country_pulse_event_without_delay
+  pattern: ''
+  validator: check_monthly_country_pulse_event_delay
+  detectability: lint
+  only_in_paths: ['on_action', 'scripted_effects', 'pulse_registry.yaml']
+  bad: "Firing an event immediately from a condition path reached by country_monthly_pulse"
+  correction: "Use trigger_event_* = { id = <event> days = 1 } for direct event fires, or put delay = { days = 1 } before event entries in native events/random_events blocks."
+  category: on_action
+  scope: country
+  source: "reference_game_files/game/in_game/common/on_action/on_actions.info; reference_mods/3735059838/in_game/common/on_action/MnT_pulse.txt"
+  notes: "Monthly country pulse checks and event display should be separated by one day. scripts/validate.py walks monthly_country_pulse registry callbacks and TV helper calls to enforce this."
 
 - id: trade_league_intelligence_merchant_power_stale
   pattern: ''

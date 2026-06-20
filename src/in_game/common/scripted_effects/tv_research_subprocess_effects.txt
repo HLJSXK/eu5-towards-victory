@@ -196,7 +196,7 @@ tv_research_check_d_ready_effect = {
 			NOT = { var:tv_rm_subprocess_d_ready ?= { this >= 1 } }
 		}
 		set_variable = { name = tv_rm_subprocess_d_ready value = 1 }
-		trigger_event_non_silently = { id = tv_research.19 }
+		trigger_event_non_silently = { id = tv_research.19 days = 1 }
 	}
 }
 

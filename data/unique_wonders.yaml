@@ -81,7 +81,7 @@ unique_wonders:
         set_variable = { name = tv_wonder_pharos_stage value = 1 }
         set_variable = { name = tv_wonder_pharos_quarter_month value = 0 }
         set_variable = { name = tv_wonder_pharos_route_progress value = 0 }
-        trigger_event_non_silently = { id = tv_engineering_department.7300 }
+        trigger_event_non_silently = { id = tv_engineering_department.7300 days = 1 }
       }
       else_if = {
         limit = {
@@ -97,13 +97,13 @@ unique_wonders:
           if = {
             limit = { tv_wonder_pharos_alexandria_hostile_privateers_trigger = yes }
             random_list = {
-              33 = { trigger_event_non_silently = { id = tv_engineering_department.7301 } }
-              33 = { trigger_event_non_silently = { id = tv_engineering_department.7302 } }
-              34 = { trigger_event_non_silently = { id = tv_engineering_department.7303 } }
+              33 = { trigger_event_non_silently = { id = tv_engineering_department.7301 days = 1 } }
+              33 = { trigger_event_non_silently = { id = tv_engineering_department.7302 days = 1 } }
+              34 = { trigger_event_non_silently = { id = tv_engineering_department.7303 days = 1 } }
             }
           }
           else = {
-            trigger_event_non_silently = { id = tv_engineering_department.7304 }
+            trigger_event_non_silently = { id = tv_engineering_department.7304 days = 1 }
           }
         }
       }

@@ -1,6 +1,6 @@
 ﻿# Towards Victory — Academy of Sciences International Organization type definition
 # Non-unique IO; each country pursuing Scientific Victory creates their own instance
-# when they build tv_academy_of_sciences_1 (Phase I building).
+# through the Scientific IO establishment flow.
 # Country membership flag: tv_academy_io_member (set to 1 when joining).
 # Research subprocess state and target advance are country-scoped variables.
 # C and D progress tracked as IO variables (vanilla variable system).
@@ -19,6 +19,7 @@
 
 tv_academy_of_sciences = {
 	has_target = no
+	unique = no
 	has_leader_country = yes
 	leader_title_key = "TV_ACADEMY_IO_LEADER"
 	leader_type = character

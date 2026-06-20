@@ -65,12 +65,12 @@
 				limit = {
 					custom_tooltip = {
 						text = TV_HAS_VARIABLE_NOT_SET_TT
-						NOT = { has_variable = tv_diplomatic_support_count }
+						NOT = { has_variable = tv_diplomatic_alliance_member_count }
 					}
 				}
-				set_variable = { name = tv_diplomatic_support_count value = 0 }
+				set_variable = { name = tv_diplomatic_alliance_member_count value = 0 }
 			}
-			change_variable = { name = tv_diplomatic_support_count add = 1 }
+			change_variable = { name = tv_diplomatic_alliance_member_count add = 1 }
 		}
 	}
 
@@ -87,7 +87,7 @@
 	accept = {
 		add = {
 			desc = "TV_ALLIANCE_SIZE"
-			value = scope:actor.var:tv_diplomatic_support_count
+			value = scope:actor.var:tv_diplomatic_alliance_member_count
 			multiply = -10
 		}
 		if = {

@@ -6,6 +6,8 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+import yaml
+
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
@@ -14,8 +16,18 @@ from wonder_construction_event_lib import build_events, indent_lines, load_data,
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_construction_event_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_construction_event_effects.py"
-DATA_REL = "data/wonder_construction_events.yaml"
+DATA_REL = "data/wonder_construction_events.yaml + data/pulse_registry.yaml"
+PULSE_REGISTRY = REPO_ROOT / "data" / "pulse_registry.yaml"
 T = "\t"
+
+
+def monthly_country_pulse_event_delay_days() -> int:
+    registry = yaml.safe_load(PULSE_REGISTRY.read_text(encoding="utf-8")) or {}
+    return int(registry.get("settings", {}).get("monthly_country_pulse_event_delay_days", 1))
+
+
+def monthly_country_pulse_event(event_id: str) -> str:
+    return f"trigger_event_non_silently = {{ id = {event_id} days = {monthly_country_pulse_event_delay_days()} }}"
 
 
 def render_roll(events: list[dict]) -> str:
@@ -31,7 +43,7 @@ def render_roll(events: list[dict]) -> str:
             [
                 T * 4 + f"{event['weight']} = {{",
                 T * 5 + f"trigger = {{ tv_wonder_construction_event_{event['id']}_eligible_trigger = yes }}",
-                T * 5 + f"trigger_event_non_silently = {{ id = tv_engineering_department.{event['id']} }}",
+                T * 5 + monthly_country_pulse_event(f"tv_engineering_department.{event['id']}"),
                 T * 4 + "}",
             ]
         )

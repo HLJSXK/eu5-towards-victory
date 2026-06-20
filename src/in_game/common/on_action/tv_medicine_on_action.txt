@@ -23,6 +23,7 @@ tv_med_discovery_pulse = {
 		var:tv_academy_leader_char ?= { is_alive = yes }
 	}
 	random_events = {
+		delay = { days = 1 }
 		90 = 0
 		10 = tv_medicine.1
 	}
@@ -48,6 +49,7 @@ tv_med_minor_accident_pulse = {
 		var:tv_academy_leader_char ?= { is_alive = yes }
 	}
 	random_events = {
+		delay = { days = 1 }
 		98 = 0
 		2 = tv_medicine.2
 	}
@@ -73,6 +75,7 @@ tv_med_major_accident_pulse = {
 		var:tv_academy_leader_char ?= { is_alive = yes }
 	}
 	random_events = {
+		delay = { days = 1 }
 		99 = 0
 		1 = tv_medicine.5
 	}
@@ -106,6 +109,7 @@ tv_meditation_monthly_pulse = {
 		chance_of_no_event = {
 			value = 0
 		}
+		delay = { days = 1 }
 		1 = tv_medicine.11
 		1 = tv_medicine.12
 		1 = tv_medicine.13

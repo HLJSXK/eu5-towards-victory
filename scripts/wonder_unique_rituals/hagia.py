@@ -1,3 +1,5 @@
+from wonder_mechanics.render import monthly_country_pulse_event
+
 T = "\t"
 HAGIA_WONDER_ID = 102
 HAGIA_STEPS = range(1, 9)
@@ -202,7 +204,7 @@ def append_hagia_effects(lines: list[str]) -> None:
         if step == 6:
             lines.append(f"{T}{T}tv_wonder_hagia_roll_step_6_cost_effect = yes")
         lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_hagia_pending_event value = {step} }}")
-        lines.append(f"{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.{6300 + step} }}")
+        lines.append(f"{T}{T}{monthly_country_pulse_event(f'tv_engineering_department.{6300 + step}')}")
         lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -217,7 +219,7 @@ def append_hagia_effects(lines: list[str]) -> None:
     lines.append(f"{T}{T}{T}{T}NOT = {{ has_variable = tv_wonder_hagia_pending_event }}")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}set_variable = {{ name = tv_wonder_hagia_pending_event value = 8 }}")
-    lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = tv_engineering_department.6308 }}")
+    lines.append(f"{T}{T}{T}{monthly_country_pulse_event('tv_engineering_department.6308')}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}else_if = {{")
     lines.append(f"{T}{T}{T}limit = {{")
