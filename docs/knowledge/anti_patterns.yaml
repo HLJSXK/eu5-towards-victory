@@ -1503,6 +1503,17 @@
   source: "reference_game_files/game/in_game/common/generic_action_ai_lists/readme.txt:3-7; runtime error.log: generic_action_ai_list.cpp:82"
   notes: "Unlisted generic actions are put into the global AI list and the engine logs a performance warning: 'Action X is not explicitly listed in an ai list!'."
 
+- id: on_action_simulates_generic_action_actor_context
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['on_action', 'scripted_effects', 'generic_actions']
+  bad: "A monthly/yearly/on_action helper manually simulates a generic action by calling action/building eligibility helpers that evaluate code expecting literal scope:actor."
+  correction: "Put AI behavior on the generic action itself with ai_tick, ai_will_do, and a generic_action_ai_lists entry. If an execution-only pulse must call action-style helpers, create the exact event targets they require before evaluating them; a custom saved scope name is not a substitute for scope:actor."
+  category: scope
+  scope: country
+  source: "runtime error.log, 2026-06: IO establishment monthly AI progress called location_and_owner_can_build, which evaluated headquarters building allow blocks reading scope:actor; fixed in scripts/gen_victory.py and scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py"
+  notes: "The generated tv_io_establishment_ai_progress_effect saved the country as tv_io_establishment_ai_actor, then entered capital and called location_and_owner_can_build. That helper invokes can_build_building for the location and owner, causing the building allow block to read scope:actor. Because the monthly pulse did not define the literal actor event target, the engine logged Undefined event target 'actor' and unset scope errors every month. The current flow keeps monthly pulses to requirement/cache updates and lets AI use the generated build-HQ/establish-IO actions."
+
 - id: price_missing_cost_modifier_type
   pattern: ''
   only_in_paths: ['prices']

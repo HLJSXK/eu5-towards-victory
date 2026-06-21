@@ -11,7 +11,7 @@ tv_build_conquest_headquarters = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 	should_execute_price = no
 	price = price:tv_io_headquarters_price
 
@@ -72,14 +72,14 @@ tv_build_conquest_headquarters = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 50 }
 }
 
 tv_establish_conquest_io = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 
 	potential = {
 		scope:actor = {
@@ -98,6 +98,10 @@ tv_establish_conquest_io = {
 		name = "tv_select_grand_general"
 		none_available_msg_key = "tv_no_grand_general_available"
 		column = { data = character_info }
+		pre_evaluation_sort_value = {
+			value = total_abilities
+		}
+		pre_evaluation_number_to_evaluate_fully = 1
 		visible = {
 			is_alive = yes
 			is_adult = yes
@@ -120,7 +124,7 @@ tv_establish_conquest_io = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 75 }
 }
 
 
@@ -128,7 +132,7 @@ tv_build_prosperity_headquarters = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 	should_execute_price = no
 	price = price:tv_io_headquarters_price
 
@@ -189,14 +193,14 @@ tv_build_prosperity_headquarters = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 50 }
 }
 
 tv_establish_prosperity_io = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 
 	potential = {
 		scope:actor = {
@@ -215,6 +219,10 @@ tv_establish_prosperity_io = {
 		name = "tv_select_engineering_leader"
 		none_available_msg_key = "tv_no_engineering_leader_available"
 		column = { data = character_info }
+		pre_evaluation_sort_value = {
+			value = total_abilities
+		}
+		pre_evaluation_number_to_evaluate_fully = 1
 		visible = {
 			is_alive = yes
 			is_adult = yes
@@ -236,7 +244,7 @@ tv_establish_prosperity_io = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 75 }
 }
 
 
@@ -244,7 +252,7 @@ tv_build_trade_headquarters = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 	should_execute_price = no
 	price = price:tv_io_headquarters_price
 
@@ -305,14 +313,14 @@ tv_build_trade_headquarters = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 50 }
 }
 
 tv_establish_trade_io = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 
 	potential = {
 		scope:actor = {
@@ -331,6 +339,10 @@ tv_establish_trade_io = {
 		name = "tv_select_grand_merchant"
 		none_available_msg_key = "tv_no_grand_merchant_available"
 		column = { data = character_info }
+		pre_evaluation_sort_value = {
+			value = total_abilities
+		}
+		pre_evaluation_number_to_evaluate_fully = 1
 		visible = {
 			is_alive = yes
 			is_adult = yes
@@ -352,7 +364,7 @@ tv_establish_trade_io = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 75 }
 }
 
 
@@ -360,7 +372,7 @@ tv_build_diplomatic_headquarters = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 	should_execute_price = no
 	price = price:tv_io_headquarters_price
 
@@ -421,14 +433,14 @@ tv_build_diplomatic_headquarters = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 50 }
 }
 
 tv_establish_diplomatic_io = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 
 	potential = {
 		scope:actor = {
@@ -447,6 +459,10 @@ tv_establish_diplomatic_io = {
 		name = "tv_select_alliance_leader"
 		none_available_msg_key = "tv_no_alliance_leader_available"
 		column = { data = character_info }
+		pre_evaluation_sort_value = {
+			value = total_abilities
+		}
+		pre_evaluation_number_to_evaluate_fully = 1
 		visible = {
 			is_alive = yes
 			is_adult = yes
@@ -467,7 +483,7 @@ tv_establish_diplomatic_io = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 75 }
 }
 
 
@@ -475,7 +491,7 @@ tv_build_cultural_headquarters = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 	should_execute_price = no
 	price = price:tv_io_headquarters_price
 
@@ -536,14 +552,14 @@ tv_build_cultural_headquarters = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 50 }
 }
 
 tv_establish_cultural_io = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 
 	potential = {
 		scope:actor = {
@@ -562,6 +578,10 @@ tv_establish_cultural_io = {
 		name = "tv_select_arts_leader"
 		none_available_msg_key = "tv_no_arts_leader_available"
 		column = { data = character_artist }
+		pre_evaluation_sort_value = {
+			value = total_abilities
+		}
+		pre_evaluation_number_to_evaluate_fully = 1
 		visible = {
 			is_alive = yes
 			is_adult = yes
@@ -587,7 +607,7 @@ tv_establish_cultural_io = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 75 }
 }
 
 
@@ -595,7 +615,7 @@ tv_build_science_headquarters = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 	should_execute_price = no
 	price = price:tv_io_headquarters_price
 
@@ -656,14 +676,14 @@ tv_build_science_headquarters = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 50 }
 }
 
 tv_establish_science_io = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	ai_tick = monthly
-	ai_tick_frequency = 99999
+	ai_tick_frequency = 12
 
 	potential = {
 		scope:actor = {
@@ -682,6 +702,10 @@ tv_establish_science_io = {
 		name = "tv_select_academy_leader"
 		none_available_msg_key = "tv_no_academy_leader_available"
 		column = { data = character_info }
+		pre_evaluation_sort_value = {
+			value = total_abilities
+		}
+		pre_evaluation_number_to_evaluate_fully = 1
 		visible = {
 			is_alive = yes
 			is_adult = yes
@@ -713,7 +737,7 @@ tv_establish_science_io = {
 		}
 	}
 
-	ai_will_do = { add = -100 }
+	ai_will_do = { add = 75 }
 }
 
 

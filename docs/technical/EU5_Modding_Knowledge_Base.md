@@ -713,6 +713,14 @@ Every generic action should be explicitly listed in `in_game/common/generic_acti
 
 Use the AI list `potential` block to restrict evaluation to countries that can use the feature. Player-facing actions should still be listed; set restrictive AI behavior such as `ai_will_do = { add = -100 }` when the AI should never execute them.
 
+When AI should use a simple situation/generic action, prefer action-native AI (`ai_tick`,
+`ai_tick_frequency`, `ai_will_do`, and the AI list entry) over a monthly/on_action helper that
+duplicates the action's select/effect flow. Broad pulses do not automatically have the literal
+`scope:actor` event target that generic actions and building `allow` blocks expect. A copied AI
+helper that calls `location_and_owner_can_build` or `can_build_building` can therefore evaluate a
+building's `allow = { scope:actor = { ... } }` block with no actor target and spam
+`Undefined event target 'actor'` / unset-scope errors.
+
 #### Generic Action Message Types
 
 Generic actions also need notification message types in `main_menu/gui/messagetypes.txt`. This project keeps those entries in `scripts/gen_messagetypes.py`; after adding a new generic action, add a `PERFORM_<action_id>_ACTION` block there and rerun the script.

@@ -97,6 +97,13 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
+16. Use action-native AI for simple situation actions.
+   When AI should use a player-facing generic action, define its `ai_tick`,
+   `ai_tick_frequency`, and `ai_will_do` on the action and register it in an AI list. Do not
+   duplicate the action/select/building flow in monthly or yearly effects to make AI "auto"
+   progress; those bypasses can evaluate action or building checks without the literal
+   `scope:actor` event target.
+
 ## Safe Skeleton
 
 ```txt
@@ -173,3 +180,6 @@ rationale.
   can be fetched without any data container; avoid `Country`/`SCOPE` reads and preserve dynamic
   player-country features through `Player.MakeScope`, or use an explicitly scoped GUI route for
   non-player scopes.
+- `on_action_simulates_generic_action_actor_context` [advisory]: Do not duplicate generic-action
+  AI flows in monthly/yearly pulses when the copied chain can evaluate helpers or building
+  `allow` blocks that expect literal `scope:actor`.
