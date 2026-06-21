@@ -14,9 +14,11 @@ try:
     from scripts.wonder_mechanics.naming import (
         final_building_for_style,
         wonder_auto_modifier_name,
+        wonder_auto_unscaled_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
     )
+    from scripts.wonder_mechanics.modifiers import wonder_base_country_modifiers
     from scripts.wonder_mechanics.render import level_static_modifier_loc
     from scripts.wonder_mechanics.rituals import (
         ceremony_styles,
@@ -31,9 +33,11 @@ except ModuleNotFoundError:
     from wonder_mechanics.naming import (
         final_building_for_style,
         wonder_auto_modifier_name,
+        wonder_auto_unscaled_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
     )
+    from wonder_mechanics.modifiers import wonder_base_country_modifiers
     from wonder_mechanics.render import level_static_modifier_loc
     from wonder_mechanics.rituals import (
         ceremony_styles,
@@ -287,10 +291,17 @@ def _engineering_preview_location_text_values() -> list[tuple[str, str, str]]:
 
 
 def _auto_base_modifier_values() -> list[tuple[str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+    wonders, mechanics = load_all_wonder_mechanics_data()
     values: list[tuple[str, str]] = []
     for wonder in wonders:
-        values.append((f"AUTO_MODIFIER_NAME_{wonder_auto_modifier_name(wonder)}", f"[{wonder['concept']}|E]"))
+        auto_value = f"[{wonder['concept']}|E]"
+        values.append((f"AUTO_MODIFIER_NAME_{wonder_auto_modifier_name(wonder)}", auto_value))
+        has_unscaled_effect = any(
+            isinstance(value, bool) or not isinstance(value, (int, float))
+            for value in wonder_base_country_modifiers(wonder, mechanics, level=1).values()
+        )
+        if has_unscaled_effect:
+            values.append((f"AUTO_MODIFIER_NAME_{wonder_auto_unscaled_modifier_name(wonder)}", auto_value))
     return values
 
 

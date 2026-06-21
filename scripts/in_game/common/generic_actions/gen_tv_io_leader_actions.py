@@ -48,13 +48,14 @@ HAS_VARIABLE_TOOLTIP_KEYS = {
 }
 
 COMMON_IO_CHIEF_ROLE_VAR = "tv_io_chief_role"
+IO_ESTABLISHMENT_AI_TICK_FREQUENCY = 12
 
 
 def _has_variable_tooltip(var_name: str) -> str:
     return HAS_VARIABLE_TOOLTIP_KEYS.get(var_name, "TV_HAS_VARIABLE_SET_TT")
 
 
-def _char_selector_block(io: dict) -> str:
+def _char_selector_block(io: dict, *, ai_sort_total_abilities: bool = False) -> str:
     """Return the select_trigger block for Appoint and Change actions."""
     character_column = io.get("character_column", "character_info")
     lines = ["\tselect_trigger = {"]
@@ -64,6 +65,11 @@ def _char_selector_block(io: dict) -> str:
     lines.append(f'\t\tname = "{io["select_name"]}"')
     lines.append(f'\t\tnone_available_msg_key = "{io["no_leader_msg"]}"')
     lines.append(f"\t\tcolumn = {{ data = {character_column} }}")
+    if ai_sort_total_abilities:
+        lines.append("\t\tpre_evaluation_sort_value = {")
+        lines.append("\t\t\tvalue = total_abilities")
+        lines.append("\t\t}")
+        lines.append("\t\tpre_evaluation_number_to_evaluate_fully = 1")
     lines.append("\t\tvisible = {")
     lines.append("\t\t\tis_alive = yes")
     char_filter = io.get("char_filter", "").strip()
@@ -143,7 +149,7 @@ def gen_build_headquarters(est: dict) -> str:
         f"\ttype = owncountry\n"
         f"\tsound = UI_action_religion_generic\n"
         f"\tai_tick = monthly\n"
-        f"\tai_tick_frequency = 99999\n"
+        f"\tai_tick_frequency = {IO_ESTABLISHMENT_AI_TICK_FREQUENCY}\n"
         f"\tshould_execute_price = no\n"
         f"\tprice = price:tv_io_headquarters_price\n"
         f"\n"
@@ -164,7 +170,7 @@ def gen_build_headquarters(est: dict) -> str:
         f"\tselect_trigger = {{\n"
         f"\t\tlooking_for_a = location\n"
         f"\t\tsource = actor\n"
-        f"\t\tai_interaction_source_list = {{\n"
+        f"\t\tinteraction_source_list = {{\n"
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\tcapital = {{ add_to_list = source }}\n"
         f"\t\t\t}}\n"
@@ -204,20 +210,20 @@ def gen_build_headquarters(est: dict) -> str:
         f"\t\t}}\n"
         f"\t}}\n"
         f"\n"
-        f"\tai_will_do = {{ add = -100 }}\n"
+        f"\tai_will_do = {{ add = 50 }}\n"
         f"}}\n"
     )
 
 
 def gen_establish_io(est: dict, leader: dict) -> str:
     pid = est["id"]
-    selector = _char_selector_block(leader)
+    selector = _char_selector_block(leader, ai_sort_total_abilities=True)
     return (
         f"tv_establish_{pid}_io = {{\n"
         f"\ttype = owncountry\n"
         f"\tsound = UI_action_religion_generic\n"
         f"\tai_tick = monthly\n"
-        f"\tai_tick_frequency = 99999\n"
+        f"\tai_tick_frequency = {IO_ESTABLISHMENT_AI_TICK_FREQUENCY}\n"
         f"\n"
         f"\tpotential = {{\n"
         f"\t\tscope:actor = {{\n"
@@ -238,7 +244,7 @@ def gen_establish_io(est: dict, leader: dict) -> str:
         f"\t\t}}\n"
         f"\t}}\n"
         f"\n"
-        f"\tai_will_do = {{ add = -100 }}\n"
+        f"\tai_will_do = {{ add = 75 }}\n"
         f"}}\n"
     )
 

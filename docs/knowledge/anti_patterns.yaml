@@ -938,6 +938,17 @@
   source: "src/in_game/common/generic_actions/tv_trade_league_actions.txt (Trade League embargo country selector fix, 2026-05); reference_game_files/game/in_game/common/country_interactions/force_embargo.txt:33-36"
   notes: "Trade League embargo selected a market, then opened a country selector with source = world and filtered countries by any_owned_location = { market = scope:target }. The selector showed no countries and logged 'Asking for a flag that's not in the interaction target chooser specified'. Removing source = world kept the later selector in the same interaction-target chooser so scope:target remained available."
 
+- id: generic_action_player_selector_uses_ai_interaction_source_list
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['generic_actions']
+  bad: "A player-facing select_trigger relies on ai_interaction_source_list to populate its candidate list"
+  correction: "Use interaction_source_list for candidates shared by player and AI. Reserve ai_interaction_source_list for AI-only overrides only when the player selector also has a valid source, source_flags, or interaction_source_list."
+  category: generic_actions
+  scope: any
+  source: "reference_official_defines/types/peace_treaties.txt:21-22; reference_game_files/game/in_game/common/generic_actions/readme.txt:25-26; fixed src/in_game/common/generic_actions/tv_io_leader_actions.txt"
+  notes: "ai_interaction_source_list is only applied to AI countries. If it is the only custom source list, human players can see the selector's none_available_msg_key even when a valid target exists."
+
 - id: generic_action_allow_rechecks_select_target_availability
   pattern: ''
   detectability: advisory
@@ -995,6 +1006,16 @@
   scope: location
   source: "reference_game_files/game/in_game/events/disaster/chinese_crisis_events.txt:306-311 (change_prosperity = root.var:character_ability_prosperity_variable); runtime error.log: common/scripted_effects/tv_engineering_department_effects.txt:2128-2129"
   notes: "A nested location/province scope does not inherit country `var:` reads. If the numeric lives on the country, plain `var:X` inside the location block fetches the location variable store instead and can log 'Failed to fetch variable' / unset-scope errors."
+
+- id: country_capital_link_non_optional_in_trigger
+  pattern: ''
+  detectability: advisory
+  bad: "Country-scoped pulse, iterator, scripted trigger, or effect `limit` uses a direct `capital = { ... }` link, or puts sibling `exists = capital` before it expecting trigger short-circuiting"
+  correction: "Use the optional link form `capital ?= { ... }` for trigger/limit checks. For effects, put `capital ?= { ... }` in the `limit`, and only enter direct `capital = { ... }` in the effect body after that `if` limit passes."
+  category: scope
+  scope: country
+  source: "runtime error.log: common/scripted_triggers/towards_victory_triggers.txt:487, 2026-06-21; reference_game_files/game/in_game/common/generic_actions/religious_factions.txt:1352"
+  notes: "Some countries can have no valid capital object when yearly/monthly refresh effects run. Trigger blocks do not reliably short-circuit sibling lines, so `exists = capital` beside `capital = { ... }` still allows the direct link to be evaluated and can log `Event target link 'capital' returned an invalid object`."
 
 - id: random_list_inside_random
   pattern: 'random\s*=\s*\{[^}]*random_list'
@@ -1366,6 +1387,17 @@
   source: "runtime error.log: pdx_gui_localize.cpp:302 in tv_engineering_department.gui; fixed in src/main_menu/localization/english/tv_engineering_department_l_english.yml"
   notes: "These support buildings have normal localization keys, not game_concept definitions. In GUI-bound localized text, [tv_wonder_labor_camp|E] is parsed as a data-system function and logs Could not find data system function."
 
+- id: localization_getbuilding_function_invalid
+  detectability: lint
+  pattern: '\[GetBuilding\(''[^'']+''\)\.GetName\]'
+  only_in_paths: ['localization', 'io_establishment.yaml']
+  bad: "Using [GetBuilding('building_key').GetName] inside localization text"
+  correction: "Use the localization helper [ShowBuildingTypeName('building_key')] for building-type display names."
+  category: localization
+  scope: building
+  source: "runtime error.log: pdx_data_factory.cpp failed to find type GetBuilding in IO establishment localization; fixed in data/io_establishment.yaml"
+  notes: "EU5 localization exposes ShowBuildingTypeName/ShowBuildingTypeNameWithNoTooltip helpers for building types. GetBuilding('key').GetName is not a valid localization data function and causes GUI-bound localized text parsing to fail."
+
 - id: generic_action_loc_uses_gui_country_binding
   detectability: advisory
   pattern: ''
@@ -1412,6 +1444,16 @@
   scope: any
   source: "src/main_menu/localization/english/tv_arts_exhibition_l_english.yml:27"
   notes: "Engine logs: Key X doesn't exist or doesn't start with trigger_no icon. The @trigger_no! inline icon must be the first token in the localization value string."
+
+- id: generic_action_selector_unknown_attribute_column
+  pattern: ''
+  detectability: advisory
+  bad: "Using column = { data = character_noble } or another selector attribute column that is not defined in common/attribute_columns"
+  correction: "Use a defined attribute column such as character_info or character_artist, or add a real common/attribute_columns entry plus localization. Keep eligibility filtering in visible/enabled."
+  category: generic_actions
+  scope: character
+  source: "runtime error.log, 2026-06: character_noble localization fallback; reference_game_files/game/in_game/common/attribute_columns/09_character.txt defines character_info and character_artist"
+  notes: "The selector column data token is an attribute-column id, not a free label for the filtered target type. An undefined column can surface as a startup localization fallback such as character_noble: \"Character noble\"."
 
 - id: character_traits_wrong_directory
   pattern: 'common/character_traits/'
@@ -1460,6 +1502,17 @@
   scope: country
   source: "reference_game_files/game/in_game/common/generic_action_ai_lists/readme.txt:3-7; runtime error.log: generic_action_ai_list.cpp:82"
   notes: "Unlisted generic actions are put into the global AI list and the engine logs a performance warning: 'Action X is not explicitly listed in an ai list!'."
+
+- id: on_action_simulates_generic_action_actor_context
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['on_action', 'scripted_effects', 'generic_actions']
+  bad: "A monthly/yearly/on_action helper manually simulates a generic action by calling action/building eligibility helpers that evaluate code expecting literal scope:actor."
+  correction: "Put AI behavior on the generic action itself with ai_tick, ai_will_do, and a generic_action_ai_lists entry. If an execution-only pulse must call action-style helpers, create the exact event targets they require before evaluating them; a custom saved scope name is not a substitute for scope:actor."
+  category: scope
+  scope: country
+  source: "runtime error.log, 2026-06: IO establishment monthly AI progress called location_and_owner_can_build, which evaluated headquarters building allow blocks reading scope:actor; fixed in scripts/gen_victory.py and scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py"
+  notes: "The generated tv_io_establishment_ai_progress_effect saved the country as tv_io_establishment_ai_actor, then entered capital and called location_and_owner_can_build. That helper invokes can_build_building for the location and owner, causing the building allow block to read scope:actor. Because the monthly pulse did not define the literal actor event target, the engine logged Undefined event target 'actor' and unset scope errors every month. The current flow keeps monthly pulses to requirement/cache updates and lets AI use the generated build-HQ/establish-IO actions."
 
 - id: price_missing_cost_modifier_type
   pattern: ''
@@ -1697,6 +1750,17 @@
   source: "reference_game_files/game/in_game/common/building_types/capital_buildings.txt:615-617; reference_game_files/game/in_game/common/missions/generic_traditional_economy_mission_pack.txt:173-176; fixed in src/in_game/common/scripted_triggers/tv_engineering_department_triggers.txt"
   notes: "Building max_levels can stop normal construction but a custom IO/generic-action button can still spend its scripted price unless its action and effect repeat the cap logic. Re-check inside the effect because generic action UI pre-evaluation and stale target lists can otherwise charge the player for a no-op."
 
+- id: scripted_trigger_typed_parameter_double_prefix
+  pattern: 'location_and_owner_can_build\s*=\s*\{[^}]*\bbuilding_type\s*=\s*building_type:'
+  detectability: lint
+  only_in_paths: ['scripted_triggers', 'scripted_effects', 'gen_victory.py', 'generic_actions']
+  bad: "Passing a typed building_type:<id> value into location_and_owner_can_build"
+  correction: "Pass the bare building id, e.g. location_and_owner_can_build = { building_type = tv_conquest_headquarters }. The scripted trigger adds building_type: internally."
+  category: script
+  scope: building
+  source: "reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt:132-138"
+  notes: "location_and_owner_can_build expands its parameter as building_type:$building_type$ for value, can_build_building, and owner can_build_building checks. Supplying building_type:<id> as the parameter produces building_type:building_type:<id> and logs 'More than one colon in event target link'."
+
 - id: while_waiting_for_instant_building_level
   pattern: ''
   only_in_paths: ['scripted_effects']
@@ -1798,3 +1862,13 @@
   scope: country
   source: "runtime error.log, 2026-06: add_country_modifier rejected tv_wonder_auto_unique_*_style_1_country_modifier in tv_engineering_department_wonder_mechanics_effects.txt"
   notes: "Country Auto modifiers and static country modifiers are separate databases. A Country Auto modifier may have category = country, but add_country_modifier still cannot use its id."
+
+- id: auto_modifier_missing_name_localization
+  pattern: ''
+  detectability: advisory
+  bad: "Emitting a common/auto_modifiers id without matching AUTO_MODIFIER_NAME_<id> localization"
+  correction: "Generate AUTO_MODIFIER_NAME_<id> for every emitted auto modifier, including hidden hide_effects companions such as *_unscaled."
+  category: localization
+  scope: modifier
+  source: "runtime error.log, 2026-06: AUTO_MODIFIER_NAME_tv_wonder_auto_pirate_port_unscaled and AUTO_MODIFIER_NAME_tv_wonder_auto_unique_algiers_pirate_port_unscaled"
+  notes: "Hidden Country Auto modifiers still load as modifier database entries and the localization system requests their AUTO_MODIFIER_NAME keys during startup."

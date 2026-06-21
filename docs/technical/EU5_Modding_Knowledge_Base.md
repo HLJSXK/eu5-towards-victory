@@ -296,6 +296,16 @@ construct_building = {
 
 Omitting `cost_multiplier_reason` logs: `No reason given for the cost multiplier in construct_building effect`. Vanilla event-funded construction commonly uses `game_concept_event`, which is already localized.
 
+#### Scripted Trigger Parameters That Add Type Prefixes
+
+When a scripted trigger template adds a type prefix around a parameter, pass the bare database id to that parameter. For example, vanilla `location_and_owner_can_build` expands its argument as `building_type:$building_type$`, so the call must be:
+
+```pdx
+location_and_owner_can_build = { building_type = theater }
+```
+
+Do not pass `building_type:theater` to that helper. It expands to `building_type:building_type:theater` and logs `More than one colon in event target link`.
+
 #### `construct_building instant = yes` Is Not Synchronous Level Sync
 
 Treat `construct_building = { ... instant = yes }` as a queued 0-day construction task, not as an immediate `location_building_level` update. Do not write `while` loops that wait for `location_building_level` to change inside the same effect after `construct_building instant = yes`, and do not leave old-save reconstruction logic on hot click paths that fire from wonder site selection or similar actions.
@@ -690,11 +700,26 @@ an empty chooser and log `Asking for a flag that's not in the interaction target
 specified`. Omit `source = world`, use a non-world source, or build an `interaction_source_list`
 when the selector depends on earlier selections.
 
+For player-facing custom candidate lists, use `interaction_source_list`, not
+`ai_interaction_source_list`. The official type note defines `ai_interaction_source_list` as the
+same mechanism applied only to AI countries. If it is the only custom list, human players can see
+the selector's `none_available_msg_key` even when the target exists; reserve the `ai_` form for an
+AI override after the player selector has its own `source`, `source_flags`, or
+`interaction_source_list`.
+
 #### Generic Action AI Lists
 
 Every generic action should be explicitly listed in `in_game/common/generic_action_ai_lists/`. Vanilla's readme says unlisted actions are put into the global list, and EU5 logs a performance warning such as `Action X is not explicitly listed in an ai list!`.
 
 Use the AI list `potential` block to restrict evaluation to countries that can use the feature. Player-facing actions should still be listed; set restrictive AI behavior such as `ai_will_do = { add = -100 }` when the AI should never execute them.
+
+When AI should use a simple situation/generic action, prefer action-native AI (`ai_tick`,
+`ai_tick_frequency`, `ai_will_do`, and the AI list entry) over a monthly/on_action helper that
+duplicates the action's select/effect flow. Broad pulses do not automatically have the literal
+`scope:actor` event target that generic actions and building `allow` blocks expect. A copied AI
+helper that calls `location_and_owner_can_build` or `can_build_building` can therefore evaluate a
+building's `allow = { scope:actor = { ... } }` block with no actor target and spam
+`Undefined event target 'actor'` / unset-scope errors.
 
 #### Generic Action Message Types
 
@@ -747,6 +772,12 @@ var:tv_wonder_site ?= {
     change_prosperity = root.var:country_prosperity_gain
 }
 ```
+
+When country-scoped logic can run for broad country sets, `capital = { ... }` also needs a
+nullable-link guard before the scope switch. In trigger or `limit` checks, use
+`capital ?= { ... }`; do not put `exists = capital` beside a later direct `capital = { ... }`
+and expect short-circuiting. Countries without a valid capital can otherwise log
+`Event target link 'capital' returned an invalid object`.
 
 For effect iterators, capture the number before switching scope and use the local variable inside the iterator:
 
@@ -1075,6 +1106,8 @@ grants/removals or route scripted-effect tooltip previews through those old stat
 effects whose real lifecycle is building-gated Country Auto modifiers.
 
 For ordinary localization keys such as building names, use `$key$` substitution instead of square-bracket game concept syntax. GUI-bound localized text can parse `[building_key|E]` as a data-system function when `building_key` is not registered as a game concept, producing `Could not find data system function '<key>'`.
+
+For building type display names in localization text, use the engine helper `[ShowBuildingTypeName('building_key')]` or `[ShowBuildingTypeNameWithNoTooltip('building_key')]`. Do not use `[GetBuilding('building_key').GetName]`; `GetBuilding` is not a valid localization data function and GUI-bound localized text can fail parsing with `Failed to find type 'GetBuilding'`.
 
 `MakeScope.GetVariable('x')` returns a GUI variable wrapper, not an arbitrary typed object constructor. Do not chain `.GetGoods` or `.GetInternationalOrganization` from it. Goods icons/names must come from a real typed goods datacontext such as `Trade.GetGoods` or `GoodsMarketEntry.GetGoods`, or from static generated branches keyed by a saved numeric goods id. `OpenInternationalOrganizationView(...)` likewise needs a typed `InternationalOrganization` object from a verified GUI chain such as `InternationalOrganization.Self`, `OrgItem.GetOrg.Self`, or `GetUniqueInternationalOrganization('hre').Self`; a saved script variable cannot be promoted with `.GetInternationalOrganization`.
 

@@ -207,7 +207,7 @@ tv_wonder_hagia_assign_step_7 = {
 		target_flag = target
 		name = "tv_wonder_hagia_select_noble"
 		none_available_msg_key = "tv_wonder_hagia_no_noble_available"
-		column = { data = character_noble }
+		column = { data = character_info }
 		visible = {
 			is_alive = yes
 			is_adult = yes

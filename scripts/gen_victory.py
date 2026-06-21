@@ -125,27 +125,6 @@ def _leader_extra_effect_lines(leader: dict, key: str, level: int) -> list[str]:
     return _snippet_lines(effect, level)
 
 
-def _char_filter_lines(leader: dict, level: int, actor_scope: str = "scope:actor") -> list[str]:
-    lines: list[str] = []
-    char_filter = leader.get("char_filter", "").strip()
-    if char_filter:
-        for raw in char_filter.splitlines():
-            line = raw.strip()
-            if actor_scope != "scope:actor":
-                line = line.replace("scope:actor", actor_scope)
-            lines.append(f"{'\t' * level}{line}")
-    lines.extend([
-        f"{'\t' * level}custom_tooltip = {{",
-        f"{'\t' * (level + 1)}text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT",
-        f"{'\t' * (level + 1)}NOT = {{ has_variable = {COMMON_IO_CHIEF_ROLE_VAR} }}",
-        f"{'\t' * level}}}",
-        f"{'\t' * level}is_ruler = no",
-        f"{'\t' * level}is_heir = no",
-        f"{'\t' * level}is_consort = no",
-    ])
-    return lines
-
-
 def _clear_current_leader_role_lines(leader: dict, level: int) -> list[str]:
     prefix = "\t" * level
     title_mod = leader.get("title_modifier", "")
@@ -231,7 +210,7 @@ def gen_triggers(data: dict) -> str:
                 f"\ttext = TV_{PID}_ESTABLISHMENT_STEP2_REQUIREMENT",
                 "\towner ?= scope:actor",
                 "\tis_capital = yes",
-                f"\tlocation_and_owner_can_build = {{ building_type = building_type:{building} }}",
+                f"\tlocation_and_owner_can_build = {{ building_type = {building} }}",
                 f"\tNOT = {{ has_building = building_type:{building} }}",
                 "\tNOT = {",
                 "\t\tany_buildings_in_location = {",
@@ -259,7 +238,7 @@ def gen_triggers(data: dict) -> str:
             lines.append(f"tv_{pid}_establishment_headquarters_done = {{")
             lines.append("\tcustom_tooltip = {")
             lines.append(f"\t\ttext = TV_{PID}_ESTABLISHMENT_STEP2_DONE_TT")
-            lines.append(f"\t\tcapital = {{ has_building = building_type:{building} }}")
+            lines.append(f"\t\tcapital ?= {{ has_building = building_type:{building} }}")
             lines.append("\t}")
             lines.append("}")
             lines.append("")
@@ -369,10 +348,6 @@ def gen_establishment_effects(data: dict) -> str:
     lines.append("tv_io_establishment_monthly_pulse_effect = {")
     lines.append("\ttv_io_establishment_mark_basic_requirements_effect = yes")
     lines.append("\ttv_io_establishment_refresh_headquarters_cache_effect = yes")
-    lines.append("\tif = {")
-    lines.append("\t\tlimit = { is_ai = yes }")
-    lines.append("\t\ttv_io_establishment_ai_progress_effect = yes")
-    lines.append("\t}")
     lines.append("}")
     lines.append("")
 
@@ -404,57 +379,6 @@ def gen_establishment_effects(data: dict) -> str:
         lines.append("\telse = {")
         lines.append(f"\t\tremove_variable = tv_{pid}_establishment_headquarters_done")
         lines.append("\t}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append("tv_io_establishment_ai_progress_effect = {")
-    lines.append("\tsave_scope_as = tv_io_establishment_ai_actor")
-    for est in est_paths:
-        pid = est["id"]
-        building = est["headquarters"]["building"]
-        leader = leaders[est["leader_id"]]
-        lines.append("\tif = {")
-        lines.append("\t\tlimit = {")
-        lines.append(f"\t\t\thas_variable = tv_{pid}_establishment_basic_done")
-        lines.append(f"\t\t\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}")
-        lines.append(f"\t\t\tNOT = {{ tv_{pid}_establishment_headquarters_done = yes }}")
-        lines.append("\t\t}")
-        lines.append("\t\tcapital = {")
-        lines.append("\t\t\tif = {")
-        lines.append("\t\t\t\tlimit = {")
-        lines.append("\t\t\t\t\towner ?= scope:tv_io_establishment_ai_actor")
-        lines.append("\t\t\t\t\tis_capital = yes")
-        lines.append(f"\t\t\t\t\tlocation_and_owner_can_build = {{ building_type = building_type:{building} }}")
-        lines.append(f"\t\t\t\t\tNOT = {{ has_building = building_type:{building} }}")
-        lines.append("\t\t\t\t\tNOT = {")
-        lines.append("\t\t\t\t\t\tany_buildings_in_location = {")
-        lines.append(f"\t\t\t\t\t\t\tbuilding_type = building_type:{building}")
-        lines.append("\t\t\t\t\t\t\tbuilding_levels_under_construction >= 1")
-        lines.append("\t\t\t\t\t\t}")
-        lines.append("\t\t\t\t\t}")
-        lines.append("\t\t\t\t}")
-        lines.append(f"\t\t\t\tconstruct_building = {{ building_type = building_type:{building} }}")
-        lines.append("\t\t\t}")
-        lines.append("\t\t}")
-        lines.append("\t}")
-        lines.append("\tif = {")
-        lines.append(f"\t\tlimit = {{ tv_{pid}_establishment_ready_to_appoint = yes }}")
-        lines.append("\t\tordered_character = {")
-        lines.append("\t\t\tlimit = {")
-        lines.append("\t\t\t\tis_alive = yes")
-        lines.extend(_char_filter_lines(leader, 4, "scope:tv_io_establishment_ai_actor"))
-        lines.append("\t\t\t}")
-        lines.append("\t\t\torder_by = { value = total_abilities }")
-        lines.append("\t\t\tmax = 1")
-        lines.append("\t\t\tsave_scope_as = target")
-        lines.append("\t\t}")
-        lines.append("\t\tif = {")
-        lines.append("\t\t\tlimit = { exists = scope:target }")
-        lines.append(f"\t\t\ttv_establish_{pid}_io_effect = yes")
-        lines.append("\t\t}")
-        lines.append("\t\tclear_saved_scope = target")
-        lines.append("\t}")
-    lines.append("\tclear_saved_scope = tv_io_establishment_ai_actor")
     lines.append("}")
     lines.append("")
 
@@ -839,6 +763,12 @@ def gen_localization(data: dict, lang: str) -> str:
     ]
 
     def kv(key: str, val: str, version: bool = False) -> str:
+        if (
+            key.startswith("tv_no_")
+            and key.endswith("_headquarters_location_available")
+            and not val.startswith("@trigger_no!")
+        ):
+            val = f"@trigger_no! {val}"
         escaped = val.replace('"', '\\"')
         if version:
             return f' {key}:0 "{escaped}"'
