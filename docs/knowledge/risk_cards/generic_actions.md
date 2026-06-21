@@ -64,21 +64,27 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    `amount = { value = scope:io.var:X }`. Direct dynamic reads in these slots can collapse
    to `1` at runtime.
 
-10. Preserve requested map/id-flow refactors.
+10. Pass bare ids to helper scripted-trigger parameters that add type prefixes.
+   In build-location selector triggers, call `location_and_owner_can_build` with
+   `building_type = <id>`, not `building_type = building_type:<id>`. The vanilla helper
+   expands the parameter as `building_type:$building_type$`; a typed argument becomes
+   `building_type:building_type:<id>` during hover/pre-evaluation.
+
+11. Preserve requested map/id-flow refactors.
    If a generic-action pre-evaluation bug appears inside a `variable_map` helper, do not replace
    map key iteration or `random_key_in_variable_map` with generated per-id branches. Save the
    current owner scope before the map callback and write back through that named scope.
 
-11. Run sibling map reads from the saved owner scope inside key iterators.
+12. Run sibling map reads from the saved owner scope inside key iterators.
    In `every_key_in_variable_map` / `ordered_key_in_variable_map`, the callback scope may be
    the numeric key itself. Copy `this` into a `local_var`, then run `is_key_in_variable_map`
    and country-variable reads inside `scope:<saved_owner>` with `target = local_var:<key>`.
 
-12. Do not use inflated `ordered_key_in_variable_map` max values.
+13. Do not use inflated `ordered_key_in_variable_map` max values.
    The engine logs an error when `max` is larger than the current key list. Use
    `every_key_in_variable_map` with a found flag when the live key count is not known.
 
-13. Keep action title/description localization safe under contextless prefetch.
+14. Keep action title/description localization safe under contextless prefetch.
    Generic action title/description localization can be fetched without a GUI datacontext and
    without a script-scope container, even when the real hover later renders correctly. Do not put
    datacontext-dependent `Country.MakeScope` or container-dependent `SCOPE.sCountry('actor')`
@@ -87,7 +93,7 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    a GUI widget/tooltip with an explicit datacontext when it needs non-player scopes.
    Do not "fix" this class by deleting the dynamic tooltip.
 
-14. Register the action outside the action file.
+15. Register the action outside the action file.
    Every new generic action also needs a `common/generic_action_ai_lists` entry and a
    `PERFORM_<action_id>_ACTION` message type.
 
@@ -139,6 +145,9 @@ rationale.
 - `dynamic_scope_value_must_use_script_value_block` [advisory]: Dynamic selector values and
   scoped variables used in numeric effect parameters should be wrapped in explicit script-value
   blocks so the runtime preserves the selected number instead of treating the read as truthy.
+- `scripted_trigger_typed_parameter_double_prefix` [lint]: `location_and_owner_can_build`
+  receives a typed `building_type:<id>` argument even though the helper already adds the
+  `building_type:` prefix internally.
 - `select_trigger_world_source_reads_previous_target` [needs_parser]: A later selector with
   `source = world` cannot safely read `scope:target` from an earlier selector; omit `source`,
   use a non-world source, or provide an `interaction_source_list`.

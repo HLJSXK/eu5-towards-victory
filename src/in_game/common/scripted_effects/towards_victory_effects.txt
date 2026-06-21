@@ -313,7 +313,7 @@ tv_io_establishment_ai_progress_effect = {
 			capital ?= {
 				owner ?= scope:tv_io_establishment_ai_actor
 				is_capital = yes
-				location_and_owner_can_build = { building_type = building_type:tv_conquest_headquarters }
+				location_and_owner_can_build = { building_type = tv_conquest_headquarters }
 				NOT = { has_building = building_type:tv_conquest_headquarters }
 				NOT = {
 					any_buildings_in_location = {
@@ -361,7 +361,7 @@ tv_io_establishment_ai_progress_effect = {
 			capital ?= {
 				owner ?= scope:tv_io_establishment_ai_actor
 				is_capital = yes
-				location_and_owner_can_build = { building_type = building_type:tv_prosperity_headquarters }
+				location_and_owner_can_build = { building_type = tv_prosperity_headquarters }
 				NOT = { has_building = building_type:tv_prosperity_headquarters }
 				NOT = {
 					any_buildings_in_location = {
@@ -408,7 +408,7 @@ tv_io_establishment_ai_progress_effect = {
 			capital ?= {
 				owner ?= scope:tv_io_establishment_ai_actor
 				is_capital = yes
-				location_and_owner_can_build = { building_type = building_type:tv_trade_headquarters }
+				location_and_owner_can_build = { building_type = tv_trade_headquarters }
 				NOT = { has_building = building_type:tv_trade_headquarters }
 				NOT = {
 					any_buildings_in_location = {
@@ -455,7 +455,7 @@ tv_io_establishment_ai_progress_effect = {
 			capital ?= {
 				owner ?= scope:tv_io_establishment_ai_actor
 				is_capital = yes
-				location_and_owner_can_build = { building_type = building_type:tv_diplomatic_headquarters }
+				location_and_owner_can_build = { building_type = tv_diplomatic_headquarters }
 				NOT = { has_building = building_type:tv_diplomatic_headquarters }
 				NOT = {
 					any_buildings_in_location = {
@@ -501,7 +501,7 @@ tv_io_establishment_ai_progress_effect = {
 			capital ?= {
 				owner ?= scope:tv_io_establishment_ai_actor
 				is_capital = yes
-				location_and_owner_can_build = { building_type = building_type:tv_cultural_headquarters }
+				location_and_owner_can_build = { building_type = tv_cultural_headquarters }
 				NOT = { has_building = building_type:tv_cultural_headquarters }
 				NOT = {
 					any_buildings_in_location = {
@@ -552,7 +552,7 @@ tv_io_establishment_ai_progress_effect = {
 			capital ?= {
 				owner ?= scope:tv_io_establishment_ai_actor
 				is_capital = yes
-				location_and_owner_can_build = { building_type = building_type:tv_science_headquarters }
+				location_and_owner_can_build = { building_type = tv_science_headquarters }
 				NOT = { has_building = building_type:tv_science_headquarters }
 				NOT = {
 					any_buildings_in_location = {

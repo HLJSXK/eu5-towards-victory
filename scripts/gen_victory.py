@@ -231,7 +231,7 @@ def gen_triggers(data: dict) -> str:
                 f"\ttext = TV_{PID}_ESTABLISHMENT_STEP2_REQUIREMENT",
                 "\towner ?= scope:actor",
                 "\tis_capital = yes",
-                f"\tlocation_and_owner_can_build = {{ building_type = building_type:{building} }}",
+                f"\tlocation_and_owner_can_build = {{ building_type = {building} }}",
                 f"\tNOT = {{ has_building = building_type:{building} }}",
                 "\tNOT = {",
                 "\t\tany_buildings_in_location = {",
@@ -421,7 +421,7 @@ def gen_establishment_effects(data: dict) -> str:
         lines.append("\t\t\tcapital ?= {")
         lines.append("\t\t\t\towner ?= scope:tv_io_establishment_ai_actor")
         lines.append("\t\t\t\tis_capital = yes")
-        lines.append(f"\t\t\t\tlocation_and_owner_can_build = {{ building_type = building_type:{building} }}")
+        lines.append(f"\t\t\t\tlocation_and_owner_can_build = {{ building_type = {building} }}")
         lines.append(f"\t\t\t\tNOT = {{ has_building = building_type:{building} }}")
         lines.append("\t\t\t\tNOT = {")
         lines.append("\t\t\t\t\tany_buildings_in_location = {")

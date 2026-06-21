@@ -296,6 +296,16 @@ construct_building = {
 
 Omitting `cost_multiplier_reason` logs: `No reason given for the cost multiplier in construct_building effect`. Vanilla event-funded construction commonly uses `game_concept_event`, which is already localized.
 
+#### Scripted Trigger Parameters That Add Type Prefixes
+
+When a scripted trigger template adds a type prefix around a parameter, pass the bare database id to that parameter. For example, vanilla `location_and_owner_can_build` expands its argument as `building_type:$building_type$`, so the call must be:
+
+```pdx
+location_and_owner_can_build = { building_type = theater }
+```
+
+Do not pass `building_type:theater` to that helper. It expands to `building_type:building_type:theater` and logs `More than one colon in event target link`.
+
 #### `construct_building instant = yes` Is Not Synchronous Level Sync
 
 Treat `construct_building = { ... instant = yes }` as a queued 0-day construction task, not as an immediate `location_building_level` update. Do not write `while` loops that wait for `location_building_level` to change inside the same effect after `construct_building instant = yes`, and do not leave old-save reconstruction logic on hot click paths that fire from wonder site selection or similar actions.

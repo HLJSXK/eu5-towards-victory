@@ -1739,6 +1739,17 @@
   source: "reference_game_files/game/in_game/common/building_types/capital_buildings.txt:615-617; reference_game_files/game/in_game/common/missions/generic_traditional_economy_mission_pack.txt:173-176; fixed in src/in_game/common/scripted_triggers/tv_engineering_department_triggers.txt"
   notes: "Building max_levels can stop normal construction but a custom IO/generic-action button can still spend its scripted price unless its action and effect repeat the cap logic. Re-check inside the effect because generic action UI pre-evaluation and stale target lists can otherwise charge the player for a no-op."
 
+- id: scripted_trigger_typed_parameter_double_prefix
+  pattern: 'location_and_owner_can_build\s*=\s*\{[^}]*\bbuilding_type\s*=\s*building_type:'
+  detectability: lint
+  only_in_paths: ['scripted_triggers', 'scripted_effects', 'gen_victory.py', 'generic_actions']
+  bad: "Passing a typed building_type:<id> value into location_and_owner_can_build"
+  correction: "Pass the bare building id, e.g. location_and_owner_can_build = { building_type = tv_conquest_headquarters }. The scripted trigger adds building_type: internally."
+  category: script
+  scope: building
+  source: "reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt:132-138"
+  notes: "location_and_owner_can_build expands its parameter as building_type:$building_type$ for value, can_build_building, and owner can_build_building checks. Supplying building_type:<id> as the parameter produces building_type:building_type:<id> and logs 'More than one colon in event target link'."
+
 - id: while_waiting_for_instant_building_level
   pattern: ''
   only_in_paths: ['scripted_effects']
