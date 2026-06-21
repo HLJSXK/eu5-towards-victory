@@ -32,7 +32,7 @@ tv_build_conquest_headquarters = {
 	select_trigger = {
 		looking_for_a = location
 		source = actor
-		ai_interaction_source_list = {
+		interaction_source_list = {
 			scope:actor = {
 				capital = { add_to_list = source }
 			}
@@ -149,7 +149,7 @@ tv_build_prosperity_headquarters = {
 	select_trigger = {
 		looking_for_a = location
 		source = actor
-		ai_interaction_source_list = {
+		interaction_source_list = {
 			scope:actor = {
 				capital = { add_to_list = source }
 			}
@@ -265,7 +265,7 @@ tv_build_trade_headquarters = {
 	select_trigger = {
 		looking_for_a = location
 		source = actor
-		ai_interaction_source_list = {
+		interaction_source_list = {
 			scope:actor = {
 				capital = { add_to_list = source }
 			}
@@ -381,7 +381,7 @@ tv_build_diplomatic_headquarters = {
 	select_trigger = {
 		looking_for_a = location
 		source = actor
-		ai_interaction_source_list = {
+		interaction_source_list = {
 			scope:actor = {
 				capital = { add_to_list = source }
 			}
@@ -496,7 +496,7 @@ tv_build_cultural_headquarters = {
 	select_trigger = {
 		looking_for_a = location
 		source = actor
-		ai_interaction_source_list = {
+		interaction_source_list = {
 			scope:actor = {
 				capital = { add_to_list = source }
 			}
@@ -616,7 +616,7 @@ tv_build_science_headquarters = {
 	select_trigger = {
 		looking_for_a = location
 		source = actor
-		ai_interaction_source_list = {
+		interaction_source_list = {
 			scope:actor = {
 				capital = { add_to_list = source }
 			}

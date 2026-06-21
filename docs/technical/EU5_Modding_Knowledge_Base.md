@@ -690,6 +690,13 @@ an empty chooser and log `Asking for a flag that's not in the interaction target
 specified`. Omit `source = world`, use a non-world source, or build an `interaction_source_list`
 when the selector depends on earlier selections.
 
+For player-facing custom candidate lists, use `interaction_source_list`, not
+`ai_interaction_source_list`. The official type note defines `ai_interaction_source_list` as the
+same mechanism applied only to AI countries. If it is the only custom list, human players can see
+the selector's `none_available_msg_key` even when the target exists; reserve the `ai_` form for an
+AI override after the player selector has its own `source`, `source_flags`, or
+`interaction_source_list`.
+
 #### Generic Action AI Lists
 
 Every generic action should be explicitly listed in `in_game/common/generic_action_ai_lists/`. Vanilla's readme says unlisted actions are put into the global list, and EU5 logs a performance warning such as `Action X is not explicitly listed in an ai list!`.

@@ -164,7 +164,7 @@ def gen_build_headquarters(est: dict) -> str:
         f"\tselect_trigger = {{\n"
         f"\t\tlooking_for_a = location\n"
         f"\t\tsource = actor\n"
-        f"\t\tai_interaction_source_list = {{\n"
+        f"\t\tinteraction_source_list = {{\n"
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\tcapital = {{ add_to_list = source }}\n"
         f"\t\t\t}}\n"

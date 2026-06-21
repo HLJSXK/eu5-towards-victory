@@ -938,6 +938,17 @@
   source: "src/in_game/common/generic_actions/tv_trade_league_actions.txt (Trade League embargo country selector fix, 2026-05); reference_game_files/game/in_game/common/country_interactions/force_embargo.txt:33-36"
   notes: "Trade League embargo selected a market, then opened a country selector with source = world and filtered countries by any_owned_location = { market = scope:target }. The selector showed no countries and logged 'Asking for a flag that's not in the interaction target chooser specified'. Removing source = world kept the later selector in the same interaction-target chooser so scope:target remained available."
 
+- id: generic_action_player_selector_uses_ai_interaction_source_list
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['generic_actions']
+  bad: "A player-facing select_trigger relies on ai_interaction_source_list to populate its candidate list"
+  correction: "Use interaction_source_list for candidates shared by player and AI. Reserve ai_interaction_source_list for AI-only overrides only when the player selector also has a valid source, source_flags, or interaction_source_list."
+  category: generic_actions
+  scope: any
+  source: "reference_official_defines/types/peace_treaties.txt:21-22; reference_game_files/game/in_game/common/generic_actions/readme.txt:25-26; fixed src/in_game/common/generic_actions/tv_io_leader_actions.txt"
+  notes: "ai_interaction_source_list is only applied to AI countries. If it is the only custom source list, human players can see the selector's none_available_msg_key even when a valid target exists."
+
 - id: generic_action_allow_rechecks_select_target_availability
   pattern: ''
   detectability: advisory
