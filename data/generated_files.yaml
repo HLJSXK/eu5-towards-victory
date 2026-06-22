@@ -210,11 +210,11 @@ generated:
     output: src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt
 
   - script: scripts/gen_unique_wonder_ritual_specs.py
-    data:   data/unique_wonders.yaml + data/unique_wonder_ritual_designs.yaml + data/unique_wonder_ritual_prompts.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml
+    data:   data/unique_wonders.yaml + data/unique_wonder_ritual_designs.yaml + data/unique_wonder_ritual_prompts.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml
     output: data/unique_wonder_ritual_specs.yaml
 
   - script: scripts/gen_unique_wonder_ritual_code.py
-    data:   data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml
+    data:   data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml
     output: data/generated_fragments/unique_wonder_rituals/unique_wonder_ritual_codegen_index.md
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py

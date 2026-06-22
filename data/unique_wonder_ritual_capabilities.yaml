@@ -1,0 +1,192 @@
+metadata:
+  purpose: "Capability registry for Unique Wonder Ritual Harness semantic validation."
+  generated_game_code: false
+  safety_boundary: "Capabilities describe Harness-supported mechanism semantics only; they may not write src or certify loadable EU5 syntax."
+  status: "v1_semantic_contracts"
+
+capabilities:
+  - key: event_chain
+    supported_node_kinds:
+      - event
+      - choice_event
+      - incident_event
+    required_node_fields:
+      - node.event_id
+      - node.next_nodes
+      - node.loc_refs
+    required_variable_roles: []
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - route_map
+      - progress_track
+    output_kinds:
+      - markdown_fragment
+      - event_skeleton
+      - loc_draft
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Visible event-chain semantics for Harness Markdown fragments only."
+
+  - key: retry_branch
+    supported_node_kinds:
+      - retry_event
+      - choice_event
+      - incident_event
+    required_node_fields:
+      - node.failure_or_retry
+      - node.retry_target
+    required_variable_roles:
+      - stage_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - route_map
+    output_kinds:
+      - markdown_fragment
+      - event_skeleton
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents failure/retry branches and their state handoff without emitting event code."
+
+  - key: monthly_progress
+    supported_node_kinds:
+      - monthly_progress_gate
+    required_node_fields:
+      - node.reads
+      - node.writes
+    required_variable_roles:
+      - progress_counter
+    supported_listener_kinds:
+      - monthly
+    supported_ui_components:
+      - progress_track
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents progress/counter state expected to be advanced by a monthly listener."
+
+  - key: actor_assignment
+    supported_node_kinds:
+      - assignment_gate
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - assigned_actor
+    supported_listener_kinds: []
+    supported_ui_components:
+      - actor_slots
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents actor/role selection semantics before real character-scope scripting exists."
+
+  - key: resource_gate
+    supported_node_kinds:
+      - resource_gate
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - resource_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - material_stockpile
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents stockpile/cost gate semantics without guessing resource trigger syntax."
+
+  - key: route_gate
+    supported_node_kinds:
+      - route_gate
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - route_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - route_map
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents route/path-gate semantics for intermediate route-map fragments."
+
+  - key: listener_gate
+    supported_node_kinds:
+      - listener_gate
+    required_node_fields:
+      - node.listener_contract
+      - node.reads
+      - node.writes
+    required_variable_roles:
+      - listener_state
+    supported_listener_kinds:
+      - monthly
+      - ruler_death
+      - pre_winning_war
+      - ending_war
+    supported_ui_components:
+      - checklist
+      - progress_track
+      - incident_log
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents listener-driven completion/failure contracts without creating on_action code."
+
+  - key: final_reward_handoff
+    supported_node_kinds:
+      - final_reward_dispatch
+      - hidden_executor_handoff
+    required_node_fields:
+      - node.reads
+      - node.writes
+    required_variable_roles:
+      - reward_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - progress_track
+      - incident_log
+    output_kinds:
+      - markdown_fragment
+      - effect_stub
+      - hidden_executor_note
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents the final reward/hidden-executor handoff while keeping real finalization code out of Harness codegen."

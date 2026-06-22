@@ -92,3 +92,29 @@ templates:
     verified_interface: "harness_v1_intermediate_fragment"
     may_write_src: false
     notes: "Documents the final reward handoff as an effect stub; it never writes loadable scripted effects."
+
+  - key: semantic_contract_fragment
+    supported_node_kinds:
+      - assignment_gate
+      - choice_event
+      - resource_gate
+      - route_gate
+      - listener_gate
+      - incident_event
+      - hidden_executor_handoff
+    supported_action_kinds:
+      - generator_template
+    supported_check_kinds:
+      - generator_template
+    required_fields:
+      - node.capabilities
+      - node.scope_contract
+      - node.listener_contract
+    output_kinds:
+      - markdown_fragment
+      - gui_summary
+      - trigger_stub
+      - effect_stub
+    verified_interface: "harness_v1_intermediate_fragment"
+    may_write_src: false
+    notes: "Documents semantic capability/scope/listener contracts for new Harness node kinds without emitting loadable EU5 script."

@@ -32,6 +32,7 @@ TEMPLATES = [
     "monthly_progress_gate",
     "simple_progress_track_ui_binding",
     "final_reward_dispatch_stub",
+    "semantic_contract_fragment",
 ]
 
 
@@ -53,15 +54,21 @@ def node(
     event_id: int,
     *,
     kind: str = "event",
+    capabilities: list[str] | None = None,
     reads: list[str] | None = None,
     writes: list[str] | None = None,
     next_nodes: list[str] | None = None,
     failure_or_retry: bool = False,
     retry_target: str | None = None,
+    scope_contract: dict | None = None,
+    listener_contract: dict | None = None,
+    output_kinds: list[str] | None = None,
+    hidden_executor_handoff: str | None = None,
 ) -> dict:
-    return {
+    payload = {
         "key": key,
         "kind": kind,
+        "capabilities": capabilities or ["event_chain"],
         "event_id": event_id,
         "player_visible": True,
         "historical_anchor": f"anchor_{key}",
@@ -75,6 +82,15 @@ def node(
         "ui_state": {"variable_refs": reads or writes or []},
         "loc_refs": [f"node.{key}.label"],
     }
+    if scope_contract is not None:
+        payload["scope_contract"] = scope_contract
+    if listener_contract is not None:
+        payload["listener_contract"] = listener_contract
+    if output_kinds is not None:
+        payload["output_kinds"] = output_kinds
+    if hidden_executor_handoff is not None:
+        payload["hidden_executor_handoff"] = hidden_executor_handoff
+    return payload
 
 
 def valid_entry() -> dict:
@@ -109,6 +125,7 @@ def valid_entry() -> dict:
                     "name": "tv_wonder_test_stage",
                     "scope": "country",
                     "type": "number",
+                    "roles": ["stage_state", "reward_state"],
                     "initial_value": 0,
                     "writer_nodes": ["opening", "materials", "retry_choice", "final_prep", "reward"],
                     "reader_nodes": ["materials", "monthly_gate", "final_prep", "reward"],
@@ -118,6 +135,7 @@ def valid_entry() -> dict:
                     "name": "tv_wonder_test_progress",
                     "scope": "country",
                     "type": "number",
+                    "roles": ["progress_counter"],
                     "initial_value": 0,
                     "writer_nodes": ["monthly_gate"],
                     "reader_nodes": ["monthly_gate", "retry_choice", "final_prep"],
@@ -137,6 +155,7 @@ def valid_entry() -> dict:
                     "monthly_gate",
                     1003,
                     kind="monthly_progress_gate",
+                    capabilities=["monthly_progress"],
                     reads=["tv_wonder_test_stage", "tv_wonder_test_progress"],
                     writes=["tv_wonder_test_progress"],
                     next_nodes=["retry_choice"],
@@ -145,6 +164,7 @@ def valid_entry() -> dict:
                     "retry_choice",
                     1004,
                     kind="retry_event",
+                    capabilities=["retry_branch"],
                     reads=["tv_wonder_test_progress"],
                     writes=["tv_wonder_test_stage"],
                     next_nodes=["final_prep"],
@@ -162,6 +182,7 @@ def valid_entry() -> dict:
                     "reward",
                     1006,
                     kind="final_reward_dispatch",
+                    capabilities=["final_reward_handoff"],
                     reads=["tv_wonder_test_stage"],
                     writes=["tv_wonder_test_stage"],
                 ),
@@ -227,7 +248,10 @@ def valid_entry() -> dict:
             ],
         },
         "ui_model": {
-            "components": [{"type": "progress_track", "key": "progress", "value_variable": "tv_wonder_test_progress"}],
+            "components": [
+                {"type": "progress_track", "key": "progress", "value_variable": "tv_wonder_test_progress"},
+                {"type": "checklist", "key": "checklist", "status_variable": "tv_wonder_test_stage"},
+            ],
             "bindings": [
                 {
                     "key": "progress_binding",
@@ -264,6 +288,167 @@ def valid_entry() -> dict:
     }
 
 
+def safe_scope_contract(
+    *,
+    root_scope: str = "country",
+    current_scope: str = "country",
+    target_scopes: list[str] | None = None,
+    tooltip_safe: bool = True,
+    unsafe_pre_eval: bool = False,
+    blocked_reason: str | None = None,
+) -> dict:
+    contract = {
+        "root_scope": root_scope,
+        "current_scope": current_scope,
+        "target_scopes": target_scopes or [],
+        "tooltip_safe": tooltip_safe,
+        "unsafe_pre_eval": unsafe_pre_eval,
+    }
+    if blocked_reason:
+        contract["blocked_reason"] = blocked_reason
+    return contract
+
+
+def add_fixture_event(entry: dict, event_id: int, key: str, localization: dict[str, str] | None = None) -> None:
+    entry["event_ids"].append({"id": event_id, "key": key})
+    entry["localization"]["event_keys"].append(event_row(event_id, key))
+    if localization is not None:
+        localization[f"event.{event_id}.t"] = f"Title {event_id}"
+        localization[f"event.{event_id}.d"] = localization["event.1001.d"]
+        localization[f"event.{event_id}.a"] = "Continue"
+        localization[f"node.{key}.label"] = key
+
+
+def actor_assignment_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["variables"].append(
+        {
+            "name": "tv_wonder_test_actor",
+            "scope": "character",
+            "type": "scope_ref",
+            "roles": ["assigned_actor"],
+            "initial_value": "none",
+            "writer_nodes": ["materials"],
+            "reader_nodes": ["materials"],
+            "cleanup": "project_state_clear",
+        }
+    )
+    materials = graph["nodes"][1]
+    materials["kind"] = "assignment_gate"
+    materials["capabilities"] = ["actor_assignment"]
+    materials["scope_contract"] = safe_scope_contract(current_scope="character", target_scopes=["character"])
+    materials["reads"].append("tv_wonder_test_actor")
+    materials["writes"].append("tv_wonder_test_actor")
+    materials["ui_state"]["variable_refs"].append("tv_wonder_test_actor")
+    entry["ui_model"]["components"].append(
+        {"type": "actor_slots", "key": "actor", "status_variable": "tv_wonder_test_actor"}
+    )
+    return entry
+
+
+def route_incident_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["variables"].append(
+        {
+            "name": "tv_wonder_test_route",
+            "scope": "country",
+            "type": "number",
+            "roles": ["route_state"],
+            "initial_value": 0,
+            "writer_nodes": ["materials"],
+            "reader_nodes": ["materials"],
+            "cleanup": "project_state_clear",
+        }
+    )
+    materials = graph["nodes"][1]
+    materials["kind"] = "route_gate"
+    materials["capabilities"] = ["route_gate"]
+    materials["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    materials["reads"].append("tv_wonder_test_route")
+    materials["writes"].append("tv_wonder_test_route")
+    materials["ui_state"]["variable_refs"].append("tv_wonder_test_route")
+    final_prep = graph["nodes"][4]
+    final_prep["kind"] = "incident_event"
+    final_prep["capabilities"] = ["event_chain"]
+    entry["ui_model"]["components"].append(
+        {"type": "route_map", "key": "route", "value_variable": "tv_wonder_test_route"}
+    )
+    return entry
+
+
+def resource_listener_hidden_entry(localization: dict[str, str] | None = None) -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["variables"][0]["writer_nodes"].insert(-1, "hidden_exec")
+    graph["variables"][0]["reader_nodes"].insert(-1, "hidden_exec")
+    graph["variables"][1]["roles"] = ["progress_counter", "resource_state"]
+    graph["variables"].append(
+        {
+            "name": "tv_wonder_test_listener",
+            "scope": "country",
+            "type": "number",
+            "roles": ["listener_state"],
+            "initial_value": 0,
+            "writer_nodes": ["final_prep"],
+            "reader_nodes": ["final_prep"],
+            "cleanup": "project_state_clear",
+        }
+    )
+    monthly_gate = graph["nodes"][2]
+    monthly_gate["kind"] = "resource_gate"
+    monthly_gate["capabilities"] = ["resource_gate"]
+    monthly_gate["scope_contract"] = safe_scope_contract(target_scopes=["country"])
+    final_prep = graph["nodes"][4]
+    final_prep["kind"] = "listener_gate"
+    final_prep["capabilities"] = ["listener_gate"]
+    final_prep["reads"].append("tv_wonder_test_listener")
+    final_prep["writes"].append("tv_wonder_test_listener")
+    final_prep["next_nodes"] = ["hidden_exec"]
+    final_prep["scope_contract"] = safe_scope_contract(
+        unsafe_pre_eval=True,
+        tooltip_safe=False,
+        target_scopes=["country"],
+    )
+    final_prep["hidden_executor_handoff"] = "hidden_exec"
+    final_prep["listener_contract"] = {
+        "listener": "monthly",
+        "cadence": "monthly",
+        "reads": ["tv_wonder_test_listener"],
+        "writes": ["tv_wonder_test_listener"],
+        "completion_check": "listener_complete",
+        "failure_route": "retry_choice",
+    }
+    hidden_exec = node(
+        "hidden_exec",
+        1007,
+        kind="hidden_executor_handoff",
+        capabilities=["final_reward_handoff"],
+        reads=["tv_wonder_test_stage"],
+        writes=["tv_wonder_test_stage"],
+        next_nodes=["reward"],
+    )
+    hidden_exec["player_visible"] = False
+    graph["nodes"].insert(5, hidden_exec)
+    graph["edges"] = [
+        edge
+        for edge in graph["edges"]
+        if not (edge["from"] == "final_prep" and edge["to"] == "reward")
+    ]
+    graph["edges"].extend(
+        [
+            {"from": "final_prep", "to": "hidden_exec", "condition": "complete", "effect": "handoff", "label_key": "edge.final.hidden"},
+            {"from": "hidden_exec", "to": "reward", "condition": "always", "effect": "advance", "label_key": "edge.hidden.reward"},
+        ]
+    )
+    add_fixture_event(entry, 1007, "hidden_exec", localization)
+    entry["ui_model"]["components"].append(
+        {"type": "material_stockpile", "key": "stockpile", "value_variable": "tv_wonder_test_progress"}
+    )
+    return entry
+
+
 def loc() -> dict[str, str]:
     long_text = "This event description is intentionally long enough to satisfy the ritual text density gate. " * 2
     data: dict[str, str] = {}
@@ -281,6 +466,8 @@ def loc() -> dict[str, str]:
         "edge.retry.materials",
         "edge.retry.final",
         "edge.final.reward",
+        "edge.final.hidden",
+        "edge.hidden.reward",
         "check.stage_ready",
         "check.monthly_ready",
         "ui.progress.label",
@@ -334,6 +521,34 @@ def main() -> None:
     if good_errors:
         raise AssertionError(f"valid entry unexpectedly failed: {good_errors}")
 
+    actor_errors = validate_spec_payload(
+        {"unique_wonders": [actor_assignment_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if actor_errors:
+        raise AssertionError(f"actor assignment fixture unexpectedly failed: {actor_errors}")
+
+    route_errors = validate_spec_payload(
+        {"unique_wonders": [route_incident_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if route_errors:
+        raise AssertionError(f"route/incident fixture unexpectedly failed: {route_errors}")
+
+    listener_loc = loc()
+    listener_errors = validate_spec_payload(
+        {"unique_wonders": [resource_listener_hidden_entry(listener_loc)]},
+        wonders=[WONDER],
+        localization=listener_loc,
+        require_all_wonders=True,
+    )
+    if listener_errors:
+        raise AssertionError(f"resource/listener/hidden fixture unexpectedly failed: {listener_errors}")
+
     result = generate_fragments_for_payload(
         {"unique_wonders": [valid_entry()]},
         wonder_keys={"unique_test_wonder"},
@@ -341,6 +556,10 @@ def main() -> None:
     generated_text = result["generated"][0]["text"]
     for expected in (
         "## Event Skeleton",
+        "## Capability Summary",
+        "## Scope Contract Summary",
+        "## Listener Contract Summary",
+        "## Hidden Executor / Tooltip Safety Notes",
         "## Variable Table",
         "## UI Binding Summary",
         "## Reward Dispatch Stub",
@@ -473,6 +692,67 @@ def main() -> None:
     unsupported_node_kind = valid_entry()
     unsupported_node_kind["node_graph"]["nodes"][0]["kind"] = "unsupported_node"
     assert_has_error("unsupported node kind", unsupported_node_kind, "unsupported kind 'unsupported_node'")
+
+    unknown_capability = valid_entry()
+    unknown_capability["node_graph"]["nodes"][0]["capabilities"] = ["unknown_capability"]
+    assert_has_error("unknown capability", unknown_capability, "unknown capability 'unknown_capability'")
+
+    unsupported_capability_kind = valid_entry()
+    unsupported_capability_kind["node_graph"]["nodes"][0]["capabilities"] = ["resource_gate"]
+    assert_has_error(
+        "capability unsupported node kind",
+        unsupported_capability_kind,
+        "capability 'resource_gate' does not support node kind 'event'",
+    )
+
+    missing_listener_contract = resource_listener_hidden_entry()
+    del missing_listener_contract["node_graph"]["nodes"][4]["listener_contract"]
+    assert_has_error(
+        "listener gate missing listener contract",
+        missing_listener_contract,
+        "listener_gate node final_prep must declare listener_contract",
+    )
+
+    unsupported_listener_contract = resource_listener_hidden_entry()
+    unsupported_listener_contract["node_graph"]["nodes"][4]["listener_contract"]["listener"] = "ruler_birth"
+    assert_has_error(
+        "listener contract unsupported listener",
+        unsupported_listener_contract,
+        "listener_contract uses unsupported listener 'ruler_birth'",
+    )
+
+    unknown_scope = actor_assignment_entry()
+    unknown_scope["node_graph"]["nodes"][1]["scope_contract"]["root_scope"] = "province"
+    assert_has_error(
+        "scope contract unknown scope",
+        unknown_scope,
+        "scope_contract.root_scope has unknown scope 'province'",
+    )
+
+    unsafe_without_handoff = resource_listener_hidden_entry()
+    unsafe_without_handoff["node_graph"]["nodes"][4].pop("hidden_executor_handoff")
+    assert_has_error(
+        "unsafe pre eval no handoff",
+        unsafe_without_handoff,
+        "scope_contract.unsafe_pre_eval=true requires blocked_reason or hidden_executor_handoff",
+    )
+
+    tooltip_unsafe_output = actor_assignment_entry()
+    tooltip_unsafe_output["node_graph"]["nodes"][1]["scope_contract"]["tooltip_safe"] = False
+    tooltip_unsafe_output["node_graph"]["nodes"][1]["output_kinds"] = ["player_facing_tooltip"]
+    assert_has_error(
+        "tooltip unsafe output",
+        tooltip_unsafe_output,
+        "tooltip_safe=false cannot output player_facing_tooltip",
+    )
+
+    missing_required_capability_field = actor_assignment_entry()
+    del missing_required_capability_field["node_graph"]["nodes"][1]["scope_contract"]
+    assert_has_error(
+        "required capability field missing",
+        missing_required_capability_field,
+        "capability 'actor_assignment' missing required field node.scope_contract",
+    )
 
     unsupported_action_kind = valid_entry()
     unsupported_action_kind["node_graph"]["actions"][0]["kind"] = "unsupported_action"

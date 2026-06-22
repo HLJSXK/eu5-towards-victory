@@ -16,16 +16,19 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics.render import render_header  # noqa: E402
 from wonder_unique_ritual_harness import (  # noqa: E402
     CODEGEN_ELIGIBLE_STATUSES,
+    capability_registry_index,
     codegen_support_errors,
     list_index,
+    load_capability_registry,
     load_template_registry,
     load_spec_data,
+    supported_capability_keys,
     supported_codegen_template_keys,
     validate_spec_payload,
 )
 
 SCRIPT_REL = "scripts/gen_unique_wonder_ritual_code.py"
-DATA_REL = "data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml"
+DATA_REL = "data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "data" / "generated_fragments" / "unique_wonder_rituals"
 INDEX_FILE_NAME = "unique_wonder_ritual_codegen_index.md"
 
@@ -100,14 +103,20 @@ def render_entry_fragment(
     entry: dict[str, Any],
     *,
     template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
 ) -> str:
-    errors = codegen_support_errors(entry, template_registry=template_registry)
+    errors = codegen_support_errors(
+        entry,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+    )
     if errors:
         raise CodegenError("; ".join(errors))
 
     identity = entry.get("identity") or {}
     node_graph = entry.get("node_graph") or {}
     generation = entry.get("generation") or {}
+    capability_index = capability_registry_index(capability_registry)
     event_rows = _event_rows_by_node(entry)
     lines = render_header(SCRIPT_REL, DATA_REL)
     lines.extend(
@@ -151,6 +160,98 @@ def render_entry_fragment(
         _md_table(
             ["node", "kind", "event_id", "title_key", "desc_key", "options", "next", "retry"],
             event_rows_table,
+        )
+    )
+    lines.extend(["", "## Capability Summary", ""])
+    capability_rows: list[list[Any]] = []
+    for node in node_graph.get("nodes", []) or []:
+        if not isinstance(node, dict):
+            continue
+        capabilities = node.get("capabilities") if isinstance(node.get("capabilities"), list) else [node.get("capabilities")]
+        capabilities = [capability for capability in capabilities if capability]
+        capability_rows.append(
+            [
+                node.get("key", ""),
+                node.get("kind", ""),
+                _join(capabilities),
+                _join(
+                    sorted(
+                        {
+                            str(capability_index.get(str(capability), {}).get("verified_interface", ""))
+                            for capability in capabilities
+                            if capability_index.get(str(capability), {}).get("verified_interface")
+                        }
+                    )
+                ),
+            ]
+        )
+    lines.extend(_md_table(["node", "kind", "capabilities", "verified_interface"], capability_rows))
+    lines.extend(["", "## Scope Contract Summary", ""])
+    scope_rows: list[list[Any]] = []
+    for node in node_graph.get("nodes", []) or []:
+        if not isinstance(node, dict):
+            continue
+        contract = node.get("scope_contract") if isinstance(node.get("scope_contract"), dict) else {}
+        scope_rows.append(
+            [
+                node.get("key", ""),
+                contract.get("root_scope", ""),
+                contract.get("current_scope", ""),
+                _join(contract.get("target_scopes")),
+                contract.get("tooltip_safe", ""),
+                contract.get("unsafe_pre_eval", ""),
+            ]
+        )
+    lines.extend(
+        _md_table(
+            ["node", "root_scope", "current_scope", "target_scopes", "tooltip_safe", "unsafe_pre_eval"],
+            scope_rows,
+        )
+    )
+    lines.extend(["", "## Listener Contract Summary", ""])
+    listener_rows: list[list[Any]] = []
+    for node in node_graph.get("nodes", []) or []:
+        if not isinstance(node, dict):
+            continue
+        contract = node.get("listener_contract") if isinstance(node.get("listener_contract"), dict) else {}
+        listener_rows.append(
+            [
+                node.get("key", ""),
+                contract.get("listener", ""),
+                contract.get("cadence", ""),
+                _join(contract.get("reads")),
+                _join(contract.get("writes")),
+                contract.get("completion_check", ""),
+                contract.get("failure_route", ""),
+            ]
+        )
+    lines.extend(
+        _md_table(
+            ["node", "listener", "cadence", "reads", "writes", "completion_check", "failure_route"],
+            listener_rows,
+        )
+    )
+    lines.extend(["", "## Hidden Executor / Tooltip Safety Notes", ""])
+    safety_rows: list[list[Any]] = []
+    for node in node_graph.get("nodes", []) or []:
+        if not isinstance(node, dict):
+            continue
+        contract = node.get("scope_contract") if isinstance(node.get("scope_contract"), dict) else {}
+        safety_rows.append(
+            [
+                node.get("key", ""),
+                node.get("kind", ""),
+                contract.get("tooltip_safe", ""),
+                contract.get("unsafe_pre_eval", ""),
+                contract.get("blocked_reason", ""),
+                node.get("hidden_executor_handoff", ""),
+                _join(node.get("output_kinds")),
+            ]
+        )
+    lines.extend(
+        _md_table(
+            ["node", "kind", "tooltip_safe", "unsafe_pre_eval", "blocked_reason", "handoff", "output_kinds"],
+            safety_rows,
         )
     )
     lines.extend(["", "## Scripted Effect Stubs", ""])
@@ -265,6 +366,7 @@ def render_index(
     skipped: list[str],
     *,
     template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
 ) -> str:
     lines = render_header(SCRIPT_REL, DATA_REL)
     lines.extend(
@@ -276,6 +378,7 @@ def render_index(
             f"- Generated fragments: {len(generated)}",
             f"- Skipped non-codegen specs: {len(skipped)}",
             f"- Supported templates: {', '.join(sorted(supported_codegen_template_keys(template_registry)))}",
+            f"- Supported capabilities: {', '.join(sorted(supported_capability_keys(capability_registry)))}",
             "",
         ]
     )
@@ -298,12 +401,14 @@ def generate_fragments_for_payload(
     write: bool = False,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
     template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     selected, skipped = _selected_entries(payload, wonder_keys)
     registry = template_registry if template_registry is not None else load_template_registry()
+    capabilities = capability_registry if capability_registry is not None else load_capability_registry()
     generated: list[dict[str, Any]] = []
     for entry in selected:
-        text = render_entry_fragment(entry, template_registry=registry)
+        text = render_entry_fragment(entry, template_registry=registry, capability_registry=capabilities)
         path = target_path_for_entry(entry, output_dir)
         rel_path = path.relative_to(REPO_ROOT).as_posix() if path.is_absolute() else path.as_posix()
         generated.append({"key": entry_key(entry), "path": rel_path, "text": text})
@@ -311,7 +416,12 @@ def generate_fragments_for_payload(
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(text, encoding="utf-8")
     index_path = output_dir / INDEX_FILE_NAME
-    index_text = render_index(generated, skipped, template_registry=registry)
+    index_text = render_index(
+        generated,
+        skipped,
+        template_registry=registry,
+        capability_registry=capabilities,
+    )
     if write:
         index_path.parent.mkdir(parents=True, exist_ok=True)
         index_path.write_text(index_text, encoding="utf-8")
@@ -332,7 +442,12 @@ def main() -> None:
 
     payload = load_spec_data()
     template_registry = load_template_registry()
-    errors = validate_spec_payload(payload, template_registry=template_registry)
+    capability_registry = load_capability_registry()
+    errors = validate_spec_payload(
+        payload,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+    )
     if errors:
         print("[FAIL] Unique wonder ritual specs failed validation:")
         for error in errors:
@@ -345,6 +460,7 @@ def main() -> None:
             wonder_keys=set(args.wonder) if args.wonder else None,
             write=args.write,
             template_registry=template_registry,
+            capability_registry=capability_registry,
         )
     except CodegenError as exc:
         print(f"[FAIL] {exc}")

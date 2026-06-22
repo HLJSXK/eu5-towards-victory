@@ -18,6 +18,7 @@ from wonder_mechanics.io import (  # noqa: E402
 
 SPEC_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_specs.yaml"
 TEMPLATE_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_codegen_templates.yaml"
+CAPABILITY_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_capabilities.yaml"
 DESIGN_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_designs.yaml"
 PROMPTS_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_prompts.yaml"
 LOCALIZATION_FILE = REPO_ROOT / "data" / "wonder_localization.yaml"
@@ -37,8 +38,15 @@ SUPPORTED_UI_COMPONENTS = {
 }
 SUPPORTED_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
 SUPPORTED_NODE_KINDS = {
+    "assignment_gate",
+    "choice_event",
     "event",
     "retry_event",
+    "resource_gate",
+    "route_gate",
+    "listener_gate",
+    "incident_event",
+    "hidden_executor_handoff",
     "monthly_progress_gate",
     "final_reward_dispatch",
 }
@@ -59,6 +67,18 @@ SUPPORTED_TEMPLATE_OUTPUT_KINDS = {
     "gui_summary",
     "loc_draft",
 }
+SUPPORTED_CAPABILITY_OUTPUT_KINDS = SUPPORTED_TEMPLATE_OUTPUT_KINDS | {
+    "player_facing_tooltip",
+    "hidden_executor_note",
+}
+SUPPORTED_SCOPE_CONTRACT_SCOPES = {
+    "country",
+    "location",
+    "character",
+    "international_organization",
+    "gui_fragment",
+    "none",
+}
 TEMPLATE_CONTRACT_REQUIRED_FIELDS = {
     "key",
     "supported_node_kinds",
@@ -70,9 +90,22 @@ TEMPLATE_CONTRACT_REQUIRED_FIELDS = {
     "may_write_src",
     "notes",
 }
+CAPABILITY_CONTRACT_REQUIRED_FIELDS = {
+    "key",
+    "supported_node_kinds",
+    "required_node_fields",
+    "required_variable_roles",
+    "supported_listener_kinds",
+    "supported_ui_components",
+    "output_kinds",
+    "verified_interface",
+    "may_write_src",
+    "notes",
+}
 NODE_REQUIRED_FIELDS = {
     "key",
     "kind",
+    "capabilities",
     "event_id",
     "player_visible",
     "historical_anchor",
@@ -99,6 +132,21 @@ VARIABLE_REQUIRED_FIELDS = {
     "cleanup",
 }
 UI_BINDING_REQUIRED_FIELDS = {"key", "component_key", "variable_refs", "node_refs", "loc_refs"}
+SCOPE_CONTRACT_REQUIRED_FIELDS = {
+    "root_scope",
+    "current_scope",
+    "target_scopes",
+    "tooltip_safe",
+    "unsafe_pre_eval",
+}
+LISTENER_CONTRACT_REQUIRED_FIELDS = {
+    "listener",
+    "cadence",
+    "reads",
+    "writes",
+    "completion_check",
+    "failure_route",
+}
 GENERATION_REQUIRED_FIELDS = {
     "status",
     "target_files",
@@ -139,6 +187,10 @@ def load_template_registry(path: Path = TEMPLATE_REGISTRY_FILE) -> dict[str, Any
     return load_optional_yaml(path) or {"metadata": {}, "templates": []}
 
 
+def load_capability_registry(path: Path = CAPABILITY_REGISTRY_FILE) -> dict[str, Any]:
+    return load_optional_yaml(path) or {"metadata": {}, "capabilities": []}
+
+
 def template_registry_index(registry: dict[str, Any] | None = None) -> dict[str, dict[str, Any]]:
     payload = registry if registry is not None else load_template_registry()
     templates = payload.get("templates", []) if isinstance(payload, dict) else []
@@ -153,6 +205,22 @@ def template_registry_index(registry: dict[str, Any] | None = None) -> dict[str,
 
 def supported_codegen_template_keys(registry: dict[str, Any] | None = None) -> set[str]:
     return set(template_registry_index(registry))
+
+
+def capability_registry_index(registry: dict[str, Any] | None = None) -> dict[str, dict[str, Any]]:
+    payload = registry if registry is not None else load_capability_registry()
+    capabilities = payload.get("capabilities", []) if isinstance(payload, dict) else []
+    index: dict[str, dict[str, Any]] = {}
+    if not isinstance(capabilities, list):
+        return index
+    for capability in capabilities:
+        if isinstance(capability, dict) and capability.get("key"):
+            index[str(capability["key"])] = capability
+    return index
+
+
+def supported_capability_keys(registry: dict[str, Any] | None = None) -> set[str]:
+    return set(capability_registry_index(registry))
 
 
 def validate_template_registry(
@@ -218,6 +286,73 @@ def validate_template_registry(
             errors.append(f"template registry {key} required_fields must be a list")
         elif any(not str(field).strip() for field in required_fields):
             errors.append(f"template registry {key} required_fields must contain non-empty strings")
+    return errors
+
+
+def validate_capability_registry(
+    registry: dict[str, Any] | None = None,
+    *,
+    path: Path = CAPABILITY_REGISTRY_FILE,
+) -> list[str]:
+    errors: list[str] = []
+    if registry is None:
+        if not path.exists():
+            return [f"{path.relative_to(REPO_ROOT).as_posix()} is missing"]
+        registry = load_capability_registry(path)
+    if not isinstance(registry, dict):
+        return ["capability registry must be a mapping"]
+
+    metadata = registry.get("metadata")
+    if not isinstance(metadata, dict):
+        errors.append("capability registry metadata must be a mapping")
+    elif metadata.get("generated_game_code") is not False:
+        errors.append("capability registry metadata.generated_game_code must be false")
+
+    capabilities = registry.get("capabilities")
+    if not isinstance(capabilities, list):
+        errors.append("capability registry capabilities must be a list")
+        return errors
+    if not capabilities:
+        errors.append("capability registry capabilities must not be empty")
+
+    seen: set[str] = set()
+    for idx, capability in enumerate(capabilities, 1):
+        if not isinstance(capability, dict):
+            errors.append(f"capability registry capabilities[{idx}] must be a mapping")
+            continue
+        key = str(capability.get("key", f"<missing:{idx}>"))
+        for field in _missing_required(capability, CAPABILITY_CONTRACT_REQUIRED_FIELDS):
+            errors.append(f"capability registry {key} missing required field {field}")
+        if not capability.get("key"):
+            continue
+        if key in seen:
+            errors.append(f"capability registry duplicate capability {key}")
+        seen.add(key)
+        if capability.get("may_write_src") is not False:
+            errors.append(f"capability registry {key} must declare may_write_src: false")
+        if not str(capability.get("verified_interface", "")).strip():
+            errors.append(f"capability registry {key} verified_interface must not be empty")
+        for field, allowed in (
+            ("supported_node_kinds", SUPPORTED_NODE_KINDS),
+            ("supported_listener_kinds", SUPPORTED_LISTENERS),
+            ("supported_ui_components", SUPPORTED_UI_COMPONENTS),
+            ("output_kinds", SUPPORTED_CAPABILITY_OUTPUT_KINDS),
+        ):
+            values = capability.get(field)
+            if not isinstance(values, list):
+                errors.append(f"capability registry {key} {field} must be a list")
+                continue
+            unsupported = sorted(str(value) for value in values if value not in allowed)
+            if unsupported:
+                errors.append(
+                    f"capability registry {key} {field} has unsupported value(s): {', '.join(unsupported)}"
+                )
+        for field in ("required_node_fields", "required_variable_roles"):
+            values = capability.get(field)
+            if not isinstance(values, list):
+                errors.append(f"capability registry {key} {field} must be a list")
+            elif any(not str(value).strip() for value in values):
+                errors.append(f"capability registry {key} {field} must contain non-empty strings")
     return errors
 
 
@@ -606,6 +741,8 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "supported_action_kinds": list(sorted(SUPPORTED_ACTION_KINDS)),
                 "supported_check_kinds": list(sorted(SUPPORTED_CHECK_KINDS)),
                 "supported_codegen_templates": list(sorted(supported_codegen_template_keys())),
+                "supported_capabilities": list(sorted(supported_capability_keys())),
+                "supported_scope_contract_scopes": list(sorted(SUPPORTED_SCOPE_CONTRACT_SCOPES)),
             },
             "ai_prompt_contract": {
                 "batch_size": "1-5 unique wonders per authoring pass",
@@ -695,6 +832,45 @@ def _string_refs(value: Any) -> list[str]:
 
 def _missing_required(mapping: dict[str, Any], required: set[str]) -> list[str]:
     return sorted(field for field in required if field not in mapping)
+
+
+def _dotted_path_exists(root: dict[str, Any], path: str) -> bool:
+    current: Any = root
+    for part in path.split("."):
+        if isinstance(current, dict) and part in current:
+            current = current[part]
+        else:
+            return False
+    if current is None:
+        return False
+    if isinstance(current, str) and not current.strip():
+        return False
+    return True
+
+
+def _variable_names_with_role(variables: list[Any], role: str) -> set[str]:
+    names: set[str] = set()
+    for variable in variables:
+        if not isinstance(variable, dict) or not variable.get("name"):
+            continue
+        if role in set(_string_refs(variable.get("roles"))):
+            names.add(str(variable["name"]))
+    return names
+
+
+def _has_hidden_executor_handoff(
+    node: dict[str, Any],
+    node_by_key: dict[str, dict[str, Any]],
+) -> bool:
+    if node.get("kind") == "hidden_executor_handoff":
+        return True
+    handoff = node.get("hidden_executor_handoff")
+    if handoff is True:
+        return True
+    if isinstance(handoff, str) and handoff.strip():
+        target = node_by_key.get(handoff)
+        return bool(target and target.get("kind") == "hidden_executor_handoff")
+    return False
 
 
 def _loc_ref_errors(
@@ -800,6 +976,166 @@ def templates_used_by_entry(entry: dict[str, Any]) -> set[str]:
     for template in generation.get("blocked_templates", []) or []:
         used.add(str(template))
     return used
+
+
+def capabilities_used_by_entry(entry: dict[str, Any]) -> set[str]:
+    node_graph = entry.get("node_graph") or {}
+    used: set[str] = set()
+    for node in node_graph.get("nodes", []) or []:
+        if isinstance(node, dict):
+            used.update(_string_refs(node.get("capabilities")))
+    return used
+
+
+def _semantic_contract_errors(
+    entry: dict[str, Any],
+    node_graph: dict[str, Any],
+    variables: list[Any],
+    *,
+    capability_registry: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    capability_index = capability_registry_index(capability_registry)
+    declared_listeners = set(_string_refs(node_graph.get("listeners")))
+    nodes = node_graph.get("nodes", [])
+    node_by_key = {
+        str(node["key"]): node
+        for node in nodes
+        if isinstance(node, dict) and node.get("key")
+    }
+    component_types = {
+        str(component.get("type"))
+        for component in ((entry.get("ui_model") or {}).get("components") or [])
+        if isinstance(component, dict) and component.get("type")
+    }
+
+    for node in nodes if isinstance(nodes, list) else []:
+        if not isinstance(node, dict):
+            continue
+        key = str(node.get("key", "<unknown>"))
+        kind = str(node.get("kind", ""))
+        node_capabilities = _string_refs(node.get("capabilities"))
+        if not node_capabilities:
+            errors.append(_issue(entry, f"node {key} must declare at least one capability"))
+
+        contracts: list[dict[str, Any]] = []
+        for capability_key in node_capabilities:
+            contract = capability_index.get(capability_key)
+            if contract is None:
+                errors.append(_issue(entry, f"node {key} unknown capability {capability_key!r}"))
+                continue
+            contracts.append(contract)
+            supported_node_kinds = set(_string_refs(contract.get("supported_node_kinds")))
+            if kind not in supported_node_kinds:
+                errors.append(
+                    _issue(
+                        entry,
+                        f"node {key} capability {capability_key!r} does not support node kind {kind!r}",
+                    )
+                )
+            if contract.get("may_write_src") is not False:
+                errors.append(_issue(entry, f"node {key} capability {capability_key!r} is not allowed to write src"))
+            supported_ui = set(_string_refs(contract.get("supported_ui_components")))
+            if supported_ui and component_types and not (supported_ui & component_types):
+                errors.append(
+                    _issue(
+                        entry,
+                        f"node {key} capability {capability_key!r} requires one of ui components "
+                        + ", ".join(sorted(supported_ui)),
+                    )
+                )
+            dotted_root = {"entry": entry, "node_graph": node_graph, "node": node, "ui_model": entry.get("ui_model") or {}}
+            for field_path in _string_refs(contract.get("required_node_fields")):
+                if not _dotted_path_exists(dotted_root, field_path):
+                    errors.append(
+                        _issue(entry, f"node {key} capability {capability_key!r} missing required field {field_path}")
+                    )
+            node_variables = set(_string_refs(node.get("reads"))) | set(_string_refs(node.get("writes")))
+            for role in _string_refs(contract.get("required_variable_roles")):
+                role_variables = _variable_names_with_role(variables, role)
+                if not role_variables:
+                    errors.append(
+                        _issue(entry, f"node {key} capability {capability_key!r} missing variable role {role!r}")
+                    )
+                elif not (role_variables & node_variables):
+                    errors.append(
+                        _issue(
+                            entry,
+                            f"node {key} capability {capability_key!r} requires node read/write variable role {role!r}",
+                        )
+                    )
+
+        scope_contract = node.get("scope_contract")
+        if scope_contract is not None:
+            if not isinstance(scope_contract, dict):
+                errors.append(_issue(entry, f"node {key} scope_contract must be a mapping"))
+            else:
+                for field in _missing_required(scope_contract, SCOPE_CONTRACT_REQUIRED_FIELDS):
+                    errors.append(_issue(entry, f"node {key} scope_contract missing required field {field}"))
+                for field in ("root_scope", "current_scope"):
+                    scope_value = scope_contract.get(field)
+                    if scope_value is not None and str(scope_value) not in SUPPORTED_SCOPE_CONTRACT_SCOPES:
+                        errors.append(_issue(entry, f"node {key} scope_contract.{field} has unknown scope {scope_value!r}"))
+                target_scopes = scope_contract.get("target_scopes")
+                if target_scopes is not None and not isinstance(target_scopes, list):
+                    errors.append(_issue(entry, f"node {key} scope_contract.target_scopes must be a list"))
+                for scope_value in _string_refs(target_scopes):
+                    if scope_value not in SUPPORTED_SCOPE_CONTRACT_SCOPES:
+                        errors.append(_issue(entry, f"node {key} scope_contract.target_scopes has unknown scope {scope_value!r}"))
+                if scope_contract.get("tooltip_safe") is False and "player_facing_tooltip" in set(_string_refs(node.get("output_kinds"))):
+                    errors.append(_issue(entry, f"node {key} scope_contract.tooltip_safe=false cannot output player_facing_tooltip"))
+                if scope_contract.get("unsafe_pre_eval") is True and not scope_contract.get("blocked_reason") and not _has_hidden_executor_handoff(node, node_by_key):
+                    errors.append(
+                        _issue(
+                            entry,
+                            f"node {key} scope_contract.unsafe_pre_eval=true requires blocked_reason or hidden_executor_handoff",
+                        )
+                    )
+
+        listener_contract = node.get("listener_contract")
+        if kind == "listener_gate" and not isinstance(listener_contract, dict):
+            errors.append(_issue(entry, f"listener_gate node {key} must declare listener_contract"))
+        if listener_contract is not None:
+            if not isinstance(listener_contract, dict):
+                errors.append(_issue(entry, f"node {key} listener_contract must be a mapping"))
+            else:
+                for field in _missing_required(listener_contract, LISTENER_CONTRACT_REQUIRED_FIELDS):
+                    errors.append(_issue(entry, f"node {key} listener_contract missing required field {field}"))
+                listener = listener_contract.get("listener")
+                if listener is not None:
+                    listener = str(listener)
+                    if listener not in SUPPORTED_LISTENERS:
+                        errors.append(_issue(entry, f"node {key} listener_contract uses unsupported listener {listener!r}"))
+                    if listener not in declared_listeners:
+                        errors.append(_issue(entry, f"node {key} listener_contract listener {listener!r} is not declared in node_graph.listeners"))
+                    supported_by_capability = {
+                        supported
+                        for contract in contracts
+                        for supported in _string_refs(contract.get("supported_listener_kinds"))
+                    }
+                    if listener not in supported_by_capability:
+                        errors.append(_issue(entry, f"node {key} listener_contract listener {listener!r} is not supported by declared capabilities"))
+                for field in ("reads", "writes"):
+                    for variable in _string_refs(listener_contract.get(field)):
+                        if variable not in set(_string_refs(node.get(field))):
+                            errors.append(
+                                _issue(
+                                    entry,
+                                    f"node {key} listener_contract.{field} references variable {variable} not declared in node.{field}",
+                                )
+                            )
+
+    for action in node_graph.get("actions", []) or []:
+        if not isinstance(action, dict):
+            continue
+        key = str(action.get("key", "<unknown>"))
+        scope_contract = action.get("scope_contract")
+        if isinstance(scope_contract, dict) and scope_contract.get("tooltip_safe") is False:
+            if "player_facing_tooltip" in set(_string_refs(action.get("output_kinds"))):
+                errors.append(_issue(entry, f"action {key} scope_contract.tooltip_safe=false cannot output player_facing_tooltip"))
+        if isinstance(scope_contract, dict) and scope_contract.get("unsafe_pre_eval") is True and not scope_contract.get("blocked_reason"):
+            errors.append(_issue(entry, f"action {key} scope_contract.unsafe_pre_eval=true requires blocked_reason"))
+    return errors
 
 
 def _progress_or_count_variables(variables: list[Any]) -> set[str]:
@@ -943,6 +1279,7 @@ def _validate_codegen_node_graph(
     entry_event_id_set: set[int],
     loc_keys: set[str],
     template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     identity = entry.get("identity") or {}
@@ -1000,6 +1337,15 @@ def _validate_codegen_node_graph(
         else:
             if event_id not in entry_event_id_set:
                 errors.append(_issue(entry, f"node {key} references undeclared event id {event_id}"))
+
+    errors.extend(
+        _semantic_contract_errors(
+            entry,
+            node_graph,
+            variables,
+            capability_registry=capability_registry,
+        )
+    )
 
     for variable in variables:
         if not isinstance(variable, dict):
@@ -1156,6 +1502,7 @@ def validate_codegen_graph_entry(
     *,
     localization: dict[str, str] | None = None,
     template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     node_graph = entry.get("node_graph") or {}
     if not isinstance(node_graph, dict):
@@ -1166,6 +1513,7 @@ def validate_codegen_graph_entry(
         set(event_ids_in_entry(entry)),
         loc_key_inventory(localization),
         template_registry,
+        capability_registry,
     )
 
 
@@ -1219,6 +1567,7 @@ def codegen_support_errors(
     entry: dict[str, Any],
     *,
     template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     identity = entry.get("identity") or {}
     key = str(identity.get("key", "<unknown>"))
@@ -1228,7 +1577,15 @@ def codegen_support_errors(
     registry_errors = validate_template_registry(template_registry) if template_registry is not None else validate_template_registry()
     if registry_errors:
         return [f"{key}: template registry error: {error}" for error in registry_errors]
+    capability_registry_errors = (
+        validate_capability_registry(capability_registry)
+        if capability_registry is not None
+        else validate_capability_registry()
+    )
+    if capability_registry_errors:
+        return [f"{key}: capability registry error: {error}" for error in capability_registry_errors]
     template_index = template_registry_index(template_registry)
+    capability_index = capability_registry_index(capability_registry)
     generation = entry.get("generation") or {}
     errors: list[str] = []
     verified = set(str(template) for template in generation.get("verified_templates", []) or [])
@@ -1260,6 +1617,21 @@ def codegen_support_errors(
     for node in node_graph.get("nodes", []) or []:
         if isinstance(node, dict) and node.get("kind") in SUPPORTED_NODE_KINDS and str(node["kind"]) not in verified_node_kinds:
             errors.append(f"{key}: node kind {node['kind']!r} is not covered by generation.verified_templates")
+        if not isinstance(node, dict):
+            continue
+        node_key = str(node.get("key", "<unknown>"))
+        node_capabilities = _string_refs(node.get("capabilities"))
+        if not node_capabilities:
+            errors.append(f"{key}: node {node_key} must declare at least one capability")
+        for capability_key in node_capabilities:
+            contract = capability_index.get(capability_key)
+            if contract is None:
+                errors.append(f"{key}: node {node_key} unknown capability {capability_key!r}")
+                continue
+            if str(node.get("kind", "")) not in set(_string_refs(contract.get("supported_node_kinds"))):
+                errors.append(
+                    f"{key}: node {node_key} capability {capability_key!r} does not support node kind {node.get('kind')!r}"
+                )
     return errors
 
 
@@ -1268,6 +1640,7 @@ def graph_validation_errors_for_payload(
     *,
     localization: dict[str, str] | None = None,
     template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     for entry in payload.get("unique_wonders", []) or []:
@@ -1280,6 +1653,7 @@ def graph_validation_errors_for_payload(
                     entry,
                     localization=localization,
                     template_registry=template_registry,
+                    capability_registry=capability_registry,
                 )
             )
             errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
@@ -1351,6 +1725,54 @@ def codegen_tier_summary_for_payload(
     return summary
 
 
+def capability_coverage_summary_for_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    used: dict[str, int] = {}
+    eligible_specs = 0
+    node_count = 0
+    nodes_without_capabilities = 0
+    for entry in payload.get("unique_wonders", []) or []:
+        if not isinstance(entry, dict):
+            continue
+        if str((entry.get("identity") or {}).get("status", "")) not in CODEGEN_ELIGIBLE_STATUSES:
+            continue
+        eligible_specs += 1
+        node_graph = entry.get("node_graph") or {}
+        for node in node_graph.get("nodes", []) or []:
+            if not isinstance(node, dict):
+                continue
+            node_count += 1
+            capabilities = _string_refs(node.get("capabilities"))
+            if not capabilities:
+                nodes_without_capabilities += 1
+            for capability in capabilities:
+                used[capability] = used.get(capability, 0) + 1
+    return {
+        "eligible_specs": eligible_specs,
+        "node_count": node_count,
+        "nodes_without_capabilities": nodes_without_capabilities,
+        "capabilities": dict(sorted(used.items())),
+    }
+
+
+def node_kind_summary_for_payload(payload: dict[str, Any]) -> dict[str, int]:
+    summary: dict[str, int] = {}
+    for entry in payload.get("unique_wonders", []) or []:
+        if not isinstance(entry, dict):
+            continue
+        if str((entry.get("identity") or {}).get("status", "")) not in CODEGEN_ELIGIBLE_STATUSES:
+            continue
+        node_graph = entry.get("node_graph") or {}
+        for node in node_graph.get("nodes", []) or []:
+            if isinstance(node, dict) and node.get("kind"):
+                kind = str(node["kind"])
+                summary[kind] = summary.get(kind, 0) + 1
+    return dict(sorted(summary.items()))
+
+
+def _contract_error_count(errors: list[str], contract_name: str) -> int:
+    return sum(1 for error in errors if contract_name in error)
+
+
 def validate_spec_payload(
     payload: dict[str, Any],
     *,
@@ -1359,9 +1781,15 @@ def validate_spec_payload(
     occupied_event_ids: set[int] | None = None,
     require_all_wonders: bool = True,
     template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     errors.extend(validate_template_registry(template_registry) if template_registry is not None else validate_template_registry())
+    errors.extend(
+        validate_capability_registry(capability_registry)
+        if capability_registry is not None
+        else validate_capability_registry()
+    )
     wonders = wonders if wonders is not None else load_unique_wonders()
     wonder_by_key = wonder_index(wonders)
     entries = payload.get("unique_wonders", []) or []
@@ -1446,7 +1874,16 @@ def validate_spec_payload(
         if not str(node_graph.get("historical_mechanic", "")).strip():
             errors.append(_issue(entry, "node_graph.historical_mechanic is required"))
         if status in CODEGEN_ELIGIBLE_STATUSES:
-            errors.extend(_validate_codegen_node_graph(entry, node_graph, entry_event_id_set, loc_keys, template_registry))
+            errors.extend(
+                _validate_codegen_node_graph(
+                    entry,
+                    node_graph,
+                    entry_event_id_set,
+                    loc_keys,
+                    template_registry,
+                    capability_registry,
+                )
+            )
             errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
         else:
             for node in nodes:
@@ -1538,19 +1975,30 @@ def audit_summary() -> dict[str, Any]:
     specs = load_spec_data()
     loc = loc_english()
     template_registry = load_template_registry()
+    capability_registry = load_capability_registry()
     template_registry_errors = validate_template_registry(template_registry)
+    capability_registry_errors = validate_capability_registry(capability_registry)
 
     design_index = list_index(designs)
     prompt_index = list_index(prompts)
     spec_index = list_index(specs)
-    spec_errors = validate_spec_payload(specs, wonders=wonders, localization=loc, template_registry=template_registry)
+    spec_errors = validate_spec_payload(
+        specs,
+        wonders=wonders,
+        localization=loc,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+    )
     graph_validation_errors = graph_validation_errors_for_payload(
         specs,
         localization=loc,
         template_registry=template_registry,
+        capability_registry=capability_registry,
     )
     lifecycle_summary = graph_lifecycle_summary_for_payload(specs)
     codegen_tier_summary = codegen_tier_summary_for_payload(specs, template_registry=template_registry)
+    capability_coverage_summary = capability_coverage_summary_for_payload(specs)
+    node_kind_summary = node_kind_summary_for_payload(specs)
 
     implemented = [
         key
@@ -1584,7 +2032,11 @@ def audit_summary() -> dict[str, Any]:
         status = (entry.get("identity") or {}).get("status")
         if status not in CODEGEN_ELIGIBLE_STATUSES:
             continue
-        support_errors = codegen_support_errors(entry, template_registry=template_registry)
+        support_errors = codegen_support_errors(
+            entry,
+            template_registry=template_registry,
+            capability_registry=capability_registry,
+        )
         unsupported_templates.update(
             template
             for template in templates_used_by_entry(entry)
@@ -1613,11 +2065,16 @@ def audit_summary() -> dict[str, Any]:
         "codegen_supported_count": len(codegen_supported),
         "codegen_blocked_count": len(codegen_blocked),
         "codegen_tier_summary": codegen_tier_summary,
+        "capability_coverage_summary": capability_coverage_summary,
+        "node_kind_summary": node_kind_summary,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
+        "capability_registry_errors": capability_registry_errors,
         "graph_reachable_count": lifecycle_summary["graph_reachable_count"],
         "graph_unreachable_count": lifecycle_summary["graph_unreachable_count"],
         "lifecycle_error_count": lifecycle_summary["lifecycle_error_count"],
+        "listener_contract_error_count": _contract_error_count(spec_errors, "listener_contract"),
+        "scope_contract_error_count": _contract_error_count(spec_errors, "scope_contract"),
         "graph_validation_errors": graph_validation_errors,
         "missing_designs": sorted(wonder_keys - set(design_index)),
         "placeholder_designs": sorted(

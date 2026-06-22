@@ -21,6 +21,8 @@ completion popup. Each batch should produce a playable spec first, then game cod
   fragments under `data/generated_fragments/unique_wonder_rituals/`; it does not write `src/`.
   Template support comes from `data/unique_wonder_ritual_codegen_templates.yaml`;
   specs may not invent template keys outside that registry.
+  Mechanism capability support comes from `data/unique_wonder_ritual_capabilities.yaml`;
+  specs may not invent capability keys outside that registry.
 
 ## Required AI Output
 
@@ -42,7 +44,8 @@ An implementation-ready ritual must include:
 - `event_ids`: explicit unique numeric IDs, all below `10000`.
 - `node_graph`: a custom graph with at least 3 player-visible nodes, at least 3 event IDs,
   at least one failure or retry path, declared listeners, runtime variables, an `entry_node`,
-  `terminal_nodes`, and a historical mechanic.
+  `terminal_nodes`, per-node capabilities, optional scope/listener contracts, and a
+  historical mechanic.
 - `ui_model`: one or more visible UI components from `checklist`, `route_map`, `actor_slots`,
   `material_stockpile`, `incident_log`, or `progress_track`.
 - `rewards`: all three mandatory channels: permanent country modifier, local building reward,
@@ -63,6 +66,20 @@ The validator and codegen both reject unknown templates, templates marked as all
 `src/`, blocked templates, action/check kinds not supported by the selected template, and node
 kinds not covered by `generation.verified_templates`.
 
+## Capability Registry
+
+`data/unique_wonder_ritual_capabilities.yaml` is the only source of truth for Harness
+mechanism semantics. Each capability declares supported node kinds, required node fields,
+required variable roles, supported listeners/UI components/output kinds, a verified interface,
+`may_write_src: false`, and notes. The v1 capabilities are `event_chain`, `retry_branch`,
+`monthly_progress`, `actor_assignment`, `resource_gate`, `route_gate`, `listener_gate`, and
+`final_reward_handoff`.
+
+Codegen-eligible nodes must declare `capabilities`. The validator rejects unknown
+capabilities, capabilities that do not support the node kind, missing capability-required
+fields, missing required variable roles, unsupported listener contracts, and any capability
+marked as allowed to write `src/`.
+
 ## State Machine DSL
 
 `implementation_ready` and `harness_generated` specs must use the strong node-graph DSL.
@@ -74,8 +91,11 @@ kinds not covered by `generation.verified_templates`.
 - `node_graph.completion_policy`: optional lifecycle policy; terminal outgoing edges are
   rejected unless `allow_terminal_outgoing: true` is explicitly set.
 - `node_graph.nodes`: each node declares `key`, `kind`, `event_id`, visibility,
-  historical anchor, enter/completion checks, retry target, next nodes, reads/writes,
-  UI state, and localization refs.
+  capabilities, historical anchor, enter/completion checks, retry target, next nodes,
+  reads/writes, UI state, and localization refs. Optional `scope_contract` declares
+  root/current/target scopes plus tooltip and unsafe pre-evaluation policy; optional
+  `listener_contract` declares listener, cadence, reads/writes, completion check, and
+  failure route.
 - `node_graph.edges`: each edge declares `from`, `to`, `condition`, `effect`, and `label_key`.
 - `node_graph.actions`: each action declares `key`, `kind`, `scope`, `verified_interface`,
   and either an `effect_script` or a `generator_template`.
@@ -90,11 +110,14 @@ kinds not covered by `generation.verified_templates`.
 
 The v1 registry is deliberately small:
 
-- node kinds: `event`, `retry_event`, `monthly_progress_gate`, `final_reward_dispatch`
+- node kinds: `event`, `choice_event`, `assignment_gate`, `resource_gate`, `route_gate`,
+  `listener_gate`, `incident_event`, `hidden_executor_handoff`, `retry_event`,
+  `monthly_progress_gate`, `final_reward_dispatch`
 - action kinds: `effect_script`, `generator_template`, `reward_dispatch_stub`
 - check kinds: `trigger_script`, `generator_template`
 - templates: `sequential_event_chain`, `branch_retry_event`, `monthly_progress_gate`,
-  `simple_progress_track_ui_binding`, `final_reward_dispatch_stub`
+  `simple_progress_track_ui_binding`, `final_reward_dispatch_stub`,
+  `semantic_contract_fragment`
 
 Every edge target, retry target, next node, variable read/write, UI binding ref, node event ID,
 and localization ref must resolve to a declared object. Every node must be reachable from
@@ -102,18 +125,24 @@ and localization ref must resolve to a declared object. Every node must be reach
 ordinary outgoing edges by default. Retry targets may not point to terminal nodes. A
 `monthly_progress_gate` must read and write at least one declared progress/count variable, and
 `final_reward_dispatch` nodes must be terminal nodes. Variable `writer_nodes` / `reader_nodes`
-must exactly match the node `writes` / `reads` declarations. `needs_verification` anywhere in
-an `implementation_ready` or `harness_generated` spec blocks validation.
+must exactly match the node `writes` / `reads` declarations. Variable `roles` is the canonical
+way to satisfy capability-required roles. `listener_gate` nodes must have `listener_contract`.
+Allowed scope contract values are `country`, `location`, `character`,
+`international_organization`, `gui_fragment`, and `none`. `tooltip_safe: false` nodes/actions
+may not declare `player_facing_tooltip` output, and `unsafe_pre_eval: true` requires a blocked
+reason or hidden executor handoff. `needs_verification` anywhere in an `implementation_ready`
+or `harness_generated` spec blocks validation.
 
 ## Reject Conditions
 
 Reject the spec if it has only start/completion events, no visible UI state, no failure/retry
 route, no historical mechanic, missing reward channels, thin event prose, runtime variables
 outside the ritual prefix, undeclared UI variables, unsupported listeners, duplicate or occupied
-event IDs, unsupported node/action/check kinds, unknown or unsupported registry templates, graph
-references that point to undeclared nodes or variables, unreachable nodes, terminal lifecycle
-violations, mismatched variable reader/writer declarations, or localization/node rows that
-reference undeclared events.
+event IDs, unsupported node/action/check kinds, unknown or unsupported registry templates or
+capabilities, missing node capabilities, missing capability-required fields/roles, invalid
+scope/listener contracts, graph references that point to undeclared nodes or variables,
+unreachable nodes, terminal lifecycle violations, mismatched variable reader/writer declarations,
+or localization/node rows that reference undeclared events.
 
 Reject implementation if heavy finalization or cleanup is placed in an option tooltip path, or if
 tooltips can pre-evaluate variables before they are written. Keep finalization in hidden executor
@@ -122,7 +151,8 @@ paths already verified by the project.
 Reject code generation if any used template is not both present in the registry and listed in
 `generation.verified_templates`, if the template does not support the current node/action/check
 kind, or if `generation.blocked_templates` is non-empty. The v1 generator emits Markdown
-skeletons and draft inventories only; promotion into loadable EU5 script requires a later
+skeletons, capability summaries, scope/listener contract summaries, hidden-executor/tooltip
+safety notes, and draft inventories only; promotion into loadable EU5 script requires a later
 verified generator.
 
 ## Batch Completion
