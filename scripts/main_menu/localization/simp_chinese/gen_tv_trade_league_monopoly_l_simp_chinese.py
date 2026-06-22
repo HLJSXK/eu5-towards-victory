@@ -82,6 +82,10 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         ("tv_trade_start_intelligence_network_desc", "派遣大商人在所选市场建立情报网。"),
         ("tv_trade_cancel_intelligence_network", "取消情报网"),
         ("tv_trade_cancel_intelligence_network_desc", "停止当前贸易联盟情报网建设。"),
+        ("tv_trade_start_chain", "建立贸易链"),
+        ("tv_trade_start_chain_desc", "派遣大商人在两个市场之间建立远距离贸易链。"),
+        ("tv_trade_cancel_chain", "取消贸易链"),
+        ("tv_trade_cancel_chain_desc", "停止维护当前贸易联盟贸易链。"),
         ("tv_trade_set_selected_virtual_demand", "虚构需求"),
         ("tv_trade_set_selected_virtual_demand_desc", "分配垄断水平，在选定市场创造当前商品的临时需求。"),
         ("tv_trade_increase_selected_virtual_demand", "增加虚构需求"),
@@ -102,6 +106,10 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         ("tv_trade_set_selected_embargo_desc", f"消耗{EMBARGO_COST_PCT}%垄断水平，使一个国家在选定市场获得-50贸易优势。"),
         ("tv_trade_cancel_selected_embargo", "取消禁运"),
         ("tv_trade_cancel_selected_embargo_desc", "移除当前商品的禁运行动。"),
+        ("tv_trade_select_chain_origin_market", "选择起点市场"),
+        ("tv_trade_select_chain_destination_market", "选择终点市场"),
+        ("tv_trade_no_chain_origin_market_available", "@trigger_no! 没有贸易范围内的[market|E]可用。"),
+        ("tv_trade_no_chain_destination_market_available", "@trigger_no! 没有贸易范围内的远距离[market|E]可用。"),
     ]
     for row in range(1, DISPLAY_ROW_COUNT + 1):
         entries.append((f"tv_trade_select_monopoly_row_{row}", "选择商品"))
@@ -118,6 +126,8 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
         "tv_trade_start_intelligence_network",
         "tv_trade_cancel_intelligence_network",
+        "tv_trade_start_chain",
+        "tv_trade_cancel_chain",
         "tv_trade_set_selected_virtual_demand",
         "tv_trade_increase_selected_virtual_demand",
         "tv_trade_decrease_selected_virtual_demand",

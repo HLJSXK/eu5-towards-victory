@@ -67,6 +67,26 @@ tv_grand_merchant_available_for_commercial_intelligence_trigger = {
 	}
 }
 
+tv_grand_merchant_available_for_trade_chain_trigger = {
+	trigger_if = {
+		limit = { tv_grand_merchant_busy_with_law_change_trigger = yes }
+		custom_description = {
+			text = tv_grand_merchant_busy_with_law_change_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = { tv_grand_merchant_busy_with_commercial_intelligence_trigger = yes }
+		custom_description = {
+			text = tv_grand_merchant_busy_with_commercial_intelligence_tt
+			always = no
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+}
+
 tv_grand_merchant_available_for_monopoly_trigger = {
 	trigger_if = {
 		limit = { tv_grand_merchant_busy_with_law_change_trigger = yes }

@@ -1065,6 +1065,164 @@ tv_trade_cancel_intelligence_network = {
 	ai_will_do = { add = -100 }
 }
 
+tv_trade_start_chain = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	show_message = yes
+	ai_tick = never
+	automation_tick = never
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+			has_variable = tv_grand_merchant_char
+			var:tv_grand_merchant_char ?= { is_alive = yes }
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+			has_variable = tv_grand_merchant_char
+			var:tv_grand_merchant_char ?= { is_alive = yes }
+			NOT = { has_variable = tv_trade_chain_active }
+			tv_grand_merchant_available_for_trade_chain_trigger = yes
+		}
+	}
+	select_trigger = {
+		looking_for_a = market
+		target_flag = target
+		name = "tv_trade_select_chain_origin_market"
+		none_available_msg_key = "tv_trade_no_chain_origin_market_available"
+		column = { data = name }
+		visible = { in_trade_range_of = scope:actor }
+		enabled = { in_trade_range_of = scope:actor }
+		show_why_not_enabled = yes
+	}
+	select_trigger = {
+		looking_for_a = market
+		target_flag = target_1
+		name = "tv_trade_select_chain_destination_market"
+		none_available_msg_key = "tv_trade_no_chain_destination_market_available"
+		column = { data = name }
+		visible = {
+			exists = scope:target
+			in_trade_range_of = scope:actor
+			location = {
+				distance_to_squared = {
+					location = scope:target.location
+					value >= 150000
+				}
+			}
+		}
+		enabled = {
+			exists = scope:target
+			in_trade_range_of = scope:actor
+			location = {
+				distance_to_squared = {
+					location = scope:target.location
+					value >= 150000
+				}
+			}
+		}
+		show_why_not_enabled = yes
+	}
+	effect = {
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+			}
+			scope:target = {
+				location = { save_scope_as = tv_trade_chain_origin_location_scope }
+			}
+			scope:target_1 = {
+				location = { save_scope_as = tv_trade_chain_destination_location_scope }
+			}
+			scope:actor = {
+				if = {
+					limit = {
+						any_international_organizations_member_of = {
+							international_organization_type = international_organization_type:tv_trade_league
+							leader_country ?= scope:actor
+						}
+						has_variable = tv_grand_merchant_char
+						var:tv_grand_merchant_char ?= { is_alive = yes }
+						NOT = { has_variable = tv_trade_chain_active }
+						tv_grand_merchant_available_for_trade_chain_trigger = yes
+						scope:tv_trade_chain_origin_location_scope = {
+							distance_to_squared = {
+								location = scope:tv_trade_chain_destination_location_scope
+								value >= 150000
+							}
+						}
+					}
+					set_variable = { name = tv_trade_chain_active value = 1 }
+					set_variable = { name = tv_trade_chain_origin_location value = scope:tv_trade_chain_origin_location_scope }
+					set_variable = { name = tv_trade_chain_destination_location value = scope:tv_trade_chain_destination_location_scope }
+					set_variable = { name = tv_trade_chain_distance_sq value = { value = "scope:tv_trade_chain_origin_location_scope.distance_to_squared(scope:tv_trade_chain_destination_location_scope)" } }
+					set_variable = { name = tv_trade_chain_valid value = 0 }
+					set_variable = { name = tv_trade_chain_status value = 1 }
+					tv_trade_league_refresh_trade_chain_effect = yes
+					tv_trade_league_refresh_trade_chain_members_display_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_trade_cancel_chain = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	show_message = yes
+	ai_tick = never
+	automation_tick = never
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+			has_variable = tv_grand_merchant_char
+			var:tv_grand_merchant_char ?= { is_alive = yes }
+			has_variable = tv_trade_chain_active
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:actor
+			}
+			has_variable = tv_grand_merchant_char
+			var:tv_grand_merchant_char ?= { is_alive = yes }
+			has_variable = tv_trade_chain_active
+		}
+	}
+	effect = {
+		scope:actor = {
+			if = {
+				limit = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_trade_league
+						leader_country ?= scope:actor
+					}
+					has_variable = tv_grand_merchant_char
+					var:tv_grand_merchant_char ?= { is_alive = yes }
+					has_variable = tv_trade_chain_active
+				}
+				tv_trade_league_clear_trade_chain_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_trade_set_selected_virtual_demand = {
 	type = owncountry
 	sound = UI_action_diplomacy_generic
