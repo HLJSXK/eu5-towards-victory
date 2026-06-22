@@ -16,19 +16,22 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics.render import render_header  # noqa: E402
 from wonder_unique_ritual_harness import (  # noqa: E402
     CODEGEN_ELIGIBLE_STATUSES,
+    archetype_registry_index,
     capability_registry_index,
     codegen_support_errors,
     list_index,
+    load_archetype_registry,
     load_capability_registry,
     load_template_registry,
     load_spec_data,
+    supported_archetype_keys,
     supported_capability_keys,
     supported_codegen_template_keys,
     validate_spec_payload,
 )
 
 SCRIPT_REL = "scripts/gen_unique_wonder_ritual_code.py"
-DATA_REL = "data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml"
+DATA_REL = "data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml + data/unique_wonder_ritual_archetypes.yaml"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "data" / "generated_fragments" / "unique_wonder_rituals"
 INDEX_FILE_NAME = "unique_wonder_ritual_codegen_index.md"
 
@@ -104,11 +107,13 @@ def render_entry_fragment(
     *,
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
 ) -> str:
     errors = codegen_support_errors(
         entry,
         template_registry=template_registry,
         capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if errors:
         raise CodegenError("; ".join(errors))
@@ -117,6 +122,7 @@ def render_entry_fragment(
     node_graph = entry.get("node_graph") or {}
     generation = entry.get("generation") or {}
     capability_index = capability_registry_index(capability_registry)
+    archetype_index = archetype_registry_index(archetype_registry)
     event_rows = _event_rows_by_node(entry)
     lines = render_header(SCRIPT_REL, DATA_REL)
     lines.extend(
@@ -133,7 +139,35 @@ def render_entry_fragment(
             f"- Runtime prefix: {identity.get('runtime_prefix')}",
             f"- Generation status: {generation.get('status')}",
             f"- Verified templates: {_join(generation.get('verified_templates'))}",
+            f"- Archetypes: {_join(node_graph.get('archetypes'))}",
             f"- Target files declared by spec: {_join(generation.get('target_files'))}",
+            "",
+            "## Archetype Summary",
+            "",
+        ]
+    )
+    archetype_rows: list[list[Any]] = []
+    for archetype in node_graph.get("archetypes", []) or []:
+        contract = archetype_index.get(str(archetype), {})
+        archetype_rows.append(
+            [
+                archetype,
+                _join(contract.get("required_capabilities")),
+                _join(contract.get("required_variable_roles")),
+                _join(contract.get("required_ui_components")),
+                _join(contract.get("required_listeners")),
+                f"{contract.get('min_nodes', '')}-{contract.get('max_nodes', '')}",
+                contract.get("terminal_requires_capability", ""),
+            ]
+        )
+    lines.extend(
+        _md_table(
+            ["archetype", "capabilities", "variable_roles", "ui", "listeners", "nodes", "terminal_capability"],
+            archetype_rows,
+        )
+    )
+    lines.extend(
+        [
             "",
             "## Event Skeleton",
             "",
@@ -367,6 +401,7 @@ def render_index(
     *,
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
 ) -> str:
     lines = render_header(SCRIPT_REL, DATA_REL)
     lines.extend(
@@ -379,6 +414,7 @@ def render_index(
             f"- Skipped non-codegen specs: {len(skipped)}",
             f"- Supported templates: {', '.join(sorted(supported_codegen_template_keys(template_registry)))}",
             f"- Supported capabilities: {', '.join(sorted(supported_capability_keys(capability_registry)))}",
+            f"- Supported archetypes: {', '.join(sorted(supported_archetype_keys(archetype_registry)))}",
             "",
         ]
     )
@@ -402,13 +438,20 @@ def generate_fragments_for_payload(
     output_dir: Path = DEFAULT_OUTPUT_DIR,
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     selected, skipped = _selected_entries(payload, wonder_keys)
     registry = template_registry if template_registry is not None else load_template_registry()
     capabilities = capability_registry if capability_registry is not None else load_capability_registry()
+    archetypes = archetype_registry if archetype_registry is not None else load_archetype_registry()
     generated: list[dict[str, Any]] = []
     for entry in selected:
-        text = render_entry_fragment(entry, template_registry=registry, capability_registry=capabilities)
+        text = render_entry_fragment(
+            entry,
+            template_registry=registry,
+            capability_registry=capabilities,
+            archetype_registry=archetypes,
+        )
         path = target_path_for_entry(entry, output_dir)
         rel_path = path.relative_to(REPO_ROOT).as_posix() if path.is_absolute() else path.as_posix()
         generated.append({"key": entry_key(entry), "path": rel_path, "text": text})
@@ -421,6 +464,7 @@ def generate_fragments_for_payload(
         skipped,
         template_registry=registry,
         capability_registry=capabilities,
+        archetype_registry=archetypes,
     )
     if write:
         index_path.parent.mkdir(parents=True, exist_ok=True)
@@ -443,10 +487,12 @@ def main() -> None:
     payload = load_spec_data()
     template_registry = load_template_registry()
     capability_registry = load_capability_registry()
+    archetype_registry = load_archetype_registry()
     errors = validate_spec_payload(
         payload,
         template_registry=template_registry,
         capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if errors:
         print("[FAIL] Unique wonder ritual specs failed validation:")
@@ -461,6 +507,7 @@ def main() -> None:
             write=args.write,
             template_registry=template_registry,
             capability_registry=capability_registry,
+            archetype_registry=archetype_registry,
         )
     except CodegenError as exc:
         print(f"[FAIL] {exc}")

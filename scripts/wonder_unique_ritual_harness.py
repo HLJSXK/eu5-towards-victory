@@ -19,6 +19,7 @@ from wonder_mechanics.io import (  # noqa: E402
 SPEC_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_specs.yaml"
 TEMPLATE_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_codegen_templates.yaml"
 CAPABILITY_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_capabilities.yaml"
+ARCHETYPE_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_archetypes.yaml"
 DESIGN_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_designs.yaml"
 PROMPTS_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_prompts.yaml"
 LOCALIZATION_FILE = REPO_ROOT / "data" / "wonder_localization.yaml"
@@ -99,6 +100,22 @@ CAPABILITY_CONTRACT_REQUIRED_FIELDS = {
     "supported_ui_components",
     "output_kinds",
     "verified_interface",
+    "may_write_src",
+    "notes",
+}
+ARCHETYPE_CONTRACT_REQUIRED_FIELDS = {
+    "key",
+    "required_capabilities",
+    "allowed_node_kinds",
+    "required_variable_roles",
+    "required_ui_components",
+    "required_listeners",
+    "min_nodes",
+    "max_nodes",
+    "requires_retry_path",
+    "requires_hidden_executor_handoff",
+    "terminal_requires_capability",
+    "verification_tier",
     "may_write_src",
     "notes",
 }
@@ -191,6 +208,10 @@ def load_capability_registry(path: Path = CAPABILITY_REGISTRY_FILE) -> dict[str,
     return load_optional_yaml(path) or {"metadata": {}, "capabilities": []}
 
 
+def load_archetype_registry(path: Path = ARCHETYPE_REGISTRY_FILE) -> dict[str, Any]:
+    return load_optional_yaml(path) or {"metadata": {}, "archetypes": []}
+
+
 def template_registry_index(registry: dict[str, Any] | None = None) -> dict[str, dict[str, Any]]:
     payload = registry if registry is not None else load_template_registry()
     templates = payload.get("templates", []) if isinstance(payload, dict) else []
@@ -221,6 +242,22 @@ def capability_registry_index(registry: dict[str, Any] | None = None) -> dict[st
 
 def supported_capability_keys(registry: dict[str, Any] | None = None) -> set[str]:
     return set(capability_registry_index(registry))
+
+
+def archetype_registry_index(registry: dict[str, Any] | None = None) -> dict[str, dict[str, Any]]:
+    payload = registry if registry is not None else load_archetype_registry()
+    archetypes = payload.get("archetypes", []) if isinstance(payload, dict) else []
+    index: dict[str, dict[str, Any]] = {}
+    if not isinstance(archetypes, list):
+        return index
+    for archetype in archetypes:
+        if isinstance(archetype, dict) and archetype.get("key"):
+            index[str(archetype["key"])] = archetype
+    return index
+
+
+def supported_archetype_keys(registry: dict[str, Any] | None = None) -> set[str]:
+    return set(archetype_registry_index(registry))
 
 
 def validate_template_registry(
@@ -353,6 +390,94 @@ def validate_capability_registry(
                 errors.append(f"capability registry {key} {field} must be a list")
             elif any(not str(value).strip() for value in values):
                 errors.append(f"capability registry {key} {field} must contain non-empty strings")
+    return errors
+
+
+def validate_archetype_registry(
+    registry: dict[str, Any] | None = None,
+    *,
+    path: Path = ARCHETYPE_REGISTRY_FILE,
+    capability_registry: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    if registry is None:
+        if not path.exists():
+            return [f"{path.relative_to(REPO_ROOT).as_posix()} is missing"]
+        registry = load_archetype_registry(path)
+    if not isinstance(registry, dict):
+        return ["archetype registry must be a mapping"]
+
+    metadata = registry.get("metadata")
+    if not isinstance(metadata, dict):
+        errors.append("archetype registry metadata must be a mapping")
+    elif metadata.get("generated_game_code") is not False:
+        errors.append("archetype registry metadata.generated_game_code must be false")
+
+    archetypes = registry.get("archetypes")
+    if not isinstance(archetypes, list):
+        errors.append("archetype registry archetypes must be a list")
+        return errors
+    if not archetypes:
+        errors.append("archetype registry archetypes must not be empty")
+
+    capability_keys = supported_capability_keys(capability_registry)
+    seen: set[str] = set()
+    for idx, archetype in enumerate(archetypes, 1):
+        if not isinstance(archetype, dict):
+            errors.append(f"archetype registry archetypes[{idx}] must be a mapping")
+            continue
+        key = str(archetype.get("key", f"<missing:{idx}>"))
+        for field in _missing_required(archetype, ARCHETYPE_CONTRACT_REQUIRED_FIELDS):
+            errors.append(f"archetype registry {key} missing required field {field}")
+        if not archetype.get("key"):
+            continue
+        if key in seen:
+            errors.append(f"archetype registry duplicate archetype {key}")
+        seen.add(key)
+        if archetype.get("may_write_src") is not False:
+            errors.append(f"archetype registry {key} must declare may_write_src: false")
+        if str(archetype.get("verification_tier", "")) != "harness_v1_mechanic_blueprint":
+            errors.append(f"archetype registry {key} verification_tier must be harness_v1_mechanic_blueprint")
+        if not str(archetype.get("notes", "")).strip():
+            errors.append(f"archetype registry {key} notes must not be empty")
+        for field, allowed in (
+            ("required_capabilities", capability_keys),
+            ("allowed_node_kinds", SUPPORTED_NODE_KINDS),
+            ("required_ui_components", SUPPORTED_UI_COMPONENTS),
+            ("required_listeners", SUPPORTED_LISTENERS),
+        ):
+            values = archetype.get(field)
+            if not isinstance(values, list):
+                errors.append(f"archetype registry {key} {field} must be a list")
+                continue
+            unsupported = sorted(str(value) for value in values if value not in allowed)
+            if unsupported:
+                errors.append(
+                    f"archetype registry {key} {field} has unsupported value(s): {', '.join(unsupported)}"
+                )
+        required_variable_roles = archetype.get("required_variable_roles")
+        if not isinstance(required_variable_roles, list):
+            errors.append(f"archetype registry {key} required_variable_roles must be a list")
+        elif any(not str(value).strip() for value in required_variable_roles):
+            errors.append(f"archetype registry {key} required_variable_roles must contain non-empty strings")
+        terminal_capability = archetype.get("terminal_requires_capability")
+        if terminal_capability is not None and str(terminal_capability) not in capability_keys:
+            errors.append(
+                f"archetype registry {key} terminal_requires_capability has unsupported value {terminal_capability!r}"
+            )
+        for field in ("requires_retry_path", "requires_hidden_executor_handoff"):
+            if not isinstance(archetype.get(field), bool):
+                errors.append(f"archetype registry {key} {field} must be a boolean")
+        try:
+            min_nodes = int(archetype.get("min_nodes"))
+            max_nodes = int(archetype.get("max_nodes"))
+        except (TypeError, ValueError):
+            errors.append(f"archetype registry {key} min_nodes and max_nodes must be integers")
+            continue
+        if min_nodes < 1:
+            errors.append(f"archetype registry {key} min_nodes must be positive")
+        if max_nodes < min_nodes:
+            errors.append(f"archetype registry {key} max_nodes must be greater than or equal to min_nodes")
     return errors
 
 
@@ -742,6 +867,7 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "supported_check_kinds": list(sorted(SUPPORTED_CHECK_KINDS)),
                 "supported_codegen_templates": list(sorted(supported_codegen_template_keys())),
                 "supported_capabilities": list(sorted(supported_capability_keys())),
+                "supported_archetypes": list(sorted(supported_archetype_keys())),
                 "supported_scope_contract_scopes": list(sorted(SUPPORTED_SCOPE_CONTRACT_SCOPES)),
             },
             "ai_prompt_contract": {
@@ -985,6 +1111,128 @@ def capabilities_used_by_entry(entry: dict[str, Any]) -> set[str]:
         if isinstance(node, dict):
             used.update(_string_refs(node.get("capabilities")))
     return used
+
+
+def archetypes_used_by_entry(entry: dict[str, Any]) -> set[str]:
+    node_graph = entry.get("node_graph") or {}
+    if not isinstance(node_graph, dict):
+        return set()
+    return set(_string_refs(node_graph.get("archetypes")))
+
+
+def _archetype_contract_errors(
+    entry: dict[str, Any],
+    node_graph: dict[str, Any],
+    variables: list[Any],
+    *,
+    archetype_registry: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    archetype_index = archetype_registry_index(archetype_registry)
+    declared_archetypes = _string_refs(node_graph.get("archetypes"))
+    if not declared_archetypes:
+        errors.append(_issue(entry, "node_graph.archetypes must not be empty for implementation_ready or harness_generated specs"))
+        return errors
+
+    nodes = node_graph.get("nodes", [])
+    nodes = nodes if isinstance(nodes, list) else []
+    node_by_key = {
+        str(node["key"]): node
+        for node in nodes
+        if isinstance(node, dict) and node.get("key")
+    }
+    node_count = len(node_by_key)
+    graph_capabilities = {
+        capability
+        for node in node_by_key.values()
+        for capability in _string_refs(node.get("capabilities"))
+    }
+    graph_node_kinds = {
+        str(node.get("kind"))
+        for node in node_by_key.values()
+        if node.get("kind")
+    }
+    component_types = {
+        str(component.get("type"))
+        for component in ((entry.get("ui_model") or {}).get("components") or [])
+        if isinstance(component, dict) and component.get("type")
+    }
+    declared_listeners = set(_string_refs(node_graph.get("listeners")))
+    terminal_nodes = _string_refs(node_graph.get("terminal_nodes"))
+    has_retry_path = any(bool(node.get("failure_or_retry") or node.get("retry_target")) for node in node_by_key.values())
+    has_hidden_executor_handoff = any(_has_hidden_executor_handoff(node, node_by_key) for node in node_by_key.values())
+
+    contracts: list[tuple[str, dict[str, Any]]] = []
+    for archetype_key in declared_archetypes:
+        contract = archetype_index.get(archetype_key)
+        if contract is None:
+            errors.append(_issue(entry, f"node_graph.archetypes unknown archetype {archetype_key!r}"))
+            continue
+        contracts.append((archetype_key, contract))
+        if contract.get("may_write_src") is not False:
+            errors.append(_issue(entry, f"archetype {archetype_key!r} is not allowed to write src"))
+        missing_capabilities = sorted(set(_string_refs(contract.get("required_capabilities"))) - graph_capabilities)
+        if missing_capabilities:
+            errors.append(
+                _issue(
+                    entry,
+                    f"archetype {archetype_key!r} missing required capability(s): {', '.join(missing_capabilities)}",
+                )
+            )
+        for role in _string_refs(contract.get("required_variable_roles")):
+            if not _variable_names_with_role(variables, role):
+                errors.append(_issue(entry, f"archetype {archetype_key!r} missing variable role {role!r}"))
+        missing_ui = sorted(set(_string_refs(contract.get("required_ui_components"))) - component_types)
+        if missing_ui:
+            errors.append(
+                _issue(entry, f"archetype {archetype_key!r} missing ui component(s): {', '.join(missing_ui)}")
+            )
+        missing_listeners = sorted(set(_string_refs(contract.get("required_listeners"))) - declared_listeners)
+        if missing_listeners:
+            errors.append(
+                _issue(entry, f"archetype {archetype_key!r} missing listener(s): {', '.join(missing_listeners)}")
+            )
+        try:
+            min_nodes = int(contract.get("min_nodes"))
+            max_nodes = int(contract.get("max_nodes"))
+        except (TypeError, ValueError):
+            continue
+        if node_count < min_nodes:
+            errors.append(_issue(entry, f"archetype {archetype_key!r} requires at least {min_nodes} node(s)"))
+        if node_count > max_nodes:
+            errors.append(_issue(entry, f"archetype {archetype_key!r} allows at most {max_nodes} node(s)"))
+        if contract.get("requires_retry_path") is True and not has_retry_path:
+            errors.append(_issue(entry, f"archetype {archetype_key!r} requires a retry path"))
+        if contract.get("requires_hidden_executor_handoff") is True and not has_hidden_executor_handoff:
+            errors.append(_issue(entry, f"archetype {archetype_key!r} requires a hidden executor handoff"))
+        terminal_capability = contract.get("terminal_requires_capability")
+        if terminal_capability:
+            for terminal in terminal_nodes:
+                terminal_node = node_by_key.get(terminal)
+                if not terminal_node:
+                    continue
+                if str(terminal_capability) not in set(_string_refs(terminal_node.get("capabilities"))):
+                    errors.append(
+                        _issue(
+                            entry,
+                            f"terminal node {terminal} must declare capability {terminal_capability!r} for archetype {archetype_key!r}",
+                        )
+                    )
+
+    allowed_node_kinds = {
+        kind
+        for _archetype_key, contract in contracts
+        for kind in _string_refs(contract.get("allowed_node_kinds"))
+    }
+    disallowed_node_kinds = sorted(graph_node_kinds - allowed_node_kinds)
+    if contracts and disallowed_node_kinds:
+        errors.append(
+            _issue(
+                entry,
+                "node_graph.archetypes do not allow node kind(s): " + ", ".join(disallowed_node_kinds),
+            )
+        )
+    return errors
 
 
 def _semantic_contract_errors(
@@ -1280,6 +1528,7 @@ def _validate_codegen_node_graph(
     loc_keys: set[str],
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     identity = entry.get("identity") or {}
@@ -1344,6 +1593,14 @@ def _validate_codegen_node_graph(
             node_graph,
             variables,
             capability_registry=capability_registry,
+        )
+    )
+    errors.extend(
+        _archetype_contract_errors(
+            entry,
+            node_graph,
+            variables,
+            archetype_registry=archetype_registry,
         )
     )
 
@@ -1503,6 +1760,7 @@ def validate_codegen_graph_entry(
     localization: dict[str, str] | None = None,
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     node_graph = entry.get("node_graph") or {}
     if not isinstance(node_graph, dict):
@@ -1514,6 +1772,7 @@ def validate_codegen_graph_entry(
         loc_key_inventory(localization),
         template_registry,
         capability_registry,
+        archetype_registry,
     )
 
 
@@ -1568,6 +1827,7 @@ def codegen_support_errors(
     *,
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     identity = entry.get("identity") or {}
     key = str(identity.get("key", "<unknown>"))
@@ -1584,8 +1844,16 @@ def codegen_support_errors(
     )
     if capability_registry_errors:
         return [f"{key}: capability registry error: {error}" for error in capability_registry_errors]
+    archetype_registry_errors = (
+        validate_archetype_registry(archetype_registry, capability_registry=capability_registry)
+        if archetype_registry is not None
+        else validate_archetype_registry(capability_registry=capability_registry)
+    )
+    if archetype_registry_errors:
+        return [f"{key}: archetype registry error: {error}" for error in archetype_registry_errors]
     template_index = template_registry_index(template_registry)
     capability_index = capability_registry_index(capability_registry)
+    archetype_index = archetype_registry_index(archetype_registry)
     generation = entry.get("generation") or {}
     errors: list[str] = []
     verified = set(str(template) for template in generation.get("verified_templates", []) or [])
@@ -1600,6 +1868,26 @@ def codegen_support_errors(
     if unverified:
         errors.append(f"{key}: template(s) not listed in generation.verified_templates: {', '.join(unverified)}")
     node_graph = entry.get("node_graph") or {}
+    declared_archetypes = _string_refs(node_graph.get("archetypes")) if isinstance(node_graph, dict) else []
+    if not declared_archetypes:
+        errors.append(f"{key}: node_graph.archetypes must not be empty for Harness codegen")
+    for archetype_key in declared_archetypes:
+        contract = archetype_index.get(archetype_key)
+        if contract is None:
+            errors.append(f"{key}: unknown archetype(s): {archetype_key}")
+            continue
+        if contract.get("may_write_src") is not False:
+            errors.append(f"{key}: archetype {archetype_key!r} is not allowed to write src")
+    variables = node_graph.get("variables", []) if isinstance(node_graph, dict) else []
+    if isinstance(node_graph, dict) and isinstance(variables, list):
+        errors.extend(
+            _archetype_contract_errors(
+                entry,
+                node_graph,
+                variables,
+                archetype_registry=archetype_registry,
+            )
+        )
     for section, field in (("actions", "supported_action_kinds"), ("checks", "supported_check_kinds")):
         for item in node_graph.get(section, []) or []:
             if not isinstance(item, dict) or not item.get("generator_template"):
@@ -1641,6 +1929,7 @@ def graph_validation_errors_for_payload(
     localization: dict[str, str] | None = None,
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     for entry in payload.get("unique_wonders", []) or []:
@@ -1654,6 +1943,7 @@ def graph_validation_errors_for_payload(
                     localization=localization,
                     template_registry=template_registry,
                     capability_registry=capability_registry,
+                    archetype_registry=archetype_registry,
                 )
             )
             errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
@@ -1682,6 +1972,28 @@ def graph_lifecycle_summary_for_payload(payload: dict[str, Any]) -> dict[str, An
         "graph_unreachable_count": unreachable_count,
         "lifecycle_errors": lifecycle_errors,
         "lifecycle_error_count": len(lifecycle_errors),
+    }
+
+
+def archetype_coverage_summary_for_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    used: dict[str, int] = {}
+    eligible_specs = 0
+    specs_without_archetypes = 0
+    for entry in payload.get("unique_wonders", []) or []:
+        if not isinstance(entry, dict):
+            continue
+        if str((entry.get("identity") or {}).get("status", "")) not in CODEGEN_ELIGIBLE_STATUSES:
+            continue
+        eligible_specs += 1
+        archetypes = archetypes_used_by_entry(entry)
+        if not archetypes:
+            specs_without_archetypes += 1
+        for archetype in archetypes:
+            used[archetype] = used.get(archetype, 0) + 1
+    return {
+        "eligible_specs": eligible_specs,
+        "specs_without_archetypes": specs_without_archetypes,
+        "archetypes": dict(sorted(used.items())),
     }
 
 
@@ -1782,6 +2094,7 @@ def validate_spec_payload(
     require_all_wonders: bool = True,
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     errors.extend(validate_template_registry(template_registry) if template_registry is not None else validate_template_registry())
@@ -1789,6 +2102,11 @@ def validate_spec_payload(
         validate_capability_registry(capability_registry)
         if capability_registry is not None
         else validate_capability_registry()
+    )
+    errors.extend(
+        validate_archetype_registry(archetype_registry, capability_registry=capability_registry)
+        if archetype_registry is not None
+        else validate_archetype_registry(capability_registry=capability_registry)
     )
     wonders = wonders if wonders is not None else load_unique_wonders()
     wonder_by_key = wonder_index(wonders)
@@ -1846,6 +2164,15 @@ def validate_spec_payload(
         if not isinstance(node_graph, dict):
             errors.append(_issue(entry, "node_graph must be a mapping"))
             node_graph = {}
+        archetypes = node_graph.get("archetypes")
+        if archetypes is not None:
+            if not isinstance(archetypes, list):
+                errors.append(_issue(entry, "node_graph.archetypes must be a list"))
+            else:
+                archetype_index = archetype_registry_index(archetype_registry)
+                for archetype in _string_refs(archetypes):
+                    if archetype not in archetype_index:
+                        errors.append(_issue(entry, f"node_graph.archetypes unknown archetype {archetype!r}"))
         listeners = node_graph.get("listeners", [])
         if listeners is None:
             listeners = []
@@ -1882,6 +2209,7 @@ def validate_spec_payload(
                     loc_keys,
                     template_registry,
                     capability_registry,
+                    archetype_registry,
                 )
             )
             errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
@@ -1976,8 +2304,13 @@ def audit_summary() -> dict[str, Any]:
     loc = loc_english()
     template_registry = load_template_registry()
     capability_registry = load_capability_registry()
+    archetype_registry = load_archetype_registry()
     template_registry_errors = validate_template_registry(template_registry)
     capability_registry_errors = validate_capability_registry(capability_registry)
+    archetype_registry_errors = validate_archetype_registry(
+        archetype_registry,
+        capability_registry=capability_registry,
+    )
 
     design_index = list_index(designs)
     prompt_index = list_index(prompts)
@@ -1988,16 +2321,19 @@ def audit_summary() -> dict[str, Any]:
         localization=loc,
         template_registry=template_registry,
         capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     graph_validation_errors = graph_validation_errors_for_payload(
         specs,
         localization=loc,
         template_registry=template_registry,
         capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     lifecycle_summary = graph_lifecycle_summary_for_payload(specs)
     codegen_tier_summary = codegen_tier_summary_for_payload(specs, template_registry=template_registry)
     capability_coverage_summary = capability_coverage_summary_for_payload(specs)
+    archetype_coverage_summary = archetype_coverage_summary_for_payload(specs)
     node_kind_summary = node_kind_summary_for_payload(specs)
 
     implemented = [
@@ -2036,6 +2372,7 @@ def audit_summary() -> dict[str, Any]:
             entry,
             template_registry=template_registry,
             capability_registry=capability_registry,
+            archetype_registry=archetype_registry,
         )
         unsupported_templates.update(
             template
@@ -2066,13 +2403,16 @@ def audit_summary() -> dict[str, Any]:
         "codegen_blocked_count": len(codegen_blocked),
         "codegen_tier_summary": codegen_tier_summary,
         "capability_coverage_summary": capability_coverage_summary,
+        "archetype_coverage_summary": archetype_coverage_summary,
         "node_kind_summary": node_kind_summary,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
         "capability_registry_errors": capability_registry_errors,
+        "archetype_registry_errors": archetype_registry_errors,
         "graph_reachable_count": lifecycle_summary["graph_reachable_count"],
         "graph_unreachable_count": lifecycle_summary["graph_unreachable_count"],
         "lifecycle_error_count": lifecycle_summary["lifecycle_error_count"],
+        "archetype_contract_error_count": _contract_error_count(spec_errors, "archetype"),
         "listener_contract_error_count": _contract_error_count(spec_errors, "listener_contract"),
         "scope_contract_error_count": _contract_error_count(spec_errors, "scope_contract"),
         "graph_validation_errors": graph_validation_errors,

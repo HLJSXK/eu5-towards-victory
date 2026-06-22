@@ -16,6 +16,7 @@ from gen_unique_wonder_ritual_code import (  # noqa: E402
     generate_fragments_for_payload,
 )
 from wonder_unique_ritual_harness import load_template_registry, validate_spec_payload  # noqa: E402
+from wonder_unique_ritual_harness import load_archetype_registry  # noqa: E402
 
 
 WONDER = {
@@ -113,6 +114,7 @@ def valid_entry() -> dict:
         ],
         "node_graph": {
             "model": "state_machine_dsl_v1",
+            "archetypes": ["monthly_pressure_countdown"],
             "historical_mechanic": "A visible historical testing mechanic with sequential steps and retry.",
             "listeners": ["monthly"],
             "summary": "Test summary.",
@@ -322,6 +324,7 @@ def add_fixture_event(entry: dict, event_id: int, key: str, localization: dict[s
 def actor_assignment_entry() -> dict:
     entry = valid_entry()
     graph = entry["node_graph"]
+    graph["archetypes"] = ["patronage_actor_assignment", "monthly_pressure_countdown"]
     graph["variables"].append(
         {
             "name": "tv_wonder_test_actor",
@@ -350,6 +353,7 @@ def actor_assignment_entry() -> dict:
 def route_incident_entry() -> dict:
     entry = valid_entry()
     graph = entry["node_graph"]
+    graph["archetypes"] = ["expedition_route_chain", "monthly_pressure_countdown"]
     graph["variables"].append(
         {
             "name": "tv_wonder_test_route",
@@ -378,9 +382,66 @@ def route_incident_entry() -> dict:
     return entry
 
 
+def incident_retry_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["archetypes"] = ["incident_retry_gauntlet", "monthly_pressure_countdown"]
+    final_prep = graph["nodes"][4]
+    final_prep["kind"] = "incident_event"
+    final_prep["capabilities"] = ["event_chain"]
+    entry["ui_model"]["components"].append(
+        {"type": "incident_log", "key": "incident", "status_variable": "tv_wonder_test_stage"}
+    )
+    return entry
+
+
+def route_hidden_entry(localization: dict[str, str] | None = None) -> dict:
+    entry = route_incident_entry()
+    graph = entry["node_graph"]
+    graph["archetypes"] = [
+        "expedition_route_chain",
+        "monthly_pressure_countdown",
+        "hidden_executor_finalization",
+    ]
+    graph["variables"][0]["writer_nodes"].insert(-1, "hidden_exec")
+    graph["variables"][0]["reader_nodes"].insert(-1, "hidden_exec")
+    final_prep = graph["nodes"][4]
+    final_prep["next_nodes"] = ["hidden_exec"]
+    final_prep["hidden_executor_handoff"] = "hidden_exec"
+    hidden_exec = node(
+        "hidden_exec",
+        1007,
+        kind="hidden_executor_handoff",
+        capabilities=["final_reward_handoff"],
+        reads=["tv_wonder_test_stage"],
+        writes=["tv_wonder_test_stage"],
+        next_nodes=["reward"],
+    )
+    hidden_exec["player_visible"] = False
+    graph["nodes"].insert(5, hidden_exec)
+    graph["edges"] = [
+        edge
+        for edge in graph["edges"]
+        if not (edge["from"] == "final_prep" and edge["to"] == "reward")
+    ]
+    graph["edges"].extend(
+        [
+            {"from": "final_prep", "to": "hidden_exec", "condition": "complete", "effect": "handoff", "label_key": "edge.final.hidden"},
+            {"from": "hidden_exec", "to": "reward", "condition": "always", "effect": "advance", "label_key": "edge.hidden.reward"},
+        ]
+    )
+    add_fixture_event(entry, 1007, "hidden_exec", localization)
+    return entry
+
+
 def resource_listener_hidden_entry(localization: dict[str, str] | None = None) -> dict:
     entry = valid_entry()
     graph = entry["node_graph"]
+    graph["archetypes"] = [
+        "resource_accumulation_ritual",
+        "listener_resolution_ritual",
+        "hidden_executor_finalization",
+    ]
     graph["variables"][0]["writer_nodes"].insert(-1, "hidden_exec")
     graph["variables"][0]["reader_nodes"].insert(-1, "hidden_exec")
     graph["variables"][1]["roles"] = ["progress_counter", "resource_state"]
@@ -446,6 +507,9 @@ def resource_listener_hidden_entry(localization: dict[str, str] | None = None) -
     entry["ui_model"]["components"].append(
         {"type": "material_stockpile", "key": "stockpile", "value_variable": "tv_wonder_test_progress"}
     )
+    entry["ui_model"]["components"].append(
+        {"type": "incident_log", "key": "listener_incident", "status_variable": "tv_wonder_test_stage"}
+    )
     return entry
 
 
@@ -484,6 +548,7 @@ def assert_has_error(
     localization: dict[str, str] | None = None,
     occupied_event_ids: set[int] | None = None,
     template_registry: dict | None = None,
+    archetype_registry: dict | None = None,
 ) -> None:
     errors = validate_spec_payload(
         {"unique_wonders": [entry]},
@@ -492,17 +557,26 @@ def assert_has_error(
         occupied_event_ids=occupied_event_ids,
         require_all_wonders=True,
         template_registry=template_registry,
+        archetype_registry=archetype_registry,
     )
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
 
 
-def assert_codegen_error(name: str, entry: dict, needle: str, *, template_registry: dict | None = None) -> None:
+def assert_codegen_error(
+    name: str,
+    entry: dict,
+    needle: str,
+    *,
+    template_registry: dict | None = None,
+    archetype_registry: dict | None = None,
+) -> None:
     try:
         generate_fragments_for_payload(
             {"unique_wonders": [entry]},
             wonder_keys={"unique_test_wonder"},
             template_registry=template_registry,
+            archetype_registry=archetype_registry,
         )
     except CodegenError as exc:
         if needle not in str(exc):
@@ -539,6 +613,25 @@ def main() -> None:
     if route_errors:
         raise AssertionError(f"route/incident fixture unexpectedly failed: {route_errors}")
 
+    incident_errors = validate_spec_payload(
+        {"unique_wonders": [incident_retry_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if incident_errors:
+        raise AssertionError(f"incident retry fixture unexpectedly failed: {incident_errors}")
+
+    route_hidden_loc = loc()
+    route_hidden_errors = validate_spec_payload(
+        {"unique_wonders": [route_hidden_entry(route_hidden_loc)]},
+        wonders=[WONDER],
+        localization=route_hidden_loc,
+        require_all_wonders=True,
+    )
+    if route_hidden_errors:
+        raise AssertionError(f"route/hidden fixture unexpectedly failed: {route_hidden_errors}")
+
     listener_loc = loc()
     listener_errors = validate_spec_payload(
         {"unique_wonders": [resource_listener_hidden_entry(listener_loc)]},
@@ -555,6 +648,7 @@ def main() -> None:
     )
     generated_text = result["generated"][0]["text"]
     for expected in (
+        "## Archetype Summary",
         "## Event Skeleton",
         "## Capability Summary",
         "## Scope Contract Summary",
@@ -703,6 +797,145 @@ def main() -> None:
         "capability unsupported node kind",
         unsupported_capability_kind,
         "capability 'resource_gate' does not support node kind 'event'",
+    )
+
+    missing_archetypes = valid_entry()
+    del missing_archetypes["node_graph"]["archetypes"]
+    assert_has_error(
+        "missing archetypes",
+        missing_archetypes,
+        "node_graph.archetypes must not be empty",
+    )
+    assert_codegen_error(
+        "codegen missing archetypes",
+        missing_archetypes,
+        "node_graph.archetypes must not be empty",
+    )
+
+    unknown_archetype = valid_entry()
+    unknown_archetype["node_graph"]["archetypes"] = ["unknown_archetype"]
+    assert_has_error(
+        "unknown archetype",
+        unknown_archetype,
+        "node_graph.archetypes unknown archetype 'unknown_archetype'",
+    )
+
+    unknown_stub_archetype = valid_entry()
+    unknown_stub_archetype["identity"]["status"] = "stub"
+    unknown_stub_archetype["node_graph"]["archetypes"] = ["unknown_archetype"]
+    assert_has_error(
+        "unknown stub archetype",
+        unknown_stub_archetype,
+        "node_graph.archetypes unknown archetype 'unknown_archetype'",
+    )
+
+    bad_archetype_registry = {"metadata": {"generated_game_code": False}, "archetypes": "bad"}
+    assert_has_error(
+        "bad archetype registry",
+        valid_entry(),
+        "archetype registry archetypes must be a list",
+        archetype_registry=bad_archetype_registry,
+    )
+
+    registry_may_write_src = deepcopy(load_archetype_registry())
+    registry_may_write_src["archetypes"][0]["may_write_src"] = True
+    assert_has_error(
+        "archetype registry may write src",
+        valid_entry(),
+        "must declare may_write_src: false",
+        archetype_registry=registry_may_write_src,
+    )
+
+    archetype_missing_capability = valid_entry()
+    archetype_missing_capability["node_graph"]["archetypes"] = ["resource_accumulation_ritual"]
+    assert_has_error(
+        "archetype missing capability",
+        archetype_missing_capability,
+        "archetype 'resource_accumulation_ritual' missing required capability(s): resource_gate",
+    )
+
+    archetype_disallowed_kind = valid_entry()
+    archetype_disallowed_kind["node_graph"]["nodes"][0]["kind"] = "assignment_gate"
+    assert_has_error(
+        "archetype disallowed node kind",
+        archetype_disallowed_kind,
+        "node_graph.archetypes do not allow node kind(s): assignment_gate",
+    )
+
+    archetype_missing_role = valid_entry()
+    archetype_missing_role["node_graph"]["variables"][1]["roles"] = []
+    assert_has_error(
+        "archetype missing variable role",
+        archetype_missing_role,
+        "archetype 'monthly_pressure_countdown' missing variable role 'progress_counter'",
+    )
+
+    archetype_missing_ui = valid_entry()
+    archetype_missing_ui["ui_model"]["components"] = [
+        {"type": "progress_track", "key": "progress", "value_variable": "tv_wonder_test_progress"}
+    ]
+    assert_has_error(
+        "archetype missing ui component",
+        archetype_missing_ui,
+        "archetype 'monthly_pressure_countdown' missing ui component(s): checklist",
+    )
+
+    archetype_missing_listener = valid_entry()
+    archetype_missing_listener["node_graph"]["listeners"] = []
+    assert_has_error(
+        "archetype missing listener",
+        archetype_missing_listener,
+        "archetype 'monthly_pressure_countdown' missing listener(s): monthly",
+    )
+
+    registry_min_nodes = deepcopy(load_archetype_registry())
+    for archetype in registry_min_nodes["archetypes"]:
+        if archetype["key"] == "monthly_pressure_countdown":
+            archetype["min_nodes"] = 7
+    assert_has_error(
+        "archetype min nodes",
+        valid_entry(),
+        "archetype 'monthly_pressure_countdown' requires at least 7 node(s)",
+        archetype_registry=registry_min_nodes,
+    )
+
+    registry_max_nodes = deepcopy(load_archetype_registry())
+    for archetype in registry_max_nodes["archetypes"]:
+        if archetype["key"] == "monthly_pressure_countdown":
+            archetype["max_nodes"] = 5
+    assert_has_error(
+        "archetype max nodes",
+        valid_entry(),
+        "archetype 'monthly_pressure_countdown' allows at most 5 node(s)",
+        archetype_registry=registry_max_nodes,
+    )
+
+    archetype_missing_retry = valid_entry()
+    archetype_missing_retry["node_graph"]["nodes"][3]["failure_or_retry"] = False
+    archetype_missing_retry["node_graph"]["nodes"][3]["retry_target"] = None
+    assert_has_error(
+        "archetype missing retry path",
+        archetype_missing_retry,
+        "archetype 'monthly_pressure_countdown' requires a retry path",
+    )
+
+    archetype_missing_hidden = valid_entry()
+    archetype_missing_hidden["node_graph"]["archetypes"] = [
+        "monthly_pressure_countdown",
+        "hidden_executor_finalization",
+    ]
+    assert_has_error(
+        "archetype missing hidden handoff",
+        archetype_missing_hidden,
+        "archetype 'hidden_executor_finalization' requires a hidden executor handoff",
+    )
+
+    terminal_missing_capability = valid_entry()
+    terminal_missing_capability["node_graph"]["nodes"][5]["capabilities"] = ["event_chain"]
+    assert_has_error(
+        "archetype terminal missing capability",
+        terminal_missing_capability,
+        "terminal node reward must declare capability 'final_reward_handoff'",
     )
 
     missing_listener_contract = resource_listener_hidden_entry()

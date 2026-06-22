@@ -23,6 +23,8 @@ completion popup. Each batch should produce a playable spec first, then game cod
   specs may not invent template keys outside that registry.
   Mechanism capability support comes from `data/unique_wonder_ritual_capabilities.yaml`;
   specs may not invent capability keys outside that registry.
+  Mechanic archetype support comes from `data/unique_wonder_ritual_archetypes.yaml`;
+  strong DSL specs may not invent archetype keys outside that registry.
 
 ## Required AI Output
 
@@ -44,7 +46,7 @@ An implementation-ready ritual must include:
 - `event_ids`: explicit unique numeric IDs, all below `10000`.
 - `node_graph`: a custom graph with at least 3 player-visible nodes, at least 3 event IDs,
   at least one failure or retry path, declared listeners, runtime variables, an `entry_node`,
-  `terminal_nodes`, per-node capabilities, optional scope/listener contracts, and a
+  `terminal_nodes`, graph-level `archetypes`, per-node capabilities, optional scope/listener contracts, and a
   historical mechanic.
 - `ui_model`: one or more visible UI components from `checklist`, `route_map`, `actor_slots`,
   `material_stockpile`, `incident_log`, or `progress_track`.
@@ -80,11 +82,31 @@ capabilities, capabilities that do not support the node kind, missing capability
 fields, missing required variable roles, unsupported listener contracts, and any capability
 marked as allowed to write `src/`.
 
+## Archetype Registry
+
+`data/unique_wonder_ritual_archetypes.yaml` is the only source of truth for Harness
+mechanic blueprints. Each archetype declares required capabilities, allowed node kinds,
+required variable roles, required UI components, required listeners, min/max node counts,
+retry and hidden-executor requirements, terminal-node capability requirements, a verification
+tier, `may_write_src: false`, and notes. The v1 archetypes are `expedition_route_chain`,
+`patronage_actor_assignment`, `resource_accumulation_ritual`, `monthly_pressure_countdown`,
+`incident_retry_gauntlet`, `listener_resolution_ritual`, and `hidden_executor_finalization`.
+
+`implementation_ready` and `harness_generated` specs must declare `node_graph.archetypes`.
+The validator rejects unknown archetypes, archetypes marked as allowed to write `src/`, missing
+archetype-required capabilities/variable roles/UI/listeners, node counts outside archetype
+bounds, missing retry paths, missing hidden-executor handoffs, terminal nodes that lack the
+archetype-required capability, and node kinds outside the union allowed by the declared
+archetypes.
+
 ## State Machine DSL
 
 `implementation_ready` and `harness_generated` specs must use the strong node-graph DSL.
 `implemented_parity` and `stub` entries may keep the older lightweight shape.
 
+- `node_graph.archetypes`: one or more registry-backed mechanic blueprints that describe
+  the graph-level shape. Unknown keys are rejected even on non-codegen specs that choose to
+  declare this field.
 - `node_graph.entry_node`: the first runtime node; it must resolve to a declared node.
 - `node_graph.terminal_nodes`: one or more declared terminal nodes.
 - `node_graph.graph_shape`: optional authoring label for the graph shape.
@@ -135,11 +157,12 @@ or `harness_generated` spec blocks validation.
 
 ## Reject Conditions
 
-Reject the spec if it has only start/completion events, no visible UI state, no failure/retry
+Reject the spec if it has only start/completion events, no visible UI state, no required
+archetypes for a strong DSL spec, unknown or unsupported archetypes, no failure/retry
 route, no historical mechanic, missing reward channels, thin event prose, runtime variables
 outside the ritual prefix, undeclared UI variables, unsupported listeners, duplicate or occupied
 event IDs, unsupported node/action/check kinds, unknown or unsupported registry templates or
-capabilities, missing node capabilities, missing capability-required fields/roles, invalid
+capabilities, missing node capabilities, missing capability/archetype-required fields/roles, invalid
 scope/listener contracts, graph references that point to undeclared nodes or variables,
 unreachable nodes, terminal lifecycle violations, mismatched variable reader/writer declarations,
 or localization/node rows that reference undeclared events.
