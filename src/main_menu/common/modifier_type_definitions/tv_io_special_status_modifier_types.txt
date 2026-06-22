@@ -12,6 +12,20 @@ tv_alliance_advocator_agenda_impact = {
 	}
 }
 
+tv_alliance_member_status_can_participate_in_parliament = {
+	boolean = yes
+	game_data = {
+		category = internationalorganization
+	}
+}
+
+tv_alliance_member_status_agenda_impact = {
+	percent = yes
+	game_data = {
+		category = internationalorganization
+	}
+}
+
 tv_trade_league_member_status_can_participate_in_parliament = {
 	boolean = yes
 	game_data = {

@@ -1,0 +1,165 @@
+﻿tv_alliance_joint_embassy_charter = {
+	type = international_organization
+	special_status = tv_alliance_member_status
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		NOT = { has_cooldown = tv_alliance_joint_embassy_charter }
+	}
+	chance = 20
+	selectable_for = {
+		is_leader_of_international_organization = scope:recipient
+	}
+	on_debate_passed = {
+		hidden_effect = {
+			add_cooldown = { type = tv_alliance_joint_embassy_charter years = 8 }
+		}
+		every_international_organization_member = {
+			add_country_modifier = {
+				modifier = tv_alliance_joint_embassy_charter_modifier
+				years = 5
+				mode = replace
+			}
+		}
+	}
+	on_debate_failed = {
+		if = {
+			limit = { has_variable = tv_alliance_cohesion }
+			change_variable = { name = tv_alliance_cohesion add = -5 }
+			clamp_variable = { name = tv_alliance_cohesion min = 0 max = 100 }
+		}
+	}
+	wants_this_parliament_issue_bias = {
+		add = {
+			desc = "VOTE_BASE_VALUE"
+			value = -25
+		}
+		if = {
+			limit = {
+				exists = scope:recipient
+				scope:recipient = { international_organization_has_leader = yes }
+			}
+			add = {
+				desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+				value = {
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.25
+					min = -50
+					max = 50
+				}
+			}
+		}
+	}
+}
+
+tv_alliance_shared_intelligence_board = {
+	type = international_organization
+	special_status = tv_alliance_member_status
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		NOT = { has_cooldown = tv_alliance_shared_intelligence_board }
+	}
+	chance = 20
+	selectable_for = {
+		is_leader_of_international_organization = scope:recipient
+	}
+	on_debate_passed = {
+		hidden_effect = {
+			add_cooldown = { type = tv_alliance_shared_intelligence_board years = 8 }
+		}
+		every_international_organization_member = {
+			add_country_modifier = {
+				modifier = tv_alliance_shared_intelligence_modifier
+				years = 5
+				mode = replace
+			}
+		}
+	}
+	on_debate_failed = {
+		if = {
+			limit = { has_variable = tv_alliance_cohesion }
+			change_variable = { name = tv_alliance_cohesion add = -5 }
+			clamp_variable = { name = tv_alliance_cohesion min = 0 max = 100 }
+		}
+	}
+	wants_this_parliament_issue_bias = {
+		add = {
+			desc = "VOTE_BASE_VALUE"
+			value = -25
+		}
+		if = {
+			limit = {
+				exists = scope:recipient
+				scope:recipient = { international_organization_has_leader = yes }
+			}
+			add = {
+				desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+				value = {
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.25
+					min = -50
+					max = 50
+				}
+			}
+		}
+	}
+}
+
+tv_alliance_commercial_compromise = {
+	type = international_organization
+	special_status = tv_alliance_member_status
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		NOT = { has_cooldown = tv_alliance_commercial_compromise }
+	}
+	chance = 20
+	selectable_for = {
+		is_leader_of_international_organization = scope:recipient
+	}
+	on_debate_passed = {
+		hidden_effect = {
+			add_cooldown = { type = tv_alliance_commercial_compromise years = 8 }
+		}
+		every_international_organization_member = {
+			add_country_modifier = {
+				modifier = tv_alliance_commercial_compromise_modifier
+				years = 5
+				mode = replace
+			}
+		}
+	}
+	on_debate_failed = {
+		if = {
+			limit = { has_variable = tv_alliance_cohesion }
+			change_variable = { name = tv_alliance_cohesion add = -5 }
+			clamp_variable = { name = tv_alliance_cohesion min = 0 max = 100 }
+		}
+	}
+	wants_this_parliament_issue_bias = {
+		add = {
+			desc = "VOTE_BASE_VALUE"
+			value = -25
+		}
+		if = {
+			limit = {
+				exists = scope:recipient
+				scope:recipient = { international_organization_has_leader = yes }
+			}
+			add = {
+				desc = "POLICY_BIAS_OPINION_OF_IO_LEADER"
+				value = {
+					value = "opinion(scope:recipient.leader_country)"
+					multiply = 0.25
+					min = -50
+					max = 50
+				}
+			}
+		}
+	}
+}
+

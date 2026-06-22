@@ -33,6 +33,106 @@ organization_panel = {
 		}
 	}
 
+	blockoverride "organization_parliament_vote_cards_hbox" {
+		hbox = {
+			spacing = 2
+			layoutpolicy_horizontal = expanding
+
+			# Support
+			io_parliament_vote_card = {
+				blockoverride "parliament_card_header" {
+					text_single = {
+						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetParliament.GetVotedCountriesCount]"
+						default_format = "#color_green"
+						fontsize = 14
+					}
+					text_single = {
+						fontsize = 14
+						raw_text = "[Localize('IO_PARLIAMENT_VOTED')] [Localize('YES')]:"
+					}
+					expand = {}
+					text_single = {
+						text = "[InternationalOrganizationsView.GetVotedCountriesVoteStrength|0]"
+						default_format = "#color_green"
+						fontsize = 14
+						tagtooltip_enabled = yes
+						tooltip = "[special_status_power|e]"
+					}
+				}
+				blockoverride "parliament_card_list_datamodel" {
+					datamodel = "[InternationalOrganizationsView.GetParliamentVotedCountriesWithPlayerFirst]"
+				}
+				blockoverride "io_parliament_vote_card_row_extra" {
+					using = io_parliament_vote_card_row
+					blockoverride "bribe_right_action" {}
+				}
+			}
+
+			# Not yet voted
+			io_parliament_vote_card = {
+				visible = "[InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsLawDebate]"
+				blockoverride "parliament_card_header_icon" {}
+				blockoverride "parliament_card_header" {
+					expand = {}
+					text_single = {
+						align = left
+						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetParliament.GetNonVotedCountriesCount]"
+						default_format = "#yellow_titles"
+					}
+					text_single = {
+						align = left
+						text = "IO_PARLIAMENT_VOTES_LEFT"
+					}
+					expand = {}
+					text_single = {
+						text = "[InternationalOrganizationsView.GetNonVotedCountriesVoteStrength|0]"
+						default_format = "#yellow_titles"
+						tagtooltip_enabled = yes
+						tooltip = "[special_status_power|e]"
+					}
+				}
+				blockoverride "parliament_card_list_datamodel" {
+					datamodel = "[InternationalOrganizationsView.GetParliamentNonVotedCountriesWithPlayerFirst]"
+				}
+			}
+
+			# Opposition
+			io_parliament_vote_card = {
+				blockoverride "parliament_card_header_icon" {
+					header_action_button_left = {
+						size = { 30 30}
+						blockoverride "header_button_icon_size" { size = { 30 30 } }
+						blockoverride "header_button_frame_inner" { visible = no }
+						blockoverride "icon_overlay" {}
+						blockoverride "icon_texture" {
+							texture = "gfx/interface/icons/international_organizations/law_voting_no.dds"
+						}
+						blockoverride "header_button_text_layout" {}
+						title = "VOTE_IO_PARLIAMENT"
+						description = "vote_in_organization_parliament_desc"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						parameter = {
+							parameter_name = "recipient"
+							parameter_value = "[InternationalOrganizationsView.GetInternationalOrganization]"
+						}
+						parameter = {
+							parameter_name = "vote"
+							parameter_value_bool = no
+						}
+						left_action = { action_name = "vote_in_organization_parliament" }
+						tooltipwidget = {
+							using = io_parliament_vote_button_tooltip
+						}
+					}
+				}
+				blockoverride "io_parliament_vote_card_row_extra" {
+					using = io_parliament_vote_card_row
+					blockoverride "bribe_left_action" {}
+				}
+			}
+		}
+	}
+
 	blockoverride "country_header_character_visible" {
 		visible = yes
 	}

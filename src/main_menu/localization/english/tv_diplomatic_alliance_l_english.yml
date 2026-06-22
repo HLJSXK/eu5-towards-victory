@@ -18,6 +18,12 @@
  MODIFIER_TYPE_DESC_tv_alliance_advocator_can_participate_in_parliament: "This allows the $tv_alliance_advocator$ to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_diplomatic_alliance|E]."
  MODIFIER_TYPE_NAME_tv_alliance_advocator_agenda_impact: "Agenda Impact for $tv_alliance_advocator$"
  MODIFIER_TYPE_DESC_tv_alliance_advocator_agenda_impact: "This modifies the support that [parliament_agendas|e] proposed by the $tv_alliance_advocator$ group have."
+ tv_alliance_member_status: "[tv_diplomatic_alliance|E] Member"
+ tv_alliance_member_status_desc: "A voting member of the [tv_diplomatic_alliance|E]."
+ MODIFIER_TYPE_NAME_tv_alliance_member_status_can_participate_in_parliament: "$tv_alliance_member_status$ in Parliament"
+ MODIFIER_TYPE_DESC_tv_alliance_member_status_can_participate_in_parliament: "This allows $tv_alliance_member_status$ countries to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_diplomatic_alliance|E]."
+ MODIFIER_TYPE_NAME_tv_alliance_member_status_agenda_impact: "Agenda Impact for $tv_alliance_member_status$ Members"
+ MODIFIER_TYPE_DESC_tv_alliance_member_status_agenda_impact: "This modifies the support that [parliament_agendas|e] proposed by the $tv_alliance_member_status$ group have."
 
 # ── Country Interaction ────────────────────────────────────────────────
  tv_invite_to_diplomatic_alliance: "Invite to [tv_diplomatic_alliance|E]"
@@ -103,6 +109,30 @@
  TV_ALLIANCE_ADVOCATOR_MALE: "Advocator"
  TV_ALLIANCE_ADVOCATOR_FEMALE: "Advocator"
  tv_alliance_advocator_desc: "The [tv_alliance_advocator|E] leads the [tv_diplomatic_alliance|E] and may propose new laws for member nations to vote upon."
+
+ # ── Alliance Parliament ────────────────────────────────────────────────
+ tv_alliance_joint_embassy_charter: "Joint Embassy Charter"
+ tv_alliance_joint_embassy_charter_desc: "Create a common diplomatic protocol for alliance embassies. Members gain diplomatic reputation but reserve less diplomatic capacity for their own purposes."
+ tv_alliance_shared_intelligence_board: "Shared Intelligence Board"
+ tv_alliance_shared_intelligence_board_desc: "Pool sensitive intelligence through a permanent board. Members gain espionage reach and counter-espionage, but the arrangement is politically awkward."
+ tv_alliance_commercial_compromise: "Commercial Compromise"
+ tv_alliance_commercial_compromise_desc: "Standardize internal commercial privileges. Members gain trade efficiency, but domestic reform and stability management become more costly."
+ pa_tv_alliance_delegation_subsidies: "Delegation Subsidies"
+ pa_tv_alliance_delegation_subsidies_desc: "Member delegates demand that the Advocator subsidize their permanent missions before backing the current debate."
+ pa_tv_alliance_open_archives: "Open Diplomatic Archives"
+ pa_tv_alliance_open_archives_desc: "Member delegates demand access to the Advocator's diplomatic archives as the price of their support."
+ pa_tv_alliance_cohesion_concessions: "Procedural Concessions"
+ pa_tv_alliance_cohesion_concessions_desc: "Member delegates demand looser procedures and local exemptions, spending alliance cohesion in exchange for support."
+ tv_alliance_joint_embassy_charter_modifier: "Joint Embassy Charter"
+ tv_alliance_joint_embassy_charter_modifier_desc: "Shared embassy protocols improve diplomatic standing, but each member keeps less capacity for independent diplomacy."
+ tv_alliance_shared_intelligence_modifier: "Shared Intelligence Board"
+ tv_alliance_shared_intelligence_modifier_desc: "Alliance intelligence channels improve operations and defenses, while public prestige suffers from visible intrigue."
+ tv_alliance_commercial_compromise_modifier: "Commercial Compromise"
+ tv_alliance_commercial_compromise_modifier_desc: "Commercial harmonization improves land and sea trade, but domestic stability changes become more difficult."
+ tv_alliance_delegation_subsidy_modifier: "Delegation Subsidy"
+ tv_alliance_delegation_subsidy_modifier_desc: "Subsidized diplomatic missions make the country more prestigious and soften domestic procedural friction."
+ tv_alliance_open_archives_modifier: "Open Diplomatic Archives"
+ tv_alliance_open_archives_modifier_desc: "Access to allied archives improves intelligence work and internal security coordination."
 
  # ── Law Category ───────────────────────────────────────────────────────
  DIPLOMATIC_LAW_CATEGORY: "Diplomatic Laws"

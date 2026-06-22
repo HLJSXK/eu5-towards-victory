@@ -18,6 +18,12 @@
  MODIFIER_TYPE_DESC_tv_alliance_advocator_can_participate_in_parliament: "允许$tv_alliance_advocator$在[tv_diplomatic_alliance|E]的[parliament|e]中提出[parliament_agendas|e]。"
  MODIFIER_TYPE_NAME_tv_alliance_advocator_agenda_impact: "$tv_alliance_advocator$议程影响"
  MODIFIER_TYPE_DESC_tv_alliance_advocator_agenda_impact: "修正由$tv_alliance_advocator$集团提出的[parliament_agendas|e]所拥有的支持度。"
+ tv_alliance_member_status: "[tv_diplomatic_alliance|E]成员"
+ tv_alliance_member_status_desc: "[tv_diplomatic_alliance|E]中的投票成员。"
+ MODIFIER_TYPE_NAME_tv_alliance_member_status_can_participate_in_parliament: "$tv_alliance_member_status$参与议会"
+ MODIFIER_TYPE_DESC_tv_alliance_member_status_can_participate_in_parliament: "允许$tv_alliance_member_status$国家在[tv_diplomatic_alliance|E]的[parliament|e]中提出[parliament_agendas|e]。"
+ MODIFIER_TYPE_NAME_tv_alliance_member_status_agenda_impact: "$tv_alliance_member_status$议程影响"
+ MODIFIER_TYPE_DESC_tv_alliance_member_status_agenda_impact: "修正由$tv_alliance_member_status$集团提出的[parliament_agendas|e]所拥有的支持度。"
 
 # ── 国家互动 ───────────────────────────────────────────────────────────
  tv_invite_to_diplomatic_alliance: "邀请加入[tv_diplomatic_alliance|E]"
@@ -103,6 +109,30 @@
  TV_ALLIANCE_ADVOCATOR_MALE: "倡导者"
  TV_ALLIANCE_ADVOCATOR_FEMALE: "倡导者"
  tv_alliance_advocator_desc: "[tv_alliance_advocator|E]领导[tv_diplomatic_alliance|E]，可以提出供成员国投票的新法律。"
+
+ # ── 联盟议会 ───────────────────────────────────────────────────────────
+ tv_alliance_joint_embassy_charter: "联合使馆章程"
+ tv_alliance_joint_embassy_charter_desc: "为联盟使馆建立共同外交协议。成员国获得外交声誉，但可用于独立外交的外交容量降低。"
+ tv_alliance_shared_intelligence_board: "共享情报委员会"
+ tv_alliance_shared_intelligence_board_desc: "通过常设委员会汇集敏感情报。成员国获得间谍网络建设和反间谍能力，但公开的阴谋协调会损害声望。"
+ tv_alliance_commercial_compromise: "商业协调妥协"
+ tv_alliance_commercial_compromise_desc: "统一联盟内部商业特权。成员国获得贸易效率，但国内改革与稳定管理更昂贵。"
+ pa_tv_alliance_delegation_subsidies: "代表团补助"
+ pa_tv_alliance_delegation_subsidies_desc: "成员代表要求倡导者补助其常设使团，作为支持当前辩论的条件。"
+ pa_tv_alliance_open_archives: "开放外交档案"
+ pa_tv_alliance_open_archives_desc: "成员代表要求查阅倡导者的外交档案，以换取他们的支持。"
+ pa_tv_alliance_cohesion_concessions: "程序性让步"
+ pa_tv_alliance_cohesion_concessions_desc: "成员代表要求更宽松的程序和地方豁免，以消耗联盟凝聚力换取支持。"
+ tv_alliance_joint_embassy_charter_modifier: "联合使馆章程"
+ tv_alliance_joint_embassy_charter_modifier_desc: "共享使馆协议提高外交地位，但成员国保留给独立外交的容量更少。"
+ tv_alliance_shared_intelligence_modifier: "共享情报委员会"
+ tv_alliance_shared_intelligence_modifier_desc: "联盟情报渠道提升行动与防御能力，但公开的阴谋协调会损害声望。"
+ tv_alliance_commercial_compromise_modifier: "商业协调妥协"
+ tv_alliance_commercial_compromise_modifier_desc: "商业协调提升陆海贸易效率，但国内稳定调整更困难。"
+ tv_alliance_delegation_subsidy_modifier: "代表团补助"
+ tv_alliance_delegation_subsidy_modifier_desc: "受补助的外交使团提升国家声望，并缓和国内程序摩擦。"
+ tv_alliance_open_archives_modifier: "开放外交档案"
+ tv_alliance_open_archives_modifier_desc: "查阅盟友档案改善情报行动与内部安全协调。"
 
  # ── 国际组织描述 ────────────────────────────────────────────────────────
  # ── 法律分类 ────────────────────────────────────────────────────────────
