@@ -121,6 +121,7 @@ def render_entry_fragment(
     identity = entry.get("identity") or {}
     node_graph = entry.get("node_graph") or {}
     generation = entry.get("generation") or {}
+    mechanic_signature = node_graph.get("mechanic_signature") if isinstance(node_graph.get("mechanic_signature"), dict) else {}
     capability_index = capability_registry_index(capability_registry)
     archetype_index = archetype_registry_index(archetype_registry)
     event_rows = _event_rows_by_node(entry)
@@ -141,6 +142,25 @@ def render_entry_fragment(
             f"- Verified templates: {_join(generation.get('verified_templates'))}",
             f"- Archetypes: {_join(node_graph.get('archetypes'))}",
             f"- Target files declared by spec: {_join(generation.get('target_files'))}",
+            "",
+            "## Mechanic Signature",
+            "",
+        ]
+    )
+    signature_rows = [
+        ["wonder_specific_hook", mechanic_signature.get("wonder_specific_hook", "")],
+        ["core_interaction_loop", mechanic_signature.get("core_interaction_loop", "")],
+        ["player_decision_pattern", mechanic_signature.get("player_decision_pattern", "")],
+        ["state_feedback_model", mechanic_signature.get("state_feedback_model", "")],
+        ["failure_or_tension_model", mechanic_signature.get("failure_or_tension_model", "")],
+        ["reward_expression", mechanic_signature.get("reward_expression", "")],
+        ["reuse_risk_mitigation", mechanic_signature.get("reuse_risk_mitigation", "")],
+    ]
+    if mechanic_signature.get("custom_archetype_statement"):
+        signature_rows.append(["custom_archetype_statement", mechanic_signature.get("custom_archetype_statement", "")])
+    lines.extend(_md_table(["field", "design"], signature_rows))
+    lines.extend(
+        [
             "",
             "## Archetype Summary",
             "",

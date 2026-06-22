@@ -116,6 +116,15 @@ def valid_entry() -> dict:
             "model": "state_machine_dsl_v1",
             "archetypes": ["monthly_pressure_countdown"],
             "historical_mechanic": "A visible historical testing mechanic with sequential steps and retry.",
+            "mechanic_signature": {
+                "wonder_specific_hook": "The test beacon forces a mock harbor council to balance lamp fuel, convoy timing, and a ceremonial final signal.",
+                "core_interaction_loop": "The player alternates between preparing the visible stage, waiting for monthly signal progress, and choosing whether to retry failed preparation.",
+                "player_decision_pattern": "Each visible step asks whether to spend state capacity now, hold progress for a better final handoff, or route back through an earlier preparation node.",
+                "state_feedback_model": "The progress track and checklist expose stage state, monthly signal progress, retry status, and the final reward handoff in separate UI bindings.",
+                "failure_or_tension_model": "A retry branch can send the ritual back to materials when the mock signal is untrusted, creating cost pressure without ending the project.",
+                "reward_expression": "The final reward combines a national beacon blessing, a local lamp-room reward, and a one-time public-works payout tied to the ritual state.",
+                "reuse_risk_mitigation": "The design uses the monthly countdown only as one axis; the signature keeps the beacon council, retry loop, and reward handoff distinct from stock templates.",
+            },
             "listeners": ["monthly"],
             "summary": "Test summary.",
             "entry_node": "opening",
@@ -595,6 +604,32 @@ def main() -> None:
     if good_errors:
         raise AssertionError(f"valid entry unexpectedly failed: {good_errors}")
 
+    no_archetype = valid_entry()
+    del no_archetype["node_graph"]["archetypes"]
+    no_archetype_errors = validate_spec_payload(
+        {"unique_wonders": [no_archetype]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if no_archetype_errors:
+        raise AssertionError(f"no-archetype fixture unexpectedly failed: {no_archetype_errors}")
+
+    custom_archetype = valid_entry()
+    custom_archetype["node_graph"]["archetypes"] = ["custom_beacon_council_signal_table"]
+    custom_archetype["node_graph"]["mechanic_signature"]["custom_archetype_statement"] = (
+        "This custom shape treats the ritual as a beacon council signal table, not as a registry blueprint; "
+        "monthly progress, retry choices, and final reward handoff remain validated by capabilities."
+    )
+    custom_archetype_errors = validate_spec_payload(
+        {"unique_wonders": [custom_archetype]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if custom_archetype_errors:
+        raise AssertionError(f"custom archetype fixture unexpectedly failed: {custom_archetype_errors}")
+
     actor_errors = validate_spec_payload(
         {"unique_wonders": [actor_assignment_entry()]},
         wonders=[WONDER],
@@ -603,6 +638,17 @@ def main() -> None:
     )
     if actor_errors:
         raise AssertionError(f"actor assignment fixture unexpectedly failed: {actor_errors}")
+
+    mixed_shape = actor_assignment_entry()
+    mixed_shape["node_graph"]["archetypes"] = ["monthly_pressure_countdown"]
+    mixed_shape_errors = validate_spec_payload(
+        {"unique_wonders": [mixed_shape]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if mixed_shape_errors:
+        raise AssertionError(f"mixed archetype/capability fixture unexpectedly failed: {mixed_shape_errors}")
 
     route_errors = validate_spec_payload(
         {"unique_wonders": [route_incident_entry()]},
@@ -648,6 +694,7 @@ def main() -> None:
     )
     generated_text = result["generated"][0]["text"]
     for expected in (
+        "## Mechanic Signature",
         "## Archetype Summary",
         "## Event Skeleton",
         "## Capability Summary",
@@ -799,17 +846,33 @@ def main() -> None:
         "capability 'resource_gate' does not support node kind 'event'",
     )
 
-    missing_archetypes = valid_entry()
-    del missing_archetypes["node_graph"]["archetypes"]
+    missing_signature = valid_entry()
+    del missing_signature["node_graph"]["mechanic_signature"]
     assert_has_error(
-        "missing archetypes",
-        missing_archetypes,
-        "node_graph.archetypes must not be empty",
+        "missing mechanic signature",
+        missing_signature,
+        "node_graph.mechanic_signature is required",
     )
     assert_codegen_error(
-        "codegen missing archetypes",
-        missing_archetypes,
-        "node_graph.archetypes must not be empty",
+        "codegen missing mechanic signature",
+        missing_signature,
+        "node_graph.mechanic_signature is required",
+    )
+
+    thin_signature = valid_entry()
+    thin_signature["node_graph"]["mechanic_signature"]["core_interaction_loop"] = "Too short."
+    assert_has_error(
+        "thin mechanic signature",
+        thin_signature,
+        "node_graph.mechanic_signature.core_interaction_loop is too thin",
+    )
+
+    custom_archetype_missing_statement = valid_entry()
+    custom_archetype_missing_statement["node_graph"]["archetypes"] = ["custom_beacon_unregistered_shape"]
+    assert_has_error(
+        "custom archetype missing statement",
+        custom_archetype_missing_statement,
+        "custom archetype(s) require node_graph.mechanic_signature.custom_archetype_statement",
     )
 
     unknown_archetype = valid_entry()
@@ -852,14 +915,6 @@ def main() -> None:
         "archetype missing capability",
         archetype_missing_capability,
         "archetype 'resource_accumulation_ritual' missing required capability(s): resource_gate",
-    )
-
-    archetype_disallowed_kind = valid_entry()
-    archetype_disallowed_kind["node_graph"]["nodes"][0]["kind"] = "assignment_gate"
-    assert_has_error(
-        "archetype disallowed node kind",
-        archetype_disallowed_kind,
-        "node_graph.archetypes do not allow node kind(s): assignment_gate",
     )
 
     archetype_missing_role = valid_entry()

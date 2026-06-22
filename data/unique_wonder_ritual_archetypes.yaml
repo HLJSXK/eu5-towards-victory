@@ -1,8 +1,10 @@
 metadata:
-  purpose: "Mechanic archetype registry for Unique Wonder Ritual Harness blueprint validation."
+  purpose: "Reference archetype registry for Unique Wonder Ritual Harness blueprint validation."
   generated_game_code: false
-  safety_boundary: "Archetypes describe Harness-supported mechanism blueprints only; they may not write src or certify loadable EU5 syntax."
-  status: "v1_mechanic_blueprints"
+  safety_boundary: "Archetypes describe optional, non-exclusive Harness reference patterns only; they may not write src, forbid custom ritual shapes, or certify loadable EU5 syntax."
+  status: "v1_reference_archetypes"
+  contract_mode: "non_exclusive_positive_requirements"
+  custom_archetype_policy: "Specs may use custom_* archetype labels when node_graph.mechanic_signature.custom_archetype_statement explains the bespoke mechanism."
 
 archetypes:
   - key: expedition_route_chain
@@ -31,7 +33,7 @@ archetypes:
     terminal_requires_capability: final_reward_handoff
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
-    notes: "Route-driven expedition rituals with visible route state, branch retries, and a terminal reward handoff."
+    notes: "Route-driven expedition rituals with visible route state, branch retries, and a terminal reward handoff. Non-exclusive reference tag; additional validated node kinds are allowed."
 
   - key: patronage_actor_assignment
     required_capabilities:
@@ -58,7 +60,7 @@ archetypes:
     terminal_requires_capability: final_reward_handoff
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
-    notes: "Patronage or office rituals where assigned characters drive visible ritual stages."
+    notes: "Patronage or office rituals where assigned characters drive visible ritual stages. Non-exclusive reference tag; additional validated node kinds are allowed."
 
   - key: resource_accumulation_ritual
     required_capabilities:
@@ -85,7 +87,7 @@ archetypes:
     terminal_requires_capability: final_reward_handoff
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
-    notes: "Resource gathering or stockpile rituals with visible accumulation state and retry branches."
+    notes: "Resource gathering or stockpile rituals with visible accumulation state and retry branches. Non-exclusive reference tag; additional validated node kinds are allowed."
 
   - key: monthly_pressure_countdown
     required_capabilities:
@@ -113,7 +115,7 @@ archetypes:
     terminal_requires_capability: final_reward_handoff
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
-    notes: "Monthly countdown or pressure rituals with a visible progress track and retry route."
+    notes: "Monthly countdown or pressure rituals with a visible progress track and retry route. Non-exclusive reference tag; additional validated node kinds are allowed."
 
   - key: incident_retry_gauntlet
     required_capabilities:
@@ -138,7 +140,7 @@ archetypes:
     terminal_requires_capability: final_reward_handoff
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
-    notes: "Incident gauntlets where visible event pressure and explicit retry branches define the ritual."
+    notes: "Incident gauntlets where visible event pressure and explicit retry branches define the ritual. Non-exclusive reference tag; additional validated node kinds are allowed."
 
   - key: listener_resolution_ritual
     required_capabilities:
@@ -165,7 +167,7 @@ archetypes:
     terminal_requires_capability: final_reward_handoff
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
-    notes: "Listener-driven rituals whose completion or failure is resolved by declared listener contracts."
+    notes: "Listener-driven rituals whose completion or failure is resolved by declared listener contracts. Non-exclusive reference tag; additional validated node kinds are allowed."
 
   - key: hidden_executor_finalization
     required_capabilities:
@@ -188,4 +190,4 @@ archetypes:
     terminal_requires_capability: final_reward_handoff
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
-    notes: "Finalization blueprints that route unsafe or heavy completion work through a hidden executor handoff."
+    notes: "Finalization reference tag for routing unsafe or heavy completion work through a hidden executor handoff. Non-exclusive; it must not force the rest of the ritual into this shape."

@@ -183,6 +183,26 @@ REQUIRED_REWARD_CHANNELS = (
     "local_building_reward",
     "one_time_reward",
 )
+CUSTOM_ARCHETYPE_PREFIX = "custom_"
+MECHANIC_SIGNATURE_REQUIRED_FIELDS = {
+    "wonder_specific_hook",
+    "core_interaction_loop",
+    "player_decision_pattern",
+    "state_feedback_model",
+    "failure_or_tension_model",
+    "reward_expression",
+    "reuse_risk_mitigation",
+}
+MECHANIC_SIGNATURE_MIN_FIELD_CHARS = 32
+MECHANIC_SIGNATURE_MIN_TOTAL_CHARS = 420
+MECHANIC_SIGNATURE_PLACEHOLDER_TOKENS = {
+    "needs_design",
+    "to be authored",
+    "placeholder",
+    "generic ritual",
+    "standard ritual",
+    "same as existing",
+}
 EVENT_ID_PATTERN = re.compile(r"\btv_engineering_department\.([0-9]+)\b")
 
 
@@ -859,6 +879,8 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "minimum_player_visible_nodes": 3,
                 "minimum_event_count": 3,
                 "required_reward_channels": list(REQUIRED_REWARD_CHANNELS),
+                "required_mechanic_signature_fields": list(sorted(MECHANIC_SIGNATURE_REQUIRED_FIELDS)),
+                "custom_archetype_prefix": CUSTOM_ARCHETYPE_PREFIX,
                 "required_ui_components": list(sorted(SUPPORTED_UI_COMPONENTS)),
                 "event_id_rule": "Every event id must be explicit, unique within this file, and < 10000.",
                 "state_machine_dsl_statuses": list(sorted(CODEGEN_ELIGIBLE_STATUSES)),
@@ -868,11 +890,17 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "supported_codegen_templates": list(sorted(supported_codegen_template_keys())),
                 "supported_capabilities": list(sorted(supported_capability_keys())),
                 "supported_archetypes": list(sorted(supported_archetype_keys())),
+                "archetype_policy": (
+                    "Registry archetypes are optional, non-exclusive reference tags. "
+                    "They add contract checks when used, but custom_* archetype labels are allowed "
+                    "when mechanic_signature.custom_archetype_statement explains the new shape."
+                ),
                 "supported_scope_contract_scopes": list(sorted(SUPPORTED_SCOPE_CONTRACT_SCOPES)),
             },
             "ai_prompt_contract": {
                 "batch_size": "1-5 unique wonders per authoring pass",
                 "required_output_sections": [
+                    "mechanic_signature",
                     "gameplay_loop_summary",
                     "node_table",
                     "state_variable_table",
@@ -931,6 +959,67 @@ def _issue(entry: dict[str, Any], message: str) -> str:
     identity = entry.get("identity", {})
     key = identity.get("key", "<unknown>")
     return f"{key}: {message}"
+
+
+def _is_custom_archetype(archetype: str) -> bool:
+    return archetype.startswith(CUSTOM_ARCHETYPE_PREFIX) and len(archetype) > len(CUSTOM_ARCHETYPE_PREFIX)
+
+
+def _mechanic_signature_text(signature: dict[str, Any]) -> str:
+    values = [signature.get(field, "") for field in sorted(MECHANIC_SIGNATURE_REQUIRED_FIELDS)]
+    if signature.get("custom_archetype_statement"):
+        values.append(signature["custom_archetype_statement"])
+    return " ".join(str(value).strip() for value in values if str(value).strip())
+
+
+def _mechanic_signature_errors(
+    entry: dict[str, Any],
+    node_graph: dict[str, Any],
+    *,
+    archetype_registry: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    signature = node_graph.get("mechanic_signature")
+    if not isinstance(signature, dict):
+        return [_issue(entry, "node_graph.mechanic_signature is required for implementation_ready or harness_generated specs")]
+
+    for field in sorted(MECHANIC_SIGNATURE_REQUIRED_FIELDS):
+        value = signature.get(field)
+        if not isinstance(value, str) or not value.strip():
+            errors.append(_issue(entry, f"node_graph.mechanic_signature.{field} is required"))
+            continue
+        if len(value.strip()) < MECHANIC_SIGNATURE_MIN_FIELD_CHARS:
+            errors.append(
+                _issue(
+                    entry,
+                    f"node_graph.mechanic_signature.{field} is too thin; describe the wonder-specific design intent",
+                )
+            )
+
+    text = _mechanic_signature_text(signature)
+    if len(text) < MECHANIC_SIGNATURE_MIN_TOTAL_CHARS:
+        errors.append(_issue(entry, "node_graph.mechanic_signature is too thin; define a distinctive ritual loop before codegen"))
+    lowered = text.lower()
+    for token in sorted(MECHANIC_SIGNATURE_PLACEHOLDER_TOKENS):
+        if token in lowered:
+            errors.append(_issue(entry, f"node_graph.mechanic_signature cannot contain placeholder token {token!r}"))
+
+    archetype_index = archetype_registry_index(archetype_registry)
+    custom_archetypes = [
+        archetype
+        for archetype in _string_refs(node_graph.get("archetypes"))
+        if archetype not in archetype_index and _is_custom_archetype(archetype)
+    ]
+    if custom_archetypes:
+        custom_statement = signature.get("custom_archetype_statement")
+        if not isinstance(custom_statement, str) or len(custom_statement.strip()) < MECHANIC_SIGNATURE_MIN_FIELD_CHARS:
+            errors.append(
+                _issue(
+                    entry,
+                    "custom archetype(s) require node_graph.mechanic_signature.custom_archetype_statement",
+                )
+            )
+    return errors
 
 
 def loc_key_inventory(localization: dict[str, str] | None = None) -> set[str]:
@@ -1131,7 +1220,6 @@ def _archetype_contract_errors(
     archetype_index = archetype_registry_index(archetype_registry)
     declared_archetypes = _string_refs(node_graph.get("archetypes"))
     if not declared_archetypes:
-        errors.append(_issue(entry, "node_graph.archetypes must not be empty for implementation_ready or harness_generated specs"))
         return errors
 
     nodes = node_graph.get("nodes", [])
@@ -1147,11 +1235,6 @@ def _archetype_contract_errors(
         for node in node_by_key.values()
         for capability in _string_refs(node.get("capabilities"))
     }
-    graph_node_kinds = {
-        str(node.get("kind"))
-        for node in node_by_key.values()
-        if node.get("kind")
-    }
     component_types = {
         str(component.get("type"))
         for component in ((entry.get("ui_model") or {}).get("components") or [])
@@ -1162,13 +1245,12 @@ def _archetype_contract_errors(
     has_retry_path = any(bool(node.get("failure_or_retry") or node.get("retry_target")) for node in node_by_key.values())
     has_hidden_executor_handoff = any(_has_hidden_executor_handoff(node, node_by_key) for node in node_by_key.values())
 
-    contracts: list[tuple[str, dict[str, Any]]] = []
     for archetype_key in declared_archetypes:
         contract = archetype_index.get(archetype_key)
         if contract is None:
-            errors.append(_issue(entry, f"node_graph.archetypes unknown archetype {archetype_key!r}"))
+            if not _is_custom_archetype(archetype_key):
+                errors.append(_issue(entry, f"node_graph.archetypes unknown archetype {archetype_key!r}"))
             continue
-        contracts.append((archetype_key, contract))
         if contract.get("may_write_src") is not False:
             errors.append(_issue(entry, f"archetype {archetype_key!r} is not allowed to write src"))
         missing_capabilities = sorted(set(_string_refs(contract.get("required_capabilities"))) - graph_capabilities)
@@ -1219,19 +1301,6 @@ def _archetype_contract_errors(
                         )
                     )
 
-    allowed_node_kinds = {
-        kind
-        for _archetype_key, contract in contracts
-        for kind in _string_refs(contract.get("allowed_node_kinds"))
-    }
-    disallowed_node_kinds = sorted(graph_node_kinds - allowed_node_kinds)
-    if contracts and disallowed_node_kinds:
-        errors.append(
-            _issue(
-                entry,
-                "node_graph.archetypes do not allow node kind(s): " + ", ".join(disallowed_node_kinds),
-            )
-        )
     return errors
 
 
@@ -1603,6 +1672,13 @@ def _validate_codegen_node_graph(
             archetype_registry=archetype_registry,
         )
     )
+    errors.extend(
+        _mechanic_signature_errors(
+            entry,
+            node_graph,
+            archetype_registry=archetype_registry,
+        )
+    )
 
     for variable in variables:
         if not isinstance(variable, dict):
@@ -1869,12 +1945,11 @@ def codegen_support_errors(
         errors.append(f"{key}: template(s) not listed in generation.verified_templates: {', '.join(unverified)}")
     node_graph = entry.get("node_graph") or {}
     declared_archetypes = _string_refs(node_graph.get("archetypes")) if isinstance(node_graph, dict) else []
-    if not declared_archetypes:
-        errors.append(f"{key}: node_graph.archetypes must not be empty for Harness codegen")
     for archetype_key in declared_archetypes:
         contract = archetype_index.get(archetype_key)
         if contract is None:
-            errors.append(f"{key}: unknown archetype(s): {archetype_key}")
+            if not _is_custom_archetype(archetype_key):
+                errors.append(f"{key}: unknown archetype(s): {archetype_key}")
             continue
         if contract.get("may_write_src") is not False:
             errors.append(f"{key}: archetype {archetype_key!r} is not allowed to write src")
@@ -1885,6 +1960,13 @@ def codegen_support_errors(
                 entry,
                 node_graph,
                 variables,
+                archetype_registry=archetype_registry,
+            )
+        )
+        errors.extend(
+            _mechanic_signature_errors(
+                entry,
+                node_graph,
                 archetype_registry=archetype_registry,
             )
         )
@@ -2171,7 +2253,7 @@ def validate_spec_payload(
             else:
                 archetype_index = archetype_registry_index(archetype_registry)
                 for archetype in _string_refs(archetypes):
-                    if archetype not in archetype_index:
+                    if archetype not in archetype_index and not _is_custom_archetype(archetype):
                         errors.append(_issue(entry, f"node_graph.archetypes unknown archetype {archetype!r}"))
         listeners = node_graph.get("listeners", [])
         if listeners is None:

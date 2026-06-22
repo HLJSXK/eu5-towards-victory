@@ -21,6 +21,15 @@ metadata:
     - permanent_country_modifier
     - local_building_reward
     - one_time_reward
+    required_mechanic_signature_fields:
+    - core_interaction_loop
+    - failure_or_tension_model
+    - player_decision_pattern
+    - reuse_risk_mitigation
+    - reward_expression
+    - state_feedback_model
+    - wonder_specific_hook
+    custom_archetype_prefix: custom_
     required_ui_components:
     - actor_slots
     - checklist
@@ -75,6 +84,7 @@ metadata:
     - monthly_pressure_countdown
     - patronage_actor_assignment
     - resource_accumulation_ritual
+    archetype_policy: Registry archetypes are optional, non-exclusive reference tags. They add contract checks when used, but custom_* archetype labels are allowed when mechanic_signature.custom_archetype_statement explains the new shape.
     supported_scope_contract_scopes:
     - character
     - country
@@ -85,6 +95,7 @@ metadata:
   ai_prompt_contract:
     batch_size: 1-5 unique wonders per authoring pass
     required_output_sections:
+    - mechanic_signature
     - gameplay_loop_summary
     - node_table
     - state_variable_table
