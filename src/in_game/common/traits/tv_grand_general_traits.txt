@@ -7,6 +7,7 @@
 
 tv_gg_offense_1 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		discipline = 0.05
 		land_morale_modifier = 0.10
@@ -19,6 +20,7 @@ tv_gg_offense_1 = {
 
 tv_gg_offense_2 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		discipline = 0.10
 		land_morale_modifier = 0.20
@@ -31,6 +33,7 @@ tv_gg_offense_2 = {
 
 tv_gg_offense_3 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		discipline = 0.10
 		land_morale_modifier = 0.20
@@ -46,6 +49,7 @@ tv_gg_offense_3 = {
 
 tv_gg_defense_1 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		military_tactics = 0.20
 		land_morale_modifier = 0.10
@@ -56,6 +60,7 @@ tv_gg_defense_1 = {
 
 tv_gg_defense_2 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		military_tactics = 0.40
 		land_morale_modifier = 0.20
@@ -66,6 +71,7 @@ tv_gg_defense_2 = {
 
 tv_gg_defense_3 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		military_tactics = 0.40
 		land_morale_modifier = 0.20
@@ -79,6 +85,7 @@ tv_gg_defense_3 = {
 
 tv_gg_tactics_1 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		army_movement_speed = 0.10
 		siege_ability = 0.10
@@ -89,6 +96,7 @@ tv_gg_tactics_1 = {
 
 tv_gg_tactics_2 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		army_movement_speed = 0.20
 		siege_ability = 0.20
@@ -99,6 +107,7 @@ tv_gg_tactics_2 = {
 
 tv_gg_tactics_3 = {
 	category = general
+	allow = { always = no }
 	modifier = {
 		army_movement_speed = 0.20
 		siege_ability = 0.20
@@ -112,6 +121,7 @@ tv_gg_tactics_3 = {
 
 tv_gg_injured = {
 	category = health
+	allow = { always = no }
 	is_bad = yes
 	modifier = {
 		character_life_expectancy = -5
