@@ -20,8 +20,10 @@ SPEC_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_specs.yaml"
 DESIGN_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_designs.yaml"
 PROMPTS_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_prompts.yaml"
 LOCALIZATION_FILE = REPO_ROOT / "data" / "wonder_localization.yaml"
+LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "loc_keys_en.txt"
 
 IMPLEMENTED_STATUSES = {"implemented_parity", "implementation_ready", "harness_generated"}
+CODEGEN_ELIGIBLE_STATUSES = {"implementation_ready", "harness_generated"}
 STUB_STATUSES = {"stub", "needs_design"}
 ALLOWED_STATUSES = IMPLEMENTED_STATUSES | STUB_STATUSES
 SUPPORTED_UI_COMPONENTS = {
@@ -33,6 +35,64 @@ SUPPORTED_UI_COMPONENTS = {
     "progress_track",
 }
 SUPPORTED_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
+SUPPORTED_NODE_KINDS = {
+    "event",
+    "retry_event",
+    "monthly_progress_gate",
+    "final_reward_dispatch",
+}
+SUPPORTED_ACTION_KINDS = {
+    "effect_script",
+    "generator_template",
+    "reward_dispatch_stub",
+}
+SUPPORTED_CHECK_KINDS = {
+    "trigger_script",
+    "generator_template",
+}
+SUPPORTED_CODEGEN_TEMPLATES = {
+    "sequential_event_chain",
+    "branch_retry_event",
+    "monthly_progress_gate",
+    "simple_progress_track_ui_binding",
+    "final_reward_dispatch_stub",
+}
+NODE_REQUIRED_FIELDS = {
+    "key",
+    "kind",
+    "event_id",
+    "player_visible",
+    "historical_anchor",
+    "enter_condition",
+    "completion_condition",
+    "failure_or_retry",
+    "retry_target",
+    "next_nodes",
+    "writes",
+    "reads",
+    "ui_state",
+    "loc_refs",
+}
+EDGE_REQUIRED_FIELDS = {"from", "to", "condition", "effect", "label_key"}
+ACTION_REQUIRED_FIELDS = {"key", "kind", "scope", "verified_interface"}
+CHECK_REQUIRED_FIELDS = {"key", "kind", "tooltip_key"}
+VARIABLE_REQUIRED_FIELDS = {
+    "name",
+    "scope",
+    "type",
+    "initial_value",
+    "writer_nodes",
+    "reader_nodes",
+    "cleanup",
+}
+UI_BINDING_REQUIRED_FIELDS = {"key", "component_key", "variable_refs", "node_refs", "loc_refs"}
+GENERATION_REQUIRED_FIELDS = {
+    "status",
+    "target_files",
+    "verified_templates",
+    "blocked_templates",
+    "dry_run_notes",
+}
 UI_VARIABLE_FIELDS = {
     "value_variable",
     "status_variable",
@@ -442,6 +502,11 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "required_reward_channels": list(REQUIRED_REWARD_CHANNELS),
                 "required_ui_components": list(sorted(SUPPORTED_UI_COMPONENTS)),
                 "event_id_rule": "Every event id must be explicit, unique within this file, and < 10000.",
+                "state_machine_dsl_statuses": list(sorted(CODEGEN_ELIGIBLE_STATUSES)),
+                "supported_node_kinds": list(sorted(SUPPORTED_NODE_KINDS)),
+                "supported_action_kinds": list(sorted(SUPPORTED_ACTION_KINDS)),
+                "supported_check_kinds": list(sorted(SUPPORTED_CHECK_KINDS)),
+                "supported_codegen_templates": list(sorted(SUPPORTED_CODEGEN_TEMPLATES)),
             },
             "ai_prompt_contract": {
                 "batch_size": "1-5 unique wonders per authoring pass",
@@ -506,6 +571,378 @@ def _issue(entry: dict[str, Any], message: str) -> str:
     return f"{key}: {message}"
 
 
+def loc_key_inventory(localization: dict[str, str] | None = None) -> set[str]:
+    keys = set((localization if localization is not None else loc_english()).keys())
+    if LOCALIZATION_INDEX_FILE.exists():
+        keys.update(
+            line.strip()
+            for line in LOCALIZATION_INDEX_FILE.read_text(encoding="utf-8", errors="replace").splitlines()
+            if line.strip()
+        )
+    return keys
+
+
+def _as_list(value: Any) -> list[Any]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
+
+
+def _string_refs(value: Any) -> list[str]:
+    return [str(item) for item in _as_list(value) if str(item).strip()]
+
+
+def _missing_required(mapping: dict[str, Any], required: set[str]) -> list[str]:
+    return sorted(field for field in required if field not in mapping)
+
+
+def _loc_ref_errors(
+    entry: dict[str, Any],
+    context: str,
+    refs: Any,
+    loc_keys: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    for loc_key in _string_refs(refs):
+        if loc_key not in loc_keys:
+            errors.append(_issue(entry, f"{context} loc_ref {loc_key} is not present in localization inventory"))
+    return errors
+
+
+def _ui_state_variable_refs(ui_state: Any) -> list[str]:
+    if isinstance(ui_state, dict):
+        refs = _string_refs(ui_state.get("variable_refs"))
+        refs.extend(_string_refs(ui_state.get("variables")))
+        return refs
+    if isinstance(ui_state, list):
+        return _string_refs(ui_state)
+    if isinstance(ui_state, str) and ui_state.strip():
+        return [ui_state]
+    return []
+
+
+def _needs_verification_paths(value: Any, path: str = "") -> list[str]:
+    found: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            child_path = f"{path}.{key}" if path else str(key)
+            found.extend(_needs_verification_paths(child, child_path))
+    elif isinstance(value, list):
+        for idx, child in enumerate(value):
+            found.extend(_needs_verification_paths(child, f"{path}[{idx}]"))
+    elif isinstance(value, str) and value.strip() == "needs_verification":
+        found.append(path or "<root>")
+    return found
+
+
+def declared_runtime_variables(entry: dict[str, Any]) -> set[str]:
+    identity = entry.get("identity") or {}
+    status = str(identity.get("status", ""))
+    node_graph = entry.get("node_graph") or {}
+    if status in CODEGEN_ELIGIBLE_STATUSES and isinstance(node_graph.get("variables"), list):
+        return {
+            str(variable.get("name"))
+            for variable in node_graph.get("variables", [])
+            if isinstance(variable, dict) and variable.get("name")
+        }
+    return set(str(variable) for variable in node_graph.get("runtime_variables", []) or [])
+
+
+def _template_errors(entry: dict[str, Any], context: str, template: Any) -> list[str]:
+    if template in {None, ""}:
+        return []
+    template_key = str(template)
+    if template_key not in SUPPORTED_CODEGEN_TEMPLATES:
+        return [_issue(entry, f"{context} unsupported template {template_key!r}")]
+    return []
+
+
+def templates_used_by_entry(entry: dict[str, Any]) -> set[str]:
+    node_graph = entry.get("node_graph") or {}
+    used: set[str] = set()
+    for section in ("actions", "checks"):
+        for item in node_graph.get(section, []) or []:
+            if isinstance(item, dict) and item.get("generator_template"):
+                used.add(str(item["generator_template"]))
+    generation = entry.get("generation") or {}
+    for template in generation.get("verified_templates", []) or []:
+        used.add(str(template))
+    for template in generation.get("blocked_templates", []) or []:
+        used.add(str(template))
+    return used
+
+
+def _validate_codegen_node_graph(
+    entry: dict[str, Any],
+    node_graph: dict[str, Any],
+    entry_event_id_set: set[int],
+    loc_keys: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    identity = entry.get("identity") or {}
+    status = str(identity.get("status", ""))
+    runtime_prefix = str(identity.get("runtime_prefix", ""))
+
+    variables = node_graph.get("variables", [])
+    if not isinstance(variables, list):
+        errors.append(_issue(entry, "node_graph.variables must be a list"))
+        variables = []
+    variable_names: set[str] = set()
+    for variable in variables:
+        if not isinstance(variable, dict):
+            errors.append(_issue(entry, "node_graph.variables entries must be mappings"))
+            continue
+        for field in _missing_required(variable, VARIABLE_REQUIRED_FIELDS):
+            errors.append(_issue(entry, f"variable {variable.get('name', '<unknown>')} missing required field {field}"))
+        name = variable.get("name")
+        if not name:
+            continue
+        name = str(name)
+        if name in variable_names:
+            errors.append(_issue(entry, f"duplicate variable {name}"))
+        variable_names.add(name)
+        if runtime_prefix and not name.startswith(runtime_prefix):
+            errors.append(_issue(entry, f"runtime variable {name} must start with {runtime_prefix}"))
+
+    nodes = node_graph.get("nodes", [])
+    if not isinstance(nodes, list):
+        errors.append(_issue(entry, "node_graph.nodes must be a list"))
+        return errors
+
+    node_keys: set[str] = set()
+    for node in nodes:
+        if not isinstance(node, dict):
+            errors.append(_issue(entry, "node_graph.nodes entries must be mappings"))
+            continue
+        for field in _missing_required(node, NODE_REQUIRED_FIELDS):
+            errors.append(_issue(entry, f"node {node.get('key', '<unknown>')} missing required field {field}"))
+        key = node.get("key")
+        if not key:
+            continue
+        key = str(key)
+        if key in node_keys:
+            errors.append(_issue(entry, f"duplicate node {key}"))
+        node_keys.add(key)
+        kind = node.get("kind")
+        if kind not in SUPPORTED_NODE_KINDS:
+            errors.append(_issue(entry, f"node {key} unsupported kind {kind!r}"))
+        try:
+            event_id = int(node.get("event_id"))
+        except (TypeError, ValueError):
+            errors.append(_issue(entry, f"node {key} has invalid event_id {node.get('event_id')!r}"))
+        else:
+            if event_id not in entry_event_id_set:
+                errors.append(_issue(entry, f"node {key} references undeclared event id {event_id}"))
+
+    for variable in variables:
+        if not isinstance(variable, dict):
+            continue
+        name = str(variable.get("name", "<unknown>"))
+        for field in ("writer_nodes", "reader_nodes"):
+            for node_key in _string_refs(variable.get(field)):
+                if node_key not in node_keys:
+                    errors.append(_issue(entry, f"variable {name} {field} references undeclared node {node_key}"))
+
+    for node in nodes:
+        if not isinstance(node, dict):
+            continue
+        key = str(node.get("key", "<unknown>"))
+        for field in ("reads", "writes"):
+            for variable in _string_refs(node.get(field)):
+                if variable not in variable_names:
+                    errors.append(_issue(entry, f"node {key} {field} undeclared variable {variable}"))
+        for variable in _ui_state_variable_refs(node.get("ui_state")):
+            if variable not in variable_names:
+                errors.append(_issue(entry, f"node {key} ui_state undeclared variable {variable}"))
+        for next_node in _string_refs(node.get("next_nodes")):
+            if next_node not in node_keys:
+                errors.append(_issue(entry, f"node {key} next_nodes references undeclared node {next_node}"))
+        retry_target = node.get("retry_target")
+        if node.get("failure_or_retry") and not retry_target:
+            errors.append(_issue(entry, f"node {key} failure_or_retry requires retry_target"))
+        if retry_target and str(retry_target) not in node_keys:
+            errors.append(_issue(entry, f"node {key} retry_target references undeclared node {retry_target}"))
+        errors.extend(_loc_ref_errors(entry, f"node {key}", node.get("loc_refs"), loc_keys))
+
+    edges = node_graph.get("edges", [])
+    if not isinstance(edges, list):
+        errors.append(_issue(entry, "node_graph.edges must be a list"))
+        edges = []
+    for edge in edges:
+        if not isinstance(edge, dict):
+            errors.append(_issue(entry, "node_graph.edges entries must be mappings"))
+            continue
+        for field in _missing_required(edge, EDGE_REQUIRED_FIELDS):
+            errors.append(_issue(entry, f"edge missing required field {field}"))
+        from_node = edge.get("from")
+        to_node = edge.get("to")
+        if from_node and str(from_node) not in node_keys:
+            errors.append(_issue(entry, f"edge from references undeclared node {from_node}"))
+        if to_node and str(to_node) not in node_keys:
+            errors.append(_issue(entry, f"edge to references undeclared node {to_node}"))
+        errors.extend(_loc_ref_errors(entry, f"edge {from_node}->{to_node}", [edge.get("label_key")], loc_keys))
+
+    actions = node_graph.get("actions", [])
+    if not isinstance(actions, list):
+        errors.append(_issue(entry, "node_graph.actions must be a list"))
+        actions = []
+    for action in actions:
+        if not isinstance(action, dict):
+            errors.append(_issue(entry, "node_graph.actions entries must be mappings"))
+            continue
+        for field in _missing_required(action, ACTION_REQUIRED_FIELDS):
+            errors.append(_issue(entry, f"action {action.get('key', '<unknown>')} missing required field {field}"))
+        key = str(action.get("key", "<unknown>"))
+        kind = action.get("kind")
+        if kind not in SUPPORTED_ACTION_KINDS:
+            errors.append(_issue(entry, f"action {key} unsupported kind {kind!r}"))
+        if not action.get("effect_script") and not action.get("generator_template"):
+            errors.append(_issue(entry, f"action {key} must declare effect_script or generator_template"))
+        errors.extend(_template_errors(entry, f"action {key}", action.get("generator_template")))
+
+    checks = node_graph.get("checks", [])
+    if not isinstance(checks, list):
+        errors.append(_issue(entry, "node_graph.checks must be a list"))
+        checks = []
+    for check in checks:
+        if not isinstance(check, dict):
+            errors.append(_issue(entry, "node_graph.checks entries must be mappings"))
+            continue
+        for field in _missing_required(check, CHECK_REQUIRED_FIELDS):
+            errors.append(_issue(entry, f"check {check.get('key', '<unknown>')} missing required field {field}"))
+        key = str(check.get("key", "<unknown>"))
+        kind = check.get("kind")
+        if kind not in SUPPORTED_CHECK_KINDS:
+            errors.append(_issue(entry, f"check {key} unsupported kind {kind!r}"))
+        if not check.get("trigger_script") and not check.get("generator_template"):
+            errors.append(_issue(entry, f"check {key} must declare trigger_script or generator_template"))
+        errors.extend(_template_errors(entry, f"check {key}", check.get("generator_template")))
+        errors.extend(_loc_ref_errors(entry, f"check {key}", [check.get("tooltip_key")], loc_keys))
+
+    generation = entry.get("generation")
+    if not isinstance(generation, dict):
+        errors.append(_issue(entry, "generation must be a mapping for implementation_ready or harness_generated specs"))
+        generation = {}
+    for field in _missing_required(generation, GENERATION_REQUIRED_FIELDS):
+        errors.append(_issue(entry, f"generation missing required field {field}"))
+    for template in generation.get("verified_templates", []) or []:
+        errors.extend(_template_errors(entry, "generation.verified_templates", template))
+    for template in generation.get("blocked_templates", []) or []:
+        errors.extend(_template_errors(entry, "generation.blocked_templates", template))
+    if status == "harness_generated":
+        if not generation.get("target_files"):
+            errors.append(_issue(entry, "harness_generated must declare generation.target_files"))
+        if not generation.get("verified_templates"):
+            errors.append(_issue(entry, "harness_generated must declare generation.verified_templates"))
+
+    for path in _needs_verification_paths(entry):
+        errors.append(_issue(entry, f"implementation_ready/harness_generated cannot contain needs_verification at {path}"))
+
+    return errors
+
+
+def validate_codegen_graph_entry(
+    entry: dict[str, Any],
+    *,
+    localization: dict[str, str] | None = None,
+) -> list[str]:
+    node_graph = entry.get("node_graph") or {}
+    if not isinstance(node_graph, dict):
+        return [_issue(entry, "node_graph must be a mapping")]
+    return _validate_codegen_node_graph(
+        entry,
+        node_graph,
+        set(event_ids_in_entry(entry)),
+        loc_key_inventory(localization),
+    )
+
+
+def validate_codegen_ui_bindings(
+    entry: dict[str, Any],
+    *,
+    localization: dict[str, str] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    node_graph = entry.get("node_graph") or {}
+    ui_model = entry.get("ui_model") or {}
+    loc_keys = loc_key_inventory(localization)
+    node_keys = {
+        str(node.get("key"))
+        for node in node_graph.get("nodes", []) or []
+        if isinstance(node, dict) and node.get("key")
+    }
+    variable_names = declared_runtime_variables(entry)
+    components = ui_model.get("components", []) if isinstance(ui_model, dict) else []
+    component_keys = {
+        str(component.get("key"))
+        for component in components
+        if isinstance(component, dict) and component.get("key")
+    }
+    bindings = ui_model.get("bindings", []) if isinstance(ui_model, dict) else []
+    if not isinstance(bindings, list):
+        return [_issue(entry, "ui_model.bindings must be a list")]
+    if not bindings:
+        errors.append(_issue(entry, "ui_model.bindings must not be empty for implementation_ready or harness_generated specs"))
+    for binding in bindings:
+        if not isinstance(binding, dict):
+            errors.append(_issue(entry, "ui_model.bindings entries must be mappings"))
+            continue
+        for field in _missing_required(binding, UI_BINDING_REQUIRED_FIELDS):
+            errors.append(_issue(entry, f"ui binding {binding.get('key', '<unknown>')} missing required field {field}"))
+        key = str(binding.get("key", "<unknown>"))
+        component_key = binding.get("component_key")
+        if component_key and str(component_key) not in component_keys:
+            errors.append(_issue(entry, f"ui binding {key} references undeclared component {component_key}"))
+        for variable in _string_refs(binding.get("variable_refs")):
+            if variable not in variable_names:
+                errors.append(_issue(entry, f"ui binding {key} references undeclared variable {variable}"))
+        for node_key in _string_refs(binding.get("node_refs")):
+            if node_key not in node_keys:
+                errors.append(_issue(entry, f"ui binding {key} references undeclared node {node_key}"))
+        errors.extend(_loc_ref_errors(entry, f"ui binding {key}", binding.get("loc_refs"), loc_keys))
+    return errors
+
+
+def codegen_support_errors(entry: dict[str, Any]) -> list[str]:
+    identity = entry.get("identity") or {}
+    key = str(identity.get("key", "<unknown>"))
+    status = str(identity.get("status", ""))
+    if status not in CODEGEN_ELIGIBLE_STATUSES:
+        return [f"{key}: status {status!r} is not eligible for Harness codegen"]
+    generation = entry.get("generation") or {}
+    errors: list[str] = []
+    verified = set(str(template) for template in generation.get("verified_templates", []) or [])
+    blocked = set(str(template) for template in generation.get("blocked_templates", []) or [])
+    used = templates_used_by_entry(entry)
+    unsupported = sorted(template for template in used if template not in SUPPORTED_CODEGEN_TEMPLATES)
+    if unsupported:
+        errors.append(f"{key}: unsupported template(s): {', '.join(unsupported)}")
+    if blocked:
+        errors.append(f"{key}: blocked template(s): {', '.join(sorted(blocked))}")
+    unverified = sorted(template for template in used if template not in verified)
+    if unverified:
+        errors.append(f"{key}: template(s) not listed in generation.verified_templates: {', '.join(unverified)}")
+    return errors
+
+
+def graph_validation_errors_for_payload(
+    payload: dict[str, Any],
+    *,
+    localization: dict[str, str] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    for entry in payload.get("unique_wonders", []) or []:
+        if not isinstance(entry, dict):
+            continue
+        status = str((entry.get("identity") or {}).get("status", ""))
+        if status in CODEGEN_ELIGIBLE_STATUSES:
+            errors.extend(validate_codegen_graph_entry(entry, localization=localization))
+            errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
+    return errors
+
+
 def validate_spec_payload(
     payload: dict[str, Any],
     *,
@@ -524,6 +961,7 @@ def validate_spec_payload(
     seen_keys: set[str] = set()
     seen_event_ids: dict[int, str] = {}
     loc = localization if localization is not None else loc_english()
+    loc_keys = loc_key_inventory(localization)
 
     for entry in entries:
         if not isinstance(entry, dict):
@@ -563,11 +1001,7 @@ def validate_spec_payload(
             if event_id in seen_event_ids:
                 errors.append(_issue(entry, f"event id {event_id} duplicates {seen_event_ids[event_id]}"))
             seen_event_ids[event_id] = key
-            if (
-                occupied_event_ids is not None
-                and status == "implementation_ready"
-                and event_id in occupied_event_ids
-            ):
+            if occupied_event_ids is not None and status in CODEGEN_ELIGIBLE_STATUSES and event_id in occupied_event_ids:
                 errors.append(_issue(entry, f"event id {event_id} collides with an occupied Engineering Department event id"))
 
         node_graph = entry.get("node_graph", {})
@@ -601,14 +1035,18 @@ def validate_spec_payload(
             errors.append(_issue(entry, "needs at least one failure/retry path"))
         if not str(node_graph.get("historical_mechanic", "")).strip():
             errors.append(_issue(entry, "node_graph.historical_mechanic is required"))
-        for node in nodes:
-            if not isinstance(node, dict) or "event_id" not in node:
-                continue
-            if int(node["event_id"]) not in entry_event_id_set:
-                errors.append(_issue(entry, f"node {node.get('key', '<unknown>')} references undeclared event id {node['event_id']}"))
+        if status in CODEGEN_ELIGIBLE_STATUSES:
+            errors.extend(_validate_codegen_node_graph(entry, node_graph, entry_event_id_set, loc_keys))
+            errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
+        else:
+            for node in nodes:
+                if not isinstance(node, dict) or "event_id" not in node:
+                    continue
+                if int(node["event_id"]) not in entry_event_id_set:
+                    errors.append(_issue(entry, f"node {node.get('key', '<unknown>')} references undeclared event id {node['event_id']}"))
 
         runtime_prefix = str(identity.get("runtime_prefix", ""))
-        runtime_variables = set(str(variable) for variable in node_graph.get("runtime_variables", []) or [])
+        runtime_variables = declared_runtime_variables(entry)
         for variable in runtime_variables:
             if not str(variable).startswith(runtime_prefix):
                 errors.append(_issue(entry, f"runtime variable {variable} must start with {runtime_prefix}"))
@@ -640,7 +1078,7 @@ def validate_spec_payload(
             if not isinstance(row, dict):
                 continue
             for loc_key in [row.get("title_key"), row.get("desc_key"), *(row.get("option_keys") or [])]:
-                if loc_key and loc_key not in loc:
+                if loc_key and loc_key not in loc_keys:
                     errors.append(_issue(entry, f"missing English localization key {loc_key}"))
             desc_key = row.get("desc_key")
             if desc_key in loc:
@@ -694,17 +1132,50 @@ def audit_summary() -> dict[str, Any]:
     prompt_index = list_index(prompts)
     spec_index = list_index(specs)
     spec_errors = validate_spec_payload(specs, wonders=wonders, localization=loc)
+    graph_validation_errors = graph_validation_errors_for_payload(specs, localization=loc)
 
     implemented = [
         key
         for key, entry in spec_index.items()
         if (entry.get("identity") or {}).get("status") in IMPLEMENTED_STATUSES
     ]
+    implemented_parity = [
+        key
+        for key, entry in spec_index.items()
+        if (entry.get("identity") or {}).get("status") == "implemented_parity"
+    ]
+    implementation_ready = [
+        key
+        for key, entry in spec_index.items()
+        if (entry.get("identity") or {}).get("status") == "implementation_ready"
+    ]
+    harness_generated = [
+        key
+        for key, entry in spec_index.items()
+        if (entry.get("identity") or {}).get("status") == "harness_generated"
+    ]
     stubs = [
         key
         for key, entry in spec_index.items()
         if (entry.get("identity") or {}).get("status") in STUB_STATUSES
     ]
+    codegen_supported: list[str] = []
+    codegen_blocked: list[str] = []
+    unsupported_templates: set[str] = set()
+    for key, entry in spec_index.items():
+        status = (entry.get("identity") or {}).get("status")
+        if status not in CODEGEN_ELIGIBLE_STATUSES:
+            continue
+        support_errors = codegen_support_errors(entry)
+        unsupported_templates.update(
+            template
+            for template in templates_used_by_entry(entry)
+            if template not in SUPPORTED_CODEGEN_TEMPLATES
+        )
+        if support_errors:
+            codegen_blocked.append(key)
+        else:
+            codegen_supported.append(key)
     loc_missing = [
         key
         for key in sorted(wonder_keys)
@@ -717,7 +1188,14 @@ def audit_summary() -> dict[str, Any]:
         "prompts": len(prompt_index),
         "specs": len(spec_index),
         "implemented_specs": len(implemented),
+        "implemented_parity_count": len(implemented_parity),
+        "implementation_ready_count": len(implementation_ready),
+        "harness_generated_count": len(harness_generated),
         "stub_specs": len(stubs),
+        "codegen_supported_count": len(codegen_supported),
+        "codegen_blocked_count": len(codegen_blocked),
+        "unsupported_templates": sorted(unsupported_templates),
+        "graph_validation_errors": graph_validation_errors,
         "missing_designs": sorted(wonder_keys - set(design_index)),
         "placeholder_designs": sorted(
             key

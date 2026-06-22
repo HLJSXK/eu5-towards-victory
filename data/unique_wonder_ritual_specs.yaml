@@ -29,6 +29,27 @@ metadata:
     - progress_track
     - route_map
     event_id_rule: Every event id must be explicit, unique within this file, and < 10000.
+    state_machine_dsl_statuses:
+    - harness_generated
+    - implementation_ready
+    supported_node_kinds:
+    - event
+    - final_reward_dispatch
+    - monthly_progress_gate
+    - retry_event
+    supported_action_kinds:
+    - effect_script
+    - generator_template
+    - reward_dispatch_stub
+    supported_check_kinds:
+    - generator_template
+    - trigger_script
+    supported_codegen_templates:
+    - branch_retry_event
+    - final_reward_dispatch_stub
+    - monthly_progress_gate
+    - sequential_event_chain
+    - simple_progress_track_ui_binding
   ai_prompt_contract:
     batch_size: 1-5 unique wonders per authoring pass
     required_output_sections:

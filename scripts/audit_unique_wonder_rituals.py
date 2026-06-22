@@ -55,7 +55,12 @@ def main() -> None:
         print(f"Prompt entries: {summary['prompts']}")
         print(f"Spec entries: {summary['specs']}")
         print(f"Implemented/parity specs: {summary['implemented_specs']}")
+        print(f"Implemented parity count: {summary['implemented_parity_count']}")
+        print(f"Implementation-ready count: {summary['implementation_ready_count']}")
+        print(f"Harness-generated count: {summary['harness_generated_count']}")
         print(f"Stub specs: {summary['stub_specs']}")
+        print(f"Codegen-supported count: {summary['codegen_supported_count']}")
+        print(f"Codegen-blocked count: {summary['codegen_blocked_count']}")
         print(f"Occupied Engineering Department event IDs: {summary['occupied_engineering_event_ids']}")
         print("")
         _print_list("Missing design entries", summary["missing_designs"])
@@ -63,6 +68,8 @@ def main() -> None:
         _print_list("Missing prompt entries", summary["missing_prompts"])
         _print_list("Missing spec entries", summary["missing_specs"])
         _print_list("Missing finalization/world-news loc rows", summary["missing_finalization_or_world_news_loc"])
+        _print_list("Unsupported codegen templates", summary["unsupported_templates"])
+        _print_list("Graph validation errors", summary["graph_validation_errors"])
         _print_list("Spec quality errors", summary["spec_errors"])
 
     has_coverage_debt = any(

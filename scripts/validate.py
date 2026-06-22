@@ -70,10 +70,14 @@ UNIQUE_RITUAL_HARNESS_FILES = {
     "data/wonder_localization.yaml",
     "scripts/wonder_unique_ritual_harness.py",
     "scripts/gen_unique_wonder_ritual_specs.py",
+    "scripts/gen_unique_wonder_ritual_code.py",
     "scripts/audit_unique_wonder_rituals.py",
     "scripts/allocate_unique_wonder_ritual_event_ids.py",
     "scripts/test_unique_wonder_ritual_harness.py",
     "docs/guides/Unique_Wonder_Ritual_Harness.md",
+}
+UNIQUE_RITUAL_HARNESS_PREFIXES = {
+    "data/generated_fragments/unique_wonder_rituals/",
 }
 UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
@@ -645,7 +649,11 @@ def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
 
 def check_unique_wonder_ritual_harness(files: list[Path]) -> None:
     rels = {str(path.relative_to(REPO_ROOT)).replace("\\", "/") for path in files}
-    if not rels.intersection(UNIQUE_RITUAL_HARNESS_FILES):
+    if not rels.intersection(UNIQUE_RITUAL_HARNESS_FILES) and not any(
+        rel.startswith(prefix)
+        for rel in rels
+        for prefix in UNIQUE_RITUAL_HARNESS_PREFIXES
+    ):
         return
     for error in validate_unique_ritual_specs_for_repo():
         issues.append(f"[UNIQUE_RITUAL_HARNESS] {error}")
