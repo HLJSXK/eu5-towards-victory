@@ -122,6 +122,7 @@ def render_entry_fragment(
     node_graph = entry.get("node_graph") or {}
     generation = entry.get("generation") or {}
     mechanic_signature = node_graph.get("mechanic_signature") if isinstance(node_graph.get("mechanic_signature"), dict) else {}
+    cadence_signature = node_graph.get("cadence_signature") if isinstance(node_graph.get("cadence_signature"), dict) else {}
     capability_index = capability_registry_index(capability_registry)
     archetype_index = archetype_registry_index(archetype_registry)
     event_rows = _event_rows_by_node(entry)
@@ -159,6 +160,15 @@ def render_entry_fragment(
     if mechanic_signature.get("custom_archetype_statement"):
         signature_rows.append(["custom_archetype_statement", mechanic_signature.get("custom_archetype_statement", "")])
     lines.extend(_md_table(["field", "design"], signature_rows))
+    lines.extend(["", "## Cadence Signature", ""])
+    cadence_rows = [
+        ["cadence_type", cadence_signature.get("cadence_type", "")],
+        ["cadence_rationale", cadence_signature.get("cadence_rationale", "")],
+        ["player_agency_model", cadence_signature.get("player_agency_model", "")],
+        ["non_monthly_triggers_or_reason", cadence_signature.get("non_monthly_triggers_or_reason", "")],
+        ["pacing_failure_mode", cadence_signature.get("pacing_failure_mode", "")],
+    ]
+    lines.extend(_md_table(["field", "design"], cadence_rows))
     lines.extend(
         [
             "",

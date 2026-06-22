@@ -38,6 +38,19 @@ SUPPORTED_UI_COMPONENTS = {
     "progress_track",
 }
 SUPPORTED_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
+SUPPORTED_CADENCE_TYPES = {
+    "instant_but_branching",
+    "event_driven",
+    "player_action_sequence",
+    "construction_or_auxiliary_building",
+    "war_validated",
+    "succession_validated",
+    "route_certification",
+    "actor_assignment",
+    "resource_delivery",
+    "monthly_institutionalization",
+    "hybrid",
+}
 SUPPORTED_NODE_KINDS = {
     "assignment_gate",
     "choice_event",
@@ -202,6 +215,66 @@ MECHANIC_SIGNATURE_PLACEHOLDER_TOKENS = {
     "generic ritual",
     "standard ritual",
     "same as existing",
+}
+CADENCE_SIGNATURE_REQUIRED_FIELDS = {
+    "cadence_type",
+    "cadence_rationale",
+    "player_agency_model",
+    "non_monthly_triggers_or_reason",
+    "pacing_failure_mode",
+}
+CADENCE_SIGNATURE_MIN_FIELD_CHARS = 32
+CADENCE_SIGNATURE_MIN_TOTAL_CHARS = 260
+CADENCE_SIGNATURE_PLACEHOLDER_TOKENS = MECHANIC_SIGNATURE_PLACEHOLDER_TOKENS | {
+    "tbd",
+    "n/a",
+    "none",
+    "not applicable",
+}
+CADENCE_NON_MONTHLY_MIN_CHARS = 80
+CADENCE_NON_MONTHLY_INTERACTION_TOKENS = {
+    "action",
+    "actor",
+    "assignment",
+    "branch",
+    "building",
+    "choice",
+    "choose",
+    "construction",
+    "decision",
+    "delivery",
+    "event",
+    "fail",
+    "failure",
+    "incident",
+    "listener",
+    "resource",
+    "risk",
+    "route",
+    "succession",
+    "trigger",
+    "war",
+}
+CADENCE_NON_MONTHLY_BLOCKED_PATTERNS = (
+    re.compile(r"\bnone\b"),
+    re.compile(r"\bn/a\b"),
+    re.compile(r"\bnot applicable\b"),
+    re.compile(r"\bno non[- ]monthly\b"),
+    re.compile(r"\bpure monthly\b"),
+    re.compile(r"\bonly monthly\b"),
+    re.compile(r"\bjust monthly\b"),
+)
+CADENCE_HYBRID_MONTHLY_LOCAL_ROLE_TOKENS = {
+    "auxiliary",
+    "background",
+    "checkpoint",
+    "limited",
+    "local",
+    "one axis",
+    "partial",
+    "secondary",
+    "substep",
+    "supporting",
 }
 EVENT_ID_PATTERN = re.compile(r"\btv_engineering_department\.([0-9]+)\b")
 
@@ -880,6 +953,8 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "minimum_event_count": 3,
                 "required_reward_channels": list(REQUIRED_REWARD_CHANNELS),
                 "required_mechanic_signature_fields": list(sorted(MECHANIC_SIGNATURE_REQUIRED_FIELDS)),
+                "required_cadence_signature_fields": list(sorted(CADENCE_SIGNATURE_REQUIRED_FIELDS)),
+                "supported_cadence_types": list(sorted(SUPPORTED_CADENCE_TYPES)),
                 "custom_archetype_prefix": CUSTOM_ARCHETYPE_PREFIX,
                 "required_ui_components": list(sorted(SUPPORTED_UI_COMPONENTS)),
                 "event_id_rule": "Every event id must be explicit, unique within this file, and < 10000.",
@@ -895,12 +970,20 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                     "They add contract checks when used, but custom_* archetype labels are allowed "
                     "when mechanic_signature.custom_archetype_statement explains the new shape."
                 ),
+                "cadence_policy": (
+                    "Implementation-ready specs must declare cadence_signature. Monthly listeners, "
+                    "monthly_progress_gate nodes, monthly_progress capabilities, or monthly_progress_gate "
+                    "templates require monthly_institutionalization or hybrid cadence with a concrete "
+                    "historical rationale and at least one non-monthly player interaction, risk, listener, "
+                    "event branch, trigger, or decision point."
+                ),
                 "supported_scope_contract_scopes": list(sorted(SUPPORTED_SCOPE_CONTRACT_SCOPES)),
             },
             "ai_prompt_contract": {
                 "batch_size": "1-5 unique wonders per authoring pass",
                 "required_output_sections": [
                     "mechanic_signature",
+                    "cadence_signature",
                     "gameplay_loop_summary",
                     "node_table",
                     "state_variable_table",
@@ -1017,6 +1100,128 @@ def _mechanic_signature_errors(
                 _issue(
                     entry,
                     "custom archetype(s) require node_graph.mechanic_signature.custom_archetype_statement",
+                )
+            )
+    return errors
+
+
+def _cadence_signature_text(signature: dict[str, Any]) -> str:
+    values = [
+        signature.get(field, "")
+        for field in sorted(CADENCE_SIGNATURE_REQUIRED_FIELDS - {"cadence_type"})
+    ]
+    return " ".join(str(value).strip() for value in values if str(value).strip())
+
+
+def _node_graph_uses_monthly_cadence(entry: dict[str, Any], node_graph: dict[str, Any]) -> bool:
+    if "monthly" in _string_refs(node_graph.get("listeners")):
+        return True
+    for node in node_graph.get("nodes", []) or []:
+        if not isinstance(node, dict):
+            continue
+        if node.get("kind") == "monthly_progress_gate":
+            return True
+        if "monthly_progress" in _string_refs(node.get("capabilities")):
+            return True
+        listener_contract = node.get("listener_contract")
+        if isinstance(listener_contract, dict):
+            if "monthly" in _string_refs(listener_contract.get("listener")):
+                return True
+            if "month" in str(listener_contract.get("cadence", "")).lower():
+                return True
+    return "monthly_progress_gate" in templates_used_by_entry(entry)
+
+
+def _has_non_monthly_interaction(text: str) -> bool:
+    stripped = text.strip()
+    if len(stripped) < CADENCE_NON_MONTHLY_MIN_CHARS:
+        return False
+    lowered = stripped.lower()
+    if any(pattern.search(lowered) for pattern in CADENCE_NON_MONTHLY_BLOCKED_PATTERNS):
+        return False
+    return any(token in lowered for token in CADENCE_NON_MONTHLY_INTERACTION_TOKENS)
+
+
+def _has_hybrid_monthly_local_role(text: str) -> bool:
+    lowered = text.lower()
+    return "month" in lowered and any(token in lowered for token in CADENCE_HYBRID_MONTHLY_LOCAL_ROLE_TOKENS)
+
+
+def _cadence_signature_errors(entry: dict[str, Any], node_graph: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    signature = node_graph.get("cadence_signature")
+    if not isinstance(signature, dict):
+        return [_issue(entry, "node_graph.cadence_signature is required for implementation_ready or harness_generated specs")]
+
+    cadence_type = signature.get("cadence_type")
+    if not isinstance(cadence_type, str) or not cadence_type.strip():
+        errors.append(_issue(entry, "node_graph.cadence_signature.cadence_type is required"))
+        cadence_type = ""
+    else:
+        cadence_type = cadence_type.strip()
+        if cadence_type not in SUPPORTED_CADENCE_TYPES:
+            errors.append(_issue(entry, f"node_graph.cadence_signature.cadence_type unknown cadence type {cadence_type!r}"))
+
+    for field in sorted(CADENCE_SIGNATURE_REQUIRED_FIELDS - {"cadence_type"}):
+        value = signature.get(field)
+        if not isinstance(value, str) or not value.strip():
+            errors.append(_issue(entry, f"node_graph.cadence_signature.{field} is required"))
+            continue
+        if len(value.strip()) < CADENCE_SIGNATURE_MIN_FIELD_CHARS:
+            errors.append(
+                _issue(
+                    entry,
+                    f"node_graph.cadence_signature.{field} is too thin; describe the ritual pacing and trigger design",
+                )
+            )
+
+    text = _cadence_signature_text(signature)
+    if len(text) < CADENCE_SIGNATURE_MIN_TOTAL_CHARS:
+        errors.append(_issue(entry, "node_graph.cadence_signature is too thin; define a distinctive pacing model before codegen"))
+    lowered = text.lower()
+    for token in sorted(CADENCE_SIGNATURE_PLACEHOLDER_TOKENS):
+        if token in lowered:
+            errors.append(_issue(entry, f"node_graph.cadence_signature cannot contain placeholder token {token!r}"))
+
+    uses_monthly = _node_graph_uses_monthly_cadence(entry, node_graph)
+    if uses_monthly:
+        if cadence_type not in {"monthly_institutionalization", "hybrid"}:
+            errors.append(
+                _issue(
+                    entry,
+                    "monthly usage requires node_graph.cadence_signature.cadence_type to be monthly_institutionalization or hybrid",
+                )
+            )
+        rationale = str(signature.get("cadence_rationale", ""))
+        if "month" not in rationale.lower():
+            errors.append(
+                _issue(
+                    entry,
+                    "monthly usage requires node_graph.cadence_signature.cadence_rationale to explicitly discuss monthly pacing",
+                )
+            )
+
+    non_monthly = str(signature.get("non_monthly_triggers_or_reason", ""))
+    if cadence_type == "monthly_institutionalization" and not _has_non_monthly_interaction(non_monthly):
+        errors.append(
+            _issue(
+                entry,
+                "monthly_institutionalization requires non_monthly_triggers_or_reason to describe at least one non-monthly decision point, risk point, listener, event branch, or player action",
+            )
+        )
+    if uses_monthly and cadence_type == "hybrid":
+        if not _has_non_monthly_interaction(non_monthly):
+            errors.append(
+                _issue(
+                    entry,
+                    "hybrid cadence with monthly usage requires non_monthly_triggers_or_reason to describe the non-monthly trigger, decision, risk, or branch",
+                )
+            )
+        if not _has_hybrid_monthly_local_role(text):
+            errors.append(
+                _issue(
+                    entry,
+                    "hybrid cadence with monthly usage must explain monthly pacing as a local or supporting role",
                 )
             )
     return errors
@@ -1679,6 +1884,7 @@ def _validate_codegen_node_graph(
             archetype_registry=archetype_registry,
         )
     )
+    errors.extend(_cadence_signature_errors(entry, node_graph))
 
     for variable in variables:
         if not isinstance(variable, dict):
@@ -1970,6 +2176,7 @@ def codegen_support_errors(
                 archetype_registry=archetype_registry,
             )
         )
+        errors.extend(_cadence_signature_errors(entry, node_graph))
     for section, field in (("actions", "supported_action_kinds"), ("checks", "supported_check_kinds")):
         for item in node_graph.get(section, []) or []:
             if not isinstance(item, dict) or not item.get("generator_template"):

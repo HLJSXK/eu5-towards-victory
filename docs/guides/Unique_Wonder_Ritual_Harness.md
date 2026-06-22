@@ -35,6 +35,9 @@ Every authoring pass must include these sections before implementation:
 
 - `mechanic_signature`: what makes this ritual mechanically specific to this wonder,
   how the loop differs from stock event chains, and why any `custom_*` archetype exists.
+- `cadence_signature`: the ritual's pacing/trigger model, why that cadence fits the
+  wonder, how the player can affect it, what non-monthly triggers or decisions exist,
+  and how the pacing can fail.
 - `gameplay_loop_summary`: what the player repeatedly checks or decides.
 - `node_table`: each node key, event ID, trigger/check, choice, retry/failure route, and historical anchor.
 - `state_variable_table`: every runtime variable, owner scope, prefix, meaning, writer, reader, and cleanup point.
@@ -51,8 +54,9 @@ An implementation-ready ritual must include:
 - `event_ids`: explicit unique numeric IDs, all below `10000`.
 - `node_graph`: a custom graph with at least 3 player-visible nodes, at least 3 event IDs,
   at least one failure or retry path, declared listeners, runtime variables, an `entry_node`,
-  `terminal_nodes`, a `mechanic_signature`, optional graph-level `archetypes`, per-node
-  capabilities, optional scope/listener contracts, and a historical mechanic.
+  `terminal_nodes`, a `mechanic_signature`, a `cadence_signature`, optional graph-level
+  `archetypes`, per-node capabilities, optional scope/listener contracts, and a historical
+  mechanic.
 - `ui_model`: one or more visible UI components from `checklist`, `route_map`, `actor_slots`,
   `material_stockpile`, `incident_log`, or `progress_track`.
 - `rewards`: all three mandatory channels: permanent country modifier, local building reward,
@@ -119,6 +123,13 @@ solely because they are outside the union of declared archetype examples.
   decision pattern, state feedback, failure/tension model, reward expression, and reuse-risk
   mitigation. If `node_graph.archetypes` contains a `custom_*` key, it must also include
   `custom_archetype_statement`.
+- `node_graph.cadence_signature`: required for `implementation_ready` and
+  `harness_generated`; declares `cadence_type`, `cadence_rationale`,
+  `player_agency_model`, `non_monthly_triggers_or_reason`, and `pacing_failure_mode`.
+  Supported cadence types are `instant_but_branching`, `event_driven`,
+  `player_action_sequence`, `construction_or_auxiliary_building`, `war_validated`,
+  `succession_validated`, `route_certification`, `actor_assignment`, `resource_delivery`,
+  `monthly_institutionalization`, and `hybrid`.
 - `node_graph.archetypes`: optional registry-backed reference tags or `custom_*` labels.
   Known keys add positive contract checks; unknown non-custom keys are rejected even on
   non-codegen specs that choose to declare this field.
@@ -170,10 +181,19 @@ may not declare `player_facing_tooltip` output, and `unsafe_pre_eval: true` requ
 reason or hidden executor handoff. `needs_verification` anywhere in an `implementation_ready`
 or `harness_generated` spec blocks validation.
 
+Monthly pacing is allowed only when it is designed, not when it is convenient. If
+`node_graph.listeners` includes `monthly`, a node uses `monthly_progress_gate`, a node declares
+`monthly_progress`, a listener contract has monthly cadence, or a generator template uses
+`monthly_progress_gate`, the cadence type must be `monthly_institutionalization` or `hybrid`.
+The rationale must explicitly explain the monthly role. `monthly_institutionalization` still
+needs at least one non-monthly decision, risk, listener, event branch, trigger, or player
+action; `hybrid` must explain monthly as a local/supporting part of a larger non-monthly loop.
+
 ## Reject Conditions
 
 Reject the spec if it has only start/completion events, no visible UI state, no distinctive
-`mechanic_signature`, unknown ordinary archetypes, unexplained `custom_*` archetypes, no failure/retry
+`mechanic_signature`, no declared `cadence_signature`, unknown cadence type, unjustified monthly
+cadence, unknown ordinary archetypes, unexplained `custom_*` archetypes, no failure/retry
 route, no historical mechanic, missing reward channels, thin event prose, runtime variables
 outside the ritual prefix, undeclared UI variables, unsupported listeners, duplicate or occupied
 event IDs, unsupported node/action/check kinds, unknown or unsupported registry templates or
@@ -189,9 +209,9 @@ paths already verified by the project.
 Reject code generation if any used template is not both present in the registry and listed in
 `generation.verified_templates`, if the template does not support the current node/action/check
 kind, or if `generation.blocked_templates` is non-empty. The v1 generator emits Markdown
-skeletons, capability summaries, scope/listener contract summaries, hidden-executor/tooltip
-safety notes, and draft inventories only; promotion into loadable EU5 script requires a later
-verified generator.
+skeletons, mechanic/cadence signature summaries, capability summaries, scope/listener contract
+summaries, hidden-executor/tooltip safety notes, and draft inventories only; promotion into
+loadable EU5 script requires a later verified generator.
 
 ## Batch Completion
 

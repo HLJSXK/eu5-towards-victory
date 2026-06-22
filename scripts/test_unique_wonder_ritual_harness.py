@@ -35,6 +35,13 @@ TEMPLATES = [
     "final_reward_dispatch_stub",
     "semantic_contract_fragment",
 ]
+NON_MONTHLY_TEMPLATES = [
+    "sequential_event_chain",
+    "branch_retry_event",
+    "simple_progress_track_ui_binding",
+    "final_reward_dispatch_stub",
+    "semantic_contract_fragment",
+]
 
 
 def event_row(event_id: int, node_key: str, *, retry: bool = False) -> dict:
@@ -124,6 +131,13 @@ def valid_entry() -> dict:
                 "failure_or_tension_model": "A retry branch can send the ritual back to materials when the mock signal is untrusted, creating cost pressure without ending the project.",
                 "reward_expression": "The final reward combines a national beacon blessing, a local lamp-room reward, and a one-time public-works payout tied to the ritual state.",
                 "reuse_risk_mitigation": "The design uses the monthly countdown only as one axis; the signature keeps the beacon council, retry loop, and reward handoff distinct from stock templates.",
+            },
+            "cadence_signature": {
+                "cadence_type": "hybrid",
+                "cadence_rationale": "Monthly pacing is used only as a limited beacon-watch checkpoint because the harbor council needs recurring night signals to verify lamp reliability.",
+                "player_agency_model": "The player actively commits materials, chooses whether to accept a failed signal or retry earlier preparations, and decides when the final ceremony is credible.",
+                "non_monthly_triggers_or_reason": "Non-monthly action comes from the materials event, the retry branch decision, and the final preparation choice that can redirect the chain before reward dispatch.",
+                "pacing_failure_mode": "The pacing fails when the monthly checkpoint becomes a passive wait, so the retry branch and final choice keep risk visible before the reward fires.",
             },
             "listeners": ["monthly"],
             "summary": "Test summary.",
@@ -522,6 +536,29 @@ def resource_listener_hidden_entry(localization: dict[str, str] | None = None) -
     return entry
 
 
+def pure_non_monthly_cadence_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["archetypes"] = []
+    graph["listeners"] = []
+    graph["cadence_signature"] = {
+        "cadence_type": "route_certification",
+        "cadence_rationale": "The ritual resolves through route proof events and player choices rather than any recurring calendar tick.",
+        "player_agency_model": "The player certifies a route, handles a contested passage event, chooses whether to retry certification, and then commits the final reward handoff.",
+        "non_monthly_triggers_or_reason": "Non-monthly triggers are the route gate action, the contested event branch, and the retry decision that can send the player back to materials.",
+        "pacing_failure_mode": "The pacing fails if route certification becomes a single click, so the route gate must feed a retry branch before final preparation can resolve.",
+    }
+    graph["variables"][1]["roles"] = ["route_state"]
+    route_gate = graph["nodes"][2]
+    route_gate["kind"] = "route_gate"
+    route_gate["capabilities"] = ["route_gate"]
+    route_gate["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    graph["actions"][2]["generator_template"] = "semantic_contract_fragment"
+    graph["checks"][1]["generator_template"] = "semantic_contract_fragment"
+    entry["generation"]["verified_templates"] = NON_MONTHLY_TEMPLATES
+    return entry
+
+
 def loc() -> dict[str, str]:
     long_text = "This event description is intentionally long enough to satisfy the ritual text density gate. " * 2
     data: dict[str, str] = {}
@@ -603,6 +640,24 @@ def main() -> None:
     )
     if good_errors:
         raise AssertionError(f"valid entry unexpectedly failed: {good_errors}")
+
+    non_monthly_errors = validate_spec_payload(
+        {"unique_wonders": [pure_non_monthly_cadence_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if non_monthly_errors:
+        raise AssertionError(f"pure non-monthly cadence fixture unexpectedly failed: {non_monthly_errors}")
+
+    hybrid_monthly_errors = validate_spec_payload(
+        {"unique_wonders": [valid_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if hybrid_monthly_errors:
+        raise AssertionError(f"hybrid monthly cadence fixture unexpectedly failed: {hybrid_monthly_errors}")
 
     no_archetype = valid_entry()
     del no_archetype["node_graph"]["archetypes"]
@@ -695,6 +750,7 @@ def main() -> None:
     generated_text = result["generated"][0]["text"]
     for expected in (
         "## Mechanic Signature",
+        "## Cadence Signature",
         "## Archetype Summary",
         "## Event Skeleton",
         "## Capability Summary",
@@ -865,6 +921,38 @@ def main() -> None:
         "thin mechanic signature",
         thin_signature,
         "node_graph.mechanic_signature.core_interaction_loop is too thin",
+    )
+
+    monthly_without_cadence_rationale = valid_entry()
+    monthly_without_cadence_rationale["node_graph"]["cadence_signature"]["cadence_rationale"] = ""
+    assert_has_error(
+        "monthly without cadence rationale",
+        monthly_without_cadence_rationale,
+        "node_graph.cadence_signature.cadence_rationale is required",
+    )
+
+    monthly_institutionalization_without_non_monthly = valid_entry()
+    monthly_institutionalization_without_non_monthly["node_graph"]["cadence_signature"]["cadence_type"] = (
+        "monthly_institutionalization"
+    )
+    monthly_institutionalization_without_non_monthly["node_graph"]["cadence_signature"]["cadence_rationale"] = (
+        "Monthly institutionalization fits this test beacon because recurring harbor watch certification is historically central."
+    )
+    monthly_institutionalization_without_non_monthly["node_graph"]["cadence_signature"]["non_monthly_triggers_or_reason"] = (
+        "None; the ritual is a pure monthly progress bar for twelve months."
+    )
+    assert_has_error(
+        "monthly institutionalization no non-monthly interaction",
+        monthly_institutionalization_without_non_monthly,
+        "monthly_institutionalization requires non_monthly_triggers_or_reason",
+    )
+
+    unknown_cadence_type = valid_entry()
+    unknown_cadence_type["node_graph"]["cadence_signature"]["cadence_type"] = "annual_cycle"
+    assert_has_error(
+        "unknown cadence type",
+        unknown_cadence_type,
+        "node_graph.cadence_signature.cadence_type unknown cadence type 'annual_cycle'",
     )
 
     custom_archetype_missing_statement = valid_entry()

@@ -29,6 +29,24 @@ metadata:
     - reward_expression
     - state_feedback_model
     - wonder_specific_hook
+    required_cadence_signature_fields:
+    - cadence_rationale
+    - cadence_type
+    - non_monthly_triggers_or_reason
+    - pacing_failure_mode
+    - player_agency_model
+    supported_cadence_types:
+    - actor_assignment
+    - construction_or_auxiliary_building
+    - event_driven
+    - hybrid
+    - instant_but_branching
+    - monthly_institutionalization
+    - player_action_sequence
+    - resource_delivery
+    - route_certification
+    - succession_validated
+    - war_validated
     custom_archetype_prefix: custom_
     required_ui_components:
     - actor_slots
@@ -85,6 +103,7 @@ metadata:
     - patronage_actor_assignment
     - resource_accumulation_ritual
     archetype_policy: Registry archetypes are optional, non-exclusive reference tags. They add contract checks when used, but custom_* archetype labels are allowed when mechanic_signature.custom_archetype_statement explains the new shape.
+    cadence_policy: Implementation-ready specs must declare cadence_signature. Monthly listeners, monthly_progress_gate nodes, monthly_progress capabilities, or monthly_progress_gate templates require monthly_institutionalization or hybrid cadence with a concrete historical rationale and at least one non-monthly player interaction, risk, listener, event branch, trigger, or decision point.
     supported_scope_contract_scopes:
     - character
     - country
@@ -96,6 +115,7 @@ metadata:
     batch_size: 1-5 unique wonders per authoring pass
     required_output_sections:
     - mechanic_signature
+    - cadence_signature
     - gameplay_loop_summary
     - node_table
     - state_variable_table
