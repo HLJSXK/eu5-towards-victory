@@ -27,6 +27,9 @@ except ImportError:
     print("[ERROR] PyYAML not installed. Run: pip install pyyaml")
     sys.exit(1)
 
+sys.path.insert(0, str(Path(__file__).parent))
+from wonder_unique_ritual_harness import validate_unique_ritual_specs_for_repo  # noqa: E402
+
 REPO_ROOT = Path(__file__).parent.parent
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 VALIDATION_BASELINE_FILE = REPO_ROOT / "data" / "validation_baseline.yaml"
@@ -59,6 +62,19 @@ TV_IO_ICON_DIR = (
     / "icons"
     / "international_organizations"
 )
+UNIQUE_RITUAL_HARNESS_FILES = {
+    "data/unique_wonders.yaml",
+    "data/unique_wonder_ritual_designs.yaml",
+    "data/unique_wonder_ritual_prompts.yaml",
+    "data/unique_wonder_ritual_specs.yaml",
+    "data/wonder_localization.yaml",
+    "scripts/wonder_unique_ritual_harness.py",
+    "scripts/gen_unique_wonder_ritual_specs.py",
+    "scripts/audit_unique_wonder_rituals.py",
+    "scripts/allocate_unique_wonder_ritual_event_ids.py",
+    "scripts/test_unique_wonder_ritual_harness.py",
+    "docs/guides/Unique_Wonder_Ritual_Harness.md",
+}
 UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
 LOCALIZATION_KEY_PATTERN = re.compile(r"^\s+(\w+)\s*:(?:\d+)?")
@@ -625,6 +641,14 @@ def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
             warnings.append(
                 f"[KNOWLEDGE] data/validation_baseline.yaml:warnings[{idx}] -- missing rationale"
             )
+
+
+def check_unique_wonder_ritual_harness(files: list[Path]) -> None:
+    rels = {str(path.relative_to(REPO_ROOT)).replace("\\", "/") for path in files}
+    if not rels.intersection(UNIQUE_RITUAL_HARNESS_FILES):
+        return
+    for error in validate_unique_ritual_specs_for_repo():
+        issues.append(f"[UNIQUE_RITUAL_HARNESS] {error}")
 
 
 def _line_num(content: str, pos: int) -> int:
@@ -1232,6 +1256,7 @@ def main():
         check_tv_io_icon_assets()
         check_monthly_country_pulse_event_delay()
         check_knowledge_maintenance(anti_patterns)
+        check_unique_wonder_ritual_harness(files)
 
     if ai_report:
         def _is_autogen_warning(i: str) -> bool:

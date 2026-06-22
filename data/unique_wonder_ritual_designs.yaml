@@ -20431,3 +20431,1081 @@ unique_wonders:
         work is civic, commercial, and archival rather than war or succession
         driven. Rewards must remain monthly prestige and monthly legitimacy;
         local trade and cultural memory are supporting mechanisms.
+  - id: 202
+    key: unique_house_of_wisdom
+    base_key: library_of_nation
+    location: baghdad
+    source_ritual_key: translation_movement_catalog
+    status: needs_design
+    ritual_design:
+      title: "Translation Movement Catalog"
+      historical_flavor: >
+        Placeholder design entry for unique_house_of_wisdom. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 203
+    key: unique_echmiadzin_cathedral
+    base_key: grand_cathedral
+    location: armavir
+    source_ritual_key: apostolic_see_consecration
+    status: needs_design
+    ritual_design:
+      title: "Apostolic See Consecration"
+      historical_flavor: >
+        Placeholder design entry for unique_echmiadzin_cathedral. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 204
+    key: unique_narikala_fortress
+    base_key: star_fortress_city
+    location: tbilisi
+    source_ritual_key: kura_watch_muster
+    status: needs_design
+    ritual_design:
+      title: "Kura Watch Muster"
+      historical_flavor: >
+        Placeholder design entry for unique_narikala_fortress. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 205
+    key: unique_baku_ateshgah
+    base_key: giant_tower_temple
+    location: baku
+    source_ritual_key: eternal_fire_rite
+    status: needs_design
+    ritual_design:
+      title: "Eternal Fire Rite"
+      historical_flavor: >
+        Placeholder design entry for unique_baku_ateshgah. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 206
+    key: unique_sanaa_old_city
+    base_key: world_market
+    location: sana_yemen
+    source_ritual_key: sanaa_souk_opening
+    status: needs_design
+    ritual_design:
+      title: "Sanaa Souk Opening"
+      historical_flavor: >
+        Placeholder design entry for unique_sanaa_old_city. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 207
+    key: unique_schoenbrunn_palace
+    base_key: palace_of_nations
+    location: vienna
+    source_ritual_key: habsburg_congress_audience
+    status: needs_design
+    ritual_design:
+      title: "Habsburg Congress Audience"
+      historical_flavor: >
+        Placeholder design entry for unique_schoenbrunn_palace. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 208
+    key: unique_electoral_conference_hall
+    base_key: great_assembly_hall
+    location: frankfurt
+    source_ritual_key: golden_bull_convocation
+    status: needs_design
+    ritual_design:
+      title: "Golden Bull Convocation"
+      historical_flavor: >
+        Placeholder design entry for unique_electoral_conference_hall. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 209
+    key: unique_aachen_cathedral
+    base_key: grand_cathedral
+    location: aachen
+    source_ritual_key: imperial_coronation_liturgy
+    status: needs_design
+    ritual_design:
+      title: "Imperial Coronation Liturgy"
+      historical_flavor: >
+        Placeholder design entry for unique_aachen_cathedral. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 210
+    key: unique_nuremberg_imperial_castle
+    base_key: star_fortress_city
+    location: nuremberg
+    source_ritual_key: imperial_regalia_guard
+    status: needs_design
+    ritual_design:
+      title: "Imperial Regalia Guard"
+      historical_flavor: >
+        Placeholder design entry for unique_nuremberg_imperial_castle. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 211
+    key: unique_augsburg_bank
+    base_key: national_bank
+    location: augsburg
+    source_ritual_key: imperial_credit_contracts
+    status: needs_design
+    ritual_design:
+      title: "Imperial Credit Contracts"
+      historical_flavor: >
+        Placeholder design entry for unique_augsburg_bank. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 212
+    key: unique_cologne_cathedral
+    base_key: grand_cathedral
+    location: cologne
+    source_ritual_key: three_kings_pilgrimage
+    status: needs_design
+    ritual_design:
+      title: "Three Kings Pilgrimage"
+      historical_flavor: >
+        Placeholder design entry for unique_cologne_cathedral. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 213
+    key: unique_hanseatic_kontor
+    base_key: guild_alliance
+    location: hamburg
+    source_ritual_key: kontor_ledger_oath
+    status: needs_design
+    ritual_design:
+      title: "Kontor Ledger Oath"
+      historical_flavor: >
+        Placeholder design entry for unique_hanseatic_kontor. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 214
+    key: unique_hanseatic_town_hall
+    base_key: great_assembly_hall
+    location: lubeck
+    source_ritual_key: league_diet_session
+    status: needs_design
+    ritual_design:
+      title: "League Diet Session"
+      historical_flavor: >
+        Placeholder design entry for unique_hanseatic_town_hall. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 215
+    key: unique_dresden_art_gallery
+    base_key: royal_art_district
+    location: dresden
+    source_ritual_key: elector_gallery_opening
+    status: needs_design
+    ritual_design:
+      title: "Elector Gallery Opening"
+      historical_flavor: >
+        Placeholder design entry for unique_dresden_art_gallery. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 216
+    key: unique_munich_royal_brewery
+    base_key: giant_workshop_complex
+    location: munich
+    source_ritual_key: ducal_brewery_charter
+    status: needs_design
+    ritual_design:
+      title: "Ducal Brewery Charter"
+      historical_flavor: >
+        Placeholder design entry for unique_munich_royal_brewery. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 217
+    key: unique_heidelberg_university
+    base_key: university_city
+    location: heidelberg
+    source_ritual_key: palatine_scholars_convocation
+    status: needs_design
+    ritual_design:
+      title: "Palatine Scholars Convocation"
+      historical_flavor: >
+        Placeholder design entry for unique_heidelberg_university. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 218
+    key: unique_fez_old_city
+    base_key: ancient_city_ruins
+    location: fez
+    source_ritual_key: medina_restoration_rite
+    status: needs_design
+    ritual_design:
+      title: "Medina Restoration Rite"
+      historical_flavor: >
+        Placeholder design entry for unique_fez_old_city. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 219
+    key: unique_kairouan_holy_city
+    base_key: sky_dome_grand_temple
+    location: kairouan
+    source_ritual_key: ifriqiyan_scholars_synod
+    status: needs_design
+    ritual_design:
+      title: "Ifriqiyan Scholars Synod"
+      historical_flavor: >
+        Placeholder design entry for unique_kairouan_holy_city. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 220
+    key: unique_algiers_pirate_port
+    base_key: pirate_port
+    location: algiers
+    source_ritual_key: corsair_captains_oath
+    status: needs_design
+    ritual_design:
+      title: "Corsair Captains Oath"
+      historical_flavor: >
+        Placeholder design entry for unique_algiers_pirate_port. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 221
+    key: unique_sankore_university
+    base_key: university_city
+    location: timbuktu
+    source_ritual_key: manuscripts_convocation
+    status: needs_design
+    ritual_design:
+      title: "Manuscripts Convocation"
+      historical_flavor: >
+        Placeholder design entry for unique_sankore_university. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 222
+    key: unique_great_mosque_of_djenne
+    base_key: giant_tower_temple
+    location: djenne
+    source_ritual_key: banco_replastering_festival
+    status: needs_design
+    ritual_design:
+      title: "Banco Replastering Festival"
+      historical_flavor: >
+        Placeholder design entry for unique_great_mosque_of_djenne. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
+  - id: 223
+    key: unique_walls_of_benin
+    base_key: great_wall
+    location: benin
+    source_ritual_key: earthwork_gate_muster
+    status: needs_design
+    ritual_design:
+      title: "Earthwork Gate Muster"
+      historical_flavor: >
+        Placeholder design entry for unique_walls_of_benin. This unique wonder was added
+        after the first design pass and must receive a full playable ritual
+        design before implementation.
+      mode: custom_node_graph
+      duration: >
+        To be authored through data/unique_wonder_ritual_specs.yaml using
+        the unique ritual Harness quality gates.
+      listeners: []
+      confirmation_logic: >
+        To be authored. Must include ownership/control of the fixed site,
+        final unique wonder building presence, solvency, and any historical
+        hard gates required by the ritual theme.
+      start_logic: >
+        To be authored as a playable opening state, not a one-click completion.
+      progress_logic: >
+        To be authored with visible player-facing state, event cadence,
+        decision points, and at least one theme-specific mechanic.
+      completion_logic: >
+        To be authored with the permanent country modifier, local reward
+        building, and one-time reward channels assigned explicitly.
+      failure_or_timeout_logic: >
+        To be authored with failure, retry, or restart behavior for the
+        current ritual step.
+      implementation_mapping:
+        confirmation_trigger_script: needs_verification
+        start_effect_script: needs_verification
+        snapshot_effect_script: needs_verification
+        progress_effect_script: needs_verification
+        completion_trigger_script: needs_verification
+        completion_effect_script: needs_verification
+      intended_rewards:
+        permanent_country_modifier: >
+          To be authored from this wonder's existing country modifier theme.
+        local_building_reward: >
+          To be authored as a unique local reward building at the fixed site.
+        one_time_reward: >
+          To be authored from the approved one-time reward catalog.
+      notes: >
+        Placeholder only. The audit script should treat this as design debt
+        until the entry is expanded into a concrete ritual design.
