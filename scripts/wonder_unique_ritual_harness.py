@@ -17,6 +17,7 @@ from wonder_mechanics.io import (  # noqa: E402
 )
 
 SPEC_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_specs.yaml"
+TEMPLATE_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_codegen_templates.yaml"
 DESIGN_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_designs.yaml"
 PROMPTS_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_prompts.yaml"
 LOCALIZATION_FILE = REPO_ROOT / "data" / "wonder_localization.yaml"
@@ -50,12 +51,24 @@ SUPPORTED_CHECK_KINDS = {
     "trigger_script",
     "generator_template",
 }
-SUPPORTED_CODEGEN_TEMPLATES = {
-    "sequential_event_chain",
-    "branch_retry_event",
-    "monthly_progress_gate",
-    "simple_progress_track_ui_binding",
-    "final_reward_dispatch_stub",
+SUPPORTED_TEMPLATE_OUTPUT_KINDS = {
+    "markdown_fragment",
+    "event_skeleton",
+    "effect_stub",
+    "trigger_stub",
+    "gui_summary",
+    "loc_draft",
+}
+TEMPLATE_CONTRACT_REQUIRED_FIELDS = {
+    "key",
+    "supported_node_kinds",
+    "supported_action_kinds",
+    "supported_check_kinds",
+    "required_fields",
+    "output_kinds",
+    "verified_interface",
+    "may_write_src",
+    "notes",
 }
 NODE_REQUIRED_FIELDS = {
     "key",
@@ -120,6 +133,92 @@ def load_optional_yaml(path: Path) -> dict[str, Any]:
 
 def load_spec_data(path: Path = SPEC_FILE) -> dict[str, Any]:
     return load_optional_yaml(path) or {"metadata": {}, "unique_wonders": []}
+
+
+def load_template_registry(path: Path = TEMPLATE_REGISTRY_FILE) -> dict[str, Any]:
+    return load_optional_yaml(path) or {"metadata": {}, "templates": []}
+
+
+def template_registry_index(registry: dict[str, Any] | None = None) -> dict[str, dict[str, Any]]:
+    payload = registry if registry is not None else load_template_registry()
+    templates = payload.get("templates", []) if isinstance(payload, dict) else []
+    index: dict[str, dict[str, Any]] = {}
+    if not isinstance(templates, list):
+        return index
+    for template in templates:
+        if isinstance(template, dict) and template.get("key"):
+            index[str(template["key"])] = template
+    return index
+
+
+def supported_codegen_template_keys(registry: dict[str, Any] | None = None) -> set[str]:
+    return set(template_registry_index(registry))
+
+
+def validate_template_registry(
+    registry: dict[str, Any] | None = None,
+    *,
+    path: Path = TEMPLATE_REGISTRY_FILE,
+) -> list[str]:
+    errors: list[str] = []
+    if registry is None:
+        if not path.exists():
+            return [f"{path.relative_to(REPO_ROOT).as_posix()} is missing"]
+        registry = load_template_registry(path)
+    if not isinstance(registry, dict):
+        return ["template registry must be a mapping"]
+
+    metadata = registry.get("metadata")
+    if not isinstance(metadata, dict):
+        errors.append("template registry metadata must be a mapping")
+    elif metadata.get("generated_game_code") is not False:
+        errors.append("template registry metadata.generated_game_code must be false")
+
+    templates = registry.get("templates")
+    if not isinstance(templates, list):
+        errors.append("template registry templates must be a list")
+        return errors
+    if not templates:
+        errors.append("template registry templates must not be empty")
+
+    seen: set[str] = set()
+    for idx, template in enumerate(templates, 1):
+        if not isinstance(template, dict):
+            errors.append(f"template registry templates[{idx}] must be a mapping")
+            continue
+        key = str(template.get("key", f"<missing:{idx}>"))
+        for field in _missing_required(template, TEMPLATE_CONTRACT_REQUIRED_FIELDS):
+            errors.append(f"template registry {key} missing required field {field}")
+        if not template.get("key"):
+            continue
+        if key in seen:
+            errors.append(f"template registry duplicate template {key}")
+        seen.add(key)
+        if template.get("may_write_src") is not False:
+            errors.append(f"template registry {key} must declare may_write_src: false")
+        if not str(template.get("verified_interface", "")).strip():
+            errors.append(f"template registry {key} verified_interface must not be empty")
+        for field, allowed in (
+            ("supported_node_kinds", SUPPORTED_NODE_KINDS),
+            ("supported_action_kinds", SUPPORTED_ACTION_KINDS),
+            ("supported_check_kinds", SUPPORTED_CHECK_KINDS),
+            ("output_kinds", SUPPORTED_TEMPLATE_OUTPUT_KINDS),
+        ):
+            values = template.get(field)
+            if not isinstance(values, list):
+                errors.append(f"template registry {key} {field} must be a list")
+                continue
+            unsupported = sorted(str(value) for value in values if value not in allowed)
+            if unsupported:
+                errors.append(
+                    f"template registry {key} {field} has unsupported value(s): {', '.join(unsupported)}"
+                )
+        required_fields = template.get("required_fields")
+        if not isinstance(required_fields, list):
+            errors.append(f"template registry {key} required_fields must be a list")
+        elif any(not str(field).strip() for field in required_fields):
+            errors.append(f"template registry {key} required_fields must contain non-empty strings")
+    return errors
 
 
 def wonder_index(wonders: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
@@ -506,7 +605,7 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "supported_node_kinds": list(sorted(SUPPORTED_NODE_KINDS)),
                 "supported_action_kinds": list(sorted(SUPPORTED_ACTION_KINDS)),
                 "supported_check_kinds": list(sorted(SUPPORTED_CHECK_KINDS)),
-                "supported_codegen_templates": list(sorted(SUPPORTED_CODEGEN_TEMPLATES)),
+                "supported_codegen_templates": list(sorted(supported_codegen_template_keys())),
             },
             "ai_prompt_contract": {
                 "batch_size": "1-5 unique wonders per authoring pass",
@@ -650,12 +749,41 @@ def declared_runtime_variables(entry: dict[str, Any]) -> set[str]:
     return set(str(variable) for variable in node_graph.get("runtime_variables", []) or [])
 
 
-def _template_errors(entry: dict[str, Any], context: str, template: Any) -> list[str]:
+def _template_errors(
+    entry: dict[str, Any],
+    context: str,
+    template: Any,
+    template_index: dict[str, dict[str, Any]],
+) -> list[str]:
     if template in {None, ""}:
         return []
     template_key = str(template)
-    if template_key not in SUPPORTED_CODEGEN_TEMPLATES:
-        return [_issue(entry, f"{context} unsupported template {template_key!r}")]
+    contract = template_index.get(template_key)
+    if contract is None:
+        return [_issue(entry, f"{context} unknown template {template_key!r}")]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append(_issue(entry, f"{context} template {template_key!r} is not allowed to write src"))
+    return errors
+
+
+def _template_kind_support_errors(
+    entry: dict[str, Any],
+    context: str,
+    template: Any,
+    field: str,
+    kind: Any,
+    template_index: dict[str, dict[str, Any]],
+) -> list[str]:
+    if template in {None, ""} or kind in {None, ""}:
+        return []
+    template_key = str(template)
+    contract = template_index.get(template_key)
+    if contract is None:
+        return []
+    supported = set(str(value) for value in contract.get(field, []) or [])
+    if str(kind) not in supported:
+        return [_issue(entry, f"{context} template {template_key!r} does not support kind {kind!r}")]
     return []
 
 
@@ -674,16 +802,153 @@ def templates_used_by_entry(entry: dict[str, Any]) -> set[str]:
     return used
 
 
+def _progress_or_count_variables(variables: list[Any]) -> set[str]:
+    names: set[str] = set()
+    for variable in variables:
+        if not isinstance(variable, dict) or not variable.get("name"):
+            continue
+        name = str(variable["name"])
+        var_type = str(variable.get("type", "")).lower()
+        lowered_name = name.lower()
+        if "progress" in lowered_name or "count" in lowered_name or var_type in {"progress", "counter", "count"}:
+            names.add(name)
+    return names
+
+
+def _graph_lifecycle_summary(entry: dict[str, Any], node_graph: dict[str, Any]) -> dict[str, Any]:
+    errors: list[str] = []
+    nodes = node_graph.get("nodes", [])
+    if not isinstance(nodes, list):
+        return {"errors": errors, "reachable_count": 0, "unreachable_count": 0}
+    node_by_key = {
+        str(node["key"]): node
+        for node in nodes
+        if isinstance(node, dict) and node.get("key")
+    }
+    node_keys = set(node_by_key)
+
+    entry_node = node_graph.get("entry_node")
+    if not entry_node:
+        errors.append(_issue(entry, "node_graph.entry_node is required"))
+    elif str(entry_node) not in node_keys:
+        errors.append(_issue(entry, f"node_graph.entry_node references undeclared node {entry_node}"))
+
+    terminal_nodes = _string_refs(node_graph.get("terminal_nodes"))
+    if not terminal_nodes:
+        errors.append(_issue(entry, "node_graph.terminal_nodes must not be empty"))
+    terminal_set = set()
+    for terminal in terminal_nodes:
+        if terminal not in node_keys:
+            errors.append(_issue(entry, f"node_graph.terminal_nodes references undeclared node {terminal}"))
+        else:
+            terminal_set.add(terminal)
+
+    outgoing: dict[str, set[str]] = {key: set() for key in node_keys}
+    for key, node in node_by_key.items():
+        outgoing[key].update(next_node for next_node in _string_refs(node.get("next_nodes")) if next_node in node_keys)
+    edges = node_graph.get("edges", [])
+    if isinstance(edges, list):
+        for edge in edges:
+            if not isinstance(edge, dict):
+                continue
+            from_node = edge.get("from")
+            to_node = edge.get("to")
+            if from_node is not None and to_node is not None and str(from_node) in node_keys and str(to_node) in node_keys:
+                outgoing[str(from_node)].add(str(to_node))
+
+    reachable: set[str] = set()
+    if entry_node and str(entry_node) in node_keys:
+        stack = [str(entry_node)]
+        while stack:
+            current = stack.pop()
+            if current in reachable:
+                continue
+            reachable.add(current)
+            stack.extend(sorted(outgoing.get(current, set()) - reachable))
+    unreachable = sorted(node_keys - reachable)
+    for node_key in unreachable:
+        errors.append(_issue(entry, f"node {node_key} is unreachable from entry_node {entry_node}"))
+
+    allow_terminal_outgoing = bool(
+        isinstance(node_graph.get("completion_policy"), dict)
+        and node_graph["completion_policy"].get("allow_terminal_outgoing")
+    )
+    for key, node in node_by_key.items():
+        has_outgoing = bool(outgoing.get(key))
+        if key not in terminal_set and not has_outgoing:
+            errors.append(_issue(entry, f"non-terminal node {key} has no next_nodes or outgoing edge"))
+        if key in terminal_set and has_outgoing and not allow_terminal_outgoing:
+            errors.append(_issue(entry, f"terminal node {key} must not have ordinary outgoing edges"))
+        retry_target = node.get("retry_target")
+        if retry_target and str(retry_target) in terminal_set:
+            errors.append(_issue(entry, f"node {key} retry_target must not point to terminal node {retry_target}"))
+        if node.get("kind") == "final_reward_dispatch" and key not in terminal_set:
+            errors.append(_issue(entry, f"final_reward_dispatch node {key} must be listed in node_graph.terminal_nodes"))
+
+    variables = node_graph.get("variables", [])
+    progress_or_count = _progress_or_count_variables(variables if isinstance(variables, list) else [])
+    for key, node in node_by_key.items():
+        if node.get("kind") != "monthly_progress_gate":
+            continue
+        read_write_progress = (
+            set(_string_refs(node.get("reads")))
+            & set(_string_refs(node.get("writes")))
+            & progress_or_count
+        )
+        if not read_write_progress:
+            errors.append(
+                _issue(entry, f"monthly_progress_gate node {key} must read and write at least one progress/count variable")
+            )
+
+    if isinstance(variables, list):
+        actual_writers: dict[str, set[str]] = {}
+        actual_readers: dict[str, set[str]] = {}
+        for key, node in node_by_key.items():
+            for variable in _string_refs(node.get("writes")):
+                actual_writers.setdefault(variable, set()).add(key)
+            for variable in _string_refs(node.get("reads")):
+                actual_readers.setdefault(variable, set()).add(key)
+        for variable in variables:
+            if not isinstance(variable, dict) or not variable.get("name"):
+                continue
+            name = str(variable["name"])
+            declared_writers = set(_string_refs(variable.get("writer_nodes")))
+            declared_readers = set(_string_refs(variable.get("reader_nodes")))
+            if declared_writers != actual_writers.get(name, set()):
+                errors.append(
+                    _issue(
+                        entry,
+                        f"variable {name} writer_nodes do not match node writes "
+                        f"(declared={sorted(declared_writers)}, actual={sorted(actual_writers.get(name, set()))})",
+                    )
+                )
+            if declared_readers != actual_readers.get(name, set()):
+                errors.append(
+                    _issue(
+                        entry,
+                        f"variable {name} reader_nodes do not match node reads "
+                        f"(declared={sorted(declared_readers)}, actual={sorted(actual_readers.get(name, set()))})",
+                    )
+                )
+    return {
+        "errors": errors,
+        "reachable_count": len(reachable),
+        "unreachable_count": len(unreachable),
+    }
+
+
 def _validate_codegen_node_graph(
     entry: dict[str, Any],
     node_graph: dict[str, Any],
     entry_event_id_set: set[int],
     loc_keys: set[str],
+    template_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     identity = entry.get("identity") or {}
     status = str(identity.get("status", ""))
     runtime_prefix = str(identity.get("runtime_prefix", ""))
+    template_index = template_registry_index(template_registry)
 
     variables = node_graph.get("variables", [])
     if not isinstance(variables, list):
@@ -784,6 +1049,8 @@ def _validate_codegen_node_graph(
             errors.append(_issue(entry, f"edge to references undeclared node {to_node}"))
         errors.extend(_loc_ref_errors(entry, f"edge {from_node}->{to_node}", [edge.get("label_key")], loc_keys))
 
+    errors.extend(_graph_lifecycle_summary(entry, node_graph)["errors"])
+
     actions = node_graph.get("actions", [])
     if not isinstance(actions, list):
         errors.append(_issue(entry, "node_graph.actions must be a list"))
@@ -800,7 +1067,17 @@ def _validate_codegen_node_graph(
             errors.append(_issue(entry, f"action {key} unsupported kind {kind!r}"))
         if not action.get("effect_script") and not action.get("generator_template"):
             errors.append(_issue(entry, f"action {key} must declare effect_script or generator_template"))
-        errors.extend(_template_errors(entry, f"action {key}", action.get("generator_template")))
+        errors.extend(_template_errors(entry, f"action {key}", action.get("generator_template"), template_index))
+        errors.extend(
+            _template_kind_support_errors(
+                entry,
+                f"action {key}",
+                action.get("generator_template"),
+                "supported_action_kinds",
+                kind,
+                template_index,
+            )
+        )
 
     checks = node_graph.get("checks", [])
     if not isinstance(checks, list):
@@ -818,7 +1095,17 @@ def _validate_codegen_node_graph(
             errors.append(_issue(entry, f"check {key} unsupported kind {kind!r}"))
         if not check.get("trigger_script") and not check.get("generator_template"):
             errors.append(_issue(entry, f"check {key} must declare trigger_script or generator_template"))
-        errors.extend(_template_errors(entry, f"check {key}", check.get("generator_template")))
+        errors.extend(_template_errors(entry, f"check {key}", check.get("generator_template"), template_index))
+        errors.extend(
+            _template_kind_support_errors(
+                entry,
+                f"check {key}",
+                check.get("generator_template"),
+                "supported_check_kinds",
+                kind,
+                template_index,
+            )
+        )
         errors.extend(_loc_ref_errors(entry, f"check {key}", [check.get("tooltip_key")], loc_keys))
 
     generation = entry.get("generation")
@@ -828,9 +1115,30 @@ def _validate_codegen_node_graph(
     for field in _missing_required(generation, GENERATION_REQUIRED_FIELDS):
         errors.append(_issue(entry, f"generation missing required field {field}"))
     for template in generation.get("verified_templates", []) or []:
-        errors.extend(_template_errors(entry, "generation.verified_templates", template))
+        errors.extend(_template_errors(entry, "generation.verified_templates", template, template_index))
     for template in generation.get("blocked_templates", []) or []:
-        errors.extend(_template_errors(entry, "generation.blocked_templates", template))
+        errors.extend(_template_errors(entry, "generation.blocked_templates", template, template_index))
+        errors.append(_issue(entry, f"generation.blocked_templates contains blocked template {template}"))
+    verified = set(str(template) for template in generation.get("verified_templates", []) or [])
+    used_templates = templates_used_by_entry(entry) - verified
+    unverified_used = sorted(template for template in used_templates if template in template_index)
+    if unverified_used:
+        errors.append(
+            _issue(
+                entry,
+                "template(s) not listed in generation.verified_templates: " + ", ".join(unverified_used),
+            )
+        )
+    covered_node_kinds: set[str] = set()
+    for template in verified:
+        covered_node_kinds.update(str(kind) for kind in template_index.get(template, {}).get("supported_node_kinds", []) or [])
+    for kind in sorted({
+        str(node.get("kind"))
+        for node in nodes
+        if isinstance(node, dict) and node.get("kind") in SUPPORTED_NODE_KINDS
+    }):
+        if kind not in covered_node_kinds:
+            errors.append(_issue(entry, f"node kind {kind!r} is not covered by generation.verified_templates"))
     if status == "harness_generated":
         if not generation.get("target_files"):
             errors.append(_issue(entry, "harness_generated must declare generation.target_files"))
@@ -847,6 +1155,7 @@ def validate_codegen_graph_entry(
     entry: dict[str, Any],
     *,
     localization: dict[str, str] | None = None,
+    template_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     node_graph = entry.get("node_graph") or {}
     if not isinstance(node_graph, dict):
@@ -856,6 +1165,7 @@ def validate_codegen_graph_entry(
         node_graph,
         set(event_ids_in_entry(entry)),
         loc_key_inventory(localization),
+        template_registry,
     )
 
 
@@ -905,25 +1215,51 @@ def validate_codegen_ui_bindings(
     return errors
 
 
-def codegen_support_errors(entry: dict[str, Any]) -> list[str]:
+def codegen_support_errors(
+    entry: dict[str, Any],
+    *,
+    template_registry: dict[str, Any] | None = None,
+) -> list[str]:
     identity = entry.get("identity") or {}
     key = str(identity.get("key", "<unknown>"))
     status = str(identity.get("status", ""))
     if status not in CODEGEN_ELIGIBLE_STATUSES:
         return [f"{key}: status {status!r} is not eligible for Harness codegen"]
+    registry_errors = validate_template_registry(template_registry) if template_registry is not None else validate_template_registry()
+    if registry_errors:
+        return [f"{key}: template registry error: {error}" for error in registry_errors]
+    template_index = template_registry_index(template_registry)
     generation = entry.get("generation") or {}
     errors: list[str] = []
     verified = set(str(template) for template in generation.get("verified_templates", []) or [])
     blocked = set(str(template) for template in generation.get("blocked_templates", []) or [])
     used = templates_used_by_entry(entry)
-    unsupported = sorted(template for template in used if template not in SUPPORTED_CODEGEN_TEMPLATES)
-    if unsupported:
-        errors.append(f"{key}: unsupported template(s): {', '.join(unsupported)}")
+    unknown = sorted(template for template in used if template not in template_index)
+    if unknown:
+        errors.append(f"{key}: unknown template(s): {', '.join(unknown)}")
     if blocked:
         errors.append(f"{key}: blocked template(s): {', '.join(sorted(blocked))}")
     unverified = sorted(template for template in used if template not in verified)
     if unverified:
         errors.append(f"{key}: template(s) not listed in generation.verified_templates: {', '.join(unverified)}")
+    node_graph = entry.get("node_graph") or {}
+    for section, field in (("actions", "supported_action_kinds"), ("checks", "supported_check_kinds")):
+        for item in node_graph.get(section, []) or []:
+            if not isinstance(item, dict) or not item.get("generator_template"):
+                continue
+            template = str(item["generator_template"])
+            contract = template_index.get(template)
+            if contract is None:
+                continue
+            kind = str(item.get("kind", ""))
+            if kind not in set(str(value) for value in contract.get(field, []) or []):
+                errors.append(f"{key}: {section[:-1]} {item.get('key', '<unknown>')} template {template!r} does not support kind {kind!r}")
+    verified_node_kinds: set[str] = set()
+    for template in verified:
+        verified_node_kinds.update(str(kind) for kind in template_index.get(template, {}).get("supported_node_kinds", []) or [])
+    for node in node_graph.get("nodes", []) or []:
+        if isinstance(node, dict) and node.get("kind") in SUPPORTED_NODE_KINDS and str(node["kind"]) not in verified_node_kinds:
+            errors.append(f"{key}: node kind {node['kind']!r} is not covered by generation.verified_templates")
     return errors
 
 
@@ -931,6 +1267,7 @@ def graph_validation_errors_for_payload(
     payload: dict[str, Any],
     *,
     localization: dict[str, str] | None = None,
+    template_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     for entry in payload.get("unique_wonders", []) or []:
@@ -938,9 +1275,80 @@ def graph_validation_errors_for_payload(
             continue
         status = str((entry.get("identity") or {}).get("status", ""))
         if status in CODEGEN_ELIGIBLE_STATUSES:
-            errors.extend(validate_codegen_graph_entry(entry, localization=localization))
+            errors.extend(
+                validate_codegen_graph_entry(
+                    entry,
+                    localization=localization,
+                    template_registry=template_registry,
+                )
+            )
             errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
     return errors
+
+
+def graph_lifecycle_summary_for_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    reachable_count = 0
+    unreachable_count = 0
+    lifecycle_errors: list[str] = []
+    for entry in payload.get("unique_wonders", []) or []:
+        if not isinstance(entry, dict):
+            continue
+        status = str((entry.get("identity") or {}).get("status", ""))
+        if status not in CODEGEN_ELIGIBLE_STATUSES:
+            continue
+        node_graph = entry.get("node_graph") or {}
+        if not isinstance(node_graph, dict):
+            continue
+        summary = _graph_lifecycle_summary(entry, node_graph)
+        reachable_count += int(summary["reachable_count"])
+        unreachable_count += int(summary["unreachable_count"])
+        lifecycle_errors.extend(summary["errors"])
+    return {
+        "graph_reachable_count": reachable_count,
+        "graph_unreachable_count": unreachable_count,
+        "lifecycle_errors": lifecycle_errors,
+        "lifecycle_error_count": len(lifecycle_errors),
+    }
+
+
+def codegen_tier_summary_for_payload(
+    payload: dict[str, Any],
+    *,
+    template_registry: dict[str, Any] | None = None,
+) -> dict[str, int]:
+    template_index = template_registry_index(template_registry)
+    summary = {
+        "eligible_specs": 0,
+        "intermediate_only": 0,
+        "blocked_or_unknown": 0,
+        "may_write_src": 0,
+    }
+    intermediate_outputs = SUPPORTED_TEMPLATE_OUTPUT_KINDS
+    for entry in payload.get("unique_wonders", []) or []:
+        if not isinstance(entry, dict):
+            continue
+        if str((entry.get("identity") or {}).get("status", "")) not in CODEGEN_ELIGIBLE_STATUSES:
+            continue
+        summary["eligible_specs"] += 1
+        used = templates_used_by_entry(entry)
+        contracts = [template_index.get(template) for template in used]
+        if any(contract is None for contract in contracts):
+            summary["blocked_or_unknown"] += 1
+            continue
+        if any(contract.get("may_write_src") is not False for contract in contracts if contract):
+            summary["may_write_src"] += 1
+            continue
+        output_kinds = {
+            str(output)
+            for contract in contracts
+            if contract
+            for output in contract.get("output_kinds", []) or []
+        }
+        if output_kinds and output_kinds <= intermediate_outputs:
+            summary["intermediate_only"] += 1
+        else:
+            summary["blocked_or_unknown"] += 1
+    return summary
 
 
 def validate_spec_payload(
@@ -950,8 +1358,10 @@ def validate_spec_payload(
     localization: dict[str, str] | None = None,
     occupied_event_ids: set[int] | None = None,
     require_all_wonders: bool = True,
+    template_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
+    errors.extend(validate_template_registry(template_registry) if template_registry is not None else validate_template_registry())
     wonders = wonders if wonders is not None else load_unique_wonders()
     wonder_by_key = wonder_index(wonders)
     entries = payload.get("unique_wonders", []) or []
@@ -1036,7 +1446,7 @@ def validate_spec_payload(
         if not str(node_graph.get("historical_mechanic", "")).strip():
             errors.append(_issue(entry, "node_graph.historical_mechanic is required"))
         if status in CODEGEN_ELIGIBLE_STATUSES:
-            errors.extend(_validate_codegen_node_graph(entry, node_graph, entry_event_id_set, loc_keys))
+            errors.extend(_validate_codegen_node_graph(entry, node_graph, entry_event_id_set, loc_keys, template_registry))
             errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
         else:
             for node in nodes:
@@ -1127,12 +1537,20 @@ def audit_summary() -> dict[str, Any]:
     prompts = load_optional_yaml(PROMPTS_FILE)
     specs = load_spec_data()
     loc = loc_english()
+    template_registry = load_template_registry()
+    template_registry_errors = validate_template_registry(template_registry)
 
     design_index = list_index(designs)
     prompt_index = list_index(prompts)
     spec_index = list_index(specs)
-    spec_errors = validate_spec_payload(specs, wonders=wonders, localization=loc)
-    graph_validation_errors = graph_validation_errors_for_payload(specs, localization=loc)
+    spec_errors = validate_spec_payload(specs, wonders=wonders, localization=loc, template_registry=template_registry)
+    graph_validation_errors = graph_validation_errors_for_payload(
+        specs,
+        localization=loc,
+        template_registry=template_registry,
+    )
+    lifecycle_summary = graph_lifecycle_summary_for_payload(specs)
+    codegen_tier_summary = codegen_tier_summary_for_payload(specs, template_registry=template_registry)
 
     implemented = [
         key
@@ -1166,11 +1584,11 @@ def audit_summary() -> dict[str, Any]:
         status = (entry.get("identity") or {}).get("status")
         if status not in CODEGEN_ELIGIBLE_STATUSES:
             continue
-        support_errors = codegen_support_errors(entry)
+        support_errors = codegen_support_errors(entry, template_registry=template_registry)
         unsupported_templates.update(
             template
             for template in templates_used_by_entry(entry)
-            if template not in SUPPORTED_CODEGEN_TEMPLATES
+            if template not in template_registry_index(template_registry)
         )
         if support_errors:
             codegen_blocked.append(key)
@@ -1194,7 +1612,12 @@ def audit_summary() -> dict[str, Any]:
         "stub_specs": len(stubs),
         "codegen_supported_count": len(codegen_supported),
         "codegen_blocked_count": len(codegen_blocked),
+        "codegen_tier_summary": codegen_tier_summary,
         "unsupported_templates": sorted(unsupported_templates),
+        "template_registry_errors": template_registry_errors,
+        "graph_reachable_count": lifecycle_summary["graph_reachable_count"],
+        "graph_unreachable_count": lifecycle_summary["graph_unreachable_count"],
+        "lifecycle_error_count": lifecycle_summary["lifecycle_error_count"],
         "graph_validation_errors": graph_validation_errors,
         "missing_designs": sorted(wonder_keys - set(design_index)),
         "placeholder_designs": sorted(

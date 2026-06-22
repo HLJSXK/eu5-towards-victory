@@ -2,6 +2,7 @@
 """Small in-memory tests for the unique wonder ritual Harness quality gates."""
 
 import sys
+from copy import deepcopy
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -14,7 +15,7 @@ from gen_unique_wonder_ritual_code import (  # noqa: E402
     CodegenError,
     generate_fragments_for_payload,
 )
-from wonder_unique_ritual_harness import validate_spec_payload  # noqa: E402
+from wonder_unique_ritual_harness import load_template_registry, validate_spec_payload  # noqa: E402
 
 
 WONDER = {
@@ -99,14 +100,18 @@ def valid_entry() -> dict:
             "historical_mechanic": "A visible historical testing mechanic with sequential steps and retry.",
             "listeners": ["monthly"],
             "summary": "Test summary.",
+            "entry_node": "opening",
+            "terminal_nodes": ["reward"],
+            "graph_shape": "sequential_retry_monthly_gate",
+            "completion_policy": {"allow_terminal_outgoing": False},
             "variables": [
                 {
                     "name": "tv_wonder_test_stage",
                     "scope": "country",
                     "type": "number",
                     "initial_value": 0,
-                    "writer_nodes": ["opening", "materials", "retry_choice", "reward"],
-                    "reader_nodes": NODE_KEYS,
+                    "writer_nodes": ["opening", "materials", "retry_choice", "final_prep", "reward"],
+                    "reader_nodes": ["materials", "monthly_gate", "final_prep", "reward"],
                     "cleanup": "project_state_clear",
                 },
                 {
@@ -115,7 +120,7 @@ def valid_entry() -> dict:
                     "type": "number",
                     "initial_value": 0,
                     "writer_nodes": ["monthly_gate"],
-                    "reader_nodes": ["monthly_gate", "retry_choice", "final_prep", "reward"],
+                    "reader_nodes": ["monthly_gate", "retry_choice", "final_prep"],
                     "cleanup": "project_state_clear",
                 },
             ],
@@ -291,6 +296,7 @@ def assert_has_error(
     *,
     localization: dict[str, str] | None = None,
     occupied_event_ids: set[int] | None = None,
+    template_registry: dict | None = None,
 ) -> None:
     errors = validate_spec_payload(
         {"unique_wonders": [entry]},
@@ -298,16 +304,18 @@ def assert_has_error(
         localization=localization or loc(),
         occupied_event_ids=occupied_event_ids,
         require_all_wonders=True,
+        template_registry=template_registry,
     )
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
 
 
-def assert_codegen_error(name: str, entry: dict, needle: str) -> None:
+def assert_codegen_error(name: str, entry: dict, needle: str, *, template_registry: dict | None = None) -> None:
     try:
         generate_fragments_for_payload(
             {"unique_wonders": [entry]},
             wonder_keys={"unique_test_wonder"},
+            template_registry=template_registry,
         )
     except CodegenError as exc:
         if needle not in str(exc):
@@ -380,6 +388,63 @@ def main() -> None:
     edge_missing_node["node_graph"]["edges"][0]["to"] = "missing"
     assert_has_error("edge missing node", edge_missing_node, "edge to references undeclared node missing")
 
+    missing_entry_node = valid_entry()
+    missing_entry_node["node_graph"]["entry_node"] = "missing"
+    assert_has_error("missing entry node", missing_entry_node, "entry_node references undeclared node missing")
+
+    missing_terminal_node = valid_entry()
+    missing_terminal_node["node_graph"]["terminal_nodes"] = ["missing"]
+    assert_has_error(
+        "missing terminal node",
+        missing_terminal_node,
+        "terminal_nodes references undeclared node missing",
+    )
+
+    unreachable = valid_entry()
+    unreachable["event_ids"].append({"id": 1007, "key": "stray"})
+    unreachable["node_graph"]["variables"][0]["reader_nodes"].append("stray")
+    unreachable["node_graph"]["nodes"].append(
+        node("stray", 1007, reads=["tv_wonder_test_stage"], next_nodes=["reward"])
+    )
+    unreachable["localization"]["event_keys"].append(event_row(1007, "stray"))
+    unreachable_loc = loc()
+    unreachable_loc["event.1007.t"] = "Title 1007"
+    unreachable_loc["event.1007.d"] = unreachable_loc["event.1001.d"]
+    unreachable_loc["event.1007.a"] = "Continue"
+    unreachable_loc["node.stray.label"] = "stray"
+    assert_has_error("unreachable node", unreachable, "node stray is unreachable", localization=unreachable_loc)
+
+    non_terminal_dead_end = valid_entry()
+    non_terminal_dead_end["node_graph"]["nodes"][4]["next_nodes"] = []
+    non_terminal_dead_end["node_graph"]["edges"] = [
+        edge for edge in non_terminal_dead_end["node_graph"]["edges"] if edge["from"] != "final_prep"
+    ]
+    assert_has_error("non-terminal dead end", non_terminal_dead_end, "non-terminal node final_prep has no next_nodes")
+
+    retry_to_terminal = valid_entry()
+    retry_to_terminal["node_graph"]["nodes"][3]["retry_target"] = "reward"
+    assert_has_error("retry target terminal", retry_to_terminal, "retry_target must not point to terminal node reward")
+
+    monthly_without_progress = valid_entry()
+    monthly_without_progress["node_graph"]["nodes"][2]["reads"] = ["tv_wonder_test_stage"]
+    monthly_without_progress["node_graph"]["nodes"][2]["writes"] = ["tv_wonder_test_stage"]
+    monthly_without_progress["node_graph"]["variables"][0]["writer_nodes"].append("monthly_gate")
+    monthly_without_progress["node_graph"]["variables"][1]["writer_nodes"] = []
+    monthly_without_progress["node_graph"]["variables"][1]["reader_nodes"] = ["retry_choice", "final_prep"]
+    assert_has_error(
+        "monthly gate no progress variable",
+        monthly_without_progress,
+        "monthly_progress_gate node monthly_gate must read and write at least one progress/count variable",
+    )
+
+    final_reward_not_terminal = valid_entry()
+    final_reward_not_terminal["node_graph"]["terminal_nodes"] = ["final_prep"]
+    assert_has_error(
+        "final reward not terminal",
+        final_reward_not_terminal,
+        "final_reward_dispatch node reward must be listed in node_graph.terminal_nodes",
+    )
+
     node_undeclared_read = valid_entry()
     node_undeclared_read["node_graph"]["nodes"][0]["reads"] = ["tv_wonder_test_missing"]
     assert_has_error("node undeclared read", node_undeclared_read, "reads undeclared variable tv_wonder_test_missing")
@@ -416,6 +481,36 @@ def main() -> None:
     unsupported_check_kind = valid_entry()
     unsupported_check_kind["node_graph"]["checks"][0]["kind"] = "unsupported_check"
     assert_has_error("unsupported check kind", unsupported_check_kind, "unsupported kind 'unsupported_check'")
+
+    registry_missing_template = deepcopy(load_template_registry())
+    registry_missing_template["templates"] = [
+        template
+        for template in registry_missing_template["templates"]
+        if template["key"] != "final_reward_dispatch_stub"
+    ]
+    assert_has_error(
+        "registry missing template",
+        valid_entry(),
+        "unknown template 'final_reward_dispatch_stub'",
+        template_registry=registry_missing_template,
+    )
+    assert_codegen_error(
+        "codegen registry missing template",
+        valid_entry(),
+        "unknown template(s): final_reward_dispatch_stub",
+        template_registry=registry_missing_template,
+    )
+
+    registry_unsupported_kind = deepcopy(load_template_registry())
+    for template in registry_unsupported_kind["templates"]:
+        if template["key"] == "sequential_event_chain":
+            template["supported_action_kinds"] = []
+    assert_has_error(
+        "registry unsupported action kind",
+        valid_entry(),
+        "action start_chain template 'sequential_event_chain' does not support kind 'generator_template'",
+        template_registry=registry_unsupported_kind,
+    )
 
     unverified = valid_entry()
     unverified["implementation_notes"]["needs_verification"] = ["modifier_key"]

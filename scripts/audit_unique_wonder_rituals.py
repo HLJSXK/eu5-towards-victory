@@ -61,6 +61,10 @@ def main() -> None:
         print(f"Stub specs: {summary['stub_specs']}")
         print(f"Codegen-supported count: {summary['codegen_supported_count']}")
         print(f"Codegen-blocked count: {summary['codegen_blocked_count']}")
+        print(f"Codegen tier summary: {summary['codegen_tier_summary']}")
+        print(f"Graph reachable nodes: {summary['graph_reachable_count']}")
+        print(f"Graph unreachable nodes: {summary['graph_unreachable_count']}")
+        print(f"Lifecycle error count: {summary['lifecycle_error_count']}")
         print(f"Occupied Engineering Department event IDs: {summary['occupied_engineering_event_ids']}")
         print("")
         _print_list("Missing design entries", summary["missing_designs"])
@@ -69,6 +73,7 @@ def main() -> None:
         _print_list("Missing spec entries", summary["missing_specs"])
         _print_list("Missing finalization/world-news loc rows", summary["missing_finalization_or_world_news_loc"])
         _print_list("Unsupported codegen templates", summary["unsupported_templates"])
+        _print_list("Template registry errors", summary["template_registry_errors"])
         _print_list("Graph validation errors", summary["graph_validation_errors"])
         _print_list("Spec quality errors", summary["spec_errors"])
 

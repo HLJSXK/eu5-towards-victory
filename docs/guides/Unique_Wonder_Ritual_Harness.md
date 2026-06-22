@@ -19,6 +19,8 @@ completion popup. Each batch should produce a playable spec first, then game cod
   `conda run --no-capture-output -n eu5 python scripts/gen_unique_wonder_ritual_code.py`
   Add `--write` only after the spec passes validation. The generator writes Harness-owned
   fragments under `data/generated_fragments/unique_wonder_rituals/`; it does not write `src/`.
+  Template support comes from `data/unique_wonder_ritual_codegen_templates.yaml`;
+  specs may not invent template keys outside that registry.
 
 ## Required AI Output
 
@@ -39,7 +41,8 @@ An implementation-ready ritual must include:
 - `identity`: id, key, base key, location, runtime prefix, and status.
 - `event_ids`: explicit unique numeric IDs, all below `10000`.
 - `node_graph`: a custom graph with at least 3 player-visible nodes, at least 3 event IDs,
-  at least one failure or retry path, declared listeners, runtime variables, and a historical mechanic.
+  at least one failure or retry path, declared listeners, runtime variables, an `entry_node`,
+  `terminal_nodes`, and a historical mechanic.
 - `ui_model`: one or more visible UI components from `checklist`, `route_map`, `actor_slots`,
   `material_stockpile`, `incident_log`, or `progress_track`.
 - `rewards`: all three mandatory channels: permanent country modifier, local building reward,
@@ -48,11 +51,28 @@ An implementation-ready ritual must include:
 - `implementation_notes`: verified EU5 interfaces only; uncertain syntax must remain
   `needs_verification` and blocks `implementation_ready` or `harness_generated`.
 
+## Template Registry
+
+`data/unique_wonder_ritual_codegen_templates.yaml` is the only source of truth for Harness
+codegen template contracts. Each template declares supported node/action/check kinds, required
+input fields, output kinds, a verified interface, `may_write_src: false`, and notes. The v1
+registry is intermediate-only: valid output kinds are `markdown_fragment`, `event_skeleton`,
+`effect_stub`, `trigger_stub`, `gui_summary`, and `loc_draft`.
+
+The validator and codegen both reject unknown templates, templates marked as allowed to write
+`src/`, blocked templates, action/check kinds not supported by the selected template, and node
+kinds not covered by `generation.verified_templates`.
+
 ## State Machine DSL
 
 `implementation_ready` and `harness_generated` specs must use the strong node-graph DSL.
 `implemented_parity` and `stub` entries may keep the older lightweight shape.
 
+- `node_graph.entry_node`: the first runtime node; it must resolve to a declared node.
+- `node_graph.terminal_nodes`: one or more declared terminal nodes.
+- `node_graph.graph_shape`: optional authoring label for the graph shape.
+- `node_graph.completion_policy`: optional lifecycle policy; terminal outgoing edges are
+  rejected unless `allow_terminal_outgoing: true` is explicitly set.
 - `node_graph.nodes`: each node declares `key`, `kind`, `event_id`, visibility,
   historical anchor, enter/completion checks, retry target, next nodes, reads/writes,
   UI state, and localization refs.
@@ -68,7 +88,7 @@ An implementation-ready ritual must include:
 - `generation`: declares status, target files, verified templates, blocked templates, and
   dry-run notes. `harness_generated` entries must have target files and verified templates.
 
-The v1 codegen allowlist is deliberately small:
+The v1 registry is deliberately small:
 
 - node kinds: `event`, `retry_event`, `monthly_progress_gate`, `final_reward_dispatch`
 - action kinds: `effect_script`, `generator_template`, `reward_dispatch_stub`
@@ -77,25 +97,33 @@ The v1 codegen allowlist is deliberately small:
   `simple_progress_track_ui_binding`, `final_reward_dispatch_stub`
 
 Every edge target, retry target, next node, variable read/write, UI binding ref, node event ID,
-and localization ref must resolve to a declared object. `needs_verification` anywhere in an
-`implementation_ready` or `harness_generated` spec blocks validation.
+and localization ref must resolve to a declared object. Every node must be reachable from
+`entry_node`. Non-terminal nodes need a next node or outgoing edge; terminal nodes may not have
+ordinary outgoing edges by default. Retry targets may not point to terminal nodes. A
+`monthly_progress_gate` must read and write at least one declared progress/count variable, and
+`final_reward_dispatch` nodes must be terminal nodes. Variable `writer_nodes` / `reader_nodes`
+must exactly match the node `writes` / `reads` declarations. `needs_verification` anywhere in
+an `implementation_ready` or `harness_generated` spec blocks validation.
 
 ## Reject Conditions
 
 Reject the spec if it has only start/completion events, no visible UI state, no failure/retry
 route, no historical mechanic, missing reward channels, thin event prose, runtime variables
 outside the ritual prefix, undeclared UI variables, unsupported listeners, duplicate or occupied
-event IDs, unsupported node/action/check kinds, unsupported templates, graph references that
-point to undeclared nodes or variables, or localization/node rows that reference undeclared events.
+event IDs, unsupported node/action/check kinds, unknown or unsupported registry templates, graph
+references that point to undeclared nodes or variables, unreachable nodes, terminal lifecycle
+violations, mismatched variable reader/writer declarations, or localization/node rows that
+reference undeclared events.
 
 Reject implementation if heavy finalization or cleanup is placed in an option tooltip path, or if
 tooltips can pre-evaluate variables before they are written. Keep finalization in hidden executor
 paths already verified by the project.
 
-Reject code generation if any template is not both supported by the Harness allowlist and listed
-in `generation.verified_templates`, or if `generation.blocked_templates` is non-empty. The v1
-generator emits Markdown skeletons and draft inventories only; promotion into loadable EU5 script
-requires a later verified generator.
+Reject code generation if any used template is not both present in the registry and listed in
+`generation.verified_templates`, if the template does not support the current node/action/check
+kind, or if `generation.blocked_templates` is non-empty. The v1 generator emits Markdown
+skeletons and draft inventories only; promotion into loadable EU5 script requires a later
+verified generator.
 
 ## Batch Completion
 

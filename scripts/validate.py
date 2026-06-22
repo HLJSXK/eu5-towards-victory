@@ -67,6 +67,7 @@ UNIQUE_RITUAL_HARNESS_FILES = {
     "data/unique_wonder_ritual_designs.yaml",
     "data/unique_wonder_ritual_prompts.yaml",
     "data/unique_wonder_ritual_specs.yaml",
+    "data/unique_wonder_ritual_codegen_templates.yaml",
     "data/wonder_localization.yaml",
     "scripts/wonder_unique_ritual_harness.py",
     "scripts/gen_unique_wonder_ritual_specs.py",
