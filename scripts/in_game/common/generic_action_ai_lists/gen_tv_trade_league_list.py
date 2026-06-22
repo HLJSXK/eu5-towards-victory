@@ -51,6 +51,8 @@ FIXED_MONOPOLY_ACTIONS = [
     *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
     "tv_trade_start_intelligence_network",
     "tv_trade_cancel_intelligence_network",
+    "tv_trade_start_chain",
+    "tv_trade_cancel_chain",
     "tv_trade_set_selected_virtual_demand",
     "tv_trade_increase_selected_virtual_demand",
     "tv_trade_decrease_selected_virtual_demand",

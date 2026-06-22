@@ -7694,6 +7694,74 @@ tv_trade_league_update_trade_income_chart_effect = {
 	}
 }
 
+tv_trade_league_clear_trade_chain_effect = {
+	hidden_effect = {
+		remove_variable = tv_trade_chain_active
+		remove_variable = tv_trade_chain_origin_location
+		remove_variable = tv_trade_chain_destination_location
+		remove_variable = tv_trade_chain_distance_sq
+		remove_variable = tv_trade_chain_valid
+		remove_variable = tv_trade_chain_status
+		remove_country_modifier = tv_trade_chain_active_modifier
+	}
+}
+
+tv_trade_league_refresh_trade_chain_effect = {
+	hidden_effect = {
+		save_scope_as = tv_trade_chain_leader
+		every_international_organizations_member_of = {
+			limit = {
+				international_organization_type = international_organization_type:tv_trade_league
+				leader_country ?= scope:tv_trade_chain_leader
+			}
+			save_scope_as = tv_trade_chain_io
+		}
+		if = {
+			limit = { has_variable = tv_trade_chain_active }
+			set_variable = { name = tv_trade_chain_valid value = 0 }
+			set_variable = { name = tv_trade_chain_status value = 3 }
+			remove_country_modifier = tv_trade_chain_active_modifier
+			if = {
+				limit = {
+					exists = scope:tv_trade_chain_io
+					has_variable = tv_trade_chain_origin_location
+					has_variable = tv_trade_chain_destination_location
+					has_variable = tv_trade_chain_distance_sq
+					var:tv_trade_chain_distance_sq >= 150000
+					var:tv_trade_chain_origin_location ?= {
+						market = {
+							in_trade_range_of = scope:tv_trade_chain_leader
+							any_merchant_in_market = {
+								is_member_of_international_organization = scope:tv_trade_chain_io
+							}
+						}
+					}
+					var:tv_trade_chain_destination_location ?= {
+						market = {
+							in_trade_range_of = scope:tv_trade_chain_leader
+							any_merchant_in_market = {
+								is_member_of_international_organization = scope:tv_trade_chain_io
+							}
+						}
+					}
+				}
+				set_variable = { name = tv_trade_chain_valid value = 1 }
+				set_variable = { name = tv_trade_chain_status value = 2 }
+				add_country_modifier = { modifier = tv_trade_chain_active_modifier days = 60 mode = add_and_extend }
+			}
+		}
+		else = {
+			remove_country_modifier = tv_trade_chain_active_modifier
+		}
+	}
+}
+
+tv_trade_league_refresh_trade_chain_members_display_effect = {
+	hidden_effect = {
+		save_scope_as = tv_trade_chain_display_leader
+	}
+}
+
 tv_trade_league_refresh_monopoly_page_limits_effect = {
 	hidden_effect = {
 		if = {
@@ -150746,12 +150814,14 @@ tv_trade_league_country_monthly_pulse_effect = {
 				save_scope_as = tv_trade_monopoly_io
 				leader_country ?= {
 					save_scope_as = tv_trade_monopoly_leader
+					tv_trade_league_refresh_trade_chain_effect = yes
 					tv_trade_league_update_intelligence_effect = yes
 					tv_trade_league_refresh_intelligence_members_display_effect = yes
 				}
 			}
 			else = {
 				leader_country ?= {
+					tv_trade_league_clear_trade_chain_effect = yes
 					tv_trade_league_clear_intelligence_merchant_power_effect = yes
 					remove_variable = tv_trade_intelligence_active_market
 					remove_variable = tv_trade_commercial_intelligence_active

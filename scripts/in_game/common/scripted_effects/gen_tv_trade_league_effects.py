@@ -116,12 +116,14 @@ tv_trade_league_country_monthly_pulse_effect = {
 \t\t\t\tsave_scope_as = tv_trade_monopoly_io
 \t\t\t\tleader_country ?= {
 \t\t\t\t\tsave_scope_as = tv_trade_monopoly_leader
+\t\t\t\t\ttv_trade_league_refresh_trade_chain_effect = yes
 \t\t\t\t\ttv_trade_league_update_intelligence_effect = yes
 \t\t\t\t\ttv_trade_league_refresh_intelligence_members_display_effect = yes
 \t\t\t\t}
 \t\t\t}
 \t\t\telse = {
 \t\t\t\tleader_country ?= {
+\t\t\t\t\ttv_trade_league_clear_trade_chain_effect = yes
 \t\t\t\t\ttv_trade_league_clear_intelligence_merchant_power_effect = yes
 \t\t\t\t\tremove_variable = tv_trade_intelligence_active_market
 \t\t\t\t\tremove_variable = tv_trade_commercial_intelligence_active
@@ -186,12 +188,17 @@ MARKET_PREFIXES = ("origin", "node", "consumer")
 MONOPOLY_THRESHOLD_PCT = 100
 EMBARGO_COST_PCT = 30
 VIRTUAL_ACTION_COST_PCT = 5
+TRADE_CHAIN_DISTANCE_SQ_THRESHOLD = 150000
 DISPLAY_ROW_COUNT = 10
 INTELLIGENCE_ROW_COUNT = 10
 CHART_SLOT_COUNT = 12
 INTELLIGENCE_MAX_MARKETS = 300
 INTELLIGENCE_MAX_STRENGTH_PCT = 100
 INTELLIGENCE_PAGE_COUNT = (INTELLIGENCE_MAX_MARKETS + INTELLIGENCE_ROW_COUNT - 1) // INTELLIGENCE_ROW_COUNT
+INDENT_2 = "\t" * 2
+INDENT_3 = "\t" * 3
+INDENT_4 = "\t" * 4
+INDENT_5 = "\t" * 5
 STATIC_MARKET_FIELDS = (
     "score",
     "local_production",
@@ -578,18 +585,18 @@ def selected_projection_effect(goods: list[str]) -> str:
         branches.append(
             f"""\t\t{keyword} = {{
 \t\t\tlimit = {{ var:tv_trade_selected_good ?= {indexes[good]} }}
-{copy_good_to_selected_projection_block(good, indexes[good], "\t\t\t", "tv_trade_monopoly_display_source")}
+{copy_good_to_selected_projection_block(good, indexes[good], INDENT_3, "tv_trade_monopoly_display_source")}
 \t\t}}"""
         )
     return f"""\
 tv_trade_league_refresh_selected_good_projection_effect = {{
 \thidden_effect = {{
-{save_matching_trade_league_leader_effect("tv_trade_monopoly_display_source", "\t\t")}
+{save_matching_trade_league_leader_effect("tv_trade_monopoly_display_source", INDENT_2)}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_selected_good }} }}
 \t\t\tset_variable = {{ name = tv_trade_selected_good value = 1 }}
 \t\t}}
-{clear_selected_projection_block(goods, "\t\t")}
+{clear_selected_projection_block(goods, INDENT_2)}
 {chr(10).join(branches)}
 \t}}
 }}
@@ -615,14 +622,14 @@ def display_projection_effect(data: dict) -> str:
 \t\t\t\tvar:tv_trade_selected_monopoly_category ?= {category["value"]}
 \t\t\t\tvar:tv_trade_selected_monopoly_page ?= {page}
 \t\t\t}}
-{copy_good_to_display_row_block(good, row, indexes[good], "\t\t\t", "tv_trade_monopoly_display_source")}
+{copy_good_to_display_row_block(good, row, indexes[good], INDENT_3, "tv_trade_monopoly_display_source")}
 \t\t}}"""
                 )
         row_branches.append(chr(10).join(branches))
     return f"""\
 tv_trade_league_refresh_monopoly_display_effect = {{
 \thidden_effect = {{
-{save_matching_trade_league_leader_effect("tv_trade_monopoly_display_source", "\t\t")}
+{save_matching_trade_league_leader_effect("tv_trade_monopoly_display_source", INDENT_2)}
 \t\ttv_trade_league_refresh_monopoly_page_limits_effect = yes
 {clear_rows}
 {chr(10).join(row_branches)}
@@ -715,10 +722,10 @@ def trade_income_chart_effect() -> str:
     return f"""\
 tv_trade_league_update_trade_income_chart_effect = {{
 \thidden_effect = {{
-{rolling_chart_shift_block(prefix, CHART_SLOT_COUNT, "\t\t")}
+{rolling_chart_shift_block(prefix, CHART_SLOT_COUNT, INDENT_2)}
 \t\tset_variable = {{ name = {prefix}_{CHART_SLOT_COUNT} value = monthly_trade_income }}
-{rolling_chart_max_block(prefix, CHART_SLOT_COUNT, max_variable, "\t\t")}
-{rolling_chart_percent_block(prefix, CHART_SLOT_COUNT, max_variable, display_prefix, "\t\t")}
+{rolling_chart_max_block(prefix, CHART_SLOT_COUNT, max_variable, INDENT_2)}
+{rolling_chart_percent_block(prefix, CHART_SLOT_COUNT, max_variable, display_prefix, INDENT_2)}
 \t}}
 }}
 """
@@ -736,6 +743,78 @@ def trade_income_chart_clear_effect() -> str:
 tv_trade_league_clear_trade_income_chart_effect = {{
 \thidden_effect = {{
 {chr(10).join(lines)}
+\t}}
+}}
+"""
+
+
+def trade_chain_effects() -> str:
+    return f"""\
+tv_trade_league_clear_trade_chain_effect = {{
+\thidden_effect = {{
+\t\tremove_variable = tv_trade_chain_active
+\t\tremove_variable = tv_trade_chain_origin_location
+\t\tremove_variable = tv_trade_chain_destination_location
+\t\tremove_variable = tv_trade_chain_distance_sq
+\t\tremove_variable = tv_trade_chain_valid
+\t\tremove_variable = tv_trade_chain_status
+\t\tremove_country_modifier = tv_trade_chain_active_modifier
+\t}}
+}}
+
+tv_trade_league_refresh_trade_chain_effect = {{
+\thidden_effect = {{
+\t\tsave_scope_as = tv_trade_chain_leader
+\t\tevery_international_organizations_member_of = {{
+\t\t\tlimit = {{
+\t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
+\t\t\t\tleader_country ?= scope:tv_trade_chain_leader
+\t\t\t}}
+\t\t\tsave_scope_as = tv_trade_chain_io
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ has_variable = tv_trade_chain_active }}
+\t\t\tset_variable = {{ name = tv_trade_chain_valid value = 0 }}
+\t\t\tset_variable = {{ name = tv_trade_chain_status value = 3 }}
+\t\t\tremove_country_modifier = tv_trade_chain_active_modifier
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\texists = scope:tv_trade_chain_io
+\t\t\t\t\thas_variable = tv_trade_chain_origin_location
+\t\t\t\t\thas_variable = tv_trade_chain_destination_location
+\t\t\t\t\thas_variable = tv_trade_chain_distance_sq
+\t\t\t\t\tvar:tv_trade_chain_distance_sq >= {TRADE_CHAIN_DISTANCE_SQ_THRESHOLD}
+\t\t\t\t\tvar:tv_trade_chain_origin_location ?= {{
+\t\t\t\t\t\tmarket = {{
+\t\t\t\t\t\t\tin_trade_range_of = scope:tv_trade_chain_leader
+\t\t\t\t\t\t\tany_merchant_in_market = {{
+\t\t\t\t\t\t\t\tis_member_of_international_organization = scope:tv_trade_chain_io
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+\t\t\t\t\tvar:tv_trade_chain_destination_location ?= {{
+\t\t\t\t\t\tmarket = {{
+\t\t\t\t\t\t\tin_trade_range_of = scope:tv_trade_chain_leader
+\t\t\t\t\t\t\tany_merchant_in_market = {{
+\t\t\t\t\t\t\t\tis_member_of_international_organization = scope:tv_trade_chain_io
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t\tset_variable = {{ name = tv_trade_chain_valid value = 1 }}
+\t\t\t\tset_variable = {{ name = tv_trade_chain_status value = 2 }}
+\t\t\t\tadd_country_modifier = {{ modifier = tv_trade_chain_active_modifier days = 60 mode = add_and_extend }}
+\t\t\t}}
+\t\t}}
+\t\telse = {{
+\t\t\tremove_country_modifier = tv_trade_chain_active_modifier
+\t\t}}
+\t}}
+}}
+
+tv_trade_league_refresh_trade_chain_members_display_effect = {{
+\thidden_effect = {{
+\t\tsave_scope_as = tv_trade_chain_display_leader
 \t}}
 }}
 """
@@ -796,7 +875,7 @@ def intelligence_clear_merchant_power_effect() -> str:
 \t\t\tvar:{location} ?= {{
 \t\t\t\tmarket = {{
 \t\t\t\t\tsave_scope_as = tv_trade_intelligence_market
-{intelligence_clear_merchant_power_at_saved_market_block("\t\t\t\t\t")}
+{intelligence_clear_merchant_power_at_saved_market_block(INDENT_5)}
 \t\t\t\t}}
 \t\t\t}}
 \t\t}}"""
@@ -949,7 +1028,7 @@ def intelligence_slot_update_block(slot: int, indent: str) -> str:
 {indent}\t\t\t\tlimit = {{ scope:tv_trade_intelligence_candidate_country = {{ is_member_of_international_organization = scope:tv_trade_monopoly_io }} }}
 {indent}\t\t\t\tchange_variable = {{ name = {io_power} add = var:tv_trade_intelligence_candidate_power }}
 {indent}\t\t\t}}
-{intelligence_insert_candidate_block(slot, indent + "\t\t\t")}
+{intelligence_insert_candidate_block(slot, indent + INDENT_3)}
 {indent}\t\t}}
 {indent}\t}}
 {indent}}}"""
@@ -962,7 +1041,7 @@ def intelligence_monthly_update_effect() -> str:
         branches.append(
             f"""\t\t\t{keyword} = {{
 \t\t\t\tlimit = {{ var:tv_trade_intelligence_market_count ?= {slot} }}
-{intelligence_slot_update_block(slot, "\t\t\t\t")}
+{intelligence_slot_update_block(slot, INDENT_4)}
 \t\t\t}}"""
         )
     return f"""\
@@ -1026,7 +1105,7 @@ def intelligence_page_limits_effect() -> str:
     return f"""\
 tv_trade_league_refresh_intelligence_page_limits_effect = {{
 \thidden_effect = {{
-{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", "\t\t")}
+{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", INDENT_2)}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_intelligence_page }} }}
 \t\t\tset_variable = {{ name = tv_trade_intelligence_page value = 1 }}
@@ -1098,14 +1177,14 @@ def intelligence_selected_projection_effect() -> str:
 \t\t\t\tvar:tv_trade_selected_intelligence_slot ?= {slot}
 \t\t\t\tscope:tv_trade_intelligence_display_source = {{ has_variable = tv_trade_intelligence_market_location_{slot} }}
 \t\t\t}}
-{copy_intelligence_slot_to_selected_projection_block(slot, "\t\t\t")}
+{copy_intelligence_slot_to_selected_projection_block(slot, INDENT_3)}
 \t\t}}"""
         )
     return f"""\
 tv_trade_league_refresh_selected_intelligence_projection_effect = {{
 \thidden_effect = {{
-{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", "\t\t")}
-{clear_selected_intelligence_projection_block("\t\t")}
+{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", INDENT_2)}
+{clear_selected_intelligence_projection_block(INDENT_2)}
 {chr(10).join(branches)}
 \t}}
 }}
@@ -1129,7 +1208,7 @@ def intelligence_select_first_displayed_effect() -> str:
     return f"""\
 tv_trade_league_select_first_displayed_intelligence_market_effect = {{
 \thidden_effect = {{
-{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", "\t\t")}
+{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", INDENT_2)}
 \t\ttv_trade_league_refresh_intelligence_page_limits_effect = yes
 {chr(10).join(branches)}
 \t\ttv_trade_league_refresh_selected_intelligence_projection_effect = yes
@@ -1155,14 +1234,14 @@ def intelligence_display_projection_effect() -> str:
 \t\t\t\tvar:tv_trade_intelligence_page ?= {page}
 \t\t\t\tscope:tv_trade_intelligence_display_source = {{ has_variable = tv_trade_intelligence_market_location_{slot} }}
 \t\t\t}}
-{copy_intelligence_slot_to_display_row_block(slot, row, "\t\t\t")}
+{copy_intelligence_slot_to_display_row_block(slot, row, INDENT_3)}
 \t\t}}"""
             )
         row_branches.append(chr(10).join(branches))
     return f"""\
 tv_trade_league_refresh_intelligence_display_effect = {{
 \thidden_effect = {{
-{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", "\t\t")}
+{save_matching_trade_league_leader_effect("tv_trade_intelligence_display_source", INDENT_2)}
 \t\ttv_trade_league_refresh_intelligence_page_limits_effect = yes
 {clear_rows}
 {chr(10).join(row_branches)}
@@ -1377,11 +1456,11 @@ def annual_good_refresh_block(good: str) -> str:
 {candidate_static_stats_block(good)}
 \t\tscope:tv_trade_monopoly_leader = {{
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_local_production }}
-{insert_candidate_io_block("origin", good, "\t\t\t")}
+{insert_candidate_io_block("origin", good, INDENT_3)}
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_total_export }}
-{insert_candidate_io_block("node", good, "\t\t\t")}
+{insert_candidate_io_block("node", good, INDENT_3)}
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_local_demand }}
-{insert_candidate_io_block("consumer", good, "\t\t\t")}
+{insert_candidate_io_block("consumer", good, INDENT_3)}
 \t\t}}
 \t\tremove_local_variable = tv_trade_candidate_total_export
 \t\tremove_local_variable = tv_trade_candidate_total_import
@@ -1669,6 +1748,8 @@ def generate(data: dict) -> str:
         + trade_income_chart_clear_effect()
         + "\n"
         + trade_income_chart_effect()
+        + "\n"
+        + trade_chain_effects()
         + "\n"
         + projection_effects
         + "\n"
