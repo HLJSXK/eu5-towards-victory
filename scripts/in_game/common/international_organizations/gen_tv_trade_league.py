@@ -97,6 +97,15 @@ SUFFIX = """\
 
 \ton_joined = {
 \t\tset_variable = { name = tv_trade_league_member value = 1 }
+\t\tset_variable = { name = tv_trade_victory_enabled value = 1 }
+\t\ttv_update_all_progress_pct_effect = yes
+\t\tif = {
+\t\t\tlimit = {
+\t\t\t\tNOT = { has_variable = tv_trade_league_self_establishing }
+\t\t\t\tNOT = { is_leader_of_international_organization = prev }
+\t\t\t}
+\t\t\ttv_check_trade_milestones_effect = yes
+\t\t}
 \t}
 
 \ton_left = {

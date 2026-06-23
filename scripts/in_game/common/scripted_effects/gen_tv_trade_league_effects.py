@@ -63,12 +63,16 @@ tv_trade_league_create_effect = {
 \t\t\t}
 \t\t}
 \t\ttv_trade_league_clear_trade_income_chart_effect = yes
-\t\tcreate_international_organization = {
-\t\t\ttype = international_organization_type:tv_trade_league
-\t\t\thidden_effect = {
-\t\t\t\tadd_country_to_international_organization = prev
-\t\t\t\tset_leader_country = prev
+\t\thidden_effect = {
+\t\t\tset_variable = { name = tv_trade_league_self_establishing value = 1 }
+\t\t\tcreate_international_organization = {
+\t\t\t\ttype = international_organization_type:tv_trade_league
+\t\t\t\thidden_effect = {
+\t\t\t\t\tadd_country_to_international_organization = prev
+\t\t\t\t\tset_leader_country = prev
+\t\t\t\t}
 \t\t\t}
+\t\t\tremove_variable = tv_trade_league_self_establishing
 \t\t}
 \t}
 }
