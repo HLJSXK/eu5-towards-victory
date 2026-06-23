@@ -250,6 +250,37 @@ capabilities:
     may_write_src: false
     notes: "Intermediate backend contract for branch variables that shape incident outcomes and final reward summaries. It does not emit source reward effects or certify actor-to-incident source routing."
 
+  - key: finance_public_credit_interface_backend
+    supported_node_kinds:
+      - event
+      - choice_event
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.ui_state
+      - node.scope_contract
+    required_variable_roles:
+      - stage_state
+      - reward_state
+      - incident_state
+      - checklist_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for public-credit, fiscal-pressure, pledge/default-risk, merchant-creditor, and branch-shaped fiscal reward semantics. It produces only Harness fragments, stubs, summaries, and tooltip notes; it does not generate loadable EU5 source and does not certify final fiscal script syntax."
+
   - key: bounded_opposition_religious_community_pressure
     supported_node_kinds:
       - event

@@ -52,6 +52,7 @@ BACKEND_CAPABILITIES = [
     "actor_assignment_character_selector_backend",
     "repeated_entity_row_checklist_incident_log_backend",
     "branch_specific_reward_scaling",
+    "finance_public_credit_interface_backend",
     "bounded_opposition_religious_community_pressure",
 ]
 
@@ -451,6 +452,49 @@ def branch_scaling_backend_entry() -> dict:
     entry = valid_entry()
     reward = entry["node_graph"]["nodes"][5]
     reward["capabilities"].append("branch_specific_reward_scaling")
+    return entry
+
+
+def finance_public_credit_backend_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["archetypes"] = ["incident_retry_gauntlet"]
+    graph["listeners"] = []
+    graph["cadence_signature"] = {
+        "cadence_type": "instant_but_branching",
+        "cadence_rationale": "The public-credit fixture resolves through an immediate charter bargain, pledge-risk incident, and final fiscal handoff rather than a monthly counter.",
+        "player_agency_model": "The player chooses which credit compact receives authority, handles the first default-pressure incident, and accepts the fiscal or social cost before reward dispatch.",
+        "non_monthly_triggers_or_reason": "Non-monthly validation comes from the charter option, creditor or open-market incident branch, and final public-credit reward handoff.",
+        "pacing_failure_mode": "The pacing fails if public credit becomes a passive timer, so the fixture keeps charter choice, pledge risk, and retry pressure visible.",
+    }
+    graph["variables"][0]["roles"] = ["stage_state", "reward_state", "incident_state", "checklist_state"]
+    graph["variables"][0]["writer_nodes"] = ["opening", "materials", "monthly_gate", "retry_choice", "final_prep", "reward"]
+    graph["variables"][0]["reader_nodes"] = ["opening", "materials", "monthly_gate", "retry_choice", "final_prep", "reward"]
+    graph["variables"][1]["roles"] = ["incident_state", "reward_state", "checklist_state"]
+    graph["variables"][1]["writer_nodes"] = ["monthly_gate"]
+    graph["variables"][1]["reader_nodes"] = ["monthly_gate", "retry_choice", "final_prep"]
+
+    for test_node in graph["nodes"]:
+        test_node["reads"] = sorted(set(test_node.get("reads", [])) | {"tv_wonder_test_stage"})
+        test_node["writes"] = sorted(set(test_node.get("writes", [])) | {"tv_wonder_test_stage"})
+        test_node["ui_state"] = {"variable_refs": sorted(set(test_node.get("ui_state", {}).get("variable_refs", [])) | {"tv_wonder_test_stage"})}
+        test_node["scope_contract"] = safe_scope_contract(target_scopes=["country"])
+
+    graph["nodes"][1]["capabilities"].append("finance_public_credit_interface_backend")
+    graph["nodes"][2]["kind"] = "choice_event"
+    graph["nodes"][2]["capabilities"] = ["event_chain", "finance_public_credit_interface_backend"]
+    graph["nodes"][3]["capabilities"].append("finance_public_credit_interface_backend")
+    graph["nodes"][4]["kind"] = "incident_event"
+    graph["nodes"][4]["capabilities"] = ["event_chain", "finance_public_credit_interface_backend"]
+    graph["nodes"][5]["capabilities"].append("finance_public_credit_interface_backend")
+    graph["nodes"][5]["capabilities"].append("branch_specific_reward_scaling")
+
+    graph["actions"][2]["generator_template"] = "semantic_contract_fragment"
+    graph["checks"][1]["generator_template"] = "semantic_contract_fragment"
+    entry["generation"]["verified_templates"] = NON_MONTHLY_TEMPLATES
+    entry["ui_model"]["components"].append(
+        {"type": "incident_log", "key": "credit_incident", "status_variable": "tv_wonder_test_progress"}
+    )
     return entry
 
 
@@ -894,6 +938,7 @@ def main() -> None:
         ("actor selector backend", actor_selector_backend_entry()),
         ("repeated row backend", repeated_row_backend_entry()),
         ("branch scaling backend", branch_scaling_backend_entry()),
+        ("finance public credit backend", finance_public_credit_backend_entry()),
         ("bounded religious pressure backend", bounded_religious_pressure_backend_entry()),
     ):
         backend_errors = validate_spec_payload(
@@ -1029,6 +1074,30 @@ def main() -> None:
         valid_entry(),
         "must declare may_write_src: false",
         capability_registry=writable_capability_registry,
+    )
+
+    finance_writable_registry = deepcopy(load_capability_registry())
+    for capability in finance_writable_registry["capabilities"]:
+        if capability.get("key") == "finance_public_credit_interface_backend":
+            capability["may_write_src"] = True
+            break
+    assert_has_error(
+        "finance capability may_write_src",
+        finance_public_credit_backend_entry(),
+        "must declare may_write_src: false",
+        capability_registry=finance_writable_registry,
+    )
+
+    finance_source_output_registry = deepcopy(load_capability_registry())
+    for capability in finance_source_output_registry["capabilities"]:
+        if capability.get("key") == "finance_public_credit_interface_backend":
+            capability["output_kinds"].append("loadable_src")
+            break
+    assert_has_error(
+        "finance capability source output",
+        finance_public_credit_backend_entry(),
+        "unsupported value(s): loadable_src",
+        capability_registry=finance_source_output_registry,
     )
 
     needs_search_without_questions = high_fidelity_design_entry()

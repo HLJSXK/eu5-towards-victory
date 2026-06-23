@@ -3663,18 +3663,18 @@ unique_wonders:
     base_key: national_bank
     location: genoa
     runtime_prefix: tv_wonder_bank_of_saint_george
-    status: design_complete
+    status: source_codegen_ready
   event_ids:
-  - id: 1012
+  - id: 1008
     key: bank_opening
-  - id: 1013
+  - id: 1009
     key: bank_charter_branch
-  - id: 1014
+  - id: 1010
     key: bank_credit_incident
-  - id: 1015
+  - id: 1011
     key: bank_reward
   node_graph:
-    model: design_projection_only_v1
+    model: state_machine_dsl_v1
     historical_mechanic: Public credit charter founding that turns Genoese debt, tax streams, coin trust, and merchant syndicates into state machinery.
     summary: The player proves that the Bank of Saint George can make public credit credible by choosing a founding charter and surviving the first creditor, crown, or open-market challenge.
     mechanic_signature:
@@ -3700,27 +3700,191 @@ unique_wonders:
     - tv_wonder_bank_of_saint_george_charter_branch
     - tv_wonder_bank_of_saint_george_pledge_status
     - tv_wonder_bank_of_saint_george_default_risk
+    graph_shape: public_credit_charter_retry
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_bank_of_saint_george_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      - checklist_state
+      - incident_state
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - bank_opening
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      reader_nodes:
+      - bank_opening
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_bank_of_saint_george_charter_branch
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      reader_nodes:
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_bank_of_saint_george_pledge_status
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      reader_nodes:
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_bank_of_saint_george_default_risk
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - bank_credit_incident
+      - bank_reward
+      reader_nodes:
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      cleanup: project_state_clear
     nodes:
     - key: bank_opening
       kind: event
-      event_id: 1012
+      capabilities:
+      - event_chain
+      - finance_public_credit_interface_backend
+      event_id: 1008
       player_visible: true
+      enter_condition: bank_opening_ready
+      completion_condition: bank_ledger_oath_opened
+      reads:
+      - tv_wonder_bank_of_saint_george_stage
+      writes:
+      - tv_wonder_bank_of_saint_george_stage
+      ui_state:
+        variable_refs:
+        - tv_wonder_bank_of_saint_george_stage
+      loc_refs:
+      - tv_engineering_department.1012.t
+      - tv_engineering_department.1012.d
+      - tv_engineering_department.1012.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
       next_nodes:
       - bank_charter_branch
       failure_or_retry: false
+      retry_target: null
       historical_anchor: The doge's officers, merchant creditors, notaries, mint masters, customs farmers, and guards gather around the ledger oath.
     - key: bank_charter_branch
       kind: choice_event
-      event_id: 1013
+      capabilities:
+      - event_chain
+      - branch_specific_reward_scaling
+      - finance_public_credit_interface_backend
+      event_id: 1009
       player_visible: true
+      enter_condition: bank_ledger_oath_opened
+      completion_condition: bank_charter_branch_selected
+      reads:
+      - tv_wonder_bank_of_saint_george_stage
+      - tv_wonder_bank_of_saint_george_charter_branch
+      - tv_wonder_bank_of_saint_george_pledge_status
+      - tv_wonder_bank_of_saint_george_default_risk
+      writes:
+      - tv_wonder_bank_of_saint_george_stage
+      - tv_wonder_bank_of_saint_george_charter_branch
+      - tv_wonder_bank_of_saint_george_pledge_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_bank_of_saint_george_stage
+        - tv_wonder_bank_of_saint_george_charter_branch
+        - tv_wonder_bank_of_saint_george_pledge_status
+      loc_refs:
+      - tv_engineering_department.1013.t
+      - tv_engineering_department.1013.d
+      - tv_engineering_department.1013.a
+      - tv_engineering_department.1013.b
+      - tv_engineering_department.1013.c
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
       next_nodes:
       - bank_credit_incident
       failure_or_retry: false
+      retry_target: null
       historical_anchor: The player chooses whether creditors, crown officers, or open merchants receive the founding privilege.
     - key: bank_credit_incident
       kind: retry_event
-      event_id: 1014
+      capabilities:
+      - retry_branch
+      - branch_specific_reward_scaling
+      - repeated_entity_row_checklist_incident_log_backend
+      - finance_public_credit_interface_backend
+      event_id: 1010
       player_visible: true
+      enter_condition: bank_charter_branch_selected
+      completion_condition: bank_credit_incident_resolved
+      reads:
+      - tv_wonder_bank_of_saint_george_stage
+      - tv_wonder_bank_of_saint_george_charter_branch
+      - tv_wonder_bank_of_saint_george_pledge_status
+      - tv_wonder_bank_of_saint_george_default_risk
+      writes:
+      - tv_wonder_bank_of_saint_george_stage
+      - tv_wonder_bank_of_saint_george_charter_branch
+      - tv_wonder_bank_of_saint_george_pledge_status
+      - tv_wonder_bank_of_saint_george_default_risk
+      ui_state:
+        variable_refs:
+        - tv_wonder_bank_of_saint_george_stage
+        - tv_wonder_bank_of_saint_george_charter_branch
+        - tv_wonder_bank_of_saint_george_pledge_status
+        - tv_wonder_bank_of_saint_george_default_risk
+      loc_refs:
+      - tv_engineering_department.1014.t
+      - tv_engineering_department.1014.d
+      - tv_engineering_department.1014.a
+      - tv_engineering_department.1014.b
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
       next_nodes:
       - bank_reward
       failure_or_retry: true
@@ -3728,11 +3892,105 @@ unique_wonders:
       historical_anchor: The chosen charter immediately triggers creditor overreach, crown distrust, or market default pressure.
     - key: bank_reward
       kind: final_reward_dispatch
-      event_id: 1015
+      capabilities:
+      - final_reward_handoff
+      - branch_specific_reward_scaling
+      - finance_public_credit_interface_backend
+      event_id: 1011
       player_visible: true
+      enter_condition: bank_credit_incident_resolved
+      completion_condition: bank_public_credit_sealed
+      reads:
+      - tv_wonder_bank_of_saint_george_stage
+      - tv_wonder_bank_of_saint_george_charter_branch
+      - tv_wonder_bank_of_saint_george_pledge_status
+      - tv_wonder_bank_of_saint_george_default_risk
+      writes:
+      - tv_wonder_bank_of_saint_george_stage
+      - tv_wonder_bank_of_saint_george_charter_branch
+      - tv_wonder_bank_of_saint_george_pledge_status
+      - tv_wonder_bank_of_saint_george_default_risk
+      ui_state:
+        variable_refs:
+        - tv_wonder_bank_of_saint_george_stage
+        - tv_wonder_bank_of_saint_george_charter_branch
+        - tv_wonder_bank_of_saint_george_pledge_status
+        - tv_wonder_bank_of_saint_george_default_risk
+      loc_refs:
+      - tv_engineering_department.1015.t
+      - tv_engineering_department.1015.d
+      - tv_engineering_department.1015.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
       next_nodes: []
       failure_or_retry: false
+      retry_target: null
       historical_anchor: The public ledger is sealed, a verified coin is presented, and pledged revenues become trusted state capacity.
+    edges:
+    - from: bank_opening
+      to: bank_charter_branch
+      condition: ledger oath opened
+      effect: set stage to charter selection
+      label_key: tv_engineering_department.1012.a
+    - from: bank_charter_branch
+      to: bank_credit_incident
+      condition: creditor privilege, crown supervision, or open merchant access selected
+      effect: save charter branch, pledge status, and provisional default risk
+      label_key: TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CHARTER_STATUS
+    - from: bank_credit_incident
+      to: bank_charter_branch
+      condition: creditor overprivilege, crown distrust, or open-market default pressure reopens the charter
+      effect: preserve pledge/default-risk evidence and retry charter selection
+      label_key: tv_engineering_department.1014.a
+    - from: bank_credit_incident
+      to: bank_reward
+      condition: pledge pressure is resolved and the narrower or full compact can be sealed
+      effect: save final charter, pledge status, default risk, and fiscal reward branch
+      label_key: tv_engineering_department.1014.b
+    actions:
+    - key: open_bank_ledger_oath
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: choose_bank_charter_branch
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_bank_credit_incident
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: branch_retry_event
+    - key: summarize_bank_public_credit_interface
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: dispatch_bank_public_credit_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: bank_public_credit_interface_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CREDIT_STATUS
+      generator_template: semantic_contract_fragment
+    - key: bank_charter_branch_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CHARTER_STATUS
+      generator_template: semantic_contract_fragment
+    - key: bank_pledge_default_risk_rows_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CREDIT_STATUS
+      generator_template: semantic_contract_fragment
   design_ir:
     compiler_primitives:
     - public_credit_interfaces
@@ -3833,7 +4091,7 @@ unique_wonders:
     - The founding choice must branch immediately among creditor, crown, and open-merchant trust models.
     - The reward must stay fiscal, with minting income and tax efficiency from credible public credit rather than a generic trade or monthly bank progress bar.
     projection_notes: >
-      Preserve charter options, pledge rows, default risk, and branch fiscal semantics in design_ir. Compress them into four planning nodes and three summary variables for design_complete. Replace per-pledge incident rows and charter checklist rows with summary UI bindings until a row generator exists. Drop the old monthly audit pacing from this pilot; unresolved finance and pledge primitives block compiler_mapped and all source-codegen statuses.
+      Preserve charter options, pledge rows, default risk, and branch fiscal semantics in design_ir. Project them into a source_codegen_ready strong DSL graph with four public-credit planning nodes, charter checklist and pledge incident summary variables, branch reward state, actions, checks, scope contracts, and UI bindings. The finance/public-credit, branch-scaling, merchant-creditor pressure, and repeated pledge-row primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop the old monthly audit pacing from this pilot; do not collapse the ledger to passive monthly points or a simple generic event chain.
   compiler_gap_ledger:
   - primitive: public_credit_interfaces
     design_semantics: Detect and represent loans, debt burden, tax streams, minting income, trade income, and treasury promises as public-credit material.
@@ -3844,16 +4102,21 @@ unique_wonders:
     - treasury and solvency state
     codebase_evidence:
     - data/index/static_modifiers.txt lists finance-facing modifiers including minting_income_factor, tax_income_efficiency, trade_income, bank_interest, monthly_loan_capacity_investment, total_loan_capacity_modifier, and take_on_debt_cost_modifier.
-    - data/index/scripted_triggers.txt and reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt expose has_gold_org_country_trigger.
-    - reference_game_files/game/in_game/common/scripted_effects/country_gold_effects.txt defines change_gold_effect, pay_gold_org_country_effect, and transfer_gold_to_org_country_effect.
-    - reference_game_files/game/in_game/events/government/republics.txt and government/parliaments.txt include num_loans and monthly_income_trade_and_tax checks suitable for later finance interface mapping.
-    verification_status: interface_candidate
+    - data/index/scripted_triggers.txt includes has_gold_org_country_trigger; reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt defines has_gold_org_country_trigger and uses gold >= monthly_income_trade_and_tax as a country finance check.
+    - data/index/scripted_effects.txt includes change_gold_effect, pay_gold_org_country_effect, and transfer_gold_to_org_country_effect; reference_game_files/game/in_game/common/scripted_effects/country_gold_effects.txt defines those gold transfer/payment effects.
+    - reference_game_files/game/in_game/events/government/republics.txt uses gold, monthly_income_trade_and_tax, num_loans, and change_gold_effect in republic finance events.
+    - reference_game_files/game/in_game/events/government/parliaments.txt uses monthly_income_trade_and_tax, location_tax_base, num_loans, and change_gold_effect in parliamentary fiscal events.
+    - capability:finance_public_credit_interface_backend
+    - data/unique_wonder_ritual_capabilities.yaml:finance_public_credit_interface_backend preserves public-credit, fiscal-pressure, pledge/default-risk, merchant-creditor, and branch-shaped fiscal reward semantics as an intermediate backend contract with may_write_src false.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize fiscal/public-credit contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster: finance_public_credit_interface
     search_questions:
     - Which EU5 country triggers/effects expose loans, interest, tax income, minting income, and trade income safely?
     - Are fiscal values readable in event tooltips without unsafe pre-evaluation?
     blocked_by:
-    - Finance interface mapping has not been searched for this ritual.
+    - Loadable EU5 source remains blocked until a later source writer maps the intermediate finance/public-credit contract to exact safe country fiscal predicates and effects.
     fallback_if_unavailable: Keep fiscal evidence semantic and branch only on a coarse solvency/treasury check in future projections.
   - primitive: charter_branch_fiscal_scaling
     design_semantics: Scale minting-income, tax-efficiency expression, and one-time fiscal/social costs by creditor, crown, or open-merchant charter branch.
@@ -3864,16 +4127,22 @@ unique_wonders:
     - cost and reward scaling
     codebase_evidence:
     - capability:final_reward_handoff documents final handoff semantics but does not generate branch-specific fiscal rewards.
-    - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_complete_step_6_effect proves branch variables can drive different reward/cost effects in bespoke ritual code.
+    - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_roll_step_6_cost_effect and tv_wonder_hagia_complete_step_6_effect prove saved branch variables can drive different gold, prestige, and estate-satisfaction consequences in bespoke ritual code.
     - src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt:tv_wonder_execute_finalization_hidden_event_effect proves hidden finalization dispatch can consume saved wonder state after visible options.
     - data/index/static_modifiers.txt provides fiscal modifier targets for later branch scaling, but not a Harness branch-reward backend.
-    verification_status: interface_candidate
+    - capability:branch_specific_reward_scaling
+    - data/unique_wonder_ritual_capabilities.yaml:branch_specific_reward_scaling documents branch variables that shape incident outcomes and final reward summaries with may_write_src false.
+    - capability:finance_public_credit_interface_backend
+    - data/unique_wonder_ritual_capabilities.yaml:finance_public_credit_interface_backend covers branch-shaped fiscal reward semantics as an intermediate backend contract only.
+    - template:final_reward_dispatch_stub
+    - data/unique_wonder_ritual_codegen_templates.yaml:final_reward_dispatch_stub can document the final reward handoff as an intermediate effect stub only.
+    verification_status: backend_ready
     harness_backlog_cluster: branch_specific_reward_scaling
     search_questions:
     - Which existing finalization effects can read a branch variable and apply different country modifiers or one-time rewards?
     - Can branch preview text show different fiscal outcomes without invoking hidden mutation in option tooltips?
     blocked_by:
-    - Current Harness templates do not support source fiscal scaling by branch.
+    - Loadable fiscal reward effects remain blocked until a later source writer maps creditor, crown, and open-market reward branches into concrete EU5 effects.
     fallback_if_unavailable: Use one fixed reward theme and preserve branch scaling in design_ir for a later backend.
   - primitive: merchant_creditor_privilege_checks
     design_semantics: Check merchant, burgher, creditor, or crown privilege pressure so charter choice has social cost.
@@ -3885,13 +4154,20 @@ unique_wonders:
     - reference_game_files/game/in_game/events/government/republics.txt uses is_merchant_republic, any_market_with_merchants, random_market_with_merchants, estate_satisfaction:burghers_estate, and add_estate_satisfaction for merchant-republic pressure.
     - reference_game_files/game/in_game/events/government/republic_factions.txt branches on estate_type:burghers_estate, estate_power, has_merchant_power, and add_merchant_power.
     - data/index/scripted_effects.txt includes tv_wonder_accept_burghers_demand_effect, tv_wonder_bribe_burghers_demand_effect, tv_wonder_refute_burghers_demand_effect, and tv_wonder_roll_burghers_demand_effect as project-owned estate pressure interfaces.
-    verification_status: interface_candidate
+    - data/index/scripted_triggers.txt includes is_merchant_republic and project Grand Merchant availability/busy triggers, proving merchant-state interface names are indexed for later mapping.
+    - capability:finance_public_credit_interface_backend
+    - data/unique_wonder_ritual_capabilities.yaml:finance_public_credit_interface_backend preserves merchant-creditor and fiscal-pressure semantics as an intermediate backend contract with may_write_src false.
+    - capability:branch_specific_reward_scaling
+    - data/unique_wonder_ritual_capabilities.yaml:branch_specific_reward_scaling preserves creditor, crown, and open-market branch consequences as intermediate reward/incident summaries.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize merchant-creditor pressure contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster: finance_public_credit_interface
     search_questions:
     - Which estate or privilege APIs can represent merchant-creditor overprivilege without inventing a new estate?
     - Can crown-heavy and creditor-heavy branches be represented as temporary burdens before final handoff?
     blocked_by:
-    - Merchant-creditor social interface is not verified for this source layer.
+    - Loadable merchant-creditor source checks remain blocked until a later source writer maps the intermediate contract to exact estate, merchant-power, and tooltip-safe event predicates.
     fallback_if_unavailable: Represent the pressure as a ritual-local incident variable and keep estate semantics in design_ir.
   - primitive: per_pledge_ledger_rows_default_risk
     design_semantics: Track old debts, customs dues, salt tax, port tolls, coin assays, and archive volumes as separate pledge rows with default risk.
@@ -3903,14 +4179,20 @@ unique_wonders:
     codebase_evidence:
     - scripts/wonder_unique_rituals/pharos.py:append_pharos_set_route_projection_lines writes generated per-entity route status/location/owner variables.
     - scripts/wonder_unique_rituals/pharos.py:pharos_route_row and pharos_stage_2_card render one repeated GUI row per entity key.
-    - Existing repeated-row evidence is bespoke route UI; no current Harness backend expands public_credit_pledges into pledge/default-risk incident rows.
-    verification_status: verified_existing
+    - Existing repeated-row evidence is bespoke route UI; current Harness backend preserves public_credit_pledges as intermediate checklist/incident summaries and does not expand them into loadable source rows.
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - data/unique_wonder_ritual_capabilities.yaml:repeated_entity_row_checklist_incident_log_backend preserves design_ir repeated entity rows and projects them into checklist or incident-log summaries with may_write_src false.
+    - capability:finance_public_credit_interface_backend
+    - data/unique_wonder_ritual_capabilities.yaml:finance_public_credit_interface_backend covers pledge/default-risk public-credit semantics as an intermediate backend contract only.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize incident-log/checklist row contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which repeated-row GUI pattern should render pledge status and default risk?
     - Should pledge rows be generated from design_ir tracked_entity_sets or stored as fixed variables?
     blocked_by:
-    - No current Harness source generator owns per-pledge row expansion.
+    - Loadable GUI/source row expansion remains blocked until a later source writer expands public_credit_pledges into per-pledge status/default-risk rows.
     fallback_if_unavailable: Use pledge_status and default_risk summaries while preserving all pledge rows in design_ir.
   ui_model:
     components:
@@ -3920,6 +4202,32 @@ unique_wonders:
     - type: incident_log
       key: credit_incidents
       status_variable: tv_wonder_bank_of_saint_george_default_risk
+    bindings:
+    - key: bank_charter_options_binding
+      component_key: charter_options
+      variable_refs:
+      - tv_wonder_bank_of_saint_george_stage
+      - tv_wonder_bank_of_saint_george_charter_branch
+      - tv_wonder_bank_of_saint_george_pledge_status
+      node_refs:
+      - bank_opening
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      loc_refs:
+      - TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CHARTER_STATUS
+    - key: bank_credit_incidents_binding
+      component_key: credit_incidents
+      variable_refs:
+      - tv_wonder_bank_of_saint_george_charter_branch
+      - tv_wonder_bank_of_saint_george_pledge_status
+      - tv_wonder_bank_of_saint_george_default_risk
+      node_refs:
+      - bank_charter_branch
+      - bank_credit_incident
+      - bank_reward
+      loc_refs:
+      - TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CREDIT_STATUS
   rewards:
     permanent_country_modifier:
       status: designed
@@ -3938,13 +4246,13 @@ unique_wonders:
     - TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CHARTER_STATUS
     - TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CREDIT_STATUS
     event_keys:
-    - event_id: 1012
+    - event_id: 1008
       title_key: tv_engineering_department.1012.t
       desc_key: tv_engineering_department.1012.d
       option_keys:
       - tv_engineering_department.1012.a
       node_key: bank_opening
-    - event_id: 1013
+    - event_id: 1009
       title_key: tv_engineering_department.1013.t
       desc_key: tv_engineering_department.1013.d
       option_keys:
@@ -3952,14 +4260,14 @@ unique_wonders:
       - tv_engineering_department.1013.b
       - tv_engineering_department.1013.c
       node_key: bank_charter_branch
-    - event_id: 1014
+    - event_id: 1010
       title_key: tv_engineering_department.1014.t
       desc_key: tv_engineering_department.1014.d
       option_keys:
       - tv_engineering_department.1014.a
       - tv_engineering_department.1014.b
       node_key: bank_credit_incident
-    - event_id: 1015
+    - event_id: 1011
       title_key: tv_engineering_department.1015.t
       desc_key: tv_engineering_department.1015.d
       option_keys:
@@ -3967,16 +4275,36 @@ unique_wonders:
       node_key: bank_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_bank_of_saint_george
+  generation:
+    status: source_codegen_ready
+    target_files:
+    - data/generated_fragments/unique_wonder_rituals/unique_bank_of_saint_george_ritual_codegen.md
+    verified_templates:
+    - sequential_event_chain
+    - branch_retry_event
+    - semantic_contract_fragment
+    - final_reward_dispatch_stub
+    blocked_templates: []
+    dry_run_notes: Intermediate-only Harness fragment eligibility for Bank of Saint George; may_write_src remains false, no loadable EU5 source is generated, and final fiscal script syntax remains uncertified.
   implementation_notes:
     source_ritual_key: bank_founding
     implementation_source: design_only_high_fidelity_spec
-    verification_status: design_complete
-    verified_interfaces: []
+    verification_status: source_codegen_ready
+    verified_interfaces:
+    - Harness strong state_machine_dsl_v1 semantic graph for Bank of Saint George
+    - capability:finance_public_credit_interface_backend intermediate backend contract
+    - capability:repeated_entity_row_checklist_incident_log_backend intermediate backend contract
+    - capability:branch_specific_reward_scaling intermediate backend contract
+    - capability:final_reward_handoff semantic projection
+    - template:semantic_contract_fragment intermediate contract summaries
     needs_verification:
-    - public_credit_interfaces
-    - charter_branch_fiscal_scaling
-    - merchant_creditor_privilege_checks
-    - per_pledge_ledger_rows_default_risk
+    - loadable_source_writer_for_public_credit_fiscal_interfaces_pledge_rows_and_branch_rewards
+    remaining_source_writer_blockers:
+    - Public credit finance evidence is backend-ready only as an intermediate contract; no loadable EU5 source writer maps loans, treasury, tax streams, minting income, trade income, or debt pressure into safe fiscal predicates and effects.
+    - Charter branch fiscal scaling is preserved through branch variables and intermediate reward summaries; no loadable reward-effect writer maps creditor privilege, crown supervision, or open merchant access to concrete fiscal/social consequences.
+    - Merchant-creditor pressure remains an intermediate contract over merchant republic, burgher estate, merchant-power, and project burgher-demand evidence; exact tooltip-safe predicates remain for a later source writer.
+    - Per-pledge ledger rows for old_war_debts, customs_dues, salt_tax, port_tolls, coin_assays, and archive_volumes are preserved in design_ir and summarized by pledge/default-risk variables, but no loadable GUI/source row expander exists.
+    - No loadable EU5 src files are generated by this Harness v1 source_codegen_ready state; all used templates and capabilities keep may_write_src false and do not certify final fiscal script syntax.
 - identity:
     id: 123
     key: unique_cahokia_mounds
