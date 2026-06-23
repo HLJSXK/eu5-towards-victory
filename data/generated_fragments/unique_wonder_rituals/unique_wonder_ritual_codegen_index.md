@@ -6,11 +6,16 @@
 # Unique Wonder Ritual Codegen Index
 
 This file records the current Harness codegen dry-run/write surface.
+The v1 generator emits intermediate Markdown fragments only; it does not write loadable EU5 source or `src/` files.
 
-- Generated fragments: 0
-- Skipped non-codegen specs: 123
+- Generated fragments: 3
+- Skipped non-codegen specs: 120
 - Supported templates: branch_retry_event, final_reward_dispatch_stub, monthly_progress_gate, semantic_contract_fragment, sequential_event_chain, simple_progress_track_ui_binding
-- Supported capabilities: actor_assignment, event_chain, final_reward_handoff, listener_gate, monthly_progress, resource_gate, retry_branch, route_gate
+- Supported capabilities: actor_assignment, actor_assignment_character_selector_backend, bounded_opposition_religious_community_pressure, branch_specific_reward_scaling, event_chain, final_reward_handoff, fixed_site_integrity_control_pressure_backend, listener_gate, monthly_progress, repeated_entity_row_checklist_incident_log_backend, resource_gate, retry_branch, route_gate
 - Supported archetypes: expedition_route_chain, hidden_executor_finalization, incident_retry_gauntlet, listener_resolution_ritual, monthly_pressure_countdown, patronage_actor_assignment, resource_accumulation_ritual
 
-No eligible `implementation_ready` or `harness_generated` specs were selected.
+## Generated
+
+- `unique_dome_of_the_rock` -> `data/generated_fragments/unique_wonder_rituals/unique_dome_of_the_rock_ritual_codegen.md`
+- `unique_alhambra` -> `data/generated_fragments/unique_wonder_rituals/unique_alhambra_ritual_codegen.md`
+- `unique_st_peters_basilica` -> `data/generated_fragments/unique_wonder_rituals/unique_st_peters_basilica_ritual_codegen.md`

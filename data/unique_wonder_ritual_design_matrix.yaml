@@ -38,11 +38,12 @@ unique_wonders:
   secondary_cadence_type: route_certification
   cadence_rationale: Hybrid pacing fits because A tower of white stone rises from the Alexandrian harbor, turning royal ambition into a light that sailors can trust; the wonder combines route, resource, actor, or crisis proof and should not collapse into one safe template.
   mechanic_prompt_atoms:
-  - atom_30
   - atom_06
-  - atom_28
-  proposed_core_mechanic: 'Run the Harbor Lighting And Pilotage Oath for Pharos Lighthouse as composite proof: prepare a specialist or institution, certify a route or resource, and resolve the incident uncovered by the process.'
-  player_agency_model: The player sequences the proof stages and chooses which failure pressure to absorb if the composite test breaks down.
+  - atom_07
+  - atom_14
+  - atom_30
+  proposed_core_mechanic: 'Certify the Pharos by assigning a harbor pilot, lighting the beacon for a named sea lane, and resolving the first navigation incident before the lighthouse claim is trusted.'
+  player_agency_model: 'The player chooses the pilotage authority and the first route to certify, then decides whether to spend supplies, accept delay, or risk unsafe passage.'
   expected_ui_model:
   - route_map
   - incident_log
@@ -52,12 +53,13 @@ unique_wonders:
   - retry_branch
   - final_reward_handoff
   - route_gate
+  - actor_assignment
   expected_listeners:
   - monthly
-  non_monthly_validation_point: The non-monthly validation is the final route, resource, actor, war, or incident branch that closes the composite proof.
-  risk_or_failure_branch: One stage can expose a route, supply, actor, or legitimacy problem, forcing a changed-state retry rather than a generic checklist clear.
+  non_monthly_validation_point: 'The non-monthly proof is the selected pilot route and its first incident resolution, not the supporting monthly harbor preparation.'
+  risk_or_failure_branch: 'Privateers, bad lamp oil, or a failed pilot report can leave a route uncertified until the player reroutes traffic or funds a stronger beacon watch.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Pharos Lighthouse at Alexandria: A tower of white stone rises from the Alexandrian harbor, turning royal ambition into a light that sailors can trust. Most other wonders lack this exact Great Lighthouse role and the named Harbor Lighting And Pilotage Oath proof, so copying the loop would lose the site-specific claim.'
+  uniqueness_notes: 'This loop needs a coastal beacon that turns light, pilots, and named sea lanes into state power; inland temples, palaces, or ordinary ports cannot make navigation visibility itself the proof.'
   similarity_group: composite_actor_route_incident
   authoring_status: drafted
 - wonder_id: 102
@@ -75,10 +77,10 @@ unique_wonders:
   cadence_rationale: Monthly institutionalization fits because The rebuilt dome gathers gold, marble, incense, and imperial memory beneath a vault that seems to float; periodic administration is the subject, but completion still requires a non-monthly public validation.
   mechanic_prompt_atoms:
   - atom_16
+  - atom_17
   - atom_27
-  - atom_28
-  proposed_core_mechanic: Institutionalize the Justinianic Synaxis Of The Great Church for Hagia Sophia through visible registers or step progress, then require a final non-monthly hearing before completion.
-  player_agency_model: The player maintains the institution's monthly work while choosing the final hearing, public rite, or disciplinary settlement.
+  proposed_core_mechanic: 'Institutionalize Hagia Sophia by keeping a synaxis register of clergy, imperial officials, relic access, and public order, then settle the final doctrinal hearing under the dome.'
+  player_agency_model: 'The player balances monthly register work with a decisive hearing that chooses whether imperial officers, clergy, or public procession defines the opening.'
   expected_ui_model:
   - progress_track
   - checklist
@@ -92,9 +94,9 @@ unique_wonders:
   expected_listeners:
   - monthly
   non_monthly_validation_point: After the monthly register phase, the player must resolve a visible public hearing or rededication event before the reward handoff.
-  risk_or_failure_branch: If the register stalls or the hearing exposes opposition, the ritual pauses into an incident rather than completing by waiting.
+  risk_or_failure_branch: 'A stalled register or doctrinal challenge suspends the rite until the player disciplines a faction, pays for a public synaxis, or accepts a narrower consecration.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Hagia Sophia at Constantinople: The rebuilt dome gathers gold, marble, incense, and imperial memory beneath a vault that seems to float. Most other wonders lack this exact Sky Dome Grand Temple role and the named Justinianic Synaxis Of The Great Church proof, so copying the loop would lose the site-specific claim.'
+  uniqueness_notes: 'The monthly portion is justified by Hagia Sophia as a living imperial church administration; most wonders do not bind dome acoustics, relic access, clergy discipline, and street processions into one institution.'
   similarity_group: institutional_register_cycle
   authoring_status: drafted
 - wonder_id: 103
@@ -112,8 +114,8 @@ unique_wonders:
   cadence_rationale: Event-driven pacing fits because A golden dome crowns the sacred platform of Jerusalem, binding pilgrimage, sovereignty, and contested memory; the decisive beat is the named Dome Pilgrimage incident, not elapsed time.
   mechanic_prompt_atoms:
   - atom_17
-  - atom_28
-  proposed_core_mechanic: Resolve the Dome Pilgrimage as a bounded incident around Dome of the Rock, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  - atom_21
+  proposed_core_mechanic: 'Test whether the Dome of the Rock can make the sacred platform visible as sovereign space by resolving a pilgrimage dispute over access, guard duty, and public proclamation.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -124,10 +126,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'If pilgrims reject the proclamation or guards overreach, the rite returns as a contested sanctuary settlement with reduced prestige until a calmer access compact is chosen.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Dome of the Rock at Jerusalem: A golden dome crowns the sacred platform of Jerusalem, binding pilgrimage, sovereignty, and contested memory. Most other wonders lack this exact Sky Dome Grand Temple role and the named Dome Pilgrimage proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'This mechanism belongs to a shrine whose architecture is itself a claim over a contested platform; most sacred wonders lack the same mix of pilgrimage, sovereignty, and visible territorial assertion.'
+  similarity_group: sanctuary_sovereignty_pilgrimage
   authoring_status: drafted
 - wonder_id: 104
   wonder_key: unique_angkor_wat
@@ -144,8 +146,8 @@ unique_wonders:
   cadence_rationale: Event-driven pacing fits because Five towers rise above galleries and moats, making the king's temple a stone diagram of cosmic order; the decisive beat is the named Devaraja Entrance incident, not elapsed time.
   mechanic_prompt_atoms:
   - atom_12
-  - atom_28
-  proposed_core_mechanic: Resolve the Devaraja Entrance as a bounded incident around Angkor Wat, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  - atom_16
+  proposed_core_mechanic: 'Use Angkor Wat to align galleries, moat processions, and royal temple service, proving that the court can turn cosmic order into a working public entrance rite.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -155,10 +157,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'A rival ritual household or failed gallery procession forces the player to compensate temple servants, reassign officials, or accept a narrower royal-only opening.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Angkor Wat at Angkor: Five towers rise above galleries and moats, making the king''s temple a stone diagram of cosmic order. Most other wonders lack this exact Giant Tower Temple role and the named Devaraja Entrance proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'The proof depends on Angkor Wat as a stone diagram of royal cosmology with moats and galleries; most temples cannot make spatial alignment itself the operational challenge.'
+  similarity_group: cosmic_kingship_alignment
   authoring_status: drafted
 - wonder_id: 105
   wonder_key: unique_potala_palace
@@ -176,7 +178,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_23
   - atom_24
-  proposed_core_mechanic: Prepare oath terms at Potala Palace, then complete the Enthronement when the next ruler or dynastic representative accepts them.
+  proposed_core_mechanic: 'Prepare the Potala enthronement by assigning a ritual guardian for the hill palace, then validate the next ruler through the red halls and sacred administration oath.'
   player_agency_model: The player chooses the oath terms before succession and decides how much legitimacy or faction pressure to risk.
   expected_ui_model:
   - actor_slots
@@ -189,10 +191,10 @@ unique_wonders:
   expected_listeners:
   - ruler_death
   non_monthly_validation_point: The ruler_death listener or successor-confirmation check validates the prepared oath in a non-monthly succession window.
-  risk_or_failure_branch: A contested or low-legitimacy succession diverts to a claimant dispute, weaker oath, or renewed preparation branch. The mechanism uses supported Harness pieces, but final EU5 trigger details need a focused check.
+  risk_or_failure_branch: 'A weak successor or disputed guardian can turn the enthronement into a claimant dispute, forcing a renewed oath or a smaller religious investiture.'
   implementation_feasibility: needs_trigger_check_only
-  uniqueness_notes: 'This draft depends on Potala Palace at Lhasa: White walls and red halls climb the hill above Lhasa, turning elevation into sacred administration. Most other wonders lack this exact Sacred Mountain role and the named Enthronement proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_succession_oath
+  uniqueness_notes: 'The loop depends on elevation as sacred administration, where palace height, monastic authority, and succession merge; most dynastic sites are not hilltop theocratic palaces.'
+  similarity_group: sacred_mountain_enthronement
   authoring_status: drafted
 - wonder_id: 106
   wonder_key: unique_alhambra
@@ -210,7 +212,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_01
   - atom_05
-  proposed_core_mechanic: Validate Alhambra through a real conflict result in the Capitulation Treaty, then choose whether the dedication speaks in deterrence, mercy, or repair.
+  proposed_core_mechanic: 'Seal the Alhambra by turning a war result into a capitulation treaty that decides whether red walls and water courts promise mercy, deterrence, or negotiated survival.'
   player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
   expected_ui_model:
   - incident_log
@@ -223,10 +225,10 @@ unique_wonders:
   expected_listeners:
   - pre_winning_war
   non_monthly_validation_point: A supported war listener such as pre_winning_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch.
+  risk_or_failure_branch: 'A weak treaty or threatened palace can force repairs, hostage guarantees, or a humbled dedication that preserves beauty but loses deterrent value.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Alhambra at Granada: Muqarnas ceilings, water courts, and red walls preserve a courtly world at the edge of surrender. Most other wonders lack this exact Palace Of Nations role and the named Capitulation Treaty proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: fortress_siege_proof
+  uniqueness_notes: 'The rite depends on a palace remembered at the edge of surrender; most fortresses do not make capitulation etiquette and courtly water architecture the same proof.'
+  similarity_group: capitulation_palace_treaty
   authoring_status: drafted
 - wonder_id: 107
   wonder_key: unique_machu_picchu
@@ -277,8 +279,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_03
   - atom_05
-  - atom_29
-  proposed_core_mechanic: Validate Himeji Castle through a real conflict result in the Castle Receipt, then choose whether the dedication speaks in deterrence, mercy, or repair.
+  proposed_core_mechanic: 'Validate Himeji by proving layered gates and twisting approaches can recover or hold the castle before the peace seal is accepted.'
   player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
   expected_ui_model:
   - progress_track
@@ -290,10 +291,10 @@ unique_wonders:
   expected_listeners:
   - ending_war
   non_monthly_validation_point: A supported war listener such as ending_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch.
+  risk_or_failure_branch: 'If a gate layer is bypassed or the site is recovered too late, the player must fund repairs or accept a graceful but weaker castle receipt.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Himeji Castle at Shikama: White plaster keeps, layered gates, and twisting approaches turn grace into defense. Most other wonders lack this exact Star Fortress City role and the named Castle Receipt proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: fortress_siege_proof
+  uniqueness_notes: 'This mechanism needs defense through elegance, false paths, and layered approaches; most forts cannot make route confusion and recapture timing the central proof.'
+  similarity_group: layered_gate_recapture_test
   authoring_status: drafted
 - wonder_id: 109
   wonder_key: unique_taj_mahal
@@ -311,7 +312,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_23
   - atom_27
-  proposed_core_mechanic: Prepare oath terms at Taj Mahal, then complete the Royal Memorial Unsealing when the next ruler or dynastic representative accepts them.
+  proposed_core_mechanic: 'Bind the next ruler to the Taj Mahal by choosing how grief, garden symmetry, and river-facing memorial duty become an oath of dynastic continuity.'
   player_agency_model: The player chooses the oath terms before succession and decides how much legitimacy or faction pressure to risk.
   expected_ui_model:
   - actor_slots
@@ -323,10 +324,10 @@ unique_wonders:
   expected_listeners:
   - ruler_death
   non_monthly_validation_point: The ruler_death listener or successor-confirmation check validates the prepared oath in a non-monthly succession window.
-  risk_or_failure_branch: A contested or low-legitimacy succession diverts to a claimant dispute, weaker oath, or renewed preparation branch. The mechanism uses supported Harness pieces, but final EU5 trigger details need a focused check.
+  risk_or_failure_branch: 'A successor who exploits the memorial for factional display forces a choice between costly public mourning, narrowed legitimacy, or delayed unsealing.'
   implementation_feasibility: needs_trigger_check_only
-  uniqueness_notes: 'This draft depends on Taj Mahal at Agra: White marble answers grief with symmetry, gardens, river light, and a tomb made for imperial memory. Most other wonders lack this exact Giant Necropolis role and the named Royal Memorial Unsealing proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_succession_oath
+  uniqueness_notes: 'This is succession through imperial mourning, not ordinary coronation; most palaces and tombs do not make grief, symmetry, and river gardens the proof of rule.'
+  similarity_group: mourning_memorial_succession
   authoring_status: drafted
 - wonder_id: 110
   wonder_key: unique_forbidden_city
@@ -344,8 +345,9 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_25
   - atom_26
-  proposed_core_mechanic: Complete the Capital Transfer through explicit court, charter, diplomatic, or policy selections that determine who recognizes Forbidden City's authority.
-  player_agency_model: The player chooses the confirming institution or target and accepts the exact concession attached to recognition.
+  - atom_27
+  proposed_core_mechanic: 'Complete the capital transfer by selecting palace-axis offices, gate audiences, and bureaucratic witnesses that prove the Forbidden City can centralize rule around the emperor.'
+  player_agency_model: 'The player chooses which court body and subordinate authority must pass through the new palace protocol, trading legitimacy for centralization pressure.'
   expected_ui_model:
   - checklist
   - actor_slots
@@ -354,11 +356,11 @@ unique_wonders:
   - final_reward_handoff
   - actor_assignment
   expected_listeners: []
-  non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Forbidden City at Dadu: A disciplined palace axis orders gates, halls, courts, and bureaucracy around the person of the emperor. Most other wonders lack this exact Triumphal Axis role and the named Capital Transfer proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_court_protocol
+  non_monthly_validation_point: 'The final validation is the chosen court audience or subject confirmation at the palace axis before reward handoff.'
+  risk_or_failure_branch: 'A court body can refuse the gate order, forcing a smaller domestic enthronement or a concession to keep the transfer from becoming empty architecture.'
+  implementation_feasibility: needs_trigger_check_only
+  uniqueness_notes: 'The mechanism depends on a closed imperial palace whose gates and halls reorder access to the ruler; most palaces cannot make spatial court protocol the core proof of government reach.'
+  similarity_group: capital_axis_transfer_protocol
   authoring_status: drafted
 - wonder_id: 111
   wonder_key: unique_topkapi_palace
@@ -374,10 +376,11 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: A player action sequence fits because Courtyards, gates, treasuries, and sea views turn conquest into a daily choreography of rule; the wonder asks for explicit court, charter, vote, or policy confirmation.
   mechanic_prompt_atoms:
+  - atom_25
   - atom_26
   - atom_27
-  proposed_core_mechanic: Complete the Conquest Entry through explicit court, charter, diplomatic, or policy selections that determine who recognizes Topkapi Palace's authority.
-  player_agency_model: The player chooses the confirming institution or target and accepts the exact concession attached to recognition.
+  proposed_core_mechanic: 'Turn conquest into daily rule by choosing which gate, treasury, or diplomatic audience first recognizes Topkapi as the court that controls Constantinople.'
+  player_agency_model: 'The player selects the confirming audience and decides whether conquest prestige, treasury access, or diplomatic choreography carries the cost.'
   expected_ui_model:
   - checklist
   - incident_log
@@ -385,11 +388,11 @@ unique_wonders:
   - event_chain
   - final_reward_handoff
   expected_listeners: []
-  non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Topkapi Palace at Constantinople: Courtyards, gates, treasuries, and sea views turn conquest into a daily choreography of rule. Most other wonders lack this exact Palace Of Nations role and the named Conquest Entry proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_court_protocol
+  non_monthly_validation_point: 'The final validation is the selected conquest-entry audience and its explicit recognition choice.'
+  risk_or_failure_branch: 'A refused audience or treasury dispute sends the rite to a domestic gate ceremony with weaker diplomatic reach.'
+  implementation_feasibility: needs_trigger_check_only
+  uniqueness_notes: 'Topkapi is about converting captured imperial space into staged access through gates and courtyards; most court wonders are not conquest palaces facing the sea and foreign envoys.'
+  similarity_group: conquest_gate_court_sequence
   authoring_status: drafted
 - wonder_id: 112
   wonder_key: unique_st_peters_basilica
@@ -440,8 +443,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_06
   - atom_07
-  - atom_29
-  proposed_core_mechanic: Choose and certify the first named route for Rock-Hewn Churches of Lalibela during the Holy City Pilgrimage, then settle the route incident before benefits activate.
+  - atom_17
+  proposed_core_mechanic: 'Certify Lalibela by tracing a new-Jerusalem route through the rock-hewn churches and proving pilgrims can reach, feed, and recognize the cut-stone holy city.'
   player_agency_model: The player selects or qualifies the endpoint and decides how much cost to spend protecting or recognizing the route.
   expected_ui_model:
   - route_map
@@ -453,10 +456,10 @@ unique_wonders:
   - resource_gate
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
+  risk_or_failure_branch: 'A broken pilgrim link or missing offering can force a local-only circuit, preserving sanctity but losing wider route recognition until route capability support exists.'
   implementation_feasibility: needs_new_capability
-  uniqueness_notes: 'This draft depends on Rock-Hewn Churches of Lalibela at Lalibela: Churches cut downward from living rock make a new Jerusalem in the Ethiopian highlands. Most other wonders lack this exact Sacred Mountain role and the named Holy City Pilgrimage proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: pilgrimage_route_certification
+  uniqueness_notes: 'This mechanism needs churches cut downward as a replacement Jerusalem; most pilgrimage sites cannot make carved spatial imitation the route proof.'
+  similarity_group: new_jerusalem_rock_route
   authoring_status: drafted
 - wonder_id: 114
   wonder_key: unique_venetian_arsenal
@@ -474,7 +477,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_11
   - atom_13
-  proposed_core_mechanic: Pair Venetian Arsenal with a functional annex, structural repair, or inspection target in the Marriage Of The Sea, then resolve the weakness found at completion.
+  - atom_27
+  proposed_core_mechanic: 'Prove the Venetian Arsenal by completing a ropewalk, foundry, or basin inspection that shows state shipbuilding secrets can launch a fleet under civic ritual.'
   player_agency_model: The player chooses the practical work package and whether to prioritize ceremony, repair, or operating doctrine.
   expected_ui_model:
   - checklist
@@ -485,10 +489,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
-  risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
+  risk_or_failure_branch: 'A flawed ropewalk, foundry shortage, or basin leak should resolve through a construction-completion listener later; until then the design keeps the real completion gap visible.'
   implementation_feasibility: needs_new_listener
-  uniqueness_notes: 'This draft depends on Venetian Arsenal at Venice: Docks, ropewalks, foundries, and guarded basins make shipbuilding a state secret and a civic ritual. Most other wonders lack this exact National Shipyard role and the named Marriage Of The Sea proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: construction_completion_trial
+  uniqueness_notes: 'This proof needs an arsenal where industrial process is state secrecy and civic ceremony; ordinary ports and shipyards do not make production-line inspection the ritual.'
+  similarity_group: arsenal_ropewalk_launch_inspection
   authoring_status: drafted
 - wonder_id: 115
   wonder_key: unique_malacca_port
@@ -538,9 +542,10 @@ unique_wonders:
   cadence_rationale: A player action sequence fits because Red sandstone walls enclose marble halls, gardens, and a throne room for imperial display; the wonder asks for explicit court, charter, vote, or policy confirmation.
   mechanic_prompt_atoms:
   - atom_17
+  - atom_24
   - atom_26
-  proposed_core_mechanic: Complete the Peacock Throne through explicit court, charter, diplomatic, or policy selections that determine who recognizes Red Fort of Delhi's authority.
-  player_agency_model: The player chooses the confirming institution or target and accepts the exact concession attached to recognition.
+  proposed_core_mechanic: 'Seat the Peacock Throne inside the Red Fort by choosing which nobles, jurists, or commanders may witness the throne room display of imperial power.'
+  player_agency_model: 'The player chooses the witness bloc and accepts whether legitimacy, military loyalty, or court law bears the concession.'
   expected_ui_model:
   - checklist
   - progress_track
@@ -548,11 +553,11 @@ unique_wonders:
   - event_chain
   - final_reward_handoff
   expected_listeners: []
-  non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Red Fort of Delhi at Delhi: Red sandstone walls enclose marble halls, gardens, and a throne room for imperial display. Most other wonders lack this exact Star Fortress City role and the named Peacock Throne proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_court_protocol
+  non_monthly_validation_point: 'The throne-room audience is confirmed by the selected witness bloc before final reward dispatch.'
+  risk_or_failure_branch: 'A witness bloc may contest precedence, forcing a narrower throne ceremony, faction compensation, or a retry after court order is restored.'
+  implementation_feasibility: needs_trigger_check_only
+  uniqueness_notes: 'This mechanism needs a fortified imperial audience hall where red walls, gardens, and throne display fuse defense with court spectacle; most fortresses lack that ceremonial throne function.'
+  similarity_group: throne_fort_audience_protocol
   authoring_status: drafted
 - wonder_id: 117
   wonder_key: unique_versailles_palace
@@ -570,8 +575,9 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_24
   - atom_25
-  proposed_core_mechanic: Complete the Sun King Transfer through explicit court, charter, diplomatic, or policy selections that determine who recognizes Palace of Versailles's authority.
-  player_agency_model: The player chooses the confirming institution or target and accepts the exact concession attached to recognition.
+  - atom_27
+  proposed_core_mechanic: 'Make Versailles work by assigning noble attendance to gardens, mirrors, and daily court ritual until the palace proves it can domesticate aristocratic power.'
+  player_agency_model: 'The player chooses which noble bloc is drawn into attendance and whether ceremony, patronage, or surveillance pays the price.'
   expected_ui_model:
   - checklist
   - actor_slots
@@ -580,11 +586,11 @@ unique_wonders:
   - final_reward_handoff
   - actor_assignment
   expected_listeners: []
-  non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Palace of Versailles at Mantes: A palace, gardens, mirrors, and ceremony draw the nobility into the orbit of a single sun. Most other wonders lack this exact Triumphal Axis role and the named Sun King Transfer proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_court_protocol
+  non_monthly_validation_point: 'The non-monthly proof is the selected noble attendance compact and its public court ritual confirmation.'
+  risk_or_failure_branch: 'A noble bloc can resist residence, creating a factional scandal or a weaker court display until the player grants privileges or tightens ceremony.'
+  implementation_feasibility: needs_trigger_check_only
+  uniqueness_notes: 'Versailles is not just a palace but a machine for turning aristocrats into orbiting courtiers; most government wonders cannot make compulsory attendance the central mechanic.'
+  similarity_group: noble_attendance_court_protocol
   authoring_status: drafted
 - wonder_id: 118
   wonder_key: unique_tenochtitlan_causeways
@@ -667,8 +673,9 @@ unique_wonders:
   cadence_rationale: Route certification fits because Arcades, courtyards, and pilgrim routes expand around the Kaaba, making sacred space hold a world of believers; the benefit should turn on a named path, pilgrimage, convoy, or arrival rather than a generic progress bar.
   mechanic_prompt_atoms:
   - atom_06
+  - atom_07
   - atom_14
-  proposed_core_mechanic: Choose and certify the first named route for Great Mosque of Mecca Expansion during the Kaaba Recovering, then settle the route incident before benefits activate.
+  proposed_core_mechanic: 'Prove the Haram expansion by assigning crowd stewards and certifying that the expanded arcades can receive the first major pilgrim route around the Kaaba.'
   player_agency_model: The player selects or qualifies the endpoint and decides how much cost to spend protecting or recognizing the route.
   expected_ui_model:
   - route_map
@@ -679,10 +686,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
+  risk_or_failure_branch: 'Pilgrim congestion or failed stewardship can force a domestic capacity rite, preserving piety but delaying full route recognition until new route semantics exist.'
   implementation_feasibility: needs_new_capability
-  uniqueness_notes: 'This draft depends on Great Mosque of Mecca Expansion at Mecca: Arcades, courtyards, and pilgrim routes expand around the Kaaba, making sacred space hold a world of believers. Most other wonders lack this exact Sky Dome Grand Temple role and the named Kaaba Recovering proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: pilgrimage_route_certification
+  uniqueness_notes: 'The proof needs a world-scale sacred crowd focused on the Kaaba; most temples cannot make crowd capacity and route legitimacy the central mechanic.'
+  similarity_group: haram_crowd_route_capacity
   authoring_status: drafted
 - wonder_id: 121
   wonder_key: unique_ming_great_wall
@@ -698,10 +705,11 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: War validation fits because Walls, passes, garrisons, beacon towers, and border towns organize the northern frontier into nine military borders; the site should prove its defensive or coercive role during an actual conflict window, not through a passive timer.
   mechanic_prompt_atoms:
+  - atom_01
   - atom_04
   - atom_13
-  proposed_core_mechanic: Validate Nine Borders Great Wall through a real conflict result in the Nine Borders Beacons, then choose whether the dedication speaks in deterrence, mercy, or repair.
-  player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
+  proposed_core_mechanic: 'Light the Nine Borders beacons by proving that passes, garrisons, frontier towns, and signal towers can coordinate before a real war victory is credited.'
+  player_agency_model: 'The player chooses which border command absorbs the readiness burden and times validation around a supported war listener.'
   expected_ui_model:
   - checklist
   - progress_track
@@ -712,11 +720,11 @@ unique_wonders:
   - retry_branch
   expected_listeners:
   - pre_winning_war
-  non_monthly_validation_point: A supported war listener such as pre_winning_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch. The mechanism uses supported Harness pieces, but final EU5 trigger details need a focused check.
+  non_monthly_validation_point: 'A supported war listener validates that the selected border command and wall site remain controlled when victory is near.'
+  risk_or_failure_branch: 'If a pass is underprepared or a frontier town fails the readiness check, the ritual diverts to emergency repair or a narrower beacon chain.'
   implementation_feasibility: needs_trigger_check_only
-  uniqueness_notes: 'This draft depends on Nine Borders Great Wall at Dadu: Walls, passes, garrisons, beacon towers, and border towns organize the northern frontier into nine military borders. Most other wonders lack this exact Great Wall role and the named Nine Borders Beacons proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: defensive_war_proof
+  uniqueness_notes: 'This proof is about a distributed frontier system, not one wall segment; most defensive wonders cannot require garrisons, passes, towns, and signals to act as nine coordinated borders.'
+  similarity_group: nine_border_beacon_war_proof
   authoring_status: drafted
 - wonder_id: 122
   wonder_key: unique_bank_of_saint_george
@@ -734,8 +742,9 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_09
   - atom_19
-  proposed_core_mechanic: Open Bank of Saint George with a one-shot bargain in the Bank Founding, assigning access, privilege, monopoly, or burden to a named group.
-  player_agency_model: The player chooses which group receives privileged access and which cost the state is willing to carry.
+  - atom_26
+  proposed_core_mechanic: 'Found the Bank of Saint George by choosing which public debts, merchant syndicates, and fortified counters become trusted enough to turn credit into state machinery.'
+  player_agency_model: 'The player chooses whether creditors, the crown, or open merchants receive the founding privilege and accepts the fiscal or social cost.'
   expected_ui_model:
   - checklist
   - incident_log
@@ -743,11 +752,11 @@ unique_wonders:
   - event_chain
   - final_reward_handoff
   expected_listeners: []
-  non_monthly_validation_point: The non-monthly validation is the immediate bargain option and its triggered effect branch.
-  risk_or_failure_branch: A rejected or overgenerous bargain creates social friction, a reduced reward, or a cooldown-gated reform option.
+  non_monthly_validation_point: 'The founding charter option immediately validates which credit compact the state accepts.'
+  risk_or_failure_branch: 'Overprivileged creditors can create social friction, while a crown-heavy charter weakens merchant trust and may require a later reform bargain.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Bank of Saint George at Genoa: Ledgers, state debts, merchant syndicates, and fortified counters make public credit into an institution. Most other wonders lack this exact National Bank role and the named Bank Founding proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: charter_bargain
+  uniqueness_notes: 'This loop needs a public-credit institution where debt ledgers are the monument; most markets and banks do not convert state obligations into a visible fortified trust machine.'
+  similarity_group: public_credit_charter_bargain
   authoring_status: drafted
 - wonder_id: 123
   wonder_key: unique_cahokia_mounds
@@ -763,9 +772,9 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: Event-driven pacing fits because Earthen pyramids, plazas, palisades, and solar alignments make a river city into a ceremonial center; the decisive beat is the named Woodhenge Final Rite incident, not elapsed time.
   mechanic_prompt_atoms:
+  - atom_18
   - atom_21
-  - atom_28
-  proposed_core_mechanic: Resolve the Woodhenge Final Rite as a bounded incident around Cahokia Mound City, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  proposed_core_mechanic: 'Use Cahokia Mound City to settle a Woodhenge calendar dispute, proving that mound plazas, palisades, and river settlement can agree on ceremonial time.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - checklist
@@ -776,10 +785,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'A rejected solar alignment can split settlement groups, forcing reconciliation, relocation pressure, or a narrower plaza rite.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Cahokia Mound City at Cahokia: Earthen pyramids, plazas, palisades, and solar alignments make a river city into a ceremonial center. Most other wonders lack this exact World Monument Group role and the named Woodhenge Final Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: civic_memory_incident
+  uniqueness_notes: 'The loop needs an earthen city where calendar, mound, and settlement authority are the same public system; most monuments do not make timekeeping a civic cohesion test.'
+  similarity_group: solar_mound_calendar_dispute
   authoring_status: drafted
 - wonder_id: 124
   wonder_key: unique_great_zimbabwe
@@ -797,7 +806,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_07
   - atom_10
-  proposed_core_mechanic: Deliver the material or supply promised by the Gold Tribute for Great Zimbabwe Stone City, with authentic, substituted, or delayed delivery branches.
+  proposed_core_mechanic: 'Deliver a gold-and-cattle tribute through the dry-stone city, proving that highland wealth routes can feed the conical tower economy without becoming a generic guild bargain.'
   player_agency_model: The player chooses the source, accepts a substitution, or delays for a stronger but riskier final reward.
   expected_ui_model:
   - material_stockpile
@@ -809,10 +818,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
-  risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
+  risk_or_failure_branch: 'A missing gold flow, cattle substitution, or overtaxed merchant route can trigger a weaker tribute settlement until market/export checks are verified.'
   implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Great Zimbabwe Stone City at Great Zimbabwe: Dry-stone walls, conical towers, cattle wealth, and gold routes anchor a highland commercial kingdom. Most other wonders lack this exact World Market role and the named Gold Tribute proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: guild_market_bargain
+  uniqueness_notes: 'Great Zimbabwe needs cattle wealth, gold routes, and dry-stone royal enclosure in one delivery proof; most markets do not turn tribute economy into monumental legitimacy.'
+  similarity_group: gold_cattle_tribute_delivery
   authoring_status: drafted
 - wonder_id: 125
   wonder_key: unique_isfahan_square
@@ -829,10 +838,10 @@ unique_wonders:
   cadence_rationale: A player action sequence fits because Mosques, palaces, bazaars, and a polo field frame the capital as a theater of Safavid rule; the wonder asks for explicit court, charter, vote, or policy confirmation.
   mechanic_prompt_atoms:
   - atom_19
+  - atom_25
   - atom_26
-  - atom_29
-  proposed_core_mechanic: Complete the Capital Polo through explicit court, charter, diplomatic, or policy selections that determine who recognizes Royal Square of Isfahan's authority.
-  player_agency_model: The player chooses the confirming institution or target and accepts the exact concession attached to recognition.
+  proposed_core_mechanic: 'Use Isfahan Square to certify a capital audience that coordinates mosque, palace, bazaar, and polo ground without letting one estate monopolize the plaza.'
+  player_agency_model: 'The player selects which estate or court audience gets precedence on the square and accepts the public concession attached to that choice.'
   expected_ui_model:
   - checklist
   - incident_log
@@ -840,11 +849,11 @@ unique_wonders:
   - event_chain
   - final_reward_handoff
   expected_listeners: []
-  non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Royal Square of Isfahan at Isfahan: Mosques, palaces, bazaars, and a polo field frame the capital as a theater of Safavid rule. Most other wonders lack this exact Triumphal Axis role and the named Capital Polo proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_court_protocol
+  non_monthly_validation_point: 'The square audience is confirmed by the selected policy or estate option before the reward handoff.'
+  risk_or_failure_branch: 'Bazaar, clergy, or palace claimants can crowd out the others, forcing a revised plaza order or a lower-prestige court ceremony.'
+  implementation_feasibility: needs_trigger_check_only
+  uniqueness_notes: 'The proof depends on a single square binding mosque, palace, bazaar, and sport into Safavid state theater; most capital axes lack this four-way public choreography.'
+  similarity_group: plaza_audience_estate_protocol
   authoring_status: drafted
 - wonder_id: 126
   wonder_key: unique_grand_canal
@@ -860,13 +869,15 @@ unique_wonders:
   secondary_cadence_type: resource_delivery
   cadence_rationale: Hybrid pacing fits because Locks, embankments, granaries, and barge routes bind northern courts to southern harvests; the wonder combines route, resource, actor, or crisis proof and should not collapse into one safe template.
   mechanic_prompt_atoms:
-  - atom_30
+  - atom_06
+  - atom_07
   - atom_14
-  - atom_21
-  proposed_core_mechanic: 'Run the Grain Fleet First Sailing for Grand Canal of China as composite proof: prepare a specialist or institution, certify a route or resource, and resolve the incident uncovered by the process.'
-  player_agency_model: The player sequences the proof stages and chooses which failure pressure to absorb if the composite test breaks down.
+  - atom_30
+  proposed_core_mechanic: 'Run the Grand Canal grain-fleet proof by appointing a transport commissioner, loading southern grain, charting the canal route, and resolving the first barge incident before the northern court is supplied.'
+  player_agency_model: 'The player chooses the commissioner and grain route, then decides whether to repair locks, divert cargo, or accept a lower-volume first sailing.'
   expected_ui_model:
-  - progress_track
+  - route_map
+  - material_stockpile
   - incident_log
   - actor_slots
   expected_capabilities:
@@ -874,12 +885,13 @@ unique_wonders:
   - retry_branch
   - final_reward_handoff
   - resource_gate
+  - route_gate
   - actor_assignment
   expected_listeners: []
-  non_monthly_validation_point: The non-monthly validation is the final route, resource, actor, war, or incident branch that closes the composite proof.
-  risk_or_failure_branch: One stage can expose a route, supply, actor, or legitimacy problem, forcing a changed-state retry rather than a generic checklist clear. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
+  non_monthly_validation_point: 'The non-monthly proof is the first named grain convoy reaching the court route after a visible canal incident.'
+  risk_or_failure_branch: 'A broken lock, missing granary load, or barge unrest can force rerouting or reduced cargo; real goods and route checks still need EU5 verification.'
   implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Grand Canal of China at Shangyuan: Locks, embankments, granaries, and barge routes bind northern courts to southern harvests. Most other wonders lack this exact Large Canal System role and the named Grain Fleet First Sailing proof, so copying the loop would lose the site-specific claim.'
+  uniqueness_notes: 'This mechanism needs a canal that exists to move southern harvests to a northern court; most canals or roads cannot make tax grain, locks, and imperial food logistics the same proof.'
   similarity_group: composite_hydraulic_route_trial
   authoring_status: drafted
 - wonder_id: 127
@@ -996,7 +1008,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_05
   - atom_23
-  proposed_core_mechanic: Prepare oath terms at Moscow Kremlin, then complete the Tsar Coronation when the next ruler or dynastic representative accepts them.
+  proposed_core_mechanic: 'Use the Kremlin citadel to validate a new ruler through cathedral oath, armory display, and fortress control before the Tsar coronation is accepted.'
   player_agency_model: The player chooses the oath terms before succession and decides how much legitimacy or faction pressure to risk.
   expected_ui_model:
   - incident_log
@@ -1008,10 +1020,10 @@ unique_wonders:
   expected_listeners:
   - ruler_death
   non_monthly_validation_point: The ruler_death listener or successor-confirmation check validates the prepared oath in a non-monthly succession window.
-  risk_or_failure_branch: A contested or low-legitimacy succession diverts to a claimant dispute, weaker oath, or renewed preparation branch. The mechanism uses supported Harness pieces, but final EU5 trigger details need a focused check.
+  risk_or_failure_branch: 'A contested succession can split cathedral blessing from military custody, forcing the player to privilege clergy, guards, or a humbled coronation.'
   implementation_feasibility: needs_trigger_check_only
-  uniqueness_notes: 'This draft depends on Moscow Kremlin at Moscow: Brick walls, towers, cathedrals, armories, and palaces compress fortress and sovereignty into one citadel. Most other wonders lack this exact Star Fortress City role and the named Tsar Coronation proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_succession_oath
+  uniqueness_notes: 'The mechanism needs a citadel where walls, cathedrals, armories, and palaces compress sovereignty; most dynastic sites cannot test sacred and military custody together.'
+  similarity_group: citadel_coronation_succession
   authoring_status: drafted
 - wonder_id: 131
   wonder_key: unique_teotihuacan
@@ -1029,7 +1041,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_16
   - atom_27
-  proposed_core_mechanic: Resolve the Sun Pyramid Fire as a bounded incident around Sacred City of Teotihuacan, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  proposed_core_mechanic: 'Resolve the Sun Pyramid fire by deciding how avenue compounds and painted walls reinterpret the citys cosmic plan for a new ruler.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -1039,10 +1051,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'If the fire rite is claimed by one compound, the player must reopen the avenue ceremony or accept a powerful but narrow cosmic-memory reward.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Sacred City of Teotihuacan at Tenochtitlan: Avenue, pyramids, compounds, and painted walls survive as the plan of a city built for cosmic scale. Most other wonders lack this exact World Monument Group role and the named Sun Pyramid Fire proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: civic_memory_incident
+  uniqueness_notes: 'This mechanism needs a surviving city plan built at cosmic scale; most civic memory sites cannot make avenue geometry and pyramid fire the operating proof.'
+  similarity_group: pyramid_fire_cosmic_memory
   authoring_status: drafted
 - wonder_id: 132
   wonder_key: unique_angkor_hydraulic_system
@@ -1226,8 +1238,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_06
   - atom_07
-  - atom_29
-  proposed_core_mechanic: Choose and certify the first named route for Ottoman Hajj Road during the Hajj Departure, then settle the route incident before benefits activate.
+  - atom_25
+  proposed_core_mechanic: 'Certify the Ottoman Hajj Road by selecting a subsidized caravan chain of forts, wells, banners, and imperial escorts that can reach the pilgrimage destination.'
   player_agency_model: The player selects or qualifies the endpoint and decides how much cost to spend protecting or recognizing the route.
   expected_ui_model:
   - route_map
@@ -1239,10 +1251,10 @@ unique_wonders:
   - resource_gate
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
+  risk_or_failure_branch: 'A missing well, unsafe fort, or failed subsidy can force a shorter domestic caravan branch until route-travel support is available.'
   implementation_feasibility: needs_new_capability
-  uniqueness_notes: 'This draft depends on Ottoman Hajj Road at Mecca: Caravan roads, forts, wells, banners, and imperial subsidies bind pilgrimage to state logistics. Most other wonders lack this exact Imperial Post Road Network role and the named Hajj Departure proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: pilgrimage_route_certification
+  uniqueness_notes: 'This mechanism needs state logistics for pilgrimage across roads and wells; most pilgrimage wonders do not make imperial subsidy and caravan security the proof.'
+  similarity_group: subsidized_hajj_caravan_route
   authoring_status: drafted
 - wonder_id: 138
   wonder_key: unique_persian_qanat
@@ -1323,26 +1335,28 @@ unique_wonders:
   secondary_cadence_type: war_validated
   cadence_rationale: Hybrid pacing fits because Walls, shrines, quarters, gates, and processions make one city carry several maps of sacred authority; the wonder combines route, resource, actor, or crisis proof and should not collapse into one safe template.
   mechanic_prompt_atoms:
-  - atom_30
   - atom_01
   - atom_17
-  proposed_core_mechanic: 'Run the Holy City Transfer for Holy City of Jerusalem as composite proof: prepare a specialist or institution, certify a route or resource, and resolve the incident uncovered by the process.'
-  player_agency_model: The player sequences the proof stages and chooses which failure pressure to absorb if the composite test breaks down.
+  - atom_21
+  - atom_30
+  proposed_core_mechanic: 'Transfer Jerusalem by mapping shrine quarters, gate processions, and war-settlement authority into a single holy-city compact recognized after conflict or public crisis.'
+  player_agency_model: 'The player chooses which quarter or procession anchors legitimacy, then times settlement through the supported ending-war listener or a visible crisis branch.'
   expected_ui_model:
   - route_map
-  - material_stockpile
   - incident_log
+  - checklist
   expected_capabilities:
   - event_chain
   - retry_branch
   - final_reward_handoff
   - listener_gate
+  - route_gate
   expected_listeners:
   - ending_war
-  non_monthly_validation_point: The non-monthly validation is the final route, resource, actor, war, or incident branch that closes the composite proof.
-  risk_or_failure_branch: One stage can expose a route, supply, actor, or legitimacy problem, forcing a changed-state retry rather than a generic checklist clear. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
+  non_monthly_validation_point: 'The non-monthly proof is the ending-war validation or public quarter compact that confirms the city remains under accepted authority.'
+  risk_or_failure_branch: 'A quarter dispute, occupation scare, or rejected procession can split the compact and force a narrower shrine settlement; culture and religion spread checks still need EU5 verification.'
   implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Holy City of Jerusalem at Jerusalem: Walls, shrines, quarters, gates, and processions make one city carry several maps of sacred authority. Most other wonders lack this exact World Monument Group role and the named Holy City Transfer proof, so copying the loop would lose the site-specific claim.'
+  uniqueness_notes: 'This loop needs one city carrying several sacred maps at once; most holy sites are single precincts and cannot make quarter-by-quarter sovereignty the central mechanic.'
   similarity_group: composite_crisis_legitimacy_proof
   authoring_status: drafted
 - wonder_id: 141
@@ -1391,9 +1405,9 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: Event-driven pacing fits because Keep, wall, river gate, prison, armoury, and jewel house make royal authority visible at London's throat; the decisive beat is the named Crown Jewel Warding incident, not elapsed time.
   mechanic_prompt_atoms:
+  - atom_21
   - atom_22
-  - atom_28
-  proposed_core_mechanic: Resolve the Crown Jewel Warding as a bounded incident around Tower of London, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  proposed_core_mechanic: 'Ward the Tower of London by deciding whether jewel house, prison, armoury, or river gate custody proves royal authority.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - checklist
@@ -1403,10 +1417,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'A custody scandal can empower opposition, forcing harsher guard rules, public reconciliation, or a lower-prestige jewel warding.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Tower of London at London: Keep, wall, river gate, prison, armoury, and jewel house make royal authority visible at London''s throat. Most other wonders lack this exact Star Fortress City role and the named Crown Jewel Warding proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: civic_memory_incident
+  uniqueness_notes: 'The mechanism needs a fortress that is also prison, jewel house, armoury, and river gate; most civic memory incidents do not make custody itself the proof.'
+  similarity_group: crown_jewel_custody_crisis
   authoring_status: drafted
 - wonder_id: 143
   wonder_key: unique_notre_dame_de_paris
@@ -1424,8 +1438,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_17
   - atom_21
-  - atom_29
-  proposed_core_mechanic: Resolve the Cathedral Crown Procession as a bounded incident around Notre-Dame de Paris, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  proposed_core_mechanic: 'Stage the cathedral crown procession through chapter, city, and river approaches, proving that Notre-Dame can turn Parisian devotion into a civic settlement.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -1436,10 +1449,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'A guild or clerical faction can disrupt the procession, forcing reconciliation, civic policing, or a lower-prestige private dedication.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Notre-Dame de Paris at Paris: Gothic vaults, rose windows, flying buttresses, and the Seine make Parisian devotion into a civic center. Most other wonders lack this exact Grand Cathedral role and the named Cathedral Crown Procession proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'This loop needs a cathedral that is also a Seine-side civic center; most sacred sites do not have Parisian chapter politics, urban processions, and royal display in the same public route.'
+  similarity_group: cathedral_civic_procession
   authoring_status: drafted
 - wonder_id: 144
   wonder_key: unique_st_basils_cathedral
@@ -1457,8 +1470,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_12
   - atom_16
-  - atom_28
-  proposed_core_mechanic: Resolve the Intercession Of Moscow as a bounded incident around Saint Basil's Cathedral, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  proposed_core_mechanic: 'Turn Saint Basils clustered chapels into a victory procession by deciding how each chapel marks conquest, intercession, and Red Square public memory.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -1468,10 +1480,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'If the chapel sequence offends clergy or veterans, the player must reorder the procession or accept a celebration that inspires devotion but weakens victory prestige.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Saint Basil''s Cathedral at Moscow: Clustered chapels, bright domes, processions, and Red Square make Moscow''s victory visible as sacred architecture. Most other wonders lack this exact Grand Cathedral role and the named Intercession Of Moscow proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'The mechanism relies on a multi-chapel victory cathedral on a public square; most cathedrals cannot make conquest memory a route through differently dedicated domes.'
+  similarity_group: victory_chapel_procession
   authoring_status: drafted
 - wonder_id: 145
   wonder_key: unique_trinity_lavra
@@ -1488,8 +1500,8 @@ unique_wonders:
   cadence_rationale: Event-driven pacing fits because Fortified walls, domes, cloisters, scriptoria, and pilgrim roads make the Trinity Lavra a spiritual fortress; the decisive beat is the named Monastic Host Sanctification incident, not elapsed time.
   mechanic_prompt_atoms:
   - atom_17
-  - atom_28
-  proposed_core_mechanic: Resolve the Monastic Host Sanctification as a bounded incident around Trinity Lavra, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  - atom_20
+  proposed_core_mechanic: 'Muster the Trinity Lavra as a spiritual fortress by choosing how monks, relic guards, and pilgrim roads support a sanctified host without exhausting monastic authority.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - checklist
@@ -1500,10 +1512,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'Overmilitarizing the monastery can exhaust pilgrim trust, forcing the player to renew vows, restrict the host, or settle for a defensive blessing only.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Trinity Lavra at Moscow: Fortified walls, domes, cloisters, scriptoria, and pilgrim roads make the Trinity Lavra a spiritual fortress. Most other wonders lack this exact Great Monastery role and the named Monastic Host Sanctification proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'This proof needs a fortified monastery where scriptoria, walls, relics, and pilgrim roads overlap; ordinary forts lack monastic legitimacy and ordinary monasteries lack this defensive role.'
+  similarity_group: fortified_monastic_host
   authoring_status: drafted
 - wonder_id: 146
   wonder_key: unique_winter_palace
@@ -1521,8 +1533,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_25
   - atom_27
-  proposed_core_mechanic: Complete the Imperial Gallery Opening through explicit court, charter, diplomatic, or policy selections that determine who recognizes Winter Palace's authority.
-  player_agency_model: The player chooses the confirming institution or target and accepts the exact concession attached to recognition.
+  proposed_core_mechanic: 'Open the Winter Palace by selecting which guarded gallery or river-facing audience proves the Neva court can display empire without losing control of access.'
+  player_agency_model: 'The player chooses the court audience and whether guards, diplomats, or gallery patronage absorb the risk.'
   expected_ui_model:
   - checklist
   - progress_track
@@ -1531,11 +1543,11 @@ unique_wonders:
   - final_reward_handoff
   - actor_assignment
   expected_listeners: []
-  non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Winter Palace at Neva: River facade, ceremonial halls, guarded galleries, and court ritual turn the Neva capital into an imperial stage. Most other wonders lack this exact Triumphal Axis role and the named Imperial Gallery Opening proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_court_protocol
+  non_monthly_validation_point: 'The selected gallery audience is explicitly confirmed before the final reward dispatch.'
+  risk_or_failure_branch: 'A gallery scandal or guard failure can reduce the rite to a domestic audience until the player restores court access rules.'
+  implementation_feasibility: needs_trigger_check_only
+  uniqueness_notes: 'This mechanism needs a river-capital palace where gallery display and guarded access are the point; most palaces do not make imperial exhibition security the proof.'
+  similarity_group: guarded_gallery_court_protocol
   authoring_status: drafted
 - wonder_id: 147
   wonder_key: unique_gyeongbokgung
@@ -1564,8 +1576,8 @@ unique_wonders:
   - actor_assignment
   expected_listeners: []
   non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  risk_or_failure_branch: 'A confirming court office can reject the renewed audience order, forcing a smaller domestic rite or a revised selector target; this needs only trigger validation for the chosen audience scope.'
+  implementation_feasibility: needs_trigger_check_only
   uniqueness_notes: 'This draft depends on Gyeongbokgung at Namgyeong: Gates, throne hall, mountain axis, and ritual courtyards make Joseon kingship visible in Hanseong. Most other wonders lack this exact Triumphal Axis role and the named Royal Audience Renewal proof, so copying the loop would lose the site-specific claim.'
   similarity_group: diplomatic_concession_sequence
   authoring_status: drafted
@@ -1585,7 +1597,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_22
   - atom_23
-  proposed_core_mechanic: Prepare oath terms at Changbai Mountain Altar, then complete the Sacred Mountain Investiture when the next ruler or dynastic representative accepts them.
+  proposed_core_mechanic: 'Validate succession at Changbai by binding the next ruler to ancestral mountain source, lake omen, forest banners, and altar guardians.'
   player_agency_model: The player chooses the oath terms before succession and decides how much legitimacy or faction pressure to risk.
   expected_ui_model:
   - actor_slots
@@ -1597,10 +1609,10 @@ unique_wonders:
   expected_listeners:
   - ruler_death
   non_monthly_validation_point: The ruler_death listener or successor-confirmation check validates the prepared oath in a non-monthly succession window.
-  risk_or_failure_branch: A contested or low-legitimacy succession diverts to a claimant dispute, weaker oath, or renewed preparation branch. The mechanism uses supported Harness pieces, but final EU5 trigger details need a focused check.
+  risk_or_failure_branch: 'A failed omen or rival lineage claim forces a renewed mountain sacrifice, a guardian appointment, or a weaker ancestry-only blessing.'
   implementation_feasibility: needs_trigger_check_only
-  uniqueness_notes: 'This draft depends on Changbai Mountain Altar at Girin Ula: Volcanic peak, heavenly lake, forest, altar terrace, and banners make Changbai Mountain a sacred dynastic source. Most other wonders lack this exact Sacred Mountain role and the named Sacred Mountain Investiture proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_succession_oath
+  uniqueness_notes: 'This loop requires a dynastic origin mountain with altar and lake symbolism; most succession monuments do not make landscape ancestry the active test.'
+  similarity_group: ancestral_mountain_source_oath
   authoring_status: drafted
 - wonder_id: 149
   wonder_key: unique_belgrade_fortress
@@ -1618,7 +1630,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_02
   - atom_13
-  proposed_core_mechanic: Validate Belgrade Fortress through a real conflict result in the Danube Watch Muster, then choose whether the dedication speaks in deterrence, mercy, or repair.
+  proposed_core_mechanic: 'Prove Belgrade Fortress by resolving a Danube-Sava river gate siege crisis, then decide whether repair crews, reprisal, or watch reform defines the muster.'
   player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
   expected_ui_model:
   - progress_track
@@ -1631,10 +1643,10 @@ unique_wonders:
   expected_listeners:
   - pre_winning_war
   non_monthly_validation_point: A supported war listener such as pre_winning_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
+  risk_or_failure_branch: 'A damaged river gate or occupation scare needs siege or occupation-hook support later; until then the design stays blocked on listener expansion rather than pretending a generic war result is enough.'
   implementation_feasibility: needs_new_listener
-  uniqueness_notes: 'This draft depends on Belgrade Fortress at Belgrad: Walls, bastions, towers, and river gates command the meeting of the Danube and Sava. Most other wonders lack this exact Star Fortress City role and the named Danube Watch Muster proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: fortress_siege_proof
+  uniqueness_notes: 'The loop belongs to a fortress commanding a river confluence; ordinary inland forts do not make water gates and river approaches the decisive failure surface.'
+  similarity_group: river_confluence_siege_repair
   authoring_status: drafted
 - wonder_id: 150
   wonder_key: unique_meteora_monasteries
@@ -1846,7 +1858,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_14
   - atom_15
-  proposed_core_mechanic: Assign the scholar, official, priest, commander, or guardian for the Apostolic Archive Seal, then let that actor's quality shape the first dispute before final reward dispatch.
+  proposed_core_mechanic: 'Assign the Vatican archive keyholder and decide which sealed registers may be opened, proving that papal memory can serve diplomacy without losing custody.'
   player_agency_model: The player picks a candidate and accepts the candidate's estate, legitimacy, or competence tradeoff.
   expected_ui_model:
   - actor_slots
@@ -1857,10 +1869,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The assigned actor is locked into a visible slot and then tested by a branch tied to their role or quality.
-  risk_or_failure_branch: A weak or factional candidate creates a retry, scandal, or reduced-reward interpretation of the opening ceremony.
+  risk_or_failure_branch: 'A partisan archivist or exposed register can cause scandal, forcing reassignment, sealed access, or a reduced diplomatic reading.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Vatican Archives at Rome: Manuscript vaults, papal registers, and sealed rooms make memory a diplomatic instrument. Most other wonders lack this exact Library Of Nation role and the named Apostolic Archive Seal proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: scholar_appointment_dispute
+  uniqueness_notes: 'The mechanism needs sealed papal registers and diplomatic memory; most libraries do not make controlled non-disclosure the central gameplay proof.'
+  similarity_group: sealed_archive_key_appointment
   authoring_status: drafted
 - wonder_id: 157
   wonder_key: unique_temple_of_heaven
@@ -1876,9 +1888,9 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: Event-driven pacing fits because Circular altars and blue-tiled halls bind imperial rule to the ordered sky; the decisive beat is the named Heavenly Sacrifice incident, not elapsed time.
   mechanic_prompt_atoms:
-  - atom_12
-  - atom_28
-  proposed_core_mechanic: Resolve the Heavenly Sacrifice as a bounded incident around Temple of Heaven, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  - atom_16
+  - atom_17
+  proposed_core_mechanic: 'Validate the Temple of Heaven by arranging altar measurements, seasonal offerings, and court witnesses so the ruler publicly answers to ordered sky rather than palace preference.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -1888,10 +1900,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'A failed calendar reading or disputed offering forces a corrected sacrifice, a bureaucratic scapegoat, or a weaker legitimacy-only rite.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Temple of Heaven at Dadu: Circular altars and blue-tiled halls bind imperial rule to the ordered sky. Most other wonders lack this exact Sky Dome Grand Temple role and the named Heavenly Sacrifice proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'This loop depends on a purpose-built imperial altar for cosmic mandate; most religious wonders cannot turn astronomical order and sovereign discipline into the same ceremony.'
+  similarity_group: imperial_cosmic_sacrifice
   authoring_status: drafted
 - wonder_id: 158
   wonder_key: unique_dujiangyan
@@ -2041,7 +2053,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_08
   - atom_09
-  proposed_core_mechanic: Open Canton Thirteen Factories with a one-shot bargain in the Hong Merchant Charter, assigning access, privilege, monopoly, or burden to a named group.
+  proposed_core_mechanic: 'Open the Thirteen Factories by deciding whether hong merchants, foreign factors, or the crown controls warehouse access to overseas trade.'
   player_agency_model: The player chooses which group receives privileged access and which cost the state is willing to carry.
   expected_ui_model:
   - checklist
@@ -2051,10 +2063,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the immediate bargain option and its triggered effect branch.
-  risk_or_failure_branch: A rejected or overgenerous bargain creates social friction, a reduced reward, or a cooldown-gated reform option.
+  risk_or_failure_branch: 'Granting too much access can empower foreign factories; restricting too hard can stall recognition and force a lower-value domestic trade compact.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Canton Thirteen Factories at Guangzhou: Merchant hongs, foreign factories, warehouses, and river wharves make Canton a managed gate to overseas trade. Most other wonders lack this exact Guild Alliance role and the named Hong Merchant Charter proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: guild_market_bargain
+  uniqueness_notes: 'This mechanism needs a managed foreign-trade gate with hongs and factories; most guild markets do not have enclosed overseas access as the bargaining object.'
+  similarity_group: foreign_factory_access_bargain
   authoring_status: drafted
 - wonder_id: 163
   wonder_key: unique_dardanelles_fortress
@@ -2170,7 +2182,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_06
   - atom_14
-  proposed_core_mechanic: Choose and certify the first named route for Camino de Santiago during the Pilgrim Way Blessing, then settle the route incident before benefits activate.
+  - atom_18
+  proposed_core_mechanic: 'Certify the Camino by appointing wardens for scallop-marked hostels, bridges, and shrines, then proving a named pilgrim path can reach Compostela.'
   player_agency_model: The player selects or qualifies the endpoint and decides how much cost to spend protecting or recognizing the route.
   expected_ui_model:
   - route_map
@@ -2181,10 +2194,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
+  risk_or_failure_branch: 'A broken bridge, unsafe hostel, or overcrowded shrine forces a reroute or a lower-prestige local blessing until route capability support exists.'
   implementation_feasibility: needs_new_capability
-  uniqueness_notes: 'This draft depends on Camino de Santiago at Santiago Compostela: Roads, hostels, shrines, bridges, and scallop-marked waystations carry pilgrims toward Compostela. Most other wonders lack this exact Imperial Post Road Network role and the named Pilgrim Way Blessing proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: pilgrimage_route_certification
+  uniqueness_notes: 'The mechanism needs a network of waystations and symbols that make movement itself the shrine; most sacred wonders are destinations, not route systems.'
+  similarity_group: scallop_waystation_pilgrim_network
   authoring_status: drafted
 - wonder_id: 167
   wonder_key: unique_sagres_navigation_school
@@ -2200,9 +2213,10 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: Actor assignment fits because Charts, astrolabes, pilots, and Atlantic winds gather near Lagos to train oceanic command; the wonder's authority depends on who is trusted to open, guard, interpret, or administer it.
   mechanic_prompt_atoms:
+  - atom_14
   - atom_15
   - atom_27
-  proposed_core_mechanic: Assign the scholar, official, priest, commander, or guardian for the Oceanic Chart Lecture, then let that actor's quality shape the first dispute before final reward dispatch.
+  proposed_core_mechanic: 'Appoint a master pilot at Sagres, test them against charts, astrolabes, and Atlantic winds, then decide whether their lecture becomes doctrine.'
   player_agency_model: The player picks a candidate and accepts the candidate's estate, legitimacy, or competence tradeoff.
   expected_ui_model:
   - actor_slots
@@ -2213,10 +2227,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The assigned actor is locked into a visible slot and then tested by a branch tied to their role or quality.
-  risk_or_failure_branch: A weak or factional candidate creates a retry, scandal, or reduced-reward interpretation of the opening ceremony.
+  risk_or_failure_branch: 'A weak pilot misreads winds or charts, forcing retraining, an expensive foreign specialist, or a narrower coastal-navigation reward.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Sagres Navigation School at Lagos: Charts, astrolabes, pilots, and Atlantic winds gather near Lagos to train oceanic command. Most other wonders lack this exact Naval School role and the named Oceanic Chart Lecture proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: scholar_appointment_dispute
+  uniqueness_notes: 'This loop needs a school where actor quality directly affects oceanic command; ordinary universities do not make pilot skill and Atlantic route risk the same test.'
+  similarity_group: pilot_chart_exam_assignment
   authoring_status: drafted
 - wonder_id: 168
   wonder_key: unique_milan_arsenal
@@ -2265,8 +2279,9 @@ unique_wonders:
   cadence_rationale: Actor assignment fits because Lecture halls, law schools, student nations, and arcades make Bologna a city of learning; the wonder's authority depends on who is trusted to open, guard, interpret, or administer it.
   mechanic_prompt_atoms:
   - atom_14
+  - atom_17
   - atom_24
-  proposed_core_mechanic: Assign the scholar, official, priest, commander, or guardian for the Doctorate Convocation, then let that actor's quality shape the first dispute before final reward dispatch.
+  proposed_core_mechanic: 'Choose a Bologna doctor and settle student-nation precedence before the doctorate convocation can turn law teaching into public authority.'
   player_agency_model: The player picks a candidate and accepts the candidate's estate, legitimacy, or competence tradeoff.
   expected_ui_model:
   - actor_slots
@@ -2278,10 +2293,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The assigned actor is locked into a visible slot and then tested by a branch tied to their role or quality.
-  risk_or_failure_branch: A weak or factional candidate creates a retry, scandal, or reduced-reward interpretation of the opening ceremony.
+  risk_or_failure_branch: 'A hostile student nation or jurist faction can reject the doctor, forcing a new candidate, privilege concession, or reduced legal reward.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on University of Bologna at Bologna: Lecture halls, law schools, student nations, and arcades make Bologna a city of learning. Most other wonders lack this exact University City role and the named Doctorate Convocation proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: scholar_appointment_dispute
+  uniqueness_notes: 'The proof needs Bologna-style student nations and law-school authority; most universities do not make student corporate politics the core appointment risk.'
+  similarity_group: student_nations_doctorate_dispute
   authoring_status: drafted
 - wonder_id: 170
   wonder_key: unique_carrara_marble_quarries
@@ -2363,8 +2378,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_23
   - atom_24
-  - atom_29
-  proposed_core_mechanic: Prepare oath terms at Peacock Throne, then complete the Peacock Throne Rite when the next ruler or dynastic representative accepts them.
+  proposed_core_mechanic: 'Seat the next ruler before the Peacock Throne by choosing a dynastic representative and deciding how jewels, regalia, and audience choreography prove sovereignty.'
   player_agency_model: The player chooses the oath terms before succession and decides how much legitimacy or faction pressure to risk.
   expected_ui_model:
   - actor_slots
@@ -2377,10 +2391,10 @@ unique_wonders:
   expected_listeners:
   - ruler_death
   non_monthly_validation_point: The ruler_death listener or successor-confirmation check validates the prepared oath in a non-monthly succession window.
-  risk_or_failure_branch: A contested or low-legitimacy succession diverts to a claimant dispute, weaker oath, or renewed preparation branch. The mechanism uses supported Harness pieces, but final EU5 trigger details need a focused check.
+  risk_or_failure_branch: 'A claimant can challenge who may sit before the regalia, forcing a regency oath, public compensation, or a delayed throne rite.'
   implementation_feasibility: needs_trigger_check_only
-  uniqueness_notes: 'This draft depends on Peacock Throne at Delhi: Jewels, enamel, gold, and imperial choreography make sovereignty visible in one overwhelming audience. Most other wonders lack this exact Palace Of Nations role and the named Peacock Throne Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_succession_oath
+  uniqueness_notes: 'The proof is regalia as overwhelming audience theater; most dynastic wonders cannot make a single jeweled throne the arbiter of legitimacy.'
+  similarity_group: regalia_throne_succession
   authoring_status: drafted
 - wonder_id: 173
   wonder_key: unique_varanasi_ghats
@@ -2397,8 +2411,9 @@ unique_wonders:
   cadence_rationale: Event-driven pacing fits because Stone river steps, shrines, lamps, and processions bind sacred water to the daily life of a holy city; the decisive beat is the named Varanasi Ghats Rite incident, not elapsed time.
   mechanic_prompt_atoms:
   - atom_16
+  - atom_18
   - atom_27
-  proposed_core_mechanic: Resolve the Varanasi Ghats Rite as a bounded incident around Varanasi Ghats, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  proposed_core_mechanic: 'Open the Varanasi ghats by regulating river steps, lamp processions, and daily pilgrim settlement so sacred water becomes a controlled civic routine.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - checklist
@@ -2408,10 +2423,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'Overcrowded steps or contested cremation access can force the player to separate processions, subsidize pilgrims, or accept unrest along the riverfront.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Varanasi Ghats at Varanasi: Stone river steps, shrines, lamps, and processions bind sacred water to the daily life of a holy city. Most other wonders lack this exact Sky Dome Grand Temple role and the named Varanasi Ghats Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'The mechanism needs a sacred riverfront where daily use is the ritual; most temples or pilgrimage roads do not make water access, settlement pressure, and civic order inseparable.'
+  similarity_group: river_ritual_civic_order
   authoring_status: drafted
 - wonder_id: 174
   wonder_key: unique_brihadishvara_temple
@@ -2589,7 +2604,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_23
   - atom_24
-  proposed_core_mechanic: Prepare oath terms at Wawel Castle, then complete the Wawel Castle Rite when the next ruler or dynastic representative accepts them.
+  proposed_core_mechanic: 'Confirm succession at Wawel by joining castle custody, cathedral memory, and Vistula-facing crown display into one oath.'
   player_agency_model: The player chooses the oath terms before succession and decides how much legitimacy or faction pressure to risk.
   expected_ui_model:
   - incident_log
@@ -2602,10 +2617,10 @@ unique_wonders:
   expected_listeners:
   - ruler_death
   non_monthly_validation_point: The ruler_death listener or successor-confirmation check validates the prepared oath in a non-monthly succession window.
-  risk_or_failure_branch: A contested or low-legitimacy succession diverts to a claimant dispute, weaker oath, or renewed preparation branch. The mechanism uses supported Harness pieces, but final EU5 trigger details need a focused check.
+  risk_or_failure_branch: 'If crown custody and cathedral blessing diverge, the player must appease nobles, clergy, or guards before the oath can complete.'
   implementation_feasibility: needs_trigger_check_only
-  uniqueness_notes: 'This draft depends on Wawel Castle at Krakow: Hilltop walls, royal halls, cathedral towers, and armories make Krakow''s crown visible above the Vistula. Most other wonders lack this exact Star Fortress City role and the named Wawel Castle Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_succession_oath
+  uniqueness_notes: 'This needs a hilltop royal castle and cathedral sharing crown memory; most fortresses lack the sacral coronation role, and most cathedrals lack castle custody.'
+  similarity_group: castle_cathedral_crown_oath
   authoring_status: drafted
 - wonder_id: 180
   wonder_key: unique_zamosc_ideal_city
@@ -2688,7 +2703,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_01
   - atom_05
-  proposed_core_mechanic: Validate Malbork Castle through a real conflict result in the Malbork Castle Rite, then choose whether the dedication speaks in deterrence, mercy, or repair.
+  proposed_core_mechanic: 'Use Malbork to prove a knightly order can defend chapel, convent halls, granaries, and river walls as one disciplined war oath.'
   player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
   expected_ui_model:
   - incident_log
@@ -2701,10 +2716,10 @@ unique_wonders:
   expected_listeners:
   - pre_winning_war
   non_monthly_validation_point: A supported war listener such as pre_winning_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch.
+  risk_or_failure_branch: 'If the order prioritizes plunder over fortress discipline, the player must reform the oath, fund stores, or accept a pious but weaker defense proof.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Malbork Castle at Malbork: Brick walls, convent halls, chapels, granaries, and river defenses make a knightly state into masonry. Most other wonders lack this exact Knightly Fortress Order role and the named Malbork Castle Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: fortress_siege_proof
+  uniqueness_notes: 'This proof needs a monastic military state in brick masonry; most castles lack convent rule, chapel authority, and granary logistics in the same defensive test.'
+  similarity_group: knightly_order_war_oath
   authoring_status: drafted
 - wonder_id: 183
   wonder_key: unique_brest_synagogue_quarter
@@ -2754,7 +2769,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_14
   - atom_15
-  proposed_core_mechanic: Assign the scholar, official, priest, commander, or guardian for the Vilnius University Rite, then let that actor's quality shape the first dispute before final reward dispatch.
+  - atom_16
+  proposed_core_mechanic: 'Appoint a rector who can link Vilnius lecture halls, churches, libraries, and printers into an eastern learned capital.'
   player_agency_model: The player picks a candidate and accepts the candidate's estate, legitimacy, or competence tradeoff.
   expected_ui_model:
   - actor_slots
@@ -2765,10 +2781,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The assigned actor is locked into a visible slot and then tested by a branch tied to their role or quality.
-  risk_or_failure_branch: A weak or factional candidate creates a retry, scandal, or reduced-reward interpretation of the opening ceremony.
+  risk_or_failure_branch: 'A rector without enough scholarly support can split printers from clergy, forcing a new appointment or a narrower college charter.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Vilnius University at Vilnius: Courtyards, lecture halls, libraries, churches, and printers make Vilnius a learned capital of the east. Most other wonders lack this exact University City role and the named Vilnius University Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: scholar_appointment_dispute
+  uniqueness_notes: 'This mechanism needs a university where printing, churches, and regional learned identity converge; most scholar wonders do not test rector authority across those institutions.'
+  similarity_group: printing_college_rectorship
   authoring_status: drafted
 - wonder_id: 185
   wonder_key: unique_cave_monastery
@@ -2786,7 +2802,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_18
   - atom_20
-  proposed_core_mechanic: Resolve the Cave Monastery Rite as a bounded incident around Cave Monastery, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  proposed_core_mechanic: 'Authorize the Cave Monastery by deciding which relic caves, pilgrims, and scriptoria become public, then reform access before underground devotion overwhelms the institution.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -2797,10 +2813,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'Too much access can exhaust relic guardians or expose a disputed cave, requiring renewed enclosure, pilgrim limits, or a reduced public cult.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Cave Monastery at Kyiv: Caves, relic chapels, domes, scriptoria, and pilgrim paths make underground devotion a public institution. Most other wonders lack this exact Great Monastery role and the named Cave Monastery Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'This proof belongs to an underground monastic landscape; most sacred sites cannot make hidden caves, relic access, and public institution-building the same problem.'
+  similarity_group: relic_cave_guardianship
   authoring_status: drafted
 - wonder_id: 186
   wonder_key: unique_zaporizhian_sich
@@ -2817,9 +2833,8 @@ unique_wonders:
   cadence_rationale: War validation fits because Palisades, boats, wagon camps, forges, and a military council make a frontier host into a moving fortress; the site should prove its defensive or coercive role during an actual conflict window, not through a passive timer.
   mechanic_prompt_atoms:
   - atom_03
-  - atom_05
-  - atom_29
-  proposed_core_mechanic: Validate Zaporizhian Sich through a real conflict result in the Zaporizhian Sich Rite, then choose whether the dedication speaks in deterrence, mercy, or repair.
+  - atom_04
+  proposed_core_mechanic: 'Validate the Zaporizhian Sich by calling a mobile war council that proves boats, wagon camps, palisades, and forges can survive a frontier conflict.'
   player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
   expected_ui_model:
   - progress_track
@@ -2831,10 +2846,10 @@ unique_wonders:
   expected_listeners:
   - ending_war
   non_monthly_validation_point: A supported war listener such as ending_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch.
+  risk_or_failure_branch: 'If the host scatters or the camp is overrun, the player must choose a costly remuster, a raiding dedication, or a reduced frontier defense reward.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Zaporizhian Sich at Kremenchuk: Palisades, boats, wagon camps, forges, and a military council make a frontier host into a moving fortress. Most other wonders lack this exact Mobile Fortress role and the named Zaporizhian Sich Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: fortress_siege_proof
+  uniqueness_notes: 'The loop requires a fortress that is also a movable host and council; most walls and castles cannot make mobility, boats, and war democracy the proof.'
+  similarity_group: mobile_host_war_council
   authoring_status: drafted
 - wonder_id: 187
   wonder_key: unique_registan_square
@@ -2852,7 +2867,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_14
   - atom_17
-  proposed_core_mechanic: Assign the scholar, official, priest, commander, or guardian for the Registan Square Rite, then let that actor's quality shape the first dispute before final reward dispatch.
+  proposed_core_mechanic: 'Assign the Registan lecturer and settle how madrasas, markets, and ceremony share the public square before Samarkand accepts the opening lesson.'
   player_agency_model: The player picks a candidate and accepts the candidate's estate, legitimacy, or competence tradeoff.
   expected_ui_model:
   - actor_slots
@@ -2864,10 +2879,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The assigned actor is locked into a visible slot and then tested by a branch tied to their role or quality.
-  risk_or_failure_branch: A weak or factional candidate creates a retry, scandal, or reduced-reward interpretation of the opening ceremony.
+  risk_or_failure_branch: 'A scholar too close to one madrasa can provoke market or rival-school resistance, forcing a public debate retry or a narrower lecture reward.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Registan Square at Samarkand: Tilework madrasas, arches, markets, scholars, and ceremonies make Samarkand''s square a theater of learning and power. Most other wonders lack this exact Grand Theater Festival District role and the named Registan Square Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: scholar_appointment_dispute
+  uniqueness_notes: 'The proof needs a square where scholarship is public theater between madrasas and markets; most universities do not expose appointment quality in a ceremonial plaza.'
+  similarity_group: madrasa_square_public_lecture
   authoring_status: drafted
 - wonder_id: 188
   wonder_key: unique_khiva_old_city
@@ -2978,9 +2993,8 @@ unique_wonders:
   cadence_rationale: Instant branching fits because Domed markets, caravanserais, tea stalls, craft lanes, and money changers make old Tashkent a living exchange; the core drama is a one-time bargain with distinct costs, not an extended timer.
   mechanic_prompt_atoms:
   - atom_09
-  - atom_28
-  - atom_29
-  proposed_core_mechanic: Open Tashkent Old Bazaar with a one-shot bargain in the Tashkent Old Bazaar Rite, assigning access, privilege, monopoly, or burden to a named group.
+  - atom_19
+  proposed_core_mechanic: 'Settle Tashkent Old Bazaar by assigning caravan stalls, tea lanes, craft quarters, and money changers without letting one guild seize the whole exchange.'
   player_agency_model: The player chooses which group receives privileged access and which cost the state is willing to carry.
   expected_ui_model:
   - actor_slots
@@ -2991,10 +3005,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the immediate bargain option and its triggered effect branch.
-  risk_or_failure_branch: A rejected or overgenerous bargain creates social friction, a reduced reward, or a cooldown-gated reform option.
+  risk_or_failure_branch: 'A monopolized stall order can anger caravan merchants or money changers, forcing an open-access retry or a lower-efficiency social peace option.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Tashkent Old Bazaar at Chach: Domed markets, caravanserais, tea stalls, craft lanes, and money changers make old Tashkent a living exchange. Most other wonders lack this exact World Market role and the named Tashkent Old Bazaar Rite proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: guild_market_bargain
+  uniqueness_notes: 'The proof needs a caravan bazaar where stalls, tea houses, crafts, and exchange tables overlap; most markets cannot make street-level allocation the central ceremony.'
+  similarity_group: caravan_bazaar_stall_bargain
   authoring_status: drafted
 - wonder_id: 192
   wonder_key: unique_louvre_palace
@@ -3010,9 +3024,9 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: Event-driven pacing fits because Courtyards, galleries, royal apartments, and Seine-side approaches make the Louvre a palace where monarchy, art, and diplomacy share one address; the decisive beat is the named Louvre Court Exhibition incident, not elapsed time.
   mechanic_prompt_atoms:
+  - atom_19
   - atom_22
-  - atom_28
-  proposed_core_mechanic: Resolve the Louvre Court Exhibition as a bounded incident around Louvre Palace, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  proposed_core_mechanic: 'Open the Louvre court exhibition by choosing whether monarchy, artists, or diplomats control gallery access in the Seine-side palace.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -3022,10 +3036,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'Too much court control weakens artistic legitimacy, while open gallery access can cause diplomatic scandal and require a revised exhibition settlement.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Louvre Palace at Paris: Courtyards, galleries, royal apartments, and Seine-side approaches make the Louvre a palace where monarchy, art, and diplomacy share one address. Most other wonders lack this exact Palace Of Nations role and the named Louvre Court Exhibition proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: civic_memory_incident
+  uniqueness_notes: 'This loop needs a palace where art collection and diplomacy share one address; most palaces cannot make exhibition access the central state ritual.'
+  similarity_group: court_gallery_access_incident
   authoring_status: drafted
 - wonder_id: 193
   wonder_key: unique_fontainebleau_palace
@@ -3074,9 +3088,9 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: Resource delivery fits because Garonne quays, wine warehouses, cranes, merchant houses, barges, and ocean ships turn Bordeaux into a river gateway for Atlantic commerce; the ritual proves the state can move a named material, supply, or offering into the site.
   mechanic_prompt_atoms:
-  - atom_11
-  - atom_13
-  proposed_core_mechanic: Deliver the material or supply promised by the Garonne Wine Fair for Bordeaux Port, with authentic, substituted, or delayed delivery branches.
+  - atom_07
+  - atom_10
+  proposed_core_mechanic: 'Certify Bordeaux Port by moving the first wine fair shipment from river warehouses to ocean trade, choosing authentic cargo, substitution, or delayed export.'
   player_agency_model: The player chooses the source, accepts a substitution, or delays for a stronger but riskier final reward.
   expected_ui_model:
   - material_stockpile
@@ -3088,10 +3102,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
-  risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
+  risk_or_failure_branch: 'Spoiled wine, missing barges, or an unverified export target can force a domestic fair branch until goods and market checks are confirmed.'
   implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Bordeaux Port at Bordeaux: Garonne quays, wine warehouses, cranes, merchant houses, barges, and ocean ships turn Bordeaux into a river gateway for Atlantic commerce. Most other wonders lack this exact Great Port role and the named Garonne Wine Fair proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: guild_market_bargain
+  uniqueness_notes: 'The mechanism needs a wine river gateway linking Garonne quays to Atlantic merchants; most ports do not make a named commodity fair the proof of port authority.'
+  similarity_group: wine_quay_export_certification
   authoring_status: drafted
 - wonder_id: 195
   wonder_key: unique_marseille_old_port
@@ -3142,7 +3156,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_09
   - atom_19
-  proposed_core_mechanic: Open Lyon Silk Workshops with a one-shot bargain in the Canut Guild Charter, assigning access, privilege, monopoly, or burden to a named group.
+  proposed_core_mechanic: 'Open the Lyon silk district by choosing how canut guilds, dye vats, merchants, and river bridges share access to luxury production.'
   player_agency_model: The player chooses which group receives privileged access and which cost the state is willing to carry.
   expected_ui_model:
   - checklist
@@ -3152,10 +3166,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the immediate bargain option and its triggered effect branch.
-  risk_or_failure_branch: A rejected or overgenerous bargain creates social friction, a reduced reward, or a cooldown-gated reform option.
+  risk_or_failure_branch: 'A closed guild charter can raise output while provoking artisan unrest; open access can lower efficiency but avoid a cooldown-gated guild crisis.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Lyon Silk Workshops at Lyon: Loom rooms, dye vats, guild halls, merchant ledgers, river bridges, and crowded artisan streets make Lyon''s silk district an engine of luxury production. Most other wonders lack this exact Giant Workshop Complex role and the named Canut Guild Charter proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: guild_market_bargain
+  uniqueness_notes: 'This loop needs luxury workshops where guild labor, dye supply, and merchant ledgers are inseparable; most market wonders do not make production privilege the bargain.'
+  similarity_group: silk_guild_open_access_bargain
   authoring_status: drafted
 - wonder_id: 197
   wonder_key: unique_mont_saint_michel
@@ -3172,8 +3186,8 @@ unique_wonders:
   cadence_rationale: Route certification fits because An abbey spire, tidal sands, fortified walls, pilgrim crossings, monks, and sea mist make Mont Saint-Michel a sacred mountain rising from water; the benefit should turn on a named path, pilgrimage, convoy, or arrival rather than a generic progress bar.
   mechanic_prompt_atoms:
   - atom_06
-  - atom_28
-  proposed_core_mechanic: Choose and certify the first named route for Mont Saint-Michel during the Tidal Pilgrimage, then settle the route incident before benefits activate.
+  - atom_13
+  proposed_core_mechanic: 'Certify Mont Saint-Michel by proving pilgrims can cross the tidal sands, reach the abbey, and recover from the first dangerous crossing incident.'
   player_agency_model: The player selects or qualifies the endpoint and decides how much cost to spend protecting or recognizing the route.
   expected_ui_model:
   - route_map
@@ -3185,10 +3199,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
+  risk_or_failure_branch: 'A mistimed tide or failed crossing can force rescue spending, delayed certification, or a safer but lower-prestige inland approach.'
   implementation_feasibility: needs_new_capability
-  uniqueness_notes: 'This draft depends on Mont Saint-Michel at Avranches: An abbey spire, tidal sands, fortified walls, pilgrim crossings, monks, and sea mist make Mont Saint-Michel a sacred mountain rising from water. Most other wonders lack this exact Sacred Mountain role and the named Tidal Pilgrimage proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: pilgrimage_route_certification
+  uniqueness_notes: 'This loop needs a sacred mountain rising from tidal water; most pilgrimage routes cannot make the physical crossing hazard the central proof.'
+  similarity_group: tidal_crossing_pilgrimage
   authoring_status: drafted
 - wonder_id: 198
   wonder_key: unique_bastille
@@ -3206,8 +3220,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_17
   - atom_21
-  - atom_29
-  proposed_core_mechanic: Resolve the Royal Prison Muster as a bounded incident around Bastille, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  - atom_22
+  proposed_core_mechanic: 'Muster the Bastille by deciding how prison chambers, armory stores, royal guards, and drawbridges express crown authority without provoking opposition.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - checklist
@@ -3218,10 +3232,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'A harsh prison muster can create opposition allegiance, while leniency weakens armory discipline and sends the rite to a retry crisis.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Bastille at Paris: Towers, moat, drawbridges, royal guards, prison chambers, and armory stores make the Bastille a fortress of custody and crown authority. Most other wonders lack this exact Star Fortress City role and the named Royal Prison Muster proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: civic_memory_incident
+  uniqueness_notes: 'The mechanism needs a fortress of custody and royal coercion; most military wonders do not make prison legitimacy and armory readiness the same incident.'
+  similarity_group: prison_armory_authority_crisis
   authoring_status: drafted
 - wonder_id: 199
   wonder_key: unique_carcassonne_castle
@@ -3239,7 +3253,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_04
   - atom_13
-  proposed_core_mechanic: Validate Carcassonne Castle through a real conflict result in the Double Wall Watch, then choose whether the dedication speaks in deterrence, mercy, or repair.
+  proposed_core_mechanic: 'Prove Carcassonne by staging a double-wall watch where inner castle, outer towers, and market gates must all hold before victory is sealed.'
   player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
   expected_ui_model:
   - checklist
@@ -3252,10 +3266,10 @@ unique_wonders:
   expected_listeners:
   - pre_winning_war
   non_monthly_validation_point: A supported war listener such as pre_winning_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch.
+  risk_or_failure_branch: 'A breached wall layer forces the player to repair, privilege the inner keep, or accept a reward focused on watch discipline rather than full city defense.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Carcassonne Castle at Carcassonne: Double walls, towers, gatehouses, an inner castle, watchmen, markets, and southern hills make Carcassonne a fortified city of layered defense. Most other wonders lack this exact Star Fortress City role and the named Double Wall Watch proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: fortress_siege_proof
+  uniqueness_notes: 'This mechanism needs a fortified city whose defense is layered wall geometry; most fortresses do not have a city-scale inner and outer wall proof.'
+  similarity_group: double_wall_watch_proof
   authoring_status: drafted
 - wonder_id: 200
   wonder_key: unique_brest_naval_port
@@ -3305,9 +3319,9 @@ unique_wonders:
   cadence_rationale: Event-driven pacing fits because Half-timbered houses, canals, guild signs, a stone church, market square, old gates, and wine merchants make Colmar a preserved urban heritage district; the decisive beat is the named Alsatian Heritage Fair incident, not elapsed time.
   mechanic_prompt_atoms:
   - atom_12
-  - atom_16
-  - atom_28
-  proposed_core_mechanic: Resolve the Alsatian Heritage Fair as a bounded incident around Colmar Old Town, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  - atom_18
+  - atom_19
+  proposed_core_mechanic: 'Settle Colmars heritage fair by choosing how guild signs, wine merchants, canals, and old gates preserve urban memory without turning it into a closed privilege.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -3317,10 +3331,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'A guild can monopolize the fair, forcing compensation, open-access reform, or a lower-prestige heritage rite.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Colmar Old Town at Colmar: Half-timbered houses, canals, guild signs, a stone church, market square, old gates, and wine merchants make Colmar a preserved urban heritage district. Most other wonders lack this exact Ancient City Ruins role and the named Alsatian Heritage Fair proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: civic_memory_incident
+  uniqueness_notes: 'This proof needs a preserved old town where trade signs, canals, wine, and gates are the heritage object; most civic sites do not make everyday urban fabric the mechanism.'
+  similarity_group: guild_sign_heritage_fair
   authoring_status: drafted
 - wonder_id: 202
   wonder_key: unique_house_of_wisdom
@@ -3336,15 +3350,16 @@ unique_wonders:
   secondary_cadence_type: actor_assignment
   cadence_rationale: Hybrid pacing fits because Translation halls, manuscript shelves, astronomers, copyists, and Baghdad courtyards make the House of Wisdom a public machine for preserving and comparing knowledge; the wonder combines route, resource, actor, or crisis proof and should not collapse into one safe template.
   mechanic_prompt_atoms:
-  - atom_30
   - atom_10
-  - atom_27
-  proposed_core_mechanic: 'Run the Translation Movement Catalog for House of Wisdom as composite proof: prepare a specialist or institution, certify a route or resource, and resolve the incident uncovered by the process.'
-  player_agency_model: The player sequences the proof stages and chooses which failure pressure to absorb if the composite test breaks down.
+  - atom_14
+  - atom_16
+  - atom_30
+  proposed_core_mechanic: 'Run the House of Wisdom translation catalog by assigning a translator, choosing the manuscript corpus to import or copy, and resolving the first comparison dispute before the knowledge is institutionalized.'
+  player_agency_model: 'The player chooses translator quality and manuscript source, then decides whether to pay for authentic texts, accept translations, or delay for a stronger catalog.'
   expected_ui_model:
-  - progress_track
-  - incident_log
   - actor_slots
+  - material_stockpile
+  - incident_log
   expected_capabilities:
   - event_chain
   - retry_branch
@@ -3352,10 +3367,10 @@ unique_wonders:
   - resource_gate
   - actor_assignment
   expected_listeners: []
-  non_monthly_validation_point: The non-monthly validation is the final route, resource, actor, war, or incident branch that closes the composite proof.
-  risk_or_failure_branch: One stage can expose a route, supply, actor, or legitimacy problem, forcing a changed-state retry rather than a generic checklist clear. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
+  non_monthly_validation_point: 'The non-monthly proof is the selected manuscript delivery and translator dispute resolution.'
+  risk_or_failure_branch: 'A bad translation, missing manuscript, or factional scholar can force a corrected catalog, substitution penalty, or delayed institution spread; those checks still need EU5 verification.'
   implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on House of Wisdom at Baghdad: Translation halls, manuscript shelves, astronomers, copyists, and Baghdad courtyards make the House of Wisdom a public machine for preserving and comparing knowledge. Most other wonders lack this exact Library Of Nation role and the named Translation Movement Catalog proof, so copying the loop would lose the site-specific claim.'
+  uniqueness_notes: 'This mechanism needs Baghdad as a machine for comparing, translating, and preserving knowledge; most libraries store texts but do not make translation accuracy and manuscript sourcing the gameplay proof.'
   similarity_group: composite_scholar_resource_incident
   authoring_status: drafted
 - wonder_id: 203
@@ -3373,8 +3388,8 @@ unique_wonders:
   cadence_rationale: Event-driven pacing fits because Ancient stone walls, carved khachkars, clergy processions, pilgrims, and the Armenian plain make Echmiadzin Cathedral an apostolic seat anchored in architecture; the decisive beat is the named Apostolic See Consecration incident, not elapsed time.
   mechanic_prompt_atoms:
   - atom_17
-  - atom_28
-  proposed_core_mechanic: Resolve the Apostolic See Consecration as a bounded incident around Echmiadzin Cathedral, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  - atom_18
+  proposed_core_mechanic: 'Consecrate Echmiadzin by settling which clergy, pilgrims, and carved memory markers speak for the apostolic seat before the cathedral can claim public authority.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - incident_log
@@ -3385,10 +3400,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'A rival clerical delegation or pilgrim refusal can split the procession, forcing negotiated precedence or a narrower local consecration.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Echmiadzin Cathedral at Armavir: Ancient stone walls, carved khachkars, clergy processions, pilgrims, and the Armenian plain make Echmiadzin Cathedral an apostolic seat anchored in architecture. Most other wonders lack this exact Grand Cathedral role and the named Apostolic See Consecration proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'The loop needs an apostolic seat anchored by khachkars and processional legitimacy; most cathedrals are not asked to prove an entire church hierarchy through one site.'
+  similarity_group: apostolic_seat_consecration
   authoring_status: drafted
 - wonder_id: 204
   wonder_key: unique_narikala_fortress
@@ -3406,7 +3421,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_02
   - atom_13
-  proposed_core_mechanic: Validate Narikala Fortress through a real conflict result in the Kura Watch Muster, then choose whether the dedication speaks in deterrence, mercy, or repair.
+  proposed_core_mechanic: 'Validate Narikala by proving ridge watchfires can control the Kura valley road during a siege or recovery scare.'
   player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
   expected_ui_model:
   - progress_track
@@ -3419,10 +3434,10 @@ unique_wonders:
   expected_listeners:
   - pre_winning_war
   non_monthly_validation_point: A supported war listener such as pre_winning_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
+  risk_or_failure_branch: 'A failed watchfire or occupied ridge needs future siege/occupation listener support; otherwise the player must accept a reduced road-guard ceremony.'
   implementation_feasibility: needs_new_listener
-  uniqueness_notes: 'This draft depends on Narikala Fortress at Tbilisi: Ridge walls, towers, watchfires, the Kura valley, and Tbilisi below make Narikala Fortress a guardian over Caucasus roads. Most other wonders lack this exact Star Fortress City role and the named Kura Watch Muster proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: fortress_siege_proof
+  uniqueness_notes: 'The proof depends on a ridge fortress over Caucasus routes; flatland walls and palace forts cannot make valley surveillance the central mechanic.'
+  similarity_group: ridge_road_siege_watch
   authoring_status: drafted
 - wonder_id: 205
   wonder_key: unique_baku_ateshgah
@@ -3473,7 +3488,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_07
   - atom_10
-  proposed_core_mechanic: Deliver the material or supply promised by the Sanaa Souk Opening for Sana'a Old City, with authentic, substituted, or delayed delivery branches.
+  proposed_core_mechanic: 'Open Sanaa Old City by delivering incense, coffee, and craft goods through tower-house souks, proving the vertical market can handle caravan wealth.'
   player_agency_model: The player chooses the source, accepts a substitution, or delays for a stronger but riskier final reward.
   expected_ui_model:
   - material_stockpile
@@ -3485,10 +3500,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
-  risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
+  risk_or_failure_branch: 'A failed incense or coffee delivery can shift the rite to metalworkers or domestic souks, reducing trade reach until market checks are verified.'
   implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Sana''a Old City at Sana Yemen: Tower houses, gypsum patterns, crowded souks, caravan merchants, incense, coffee, metalworkers, and minarets make Sana''a Old City a vertical market. Most other wonders lack this exact World Market role and the named Sanaa Souk Opening proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: guild_market_bargain
+  uniqueness_notes: 'Sanaa needs tower houses, caravan goods, and crowded vertical souks as one delivery system; most world markets do not make urban form part of the trade proof.'
+  similarity_group: incense_coffee_souk_delivery
   authoring_status: drafted
 - wonder_id: 207
   wonder_key: unique_schoenbrunn_palace
@@ -3505,10 +3520,10 @@ unique_wonders:
   cadence_rationale: A player action sequence fits because Baroque palace wings, ceremonial gardens, galleries, and diplomatic apartments make Schoenbrunn a courtly stage for imperial congress; the wonder asks for explicit court, charter, vote, or policy confirmation.
   mechanic_prompt_atoms:
   - atom_19
+  - atom_25
   - atom_26
-  - atom_29
-  proposed_core_mechanic: Complete the Habsburg Congress Audience through explicit court, charter, diplomatic, or policy selections that determine who recognizes Schoenbrunn Palace's authority.
-  player_agency_model: The player chooses the confirming institution or target and accepts the exact concession attached to recognition.
+  proposed_core_mechanic: 'Certify Schoenbrunn by choosing a diplomatic apartment, garden audience, or congress concession that proves the palace can host imperial negotiation.'
+  player_agency_model: 'The player selects the diplomatic audience and decides whether estate privilege, court prestige, or foreign recognition pays the cost.'
   expected_ui_model:
   - checklist
   - incident_log
@@ -3516,11 +3531,11 @@ unique_wonders:
   - event_chain
   - final_reward_handoff
   expected_listeners: []
-  non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
-  uniqueness_notes: 'This draft depends on Schoenbrunn Palace at Vienna: Baroque palace wings, ceremonial gardens, galleries, and diplomatic apartments make Schoenbrunn a courtly stage for imperial congress. Most other wonders lack this exact Palace Of Nations role and the named Habsburg Congress Audience proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_court_protocol
+  non_monthly_validation_point: 'The chosen congress audience or policy concession is confirmed before the reward handoff.'
+  risk_or_failure_branch: 'A delegation can reject precedence, forcing a smaller court reception or a privilege bargain that weakens the diplomatic reward.'
+  implementation_feasibility: needs_trigger_check_only
+  uniqueness_notes: 'Schoenbrunn is a diplomatic stage with gardens and apartments built for congress theater; most palaces cannot make negotiated precedence the core ritual proof.'
+  similarity_group: diplomatic_congress_court_protocol
   authoring_status: drafted
 - wonder_id: 208
   wonder_key: unique_electoral_conference_hall
@@ -3549,8 +3564,8 @@ unique_wonders:
   - actor_assignment
   expected_listeners: []
   non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  risk_or_failure_branch: 'A prince-elector bench or civic hall audience can refuse the order of precedence, sending the ritual to a reduced convocation; formal spec work mainly needs trigger checks for the selected voter or policy target.'
+  implementation_feasibility: needs_trigger_check_only
   uniqueness_notes: 'This draft depends on Electoral Conference Hall at Frankfurt: Frankfurt council chambers, prince-elector benches, imperial seals, and civic halls turn royal election into public architecture. Most other wonders lack this exact Great Assembly Hall role and the named Golden Bull Convocation proof, so copying the loop would lose the site-specific claim.'
   similarity_group: formal_vote_or_policy_certification
   authoring_status: drafted
@@ -3570,7 +3585,7 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_23
   - atom_27
-  proposed_core_mechanic: Prepare oath terms at Aachen Cathedral, then complete the Imperial Coronation Liturgy when the next ruler or dynastic representative accepts them.
+  proposed_core_mechanic: 'Validate the next ruler at Aachen by aligning the octagonal chapel, imperial throne, reliquaries, and coronation liturgy into a public oath.'
   player_agency_model: The player chooses the oath terms before succession and decides how much legitimacy or faction pressure to risk.
   expected_ui_model:
   - actor_slots
@@ -3582,10 +3597,10 @@ unique_wonders:
   expected_listeners:
   - ruler_death
   non_monthly_validation_point: The ruler_death listener or successor-confirmation check validates the prepared oath in a non-monthly succession window.
-  risk_or_failure_branch: A contested or low-legitimacy succession diverts to a claimant dispute, weaker oath, or renewed preparation branch. The mechanism uses supported Harness pieces, but final EU5 trigger details need a focused check.
+  risk_or_failure_branch: 'If the throne rite lacks clerical or princely recognition, the player must repeat the liturgy, narrow the imperial claim, or accept reduced legitimacy.'
   implementation_feasibility: needs_trigger_check_only
-  uniqueness_notes: 'This draft depends on Aachen Cathedral at Aachen: Carolingian stone, an octagonal chapel, Gothic choir, imperial throne, and golden reliquaries make Aachen Cathedral a shrine of coronation memory. Most other wonders lack this exact Grand Cathedral role and the named Imperial Coronation Liturgy proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: dynastic_succession_oath
+  uniqueness_notes: 'Aachen ties succession to Carolingian chapel geometry and imperial memory; most cathedrals do not carry a throne-centered coronation contract.'
+  similarity_group: imperial_chapel_coronation
   authoring_status: drafted
 - wonder_id: 210
   wonder_key: unique_nuremberg_imperial_castle
@@ -3667,8 +3682,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_06
   - atom_07
-  - atom_29
-  proposed_core_mechanic: Choose and certify the first named route for Cologne Cathedral during the Three Kings Pilgrimage, then settle the route incident before benefits activate.
+  - atom_17
+  proposed_core_mechanic: 'Certify Cologne Cathedral by moving Three Kings relic pilgrims along a Rhine route and settling who guards the shrine when the first convoy arrives.'
   player_agency_model: The player selects or qualifies the endpoint and decides how much cost to spend protecting or recognizing the route.
   expected_ui_model:
   - route_map
@@ -3680,10 +3695,10 @@ unique_wonders:
   - resource_gate
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
+  risk_or_failure_branch: 'A failed Rhine arrival or shrine-guard dispute can force a domestic relic procession until real route/cargo semantics are available.'
   implementation_feasibility: needs_new_capability
-  uniqueness_notes: 'This draft depends on Cologne Cathedral at Cologne: A vast Gothic choir, rising towers, flying buttresses, relic shrines, and Rhine pilgrims make Cologne Cathedral a city-scale argument for sacred prestige. Most other wonders lack this exact Grand Cathedral role and the named Three Kings Pilgrimage proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: pilgrimage_route_certification
+  uniqueness_notes: 'The proof needs a Gothic relic city on the Rhine; most cathedrals cannot tie river movement, relic guardianship, and pilgrimage prestige into one route test.'
+  similarity_group: three_kings_rhine_relic_route
   authoring_status: drafted
 - wonder_id: 213
   wonder_key: unique_hanseatic_kontor
@@ -3699,9 +3714,9 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: Instant branching fits because Brick warehouses, counting rooms, seals, ledgers, cranes, and Elbe ship masts make the Hanseatic Kontor a commercial embassy for league merchants; the core drama is a one-time bargain with distinct costs, not an extended timer.
   mechanic_prompt_atoms:
-  - atom_17
+  - atom_08
   - atom_19
-  proposed_core_mechanic: Open Hanseatic Kontor with a one-shot bargain in the Kontor Ledger Oath, assigning access, privilege, monopoly, or burden to a named group.
+  proposed_core_mechanic: 'Set the Kontor ledger oath by deciding whether league merchants, local burghers, or crown agents control sealed warehouse jurisdiction on the Elbe.'
   player_agency_model: The player chooses which group receives privileged access and which cost the state is willing to carry.
   expected_ui_model:
   - actor_slots
@@ -3712,10 +3727,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the immediate bargain option and its triggered effect branch.
-  risk_or_failure_branch: A rejected or overgenerous bargain creates social friction, a reduced reward, or a cooldown-gated reform option.
+  risk_or_failure_branch: 'If the jurisdiction grant is too broad, local merchants resist; too narrow, and league recognition falls back to a smaller counting-house compact.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Hanseatic Kontor at Hamburg: Brick warehouses, counting rooms, seals, ledgers, cranes, and Elbe ship masts make the Hanseatic Kontor a commercial embassy for league merchants. Most other wonders lack this exact Guild Alliance role and the named Kontor Ledger Oath proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: guild_market_bargain
+  uniqueness_notes: 'This mechanism needs a commercial embassy with league law, seals, cranes, and warehouses; most guild markets do not negotiate quasi-foreign jurisdiction.'
+  similarity_group: kontor_jurisdiction_bargain
   authoring_status: drafted
 - wonder_id: 214
   wonder_key: unique_hanseatic_town_hall
@@ -3744,8 +3759,8 @@ unique_wonders:
   - actor_assignment
   expected_listeners: []
   non_monthly_validation_point: The final selected target, law, court audience, or charter option is confirmed by the player before the reward handoff.
-  risk_or_failure_branch: A missing target, refused confirmation, or brittle selector scope sends the ritual to a smaller domestic recognition branch. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  risk_or_failure_branch: 'A league bench can reject the market-square charter order, forcing a narrower city vote; formal spec work mainly needs trigger checks for the selected league or policy target.'
+  implementation_feasibility: needs_trigger_check_only
   uniqueness_notes: 'This draft depends on Hanseatic Town Hall at Lubeck: Brick Gothic facades, council chambers, league benches, seals, and market-square charters make Luebeck''s Hanseatic Town Hall a civic parliament for merchant cities. Most other wonders lack this exact Great Assembly Hall role and the named League Diet Session proof, so copying the loop would lose the site-specific claim.'
   similarity_group: formal_vote_or_policy_certification
   authoring_status: drafted
@@ -3830,7 +3845,8 @@ unique_wonders:
   mechanic_prompt_atoms:
   - atom_14
   - atom_15
-  proposed_core_mechanic: Assign the scholar, official, priest, commander, or guardian for the Palatine Scholars Convocation, then let that actor's quality shape the first dispute before final reward dispatch.
+  - atom_17
+  proposed_core_mechanic: 'Choose a Palatine rector for Heidelberg and resolve the first disputation between lecture halls, manuscripts, town arcades, and castle patronage.'
   player_agency_model: The player picks a candidate and accepts the candidate's estate, legitimacy, or competence tradeoff.
   expected_ui_model:
   - actor_slots
@@ -3841,10 +3857,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The assigned actor is locked into a visible slot and then tested by a branch tied to their role or quality.
-  risk_or_failure_branch: A weak or factional candidate creates a retry, scandal, or reduced-reward interpretation of the opening ceremony.
+  risk_or_failure_branch: 'A weak rector can lose the disputation to town or court interests, forcing a new candidate or a smaller scholarly charter.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Heidelberg University at Heidelberg: Lecture halls, libraries, scholars, students, manuscripts, town arcades, the Neckar, and castle hill make Heidelberg University a city of learning. Most other wonders lack this exact University City role and the named Palatine Scholars Convocation proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: scholar_appointment_dispute
+  uniqueness_notes: 'This loop needs a university tied to Palatine court and town life; most scholar appointments do not have to balance castle patronage with civic lecture culture.'
+  similarity_group: palatine_disputation_rectorship
   authoring_status: drafted
 - wonder_id: 218
   wonder_key: unique_fez_old_city
@@ -3893,8 +3909,8 @@ unique_wonders:
   cadence_rationale: Event-driven pacing fits because The Great Mosque precinct, massive walls, arcades, prayer halls, minaret, scholarly courtyards, and pilgrim routes make Kairouan a holy city of Ifriqiya; the decisive beat is the named Ifriqiyan Scholars Synod incident, not elapsed time.
   mechanic_prompt_atoms:
   - atom_12
-  - atom_28
-  proposed_core_mechanic: Resolve the Ifriqiyan Scholars Synod as a bounded incident around Kairouan Holy City, choosing which faction, doctrine, memory, or civic claim becomes the accepted opening story.
+  - atom_17
+  proposed_core_mechanic: 'Resolve the Kairouan scholars synod by choosing how mosque precinct, walls, pilgrim routes, and jurists define Ifriqiyan religious authority.'
   player_agency_model: The player funds, suppresses, redirects, or reconciles the incident and owns the consequence.
   expected_ui_model:
   - checklist
@@ -3904,10 +3920,10 @@ unique_wonders:
   - final_reward_handoff
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the visible incident choice and its follow-up resolution event.
-  risk_or_failure_branch: If the player mishandles the dispute, the ritual records a one-shot cooldown and returns through a changed retry branch or a weaker settlement.
+  risk_or_failure_branch: 'If scholars reject the settlement, the player must fund a second synod, privilege one school, or accept a pious but less unifying rite.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Kairouan Holy City at Kairouan: The Great Mosque precinct, massive walls, arcades, prayer halls, minaret, scholarly courtyards, and pilgrim routes make Kairouan a holy city of Ifriqiya. Most other wonders lack this exact Sky Dome Grand Temple role and the named Ifriqiyan Scholars Synod proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: sacred_site_crisis
+  uniqueness_notes: 'This mechanism fits a holy city whose mosque precinct is also a scholarly capital; most sacred sites lack the same combination of walls, jurists, and regional pilgrimage authority.'
+  similarity_group: mosque_scholarly_synod
   authoring_status: drafted
 - wonder_id: 220
   wonder_key: unique_algiers_pirate_port
@@ -3955,8 +3971,9 @@ unique_wonders:
   cadence_rationale: Actor assignment fits because Earthen mosque courts, manuscript libraries, book markets, scholars, students, arcades, caravans, and mudbrick streets make Sankore University the learned heart of Timbuktu; the wonder's authority depends on who is trusted to open, guard, interpret, or administer it.
   mechanic_prompt_atoms:
   - atom_14
+  - atom_16
   - atom_17
-  proposed_core_mechanic: Assign the scholar, official, priest, commander, or guardian for the Manuscripts Convocation, then let that actor's quality shape the first dispute before final reward dispatch.
+  proposed_core_mechanic: 'Certify Sankore by appointing a manuscript teacher whose ijaza is tested against book markets, caravan scholars, and mosque courtyards.'
   player_agency_model: The player picks a candidate and accepts the candidate's estate, legitimacy, or competence tradeoff.
   expected_ui_model:
   - actor_slots
@@ -3968,10 +3985,10 @@ unique_wonders:
   - retry_branch
   expected_listeners: []
   non_monthly_validation_point: The assigned actor is locked into a visible slot and then tested by a branch tied to their role or quality.
-  risk_or_failure_branch: A weak or factional candidate creates a retry, scandal, or reduced-reward interpretation of the opening ceremony.
+  risk_or_failure_branch: 'A teacher without manuscript or caravan recognition can trigger a scholarly dispute, forcing a new ijaza, manuscript purchase, or reduced literacy reward.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Sankore University at Timbuktu: Earthen mosque courts, manuscript libraries, book markets, scholars, students, arcades, caravans, and mudbrick streets make Sankore University the learned heart of Timbuktu. Most other wonders lack this exact University City role and the named Manuscripts Convocation proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: scholar_appointment_dispute
+  uniqueness_notes: 'The mechanism needs Timbuktu manuscript commerce and mosque teaching together; most universities cannot make caravan-recognized ijaza the proof of institutional authority.'
+  similarity_group: manuscript_caravan_ijaza
   authoring_status: drafted
 - wonder_id: 222
   wonder_key: unique_great_mosque_of_djenne
@@ -3988,9 +4005,10 @@ unique_wonders:
   cadence_rationale: Construction or auxiliary validation fits because Monumental earthen towers, timber toron beams, buttresses, a market square, replastering processions, scholars, and Sahel mudbrick streets make the Great Mosque of Djenne a sacred urban landmark; the ritual should resolve at an annex, inspection, stabilization, or restoration completion point.
   mechanic_prompt_atoms:
   - atom_11
-  - atom_29
-  proposed_core_mechanic: Pair Great Mosque of Djenne with a functional annex, structural repair, or inspection target in the Banco Replastering Festival, then resolve the weakness found at completion.
-  player_agency_model: The player chooses the practical work package and whether to prioritize ceremony, repair, or operating doctrine.
+  - atom_13
+  - atom_19
+  proposed_core_mechanic: 'Complete the Banco replastering festival by organizing mud teams, toron scaffold access, market-square labor, and scholar blessing around the mosque walls.'
+  player_agency_model: 'The player chooses whether guild labor, clergy, or civic market groups lead the replastering and absorbs the local cost of that choice.'
   expected_ui_model:
   - incident_log
   - material_stockpile
@@ -3998,11 +4016,11 @@ unique_wonders:
   - event_chain
   - final_reward_handoff
   expected_listeners: []
-  non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
-  risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
+  non_monthly_validation_point: 'A construction or restoration completion check should fire the replastering festival validation once Harness listener support exists.'
+  risk_or_failure_branch: 'A failed mud supply, scaffold accident, or market labor dispute should pause the festival through a completion/incident listener rather than pretending ordinary event timing is enough.'
   implementation_feasibility: needs_new_listener
-  uniqueness_notes: 'This draft depends on Great Mosque of Djenne at Djenne: Monumental earthen towers, timber toron beams, buttresses, a market square, replastering processions, scholars, and Sahel mudbrick streets make the Great Mosque of Djenne a sacred urban landmark. Most other wonders lack this exact Giant Tower Temple role and the named Banco Replastering Festival proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: structural_opening_inspection
+  uniqueness_notes: 'This loop needs an earthen mosque whose maintenance is the public ritual; most sacred buildings do not make periodic mud repair and market labor the proof of holiness.'
+  similarity_group: banco_replastering_completion
   authoring_status: drafted
 - wonder_id: 223
   wonder_key: unique_walls_of_benin
@@ -4018,10 +4036,10 @@ unique_wonders:
   secondary_cadence_type: null
   cadence_rationale: War validation fits because Vast earthen ramparts, moats, gates, palace roads, guarded approaches, bronze casters, market processions, and red earth make the Walls of Benin a defensive urban landscape; the site should prove its defensive or coercive role during an actual conflict window, not through a passive timer.
   mechanic_prompt_atoms:
+  - atom_01
   - atom_05
   - atom_27
-  - atom_29
-  proposed_core_mechanic: Validate Walls of Benin through a real conflict result in the Earthwork Gate Muster, then choose whether the dedication speaks in deterrence, mercy, or repair.
+  proposed_core_mechanic: 'Validate the Walls of Benin by mustering gates, moats, palace roads, bronze casters, and market processions into a citywide defense oath at war settlement.'
   player_agency_model: The player times the validation around war outcome and chooses the settlement or repair doctrine that defines the reward.
   expected_ui_model:
   - checklist
@@ -4033,8 +4051,8 @@ unique_wonders:
   expected_listeners:
   - ending_war
   non_monthly_validation_point: A supported war listener such as ending_war fires while the builder still controls the relevant site or can prove recovery before peace.
-  risk_or_failure_branch: If the war result is weak, the site was threatened, or the player chooses a costly doctrine, the ritual diverts into a repair or humbled-dedication branch.
+  risk_or_failure_branch: 'If market routes or palace roads fail the baseline defense check, the player must choose emergency earthwork repair, stricter gate control, or a weaker civic muster.'
   implementation_feasibility: current_harness_ready
-  uniqueness_notes: 'This draft depends on Walls of Benin at Benin: Vast earthen ramparts, moats, gates, palace roads, guarded approaches, bronze casters, market processions, and red earth make the Walls of Benin a defensive urban landscape. Most other wonders lack this exact Great Wall role and the named Earthwork Gate Muster proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: defensive_war_proof
+  uniqueness_notes: 'The mechanism needs an earthwork cityscape where defense, palace movement, craft labor, and market procession are one network; most walls are not urban control systems at this scale.'
+  similarity_group: earthwork_gate_city_defense
   authoring_status: drafted

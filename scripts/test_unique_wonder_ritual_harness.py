@@ -15,8 +15,14 @@ from gen_unique_wonder_ritual_code import (  # noqa: E402
     CodegenError,
     generate_fragments_for_payload,
 )
-from wonder_unique_ritual_harness import load_template_registry, validate_spec_payload  # noqa: E402
+from wonder_unique_ritual_harness import (  # noqa: E402
+    load_capability_registry,
+    load_template_registry,
+    validate_capability_registry,
+    validate_spec_payload,
+)
 from wonder_unique_ritual_harness import load_archetype_registry  # noqa: E402
+from wonder_unique_ritual_harness import anti_flattening_warnings_for_payload  # noqa: E402
 
 
 WONDER = {
@@ -41,6 +47,12 @@ NON_MONTHLY_TEMPLATES = [
     "simple_progress_track_ui_binding",
     "final_reward_dispatch_stub",
     "semantic_contract_fragment",
+]
+BACKEND_CAPABILITIES = [
+    "actor_assignment_character_selector_backend",
+    "repeated_entity_row_checklist_incident_log_backend",
+    "branch_specific_reward_scaling",
+    "bounded_opposition_religious_community_pressure",
 ]
 
 
@@ -418,6 +430,38 @@ def incident_retry_entry() -> dict:
     return entry
 
 
+def actor_selector_backend_entry() -> dict:
+    entry = actor_assignment_entry()
+    entry["node_graph"]["nodes"][1]["capabilities"].append("actor_assignment_character_selector_backend")
+    return entry
+
+
+def repeated_row_backend_entry() -> dict:
+    entry = incident_retry_entry()
+    graph = entry["node_graph"]
+    graph["variables"][0]["roles"].extend(["incident_state", "checklist_state"])
+    graph["variables"][0]["reader_nodes"].append("retry_choice")
+    retry_choice = graph["nodes"][3]
+    retry_choice["capabilities"].append("repeated_entity_row_checklist_incident_log_backend")
+    retry_choice["ui_state"]["variable_refs"].append("tv_wonder_test_stage")
+    return entry
+
+
+def branch_scaling_backend_entry() -> dict:
+    entry = valid_entry()
+    reward = entry["node_graph"]["nodes"][5]
+    reward["capabilities"].append("branch_specific_reward_scaling")
+    return entry
+
+
+def bounded_religious_pressure_backend_entry() -> dict:
+    entry = valid_entry()
+    opening = entry["node_graph"]["nodes"][0]
+    opening["capabilities"].append("bounded_opposition_religious_community_pressure")
+    opening["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    return entry
+
+
 def route_hidden_entry(localization: dict[str, str] | None = None) -> dict:
     entry = route_incident_entry()
     graph = entry["node_graph"]
@@ -559,6 +603,63 @@ def pure_non_monthly_cadence_entry() -> dict:
     return entry
 
 
+def design_ir_fixture() -> dict:
+    return {
+        "compiler_primitives": ["test_route_rows"],
+        "phases": [{"key": "route_test", "gameplay_stage": "Prove a named route without flattening it."}],
+        "player_proofs": ["The player proves a named route and its incident state."],
+        "tracked_entity_sets": [
+            {
+                "key": "test_routes",
+                "entity_type": "route",
+                "entities": [{"key": "alpha"}, {"key": "beta"}],
+                "state_values": ["pending", "controlled", "basing", "unresolved"],
+                "per_entity_state": {"status_variable_pattern": "tv_wonder_test_route_<route>_status"},
+                "selector": "The next pending route is selected by a route gate.",
+                "ui_binding": "route_map:test_routes renders one row per route.",
+            }
+        ],
+        "selectors": [{"key": "active_route", "selection_space": "pending test routes"}],
+        "risk_branches": [{"key": "route_failed", "risk": "A route incident can delay certification."}],
+        "player_actions": ["Choose whether to pay, delay, or accept reduced route proof."],
+        "map_scope_evidence": ["A route endpoint must resolve to location or owner scope evidence."],
+        "ui_feedback_model": {"components": ["route_map", "progress_track"], "rows": "Repeated route rows."},
+        "uniqueness_constraints": ["The route set is specific enough that a generic event chain would flatten it."],
+        "projection_notes": "The node_graph projection preserves design intent but compresses repeated route rows.",
+    }
+
+
+def compiler_gap_row(verification_status: str = "needs_codebase_search") -> dict:
+    codebase_evidence = ["fixture evidence"]
+    if verification_status == "backend_ready":
+        codebase_evidence = ["capability:route_gate", "template:semantic_contract_fragment"]
+    return {
+        "primitive": "test_route_rows",
+        "design_semantics": "Repeated named route rows must survive design even before source compiler support exists.",
+        "required_game_interfaces": ["route map UI", "per-route variables"],
+        "codebase_evidence": codebase_evidence,
+        "verification_status": verification_status,
+        "search_questions": ["Which source compiler primitive should own repeated route rows?"],
+        "blocked_by": ["fixture unresolved gap"],
+        "fallback_if_unavailable": "Keep the high-fidelity design_ir and project to a simple node graph.",
+    }
+
+
+def high_fidelity_design_entry(
+    *,
+    status: str = "design_complete",
+    verification_status: str = "needs_codebase_search",
+) -> dict:
+    entry = valid_entry()
+    entry["identity"]["status"] = status
+    entry["design_ir"] = design_ir_fixture()
+    entry["compiler_gap_ledger"] = [compiler_gap_row(verification_status)]
+    entry["implementation_notes"]["remaining_source_writer_blockers"] = [
+        "Fixture backend is intermediate-only and not loadable EU5 source."
+    ]
+    return entry
+
+
 def loc() -> dict[str, str]:
     long_text = "This event description is intentionally long enough to satisfy the ritual text density gate. " * 2
     data: dict[str, str] = {}
@@ -594,6 +695,7 @@ def assert_has_error(
     localization: dict[str, str] | None = None,
     occupied_event_ids: set[int] | None = None,
     template_registry: dict | None = None,
+    capability_registry: dict | None = None,
     archetype_registry: dict | None = None,
 ) -> None:
     errors = validate_spec_payload(
@@ -603,6 +705,7 @@ def assert_has_error(
         occupied_event_ids=occupied_event_ids,
         require_all_wonders=True,
         template_registry=template_registry,
+        capability_registry=capability_registry,
         archetype_registry=archetype_registry,
     )
     if not any(needle in error for error in errors):
@@ -640,6 +743,33 @@ def main() -> None:
     )
     if good_errors:
         raise AssertionError(f"valid entry unexpectedly failed: {good_errors}")
+
+    design_complete_errors = validate_spec_payload(
+        {"unique_wonders": [high_fidelity_design_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if design_complete_errors:
+        raise AssertionError(f"design_complete fixture with compiler gaps unexpectedly failed: {design_complete_errors}")
+
+    compiler_mapped_errors = validate_spec_payload(
+        {"unique_wonders": [high_fidelity_design_entry(status="compiler_mapped")]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if compiler_mapped_errors:
+        raise AssertionError(f"compiler_mapped fixture unexpectedly failed: {compiler_mapped_errors}")
+
+    source_ready_errors = validate_spec_payload(
+        {"unique_wonders": [high_fidelity_design_entry(status="source_codegen_ready", verification_status="backend_ready")]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if source_ready_errors:
+        raise AssertionError(f"source_codegen_ready fixture unexpectedly failed: {source_ready_errors}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
@@ -743,6 +873,53 @@ def main() -> None:
     if listener_errors:
         raise AssertionError(f"resource/listener/hidden fixture unexpectedly failed: {listener_errors}")
 
+    capability_registry = load_capability_registry()
+    capability_errors = validate_capability_registry(capability_registry)
+    if capability_errors:
+        raise AssertionError(f"capability registry unexpectedly failed: {capability_errors}")
+    capability_index = {
+        capability["key"]: capability
+        for capability in capability_registry["capabilities"]
+    }
+    for capability_key in BACKEND_CAPABILITIES:
+        contract = capability_index.get(capability_key)
+        if contract is None:
+            raise AssertionError(f"missing backend capability contract {capability_key!r}")
+        if contract.get("may_write_src") is not False:
+            raise AssertionError(f"backend capability {capability_key!r} may write src")
+        if any("src" in str(kind).lower() for kind in contract.get("output_kinds", [])):
+            raise AssertionError(f"backend capability {capability_key!r} advertises source output")
+
+    for name, entry in (
+        ("actor selector backend", actor_selector_backend_entry()),
+        ("repeated row backend", repeated_row_backend_entry()),
+        ("branch scaling backend", branch_scaling_backend_entry()),
+        ("bounded religious pressure backend", bounded_religious_pressure_backend_entry()),
+    ):
+        backend_errors = validate_spec_payload(
+            {"unique_wonders": [entry]},
+            wonders=[WONDER],
+            localization=loc(),
+            require_all_wonders=True,
+        )
+        if backend_errors:
+            raise AssertionError(f"{name} fixture unexpectedly failed: {backend_errors}")
+
+    for capability_key in BACKEND_CAPABILITIES:
+        backend_gap = high_fidelity_design_entry(verification_status="backend_ready")
+        backend_gap["compiler_gap_ledger"][0]["codebase_evidence"] = [
+            f"capability:{capability_key}",
+            "manual evidence would not be enough by itself",
+        ]
+        backend_gap_errors = validate_spec_payload(
+            {"unique_wonders": [backend_gap]},
+            wonders=[WONDER],
+            localization=loc(),
+            require_all_wonders=True,
+        )
+        if backend_gap_errors:
+            raise AssertionError(f"backend_ready gap for {capability_key} unexpectedly failed: {backend_gap_errors}")
+
     result = generate_fragments_for_payload(
         {"unique_wonders": [valid_entry()]},
         wonder_keys={"unique_test_wonder"},
@@ -754,6 +931,7 @@ def main() -> None:
         "## Archetype Summary",
         "## Event Skeleton",
         "## Capability Summary",
+        "## Template / Capability Contract Boundary",
         "## Scope Contract Summary",
         "## Listener Contract Summary",
         "## Hidden Executor / Tooltip Safety Notes",
@@ -764,6 +942,33 @@ def main() -> None:
     ):
         if expected not in generated_text:
             raise AssertionError(f"codegen dry-run missing {expected!r}")
+
+    high_fidelity_result = generate_fragments_for_payload(
+        {"unique_wonders": [high_fidelity_design_entry(status="source_codegen_ready", verification_status="backend_ready")]},
+        wonder_keys={"unique_test_wonder"},
+    )
+    high_fidelity_text = high_fidelity_result["generated"][0]["text"]
+    for expected in (
+        "## Design IR Preservation Summary",
+        "test_routes",
+        "alpha, beta",
+        "Repeated route rows",
+        "The node_graph projection preserves design intent",
+        "## Compiler Gap Ledger",
+        "test_route_rows",
+        "backend_ready",
+        "capability:route_gate",
+        "## Remaining Source Writer Blockers",
+        "not loadable EU5 source",
+        "Fixture backend is intermediate-only",
+        "`may_write_src=false`",
+        "| may_write_src |",
+        "| event_chain |",
+    ):
+        if expected not in high_fidelity_text:
+            raise AssertionError(f"high-fidelity codegen dry-run missing {expected!r}")
+    if "may_write_src | true" in high_fidelity_text:
+        raise AssertionError("high-fidelity codegen dry-run implies source-writing support")
 
     duplicate = valid_entry()
     duplicate["event_ids"][2]["id"] = 1002
@@ -791,6 +996,140 @@ def main() -> None:
     unsupported_listener = valid_entry()
     unsupported_listener["node_graph"]["listeners"] = ["unsupported_listener"]
     assert_has_error("unsupported listener", unsupported_listener, "unsupported listener")
+
+    unknown_status = valid_entry()
+    unknown_status["identity"]["status"] = "almost_ready"
+    assert_has_error("unknown status", unknown_status, "identity.status 'almost_ready' is unsupported")
+
+    invalid_gap_status = high_fidelity_design_entry(verification_status="maybe_later")
+    assert_has_error("invalid compiler gap status", invalid_gap_status, "invalid verification_status")
+
+    verified_without_evidence = high_fidelity_design_entry(verification_status="verified_existing")
+    verified_without_evidence["compiler_gap_ledger"][0]["codebase_evidence"] = []
+    assert_has_error(
+        "verified existing missing evidence",
+        verified_without_evidence,
+        "verified_existing requires codebase_evidence",
+    )
+
+    backend_without_registry_evidence = high_fidelity_design_entry(verification_status="backend_ready")
+    backend_without_registry_evidence["compiler_gap_ledger"][0]["codebase_evidence"] = [
+        "scripts/manual_evidence_only.py"
+    ]
+    assert_has_error(
+        "backend ready missing registry evidence",
+        backend_without_registry_evidence,
+        "backend_ready requires valid capability:<key> or template:<key>",
+    )
+
+    writable_capability_registry = deepcopy(load_capability_registry())
+    writable_capability_registry["capabilities"][0]["may_write_src"] = True
+    assert_has_error(
+        "capability may_write_src",
+        valid_entry(),
+        "must declare may_write_src: false",
+        capability_registry=writable_capability_registry,
+    )
+
+    needs_search_without_questions = high_fidelity_design_entry()
+    needs_search_without_questions["compiler_gap_ledger"][0]["search_questions"] = []
+    assert_has_error(
+        "needs_codebase_search missing questions",
+        needs_search_without_questions,
+        "needs_codebase_search requires meaningful search_questions",
+    )
+
+    source_ready_with_gap = high_fidelity_design_entry(status="source_codegen_ready")
+    assert_has_error(
+        "source_codegen_ready unresolved compiler gap",
+        source_ready_with_gap,
+        "unresolved compiler gap",
+    )
+
+    source_ready_verified_existing = high_fidelity_design_entry(
+        status="source_codegen_ready",
+        verification_status="verified_existing",
+    )
+    assert_has_error(
+        "source_codegen_ready verified_existing gap",
+        source_ready_verified_existing,
+        "not backend_ready",
+    )
+
+    implementation_ready_verified_existing = high_fidelity_design_entry(
+        status="implementation_ready",
+        verification_status="verified_existing",
+    )
+    assert_has_error(
+        "implementation_ready verified_existing gap",
+        implementation_ready_verified_existing,
+        "not backend_ready",
+    )
+
+    flattened_route = high_fidelity_design_entry()
+    flattened_route["design_ir"]["tracked_entity_sets"][0]["key"] = "single_progress_counter"
+    flattened_route["design_ir"]["tracked_entity_sets"][0]["entity_type"] = "counter"
+    flattening_warnings = anti_flattening_warnings_for_payload(
+        {"unique_wonders": [flattened_route]},
+        design_matrix={
+            "unique_wonders": [
+                {
+                    "wonder_key": "unique_test_wonder",
+                    "expected_ui_model": ["route_map"],
+                    "proposed_core_mechanic": "Certify two named Mediterranean routes without flattening them.",
+                    "player_agency_model": "The player chooses the active route.",
+                    "risk_or_failure_branch": "A route can fail and require a retry.",
+                    "uniqueness_notes": "Mediterranean routes are the historical interface.",
+                    "primary_cadence_type": "route_certification",
+                }
+            ]
+        },
+    )
+    if not any("tracked route set" in warning for warning in flattening_warnings):
+        raise AssertionError(f"flattened route fixture did not warn: {flattening_warnings}")
+
+    many_named_routes_without_projection = high_fidelity_design_entry()
+    many_named_routes_without_projection["design_ir"]["tracked_entity_sets"][0]["entities"] = [
+        {"key": f"route_{idx}"} for idx in range(1, 7)
+    ]
+    many_named_routes_without_projection["design_ir"]["projection_notes"] = ""
+    named_route_warnings = anti_flattening_warnings_for_payload(
+        {"unique_wonders": [many_named_routes_without_projection]},
+        design_matrix={"unique_wonders": []},
+    )
+    if not any("6 named entities" in warning and "projection strategy" in warning for warning in named_route_warnings):
+        raise AssertionError(f"many named routes fixture did not warn: {named_route_warnings}")
+
+    repeated_rows_without_projection = high_fidelity_design_entry()
+    repeated_rows_without_projection["design_ir"]["projection_notes"] = "Manual note preserves the high-fidelity idea."
+    repeated_rows_warnings = anti_flattening_warnings_for_payload(
+        {"unique_wonders": [repeated_rows_without_projection]},
+        design_matrix={"unique_wonders": []},
+    )
+    if not any("row/status projection" in warning for warning in repeated_rows_warnings):
+        raise AssertionError(f"repeated rows fixture did not warn: {repeated_rows_warnings}")
+
+    public_debt_without_projection = high_fidelity_design_entry()
+    public_debt_without_projection["design_ir"]["tracked_entity_sets"][0] = {
+        "key": "public_debt_pledges",
+        "entity_type": "debt_pledge",
+        "entities": [{"key": f"pledge_{idx}"} for idx in range(1, 7)],
+        "state_values": ["open", "honored", "defaulted"],
+        "per_entity_state": {"status_variable_pattern": "tv_wonder_test_pledge_<pledge>_status"},
+        "selector": "The player selects which pledge backs the founding bargain.",
+        "ui_binding": "incident_log:public_debt_pledges renders pledge risk state.",
+    }
+    public_debt_without_projection["design_ir"]["ui_feedback_model"] = {
+        "components": ["incident_log", "checklist"],
+        "per_entity_status": "Each public debt pledge has a separate risk status.",
+    }
+    public_debt_without_projection["design_ir"]["projection_notes"] = ""
+    public_debt_warnings = anti_flattening_warnings_for_payload(
+        {"unique_wonders": [public_debt_without_projection]},
+        design_matrix={"unique_wonders": []},
+    )
+    if not any("6 named entities" in warning for warning in public_debt_warnings):
+        raise AssertionError(f"public debt fixture did not warn on named entities: {public_debt_warnings}")
 
     occupied_event_id = valid_entry()
     assert_has_error(
