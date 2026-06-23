@@ -6,6 +6,7 @@
 # ══════════════════════════════════════════════════════════════════════════════
 # TOWARDS VICTORY — DIPLOMATIC ALLIANCE LAWS
 # 5 law categories × 4 policy levels each
+# Law changes require Alliance Assembly parliament voting
 # Cohesion thresholds: L1=0, L2=25, L3=50, L4=75
 # tv_alliance_tier is the sum of all current policy levels above 1
 # ══════════════════════════════════════════════════════════════════════════════
@@ -20,7 +21,7 @@ tv_court_protocol = {
 		international_organization_type = international_organization_type:tv_diplomatic_alliance
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -329,7 +330,7 @@ tv_information_network = {
 		international_organization_type = international_organization_type:tv_diplomatic_alliance
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -637,7 +638,7 @@ tv_commerce_consensus = {
 		international_organization_type = international_organization_type:tv_diplomatic_alliance
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -945,7 +946,7 @@ tv_faith_harmony = {
 		international_organization_type = international_organization_type:tv_diplomatic_alliance
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -1252,7 +1253,7 @@ tv_colonization_sphere = {
 		international_organization_type = international_organization_type:tv_diplomatic_alliance
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
