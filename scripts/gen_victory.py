@@ -89,6 +89,14 @@ def monthly_country_pulse_event(data: dict, event_id: str) -> str:
     return f"trigger_event_non_silently = {{ id = {event_id} days = {delay} }}"
 
 
+def establishment_step1_event_id(est: dict) -> int:
+    return 100 + int(est["event_id"])
+
+
+def establishment_step2_event_id(est: dict) -> int:
+    return 200 + int(est["event_id"])
+
+
 def establishment_paths(data: dict) -> list[dict]:
     return data.get("_io_establishment", {}).get("paths", [])
 
@@ -228,6 +236,23 @@ def gen_triggers(data: dict) -> str:
             lines.extend(_snippet_lines("\n".join(build_check_lines), 1))
             lines.append("}")
             lines.append("")
+            lines.append(f"tv_{pid}_headquarters_can_build_in_capital = {{")
+            lines.append("\tcustom_tooltip = {")
+            lines.append(f"\t\ttext = TV_{PID}_ESTABLISHMENT_STEP2_REQUIREMENT")
+            lines.append("\t\tcapital ?= {")
+            lines.append("\t\t\tis_capital = yes")
+            lines.append(f"\t\t\tlocation_and_owner_can_build = {{ building_type = {building} }}")
+            lines.append(f"\t\t\tNOT = {{ has_building = building_type:{building} }}")
+            lines.append("\t\t\tNOT = {")
+            lines.append("\t\t\t\tany_buildings_in_location = {")
+            lines.append(f"\t\t\t\t\tbuilding_type = building_type:{building}")
+            lines.append("\t\t\t\t\tbuilding_levels_under_construction >= 1")
+            lines.append("\t\t\t\t}")
+            lines.append("\t\t\t}")
+            lines.append("\t\t}")
+            lines.append("\t}")
+            lines.append("}")
+            lines.append("")
             lines.append(f"tv_{pid}_establishment_basic_done = {{")
             lines.append("\tcustom_tooltip = {")
             lines.append(f"\t\ttext = TV_{PID}_ESTABLISHMENT_STEP1_DONE_TT")
@@ -364,6 +389,10 @@ def gen_establishment_effects(data: dict) -> str:
         lines.append("\t\tif = {")
         lines.append(f"\t\t\tlimit = {{ tv_{pid}_establishment_basic_requirement = yes }}")
         lines.append(f"\t\t\tset_variable = {{ name = tv_{pid}_establishment_basic_done value = 1 }}")
+        lines.append("\t\t\tif = {")
+        lines.append("\t\t\t\tlimit = { is_ai = no }")
+        lines.append(f"\t\t\t\t{monthly_country_pulse_event(data, f'tv_io_establishment.{establishment_step1_event_id(est)}')}")
+        lines.append("\t\t\t}")
         lines.append("\t\t}")
         lines.append("\t}")
     lines.append("}")
@@ -737,7 +766,51 @@ def gen_establishment_events(data: dict) -> str:
         "",
     ]
     for est in establishment_paths(data):
+        pid = est["id"]
+        building = est["headquarters"]["building"]
+        step1_event_id = establishment_step1_event_id(est)
+        step2_event_id = establishment_step2_event_id(est)
         event_id = int(est["event_id"])
+        lines.append(f"tv_io_establishment.{step1_event_id} = {{")
+        lines.append("\ttype = country_event")
+        lines.append(f"\ttitle = tv_io_establishment.{step1_event_id}.t")
+        lines.append(f"\tdesc = tv_io_establishment.{step1_event_id}.d")
+        lines.append("\toutcome = neutral")
+        lines.append("\ttrigger = {")
+        lines.append(f"\t\ttv_{pid}_establishment_basic_done = yes")
+        lines.append(f"\t\tNOT = {{ tv_{pid}_establishment_headquarters_done = yes }}")
+        lines.append(f"\t\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}")
+        lines.append("\t}")
+        lines.append("\toption = {")
+        lines.append(f"\t\tname = tv_io_establishment.{step1_event_id}.a")
+        lines.append("\t}")
+        lines.append("\toption = {")
+        lines.append(f"\t\tname = tv_io_establishment.{step1_event_id}.b")
+        lines.append(f"\t\ttrigger = {{ tv_{pid}_headquarters_can_build_in_capital = yes }}")
+        lines.append("\t\tif = {")
+        lines.append(f"\t\t\tlimit = {{ tv_{pid}_headquarters_can_build_in_capital = yes }}")
+        lines.append("\t\t\tcapital ?= {")
+        lines.append(f"\t\t\t\tconstruct_building = {{ building_type = building_type:{building} }}")
+        lines.append("\t\t\t}")
+        lines.append("\t\t}")
+        lines.append("\t}")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"tv_io_establishment.{step2_event_id} = {{")
+        lines.append("\ttype = country_event")
+        lines.append(f"\ttitle = tv_io_establishment.{step2_event_id}.t")
+        lines.append(f"\tdesc = tv_io_establishment.{step2_event_id}.d")
+        lines.append("\toutcome = neutral")
+        lines.append("\ttrigger = {")
+        lines.append(f"\t\ttv_{pid}_establishment_ready_to_appoint = yes")
+        lines.append("\t}")
+        lines.append("\toption = {")
+        lines.append(f"\t\tname = tv_io_establishment.{step2_event_id}.a")
+        lines.append("\t}")
+        lines.append("}")
+        lines.append("")
+
         lines.append(f"tv_io_establishment.{event_id} = {{")
         lines.append("\ttype = country_event")
         lines.append(f"\ttitle = tv_io_establishment.{event_id}.t")
@@ -819,6 +892,9 @@ def gen_localization(data: dict, lang: str) -> str:
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_UNAVAILABLE": "No eligible chief candidate is available.",
                 "tv_io_headquarters_price": "Organization Headquarters",
                 "TV_IO_HEADQUARTERS_EVENT_OPTION": "Excellent.",
+                "TV_IO_ESTABLISHMENT_GUIDE_PANEL_OPTION": "Open the situation panel.",
+                "TV_IO_ESTABLISHMENT_GUIDE_BUILD_OPTION": "Begin construction in the capital.",
+                "TV_IO_ESTABLISHMENT_GUIDE_APPOINT_OPTION": "Open the situation panel.",
             }
         else:
             shared_est_loc = {
@@ -829,6 +905,9 @@ def gen_localization(data: dict, lang: str) -> str:
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_UNAVAILABLE": "没有符合条件的首席候选人。",
                 "tv_io_headquarters_price": "组织首府",
                 "TV_IO_HEADQUARTERS_EVENT_OPTION": "很好。",
+                "TV_IO_ESTABLISHMENT_GUIDE_PANEL_OPTION": "打开局势面板。",
+                "TV_IO_ESTABLISHMENT_GUIDE_BUILD_OPTION": "在首都开始建造。",
+                "TV_IO_ESTABLISHMENT_GUIDE_APPOINT_OPTION": "打开局势面板。",
             }
         lines.append("")
         lines.append(" # ---- IO establishment ----")
@@ -900,6 +979,35 @@ def gen_localization(data: dict, lang: str) -> str:
                 f"We appointed the first chief of {io_name}." if lang == "en" else f"我们任命了{io_name}的首任首席。",
             )
             event_id = int(est["event_id"])
+            step1_event_id = establishment_step1_event_id(est)
+            step2_event_id = establishment_step2_event_id(est)
+            step1_event_title = (
+                f"{route_name} Victory: Headquarters Ready"
+                if lang == "en"
+                else f"{route_name}胜利：可以建设首府"
+            )
+            step1_event_desc = (
+                f"The basic requirement for {route_name} Victory is complete. Open the Towards Victory situation panel to begin the next step, or start building {building_name} in the capital directly from this event."
+                if lang == "en"
+                else f"{route_name}胜利的基本要求已经完成。你可以打开\"胜利之路\"局势面板继续下一步，也可以直接通过本事件在首都开始建造{building_name}。"
+            )
+            step2_event_title = (
+                f"{building_name} Completed"
+                if lang == "en"
+                else f"{building_name}已经建成"
+            )
+            step2_event_desc = (
+                f"{building_name} is complete. Open the Towards Victory situation panel and appoint a chief to establish {io_name}."
+                if lang == "en"
+                else f"{building_name}已经建成。请打开\"胜利之路\"局势面板，任命首席以建立{io_name}。"
+            )
+            lines.append(kv(f"tv_io_establishment.{step1_event_id}.t", step1_event_title))
+            lines.append(kv(f"tv_io_establishment.{step1_event_id}.d", step1_event_desc))
+            lines.append(kv(f"tv_io_establishment.{step1_event_id}.a", shared_est_loc["TV_IO_ESTABLISHMENT_GUIDE_PANEL_OPTION"]))
+            lines.append(kv(f"tv_io_establishment.{step1_event_id}.b", shared_est_loc["TV_IO_ESTABLISHMENT_GUIDE_BUILD_OPTION"]))
+            lines.append(kv(f"tv_io_establishment.{step2_event_id}.t", step2_event_title))
+            lines.append(kv(f"tv_io_establishment.{step2_event_id}.d", step2_event_desc))
+            lines.append(kv(f"tv_io_establishment.{step2_event_id}.a", shared_est_loc["TV_IO_ESTABLISHMENT_GUIDE_APPOINT_OPTION"]))
             lines.append(kv(f"tv_io_establishment.{event_id}.t", f"{io_name} Established" if lang == "en" else f"{io_name}已建立"))
             lines.append(kv(f"tv_io_establishment.{event_id}.d", loc_text(est["loc"]["event_desc"], lang)))
             lines.append(kv(f"tv_io_establishment.{event_id}.a", shared_est_loc["TV_IO_HEADQUARTERS_EVENT_OPTION"]))
