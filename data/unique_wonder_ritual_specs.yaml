@@ -12,11 +12,66 @@ metadata:
     stub: Coverage placeholder only; cannot be generated into game code.
     needs_design: Design debt placeholder from the design source.
     implemented_parity: Spec mirrors an already implemented custom ritual.
-    implementation_ready: Authored spec has passed Harness quality gates and may be generated.
+    design_complete: High-fidelity design_ir is complete; compiler gaps may remain.
+    compiler_mapped: High-fidelity design has a Harness node_graph projection that passes semantic graph validation.
+    evidence_verified: Key design primitives have codebase evidence; this is not a source-codegen guarantee.
+    source_codegen_ready: Spec has no unresolved compiler gaps and passes source codegen readiness gates.
+    implementation_ready: Legacy alias for source_codegen_ready; do not use as a design-complete status.
     harness_generated: Generated implementation is owned by the Harness node-graph generator.
   quality_contract:
     minimum_player_visible_nodes: 3
     minimum_event_count: 3
+    design_ir_statuses:
+    - compiler_mapped
+    - design_complete
+    - evidence_verified
+    - source_codegen_ready
+    semantic_graph_statuses:
+    - compiler_mapped
+    - harness_generated
+    - implementation_ready
+    - source_codegen_ready
+    source_codegen_statuses:
+    - harness_generated
+    - implementation_ready
+    - source_codegen_ready
+    allowed_compiler_gap_verification_statuses:
+    - backend_ready
+    - interface_candidate
+    - needs_codebase_search
+    - semantic_only
+    - verified_existing
+    unresolved_compiler_gap_statuses:
+    - interface_candidate
+    - needs_codebase_search
+    - semantic_only
+    required_design_ir_fields:
+    - map_scope_evidence
+    - phases
+    - player_actions
+    - player_proofs
+    - projection_notes
+    - risk_branches
+    - selectors
+    - tracked_entity_sets
+    - ui_feedback_model
+    - uniqueness_constraints
+    required_tracked_entity_set_fields:
+    - entity_type
+    - key
+    - per_entity_state
+    - selector
+    - state_values
+    - ui_binding
+    required_compiler_gap_fields:
+    - blocked_by
+    - codebase_evidence
+    - design_semantics
+    - fallback_if_unavailable
+    - primitive
+    - required_game_interfaces
+    - search_questions
+    - verification_status
     required_reward_channels:
     - permanent_country_modifier
     - local_building_reward
@@ -57,8 +112,10 @@ metadata:
     - route_map
     event_id_rule: Every event id must be explicit, unique within this file, and < 10000.
     state_machine_dsl_statuses:
+    - compiler_mapped
     - harness_generated
     - implementation_ready
+    - source_codegen_ready
     supported_node_kinds:
     - assignment_gate
     - choice_event
@@ -227,6 +284,281 @@ unique_wonders:
       failure_or_retry: false
     listeners:
     - monthly
+  design_ir:
+    compiler_primitives:
+    - alexandria_hostile_privateer_clearance
+    - mediterranean_named_route_set
+    - per_route_status_projection
+    - active_route_selection
+    - controlled_route_pass
+    - basing_route_pass
+    - foreign_harbor_bargain
+    - privateer_threat_progress
+    - route_progress_counter
+    - repeated_route_ui_rows
+    - source_compiler_route_row_generation
+    phases:
+    - key: clear_alexandria_privateers
+      gameplay_stage: Harbor security before the light can be trusted.
+      entry_condition: Pharos ritual annex has finished and hostile privateers threaten Alexandria.
+      exit_condition: Privateer threat progress is cleared through costed player options.
+    - key: certify_mediterranean_routes
+      gameplay_stage: Monthly route audit rolls pending named routes until all eight lanes pass.
+      entry_condition: Stage 2 begins after Alexandria clearance.
+      exit_condition: Every route is controlled or accepted through basing/foreign harbor bargain.
+    - key: eighth_light_completion
+      gameplay_stage: Final route count proves the Pharos as a Mediterranean navigation system.
+      entry_condition: Route progress reaches eight certified routes.
+      exit_condition: Existing ritual completion event dispatches the implemented reward.
+    player_proofs:
+    - Prove Alexandria's harbor light cannot be suppressed by hostile privateers.
+    - Prove the lighthouse can guide or negotiate access across eight named Mediterranean routes.
+    - Prove each route individually through control, reciprocal fleet basing, or a foreign harbor bargain.
+    tracked_entity_sets:
+    - key: mediterranean_routes
+      entity_type: route
+      entities:
+      - key: constantinople
+        display_name: Constantinople
+        route_id: 1
+      - key: venice
+        display_name: Venice
+        route_id: 2
+      - key: genoa
+        display_name: Genoa
+        route_id: 3
+      - key: malta
+        display_name: Malta
+        route_id: 4
+      - key: tunis
+        display_name: Tunis
+        route_id: 5
+      - key: palermo
+        display_name: Palermo
+        route_id: 6
+      - key: candia
+        display_name: Candia
+        route_id: 7
+      - key: gibraltar
+        display_name: Gibraltar
+        route_id: 8
+      state_values:
+      - pending
+      - controlled
+      - basing
+      - unresolved
+      per_entity_state:
+        status_variable_pattern: tv_wonder_pharos_route_<route_key>_status
+        passed_variable_pattern: tv_wonder_pharos_route_<route_key>_passed
+        location_variable_pattern: tv_wonder_pharos_route_<route_key>_location
+        owner_variable_pattern: tv_wonder_pharos_route_<route_key>_owner
+      selector: tv_wonder_pharos_roll_route_effect chooses one pending route and writes tv_wonder_pharos_active_route.
+      ui_binding: route_map:mediterranean_routes renders one repeated row per route with owner and controlled/basing/unresolved status.
+    selectors:
+    - key: active_route_selection
+      selection_space: pending mediterranean_routes
+      selection_state: tv_wonder_pharos_active_route and tv_wonder_pharos_active_route_id
+      resolution_events:
+      - 7305
+      - 7306
+      - 7307
+    risk_branches:
+    - key: privateer_clearance_cost
+      risk: Hostile privateers force gold, prestige, or burgher-satisfaction costs before route certification can begin.
+      player_response: Pay for watch boats, take a prestige hit, or lean on merchants.
+    - key: foreign_harbor_bargain
+      risk: A selected route is neither controlled nor already covered by fleet basing.
+      player_response: Pay for reciprocal basing or leave the route unresolved for a later roll.
+    player_actions:
+    - Choose how to clear Alexandria privateers in events 7301-7303.
+    - Accept controlled route passes in event 7305.
+    - Accept existing basing route passes in event 7306.
+    - Pay for a foreign harbor bargain in event 7307.
+    map_scope_evidence:
+    - Alexandria sea_zone area scans hostile privateers.
+    - 'Route locations are concrete location scopes: Constantinople, Venice, Genoa, Malta, Tunis, Palermo, Candia, Gibraltar.'
+    - Per-route owner scopes project into UI rows and foreign harbor bargain event scopes.
+    - Controlled routes use ownership; basing routes use reciprocal fleet-basing relation checks.
+    ui_feedback_model:
+      components:
+      - progress_track
+      - route_map
+      privateer_threat: Circular progress track bound to tv_wonder_pharos_privateer_threat_pct.
+      route_progress: Circular progress track bound to tv_wonder_pharos_route_progress out of eight.
+      repeated_rows: Eight fixed route rows show location, owner, and controlled/basing/unresolved status.
+      incident_log: The current event chain acts as the incident log through privateer and foreign harbor events.
+    uniqueness_constraints:
+    - The ritual depends on Alexandria as a lighthouse whose value is visual trust across sea lanes.
+    - The eight Mediterranean routes make navigation visibility the proof; ordinary ports cannot reuse this without losing the Pharos claim.
+    - The controlled/basing/foreign-bargain branch ties diplomacy and naval logistics to the light itself.
+    projection_notes: >
+      The current node_graph is an existing_plugin_parity projection. It preserves the manual implementation evidence and event IDs but compresses
+      per-route rows, route selector state, controlled/basing route passes, and the foreign harbor bargain into lightweight event nodes rather than a
+      full source-codegen-ready graph.
+  compiler_gap_ledger:
+  - primitive: alexandria_hostile_privateer_clearance
+    design_semantics: Clear hostile privateer pressure around Alexandria before the lighthouse can certify routes.
+    required_game_interfaces:
+    - sea_zone area privateer scan
+    - privateer power mutation
+    - monthly delayed event
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Keep the manual privateer-clearance event chain as the authoritative implementation.
+  - primitive: mediterranean_named_route_set
+    design_semantics: Track eight named Mediterranean routes as distinct certifiable entities.
+    required_game_interfaces:
+    - fixed location scopes
+    - per-route variable projection
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Keep the route set as authored data in the manual Pharos plugin.
+  - primitive: per_route_status_projection
+    design_semantics: Expose pending, controlled, basing, and unresolved state per route.
+    required_game_interfaces:
+    - country variables
+    - location owner projection
+    - GUI variable reads
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Summarize route progress while preserving the high-fidelity route set in design_ir.
+  - primitive: active_route_selection
+    design_semantics: Select one pending route at a time and save active route/location/owner state for events.
+    required_game_interfaces:
+    - random_list trigger filters
+    - saved route variables
+    - monthly event scheduling
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Retain the manual selector and do not flatten routes into a single anonymous progress gate.
+  - primitive: controlled_route_pass
+    design_semantics: A route passes immediately when the builder controls the route location.
+    required_game_interfaces:
+    - owns = location:<route>
+    - route passed variable
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Record controlled pass as a semantic design primitive until source compiler support exists.
+  - primitive: basing_route_pass
+    design_semantics: A route passes when the foreign owner already has reciprocal fleet basing with the builder.
+    required_game_interfaces:
+    - fleet basing relation trigger
+    - route passed variable
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Preserve basing as a ledger primitive rather than replacing it with generic route progress.
+  - primitive: foreign_harbor_bargain
+    design_semantics: If a foreign route has an owner but no qualifying basing, the player can pay to create reciprocal basing.
+    required_game_interfaces:
+    - route owner scope
+    - create_relation fleet_basing_rights
+    - costed event option
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Leave the route unresolved and retry later while keeping the bargain in design_ir.
+  - primitive: privateer_threat_progress
+    design_semantics: Project hostile privateer count into a visible threat percentage.
+    required_game_interfaces:
+    - counted privateer triggers
+    - progress_track GUI
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Keep the visible stage text but do not remove the privateer proof from design_ir.
+  - primitive: route_progress_counter
+    design_semantics: Count certified routes from zero to eight and fire the final light event at completion.
+    required_game_interfaces:
+    - per-route passed variables
+    - clamped counter
+    - completion event
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Use a summary progress counter only as projection, never as replacement for tracked routes.
+  - primitive: repeated_route_ui_rows
+    design_semantics: Render one route-map row per Mediterranean route with location, owner, and status.
+    required_game_interfaces:
+    - fixed GUI rows
+    - location and owner variable projection
+    - status localization
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: verified_existing
+    search_questions:
+    - None; manual implementation already provides existing codebase evidence.
+    blocked_by: []
+    fallback_if_unavailable: Use route_map summary plus projection_notes until repeated-row source codegen exists.
+  - primitive: source_compiler_route_row_generation
+    design_semantics: Future source compiler should generate per-route state, selectors, and repeated UI rows from design_ir.
+    required_game_interfaces:
+    - source compiler route-set expansion
+    - GUI row generation
+    - event/effect generation
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py
+    - scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py
+    - previous event ids 7300-7308
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which existing generator owns repeated Engineering Department ritual UI row expansion?
+    - Can the future source compiler emit per-route trigger/effect families without exceeding event-id limits?
+    blocked_by:
+    - No source compiler is in scope for this round.
+    fallback_if_unavailable: Keep Pharos manual implementation and emit only high-fidelity design/projection metadata.
   ui_model:
     components:
     - type: progress_track

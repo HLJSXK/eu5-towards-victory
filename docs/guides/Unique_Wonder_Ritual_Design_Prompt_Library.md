@@ -13,6 +13,11 @@ variables, UI models, and failure/retry branches for the 123 unique wonders.
 Do not use it as a reason to generate formal ritual specs in bulk. It is a
 design prompt library, not executable data.
 
+Do not simplify a ritual to match the current capability or template registry. If a
+mechanism is historically and mechanically right but not yet compiler-backed, keep it in
+`design_ir` and add a `compiler_gap_ledger` row with `semantic_only`,
+`needs_codebase_search`, or `interface_candidate`.
+
 The core bias of this guide is simple: a ritual should prove that the state can
 use the wonder. Completion should come from a player choice, real validation
 point, event branch, listener, resource movement, appointment, construction
@@ -29,10 +34,15 @@ hook, or crisis resolution - not from a default monthly progress bar.
 3. Add 2-4 mechanic prompt atoms. Combine atoms across subsystems when the
    wonder deserves a bespoke loop, such as route plus actor assignment plus
    incident branch.
-4. Translate the atoms into Harness concepts: node kinds, capabilities,
-   variables, UI bindings, event chain, retry branch, hidden executor handoff,
-   and the existing supported listeners only.
-5. Keep every EU5 interface conservative: event IDs below 10000, variables with
+4. Translate the atoms into high-fidelity `design_ir` first: phases, player proofs,
+   tracked entity sets, per-entity state, selectors, risk branches, player actions,
+   map/scope evidence, UI feedback, and uniqueness constraints.
+5. Then create the current Harness projection where possible: node kinds, capabilities,
+   variables, UI bindings, event chain, retry branch, hidden executor handoff, and the
+   existing supported listeners only.
+6. Put unsupported or unverified primitives in `compiler_gap_ledger`; do not remove them
+   from the design.
+7. Keep every EU5 interface conservative: event IDs below 10000, variables with
    the ritual prefix, declared readers/writers, resolved localization refs,
    tooltip/pre-evaluation safety, valid `listener_contract`, verified templates,
    and no unsupported capability or node-kind invention.
@@ -829,12 +839,34 @@ Hard requirements:
   branch, listener, trigger, actor assignment, route/resource validation,
   construction completion, war result, or succession validation.
 - Do not choose the safest mature template merely to pass the Harness.
+- Do not flatten high-fidelity phases, tracked sets, route/office/district/network rows,
+  selectors, risk branches, or UI feedback to fit current codegen.
+- `needs_codebase_search` is a normal design output, not a design failure.
 - Do not relax event ID uniqueness, variable reader/writer declarations, UI refs,
   localization refs, tooltip/pre-evaluation safety, listener_contract, hidden
   executor, capability, node-kind, template, or verified-interface checks.
 - Do not copy vanilla script. Use vanilla mechanisms only as design inspiration.
 
 Required output fields:
+
+design_ir:
+  phases:
+  player_proofs:
+  tracked_entity_sets:
+  selectors:
+  risk_branches:
+  player_actions:
+  map_scope_evidence:
+  ui_feedback_model:
+  uniqueness_constraints:
+  projection_notes:
+
+compiler_gap_ledger:
+  For each high-complexity primitive, provide primitive, design_semantics,
+  required_game_interfaces, codebase_evidence, verification_status,
+  search_questions, blocked_by, and fallback_if_unavailable. Use verification
+  statuses semantic_only, needs_codebase_search, interface_candidate,
+  verified_existing, or backend_ready.
 
 design_intent:
   Explain what the ritual lets the player prove about the state and the wonder.

@@ -1,8 +1,9 @@
 metadata:
   purpose: "Contract registry for conservative Unique Wonder Ritual Harness codegen templates."
   generated_game_code: false
-  safety_boundary: "Templates may only produce intermediate fragments under data/generated_fragments/unique_wonder_rituals/ until their EU5 script interfaces are separately verified."
+  safety_boundary: "Templates may only produce intermediate fragments under data/generated_fragments/unique_wonder_rituals/ until their EU5 script interfaces are separately verified; template coverage is not a design_ir complexity limit."
   status: "v1_intermediate_only"
+  design_fidelity_policy: "Use templates as source/codegen readiness evidence only after design_ir and compiler_gap_ledger have preserved the full mechanism."
 
 templates:
   - key: sequential_event_chain
@@ -117,4 +118,4 @@ templates:
       - effect_stub
     verified_interface: "harness_v1_intermediate_fragment"
     may_write_src: false
-    notes: "Documents semantic capability/scope/listener contracts for new Harness node kinds without emitting loadable EU5 script."
+    notes: "Documents semantic capability/scope/listener contracts for current Harness projection nodes without emitting loadable EU5 script; unsupported high-fidelity primitives belong in design_ir plus compiler_gap_ledger."

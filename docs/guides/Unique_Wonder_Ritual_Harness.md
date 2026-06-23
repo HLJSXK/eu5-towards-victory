@@ -2,8 +2,9 @@
 
 Use this Harness when authoring bespoke rituals for `data/unique_wonders.yaml`.
 The goal is to push AI authors toward high-innovation, wonder-specific ritual design,
-not to compress every design into a few fixed mechanism shapes. Each batch should
-produce a playable spec first, then game code.
+not to compress every design into a few fixed mechanism shapes. Design fidelity comes
+before current codegen convenience. Each batch should preserve the full playable design
+first, then map only the verified projection into the current Harness graph or generator.
 
 ## Full-Corpus Authoring Workflow
 
@@ -61,15 +62,48 @@ Every authoring pass must include these sections before implementation:
 - `event_text_inventory`: title, description, options, panel status text, and world-news text.
 - `reward_table`: permanent country modifier, local reward building, one-time reward, and any temporary burden or stage reward.
 - `risk_verification_checklist`: EU5 interfaces that are verified, and any `needs_verification` items that block code generation.
+- `design_ir`: the high-fidelity mechanism layer that records phases, tracked entity sets, selectors, risk branches, player proofs, map/scope evidence, UI feedback, uniqueness constraints, and projection notes.
+- `compiler_gap_ledger`: one row per high-complexity primitive, including the primitive semantics, required game interfaces, current evidence, verification status, search questions, blockers, and fallback.
+
+`needs_codebase_search` and `semantic_only` are normal design states. They mean the design
+is worth preserving and should drive later codebase exploration; they do not mean the design
+should be flattened to the current template registry.
+
+## Status Model
+
+Use statuses to describe which layer is complete:
+
+- `design_complete`: the high-fidelity `design_ir` is complete. `compiler_gap_ledger`
+  may contain `semantic_only`, `needs_codebase_search`, or `interface_candidate` rows.
+- `compiler_mapped`: the design also has a current Harness `node_graph` projection that
+  passes semantic graph validation. This still does not mean source codegen is ready.
+- `evidence_verified`: the important design primitives have codebase evidence, but source
+  generation may still be missing.
+- `source_codegen_ready`: the spec has no unresolved compiler gaps and passes source/codegen
+  gates.
+- `implementation_ready`: legacy alias for `source_codegen_ready`. Do not use it to mean
+  "design complete."
+- `harness_generated`: generated implementation is owned by the Harness generator.
+
+`implemented_parity` remains for manual implementations mirrored by the spec. It may carry
+`design_ir` and `compiler_gap_ledger` to document the full manual design.
 
 ## Spec Contract
 
 `data/unique_wonder_ritual_specs.yaml` is the executable planning source.
-An implementation-ready ritual must include:
+A high-fidelity formal ritual spec must include:
 
 - `identity`: id, key, base key, location, runtime prefix, and status.
 - `event_ids`: explicit unique numeric IDs, all below `10000`.
-- `node_graph`: a custom graph with at least 3 player-visible nodes, at least 3 event IDs,
+- `design_ir`: phases/gameplay stages, player proofs, tracked entity sets, per-entity
+  state, selectors, risk branches, player actions/decisions, map or scope evidence, UI
+  feedback model, uniqueness constraints, and projection notes.
+- `compiler_gap_ledger`: one row per complex primitive with `primitive`,
+  `design_semantics`, `required_game_interfaces`, `codebase_evidence`,
+  `verification_status`, `search_questions`, `blocked_by`, and
+  `fallback_if_unavailable`.
+- `node_graph`: for `compiler_mapped`, `source_codegen_ready`, `implementation_ready`,
+  and `harness_generated`, a custom graph with at least 3 player-visible nodes, at least 3 event IDs,
   at least one failure or retry path, declared listeners, runtime variables, an `entry_node`,
   `terminal_nodes`, a `mechanic_signature`, a `cadence_signature`, optional graph-level
   `archetypes`, per-node capabilities, optional scope/listener contracts, and a historical
@@ -80,7 +114,19 @@ An implementation-ready ritual must include:
   and one-time reward.
 - `localization`: event rows, panel text keys, and world-news keys.
 - `implementation_notes`: verified EU5 interfaces only; uncertain syntax must remain
-  `needs_verification` and blocks `implementation_ready` or `harness_generated`.
+  `needs_verification` and blocks `source_codegen_ready`, legacy `implementation_ready`,
+  or `harness_generated`.
+
+Allowed `compiler_gap_ledger.verification_status` values are:
+
+- `semantic_only`
+- `needs_codebase_search`
+- `interface_candidate`
+- `verified_existing`
+- `backend_ready`
+
+The first three are unresolved compiler gaps. They do not block `design_complete`; they do
+block `source_codegen_ready`, legacy `implementation_ready`, and `harness_generated`.
 
 ## Template Registry
 
@@ -120,7 +166,8 @@ and notes. The v1 registry archetypes are `expedition_route_chain`,
 `patronage_actor_assignment`, `resource_accumulation_ritual`, `monthly_pressure_countdown`,
 `incident_retry_gauntlet`, `listener_resolution_ritual`, and `hidden_executor_finalization`.
 
-`implementation_ready` and `harness_generated` specs may declare `node_graph.archetypes`.
+`compiler_mapped`, `source_codegen_ready`, legacy `implementation_ready`, and
+`harness_generated` specs may declare `node_graph.archetypes`.
 Known registry archetypes add their required capability/variable-role/UI/listener/node-count
 checks. Unknown ordinary archetype names are rejected as likely typos. `custom_*` archetype
 labels are allowed only when `mechanic_signature.custom_archetype_statement` explains the
@@ -132,16 +179,17 @@ solely because they are outside the union of declared archetype examples.
 
 ## State Machine DSL
 
-`implementation_ready` and `harness_generated` specs must use the strong node-graph DSL.
+`compiler_mapped`, `source_codegen_ready`, legacy `implementation_ready`, and
+`harness_generated` specs must use the strong node-graph DSL.
 `implemented_parity` and `stub` entries may keep the older lightweight shape.
 
-- `node_graph.mechanic_signature`: required for `implementation_ready` and
-  `harness_generated`; declares the wonder-specific hook, core interaction loop, player
+- `node_graph.mechanic_signature`: required for `compiler_mapped`, `source_codegen_ready`,
+  legacy `implementation_ready`, and `harness_generated`; declares the wonder-specific hook, core interaction loop, player
   decision pattern, state feedback, failure/tension model, reward expression, and reuse-risk
   mitigation. If `node_graph.archetypes` contains a `custom_*` key, it must also include
   `custom_archetype_statement`.
-- `node_graph.cadence_signature`: required for `implementation_ready` and
-  `harness_generated`; declares `cadence_type`, `cadence_rationale`,
+- `node_graph.cadence_signature`: required for `compiler_mapped`, `source_codegen_ready`,
+  legacy `implementation_ready`, and `harness_generated`; declares `cadence_type`, `cadence_rationale`,
   `player_agency_model`, `non_monthly_triggers_or_reason`, and `pacing_failure_mode`.
   Supported cadence types are `instant_but_branching`, `event_driven`,
   `player_action_sequence`, `construction_or_auxiliary_building`, `war_validated`,
@@ -195,8 +243,8 @@ way to satisfy capability-required roles. `listener_gate` nodes must have `liste
 Allowed scope contract values are `country`, `location`, `character`,
 `international_organization`, `gui_fragment`, and `none`. `tooltip_safe: false` nodes/actions
 may not declare `player_facing_tooltip` output, and `unsafe_pre_eval: true` requires a blocked
-reason or hidden executor handoff. `needs_verification` anywhere in an `implementation_ready`
-or `harness_generated` spec blocks validation.
+reason or hidden executor handoff. `needs_verification` anywhere in a `source_codegen_ready`,
+legacy `implementation_ready`, or `harness_generated` spec blocks validation.
 
 Monthly pacing is allowed only when it is designed, not when it is convenient. If
 `node_graph.listeners` includes `monthly`, a node uses `monthly_progress_gate`, a node declares
@@ -208,7 +256,7 @@ action; `hybrid` must explain monthly as a local/supporting part of a larger non
 
 ## Reject Conditions
 
-Reject the spec if it has only start/completion events, no visible UI state, no distinctive
+Reject source/codegen readiness if it has only start/completion events, no visible UI state, no distinctive
 `mechanic_signature`, no declared `cadence_signature`, unknown cadence type, unjustified monthly
 cadence, unknown ordinary archetypes, unexplained `custom_*` archetypes, no failure/retry
 route, no historical mechanic, missing reward channels, thin event prose, runtime variables
@@ -218,6 +266,12 @@ capabilities, missing node capabilities, missing capability/archetype-required f
 scope/listener contracts, graph references that point to undeclared nodes or variables,
 unreachable nodes, terminal lifecycle violations, mismatched variable reader/writer declarations,
 or localization/node rows that reference undeclared events.
+
+Reject design completeness only when the high-fidelity design surface is missing or internally
+invalid: absent `design_ir`, absent `compiler_gap_ledger`, missing required design fields,
+invalid ledger `verification_status`, or `design_ir.compiler_primitives` without matching ledger
+rows. Do not reject `design_complete` merely because a primitive is `semantic_only` or
+`needs_codebase_search`.
 
 Reject implementation if heavy finalization or cleanup is placed in an option tooltip path, or if
 tooltips can pre-evaluate variables before they are written. Keep finalization in hidden executor

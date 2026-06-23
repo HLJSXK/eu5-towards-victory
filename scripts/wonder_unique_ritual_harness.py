@@ -21,14 +21,67 @@ TEMPLATE_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_codegen_temp
 CAPABILITY_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_capabilities.yaml"
 ARCHETYPE_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_archetypes.yaml"
 DESIGN_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_designs.yaml"
+DESIGN_MATRIX_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_design_matrix.yaml"
 PROMPTS_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_prompts.yaml"
 LOCALIZATION_FILE = REPO_ROOT / "data" / "wonder_localization.yaml"
 LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "loc_keys_en.txt"
 
-IMPLEMENTED_STATUSES = {"implemented_parity", "implementation_ready", "harness_generated"}
-CODEGEN_ELIGIBLE_STATUSES = {"implementation_ready", "harness_generated"}
+LEGACY_CODEGEN_READY_STATUSES = {"implementation_ready"}
+SOURCE_CODEGEN_READY_STATUSES = {"source_codegen_ready", "harness_generated"} | LEGACY_CODEGEN_READY_STATUSES
+CODEGEN_ELIGIBLE_STATUSES = SOURCE_CODEGEN_READY_STATUSES
+DESIGN_STATUS_ORDER = {
+    "design_complete",
+    "compiler_mapped",
+    "evidence_verified",
+    "source_codegen_ready",
+}
+DESIGN_IR_REQUIRED_STATUSES = set(DESIGN_STATUS_ORDER)
+SEMANTIC_GRAPH_STATUSES = {"compiler_mapped"} | SOURCE_CODEGEN_READY_STATUSES
+IMPLEMENTED_STATUSES = {"implemented_parity"} | DESIGN_IR_REQUIRED_STATUSES | SOURCE_CODEGEN_READY_STATUSES
 STUB_STATUSES = {"stub", "needs_design"}
 ALLOWED_STATUSES = IMPLEMENTED_STATUSES | STUB_STATUSES
+COMPILER_GAP_VERIFICATION_STATUSES = {
+    "semantic_only",
+    "needs_codebase_search",
+    "interface_candidate",
+    "verified_existing",
+    "backend_ready",
+}
+UNRESOLVED_COMPILER_GAP_STATUSES = {
+    "semantic_only",
+    "needs_codebase_search",
+    "interface_candidate",
+}
+DESIGN_IR_REQUIRED_FIELDS = {
+    "phases",
+    "player_proofs",
+    "tracked_entity_sets",
+    "selectors",
+    "risk_branches",
+    "player_actions",
+    "map_scope_evidence",
+    "ui_feedback_model",
+    "uniqueness_constraints",
+    "projection_notes",
+}
+TRACKED_ENTITY_SET_REQUIRED_FIELDS = {
+    "key",
+    "entity_type",
+    "state_values",
+    "per_entity_state",
+    "selector",
+    "ui_binding",
+}
+COMPILER_GAP_REQUIRED_FIELDS = {
+    "primitive",
+    "design_semantics",
+    "required_game_interfaces",
+    "codebase_evidence",
+    "verification_status",
+    "search_questions",
+    "blocked_by",
+    "fallback_if_unavailable",
+}
 SUPPORTED_UI_COMPONENTS = {
     "checklist",
     "route_map",
@@ -673,6 +726,248 @@ def _event_key(event_id: int, key: str, *, has_decline: bool = False) -> dict[st
     }
 
 
+def pharos_design_ir() -> dict[str, Any]:
+    routes = [
+        {"key": "constantinople", "display_name": "Constantinople", "route_id": 1},
+        {"key": "venice", "display_name": "Venice", "route_id": 2},
+        {"key": "genoa", "display_name": "Genoa", "route_id": 3},
+        {"key": "malta", "display_name": "Malta", "route_id": 4},
+        {"key": "tunis", "display_name": "Tunis", "route_id": 5},
+        {"key": "palermo", "display_name": "Palermo", "route_id": 6},
+        {"key": "candia", "display_name": "Candia", "route_id": 7},
+        {"key": "gibraltar", "display_name": "Gibraltar", "route_id": 8},
+    ]
+    return {
+        "compiler_primitives": [
+            "alexandria_hostile_privateer_clearance",
+            "mediterranean_named_route_set",
+            "per_route_status_projection",
+            "active_route_selection",
+            "controlled_route_pass",
+            "basing_route_pass",
+            "foreign_harbor_bargain",
+            "privateer_threat_progress",
+            "route_progress_counter",
+            "repeated_route_ui_rows",
+            "source_compiler_route_row_generation",
+        ],
+        "phases": [
+            {
+                "key": "clear_alexandria_privateers",
+                "gameplay_stage": "Harbor security before the light can be trusted.",
+                "entry_condition": "Pharos ritual annex has finished and hostile privateers threaten Alexandria.",
+                "exit_condition": "Privateer threat progress is cleared through costed player options.",
+            },
+            {
+                "key": "certify_mediterranean_routes",
+                "gameplay_stage": "Monthly route audit rolls pending named routes until all eight lanes pass.",
+                "entry_condition": "Stage 2 begins after Alexandria clearance.",
+                "exit_condition": "Every route is controlled or accepted through basing/foreign harbor bargain.",
+            },
+            {
+                "key": "eighth_light_completion",
+                "gameplay_stage": "Final route count proves the Pharos as a Mediterranean navigation system.",
+                "entry_condition": "Route progress reaches eight certified routes.",
+                "exit_condition": "Existing ritual completion event dispatches the implemented reward.",
+            },
+        ],
+        "player_proofs": [
+            "Prove Alexandria's harbor light cannot be suppressed by hostile privateers.",
+            "Prove the lighthouse can guide or negotiate access across eight named Mediterranean routes.",
+            "Prove each route individually through control, reciprocal fleet basing, or a foreign harbor bargain.",
+        ],
+        "tracked_entity_sets": [
+            {
+                "key": "mediterranean_routes",
+                "entity_type": "route",
+                "entities": routes,
+                "state_values": ["pending", "controlled", "basing", "unresolved"],
+                "per_entity_state": {
+                    "status_variable_pattern": "tv_wonder_pharos_route_<route_key>_status",
+                    "passed_variable_pattern": "tv_wonder_pharos_route_<route_key>_passed",
+                    "location_variable_pattern": "tv_wonder_pharos_route_<route_key>_location",
+                    "owner_variable_pattern": "tv_wonder_pharos_route_<route_key>_owner",
+                },
+                "selector": "tv_wonder_pharos_roll_route_effect chooses one pending route and writes tv_wonder_pharos_active_route.",
+                "ui_binding": "route_map:mediterranean_routes renders one repeated row per route with owner and controlled/basing/unresolved status.",
+            }
+        ],
+        "selectors": [
+            {
+                "key": "active_route_selection",
+                "selection_space": "pending mediterranean_routes",
+                "selection_state": "tv_wonder_pharos_active_route and tv_wonder_pharos_active_route_id",
+                "resolution_events": [7305, 7306, 7307],
+            }
+        ],
+        "risk_branches": [
+            {
+                "key": "privateer_clearance_cost",
+                "risk": "Hostile privateers force gold, prestige, or burgher-satisfaction costs before route certification can begin.",
+                "player_response": "Pay for watch boats, take a prestige hit, or lean on merchants.",
+            },
+            {
+                "key": "foreign_harbor_bargain",
+                "risk": "A selected route is neither controlled nor already covered by fleet basing.",
+                "player_response": "Pay for reciprocal basing or leave the route unresolved for a later roll.",
+            },
+        ],
+        "player_actions": [
+            "Choose how to clear Alexandria privateers in events 7301-7303.",
+            "Accept controlled route passes in event 7305.",
+            "Accept existing basing route passes in event 7306.",
+            "Pay for a foreign harbor bargain in event 7307.",
+        ],
+        "map_scope_evidence": [
+            "Alexandria sea_zone area scans hostile privateers.",
+            "Route locations are concrete location scopes: Constantinople, Venice, Genoa, Malta, Tunis, Palermo, Candia, Gibraltar.",
+            "Per-route owner scopes project into UI rows and foreign harbor bargain event scopes.",
+            "Controlled routes use ownership; basing routes use reciprocal fleet-basing relation checks.",
+        ],
+        "ui_feedback_model": {
+            "components": ["progress_track", "route_map"],
+            "privateer_threat": "Circular progress track bound to tv_wonder_pharos_privateer_threat_pct.",
+            "route_progress": "Circular progress track bound to tv_wonder_pharos_route_progress out of eight.",
+            "repeated_rows": "Eight fixed route rows show location, owner, and controlled/basing/unresolved status.",
+            "incident_log": "The current event chain acts as the incident log through privateer and foreign harbor events.",
+        },
+        "uniqueness_constraints": [
+            "The ritual depends on Alexandria as a lighthouse whose value is visual trust across sea lanes.",
+            "The eight Mediterranean routes make navigation visibility the proof; ordinary ports cannot reuse this without losing the Pharos claim.",
+            "The controlled/basing/foreign-bargain branch ties diplomacy and naval logistics to the light itself.",
+        ],
+        "projection_notes": (
+            "The current node_graph is an existing_plugin_parity projection. It preserves the manual implementation evidence "
+            "and event IDs but compresses per-route rows, route selector state, controlled/basing route passes, and the foreign "
+            "harbor bargain into lightweight event nodes rather than a full source-codegen-ready graph."
+        ),
+    }
+
+
+def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
+    evidence = [
+        "scripts/wonder_unique_rituals/pharos.py",
+        "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py",
+        "previous event ids 7300-7308",
+    ]
+    no_search = ["None; manual implementation already provides existing codebase evidence."]
+    return [
+        {
+            "primitive": "alexandria_hostile_privateer_clearance",
+            "design_semantics": "Clear hostile privateer pressure around Alexandria before the lighthouse can certify routes.",
+            "required_game_interfaces": ["sea_zone area privateer scan", "privateer power mutation", "monthly delayed event"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Keep the manual privateer-clearance event chain as the authoritative implementation.",
+        },
+        {
+            "primitive": "mediterranean_named_route_set",
+            "design_semantics": "Track eight named Mediterranean routes as distinct certifiable entities.",
+            "required_game_interfaces": ["fixed location scopes", "per-route variable projection"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Keep the route set as authored data in the manual Pharos plugin.",
+        },
+        {
+            "primitive": "per_route_status_projection",
+            "design_semantics": "Expose pending, controlled, basing, and unresolved state per route.",
+            "required_game_interfaces": ["country variables", "location owner projection", "GUI variable reads"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Summarize route progress while preserving the high-fidelity route set in design_ir.",
+        },
+        {
+            "primitive": "active_route_selection",
+            "design_semantics": "Select one pending route at a time and save active route/location/owner state for events.",
+            "required_game_interfaces": ["random_list trigger filters", "saved route variables", "monthly event scheduling"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Retain the manual selector and do not flatten routes into a single anonymous progress gate.",
+        },
+        {
+            "primitive": "controlled_route_pass",
+            "design_semantics": "A route passes immediately when the builder controls the route location.",
+            "required_game_interfaces": ["owns = location:<route>", "route passed variable"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Record controlled pass as a semantic design primitive until source compiler support exists.",
+        },
+        {
+            "primitive": "basing_route_pass",
+            "design_semantics": "A route passes when the foreign owner already has reciprocal fleet basing with the builder.",
+            "required_game_interfaces": ["fleet basing relation trigger", "route passed variable"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Preserve basing as a ledger primitive rather than replacing it with generic route progress.",
+        },
+        {
+            "primitive": "foreign_harbor_bargain",
+            "design_semantics": "If a foreign route has an owner but no qualifying basing, the player can pay to create reciprocal basing.",
+            "required_game_interfaces": ["route owner scope", "create_relation fleet_basing_rights", "costed event option"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Leave the route unresolved and retry later while keeping the bargain in design_ir.",
+        },
+        {
+            "primitive": "privateer_threat_progress",
+            "design_semantics": "Project hostile privateer count into a visible threat percentage.",
+            "required_game_interfaces": ["counted privateer triggers", "progress_track GUI"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Keep the visible stage text but do not remove the privateer proof from design_ir.",
+        },
+        {
+            "primitive": "route_progress_counter",
+            "design_semantics": "Count certified routes from zero to eight and fire the final light event at completion.",
+            "required_game_interfaces": ["per-route passed variables", "clamped counter", "completion event"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Use a summary progress counter only as projection, never as replacement for tracked routes.",
+        },
+        {
+            "primitive": "repeated_route_ui_rows",
+            "design_semantics": "Render one route-map row per Mediterranean route with location, owner, and status.",
+            "required_game_interfaces": ["fixed GUI rows", "location and owner variable projection", "status localization"],
+            "codebase_evidence": evidence,
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Use route_map summary plus projection_notes until repeated-row source codegen exists.",
+        },
+        {
+            "primitive": "source_compiler_route_row_generation",
+            "design_semantics": "Future source compiler should generate per-route state, selectors, and repeated UI rows from design_ir.",
+            "required_game_interfaces": ["source compiler route-set expansion", "GUI row generation", "event/effect generation"],
+            "codebase_evidence": evidence,
+            "verification_status": "needs_codebase_search",
+            "search_questions": [
+                "Which existing generator owns repeated Engineering Department ritual UI row expansion?",
+                "Can the future source compiler emit per-route trigger/effect families without exceeding event-id limits?",
+            ],
+            "blocked_by": ["No source compiler is in scope for this round."],
+            "fallback_if_unavailable": "Keep Pharos manual implementation and emit only high-fidelity design/projection metadata.",
+        },
+    ]
+
+
 def pharos_spec(wonder: dict[str, Any]) -> dict[str, Any]:
     event_ids = [
         (7300, "annex_finished", False),
@@ -718,6 +1013,8 @@ def pharos_spec(wonder: dict[str, Any]) -> dict[str, Any]:
                 for event_id, key, decline in event_ids
             ],
         },
+        "design_ir": pharos_design_ir(),
+        "compiler_gap_ledger": pharos_compiler_gap_ledger(),
         "ui_model": {
             "components": [
                 {"type": "progress_track", "key": "privateer_threat", "value_variable": "tv_wonder_pharos_privateer_threat_pct"},
@@ -945,12 +1242,24 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "stub": "Coverage placeholder only; cannot be generated into game code.",
                 "needs_design": "Design debt placeholder from the design source.",
                 "implemented_parity": "Spec mirrors an already implemented custom ritual.",
-                "implementation_ready": "Authored spec has passed Harness quality gates and may be generated.",
+                "design_complete": "High-fidelity design_ir is complete; compiler gaps may remain.",
+                "compiler_mapped": "High-fidelity design has a Harness node_graph projection that passes semantic graph validation.",
+                "evidence_verified": "Key design primitives have codebase evidence; this is not a source-codegen guarantee.",
+                "source_codegen_ready": "Spec has no unresolved compiler gaps and passes source codegen readiness gates.",
+                "implementation_ready": "Legacy alias for source_codegen_ready; do not use as a design-complete status.",
                 "harness_generated": "Generated implementation is owned by the Harness node-graph generator.",
             },
             "quality_contract": {
                 "minimum_player_visible_nodes": 3,
                 "minimum_event_count": 3,
+                "design_ir_statuses": list(sorted(DESIGN_IR_REQUIRED_STATUSES)),
+                "semantic_graph_statuses": list(sorted(SEMANTIC_GRAPH_STATUSES)),
+                "source_codegen_statuses": list(sorted(CODEGEN_ELIGIBLE_STATUSES)),
+                "allowed_compiler_gap_verification_statuses": list(sorted(COMPILER_GAP_VERIFICATION_STATUSES)),
+                "unresolved_compiler_gap_statuses": list(sorted(UNRESOLVED_COMPILER_GAP_STATUSES)),
+                "required_design_ir_fields": list(sorted(DESIGN_IR_REQUIRED_FIELDS)),
+                "required_tracked_entity_set_fields": list(sorted(TRACKED_ENTITY_SET_REQUIRED_FIELDS)),
+                "required_compiler_gap_fields": list(sorted(COMPILER_GAP_REQUIRED_FIELDS)),
                 "required_reward_channels": list(REQUIRED_REWARD_CHANNELS),
                 "required_mechanic_signature_fields": list(sorted(MECHANIC_SIGNATURE_REQUIRED_FIELDS)),
                 "required_cadence_signature_fields": list(sorted(CADENCE_SIGNATURE_REQUIRED_FIELDS)),
@@ -958,7 +1267,7 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "custom_archetype_prefix": CUSTOM_ARCHETYPE_PREFIX,
                 "required_ui_components": list(sorted(SUPPORTED_UI_COMPONENTS)),
                 "event_id_rule": "Every event id must be explicit, unique within this file, and < 10000.",
-                "state_machine_dsl_statuses": list(sorted(CODEGEN_ELIGIBLE_STATUSES)),
+                "state_machine_dsl_statuses": list(sorted(SEMANTIC_GRAPH_STATUSES)),
                 "supported_node_kinds": list(sorted(SUPPORTED_NODE_KINDS)),
                 "supported_action_kinds": list(sorted(SUPPORTED_ACTION_KINDS)),
                 "supported_check_kinds": list(sorted(SUPPORTED_CHECK_KINDS)),
@@ -1254,6 +1563,113 @@ def _missing_required(mapping: dict[str, Any], required: set[str]) -> list[str]:
     return sorted(field for field in required if field not in mapping)
 
 
+def _has_content(value: Any) -> bool:
+    if value is None:
+        return False
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, list):
+        return any(_has_content(item) for item in value)
+    if isinstance(value, dict):
+        return any(_has_content(item) for item in value.values())
+    return True
+
+
+def _is_status_requiring_design_ir(status: str) -> bool:
+    return status in DESIGN_IR_REQUIRED_STATUSES
+
+
+def _validate_design_ir(entry: dict[str, Any], *, required: bool) -> list[str]:
+    errors: list[str] = []
+    design_ir = entry.get("design_ir")
+    if design_ir is None:
+        if required:
+            errors.append(_issue(entry, "design_ir is required for high-fidelity design statuses"))
+        return errors
+    if not isinstance(design_ir, dict):
+        return [_issue(entry, "design_ir must be a mapping")]
+
+    for field in _missing_required(design_ir, DESIGN_IR_REQUIRED_FIELDS):
+        errors.append(_issue(entry, f"design_ir missing required field {field}"))
+    for field in sorted(DESIGN_IR_REQUIRED_FIELDS):
+        if field in design_ir and not _has_content(design_ir.get(field)):
+            errors.append(_issue(entry, f"design_ir.{field} must not be empty"))
+
+    tracked_sets = design_ir.get("tracked_entity_sets")
+    if isinstance(tracked_sets, list):
+        for idx, tracked in enumerate(tracked_sets, 1):
+            if not isinstance(tracked, dict):
+                errors.append(_issue(entry, f"design_ir.tracked_entity_sets[{idx}] must be a mapping"))
+                continue
+            key = tracked.get("key", f"<missing:{idx}>")
+            for field in _missing_required(tracked, TRACKED_ENTITY_SET_REQUIRED_FIELDS):
+                errors.append(_issue(entry, f"tracked entity set {key} missing required field {field}"))
+            if not _has_content(tracked.get("state_values")):
+                errors.append(_issue(entry, f"tracked entity set {key} must declare state_values"))
+            if not _has_content(tracked.get("per_entity_state")):
+                errors.append(_issue(entry, f"tracked entity set {key} must declare per_entity_state"))
+    elif tracked_sets is not None:
+        errors.append(_issue(entry, "design_ir.tracked_entity_sets must be a list"))
+
+    compiler_primitives = _string_refs(design_ir.get("compiler_primitives"))
+    if compiler_primitives:
+        ledger_primitives = {
+            str(row.get("primitive"))
+            for row in entry.get("compiler_gap_ledger", []) or []
+            if isinstance(row, dict) and row.get("primitive")
+        }
+        missing = sorted(set(compiler_primitives) - ledger_primitives)
+        if missing:
+            errors.append(
+                _issue(entry, "design_ir.compiler_primitives missing compiler_gap_ledger row(s): " + ", ".join(missing))
+            )
+
+    return errors
+
+
+def _validate_compiler_gap_ledger(entry: dict[str, Any], *, required: bool) -> list[str]:
+    errors: list[str] = []
+    ledger = entry.get("compiler_gap_ledger")
+    if ledger is None:
+        if required:
+            errors.append(_issue(entry, "compiler_gap_ledger is required for high-fidelity design statuses"))
+        return errors
+    if not isinstance(ledger, list):
+        return [_issue(entry, "compiler_gap_ledger must be a list")]
+    if required and not ledger:
+        errors.append(_issue(entry, "compiler_gap_ledger must not be empty for high-fidelity design statuses"))
+    seen: set[str] = set()
+    for idx, row in enumerate(ledger, 1):
+        if not isinstance(row, dict):
+            errors.append(_issue(entry, f"compiler_gap_ledger[{idx}] must be a mapping"))
+            continue
+        primitive = str(row.get("primitive", f"<missing:{idx}>"))
+        for field in _missing_required(row, COMPILER_GAP_REQUIRED_FIELDS):
+            errors.append(_issue(entry, f"compiler_gap_ledger {primitive} missing required field {field}"))
+        if row.get("primitive"):
+            if primitive in seen:
+                errors.append(_issue(entry, f"compiler_gap_ledger duplicate primitive {primitive}"))
+            seen.add(primitive)
+        for field in sorted(COMPILER_GAP_REQUIRED_FIELDS - {"blocked_by"}):
+            if field in row and not _has_content(row.get(field)):
+                errors.append(_issue(entry, f"compiler_gap_ledger {primitive}.{field} must not be empty"))
+        status = row.get("verification_status")
+        if status not in COMPILER_GAP_VERIFICATION_STATUSES:
+            errors.append(_issue(entry, f"compiler_gap_ledger {primitive} has invalid verification_status {status!r}"))
+    return errors
+
+
+def unresolved_compiler_gap_rows(entry: dict[str, Any]) -> list[dict[str, Any]]:
+    ledger = entry.get("compiler_gap_ledger")
+    if not isinstance(ledger, list):
+        return []
+    return [
+        row
+        for row in ledger
+        if isinstance(row, dict) and row.get("verification_status") in UNRESOLVED_COMPILER_GAP_STATUSES
+    ]
+
+
 def _dotted_path_exists(root: dict[str, Any], path: str) -> bool:
     current: Any = root
     for part in path.split("."):
@@ -1336,7 +1752,7 @@ def declared_runtime_variables(entry: dict[str, Any]) -> set[str]:
     identity = entry.get("identity") or {}
     status = str(identity.get("status", ""))
     node_graph = entry.get("node_graph") or {}
-    if status in CODEGEN_ELIGIBLE_STATUSES and isinstance(node_graph.get("variables"), list):
+    if (status in SEMANTIC_GRAPH_STATUSES or status in DESIGN_IR_REQUIRED_STATUSES) and isinstance(node_graph.get("variables"), list):
         return {
             str(variable.get("name"))
             for variable in node_graph.get("variables", [])
@@ -1803,6 +2219,8 @@ def _validate_codegen_node_graph(
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
     archetype_registry: dict[str, Any] | None = None,
+    *,
+    require_generation: bool = True,
 ) -> list[str]:
     errors: list[str] = []
     identity = entry.get("identity") or {}
@@ -1994,44 +2412,45 @@ def _validate_codegen_node_graph(
         errors.extend(_loc_ref_errors(entry, f"check {key}", [check.get("tooltip_key")], loc_keys))
 
     generation = entry.get("generation")
-    if not isinstance(generation, dict):
-        errors.append(_issue(entry, "generation must be a mapping for implementation_ready or harness_generated specs"))
-        generation = {}
-    for field in _missing_required(generation, GENERATION_REQUIRED_FIELDS):
-        errors.append(_issue(entry, f"generation missing required field {field}"))
-    for template in generation.get("verified_templates", []) or []:
-        errors.extend(_template_errors(entry, "generation.verified_templates", template, template_index))
-    for template in generation.get("blocked_templates", []) or []:
-        errors.extend(_template_errors(entry, "generation.blocked_templates", template, template_index))
-        errors.append(_issue(entry, f"generation.blocked_templates contains blocked template {template}"))
-    verified = set(str(template) for template in generation.get("verified_templates", []) or [])
-    used_templates = templates_used_by_entry(entry) - verified
-    unverified_used = sorted(template for template in used_templates if template in template_index)
-    if unverified_used:
-        errors.append(
-            _issue(
-                entry,
-                "template(s) not listed in generation.verified_templates: " + ", ".join(unverified_used),
+    if require_generation:
+        if not isinstance(generation, dict):
+            errors.append(_issue(entry, "generation must be a mapping for source-codegen-ready specs"))
+            generation = {}
+        for field in _missing_required(generation, GENERATION_REQUIRED_FIELDS):
+            errors.append(_issue(entry, f"generation missing required field {field}"))
+        for template in generation.get("verified_templates", []) or []:
+            errors.extend(_template_errors(entry, "generation.verified_templates", template, template_index))
+        for template in generation.get("blocked_templates", []) or []:
+            errors.extend(_template_errors(entry, "generation.blocked_templates", template, template_index))
+            errors.append(_issue(entry, f"generation.blocked_templates contains blocked template {template}"))
+        verified = set(str(template) for template in generation.get("verified_templates", []) or [])
+        used_templates = templates_used_by_entry(entry) - verified
+        unverified_used = sorted(template for template in used_templates if template in template_index)
+        if unverified_used:
+            errors.append(
+                _issue(
+                    entry,
+                    "template(s) not listed in generation.verified_templates: " + ", ".join(unverified_used),
+                )
             )
-        )
-    covered_node_kinds: set[str] = set()
-    for template in verified:
-        covered_node_kinds.update(str(kind) for kind in template_index.get(template, {}).get("supported_node_kinds", []) or [])
-    for kind in sorted({
-        str(node.get("kind"))
-        for node in nodes
-        if isinstance(node, dict) and node.get("kind") in SUPPORTED_NODE_KINDS
-    }):
-        if kind not in covered_node_kinds:
-            errors.append(_issue(entry, f"node kind {kind!r} is not covered by generation.verified_templates"))
-    if status == "harness_generated":
-        if not generation.get("target_files"):
-            errors.append(_issue(entry, "harness_generated must declare generation.target_files"))
-        if not generation.get("verified_templates"):
-            errors.append(_issue(entry, "harness_generated must declare generation.verified_templates"))
+        covered_node_kinds: set[str] = set()
+        for template in verified:
+            covered_node_kinds.update(str(kind) for kind in template_index.get(template, {}).get("supported_node_kinds", []) or [])
+        for kind in sorted({
+            str(node.get("kind"))
+            for node in nodes
+            if isinstance(node, dict) and node.get("kind") in SUPPORTED_NODE_KINDS
+        }):
+            if kind not in covered_node_kinds:
+                errors.append(_issue(entry, f"node kind {kind!r} is not covered by generation.verified_templates"))
+        if status == "harness_generated":
+            if not generation.get("target_files"):
+                errors.append(_issue(entry, "harness_generated must declare generation.target_files"))
+            if not generation.get("verified_templates"):
+                errors.append(_issue(entry, "harness_generated must declare generation.verified_templates"))
 
-    for path in _needs_verification_paths(entry):
-        errors.append(_issue(entry, f"implementation_ready/harness_generated cannot contain needs_verification at {path}"))
+        for path in _needs_verification_paths(entry):
+            errors.append(_issue(entry, f"source-codegen-ready specs cannot contain needs_verification at {path}"))
 
     return errors
 
@@ -2043,6 +2462,7 @@ def validate_codegen_graph_entry(
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
     archetype_registry: dict[str, Any] | None = None,
+    require_generation: bool = True,
 ) -> list[str]:
     node_graph = entry.get("node_graph") or {}
     if not isinstance(node_graph, dict):
@@ -2055,6 +2475,7 @@ def validate_codegen_graph_entry(
         template_registry,
         capability_registry,
         archetype_registry,
+        require_generation=require_generation,
     )
 
 
@@ -2138,6 +2559,12 @@ def codegen_support_errors(
     archetype_index = archetype_registry_index(archetype_registry)
     generation = entry.get("generation") or {}
     errors: list[str] = []
+    unresolved_gaps = unresolved_compiler_gap_rows(entry)
+    if unresolved_gaps:
+        errors.append(
+            f"{key}: source-codegen-ready status has unresolved compiler gap(s): "
+            + ", ".join(str(row.get("primitive", "<unknown>")) for row in unresolved_gaps)
+        )
     verified = set(str(template) for template in generation.get("verified_templates", []) or [])
     blocked = set(str(template) for template in generation.get("blocked_templates", []) or [])
     used = templates_used_by_entry(entry)
@@ -2225,7 +2652,7 @@ def graph_validation_errors_for_payload(
         if not isinstance(entry, dict):
             continue
         status = str((entry.get("identity") or {}).get("status", ""))
-        if status in CODEGEN_ELIGIBLE_STATUSES:
+        if status in SEMANTIC_GRAPH_STATUSES:
             errors.extend(
                 validate_codegen_graph_entry(
                     entry,
@@ -2233,6 +2660,7 @@ def graph_validation_errors_for_payload(
                     template_registry=template_registry,
                     capability_registry=capability_registry,
                     archetype_registry=archetype_registry,
+                    require_generation=status in CODEGEN_ELIGIBLE_STATUSES,
                 )
             )
             errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
@@ -2247,7 +2675,7 @@ def graph_lifecycle_summary_for_payload(payload: dict[str, Any]) -> dict[str, An
         if not isinstance(entry, dict):
             continue
         status = str((entry.get("identity") or {}).get("status", ""))
-        if status not in CODEGEN_ELIGIBLE_STATUSES:
+        if status not in SEMANTIC_GRAPH_STATUSES:
             continue
         node_graph = entry.get("node_graph") or {}
         if not isinstance(node_graph, dict):
@@ -2370,6 +2798,118 @@ def node_kind_summary_for_payload(payload: dict[str, Any]) -> dict[str, int]:
     return dict(sorted(summary.items()))
 
 
+def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    entries = matrix.get("unique_wonders", []) if isinstance(matrix, dict) else []
+    return {
+        str(entry["wonder_key"]): entry
+        for entry in entries
+        if isinstance(entry, dict) and entry.get("wonder_key")
+    }
+
+
+def _lower_text(value: Any) -> str:
+    if isinstance(value, dict):
+        return " ".join(_lower_text(child) for child in value.values())
+    if isinstance(value, list):
+        return " ".join(_lower_text(child) for child in value)
+    return str(value or "").lower()
+
+
+def _tracked_entity_type_tokens(entry: dict[str, Any]) -> set[str]:
+    design_ir = entry.get("design_ir")
+    if not isinstance(design_ir, dict):
+        return set()
+    tokens: set[str] = set()
+    for tracked in design_ir.get("tracked_entity_sets", []) or []:
+        if not isinstance(tracked, dict):
+            continue
+        for field in ("key", "entity_type"):
+            tokens.add(_lower_text(tracked.get(field)))
+    return set(" ".join(tokens).split())
+
+
+def _design_ir_projection_notes(entry: dict[str, Any]) -> str:
+    design_ir = entry.get("design_ir")
+    if not isinstance(design_ir, dict):
+        return ""
+    return _lower_text(design_ir.get("projection_notes"))
+
+
+def _matrix_entry_expects_named_routes(matrix_entry: dict[str, Any]) -> bool:
+    ui_values = set(_string_refs(matrix_entry.get("expected_ui_model")))
+    text = _lower_text(
+        [
+            matrix_entry.get("proposed_core_mechanic"),
+            matrix_entry.get("player_agency_model"),
+            matrix_entry.get("risk_or_failure_branch"),
+            matrix_entry.get("uniqueness_notes"),
+            matrix_entry.get("primary_cadence_type"),
+            matrix_entry.get("secondary_cadence_type"),
+        ]
+    )
+    return "route_map" in ui_values and any(token in text for token in ("route", "lane", "convoy", "mediterranean"))
+
+
+def anti_flattening_warnings_for_payload(
+    payload: dict[str, Any],
+    *,
+    design_matrix: dict[str, Any] | None = None,
+) -> list[str]:
+    matrix = design_matrix if design_matrix is not None else load_optional_yaml(DESIGN_MATRIX_FILE)
+    matrix_by_key = _design_matrix_index(matrix)
+    warnings: list[str] = []
+    for entry in payload.get("unique_wonders", []) or []:
+        if not isinstance(entry, dict):
+            continue
+        identity = entry.get("identity") or {}
+        key = str(identity.get("key", ""))
+        status = str(identity.get("status", ""))
+        if not key or status in STUB_STATUSES:
+            continue
+        matrix_entry = matrix_by_key.get(key)
+        design_ir = entry.get("design_ir") if isinstance(entry.get("design_ir"), dict) else None
+        tracked_tokens = _tracked_entity_type_tokens(entry)
+        if matrix_entry and _matrix_entry_expects_named_routes(matrix_entry) and "route" not in tracked_tokens:
+            warnings.append(f"{key}: matrix expects route_map/named routes, but design_ir does not declare a tracked route set")
+        if matrix_entry and _has_content(matrix_entry.get("risk_or_failure_branch")):
+            if design_ir is not None and not _has_content(design_ir.get("risk_branches")):
+                warnings.append(f"{key}: matrix risk_or_failure_branch exists, but design_ir.risk_branches is empty")
+        notes = _lower_text((matrix_entry or {}).get("uniqueness_notes"))
+        specific_terms = {
+            "mediterranean": "route",
+            "sea lane": "route",
+            "public debt": "debt",
+            "pledge": "pledge",
+            "manuscript": "manuscript",
+            "teacher network": "teacher",
+        }
+        if design_ir is not None:
+            design_text = _lower_text(design_ir)
+            missing_specific = [
+                source
+                for source, expected in specific_terms.items()
+                if source in notes and expected not in design_text
+            ]
+            if missing_specific:
+                warnings.append(
+                    f"{key}: uniqueness_notes mention {', '.join(missing_specific)}, but design_ir does not preserve that interface"
+                )
+        implementation_notes = entry.get("implementation_notes") or {}
+        has_manual_evidence = str(implementation_notes.get("implementation_source", "")).strip() not in {"", "none"}
+        node_graph = entry.get("node_graph") or {}
+        has_runtime_or_nodes = _has_content(node_graph.get("runtime_variables")) or _has_content(node_graph.get("nodes"))
+        if design_ir is not None and has_manual_evidence and has_runtime_or_nodes:
+            projection_notes = _design_ir_projection_notes(entry)
+            if not any(
+                token in projection_notes
+                for token in ("preserve", "retain", "replace", "drop", "abandon", "compress", "flatten", "projection", "manual")
+            ):
+                warnings.append(
+                    f"{key}: manual implementation evidence exists, but design_ir.projection_notes does not explain preservation/projection"
+                )
+    return warnings
+
+
 def _contract_error_count(errors: list[str], contract_name: str) -> int:
     return sum(1 for error in errors if contract_name in error)
 
@@ -2437,6 +2977,14 @@ def validate_spec_payload(
             errors.append(_issue(entry, f"identity.status '{status}' is unsupported"))
             continue
 
+        requires_design_ir = _is_status_requiring_design_ir(status)
+        errors.extend(_validate_design_ir(entry, required=requires_design_ir))
+        errors.extend(_validate_compiler_gap_ledger(entry, required=requires_design_ir))
+        unresolved_gaps = unresolved_compiler_gap_rows(entry)
+        if status in CODEGEN_ELIGIBLE_STATUSES and unresolved_gaps:
+            primitives = ", ".join(str(row.get("primitive", "<unknown>")) for row in unresolved_gaps)
+            errors.append(_issue(entry, f"source-codegen-ready status has unresolved compiler gap(s): {primitives}"))
+
         entry_event_ids = event_ids_in_entry(entry)
         for event_id in entry_event_ids:
             if event_id <= 0:
@@ -2489,7 +3037,7 @@ def validate_spec_payload(
             errors.append(_issue(entry, "needs at least one failure/retry path"))
         if not str(node_graph.get("historical_mechanic", "")).strip():
             errors.append(_issue(entry, "node_graph.historical_mechanic is required"))
-        if status in CODEGEN_ELIGIBLE_STATUSES:
+        if status in SEMANTIC_GRAPH_STATUSES:
             errors.extend(
                 _validate_codegen_node_graph(
                     entry,
@@ -2499,6 +3047,7 @@ def validate_spec_payload(
                     template_registry,
                     capability_registry,
                     archetype_registry,
+                    require_generation=status in CODEGEN_ELIGIBLE_STATUSES,
                 )
             )
             errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
@@ -2588,6 +3137,7 @@ def audit_summary() -> dict[str, Any]:
     wonders = load_unique_wonders()
     wonder_keys = {str(wonder["key"]) for wonder in wonders}
     designs = load_optional_yaml(DESIGN_FILE)
+    design_matrix = load_optional_yaml(DESIGN_MATRIX_FILE)
     prompts = load_optional_yaml(PROMPTS_FILE)
     specs = load_spec_data()
     loc = loc_english()
@@ -2624,6 +3174,10 @@ def audit_summary() -> dict[str, Any]:
     capability_coverage_summary = capability_coverage_summary_for_payload(specs)
     archetype_coverage_summary = archetype_coverage_summary_for_payload(specs)
     node_kind_summary = node_kind_summary_for_payload(specs)
+    anti_flattening_warnings = anti_flattening_warnings_for_payload(
+        specs,
+        design_matrix=design_matrix,
+    )
 
     implemented = [
         key
@@ -2634,6 +3188,26 @@ def audit_summary() -> dict[str, Any]:
         key
         for key, entry in spec_index.items()
         if (entry.get("identity") or {}).get("status") == "implemented_parity"
+    ]
+    design_complete = [
+        key
+        for key, entry in spec_index.items()
+        if (entry.get("identity") or {}).get("status") == "design_complete"
+    ]
+    compiler_mapped = [
+        key
+        for key, entry in spec_index.items()
+        if (entry.get("identity") or {}).get("status") == "compiler_mapped"
+    ]
+    evidence_verified = [
+        key
+        for key, entry in spec_index.items()
+        if (entry.get("identity") or {}).get("status") == "evidence_verified"
+    ]
+    source_codegen_ready = [
+        key
+        for key, entry in spec_index.items()
+        if (entry.get("identity") or {}).get("status") == "source_codegen_ready"
     ]
     implementation_ready = [
         key
@@ -2685,6 +3259,10 @@ def audit_summary() -> dict[str, Any]:
         "specs": len(spec_index),
         "implemented_specs": len(implemented),
         "implemented_parity_count": len(implemented_parity),
+        "design_complete_count": len(design_complete),
+        "compiler_mapped_count": len(compiler_mapped),
+        "evidence_verified_count": len(evidence_verified),
+        "source_codegen_ready_count": len(source_codegen_ready),
         "implementation_ready_count": len(implementation_ready),
         "harness_generated_count": len(harness_generated),
         "stub_specs": len(stubs),
@@ -2705,6 +3283,7 @@ def audit_summary() -> dict[str, Any]:
         "listener_contract_error_count": _contract_error_count(spec_errors, "listener_contract"),
         "scope_contract_error_count": _contract_error_count(spec_errors, "scope_contract"),
         "graph_validation_errors": graph_validation_errors,
+        "anti_flattening_warnings": anti_flattening_warnings,
         "missing_designs": sorted(wonder_keys - set(design_index)),
         "placeholder_designs": sorted(
             key

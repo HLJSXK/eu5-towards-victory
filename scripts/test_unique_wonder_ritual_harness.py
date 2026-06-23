@@ -17,6 +17,7 @@ from gen_unique_wonder_ritual_code import (  # noqa: E402
 )
 from wonder_unique_ritual_harness import load_template_registry, validate_spec_payload  # noqa: E402
 from wonder_unique_ritual_harness import load_archetype_registry  # noqa: E402
+from wonder_unique_ritual_harness import anti_flattening_warnings_for_payload  # noqa: E402
 
 
 WONDER = {
@@ -559,6 +560,57 @@ def pure_non_monthly_cadence_entry() -> dict:
     return entry
 
 
+def design_ir_fixture() -> dict:
+    return {
+        "compiler_primitives": ["test_route_rows"],
+        "phases": [{"key": "route_test", "gameplay_stage": "Prove a named route without flattening it."}],
+        "player_proofs": ["The player proves a named route and its incident state."],
+        "tracked_entity_sets": [
+            {
+                "key": "test_routes",
+                "entity_type": "route",
+                "entities": [{"key": "alpha"}, {"key": "beta"}],
+                "state_values": ["pending", "controlled", "basing", "unresolved"],
+                "per_entity_state": {"status_variable_pattern": "tv_wonder_test_route_<route>_status"},
+                "selector": "The next pending route is selected by a route gate.",
+                "ui_binding": "route_map:test_routes renders one row per route.",
+            }
+        ],
+        "selectors": [{"key": "active_route", "selection_space": "pending test routes"}],
+        "risk_branches": [{"key": "route_failed", "risk": "A route incident can delay certification."}],
+        "player_actions": ["Choose whether to pay, delay, or accept reduced route proof."],
+        "map_scope_evidence": ["A route endpoint must resolve to location or owner scope evidence."],
+        "ui_feedback_model": {"components": ["route_map", "progress_track"], "rows": "Repeated route rows."},
+        "uniqueness_constraints": ["The route set is specific enough that a generic event chain would flatten it."],
+        "projection_notes": "The node_graph projection preserves design intent but compresses repeated route rows.",
+    }
+
+
+def compiler_gap_row(verification_status: str = "needs_codebase_search") -> dict:
+    return {
+        "primitive": "test_route_rows",
+        "design_semantics": "Repeated named route rows must survive design even before source compiler support exists.",
+        "required_game_interfaces": ["route map UI", "per-route variables"],
+        "codebase_evidence": ["fixture evidence"],
+        "verification_status": verification_status,
+        "search_questions": ["Which source compiler primitive should own repeated route rows?"],
+        "blocked_by": ["fixture unresolved gap"],
+        "fallback_if_unavailable": "Keep the high-fidelity design_ir and project to a simple node graph.",
+    }
+
+
+def high_fidelity_design_entry(
+    *,
+    status: str = "design_complete",
+    verification_status: str = "needs_codebase_search",
+) -> dict:
+    entry = valid_entry()
+    entry["identity"]["status"] = status
+    entry["design_ir"] = design_ir_fixture()
+    entry["compiler_gap_ledger"] = [compiler_gap_row(verification_status)]
+    return entry
+
+
 def loc() -> dict[str, str]:
     long_text = "This event description is intentionally long enough to satisfy the ritual text density gate. " * 2
     data: dict[str, str] = {}
@@ -640,6 +692,33 @@ def main() -> None:
     )
     if good_errors:
         raise AssertionError(f"valid entry unexpectedly failed: {good_errors}")
+
+    design_complete_errors = validate_spec_payload(
+        {"unique_wonders": [high_fidelity_design_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if design_complete_errors:
+        raise AssertionError(f"design_complete fixture with compiler gaps unexpectedly failed: {design_complete_errors}")
+
+    compiler_mapped_errors = validate_spec_payload(
+        {"unique_wonders": [high_fidelity_design_entry(status="compiler_mapped")]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if compiler_mapped_errors:
+        raise AssertionError(f"compiler_mapped fixture unexpectedly failed: {compiler_mapped_errors}")
+
+    source_ready_errors = validate_spec_payload(
+        {"unique_wonders": [high_fidelity_design_entry(status="source_codegen_ready", verification_status="backend_ready")]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if source_ready_errors:
+        raise AssertionError(f"source_codegen_ready fixture unexpectedly failed: {source_ready_errors}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
@@ -791,6 +870,42 @@ def main() -> None:
     unsupported_listener = valid_entry()
     unsupported_listener["node_graph"]["listeners"] = ["unsupported_listener"]
     assert_has_error("unsupported listener", unsupported_listener, "unsupported listener")
+
+    unknown_status = valid_entry()
+    unknown_status["identity"]["status"] = "almost_ready"
+    assert_has_error("unknown status", unknown_status, "identity.status 'almost_ready' is unsupported")
+
+    invalid_gap_status = high_fidelity_design_entry(verification_status="maybe_later")
+    assert_has_error("invalid compiler gap status", invalid_gap_status, "invalid verification_status")
+
+    source_ready_with_gap = high_fidelity_design_entry(status="source_codegen_ready")
+    assert_has_error(
+        "source_codegen_ready unresolved compiler gap",
+        source_ready_with_gap,
+        "unresolved compiler gap",
+    )
+
+    flattened_route = high_fidelity_design_entry()
+    flattened_route["design_ir"]["tracked_entity_sets"][0]["key"] = "single_progress_counter"
+    flattened_route["design_ir"]["tracked_entity_sets"][0]["entity_type"] = "counter"
+    flattening_warnings = anti_flattening_warnings_for_payload(
+        {"unique_wonders": [flattened_route]},
+        design_matrix={
+            "unique_wonders": [
+                {
+                    "wonder_key": "unique_test_wonder",
+                    "expected_ui_model": ["route_map"],
+                    "proposed_core_mechanic": "Certify two named Mediterranean routes without flattening them.",
+                    "player_agency_model": "The player chooses the active route.",
+                    "risk_or_failure_branch": "A route can fail and require a retry.",
+                    "uniqueness_notes": "Mediterranean routes are the historical interface.",
+                    "primary_cadence_type": "route_certification",
+                }
+            ]
+        },
+    )
+    if not any("tracked route set" in warning for warning in flattening_warnings):
+        raise AssertionError(f"flattened route fixture did not warn: {flattening_warnings}")
 
     occupied_event_id = valid_entry()
     assert_has_error(

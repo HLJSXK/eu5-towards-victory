@@ -1,10 +1,11 @@
 metadata:
   purpose: "Reference archetype registry for Unique Wonder Ritual Harness blueprint validation."
   generated_game_code: false
-  safety_boundary: "Archetypes describe optional, non-exclusive Harness reference patterns only; they may not write src, forbid custom ritual shapes, or certify loadable EU5 syntax."
+  safety_boundary: "Archetypes describe optional, non-exclusive Harness projection patterns only; they may not write src, forbid custom ritual shapes, cap design_ir complexity, or certify loadable EU5 syntax."
   status: "v1_reference_archetypes"
   contract_mode: "non_exclusive_positive_requirements"
   custom_archetype_policy: "Specs may use custom_* archetype labels when node_graph.mechanic_signature.custom_archetype_statement explains the bespoke mechanism."
+  design_fidelity_policy: "Archetype fit must never be used to flatten high-fidelity phases, tracked entity sets, selectors, risk branches, or UI feedback."
 
 archetypes:
   - key: expedition_route_chain

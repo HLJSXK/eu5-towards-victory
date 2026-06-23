@@ -1,8 +1,9 @@
 metadata:
   purpose: "Capability registry for Unique Wonder Ritual Harness semantic validation."
   generated_game_code: false
-  safety_boundary: "Capabilities describe Harness-supported mechanism semantics only; they may not write src or certify loadable EU5 syntax."
+  safety_boundary: "Capabilities describe the current Harness projection semantics only; they may not write src, certify loadable EU5 syntax, or cap design_ir complexity."
   status: "v1_semantic_contracts"
+  design_fidelity_policy: "Specs may record richer design_ir primitives with compiler_gap_ledger rows even when no capability exists yet."
 
 capabilities:
   - key: event_chain
@@ -140,7 +141,7 @@ capabilities:
       - player_facing_tooltip
     verified_interface: "harness_v1_semantic_fragment"
     may_write_src: false
-    notes: "Documents route/path-gate semantics for intermediate route-map fragments."
+    notes: "Documents route/path-gate semantics for intermediate route-map fragments. This is not a limit on high-fidelity tracked route sets in design_ir."
 
   - key: listener_gate
     supported_node_kinds:

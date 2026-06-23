@@ -3,6 +3,8 @@
 This workflow is for full-corpus planning before any bulk Unique Wonder Ritual
 Harness spec authoring. It exists to prevent 123 unique wonders from collapsing
 into repeated cadence shapes, repeated UI models, or the safest mature template.
+It also prevents formal specs from flattening matrix ideas merely because current
+capabilities, templates, or codegen cannot express them yet.
 
 The design matrix is not a formal ritual spec and is not loadable EU5 code.
 It is the global allocation surface that must be reviewed before any later pass
@@ -36,8 +38,13 @@ turns entries into `data/unique_wonder_ritual_specs.yaml` records.
      with acceptable repetition and feasibility risk.
 6. Only after matrix review, create formal Harness specs.
    - Do not bypass the matrix to bulk-write `data/unique_wonder_ritual_specs.yaml`.
-   - Formal spec generation remains a later pass and must still run the existing
-     Harness audit and codegen checks.
+   - Formal specs must preserve the matrix's design complexity in `design_ir` before
+     writing any current `node_graph` projection.
+   - Unverified mechanisms belong in `compiler_gap_ledger` with `semantic_only`,
+     `needs_codebase_search`, or `interface_candidate`; do not delete them to satisfy
+     the current registry.
+   - Formal spec generation remains a later pass and must still run Harness design,
+     semantic graph, and source/codegen checks at the appropriate status layer.
 
 ## Matrix Field Semantics
 
@@ -64,6 +71,8 @@ turns entries into `data/unique_wonder_ritual_specs.yaml` records.
   `needs_trigger_check_only`, `needs_new_capability`, `needs_new_listener`,
   `needs_eu5_verification`, or `blocked`. It may be null only while
   `authoring_status` is `unassigned`.
+  Future-gap feasibility should become `compiler_gap_ledger` rows during formal spec
+  conversion, not generic simplification.
 - `uniqueness_notes`: Why this loop belongs to this wonder rather than its base
   category.
 - `similarity_group`: A freeform grouping key used only for global repetition audit.
@@ -81,3 +90,8 @@ remain warnings so an early planning matrix can be inspected before it is comple
 Initial seeded matrices are expected to report warnings for missing
 `non_monthly_validation_point` and `uniqueness_notes`. Those warnings become work
 items for the full-corpus design pass, not reasons to generate formal specs early.
+
+During spec conversion, treat `design_complete` as the first target status. Promote to
+`compiler_mapped` only after a current Harness `node_graph` projection exists, and promote
+to `source_codegen_ready` only after unresolved compiler gaps are gone. `needs_codebase_search`
+is expected in early high-fidelity specs and should drive the next codebase exploration pass.
