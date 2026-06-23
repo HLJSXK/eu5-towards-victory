@@ -1837,15 +1837,15 @@ unique_wonders:
     base_key: sky_dome_grand_temple
     location: rome
     runtime_prefix: tv_wonder_st_peters_basilica
-    status: compiler_mapped
+    status: source_codegen_ready
   event_ids:
-  - id: 1008
+  - id: 1016
     key: st_peters_opening
-  - id: 1009
+  - id: 1017
     key: st_peters_assignment
-  - id: 1010
+  - id: 1018
     key: st_peters_scandal
-  - id: 1011
+  - id: 1019
     key: st_peters_reward
   node_graph:
     model: state_machine_dsl_v1
@@ -1970,7 +1970,7 @@ unique_wonders:
       capabilities:
       - event_chain
       - bounded_opposition_religious_community_pressure
-      event_id: 1008
+      event_id: 1016
       player_visible: true
       enter_condition: Rome site and Saint Peter threshold preparation are visible to the sponsor.
       completion_condition: Threshold inventory is opened and the assignment gate is prepared.
@@ -1986,9 +1986,9 @@ unique_wonders:
         variable_refs:
         - tv_wonder_st_peters_basilica_stage
       loc_refs:
-      - tv_engineering_department.1008.t
-      - tv_engineering_department.1008.d
-      - tv_engineering_department.1008.a
+      - TV_ENGINEERING_ST_PETERS_OPENING_TITLE
+      - TV_ENGINEERING_ST_PETERS_OPENING_DESC
+      - TV_ENGINEERING_ST_PETERS_OPENING_PREPARE
       scope_contract:
         root_scope: country
         current_scope: country
@@ -2002,7 +2002,7 @@ unique_wonders:
       capabilities:
       - actor_assignment
       - actor_assignment_character_selector_backend
-      event_id: 1009
+      event_id: 1017
       player_visible: true
       enter_condition: The threshold is prepared and a sacred official candidate can be assigned.
       completion_condition: An official role and quality band are recorded for the dedication.
@@ -2022,11 +2022,11 @@ unique_wonders:
         - tv_wonder_st_peters_basilica_assigned_official
         - tv_wonder_st_peters_basilica_official_quality
       loc_refs:
-      - tv_engineering_department.1009.t
-      - tv_engineering_department.1009.d
-      - tv_engineering_department.1009.a
-      - tv_engineering_department.1009.b
-      - tv_engineering_department.1009.c
+      - TV_ENGINEERING_ST_PETERS_ASSIGNMENT_TITLE
+      - TV_ENGINEERING_ST_PETERS_ASSIGNMENT_DESC
+      - TV_ENGINEERING_ST_PETERS_ASSIGNMENT_CARDINAL
+      - TV_ENGINEERING_ST_PETERS_ASSIGNMENT_BISHOP_OR_CUSTODIAN
+      - TV_ENGINEERING_ST_PETERS_ASSIGNMENT_SERVICE_OFFICERS
       scope_contract:
         root_scope: country
         current_scope: country
@@ -2041,7 +2041,7 @@ unique_wonders:
       - retry_branch
       - repeated_entity_row_checklist_incident_log_backend
       - branch_specific_reward_scaling
-      event_id: 1010
+      event_id: 1018
       player_visible: true
       enter_condition: The assigned official has exposed a relic, alms, pilgrim-access, choir, or patronage incident.
       completion_condition: The scandal is corrected, accepted as a narrower dedication, or sent back to reassignment.
@@ -2066,10 +2066,10 @@ unique_wonders:
         - tv_wonder_st_peters_basilica_duty_status
         - tv_wonder_st_peters_basilica_reward_branch
       loc_refs:
-      - tv_engineering_department.1010.t
-      - tv_engineering_department.1010.d
-      - tv_engineering_department.1010.a
-      - tv_engineering_department.1010.b
+      - TV_ENGINEERING_ST_PETERS_SCANDAL_TITLE
+      - TV_ENGINEERING_ST_PETERS_SCANDAL_DESC
+      - TV_ENGINEERING_ST_PETERS_SCANDAL_CORRECT
+      - TV_ENGINEERING_ST_PETERS_SCANDAL_NARROW
       scope_contract:
         root_scope: country
         current_scope: country
@@ -2083,7 +2083,7 @@ unique_wonders:
       capabilities:
       - final_reward_handoff
       - branch_specific_reward_scaling
-      event_id: 1011
+      event_id: 1019
       player_visible: true
       enter_condition: Assignment and first service scandal are resolved into a final dedication branch.
       completion_condition: Permanent country, local building memory, and one-time reward semantics are handed to finalization.
@@ -2106,9 +2106,9 @@ unique_wonders:
         - tv_wonder_st_peters_basilica_stage
         - tv_wonder_st_peters_basilica_reward_branch
       loc_refs:
-      - tv_engineering_department.1011.t
-      - tv_engineering_department.1011.d
-      - tv_engineering_department.1011.a
+      - TV_ENGINEERING_ST_PETERS_REWARD_TITLE
+      - TV_ENGINEERING_ST_PETERS_REWARD_DESC
+      - TV_ENGINEERING_ST_PETERS_REWARD_DEDICATE
       scope_contract:
         root_scope: country
         current_scope: country
@@ -2122,22 +2122,22 @@ unique_wonders:
       to: st_peters_assignment
       condition: threshold inventory prepared
       effect: set stage to assignment prepared
-      label_key: tv_engineering_department.1008.a
+      label_key: TV_ENGINEERING_ST_PETERS_OPENING_PREPARE
     - from: st_peters_assignment
       to: st_peters_scandal
       condition: sacred official assigned
       effect: save assigned official and quality state
-      label_key: tv_engineering_department.1009.a
+      label_key: TV_ENGINEERING_ST_PETERS_ASSIGNMENT_CARDINAL
     - from: st_peters_scandal
       to: st_peters_assignment
       condition: reassignment chosen after scandal
       effect: preserve incident evidence and reopen actor slot
-      label_key: tv_engineering_department.1010.a
+      label_key: TV_ENGINEERING_ST_PETERS_SCANDAL_CORRECT
     - from: st_peters_scandal
       to: st_peters_reward
       condition: scandal corrected or narrower dedication accepted
       effect: save duty status and reward branch
-      label_key: tv_engineering_department.1010.b
+      label_key: TV_ENGINEERING_ST_PETERS_SCANDAL_NARROW
     actions:
     - key: start_threshold_dedication
       kind: generator_template
@@ -2427,39 +2427,50 @@ unique_wonders:
     - TV_ENGINEERING_ST_PETERS_OFFICIAL_STATUS
     - TV_ENGINEERING_ST_PETERS_INCIDENT_STATUS
     event_keys:
-    - event_id: 1008
-      title_key: tv_engineering_department.1008.t
-      desc_key: tv_engineering_department.1008.d
+    - event_id: 1016
+      title_key: TV_ENGINEERING_ST_PETERS_OPENING_TITLE
+      desc_key: TV_ENGINEERING_ST_PETERS_OPENING_DESC
       option_keys:
-      - tv_engineering_department.1008.a
+      - TV_ENGINEERING_ST_PETERS_OPENING_PREPARE
       node_key: st_peters_opening
-    - event_id: 1009
-      title_key: tv_engineering_department.1009.t
-      desc_key: tv_engineering_department.1009.d
+    - event_id: 1017
+      title_key: TV_ENGINEERING_ST_PETERS_ASSIGNMENT_TITLE
+      desc_key: TV_ENGINEERING_ST_PETERS_ASSIGNMENT_DESC
       option_keys:
-      - tv_engineering_department.1009.a
-      - tv_engineering_department.1009.b
-      - tv_engineering_department.1009.c
+      - TV_ENGINEERING_ST_PETERS_ASSIGNMENT_CARDINAL
+      - TV_ENGINEERING_ST_PETERS_ASSIGNMENT_BISHOP_OR_CUSTODIAN
+      - TV_ENGINEERING_ST_PETERS_ASSIGNMENT_SERVICE_OFFICERS
       node_key: st_peters_assignment
-    - event_id: 1010
-      title_key: tv_engineering_department.1010.t
-      desc_key: tv_engineering_department.1010.d
+    - event_id: 1018
+      title_key: TV_ENGINEERING_ST_PETERS_SCANDAL_TITLE
+      desc_key: TV_ENGINEERING_ST_PETERS_SCANDAL_DESC
       option_keys:
-      - tv_engineering_department.1010.a
-      - tv_engineering_department.1010.b
+      - TV_ENGINEERING_ST_PETERS_SCANDAL_CORRECT
+      - TV_ENGINEERING_ST_PETERS_SCANDAL_NARROW
       node_key: st_peters_scandal
-    - event_id: 1011
-      title_key: tv_engineering_department.1011.t
-      desc_key: tv_engineering_department.1011.d
+    - event_id: 1019
+      title_key: TV_ENGINEERING_ST_PETERS_REWARD_TITLE
+      desc_key: TV_ENGINEERING_ST_PETERS_REWARD_DESC
       option_keys:
-      - tv_engineering_department.1011.a
+      - TV_ENGINEERING_ST_PETERS_REWARD_DEDICATE
       node_key: st_peters_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_st_peters_basilica
+  generation:
+    status: source_codegen_ready
+    target_files:
+    - data/generated_fragments/unique_wonder_rituals/unique_st_peters_basilica_ritual_codegen.md
+    verified_templates:
+    - sequential_event_chain
+    - branch_retry_event
+    - semantic_contract_fragment
+    - final_reward_dispatch_stub
+    blocked_templates: []
+    dry_run_notes: Intermediate-only Harness fragment eligibility for Saint Peter's Basilica; may_write_src remains false and loadable EU5 source remains blocked by source-writer gaps.
   implementation_notes:
     source_ritual_key: dedication
     implementation_source: design_only_high_fidelity_spec
-    verification_status: compiler_mapped
+    verification_status: source_codegen_ready
     verified_interfaces:
     - Harness strong DSL semantic graph
     - capability:event_chain semantic projection
@@ -2470,11 +2481,11 @@ unique_wonders:
     - capability:branch_specific_reward_scaling intermediate backend contract
     - capability:bounded_opposition_religious_community_pressure intermediate backend contract
     - capability:final_reward_handoff semantic projection
-    needs_verification:
-    - sacred_official_character_selector
-    - clergy_state_faith_eligibility_checks
-    - actor_quality_incident_reward_mapping
-    - relic_alms_pilgrim_duty_rows
+    remaining_source_writer_blockers:
+    - Loadable generic_action/GUI writer for the sacred-official character selector is not implemented.
+    - Exact state-faith, clergy, holy-site, and religious-community predicates still need a later source compiler.
+    - Actor quality to incident/reward branch routing is represented only by an intermediate backend contract.
+    - Per-duty relic/alms/pilgrim/choir/patronage rows are preserved in design_ir but no loadable GUI/source row expander exists.
 - identity:
     id: 113
     key: unique_lalibela_churches
