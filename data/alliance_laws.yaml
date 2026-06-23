@@ -3,6 +3,8 @@
 # Cohesion thresholds are fixed: L2=25, L3=50, L4=75 (all laws share these)
 # Policy changes are adjacent-only. No current policy counts as level 0, so
 # level N requires current level N-1 or N+1.
+# Law changes require the Diplomatic Alliance's Alliance Assembly parliament
+# law-vote path.
 # AI vote bias is generated from reform tier, opinion toward the leader
 # clamped by reform level, and the leader country's diplomatic reputation.
 # L1/L2/L3/L4 bases are 0/-100/-200/-300. L2/L3/L4 opinion scales to
