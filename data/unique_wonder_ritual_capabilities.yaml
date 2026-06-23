@@ -98,6 +98,30 @@ capabilities:
     may_write_src: false
     notes: "Documents actor/role selection semantics before real character-scope scripting exists."
 
+  - key: actor_assignment_character_selector_backend
+    supported_node_kinds:
+      - assignment_gate
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - assigned_actor
+    supported_listener_kinds: []
+    supported_ui_components:
+      - actor_slots
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for character selector, selected-character storage, tooltip-safe target guards, and actor-slot GUI summaries. It does not emit loadable generic_actions or GUI source."
+
   - key: resource_gate
     supported_node_kinds:
       - resource_gate
@@ -143,6 +167,35 @@ capabilities:
     may_write_src: false
     notes: "Documents route/path-gate semantics for intermediate route-map fragments. This is not a limit on high-fidelity tracked route sets in design_ir."
 
+  - key: repeated_entity_row_checklist_incident_log_backend
+    supported_node_kinds:
+      - route_gate
+      - incident_event
+      - retry_event
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.ui_state
+    required_variable_roles:
+      - incident_state
+      - checklist_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - route_map
+      - actor_slots
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for preserving design_ir repeated entity rows and projecting them into checklist or incident-log summaries. It does not expand rows into loadable GUI/source files."
+
   - key: listener_gate
     supported_node_kinds:
       - listener_gate
@@ -169,6 +222,61 @@ capabilities:
     verified_interface: "harness_v1_semantic_fragment"
     may_write_src: false
     notes: "Documents listener-driven completion/failure contracts without creating on_action code."
+
+  - key: branch_specific_reward_scaling
+    supported_node_kinds:
+      - choice_event
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_node_fields:
+      - node.reads
+      - node.writes
+    required_variable_roles:
+      - reward_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - progress_track
+      - actor_slots
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for branch variables that shape incident outcomes and final reward summaries. It does not emit source reward effects or certify actor-to-incident source routing."
+
+  - key: bounded_opposition_religious_community_pressure
+    supported_node_kinds:
+      - event
+      - choice_event
+      - incident_event
+      - retry_event
+      - assignment_gate
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - stage_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - actor_slots
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for bounded clergy, holy-site, state-faith, and religious-community eligibility/pressure semantics. It is not a full religion-policy source generator."
 
   - key: final_reward_handoff
     supported_node_kinds:

@@ -15,7 +15,12 @@ from gen_unique_wonder_ritual_code import (  # noqa: E402
     CodegenError,
     generate_fragments_for_payload,
 )
-from wonder_unique_ritual_harness import load_template_registry, validate_spec_payload  # noqa: E402
+from wonder_unique_ritual_harness import (  # noqa: E402
+    load_capability_registry,
+    load_template_registry,
+    validate_capability_registry,
+    validate_spec_payload,
+)
 from wonder_unique_ritual_harness import load_archetype_registry  # noqa: E402
 from wonder_unique_ritual_harness import anti_flattening_warnings_for_payload  # noqa: E402
 
@@ -42,6 +47,12 @@ NON_MONTHLY_TEMPLATES = [
     "simple_progress_track_ui_binding",
     "final_reward_dispatch_stub",
     "semantic_contract_fragment",
+]
+BACKEND_CAPABILITIES = [
+    "actor_assignment_character_selector_backend",
+    "repeated_entity_row_checklist_incident_log_backend",
+    "branch_specific_reward_scaling",
+    "bounded_opposition_religious_community_pressure",
 ]
 
 
@@ -419,6 +430,38 @@ def incident_retry_entry() -> dict:
     return entry
 
 
+def actor_selector_backend_entry() -> dict:
+    entry = actor_assignment_entry()
+    entry["node_graph"]["nodes"][1]["capabilities"].append("actor_assignment_character_selector_backend")
+    return entry
+
+
+def repeated_row_backend_entry() -> dict:
+    entry = incident_retry_entry()
+    graph = entry["node_graph"]
+    graph["variables"][0]["roles"].extend(["incident_state", "checklist_state"])
+    graph["variables"][0]["reader_nodes"].append("retry_choice")
+    retry_choice = graph["nodes"][3]
+    retry_choice["capabilities"].append("repeated_entity_row_checklist_incident_log_backend")
+    retry_choice["ui_state"]["variable_refs"].append("tv_wonder_test_stage")
+    return entry
+
+
+def branch_scaling_backend_entry() -> dict:
+    entry = valid_entry()
+    reward = entry["node_graph"]["nodes"][5]
+    reward["capabilities"].append("branch_specific_reward_scaling")
+    return entry
+
+
+def bounded_religious_pressure_backend_entry() -> dict:
+    entry = valid_entry()
+    opening = entry["node_graph"]["nodes"][0]
+    opening["capabilities"].append("bounded_opposition_religious_community_pressure")
+    opening["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    return entry
+
+
 def route_hidden_entry(localization: dict[str, str] | None = None) -> dict:
     entry = route_incident_entry()
     graph = entry["node_graph"]
@@ -649,6 +692,7 @@ def assert_has_error(
     localization: dict[str, str] | None = None,
     occupied_event_ids: set[int] | None = None,
     template_registry: dict | None = None,
+    capability_registry: dict | None = None,
     archetype_registry: dict | None = None,
 ) -> None:
     errors = validate_spec_payload(
@@ -658,6 +702,7 @@ def assert_has_error(
         occupied_event_ids=occupied_event_ids,
         require_all_wonders=True,
         template_registry=template_registry,
+        capability_registry=capability_registry,
         archetype_registry=archetype_registry,
     )
     if not any(needle in error for error in errors):
@@ -825,6 +870,53 @@ def main() -> None:
     if listener_errors:
         raise AssertionError(f"resource/listener/hidden fixture unexpectedly failed: {listener_errors}")
 
+    capability_registry = load_capability_registry()
+    capability_errors = validate_capability_registry(capability_registry)
+    if capability_errors:
+        raise AssertionError(f"capability registry unexpectedly failed: {capability_errors}")
+    capability_index = {
+        capability["key"]: capability
+        for capability in capability_registry["capabilities"]
+    }
+    for capability_key in BACKEND_CAPABILITIES:
+        contract = capability_index.get(capability_key)
+        if contract is None:
+            raise AssertionError(f"missing backend capability contract {capability_key!r}")
+        if contract.get("may_write_src") is not False:
+            raise AssertionError(f"backend capability {capability_key!r} may write src")
+        if any("src" in str(kind).lower() for kind in contract.get("output_kinds", [])):
+            raise AssertionError(f"backend capability {capability_key!r} advertises source output")
+
+    for name, entry in (
+        ("actor selector backend", actor_selector_backend_entry()),
+        ("repeated row backend", repeated_row_backend_entry()),
+        ("branch scaling backend", branch_scaling_backend_entry()),
+        ("bounded religious pressure backend", bounded_religious_pressure_backend_entry()),
+    ):
+        backend_errors = validate_spec_payload(
+            {"unique_wonders": [entry]},
+            wonders=[WONDER],
+            localization=loc(),
+            require_all_wonders=True,
+        )
+        if backend_errors:
+            raise AssertionError(f"{name} fixture unexpectedly failed: {backend_errors}")
+
+    for capability_key in BACKEND_CAPABILITIES:
+        backend_gap = high_fidelity_design_entry(verification_status="backend_ready")
+        backend_gap["compiler_gap_ledger"][0]["codebase_evidence"] = [
+            f"capability:{capability_key}",
+            "manual evidence would not be enough by itself",
+        ]
+        backend_gap_errors = validate_spec_payload(
+            {"unique_wonders": [backend_gap]},
+            wonders=[WONDER],
+            localization=loc(),
+            require_all_wonders=True,
+        )
+        if backend_gap_errors:
+            raise AssertionError(f"backend_ready gap for {capability_key} unexpectedly failed: {backend_gap_errors}")
+
     result = generate_fragments_for_payload(
         {"unique_wonders": [valid_entry()]},
         wonder_keys={"unique_test_wonder"},
@@ -897,6 +989,15 @@ def main() -> None:
         "backend ready missing registry evidence",
         backend_without_registry_evidence,
         "backend_ready requires valid capability:<key> or template:<key>",
+    )
+
+    writable_capability_registry = deepcopy(load_capability_registry())
+    writable_capability_registry["capabilities"][0]["may_write_src"] = True
+    assert_has_error(
+        "capability may_write_src",
+        valid_entry(),
+        "must declare may_write_src: false",
+        capability_registry=writable_capability_registry,
     )
 
     needs_search_without_questions = high_fidelity_design_entry()

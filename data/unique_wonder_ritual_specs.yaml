@@ -1969,6 +1969,7 @@ unique_wonders:
       kind: event
       capabilities:
       - event_chain
+      - bounded_opposition_religious_community_pressure
       event_id: 1008
       player_visible: true
       enter_condition: Rome site and Saint Peter threshold preparation are visible to the sponsor.
@@ -2000,6 +2001,7 @@ unique_wonders:
       kind: assignment_gate
       capabilities:
       - actor_assignment
+      - actor_assignment_character_selector_backend
       event_id: 1009
       player_visible: true
       enter_condition: The threshold is prepared and a sacred official candidate can be assigned.
@@ -2037,6 +2039,8 @@ unique_wonders:
       kind: retry_event
       capabilities:
       - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
       event_id: 1010
       player_visible: true
       enter_condition: The assigned official has exposed a relic, alms, pilgrim-access, choir, or patronage incident.
@@ -2078,6 +2082,7 @@ unique_wonders:
       kind: final_reward_dispatch
       capabilities:
       - final_reward_handoff
+      - branch_specific_reward_scaling
       event_id: 1011
       player_visible: true
       enter_condition: Assignment and first service scandal are resolved into a final dedication branch.
@@ -2282,15 +2287,18 @@ unique_wonders:
     - capability:actor_assignment documents assignment semantics but does not certify source selector generation.
     - scripts/wonder_unique_rituals/hagia.py:append_hagia_assignment_effect stores tv_wonder_hagia_assignee_<step> with scope:target or the saved ruler scope.
     - scripts/wonder_unique_rituals/hagia.py:hagia_step_portrait renders assigned characters with Player.MakeScope.GetVariable('tv_wonder_hagia_assignee_<step>').GetCharacter and action tv_wonder_hagia_assign_step_<step>.
+    - src/in_game/common/generic_actions/tv_engineering_department_wonder_mechanics_actions.txt:tv_wonder_hagia_assign_step_<step> uses looking_for_a = character, target_flag = target, none_available_msg_key, and final exists = scope:target guards.
+    - scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py:_char_selector_block generates character selectors with source = actor, target_flag = target, none_available_msg_key, and tooltip-safe visible filters.
     - docs/technical/IO_Leader_System.md documents custom character references stored as country variables such as tv_arts_exhibition_leader_char and read through leader_country.var:*.
-    - Verified existing character storage/display pattern only; current Harness actor_assignment remains a semantic capability, not a source selector backend.
-    verification_status: verified_existing
+    - capability:actor_assignment_character_selector_backend
+    - The selector backend contract is intermediate-only and does not write generic_actions or GUI source.
+    verification_status: backend_ready
     harness_backlog_cluster: actor_assignment_character_selector_backend
     search_questions:
     - Which generic action or country interaction patterns can select or create a character for a wonder-specific sacred office?
     - How should tooltip pre-evaluation guard a freshly assigned character variable?
     blocked_by:
-    - No verified source selector is mapped for this ritual.
+    - Source generation remains blocked until a later loadable generic_action/GUI writer consumes the intermediate selector contract.
     fallback_if_unavailable: Represent the official as a semantic role variable while keeping candidate rows in design_ir.
   - primitive: clergy_state_faith_eligibility_checks
     design_semantics: Require a compatible state-faith or clergy institution without hard-coding a single religion or papal owner.
@@ -2302,13 +2310,16 @@ unique_wonders:
     - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt uses holy-site and religion selectors through is_location_holy_site_for, is_holy_site_for, and is_location_holy_site_type.
     - reference_game_files/game/in_game/events/DHE/flavor_TUR.txt shows religion.group checks and add_estate_satisfaction against estate_type:clergy_estate.
     - src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt and tv_engineering_department_wonder_mechanics_modifiers.txt already use local_clergy_estate_power and clergy_estate_target_satisfaction for wonder/building rewards.
-    verification_status: interface_candidate
+    - src/in_game/common/scripted_triggers/tv_engineering_department_triggers.txt:tv_wonder_clergy_privilege_agenda_available_trigger and tv_wonder_clergy_policy_agenda_available_trigger prove bounded clergy-estate availability checks in TV script.
+    - capability:bounded_opposition_religious_community_pressure
+    - The bounded religious-community pressure contract is intermediate-only and not a full religion-policy source generator.
+    verification_status: backend_ready
     harness_backlog_cluster: bounded_opposition_religious_community_pressure
     search_questions:
     - Which existing triggers safely test clergy participation, state religion compatibility, and hostile religious authority?
     - Can non-Catholic sponsors translate the role into their own official clergy without special-case source code?
     blocked_by:
-    - Religion and clergy eligibility policy needs codebase search and design confirmation before mapping.
+    - Source generation remains blocked until the final ritual compiler chooses exact state-faith and religious-community source predicates.
     fallback_if_unavailable: Keep eligibility as design text and require only ownership/control in any lossy projection.
   - primitive: actor_quality_incident_reward_mapping
     design_semantics: Make the assigned official's quality and factional risk choose the first scandal and influence final reward expression.
@@ -2321,13 +2332,15 @@ unique_wonders:
     - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_step_<step>_assigned_trigger gates stages on tv_wonder_hagia_assignee_<step> variables.
     - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_roll_step_6_cost_effect and tv_wonder_hagia_complete_step_6_effect show saved branch variables driving different costs and rewards.
     - src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt:tv_wonder_execute_finalization_hidden_event_effect centralizes final reward/cleanup dispatch behind hidden execution.
-    verification_status: interface_candidate
+    - capability:branch_specific_reward_scaling
+    - The branch-specific reward-scaling contract is intermediate-only; actor-to-incident source routing is still not loadable generated code.
+    verification_status: backend_ready
     harness_backlog_cluster: branch_specific_reward_scaling
     search_questions:
     - Which existing event patterns branch on character attributes, estate alignment, or role variables?
     - Can final reward handoff read a role-quality variable without exposing unsafe option mutations?
     blocked_by:
-    - Actor-to-incident routing is not represented by current Harness templates.
+    - Source generation remains blocked until a later compiler maps actor quality to concrete incident selection and reward effects.
     fallback_if_unavailable: Use a fixed scandal event and preserve actor-quality routing in design_ir.
   - primitive: relic_alms_pilgrim_duty_rows
     design_semantics: Track relic inventory, alms ledger, pilgrim threshold, choir offices, and chapel patronage as separate service duties.
@@ -2337,15 +2350,18 @@ unique_wonders:
     - panel status localization
     codebase_evidence:
     - scripts/wonder_unique_rituals/pharos.py:pharos_route_row renders repeated status rows, proving a generated source pattern for entity-row UI outside the Harness backend.
+    - src/in_game/gui/panels/organization/tv_engineering_department.gui contains the generated Pharos route ledger rows with per-route status, owner, and location variable reads.
+    - src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:tv_wonder_pharos_refresh_route_progress_effect proves per-route passed variables can feed aggregate progress without flattening source state.
     - scripts/wonder_unique_rituals/hagia.py:hagia_step_card and hagia_step_portrait show actor-related row/card status using assigned-character variables and action buttons.
-    - Current Harness supports semantic actor_slots/checklist/incident_log components, but no source backend expands apostolic_service_duties into repeated duty rows.
-    verification_status: verified_existing
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - The repeated-row checklist/incident-log contract is intermediate-only and does not write source GUI rows.
+    verification_status: backend_ready
     harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which Engineering Department GUI row patterns can render actor-related duty incidents?
     - Should service duties be modeled as checklist rows, incident rows, or both?
     blocked_by:
-    - Current Harness has semantic actor_slots and incident_log only; no repeated source-row backend exists.
+    - Source generation remains blocked until a later GUI/source compiler expands apostolic_service_duties into loadable repeated duty rows.
     fallback_if_unavailable: Show incident_status summary while retaining per-duty rows in design_ir.
   ui_model:
     components:
@@ -2448,7 +2464,11 @@ unique_wonders:
     - Harness strong DSL semantic graph
     - capability:event_chain semantic projection
     - capability:actor_assignment semantic projection
+    - capability:actor_assignment_character_selector_backend intermediate backend contract
     - capability:retry_branch semantic projection
+    - capability:repeated_entity_row_checklist_incident_log_backend intermediate backend contract
+    - capability:branch_specific_reward_scaling intermediate backend contract
+    - capability:bounded_opposition_religious_community_pressure intermediate backend contract
     - capability:final_reward_handoff semantic projection
     needs_verification:
     - sacred_official_character_selector

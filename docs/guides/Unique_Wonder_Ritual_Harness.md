@@ -81,7 +81,9 @@ functions, event IDs, variable names, UI patterns, scopes, capabilities, or temp
 - `interface_candidate` means a likely interface or pattern exists, but the mapping is not
   proven enough for backend generation.
 - `backend_ready` means the primitive is backed by current Harness capability/template
-  evidence. Use explicit `capability:<key>` or `template:<key>` evidence.
+  evidence. Use explicit `capability:<key>` or `template:<key>` evidence. A
+  backend-ready capability may still be an intermediate backend contract only; it does not
+  imply loadable EU5 source generation unless a later source generator is separately verified.
 - `source_codegen_ready`, legacy `implementation_ready`, and `harness_generated` require all
   compiler gap rows to be `backend_ready`; unresolved rows and `verified_existing` rows still
   block those statuses.
@@ -181,9 +183,15 @@ kinds not covered by `generation.verified_templates`.
 `data/unique_wonder_ritual_capabilities.yaml` is the only source of truth for Harness
 mechanism semantics. Each capability declares supported node kinds, required node fields,
 required variable roles, supported listeners/UI components/output kinds, a verified interface,
-`may_write_src: false`, and notes. The v1 capabilities are `event_chain`, `retry_branch`,
-`monthly_progress`, `actor_assignment`, `resource_gate`, `route_gate`, `listener_gate`, and
-`final_reward_handoff`.
+`may_write_src: false`, and notes. The v1 semantic capabilities are `event_chain`,
+`retry_branch`, `monthly_progress`, `actor_assignment`, `resource_gate`, `route_gate`,
+`listener_gate`, and `final_reward_handoff`. The v1 intermediate backend contracts are
+`actor_assignment_character_selector_backend`,
+`repeated_entity_row_checklist_incident_log_backend`,
+`branch_specific_reward_scaling`, and
+`bounded_opposition_religious_community_pressure`; these contracts provide evidence mapping
+for richer `design_ir` primitives while still producing only intermediate fragments, stubs, or
+summaries.
 
 Codegen-eligible nodes must declare `capabilities`. The validator rejects unknown
 capabilities, capabilities that do not support the node kind, missing capability-required
