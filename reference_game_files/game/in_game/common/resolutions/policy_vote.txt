@@ -278,7 +278,14 @@
 		enabled = {
 			law ?= scope:target
 			scope:recipient = {
-				policy_enabled_to_international_organization = root
+				trigger_if = {
+					limit = {
+						NOT = {
+							resolution_is_active = resolution:policy_vote
+						}
+					}
+					policy_enabled_to_international_organization = root
+				}
 				#if we're proposing a policy, make sure we can't propose what's already implemented
 				custom_tooltip = {
 					text = policy_vote_select_policy_at
@@ -287,6 +294,9 @@
 							exists = scope:actor
 							exists = scope:proposer
 							scope:actor = scope:proposer
+							NOT = {
+								resolution_is_active = resolution:policy_vote
+							}
 						}
 						not = { international_organization_has_policy = root }
 					}
@@ -553,6 +563,18 @@
 					recalculate_parliament_vote_for_law_change = yes
 				}
 			}
+			scope:actor = {
+				if = {
+					limit = { exists = scope:vote }
+					if = {
+						limit = { scope:vote = policy:revoke_privilegia_policy }
+						set_variable = voted_for_privilegia
+					}
+					else = {
+						remove_variable = voted_for_privilegia
+					}
+				}
+			}
 		}
 	}
 	abstain_effect = {
@@ -580,6 +602,9 @@
 						recalculate_parliament_vote_for_law_change = yes
 					}
 				}
+			}
+			scope:actor = {
+				remove_variable = voted_for_privilegia
 			}
 		}
 	}
@@ -619,6 +644,19 @@
 			scope:actor = {
 				"country_combined_special_status_power(scope:recipient)" > 0
 			}
+		}
+		trigger_else_if = {
+			#Italian League Sponsors finance the League but are exempt from its offensive wars, so they hold no vote on its laws (eg Mutual Offense)
+			limit = {
+				exists = scope:recipient
+				scope:actor = {
+					has_special_status_in_international_organization = {
+						type = special_status:italian_league_sponsor
+						international_organization = scope:recipient
+					}
+				}
+			}
+			always = no
 		}
 		trigger_else = {
 			always = yes
@@ -673,8 +711,8 @@
 				}
 			}
 			add = {
-				desc = "[great_power_score|e]"
-				value = scope:actor.great_power_score
+				desc = "[tax_base|e]"
+				value = scope:actor.country_tax_base
 			}
 		}
 		else = {
