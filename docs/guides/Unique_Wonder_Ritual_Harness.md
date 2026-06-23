@@ -5,6 +5,23 @@ The goal is to push AI authors toward high-innovation, wonder-specific ritual de
 not to compress every design into a few fixed mechanism shapes. Each batch should
 produce a playable spec first, then game code.
 
+## Full-Corpus Authoring Workflow
+
+For any full-corpus pass across all unique wonders, start with
+`data/unique_wonder_ritual_design_matrix.yaml` and the dedicated
+[Global Authoring Workflow](Unique_Wonder_Ritual_Global_Authoring_Workflow.md).
+
+- Maintain the design matrix before writing formal ritual specs.
+- Run the global matrix audit:
+  `conda run --no-capture-output -n eu5 python scripts/audit_unique_wonder_ritual_design_matrix.py`
+- Resolve overused cadence types, repeated prompt atom/UI combinations, missing
+  non-monthly validation points, missing uniqueness notes, and feasibility gaps.
+- Freeze or review the mechanism allocation in the matrix before spec conversion.
+- Only after matrix review should an authoring pass create formal entries in
+  `data/unique_wonder_ritual_specs.yaml`, and those specs must still pass the
+  existing Harness audit and codegen checks.
+- Do not bypass the matrix to bulk-write all unique wonder specs directly.
+
 ## Batch Rule
 
 - Work on 1-5 unique wonders per pass.
