@@ -4,17 +4,7 @@ tv_wonder_materials = {
 	category = produced
 	color = goods_tv_wonder_materials
 	default_market_price = 5
-
-	demand_add = {
-		all = 0.00001
-		laborers = 0.0003
-		peasants = 0.0002
-	}
-	demand_multiply = {
-		upper = 1.5
-		slaves = 0
-		tribesmen = 0
-	}
+	transport_cost = 2
 
 	wealth_impact_threshold = {
 		all = 1.0

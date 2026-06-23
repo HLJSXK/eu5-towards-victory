@@ -1,0 +1,20 @@
+window = {
+	hbox = {
+		widget = {
+			size = { 330 32 }
+			progressbar = {
+				size = { 330 16 }
+				parentanchor = vcenter
+				widgetanchor = vcenter
+				using = progress_bar_blue_alt
+				max = 100
+				value = "[Player.MakeScope.GetVariable('tv_progress').GetValue]"
+			}
+		}
+		text_single = {
+			size = { 86 22 }
+			margin_top = 4
+			raw_text = "1/2"
+		}
+	}
+}

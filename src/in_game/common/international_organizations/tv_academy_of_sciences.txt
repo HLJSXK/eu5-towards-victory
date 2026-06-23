@@ -1,6 +1,6 @@
 ﻿# Towards Victory — Academy of Sciences International Organization type definition
 # Non-unique IO; each country pursuing Scientific Victory creates their own instance
-# when they build tv_academy_of_sciences_1 (Phase I building).
+# through the Scientific IO establishment flow.
 # Country membership flag: tv_academy_io_member (set to 1 when joining).
 # Research subprocess state and target advance are country-scoped variables.
 # C and D progress tracked as IO variables (vanilla variable system).
@@ -19,6 +19,7 @@
 
 tv_academy_of_sciences = {
 	has_target = no
+	unique = no
 	has_leader_country = yes
 	leader_title_key = "TV_ACADEMY_IO_LEADER"
 	leader_type = character
@@ -39,7 +40,7 @@ tv_academy_of_sciences = {
 		}
 	}
 
-	# ── IO Variables: C and D research progress ───────────────────────────────
+	# ── IO Variables: C and D research progress, Philosophy inspiration ───────
 	# These are auto-accumulated via monthly_change; completion is detected in monthly_effect.
 	# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.
 	# Calibration D: effective ADM * 0.05 /month.
@@ -144,6 +145,55 @@ tv_academy_of_sciences = {
 				}
 			}
 		}
+		tv_academy_philosophy_inspiration = {
+			format = "TV_PHILOSOPHY_INSPIRATION_FORMAT"
+			change_format = "TV_PHILOSOPHY_INSPIRATION_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				add = {
+					desc = "TV_PHILOSOPHY_IDLE_CHIEF_SCIENTIST"
+					value = 0
+					if = {
+						limit = {
+							international_organization_has_leader = yes
+							leader_country ?= {
+								has_variable = tv_academy_leader_char
+								var:tv_academy_leader_char ?= { is_alive = yes }
+								tv_chief_scientist_available_for_philosophy_trigger = yes
+							}
+						}
+						value = leader_country.var:tv_academy_leader_char.adm
+						if = {
+							limit = {
+								leader_country ?= {
+									var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 }
+								}
+							}
+							add = 60
+						}
+						else_if = {
+							limit = {
+								leader_country ?= {
+									var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 }
+								}
+							}
+							add = 40
+						}
+						else_if = {
+							limit = {
+								leader_country ?= {
+									var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 }
+								}
+							}
+							add = 20
+						}
+						multiply = 0.2
+					}
+				}
+			}
+		}
 	}
 
 	modifier = {
@@ -186,6 +236,49 @@ tv_academy_of_sciences = {
 				}
 			}
 			leader_country ?= { tv_research_concentrated_complete_effect = yes }
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					leader_country ?= {
+						NOT = { has_variable = tv_academy_philosophy_current }
+					}
+				}
+				leader_country ?= { set_variable = { name = tv_academy_philosophy_current value = 1 } }
+			}
+			if = {
+				limit = {
+					var:tv_academy_philosophy_inspiration >= 100
+					leader_country ?= {
+						NOT = { var:tv_academy_philosophy_phase ?= 1 }
+						NOT = { has_variable = tv_academy_philosophy_concept_pending }
+					}
+				}
+				leader_country ?= {
+					set_variable = { name = tv_academy_philosophy_concept_pending value = 1 }
+					trigger_event_non_silently = { id = tv_research.40 }
+				}
+			}
+			if = {
+				limit = {
+					var:tv_academy_philosophy_inspiration >= 100
+					leader_country ?= {
+						var:tv_academy_philosophy_phase ?= 1
+						NOT = { has_variable = tv_academy_philosophy_round_pending }
+					}
+				}
+				set_variable = { name = tv_academy_philosophy_inspiration value = 0 }
+				leader_country ?= { tv_academy_philosophy_refresh_action_cards_effect = yes }
+			}
+			if = {
+				limit = {
+					leader_country ?= {
+						var:tv_academy_philosophy_phase ?= 1
+						NOT = { has_variable = tv_academy_philosophy_round_pending }
+					}
+				}
+				leader_country ?= { tv_academy_philosophy_monthly_debate_decay_effect = yes }
+			}
 		}
 	}
 

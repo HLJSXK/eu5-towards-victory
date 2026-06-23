@@ -1,0 +1,194 @@
+metadata:
+  purpose: "Reference archetype registry for Unique Wonder Ritual Harness blueprint validation."
+  generated_game_code: false
+  safety_boundary: "Archetypes describe optional, non-exclusive Harness projection patterns only; they may not write src, forbid custom ritual shapes, cap design_ir complexity, or certify loadable EU5 syntax."
+  status: "v1_reference_archetypes"
+  contract_mode: "non_exclusive_positive_requirements"
+  custom_archetype_policy: "Specs may use custom_* archetype labels when node_graph.mechanic_signature.custom_archetype_statement explains the bespoke mechanism."
+  design_fidelity_policy: "Archetype fit must never be used to flatten high-fidelity phases, tracked entity sets, selectors, risk branches, or UI feedback."
+
+archetypes:
+  - key: expedition_route_chain
+    required_capabilities:
+      - event_chain
+      - route_gate
+      - retry_branch
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - retry_event
+      - route_gate
+      - incident_event
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - route_state
+    required_ui_components:
+      - checklist
+      - route_map
+    required_listeners: []
+    min_nodes: 4
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Route-driven expedition rituals with visible route state, branch retries, and a terminal reward handoff. Non-exclusive reference tag; additional validated node kinds are allowed."
+
+  - key: patronage_actor_assignment
+    required_capabilities:
+      - event_chain
+      - actor_assignment
+      - retry_branch
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - retry_event
+      - assignment_gate
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - assigned_actor
+    required_ui_components:
+      - checklist
+      - actor_slots
+    required_listeners: []
+    min_nodes: 4
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Patronage or office rituals where assigned characters drive visible ritual stages. Non-exclusive reference tag; additional validated node kinds are allowed."
+
+  - key: resource_accumulation_ritual
+    required_capabilities:
+      - event_chain
+      - resource_gate
+      - retry_branch
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - retry_event
+      - resource_gate
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - resource_state
+    required_ui_components:
+      - checklist
+      - material_stockpile
+    required_listeners: []
+    min_nodes: 4
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Resource gathering or stockpile rituals with visible accumulation state and retry branches. Non-exclusive reference tag; additional validated node kinds are allowed."
+
+  - key: monthly_pressure_countdown
+    required_capabilities:
+      - event_chain
+      - monthly_progress
+      - retry_branch
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - retry_event
+      - monthly_progress_gate
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - progress_counter
+    required_ui_components:
+      - checklist
+      - progress_track
+    required_listeners:
+      - monthly
+    min_nodes: 4
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Monthly countdown or pressure rituals with a visible progress track and retry route. Non-exclusive reference tag; additional validated node kinds are allowed."
+
+  - key: incident_retry_gauntlet
+    required_capabilities:
+      - event_chain
+      - retry_branch
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - retry_event
+      - incident_event
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+    required_ui_components:
+      - checklist
+      - incident_log
+    required_listeners: []
+    min_nodes: 5
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Incident gauntlets where visible event pressure and explicit retry branches define the ritual. Non-exclusive reference tag; additional validated node kinds are allowed."
+
+  - key: listener_resolution_ritual
+    required_capabilities:
+      - event_chain
+      - listener_gate
+      - retry_branch
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - retry_event
+      - listener_gate
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - listener_state
+    required_ui_components:
+      - checklist
+      - incident_log
+    required_listeners: []
+    min_nodes: 4
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Listener-driven rituals whose completion or failure is resolved by declared listener contracts. Non-exclusive reference tag; additional validated node kinds are allowed."
+
+  - key: hidden_executor_finalization
+    required_capabilities:
+      - final_reward_handoff
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - retry_event
+      - hidden_executor_handoff
+      - final_reward_dispatch
+    required_variable_roles:
+      - reward_state
+    required_ui_components:
+      - checklist
+    required_listeners: []
+    min_nodes: 2
+    max_nodes: 24
+    requires_retry_path: false
+    requires_hidden_executor_handoff: true
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Finalization reference tag for routing unsafe or heavy completion work through a hidden executor handoff. Non-exclusive; it must not force the rest of the ritual into this shape."

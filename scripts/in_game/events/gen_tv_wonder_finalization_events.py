@@ -10,19 +10,25 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_localization_lib import load_wonder_localization_data
-from wonder_mechanics_lib import (
-    ceremony_styles,
+from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.naming import (
+    construct_final_building_effect_name,
     finalization_event_id,
-    finalization_hidden_effect_name,
+    finalization_hidden_event_execute_effect_name,
+    finalization_hidden_event_id,
+    finalization_hidden_event_trigger_effect_name,
     finalization_visible_effect_name,
     finalization_world_event_id,
-    load_all_wonder_mechanics,
-    render_header,
+    wonder_image_name,
 )
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import ceremony_styles
+from wonder_image_crop_lib import cropped_wonder_image_name
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_wonder_finalization_events.txt"
 SCRIPT_REL = "scripts/in_game/events/gen_tv_wonder_finalization_events.py"
 T = "\t"
+WONDER_IMAGE_DIR = "gfx/interface/icons/towards_victory/wonders"
 
 GENERIC_FINALIZATION_DESC_SUFFIXES = {
     "sacred_mountain": "sacred",
@@ -68,6 +74,10 @@ def world_desc_key(wonder: dict, loc_keys: set[str]) -> str:
     return desc_key if desc_key in loc_keys else "tv_engineering_department.600.d"
 
 
+def wonder_event_image(wonder: dict) -> str:
+    return f"{WONDER_IMAGE_DIR}/{cropped_wonder_image_name(wonder_image_name(wonder))}.dds"
+
+
 def append_desc(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
     styles = ceremony_styles(wonder)
     if len(styles) == 1:
@@ -87,23 +97,29 @@ def append_desc(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
 
 
 def append_hidden_style_dispatch(lines: list[str], wonder: dict) -> None:
-    styles = ceremony_styles(wonder)
     lines.append(f"{T}{T}hidden_effect = {{")
-    if len(styles) == 1:
-        lines.append(f"{T}{T}{T}{finalization_hidden_effect_name(wonder, styles[0])} = yes")
-    else:
-        for index, style in enumerate(styles):
-            head = "if" if index == 0 else "else_if"
-            lines.append(f"{T}{T}{T}{head} = {{")
-            lines.append(f"{T}{T}{T}{T}limit = {{ var:tv_wonder_ceremony_style ?= {style} }}")
-            lines.append(f"{T}{T}{T}{T}{finalization_hidden_effect_name(wonder, style)} = yes")
-            lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{finalization_hidden_event_trigger_effect_name()} = yes")
     lines.append(f"{T}{T}}}")
+
+
+def append_visible_construction_dispatch(lines: list[str], wonder: dict) -> None:
+    styles = ceremony_styles(wonder)
+    if len(styles) == 1:
+        lines.append(f"{T}{T}{construct_final_building_effect_name(wonder, styles[0])} = yes")
+        return
+
+    for index, style in enumerate(styles):
+        head = "if" if index == 0 else "else_if"
+        lines.append(f"{T}{T}{head} = {{")
+        lines.append(f"{T}{T}{T}limit = {{ var:tv_wonder_ceremony_style ?= {style} }}")
+        lines.append(f"{T}{T}{T}{construct_final_building_effect_name(wonder, style)} = yes")
+        lines.append(f"{T}{T}}}")
 
 
 def append_finalization_option(lines: list[str], wonder: dict) -> None:
     lines.append(f"{T}option = {{")
     lines.append(f"{T}{T}name = tv_engineering_department.500.a")
+    append_visible_construction_dispatch(lines, wonder)
     lines.append(f"{T}{T}{finalization_visible_effect_name(wonder)} = yes")
     append_hidden_style_dispatch(lines, wonder)
     lines.append(f"{T}}}")
@@ -122,6 +138,7 @@ def append_event(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
     lines.append(f"{T}type = country_event")
     lines.append(f"{T}title = tv_engineering_department.500.t")
     append_desc(lines, wonder, loc_keys)
+    lines.append(f'{T}image = "{wonder_event_image(wonder)}"')
     lines.append(f"{T}outcome = good")
     lines.append("")
     append_finalization_option(lines, wonder)
@@ -134,10 +151,26 @@ def append_world_news_event(lines: list[str], wonder: dict, loc_keys: set[str]) 
     lines.append(f"{T}type = country_event")
     lines.append(f"{T}title = tv_engineering_department.600.t")
     lines.append(f"{T}desc = {world_desc_key(wonder, loc_keys)}")
+    lines.append(f'{T}image = "{wonder_event_image(wonder)}"')
     lines.append(f"{T}outcome = neutral")
     lines.append("")
     lines.append(f"{T}option = {{")
     lines.append(f"{T}{T}name = tv_engineering_department.600.a")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_hidden_finalization_event(lines: list[str]) -> None:
+    lines.append(f"tv_engineering_department.{finalization_hidden_event_id()} = {{")
+    lines.append(f"{T}type = country_event")
+    lines.append(f"{T}outcome = neutral")
+    lines.append(f"{T}title = empty_text")
+    lines.append(f"{T}desc = empty_text")
+    lines.append(f"{T}hidden = yes")
+    lines.append("")
+    lines.append(f"{T}immediate = {{")
+    lines.append(f"{T}{T}{finalization_hidden_event_execute_effect_name()} = yes")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
@@ -151,6 +184,7 @@ def generate() -> str:
     lines.append("")
     for wonder in wonders:
         append_event(lines, wonder, loc_keys)
+    append_hidden_finalization_event(lines)
     for wonder in wonders:
         append_world_news_event(lines, wonder, loc_keys)
     return "\n".join(lines).rstrip() + "\n"

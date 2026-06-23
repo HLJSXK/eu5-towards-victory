@@ -19,6 +19,9 @@ const TEXT = {
     base: "原型",
     size: "规模",
     category: "类别",
+    startState: "开局状态",
+    startLevel: (level) => `开局时等级：${level}`,
+    notPresentAtStart: "开局时不存在",
     requirements: "建造条件",
     effects: "效果",
     modifier: "修正",
@@ -41,6 +44,9 @@ const TEXT = {
     base: "Prototype",
     size: "Size",
     category: "Category",
+    startState: "Start State",
+    startLevel: (level) => `Start level: ${level}`,
+    notPresentAtStart: "Not present at start",
     requirements: "Build Conditions",
     effects: "Effects",
     modifier: "Modifier",
@@ -212,6 +218,11 @@ function hasMapMarker(wonder) {
 
 function kindText(kind = state.activeKind) {
   return kind === "generic" ? t("genericWonder") : t("uniqueWonder");
+}
+
+function startStateText(wonder) {
+  const initialLevel = Number(wonder?.initial_level || 0);
+  return initialLevel > 0 ? t("startLevel")(initialLevel) : t("notPresentAtStart");
 }
 
 function activeKindWonders() {
@@ -616,6 +627,7 @@ function renderDetail() {
       ${metaLine(t("base"), localized(wonder.base_name))}
       ${metaLine(t("size"), localized(wonder.size_label))}
       ${metaLine(t("category"), localized(wonder.category_label))}
+      ${wonderKind(wonder) === "unique" ? metaLine(t("startState"), startStateText(wonder)) : ""}
     </div>
     ${renderWonderImage(wonder)}
     ${renderLocationSwitcher(wonder)}
@@ -674,6 +686,7 @@ function rebuildHaystacks() {
       localized(wonder.base_name),
       wonder.base_name?.en,
       wonder.base_name?.zh,
+      startStateText(wonder),
       ...(wonder.construction_requirements || []).flatMap((row) => [
         row.key,
         localized(row.label),

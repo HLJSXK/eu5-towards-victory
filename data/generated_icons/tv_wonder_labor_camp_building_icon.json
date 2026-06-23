@@ -1,0 +1,32 @@
+{
+  "generation_target": "building_icon",
+  "payload": {
+    "model": "gpt-image-2",
+    "prompt": "Create a Europa Universalis V building Icon DDS asset.\nSubject: A simple Europa Universalis V building icon in the uploaded vanilla Construction Center style. Match the reference's painterly icon language, compact crop, simple silhouette, and low element count. Show a wonder construction worksite with only three clear elements: a small worksite shed, one crane or hoist wheel, and one pale stone foundation block with restrained bronze accents. Sparse, centered, readable at 128px, premium but not ornate, no text.\nReference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nTarget format: final DDS target is exactly 128x128 and must stay under 100,000 bytes.\nTarget-specific requirement: This is a compact building icon for the Wonder Worksite. Treat the uploaded Construction Center reference as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict a wonder construction worksite using exactly 2-3 simple shapes: one small worksite shed, one crane or hoist wheel, and one pale stone foundation block. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline.\nAvoid:\nbusy construction scene, many objects, extra props, many tools, crowds, workers, multiple buildings, complex scaffolding, ornate palace, completed monument, giant statue, landscape background, detailed narrative scene, realistic photo, text, letters, logo, UI frame",
+    "size": "1024x1024",
+    "quality": "high",
+    "output_format": "png",
+    "n": 1,
+    "response_format": "url",
+    "background": "opaque",
+    "moderation": "auto",
+    "user": "towards_victory"
+  },
+  "created": 1781111633,
+  "final_prompt": "Create a Europa Universalis V building Icon DDS asset.\nSubject: A simple Europa Universalis V building icon in the uploaded vanilla Construction Center style. Match the reference's painterly icon language, compact crop, simple silhouette, and low element count. Show a wonder construction worksite with only three clear elements: a small worksite shed, one crane or hoist wheel, and one pale stone foundation block with restrained bronze accents. Sparse, centered, readable at 128px, premium but not ornate, no text.\nReference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.\nDistinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.\nComposition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.\nTarget format: final DDS target is exactly 128x128 and must stay under 100,000 bytes.\nTarget-specific requirement: This is a compact building icon for the Wonder Worksite. Treat the uploaded Construction Center reference as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict a wonder construction worksite using exactly 2-3 simple shapes: one small worksite shed, one crane or hoist wheel, and one pale stone foundation block. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.\nStyle rules:\nMatch the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.\nExtra composition rules:\nUse the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline.\nAvoid:\nbusy construction scene, many objects, extra props, many tools, crowds, workers, multiple buildings, complex scaffolding, ornate palace, completed monument, giant statue, landscape background, detailed narrative scene, realistic photo, text, letters, logo, UI frame",
+  "revised_prompt": "",
+  "targets": [
+    {
+      "name": "building_icon",
+      "label": "building Icon",
+      "path": "src/main_menu/gfx/interface/icons/buildings/tv_wonder_labor_camp.dds",
+      "width": 128,
+      "height": 128,
+      "resize": "cover",
+      "dds_format": "DXT5",
+      "dds_levels": 7,
+      "file_size_bytes": 21984,
+      "max_file_size_bytes": 100000
+    }
+  ]
+}

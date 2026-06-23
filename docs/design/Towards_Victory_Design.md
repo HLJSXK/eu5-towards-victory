@@ -251,7 +251,7 @@ All identifiers use `tv_` prefix:
 - Events: `tv.conquest.1`–`tv.conquest.5`, etc.
 - Scripted triggers: `tv_conquest_milestone_1`, etc.
 - Scripted effects: `tv_grant_conquest_milestone_1`, etc.
-- Static modifiers: `tv_conquest_m1_bonus`, etc.
+- Static modifiers: `tv_conquest_m1_reward_1_bonus`, `tv_conquest_m1_reward_2_bonus`, `tv_conquest_m1_reward_3_bonus`, etc.
 - Country variables: `tv_conquest_milestone`, `tv_diplomatic_victory_points`, etc.
 
 ### 5.4 Compatibility

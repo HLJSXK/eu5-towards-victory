@@ -4,11 +4,9 @@
 
 include_trade_league_generated_variables: true
 include_locked_advance_unlock_variables: true
+include_victory_path_generated_variables: true
 
 extra_suppressions:
-  - tv_best_milestone
-  - tv_best_path
-  - tv_best_score
   - tv_gov_build_cost_pct
   - tv_gov_max_control_pct
   - tv_gov_unrest_pct

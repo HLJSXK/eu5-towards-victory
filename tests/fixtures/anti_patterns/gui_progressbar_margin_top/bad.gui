@@ -1,0 +1,11 @@
+window = {
+	hbox = {
+		progressbar = {
+			size = { 330 16 }
+			margin_top = 7
+			using = progress_bar_blue_alt
+			max = 100
+			value = "[Player.MakeScope.GetVariable('tv_progress').GetValue]"
+		}
+	}
+}

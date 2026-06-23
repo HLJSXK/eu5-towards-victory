@@ -1,6 +1,6 @@
 ﻿# Towards Victory — Arts Exhibition International Organization type definition
 # Non-unique IO; each country pursuing Cultural Victory creates their own instance
-# at Cultural Victory Milestone 1. Country membership flag: tv_arts_exhibition_member.
+# through the Cultural IO establishment flow. Country membership flag: tv_arts_exhibition_member.
 # International Influence is an IO type variable (tv_arts_intl_influence), decays 0.1% of current value/month.
 #
 # Leader: character (artist). Selected manually by the leader_country via the
@@ -9,6 +9,7 @@
 
 tv_arts_exhibition = {
 	has_target = no
+	unique = no
 	has_leader_country = yes
 	leader_title_key = "TV_ARTS_EXHIBITION_LEADER"
 	leader_type = character

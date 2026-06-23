@@ -31603,31 +31603,115 @@
       }
     },
     "tv_alliance_advocator_agenda_impact": {
-      "category": "country",
+      "category": "internationalorganization",
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "Modifies the impact of the Advocator's agenda on [tv_diplomatic_alliance|E] proceedings.",
-        "name": "Advocator Agenda Impact"
+        "description": "This modifies the support that [parliament_agendas|e] proposed by the Advocator group have.",
+        "name": "Agenda Impact for Advocator"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "调整倡导者议程对[tv_diplomatic_alliance|E]运作的影响程度。",
+        "description": "修正由倡导者集团提出的[parliament_agendas|e]所拥有的支持度。",
         "name": "倡导者议程影响"
       }
     },
     "tv_alliance_advocator_can_participate_in_parliament": {
-      "category": "country",
+      "category": "internationalorganization",
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "The Advocator of the [tv_diplomatic_alliance|E] may participate in this country's parliament.",
-        "name": "Advocator Can Participate in Parliament"
+        "description": "This allows the Advocator to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_diplomatic_alliance|E].",
+        "name": "Advocator in Parliament"
       },
       "value_kind": "boolean",
       "zh": {
-        "description": "[tv_diplomatic_alliance|E]的倡导者可参与该国议会。",
-        "name": "倡导者可参与议会"
+        "description": "允许倡导者在[tv_diplomatic_alliance|E]的[parliament|e]中提出[parliament_agendas|e]。",
+        "name": "倡导者参与议会"
+      }
+    },
+    "tv_alliance_member_status_agenda_impact": {
+      "category": "internationalorganization",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the support that [parliament_agendas|e] proposed by the [tv_diplomatic_alliance|E] Member group have.",
+        "name": "Agenda Impact for [tv_diplomatic_alliance|E] Member Members"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "修正由[tv_diplomatic_alliance|E]成员集团提出的[parliament_agendas|e]所拥有的支持度。",
+        "name": "[tv_diplomatic_alliance|E]成员议程影响"
+      }
+    },
+    "tv_alliance_member_status_can_participate_in_parliament": {
+      "category": "internationalorganization",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows [tv_diplomatic_alliance|E] Member countries to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_diplomatic_alliance|E].",
+        "name": "[tv_diplomatic_alliance|E] Member in Parliament"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "允许[tv_diplomatic_alliance|E]成员国家在[tv_diplomatic_alliance|E]的[parliament|e]中提出[parliament_agendas|e]。",
+        "name": "[tv_diplomatic_alliance|E]成员参与议会"
+      }
+    },
+    "tv_govhouse_subject_status_agenda_impact": {
+      "category": "internationalorganization",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the support that [parliament_agendas|e] proposed by the Subject group have.",
+        "name": "Agenda Impact for Subject Members"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "修正由附属集团提出的[parliament_agendas|e]所拥有的支持度。",
+        "name": "附属议程影响"
+      }
+    },
+    "tv_govhouse_subject_status_can_participate_in_parliament": {
+      "category": "internationalorganization",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows Subject members to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_govhouse|E].",
+        "name": "Subject in Parliament"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "允许附属成员在[tv_govhouse|E]的[parliament|e]中提出[parliament_agendas|e]。",
+        "name": "附属参与议会"
+      }
+    },
+    "tv_govhouse_supreme_overlord_status_agenda_impact": {
+      "category": "internationalorganization",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the support that [parliament_agendas|e] proposed by the Supreme Overlord group have.",
+        "name": "Agenda Impact for Supreme Overlord"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "修正由最高宗主集团提出的[parliament_agendas|e]所拥有的支持度。",
+        "name": "最高宗主议程影响"
+      }
+    },
+    "tv_govhouse_supreme_overlord_status_can_participate_in_parliament": {
+      "category": "internationalorganization",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the Supreme Overlord to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_govhouse|E].",
+        "name": "Supreme Overlord in Parliament"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "允许最高宗主在[tv_govhouse|E]的[parliament|e]中提出[parliament_agendas|e]。",
+        "name": "最高宗主参与议会"
       }
     },
     "tv_host_domestic_exhibition_price_cost_modifier": {
@@ -31684,20 +31768,6 @@
       "zh": {
         "description": "修正文艺展览会的建设花费。",
         "name": "文艺展览会花费"
-      }
-    },
-    "tv_local_exhibition_add_artworks_price_cost_modifier": {
-      "category": "country",
-      "color": "bad",
-      "decimals": 2,
-      "en": {
-        "description": "Modifies the cost of committing more exhibits to a [tv_domestic_exhibition|e].",
-        "name": "Add More Exhibits Cost"
-      },
-      "value_kind": "percent",
-      "zh": {
-        "description": "修正为[tv_domestic_exhibition|e]投入更多展品的花费。",
-        "name": "增加更多展品花费"
       }
     },
     "tv_local_exhibition_designate_treasure_price_cost_modifier": {
@@ -31775,12 +31845,12 @@
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "Modifies the impact of a [tv_trade_league|E] member status agenda in international organization proceedings.",
-        "name": "[tv_trade_league|E] Member Agenda Impact"
+        "description": "This modifies the support that [parliament_agendas|e] proposed by the [tv_trade_league|E] Member group have.",
+        "name": "Agenda Impact for [tv_trade_league|E] Member Members"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "调整[tv_trade_league|E]成员状态议程在国际组织事务中的影响。",
+        "description": "修正由[tv_trade_league|E]成员集团提出的[parliament_agendas|e]所拥有的支持度。",
         "name": "[tv_trade_league|E]成员议程影响"
       }
     },
@@ -31789,13 +31859,13 @@
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "The [tv_trade_league|E] member status may participate in international organization parliament proceedings.",
-        "name": "[tv_trade_league|E] Member Can Participate in Parliament"
+        "description": "This allows [tv_trade_league|E] Member members to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_trade_league|E].",
+        "name": "[tv_trade_league|E] Member in Parliament"
       },
       "value_kind": "boolean",
       "zh": {
-        "description": "[tv_trade_league|E]成员状态可参与国际组织议会事务。",
-        "name": "[tv_trade_league|E]成员可参与议会"
+        "description": "允许[tv_trade_league|E]成员成员在[tv_trade_league|E]的[parliament|e]中提出[parliament_agendas|e]。",
+        "name": "[tv_trade_league|E]成员参与议会"
       }
     },
     "tv_wonder_labor_camp_price_cost_modifier": {

@@ -7,6 +7,7 @@
 # Fields:
 #   id        : unique slug (no spaces)
 #   pattern   : Python regex to detect the bad form in source files
+#   validator : Optional named validator in scripts/validate.py for semantic lint rules
 #   detectability: lint | needs_parser | advisory
 #             lint = safe regex/static check; needs_parser = requires brace-aware
 #             or semantic analysis; advisory = human/AI warning only.
@@ -204,6 +205,18 @@
   source: "user-reported runtime stutter from Trade League IO monthly_effect maintenance (2026-05-22)"
   notes: "For this generated high-cardinality system, even hidden IO monthly maintenance was too expensive. A country pulse turns the work into a cheap country membership/leader check before the heavy IO refresh runs."
 
+- id: monthly_country_pulse_event_without_delay
+  pattern: ''
+  validator: check_monthly_country_pulse_event_delay
+  detectability: lint
+  only_in_paths: ['on_action', 'scripted_effects', 'pulse_registry.yaml']
+  bad: "Firing an event immediately from a condition path reached by country_monthly_pulse"
+  correction: "Use trigger_event_* = { id = <event> days = 1 } for direct event fires, or put delay = { days = 1 } before event entries in native events/random_events blocks."
+  category: on_action
+  scope: country
+  source: "reference_game_files/game/in_game/common/on_action/on_actions.info; reference_mods/3735059838/in_game/common/on_action/MnT_pulse.txt"
+  notes: "Monthly country pulse checks and event display should be separated by one day. scripts/validate.py walks monthly_country_pulse registry callbacks and TV helper calls to enforce this."
+
 - id: trade_league_intelligence_merchant_power_stale
   pattern: ''
   detectability: advisory
@@ -275,6 +288,18 @@
   scope: any
   source: "reference_official_defines/docs/data_types_gui.txt"
   notes: "PDX parser rejects non-ASCII quote characters; the failure is silent"
+
+- id: localization_value_raw_physical_newline
+  pattern: ''
+  detectability: lint
+  validator: localization_physical_lines
+  only_in_paths: ['localization']
+  bad: "A localization value contains a real physical newline inside the quoted string"
+  correction: "Keep each localization key/value on one physical line. Generators should render intentional line breaks as \\n inside the quoted value."
+  category: localization
+  scope: any
+  source: "runtime error.log: localization_reader.cpp:445 Invalid character in key name; fixed in scripts/wonder_mechanics/_core.py"
+  notes: "The localization reader treats the continuation line as a new key, causing invalid-character and missing-colon errors. scripts/validate.py checks main-menu localization physical lines."
 
 - id: localization_duplicate_key_across_files
   pattern: ''
@@ -502,6 +527,17 @@
   source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: parentanchor on widgets that are a child of a hbox/vbox. Hboxes/vboxes arrange their children automatically.')"
   notes: "Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected."
 
+- id: gui_progressbar_margin_top
+  pattern: '(?ms)^[ \t]*progressbar\s*=\s*\{(?:(?!^[ \t]*\}).)*^[ \t]*margin_top\s*='
+  detectability: lint
+  only_in_paths: ['.gui']
+  bad: "Putting margin_top directly on a progressbar widget"
+  correction: "Wrap the progressbar in a fixed-size widget/layout container, put vertical placement such as parentanchor/widgetanchor on the progressbar inside that wrapper, and leave margin_top off the progressbar itself."
+  category: gui
+  scope: any
+  source: "runtime error.log from gui/panels/organization/tv_engineering_department.gui: Property 'margin_top' not handled for progressbar"
+  notes: "EU5 progressbar does not handle margin_top. Text and container widgets may use margins, but progressbar vertical offset should be expressed through a parent wrapper."
+
 - id: percent_size_under_hbox_vbox
   pattern: ''
   bad: "Setting size with a percentage component on a widget that is a direct child of an hbox or vbox, e.g. size = { 97% 72 } inside organization_custom_content"
@@ -589,6 +625,29 @@
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:9910; reference_game_files/game/in_game/common/building_types/manpower_buildings.txt:29"
   notes: "EU5 logs Malformed token near the numeric literal when a boolean modifier value is emitted as 1. Generated YAML data must preserve bools and render them as yes/no, not Python True/False or 1/0."
 
+- id: wonder_fixed_modifier_thousand_scaled_value
+  pattern: ''
+  detectability: lint
+  validator: wonder_engine_scaled_fixed_modifiers
+  only_in_paths: ['wonder']
+  bad: "Setting fixed-value wonder modifiers such as global_pop_conversion_speed, local_pop_assimilation_speed, local_manpower, or local_sailors above 0.5"
+  correction: "Keep these fixed-value entries at or below 0.5. If a percentage bonus was intended, use the matching *_modifier percent modifier instead."
+  category: modifier
+  scope: wonder
+  source: "User-reported EU5 engine behavior, 2026-06-13; modifier ids verified in reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:4553-4564, 4609-4619, 5080-5092"
+  notes: "EU5 multiplies these fixed-value modifier values by 1000 in game. scripts/validate.py checks wonder paths in src/ and data/ for direct YAML/script assignments to global_pop_assimilation_speed, global_pop_conversion_speed, local_pop_assimilation_speed, local_pop_conversion_speed, local_manpower, and local_sailors; percent *_modifier variants are intentionally excluded."
+
+- id: python_boolean_token_in_common_script
+  pattern: '^\s*[A-Za-z0-9_:.]+\s*=\s*(?:True|False)\b'
+  detectability: lint
+  only_in_paths: ['src/in_game/common', 'src/main_menu/common']
+  bad: "Python-style boolean token True/False emitted into an EU5 common script"
+  correction: "Render script booleans as yes or no. In Python generators, handle bool before int/float because bool is an int subclass."
+  category: script
+  scope: any
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:1270; reference_game_files/game/main_menu/common/static_modifiers/country.txt:5603"
+  notes: "YAML true/false loads as Python True/False; str(value) emits malformed tokens in Jomini scripts, as seen with global_peasants_migration_allowed = True."
+
 - id: utf8_bom_mandatory_on_common_scripts
   pattern: ''
   bad: "Saving common/ scripts (static_modifiers, situations, scripted_effects, on_action, etc.) as plain UTF-8 without a byte-order mark"
@@ -656,6 +715,17 @@
   source: "runtime error.log: tv_govhouse.40 -> tv_govhouse_approve_pending_tactic_effect -> tv_govhouse_apply_tactic_effect"
   notes: "EU5 event option tooltip generation may pre-evaluate option effects without committing earlier set_variable writes. A later visible direct var:X comparison can fetch an unset variable repeatedly while the event is open."
 
+- id: event_option_hidden_effect_not_performance_boundary
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['events', 'scripted_effects']
+  bad: "Putting global scans, high-cardinality dispatch, broadcasts, construction cleanup, map rebuilds, or other heavy work in an event option hidden_effect and expecting tooltip hover not to evaluate it"
+  correction: "Keep option hidden_effect blocks to light guards or scheduler calls. Run heavy hidden work from a hidden = yes event immediate block or another non-tooltip execution path."
+  category: event
+  scope: any
+  source: "User-reported Engineering Department wonder finalization tooltip stutter, 2026-06-10; fixed in generated tv_wonder_finalization_events.txt / tv_wonder_finalization_effects.txt via tv_engineering_department.6202"
+  notes: "hidden_effect suppresses visible tooltip output, but it does not isolate event-option code from hover evaluation. The wonder finalization hidden chain was expensive because it included per-wonder/per-style dispatch, final building construction, cleanup, world-news broadcast, post-finalization priority caching, and project-state clearing."
+
 - id: event_option_temp_variable_used_by_visible_helper
   detectability: needs_parser
   pattern: ''
@@ -686,8 +756,8 @@
   correction: "Hide action widgets until their prerequisite state exists, re-check prerequisites inside the action effect, and make reusable effects safe under pre-evaluation by using optional variable reads (var:X ?= ...) or threshold-style comparisons instead of direct var:X comparisons against variables set earlier in the same chain."
   category: script
   scope: any
-  source: "runtime error.log: tv_wonder_select_construction_site -> tv_wonder_update_wonder_level_effect (tv_wonder_body_units/function_units/decoration_units unset during action hover)"
-  notes: "EU5 generic action card and tooltip rendering can pre-evaluate the action effect without committing preceding set_variable writes. A helper that initializes construction variables and then immediately reads them with direct var:X comparisons can spam Failed to fetch variable / Invalid left side errors while the card is merely visible or hovered."
+  source: "runtime error.log: tv_wonder_select_construction_site -> tv_wonder_update_wonder_level_effect (tv_wonder_body_units/function_units/decoration_units unset during action hover); tv_wonder_select_construction_site -> tv_wonder_update_construction_progress_display_effect (tv_wonder_remaining_progress unset after announcing a completed survey)"
+  notes: "EU5 generic action card and tooltip rendering can pre-evaluate the action effect without committing preceding set_variable writes. A helper that initializes construction variables and then immediately reads them with direct var:X comparisons can spam Failed to fetch variable / Invalid left side errors while the card is merely visible, hovered, or clicked. Even a display refresh that sets a variable to 0 before comparing it needs optional reads if it is reachable from a visible generic action."
 
 - id: generic_action_hidden_effect_not_hover_boundary
   detectability: advisory
@@ -755,6 +825,16 @@
   scope: any
   source: "reference_game_files/game/in_game/common/scripted_effects/on_action_effects.txt:39, reference_game_files/game/in_game/common/on_action/character_death_pulses.txt:57"
   notes: "EU5 does not have a bare trigger_event effect. In scripted_effects and on_action files, the engine reports 'Unknown effect trigger_event'. The two valid variants are trigger_event_non_silently (shows popup) and trigger_event_silently (hidden/background). This distinction does not apply inside event option = { } blocks, which may use a different syntax."
+
+- id: recurring_silent_event_loop_without_guard
+  pattern: ''
+  detectability: advisory
+  bad: "Seeding a delayed trigger_event_silently recurring hidden-event loop without a persistent sentinel, active-prerequisite guard, or teardown cleanup"
+  correction: "Seed the loop once from a lifecycle point, set a persistent sentinel, and call trigger_event_silently = { id = tv_feature.900 days = 1 }. In the hidden = yes country event's immediate block, re-check both the feature prerequisite and sentinel before doing work and before rescheduling itself. Clear the sentinel on teardown so already queued events stop naturally."
+  category: event
+  scope: country
+  source: "Governor's House daily hidden-event test, 2026-06; trigger_event_invalid_in_scripted_effects documents delayed trigger_event_silently object form"
+  notes: "Delayed silent hidden events can implement daily immediate work outside monthly pulses and tooltip-rendered option chains, but every seed starts an independent loop. The sentinel prevents duplicate chains, and the teardown guard prevents a queued event from resurrecting a removed feature."
 
 - id: variable_list_wrong_iteration_syntax
   pattern: 'every_in_variable_list|remove_from_variable_list'
@@ -858,6 +938,28 @@
   source: "src/in_game/common/generic_actions/tv_trade_league_actions.txt (Trade League embargo country selector fix, 2026-05); reference_game_files/game/in_game/common/country_interactions/force_embargo.txt:33-36"
   notes: "Trade League embargo selected a market, then opened a country selector with source = world and filtered countries by any_owned_location = { market = scope:target }. The selector showed no countries and logged 'Asking for a flag that's not in the interaction target chooser specified'. Removing source = world kept the later selector in the same interaction-target chooser so scope:target remained available."
 
+- id: generic_action_player_selector_uses_ai_interaction_source_list
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['generic_actions']
+  bad: "A player-facing select_trigger relies on ai_interaction_source_list to populate its candidate list"
+  correction: "Use interaction_source_list for candidates shared by player and AI. Reserve ai_interaction_source_list for AI-only overrides only when the player selector also has a valid source, source_flags, or interaction_source_list."
+  category: generic_actions
+  scope: any
+  source: "reference_official_defines/types/peace_treaties.txt:21-22; reference_game_files/game/in_game/common/generic_actions/readme.txt:25-26; fixed src/in_game/common/generic_actions/tv_io_leader_actions.txt"
+  notes: "ai_interaction_source_list is only applied to AI countries. If it is the only custom source list, human players can see the selector's none_available_msg_key even when a valid target exists."
+
+- id: generic_action_allow_rechecks_select_target_availability
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['generic_actions']
+  bad: "A generic action allow block calls a has-any-valid-target trigger solely to prevent opening an empty select_trigger chooser"
+  correction: "Do not duplicate selector candidate scans in allow. Keep allow for actor/state/resource prerequisites, put target eligibility in select_trigger visible/enabled, provide none_available_msg_key for an empty chooser, and keep the final effect guarded with exists = scope:target."
+  category: performance
+  scope: generic_actions
+  source: "reference_game_files/game/in_game/common/generic_actions/readme.txt:43-44; project performance rule, 2026-06-20"
+  notes: "EU5 already handles a select_trigger with no selectable targets by showing the none_available_msg_key and blocking completion of that selection step. Repeating the same any-target scan in allow charges action rendering, tooltip evaluation, and AI/list evaluation before the chooser performs its own candidate pass."
+
 - id: io_link_invalid_same_tick_creation
   pattern: ''
   bad: "international_organization:type_key used in the same effect call that creates the IO via create_international_organization"
@@ -885,6 +987,16 @@
   source: "runtime error.log: common/scripted_triggers/tv_engineering_department_triggers.txt:311; reference_game_files/game/in_game/common/missions/generic_capital_economy_mission_pack.txt:388 (root.var comparison)"
   notes: "Using prev.var:X as the RHS of a numeric comparison can log 'Invalid right side during comparison 'var'' and make the condition fail every tick. In Engineering Department construction this caused the monthly material check to fail and kept the UI stuck on the materials-insufficient pause state."
 
+- id: comparison_plain_var_numeric_rhs_in_iterator
+  pattern: ''
+  detectability: needs_parser
+  bad: "local_var:X ?= var:Y, local_var:X > var:Y, or similar dynamic numeric comparisons inside an effect/key iterator when var:Y is owned by the outer scope"
+  correction: "Capture the outer-scope value before entering the iterator with set_local_variable, then compare local_var to local_var inside the iterator. For equality, prefer NOT < and NOT > against the captured local instead of ?= var:Y."
+  category: script
+  scope: any
+  source: "runtime error.log: common/scripted_effects/tv_wonder_module_effects.txt:3305, 2026-06-10"
+  notes: "During Engineering Department priority-candidate unregister, a variable-map key iterator compared a map-captured local candidate id against the country-scoped current candidate id with local_var:X ?= var:Y. EU5 logged 'Invalid right side during comparison var'. Capturing the country value into a second local before the iterator and comparing locals avoids the RHS parser path."
+
 - id: nested_location_scope_plain_var_reads_location_store
   pattern: ''
   detectability: advisory
@@ -894,6 +1006,16 @@
   scope: location
   source: "reference_game_files/game/in_game/events/disaster/chinese_crisis_events.txt:306-311 (change_prosperity = root.var:character_ability_prosperity_variable); runtime error.log: common/scripted_effects/tv_engineering_department_effects.txt:2128-2129"
   notes: "A nested location/province scope does not inherit country `var:` reads. If the numeric lives on the country, plain `var:X` inside the location block fetches the location variable store instead and can log 'Failed to fetch variable' / unset-scope errors."
+
+- id: country_capital_link_non_optional_in_trigger
+  pattern: ''
+  detectability: advisory
+  bad: "Country-scoped pulse, iterator, scripted trigger, or effect `limit` uses a direct `capital = { ... }` link, or puts sibling `exists = capital` before it expecting trigger short-circuiting"
+  correction: "Use the optional link form `capital ?= { ... }` for trigger/limit checks. For effects, put `capital ?= { ... }` in the `limit`, and only enter direct `capital = { ... }` in the effect body after that `if` limit passes."
+  category: scope
+  scope: country
+  source: "runtime error.log: common/scripted_triggers/towards_victory_triggers.txt:487, 2026-06-21; reference_game_files/game/in_game/common/generic_actions/religious_factions.txt:1352"
+  notes: "Some countries can have no valid capital object when yearly/monthly refresh effects run. Trigger blocks do not reliably short-circuit sibling lines, so `exists = capital` beside `capital = { ... }` still allows the direct link to be evaluated and can log `Event target link 'capital' returned an invalid object`."
 
 - id: random_list_inside_random
   pattern: 'random\s*=\s*\{[^}]*random_list'
@@ -1206,12 +1328,12 @@
 - id: variable_map_rebuild_on_read_path
   pattern: ''
   detectability: advisory
-  bad: "Calling a variable-map/global-map rebuild effect from GUI refresh, country cache refresh, tooltip/projection, selection, monthly read, or other hot/read paths as a compatibility fallback"
-  correction: "Build global variable-map indexes only at lifecycle points: startup, save-load initialization, data-change regeneration, or explicit initialization. If a read misses a map, fix the current lifecycle hook or the call order that reads before initialization; do not add old-schema repair or legacy state preservation."
+  bad: "Calling a variable-map/global-map rebuild effect, including an if-needed rebuild router, from GUI refresh, country cache refresh, tooltip/projection, selection, monthly read, or other hot/read paths as a compatibility fallback"
+  correction: "Build global variable-map indexes only at lifecycle points: startup, save-load initialization, data-change regeneration, or explicit initialization. If a read misses a map, fix the current lifecycle hook or the call order that reads before initialization; do not add if-needed routers, old-schema repair, or legacy state preservation."
   category: performance
   scope: variable_map
-  source: "Engineering Department locked-wonder image fix review, 2026-06-05"
-  notes: "A locked-wonder image bug was caused by refreshing the locked cache before tv_wonder_stage was set to debate. Adding tv_wonder_index_rebuild_global_maps_if_needed_effect to every country-cache refresh would hide the ordering bug and charge all refresh callers for a defensive global-map check."
+  source: "Engineering Department global wonder-map lifecycle fix, 2026-06-11"
+  notes: "Engineering Department briefly added tv_wonder_index_rebuild_global_maps_if_needed_effect with a map-version gate, then called it from cache/module refresh paths. That violated the no-compatibility policy, hid lifecycle/call-order bugs, and charged hot paths for defensive global-map checks."
 
 - id: variable_map_callback_root_in_generic_action
   pattern: ''
@@ -1222,6 +1344,26 @@
   scope: variable_map
   source: "Runtime error.log from Engineering Department Great Engineer select-trigger tooltip pre-evaluation, 2026-06-04"
   notes: "Generic action selector hover can pre-evaluate action effects without a usable root event target. A proposal deck helper using random_key_in_variable_map -> root = { set_variable = { value = prev } } logged Event target link 'root' returned an unset scope and left no proposal slots."
+
+- id: variable_map_key_iterator_scope_used_for_map_read
+  pattern: ''
+  detectability: needs_parser
+  bad: "Calling is_key_in_variable_map on the current every_key_in_variable_map/ordered_key_in_variable_map callback scope, especially with target = this"
+  correction: "Save the map-owning scope before the key iterator, copy this into a local variable, and run is_key_in_variable_map inside scope:<saved_owner> with target = local_var:<key>."
+  category: scope
+  scope: variable_map
+  source: "Runtime error.log: common/scripted_effects/tv_wonder_module_effects.txt:3364 via tv_wonder_bribe_proposal generic action, 2026-06-10"
+  notes: "In a key iterator callback the current scope may be the numeric key itself (for example 1.00), which does not support scope-owned variables. Membership checks for sibling country-scoped maps must execute from the saved country/map owner while the key is passed through a local variable."
+
+- id: ordered_key_variable_map_oversized_max
+  pattern: ''
+  detectability: advisory
+  bad: "Using an inflated ordered_key_in_variable_map max value such as 10000 to process every current key"
+  correction: "Use every_key_in_variable_map with a found/stop flag when all keys may need inspection, or set ordered_key_in_variable_map max only to an exact known upper bound that cannot exceed the current map size."
+  category: scope
+  scope: variable_map
+  source: "Runtime error.log: common/scripted_effects/tv_wonder_module_effects.txt:3361 via Engineering Department saved priority proposal selection, 2026-06-10"
+  notes: "EU5 logs a Script system error when ordered_key_in_variable_map max is larger than the current key list, even though it reports that it capped max at the list size. Do not use a huge max as a harmless 'iterate all' shortcut."
 
 - id: gui_css_like_fittype_contain
   detectability: advisory
@@ -1244,6 +1386,17 @@
   scope: gui
   source: "runtime error.log: pdx_gui_localize.cpp:302 in tv_engineering_department.gui; fixed in src/main_menu/localization/english/tv_engineering_department_l_english.yml"
   notes: "These support buildings have normal localization keys, not game_concept definitions. In GUI-bound localized text, [tv_wonder_labor_camp|E] is parsed as a data-system function and logs Could not find data system function."
+
+- id: localization_getbuilding_function_invalid
+  detectability: lint
+  pattern: '\[GetBuilding\(''[^'']+''\)\.GetName\]'
+  only_in_paths: ['localization', 'io_establishment.yaml']
+  bad: "Using [GetBuilding('building_key').GetName] inside localization text"
+  correction: "Use the localization helper [ShowBuildingTypeName('building_key')] for building-type display names."
+  category: localization
+  scope: building
+  source: "runtime error.log: pdx_data_factory.cpp failed to find type GetBuilding in IO establishment localization; fixed in data/io_establishment.yaml"
+  notes: "EU5 localization exposes ShowBuildingTypeName/ShowBuildingTypeNameWithNoTooltip helpers for building types. GetBuilding('key').GetName is not a valid localization data function and causes GUI-bound localized text parsing to fail."
 
 - id: generic_action_loc_uses_gui_country_binding
   detectability: advisory
@@ -1292,6 +1445,16 @@
   source: "src/main_menu/localization/english/tv_arts_exhibition_l_english.yml:27"
   notes: "Engine logs: Key X doesn't exist or doesn't start with trigger_no icon. The @trigger_no! inline icon must be the first token in the localization value string."
 
+- id: generic_action_selector_unknown_attribute_column
+  pattern: ''
+  detectability: advisory
+  bad: "Using column = { data = character_noble } or another selector attribute column that is not defined in common/attribute_columns"
+  correction: "Use a defined attribute column such as character_info or character_artist, or add a real common/attribute_columns entry plus localization. Keep eligibility filtering in visible/enabled."
+  category: generic_actions
+  scope: character
+  source: "runtime error.log, 2026-06: character_noble localization fallback; reference_game_files/game/in_game/common/attribute_columns/09_character.txt defines character_info and character_artist"
+  notes: "The selector column data token is an attribute-column id, not a free label for the filtered target type. An undefined column can surface as a startup localization fallback such as character_noble: \"Character noble\"."
+
 - id: character_traits_wrong_directory
   pattern: 'common/character_traits/'
   bad: "Placing character trait definitions in common/character_traits/ (e.g. src/in_game/common/character_traits/my_traits.txt)"
@@ -1314,11 +1477,11 @@
   pattern: ''
   only_in_paths: ['building_types']
   bad: "Using capital_country_modifier for a building that can be finalized or created outside the capital, expecting country-wide effects everywhere"
-  correction: "Keep local effects in building modifier/raw_modifier; apply national effects separately with scripted add_country_modifier effects, or require the building to be in the capital."
+  correction: "Keep local effects in building modifier/raw_modifier; for noncapital national effects use Country Auto modifiers gated by owned buildings, or require the building to be in the capital."
   category: modifier
   scope: country
   source: "reference_official_defines/types/building_types.txt:29"
-  notes: "capital_country_modifier is explicitly applied to the country only if the building is built in the capital. Engineering Department wonders may be sited outside the capital, so their national/base/ceremony effects are permanent country modifiers and the final buildings carry local effects only."
+  notes: "capital_country_modifier is explicitly applied to the country only if the building is built in the capital. Engineering Department wonders may be sited outside the capital, so their final buildings carry national/base/ritual country effects only as display data; actual national effects come from building-gated Country Auto modifiers."
 
 - id: gui_text_missing_localization_key
   pattern: ''
@@ -1339,6 +1502,17 @@
   scope: country
   source: "reference_game_files/game/in_game/common/generic_action_ai_lists/readme.txt:3-7; runtime error.log: generic_action_ai_list.cpp:82"
   notes: "Unlisted generic actions are put into the global AI list and the engine logs a performance warning: 'Action X is not explicitly listed in an ai list!'."
+
+- id: on_action_simulates_generic_action_actor_context
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['on_action', 'scripted_effects', 'generic_actions']
+  bad: "A monthly/yearly/on_action helper manually simulates a generic action by calling action/building eligibility helpers that evaluate code expecting literal scope:actor."
+  correction: "Put AI behavior on the generic action itself with ai_tick, ai_will_do, and a generic_action_ai_lists entry. If an execution-only pulse must call action-style helpers, create the exact event targets they require before evaluating them; a custom saved scope name is not a substitute for scope:actor."
+  category: scope
+  scope: country
+  source: "runtime error.log, 2026-06: IO establishment monthly AI progress called location_and_owner_can_build, which evaluated headquarters building allow blocks reading scope:actor; fixed in scripts/gen_victory.py and scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py"
+  notes: "The generated tv_io_establishment_ai_progress_effect saved the country as tv_io_establishment_ai_actor, then entered capital and called location_and_owner_can_build. That helper invokes can_build_building for the location and owner, causing the building allow block to read scope:actor. Because the monthly pulse did not define the literal actor event target, the engine logged Undefined event target 'actor' and unset scope errors every month. The current flow keeps monthly pulses to requirement/cache updates and lets AI use the generated build-HQ/establish-IO actions."
 
 - id: price_missing_cost_modifier_type
   pattern: ''
@@ -1576,6 +1750,17 @@
   source: "reference_game_files/game/in_game/common/building_types/capital_buildings.txt:615-617; reference_game_files/game/in_game/common/missions/generic_traditional_economy_mission_pack.txt:173-176; fixed in src/in_game/common/scripted_triggers/tv_engineering_department_triggers.txt"
   notes: "Building max_levels can stop normal construction but a custom IO/generic-action button can still spend its scripted price unless its action and effect repeat the cap logic. Re-check inside the effect because generic action UI pre-evaluation and stale target lists can otherwise charge the player for a no-op."
 
+- id: scripted_trigger_typed_parameter_double_prefix
+  pattern: 'location_and_owner_can_build\s*=\s*\{[^}]*\bbuilding_type\s*=\s*building_type:'
+  detectability: lint
+  only_in_paths: ['scripted_triggers', 'scripted_effects', 'gen_victory.py', 'generic_actions']
+  bad: "Passing a typed building_type:<id> value into location_and_owner_can_build"
+  correction: "Pass the bare building id, e.g. location_and_owner_can_build = { building_type = tv_conquest_headquarters }. The scripted trigger adds building_type: internally."
+  category: script
+  scope: building
+  source: "reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt:132-138"
+  notes: "location_and_owner_can_build expands its parameter as building_type:$building_type$ for value, can_build_building, and owner can_build_building checks. Supplying building_type:<id> as the parameter produces building_type:building_type:<id> and logs 'More than one colon in event target link'."
+
 - id: while_waiting_for_instant_building_level
   pattern: ''
   only_in_paths: ['scripted_effects']
@@ -1657,13 +1842,33 @@
   source: "runtime-tested in src/in_game/gui/location_window.gui dynamic wonder display test; reference_official_defines/docs/data_types_uncategorized.txt lists GetConceptTexture"
   notes: "In the location-window test, GetConceptTexture(Concatenate(...)) rendered, but nested, suffix-only, and flat Concatenate expressions that returned raw DDS path strings did not render and produced no useful error log. Static texture paths are parsed by the GUI loader, while runtime texture expressions need a texture-like return value rather than a CString path."
 
-- id: gui_show_modifier_effect_dynamic_key_needs_static_reference
+- id: gui_show_modifier_effect_dynamic_key_static_reference
   pattern: ''
   detectability: advisory
   only_in_paths: ['gui']
-  bad: "Calling ShowModifierEffect with modifier ids built only by GUI Concatenate(...) and never referenced from script effects"
-  correction: "Keep the dynamic GUI id flow, but generate unreachable script references under if = { limit = { always = no } ... } using add_country_modifier/add_location_modifier for every possible modifier id."
+  bad: "Calling ShowModifierEffect with wonder display modifier ids built by GUI Concatenate(...) without generated static modifier definitions and unreachable script references"
+  correction: "Generate matching static display modifiers plus an unreachable always = no script block that references every possible display id through add_country_modifier/add_location_modifier. Use those mirrors for GUI ShowModifierEffect display only; do not route completed wonder grants or scripted-effect tooltip previews through them."
   category: gui
   scope: modifier
-  source: "Location-window wonder display route, 2026-06; fixed by tv_wonder_mechanics_reference_display_modifiers_effect"
-  notes: "The GUI can build ids such as tv_wonder_display_<id>_level_<level> at runtime, but engine/static lookup paths may not recognize modifier ids that only occur inside Concatenate. The unreachable effect gives the loader static modifier references without changing runtime state."
+  source: "Engineering Department wonder auto-modifier refactor, 2026-06; follow-up runtime error.log for add_country_modifier invalid database objects, 2026-06"
+  notes: "Building modifier blocks and GUI static mirrors carry display-only country/local effects, while country auto modifiers provide the actual national effects from owned final buildings. Scripted effect previews are a separate parser path: add_country_modifier validates against static/country modifiers, not common/auto_modifiers; the current wonder flow avoids modifier-list previews for auto-driven country effects."
+
+- id: add_country_modifier_auto_modifier_id
+  pattern: 'add_country_modifier\s*=\s*\{[^\n{}]*modifier\s*=\s*[A-Za-z0-9_]*auto[A-Za-z0-9_]*'
+  detectability: advisory
+  bad: "Using add_country_modifier with a modifier id defined only in common/auto_modifiers"
+  correction: "Keep Country Auto modifiers in common/auto_modifiers for actual automatic effects. For tooltip previews or scripted effect lists, emit real non-modifier effect lines or omit the modifier-list preview. Do not pass auto modifier ids to add_country_modifier, and do not restore finalization-time static grants/removals for building-gated wonder effects."
+  category: modifier
+  scope: country
+  source: "runtime error.log, 2026-06: add_country_modifier rejected tv_wonder_auto_unique_*_style_1_country_modifier in tv_engineering_department_wonder_mechanics_effects.txt"
+  notes: "Country Auto modifiers and static country modifiers are separate databases. A Country Auto modifier may have category = country, but add_country_modifier still cannot use its id."
+
+- id: auto_modifier_missing_name_localization
+  pattern: ''
+  detectability: advisory
+  bad: "Emitting a common/auto_modifiers id without matching AUTO_MODIFIER_NAME_<id> localization"
+  correction: "Generate AUTO_MODIFIER_NAME_<id> for every emitted auto modifier, including hidden hide_effects companions such as *_unscaled."
+  category: localization
+  scope: modifier
+  source: "runtime error.log, 2026-06: AUTO_MODIFIER_NAME_tv_wonder_auto_pirate_port_unscaled and AUTO_MODIFIER_NAME_tv_wonder_auto_unique_algiers_pirate_port_unscaled"
+  notes: "Hidden Country Auto modifiers still load as modifier database entries and the localization system requests their AUTO_MODIFIER_NAME keys during startup."

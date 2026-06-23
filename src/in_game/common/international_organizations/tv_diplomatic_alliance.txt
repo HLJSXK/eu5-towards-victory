@@ -24,6 +24,7 @@
 	has_parliament = yes
 	parliament_type = tv_alliance_assembly
 	resolution_widget = parliament
+	special_statuses_implemented = { tv_alliance_advocator tv_alliance_member_status }
 
 	variables = {
 		# Tier is first so DataModelFirst in the GUI decoration picks it up as the large piechart
@@ -72,6 +73,10 @@
 		is_leader_of_international_organization = scope:recipient
 	}
 
+	can_vote_in_parliament = {
+		"country_highest_rated_special_status_power(scope:recipient)" > 0
+	}
+
 	show_on_diplomatic_map = yes
 
 	monthly_effect = {
@@ -88,10 +93,23 @@
 				}
 			}
 			if = {
-				limit = { var:tv_alliance_tier > 0 }
+				limit = {
+					var:tv_alliance_tier > 0
+					international_organization_has_leader = yes
+				}
 				set_local_variable = { name = tv_alliance_monthly_dvp value = var:tv_alliance_tier }
 				leader_country ?= {
 					change_variable = { name = tv_diplomatic_victory_points add = local_var:tv_alliance_monthly_dvp }
+				}
+				set_local_variable = { name = tv_alliance_member_monthly_dvp value = var:tv_alliance_tier }
+				change_local_variable = { name = tv_alliance_member_monthly_dvp divide = 2 }
+				every_international_organization_member = {
+					limit = { NOT = { is_leader_of_international_organization = prev } }
+					if = {
+						limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+						set_variable = { name = tv_diplomatic_victory_points value = 0 }
+					}
+					change_variable = { name = tv_diplomatic_victory_points add = local_var:tv_alliance_member_monthly_dvp }
 				}
 			}
 		}
@@ -100,15 +118,6 @@
 	can_join_trigger = {
 		is_subject = no
 		is_rebel_country = no
-		custom_tooltip = {
-			text = TV_HAS_DIPLOMATIC_SUPPORTER_OF_TT
-			has_variable = tv_diplomatic_supporter_of
-		}
-		# Must be a supporter of the alliance leader specifically
-		scope:recipient = {
-			international_organization_has_leader = yes
-		}
-		var:tv_diplomatic_supporter_of ?= scope:recipient.leader_country
 	}
 
 	on_creation = {
@@ -120,12 +129,23 @@
 
 	on_joined = {
 		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
-		scope:recipient = {
-			if = {
-				limit = { international_organization_has_leader = yes }
-				leader_country = { save_scope_as = tv_alliance_founder }
-				root = { set_variable = { name = tv_diplomatic_supporter_of value = scope:tv_alliance_founder } }
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_diplomatic_victory_points }
+				}
 			}
+			set_variable = { name = tv_diplomatic_victory_points value = 0 }
+		}
+		set_variable = { name = tv_diplomatic_victory_enabled value = 1 }
+		tv_update_all_progress_pct_effect = yes
+		if = {
+			limit = {
+				NOT = { has_variable = tv_diplomatic_alliance_self_establishing }
+				NOT = { is_leader_of_international_organization = prev }
+			}
+			tv_check_diplomatic_milestones_effect = yes
 		}
 	}
 

@@ -18,6 +18,10 @@ called directly from event options.
    `every_location_in_province = {}`, etc.), plain `var:X` now reads that nested scope's variable
    store. Use `root.var:X` for country-owned numeric inputs, or capture the value before the scope
    switch with `set_local_variable` / `local_var:X`.
+   If a visible helper or event-called effect enters a variable-map key iterator, also capture
+   any outer-scope numeric `var:X` before the iterator. Do not compare a map-captured local
+   directly against `var:X` as a dynamic RHS; compare local to local, using `NOT <` and `NOT >`
+   when equality is needed.
    Wonder module/helper rebuilds are a common trap here: for 1..6 level collapse or merge
    logic, prefer one literal branch per level over scratch variables like `*_combinable_levels`,
    `*_current_module_level`, or `*_target_module_level`. For rounded division displays such as
@@ -42,7 +46,21 @@ called directly from event options.
    text, but it is not a commit boundary: helpers inside still must read persistent state or use
    literal bounded branches instead of same-chain scratch variables.
 
-5. Keep numeric event IDs below 10000.
+5. Do not treat option `hidden_effect` as a performance boundary.
+   Event option hover can still evaluate hidden effect contents while rendering tooltips. Keep
+   option hidden blocks light: guards, simple state checks, or a scheduler/trigger only. Move
+   global scans, high-cardinality dispatch, completion broadcasts, map rebuilds, construction
+   cleanup, and other heavy work to a `hidden = yes` event's `immediate` block or another
+   non-tooltip execution path.
+
+6. Use guarded delayed silent loops for daily hidden work.
+   For daily background logic, seed exactly one delayed loop from a lifecycle point:
+   `trigger_event_silently = { id = tv_namespace.900 days = 1 }`. The target should be a
+   `hidden = yes` country event whose `immediate` checks the feature prerequisite and a
+   persistent loop sentinel before doing work and rescheduling itself. Clear that sentinel
+   during teardown so already queued events stop naturally instead of scheduling the next day.
+
+7. Keep numeric event IDs below 10000.
    EU5 accepts event IDs as `<namespace>.<integer>`, but the integer must be `< 10000`.
    For generated high-cardinality systems, do not encode multiple dimensions into the numeric
    event ID if that crosses the limit. Move large wonder/type dispatch before the event fires;

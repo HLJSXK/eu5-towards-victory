@@ -1,0 +1,300 @@
+# Canonical data for the six Towards Victory IO establishment flows.
+# Regenerate dependent files with:
+#   conda run --no-capture-output -n eu5 python scripts/gen_victory.py
+#   conda run --no-capture-output -n eu5 python scripts/in_game/common/building_types/gen_towards_victory_buildings.py
+#   conda run --no-capture-output -n eu5 python scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py
+#   conda run --no-capture-output -n eu5 python scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py
+
+paths:
+  - id: conquest
+    order: 1
+    event_id: 1
+    leader_id: conquest_general
+    create_effect: tv_govhouse_create_effect
+    route_name:
+      en: "Conquest"
+      zh: "征服"
+    io_name:
+      en: "Governor's House"
+      zh: "总督府"
+    basic_requirement_body: |
+      custom_tooltip = {
+      	text = TV_CONQUEST_ESTABLISHMENT_STEP1_REQUIREMENT
+      	has_variable = tv_conquest_score
+      	var:tv_conquest_score >= 50
+      }
+    headquarters:
+      building: tv_conquest_headquarters
+      name:
+        en: "Governor's House"
+        zh: "总督府"
+      category: government_category
+      pop_type: nobles
+      employment_size: large_noble_employment
+      construction_demand: tv_conquest_headquarters_construction
+      modifier:
+        local_crown_estate_power: 0.25
+      construction_goods:
+        paper: 2
+        tools: 2
+        lumber: 2
+      maintenance_goods:
+        paper: 1
+        tools: 1
+    loc:
+      step1_text:
+        en: "Own at least 50 [location|E]s. [subject|E] and lower-subject land counts at half value."
+        zh: "拥有至少50个[location|E]。附属国及其下级附属国的[location|E]按一半计入。"
+      step2_text:
+        en: "Build the [ShowBuildingTypeName('tv_conquest_headquarters')] in your capital. Cost: 300 @gold!; maintenance: @paper! Paper x1 and @tools! Tools x1."
+        zh: "在首都建造[ShowBuildingTypeName('tv_conquest_headquarters')]。成本：300@gold!；维护：@paper!纸张x1、@tools!工具x1。"
+      step3_text:
+        en: "Appoint a Grand General to found the [tv_govhouse|E] and unlock Conquest Victory progress."
+        zh: "任命一位大将军，建立[tv_govhouse|E]并解锁征服胜利进度。"
+      event_desc:
+        en: "The Governor's House now has a capital, a mandate, and a chief worthy of its seal. Conquest Victory progress is unlocked."
+        zh: "总督府如今拥有了首府、权柄与足以执掌印信的首席。征服胜利进度已解锁。"
+
+  - id: prosperity
+    order: 2
+    event_id: 2
+    leader_id: engineering
+    create_effect: tv_engineering_department_create_effect
+    route_name:
+      en: "Prosperity"
+      zh: "繁荣"
+    io_name:
+      en: "Engineering Department"
+      zh: "工程部"
+    basic_requirement_body: |
+      custom_tooltip = {
+      	text = TV_PROSPERITY_ESTABLISHMENT_STEP1_REQUIREMENT
+      	monthly_income_trade_and_tax >= 200
+      }
+    headquarters:
+      building: tv_prosperity_headquarters
+      name:
+        en: "Engineering Department"
+        zh: "工程部"
+      category: infrastructure_category
+      pop_type: burghers
+      employment_size: large_burgher_employment
+      construction_demand: tv_prosperity_headquarters_construction
+      modifier:
+        local_construction_speed: 0.20
+      construction_goods:
+        tools: 3
+        stone: 4
+        lumber: 1
+      maintenance_goods:
+        tools: 1
+        stone: 2
+    loc:
+      step1_text:
+        en: "Reach at least 200 @gold! monthly tax and trade income."
+        zh: "每月税收与贸易收入达到至少200@gold!。"
+      step2_text:
+        en: "Build the [ShowBuildingTypeName('tv_prosperity_headquarters')] in your capital. Cost: 300 @gold!; maintenance: @tools! Tools x1 and @stone! Stone x2."
+        zh: "在首都建造[ShowBuildingTypeName('tv_prosperity_headquarters')]。成本：300@gold!；维护：@tools!工具x1、@stone!石材x2。"
+      step3_text:
+        en: "Appoint a Great Engineer to found the [tv_engineering_department|E] and unlock Prosperity Victory progress."
+        zh: "任命一位大工程师，建立[tv_engineering_department|E]并解锁繁荣胜利进度。"
+      event_desc:
+        en: "The Engineering Department has taken shape around its capital office and first chief. Prosperity Victory progress is unlocked."
+        zh: "工程部已围绕其首府机关与首位首席成形。繁荣胜利进度已解锁。"
+
+  - id: trade
+    order: 3
+    event_id: 3
+    leader_id: trade
+    create_effect: tv_trade_league_create_effect
+    route_name:
+      en: "Trade"
+      zh: "贸易"
+    io_name:
+      en: "Trade League"
+      zh: "贸易联盟"
+    basic_requirement_body: |
+      custom_tooltip = {
+      	text = TV_TRADE_ESTABLISHMENT_STEP1_REQUIREMENT
+      	monthly_trade_income >= 50
+      }
+    ai_headquarters_requirement_body: |
+      monthly_trade_income >= 100
+    headquarters:
+      building: tv_trade_headquarters
+      name:
+        en: "Trade League Hall"
+        zh: "贸易联盟大厅"
+      category: trade_category
+      pop_type: burghers
+      employment_size: large_burgher_employment
+      construction_demand: tv_trade_headquarters_construction
+      modifier:
+        local_merchant_capacity: 1
+      construction_goods:
+        paper: 2
+        tools: 2
+        lumber: 2
+      maintenance_goods:
+        paper: 1
+        tools: 1
+    loc:
+      step1_text:
+        en: "Reach at least 50 @gold! monthly trade income."
+        zh: "每月贸易收入达到至少50@gold!。"
+      step2_text:
+        en: "Build the [ShowBuildingTypeName('tv_trade_headquarters')] in your capital. Cost: 300 @gold!; maintenance: @paper! Paper x1 and @tools! Tools x1."
+        zh: "在首都建造[ShowBuildingTypeName('tv_trade_headquarters')]。成本：300@gold!；维护：@paper!纸张x1、@tools!工具x1。"
+      step3_text:
+        en: "Appoint a Grand Merchant to found the [tv_trade_league|E] and unlock Trade Victory progress."
+        zh: "任命一位大商人，建立[tv_trade_league|E]并解锁贸易胜利进度。"
+      event_desc:
+        en: "The Trade League has opened its hall and placed a chief at the counting table. Trade Victory progress is unlocked."
+        zh: "贸易联盟已经开启大厅，并让首席坐上账桌。贸易胜利进度已解锁。"
+
+  - id: diplomatic
+    order: 4
+    event_id: 4
+    leader_id: alliance
+    create_effect: tv_create_diplomatic_alliance_effect
+    route_name:
+      en: "Diplomatic"
+      zh: "外交"
+    io_name:
+      en: "Diplomatic Alliance"
+      zh: "外交联盟"
+    basic_requirement_body: |
+      custom_tooltip = {
+      	text = TV_DIPLOMATIC_ESTABLISHMENT_STEP1_REQUIREMENT
+      	modifier:diplomatic_reputation >= 10
+      }
+    ai_headquarters_requirement_body: |
+      modifier:diplomatic_reputation >= 15
+    headquarters:
+      building: tv_diplomatic_headquarters
+      name:
+        en: "Diplomatic Alliance Hall"
+        zh: "外交联盟大厅"
+      category: government_category
+      pop_type: nobles
+      employment_size: large_noble_employment
+      construction_demand: tv_diplomatic_headquarters_construction
+      modifier:
+        local_monthly_development_modifier: 0.10
+      construction_goods:
+        paper: 3
+        fine_cloth: 1
+        lumber: 2
+      maintenance_goods:
+        paper: 1
+        fine_cloth: 0.5
+    loc:
+      step1_text:
+        en: "Reach at least 10 [diplomatic_reputation|E]."
+        zh: "拥有至少10点[diplomatic_reputation|E]。"
+      step2_text:
+        en: "Build the [ShowBuildingTypeName('tv_diplomatic_headquarters')] in your capital. Cost: 300 @gold!; maintenance: @paper! Paper x1 and @fine_cloth! Fine Cloth x0.5."
+        zh: "在首都建造[ShowBuildingTypeName('tv_diplomatic_headquarters')]。成本：300@gold!；维护：@paper!纸张x1、@fine_cloth!精致布料x0.5。"
+      step3_text:
+        en: "Appoint a Chief Envoy to found the [tv_diplomatic_alliance|E] and unlock Diplomatic Victory progress."
+        zh: "任命一位首席使节，建立[tv_diplomatic_alliance|E]并解锁外交胜利进度。"
+      event_desc:
+        en: "The Diplomatic Alliance has a hall, a chief, and a table large enough for the realm's ambitions. Diplomatic Victory progress is unlocked."
+        zh: "外交联盟拥有了大厅、首席，以及一张足以容纳国家抱负的长桌。外交胜利进度已解锁。"
+
+  - id: cultural
+    order: 5
+    event_id: 5
+    leader_id: arts
+    create_effect: tv_arts_exhibition_create_effect
+    route_name:
+      en: "Cultural"
+      zh: "文化"
+    io_name:
+      en: "Arts Exhibition"
+      zh: "文艺展演"
+    basic_requirement_body: |
+      custom_tooltip = {
+      	text = TV_CULTURAL_ESTABLISHMENT_STEP1_REQUIREMENT
+      	has_advance = patron_of_art
+      }
+    headquarters:
+      building: tv_cultural_headquarters
+      name:
+        en: "Theater Center"
+        zh: "剧院中心"
+      category: cultural_category
+      pop_type: clergy
+      employment_size: noble_cultural_employment
+      construction_demand: tv_cultural_headquarters_construction
+      modifier:
+        local_cultural_influence: 0.5
+      construction_goods:
+        books: 2
+        paper: 2
+        fine_cloth: 1
+      maintenance_goods:
+        books: 1
+        paper: 1
+    loc:
+      step1_text:
+        en: "Complete the [advance|E] Patron of Art."
+        zh: "完成[advance|E]\"赞助艺术\"。"
+      step2_text:
+        en: "Build the [ShowBuildingTypeName('tv_cultural_headquarters')] in your capital. Cost: 300 @gold!; maintenance: @books! Books x1 and @paper! Paper x1."
+        zh: "在首都建造[ShowBuildingTypeName('tv_cultural_headquarters')]。成本：300@gold!；维护：@books!书籍x1、@paper!纸张x1。"
+      step3_text:
+        en: "Appoint a Chief Artist to found the [tv_arts_exhibition|E] and unlock Cultural Victory progress."
+        zh: "任命一位首席艺术家，建立[tv_arts_exhibition|E]并解锁文化胜利进度。"
+      event_desc:
+        en: "The Theater Center has opened, and the Arts Exhibition now speaks with a chief's voice. Cultural Victory progress is unlocked."
+        zh: "剧院中心已经开幕，文艺展演也有了首席之声。文化胜利进度已解锁。"
+
+  - id: science
+    order: 6
+    event_id: 6
+    leader_id: academy
+    create_effect: tv_academy_of_sciences_create_effect
+    route_name:
+      en: "Scientific"
+      zh: "科技"
+    io_name:
+      en: "Academy of Sciences"
+      zh: "科学院"
+    basic_requirement_body: |
+      custom_tooltip = {
+      	text = TV_SCIENCE_ESTABLISHMENT_STEP1_REQUIREMENT
+      	num_of_advances_researched >= 50
+      }
+    headquarters:
+      building: tv_science_headquarters
+      name:
+        en: "Seminar Hall"
+        zh: "研讨会场"
+      category: cultural_category
+      pop_type: clergy
+      employment_size: religious_building_employment
+      construction_demand: tv_science_headquarters_construction
+      modifier:
+        local_institution_growth_modifier: 0.25
+      construction_goods:
+        glass: 2
+        paper: 2
+        tools: 1
+      maintenance_goods:
+        glass: 1
+        paper: 1
+    loc:
+      step1_text:
+        en: "Research at least 50 [advance|E]s."
+        zh: "已研究至少50项[advance|E]。"
+      step2_text:
+        en: "Build the [ShowBuildingTypeName('tv_science_headquarters')] in your capital. Cost: 300 @gold!; maintenance: @glass! Glass x1 and @paper! Paper x1."
+        zh: "在首都建造[ShowBuildingTypeName('tv_science_headquarters')]。成本：300@gold!；维护：@glass!玻璃x1、@paper!纸张x1。"
+      step3_text:
+        en: "Appoint a Chief Scientist to found the [tv_academy_of_sciences|E] and unlock Scientific Victory progress."
+        zh: "任命一位首席科学家，建立[tv_academy_of_sciences|E]并解锁科技胜利进度。"
+      event_desc:
+        en: "The Seminar Hall has become the Academy's first address, and a chief now answers for its questions. Scientific Victory progress is unlocked."
+        zh: "研讨会场成为了科学院的第一个地址，首席也将为它的问题负责。科技胜利进度已解锁。"

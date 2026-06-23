@@ -253,7 +253,6 @@ OVERVIEW_CHART_SUFFIX = """\
 \t\t\t}
 
 \t\t\tcard_common = {
-\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').IsSet]"
 \t\t\t\tmaximumsize = { 500 -1 }
 \t\t\t\tblockoverride "common_header_icon_texture" {
 \t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
@@ -262,12 +261,67 @@ OVERVIEW_CHART_SUFFIX = """\
 \t\t\t\t\ttext = "TV_TRADE_LEAGUE_TRADE_CHAIN_CARD_TITLE"
 \t\t\t\t}
 \t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\ttext_multi = {
-\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\tautoresize = yes
-\t\t\t\t\t\tmax_width = 462
-\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_TRADE_CHAIN_PLACEHOLDER"
+\t\t\t\t\tvbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\tsize = { 462 -1 }
+\t\t\t\t\t\tspacing = 6
 \t\t\t\t\t\tmargin = { 4 6 }
+\t\t\t\t\t\ttext_multi = {
+\t\t\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet)]"
+\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\tautoresize = yes
+\t\t\t\t\t\t\tmax_width = 462
+\t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_TRADE_CHAIN_NO_ACTIVE"
+\t\t\t\t\t\t}
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet]"
+\t\t\t\t\t\t\tsize = { 462 24 }
+\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 116 24 } text_single = { size = { 116 24 } text = "TV_TRADE_LEAGUE_TRADE_CHAIN_STATUS_LABEL" align = nobaseline|left } }
+\t\t\t\t\t\t\ttext_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_status').GetValue, '(CFixedPoint)1.0')]" size = { 342 24 } text = "TV_TRADE_LEAGUE_TRADE_CHAIN_STATUS_PENDING" align = nobaseline|right }
+\t\t\t\t\t\t\ttext_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_status').GetValue, '(CFixedPoint)2.0')]" size = { 342 24 } text = "TV_TRADE_LEAGUE_TRADE_CHAIN_STATUS_ACTIVE" align = nobaseline|right }
+\t\t\t\t\t\t\ttext_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_status').GetValue, '(CFixedPoint)3.0')]" size = { 342 24 } text = "TV_TRADE_LEAGUE_TRADE_CHAIN_STATUS_INVALID" align = nobaseline|right }
+\t\t\t\t\t\t}
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tvisible = "[And(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_origin_location').IsSet)]"
+\t\t\t\t\t\t\tsize = { 462 24 }
+\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 116 24 } text_single = { size = { 116 24 } text = "TV_TRADE_LEAGUE_TRADE_CHAIN_ORIGIN_LABEL" align = nobaseline|left } }
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\tsize = { 342 24 }
+\t\t\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_origin_location').GetLocation.GetMarket]"
+\t\t\t\t\t\t\t\ttext_single = { size = { 342 24 } raw_text = "@market! [Market.GetNameWithNoTooltip]" align = nobaseline|right }
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tvisible = "[And(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_destination_location').IsSet)]"
+\t\t\t\t\t\t\tsize = { 462 24 }
+\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 116 24 } text_single = { size = { 116 24 } text = "TV_TRADE_LEAGUE_TRADE_CHAIN_DESTINATION_LABEL" align = nobaseline|left } }
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\tsize = { 342 24 }
+\t\t\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_destination_location').GetLocation.GetMarket]"
+\t\t\t\t\t\t\t\ttext_single = { size = { 342 24 } raw_text = "@market! [Market.GetNameWithNoTooltip]" align = nobaseline|right }
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tvisible = "[And(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_distance_sq').IsSet)]"
+\t\t\t\t\t\t\tsize = { 462 24 }
+\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\twidget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 116 24 } text_single = { size = { 116 24 } text = "TV_TRADE_LEAGUE_TRADE_CHAIN_DISTANCE_LABEL" align = nobaseline|left } }
+\t\t\t\t\t\t\ttext_single = { size = { 342 24 } raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_distance_sq').GetValue|0]" align = nobaseline|right }
+\t\t\t\t\t\t}
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.IsIOLeaderCountry(InternationalOrganizationsView.GetPlayer)]"
+\t\t\t\t\t\t\tsize = { 462 30 }
+\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\taction_button = { visible = "[And(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_grand_merchant_char').IsSet, Not(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet))]" size = { 227 28 } using = button_regular_texture_alt_yellow using = action_button_common_template using = button_common_textobj_template text = "TV_TRADE_LEAGUE_START_CHAIN" title = "tv_trade_start_chain" description = "tv_trade_start_chain_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_trade_start_chain" } }
+\t\t\t\t\t\t\taction_button = { visible = "[And(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_grand_merchant_char').IsSet, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet)]" size = { 227 28 } using = button_regular_texture_alt_red using = action_button_common_template using = button_common_textobj_template text = "TV_TRADE_LEAGUE_CANCEL_CHAIN" title = "tv_trade_cancel_chain" description = "tv_trade_cancel_chain_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_trade_cancel_chain" } }
+\t\t\t\t\t\t}
 \t\t\t\t\t}
 \t\t\t\t}
 \t\t\t}

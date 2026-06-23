@@ -1,8 +1,9 @@
 ﻿widget = {
 	name = "tv_io_chief_alert_bridge"
 	size = { 0 0 }
+	datacontext = "[GetPlayer]"
 	visible_at_creation = no
-	visible = "[GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').IsSet]"
+	visible = "[And(Country.IsValid, GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').IsSet)]"
 	datamodel = "[GetPlayer.GetDiplomacy.GetInternationalOrganizations]"
 
 	item = {

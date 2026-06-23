@@ -132,6 +132,21 @@ tv_local_exhibition_triumph_location_modifier = {
 	}
 }
 
+tv_wonder_hagia_sanctuary_order_location_modifier = {
+	local_clergy_estate_power = 0.5
+	local_unrest = -0.05
+	game_data = {
+		category = location
+	}
+}
+
+tv_wonder_hagia_public_procession_location_modifier = {
+	local_monthly_prosperity = 0.10
+	game_data = {
+		category = location
+	}
+}
+
 tv_wonder_deep_drainage_location_modifier = {
 	local_production_efficiency = -1.0
 	game_data = {

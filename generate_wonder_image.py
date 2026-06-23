@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import base64
 import binascii
+import concurrent.futures
 import json
 import os
 import re
@@ -55,8 +56,15 @@ DEFAULT_WONDERS_DIR = (
 DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_wonders"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
-from wonder_mechanics_lib import load_wonder_image_tasks  # noqa: E402
-from dds_image_lib import RgbaImage, read_image_rgba, write_dds  # noqa: E402
+from wonder_mechanics.io import load_wonder_image_tasks
+from dds_image_lib import RgbaImage, write_dds  # noqa: E402
+from wonder_image_crop_lib import (  # noqa: E402
+    cropped_wonder_dds_path,
+    empty_crop_data,
+    load_crop_data,
+    write_wonder_dds_from_image,
+    write_wonder_dds_from_source,
+)
 
 
 @dataclass(frozen=True)
@@ -250,10 +258,12 @@ def load_task_config(config: dict[str, Any]) -> list[dict[str, Any]]:
 
     tasks: list[dict[str, Any]] = []
     for task in load_wonder_image_tasks(include_unique=include_unique):
-        if task["is_unique"] and not include_unique:
-            continue
-        if not task["is_unique"] and not include_generic:
-            continue
+        is_stage = bool(task.get("is_stage", False))
+        if not is_stage:
+            if task["is_unique"] and not include_unique:
+                continue
+            if not task["is_unique"] and not include_generic:
+                continue
 
         normalized_key = normalize_task_key(task["key"])
         normalized_name = normalize_task_key(task["name"])
@@ -278,6 +288,7 @@ def load_task_config(config: dict[str, Any]) -> list[dict[str, Any]]:
             merged_task = deep_merge(merged_task, override)
         merged_task["key"] = task["key"]
         merged_task["is_unique"] = task["is_unique"]
+        merged_task["is_stage"] = is_stage
         tasks.append(merged_task)
 
     if not tasks:
@@ -642,30 +653,171 @@ def convert_existing_dds(
     dds_path: Path,
     background: tuple[int, int, int],
     label: str,
+    crop_data: dict[str, Any] | None = None,
+    stem: str | None = None,
 ) -> None:
-    image = read_image_rgba(source_path)
-    write_dds(
-        image,
+    for message in convert_existing_dds_messages(source_path, dds_path, background, label, crop_data, stem):
+        print(message)
+
+
+def convert_existing_dds_messages(
+    source_path: Path,
+    dds_path: Path,
+    background: tuple[int, int, int],
+    label: str,
+    crop_data: dict[str, Any] | None = None,
+    stem: str | None = None,
+) -> list[str]:
+    crop_data = load_crop_data() if crop_data is None else crop_data
+    full_result = write_wonder_dds_from_source(
+        source_path,
         dds_path,
+        stem or dds_path.stem,
+        empty_crop_data(),
+        background,
         dds_format="DXT1",
         overwrite=True,
-        opaque_background=background,
+        allow_crop=False,
     )
     file_size = dds_path.stat().st_size
-    print(
+    messages = [
         f"{label}: source={pretty_repo_path(source_path)}, "
-        f"levels=1, size={file_size:,} bytes"
+        f"full={pretty_repo_path(dds_path)}, output={full_result.output_width}x{full_result.output_height}, "
+        f"levels={full_result.levels}, size={file_size:,} bytes"
+    ]
+    if source_path.suffix.lower() != ".png":
+        messages.append(f"{label}: skipped cropped variant because the source is not a PNG")
+        return messages
+
+    cropped_path = cropped_wonder_dds_path(dds_path)
+    cropped_result = write_wonder_dds_from_source(
+        source_path,
+        cropped_path,
+        stem or dds_path.stem,
+        crop_data,
+        background,
+        dds_format="DXT1",
+        overwrite=True,
+        allow_crop=True,
     )
+    cropped_size = cropped_path.stat().st_size
+    crop_note = ""
+    if cropped_result.crop_rect is not None:
+        left, top, width, height = cropped_result.crop_rect
+        crop_note = f", crop={left:.1f},{top:.1f},{width:.1f}x{height:.1f}"
+    messages.append(
+        f"{label}: cropped={pretty_repo_path(cropped_path)}, "
+        f"output={cropped_result.output_width}x{cropped_result.output_height}, "
+        f"levels={cropped_result.levels}, size={cropped_size:,} bytes{crop_note}"
+    )
+    return messages
+
+
+def convert_existing_dds_worker(args: tuple[Path, Path, tuple[int, int, int], str, dict[str, Any], str]) -> list[str]:
+    source_path, dds_path, background, label, crop_data, stem = args
+    return convert_existing_dds_messages(source_path, dds_path, background, label, crop_data, stem)
+
+
+def run_parallel_existing_dds_jobs(
+    jobs: list[tuple[Path, Path, tuple[int, int, int], str, dict[str, Any], str]],
+) -> int:
+    if not jobs:
+        return 0
+    worker_count = min(len(jobs), max(1, min(os.cpu_count() or 1, 8)))
+    print(f"[parallel] converting {len(jobs)} PNG-backed DDS jobs with {worker_count} workers")
+    completed = 0
+    with concurrent.futures.ProcessPoolExecutor(max_workers=worker_count) as executor:
+        futures = [executor.submit(convert_existing_dds_worker, job) for job in jobs]
+        for future in concurrent.futures.as_completed(futures):
+            for message in future.result():
+                print(message)
+            completed += 1
+            if completed % 10 == 0 or completed == len(jobs):
+                print(f"[parallel] completed {completed}/{len(jobs)}")
+    return completed
+
+
+def write_dds_pair_from_image(
+    image: RgbaImage,
+    dds_path: Path,
+    stem: str,
+    crop_data: dict[str, Any],
+    background: tuple[int, int, int],
+    *,
+    dds_format: str,
+    overwrite: bool,
+) -> tuple[Any, Any]:
+    full_result = write_wonder_dds_from_image(
+        image,
+        dds_path,
+        stem,
+        empty_crop_data(),
+        background,
+        dds_format=dds_format,
+        overwrite=overwrite,
+    )
+    cropped_result = write_wonder_dds_from_image(
+        image,
+        cropped_wonder_dds_path(dds_path),
+        stem,
+        crop_data,
+        background,
+        dds_format=dds_format,
+        overwrite=overwrite,
+    )
+    return full_result, cropped_result
+
+
+def complete_missing_dds_pair_from_png(
+    png_path: Path,
+    dds_path: Path,
+    stem: str,
+    crop_data: dict[str, Any],
+    background: tuple[int, int, int],
+) -> None:
+    cropped_path = cropped_wonder_dds_path(dds_path)
+    if not dds_path.exists():
+        full_result = write_wonder_dds_from_source(
+            png_path,
+            dds_path,
+            stem,
+            empty_crop_data(),
+            background,
+            dds_format="DXT1",
+            overwrite=False,
+            allow_crop=False,
+        )
+        print(f"[dds] {pretty_repo_path(dds_path)}, output={full_result.output_width}x{full_result.output_height}")
+    if not cropped_path.exists():
+        cropped_result = write_wonder_dds_from_source(
+            png_path,
+            cropped_path,
+            stem,
+            crop_data,
+            background,
+            dds_format="DXT1",
+            overwrite=False,
+            allow_crop=True,
+        )
+        dds_note = f", output={cropped_result.output_width}x{cropped_result.output_height}"
+        if cropped_result.crop_rect is not None:
+            left, top, width, height = cropped_result.crop_rect
+            dds_note += f", crop={left:.1f},{top:.1f},{width:.1f}x{height:.1f}"
+        print(f"[dds] {pretty_repo_path(cropped_path)}{dds_note}")
 
 
 def convert_existing_assets(
     tasks: list[dict[str, Any]],
     background: tuple[int, int, int],
 ) -> int:
+    crop_data = load_crop_data()
     converted = 0
     skipped = 0
     seen_dds_paths: set[Path] = set()
+    seen_png_paths: set[Path] = set()
     dds_dirs: set[Path] = set()
+    png_dds_dirs: dict[Path, Path] = {}
+    parallel_jobs: list[tuple[Path, Path, tuple[int, int, int], str, dict[str, Any], str]] = []
     task_total = len(tasks)
     for index, task in enumerate(tasks, start=1):
         name = str(task.get("name") or "").strip()
@@ -675,8 +827,12 @@ def convert_existing_assets(
         dds_dir = resolve_repo_path(task.get("dds_dir"), DEFAULT_WONDERS_DIR)
         png_path = png_dir / f"{stem}.png"
         dds_path = dds_dir / f"{stem}.dds"
+        cropped_path = cropped_wonder_dds_path(dds_path)
         seen_dds_paths.add(dds_path.resolve())
+        seen_dds_paths.add(cropped_path.resolve())
+        seen_png_paths.add(png_path.resolve())
         dds_dirs.add(dds_dir)
+        png_dds_dirs.setdefault(png_dir, dds_dir)
 
         if not enabled:
             print(f"[skip {index}/{task_total}] {stem}: disabled")
@@ -691,18 +847,56 @@ def convert_existing_assets(
             skipped += 1
             continue
 
-        convert_existing_dds(source_path, dds_path, background, f"[convert {index}/{task_total}] {stem}")
+        label = f"[convert {index}/{task_total}] {stem}"
+        if source_path.suffix.lower() == ".png":
+            parallel_jobs.append((source_path, dds_path, background, label, crop_data, stem))
+        else:
+            convert_existing_dds(
+                source_path,
+                dds_path,
+                background,
+                label,
+                crop_data,
+                stem,
+            )
         converted += 1
+
+    extra_png_total = 0
+    for png_dir, dds_dir in sorted(png_dds_dirs.items(), key=lambda item: str(item[0])):
+        if not png_dir.exists():
+            continue
+        for png_path in sorted(png_dir.glob("*.png")):
+            if png_path.resolve() in seen_png_paths:
+                continue
+            stem = png_path.stem
+            dds_path = dds_dir / f"{stem}.dds"
+            seen_dds_paths.add(dds_path.resolve())
+            extra_png_total += 1
+            parallel_jobs.append((png_path, dds_path, background, f"[convert extra png] {stem}", crop_data, stem))
+            converted += 1
+
+    run_parallel_existing_dds_jobs(parallel_jobs)
 
     extra_total = 0
     for dds_dir in sorted(dds_dirs):
         for dds_path in sorted(dds_dir.glob("*.dds")):
             if dds_path.resolve() in seen_dds_paths:
                 continue
+            if dds_path.stem.endswith("_cropped"):
+                continue
             extra_total += 1
-            convert_existing_dds(dds_path, dds_path, background, f"[convert extra] {dds_path.stem}")
+            convert_existing_dds(
+                dds_path,
+                dds_path,
+                background,
+                f"[convert extra] {dds_path.stem}",
+                crop_data,
+                dds_path.stem,
+            )
             converted += 1
 
+    if extra_png_total:
+        print(f"[summary] converted extra PNG files not listed in image tasks: {extra_png_total}")
     if extra_total:
         print(f"[summary] converted extra DDS files not listed in image tasks: {extra_total}")
     print(f"[summary] converted={converted}, skipped={skipped}")
@@ -764,6 +958,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.convert_existing_assets:
         return convert_existing_assets(tasks, background)
 
+    crop_data = load_crop_data()
     api_key = resolve_api_key(api_config)
     if proxy_url:
         print(f"[network] proxy={proxy_url}")
@@ -779,16 +974,29 @@ def main(argv: list[str] | None = None) -> int:
         dds_dir = resolve_repo_path(task.get("dds_dir"), DEFAULT_WONDERS_DIR)
         png_path = png_dir / f"{stem}.png"
         dds_path = dds_dir / f"{stem}.dds"
+        cropped_path = cropped_wonder_dds_path(dds_path)
         metadata_path = png_dir / f"{stem}.json"
-        existing_paths = [path for path in (dds_path, png_path, metadata_path) if path.exists()]
-        dds_exists = dds_path.exists()
+        existing_paths = [path for path in (dds_path, cropped_path, png_path, metadata_path) if path.exists()]
+        full_dds_exists = dds_path.exists()
+        cropped_dds_exists = cropped_path.exists()
 
         if not enabled:
             print(f"[skip {index}/{task_total}] {stem}: disabled")
             continue
-        if dds_exists and not overwrite:
+        if full_dds_exists and cropped_dds_exists and not overwrite:
             rel_paths = ", ".join(pretty_repo_path(path) for path in existing_paths)
             print(f"[skip {index}/{task_total}] {stem}: existing output found ({rel_paths}); overwrite=false")
+            continue
+        if not overwrite and (full_dds_exists or cropped_dds_exists):
+            if png_path.exists():
+                print(f"[repair {index}/{task_total}] {stem}: completing missing DDS variant from existing PNG")
+                complete_missing_dds_pair_from_png(png_path, dds_path, stem, crop_data, background)
+            else:
+                rel_paths = ", ".join(pretty_repo_path(path) for path in existing_paths)
+                print(
+                    f"[skip {index}/{task_total}] {stem}: partial DDS output exists ({rel_paths}) "
+                    "but no PNG source is available; overwrite=false"
+                )
             continue
 
         payload = build_payload(task)
@@ -821,8 +1029,22 @@ def main(argv: list[str] | None = None) -> int:
                 f"{decoded.width}x{decoded.height} != {expected_width}x{expected_height}"
             )
 
-        write_dxt1_dds(decoded, dds_path, overwrite=overwrite)
-        print(f"[dds] {pretty_repo_path(dds_path)}")
+        full_result, cropped_result = write_dds_pair_from_image(
+            decoded_png_to_rgba(decoded),
+            dds_path,
+            stem,
+            crop_data,
+            background,
+            dds_format="DXT1",
+            overwrite=overwrite,
+        )
+        dds_note = f", output={full_result.output_width}x{full_result.output_height}"
+        print(f"[dds] {pretty_repo_path(dds_path)}{dds_note}")
+        cropped_note = f", output={cropped_result.output_width}x{cropped_result.output_height}"
+        if cropped_result.crop_rect is not None:
+            left, top, width, height = cropped_result.crop_rect
+            cropped_note += f", crop={left:.1f},{top:.1f},{width:.1f}x{height:.1f}"
+        print(f"[dds] {pretty_repo_path(cropped_path)}{cropped_note}")
 
         if write_metadata_enabled:
             write_metadata(metadata_path, payload, response, revised_prompt)

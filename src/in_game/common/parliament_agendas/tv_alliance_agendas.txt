@@ -1,0 +1,123 @@
+﻿pa_tv_alliance_delegation_subsidies = {
+	type = international_organization
+	special_status = tv_alliance_member_status
+	importance = 1.25
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+		NOT = { has_cooldown = pa_tv_alliance_delegation_subsidies }
+	}
+	allow = {
+		is_leader_of_international_organization = scope:recipient
+		scope:recipient.parliament_issue ?= {
+			this != parliament_issue:hre_law_debate
+		}
+		gold >= 100
+	}
+	on_accept = {
+		hidden_effect = {
+			add_cooldown = { type = pa_tv_alliance_delegation_subsidies years = 5 }
+		}
+		leader_country ?= {
+			add_gold = -100
+		}
+		every_international_organization_member = {
+			limit = {
+				has_special_status_in_international_organization = {
+					type = scope:target
+					international_organization = root
+				}
+			}
+			add_country_modifier = {
+				modifier = tv_alliance_delegation_subsidy_modifier
+				years = 3
+				mode = add_and_extend
+			}
+		}
+	}
+	ai_will_do = {
+		add = 5
+	}
+	chance = 10
+}
+
+pa_tv_alliance_open_archives = {
+	type = international_organization
+	special_status = tv_alliance_member_status
+	importance = 1
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+		NOT = { has_cooldown = pa_tv_alliance_open_archives }
+	}
+	allow = {
+		is_leader_of_international_organization = scope:recipient
+		scope:recipient.parliament_issue ?= {
+			this != parliament_issue:hre_law_debate
+		}
+		prestige >= 10
+	}
+	on_accept = {
+		hidden_effect = {
+			add_cooldown = { type = pa_tv_alliance_open_archives years = 5 }
+		}
+		leader_country ?= {
+			add_prestige = -10
+		}
+		every_international_organization_member = {
+			limit = {
+				has_special_status_in_international_organization = {
+					type = scope:target
+					international_organization = root
+				}
+			}
+			add_country_modifier = {
+				modifier = tv_alliance_open_archives_modifier
+				years = 3
+				mode = add_and_extend
+			}
+		}
+	}
+	ai_will_do = {
+		add = 5
+	}
+	chance = 10
+}
+
+pa_tv_alliance_cohesion_concessions = {
+	type = international_organization
+	special_status = tv_alliance_member_status
+	importance = 1.5
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+		NOT = { has_cooldown = pa_tv_alliance_cohesion_concessions }
+	}
+	allow = {
+		is_leader_of_international_organization = scope:recipient
+		scope:recipient.parliament_issue ?= {
+			this != parliament_issue:hre_law_debate
+		}
+		scope:recipient = {
+			has_variable = tv_alliance_cohesion
+			var:tv_alliance_cohesion >= 10
+		}
+	}
+	on_accept = {
+		hidden_effect = {
+			add_cooldown = { type = pa_tv_alliance_cohesion_concessions years = 5 }
+		}
+		change_variable = { name = tv_alliance_cohesion add = -10 }
+		clamp_variable = { name = tv_alliance_cohesion min = 0 max = 100 }
+		every_international_organization_member = {
+			limit = {
+				has_special_status_in_international_organization = {
+					type = scope:target
+					international_organization = root
+				}
+			}
+			add_prestige = 5
+		}
+	}
+	ai_will_do = {
+		add = 5
+	}
+	chance = 10
+}

@@ -10,22 +10,42 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 try:
-    from scripts.wonder_mechanics_lib import (
-        ceremony_styles,
+    from scripts.wonder_mechanics.io import load_all_wonder_mechanics_data
+    from scripts.wonder_mechanics.naming import (
         final_building_for_style,
-        load_all_wonder_mechanics_data,
+        wonder_auto_modifier_name,
+        wonder_auto_unscaled_modifier_name,
+        wonder_static_display_modifier_name,
+        wonder_static_local_display_modifier_name,
+    )
+    from scripts.wonder_mechanics.modifiers import wonder_base_country_modifiers
+    from scripts.wonder_mechanics.render import level_static_modifier_loc
+    from scripts.wonder_mechanics.rituals import (
+        ceremony_styles,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
+        ritual_blessing_modifier_name,
         ritual_plan_for_style,
+        unique_ceremony_modifier_name,
     )
 except ModuleNotFoundError:
-    from wonder_mechanics_lib import (
-        ceremony_styles,
+    from wonder_mechanics.io import load_all_wonder_mechanics_data
+    from wonder_mechanics.naming import (
         final_building_for_style,
-        load_all_wonder_mechanics_data,
+        wonder_auto_modifier_name,
+        wonder_auto_unscaled_modifier_name,
+        wonder_static_display_modifier_name,
+        wonder_static_local_display_modifier_name,
+    )
+    from wonder_mechanics.modifiers import wonder_base_country_modifiers
+    from wonder_mechanics.render import level_static_modifier_loc
+    from wonder_mechanics.rituals import (
+        ceremony_styles,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
+        ritual_blessing_modifier_name,
         ritual_plan_for_style,
+        unique_ceremony_modifier_name,
     )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -36,9 +56,12 @@ WONDER_NAME_PREFIX = "tv_wonder_"
 CONCEPT_NAME_PREFIX = "game_concept_"
 WONDER_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+WONDER_FULL_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_full_image_"
 WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
+ENGINEERING_PREVIEW_LOCATION_TEXT_PREFIX = "TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_"
 
 LOCALIZATION_LINE_RE = re.compile(r'^(?P<indent>\s*)(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value>"(?:[^"\\]|\\.)*")\s*$')
+LOCALIZATION_LINE_START_RE = re.compile(r'^\s*(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value_start>".*)$')
 LOCALIZATION_HEADER_RE = re.compile(r"^l_[A-Za-z_]+:\s*$")
 ENGINEERING_DEPARTMENT_500_ID_RE = re.compile(r"var:tv_wonder_locked \?= (?P<id>\d+)")
 ENGINEERING_DEPARTMENT_500_DESC_RE = re.compile(r"desc = tv_engineering_department\.500\.d_(?P<suffix>[A-Za-z0-9_]+?)(?:_(?P<style>\d+))?$")
@@ -85,6 +108,32 @@ def parse_localization_value(raw_value: str) -> str:
         raise ValueError(f"Invalid localization string literal: {raw_value}") from exc
 
 
+def is_complete_localization_value(raw_value: str) -> bool:
+    if not raw_value.startswith('"'):
+        return False
+    escaped = False
+    closing_index: int | None = None
+    for index, character in enumerate(raw_value[1:], start=1):
+        if escaped:
+            escaped = False
+            continue
+        if character == "\\":
+            escaped = True
+            continue
+        if character == '"':
+            closing_index = index
+    return closing_index is not None and not raw_value[closing_index + 1 :].strip()
+
+
+def parse_complete_localization_value(raw_value: str) -> str | None:
+    if not is_complete_localization_value(raw_value):
+        return None
+    value = parse_localization_value(raw_value.replace("\n", "\\n"))
+    if not isinstance(value, str):
+        raise ValueError(f"Localization value must be a string literal: {raw_value}")
+    return value
+
+
 def wonder_name_key(wonder: dict[str, Any]) -> str:
     return f"{WONDER_NAME_PREFIX}{wonder['key']}"
 
@@ -104,6 +153,14 @@ def image_route_concept_key(wonder: dict[str, Any]) -> str:
 
 def image_route_concept_desc_key(wonder: dict[str, Any]) -> str:
     return f"{image_route_concept_key(wonder)}_desc"
+
+
+def full_image_route_concept_key(wonder: dict[str, Any]) -> str:
+    return f"{CONCEPT_NAME_PREFIX}{WONDER_FULL_IMAGE_CONCEPT_PREFIX}{wonder['id']}"
+
+
+def full_image_route_concept_desc_key(wonder: dict[str, Any]) -> str:
+    return f"{full_image_route_concept_key(wonder)}_desc"
 
 
 def display_route_concept_key(wonder: dict[str, Any]) -> str:
@@ -157,6 +214,19 @@ def _wonder_image_route_pairs() -> list[tuple[str, str, str, str]]:
     ]
 
 
+def _wonder_full_image_route_pairs() -> list[tuple[str, str, str, str]]:
+    wonders, _ = load_all_wonder_mechanics_data()
+    return [
+        (
+            concept_name_key(wonder),
+            concept_desc_key(wonder),
+            full_image_route_concept_key(wonder),
+            full_image_route_concept_desc_key(wonder),
+        )
+        for wonder in wonders
+    ]
+
+
 def _wonder_ritual_display_route_pairs() -> list[tuple[str, str, str]]:
     wonders, _ = load_all_wonder_mechanics_data()
     return [
@@ -187,15 +257,80 @@ def _engineering_gui_text_route_pairs() -> list[tuple[str, str]]:
     return pairs
 
 
-def _display_modifier_pairs() -> list[tuple[str, str]]:
+def preview_location_text_key(wonder: dict[str, Any]) -> str:
+    return f"{ENGINEERING_PREVIEW_LOCATION_TEXT_PREFIX}{int(wonder['id'])}"
+
+
+def _engineering_preview_location_text_values() -> list[tuple[str, str, str]]:
     wonders, _ = load_all_wonder_mechanics_data()
-    pairs: list[tuple[str, str]] = []
+    values: list[tuple[str, str, str]] = []
+    for wonder in wonders:
+        key = preview_location_text_key(wonder)
+        if wonder.get("is_unique"):
+            location = wonder.get("location")
+            if not location:
+                raise KeyError(f"Unique wonder {wonder['key']!r} is missing its fixed location")
+            english = (
+                "@location! This is a unique [tv_wonder_construction|E] that can be built at "
+                f"[ShowLocationName('{location}')], its fixed [location|E]"
+            )
+            simp_chinese = (
+                "@location! 这是一个[tv_wonder_construction|E]独特奇观，可以建造在"
+                f"[ShowLocationName('{location}')]这一[location|E]"
+            )
+        else:
+            english = (
+                "@location! This is a generic [tv_wonder_construction|E] that can be built "
+                "across multiple eligible [location|E] sites"
+            )
+            simp_chinese = (
+                "@location! 这是一个[tv_wonder_construction|E]通用奇观，可以建造在多个符合条件的[location|E]"
+            )
+        values.append((key, english, simp_chinese))
+    return values
+
+
+def _auto_base_modifier_values() -> list[tuple[str, str]]:
+    wonders, mechanics = load_all_wonder_mechanics_data()
+    values: list[tuple[str, str]] = []
+    for wonder in wonders:
+        auto_value = f"[{wonder['concept']}|E]"
+        values.append((f"AUTO_MODIFIER_NAME_{wonder_auto_modifier_name(wonder)}", auto_value))
+        has_unscaled_effect = any(
+            isinstance(value, bool) or not isinstance(value, (int, float))
+            for value in wonder_base_country_modifiers(wonder, mechanics, level=1).values()
+        )
+        if has_unscaled_effect:
+            values.append((f"AUTO_MODIFIER_NAME_{wonder_auto_unscaled_modifier_name(wonder)}", auto_value))
+    return values
+
+
+def _static_base_modifier_values() -> list[tuple[str, str]]:
+    wonders, _ = load_all_wonder_mechanics_data()
+    values: list[tuple[str, str]] = []
     for wonder in wonders:
         for level in range(1, 7):
-            source_key = f"STATIC_MODIFIER_NAME_tv_wonder_{wonder['key']}_level_{level}"
-            pairs.append((source_key, f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_level_{level}"))
-            pairs.append((source_key, f"STATIC_MODIFIER_NAME_tv_wonder_display_{wonder['id']}_local_level_{level}"))
-    return pairs
+            value = level_static_modifier_loc(wonder["concept"], level)
+            values.append((f"STATIC_MODIFIER_NAME_{wonder_static_display_modifier_name(wonder, level)}", value))
+            values.append((f"STATIC_MODIFIER_NAME_{wonder_static_local_display_modifier_name(wonder, level)}", value))
+    return values
+
+
+def _ritual_static_modifier_keys() -> list[str]:
+    wonders, mechanics = load_all_wonder_mechanics_data()
+    keys: list[str] = []
+    for wonder in wonders:
+        for style in ceremony_styles(wonder):
+            ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
+            if wonder.get("is_unique"):
+                if ritual_plan.get("country_modifier", {}):
+                    keys.append(f"STATIC_MODIFIER_NAME_{unique_ceremony_modifier_name(wonder)}")
+                continue
+            if ritual_plan["mode"] != "timed":
+                continue
+            if ritual_plan.get("timed", {}).get("blessing_modifier", {}):
+                keys.append(f"STATIC_MODIFIER_NAME_{ritual_blessing_modifier_name(wonder)}")
+    return keys
 
 
 def _auxiliary_display_modifier_pairs() -> list[tuple[str, str]]:
@@ -232,6 +367,15 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 raise KeyError(f"Missing wonder concept localization key {concept_desc!r} in {WONDER_LOCALIZATION_FILE} ({language})")
             language_values[route_concept] = language_values[concept_name]
             language_values[route_concept_desc] = language_values[concept_desc]
+    for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_full_image_route_pairs():
+        for language in LANGUAGES:
+            language_values = expanded[language]
+            if concept_name not in language_values:
+                raise KeyError(f"Missing wonder concept localization key {concept_name!r} in {WONDER_LOCALIZATION_FILE} ({language})")
+            if concept_desc not in language_values:
+                raise KeyError(f"Missing wonder concept localization key {concept_desc!r} in {WONDER_LOCALIZATION_FILE} ({language})")
+            language_values[route_concept] = language_values[concept_name]
+            language_values[route_concept_desc] = language_values[concept_desc]
     for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_display_route_pairs():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -250,6 +394,9 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                     f"{WONDER_LOCALIZATION_FILE} ({language})"
                 )
             language_values[route_key] = language_values[source_key]
+    for route_key, english, simp_chinese in _engineering_preview_location_text_values():
+        expanded["english"][route_key] = english
+        expanded["simp_chinese"][route_key] = simp_chinese
     for source_key, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -260,15 +407,20 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 )
             language_values[route_concept] = language_values[source_key]
             language_values[route_concept_desc] = language_values[source_key]
-    for source_modifier_loc_key, display_modifier_loc_key in _display_modifier_pairs():
+    for auto_modifier_loc_key, auto_value in _auto_base_modifier_values():
+        for language in LANGUAGES:
+            expanded[language][auto_modifier_loc_key] = auto_value
+    for static_modifier_loc_key, static_value in _static_base_modifier_values():
+        for language in LANGUAGES:
+            expanded[language][static_modifier_loc_key] = static_value
+    for static_modifier_loc_key in _ritual_static_modifier_keys():
         for language in LANGUAGES:
             language_values = expanded[language]
-            if source_modifier_loc_key not in language_values:
+            if static_modifier_loc_key not in language_values:
                 raise KeyError(
-                    f"Missing wonder modifier localization key {source_modifier_loc_key!r} in "
+                    f"Missing wonder ritual static modifier localization key {static_modifier_loc_key!r} in "
                     f"{WONDER_LOCALIZATION_FILE} ({language})"
                 )
-            language_values[display_modifier_loc_key] = language_values[source_modifier_loc_key]
     for building_name, modifier_loc_key in _auxiliary_display_modifier_pairs():
         for language in LANGUAGES:
             language_values = expanded[language]
@@ -290,6 +442,10 @@ def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
+    for _, _, route_concept, route_concept_desc in _wonder_full_image_route_pairs():
+        for language in LANGUAGES:
+            collapsed[language].pop(route_concept, None)
+            collapsed[language].pop(route_concept_desc, None)
     for _, _, route_concept, route_concept_desc in _wonder_display_route_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
@@ -297,13 +453,19 @@ def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -
     for _, route_key in _engineering_gui_text_route_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(route_key, None)
+    for route_key, _, _ in _engineering_preview_location_text_values():
+        for language in LANGUAGES:
+            collapsed[language].pop(route_key, None)
     for _, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
-    for _, display_modifier_loc_key in _display_modifier_pairs():
+    for auto_modifier_loc_key, _ in _auto_base_modifier_values():
         for language in LANGUAGES:
-            collapsed[language].pop(display_modifier_loc_key, None)
+            collapsed[language].pop(auto_modifier_loc_key, None)
+    for static_modifier_loc_key, _ in _static_base_modifier_values():
+        for language in LANGUAGES:
+            collapsed[language].pop(static_modifier_loc_key, None)
     for _, modifier_loc_key in _auxiliary_display_modifier_pairs():
         for language in LANGUAGES:
             collapsed[language].pop(modifier_loc_key, None)
@@ -328,17 +490,43 @@ def load_localization_map(path: Path) -> dict[str, str]:
     if not path.exists():
         raise FileNotFoundError(f"Missing localization file: {path}")
     values: dict[str, str] = {}
+    pending_key: str | None = None
+    pending_value_lines: list[str] = []
+    pending_start_line = 0
     for line_number, raw_line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), start=1):
+        if pending_key is not None:
+            pending_value_lines.append(raw_line)
+            parsed_value = parse_complete_localization_value("\n".join(pending_value_lines))
+            if parsed_value is None:
+                continue
+            values[pending_key] = parsed_value
+            pending_key = None
+            pending_value_lines = []
+            pending_start_line = 0
+            continue
+
         stripped = raw_line.strip()
         if not stripped or stripped.startswith("#") or LOCALIZATION_HEADER_RE.match(stripped):
             continue
         match = LOCALIZATION_LINE_RE.match(raw_line)
-        if match is None:
+        if match is not None:
+            key = match.group("key")
+            if key in values:
+                raise ValueError(f"Duplicate localization key {key!r} in {path}:{line_number}")
+            values[key] = parse_localization_value(match.group("value"))
+            continue
+
+        start_match = LOCALIZATION_LINE_START_RE.match(raw_line)
+        if start_match is None:
             raise ValueError(f"Unparseable localization line in {path}:{line_number}: {raw_line}")
-        key = match.group("key")
+        key = start_match.group("key")
         if key in values:
             raise ValueError(f"Duplicate localization key {key!r} in {path}:{line_number}")
-        values[key] = parse_localization_value(match.group("value"))
+        pending_key = key
+        pending_value_lines = [start_match.group("value_start")]
+        pending_start_line = line_number
+    if pending_key is not None:
+        raise ValueError(f"Unterminated localization string for key {pending_key!r} in {path}:{pending_start_line}")
     return values
 
 

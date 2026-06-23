@@ -16,7 +16,7 @@ or, when target files are known:
 conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <path> [<path> ...]
 ```
 
-Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate visible effect chains before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
+Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate option effect chains, including `hidden_effect`, before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
 `src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps.
 
 ## Resume / Handoff Discipline
@@ -44,7 +44,10 @@ When a turn includes a handoff summary, compaction summary, or explicit prior-ag
 Towards Victory has not shipped. There are no user save files, published mod versions,
 or public APIs to preserve. Treat every internal data shape, helper function, generated
 schema, variable name, and script entry point as mutable implementation detail unless the
-user explicitly names an external consumer that must keep working.
+user explicitly names an external consumer that must keep working. Performance is one of
+this project's priority constraints: compatibility branches, defensive repair paths, and
+old-state probes add runtime cost and must not be kept when a direct current-state path is
+available.
 
 - Do NOT add old-save migrations, legacy alias variables, duplicate old/new branches,
   compatibility wrappers, defensive fallback paths, or "if old state exists" repair logic.
@@ -105,8 +108,9 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 - **No defensive map rebuilds on read paths** — `variable_map` / `global_variable_map`
   indexes must be built at lifecycle points: startup, save-load initialization,
   data-change regeneration, or explicit initialization effects. Do not add
-  `*_rebuild_*_maps*_effect` calls to GUI refresh, country cache refresh, tooltip,
-  projection, selection, monthly read, or other hot/read paths as a compatibility fallback.
+  `*_rebuild_*_maps*_effect` calls, including `*_if_needed` rebuild routers, to GUI
+  refresh, country cache refresh, tooltip, projection, selection, monthly read, or other
+  hot/read paths as a compatibility fallback.
   If a map is missing, fix the current lifecycle hook or the call-order bug that reads before
   init; do not add old-schema repair or legacy state preservation.
 - **`select_trigger` pre-evaluation** — EU5 pre-evaluates a generic action's `effect` block at each selection step before the user confirms: after step 1 only the first `target_flag` scope is set; after step 2 the character is set but any variables that would be written by the effect itself (e.g. `tv_governed_area`) do not yet exist on the character. Guard multi-step effects with `if = { limit = { exists = scope:target  exists = scope:target_1 } }` and use `?=` on any variable access that may be absent on a freshly selected character.
@@ -264,7 +268,7 @@ For `.gui` files place these `#` comment lines at the very top, before the first
 Infrastructure scripts stay at `scripts/` root:
 `validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`
 
-One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon` or `trade_good_illustration`), can refine a short prompt, uploads that target's same-type style-reference DDS/PNG files, and writes one configured DDS target with enforced dimensions/file-size limits. Use the `conda run --no-capture-output -n eu5 python scripts/generate_dds_icon.py` form when running it.
+One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon`, `trade_good_illustration`, `building_icon`, or `victory_reward_icon`) or the `victory_reward_icons` batch mode, can refine a short prompt, supports target-specific asset-name/prompt overrides, uploads that target's same-type style-reference DDS/PNG files for API generation, can use an explicitly configured local template renderer for deterministic source-DDS transformations, and writes configured DDS targets with enforced dimensions/file-size limits plus optional mipmaps. The icon targets now apply a circular inner-crop pass with transparent outside pixels and a soft alpha falloff near the edge before DDS writing. By default it skips generation when the final DDS target already exists and `output.overwrite` is false; the victory reward batch creates six route template icons plus ninety route/milestone/reward-option icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/`. Use the `conda run --no-capture-output -n eu5 python scripts/generate_dds_icon.py` form when running it.
 
 **1:1 feature scripts** live under `scripts/` mirroring `src/`, named `gen_<target_filename_without_extension>.py`:
 ```

@@ -1,0 +1,121 @@
+metadata:
+  purpose: "Contract registry for conservative Unique Wonder Ritual Harness codegen templates."
+  generated_game_code: false
+  safety_boundary: "Templates may only produce intermediate fragments under data/generated_fragments/unique_wonder_rituals/ until their EU5 script interfaces are separately verified; template coverage is not a design_ir complexity limit."
+  status: "v1_intermediate_only"
+  design_fidelity_policy: "Use templates as source/codegen readiness evidence only after design_ir and compiler_gap_ledger have preserved the full mechanism."
+
+templates:
+  - key: sequential_event_chain
+    supported_node_kinds:
+      - event
+    supported_action_kinds:
+      - generator_template
+    supported_check_kinds:
+      - generator_template
+    required_fields:
+      - node_graph.nodes
+      - node_graph.edges
+      - localization.event_keys
+    output_kinds:
+      - markdown_fragment
+      - event_skeleton
+      - loc_draft
+    verified_interface: "harness_v1_intermediate_fragment"
+    may_write_src: false
+    notes: "Documents ordinary event-chain nodes as Markdown skeleton rows only."
+
+  - key: branch_retry_event
+    supported_node_kinds:
+      - retry_event
+    supported_action_kinds:
+      - generator_template
+    supported_check_kinds: []
+    required_fields:
+      - node.failure_or_retry
+      - node.retry_target
+      - node_graph.edges
+    output_kinds:
+      - markdown_fragment
+      - event_skeleton
+    verified_interface: "harness_v1_intermediate_fragment"
+    may_write_src: false
+    notes: "Documents retry branches and their target nodes without emitting EU5 event code."
+
+  - key: monthly_progress_gate
+    supported_node_kinds:
+      - monthly_progress_gate
+    supported_action_kinds:
+      - generator_template
+    supported_check_kinds:
+      - generator_template
+    required_fields:
+      - node.reads
+      - node.writes
+      - node_graph.variables
+    output_kinds:
+      - markdown_fragment
+      - effect_stub
+      - trigger_stub
+      - gui_summary
+    verified_interface: "harness_v1_intermediate_fragment"
+    may_write_src: false
+    notes: "Documents visible monthly progress/check contracts and stub names only."
+
+  - key: simple_progress_track_ui_binding
+    supported_node_kinds: []
+    supported_action_kinds:
+      - generator_template
+    supported_check_kinds: []
+    required_fields:
+      - ui_model.components
+      - ui_model.bindings
+    output_kinds:
+      - markdown_fragment
+      - gui_summary
+    verified_interface: "harness_v1_intermediate_fragment"
+    may_write_src: false
+    notes: "Summarizes progress-track bindings without generating loadable GUI."
+
+  - key: final_reward_dispatch_stub
+    supported_node_kinds:
+      - final_reward_dispatch
+    supported_action_kinds:
+      - reward_dispatch_stub
+    supported_check_kinds: []
+    required_fields:
+      - rewards.permanent_country_modifier
+      - rewards.local_building_reward
+      - rewards.one_time_reward
+    output_kinds:
+      - markdown_fragment
+      - effect_stub
+    verified_interface: "harness_v1_intermediate_fragment"
+    may_write_src: false
+    notes: "Documents the final reward handoff as an effect stub; it never writes loadable scripted effects."
+
+  - key: semantic_contract_fragment
+    supported_node_kinds:
+      - assignment_gate
+      - choice_event
+      - resource_gate
+      - route_gate
+      - listener_gate
+      - incident_event
+      - hidden_executor_handoff
+    supported_action_kinds:
+      - generator_template
+    supported_check_kinds:
+      - generator_template
+    required_fields:
+      - node.capabilities
+      - node.scope_contract
+      - node.listener_contract
+    output_kinds:
+      - markdown_fragment
+      - gui_summary
+      - trigger_stub
+      - effect_stub
+    verified_interface: "harness_v1_intermediate_fragment"
+    may_write_src: false
+    notes: "Documents semantic capability/scope/listener contracts for current Harness projection nodes without emitting loadable EU5 script; unsupported high-fidelity primitives belong in design_ir plus compiler_gap_ledger."

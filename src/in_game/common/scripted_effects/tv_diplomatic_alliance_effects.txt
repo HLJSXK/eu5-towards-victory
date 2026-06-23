@@ -10,23 +10,17 @@
 		custom_tooltip = { text = tv_create_diplomatic_alliance_tt }
 		hidden_effect = {
 			save_scope_as = tv_founder
+			set_variable = { name = tv_diplomatic_alliance_self_establishing value = 1 }
 			create_international_organization = {
 				type = international_organization_type:tv_diplomatic_alliance
 				add_country_to_international_organization = prev
 				set_leader_country = prev
 				save_scope_as = tv_alliance_io
 				tv_diplomatic_alliance_stamp_creation_order_effect = yes
-				every_country = {
-					limit = {
-						var:tv_diplomatic_supporter_of ?= scope:tv_founder
-					}
-					scope:tv_alliance_io = {
-						add_country_to_international_organization = prev
-					}
-				}
 				set_variable = { name = tv_alliance_cohesion value = 0 }
 				set_variable = { name = tv_alliance_tier value = 0 }
 			}
+			remove_variable = tv_diplomatic_alliance_self_establishing
 			set_variable = { name = tv_alliance_tier value = 0 }
 		}
 	}
@@ -37,11 +31,7 @@
 				NOT = { has_variable = tv_diplomatic_victory_points }
 			}
 		}
-		set_variable = { name = tv_diplomatic_victory_points value = 1 }
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_victory_points < 1 }
-		set_variable = { name = tv_diplomatic_victory_points value = 1 }
+		set_variable = { name = tv_diplomatic_victory_points value = 0 }
 	}
 }
 
@@ -76,7 +66,6 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 	clear_saved_scope = tv_diplomatic_alliance_keep_io
 	clear_saved_scope = tv_diplomatic_alliance_cleanup_io
 	clear_saved_scope = tv_diplomatic_alliance_disband_io
-	clear_saved_scope = tv_diplomatic_alliance_kept_leader
 	clear_variable_list = tv_diplomatic_alliance_reinit_disband_ios
 	clear_variable_list = tv_diplomatic_alliance_reinit_leave_ios
 
@@ -85,24 +74,6 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 			international_organization_type = international_organization_type:tv_diplomatic_alliance
 		}
 		tv_diplomatic_alliance_stamp_creation_order_effect = yes
-	}
-
-	# Older saves may have founder alliances whose leader_country was never set.
-	# If all members either are this country or still support it, migrate that IO
-	# before choosing which self-led alliance to keep.
-	every_international_organizations_member_of = {
-		limit = {
-			international_organization_type = international_organization_type:tv_diplomatic_alliance
-			NOT = { exists = leader_country }
-			any_international_organization_member = {
-				count = all
-				OR = {
-					this = scope:tv_diplomatic_alliance_reinit_country
-					var:tv_diplomatic_supporter_of ?= scope:tv_diplomatic_alliance_reinit_country
-				}
-			}
-		}
-		set_leader_country = scope:tv_diplomatic_alliance_reinit_country
 	}
 
 	# Prefer the earliest Diplomatic Alliance led by the current country.
@@ -186,15 +157,6 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 	if = {
 		limit = { exists = scope:tv_diplomatic_alliance_keep_io }
 		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
-		scope:tv_diplomatic_alliance_keep_io = {
-			leader_country ?= {
-				save_scope_as = tv_diplomatic_alliance_kept_leader
-				scope:tv_diplomatic_alliance_reinit_country = {
-					set_variable = { name = tv_diplomatic_supporter_of value = scope:tv_diplomatic_alliance_kept_leader }
-				}
-			}
-		}
 	}
 	clear_saved_scope = tv_diplomatic_alliance_keep_io
-	clear_saved_scope = tv_diplomatic_alliance_kept_leader
 }

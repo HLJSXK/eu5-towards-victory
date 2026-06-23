@@ -296,6 +296,16 @@ construct_building = {
 
 Omitting `cost_multiplier_reason` logs: `No reason given for the cost multiplier in construct_building effect`. Vanilla event-funded construction commonly uses `game_concept_event`, which is already localized.
 
+#### Scripted Trigger Parameters That Add Type Prefixes
+
+When a scripted trigger template adds a type prefix around a parameter, pass the bare database id to that parameter. For example, vanilla `location_and_owner_can_build` expands its argument as `building_type:$building_type$`, so the call must be:
+
+```pdx
+location_and_owner_can_build = { building_type = theater }
+```
+
+Do not pass `building_type:theater` to that helper. It expands to `building_type:building_type:theater` and logs `More than one colon in event target link`.
+
 #### `construct_building instant = yes` Is Not Synchronous Level Sync
 
 Treat `construct_building = { ... instant = yes }` as a queued 0-day construction task, not as an immediate `location_building_level` update. Do not write `while` loops that wait for `location_building_level` to change inside the same effect after `construct_building instant = yes`, and do not leave old-save reconstruction logic on hot click paths that fire from wonder site selection or similar actions.
@@ -522,8 +532,10 @@ Do not compensate for missing variable-map data by rebuilding maps from read pat
 map indexes belong to lifecycle effects: startup, save-load initialization,
 data-change regeneration, and explicit initialization. GUI refresh, country cache refresh,
 tooltip/projection effects, selection handlers, and monthly readers are hot paths; adding
-`*_rebuild_*_maps*_effect` calls there hides ordering bugs and makes every read pay for a
-global compatibility check. If a cache read sees an uninitialized map, fix the current
+`*_rebuild_*_maps*_effect` calls there, including `*_if_needed` rebuild routers, hides
+ordering bugs and makes every read pay for a global compatibility check. Performance is a
+project priority, so do not spend hot-path work on obsolete internal states. If a cache read
+sees an uninitialized map, fix the current
 lifecycle hook or move the dependent state write earlier so the existing refresh condition
 is true; do not add old-schema repair or preserve abandoned internal states.
 
@@ -538,7 +550,14 @@ every_key_in_variable_map = {
 }
 ```
 
-`ordered_key_in_variable_map` selects only one key by default. Add `max = N` when multiple keys should be processed.
+`ordered_key_in_variable_map` selects only one key by default. Add `max = N` when multiple keys should be processed, but do not use an inflated number as an "all keys" shortcut. Runtime testing showed the engine logs a Script system error when `max` is larger than the current key list, even though it caps the value internally. Use `every_key_in_variable_map` plus a found flag when the current count is not known.
+
+When a key iterator reads sibling maps stored on the original country/scope, do not run
+`is_key_in_variable_map` directly from the callback scope. Runtime testing showed the callback
+scope can be the numeric key itself, which logs "This scope doesn't support variables" for
+country-scoped map checks such as `target = this`. Save the map owner before the iterator,
+copy `this` into a local variable inside the callback, then perform the sibling map checks under
+`scope:<saved_owner>` with `target = local_var:<key>`.
 
 When a variable-map key callback is reached from a generic action effect or selector tooltip,
 do not assume `root` is a valid country event target. Save the current country before entering
@@ -666,6 +685,14 @@ such as `tv_governor_remove_effect`.
 
 The `exists = scope:<name>` trigger is the vanilla pattern for this (confirmed in `assign_governor.txt` and `assume_fort_command.txt`). The errors appear in `error.log` as "Undefined event target" or "Failed to fetch variable" but the effect still fires correctly once all selections are complete.
 
+Do not mirror target availability in the action `allow` block just to avoid an empty chooser.
+The `select_trigger` definition already supports `none_available_msg_key`, documented by
+vanilla as the localization shown when no targets are available. Put target eligibility in
+the selector's `visible` / `enabled` blocks, let the chooser report the empty-target state,
+and keep `allow` for actor, state, cost, or phase prerequisites. An `allow` trigger that scans
+for "any valid target" performs the same expensive candidate search before the selector does
+its own pass during rendering, tooltip, and AI/list evaluation.
+
 If a later selector filters on a previous selection, keep it in the same interaction-target
 chooser. A later `select_trigger` with `source = world` can lose access to earlier flags such
 as `scope:target`; when its `visible`/`enabled` block asks for that flag, the engine can show
@@ -673,11 +700,26 @@ an empty chooser and log `Asking for a flag that's not in the interaction target
 specified`. Omit `source = world`, use a non-world source, or build an `interaction_source_list`
 when the selector depends on earlier selections.
 
+For player-facing custom candidate lists, use `interaction_source_list`, not
+`ai_interaction_source_list`. The official type note defines `ai_interaction_source_list` as the
+same mechanism applied only to AI countries. If it is the only custom list, human players can see
+the selector's `none_available_msg_key` even when the target exists; reserve the `ai_` form for an
+AI override after the player selector has its own `source`, `source_flags`, or
+`interaction_source_list`.
+
 #### Generic Action AI Lists
 
 Every generic action should be explicitly listed in `in_game/common/generic_action_ai_lists/`. Vanilla's readme says unlisted actions are put into the global list, and EU5 logs a performance warning such as `Action X is not explicitly listed in an ai list!`.
 
 Use the AI list `potential` block to restrict evaluation to countries that can use the feature. Player-facing actions should still be listed; set restrictive AI behavior such as `ai_will_do = { add = -100 }` when the AI should never execute them.
+
+When AI should use a simple situation/generic action, prefer action-native AI (`ai_tick`,
+`ai_tick_frequency`, `ai_will_do`, and the AI list entry) over a monthly/on_action helper that
+duplicates the action's select/effect flow. Broad pulses do not automatically have the literal
+`scope:actor` event target that generic actions and building `allow` blocks expect. A copied AI
+helper that calls `location_and_owner_can_build` or `can_build_building` can therefore evaluate a
+building's `allow = { scope:actor = { ... } }` block with no actor target and spam
+`Undefined event target 'actor'` / unset-scope errors.
 
 #### Generic Action Message Types
 
@@ -731,6 +773,12 @@ var:tv_wonder_site ?= {
 }
 ```
 
+When country-scoped logic can run for broad country sets, `capital = { ... }` also needs a
+nullable-link guard before the scope switch. In trigger or `limit` checks, use
+`capital ?= { ... }`; do not put `exists = capital` beside a later direct `capital = { ... }`
+and expect short-circuiting. Countries without a valid capital can otherwise log
+`Event target link 'capital' returned an invalid object`.
+
 For effect iterators, capture the number before switching scope and use the local variable inside the iterator:
 
 ```pdx
@@ -739,6 +787,12 @@ every_international_organizations_member_of = {
     change_variable = { name = stockpile subtract = local_var:monthly_cost }
 }
 ```
+
+This also applies to variable-map key iterators and local-variable comparisons. Do not write
+`local_var:current ?= var:outer_value` inside the iterator; EU5 can log `Invalid right side
+during comparison 'var'`. Capture `var:outer_value` into another local before the iterator.
+For dynamic numeric equality, compare locals with `NOT = { local_var:current < local_var:outer }`
+and `NOT = { local_var:current > local_var:outer }`.
 
 ### 5.6. Ordered Global List Rebuilds
 
@@ -859,6 +913,45 @@ my_event.1.a.tt: "Tooltip description shown on hover."
 
 Event options may also pre-evaluate their `effect` stack while building tooltips. Do not assume a `set_variable` earlier in the option or in a called helper is committed before a later visible helper reads that variable. If an option sets `X` and then calls code that compares `var:X`, wrap the state-changing/application sequence in `hidden_effect = { ... }`, or guard the reusable helper with `has_variable = X` before direct `var:X` comparisons. For option triggers that read optional variables, prefer `var:X ?= N`.
 
+For event options, `hidden_effect` hides output but is still part of the option stack that hover rendering can evaluate. It is therefore not a performance boundary. Keep event-option hidden blocks to cheap guards or a scheduler such as a silent trigger, and move heavy hidden work into a `hidden = yes` event's `immediate` block or another path that is not rendered on every tooltip hover. The Engineering Department wonder finalization chain was refactored this way: inauguration options now call a light hidden scheduler, while `tv_engineering_department.6202` runs the expensive per-wonder/per-style construction, cleanup, broadcast, cache, and project-clear logic from its hidden event `immediate`.
+
+For daily or other short-interval background work, a delayed silent hidden event can be used as a self-rescheduling loop. Seed it once from a lifecycle point with a persistent sentinel and `trigger_event_silently = { id = tv_feature.900 days = 1 }`. Define `tv_feature.900` as a `hidden = yes` country event; in `immediate`, first verify both the feature prerequisite and the loop sentinel, then do the daily work and schedule itself again with the same delayed silent trigger. On teardown, clear the active/sentinel variables so any already queued event arrives, fails the guard, and does not reschedule. Keep the numeric event ID below 10000, and never seed the loop repeatedly without a sentinel because each seed creates another independent chain.
+
+```txt
+tv_feature_start_daily_loop_effect = {
+    if = {
+        limit = {
+            has_variable = tv_feature_active
+            NOT = { has_variable = tv_feature_daily_loop_active }
+        }
+        set_variable = { name = tv_feature_daily_loop_active value = 1 }
+        trigger_event_silently = {
+            id = tv_feature.900
+            days = 1
+        }
+    }
+}
+
+tv_feature.900 = {
+    type = country_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = {
+                has_variable = tv_feature_active
+                has_variable = tv_feature_daily_loop_active
+            }
+            # daily work here
+            trigger_event_silently = {
+                id = tv_feature.900
+                days = 1
+            }
+        }
+    }
+}
+```
+
 If a visible option helper needs a derived numeric value, prefer branching from persistent state and using literal effect values instead of writing a temporary variable and later passing `value = prev.var:X` or `value = scope.var:X`. In one Engineering Department finalization chain, the option computed extra building levels in `tv_wonder_final_building_extra_levels`, then a nested helper compared and reused that temporary variable; tooltip pre-evaluation logged invalid-left-side and unset-variable errors before the player clicked the option. The same trap reappeared when Prosperity M1 reinitialized partially built wonders and tried to collapse 1..6 module levels through temporary `*_combinable_levels` / `*_helper_extra_levels` scratch variables, and again when post-unit-completion hover rebuilt helper/module buildings through temporary `*_helper_current_level` / `*_target_module_level` variables. For bounded wonder-module merges or rebuilds, emit one literal branch per level and apply fixed building deltas directly from persistent state. For rounded division displays such as remaining-month counters, prefer verified script-value operators like `ceiling = yes` instead of scratch multiply/check variables. Also re-check persistent prerequisites at the event option boundary because confirmation events can stay open after state changes elsewhere.
 
 If that visible helper also switches into a location/province block, do not keep using plain
@@ -866,7 +959,7 @@ If that visible helper also switches into a location/province block, do not keep
 variable store; use `root.var:X` or a pre-captured `local_var:X` for country-owned numbers such
 as `change_prosperity` or `add_location_modifier years = ...`.
 
-Generic action widgets can hit the same problem while the action card or tooltip is merely visible. If an action effect initializes variables and then calls a visible helper that compares those same variables, action hover pre-evaluation may read them before the initialization is committed. Hide action widgets until their prerequisite state exists, repeat important prerequisites inside the action effect, and write reusable helpers with `var:X ?= ...` or threshold-style comparisons instead of direct reads of values that are only set earlier in the same chain.
+Generic action widgets can hit the same problem while the action card or tooltip is merely visible. If an action effect initializes variables and then calls a visible helper that compares those same variables, action hover pre-evaluation may read them before the initialization is committed. Hide action widgets until their prerequisite state exists, repeat important prerequisites inside the action effect, and write reusable helpers with `var:X ?= ...` or threshold-style comparisons instead of direct reads of values that are only set earlier in the same chain. This also applies to display refresh helpers that set a scratch/display variable to 0 before comparing it later; if the helper is reachable from a visible generic action, the comparison should still be optional.
 
 ### 6.2 On Action Hook Extension
 
@@ -887,6 +980,26 @@ tv_example_on_war_declared = {
 ```
 
 For singleton pulse files that are copied from vanilla, use the pulse registry generator rather than hand-editing the generated output.
+
+#### Monthly Country Pulse Event Delay
+
+When `country_monthly_pulse` checks the conditions for a player-facing event, fire that event one day later. The delay separates monthly condition scanning from event execution. Direct scripted-effect/on_action event fires use:
+
+```txt
+trigger_event_non_silently = { id = tv_example.1 days = 1 }
+```
+
+Native on_action `events` and `random_events` blocks use a delay entry before the event ids:
+
+```txt
+random_events = {
+    chance_to_happen = 10
+    delay = { days = 1 }
+    1 = tv_example.1
+}
+```
+
+`on_actions.info` documents `delay = { days = ... }` for event/on_action firing entries, and vanilla/reference scripted effects use `days = 1` inside `trigger_event_*` object forms. In Towards Victory, the configured value is `settings.monthly_country_pulse_event_delay_days` in `data/pulse_registry.yaml`, and `scripts/validate.py` walks registered monthly pulse callbacks plus TV helper calls to enforce the rule.
 
 #### Scripted Effects That Change IO Variables
 
@@ -920,6 +1033,8 @@ Countries are defined in two parts: a **country definition** file in `in_game/se
 ### 6.3. Localization
 
 All text displayed to the player is handled through the localization system. Localization files are in `.yml` format and must be encoded in **UTF-8-BOM**. Each language has its own subfolder and file naming convention (e.g., `_l_english.yml`). The system supports dynamic text, color formatting, and icons. [9]
+
+Keep each localization key/value on one physical line. When a value needs an intentional line break, emit `\n` inside the quoted string; a real newline inside the value makes the next physical line parse as a new key and can produce `Invalid character` / `Missing colon` startup errors.
 
 Event localization scope variables can be read directly from script scopes such as `ROOT` and `THIS`:
 
@@ -980,7 +1095,19 @@ tv_reference_display_modifiers_effect = {
 
 The `always = no` guard prevents runtime state changes while leaving static modifier references in a loaded script file.
 
+`add_country_modifier` validates against static country modifiers, not `common/auto_modifiers`.
+Country Auto modifiers can drive real automatic country effects through their own
+`potential_trigger`, but their ids are invalid database objects for
+`add_country_modifier`, including in scripted-effect tooltip previews. For Engineering
+Department wonders, auto-driven country effects are applied by Country Auto modifiers,
+while generated static mirrors are kept for GUI `ShowModifierEffect` display and
+unreachable database references only. Do not restore old finalization-time static
+grants/removals or route scripted-effect tooltip previews through those old static ids for
+effects whose real lifecycle is building-gated Country Auto modifiers.
+
 For ordinary localization keys such as building names, use `$key$` substitution instead of square-bracket game concept syntax. GUI-bound localized text can parse `[building_key|E]` as a data-system function when `building_key` is not registered as a game concept, producing `Could not find data system function '<key>'`.
+
+For building type display names in localization text, use the engine helper `[ShowBuildingTypeName('building_key')]` or `[ShowBuildingTypeNameWithNoTooltip('building_key')]`. Do not use `[GetBuilding('building_key').GetName]`; `GetBuilding` is not a valid localization data function and GUI-bound localized text can fail parsing with `Failed to find type 'GetBuilding'`.
 
 `MakeScope.GetVariable('x')` returns a GUI variable wrapper, not an arbitrary typed object constructor. Do not chain `.GetGoods` or `.GetInternationalOrganization` from it. Goods icons/names must come from a real typed goods datacontext such as `Trade.GetGoods` or `GoodsMarketEntry.GetGoods`, or from static generated branches keyed by a saved numeric goods id. `OpenInternationalOrganizationView(...)` likewise needs a typed `InternationalOrganization` object from a verified GUI chain such as `InternationalOrganization.Self`, `OrgItem.GetOrg.Self`, or `GetUniqueInternationalOrganization('hre').Self`; a saved script variable cannot be promoted with `.GetInternationalOrganization`.
 
@@ -993,6 +1120,8 @@ For fixed-position icon overlays, avoid percentage `position` values directly on
 The shared `situation_panel` template includes a default `situation_subheader_content` block with a 45px row. Custom situation panels that do not use a subheader should explicitly add `blockoverride "situation_subheader_content" {}` near the top of the panel. Vanilla situation panels such as `colonial_revolution.gui` and `council_of_trent.gui` use this empty override to avoid an unwanted blank band above the main content.
 
 When a widget is a direct child of `hbox` or `vbox`, the box layout owns placement and sizing. Do not set `parentanchor` on those children, and do not use percentage components in their `size` values such as `size = { 97% 72 }`. Use `layoutpolicy_horizontal`, `layoutpolicy_vertical`, stretch factors, or non-percent fixed/min/max sizing instead. For `io_character_card` in an `organization_custom_content` block, vanilla panels rely on the type's built-in `layoutpolicy_expanding` rather than adding a percentage `size` or `parentanchor`.
+
+`progressbar` does not handle `margin_top`. If a progressbar needs vertical offset or centering inside an `hbox`/`vbox`, put a fixed-size wrapper `widget` in the layout and anchor the progressbar inside the wrapper with `parentanchor` / `widgetanchor`, leaving the progressbar itself free of `margin_top`.
 
 Keep `ignoreinvisible` on layout containers, not on plain `widget` wrappers. A generic image wrapper `widget` with `ignoreinvisible = yes` logs `Property 'ignoreinvisible' not handled` and fails property setup for the `uberwidget`. For conditional illustration areas, set `visible = ...` on the wrapper and put the actual images in child widgets with their own `visible` expressions.
 
@@ -1075,6 +1204,7 @@ Flags in EU5 are generated dynamically through a scripted coat of arms system, a
 ## 8. Best Practices and Resources
 
 *   **Float precision limit**: The EU5 engine reads float literals to a maximum of **5 decimal places**. Any digits beyond the 5th are silently truncated. Always round generated or hand-written values to ≤5 dp (e.g. `0.08477` not `0.084771`). This is particularly relevant for generated script_values such as budget shares and demand scales.
+*   **Wonder fixed modifier scale**: For wonder design data and generated wonder files, keep fixed-value `global_pop_assimilation_speed`, `global_pop_conversion_speed`, `local_pop_assimilation_speed`, `local_pop_conversion_speed`, `local_manpower`, and `local_sailors` values at or below `0.5`. EU5 multiplies these fixed values by 1000 in game, so `1` means roughly `1000`, not a 1% bonus. Use the matching `*_modifier` percent modifier when a percentage bonus is intended. `scripts/validate.py` enforces this on wonder paths.
 *   **Use a proper IDE**: Tools like VS Code with the CwTools extension can catch errors and improve readability.
 *   **Avoid Overwriting Vanilla Files**: Create your own files and use the `replace_paths` feature or specific load orders to override game content. This improves mod compatibility.
 *   **Use Version Control**: Git is an invaluable tool for tracking changes and collaborating with others.
@@ -1120,7 +1250,7 @@ building_id = {
 
 **Modifier scope note:** `modifier` and `raw_modifier` are location effects. `capital_country_modifier` is a country modifier only when the building is built in the capital (verified in `reference_official_defines/types/building_types.txt`). For event-created buildings that may appear outside the capital, apply national effects separately with `add_country_modifier` and keep the building's own modifier local.
 
-Boolean modifier types must use `yes` or `no`, not `1` or `0`. For example, `can_recruit_regiment_in_this_location` is declared with `boolean=yes` in modifier type definitions, and vanilla buildings write `can_recruit_regiment_in_this_location = yes`. Emitting `= 1` caused a startup `Malformed token: 1` error in a generated building file.
+Boolean modifier types must use `yes` or `no`, not Python/YAML spillover values like `True`/`False` or numeric `1`/`0`. For example, `can_recruit_regiment_in_this_location`, `global_peasants_migration_allowed`, and `global_laborers_migration_allowed` are declared with `boolean=yes`, and vanilla scripts write these values as `yes` or `no`. In Python generators, handle `bool` before numeric branches because `bool` is an `int` subclass; otherwise `true` YAML values can become malformed `True` tokens or numeric burden values.
 
 ### 10.2 Valid Category Values
 

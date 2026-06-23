@@ -58,8 +58,6 @@
  TV_HAS_DIPLOMATIC_ALLIANCE_MEMBER_TT: "This country is a member of the [tv_diplomatic_alliance|E]."
  TV_HAS_DIPLOMATIC_MILESTONE_TT: "[tv_diplomatic_victory|E] milestone state has been initialized."
  TV_HAS_DIPLOMATIC_PROGRESS_PCT_TT: "[tv_diplomatic_victory|E] progress has been calculated."
- TV_HAS_DIPLOMATIC_SUPPORT_COUNT_TT: "[tv_diplomatic_support|E] count has been initialized."
- TV_HAS_DIPLOMATIC_SUPPORTER_OF_TT: "This country is already supporting a [tv_diplomatic_victory|E] candidate."
  TV_HAS_DIPLOMATIC_VICTORY_POINTS_TT: "[tv_dvp|E] have been initialized."
  TV_HAS_ENGINEERING_DEPARTMENT_MEMBER_TT: "This country is a member of the [tv_engineering_department|E]."
  TV_HAS_DISPATCHED_ARTISTS_COUNT_TT: "The dispatched artist count has been initialized."
@@ -69,7 +67,7 @@
  TV_HAS_GREAT_ENGINEER_CHAR_TT: "A [tv_great_engineer|E] has been appointed."
  TV_HAS_GOVERNED_AREA_TT: "This governor has an assigned region."
  TV_HAS_GOVERNOR_LIST_TT: "The governor roster has been initialized."
- TV_HAS_GOVHOUSE_MEMBER_TT: "This country is a member of the [tv_govhouse|E]."
+ TV_HAS_GOVHOUSE_MEMBER_TT: "This country owns a [tv_govhouse|E]."
  TV_HAS_MEDITATION_PROGRESS_TT: "[tv_academy_meditation|E] progress has been initialized."
  TV_HAS_MEDITATION_TARGET_CHAR_TT: "An [tv_academy_meditation|E] target has been selected."
  TV_HAS_MED_PROGRESS_TT: "[tv_academy_medical_treatment|E] progress has been initialized."
@@ -105,11 +103,11 @@
 
  game_concept_tv_diplomatic_victory_points: "Diplomatic Victory Points"
  game_concept_tv_dvp: "DVP"
- game_concept_tv_diplomatic_victory_points_desc: "Diplomatic Victory Points (DVP) are earned through the [tv_diplomatic_alliance|e] reform path and diplomatic forecasting. Two countries offering [tv_diplomatic_support|e] found the alliance and grant the first point; later points come from monthly [tv_alliance_tier|e] output. Milestones are 1, 50, 500, 2,500, and 15,000 DVP."
+ game_concept_tv_diplomatic_victory_points_desc: "Diplomatic Victory Points (DVP) are earned through monthly [tv_alliance_tier|e] output after joining a [tv_diplomatic_alliance|e]: the alliance leader gains the full tier, while non-leader members gain half. Milestones are 1, 50, 500, 2,500, and 15,000 DVP."
 
  game_concept_tv_cultural_influence_points: "Cultural Influence Points"
  game_concept_tv_cip: "CIP"
- game_concept_tv_cultural_influence_points_desc: "Cultural Influence Points (CIP) are earned through artistic achievement: each [work_of_art|e] created grants +3 CIP to the owner's country, and +1 CIP is earned passively each month. CIP never decrease. Reach 1,600 to achieve the long-term [tv_victory_situation|E]."
+ game_concept_tv_cultural_influence_points_desc: "Cultural Influence Points (CIP) are earned through artistic achievement: each [work_of_art|e] created grants +3 CIP to the owner's country. CIP never decrease. Reach 1,600 to achieve the long-term [tv_victory_situation|E]."
 
  game_concept_tv_science_score: "Science Score"
  game_concept_tv_science_score_desc: "The Science Score tracks the technological progress of your realm. It is a monthly snapshot of the total number of [advances|e] your country has researched. Reach 400 to achieve the long-term [tv_victory_situation|E]."
@@ -126,20 +124,20 @@
  game_concept_tv_prosperity_victory_desc: "Build the wealthiest and most developed nation. Your [tv_prosperity_score|e] rewards large, stable, well-governed development rather than raw size alone. Milestones at 2,000, 3,000, 5,000, 7,000, and 11,000 reward domestic production, population growth, and construction power."
 
  game_concept_tv_trade_victory: "Trade Victory"
- game_concept_tv_trade_victory_desc: "Command the world's commerce. Your [tv_trade_score|e] is a monthly snapshot of your total monthly trade income. Milestone 1 founds the [tv_trade_league|e]; Milestones 3 and 5 also require leading market dominance (5 and 10 markets respectively). Rewards focus on merchant capacity, trade efficiency, and trade income multipliers."
+ game_concept_tv_trade_victory_desc: "Command the world's commerce. Your [tv_trade_score|e] is a monthly snapshot of your total monthly trade income. The [tv_trade_league|e] is founded through the IO establishment flow before Trade Victory progress unlocks; Milestones 3 and 5 also require leading market dominance (5 and 10 markets respectively). Rewards focus on merchant capacity, trade efficiency, and trade income multipliers."
 
  game_concept_tv_diplomatic_victory: "Diplomatic Victory"
- game_concept_tv_diplomatic_victory_desc: "Forge the world's most powerful network of alliances and influence. The first milestone requires 2 countries offering [tv_diplomatic_support|e], founds the [tv_diplomatic_alliance|e], and grants the first [tv_dvp|e]. Further [tv_dvp|e] are generated each month from [tv_alliance_tier|e], with milestones at 1, 50, 500, 2,500, and 15,000."
+ game_concept_tv_diplomatic_victory_desc: "Forge the world's most powerful network of alliances and influence. Founding or joining a [tv_diplomatic_alliance|e] unlocks Diplomatic Victory progress, but [tv_dvp|e] are generated each month from [tv_alliance_tier|e], with milestones at 1, 50, 500, 2,500, and 15,000."
 
  game_concept_tv_cultural_victory: "Cultural Victory"
- game_concept_tv_cultural_victory_desc: "Shape civilization through art and cultural exports. [tv_cip|e] accumulate permanently: +3 per work of art created and +1 per month passively. Milestones at 50, 200, 400, 800, and 1,600 reward artistic skill, prestige, and cultural tradition. Milestones 2 through 5 also require minimum [tv_arts_intl_influence|e] of 25, 50, 75, and 100."
+ game_concept_tv_cultural_victory_desc: "Shape civilization through art and cultural exports. [tv_cip|e] accumulate permanently: +3 per work of art created. Milestones at 50, 200, 400, 800, and 1,600 reward artistic skill, prestige, and cultural tradition. Milestones 2 through 5 also require minimum [tv_arts_intl_influence|e] of 25, 50, 75, and 100."
 
  game_concept_tv_science_victory: "Scientific Victory"
  game_concept_tv_science_victory_desc: "Lead humanity into the age of reason. Your [tv_science_score|e] tracks total advances researched. Each milestone also requires the corresponding phase of the [tv_academy_of_sciences|e] to be constructed in your capital. Rewards accelerate research, institution spread, and production."
 
  # ── Prosperity Victory Unique Mechanics ───────────────────────────────────
  game_concept_tv_engineering_department: "Engineering Department"
- game_concept_tv_engineering_department_desc: "A non-unique international organization founded at [tv_prosperity_victory|e] Milestone 1. It holds the [tv_great_engineer|e] office and manages wonder proposals, debate, site selection, organization, logistics, and [tv_wonder_construction|e]."
+ game_concept_tv_engineering_department_desc: "A non-unique international organization founded through the [tv_prosperity_victory|e] IO establishment flow. It holds the [tv_great_engineer|e] office and manages wonder proposals, debate, site selection, organization, logistics, and [tv_wonder_construction|e]."
 
  game_concept_tv_great_engineer: "Great Engineer"
  game_concept_tv_great_engineer_desc: "The appointed character who leads the [tv_engineering_department|e]. The [tv_great_engineer|e] is stored as a country variable and can be appointed, replaced, or dismissed from the [tv_engineering_department|e] panel."
@@ -157,13 +155,13 @@
  game_concept_tv_wonder_construction_desc: "A [tv_prosperity_victory|e] mechanism managed through the [tv_engineering_department|e]. A [tv_great_engineer|e] proposes a feasible [tv_wonder_small|e], [tv_wonder_medium|e], or [tv_wonder_large|e] wonder, the country resolves domestic debate, then selects a site, organizes labor, gathers materials, and builds four construction parts into a wonder level."
 
  game_concept_tv_wonder_small: "Small Wonder"
- game_concept_tv_wonder_small_desc: "A [tv_wonder_construction|e] size class. Small wonders usually require less construction progress and are easier to complete, but their ceremonies are relatively complex and still need careful political preparation."
+ game_concept_tv_wonder_small_desc: "A [tv_wonder_construction|e] size class. Small wonders may be built more than once. Their base country effect is limited to value movement, while local effects and ceremony effects are unrestricted."
 
  game_concept_tv_wonder_medium: "Medium Wonder"
- game_concept_tv_wonder_medium_desc: "A [tv_wonder_construction|e] size class between small and large wonders. Medium wonders require more sustained organization and resources, with rewards and ceremony pressure between the two extremes."
+ game_concept_tv_wonder_medium_desc: "A [tv_wonder_construction|e] size class between small and large wonders. A country may not start a second medium wonder of the same type, but its base country effects, local effects, and ceremony effects are unrestricted."
 
  game_concept_tv_wonder_large: "Large Wonder"
- game_concept_tv_wonder_large_desc: "A [tv_wonder_construction|e] size class. Large wonders are harder to complete and demand a strong economic base and mobilization capacity, but their rewards are correspondingly richer."
+ game_concept_tv_wonder_large_desc: "A [tv_wonder_construction|e] size class. A country may not start a second large wonder of the same type, but its base country effects, local effects, and ceremony effects are unrestricted."
 
 
 
@@ -197,7 +195,7 @@
 
  # -- Trade Victory Unique Mechanics ----------------------------------------
  game_concept_tv_trade_league: "Trade League"
- game_concept_tv_trade_league_desc: "A non-unique international organization founded at [tv_trade_victory|e] Milestone 1. Its leader can invite or expel members, appoint a [tv_grand_merchant|e], and track commodity monopolies."
+ game_concept_tv_trade_league_desc: "A non-unique international organization founded through the [tv_trade_victory|e] IO establishment flow. Its leader can invite or expel members, appoint a [tv_grand_merchant|e], and track commodity monopolies."
 
  game_concept_tv_grand_merchant: "Grand Merchant"
  game_concept_tv_grand_merchant_desc: "The appointed character who leads the [tv_trade_league|e]. Without a [tv_grand_merchant|e], the trade-chain, intelligence, and monopoly systems remain inactive."
@@ -215,11 +213,8 @@
  game_concept_tv_alliance_assembly: "Alliance Assembly"
  game_concept_tv_alliance_assembly_desc: "The parliamentary forum of the [tv_diplomatic_alliance|e]. Members deliberate and vote on alliance laws, converting [tv_alliance_cohesion|e] into higher [tv_alliance_tier|e]."
 
- game_concept_tv_diplomatic_support: "Diplomatic Support"
- game_concept_tv_diplomatic_support_desc: "A permanent pledge from another country backing your bid for [tv_diplomatic_victory|e]. Two supporters open the first milestone and found the [tv_diplomatic_alliance|e]."
-
  game_concept_tv_alliance_tier: "Alliance Tier"
- game_concept_tv_alliance_tier_desc: "A 0-15 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases [tv_alliance_tier|e]. Each tier generates 1 [tv_dvp|e] per month for the founder."
+ game_concept_tv_alliance_tier_desc: "A 0-15 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases [tv_alliance_tier|e]. Each tier generates 1 [tv_dvp|e] per month for the alliance leader and 0.5 [tv_dvp|e] for each non-leader member."
 
  game_concept_tv_alliance_cohesion: "Alliance Cohesion"
  game_concept_tv_alliance_cohesion_desc: "A 0-100 [tv_diplomatic_alliance|e] variable measuring cooperation among alliance members. It grows each month from base growth, the leader country's diplomatic reputation, and internal peace. Upgraded alliance laws spend Cohesion to increase [tv_alliance_tier|e]."
@@ -235,7 +230,7 @@
  game_concept_tv_local_exhibition_enthusiasm_desc: "An [tv_arts_exhibition|e] IO variable used by [tv_domestic_exhibition|e]. It starts at 80, is capped at 200, falls by 8 each month, and ends the exhibition when it reaches 0."
 
  game_concept_tv_arts_exhibition: "Arts Exhibition"
- game_concept_tv_arts_exhibition_desc: "An international organization uniting culturally ambitious powers. Countries automatically join upon reaching [tv_cultural_victory|e] Milestone 1 (50 [tv_cip|e]). Membership unlocks [tv_artist_tour|e]s and [tv_domestic_exhibition|e]. [tv_domestic_exhibition|E] requires at least 5 artworks, costs scaled gold x3.5, uses [tv_local_exhibition_enthusiasm|e], can expand into neighboring owned locations with additional exhibits, and pays location-multiplied [tv_cip|e] when it closes."
+ game_concept_tv_arts_exhibition_desc: "An international organization uniting culturally ambitious powers. Countries create and join their own instance through the [tv_cultural_victory|e] IO establishment flow. Membership unlocks [tv_artist_tour|e]s and [tv_domestic_exhibition|e]. [tv_domestic_exhibition|E] requires at least 5 artworks, costs scaled gold x3.5, uses [tv_local_exhibition_enthusiasm|e], can expand into neighboring owned locations with additional exhibits, and pays location-multiplied [tv_cip|e] when it closes."
 
  game_concept_tv_chief_artist: "Chief Artist"
  game_concept_tv_chief_artist_desc: "The appointed artist who leads the [tv_arts_exhibition|e]. Their Art Skill contributes to [tv_arts_intl_influence|e] each month, and they can host [tv_arts_exchange|e] while they remain at court."
@@ -278,7 +273,7 @@
 
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "Governor's House"
- game_concept_tv_govhouse_desc: "An international organization established at Conquest Victory Milestone 1. The founding country appoints a [tv_grand_general|e] and can assign [tv_local_governor|e]s to regions within their realm. Each governor reduces construction costs and unrest while increasing maximum control in their governed region, scaled to their military attributes."
+ game_concept_tv_govhouse_desc: "An international organization established through the [tv_conquest_victory|e] IO establishment flow. The founding country appoints a [tv_grand_general|e] and can assign [tv_local_governor|e]s to regions within their realm. Each governor reduces construction costs and unrest while increasing maximum control in their governed region, scaled to their military attributes."
  game_concept_tv_grand_general: "Grand General"
  game_concept_tv_grand_general_desc: "The supreme commander appointed through the [tv_govhouse|e]. The [tv_grand_general|e] can be trained, can propose tactics and [tv_war_plan|e]s, and accumulates [tv_govhouse_power_consolidation|e] while in office."
  game_concept_tv_local_governor: "Local Governor"

@@ -29,7 +29,7 @@ tv_med_remove_health_traits_effect = {
 # Must be called from country scope (leader_country).
 tv_med_complete_treatment_effect = {
 	set_variable = { name = tv_med_progress  value = 0 }
-	trigger_event_non_silently = { id = tv_medicine.3 }
+	trigger_event_non_silently = { id = tv_medicine.3 days = 1 }
 }
 
 # Reset meditation state and remove temporary balance modifiers.
@@ -105,5 +105,5 @@ tv_change_meditation_progress_effect = {
 # in the event option so the player can still see the target before resolution.
 tv_meditation_complete_effect = {
 	set_variable = { name = tv_meditation_progress  value = 0 }
-	trigger_event_non_silently = { id = tv_medicine.20 }
+	trigger_event_non_silently = { id = tv_medicine.20 days = 1 }
 }

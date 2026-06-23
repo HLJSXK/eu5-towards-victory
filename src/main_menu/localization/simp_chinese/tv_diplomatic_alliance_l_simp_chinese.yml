@@ -14,10 +14,18 @@
  tv_alliance_tier:0 "联盟等级"
  tv_alliance_tier_desc:0 "[tv_diplomatic_alliance|e]的当前制度等级，随成员共同通过升级后的法律而提升。"
  tv_alliance_assembly_desc:0 "[tv_alliance_assembly|E]是成员国审议和表决加强[tv_diplomatic_alliance|E]法律的场所。"
+ MODIFIER_TYPE_NAME_tv_alliance_advocator_can_participate_in_parliament: "$tv_alliance_advocator$参与议会"
+ MODIFIER_TYPE_DESC_tv_alliance_advocator_can_participate_in_parliament: "允许$tv_alliance_advocator$在[tv_diplomatic_alliance|E]的[parliament|e]中提出[parliament_agendas|e]。"
+ MODIFIER_TYPE_NAME_tv_alliance_advocator_agenda_impact: "$tv_alliance_advocator$议程影响"
+ MODIFIER_TYPE_DESC_tv_alliance_advocator_agenda_impact: "修正由$tv_alliance_advocator$集团提出的[parliament_agendas|e]所拥有的支持度。"
+ tv_alliance_member_status: "[tv_diplomatic_alliance|E]成员"
+ tv_alliance_member_status_desc: "[tv_diplomatic_alliance|E]中的投票成员。"
+ MODIFIER_TYPE_NAME_tv_alliance_member_status_can_participate_in_parliament: "$tv_alliance_member_status$参与议会"
+ MODIFIER_TYPE_DESC_tv_alliance_member_status_can_participate_in_parliament: "允许$tv_alliance_member_status$国家在[tv_diplomatic_alliance|E]的[parliament|e]中提出[parliament_agendas|e]。"
+ MODIFIER_TYPE_NAME_tv_alliance_member_status_agenda_impact: "$tv_alliance_member_status$议程影响"
+ MODIFIER_TYPE_DESC_tv_alliance_member_status_agenda_impact: "修正由$tv_alliance_member_status$集团提出的[parliament_agendas|e]所拥有的支持度。"
 
- # ── 国家互动 ───────────────────────────────────────────────────────────
- tv_seek_diplomatic_support: "寻求外交支持"
- tv_seek_diplomatic_support_desc: "请求该国对我们事业给予[tv_diplomatic_support|E]。一旦获得，其支持将永久存在，除非该国灭亡。"
+# ── 国家互动 ───────────────────────────────────────────────────────────
  tv_invite_to_diplomatic_alliance: "邀请加入[tv_diplomatic_alliance|E]"
  tv_invite_to_diplomatic_alliance_desc: "邀请该国加入我们的[tv_diplomatic_alliance|E]。联盟越大，继续扩张越困难。"
  tv_expel_diplomatic_alliance_member: "驱逐联盟成员"
@@ -30,17 +38,6 @@
  TV_ALLIANCE_SIZE: "联盟规模"
  TV_SAME_RELIGION: "相同宗教"
  TV_DIPLOMATIC_REPUTATION: "外交声誉"
-
- # ── 通知事件 ───────────────────────────────────────────────────────────
- tv_diplo_alliance.1.t: "[tv_diplomatic_alliance|E]：外交势头"
- tv_diplo_alliance.1.d: "我们的声望已经开始走在使节前面，在正式书信拆封之前抵达外国宫廷。然而，仅有影响力还不足以建立稳固的[tv_diplomatic_alliance|E]。友好统治者必须付出比恭维更珍贵的东西：他们必须在竞争者看得见的地方承诺[tv_diplomatic_support|E]。文书厅已经列出可能伙伴、旧日人情、婚姻纽带、共同敌人与尚未索取的债务。有些宫廷会犹豫，因为签名展示容易，收回却困难。正因如此，它才重要。"
- tv_diplo_alliance.1.a: "派出带着柔词与硬命令的使节。"
- tv_diplo_alliance_support_unlocked_tt: "获得2份[tv_diplomatic_support|E]承诺即可创立[tv_diplomatic_alliance|E]。"
-
- tv_diplo_alliance.2.t: "[tv_diplomatic_alliance|E]：联盟雏形初现"
- tv_diplo_alliance.2.d: "两个国家如今已对我们的事业承诺[tv_diplomatic_support|E]，宫廷终于不必再压低声音谈论可能性。他们的签名让我们的雄心拥有了公开形状，一种能够经受流言、也能在疑心重重的王公面前朗读的形状。拟议中的[tv_diplomatic_alliance|E]仍只是墨水、印玺与期待，但只要足够多的见证人尊重它，墨水也能约束军队。使节带着修订后的草案匆匆穿过走廊，书记们则为席次与礼仪措辞争论不休。一个联盟正在成形，而所有参与者都明白，这个形状将投下阴影。"
- tv_diplo_alliance.2.a: "把印玺摆到所有人都看得见的地方。"
- tv_diplo_alliance_support_met_tt: "你已获得2份[tv_diplomatic_support|E]承诺。此事件将创立[tv_diplomatic_alliance|E]。"
 
  # ── 法律类别名称 ───────────────────────────────────────────────────────
  tv_court_protocol: "宫廷礼仪与法理认同"
@@ -113,18 +110,36 @@
  TV_ALLIANCE_ADVOCATOR_FEMALE: "倡导者"
  tv_alliance_advocator_desc: "[tv_alliance_advocator|E]领导[tv_diplomatic_alliance|E]，可以提出供成员国投票的新法律。"
 
+ # ── 联盟议会 ───────────────────────────────────────────────────────────
+ tv_alliance_joint_embassy_charter: "联合使馆章程"
+ tv_alliance_joint_embassy_charter_desc: "为联盟使馆建立共同外交协议。成员国获得外交声誉，但可用于独立外交的外交容量降低。"
+ tv_alliance_shared_intelligence_board: "共享情报委员会"
+ tv_alliance_shared_intelligence_board_desc: "通过常设委员会汇集敏感情报。成员国获得间谍网络建设和反间谍能力，但公开的阴谋协调会损害声望。"
+ tv_alliance_commercial_compromise: "商业协调妥协"
+ tv_alliance_commercial_compromise_desc: "统一联盟内部商业特权。成员国获得贸易效率，但国内改革与稳定管理更昂贵。"
+ pa_tv_alliance_delegation_subsidies: "代表团补助"
+ pa_tv_alliance_delegation_subsidies_desc: "成员代表要求倡导者补助其常设使团，作为支持当前辩论的条件。"
+ pa_tv_alliance_open_archives: "开放外交档案"
+ pa_tv_alliance_open_archives_desc: "成员代表要求查阅倡导者的外交档案，以换取他们的支持。"
+ pa_tv_alliance_cohesion_concessions: "程序性让步"
+ pa_tv_alliance_cohesion_concessions_desc: "成员代表要求更宽松的程序和地方豁免，以消耗联盟凝聚力换取支持。"
+ tv_alliance_joint_embassy_charter_modifier: "联合使馆章程"
+ tv_alliance_joint_embassy_charter_modifier_desc: "共享使馆协议提高外交地位，但成员国保留给独立外交的容量更少。"
+ tv_alliance_shared_intelligence_modifier: "共享情报委员会"
+ tv_alliance_shared_intelligence_modifier_desc: "联盟情报渠道提升行动与防御能力，但公开的阴谋协调会损害声望。"
+ tv_alliance_commercial_compromise_modifier: "商业协调妥协"
+ tv_alliance_commercial_compromise_modifier_desc: "商业协调提升陆海贸易效率，但国内稳定调整更困难。"
+ tv_alliance_delegation_subsidy_modifier: "代表团补助"
+ tv_alliance_delegation_subsidy_modifier_desc: "受补助的外交使团提升国家声望，并缓和国内程序摩擦。"
+ tv_alliance_open_archives_modifier: "开放外交档案"
+ tv_alliance_open_archives_modifier_desc: "查阅盟友档案改善情报行动与内部安全协调。"
+
  # ── 国际组织描述 ────────────────────────────────────────────────────────
  # ── 法律分类 ────────────────────────────────────────────────────────────
  DIPLOMATIC_LAW_CATEGORY: "外交法律"
 
  # ── IO意见 ──────────────────────────────────────────────────────────────
  io_opinion_tv_diplomatic_alliance: "同在[tv_diplomatic_alliance|E]中"
-
- # ── 调整值类型 ──────────────────────────────────────────────────────────
- MODIFIER_TYPE_NAME_tv_alliance_advocator_can_participate_in_parliament: "倡导者可参与议会"
- MODIFIER_TYPE_DESC_tv_alliance_advocator_can_participate_in_parliament: "[tv_diplomatic_alliance|E]的倡导者可参与该国议会。"
- MODIFIER_TYPE_NAME_tv_alliance_advocator_agenda_impact: "倡导者议程影响"
- MODIFIER_TYPE_DESC_tv_alliance_advocator_agenda_impact: "调整倡导者议程对[tv_diplomatic_alliance|E]运作的影响程度。"
 
  # ── 效果提示 ────────────────────────────────────────────────────────────
  tv_create_diplomatic_alliance_tt: "组建[tv_diplomatic_alliance|E]，所有现有支持国将成为创始成员。"
@@ -138,17 +153,8 @@
  tv_faith_harmony_desc: "决定联盟对宗教宽容和意识形态凝聚力的立场。"
  tv_colonization_sphere_desc: "规定联盟成员如何划定和尊重彼此的殖民势力范围。"
 
- # ── 国家互动 — 寻求外交支持 ────────────────────────────────────────────
- dip_tv_seek_diplomatic_support_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"
+ # ── 国家互动 — 联盟成员管理 ────────────────────────────────────────────
  dip_tv_invite_to_diplomatic_alliance_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"
- tv_seek_diplomatic_support_act: "寻求[SCOPE.sCountry('recipient').GetName]的外交支持。"
- tv_seek_diplomatic_support_effect_text: "[SCOPE.sCountry('actor').GetName]获得了[SCOPE.sCountry('recipient').GetName]的外交支持。"
- tv_seek_diplomatic_support_effect_text_past: "[SCOPE.sCountry('actor').GetName]已获得[SCOPE.sCountry('recipient').GetName]的外交支持。"
- tv_seek_diplomatic_support_reject_effect_text: "$generic_reject_request_effect_string$"
- tv_seek_diplomatic_support_reject_effect_text_past: "$generic_reject_request_effect_string_past$"
- PROPOSE_tv_seek_diplomatic_support: "我们是否要请求$RECIPIENT$正式支持我们的外交事业？\n\n$INFO$"
- INCOMING_OFFER_TITLE_tv_seek_diplomatic_support: "外交支持请求"
- INCOMING_OFFER_tv_seek_diplomatic_support: "$ACTOR$正在请求我们的正式外交支持。我们是否同意？\n\n$INFO$"
  tv_invite_to_diplomatic_alliance_act: "邀请[SCOPE.sCountry('recipient').GetName]加入我们的[tv_diplomatic_alliance|E]。"
  tv_invite_to_diplomatic_alliance_effect_text: "[SCOPE.sCountry('recipient').GetName]加入了[SCOPE.sCountry('actor').GetName]的[tv_diplomatic_alliance|E]。"
  tv_invite_to_diplomatic_alliance_effect_text_past: "[SCOPE.sCountry('recipient').GetName]已加入[SCOPE.sCountry('actor').GetName]的[tv_diplomatic_alliance|E]。"
@@ -178,13 +184,6 @@
  tv_alliance_assembly: "联盟议会"
 
  # ── 行动通知消息键 ─────────────────────────────────────────────────────────────
- WE_PERFORM_tv_seek_diplomatic_support_ACTION_SETUP: "当我们向其他国家寻求外交支持时。"
- WE_PERFORM_tv_seek_diplomatic_support_ACTION_LOG: "我们向[SCOPE.sCountry('target').GetNameWithNoTooltip]寻求了外交支持。"
- WE_PERFORM_tv_seek_diplomatic_support_ACTION_MAP: ""
-
- ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_SETUP: "当其他国家向我们寻求外交支持时。"
- ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_LOG: "[SCOPE.sCountry('actor').GetName]向我们寻求了外交支持。"
- ACTION_tv_seek_diplomatic_support_PERFORMED_ON_US_MAP: ""
  WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_SETUP: "当我们邀请其他国家加入[tv_diplomatic_alliance|E]时。"
  WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_LOG: "我们邀请[SCOPE.sCountry('target').GetNameWithNoTooltip]加入了我们的[tv_diplomatic_alliance|E]。"
  WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION_MAP: ""

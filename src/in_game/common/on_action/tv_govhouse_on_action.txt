@@ -1,9 +1,5 @@
 ﻿# Towards Victory — Governor's House on_action hooks
 
-on_location_changed_owner = {
-	on_actions = { tv_govhouse_location_changed_owner }
-}
-
 on_character_moved_country = {
 	on_actions = { tv_govhouse_governor_moved_country }
 }
@@ -18,6 +14,22 @@ on_character_marriage = {
 
 on_royal_marriage = {
 	on_actions = { tv_govhouse_royal_marriage }
+}
+
+on_dependency_gained = {
+	on_actions = { tv_govhouse_on_dependency_gained }
+}
+
+on_becoming_free = {
+	on_actions = { tv_govhouse_on_becoming_free }
+}
+
+on_subject_created = {
+	on_actions = { tv_govhouse_on_subject_created }
+}
+
+on_transfer_subject = {
+	on_actions = { tv_govhouse_on_transfer_subject }
 }
 
 # Monthly tick: advance Grand General training and resolve it after 12 months.
@@ -82,9 +94,9 @@ tv_govhouse_loyalty_monthly_pulse = {
 				95 = {}
 				5 = {
 					random_list = {
-						1 = { trigger_event_non_silently = { id = tv_grand_general.9 } }
-						1 = { trigger_event_non_silently = { id = tv_grand_general.10 } }
-						1 = { trigger_event_non_silently = { id = tv_grand_general.11 } }
+						1 = { trigger_event_non_silently = { id = tv_grand_general.9 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_grand_general.10 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_grand_general.11 days = 1 } }
 					}
 				}
 			}
@@ -123,20 +135,20 @@ tv_govhouse_negative_monthly_pulse = {
 					}
 					random_list = {
 						295 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.30 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.31 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.32 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.33 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.34 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.30 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.31 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.32 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.33 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.34 days = 1 } }
 					}
 				}
 				else = {
 					random_list = {
 						296 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.30 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.31 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.32 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.33 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.30 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.31 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.32 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.33 days = 1 } }
 					}
 				}
 			}
@@ -156,23 +168,23 @@ tv_govhouse_negative_monthly_pulse = {
 					}
 					random_list = {
 						294 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.24 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.25 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.24 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.25 days = 1 } }
 					}
 				}
 				else_if = {
 					limit = { any_work_of_art_in_country = { always = yes } }
 					random_list = {
 						295 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.24 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.24 days = 1 } }
 					}
 				}
 				else_if = {
@@ -182,30 +194,30 @@ tv_govhouse_negative_monthly_pulse = {
 					}
 					random_list = {
 						295 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.25 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.25 days = 1 } }
 					}
 				}
 				else = {
 					random_list = {
 						296 = {}
-						1 = { trigger_event_non_silently = { id = tv_govhouse.20 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.21 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.22 } }
-						1 = { trigger_event_non_silently = { id = tv_govhouse.23 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.20 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.21 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.22 days = 1 } }
+						1 = { trigger_event_non_silently = { id = tv_govhouse.23 days = 1 } }
 					}
 				}
 			}
 			else = {
 				random_list = {
 					296 = {}
-					1 = { trigger_event_non_silently = { id = tv_govhouse.10 } }
-					1 = { trigger_event_non_silently = { id = tv_govhouse.11 } }
-					1 = { trigger_event_non_silently = { id = tv_govhouse.12 } }
-					1 = { trigger_event_non_silently = { id = tv_govhouse.13 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.10 days = 1 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.11 days = 1 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.12 days = 1 } }
+					1 = { trigger_event_non_silently = { id = tv_govhouse.13 days = 1 } }
 				}
 			}
 		}
@@ -235,6 +247,7 @@ tv_govhouse_governor_events_monthly_pulse = {
 		}
 	}
 	random_events = {
+		delay = { days = 1 }
 		180 = 0
 		1 = tv_govhouse.100
 		1 = tv_govhouse.101
@@ -350,6 +363,124 @@ tv_govhouse_royal_marriage = {
 		}
 		scope:target_2 ?= {
 			tv_govhouse_clear_governor_if_consort_effect = yes
+		}
+	}
+}
+
+tv_govhouse_on_dependency_gained = {
+	effect = {
+		save_scope_as = tv_govhouse_subject_root
+		if = {
+			limit = {
+				OR = {
+					has_variable = tv_govhouse_member
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= root
+					}
+				}
+			}
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_govhouse.3 }
+			}
+			else = {
+				tv_govhouse_destroy_owned_house_effect = yes
+			}
+		}
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+	}
+}
+
+tv_govhouse_on_becoming_free = {
+	effect = {
+		save_scope_as = tv_govhouse_subject_root
+		scope:overlord ?= {
+			if = {
+				limit = { exists = top_overlord }
+				top_overlord ?= {
+					tv_govhouse_remove_subject_chain_from_house_effect = yes
+				}
+			}
+			else = {
+				tv_govhouse_remove_subject_chain_from_house_effect = yes
+			}
+		}
+		tv_govhouse_check_rebuild_after_freedom_effect = yes
+	}
+}
+
+tv_govhouse_on_subject_created = {
+	effect = {
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+	}
+}
+
+tv_govhouse_on_transfer_subject = {
+	effect = {
+		save_scope_as = tv_govhouse_subject_root
+		scope:former_overlord ?= {
+			if = {
+				limit = { exists = top_overlord }
+				top_overlord ?= {
+					tv_govhouse_remove_subject_chain_from_house_effect = yes
+				}
+			}
+			else = {
+				tv_govhouse_remove_subject_chain_from_house_effect = yes
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_variable = tv_govhouse_member
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+						leader_country ?= root
+					}
+				}
+			}
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_govhouse.3 }
+			}
+			else = {
+				tv_govhouse_destroy_owned_house_effect = yes
+			}
+		}
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_govhouse_sync_subject_chain_to_owned_house_effect = yes
+			}
 		}
 	}
 }

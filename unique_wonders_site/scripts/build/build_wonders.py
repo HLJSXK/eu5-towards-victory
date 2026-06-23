@@ -22,17 +22,18 @@ from scripts.wonder_localization_lib import (
     load_wonder_localization_data,
     wonder_name_key,
 )
-from scripts.wonder_mechanics_lib import (
+from scripts.wonder_mechanics.io import load_all_wonder_mechanics_data
+from scripts.wonder_mechanics.modifiers import (
     authored_final_building_local_modifiers,
+    scale_numeric_modifier_mapping,
+)
+from scripts.wonder_mechanics.naming import final_building_for_style, mechanic_key
+from scripts.wonder_mechanics.rituals import (
     ceremony_modifier_for_style,
     ceremony_styles,
-    final_building_for_style,
-    load_all_wonder_mechanics_data,
-    mechanic_key,
     ritual_plan_for_style,
-    scale_numeric_modifier_mapping,
-    site_trigger_script_for_key,
 )
+from scripts.wonder_mechanics.schema import site_trigger_script_for_key
 
 SITE_ROOT = REPO_ROOT / "unique_wonders_site"
 DEFAULT_LOCATIONS_INDEX = (
@@ -686,6 +687,7 @@ def build_record(
 ) -> dict[str, object]:
     is_unique = bool(wonder.get("is_unique"))
     kind = "unique" if is_unique else "generic"
+    initial_level = int(wonder.get("initial_level", 0)) if is_unique else 0
     location_key = ""
     location_name = dict(GENERIC_LOCATION_LABEL)
     location_info: dict[str, Any] | None = None
@@ -844,6 +846,7 @@ def build_record(
         "kind": kind,
         "kind_label": localized_label(KIND_LABELS, kind),
         "is_unique": is_unique,
+        "initial_level": initial_level,
         "has_map_marker": is_unique,
         "name": localized_pair(loc_data, record_name_key, fallback=loc_data["english"].get(name_key)),
         "description": localized_pair(
@@ -953,20 +956,25 @@ def main() -> int:
     )
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()
+    locations_index = args.locations_index.resolve()
+    reference_loc = args.reference_loc.resolve()
+    modifier_localization_index = args.modifier_localization_index.resolve()
+    trigger_localization_index = args.trigger_localization_index.resolve()
+    out_path = args.out.resolve()
 
     payload = build_payload(
-        args.locations_index,
-        args.reference_loc,
-        args.modifier_localization_index,
-        args.trigger_localization_index,
+        locations_index,
+        reference_loc,
+        modifier_localization_index,
+        trigger_localization_index,
     )
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(
-        f"wrote {args.out.relative_to(REPO_ROOT)} "
+        f"wrote {out_path.relative_to(REPO_ROOT)} "
         f"({payload['counts']['generic_wonders']} generic, "
         f"{payload['counts']['unique_wonders']} unique wonders)"
     )

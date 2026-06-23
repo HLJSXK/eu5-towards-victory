@@ -29,36 +29,41 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
    `main_menu/common/game_concepts`. For ordinary building or action names, use
    `$key$` localization substitution.
 
-7. Keep layout-only properties on layout containers.
+7. Use localization helpers for database display names.
+   Building-type names in localization should use `ShowBuildingTypeName('key')`
+   or `ShowBuildingTypeNameWithNoTooltip('key')`. Do not use
+   `GetBuilding('key').GetName`; it is not a valid localization data function.
+
+8. Keep layout-only properties on layout containers.
    `ignoreinvisible` is valid on container-style layouts such as `hbox`/`vbox`,
    but a plain `widget`/`uberwidget` logs an unsupported-property error. For
    image wrappers, hide the wrapper with `visible = ...` and omit
    `ignoreinvisible`.
 
-8. Pass typed objects to build-location selectors.
+9. Pass typed objects to build-location selectors.
    `SelectLocationToBuildDefault` and related functions need a `BuildingType` object
    such as `BuildingItem.GetBuildingType`, not a literal building key string. If the
    panel has no typed building context, use a generic action with a location selector.
 
-9. Keep localization substitutions out of `raw_text`.
+10. Keep localization substitutions out of `raw_text`.
    `raw_text` renders literal strings and dynamic expressions; it does not expand
    `$LOCALIZATION_KEY$`. Use `text = "KEY"` for static localized labels, and put
    inline icons such as `@trade!` in the localization value when needed.
 
-10. Do not promote GUI variables into typed objects with invented accessors.
+11. Do not promote GUI variables into typed objects with invented accessors.
     `MakeScope.GetVariable('x')` does not expose `.GetGoods` or
     `.GetInternationalOrganization`. For goods, use a typed datamodel accessor
     such as `Trade.GetGoods`/`GoodsMarketEntry.GetGoods`, or static branches keyed
     by a numeric id. For IO panels, pass a typed InternationalOrganization object
     from an existing view/datamodel chain.
 
-11. Keep tooltip-only widgets inside real tooltip contexts.
+12. Keep tooltip-only widgets inside real tooltip contexts.
     `TooltipTextBlock` inherits `tooltip_text_block_template`, which reads
     `ExtraTooltipInfo.GetTintColor`. Use it only under `tooltipwidget` / 
     `ContextualTooltipType` / `AlertTooltipType` content. For always-visible panel
     text, use `text_single` / `text_multi` instead.
 
-12. Give conditional image branches explicit bounds.
+13. Give conditional image branches explicit bounds.
     When a wrapper contains mutually exclusive background-image widgets, do not
     rely on `layoutpolicy_expanding` alone. If the preview sits inside a plain
     `widget`/`button`, make that clickable wrapper fill its parent first, then
@@ -67,21 +72,21 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     the image column's natural width, leaving text and image stacked at the
     parent's left edge.
 
-13. Let tooltip rows grow with their visible content.
+14. Let tooltip rows grow with their visible content.
     If a tooltip row mixes `TooltipStringPairList`/`TooltipTextBlock` with a
     preview image, do not hard-code the row to a fixed height. Constrain width
     with `size = { W -1 }` or `minimumsize`, set the containing layout to size
     itself from its children, and keep `ignoreinvisible = yes` on the container
     so hidden wonder levels do not reserve space.
 
-14. Match scripted-effect tooltip scopes to the GUI object passed in.
+15. Match scripted-effect tooltip scopes to the GUI object passed in.
     `ShowScriptedEffectForScope(..., LocationView.GetLocation.MakeScope.Self)`
     runs the effect with the location as root. In that context, do not use
     `location.owner = { ... }`; the `location` prefix is parsed as an event
     target link and can spam scope-mismatch errors. Use `owner ?= { ... }` for
     country effects shown from a location-root tooltip.
 
-15. Keep dynamic concept-link keys raw and registered.
+16. Keep dynamic concept-link keys raw and registered.
     `SelectGameConcept` and `[...|E]` can use dynamic CString concept ids, but
     the value must already be a registered raw concept id. Do not feed them
     `GetFlagName` or variable-map flag values that can localize to display text.
@@ -89,19 +94,19 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     `tv_wonder_display_<id>`. Use `Localize(Concatenate('game_concept_', key))`
     only when intentionally rendering plain, non-clickable text.
 
-16. Use EU5 image fit enums, not CSS names.
+17. Use EU5 image fit enums, not CSS names.
     Vanilla GUI uses `fittype` values such as `centercrop`, `fill`, `start`,
     and `end`. `contain` is not accepted and logs `Unknown fit type 'contain'`
     during GUI loading.
 
-17. Do not treat `GetFlagName` as a raw key.
+18. Do not treat `GetFlagName` as a raw key.
     A flag stored in a variable or variable map can render through localization
     in GUI, especially for game-concept-like ids. If a widget must build
     modifier names, localization keys, texture keys, or scripted-effect names,
     store a numeric id and generate static id branches, or use a typed object
     with a verified `GetKey` accessor.
 
-18. Do not build raw DDS paths with `Concatenate` inside `texture`.
+19. Do not build raw DDS paths with `Concatenate` inside `texture`.
     Static `texture = "gfx/...dds"` paths are parsed by the GUI loader, but a
     runtime expression that returns a CString path does not behave like a texture
     handle. In the location-window test, `GetConceptTexture(Concatenate(...))`
@@ -112,12 +117,24 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     `GetConceptTexture`, preferably with numeric ids such as
     `tv_wonder_display_image_<id>`.
 
-19. Give dynamic `ShowModifierEffect` routes static script references.
+20. Give dynamic `ShowModifierEffect` routes static definitions and script references.
     If GUI builds modifier ids with `Concatenate(...)`, such as
-    `tv_wonder_display_<id>_level_<level>`, do not rely on the GUI expression as
-    the only reference. Generate an unreachable script block with
-    `if = { limit = { always = no } ... }` that applies every possible country or
-    location display modifier through the correct `add_*_modifier` effect.
+    `tv_wonder_display_<id>_level_<level>` or
+    `tv_wonder_display_<id>_local_level_<level>`, generate matching static
+    display modifiers and an unreachable script block with
+    `if = { limit = { always = no } ... }` that applies every possible country
+    or location display modifier through the correct `add_*_modifier` effect.
+    Scripted-effect tooltip previews have the same database boundary:
+    `add_country_modifier` must target a static country modifier, not a Country
+    Auto modifier from `common/auto_modifiers`. For Engineering Department
+    wonders, use static mirrors for GUI `ShowModifierEffect` display only; keep
+    auto-driven country effects out of scripted grants and tooltip previews.
+
+21. Keep progressbar offsets on a wrapper.
+    `progressbar` does not handle `margin_top`; GUI loading logs an unsupported
+    property error. If a bar needs vertical centering or offset inside an
+    `hbox`/`vbox`, put a fixed-size `widget` in the layout and anchor the
+    `progressbar` inside that wrapper.
 
 ## Validation
 

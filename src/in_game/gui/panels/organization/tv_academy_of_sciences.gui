@@ -33,10 +33,10 @@ organization_panel = {
 		visible = yes
 	}
 	blockoverride "organization_resolutions_tab_text" {
-		text = "TV_ACADEMY_PHILOSOPHY_TAB"
+		text = "TV_RM_CONCENTRATED_RESEARCH_TAB"
 	}
 	blockoverride "organization_resolutions_tooltip" {
-		tooltip = "TV_ACADEMY_PHILOSOPHY_TAB_TOOLTIP"
+		tooltip = "TV_RM_CONCENTRATED_RESEARCH_TAB_TOOLTIP"
 	}
 
 	blockoverride "scroll_overview_empty_visible" { visible = no }
@@ -138,14 +138,869 @@ organization_panel = {
 	}
 
 	blockoverride "organization_main_actions_extra_visible" {
-		visible = yes
+		visible = no
 	}
 
+	# -- Philosophy tab: use the vanilla overview slot -----------------------
 	blockoverride "organization_overview_list_custom_top_extra" {
+		margin = { 0 0 }
+		layoutpolicy_vertical = expanding
+		scrollarea = {
+			using = layoutpolicy_expanding
+			scrollbarpolicy_horizontal = always_off
+			scrollbar_vertical = {
+				using = Scrollbar_Vertical
+			}
+			scrollwidget = {
+				vbox = {
+					margin = { 10 0 }
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					ignoreinvisible = yes
+					spacing = 10
+					card_common = {
+						maximumsize = { 500 -1 }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_CARD_TITLE"
+						}
+						blockoverride "common_bottom_content" {
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = fixed
+								size = { 470 152 }
+								margin = { 4 6 }
+								spacing = 8
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									size = { 462 96 }
+									spacing = 10
+									widget = {
+										size = { 76 96 }
+										allow_outside = yes
+										portrait_standard_head_button = {
+											using = character_portrait_bg
+											visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+											parentanchor = center
+											widgetanchor = center
+											size = { 58 72 }
+											datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+											icon = {
+												block "character_frame_texture" {
+													texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds"
+												}
+												texture_density = 2
+												size = { 100% 100% }
+											}
+										}
+										widget = {
+											visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
+											size = { 58 72 }
+											parentanchor = center
+											widgetanchor = center
+											using = bg_circle_piechart
+											text_single = { parentanchor = center size = { 100% 100% } raw_text = "@adm!" fontsize = 22 autoresize = no align = center|nobaseline }
+										}
+									}
+									widget = {
+										size = { 376 96 }
+										using = bg_text_mask_container_dark_blue
+										vbox = {
+											margin = { 8 8 }
+											layoutpolicy_horizontal = expanding
+											spacing = 4
+											text_single = { size = { 360 22 } text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_LINE" fontsize = 13 align = nobaseline|left }
+											text_single = {
+												visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').IsSet)]"
+												text = "TV_ACADEMY_PHILOSOPHY_NAME_MERITOCRACY"
+												fontsize = 15
+												align = nobaseline|left
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)1.0')]"
+												text = "TV_ACADEMY_PHILOSOPHY_NAME_MERITOCRACY"
+												fontsize = 15
+												align = nobaseline|left
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)2.0')]"
+												text = "TV_ACADEMY_PHILOSOPHY_NAME_RENAISSANCE"
+												fontsize = 15
+												align = nobaseline|left
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)3.0')]"
+												text = "TV_ACADEMY_PHILOSOPHY_NAME_NEW_WORLD"
+												fontsize = 15
+												align = nobaseline|left
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)4.0')]"
+												text = "TV_ACADEMY_PHILOSOPHY_NAME_CONFESSIONALISM"
+												fontsize = 15
+												align = nobaseline|left
+											}
+											text_multi = { size = { 360 34 } max_width = 360 autoresize = yes text = "TV_ACADEMY_PHILOSOPHY_CONCEPT_IN_PROGRESS_TEXT" align = nobaseline|left }
+										}
+									}
+								}
+								hbox = {
+									layoutpolicy_horizontal = fixed
+									size = { 462 22 }
+									spacing = 6
+									text_single = { raw_text = "@adm!" size = { 24 20 } max_width = 24 fontsize = 16 align = center|nobaseline }
+									widget = {
+										size = { 340 22 }
+										progressbar = {
+											size = { 340 14 }
+											parentanchor = vcenter
+											widgetanchor = vcenter
+											using = progress_bar_blue_alt
+											min = 0
+											max = 100
+											value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_inspiration').GetValue]"
+											tooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+										}
+									}
+									text_single = {
+										raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_academy_philosophy_inspiration')]"
+										size = { 86 20 }
+										max_width = 86
+										fontsize = 13
+										tooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+										align = nobaseline|right
+									}
+								}
+							}
+						}
+					}
+					card_common = {
+						visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0')]"
+						maximumsize = { 500 -1 }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_ACADEMY_PHILOSOPHY_DEBATE_STATUS_CARD_TITLE"
+						}
+						blockoverride "common_bottom_content" {
+							widget = {
+								size = { 470 52 }
+								hbox = {
+									parentanchor = center
+									widgetanchor = center
+									spacing = 12
+									widget = {
+										size = { 38 38 }
+										using = bg_circle_piechart
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_1').GetValue, '(CFixedPoint)0.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_1').GetValue, '(CFixedPoint)1.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_1').GetValue, '(CFixedPoint)2.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_SUCCESS"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_1').GetValue, '(CFixedPoint)3.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_FAILURE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+									}
+									widget = {
+										size = { 38 38 }
+										using = bg_circle_piechart
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_2').GetValue, '(CFixedPoint)0.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_2').GetValue, '(CFixedPoint)1.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_2').GetValue, '(CFixedPoint)2.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_SUCCESS"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_2').GetValue, '(CFixedPoint)3.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_FAILURE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+									}
+									widget = {
+										size = { 38 38 }
+										using = bg_circle_piechart
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_3').GetValue, '(CFixedPoint)0.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_3').GetValue, '(CFixedPoint)1.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_3').GetValue, '(CFixedPoint)2.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_SUCCESS"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_3').GetValue, '(CFixedPoint)3.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_FAILURE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+									}
+									widget = {
+										size = { 38 38 }
+										using = bg_circle_piechart
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_4').GetValue, '(CFixedPoint)0.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_4').GetValue, '(CFixedPoint)1.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_4').GetValue, '(CFixedPoint)2.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_SUCCESS"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_4').GetValue, '(CFixedPoint)3.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_FAILURE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+									}
+									widget = {
+										size = { 38 38 }
+										using = bg_circle_piechart
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_5').GetValue, '(CFixedPoint)0.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_5').GetValue, '(CFixedPoint)1.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_5').GetValue, '(CFixedPoint)2.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_SUCCESS"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_5').GetValue, '(CFixedPoint)3.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_FAILURE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+									}
+									widget = {
+										size = { 38 38 }
+										using = bg_circle_piechart
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_6').GetValue, '(CFixedPoint)0.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_6').GetValue, '(CFixedPoint)1.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_6').GetValue, '(CFixedPoint)2.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_SUCCESS"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_round_state_6').GetValue, '(CFixedPoint)3.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											text = "TV_ACADEMY_PHILOSOPHY_STATUS_FAILURE"
+											fontsize = 20
+											autoresize = no
+											align = center|nobaseline
+										}
+									}
+								}
+							}
+						}
+					}
+					card_common = {
+						visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0')]"
+						maximumsize = { 500 -1 }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_ACADEMY_PHILOSOPHY_CURRENT_DEBATE_CARD_TITLE"
+						}
+						blockoverride "common_bottom_content" {
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								size = { 470 132 }
+								margin = { 4 6 }
+								spacing = 8
+								text_single = { size = { 462 24 } text = "TV_ACADEMY_PHILOSOPHY_FIXED_DEBATE_TITLE" fontsize = 15 align = center|nobaseline }
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									spacing = 10
+									widget = { size = { 226 58 } vbox = { layoutpolicy_horizontal = expanding spacing = 6 text_single = { size = { 226 22 } text = "TV_ACADEMY_PHILOSOPHY_PRO_SIDE" fontsize = 15 align = center|nobaseline } text_single = { size = { 226 28 } text = "TV_ACADEMY_PHILOSOPHY_PRO_GROUP" fontsize = 14 align = center|nobaseline } } }
+									widget = { size = { 226 58 } vbox = { layoutpolicy_horizontal = expanding spacing = 6 text_single = { size = { 226 22 } text = "TV_ACADEMY_PHILOSOPHY_CON_SIDE" fontsize = 15 align = center|nobaseline } text_single = { size = { 226 28 } text = "TV_ACADEMY_PHILOSOPHY_CON_GROUP" fontsize = 14 align = center|nobaseline } } }
+								}
+								progressbar = {
+									size = { 462 18 }
+									min = 0
+									max = 100
+									value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue]"
+									progresstexture = "gfx/interface/progressbars/progress_bar_green_alt.dds"
+									noprogresstexture = "gfx/interface/progressbars/progress_bar_red_alt.dds"
+									texture_density = 2
+									spriteType = Corneredstretched
+									spriteborder = { 12 0 }
+								}
+							}
+						}
+					}
+					card_common = {
+						visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0')]"
+						maximumsize = { 500 -1 }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_ACADEMY_PHILOSOPHY_MAIN_ACTIONS_CARD_TITLE"
+						}
+						blockoverride "common_bottom_content" {
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = fixed
+								size = { 470 90 }
+								margin = { 4 6 }
+								spacing = 6
+								text_multi = {
+									visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_1_action').IsSet)]"
+									size = { 462 72 }
+									max_width = 454
+									autoresize = yes
+									text = "TV_ACADEMY_PHILOSOPHY_WAITING_FOR_INSPIRATION"
+									align = center|nobaseline
+								}
+								hbox = {
+									visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_1_action').IsSet]"
+									layoutpolicy_horizontal = fixed
+									size = { 462 72 }
+									spacing = 6
+									widget = {
+										size = { 150 72 }
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_1_action').GetValue, '(CFixedPoint)1.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_yellow
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_1_NAME"
+											title = "tv_philosophy_select_slot_1_action_1"
+											description = "tv_philosophy_select_slot_1_action_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_1_action_1" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_1_action').GetValue, '(CFixedPoint)2.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_green
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_2_NAME"
+											title = "tv_philosophy_select_slot_1_action_2"
+											description = "tv_philosophy_select_slot_1_action_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_1_action_2" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_1_action').GetValue, '(CFixedPoint)3.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_yellow
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_3_NAME"
+											title = "tv_philosophy_select_slot_1_action_3"
+											description = "tv_philosophy_select_slot_1_action_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_1_action_3" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_1_action').GetValue, '(CFixedPoint)4.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_4_NAME"
+											title = "tv_philosophy_select_slot_1_action_4"
+											description = "tv_philosophy_select_slot_1_action_4_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_1_action_4" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_1_action').GetValue, '(CFixedPoint)5.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_red
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_5_NAME"
+											title = "tv_philosophy_select_slot_1_action_5"
+											description = "tv_philosophy_select_slot_1_action_5_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_1_action_5" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_1_action').GetValue, '(CFixedPoint)6.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_6_NAME"
+											title = "tv_philosophy_select_slot_1_action_6"
+											description = "tv_philosophy_select_slot_1_action_6_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_1_action_6" }
+										}
+									}
+									widget = {
+										size = { 150 72 }
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_2_action').GetValue, '(CFixedPoint)1.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_yellow
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_1_NAME"
+											title = "tv_philosophy_select_slot_2_action_1"
+											description = "tv_philosophy_select_slot_2_action_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_2_action_1" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_2_action').GetValue, '(CFixedPoint)2.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_green
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_2_NAME"
+											title = "tv_philosophy_select_slot_2_action_2"
+											description = "tv_philosophy_select_slot_2_action_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_2_action_2" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_2_action').GetValue, '(CFixedPoint)3.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_yellow
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_3_NAME"
+											title = "tv_philosophy_select_slot_2_action_3"
+											description = "tv_philosophy_select_slot_2_action_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_2_action_3" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_2_action').GetValue, '(CFixedPoint)4.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_4_NAME"
+											title = "tv_philosophy_select_slot_2_action_4"
+											description = "tv_philosophy_select_slot_2_action_4_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_2_action_4" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_2_action').GetValue, '(CFixedPoint)5.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_red
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_5_NAME"
+											title = "tv_philosophy_select_slot_2_action_5"
+											description = "tv_philosophy_select_slot_2_action_5_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_2_action_5" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_2_action').GetValue, '(CFixedPoint)6.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_6_NAME"
+											title = "tv_philosophy_select_slot_2_action_6"
+											description = "tv_philosophy_select_slot_2_action_6_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_2_action_6" }
+										}
+									}
+									widget = {
+										size = { 150 72 }
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_3_action').GetValue, '(CFixedPoint)1.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_yellow
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_1_NAME"
+											title = "tv_philosophy_select_slot_3_action_1"
+											description = "tv_philosophy_select_slot_3_action_1_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_3_action_1" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_3_action').GetValue, '(CFixedPoint)2.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_green
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_2_NAME"
+											title = "tv_philosophy_select_slot_3_action_2"
+											description = "tv_philosophy_select_slot_3_action_2_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_3_action_2" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_3_action').GetValue, '(CFixedPoint)3.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_yellow
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_3_NAME"
+											title = "tv_philosophy_select_slot_3_action_3"
+											description = "tv_philosophy_select_slot_3_action_3_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_3_action_3" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_3_action').GetValue, '(CFixedPoint)4.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_4_NAME"
+											title = "tv_philosophy_select_slot_3_action_4"
+											description = "tv_philosophy_select_slot_3_action_4_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_3_action_4" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_3_action').GetValue, '(CFixedPoint)5.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt_red
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_5_NAME"
+											title = "tv_philosophy_select_slot_3_action_5"
+											description = "tv_philosophy_select_slot_3_action_5_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_3_action_5" }
+										}
+										action_button = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_slot_3_action').GetValue, '(CFixedPoint)6.0')]"
+											size = { 150 72 }
+											using = button_regular_texture_alt
+											using = action_button_common_template
+											using = button_common_textobj_template
+											fontsize = 12
+											text = "TV_ACADEMY_PHILOSOPHY_ACTION_6_NAME"
+											title = "tv_philosophy_select_slot_3_action_6"
+											description = "tv_philosophy_select_slot_3_action_6_desc"
+											actor = "[InternationalOrganizationsView.GetPlayer]"
+											left_action = { action_name = "tv_philosophy_select_slot_3_action_6" }
+										}
+									}
+								}
+							}
+						}
+					}
+					card_common = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').IsSet]"
+						maximumsize = { 500 -1 }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_ACADEMY_PHILOSOPHY_ACTION_DETAILS_TITLE"
+						}
+						blockoverride "common_bottom_content" {
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)1.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_1_BODY"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)2.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_2_BODY"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)3.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_3_BODY"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)4.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_4_BODY"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)5.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_5_BODY"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)6.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_6_BODY"
+								align = nobaseline|left
+							}
+						}
+					}
+					card_common = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').IsSet]"
+						maximumsize = { 500 -1 }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_ACADEMY_PHILOSOPHY_ACTION_EFFECTS_TITLE"
+						}
+						blockoverride "common_bottom_content" {
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)1.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_1_EFFECTS"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)2.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_2_EFFECTS"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)3.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_3_EFFECTS"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)4.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_4_EFFECTS"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)5.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_5_EFFECTS"
+								align = nobaseline|left
+							}
+							text_multi = {
+								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').GetValue, '(CFixedPoint)6.0')]"
+								size = { 470 58 }
+								max_width = 454
+								autoresize = no
+								text = "TV_ACADEMY_PHILOSOPHY_ACTION_6_EFFECTS"
+								align = nobaseline|left
+							}
+						}
+					}
+					hbox = {
+						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_selected_action').IsSet]"
+						layoutpolicy_horizontal = expanding
+						margin = { 4 0 }
+						expand = {}
+						action_button = {
+							size = { 235 30 }
+							using = button_regular_texture_alt_yellow
+							using = action_button_common_template
+							using = button_common_textobj_template
+							text = "TV_ACADEMY_PHILOSOPHY_EXECUTE_ACTION_BUTTON"
+							title = "tv_philosophy_execute_selected_action"
+							description = "tv_philosophy_execute_selected_action_desc"
+							tooltip = "TV_ACADEMY_PHILOSOPHY_EXECUTE_ACTION_TT"
+							actor = "[InternationalOrganizationsView.GetPlayer]"
+							left_action = { action_name = "tv_philosophy_execute_selected_action" }
+						}
+					}
+					expand = {}
+				}
+			}
+		}
+	}
+
+	blockoverride "organization_main_actions_extra" {}
+
+	# -- Concentrated Research tab: use the vanilla resolutions slot ------------
+	blockoverride "organization_resolutions_content" {
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = fixed
+			layoutpolicy_vertical = expanding
 			ignoreinvisible = yes
 			datacontext = "[InternationalOrganizationsView.GetPlayer]"
 			spacing = 8
@@ -572,323 +1427,55 @@ organization_panel = {
 					}
 				}
 			}
+
+			# Action Buttons
+			# ── Action Buttons ────────────────────────────────────────────────────────────────────────────────────
+
+			# Request Research Target
+			action_button_diamond = {
+				size = { 470 30 }
+				text = "TV_RM_REQUEST_TARGET_BTN"
+				title = "TV_RM_REQUEST_TARGET_BTN"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = {
+					action_name = "tv_request_research_target"
+				}
+			}
+
+			# Abandon Target (visible when target is set)
+			action_button_diamond = {
+				size = { 470 30 }
+				text = "TV_RM_ABANDON_TARGET_BTN"
+				title = "TV_RM_ABANDON_TARGET_BTN"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = {
+					action_name = "tv_abandon_research_target"
+				}
+			}
+
+			# Begin Concentrated Research (visible when A+B+C complete and D not started)
+			action_button_diamond = {
+				size = { 470 30 }
+				text = "TV_RM_START_D_BTN"
+				title = "TV_RM_START_D_BTN"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = {
+					action_name = "tv_start_concentrated_research"
+				}
+			}
+
+			# Pause Concentrated Research (visible when D is in progress)
+			action_button_diamond = {
+				size = { 470 30 }
+				text = "TV_RM_PAUSE_D_BTN"
+				title = "TV_RM_PAUSE_D_BTN"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = {
+					action_name = "tv_pause_concentrated_research"
+				}
+			}
+			expand = {}
 		}
-	}
-
-	blockoverride "organization_main_actions_extra" {
-
-		# ── Action Buttons ────────────────────────────────────────────────────────────────────────────────────
-
-		# Request Research Target
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "TV_RM_REQUEST_TARGET_BTN"
-			title = "TV_RM_REQUEST_TARGET_BTN"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_request_research_target"
-			}
-		}
-
-		# Abandon Target (visible when target is set)
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "TV_RM_ABANDON_TARGET_BTN"
-			title = "TV_RM_ABANDON_TARGET_BTN"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_abandon_research_target"
-			}
-		}
-
-		# Begin Concentrated Research (visible when A+B+C complete and D not started)
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "TV_RM_START_D_BTN"
-			title = "TV_RM_START_D_BTN"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_start_concentrated_research"
-			}
-		}
-
-		# Pause Concentrated Research (visible when D is in progress)
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "TV_RM_PAUSE_D_BTN"
-			title = "TV_RM_PAUSE_D_BTN"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_pause_concentrated_research"
-			}
-		}
-
-	}
-
-	# -- Philosophy tab: reuse the vanilla resolutions slot ---------------------
-	blockoverride "organization_resolutions_content" {
-		margin = { 0 0 }
-
-		vbox = {
-			margin = { 10 0 }
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = fixed
-			ignoreinvisible = yes
-			spacing = 10
-
-			card_common = {
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
-				}
-
-				blockoverride "common_header_text" {
-					text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_CARD_TITLE"
-				}
-
-				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 56 }
-
-						text_single = {
-							size = { 470 44 }
-							parentanchor = center
-							widgetanchor = center
-							text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_LINE"
-							fontsize = 22
-							autoresize = no
-							align = center|nobaseline
-						}
-					}
-				}
-			}
-
-			card_common = {
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
-				}
-
-				blockoverride "common_header_text" {
-					text = "TV_ACADEMY_PHILOSOPHY_DEBATE_STATUS_CARD_TITLE"
-				}
-
-				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 52 }
-
-						hbox = {
-							parentanchor = center
-							widgetanchor = center
-							spacing = 12
-
-							widget = {
-								size = { 38 38 }
-								using = bg_circle_piechart
-								text_single = {
-									parentanchor = center
-									size = { 100% 100% }
-									raw_text = "@trigger_yes!"
-									fontsize = 20
-									autoresize = no
-									align = center|nobaseline
-								}
-							}
-
-							widget = {
-								size = { 38 38 }
-								using = bg_circle_piechart
-								text_single = {
-									parentanchor = center
-									size = { 100% 100% }
-									raw_text = "@trigger_no!"
-									fontsize = 20
-									autoresize = no
-									align = center|nobaseline
-								}
-							}
-
-							widget = {
-								size = { 38 38 }
-								using = bg_circle_piechart
-								text_single = {
-									parentanchor = center
-									size = { 100% 100% }
-									raw_text = "@trigger_yes!"
-									fontsize = 20
-									autoresize = no
-									align = center|nobaseline
-								}
-							}
-
-							widget = {
-								size = { 38 38 }
-								using = bg_circle_piechart
-								text_single = {
-									parentanchor = center
-									size = { 100% 100% }
-									raw_text = "@trigger_yes!"
-									fontsize = 20
-									autoresize = no
-									align = center|nobaseline
-								}
-							}
-
-							widget = {
-								size = { 38 38 }
-								using = bg_circle_piechart
-								text_single = {
-									parentanchor = center
-									size = { 100% 100% }
-									text = "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"
-									fontsize = 18
-									autoresize = no
-									align = center|nobaseline
-								}
-							}
-
-							widget = {
-								size = { 38 38 }
-								using = bg_circle_piechart
-								text_single = {
-									parentanchor = center
-									size = { 100% 100% }
-									text = "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"
-									fontsize = 18
-									autoresize = no
-									align = center|nobaseline
-								}
-							}
-						}
-					}
-				}
-			}
-
-			card_common = {
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
-				}
-
-				blockoverride "common_header_text" {
-					text = "TV_ACADEMY_PHILOSOPHY_CURRENT_DEBATE_CARD_TITLE"
-				}
-
-				blockoverride "common_bottom_content" {
-					widget = {
-						size = { 470 156 }
-
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							margin = { 4 6 }
-							spacing = 8
-
-							text_single = {
-								size = { 462 24 }
-								text = "TV_ACADEMY_PHILOSOPHY_FIXED_DEBATE_TITLE"
-								fontsize = 15
-								align = center|nobaseline
-							}
-
-							hbox = {
-								layoutpolicy_horizontal = expanding
-								spacing = 10
-
-								widget = {
-									size = { 226 74 }
-
-									vbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 6
-
-										text_single = {
-											size = { 226 22 }
-											text = "TV_ACADEMY_PHILOSOPHY_PRO_SIDE"
-											fontsize = 15
-											align = center|nobaseline
-										}
-
-										text_single = {
-											size = { 226 28 }
-											text = "TV_ACADEMY_PHILOSOPHY_PRO_GROUP"
-											fontsize = 14
-											align = center|nobaseline
-										}
-									}
-								}
-
-								widget = {
-									size = { 226 74 }
-
-									vbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 6
-
-										text_single = {
-											size = { 226 22 }
-											text = "TV_ACADEMY_PHILOSOPHY_CON_SIDE"
-											fontsize = 15
-											align = center|nobaseline
-										}
-
-										text_single = {
-											size = { 226 28 }
-											text = "TV_ACADEMY_PHILOSOPHY_CON_GROUP"
-											fontsize = 14
-											align = center|nobaseline
-										}
-									}
-								}
-							}
-
-							progressbar = {
-								size = { 462 18 }
-								min = 0
-								max = 100
-								value = 50
-								progresstexture = "gfx/interface/progressbars/progress_bar_green_alt.dds"
-								noprogresstexture = "gfx/interface/progressbars/progress_bar_red_alt.dds"
-								texture_density = 2
-								spriteType = Corneredstretched
-								spriteborder = { 12 0 }
-							}
-						}
-					}
-				}
-			}
-
-			card_common = {
-				maximumsize = { 500 -1 }
-
-				blockoverride "common_header_icon_texture" {
-					texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
-				}
-
-				blockoverride "common_header_text" {
-					text = "TV_ACADEMY_PHILOSOPHY_MAIN_ACTIONS_CARD_TITLE"
-				}
-
-				blockoverride "common_bottom_content" {
-					hbox = {
-						layoutpolicy_horizontal = expanding
-						margin = { 4 6 }
-
-						button_regular_diamond = {
-							size = { 470 30 }
-							text = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
-							tooltip = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
-							enabled = no
-						}
-					}
-				}
-			}
-
-		}
-
-		expand = {}
 	}
 
 	# -- Medicine tab: enable the custom tab slot -------------------------------

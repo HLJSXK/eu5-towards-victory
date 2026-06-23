@@ -27,9 +27,13 @@ except ImportError:
     print("[ERROR] PyYAML not installed. Run: pip install pyyaml")
     sys.exit(1)
 
+sys.path.insert(0, str(Path(__file__).parent))
+from wonder_unique_ritual_harness import validate_unique_ritual_specs_for_repo  # noqa: E402
+
 REPO_ROOT = Path(__file__).parent.parent
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 VALIDATION_BASELINE_FILE = REPO_ROOT / "data" / "validation_baseline.yaml"
+PULSE_REGISTRY_FILE = REPO_ROOT / "data" / "pulse_registry.yaml"
 MODIFIER_TYPES_FILE = (
     REPO_ROOT
     / "reference_game_files"
@@ -58,11 +62,57 @@ TV_IO_ICON_DIR = (
     / "icons"
     / "international_organizations"
 )
+UNIQUE_RITUAL_HARNESS_FILES = {
+    "data/unique_wonders.yaml",
+    "data/unique_wonder_ritual_designs.yaml",
+    "data/unique_wonder_ritual_prompts.yaml",
+    "data/unique_wonder_ritual_specs.yaml",
+    "data/unique_wonder_ritual_codegen_templates.yaml",
+    "data/unique_wonder_ritual_capabilities.yaml",
+    "data/unique_wonder_ritual_archetypes.yaml",
+    "data/wonder_localization.yaml",
+    "scripts/wonder_unique_ritual_harness.py",
+    "scripts/gen_unique_wonder_ritual_specs.py",
+    "scripts/gen_unique_wonder_ritual_code.py",
+    "scripts/audit_unique_wonder_rituals.py",
+    "scripts/allocate_unique_wonder_ritual_event_ids.py",
+    "scripts/test_unique_wonder_ritual_harness.py",
+    "docs/guides/Unique_Wonder_Ritual_Harness.md",
+}
+UNIQUE_RITUAL_HARNESS_PREFIXES = {
+    "data/generated_fragments/unique_wonder_rituals/",
+}
 UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
 LOCALIZATION_KEY_PATTERN = re.compile(r"^\s+(\w+)\s*:(?:\d+)?")
+LOCALIZATION_HEADER_PATTERN = re.compile(r"^l_[A-Za-z_]+:\s*$")
+LOCALIZATION_ENTRY_LINE_PATTERN = re.compile(r"^\s+[A-Za-z0-9_.-]+:(?:\d+)?\s+")
 GAME_CONCEPT_DECL_PATTERN = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
 EVENT_ID_REFERENCE_PATTERN = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\.([1-9][0-9]{4,})\b")
+MONTHLY_PULSE_EVENT_ID_RE = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*\.\d+)\b")
+MONTHLY_PULSE_TRIGGER_EVENT_SIMPLE_RE = re.compile(
+    r"\btrigger_event_(?:non_silently|silently)\s*=\s*([A-Za-z_][A-Za-z0-9_]*\.\d+)\b"
+)
+MONTHLY_PULSE_TRIGGER_EVENT_BLOCK_RE = re.compile(
+    r"\btrigger_event_(?:non_silently|silently)\s*=\s*\{"
+)
+MONTHLY_PULSE_TV_CALL_RE = re.compile(
+    r"(?<![\w.:])(tv_[A-Za-z0-9_]+)\s*=\s*(?:yes|\{)"
+)
+WONDER_ENGINE_SCALED_FIXED_MODIFIER_MAX = 0.5
+WONDER_ENGINE_SCALED_FIXED_MODIFIERS = {
+    # Fixed-value modifiers only. Percent *_modifier variants are intentionally excluded.
+    "global_pop_assimilation_speed",
+    "global_pop_conversion_speed",
+    "local_manpower",
+    "local_pop_assimilation_speed",
+    "local_pop_conversion_speed",
+    "local_sailors",
+}
+WONDER_ENGINE_SCALED_FIXED_MODIFIER_RE = re.compile(
+    rf"^\s*(?P<key>{'|'.join(sorted(WONDER_ENGINE_SCALED_FIXED_MODIFIERS))})\s*[:=]\s*"
+    r"(?P<quote>['\"]?)(?P<value>[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?)(?P=quote)\s*(?:#.*)?$"
+)
 GENERIC_ACTION_HIDDEN_ONLY_EFFECTS = {
     "tv_governor_remove_effect": (
         "dismisses a regional governor by clearing variables/lists and rebuilding display state; "
@@ -226,6 +276,28 @@ def _iter_yaml_localization_keys(path: Path):
         match = LOCALIZATION_KEY_PATTERN.match(line)
         if match:
             yield match.group(1), line_num
+
+
+def check_loc_physical_lines() -> None:
+    """Catch localization values split across real physical lines."""
+    loc_root = REPO_ROOT / "src" / "main_menu" / "localization"
+    if not loc_root.exists():
+        return
+
+    for loc_file in sorted(loc_root.rglob("*.yml")):
+        for line_num, line in enumerate(loc_file.read_text(encoding="utf-8-sig").splitlines(), 1):
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            if LOCALIZATION_HEADER_PATTERN.match(line):
+                continue
+            if LOCALIZATION_ENTRY_LINE_PATTERN.match(line):
+                continue
+            issues.append(
+                f"[LOCALIZATION] {loc_file.relative_to(REPO_ROOT)}:{line_num} -- "
+                "Malformed localization physical line; keep each key/value on one line and "
+                "escape intentional line breaks as \\n inside the quoted value."
+            )
 
 
 def _iter_game_concept_keys(path: Path):
@@ -500,6 +572,28 @@ def check_event_id_numeric_range(path: Path, content: str) -> None:
         )
 
 
+def check_wonder_engine_scaled_fixed_modifiers(path: Path, content: str) -> None:
+    """Catch wonder modifier values that EU5 displays 1000x larger than written."""
+    rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+    if "wonder" not in rel or path.suffix not in {".txt", ".yaml", ".yml"}:
+        return
+
+    for line_num, line in enumerate(content.splitlines(), 1):
+        match = WONDER_ENGINE_SCALED_FIXED_MODIFIER_RE.match(line)
+        if not match:
+            continue
+        value = float(match.group("value"))
+        if value <= WONDER_ENGINE_SCALED_FIXED_MODIFIER_MAX:
+            continue
+        key = match.group("key")
+        issues.append(
+            f"[WONDER_MODIFIER_SCALE] {path.relative_to(REPO_ROOT)}:{line_num} -- "
+            f"{key} = {match.group('value')} exceeds {WONDER_ENGINE_SCALED_FIXED_MODIFIER_MAX}. "
+            "EU5 multiplies this fixed-value modifier by 1000 in game; use a small fixed value, "
+            "or use the matching *_modifier percent modifier when a percentage is intended."
+        )
+
+
 def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
     """Warn when AI-maintained knowledge/workflow files drift out of sync."""
     valid_detectability = {"lint", "needs_parser", "advisory"}
@@ -510,10 +604,10 @@ def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
                 f"[KNOWLEDGE] anti_patterns.yaml:{entry.get('id', '<unknown>')} -- "
                 f"invalid detectability '{detectability}'; use lint, needs_parser, or advisory"
             )
-        if (entry.get("detectability") == "lint") and not entry.get("pattern"):
+        if (entry.get("detectability") == "lint") and not entry.get("pattern") and not entry.get("validator"):
             warnings.append(
                 f"[KNOWLEDGE] anti_patterns.yaml:{entry.get('id', '<unknown>')} -- "
-                "detectability is lint but pattern is empty"
+                "detectability is lint but both pattern and validator are empty"
             )
 
     ai_context = REPO_ROOT / "scripts" / "ai_context.py"
@@ -554,6 +648,18 @@ def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
             warnings.append(
                 f"[KNOWLEDGE] data/validation_baseline.yaml:warnings[{idx}] -- missing rationale"
             )
+
+
+def check_unique_wonder_ritual_harness(files: list[Path]) -> None:
+    rels = {str(path.relative_to(REPO_ROOT)).replace("\\", "/") for path in files}
+    if not rels.intersection(UNIQUE_RITUAL_HARNESS_FILES) and not any(
+        rel.startswith(prefix)
+        for rel in rels
+        for prefix in UNIQUE_RITUAL_HARNESS_PREFIXES
+    ):
+        return
+    for error in validate_unique_ritual_specs_for_repo():
+        issues.append(f"[UNIQUE_RITUAL_HARNESS] {error}")
 
 
 def _line_num(content: str, pos: int) -> int:
@@ -629,6 +735,218 @@ def _has_direct_child_block(body: str, name: str) -> bool:
         if depth < 0:
             depth = 0
     return False
+
+
+def _is_comment_position(content: str, pos: int) -> bool:
+    line_start = content.rfind("\n", 0, pos) + 1
+    prefix = content[line_start:pos]
+    return "#" in prefix and prefix.split("#", 1)[0].strip() == ""
+
+
+def _iter_direct_child_blocks(content: str, start: int, end: int, name: str):
+    """Yield direct child blocks named `name` inside content[start:end]."""
+    depth = 0
+    pattern = re.compile(rf"^\s*{re.escape(name)}\s*=\s*\{{")
+    segment = content[start + 1:end]
+    abs_line_start = start + 1
+    for line in segment.splitlines(keepends=True):
+        code = line.split("#", 1)[0]
+        if depth == 0:
+            match = pattern.match(code)
+            if match:
+                open_pos = content.find("{", abs_line_start + match.start(), abs_line_start + len(line))
+                close_pos = _find_matching_brace(content, open_pos) if open_pos != -1 else None
+                if close_pos is not None and close_pos <= end:
+                    yield open_pos, close_pos
+        depth += _brace_delta(line)
+        if depth < 0:
+            depth = 0
+        abs_line_start += len(line)
+
+
+def _iter_direct_on_action_event_entries(content: str, start: int, end: int):
+    """Yield direct event ids inside native events/random_events blocks."""
+    depth = 0
+    segment = content[start + 1:end]
+    abs_line_start = start + 1
+    weighted_event = re.compile(
+        r"^\s*(?:\d+|[A-Za-z_][A-Za-z0-9_]*)\s*=\s*([A-Za-z_][A-Za-z0-9_]*\.\d+)\b"
+    )
+    bare_event = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*\.\d+)\b")
+    for line in segment.splitlines(keepends=True):
+        code = line.split("#", 1)[0]
+        if depth == 0:
+            match = weighted_event.match(code) or bare_event.match(code)
+            if match:
+                event_id = match.group(1)
+                yield event_id, abs_line_start + code.find(event_id)
+        depth += _brace_delta(line)
+        if depth < 0:
+            depth = 0
+        abs_line_start += len(line)
+
+
+def _direct_delay_days(content: str, start: int, end: int) -> list[tuple[int, int | None]]:
+    delays = []
+    for delay_open, delay_close in _iter_direct_child_blocks(content, start, end, "delay"):
+        body = content[delay_open + 1:delay_close]
+        days_match = re.search(r"\bdays\s*=\s*(-?\d+)\b", body)
+        days = int(days_match.group(1)) if days_match else None
+        delays.append((delay_open, days))
+    return delays
+
+
+def _load_monthly_country_pulse_config() -> tuple[list[str], int]:
+    registry = load_yaml(PULSE_REGISTRY_FILE) or {}
+    settings = registry.get("settings", {}) or {}
+    delay = int(settings.get("monthly_country_pulse_event_delay_days", 1))
+    pulses = registry.get("pulses", {}) or {}
+    callbacks = [str(name) for name in (pulses.get("monthly_country_pulse", []) or [])]
+    return callbacks, delay
+
+
+def _load_tv_on_action_and_effect_blocks() -> dict[str, dict]:
+    blocks: dict[str, dict] = {}
+    roots = [
+        REPO_ROOT / "src" / "in_game" / "common" / "on_action",
+        REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects",
+    ]
+    for root in roots:
+        if not root.exists():
+            continue
+        for path in sorted(root.glob("*.txt")):
+            try:
+                content = path.read_text(encoding="utf-8-sig")
+            except OSError:
+                continue
+            for name, open_pos, close_pos in _iter_top_level_blocks(content):
+                if name.startswith("tv_"):
+                    blocks[name] = {
+                        "path": path,
+                        "content": content,
+                        "open": open_pos,
+                        "close": close_pos,
+                    }
+    return blocks
+
+
+def _iter_tv_block_calls(content: str, start: int, end: int):
+    body = content[start + 1:end]
+    for match in MONTHLY_PULSE_TV_CALL_RE.finditer(body):
+        absolute_pos = start + 1 + match.start()
+        if _is_comment_position(content, absolute_pos):
+            continue
+        yield match.group(1)
+
+
+def _monthly_delay_issue(path: Path, content: str, pos: int, event_id: str, expected_days: int, detail: str) -> None:
+    issues.append(
+        f"[MONTHLY_PULSE_EVENT_DELAY] {path.relative_to(REPO_ROOT)}:{_line_num(content, pos)} -- "
+        f"{event_id} is reachable from monthly_country_pulse; {detail}. "
+        f"Use days = {expected_days} for trigger_event_* calls or "
+        f"`delay = {{ days = {expected_days} }}` for native events/random_events blocks."
+    )
+
+
+def _check_trigger_event_delays_in_block(block: dict, expected_days: int) -> None:
+    path = block["path"]
+    content = block["content"]
+    start = block["open"]
+    end = block["close"]
+    body = content[start + 1:end]
+
+    for match in MONTHLY_PULSE_TRIGGER_EVENT_SIMPLE_RE.finditer(body):
+        absolute_pos = start + 1 + match.start()
+        if _is_comment_position(content, absolute_pos):
+            continue
+        _monthly_delay_issue(
+            path,
+            content,
+            absolute_pos,
+            match.group(1),
+            expected_days,
+            "simple trigger_event_* form has no delay",
+        )
+
+    for match in MONTHLY_PULSE_TRIGGER_EVENT_BLOCK_RE.finditer(body):
+        absolute_pos = start + 1 + match.start()
+        if _is_comment_position(content, absolute_pos):
+            continue
+        open_pos = content.find("{", absolute_pos, end)
+        if open_pos == -1:
+            continue
+        close_pos = _find_matching_brace(content, open_pos)
+        if close_pos is None or close_pos > end:
+            continue
+        trigger_body = content[open_pos + 1:close_pos]
+        id_match = re.search(r"\bid\s*=\s*([A-Za-z_][A-Za-z0-9_]*\.\d+)\b", trigger_body)
+        if not id_match:
+            continue
+        event_id = id_match.group(1)
+        days_match = re.search(r"\bdays\s*=\s*(-?\d+)\b", trigger_body)
+        if not days_match or int(days_match.group(1)) != expected_days:
+            _monthly_delay_issue(
+                path,
+                content,
+                open_pos + 1 + id_match.start(),
+                event_id,
+                expected_days,
+                "trigger_event_* object is missing the required one-day delay",
+            )
+
+
+def _check_native_on_action_event_delays_in_block(block: dict, expected_days: int) -> None:
+    path = block["path"]
+    content = block["content"]
+    for block_name in ("events", "random_events"):
+        for events_open, events_close in _iter_named_blocks(content, block["open"], block["close"], block_name):
+            event_entries = list(_iter_direct_on_action_event_entries(content, events_open, events_close))
+            if not event_entries:
+                continue
+            first_event_id, first_event_pos = event_entries[0]
+            valid_delay = any(
+                delay_open < first_event_pos and days == expected_days
+                for delay_open, days in _direct_delay_days(content, events_open, events_close)
+            )
+            if not valid_delay:
+                _monthly_delay_issue(
+                    path,
+                    content,
+                    first_event_pos,
+                    first_event_id,
+                    expected_days,
+                    f"{block_name} block is missing a preceding delay",
+                )
+
+
+def check_monthly_country_pulse_event_delay() -> None:
+    """Ensure monthly_country_pulse-triggered events fire one day later."""
+    if not PULSE_REGISTRY_FILE.exists():
+        return
+    callbacks, expected_days = _load_monthly_country_pulse_config()
+    if not callbacks:
+        return
+
+    blocks = _load_tv_on_action_and_effect_blocks()
+    queue = list(callbacks)
+    visited: set[str] = set()
+    reachable: list[dict] = []
+    while queue:
+        name = queue.pop(0)
+        if name in visited:
+            continue
+        visited.add(name)
+        block = blocks.get(name)
+        if not block:
+            continue
+        reachable.append(block)
+        for called in _iter_tv_block_calls(block["content"], block["open"], block["close"]):
+            if called in blocks and called not in visited:
+                queue.append(called)
+
+    for block in reachable:
+        _check_trigger_event_delays_in_block(block, expected_days)
+        _check_native_on_action_event_delays_in_block(block, expected_days)
 
 
 def load_hardcoded_on_actions() -> set[str]:
@@ -931,6 +1249,7 @@ def main():
             )
             if is_game_content:
                 check_anti_patterns(path, content, anti_patterns)
+                check_wonder_engine_scaled_fixed_modifiers(path, content)
                 check_generic_action_pre_eval_risks(path, content)
                 check_io_policy_ai_scope_recipient_guard(path, content)
                 check_on_action_singleton_effect_delegate(path, content, hardcoded_on_actions)
@@ -938,6 +1257,7 @@ def main():
                 check_modifier_names(path, content, modifier_whitelist)
 
         check_game_concept_duplicate_keys()
+        check_loc_physical_lines()
         check_loc_duplicate_keys()
         check_loc_coverage()
         check_trigger_loc_coverage()
@@ -945,7 +1265,9 @@ def main():
         check_generated_headers()
         check_vanilla_copy_integrity()
         check_tv_io_icon_assets()
+        check_monthly_country_pulse_event_delay()
         check_knowledge_maintenance(anti_patterns)
+        check_unique_wonder_ritual_harness(files)
 
     if ai_report:
         def _is_autogen_warning(i: str) -> bool:

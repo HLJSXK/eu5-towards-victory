@@ -174,7 +174,7 @@ organization_panel = {
 \t\tvbox = {
 \t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
-\t\t\tlayoutpolicy_vertical = fixed
+\t\t\tlayoutpolicy_vertical = expanding
 \t\t\tignoreinvisible = yes
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
 \t\t\tspacing = 8
@@ -502,8 +502,18 @@ GUI_SUFFIX = """\
 \t# -- Philosophy tab: reuse the vanilla resolutions slot ---------------------
 \tblockoverride "organization_resolutions_content" {
 \t\tmargin = { 0 0 }
+\t\tlayoutpolicy_vertical = expanding
 
-\t\tvbox = {
+\t\tscrollarea = {
+\t\t\tusing = layoutpolicy_expanding
+\t\t\tscrollbarpolicy_horizontal = always_off
+
+\t\t\tscrollbar_vertical = {
+\t\t\t\tusing = Scrollbar_Vertical
+\t\t\t}
+
+\t\t\tscrollwidget = {
+\t\t\t\tvbox = {
 \t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
 \t\t\tlayoutpolicy_vertical = fixed
@@ -522,17 +532,121 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\twidget = {
-\t\t\t\t\t\tsize = { 470 56 }
+\t\t\t\t\tvbox = {
+\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\tsize = { 470 152 }
+\t\t\t\t\t\tmargin = { 4 6 }
+\t\t\t\t\t\tspacing = 8
 
-\t\t\t\t\t\ttext_single = {
-\t\t\t\t\t\t\tsize = { 470 44 }
-\t\t\t\t\t\t\tparentanchor = center
-\t\t\t\t\t\t\twidgetanchor = center
-\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_LINE"
-\t\t\t\t\t\t\tfontsize = 22
-\t\t\t\t\t\t\tautoresize = no
-\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\tsize = { 462 104 }
+\t\t\t\t\t\t\tspacing = 10
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 76 96 }
+\t\t\t\t\t\t\t\tallow_outside = yes
+
+\t\t\t\t\t\t\t\tportrait_standard_head_button = {
+\t\t\t\t\t\t\t\t\tusing = character_portrait_bg
+\t\t\t\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet]"
+\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\tsize = { 58 72 }
+\t\t\t\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+
+\t\t\t\t\t\t\t\t\ticon = {
+\t\t\t\t\t\t\t\t\t\tblock "character_frame_texture" {
+\t\t\t\t\t\t\t\t\t\t\ttexture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds"
+\t\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t\t\ttexture_density = 2
+\t\t\t\t\t\t\t\t\t\tsize = { 100% 100% }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
+\t\t\t\t\t\t\t\t\tsize = { 58 72 }
+\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 100% 100% }
+\t\t\t\t\t\t\t\t\t\traw_text = "@adm!"
+\t\t\t\t\t\t\t\t\t\tfontsize = 22
+\t\t\t\t\t\t\t\t\t\tautoresize = no
+\t\t\t\t\t\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 376 96 }
+\t\t\t\t\t\t\t\tusing = bg_text_mask_container_dark_blue
+\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\tmargin = { 8 8 }
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\t\ttext_multi = {
+\t\t\t\t\t\t\t\t\t\tmax_width = 360
+\t\t\t\t\t\t\t\t\t\tautoresize = yes
+\t\t\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_CONCEPT_IN_PROGRESS_TEXT"
+\t\t\t\t\t\t\t\t\t\talign = nobaseline|left
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t}
+
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\tsize = { 462 22 }
+\t\t\t\t\t\t\tspacing = 6
+\t\t\t\t\t\t\ttext_single = { raw_text = "@adm!" size = { 24 20 } max_width = 24 fontsize = 16 align = center|nobaseline }
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 340 22 }
+\t\t\t\t\t\t\t\tprogressbar = {
+\t\t\t\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').IsSet]"
+\t\t\t\t\t\t\t\t\tsize = { 340 14 }
+\t\t\t\t\t\t\t\t\tparentanchor = vcenter
+\t\t\t\t\t\t\t\t\twidgetanchor = vcenter
+\t\t\t\t\t\t\t\t\tusing = progress_bar_blue_alt
+\t\t\t\t\t\t\t\t\tmin = 0
+\t\t\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\t\t\tvalue = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').GetValue]"
+\t\t\t\t\t\t\t\t\ttooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\tprogressbar = {
+\t\t\t\t\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').IsSet)]"
+\t\t\t\t\t\t\t\t\tsize = { 340 14 }
+\t\t\t\t\t\t\t\t\tparentanchor = vcenter
+\t\t\t\t\t\t\t\t\twidgetanchor = vcenter
+\t\t\t\t\t\t\t\t\tusing = progress_bar_blue_alt
+\t\t\t\t\t\t\t\t\tmin = 0
+\t\t\t\t\t\t\t\t\tmax = 100
+\t\t\t\t\t\t\t\t\tvalue = 0
+\t\t\t\t\t\t\t\t\ttooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').IsSet]"
+\t\t\t\t\t\t\t\traw_text = "[Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').GetValue)), '/100')]"
+\t\t\t\t\t\t\t\tsize = { 86 20 }
+\t\t\t\t\t\t\t\tmax_width = 86
+\t\t\t\t\t\t\t\tfontsize = 13
+\t\t\t\t\t\t\t\ttooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+\t\t\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\ttext_single = {
+\t\t\t\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_concept_progress').IsSet)]"
+\t\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_VALUE"
+\t\t\t\t\t\t\t\tsize = { 86 20 }
+\t\t\t\t\t\t\t\tmax_width = 86
+\t\t\t\t\t\t\t\tfontsize = 13
+\t\t\t\t\t\t\t\ttooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"
+\t\t\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t\t\t}
 \t\t\t\t\t\t}
 \t\t\t\t\t}
 \t\t\t\t}
@@ -746,23 +860,189 @@ GUI_SUFFIX = """\
 \t\t\t\t}
 
 \t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\thbox = {
+\t\t\t\t\tvbox = {
 \t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\tsize = { 470 126 }
 \t\t\t\t\t\tmargin = { 4 6 }
+\t\t\t\t\t\tspacing = 6
 
-\t\t\t\t\t\tbutton_regular_diamond = {
-\t\t\t\t\t\t\tsize = { 470 30 }
-\t\t\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
-\t\t\t\t\t\t\ttooltip = "TV_ACADEMY_PHILOSOPHY_NO_ACTION_BUTTON"
-\t\t\t\t\t\t\tenabled = no
+\t\t\t\t\t\thbox = {
+\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\tsize = { 462 112 }
+\t\t\t\t\t\t\tspacing = 6
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = yes
+\t\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\t\tbutton_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_1 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 132 96 }
+\t\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\t\ttext_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_FUNDING" fontsize = 13 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t\ttext_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = no
+\t\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\t\tbutton_regular_alt_green = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 132 96 }
+\t\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\t\ttext_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_PUBLIC_STANCE" fontsize = 13 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t\ttext_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = no
+\t\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\t\tbutton_regular_alt_yellow = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 132 96 }
+\t\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\t\ttext_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_MANIPULATE_EVENTS" fontsize = 13 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t\ttext_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = no
+\t\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\t\tbutton_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_2 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 132 96 }
+\t\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\t\ttext_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_COMPROMISE" fontsize = 13 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t\ttext_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = no
+\t\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\t\tbutton_regular_alt_red = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 132 96 }
+\t\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\t\ttext_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_SUPPRESSION" fontsize = 13 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t\ttext_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = no
+\t\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\t\tbutton_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_4 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" }
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 132 96 }
+\t\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\t\ttext_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_INSTITUTIONAL_REALITY" fontsize = 13 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t\ttext_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_1" fontsize = 12 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = yes
+\t\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\t\tbutton_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_1 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" }
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 132 96 }
+\t\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\t\ttext_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_FUNDING" fontsize = 13 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t\ttext_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt_green = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_PUBLIC_STANCE" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt_yellow = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_MANIPULATE_EVENTS" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_2 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_COMPROMISE" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt_red = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_SUPPRESSION" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_4 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_INSTITUTIONAL_REALITY" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_2" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t}
+
+\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\twidget = {
+\t\t\t\t\t\t\t\t\tvisible = yes
+\t\t\t\t\t\t\t\t\tsize = { 150 112 }
+\t\t\t\t\t\t\t\t\tbutton_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_1 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" }
+\t\t\t\t\t\t\t\t\tvbox = {
+\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\tsize = { 132 96 }
+\t\t\t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\t\t\ttext_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_FUNDING" fontsize = 13 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t\ttext_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline }
+\t\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\t}
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt_green = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_PUBLIC_STANCE" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt_yellow = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_MANIPULATE_EVENTS" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_2 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_COMPROMISE" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt_red = { size = { 150 112 } raw_text = "" tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_SUPPRESSION" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t\twidget = { visible = no size = { 150 112 } button_regular_alt = { size = { 150 112 } raw_text = "" using = bg_button_flavor_4 tooltip = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" } vbox = { parentanchor = center widgetanchor = center size = { 132 96 } spacing = 8 text_single = { size = { 132 24 } text = "TV_ACADEMY_PHILOSOPHY_ACTION_CATEGORY_INSTITUTIONAL_REALITY" fontsize = 13 align = center|nobaseline } text_multi = { size = { 132 60 } max_width = 132 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_PLACEHOLDER_SLOT_3" fontsize = 12 align = center|nobaseline } } }
+\t\t\t\t\t\t\t}
 \t\t\t\t\t\t}
 \t\t\t\t\t}
 \t\t\t\t}
 \t\t\t}
 
-\t\t}
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_ACTION_DETAILS_TITLE"
+\t\t\t\t}
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\ttext_multi = { size = { 470 58 } max_width = 454 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_DETAILS_BODY" align = nobaseline|left }
+\t\t\t\t}
+\t\t\t}
 
-\t\texpand = {}
+\t\t\tcard_common = {
+\t\t\t\tmaximumsize = { 500 -1 }
+\t\t\t\tblockoverride "common_header_icon_texture" {
+\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+\t\t\t\t}
+\t\t\t\tblockoverride "common_header_text" {
+\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_ACTION_EFFECTS_TITLE"
+\t\t\t\t}
+\t\t\t\tblockoverride "common_bottom_content" {
+\t\t\t\t\ttext_multi = { size = { 470 58 } max_width = 454 autoresize = no text = "TV_ACADEMY_PHILOSOPHY_ACTION_EFFECTS_BODY" align = nobaseline|left }
+\t\t\t\t}
+\t\t\t}
+
+\t\t\thbox = {
+\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\tmargin = { 4 0 }
+\t\t\t\texpand = {}
+\t\t\t\tbutton_regular_diamond = {
+\t\t\t\t\tsize = { 235 30 }
+\t\t\t\t\ttext = "TV_ACADEMY_PHILOSOPHY_EXECUTE_ACTION_BUTTON"
+\t\t\t\t\ttooltip = "TV_ACADEMY_PHILOSOPHY_EXECUTE_ACTION_TT"
+\t\t\t\t\tenabled = no
+\t\t\t\t}
+\t\t\t}
+
+\t\t}
+\t\t\t}
+\t\t}
 \t}
 
 \t# -- Medicine tab: enable the custom tab slot -------------------------------
@@ -1080,10 +1360,494 @@ def gen_target_entry(advance: dict) -> str:
     )
 
 
+PHILOSOPHY_ACTION_BUTTON_STYLES = {
+    1: "button_regular_texture_alt_yellow",
+    2: "button_regular_texture_alt_green",
+    3: "button_regular_texture_alt_yellow",
+    4: "button_regular_texture_alt",
+    5: "button_regular_texture_alt_red",
+    6: "button_regular_texture_alt",
+}
+
+
+def player_var(name: str) -> str:
+    return f"InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{name}')"
+
+
+def io_var(name: str) -> str:
+    return f"InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('{name}')"
+
+
+def fixed_eq(var_expr: str, value: int) -> str:
+    return f"EqualTo_CFixedPoint({var_expr}.GetValue, '(CFixedPoint){value}.0')"
+
+
+def player_var_eq(name: str, value: int) -> str:
+    return fixed_eq(player_var(name), value)
+
+
+def philosophy_debate_visible() -> str:
+    return f"[{player_var_eq('tv_academy_philosophy_phase', 1)}]"
+
+
+def emit(lines: list[str], level: int, text: str = "") -> None:
+    lines.append((T * level + text) if text else "")
+
+
+def append_philosophy_status_circle(lines: list[str], level: int, index: int) -> None:
+    state_var = f"tv_academy_philosophy_round_state_{index}"
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, "size = { 38 38 }")
+    emit(lines, level + 1, "using = bg_circle_piechart")
+    for value, loc_key in [
+        (0, "TV_ACADEMY_PHILOSOPHY_STATUS_EMPTY"),
+        (1, "TV_ACADEMY_PHILOSOPHY_STATUS_ACTIVE"),
+        (2, "TV_ACADEMY_PHILOSOPHY_STATUS_SUCCESS"),
+        (3, "TV_ACADEMY_PHILOSOPHY_STATUS_FAILURE"),
+    ]:
+        emit(lines, level + 1, "text_single = {")
+        emit(lines, level + 2, f'visible = "[{player_var_eq(state_var, value)}]"')
+        emit(lines, level + 2, "parentanchor = center")
+        emit(lines, level + 2, "size = { 100% 100% }")
+        emit(lines, level + 2, f'text = "{loc_key}"')
+        emit(lines, level + 2, "fontsize = 20")
+        emit(lines, level + 2, "autoresize = no")
+        emit(lines, level + 2, "align = center|nobaseline")
+        emit(lines, level + 1, "}")
+    emit(lines, level, "}")
+
+
+def append_current_philosophy_name(lines: list[str], level: int) -> None:
+    current = player_var("tv_academy_philosophy_current")
+    emit(lines, level, "text_single = {")
+    emit(lines, level + 1, f'visible = "[Not({current}.IsSet)]"')
+    emit(lines, level + 1, 'text = "TV_ACADEMY_PHILOSOPHY_NAME_MERITOCRACY"')
+    emit(lines, level + 1, "fontsize = 15")
+    emit(lines, level + 1, "align = nobaseline|left")
+    emit(lines, level, "}")
+    for value, loc_key in [
+        (1, "TV_ACADEMY_PHILOSOPHY_NAME_MERITOCRACY"),
+        (2, "TV_ACADEMY_PHILOSOPHY_NAME_RENAISSANCE"),
+        (3, "TV_ACADEMY_PHILOSOPHY_NAME_NEW_WORLD"),
+        (4, "TV_ACADEMY_PHILOSOPHY_NAME_CONFESSIONALISM"),
+    ]:
+        emit(lines, level, "text_single = {")
+        emit(lines, level + 1, f'visible = "[{player_var_eq("tv_academy_philosophy_current", value)}]"')
+        emit(lines, level + 1, f'text = "{loc_key}"')
+        emit(lines, level + 1, "fontsize = 15")
+        emit(lines, level + 1, "align = nobaseline|left")
+        emit(lines, level, "}")
+
+
+def append_philosophy_action_button(lines: list[str], level: int, slot: int, action_id: int) -> None:
+    action_name = f"tv_philosophy_select_slot_{slot}_action_{action_id}"
+    slot_action = f"tv_academy_philosophy_slot_{slot}_action"
+    emit(lines, level, "action_button = {")
+    emit(lines, level + 1, f'visible = "[{player_var_eq(slot_action, action_id)}]"')
+    emit(lines, level + 1, "size = { 150 72 }")
+    emit(lines, level + 1, f"using = {PHILOSOPHY_ACTION_BUTTON_STYLES[action_id]}")
+    emit(lines, level + 1, "using = action_button_common_template")
+    emit(lines, level + 1, "using = button_common_textobj_template")
+    emit(lines, level + 1, "fontsize = 12")
+    emit(lines, level + 1, f'text = "TV_ACADEMY_PHILOSOPHY_ACTION_{action_id}_NAME"')
+    emit(lines, level + 1, f'title = "{action_name}"')
+    emit(lines, level + 1, f'description = "{action_name}_desc"')
+    emit(lines, level + 1, 'actor = "[InternationalOrganizationsView.GetPlayer]"')
+    emit(lines, level + 1, f'left_action = {{ action_name = "{action_name}" }}')
+    emit(lines, level, "}")
+
+
+def append_philosophy_action_slot(lines: list[str], level: int, slot: int) -> None:
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, "size = { 150 72 }")
+    for action_id in range(1, 7):
+        append_philosophy_action_button(lines, level + 1, slot, action_id)
+    emit(lines, level, "}")
+
+
+def append_selected_action_texts(lines: list[str], level: int, suffix: str) -> None:
+    selected = "tv_academy_philosophy_selected_action"
+    for action_id in range(1, 7):
+        emit(lines, level, "text_multi = {")
+        emit(lines, level + 1, f'visible = "[{player_var_eq(selected, action_id)}]"')
+        emit(lines, level + 1, "size = { 470 58 }")
+        emit(lines, level + 1, "max_width = 454")
+        emit(lines, level + 1, "autoresize = no")
+        emit(lines, level + 1, f'text = "TV_ACADEMY_PHILOSOPHY_ACTION_{action_id}_{suffix}"')
+        emit(lines, level + 1, "align = nobaseline|left")
+        emit(lines, level, "}")
+
+
+def gen_philosophy_block() -> str:
+    phase_visible = philosophy_debate_visible()
+    inspiration = io_var("tv_academy_philosophy_inspiration")
+    debate_position = player_var("tv_academy_philosophy_debate_position")
+    selected_action = player_var("tv_academy_philosophy_selected_action")
+    first_slot_action = player_var("tv_academy_philosophy_slot_1_action")
+    lines: list[str] = []
+
+    emit(lines, 1, 'blockoverride "organization_resolutions_content" {')
+    emit(lines, 2, "margin = { 0 0 }")
+    emit(lines, 2, "layoutpolicy_vertical = expanding")
+    emit(lines, 2, "scrollarea = {")
+    emit(lines, 3, "using = layoutpolicy_expanding")
+    emit(lines, 3, "scrollbarpolicy_horizontal = always_off")
+    emit(lines, 3, "scrollbar_vertical = {")
+    emit(lines, 4, "using = Scrollbar_Vertical")
+    emit(lines, 3, "}")
+    emit(lines, 3, "scrollwidget = {")
+    emit(lines, 4, "vbox = {")
+    emit(lines, 5, "margin = { 10 0 }")
+    emit(lines, 5, "layoutpolicy_horizontal = expanding")
+    emit(lines, 5, "layoutpolicy_vertical = expanding")
+    emit(lines, 5, "ignoreinvisible = yes")
+    emit(lines, 5, "spacing = 10")
+
+    emit(lines, 5, "card_common = {")
+    emit(lines, 6, "maximumsize = { 500 -1 }")
+    emit(lines, 6, 'blockoverride "common_header_icon_texture" {')
+    emit(lines, 7, 'texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_header_text" {')
+    emit(lines, 7, 'text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_CARD_TITLE"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_bottom_content" {')
+    emit(lines, 7, "vbox = {")
+    emit(lines, 8, "layoutpolicy_horizontal = expanding")
+    emit(lines, 8, "layoutpolicy_vertical = fixed")
+    emit(lines, 8, "size = { 470 152 }")
+    emit(lines, 8, "margin = { 4 6 }")
+    emit(lines, 8, "spacing = 8")
+    emit(lines, 8, "hbox = {")
+    emit(lines, 9, "layoutpolicy_horizontal = expanding")
+    emit(lines, 9, "layoutpolicy_vertical = fixed")
+    emit(lines, 9, "size = { 462 96 }")
+    emit(lines, 9, "spacing = 10")
+    emit(lines, 9, "widget = {")
+    emit(lines, 10, "size = { 76 96 }")
+    emit(lines, 10, "allow_outside = yes")
+    emit(lines, 10, "portrait_standard_head_button = {")
+    emit(lines, 11, "using = character_portrait_bg")
+    emit(lines, 11, f'visible = "[{player_var("tv_academy_leader_char")}.IsSet]"')
+    emit(lines, 11, "parentanchor = center")
+    emit(lines, 11, "widgetanchor = center")
+    emit(lines, 11, "size = { 58 72 }")
+    emit(lines, 11, f'datacontext = "[{player_var("tv_academy_leader_char")}.GetCharacter]"')
+    emit(lines, 11, "icon = {")
+    emit(lines, 12, 'block "character_frame_texture" {')
+    emit(lines, 13, 'texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds"')
+    emit(lines, 12, "}")
+    emit(lines, 12, "texture_density = 2")
+    emit(lines, 12, "size = { 100% 100% }")
+    emit(lines, 11, "}")
+    emit(lines, 10, "}")
+    emit(lines, 10, "widget = {")
+    emit(lines, 11, f'visible = "[Not({player_var("tv_academy_leader_char")}.IsSet)]"')
+    emit(lines, 11, "size = { 58 72 }")
+    emit(lines, 11, "parentanchor = center")
+    emit(lines, 11, "widgetanchor = center")
+    emit(lines, 11, "using = bg_circle_piechart")
+    emit(lines, 11, 'text_single = { parentanchor = center size = { 100% 100% } raw_text = "@adm!" fontsize = 22 autoresize = no align = center|nobaseline }')
+    emit(lines, 10, "}")
+    emit(lines, 9, "}")
+    emit(lines, 9, "widget = {")
+    emit(lines, 10, "size = { 376 96 }")
+    emit(lines, 10, "using = bg_text_mask_container_dark_blue")
+    emit(lines, 10, "vbox = {")
+    emit(lines, 11, "margin = { 8 8 }")
+    emit(lines, 11, "layoutpolicy_horizontal = expanding")
+    emit(lines, 11, "spacing = 4")
+    emit(lines, 11, 'text_single = { size = { 360 22 } text = "TV_ACADEMY_PHILOSOPHY_CURRENT_ISSUE_LINE" fontsize = 13 align = nobaseline|left }')
+    append_current_philosophy_name(lines, 11)
+    emit(lines, 11, 'text_multi = { size = { 360 34 } max_width = 360 autoresize = yes text = "TV_ACADEMY_PHILOSOPHY_CONCEPT_IN_PROGRESS_TEXT" align = nobaseline|left }')
+    emit(lines, 10, "}")
+    emit(lines, 9, "}")
+    emit(lines, 8, "}")
+    emit(lines, 8, "hbox = {")
+    emit(lines, 9, "layoutpolicy_horizontal = fixed")
+    emit(lines, 9, "size = { 462 22 }")
+    emit(lines, 9, "spacing = 6")
+    emit(lines, 9, 'text_single = { raw_text = "@adm!" size = { 24 20 } max_width = 24 fontsize = 16 align = center|nobaseline }')
+    emit(lines, 9, "widget = {")
+    emit(lines, 10, "size = { 340 22 }")
+    emit(lines, 10, "progressbar = {")
+    emit(lines, 11, "size = { 340 14 }")
+    emit(lines, 11, "parentanchor = vcenter")
+    emit(lines, 11, "widgetanchor = vcenter")
+    emit(lines, 11, "using = progress_bar_blue_alt")
+    emit(lines, 11, "min = 0")
+    emit(lines, 11, "max = 100")
+    emit(lines, 11, f'value = "[{inspiration}.GetValue]"')
+    emit(lines, 11, 'tooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"')
+    emit(lines, 10, "}")
+    emit(lines, 9, "}")
+    emit(lines, 9, "text_single = {")
+    emit(lines, 10, f'raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText(\'tv_academy_philosophy_inspiration\')]"')
+    emit(lines, 10, "size = { 86 20 }")
+    emit(lines, 10, "max_width = 86")
+    emit(lines, 10, "fontsize = 13")
+    emit(lines, 10, 'tooltip = "TV_ACADEMY_PHILOSOPHY_CONCEPT_PROGRESS_TT"')
+    emit(lines, 10, "align = nobaseline|right")
+    emit(lines, 9, "}")
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+
+    emit(lines, 5, "card_common = {")
+    emit(lines, 6, f'visible = "{phase_visible}"')
+    emit(lines, 6, "maximumsize = { 500 -1 }")
+    emit(lines, 6, 'blockoverride "common_header_icon_texture" {')
+    emit(lines, 7, 'texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_header_text" {')
+    emit(lines, 7, 'text = "TV_ACADEMY_PHILOSOPHY_DEBATE_STATUS_CARD_TITLE"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_bottom_content" {')
+    emit(lines, 7, "widget = {")
+    emit(lines, 8, "size = { 470 52 }")
+    emit(lines, 8, "hbox = {")
+    emit(lines, 9, "parentanchor = center")
+    emit(lines, 9, "widgetanchor = center")
+    emit(lines, 9, "spacing = 12")
+    for index in range(1, 7):
+        append_philosophy_status_circle(lines, 9, index)
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+
+    emit(lines, 5, "card_common = {")
+    emit(lines, 6, f'visible = "{phase_visible}"')
+    emit(lines, 6, "maximumsize = { 500 -1 }")
+    emit(lines, 6, 'blockoverride "common_header_icon_texture" {')
+    emit(lines, 7, 'texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_header_text" {')
+    emit(lines, 7, 'text = "TV_ACADEMY_PHILOSOPHY_CURRENT_DEBATE_CARD_TITLE"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_bottom_content" {')
+    emit(lines, 7, "vbox = {")
+    emit(lines, 8, "layoutpolicy_horizontal = expanding")
+    emit(lines, 8, "size = { 470 132 }")
+    emit(lines, 8, "margin = { 4 6 }")
+    emit(lines, 8, "spacing = 8")
+    emit(lines, 8, 'text_single = { size = { 462 24 } text = "TV_ACADEMY_PHILOSOPHY_FIXED_DEBATE_TITLE" fontsize = 15 align = center|nobaseline }')
+    emit(lines, 8, "hbox = {")
+    emit(lines, 9, "layoutpolicy_horizontal = expanding")
+    emit(lines, 9, "spacing = 10")
+    emit(lines, 9, 'widget = { size = { 226 58 } vbox = { layoutpolicy_horizontal = expanding spacing = 6 text_single = { size = { 226 22 } text = "TV_ACADEMY_PHILOSOPHY_PRO_SIDE" fontsize = 15 align = center|nobaseline } text_single = { size = { 226 28 } text = "TV_ACADEMY_PHILOSOPHY_PRO_GROUP" fontsize = 14 align = center|nobaseline } } }')
+    emit(lines, 9, 'widget = { size = { 226 58 } vbox = { layoutpolicy_horizontal = expanding spacing = 6 text_single = { size = { 226 22 } text = "TV_ACADEMY_PHILOSOPHY_CON_SIDE" fontsize = 15 align = center|nobaseline } text_single = { size = { 226 28 } text = "TV_ACADEMY_PHILOSOPHY_CON_GROUP" fontsize = 14 align = center|nobaseline } } }')
+    emit(lines, 8, "}")
+    emit(lines, 8, "progressbar = {")
+    emit(lines, 9, "size = { 462 18 }")
+    emit(lines, 9, "min = 0")
+    emit(lines, 9, "max = 100")
+    emit(lines, 9, f'value = "[{debate_position}.GetValue]"')
+    emit(lines, 9, 'progresstexture = "gfx/interface/progressbars/progress_bar_green_alt.dds"')
+    emit(lines, 9, 'noprogresstexture = "gfx/interface/progressbars/progress_bar_red_alt.dds"')
+    emit(lines, 9, "texture_density = 2")
+    emit(lines, 9, "spriteType = Corneredstretched")
+    emit(lines, 9, "spriteborder = { 12 0 }")
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+
+    emit(lines, 5, "card_common = {")
+    emit(lines, 6, f'visible = "{phase_visible}"')
+    emit(lines, 6, "maximumsize = { 500 -1 }")
+    emit(lines, 6, 'blockoverride "common_header_icon_texture" {')
+    emit(lines, 7, 'texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_header_text" {')
+    emit(lines, 7, 'text = "TV_ACADEMY_PHILOSOPHY_MAIN_ACTIONS_CARD_TITLE"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_bottom_content" {')
+    emit(lines, 7, "vbox = {")
+    emit(lines, 8, "layoutpolicy_horizontal = expanding")
+    emit(lines, 8, "layoutpolicy_vertical = fixed")
+    emit(lines, 8, "size = { 470 90 }")
+    emit(lines, 8, "margin = { 4 6 }")
+    emit(lines, 8, "spacing = 6")
+    emit(lines, 8, "text_multi = {")
+    emit(lines, 9, f'visible = "[Not({first_slot_action}.IsSet)]"')
+    emit(lines, 9, "size = { 462 72 }")
+    emit(lines, 9, "max_width = 454")
+    emit(lines, 9, "autoresize = yes")
+    emit(lines, 9, 'text = "TV_ACADEMY_PHILOSOPHY_WAITING_FOR_INSPIRATION"')
+    emit(lines, 9, "align = center|nobaseline")
+    emit(lines, 8, "}")
+    emit(lines, 8, "hbox = {")
+    emit(lines, 9, f'visible = "[{first_slot_action}.IsSet]"')
+    emit(lines, 9, "layoutpolicy_horizontal = fixed")
+    emit(lines, 9, "size = { 462 72 }")
+    emit(lines, 9, "spacing = 6")
+    for slot in range(1, 4):
+        append_philosophy_action_slot(lines, 9, slot)
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+
+    emit(lines, 5, "card_common = {")
+    emit(lines, 6, f'visible = "[{selected_action}.IsSet]"')
+    emit(lines, 6, "maximumsize = { 500 -1 }")
+    emit(lines, 6, 'blockoverride "common_header_icon_texture" {')
+    emit(lines, 7, 'texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_header_text" {')
+    emit(lines, 7, 'text = "TV_ACADEMY_PHILOSOPHY_ACTION_DETAILS_TITLE"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_bottom_content" {')
+    append_selected_action_texts(lines, 7, "BODY")
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+
+    emit(lines, 5, "card_common = {")
+    emit(lines, 6, f'visible = "[{selected_action}.IsSet]"')
+    emit(lines, 6, "maximumsize = { 500 -1 }")
+    emit(lines, 6, 'blockoverride "common_header_icon_texture" {')
+    emit(lines, 7, 'texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_header_text" {')
+    emit(lines, 7, 'text = "TV_ACADEMY_PHILOSOPHY_ACTION_EFFECTS_TITLE"')
+    emit(lines, 6, "}")
+    emit(lines, 6, 'blockoverride "common_bottom_content" {')
+    append_selected_action_texts(lines, 7, "EFFECTS")
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+
+    emit(lines, 5, "hbox = {")
+    emit(lines, 6, f'visible = "[{selected_action}.IsSet]"')
+    emit(lines, 6, "layoutpolicy_horizontal = expanding")
+    emit(lines, 6, "margin = { 4 0 }")
+    emit(lines, 6, "expand = {}")
+    emit(lines, 6, "action_button = {")
+    emit(lines, 7, "size = { 235 30 }")
+    emit(lines, 7, "using = button_regular_texture_alt_yellow")
+    emit(lines, 7, "using = action_button_common_template")
+    emit(lines, 7, "using = button_common_textobj_template")
+    emit(lines, 7, 'text = "TV_ACADEMY_PHILOSOPHY_EXECUTE_ACTION_BUTTON"')
+    emit(lines, 7, 'title = "tv_philosophy_execute_selected_action"')
+    emit(lines, 7, 'description = "tv_philosophy_execute_selected_action_desc"')
+    emit(lines, 7, 'tooltip = "TV_ACADEMY_PHILOSOPHY_EXECUTE_ACTION_TT"')
+    emit(lines, 7, 'actor = "[InternationalOrganizationsView.GetPlayer]"')
+    emit(lines, 7, 'left_action = { action_name = "tv_philosophy_execute_selected_action" }')
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+
+    emit(lines, 5, "expand = {}")
+    emit(lines, 4, "}")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    return "\n".join(lines)
+
+
+def _extract_block_body(block: str) -> str:
+    open_brace = block.index("{")
+    close_brace = block.rfind("\n\t}")
+    if close_brace == -1:
+        raise ValueError("Could not find block closing brace")
+    return block[open_brace + 1 : close_brace].strip("\n")
+
+
+def _indent_block(text: str) -> str:
+    return "\n".join((T + line) if line else line for line in text.splitlines())
+
+
+def _append_actions_to_research_block(research_block: str, actions_block: str) -> str:
+    actions_body = _indent_block(_extract_block_body(actions_block))
+    insert_at = "\n\t\t}\n\t}"
+    if not research_block.endswith(insert_at):
+        raise ValueError("Research block did not end with expected vbox/blockoverride closing marker")
+    prefix = research_block[: -len(insert_at)]
+    return (
+        prefix
+        + "\n\n"
+        + T * 3
+        + "# Action Buttons\n"
+        + actions_body
+        + "\n"
+        + T * 3
+        + "expand = {}"
+        + insert_at
+    )
+
+
+def swap_academy_tabs(content: str) -> str:
+    """Move Philosophy to overview and Concentrated Research to resolutions."""
+    overview_marker = T + 'blockoverride "organization_overview_list_custom_top_extra" {'
+    actions_marker = T + 'blockoverride "organization_main_actions_extra" {'
+    philosophy_comment = T + "# -- Philosophy tab: reuse the vanilla resolutions slot"
+    philosophy_marker = T + 'blockoverride "organization_resolutions_content" {'
+    medicine_marker = T + "# -- Medicine tab: enable the custom tab slot"
+
+    overview_start = content.index(overview_marker)
+    actions_start = content.index(actions_marker)
+    philosophy_comment_start = content.index(philosophy_comment)
+    philosophy_start = content.index(philosophy_marker, philosophy_comment_start)
+    medicine_start = content.index(medicine_marker)
+
+    research_block = content[overview_start:actions_start].rstrip()
+    actions_block = content[actions_start:philosophy_comment_start].rstrip()
+    philosophy_block = gen_philosophy_block().rstrip()
+
+    philosophy_overview = philosophy_block.replace(
+        'blockoverride "organization_resolutions_content"',
+        'blockoverride "organization_overview_list_custom_top_extra"',
+        1,
+    )
+    concentrated_research = _append_actions_to_research_block(
+        research_block.replace(
+            'blockoverride "organization_overview_list_custom_top_extra"',
+            'blockoverride "organization_resolutions_content"',
+            1,
+        ),
+        actions_block,
+    )
+
+    header = content[:overview_start].replace(
+        T + 'blockoverride "organization_main_actions_extra_visible" {\n'
+        + T * 2
+        + "visible = yes\n"
+        + T
+        + "}",
+        T + 'blockoverride "organization_main_actions_extra_visible" {\n'
+        + T * 2
+        + "visible = no\n"
+        + T
+        + "}",
+        1,
+    )
+    header = header.replace('text = "TV_ACADEMY_PHILOSOPHY_TAB"', 'text = "TV_RM_CONCENTRATED_RESEARCH_TAB"', 1)
+    header = header.replace(
+        'tooltip = "TV_ACADEMY_PHILOSOPHY_TAB_TOOLTIP"',
+        'tooltip = "TV_RM_CONCENTRATED_RESEARCH_TAB_TOOLTIP"',
+        1,
+    )
+
+    return (
+        header
+        + T
+        + "# -- Philosophy tab: use the vanilla overview slot -----------------------\n"
+        + philosophy_overview
+        + "\n\n"
+        + T
+        + 'blockoverride "organization_main_actions_extra" {}\n\n'
+        + T
+        + "# -- Concentrated Research tab: use the vanilla resolutions slot ------------\n"
+        + concentrated_research
+        + "\n\n"
+        + content[medicine_start:]
+    )
+
+
 def generate(data: dict) -> str:
     advances = data["locked_advances"]
     entries = "\n".join(gen_target_entry(a) for a in advances)
-    return GUI_PREFIX + entries + "\n" + GUI_SUFFIX
+    return swap_academy_tabs(GUI_PREFIX + entries + "\n" + GUI_SUFFIX)
 
 
 def main() -> None:

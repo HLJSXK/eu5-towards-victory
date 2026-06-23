@@ -1,8 +1,8 @@
 {
   "api": {
-    "endpoint": "https://www.packyapi.com/v1/images/edits",
-    "generations_endpoint": "https://www.packyapi.com/v1/images/generations",
-    "edits_endpoint": "https://www.packyapi.com/v1/images/edits",
+    "endpoint": "https://www.right.codes/draw/v1/images/edits",
+    "generations_endpoint": "https://www.right.codes/draw/v1/images/generations",
+    "edits_endpoint": "https://www.right.codes/draw/v1/images/edits",
     "api_key_env": [
       "PACKY_API_KEY",
       "PACKY_SORA_TOKEN"
@@ -15,7 +15,7 @@
     "retry_max_delay_seconds": 30,
     "retry_backoff_multiplier": 2
   },
-  "generation_target": "trade_good_icon",
+  "generation_target": "victory_reward_icons",
   "prompt_refinement": {
     "enabled": true,
     "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.",
@@ -42,7 +42,7 @@
   "output": {
     "name": "icon_goods_tv_wonder_materials",
     "artifact_stem": "{name}_{target}",
-    "overwrite": true,
+    "overwrite": false,
     "keep_png": true,
     "write_metadata": true,
     "png_dir": "data/generated_icons",
@@ -54,6 +54,8 @@
         "height": 128,
         "resize": "cover",
         "dds_format": "DXT5",
+        "circle_crop": true,
+        "circle_crop_feather_px": 8,
         "max_file_size_bytes": 100000,
         "image_size": "1024x1024",
         "style_reference_paths": [
@@ -66,12 +68,137 @@
         "height": 440,
         "resize": "cover",
         "dds_format": "DXT5",
+        "circle_crop": false,
+        "circle_crop_feather_px": 0,
         "max_file_size_bytes": 1000000,
         "image_size": "2160x880",
         "style_reference_paths": [
           "data/generated_icons/_style_refs/icon_goods_marble.dds"
         ]
+      },
+      "building_icon": {
+        "asset_name": "tv_wonder_labor_camp",
+        "path": "src/main_menu/gfx/interface/icons/buildings/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": true,
+        "mipmap_min_dimension": 2,
+        "circle_crop": true,
+        "circle_crop_feather_px": 8,
+        "max_file_size_bytes": 100000,
+        "image_size": "1024x1024",
+        "prompt_requirements": "This is a compact building icon for the Wonder Worksite. Treat the uploaded Construction Center reference as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict a wonder construction worksite using exactly 2-3 simple shapes: one small worksite shed, one crane or hoist wheel, and one pale stone foundation block. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds"
+        ],
+        "local_template": {
+          "enabled": true,
+          "mode": "wonder_worksite",
+          "source_path": "data/generated_icons/_style_refs/construction_center.dds"
+        },
+        "image": {
+          "natural_prompt": "A simple Europa Universalis V building icon in the uploaded vanilla Construction Center style. Match the reference's painterly icon language, compact crop, simple silhouette, and low element count. Show a wonder construction worksite with only three clear elements: a small worksite shed, one crane or hoist wheel, and one pale stone foundation block with restrained bronze accents. Sparse, centered, readable at 128px, premium but not ornate, no text.",
+          "negative_prompt": "busy construction scene, many objects, extra props, many tools, crowds, workers, multiple buildings, complex scaffolding, ornate palace, completed monument, giant statue, landscape background, detailed narrative scene, realistic photo, text, letters, logo, UI frame"
+        }
+      },
+      "victory_reward_icon": {
+        "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": true,
+        "mipmap_min_dimension": 2,
+        "circle_crop": true,
+        "circle_crop_feather_px": 8,
+        "max_file_size_bytes": 100000,
+        "image_size": "1024x1024",
+        "prompt_requirements": "This is a compact victory reward icon. Use an extreme minimalist icon design: one centered symbolic subject, at most 1-2 small supporting shapes, a simple readable silhouette at 128px, restrained EU5-style painterly texture, no text, no letters, no logo, no UI frame, and no complex scene."
       }
     }
+  },
+  "victory_reward_icons": {
+    "output_dir": "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards",
+    "artifact_stem": "{name}",
+    "template_name_template": "tv_victory_{path}_template",
+    "reward_name_template": "tv_victory_{path}_m{milestone}_reward_{choice}",
+    "milestones": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "choices": [
+      1,
+      2,
+      3
+    ],
+    "minimalist_rules": "Extreme minimalist EU5 reward icon: one central symbolic subject, at most 1-2 tiny supporting shapes, strong silhouette, readable at 128px, no text, no letters, no logo, no UI frame, no complex scene.",
+    "template_prompt_prefix": "Route style template. Create the canonical visual language for this victory path:",
+    "reward_prompt_prefix": "Create a slightly different reward option icon in the same route style:",
+    "choice_variants": {
+      "1": "Variant 1 uses the cleanest frontal silhouette and the calmest accent color.",
+      "2": "Variant 2 shifts the symbol angle slightly and adds one small secondary accent.",
+      "3": "Variant 3 uses a compact diagonal composition and a subtly brighter highlight."
+    },
+    "paths": [
+      {
+        "id": "conquest",
+        "label": "Conquest Victory",
+        "template_prompt": "a single crowned sword silhouette over a tiny laurel mark",
+        "reward_motif": "a crowned sword, shield, or banner symbol for conquest rewards",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds"
+        ]
+      },
+      {
+        "id": "prosperity",
+        "label": "Prosperity Victory",
+        "template_prompt": "a single sprouting coin or granary mark",
+        "reward_motif": "a sprouting coin, granary, or civic growth symbol for prosperity rewards",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds"
+        ]
+      },
+      {
+        "id": "trade",
+        "label": "Trade Victory",
+        "template_prompt": "a single balanced scale with a small merchant sail accent",
+        "reward_motif": "a scale, merchant sail, coin, or trade route symbol for trade rewards",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/icon_goods_marble.dds"
+        ]
+      },
+      {
+        "id": "diplomatic",
+        "label": "Diplomatic Victory",
+        "template_prompt": "a single sealed treaty scroll with two small clasped rings",
+        "reward_motif": "a treaty scroll, seal, clasped rings, or envoy symbol for diplomatic rewards",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds"
+        ]
+      },
+      {
+        "id": "cultural",
+        "label": "Cultural Victory",
+        "template_prompt": "a single theater mask with a small star accent",
+        "reward_motif": "a theater mask, lyre, manuscript, or star symbol for cultural rewards",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/icon_goods_marble.dds"
+        ]
+      },
+      {
+        "id": "science",
+        "label": "Scientific Victory",
+        "template_prompt": "a single astrolabe disk with one small spark",
+        "reward_motif": "an astrolabe, compass, lens, or spark symbol for scientific rewards",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds"
+        ]
+      }
+    ]
   }
 }

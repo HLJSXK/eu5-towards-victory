@@ -1,6 +1,6 @@
 ﻿# Towards Victory — Governor's House (总督府) International Organization type definition
 # Non-unique IO; each country pursuing Conquest Victory creates their own instance
-# at Conquest Victory Milestone 1 (200 locations). Country membership flag: tv_govhouse_member.
+# through the Conquest IO establishment flow. Owner flag: tv_govhouse_member.
 # Authority is an IO type variable (tv_govhouse_authority, 0-100), decays 0.05%/month,
 # grows by Grand General's mil skill contribution.
 #
@@ -15,6 +15,7 @@
 
 tv_govhouse = {
 	has_target = no
+	unique = no
 	has_leader_country = yes
 	leader_title_key = "TV_GOVHOUSE_GRAND_GENERAL"
 	use_regnal_number = no
@@ -40,6 +41,7 @@ tv_govhouse = {
 	# Governor's House laws use the vanilla IO Laws tab with policy votes.
 	# Keep the separate IO parliament tab hidden, matching the Academy pattern.
 	has_parliament = no
+	special_statuses_implemented = { tv_govhouse_supreme_overlord_status tv_govhouse_subject_status }
 
 	variables = {
 		tv_govhouse_authority = {
@@ -297,6 +299,7 @@ tv_govhouse = {
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
+			tv_govhouse_sync_supreme_overlord_status_effect = yes
 		}
 	}
 

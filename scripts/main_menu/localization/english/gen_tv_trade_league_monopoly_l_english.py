@@ -82,6 +82,13 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         ("tv_trade_start_intelligence_network_desc", "Assign the Grand Merchant to build an intelligence network in the selected market."),
         ("tv_trade_cancel_intelligence_network", "Cancel Intelligence Network"),
         ("tv_trade_cancel_intelligence_network_desc", "Stop building the active Trade League intelligence network."),
+        ("tv_trade_start_chain", "Establish Trade Chain"),
+        (
+            "tv_trade_start_chain_desc",
+            "Assign the Grand Merchant to establish a long-distance trade chain between two markets.",
+        ),
+        ("tv_trade_cancel_chain", "Cancel Trade Chain"),
+        ("tv_trade_cancel_chain_desc", "Stop maintaining the active Trade League trade chain."),
         ("tv_trade_set_selected_virtual_demand", "Virtual Demand"),
         (
             "tv_trade_set_selected_virtual_demand_desc",
@@ -123,6 +130,13 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         ),
         ("tv_trade_cancel_selected_embargo", "Cancel Embargo"),
         ("tv_trade_cancel_selected_embargo_desc", "Remove the embargo action for the selected commodity."),
+        ("tv_trade_select_chain_origin_market", "Select Origin Market"),
+        ("tv_trade_select_chain_destination_market", "Select Destination Market"),
+        ("tv_trade_no_chain_origin_market_available", "@trigger_no! No [market|E] in trade range is available."),
+        (
+            "tv_trade_no_chain_destination_market_available",
+            "@trigger_no! No distant [market|E] in trade range is available.",
+        ),
     ]
     for row in range(1, DISPLAY_ROW_COUNT + 1):
         entries.append((f"tv_trade_select_monopoly_row_{row}", "Select Commodity"))
@@ -139,6 +153,8 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
         "tv_trade_start_intelligence_network",
         "tv_trade_cancel_intelligence_network",
+        "tv_trade_start_chain",
+        "tv_trade_cancel_chain",
         "tv_trade_set_selected_virtual_demand",
         "tv_trade_increase_selected_virtual_demand",
         "tv_trade_decrease_selected_virtual_demand",

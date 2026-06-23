@@ -25,29 +25,41 @@ from scripts.wonder_localization_lib import (
     normalize_editor_text,
     save_wonder_localization_data,
 )
-from scripts.wonder_mechanics_lib import (
-    MECHANICS_FILE,
-    SUPPORTED_RITUAL_COST_TYPES,
-    SUPPORTED_RITUAL_LISTENERS,
-    SUPPORTED_UNIQUE_RITUAL_MODES,
+from scripts.wonder_mechanics.io import (
     UNIQUE_WONDERS_FILE,
+    WONDER_BASE_MODIFIERS_FILE,
+    WONDER_FINAL_BUILDINGS_FILE,
+    WONDER_GENERIC_RITUALS_FILE,
+    WONDER_MECHANICS_DATA_REL,
+    WONDER_SITE_RULES_FILE,
     WONDERS_FILE,
-    authored_final_building_local_modifiers,
-    ceremony_modifier_for_style,
-    ceremony_styles,
     dump_yaml_document,
-    final_building_for_style,
     load_all_wonder_mechanics_data,
     load_mechanics_source_data,
     load_unique_wonders_source_data,
     load_wonders_source_data,
-    loc_line,
+    save_mechanics_source_data,
+    save_yaml_document,
+)
+from scripts.wonder_mechanics.modifiers import authored_final_building_local_modifiers
+from scripts.wonder_mechanics.naming import (
+    final_building_for_style,
     mechanic_key,
+    wonder_static_display_modifier_name,
+    wonder_static_local_display_modifier_name,
+)
+from scripts.wonder_mechanics.render import loc_line, render_header
+from scripts.wonder_mechanics.rituals import (
+    SUPPORTED_RITUAL_COST_TYPES,
+    SUPPORTED_RITUAL_LISTENERS,
+    SUPPORTED_UNIQUE_RITUAL_MODES,
+    ceremony_styles,
     normalize_unique_ritual,
-    render_header,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
-    save_yaml_document,
+    unique_ceremony_modifier_name,
+)
+from scripts.wonder_mechanics.schema import (
     site_preference_script_for_key,
     site_trigger_script_for_key,
 )
@@ -75,7 +87,13 @@ ROMAN_NUMERALS = {
     6: "VI",
 }
 WONDER_LOCALIZATION_DATA_REL = "data/wonder_localization.yaml"
-GENERATED_LOC_DATA_REL = "data/wonders.yaml + data/wonder_mechanics.yaml + data/unique_wonders.yaml + data/wonder_localization.yaml"
+GENERATED_LOC_DATA_REL = f"data/wonders.yaml + {WONDER_MECHANICS_DATA_REL} + data/unique_wonders.yaml + data/wonder_localization.yaml"
+UNIQUE_RITUAL_DESIGNS_REL = "data/unique_wonder_ritual_designs.yaml"
+UNIQUE_RITUAL_DESIGNS_ZH_REL = "data/unique_wonder_ritual_designs_zh.yaml"
+UNIQUE_RITUAL_PROMPTS_REL = "data/unique_wonder_ritual_prompts.yaml"
+UNIQUE_RITUAL_DESIGNS_FILE = REPO_ROOT / UNIQUE_RITUAL_DESIGNS_REL
+UNIQUE_RITUAL_DESIGNS_ZH_FILE = REPO_ROOT / UNIQUE_RITUAL_DESIGNS_ZH_REL
+UNIQUE_RITUAL_PROMPTS_FILE = REPO_ROOT / UNIQUE_RITUAL_PROMPTS_REL
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
 MODIFIER_LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "modifier_localization.json"
 GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "data" / "generated_wonders"
@@ -83,6 +101,14 @@ WONDER_IMAGE_URL_PREFIX = "/wonder-images"
 GENERATED_LOC_FILES = {
     "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
     "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
+}
+GENERATED_LOC_EXCLUDED_KEYS = {
+    "tv_wonder_ownership.800.t",
+    "tv_wonder_ownership.800.d",
+    "tv_wonder_ownership.800.a",
+    "tv_wonder_ownership.900.t",
+    "tv_wonder_ownership.900.d",
+    "tv_wonder_ownership.900.a",
 }
 GENERATED_LOC_SCRIPT_REL = {
     "english": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
@@ -146,19 +172,59 @@ REFERENCE_LOC_DIR_BY_EDITOR_LANGUAGE = {
 OPTION_LOC_LINE_RE = re.compile(r'^\s*([A-Za-z0-9_.-]+):(?:\d+)?\s+"(.*)"\s*$')
 REWARD_LABEL_CANDIDATES = {
     "all_estate_satisfaction": ("estate_satisfaction", "game_concept_estate_satisfaction"),
+    "celestial_authority": ("celestial_authority", "game_concept_celestial_authority"),
     "estate_satisfaction": ("estate_satisfaction", "game_concept_estate_satisfaction"),
+    "imperial_authority": ("imperial_authority", "game_concept_imperial_authority"),
+    "papal_authority": ("papal_authority", "game_concept_papal_authority"),
+    "religious_influence": ("religious_influence", "game_concept_religious_influence"),
     "ruler_adm": ("administration", "game_concept_administration", "adm"),
     "ruler_dip": ("diplomacy", "game_concept_diplomacy", "dip"),
     "ruler_mil": ("military", "game_concept_military", "mil"),
+    "scaled_gold": ("gold", "game_concept_gold"),
+    "site_control": ("control", "game_concept_control"),
+    "site_development": ("development", "game_concept_development"),
     "site_prosperity": ("prosperity", "game_concept_prosperity"),
+    "site_raw_material_workers": ("raw_material", "game_concept_raw_material"),
+}
+RITUAL_DESIGN_FIELD_LABELS = {
+    "title": "标题",
+    "historical_flavor": "历史氛围",
+    "mode": "模式",
+    "duration": "持续时间",
+    "listeners": "监听器",
+    "confirmation_logic": "确认逻辑",
+    "start_logic": "启动逻辑",
+    "progress_logic": "推进逻辑",
+    "completion_logic": "完成逻辑",
+    "failure_or_timeout_logic": "失败或超时逻辑",
+    "implementation_mapping": "实现映射",
+    "confirmation_trigger_script": "确认触发脚本",
+    "start_effect_script": "启动效果脚本",
+    "snapshot_effect_script": "快照效果脚本",
+    "progress_effect_script": "推进效果脚本",
+    "completion_trigger_script": "完成触发脚本",
+    "completion_effect_script": "完成效果脚本",
+    "intended_rewards": "预期奖励",
+    "permanent_country_modifier": "永久国家修正",
+    "local_building_reward": "本地建筑奖励",
+    "one_time_reward": "一次性奖励",
+    "notes": "备注",
 }
 REWARD_FALLBACK_LABELS = {
     "all_estate_satisfaction": "All Estate Satisfaction",
+    "celestial_authority": "Celestial Authority",
     "estate_satisfaction": "Estate Satisfaction",
+    "imperial_authority": "Imperial Authority",
+    "papal_authority": "Papal Authority",
+    "religious_influence": "Religious Influence",
     "ruler_adm": "Ruler Administrative Skill",
     "ruler_dip": "Ruler Diplomatic Skill",
     "ruler_mil": "Ruler Military Skill",
+    "scaled_gold": "Scaled Gold",
+    "site_control": "Site Control",
+    "site_development": "Site Development",
     "site_prosperity": "Site Prosperity",
+    "site_raw_material_workers": "Site Raw Material Workers",
     "yearly_gold": "Yearly Gold",
     "yearly_manpower": "Yearly Manpower",
     "yearly_sailors": "Yearly Sailors",
@@ -379,6 +445,15 @@ def parse_editor_scalar(raw_value: object) -> object:
         return int(text)
     except ValueError:
         return text
+
+
+def parse_unique_initial_level(raw_value: object, *, context: str) -> int:
+    parsed = parse_editor_scalar(raw_value)
+    if not isinstance(parsed, int) or isinstance(parsed, bool):
+        raise ValueError(f"{context} must be an integer from 0 to 6")
+    if parsed < 0 or parsed > 6:
+        raise ValueError(f"{context} must be an integer from 0 to 6")
+    return parsed
 
 
 def wonder_size_label(size: object) -> str:
@@ -909,6 +984,91 @@ def _load_wonder_editor_catalog() -> dict[str, Any]:
     if not isinstance(payload, dict):
         return {}
     return payload
+
+
+def load_unique_ritual_designs_data(path: Path = UNIQUE_RITUAL_DESIGNS_FILE) -> dict[str, Any]:
+    if not path.exists():
+        return {"metadata": {}, "unique_wonders": []}
+    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    if not isinstance(payload, dict):
+        raise TypeError(f"{path} must contain a mapping")
+    unique_wonders = payload.get("unique_wonders", [])
+    if not isinstance(unique_wonders, list):
+        raise TypeError(f"{path}.unique_wonders must be a list")
+    return payload
+
+
+def load_unique_ritual_design_translations_data(path: Path = UNIQUE_RITUAL_DESIGNS_ZH_FILE) -> dict[str, Any]:
+    if not path.exists():
+        return {"metadata": {}, "unique_wonders": []}
+    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    if not isinstance(payload, dict):
+        raise TypeError(f"{path} must contain a mapping")
+    unique_wonders = payload.get("unique_wonders", [])
+    if not isinstance(unique_wonders, list):
+        raise TypeError(f"{path}.unique_wonders must be a list")
+    return payload
+
+
+def unique_ritual_design_translation_index(data: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for entry in data.get("unique_wonders", []):
+        if not isinstance(entry, dict):
+            continue
+        key = str(entry.get("key", "")).strip()
+        ritual_design_zh = entry.get("ritual_design_zh")
+        if key and isinstance(ritual_design_zh, dict):
+            index[key] = entry
+    return index
+
+
+def default_unique_ritual_prompts_data() -> dict[str, Any]:
+    return {
+        "metadata": {
+            "purpose": "AI prompts for implementing unique wonder rituals from the design-only ritual source.",
+            "source_data": UNIQUE_RITUAL_DESIGNS_REL,
+            "generated_game_code": False,
+            "design_policy": (
+                "This file stores user-authored AI prompts only. It is not consumed by game-code "
+                "generators until a later implementation pass defines an explicit schema."
+            ),
+        },
+        "unique_wonders": [],
+    }
+
+
+def load_unique_ritual_prompts_data(path: Path = UNIQUE_RITUAL_PROMPTS_FILE) -> dict[str, Any]:
+    if not path.exists():
+        return default_unique_ritual_prompts_data()
+    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    if not isinstance(payload, dict):
+        raise TypeError(f"{path} must contain a mapping")
+    payload.setdefault("metadata", default_unique_ritual_prompts_data()["metadata"])
+    unique_wonders = payload.setdefault("unique_wonders", [])
+    if not isinstance(unique_wonders, list):
+        raise TypeError(f"{path}.unique_wonders must be a list")
+    return payload
+
+
+def unique_ritual_prompt_index(data: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for entry in data.get("unique_wonders", []):
+        if not isinstance(entry, dict):
+            continue
+        key = str(entry.get("key", "")).strip()
+        if key:
+            index[key] = entry
+    return index
+
+
+def ceremony_modifier_for_style(wonder: dict[str, Any], mechanics: dict[str, Any], style: int) -> tuple[str, dict] | None:
+    del mechanics, style
+    if not wonder.get("is_unique"):
+        return None
+    modifiers = dict(wonder.get("ritual", {}).get("country_modifier", {}))
+    if not modifiers:
+        return None
+    return unique_ceremony_modifier_name(wonder), modifiers
 
 
 def _modifier_option_catalog(
@@ -1864,7 +2024,8 @@ def required_localization_keys_for_wonder(
         keys.add(f"{wonder_name_key(wonder)}_{part}_desc")
 
     for level in range(1, 7):
-        keys.add(f"STATIC_MODIFIER_NAME_{wonder_name_key(wonder)}_level_{level}")
+        keys.add(f"STATIC_MODIFIER_NAME_{wonder_static_display_modifier_name(wonder, level)}")
+        keys.add(f"STATIC_MODIFIER_NAME_{wonder_static_local_display_modifier_name(wonder, level)}")
 
     if not wonder.get("is_unique"):
         keys.add(f"{wonder_name_key(wonder)}_ritual_annex")
@@ -1943,24 +2104,25 @@ def render_expected_localization_output(language: str, localization_data: dict[s
     lines = [header]
     for line in render_header(GENERATED_LOC_SCRIPT_REL[language], GENERATED_LOC_DATA_REL):
         lines.append(f" {line}")
-    for key, value in localization_data[language].items():
+    for key, value in generated_localization_map(language, localization_data).items():
         lines.append(loc_line(key, value))
     return "\n".join(lines).rstrip() + "\n"
 
 
+def generated_localization_map(language: str, localization_data: dict[str, dict[str, str]]) -> dict[str, str]:
+    return {
+        key: value
+        for key, value in localization_data[language].items()
+        if key not in GENERATED_LOC_EXCLUDED_KEYS
+    }
+
+
 def render_expected_concepts_output(wonders: list[dict[str, Any]]) -> str:
-    lines = render_header(CONCEPT_SCRIPT_REL)
-    for wonder in wonders:
-        texture = CONCEPT_ICONS.get(wonder["category"], CONCEPT_ICONS["infrastructure_category"])
-        lines.extend(
-            [
-                f"{wonder['concept']} = {{",
-                f'\ttexture = "{texture}"',
-                "}",
-                "",
-            ]
-        )
-    return "\n".join(lines).rstrip() + "\n"
+    from scripts.main_menu.common.game_concepts.gen_tv_engineering_department_wonder_mechanics_concepts import (
+        generate,
+    )
+
+    return generate()
 
 
 class WonderLocalizationService:
@@ -1974,6 +2136,9 @@ class WonderLocalizationService:
         self.unique_wonders_data: dict[str, Any] = {}
         self.event_suffixes: dict[int, str] = {}
         self.localization_data: dict[str, dict[str, str]] = {}
+        self.unique_ritual_designs_data: dict[str, Any] = {}
+        self.unique_ritual_design_translations_data: dict[str, Any] = {}
+        self.unique_ritual_prompts_data: dict[str, Any] = {}
         self.country_modifier_options: list[dict[str, Any]] = []
         self.local_modifier_options: list[dict[str, Any]] = []
         self.reward_type_options: list[dict[str, Any]] = []
@@ -1998,6 +2163,9 @@ class WonderLocalizationService:
             self.wonders = sorted(self.wonders, key=lambda item: int(item["id"]))
             self.event_suffixes = load_engineering_department_suffix_map()
             self.localization_data = load_wonder_localization_data()
+            self.unique_ritual_designs_data = load_unique_ritual_designs_data()
+            self.unique_ritual_design_translations_data = load_unique_ritual_design_translations_data()
+            self.unique_ritual_prompts_data = load_unique_ritual_prompts_data()
             (
                 self.country_modifier_options,
                 self.local_modifier_options,
@@ -2019,6 +2187,7 @@ class WonderLocalizationService:
                 "status": "Ready",
                 "wonders": wonders,
                 "current_wonder": self.get_wonder_payload(first_wonder_id) if first_wonder_id is not None else None,
+                "ritual_designs": self._unique_ritual_designs_payload(),
                 "log_text": self.log_text,
             }
 
@@ -2055,6 +2224,8 @@ class WonderLocalizationService:
                 "meta": self._wonder_meta(wonder),
                 "languages": self._serialize_specs(specs),
                 "mechanics": self._serialize_mechanics_specs(mechanics_specs),
+                "ritual_design": self._unique_ritual_design_for_wonder(wonder),
+                "ritual_prompt": self._unique_ritual_prompt_for_wonder(wonder),
                 "status": f"Loaded {wonder['key']}",
             }
 
@@ -2197,6 +2368,13 @@ class WonderLocalizationService:
                 unique_file_changed = True
                 continue
 
+            if spec.target_kind == "unique_initial_level":
+                parsed = parse_unique_initial_level(value, context=spec.key)
+                entry = self._get_unique_wonder_source(spec.target_key)
+                entry["initial_level"] = parsed
+                unique_file_changed = True
+                continue
+
             if spec.target_kind == "unique_ritual":
                 if spec.field_type == "unique_ritual_editor":
                     parsed = unique_ritual_from_editor_state(value, context=spec.key)
@@ -2265,8 +2443,8 @@ class WonderLocalizationService:
                     changed_files.append(str(WONDER_LOCALIZATION_FILE.relative_to(REPO_ROOT)))
 
                 if changed["mechanics"]:
-                    save_yaml_document(MECHANICS_FILE, self.mechanics_data)
-                    changed_files.append(str(MECHANICS_FILE.relative_to(REPO_ROOT)))
+                    for path in save_mechanics_source_data(self.mechanics_data):
+                        changed_files.append(str(path.relative_to(REPO_ROOT)))
 
                 if changed["wonders"]:
                     save_yaml_document(WONDERS_FILE, self.wonders_data)
@@ -2330,6 +2508,48 @@ class WonderLocalizationService:
             regenerate=regenerate,
         )
 
+    def save_unique_ritual_prompt(self, wonder_id: int, prompt: str) -> dict[str, Any]:
+        with self._lock:
+            wonder = self._get_wonder(wonder_id)
+            if not wonder.get("is_unique"):
+                raise ValueError(f"{wonder['key']} is not a unique wonder")
+
+            normalized_prompt = normalize_multiline_editor_text(str(prompt))
+            prompt_entries = [
+                deepcopy(entry)
+                for entry in self.unique_ritual_prompts_data.get("unique_wonders", [])
+                if isinstance(entry, dict) and str(entry.get("key", "")).strip() != wonder["key"]
+            ]
+            if normalized_prompt:
+                design = self._unique_ritual_design_for_wonder(wonder) or {}
+                ritual_design = design.get("ritual_design", {}) if isinstance(design, dict) else {}
+                prompt_entries.append(
+                    {
+                        "id": int(wonder["id"]),
+                        "key": wonder["key"],
+                        "base_key": wonder.get("base_key", ""),
+                        "location": wonder.get("location", ""),
+                        "ritual_title": ritual_design.get("title", ""),
+                        "prompt": normalized_prompt,
+                    }
+                )
+            prompt_entries.sort(key=lambda entry: int(entry.get("id", 0)))
+
+            data = deepcopy(self.unique_ritual_prompts_data or default_unique_ritual_prompts_data())
+            data["unique_wonders"] = prompt_entries
+            self.unique_ritual_prompts_data = data
+            save_yaml_document(UNIQUE_RITUAL_PROMPTS_FILE, data)
+
+            verb = "Saved" if normalized_prompt else "Cleared"
+            status = f"{verb} AI prompt for {wonder['key']} -> {UNIQUE_RITUAL_PROMPTS_REL}"
+            self._append_log(f"[data] {status}\n")
+            return {
+                "status": status,
+                "prompt": self._unique_ritual_prompt_for_wonder(wonder),
+                "ritual_designs": self._unique_ritual_designs_payload(),
+                "log_text": self.log_text,
+            }
+
     def _localization_value(self, language: str, key: str) -> str:
         if language not in self.localization_data:
             raise KeyError(f"Missing language {language} in {WONDER_LOCALIZATION_FILE}")
@@ -2337,6 +2557,80 @@ class WonderLocalizationService:
         if key not in language_values:
             raise KeyError(f"Missing canonical localization key {key} in {WONDER_LOCALIZATION_FILE} ({language})")
         return language_values[key]
+
+    def _unique_ritual_design_by_key(self, wonder_key: str) -> dict[str, Any] | None:
+        for entry in self.unique_ritual_designs_data.get("unique_wonders", []):
+            if isinstance(entry, dict) and entry.get("key") == wonder_key:
+                return entry
+        return None
+
+    def _unique_ritual_prompt_for_wonder(self, wonder: dict[str, Any]) -> dict[str, Any] | None:
+        if not wonder.get("is_unique"):
+            return None
+        entry = unique_ritual_prompt_index(self.unique_ritual_prompts_data).get(wonder["key"], {})
+        return {
+            "source_path": UNIQUE_RITUAL_PROMPTS_REL,
+            "prompt": str(entry.get("prompt", "")),
+            "exists": bool(entry.get("prompt")),
+        }
+
+    def _attach_unique_ritual_translation(self, payload: dict[str, Any]) -> None:
+        translation = unique_ritual_design_translation_index(self.unique_ritual_design_translations_data).get(
+            str(payload.get("key", ""))
+        )
+        payload["translation_source_path"] = UNIQUE_RITUAL_DESIGNS_ZH_REL
+        if not translation:
+            return
+        ritual_design_zh = translation.get("ritual_design_zh")
+        if isinstance(ritual_design_zh, dict):
+            payload["ritual_design_zh"] = deepcopy(ritual_design_zh)
+
+    def _unique_ritual_design_for_wonder(self, wonder: dict[str, Any]) -> dict[str, Any] | None:
+        if not wonder.get("is_unique"):
+            return None
+        entry = self._unique_ritual_design_by_key(wonder["key"])
+        if entry is None:
+            return None
+        payload = deepcopy(entry)
+        summary = self._wonder_summary(wonder)
+        payload["name_en"] = summary["name_en"]
+        payload["name_zh"] = summary["name_zh"]
+        payload["display_name"] = summary["display_name"]
+        payload["source_path"] = UNIQUE_RITUAL_DESIGNS_REL
+        self._attach_unique_ritual_translation(payload)
+        return payload
+
+    def _unique_ritual_designs_payload(self) -> dict[str, Any]:
+        prompt_index = unique_ritual_prompt_index(self.unique_ritual_prompts_data)
+        entries: list[dict[str, Any]] = []
+        for entry in self.unique_ritual_designs_data.get("unique_wonders", []):
+            if not isinstance(entry, dict):
+                continue
+            payload = deepcopy(entry)
+            try:
+                wonder = self._get_wonder(int(entry["id"]))
+                summary = self._wonder_summary(wonder)
+                payload["name_en"] = summary["name_en"]
+                payload["name_zh"] = summary["name_zh"]
+                payload["display_name"] = summary["display_name"]
+            except Exception:
+                payload["name_en"] = ""
+                payload["name_zh"] = ""
+                payload["display_name"] = str(entry.get("key", ""))
+            self._attach_unique_ritual_translation(payload)
+            payload["prompt"] = str(prompt_index.get(str(entry.get("key", "")), {}).get("prompt", ""))
+            entries.append(payload)
+        entries.sort(key=lambda entry: int(entry.get("id", 0)))
+        return {
+            "source_path": UNIQUE_RITUAL_DESIGNS_REL,
+            "translation_source_path": UNIQUE_RITUAL_DESIGNS_ZH_REL,
+            "prompt_source_path": UNIQUE_RITUAL_PROMPTS_REL,
+            "field_labels": RITUAL_DESIGN_FIELD_LABELS,
+            "metadata": deepcopy(self.unique_ritual_designs_data.get("metadata", {})),
+            "translation_metadata": deepcopy(self.unique_ritual_design_translations_data.get("metadata", {})),
+            "count": len(entries),
+            "wonders": entries,
+        }
 
     def _get_wonder(self, wonder_id: int) -> dict[str, Any]:
         for wonder in self.wonders:
@@ -2349,6 +2643,16 @@ class WonderLocalizationService:
             if wonder.get("key") == wonder_key:
                 return wonder
         raise KeyError(f"Unknown unique wonder key: {wonder_key}")
+
+    def _unique_initial_level(self, wonder: dict[str, Any]) -> int:
+        if not wonder.get("is_unique"):
+            return 0
+        unique_key = str(wonder["key"])
+        entry = self._get_unique_wonder_source(unique_key)
+        return parse_unique_initial_level(
+            entry.get("initial_level"),
+            context=f"unique_wonders[{unique_key}].initial_level",
+        )
 
     def _get_generic_wonder_source(self, wonder_key: str) -> dict[str, Any]:
         for wonder in self.wonders_data.get("wonders", []):
@@ -2397,6 +2701,7 @@ class WonderLocalizationService:
             "key": wonder["key"],
             "concept": wonder["concept"],
             "is_unique": bool(wonder.get("is_unique")),
+            "initial_level": self._unique_initial_level(wonder),
             "kind_label": kind_label,
             "size": size,
             "size_label": wonder_size_label(size),
@@ -2414,6 +2719,7 @@ class WonderLocalizationService:
             "name_en": self._wonder_name(wonder, "english"),
             "name_zh": self._wonder_name(wonder, "simp_chinese"),
             "is_unique": bool(wonder.get("is_unique")),
+            "initial_level": self._unique_initial_level(wonder),
             "size": str(wonder.get("size", "")),
             "size_label": wonder_size_label(wonder.get("size", "")),
             "image": self._wonder_image_info(wonder),
@@ -2499,7 +2805,7 @@ class WonderLocalizationService:
                 "base-effect multiplier; edit the prototype wonder to modify the underlying modifier list."
             )
             if inherits_from_prototype
-            else "Structured editor for data/wonder_mechanics.yaml base_modifiers entries."
+            else "Structured editor for data/wonder_base_modifiers.yaml base_modifiers entries."
         )
         base_modifier_mapping = self.mechanics_data.get("base_modifiers", {}).get(prototype_key, {})
         displayed_base_modifier_mapping = (
@@ -2539,7 +2845,7 @@ class WonderLocalizationService:
             label="Build condition template",
             key=f"mechanics.site_trigger.{wonder['key']}",
             source_kind=shared_source_kind,
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_SITE_RULES_FILE,
             original_value=serialize_structured_editor_value(
                 parse_trigger_builder_state(site_trigger_script_for_key(self.mechanics_data, prototype_key))
             ),
@@ -2560,7 +2866,7 @@ class WonderLocalizationService:
             label="Survey preference template",
             key=f"mechanics.site_preference.{wonder['key']}",
             source_kind=shared_source_kind,
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_SITE_RULES_FILE,
             original_value=serialize_structured_editor_value(
                 parse_preference_builder_state(site_preference_script_for_key(self.mechanics_data, prototype_key))
             ),
@@ -2587,7 +2893,7 @@ class WonderLocalizationService:
                 label="Inherited doubled local effects",
                 key=f"mechanics.building_local.inherited.{wonder['key']}",
                 source_kind=shared_source_kind,
-                file_path=MECHANICS_FILE,
+                file_path=WONDER_FINAL_BUILDINGS_FILE,
                 original_value=serialize_structured_editor_value(inherited_local_state),
                 field_type="modifier_table",
                 target_kind="building_local",
@@ -2615,7 +2921,7 @@ class WonderLocalizationService:
                 label="Shared final local effects",
                 key=f"mechanics.building_local.{wonder['key']}.final_local",
                 source_kind=shared_source_kind,
-                file_path=MECHANICS_FILE,
+                file_path=WONDER_FINAL_BUILDINGS_FILE,
                 original_value=serialize_structured_editor_value(final_local_state),
                 field_type="modifier_table",
                 target_kind="building_local",
@@ -2632,7 +2938,7 @@ class WonderLocalizationService:
             label="Per-level base modifiers",
             key=f"mechanics.base_modifiers.{wonder['key']}",
             source_kind=shared_source_kind,
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_BASE_MODIFIERS_FILE,
             original_value=serialize_structured_editor_value(
                 build_modifier_editor_state(
                     displayed_base_modifier_mapping,
@@ -2692,6 +2998,26 @@ class WonderLocalizationService:
             self._add_mechanics_spec(
                 specs,
                 group="Unique Wonder",
+                label="Initial level",
+                key=f"mechanics.unique_initial_level.{unique_key}",
+                source_kind="unique",
+                file_path=UNIQUE_WONDERS_FILE,
+                original_value=stringify_editor_scalar(
+                    parse_unique_initial_level(
+                        unique_entry.get("initial_level"),
+                        context=f"unique_wonders[{unique_key}].initial_level",
+                    )
+                ),
+                field_type="number",
+                target_kind="unique_initial_level",
+                target_key=unique_key,
+                height=1,
+                help_text="Sets the fixed-site unique wonder level at game-start initialization. Use 0 when absent at start.",
+                target_path=f"unique_wonders[{unique_key}].initial_level",
+            )
+            self._add_mechanics_spec(
+                specs,
+                group="Unique Wonder",
                 label="Ritual plan",
                 key=f"mechanics.unique_ritual.{unique_key}",
                 source_kind="unique",
@@ -2730,7 +3056,7 @@ class WonderLocalizationService:
             label="Style 1 country modifiers",
             key=f"mechanics.generic_ritual.{wonder['key']}.style_1",
             source_kind="shared",
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_GENERIC_RITUALS_FILE,
             original_value=serialize_structured_editor_value(
                 build_modifier_editor_state(
                     style_1.get("country_modifier", {}),
@@ -2765,7 +3091,7 @@ class WonderLocalizationService:
             label="Style 2 local modifiers",
             key=f"mechanics.generic_ritual.{wonder['key']}.style_2",
             source_kind="shared",
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_GENERIC_RITUALS_FILE,
             original_value=serialize_structured_editor_value(style_2_editor_state),
             field_type="modifier_table",
             target_kind="generic_ritual",
@@ -2782,7 +3108,7 @@ class WonderLocalizationService:
             label="Style 3 reward package",
             key=f"mechanics.generic_ritual.{wonder['key']}.style_3",
             source_kind="shared",
-            file_path=MECHANICS_FILE,
+            file_path=WONDER_GENERIC_RITUALS_FILE,
             original_value=serialize_structured_editor_value(
                 build_reward_editor_state(
                     rows=reward_rows_from_list(style_3.get("reward", [])),
@@ -2898,8 +3224,16 @@ class WonderLocalizationService:
                     specs,
                     language,
                     "Modifiers",
-                    f"Level {ROMAN_NUMERALS[level]} static modifier",
-                    f"STATIC_MODIFIER_NAME_{wonder_name_key(wonder)}_level_{level}",
+                    f"Level {ROMAN_NUMERALS[level]} national display modifier",
+                    f"STATIC_MODIFIER_NAME_{wonder_static_display_modifier_name(wonder, level)}",
+                    height=2,
+                )
+                self._add_localization_field(
+                    specs,
+                    language,
+                    "Modifiers",
+                    f"Level {ROMAN_NUMERALS[level]} local display modifier",
+                    f"STATIC_MODIFIER_NAME_{wonder_static_local_display_modifier_name(wonder, level)}",
                     height=2,
                 )
 
@@ -3055,7 +3389,7 @@ def build_check_report() -> list[str]:
 
     for language, path in GENERATED_LOC_FILES.items():
         generated_map = load_localization_map(path)
-        canonical_map = localization_data[language]
+        canonical_map = generated_localization_map(language, localization_data)
         if generated_map != canonical_map:
             missing = sorted(set(canonical_map) - set(generated_map))
             extra = sorted(set(generated_map) - set(canonical_map))

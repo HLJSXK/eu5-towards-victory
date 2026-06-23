@@ -7,11 +7,10 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
-    ceremony_styles,
-    load_all_wonder_mechanics_data,
-    render_header,
-)
+from wonder_mechanics.io import load_all_wonder_mechanics_data
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import ceremony_styles
+from wonder_image_crop_lib import cropped_wonder_image_name
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
 SCRIPT_REL = "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py"
@@ -24,10 +23,16 @@ ICONS = {
 }
 WONDER_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
+WONDER_FULL_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_full_image_"
 WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 
 
 def wonder_image_texture(wonder: dict) -> str:
+    image = wonder.get("image", f"tv_wonder_{wonder['key']}")
+    return f"gfx/interface/icons/towards_victory/wonders/{cropped_wonder_image_name(image)}.dds"
+
+
+def wonder_full_image_texture(wonder: dict) -> str:
     image = wonder.get("image", f"tv_wonder_{wonder['key']}")
     return f"gfx/interface/icons/towards_victory/wonders/{image}.dds"
 
@@ -60,6 +65,15 @@ def generate() -> str:
             [
                 f"{WONDER_IMAGE_CONCEPT_PREFIX}{wonder['id']} = {{",
                 f'\ttexture = "{wonder_image_texture(wonder)}"',
+                "}",
+                "",
+            ]
+        )
+    for wonder in wonders:
+        lines.extend(
+            [
+                f"{WONDER_FULL_IMAGE_CONCEPT_PREFIX}{wonder['id']} = {{",
+                f'\ttexture = "{wonder_full_image_texture(wonder)}"',
                 "}",
                 "",
             ]

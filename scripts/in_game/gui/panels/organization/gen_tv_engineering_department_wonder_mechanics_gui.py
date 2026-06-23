@@ -8,15 +8,18 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
-    WONDER_RITUAL_COST_TYPE_IDS,
-    load_all_wonder_mechanics_data,
-    mechanic_key,
-    render_header,
+from wonder_mechanics.io import load_all_wonder_mechanics_data
+from wonder_mechanics.naming import mechanic_key
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import WONDER_RITUAL_COST_TYPE_IDS
+from wonder_mechanics.schema import (
     suitability_current_actual_variable,
     suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
 )
+from wonder_unique_rituals import append_unique_ritual_gui
+from wonder_unique_rituals.hagia import HAGIA_WONDER_ID
+from wonder_unique_rituals.pharos import PHAROS_WONDER_ID
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
@@ -61,10 +64,66 @@ SUITABILITY_KNOWLEDGE_COLUMN_SPACING = 8
 SUITABILITY_ROW_LABEL_MAX_WIDTH = 168
 SUITABILITY_ROW_HIDDEN_MAX_WIDTH = 214
 SUITABILITY_LOCATION_CONDITION_ROW_HEIGHT = 22
-
-
+PREVIEW_TOP_CARD_HEIGHT = 32
+PREVIEW_PANEL_WIDTH = 470
+PREVIEW_IMAGE_HEIGHT = 333
+PREVIEW_CONTENT_WIDTH = 454
+PREVIEW_MODIFIER_COLUMNS_WIDTH = 454
+PREVIEW_MODIFIER_COLUMN_WIDTH = 223
+PREVIEW_MODIFIER_COLUMN_SPACING = 8
+RITUAL_PROGRESS_MONTHS_VAR = "tv_wonder_ritual_months_completed"
+RITUAL_PROGRESS_PCT_VAR = "tv_wonder_ritual_progress_pct"
+RITUAL_PROGRESS_MAX_MONTHS = 12
+LOCKED_NAME_CARD_HEIGHT = 30
+PROPOSAL_SIZE_ROW_HEIGHT = 24
+PROPOSAL_SIZE_ROW_SPACING = 4
+PROPOSAL_PREVIEW_HEIGHT = PROPOSAL_SIZE_ROW_HEIGHT + PROPOSAL_SIZE_ROW_SPACING + PREVIEW_IMAGE_HEIGHT
+LOCKED_PREVIEW_HEIGHT = (
+    LOCKED_NAME_CARD_HEIGHT
+    + PROPOSAL_SIZE_ROW_SPACING
+    + PROPOSAL_SIZE_ROW_HEIGHT
+    + PROPOSAL_SIZE_ROW_SPACING
+    + PREVIEW_IMAGE_HEIGHT
+)
+PROPOSAL_SIZE_INACTIVE_ALPHA = 0.18
+PROPOSAL_SIZE_ACTIVE_ALPHA = 1.0
+PROPOSAL_SIZE_INDICATORS = [
+    ("small", "TV_ENGINEERING_WONDER_SIZE_SMALL_LABEL", "color_market_green_texture", "color_market_green_texture"),
+    ("medium", "TV_ENGINEERING_WONDER_SIZE_MEDIUM_LABEL", "color_yellow_texture", "color_yellow_texture"),
+    ("large", "TV_ENGINEERING_WONDER_SIZE_LARGE_LABEL", "color_mid_red_texture", "color_red_texture"),
+]
 def eq(var: str, value: int) -> str:
     return f"EqualTo_CFixedPoint({PLAYER}.GetVariable('{var}').GetValue, '(CFixedPoint){value}.0')"
+
+
+def var_is_set(var: str) -> str:
+    return f"{player_var(var)}.IsSet"
+
+
+def pharos_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked')}.IsSet, "
+        f"{eq('tv_wonder_locked', PHAROS_WONDER_ID)})"
+    )
+
+
+def hagia_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked')}.IsSet, "
+        f"{eq('tv_wonder_locked', HAGIA_WONDER_ID)})"
+    )
+
+
+def not_pharos_locked_expr() -> str:
+    return f"Not({pharos_locked_expr()})"
+
+
+def not_hagia_locked_expr() -> str:
+    return f"Not({hagia_locked_expr()})"
+
+
+def not_special_unique_locked_expr() -> str:
+    return f"And({not_pharos_locked_expr()}, {not_hagia_locked_expr()})"
 
 
 def fmt_decimal(value: Decimal) -> str:
@@ -124,12 +183,30 @@ def player_var(var_name: str) -> str:
     return f"{PLAYER}.GetVariable('{var_name}')"
 
 
+def concept_in_progress() -> str:
+    return f"{player_var('tv_wonder_concept_in_progress')}.IsSet"
+
+
 def dynamic_localized_text_key(prefix: str, var_name: str) -> str:
     return f"Localize(Concatenate('{prefix}', {fixed_point_to_int_string(player_var(var_name))}))"
 
 
 def dynamic_image_texture(var_name: str) -> str:
-    return f"GetConceptTexture(Concatenate('tv_wonder_display_image_', {fixed_point_to_int_string(player_var(var_name))}))"
+    return f"GetConceptTexture(Concatenate('tv_wonder_display_full_image_', {fixed_point_to_int_string(player_var(var_name))}))"
+
+
+def dynamic_display_modifier_key(var_name: str, suffix: str) -> str:
+    id_string = fixed_point_to_int_string(player_var(var_name))
+    return f"Concatenate('tv_wonder_display_', Concatenate({id_string}, '{suffix}'))"
+
+
+def dynamic_locked_wonder_concept_link() -> str:
+    display_var = player_var("tv_wonder_locked_display_id")
+    id_string = fixed_point_to_int_string(display_var)
+    return (
+        f"[SelectGameConcept({display_var}.IsSet, "
+        f"Concatenate('tv_wonder_display_', {id_string}), 'tv_wonder_construction')]"
+    )
 
 
 def dynamic_ritual_concept_key(style: int) -> str:
@@ -146,21 +223,69 @@ def proposal_slot_var(slot: int) -> str:
     return f"{PLAYER}.GetVariable('tv_wonder_proposal_slot_{slot}')"
 
 
+def action_button_fields(
+    text: str,
+    title: str,
+    description: str,
+    action_name: str,
+) -> str:
+    return (
+        f'text = "{text}" title = "{title}" description = "{description}" '
+        f'actor = "[InternationalOrganizationsView.GetPlayer]" '
+        f'left_action = {{ action_name = "{action_name}" }}'
+    )
+
+
+def green_action_button(
+    visible: str,
+    size: str,
+    text: str,
+    title: str,
+    description: str,
+    action_name: str,
+) -> str:
+    return (
+        f'{T}action_button = {{ visible = "[{visible}]" size = {{ {size} }} '
+        f'using = button_regular_texture_alt_green using = action_button_common_template '
+        f'using = button_common_textobj_template fontsize = 13 '
+        f'{action_button_fields(text, title, description, action_name)} }}'
+    )
+
+
 def proposal_button(slot: int) -> str:
     slot_var = proposal_slot_var(slot)
     slot_id_string = fixed_point_to_int_string(slot_var)
     text = f"[SelectGameConcept({slot_var}.IsSet, Concatenate('tv_wonder_display_', {slot_id_string}), 'tv_wonder_construction')]"
-    return (
-        f'{T}action_button_diamond = {{ size = {{ 152 30 }} visible = "[{slot_var}.IsSet]" '
-        f'text = "{text}" title = "tv_wonder_select_proposal_slot_{slot}" '
-        f'description = "tv_wonder_select_proposal_slot_{slot}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
-        f'left_action = {{ action_name = "tv_wonder_select_proposal_slot_{slot}" }} }}'
+    selected_visible = fold_bool(
+        "And",
+        [
+            f"{slot_var}.IsSet",
+            f"{player_var('tv_wonder_proposal')}.IsSet",
+            f"Not({concept_in_progress()})",
+            (
+                f"EqualTo_CFixedPoint({player_var('tv_wonder_proposal')}.GetValue, "
+                f"{slot_var}.GetValue)"
+            ),
+        ],
+    )
+    title = f"tv_wonder_select_proposal_slot_{slot}"
+    description = f"tv_wonder_select_proposal_slot_{slot}_desc"
+    action_name = f"tv_wonder_select_proposal_slot_{slot}"
+    return "\n".join(
+        [
+            f"widget = {{",
+            f'{T}visible = "[And({slot_var}.IsSet, Not({concept_in_progress()}))]"',
+            f"{T}size = {{ 152 30 }}",
+            f"{T}action_button_diamond = {{ size = {{ 152 30 }} {action_button_fields(text, title, description, action_name)} }}",
+            green_action_button(selected_visible, "152 30", text, title, description, action_name),
+            f"}}",
+        ]
     )
 
 
 def dynamic_proposal_text(prefix: str, max_width: int = 352) -> str:
     return (
-        f'{T}text_multi = {{ visible = "[{player_var("tv_wonder_proposal")}.IsSet]" '
+        f'{T}text_multi = {{ visible = "[And({player_var("tv_wonder_proposal")}.IsSet, Not({concept_in_progress()}))]" '
         f'max_width = {max_width} autoresize = yes text = "[{dynamic_localized_text_key(prefix, "tv_wonder_proposal")}]" '
         f'align = nobaseline|left }}'
     )
@@ -168,7 +293,7 @@ def dynamic_proposal_text(prefix: str, max_width: int = 352) -> str:
 
 def dynamic_locked_text(max_width: int = 352) -> str:
     return (
-        f'{T}text_multi = {{ visible = "[{player_var("tv_wonder_locked_display_id")}.IsSet]" '
+        f'{T}text_multi = {{ visible = "[And({player_var("tv_wonder_locked_display_id")}.IsSet, Not({concept_in_progress()}))]" '
         f'max_width = {max_width} autoresize = yes text = "[{dynamic_localized_text_key("TV_ENGINEERING_LOCKED_TEXT_", "tv_wonder_locked_display_id")}]" '
         f'align = nobaseline|left }}'
     )
@@ -185,18 +310,24 @@ def ceremony_select_button(style: int) -> str:
             f"GreaterThanOrEqualTo_CFixedPoint({player_var('tv_wonder_locked_style_count')}.GetValue, '(CFixedPoint){style}.0')",
         ],
     )
-    selected_down = eq("tv_wonder_ceremony_style", style)
+    selected_visible = f"And({player_var('tv_wonder_ceremony_style')}.IsSet, {eq('tv_wonder_ceremony_style', style)})"
     display_var = player_var("tv_wonder_locked_concept_display_id")
     text = (
         f"[SelectGameConcept({display_var}.IsSet, "
         f"{dynamic_ritual_concept_key(style)}, 'tv_wonder_construction')]"
     )
-    return (
-        f'{T}action_button_diamond = {{ visible = "[{locked_visible}]" size = {{ 150 30 }} '
-        f'text = "{text}" '
-        f'down = "[{selected_down}]" title = "tv_wonder_choose_ceremony_style_{style}" '
-        f'description = "tv_wonder_choose_ceremony_style_{style}_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
-        f'left_action = {{ action_name = "tv_wonder_choose_ceremony_style_{style}" }} }}'
+    title = f"tv_wonder_choose_ceremony_style_{style}"
+    description = f"tv_wonder_choose_ceremony_style_{style}_desc"
+    action_name = f"tv_wonder_choose_ceremony_style_{style}"
+    return "\n".join(
+        [
+            f"widget = {{",
+            f'{T}visible = "[{locked_visible}]"',
+            f"{T}size = {{ 150 30 }}",
+            f"{T}action_button_diamond = {{ size = {{ 150 30 }} {action_button_fields(text, title, description, action_name)} }}",
+            green_action_button(selected_visible, "150 30", text, title, description, action_name),
+            f"}}",
+        ]
     )
 
 
@@ -206,6 +337,58 @@ def active_ritual_visible() -> str:
         f"{player_var('tv_wonder_ceremony_style')}.IsSet, "
         f"{player_var('tv_wonder_selected_ritual_id')}.IsSet)"
     )
+
+
+def ritual_style_1_progress_row(indent: int) -> list[str]:
+    prefix = T * indent
+    progress_visible = (
+        f"And3({active_ritual_visible()}, {player_var('tv_wonder_selected_ritual_style')}.IsSet, "
+        f"And({eq('tv_wonder_selected_ritual_style', 1)}, {not_pharos_locked_expr()}))"
+    )
+    progress_pct = player_var(RITUAL_PROGRESS_PCT_VAR)
+    progress_months = player_var(RITUAL_PROGRESS_MONTHS_VAR)
+    return [
+        f"{prefix}widget = {{",
+        f'{prefix}{T}visible = "[{progress_visible}]"',
+        f"{prefix}{T}size = {{ 462 24 }}",
+        f"{prefix}{T}hbox = {{",
+        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}{T}spacing = 6",
+        f'{prefix}{T}{T}text_single = {{ raw_text = "@time!" size = {{ 20 24 }} fontsize = 16 align = center|nobaseline }}',
+        f"{prefix}{T}{T}widget = {{",
+        f"{prefix}{T}{T}{T}size = {{ 372 24 }}",
+        f"{prefix}{T}{T}{T}progressbar = {{",
+        f'{prefix}{T}{T}{T}{T}visible = "[{progress_pct}.IsSet]"',
+        f"{prefix}{T}{T}{T}{T}size = {{ 372 16 }}",
+        f"{prefix}{T}{T}{T}{T}using = progress_bar_goldish",
+        f"{prefix}{T}{T}{T}{T}min = 0",
+        f"{prefix}{T}{T}{T}{T}max = 100",
+        f'{prefix}{T}{T}{T}{T}value = "[{progress_pct}.GetValue]"',
+        f"{prefix}{T}{T}{T}}}",
+        f"{prefix}{T}{T}{T}progressbar = {{",
+        f'{prefix}{T}{T}{T}{T}visible = "[Not({progress_pct}.IsSet)]"',
+        f"{prefix}{T}{T}{T}{T}size = {{ 372 16 }}",
+        f"{prefix}{T}{T}{T}{T}using = progress_bar_goldish",
+        f"{prefix}{T}{T}{T}{T}min = 0",
+        f"{prefix}{T}{T}{T}{T}max = 100",
+        f"{prefix}{T}{T}{T}{T}value = 0",
+        f"{prefix}{T}{T}{T}}}",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}visible = "[{progress_months}.IsSet]"',
+        f"{prefix}{T}{T}{T}size = {{ 58 24 }}",
+        f'{prefix}{T}{T}{T}raw_text = "[{progress_months}.GetValue|0]/{RITUAL_PROGRESS_MAX_MONTHS}"',
+        f"{prefix}{T}{T}{T}align = nobaseline|right",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}visible = "[Not({progress_months}.IsSet)]"',
+        f"{prefix}{T}{T}{T}size = {{ 58 24 }}",
+        f'{prefix}{T}{T}{T}raw_text = "0/{RITUAL_PROGRESS_MAX_MONTHS}"',
+        f"{prefix}{T}{T}{T}align = nobaseline|right",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
 
 
 def scripted_effect_tooltip(effect_name: str, indent: int) -> list[str]:
@@ -448,7 +631,7 @@ def active_ritual_display() -> str:
         f"Not({eq('tv_wonder_locked_is_unique', 1)}))"
     )
     generic_visible = f"And({visible}, {is_generic})"
-    unique_visible = f"And({visible}, {is_unique})"
+    unique_visible = f"And3({visible}, {is_unique}, {not_special_unique_locked_expr()})"
     lines: list[str] = [
         f"{T}vbox = {{",
         f'{T}{T}visible = "[{visible}]"',
@@ -494,6 +677,19 @@ def active_ritual_display() -> str:
             visible=unique_visible,
         )
     )
+    lines.extend(ritual_style_1_progress_row(2))
+    append_unique_ritual_gui(
+        lines,
+        2,
+        {
+            "PLAYER": PLAYER,
+            "active_ritual_visible": active_ritual_visible,
+            "eq": eq,
+            "fold_bool": fold_bool,
+            "player_var": player_var,
+            "var_is_set": var_is_set,
+        },
+    )
     lines.append(f"{T}}}")
     return "\n".join(lines)
 
@@ -519,30 +715,308 @@ def selected_ritual_cost_visible(cost_type_id: int) -> str:
     )
 
 
-def hold_button(action_name: str, visible: str) -> str:
+def hold_button(
+    action_name: str,
+    visible: str,
+    *,
+    text_key: str = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON",
+    title_key: str = "tv_wonder_confirm_ceremony",
+    desc_key: str = "tv_wonder_confirm_ceremony_desc",
+) -> str:
     return (
         f'{T}action_button_diamond = {{ visible = "[{visible}]" '
-        'size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" '
-        'description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" '
+        f'size = {{ 180 30 }} text = "{text_key}" title = "{title_key}" '
+        f'description = "{desc_key}" actor = "[InternationalOrganizationsView.GetPlayer]" '
         f'left_action = {{ action_name = "{action_name}" }} }}'
     )
 
 
-def preview_widget(var_name: str, visible: str | None = None) -> str:
-    var_expr = player_var(var_name)
-    visible_expr = visible or f"{var_expr}.IsSet"
-    return "\n".join(
+def preview_location_card(id_var_name: str) -> list[str]:
+    visible_expr = f"{player_var(id_var_name)}.IsSet"
+    text_expr = dynamic_localized_text_key("TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_", id_var_name)
+    return [
+        f"{T}widget = {{",
+        f'{T}{T}visible = "[{visible_expr}]"',
+        f"{T}{T}size = {{ 100% {PREVIEW_TOP_CARD_HEIGHT} }}",
+        f"{T}{T}parentanchor = top",
+        f"{T}{T}widgetanchor = top",
+        f"{T}{T}using = bg_text_mask_container_dark_blue",
+        f"{T}{T}hbox = {{",
+        f"{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}{T}layoutpolicy_vertical = fixed",
+        f"{T}{T}{T}margin = {{ 8 5 }}",
+        f"{T}{T}{T}text_single = {{",
+        f'{T}{T}{T}{T}text = "[{text_expr}]"',
+        f"{T}{T}{T}{T}max_width = {PREVIEW_CONTENT_WIDTH}",
+        f"{T}{T}{T}{T}fontsize = 13",
+        f"{T}{T}{T}{T}align = nobaseline|left",
+        f"{T}{T}{T}}}",
+        f"{T}{T}{T}expand = {{}}",
+        f"{T}{T}}}",
+        f"{T}}}",
+    ]
+
+
+def preview_modifier_column(indent: int, *, title_key: str, modifier_key: str) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}vbox = {{",
+        f"{prefix}{T}layoutpolicy_horizontal = fixed",
+        f"{prefix}{T}layoutpolicy_vertical = shrinking",
+        f"{prefix}{T}minimumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
+        f"{prefix}{T}maximumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
+        f"{prefix}{T}spacing = 2",
+        f"{prefix}{T}text_single = {{",
+        f'{prefix}{T}{T}text = "{title_key}"',
+        f"{prefix}{T}{T}max_width = {PREVIEW_MODIFIER_COLUMN_WIDTH}",
+        f"{prefix}{T}{T}align = left|nobaseline",
+        f"{prefix}{T}{T}fontsize = 13",
+        f"{prefix}{T}}}",
+        f"{prefix}{T}TooltipStringPairList = {{",
+        f"{prefix}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{prefix}{T}{T}maximumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }}",
+        f'{prefix}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }} }}',
+        f'{prefix}{T}{T}blockoverride "field_text_format" {{',
+        f"{prefix}{T}{T}{T}fontsize = 13",
+        f"{prefix}{T}{T}}}",
+        f'{prefix}{T}{T}blockoverride "row_size" {{',
+        f"{prefix}{T}{T}{T}maximumsize = {{ -1 22 }}",
+        f"{prefix}{T}{T}{T}minimumsize = {{ -1 22 }}",
+        f"{prefix}{T}{T}}}",
+        f'{prefix}{T}{T}textcontext = "[ShowModifierEffect({modifier_key})]"',
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def preview_effect_card(id_var_name: str) -> list[str]:
+    visible_expr = f"{player_var(id_var_name)}.IsSet"
+    country_modifier_key = dynamic_display_modifier_key(id_var_name, "_level_1")
+    local_modifier_key = dynamic_display_modifier_key(id_var_name, "_local_level_1")
+    lines = [
+        f"{T}widget = {{",
+        f'{T}{T}visible = "[{visible_expr}]"',
+        f"{T}{T}size = {{ 100% -1 }}",
+        f"{T}{T}parentanchor = bottom",
+        f"{T}{T}widgetanchor = bottom",
+        f"{T}{T}using = bg_text_mask_container_dark_blue",
+        f"{T}{T}vbox = {{",
+        f"{T}{T}{T}set_parent_size_to_minimum = yes",
+        f"{T}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}{T}margin = {{ 8 7 }}",
+        f"{T}{T}{T}spacing = 4",
+        f"{T}{T}{T}ignoreinvisible = yes",
+        f'{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE" max_width = {PREVIEW_CONTENT_WIDTH} fontsize = 14 align = nobaseline|left }}',
+        f"{T}{T}{T}hbox = {{",
+        f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{T}{T}{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}{T}{T}size = {{ {PREVIEW_MODIFIER_COLUMNS_WIDTH} -1 }}",
+        f"{T}{T}{T}{T}spacing = {PREVIEW_MODIFIER_COLUMN_SPACING}",
+        f"{T}{T}{T}{T}ignoreinvisible = yes",
+    ]
+    lines.extend(
+        preview_modifier_column(
+            4,
+            title_key="TV_LOCATION_WONDER_COUNTRY_MODIFIERS_TITLE",
+            modifier_key=country_modifier_key,
+        )
+    )
+    lines.extend(
+        preview_modifier_column(
+            4,
+            title_key="TV_LOCATION_WONDER_LOCAL_MODIFIERS_TITLE",
+            modifier_key=local_modifier_key,
+        )
+    )
+    lines.extend(
         [
-            "widget = {",
-            f'{T}visible = "[{visible_expr}]"',
-            f"{T}size = {{ 100% 100% }}",
-            f"{T}background = {{",
-            f'{T}{T}texture = "[{dynamic_image_texture(var_name)}]"',
-            f"{T}{T}fittype = centercrop",
+            f"{T}{T}{T}}}",
+            f"{T}{T}}}",
+            f"{T}}}",
+        ]
+    )
+    return lines
+
+
+def indent_lines(text: str, level: int) -> list[str]:
+    prefix = T * level
+    return [f"{prefix}{line}" if line else line for line in text.splitlines()]
+
+
+def wonder_size_visible(wonders: list[dict], size_key: str, value_var_name: str) -> str:
+    value_var = player_var(value_var_name)
+    size_terms = [
+        f"EqualTo_CFixedPoint({value_var}.GetValue, '(CFixedPoint){int(wonder['id'])}.0')"
+        for wonder in wonders
+        if wonder["size"] == size_key
+    ]
+    return fold_bool("And", [f"{value_var}.IsSet", fold_bool("Or", size_terms)])
+
+
+def proposal_size_segment(
+    indent: int,
+    *,
+    label_key: str,
+    inactive_texture: str,
+    active_texture: str,
+    active_visible: str,
+) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}widget = {{",
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}layoutpolicy_vertical = fixed",
+        f"{prefix}{T}size = {{ -1 {PROPOSAL_SIZE_ROW_HEIGHT} }}",
+        f"{prefix}{T}alwaystransparent = yes",
+        f"{prefix}{T}background = {{",
+        f"{prefix}{T}{T}using = {inactive_texture}",
+        f"{prefix}{T}{T}alpha = {PROPOSAL_SIZE_INACTIVE_ALPHA}",
+        f"{prefix}{T}}}",
+        f"{prefix}{T}widget = {{",
+        f'{prefix}{T}{T}visible = "[{active_visible}]"',
+        f"{prefix}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}alwaystransparent = yes",
+        f"{prefix}{T}{T}background = {{",
+        f"{prefix}{T}{T}{T}using = {active_texture}",
+        f"{prefix}{T}{T}{T}alpha = {PROPOSAL_SIZE_ACTIVE_ALPHA}",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}{T}text_single = {{",
+        f'{prefix}{T}{T}{T}text = "{label_key}"',
+        f"{prefix}{T}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}{T}parentanchor = center",
+        f"{prefix}{T}{T}{T}align = center|nobaseline",
+        f"{prefix}{T}{T}{T}fontsize = 13",
+        f"{prefix}{T}{T}}}",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def proposal_size_row(
+    wonders: list[dict],
+    indent: int,
+    value_var_name: str,
+    visible: str | None = None,
+) -> list[str]:
+    prefix = T * indent
+    lines = [
+        f"{prefix}hbox = {{",
+    ]
+    if visible:
+        lines.append(f'{prefix}{T}visible = "[{visible}]"')
+    lines.extend(
+        [
+            f"{prefix}{T}layoutpolicy_horizontal = expanding",
+            f"{prefix}{T}layoutpolicy_vertical = fixed",
+            f"{prefix}{T}size = {{ {PREVIEW_PANEL_WIDTH} {PROPOSAL_SIZE_ROW_HEIGHT} }}",
+            f"{prefix}{T}spacing = 0",
+        ]
+    )
+    for size_key, label_key, inactive_texture, active_texture in PROPOSAL_SIZE_INDICATORS:
+        lines.extend(
+            proposal_size_segment(
+                indent + 1,
+                label_key=label_key,
+                inactive_texture=inactive_texture,
+                active_texture=active_texture,
+                active_visible=wonder_size_visible(wonders, size_key, value_var_name),
+            )
+        )
+    lines.append(f"{prefix}}}")
+    return lines
+
+
+def locked_wonder_name_card(indent: int, visible: str) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}widget = {{",
+        f'{prefix}{T}visible = "[{visible}]"',
+        f"{prefix}{T}layoutpolicy_horizontal = fixed",
+        f"{prefix}{T}layoutpolicy_vertical = fixed",
+        f"{prefix}{T}size = {{ {PREVIEW_PANEL_WIDTH} {LOCKED_NAME_CARD_HEIGHT} }}",
+        f"{prefix}{T}using = bg_paper_card_situations",
+        f"{prefix}{T}text_single = {{",
+        f'{prefix}{T}{T}text = "{dynamic_locked_wonder_concept_link()}"',
+        f"{prefix}{T}{T}size = {{ 100% 100% }}",
+        f"{prefix}{T}{T}max_width = {PREVIEW_CONTENT_WIDTH}",
+        f"{prefix}{T}{T}fontsize = 15",
+        f"{prefix}{T}{T}align = center|nobaseline",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
+def preview_widget(image_var_name: str, id_var_name: str, visible: str | None = None) -> str:
+    var_expr = player_var(image_var_name)
+    visible_expr = visible or f"{var_expr}.IsSet"
+    lines = [
+        "widget = {",
+        f'{T}visible = "[{visible_expr}]"',
+        f"{T}layoutpolicy_horizontal = fixed",
+        f"{T}layoutpolicy_vertical = fixed",
+        f"{T}size = {{ {PREVIEW_PANEL_WIDTH} {PREVIEW_IMAGE_HEIGHT} }}",
+        f"{T}background = {{",
+        f'{T}{T}texture = "[{dynamic_image_texture(image_var_name)}]"',
+        f"{T}{T}fittype = centercrop",
+        f"{T}}}",
+    ]
+    lines.extend(preview_location_card(id_var_name))
+    lines.extend(preview_effect_card(id_var_name))
+    lines.append("}")
+    return "\n".join(lines)
+
+
+def locked_preview_widget(wonders: list[dict], visible: str) -> str:
+    lines = [
+        "widget = {",
+        f'{T}visible = "[{visible}]"',
+        f"{T}layoutpolicy_horizontal = fixed",
+        f"{T}layoutpolicy_vertical = fixed",
+        f"{T}size = {{ {PREVIEW_PANEL_WIDTH} {LOCKED_PREVIEW_HEIGHT} }}",
+        f"{T}vbox = {{",
+        f"{T}{T}set_parent_size_to_minimum = yes",
+        f"{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}spacing = {PROPOSAL_SIZE_ROW_SPACING}",
+        f"{T}{T}ignoreinvisible = yes",
+    ]
+    lines.extend(locked_wonder_name_card(2, visible))
+    lines.extend(proposal_size_row(wonders, 2, "tv_wonder_locked_display_id", visible))
+    lines.extend(indent_lines(preview_widget("tv_wonder_locked_image_display_id", "tv_wonder_locked_display_id", visible), 2))
+    lines.extend(
+        [
             f"{T}}}",
             "}",
         ]
     )
+    return "\n".join(lines)
+
+
+def proposal_preview_widget(wonders: list[dict], visible: str) -> str:
+    proposal_image_visible = f"{player_var('tv_wonder_proposal')}.IsSet"
+    lines = [
+        "widget = {",
+        f'{T}visible = "[{visible}]"',
+        f"{T}layoutpolicy_horizontal = fixed",
+        f"{T}layoutpolicy_vertical = fixed",
+        f"{T}size = {{ {PREVIEW_PANEL_WIDTH} {PROPOSAL_PREVIEW_HEIGHT} }}",
+        f"{T}vbox = {{",
+        f"{T}{T}set_parent_size_to_minimum = yes",
+        f"{T}{T}layoutpolicy_horizontal = expanding",
+        f"{T}{T}layoutpolicy_vertical = shrinking",
+        f"{T}{T}spacing = {PROPOSAL_SIZE_ROW_SPACING}",
+        f"{T}{T}ignoreinvisible = yes",
+    ]
+    lines.extend(proposal_size_row(wonders, 2, "tv_wonder_proposal", proposal_image_visible))
+    lines.extend(indent_lines(preview_widget("tv_wonder_proposal", "tv_wonder_proposal"), 2))
+    lines.extend(
+        [
+            f"{T}}}",
+            "}",
+        ]
+    )
+    return "\n".join(lines)
 
 
 def suitability_representatives(wonders: list[dict]) -> list[dict]:
@@ -560,9 +1034,17 @@ def generate() -> str:
 
     lines = render_header(SCRIPT_REL)
     lines.append("### BEGIN TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
-    lines.append(preview_widget("tv_wonder_locked_image_display_id"))
-    proposal_preview_visible = f"And(Not({player_var('tv_wonder_locked')}.IsSet), {player_var('tv_wonder_proposal')}.IsSet)"
-    lines.append(preview_widget("tv_wonder_proposal", proposal_preview_visible))
+    locked_preview_visible = (
+        f"And({player_var('tv_wonder_locked_image_display_id')}.IsSet, "
+        f"Not({concept_in_progress()}))"
+    )
+    lines.append(locked_preview_widget(wonders, locked_preview_visible))
+    proposal_preview_visible = (
+        f"And3(Not({player_var('tv_wonder_locked')}.IsSet), "
+        f"{player_var('tv_wonder_proposal')}.IsSet, "
+        f"Not({concept_in_progress()}))"
+    )
+    lines.append(proposal_preview_widget(wonders, proposal_preview_visible))
     lines.append("### END TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_TEXTS")
@@ -602,10 +1084,13 @@ def generate() -> str:
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible(max_wonder_id)
-    gold_visible = f"And({base_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
-    prestige_visible = f"And({base_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
+    generic_hold_visible = f"And({base_visible}, {not_special_unique_locked_expr()})"
+    pharos_hold_visible = f"And({base_visible}, {pharos_locked_expr()})"
+    hagia_hold_visible = f"And({base_visible}, {hagia_locked_expr()})"
+    gold_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
+    prestige_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
     free_visible = (
-        f"And3({base_visible}, "
+        f"And3({generic_hold_visible}, "
         f"{PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
         f"Not(Or({selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])}, "
         f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})))"
@@ -613,6 +1098,24 @@ def generate() -> str:
     lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_prestige", prestige_visible))
+    lines.append(
+        hold_button(
+            "tv_wonder_confirm_ceremony",
+            pharos_hold_visible,
+            text_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON",
+            title_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON",
+            desc_key="TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC",
+        )
+    )
+    lines.append(
+        hold_button(
+            "tv_wonder_confirm_ceremony",
+            hagia_hold_visible,
+            text_key="TV_ENGINEERING_HAGIA_START_BUTTON",
+            title_key="TV_ENGINEERING_HAGIA_START_BUTTON",
+            desc_key="TV_ENGINEERING_HAGIA_START_BUTTON_DESC",
+        )
+    )
     lines.append("### END TV_WONDER_MECHANICS_HOLD_BUTTONS")
     return "\n".join(lines) + "\n"
 

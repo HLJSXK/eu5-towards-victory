@@ -7,16 +7,63 @@ unique_wonders:
   image: tv_wonder_unique_pharos_lighthouse
   prompt: The Pharos Lighthouse of Alexandria in its Hellenistic prime, a colossal white stone lighthouse on Pharos island above a busy ancient harbor, bronze mirror beacon lit at dusk, Ptolemaic ships, seawalls, Alexandria skyline, historically grounded world wonder key art, cinematic coastal panorama, ultra-detailed, realistic materials, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_lighthouse
   base_effect_multiplier: 2
   final_buildings:
     1: tv_wonder_unique_pharos_lighthouse_inaugurated
   ritual:
-    key: harbor_lighting
-    mode: immediate
+    key: harbor_lighting_and_pilotage_oath
+    mode: auxiliary_building
     cost_type: null
-    listeners: []
-    runtime_variables: []
+    listeners:
+    - monthly
+    runtime_variables:
+    - tv_wonder_pharos_stage
+    - tv_wonder_pharos_quarter_month
+    - tv_wonder_pharos_route_progress
+    - tv_wonder_pharos_privateer_threat_pct
+    - tv_wonder_pharos_active_route
+    - tv_wonder_pharos_active_route_id
+    - tv_wonder_pharos_active_route_status
+    - tv_wonder_pharos_active_route_owner
+    - tv_wonder_pharos_event_route_location
+    - tv_wonder_pharos_event_route_owner
+    - tv_wonder_pharos_event_route_has_owner
+    - tv_wonder_pharos_routes_complete_pending_event
+    - tv_wonder_pharos_routes_complete
+    - tv_wonder_pharos_route_constantinople_location
+    - tv_wonder_pharos_route_constantinople_status
+    - tv_wonder_pharos_route_constantinople_passed
+    - tv_wonder_pharos_route_constantinople_owner
+    - tv_wonder_pharos_route_venice_location
+    - tv_wonder_pharos_route_venice_status
+    - tv_wonder_pharos_route_venice_passed
+    - tv_wonder_pharos_route_venice_owner
+    - tv_wonder_pharos_route_genoa_location
+    - tv_wonder_pharos_route_genoa_status
+    - tv_wonder_pharos_route_genoa_passed
+    - tv_wonder_pharos_route_genoa_owner
+    - tv_wonder_pharos_route_malta_location
+    - tv_wonder_pharos_route_malta_status
+    - tv_wonder_pharos_route_malta_passed
+    - tv_wonder_pharos_route_malta_owner
+    - tv_wonder_pharos_route_tunis_location
+    - tv_wonder_pharos_route_tunis_status
+    - tv_wonder_pharos_route_tunis_passed
+    - tv_wonder_pharos_route_tunis_owner
+    - tv_wonder_pharos_route_palermo_location
+    - tv_wonder_pharos_route_palermo_status
+    - tv_wonder_pharos_route_palermo_passed
+    - tv_wonder_pharos_route_palermo_owner
+    - tv_wonder_pharos_route_candia_location
+    - tv_wonder_pharos_route_candia_status
+    - tv_wonder_pharos_route_candia_passed
+    - tv_wonder_pharos_route_candia_owner
+    - tv_wonder_pharos_route_gibraltar_location
+    - tv_wonder_pharos_route_gibraltar_status
+    - tv_wonder_pharos_route_gibraltar_passed
+    - tv_wonder_pharos_route_gibraltar_owner
     country_modifier:
       naval_range: 300
       trade_range: 100
@@ -24,21 +71,74 @@ unique_wonders:
     confirmation_trigger_script: ''
     start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: ''
-    completion_trigger_script: ''
+    progress_effect_script: |-
+      tv_wonder_pharos_refresh_display_effect = yes
+      if = {
+        limit = {
+          has_variable = tv_wonder_ritual_auxiliary_building_finished
+          NOT = { has_variable = tv_wonder_pharos_stage }
+        }
+        set_variable = { name = tv_wonder_pharos_stage value = 1 }
+        set_variable = { name = tv_wonder_pharos_quarter_month value = 0 }
+        set_variable = { name = tv_wonder_pharos_route_progress value = 0 }
+        trigger_event_non_silently = { id = tv_engineering_department.7300 days = 1 }
+      }
+      else_if = {
+        limit = {
+          has_variable = tv_wonder_pharos_stage
+          var:tv_wonder_pharos_stage ?= 1
+          NOT = { has_variable = tv_wonder_pharos_routes_complete }
+        }
+        tv_wonder_pharos_refresh_display_effect = yes
+        change_variable = { name = tv_wonder_pharos_quarter_month add = 1 }
+        if = {
+          limit = { var:tv_wonder_pharos_quarter_month >= 3 }
+          set_variable = { name = tv_wonder_pharos_quarter_month value = 0 }
+          if = {
+            limit = { tv_wonder_pharos_alexandria_hostile_privateers_trigger = yes }
+            random_list = {
+              33 = { trigger_event_non_silently = { id = tv_engineering_department.7301 days = 1 } }
+              33 = { trigger_event_non_silently = { id = tv_engineering_department.7302 days = 1 } }
+              34 = { trigger_event_non_silently = { id = tv_engineering_department.7303 days = 1 } }
+            }
+          }
+          else = {
+            trigger_event_non_silently = { id = tv_engineering_department.7304 days = 1 }
+          }
+        }
+      }
+      else_if = {
+        limit = {
+          has_variable = tv_wonder_pharos_stage
+          var:tv_wonder_pharos_stage ?= 2
+          NOT = { has_variable = tv_wonder_pharos_routes_complete }
+        }
+        tv_wonder_pharos_refresh_display_effect = yes
+        change_variable = { name = tv_wonder_pharos_quarter_month add = 1 }
+        if = {
+          limit = { var:tv_wonder_pharos_quarter_month >= 3 }
+          set_variable = { name = tv_wonder_pharos_quarter_month value = 0 }
+          tv_wonder_pharos_roll_route_effect = yes
+        }
+      }
+    completion_trigger_script: |-
+      has_variable = tv_wonder_pharos_routes_complete
+      var:tv_wonder_pharos_routes_complete ?= 1
     completion_effect_script: ''
     timed:
       years: 1
       burden_modifier: {}
       blessing_modifier: {}
     auxiliary_building:
-      local_modifier: {}
+      local_modifier:
+        harbor_suitability: 0.1
+        local_maritime_presence: 0.1
       maintenance: null
-      build_time: null
-      construction_demand: null
-      price: null
+      build_time: large_port_building_time
+      construction_demand: port_building_construction
+      price: tv_wonder_ritual_annex_medium_price
       attributes: {}
-      max_levels: 6
+      max_levels: 1
 - id: 102
   key: unique_hagia_sophia
   base_key: sky_dome_grand_temple
@@ -47,25 +147,54 @@ unique_wonders:
   image: tv_wonder_unique_hagia_sophia
   prompt: Hagia Sophia in medieval Constantinople after Justinian's rebuilding, immense central dome, golden mosaics, marble columns, clergy and imperial officials at a dedication prayer, Byzantine city walls and the Bosporus beyond, historically grounded world wonder key art, cinematic interior-exterior cutaway feel, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: sky_dome_grand_temple
   base_effect_multiplier: 2
   final_buildings:
     1: tv_wonder_unique_hagia_sophia_inaugurated
   ritual:
-    key: justinian_dedication
+    key: justinianic_synaxis_of_the_great_church
     mode: immediate
     cost_type: null
-    listeners: []
-    runtime_variables: []
+    listeners:
+    - monthly
+    runtime_variables:
+    - tv_wonder_hagia_step
+    - tv_wonder_hagia_months
+    - tv_wonder_hagia_pending_event
+    - tv_wonder_hagia_completed
+    - tv_wonder_hagia_step_6_cost
+    - tv_wonder_hagia_assignee_1
+    - tv_wonder_hagia_assignee_2
+    - tv_wonder_hagia_assignee_3
+    - tv_wonder_hagia_assignee_4
+    - tv_wonder_hagia_assignee_5
+    - tv_wonder_hagia_assignee_6
+    - tv_wonder_hagia_assignee_7
+    - tv_wonder_hagia_assignee_8
+    - tv_wonder_hagia_step_1_done
+    - tv_wonder_hagia_step_2_done
+    - tv_wonder_hagia_step_3_done
+    - tv_wonder_hagia_step_4_done
+    - tv_wonder_hagia_step_5_done
+    - tv_wonder_hagia_step_6_done
+    - tv_wonder_hagia_step_7_done
+    - tv_wonder_hagia_step_8_done
+    - tv_wonder_hagia_prosperity_active
     country_modifier:
       tolerance_own: 1
       stability_investment: 0.05
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: ''
+    start_effect_script: |-
+      set_variable = { name = tv_wonder_hagia_step value = 1 }
+      set_variable = { name = tv_wonder_hagia_months value = 0 }
     snapshot_effect_script: ''
-    progress_effect_script: ''
-    completion_trigger_script: ''
+    progress_effect_script: |-
+      tv_wonder_hagia_monthly_progress_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_hagia_completed
+      var:tv_wonder_hagia_completed ?= 1
     completion_effect_script: ''
     timed:
       years: 1
@@ -87,6 +216,7 @@ unique_wonders:
   image: tv_wonder_unique_dome_of_the_rock
   prompt: The Dome of the Rock on Jerusalem's sacred platform, polished golden dome, blue and gold tilework, pilgrims moving through arcades, early medieval stone courtyards, city hills in warm light, historically grounded world wonder key art, respectful cinematic view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: sky_dome_grand_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -127,6 +257,7 @@ unique_wonders:
   image: tv_wonder_unique_angkor_wat
   prompt: Angkor Wat at the height of the Khmer Empire, five lotus towers reflected in wide moats, carved galleries, processional causeway, royal temple ceremony, tropical forest edges, historically grounded world wonder key art, cinematic sunrise, ultra-detailed stone reliefs, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: giant_tower_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -167,6 +298,7 @@ unique_wonders:
   image: tv_wonder_unique_potala_palace
   prompt: The Potala Palace above Lhasa, white and red palace-monastery terraces rising on Marpo Ri hill, Tibetan monks, banners, ceremonial procession, high plateau light and mountains, historically grounded world wonder key art, cinematic aerial view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: sacred_mountain
   base_effect_multiplier: 2
   final_buildings:
@@ -207,6 +339,7 @@ unique_wonders:
   image: tv_wonder_unique_alhambra
   prompt: The Alhambra palace in Granada, red fortress walls, Nasrid courtyards, Court of the Lions, carved stucco, reflecting pools, treaty ceremony with envoys, Sierra Nevada backdrop, historically grounded world wonder key art, cinematic warm evening light, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: palace_of_nations
   base_effect_multiplier: 2
   final_buildings:
@@ -247,6 +380,7 @@ unique_wonders:
   image: tv_wonder_unique_machu_picchu
   prompt: Machu Picchu in the Inca era, royal stone citadel on a steep Andean ridge, precise dry-stone walls, terraces, temples, Inti Raymi sun ceremony, clouds and mountains, historically grounded world wonder key art, cinematic aerial view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: sacred_mountain
   base_effect_multiplier: 2
   final_buildings:
@@ -287,6 +421,7 @@ unique_wonders:
   image: tv_wonder_unique_himeji_castle
   prompt: Himeji Castle in early modern Japan, white heron keep complex, layered roofs, defensive gates, stone walls, samurai reception procession entering the castle, Harima landscape, historically grounded world wonder key art, cinematic clear daylight, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
@@ -327,6 +462,7 @@ unique_wonders:
   image: tv_wonder_unique_taj_mahal
   prompt: The Taj Mahal at Agra in the Mughal era, white marble mausoleum, reflecting pool, charbagh gardens, Yamuna river, royal memorial unsealing ceremony, intricate pietra dura, historically grounded world wonder key art, cinematic dawn, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: giant_necropolis
   base_effect_multiplier: 2
   final_buildings:
@@ -367,6 +503,7 @@ unique_wonders:
   image: tv_wonder_unique_forbidden_city
   prompt: The Forbidden City in Ming Beijing, vast imperial palace axis with red walls, golden roofs, Meridian Gate, throne halls, officials at a capital transfer ceremony, ordered courtyards, historically grounded world wonder key art, cinematic aerial perspective, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: triumphal_axis
   base_effect_multiplier: 2
   final_buildings:
@@ -407,6 +544,7 @@ unique_wonders:
   image: tv_wonder_unique_topkapi_palace
   prompt: Topkapi Palace after the Ottoman conquest of Constantinople, layered courtyards, imperial gate, treasury halls, Bosporus and Golden Horn, conquest entry procession with banners, historically grounded world wonder key art, cinematic palace panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: palace_of_nations
   base_effect_multiplier: 2
   final_buildings:
@@ -447,6 +585,7 @@ unique_wonders:
   image: tv_wonder_unique_st_peters_basilica
   prompt: Saint Peter's Basilica in Renaissance Rome, massive basilica and dome, papal dedication ceremony, cardinals, pilgrims, marble colonnades and construction splendor, historically grounded world wonder key art, cinematic sacred light, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: sky_dome_grand_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -487,6 +626,7 @@ unique_wonders:
   image: tv_wonder_unique_lalibela_churches
   prompt: The rock-hewn churches of Lalibela in medieval Ethiopia, monolithic churches carved below ground from red volcanic stone, priests, pilgrims, processional crosses, highland landscape, historically grounded world wonder key art, cinematic oblique aerial view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: sacred_mountain
   base_effect_multiplier: 2
   final_buildings:
@@ -527,6 +667,7 @@ unique_wonders:
   image: tv_wonder_unique_venetian_arsenal
   prompt: The Venetian Arsenal in the Renaissance, enclosed naval shipyard with dry docks, ropewalks, foundries, galleys under construction, Bucentaur ceremony for the Marriage of the Sea, canals and brick walls, historically grounded world wonder key art, cinematic maritime view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: national_shipyard
   base_effect_multiplier: 2
   final_buildings:
@@ -567,6 +708,7 @@ unique_wonders:
   image: tv_wonder_unique_malacca_port
   prompt: The port of Malacca in the fifteenth century, crowded entrepot on the strait, Malay warehouses, Chinese junks, Indian and Arab merchants, monsoon ships, merchant covenant ceremony, historically grounded world wonder key art, cinematic harbor panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_port
   base_effect_multiplier: 2
   final_buildings:
@@ -607,6 +749,7 @@ unique_wonders:
   image: tv_wonder_unique_red_fort_delhi
   prompt: The Red Fort of Delhi in the Mughal era, red sandstone ramparts, Lahori Gate, marble audience halls, imperial gardens, Peacock Throne installation ceremony, historically grounded world wonder key art, cinematic palace-fortress view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
@@ -643,10 +786,11 @@ unique_wonders:
   key: unique_versailles_palace
   base_key: triumphal_axis
   concept: tv_wonder_unique_versailles_palace
-  location: paris
+  location: mantes
   image: tv_wonder_unique_versailles_palace
   prompt: The Palace of Versailles in the age of Louis XIV, grand palace facade, formal gardens, Hall of Mirrors glowing with candles, nobles attending the Sun King's court transfer ceremony, historically grounded world wonder key art, cinematic golden light, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: triumphal_axis
   base_effect_multiplier: 2
   final_buildings:
@@ -687,6 +831,7 @@ unique_wonders:
   image: tv_wonder_unique_tenochtitlan_causeways
   prompt: Tenochtitlan causeway system at its height, island city in Lake Texcoco, stone causeways, canals, aqueduct, canoes, great temple expansion ceremony in the distance, historically grounded world wonder key art, cinematic aerial lake view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: river_extension
   base_effect_multiplier: 2
   final_buildings:
@@ -727,6 +872,7 @@ unique_wonders:
   image: tv_wonder_unique_amsterdam_canal_ring
   prompt: Amsterdam Canal Ring in the Dutch Golden Age, planned concentric canals, brick merchant houses, quays, warehouses, barges, groundbreaking ceremony for three canals, historically grounded world wonder key art, cinematic urban water view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: canal_hub_city
   base_effect_multiplier: 2
   final_buildings:
@@ -767,6 +913,7 @@ unique_wonders:
   image: tv_wonder_unique_mecca_haram_expansion
   prompt: The Great Mosque of Mecca expansion in a historical premodern setting, arcaded sanctuary around the Kaaba, pilgrims in orderly movement, craftsmen restoring the sacred covering, warm desert light, respectful historically grounded world wonder key art, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: sky_dome_grand_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -807,6 +954,7 @@ unique_wonders:
   image: tv_wonder_unique_ming_great_wall
   prompt: Nine Borders Great Wall system across northern China, brick walls over mountains, watchtowers, fortified passes, nine frontier garrisons lighting beacon fires, soldiers and horsemen, historically grounded world wonder key art, cinematic frontier panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_wall
   base_effect_multiplier: 2
   final_buildings:
@@ -841,13 +989,14 @@ unique_wonders:
       max_levels: 6
 - id: 122
   key: unique_bank_of_saint_george
-  base_key: royal_mint_system
+  base_key: national_bank
   concept: tv_wonder_unique_bank_of_saint_george
   location: genoa
   image: tv_wonder_unique_bank_of_saint_george
   prompt: The Bank of Saint George in medieval Genoa, vaulted banking hall, ledgers, merchant magistrates, state debt documents, guarded coin chests, harbor city beyond, founding ceremony, historically grounded world wonder key art, cinematic interior, ultra-detailed, no modern elements.
   is_unique: true
-  mechanic_key: royal_mint_system
+  initial_level: 0
+  mechanic_key: national_bank
   base_effect_multiplier: 2
   final_buildings:
     1: tv_wonder_unique_bank_of_saint_george_inaugurated
@@ -887,6 +1036,7 @@ unique_wonders:
   image: tv_wonder_unique_cahokia_mounds
   prompt: Cahokia mound city near the Mississippi, Monks Mound, broad plazas, palisades, timber solar circle, ceremonial gathering and final Woodhenge rite, pre-Columbian North American urban center, historically grounded world wonder key art, cinematic aerial view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: world_monument_group
   base_effect_multiplier: 2
   final_buildings:
@@ -927,6 +1077,7 @@ unique_wonders:
   image: tv_wonder_unique_great_zimbabwe
   prompt: Great Zimbabwe stone city, massive dry-stone walls and conical tower, royal enclosure, gold trade tribute ceremony, cattle and merchants, southern African highland landscape, historically grounded world wonder key art, cinematic warm light, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: world_market
   base_effect_multiplier: 2
   final_buildings:
@@ -967,6 +1118,7 @@ unique_wonders:
   image: tv_wonder_unique_isfahan_square
   prompt: Naqsh-e Jahan Square in Safavid Isfahan, immense royal square, Shah Mosque, Ali Qapu palace, bazaar arcades, polo celebration during capital transfer, historically grounded world wonder key art, cinematic wide plaza view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: triumphal_axis
   base_effect_multiplier: 2
   final_buildings:
@@ -1007,6 +1159,7 @@ unique_wonders:
   image: tv_wonder_unique_grand_canal
   prompt: The Grand Canal of China in imperial use, broad canal with locks, grain barges, towpaths, granaries, officials launching the first tribute grain convoy, Jiangnan water towns, historically grounded world wonder key art, cinematic engineering panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: large_canal_system
   base_effect_multiplier: 2
   final_buildings:
@@ -1047,6 +1200,7 @@ unique_wonders:
   image: tv_wonder_unique_inca_royal_road
   prompt: Inca royal road network across the Andes, paved mountain roads, rope bridges, tambos, chasqui runners relaying messages, terraced slopes and high passes, historically grounded world wonder key art, cinematic mountain panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: imperial_post_road_network
   base_effect_multiplier: 2
   final_buildings:
@@ -1087,6 +1241,7 @@ unique_wonders:
   image: tv_wonder_unique_roman_aqueducts
   prompt: Roman aqueduct system supplying ancient Rome, monumental stone arches crossing the countryside, water channel entering the city, fountains and baths, civic opening rite with magistrates, historically grounded world wonder key art, cinematic engineering panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: hydraulic_workshop
   base_effect_multiplier: 2
   final_buildings:
@@ -1127,6 +1282,7 @@ unique_wonders:
   image: tv_wonder_unique_suez_ancient_canal
   prompt: Ancient Suez canal attempt connecting Nile routes to the Red Sea, desert excavation, canal banks, Egyptian and Persian-style officials, ceremonial first convoy on shallow water, Red Sea ships, historically grounded world wonder key art, cinematic desert engineering view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: large_canal_system
   base_effect_multiplier: 2
   final_buildings:
@@ -1167,6 +1323,7 @@ unique_wonders:
   image: tv_wonder_unique_kremlin
   prompt: Moscow Kremlin in the early Tsardom, red brick walls and towers, cathedrals and palace courts inside, tsar coronation procession, snow-bright Russian city, historically grounded world wonder key art, cinematic fortress-palace view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
@@ -1207,6 +1364,7 @@ unique_wonders:
   image: tv_wonder_unique_teotihuacan
   prompt: Sacred city of Teotihuacan, Avenue of the Dead, Pyramid of the Sun, Pyramid of the Moon, painted apartment compounds, fire rite on the pyramid summit, central Mexican highland light, historically grounded world wonder key art, cinematic aerial axis view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: world_monument_group
   base_effect_multiplier: 2
   final_buildings:
@@ -1247,6 +1405,7 @@ unique_wonders:
   image: tv_wonder_unique_angkor_hydraulic_system
   prompt: Angkor hydraulic system, immense baray reservoir, canals and embankments feeding rice fields, Khmer engineers and priests at a water-release ceremony, temples on the horizon, historically grounded world wonder key art, cinematic wet-season panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: hydraulic_workshop
   base_effect_multiplier: 2
   final_buildings:
@@ -1287,6 +1446,7 @@ unique_wonders:
   image: tv_wonder_unique_dutch_polders
   prompt: Dutch polder works in the early modern Netherlands, dikes closing against the sea, drainage windmills, pumps, reclaimed fields, water boards holding a closure ceremony, low sky and canals, historically grounded world wonder key art, cinematic engineering landscape, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: giant_dam_project
   base_effect_multiplier: 2
   final_buildings:
@@ -1327,6 +1487,7 @@ unique_wonders:
   image: tv_wonder_unique_machu_picchu_terraces
   prompt: Machu Picchu terrace system, precise Inca agricultural terraces on steep Andean slopes, drainage stones, workers and priests at first sowing rite, royal citadel above, clouds and mountains, historically grounded world wonder key art, cinematic landscape view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: mountain_terrace_network
   base_effect_multiplier: 2
   final_buildings:
@@ -1367,6 +1528,7 @@ unique_wonders:
   image: tv_wonder_unique_british_navy_dockyards
   prompt: British royal navy dockyard system at Portsmouth, dry docks, ropewalks, victualling yards, cannon stores, warships being fitted out, armada readiness muster, historically grounded world wonder key art, cinematic maritime industrial view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: national_shipyard
   base_effect_multiplier: 2
   final_buildings:
@@ -1406,6 +1568,7 @@ unique_wonders:
   image: tv_wonder_unique_spanish_silver_fleet
   prompt: Spanish silver fleet system at Seville, Guadalquivir river port, Casa de Contratacion ledgers, guarded treasure galleons unloading silver, royal officials and merchants, homecoming ceremony, historically grounded world wonder key art, cinematic harbor view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: maritime_trade_station_network
   base_effect_multiplier: 2
   final_buildings:
@@ -1446,6 +1609,7 @@ unique_wonders:
   image: tv_wonder_unique_ottoman_hajj_road
   prompt: Ottoman Hajj road system, ceremonial caravan departure with banners, fortified waystations, wells, camel caravans, pilgrims and officials, route toward Mecca through arid landscapes, historically grounded world wonder key art, cinematic caravan panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: imperial_post_road_network
   base_effect_multiplier: 2
   final_buildings:
@@ -1486,6 +1650,7 @@ unique_wonders:
   image: tv_wonder_unique_persian_qanat
   prompt: Persian qanat network on the Iranian plateau, lines of vertical shafts across arid land, underground water channel revealed in cutaway, gardens and fields downstream, water rights allocation ceremony, historically grounded world wonder key art, cinematic desert engineering view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: hydraulic_workshop
   base_effect_multiplier: 2
   final_buildings:
@@ -1526,6 +1691,7 @@ unique_wonders:
   image: tv_wonder_unique_longjiang_shipyard
   prompt: Ming Longjiang shipyard at Nanjing, immense timber yards, slipways, treasure ships under construction, craftsmen, officials, Zheng He's fleet departure ceremony on the river, historically grounded world wonder key art, cinematic shipyard panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: national_shipyard
   base_effect_multiplier: 2
   final_buildings:
@@ -1566,6 +1732,7 @@ unique_wonders:
   image: tv_wonder_unique_jerusalem_holy_city
   prompt: Jerusalem holy city system in a premodern era, city walls, sacred precincts, processions through gates, multiple religious quarters, solemn power transfer ceremony, hills and stone streets, historically grounded world wonder key art, respectful cinematic panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: world_monument_group
   base_effect_multiplier: 2
   final_buildings:
@@ -1607,6 +1774,7 @@ unique_wonders:
   image: tv_wonder_unique_stonehenge
   prompt: Stonehenge on Salisbury Plain in a premodern sacred landscape, massive sarsen stones and lintels aligned with solstice sunrise, burial mounds, ritual fires, priests, nobles, and villagers gathered at dawn, historically grounded world wonder key art, cinematic misty panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: megalithic_circle
   base_effect_multiplier: 2
   final_buildings:
@@ -1646,6 +1814,7 @@ unique_wonders:
   image: tv_wonder_unique_tower_of_london
   prompt: Tower of London on the Thames in a premodern royal fortress city, white keep, curtain walls, river gate, jewel guards, prisoners' towers, royal armour, soldiers and officials, historically grounded world wonder key art, cinematic riverside view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
@@ -1685,6 +1854,7 @@ unique_wonders:
   image: tv_wonder_unique_notre_dame_de_paris
   prompt: Notre-Dame de Paris before modern damage, Gothic towers, flying buttresses, rose windows, candles, clergy, scholars, royal officers, pilgrims, and the Seine beside a dense medieval Paris, historically grounded world wonder key art, cinematic urban cathedral view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: grand_cathedral
   base_effect_multiplier: 2
   final_buildings:
@@ -1724,6 +1894,7 @@ unique_wonders:
   image: tv_wonder_unique_st_basils_cathedral
   prompt: Saint Basil's Cathedral on Red Square in premodern Moscow, clustered onion domes, vivid chapels, procession banners, clergy, tsarist guards, merchants, and the Kremlin walls nearby, historically grounded world wonder key art, cinematic winter city view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: grand_cathedral
   base_effect_multiplier: 2
   final_buildings:
@@ -1763,6 +1934,7 @@ unique_wonders:
   image: tv_wonder_unique_trinity_lavra
   prompt: Trinity Lavra of Saint Sergius as a fortified Russian monastery, white walls, blue and gold domes, cloisters, scriptoria, pilgrim crowds, monastic elders, and Muscovite envoys, historically grounded world wonder key art, cinematic sacred fortress view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_monastery
   base_effect_multiplier: 2
   final_buildings:
@@ -1802,6 +1974,7 @@ unique_wonders:
   image: tv_wonder_unique_winter_palace
   prompt: Winter Palace on the Neva in an early imperial Russian setting, green and white palace facade, river embankment, grand halls, guards, court carriages, diplomatic receptions, and snowy light, historically grounded world wonder key art, cinematic palace panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: triumphal_axis
   base_effect_multiplier: 2
   final_buildings:
@@ -1841,6 +2014,7 @@ unique_wonders:
   image: tv_wonder_unique_gyeongbokgung
   prompt: Gyeongbokgung palace in Hanseong during the Joseon era, throne hall, palace gates, royal courtyards, tiled roofs, officials in ceremonial dress, mountains behind the capital, historically grounded world wonder key art, cinematic court panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: triumphal_axis
   base_effect_multiplier: 2
   final_buildings:
@@ -1880,6 +2054,7 @@ unique_wonders:
   image: tv_wonder_unique_changbai_mountain_altar
   prompt: Changbai Mountain altar in a Manchurian sacred landscape, volcanic peak, heavenly lake, stone altar terraces, banners, shamans, imperial envoys, forested slopes, and offerings under cold clear light, historically grounded world wonder key art, cinematic mountain panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: sacred_mountain
   base_effect_multiplier: 2
   final_buildings:
@@ -1919,6 +2094,7 @@ unique_wonders:
   image: tv_wonder_unique_belgrade_fortress
   prompt: Belgrade Fortress at the confluence of the Danube and Sava, layered walls, towers, bastions, river gates, cannons, frontier garrison, banners of rival empires, historically grounded world wonder key art, cinematic river fortress view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
@@ -1958,6 +2134,7 @@ unique_wonders:
   image: tv_wonder_unique_meteora_monasteries
   prompt: Meteora monasteries perched on towering sandstone pillars above Thessaly, rope hoists, cliff stairs, chapels, monks, pilgrims, icons, clouds and sheer rock faces, historically grounded world wonder key art, cinematic vertical panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_monastery
   base_effect_multiplier: 2
   final_buildings:
@@ -1997,6 +2174,7 @@ unique_wonders:
   image: tv_wonder_unique_belem_tower
   prompt: Belém Tower at the mouth of the Tagus in the Age of Discovery, pale Manueline stone tower, carved battlements, river traffic, caravels departing Lisbon, royal banners, sunset over the Atlantic approach, historically grounded world wonder key art, cinematic coastal panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: city_great_tower
   base_effect_multiplier: 2
   final_buildings:
@@ -2037,6 +2215,7 @@ unique_wonders:
   image: tv_wonder_unique_iberian_inquisition
   prompt: The Iberian Inquisition as a late medieval monastery-tribunal complex in Toledo, cloisters, archive rooms, council chamber, guarded chapel, scribes, friars, banners, stone courtyards, historically grounded solemn world wonder key art, cinematic interior courtyard, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_monastery
   base_effect_multiplier: 2
   final_buildings:
@@ -2077,6 +2256,7 @@ unique_wonders:
   image: tv_wonder_unique_santa_maria_del_fiore
   prompt: Santa Maria del Fiore in Renaissance Florence, immense red-tiled dome by Brunelleschi, marble cathedral facade, Giotto campanile, guild banners, scaffolds, crowded piazza, historically grounded world wonder key art, cinematic urban panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: grand_cathedral
   base_effect_multiplier: 2
   final_buildings:
@@ -2117,6 +2297,7 @@ unique_wonders:
   image: tv_wonder_unique_leaning_tower_of_pisa
   prompt: The Leaning Tower of Pisa beside the cathedral and baptistery, white marble arcades visibly tilted, medieval scholars and masons in the Piazza dei Miracoli, Tuscan light, historically grounded world wonder key art, cinematic architectural view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: city_great_tower
   base_effect_multiplier: 2
   final_buildings:
@@ -2157,6 +2338,7 @@ unique_wonders:
   image: tv_wonder_unique_milan_cathedral
   prompt: Milan Cathedral under construction in the late medieval era, white marble Gothic spires, flying buttresses, sculptors, cranes, dense Lombard city, clergy procession, historically grounded world wonder key art, cinematic urban panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: grand_cathedral
   base_effect_multiplier: 2
   final_buildings:
@@ -2197,6 +2379,7 @@ unique_wonders:
   image: tv_wonder_unique_vatican_archives
   prompt: The Vatican Archives in an early modern papal palace, manuscript vaults, high shelves, sealed chests, scribes, cardinals, candlelit corridors, marble courtyards of Rome, historically grounded world wonder key art, cinematic scholarly interior, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: library_of_nation
   base_effect_multiplier: 2
   final_buildings:
@@ -2237,6 +2420,7 @@ unique_wonders:
   image: tv_wonder_unique_temple_of_heaven
   prompt: The Temple of Heaven in imperial Beijing, circular Hall of Prayer for Good Harvests with blue tiles, marble altar terraces, ceremonial procession, cypress groves, imperial banners, historically grounded world wonder key art, cinematic sacred panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: sky_dome_grand_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -2277,6 +2461,7 @@ unique_wonders:
   image: tv_wonder_unique_dujiangyan
   prompt: Dujiangyan irrigation system on the Min River, Fish Mouth levee, flying sand weir, stone channels, Sichuan fields, engineers and laborers, misty mountains near Chengdu, historically grounded world wonder key art, cinematic waterworks panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: giant_dam_project
   base_effect_multiplier: 2
   final_buildings:
@@ -2317,6 +2502,7 @@ unique_wonders:
   image: tv_wonder_unique_porcelain_tower_of_nanjing
   prompt: The Porcelain Tower of Nanjing at Bao'en Temple, glazed multicolored tiles, tall pagoda tiers, lanterns, Buddhist monks, Ming-era city and river beyond, historically grounded world wonder key art, cinematic luminous evening view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: giant_tower_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -2357,6 +2543,7 @@ unique_wonders:
   image: tv_wonder_unique_jingdezhen_imperial_kilns
   prompt: Jingdezhen imperial porcelain kilns in Fuliang, dragon kilns glowing, porcelain painters, clay yards, inspectors, stacks of blue-and-white wares, Jiangxi hills, historically grounded world wonder key art, cinematic workshop panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: giant_workshop_complex
   base_effect_multiplier: 2
   final_buildings:
@@ -2397,6 +2584,7 @@ unique_wonders:
   image: tv_wonder_unique_mogao_caves
   prompt: Mogao Caves near Dunhuang in the medieval Silk Road era, cliff face with cave temples, colossal Buddha statues, painted murals, monks, merchants, desert light, manuscripts, historically grounded world wonder key art, cinematic oasis-cliff panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: great_sculpture_group
   base_effect_multiplier: 2
   final_buildings:
@@ -2437,6 +2625,7 @@ unique_wonders:
   image: tv_wonder_unique_canton_thirteen_factories
   prompt: Canton Thirteen Factories on the Pearl River, foreign factory buildings, Chinese merchant hongs, warehouses, flags, river junks, crowded wharves, late imperial Guangzhou, historically grounded world wonder key art, cinematic trade waterfront, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: guild_alliance
   base_effect_multiplier: 2
   final_buildings:
@@ -2477,6 +2666,7 @@ unique_wonders:
   image: tv_wonder_unique_dardanelles_fortress
   prompt: Dardanelles fortress batteries at Gallipoli, heavy coastal cannons, stone towers on both shores, Ottoman gunners, war galleys in the strait, smoke and flags over narrow water, historically grounded world wonder key art, cinematic maritime fortress panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: coastal_defense_cannon
   base_effect_multiplier: 2
   final_buildings:
@@ -2517,6 +2707,7 @@ unique_wonders:
   image: tv_wonder_unique_escorial_monastery
   prompt: El Escorial monastery-palace in early modern Spain, austere granite courtyards, basilica dome, royal library, monks and royal officials, Sierra landscape, historically grounded world wonder key art, cinematic architectural panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_monastery
   base_effect_multiplier: 2
   final_buildings:
@@ -2557,6 +2748,7 @@ unique_wonders:
   image: tv_wonder_unique_toledo_armory
   prompt: Toledo armory and sword workshops, master smiths forging steel blades, armor racks, proofing courtyard, royal inspectors, Tagus cliffs and medieval city beyond, historically grounded world wonder key art, cinematic military workshop, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: giant_armory
   base_effect_multiplier: 2
   final_buildings:
@@ -2597,6 +2789,7 @@ unique_wonders:
   image: tv_wonder_unique_camino_de_santiago
   prompt: Camino de Santiago pilgrimage road approaching Compostela, medieval pilgrims with scallop shells, bridges, hostels, roadside shrines, cathedral towers in distance, green Galician hills, historically grounded world wonder key art, cinematic road panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: imperial_post_road_network
   base_effect_multiplier: 2
   final_buildings:
@@ -2637,6 +2830,7 @@ unique_wonders:
   image: tv_wonder_unique_sagres_navigation_school
   prompt: Sagres Navigation School near Lagos in early Portuguese exploration, sea cliffs, map rooms, astrolabes, pilots, caravels offshore, Prince Henry-era scholars, Atlantic horizon, historically grounded world wonder key art, cinematic maritime academy, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: naval_school
   base_effect_multiplier: 2
   final_buildings:
@@ -2677,6 +2871,7 @@ unique_wonders:
   image: tv_wonder_unique_milan_arsenal
   prompt: Milan arsenal in a Renaissance Lombard city, armor workshops, cannon foundries, drill courtyards, ducal banners, racks of plate armor, busy craftsmen, historically grounded world wonder key art, cinematic military-industrial view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: giant_armory
   base_effect_multiplier: 2
   final_buildings:
@@ -2717,6 +2912,7 @@ unique_wonders:
   image: tv_wonder_unique_university_of_bologna
   prompt: University of Bologna in the medieval era, arcaded streets, lecture halls, jurists, students from many nations, manuscript desks, civic towers, historically grounded world wonder key art, cinematic scholarly city view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: university_city
   base_effect_multiplier: 2
   final_buildings:
@@ -2757,6 +2953,7 @@ unique_wonders:
   image: tv_wonder_unique_carrara_marble_quarries
   prompt: Carrara marble quarries worked in the late medieval period, white mountain quarry faces, ox sledges hauling marble blocks, cranes, masons, sculptors, Tuscan foothills, historically grounded world wonder key art, cinematic mining landscape, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: mining_city
   base_effect_multiplier: 2
   final_buildings:
@@ -2797,6 +2994,7 @@ unique_wonders:
   image: tv_wonder_unique_east_india_company
   prompt: The East India Company headquarters in early modern London, royal charter hall, counting houses, fortified warehouses by the Thames, armed merchant ships, clerks with ledgers, spice bales, company banners, and overseas envoys, historically grounded world wonder key art, cinematic commercial-imperial view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: colonial_trade_company
   base_effect_multiplier: 2
   final_buildings:
@@ -2837,6 +3035,7 @@ unique_wonders:
   image: tv_wonder_unique_peacock_throne
   prompt: The Peacock Throne in the Mughal court at Delhi, jewel-encrusted golden throne with peacock forms, imperial audience hall, courtiers, envoys bearing tribute, carpets, marble screens, and ceremonial guards, historically grounded world wonder key art, cinematic court interior, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: palace_of_nations
   base_effect_multiplier: 2
   final_buildings:
@@ -2877,6 +3076,7 @@ unique_wonders:
   image: tv_wonder_unique_varanasi_ghats
   prompt: The ghats of Varanasi along the Ganges in the early modern era, long stone steps descending to sacred water, temples, lamps, pilgrims bathing at dawn, boats, priests, cremation smoke in the distance, historically grounded world wonder key art, cinematic riverside panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: sky_dome_grand_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -2917,6 +3117,7 @@ unique_wonders:
   image: tv_wonder_unique_brihadishvara_temple
   prompt: Brihadishvara Temple at Thanjavur in Chola grandeur, towering granite vimana, walled temple courts, bronze lamps, Nandi pavilion, royal inscriptions, priests and dancers during consecration, historically grounded world wonder key art, cinematic temple panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: giant_tower_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -2957,6 +3158,7 @@ unique_wonders:
   image: tv_wonder_unique_konark_sun_temple
   prompt: Konark Sun Temple near Puri in its medieval splendor, colossal stone chariot of Surya with carved wheels and horses, dancers, priests, temple platforms, coastal Odisha light, historically grounded world wonder key art, cinematic architectural panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: grand_cathedral
   base_effect_multiplier: 2
   final_buildings:
@@ -2997,6 +3199,7 @@ unique_wonders:
   image: tv_wonder_unique_fatehpur_sikri
   prompt: Fatehpur Sikri in the Mughal era near Agra, red sandstone palace city, Diwan-i-Khas central pillar hall, Buland Darwaza, courtyards, scholars and envoys debating in the Ibadat Khana, historically grounded world wonder key art, cinematic imperial city view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_assembly_hall
   base_effect_multiplier: 2
   final_buildings:
@@ -3037,6 +3240,7 @@ unique_wonders:
   image: tv_wonder_unique_calicut_port_city
   prompt: Calicut port city at Kozhikode in the fifteenth century, Malabar spice docks, Arab dhows, Chinese junks, warehouses, timber cranes, Zamorin officials, crowded monsoon market streets, historically grounded world wonder key art, cinematic harbor panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: great_port
   base_effect_multiplier: 2
   final_buildings:
@@ -3077,6 +3281,7 @@ unique_wonders:
   image: tv_wonder_unique_wieliczka_salt_mine
   prompt: Wieliczka Salt Mine in medieval Poland, underground salt chambers, timber supports, hoists, miners, carved salt chapel, carts of salt, royal inspectors, lamplight on crystalline walls, historically grounded world wonder key art, cinematic subterranean mining view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: mining_city
   base_effect_multiplier: 2
   final_buildings:
@@ -3117,6 +3322,7 @@ unique_wonders:
   image: tv_wonder_unique_wawel_castle
   prompt: Wawel Castle over Krakow in the late medieval period, hilltop royal castle, cathedral towers, defensive walls, Vistula river below, court procession and mustering guards, Polish banners, historically grounded world wonder key art, cinematic fortified royal panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
@@ -3157,6 +3363,7 @@ unique_wonders:
   image: tv_wonder_unique_zamosc_ideal_city
   prompt: Zamość ideal city in the Polish-Lithuanian Commonwealth, Renaissance planned grid, central market square, arcaded merchant houses, academy, bastioned walls, surveyors and masons laying out streets, historically grounded world wonder key art, cinematic urban plan view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: city_expansion_project
   base_effect_multiplier: 2
   final_buildings:
@@ -3197,6 +3404,7 @@ unique_wonders:
   image: tv_wonder_unique_gdansk_port
   prompt: Gdańsk port on the Baltic in the early modern era, Motława river quays, granaries, wooden cranes, Hanseatic merchants, grain barges, Baltic sailing ships, amber and timber trade, historically grounded world wonder key art, cinematic harbor city panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: great_port
   base_effect_multiplier: 2
   final_buildings:
@@ -3237,6 +3445,7 @@ unique_wonders:
   image: tv_wonder_unique_malbork_castle
   prompt: Malbork Castle of the Teutonic Order in medieval Prussia, immense red brick fortress-monastery, high castle, convent halls, chapels, granaries, Nogat river, knights in white mantles mustering, historically grounded world wonder key art, cinematic fortress panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: knightly_fortress_order
   base_effect_multiplier: 2
   final_buildings:
@@ -3277,6 +3486,7 @@ unique_wonders:
   image: tv_wonder_unique_brest_synagogue_quarter
   prompt: Brest-Litovsk Jewish synagogue quarter in the early modern Commonwealth, timber and brick synagogues, study houses, market lanes, rabbis, merchants, community council assembly, candlelit interiors, historically grounded world wonder key art, respectful urban panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: great_assembly_hall
   base_effect_multiplier: 2
   final_buildings:
@@ -3317,6 +3527,7 @@ unique_wonders:
   image: tv_wonder_unique_vilnius_university
   prompt: Vilnius University in the early modern era, arcaded courtyards, lecture halls, library, Jesuit academy church, students and professors, printing presses, Lithuanian capital streets, historically grounded world wonder key art, cinematic scholarly city view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: university_city
   base_effect_multiplier: 2
   final_buildings:
@@ -3357,6 +3568,7 @@ unique_wonders:
   image: tv_wonder_unique_cave_monastery
   prompt: Kyiv Cave Monastery in the medieval and early modern period, monastery walls, golden domes, cave entrances, relic procession, monks, scriptoria, pilgrims overlooking the Dnieper, historically grounded world wonder key art, cinematic sacred landscape, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: great_monastery
   base_effect_multiplier: 2
   final_buildings:
@@ -3397,6 +3609,7 @@ unique_wonders:
   image: tv_wonder_unique_zaporizhian_sich
   prompt: Zaporizhian Sich on the Dnieper frontier, timber palisades, Cossack council rada, river boats, wagon camp defenses, horsemen, forges, banners, steppe horizon, historically grounded world wonder key art, cinematic frontier military settlement, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: mobile_fortress
   base_effect_multiplier: 2
   final_buildings:
@@ -3437,6 +3650,7 @@ unique_wonders:
   image: tv_wonder_unique_registan_square
   prompt: Registan Square in Timurid Samarkand, three monumental madrasas with blue tilework, grand arches, scholars, merchants, musicians, ceremonial crowds, sunlit public square, historically grounded world wonder key art, cinematic Central Asian urban panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: grand_theater_festival_district
   base_effect_multiplier: 2
   final_buildings:
@@ -3477,6 +3691,7 @@ unique_wonders:
   image: tv_wonder_unique_khiva_old_city
   prompt: Khiva old city Ichan Kala in Central Asia, mud-brick walls, gates, minarets, madrasas, caravan streets, turquoise tilework, desert light, restoration ceremony inside the walled city, historically grounded world wonder key art, cinematic urban heritage panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: ancient_city_ruins
   base_effect_multiplier: 2
   final_buildings:
@@ -3517,6 +3732,7 @@ unique_wonders:
   image: tv_wonder_unique_bukhara_kalyan_minaret
   prompt: Kalyan Minaret of Bukhara in the medieval Islamic world, towering brick minaret, mosque courtyard, madrasas, caravan merchants, call to prayer ceremony, sunlit Central Asian city, historically grounded world wonder key art, cinematic architectural panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: giant_tower_temple
   base_effect_multiplier: 2
   final_buildings:
@@ -3557,6 +3773,7 @@ unique_wonders:
   image: tv_wonder_unique_ferghana_palace
   prompt: Ferghana palace at Kokand in an early modern Central Asian court, painted wooden columns, ornate audience hall, gardens, envoys, horsemen, silk road tribute, valley mountains beyond, historically grounded world wonder key art, cinematic court panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: palace_of_nations
   base_effect_multiplier: 2
   final_buildings:
@@ -3597,6 +3814,7 @@ unique_wonders:
   image: tv_wonder_unique_tashkent_old_bazaar
   prompt: Tashkent old bazaar at Chach on the Silk Road, domed market halls, caravanserai gates, tea stalls, textile merchants, money changers, pack animals, crowded craft lanes, historically grounded world wonder key art, cinematic Central Asian market view, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: world_market
   base_effect_multiplier: 2
   final_buildings:
@@ -3637,6 +3855,7 @@ unique_wonders:
   image: tv_wonder_unique_louvre_palace
   prompt: The Louvre Palace in early modern Paris before its museum age, a grand royal palace on the Seine with courtyards, arcades, galleries, sculpted facades, diplomats, artists, guards, and river traffic, historically grounded world wonder key art, cinematic court-and-city panorama, ultra-detailed stone and slate, no modern glass pyramid, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: palace_of_nations
   base_effect_multiplier: 2
   final_buildings:
@@ -3673,10 +3892,11 @@ unique_wonders:
   key: unique_fontainebleau_palace
   base_key: summer_palace
   concept: tv_wonder_unique_fontainebleau_palace
-  location: paris
+  location: melun
   image: tv_wonder_unique_fontainebleau_palace
   prompt: Fontainebleau Palace as a Renaissance and early modern French royal residence, horseshoe stair, richly painted galleries, formal gardens, hunting forest, courtiers, artists, diplomats, and royal guards, historically grounded world wonder key art, cinematic palace-garden panorama, ultra-detailed stone, slate roofs, frescoes, and greenery, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: summer_palace
   base_effect_multiplier: 2
   final_buildings:
@@ -3717,6 +3937,7 @@ unique_wonders:
   image: tv_wonder_unique_bordeaux_port
   prompt: Bordeaux port on the Garonne in the early modern era, broad river quays, wine warehouses, stone merchant houses, cranes, barges, ocean-going ships, customs officers, barrels, and crowded trade streets, historically grounded world wonder key art, cinematic river harbor panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: great_port
   base_effect_multiplier: 2
   final_buildings:
@@ -3757,6 +3978,7 @@ unique_wonders:
   image: tv_wonder_unique_marseille_old_port
   prompt: Marseille Old Port in the early modern Mediterranean, stone quays between harbor forts, lateen-rigged ships, galleys, fish markets, warehouses, lighthouse beacons, sailors, merchants, and Provencal hills, historically grounded world wonder key art, cinematic coastal harbor panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: great_port
   base_effect_multiplier: 2
   final_buildings:
@@ -3797,6 +4019,7 @@ unique_wonders:
   image: tv_wonder_unique_lyon_silk_workshops
   prompt: Lyon silk workshop district in the early modern city, dense streets of looms, dyers, silk merchants, pattern books, guild halls, river bridges, bales of fabric, artisans working by tall windows, historically grounded world wonder key art, cinematic artisan-urban panorama, ultra-detailed textiles, timber, stone, and river light, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: giant_workshop_complex
   base_effect_multiplier: 2
   final_buildings:
@@ -3837,6 +4060,7 @@ unique_wonders:
   image: tv_wonder_unique_mont_saint_michel
   prompt: Mont Saint-Michel rising from tidal sands in medieval Normandy, abbey spire, fortified walls, pilgrims crossing the causeway at low tide, monks, banners, sea mist, and distant mainland, historically grounded world wonder key art, cinematic sacred coastal panorama, ultra-detailed stone and water, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: sacred_mountain
   base_effect_multiplier: 2
   final_buildings:
@@ -3877,6 +4101,7 @@ unique_wonders:
   image: tv_wonder_unique_bastille
   prompt: The Bastille fortress in late medieval to early modern Paris, massive towers, drawbridges, moat, royal guards, prison courtyards, armory stores, nearby city streets, and tense ceremonial authority, historically grounded world wonder key art, cinematic fortress-city panorama, ultra-detailed masonry, no revolutionary crowds, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
@@ -3917,6 +4142,7 @@ unique_wonders:
   image: tv_wonder_unique_carcassonne_castle
   prompt: The fortified city and castle of Carcassonne in southern France, double curtain walls, towers, gatehouses, inner castle, armed watchmen, market streets, vineyards and hills beyond, historically grounded world wonder key art, cinematic medieval fortress panorama, ultra-detailed stone battlements, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
@@ -3957,6 +4183,7 @@ unique_wonders:
   image: tv_wonder_unique_brest_naval_port
   prompt: Brest naval port and arsenal in early modern Brittany, sheltered roadstead, stone docks, ropewalks, timber yards, dry docks, warships under construction, naval officers, cranes, magazines, and Atlantic sea light, historically grounded world wonder key art, cinematic maritime arsenal panorama, ultra-detailed, no modern elements.
   is_unique: true
+  initial_level: 0
   mechanic_key: national_shipyard
   base_effect_multiplier: 2
   final_buildings:
@@ -3997,6 +4224,7 @@ unique_wonders:
   image: tv_wonder_unique_colmar_old_town
   prompt: Colmar old town in Alsace as a preserved late medieval heritage quarter, half-timbered houses, canals, guild signs, stone church, market square, fortified gates, wine merchants, and careful restoration work, historically grounded world wonder key art, cinematic urban heritage panorama, ultra-detailed timber, plaster, water, and cobblestones, no modern elements.
   is_unique: true
+  initial_level: 1
   mechanic_key: ancient_city_ruins
   base_effect_multiplier: 2
   final_buildings:
@@ -4010,6 +4238,908 @@ unique_wonders:
     country_modifier:
       monthly_prestige: 0.05
       monthly_legitimacy: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 202
+  key: unique_house_of_wisdom
+  base_key: library_of_nation
+  concept: tv_wonder_unique_house_of_wisdom
+  location: baghdad
+  image: tv_wonder_unique_house_of_wisdom
+  prompt: The House of Wisdom in Abbasid Baghdad, manuscript halls, translators comparing Greek, Syriac, Persian, and Arabic texts, astronomers with instruments, copyists, shelves of books, courtyard scholars, Tigris river city beyond, historically grounded world wonder key art, cinematic scholarly interior, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: library_of_nation
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_house_of_wisdom_inaugurated
+  ritual:
+    key: translation_movement_catalog
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.05
+      global_monthly_literacy: 0.003
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 203
+  key: unique_echmiadzin_cathedral
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_echmiadzin_cathedral
+  location: armavir
+  image: tv_wonder_unique_echmiadzin_cathedral
+  prompt: Etchmiadzin Cathedral in medieval Armenia, ancient stone church and bell tower, carved khachkars, clergy procession, pilgrims, monastery walls, Mount Ararat in the distance, historically grounded world wonder key art, cinematic sacred courtyard, ultra-detailed masonry, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_echmiadzin_cathedral_inaugurated
+  ritual:
+    key: apostolic_see_consecration
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tolerance_own: 1
+      clergy_estate_target_satisfaction: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 204
+  key: unique_narikala_fortress
+  base_key: star_fortress_city
+  concept: tv_wonder_unique_narikala_fortress
+  location: tbilisi
+  image: tv_wonder_unique_narikala_fortress
+  prompt: Narikala Fortress above medieval Tbilisi, stone walls and towers on a steep ridge, Kura river below, city roofs, watchfires, mountain approaches, garrison banners, historically grounded world wonder key art, cinematic Caucasus fortress panorama, ultra-detailed masonry, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: star_fortress_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_narikala_fortress_inaugurated
+  ritual:
+    key: kura_watch_muster
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_garrison_size_modifier: 0.08
+      land_morale_modifier: 0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 205
+  key: unique_baku_ateshgah
+  base_key: giant_tower_temple
+  concept: tv_wonder_unique_baku_ateshgah
+  location: baku
+  image: tv_wonder_unique_baku_ateshgah
+  prompt: Baku Ateshgah fire temple on the Absheron peninsula, stone courtyard shrine, central altar flame, pilgrims, caravan road, Caspian wind, oil-fire glow at dusk, historically grounded world wonder key art, cinematic sacred panorama, ultra-detailed stone and firelight, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: giant_tower_temple
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_baku_ateshgah_inaugurated
+  ritual:
+    key: eternal_fire_rite
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_prestige: 0.06
+      tolerance_own: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 206
+  key: unique_sanaa_old_city
+  base_key: world_market
+  concept: tv_wonder_unique_sanaa_old_city
+  location: sana_yemen
+  image: tv_wonder_unique_sanaa_old_city
+  prompt: Old City of Sana'a in medieval Yemen, tower houses with white gypsum patterns, crowded souks, caravan merchants, incense, coffee, metalworkers, mosque minarets, mountain light, historically grounded world wonder key art, cinematic urban market panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: world_market
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_sanaa_old_city_inaugurated
+  ritual:
+    key: sanaa_souk_opening
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      trade_income: 0.05
+      diplomatic_reputation: 1
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 207
+  key: unique_schoenbrunn_palace
+  base_key: palace_of_nations
+  concept: tv_wonder_unique_schoenbrunn_palace
+  location: vienna
+  image: tv_wonder_unique_schoenbrunn_palace
+  prompt: Schonbrunn Palace outside Vienna, yellow Baroque imperial palace, formal gardens, Gloriette hill, court carriages, diplomats and Habsburg officials gathering for a congress of nations, historically grounded world wonder key art, cinematic palace-garden panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: palace_of_nations
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_schoenbrunn_palace_inaugurated
+  ritual:
+    key: habsburg_congress_audience
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      diplomatic_reputation: 1
+      monthly_prestige: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 208
+  key: unique_electoral_conference_hall
+  base_key: great_assembly_hall
+  concept: tv_wonder_unique_electoral_conference_hall
+  location: frankfurt
+  image: tv_wonder_unique_electoral_conference_hall
+  prompt: Electoral conference hall in late medieval Frankfurt, timber and stone council chamber, prince-electors seated under imperial banners, clerks, seals, envoys, crowded civic square outside the Roemer, historically grounded world wonder key art, cinematic imperial assembly interior, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: great_assembly_hall
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_electoral_conference_hall_inaugurated
+  ritual:
+    key: golden_bull_convocation
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.12
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 209
+  key: unique_aachen_cathedral
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_aachen_cathedral
+  location: aachen
+  image: tv_wonder_unique_aachen_cathedral
+  prompt: Aachen Cathedral and Palatine Chapel, octagonal Carolingian chapel, Gothic choir, imperial throne, golden reliquaries, coronation clergy and nobles, pilgrims in the old imperial city, historically grounded world wonder key art, cinematic sacred interior and courtyard, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_aachen_cathedral_inaugurated
+  ritual:
+    key: imperial_coronation_liturgy
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.08
+      clergy_estate_target_satisfaction: 0.03
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 210
+  key: unique_nuremberg_imperial_castle
+  base_key: star_fortress_city
+  concept: tv_wonder_unique_nuremberg_imperial_castle
+  location: nuremberg
+  image: tv_wonder_unique_nuremberg_imperial_castle
+  prompt: Nuremberg Imperial Castle above the free imperial city, sandstone towers, curtain walls, imperial chapel, arsenal courtyards, city roofs and workshops below, banners and guards on the ramparts, historically grounded world wonder key art, cinematic fortified city panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: star_fortress_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_nuremberg_imperial_castle_inaugurated
+  ritual:
+    key: imperial_regalia_guard
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      fort_maintenance_cost: -0.05
+      global_garrison_size_modifier: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 211
+  key: unique_augsburg_bank
+  base_key: national_bank
+  concept: tv_wonder_unique_augsburg_bank
+  location: augsburg
+  image: tv_wonder_unique_augsburg_bank
+  prompt: Augsburg banking house of the Fugger era, Renaissance counting room, merchant bankers, state debt ledgers, imperial loan contracts, guarded vaults, coin chests, couriers, city rooftops and trade streets beyond, historically grounded world wonder key art, cinematic financial interior, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: national_bank
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_augsburg_bank_inaugurated
+  ritual:
+    key: imperial_credit_contracts
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tax_income_efficiency: 0.04
+      merchant_maintenance_efficiency: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 212
+  key: unique_cologne_cathedral
+  base_key: grand_cathedral
+  concept: tv_wonder_unique_cologne_cathedral
+  location: cologne
+  image: tv_wonder_unique_cologne_cathedral
+  prompt: Cologne Cathedral rising over the Rhine, vast Gothic choir and twin tower works, flying buttresses, relic shrine of the Three Kings, cranes and scaffolds, pilgrims and merchants in the cathedral square, historically grounded world wonder key art, cinematic urban sacred panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: grand_cathedral
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_cologne_cathedral_inaugurated
+  ritual:
+    key: three_kings_pilgrimage
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_pop_conversion_speed: 0.05
+      monthly_prestige: 0.06
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 213
+  key: unique_hanseatic_kontor
+  base_key: guild_alliance
+  concept: tv_wonder_unique_hanseatic_kontor
+  location: hamburg
+  image: tv_wonder_unique_hanseatic_kontor
+  prompt: Hanseatic Kontor in Hamburg, brick merchant guildhall and warehouse yards, counting rooms, seals, ledgers, Baltic and North Sea goods, cranes on the Elbe, ship masts, burgher merchants negotiating under league banners, historically grounded world wonder key art, cinematic commercial harbor view, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: guild_alliance
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_hanseatic_kontor_inaugurated
+  ritual:
+    key: kontor_ledger_oath
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      trade_income: 0.04
+      merchant_maintenance_efficiency: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 214
+  key: unique_hanseatic_town_hall
+  base_key: great_assembly_hall
+  concept: tv_wonder_unique_hanseatic_town_hall
+  location: lubeck
+  image: tv_wonder_unique_hanseatic_town_hall
+  prompt: Lubeck Hanseatic town hall, brick Gothic facade, council chamber with merchant benches, league envoys, city seals, trade charters, crowded market square and Marienkirche towers nearby, historically grounded world wonder key art, cinematic civic assembly view, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: great_assembly_hall
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_hanseatic_town_hall_inaugurated
+  ritual:
+    key: league_diet_session
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      diplomatic_reputation: 1
+      burghers_estate_target_satisfaction: 0.04
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 215
+  key: unique_dresden_art_gallery
+  base_key: royal_art_district
+  concept: tv_wonder_unique_dresden_art_gallery
+  location: dresden
+  image: tv_wonder_unique_dresden_art_gallery
+  prompt: Dresden royal art gallery in the Saxon court, Baroque palace gallery rooms, paintings, sculpture, porcelain cabinets, artists, curators, court patrons, Elbe city beyond, historically grounded world wonder key art, cinematic museum-palace interior, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: royal_art_district
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_dresden_art_gallery_inaugurated
+  ritual:
+    key: elector_gallery_opening
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      art_creation_speed: 0.05
+      monthly_prestige: 0.08
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 216
+  key: unique_munich_royal_brewery
+  base_key: giant_workshop_complex
+  concept: tv_wonder_unique_munich_royal_brewery
+  location: munich
+  image: tv_wonder_unique_munich_royal_brewery
+  prompt: Munich royal brewery and Hofbrauhaus workshops, copper brewing kettles, malt stores, coopers, guild workers, ducal officials, beer hall courtyard, wagons and barrels in a Bavarian city street, historically grounded world wonder key art, cinematic production interior and yard, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: giant_workshop_complex
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_munich_royal_brewery_inaugurated
+  ritual:
+    key: ducal_brewery_charter
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_production_efficiency: 0.04
+      stability_investment: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 217
+  key: unique_heidelberg_university
+  base_key: university_city
+  concept: tv_wonder_unique_heidelberg_university
+  location: heidelberg
+  image: tv_wonder_unique_heidelberg_university
+  prompt: Heidelberg University in a late medieval town, lecture halls, libraries, scholars in robes, students under arcades, manuscripts, the Neckar river and castle hill beyond, ceremonial university charter, historically grounded world wonder key art, cinematic scholarly urban view, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: university_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_heidelberg_university_inaugurated
+  ritual:
+    key: palatine_scholars_convocation
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.04
+      global_monthly_literacy: 0.002
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 218
+  key: unique_fez_old_city
+  base_key: ancient_city_ruins
+  concept: tv_wonder_unique_fez_old_city
+  location: fez
+  image: tv_wonder_unique_fez_old_city
+  prompt: Fez old city in the late medieval Maghreb, dense walled medina lanes, madrasas, mosques, dye vats, craft markets, gates, scholars and merchants, Marinid courtyards, restoration ceremony in the ancient city, historically grounded world wonder key art, cinematic urban heritage panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: ancient_city_ruins
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_fez_old_city_inaugurated
+  ritual:
+    key: medina_restoration_rite
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      monthly_legitimacy: 0.06
+      monthly_prestige: 0.05
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 219
+  key: unique_kairouan_holy_city
+  base_key: sky_dome_grand_temple
+  concept: tv_wonder_unique_kairouan_holy_city
+  location: kairouan
+  image: tv_wonder_unique_kairouan_holy_city
+  prompt: Kairouan holy city in medieval Ifriqiya, the Great Mosque precinct with massive walls, prayer halls, arcades, minaret, scholarly courtyards, pilgrims, water basins, and desert light, historically grounded world wonder key art, reverent cinematic sacred city panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: sky_dome_grand_temple
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_kairouan_holy_city_inaugurated
+  ritual:
+    key: ifriqiyan_scholars_synod
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      tolerance_own: 1
+      clergy_estate_target_satisfaction: 0.025
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 220
+  key: unique_algiers_pirate_port
+  base_key: pirate_port
+  concept: tv_wonder_unique_algiers_pirate_port
+  location: algiers
+  image: tv_wonder_unique_algiers_pirate_port
+  prompt: Algiers pirate port in the early modern Barbary coast, fortified harbor mole, corsair galleys, lateen sails, cannon batteries, prize ships, warehouses, ransom offices, market quays, sea walls, and captains swearing privateering oaths, historically grounded world wonder key art, cinematic maritime fortress panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: pirate_port
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_algiers_pirate_port_inaugurated
+  ritual:
+    key: corsair_captains_oath
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      can_hire_privateers: true
+      privateer_durability: 0.1
+      shameless_privateering_modifier: true
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 221
+  key: unique_sankore_university
+  base_key: university_city
+  concept: tv_wonder_unique_sankore_university
+  location: timbuktu
+  image: tv_wonder_unique_sankore_university
+  prompt: Sankore University in golden-age Timbuktu, earthen mosque and madrasa courts, scholars with manuscripts, libraries, book markets, students beneath arcades, desert caravans, mudbrick city walls and Sahel light, historically grounded world wonder key art, cinematic scholarly city panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: university_city
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_sankore_university_inaugurated
+  ritual:
+    key: manuscripts_convocation
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      research_speed: 0.04
+      global_monthly_literacy: 0.002
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 222
+  key: unique_great_mosque_of_djenne
+  base_key: giant_tower_temple
+  concept: tv_wonder_unique_great_mosque_of_djenne
+  location: djenne
+  image: tv_wonder_unique_great_mosque_of_djenne
+  prompt: Great Mosque of Djenne in medieval Mali, monumental earthen mosque with timber toron beams, towers, buttresses, market square, annual replastering festival, scholars, merchants, and Sahel mudbrick city around it, historically grounded world wonder key art, cinematic sacred urban panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: giant_tower_temple
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_great_mosque_of_djenne_inaugurated
+  ritual:
+    key: banco_replastering_festival
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_pop_conversion_speed_modifier: 0.04
+      monthly_prestige: 0.06
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: ''
+    completion_trigger_script: ''
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+- id: 223
+  key: unique_walls_of_benin
+  base_key: great_wall
+  concept: tv_wonder_unique_walls_of_benin
+  location: benin
+  image: tv_wonder_unique_walls_of_benin
+  prompt: Walls of Benin around the Edo capital, vast earthen ramparts, moats, gates, palace roads, guards, bronze casters, market processions, forest edge and red earth, historically grounded world wonder key art, cinematic West African defensive urban panorama, ultra-detailed, no modern elements.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: great_wall
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_walls_of_benin_inaugurated
+  ritual:
+    key: earthwork_gate_muster
+    mode: immediate
+    cost_type: null
+    listeners: []
+    runtime_variables: []
+    country_modifier:
+      global_garrison_size_modifier: 0.06
+      monthly_towards_defensive: 0.05
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''

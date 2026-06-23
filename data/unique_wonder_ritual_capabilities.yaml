@@ -1,0 +1,361 @@
+metadata:
+  purpose: "Capability registry for Unique Wonder Ritual Harness semantic validation."
+  generated_game_code: false
+  safety_boundary: "Capabilities describe the current Harness projection semantics only; they may not write src, certify loadable EU5 syntax, or cap design_ir complexity."
+  status: "v1_semantic_contracts"
+  design_fidelity_policy: "Specs may record richer design_ir primitives with compiler_gap_ledger rows even when no capability exists yet."
+
+capabilities:
+  - key: event_chain
+    supported_node_kinds:
+      - event
+      - choice_event
+      - incident_event
+    required_node_fields:
+      - node.event_id
+      - node.next_nodes
+      - node.loc_refs
+    required_variable_roles: []
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - route_map
+      - progress_track
+    output_kinds:
+      - markdown_fragment
+      - event_skeleton
+      - loc_draft
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Visible event-chain semantics for Harness Markdown fragments only."
+
+  - key: retry_branch
+    supported_node_kinds:
+      - retry_event
+      - choice_event
+      - incident_event
+    required_node_fields:
+      - node.failure_or_retry
+      - node.retry_target
+    required_variable_roles:
+      - stage_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - route_map
+    output_kinds:
+      - markdown_fragment
+      - event_skeleton
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents failure/retry branches and their state handoff without emitting event code."
+
+  - key: monthly_progress
+    supported_node_kinds:
+      - monthly_progress_gate
+    required_node_fields:
+      - node.reads
+      - node.writes
+    required_variable_roles:
+      - progress_counter
+    supported_listener_kinds:
+      - monthly
+    supported_ui_components:
+      - progress_track
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents progress/counter state expected to be advanced by a monthly listener."
+
+  - key: actor_assignment
+    supported_node_kinds:
+      - assignment_gate
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - assigned_actor
+    supported_listener_kinds: []
+    supported_ui_components:
+      - actor_slots
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents actor/role selection semantics before real character-scope scripting exists."
+
+  - key: actor_assignment_character_selector_backend
+    supported_node_kinds:
+      - assignment_gate
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - assigned_actor
+    supported_listener_kinds: []
+    supported_ui_components:
+      - actor_slots
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for character selector, selected-character storage, tooltip-safe target guards, and actor-slot GUI summaries. It does not emit loadable generic_actions or GUI source."
+
+  - key: resource_gate
+    supported_node_kinds:
+      - resource_gate
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - resource_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - material_stockpile
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents stockpile/cost gate semantics without guessing resource trigger syntax."
+
+  - key: route_gate
+    supported_node_kinds:
+      - route_gate
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - route_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - route_map
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents route/path-gate semantics for intermediate route-map fragments. This is not a limit on high-fidelity tracked route sets in design_ir."
+
+  - key: repeated_entity_row_checklist_incident_log_backend
+    supported_node_kinds:
+      - route_gate
+      - incident_event
+      - retry_event
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.ui_state
+    required_variable_roles:
+      - incident_state
+      - checklist_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - route_map
+      - actor_slots
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for preserving design_ir repeated entity rows and projecting them into checklist or incident-log summaries. It does not expand rows into loadable GUI/source files."
+
+  - key: listener_gate
+    supported_node_kinds:
+      - listener_gate
+    required_node_fields:
+      - node.listener_contract
+      - node.reads
+      - node.writes
+    required_variable_roles:
+      - listener_state
+    supported_listener_kinds:
+      - monthly
+      - ruler_death
+      - pre_winning_war
+      - ending_war
+    supported_ui_components:
+      - checklist
+      - progress_track
+      - incident_log
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents listener-driven completion/failure contracts without creating on_action code."
+
+  - key: branch_specific_reward_scaling
+    supported_node_kinds:
+      - choice_event
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_node_fields:
+      - node.reads
+      - node.writes
+    required_variable_roles:
+      - reward_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - progress_track
+      - actor_slots
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for branch variables that shape incident outcomes and final reward summaries. It does not emit source reward effects or certify actor-to-incident source routing."
+
+  - key: finance_public_credit_interface_backend
+    supported_node_kinds:
+      - event
+      - choice_event
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.ui_state
+      - node.scope_contract
+    required_variable_roles:
+      - stage_state
+      - reward_state
+      - incident_state
+      - checklist_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for public-credit, fiscal-pressure, pledge/default-risk, merchant-creditor, and branch-shaped fiscal reward semantics. It produces only Harness fragments, stubs, summaries, and tooltip notes; it does not generate loadable EU5 source and does not certify final fiscal script syntax."
+
+  - key: bounded_opposition_religious_community_pressure
+    supported_node_kinds:
+      - event
+      - choice_event
+      - incident_event
+      - retry_event
+      - assignment_gate
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.scope_contract
+    required_variable_roles:
+      - stage_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - incident_log
+      - actor_slots
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for bounded clergy, holy-site, state-faith, and religious-community eligibility/pressure semantics. It is not a full religion-policy source generator."
+
+  - key: fixed_site_integrity_control_pressure_backend
+    supported_node_kinds:
+      - listener_gate
+      - incident_event
+      - retry_event
+      - choice_event
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.ui_state
+      - node.scope_contract
+    required_variable_roles:
+      - incident_state
+    supported_listener_kinds:
+      - pre_winning_war
+      - ending_war
+    supported_ui_components:
+      - incident_log
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for fixed-site owner/controller/final-building evidence, occupation or siege-style pressure, local unrest/devastation-style pressure semantics, and site-integrity incident rows. It preserves water-court, protected-household, safe-conduct, and palace-risk state as design_ir-backed semantic rows; it does not emit loadable EU5 source predicates, GUI rows, or src files."
+
+  - key: final_reward_handoff
+    supported_node_kinds:
+      - final_reward_dispatch
+      - hidden_executor_handoff
+    required_node_fields:
+      - node.reads
+      - node.writes
+    required_variable_roles:
+      - reward_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - checklist
+      - progress_track
+      - incident_log
+    output_kinds:
+      - markdown_fragment
+      - effect_stub
+      - hidden_executor_note
+    verified_interface: "harness_v1_semantic_fragment"
+    may_write_src: false
+    notes: "Documents the final reward/hidden-executor handoff while keeping real finalization code out of Harness codegen."

@@ -7,23 +7,26 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics_lib import (
+from wonder_mechanics.io import (
+    load_all_wonder_mechanics,
+    load_wonders_source_data,
+)
+from wonder_mechanics.naming import (
     PARTS,
-    WONDER_MAP_SCHEMA_VERSION,
+    WONDER_SIZE_IDS,
+    wonder_ritual_composite_id,
+)
+from wonder_mechanics.render import render_header
+from wonder_mechanics.rituals import (
     WONDER_RITUAL_COST_TYPE_IDS,
     WONDER_RITUAL_LISTENER_KEYS,
     WONDER_RITUAL_MODE_IDS,
-    WONDER_SIZE_IDS,
     ceremony_styles,
-    load_all_wonder_mechanics,
-    load_wonders_source_data,
-    render_header,
     ritual_plan_for_style,
     ritual_has_custom_completion_trigger,
     ritual_uses_deferred_completion,
-    suitability_knowledge_for_wonder,
-    wonder_ritual_composite_id,
 )
+from wonder_mechanics.schema import suitability_knowledge_for_wonder
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_index_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_index_effects.py"
@@ -81,10 +84,11 @@ SUITABILITY_ROW_MAP_NAMES = [
 ]
 
 FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
+INTERMEDIATE_BUILDING_WONDER_ID_MAP = "tv_wonder_intermediate_building_type_to_wonder_id"
+FINAL_BUILDING_WONDER_ID_MAP = "tv_wonder_final_building_type_to_wonder_id"
 FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
 UNIQUE_WONDER_LOCATION_MAP = "tv_wonder_unique_id_to_location"
 UNIQUE_WONDER_FINAL_BUILDING_TYPE_MAP = "tv_wonder_unique_id_to_final_building_type"
-PRIORITY_CANDIDATE_WONDER_ID_MAP = "tv_wonder_priority_candidate_wonder_ids"
 
 WONDER_CACHE_MAPS = [
     ("tv_wonder_id_to_is_unique", "tv_wonder_locked_is_unique"),
@@ -247,12 +251,14 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         lines.extend(map_replace_line("tv_wonder_id_to_concept_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_image_display_id", key, wonder_id))
         lines.extend(map_replace_line("tv_wonder_id_to_required_progress", key, size_progress[wonder["size"]]))
-        lines.extend(map_replace_line("tv_wonder_id_to_helper_building_type", key, f"building_type:tv_wonder_{wonder['key']}"))
-        lines.extend(map_replace_line(PRIORITY_CANDIDATE_WONDER_ID_MAP, key, 1))
+        helper_building = f"building_type:tv_wonder_{wonder['key']}"
+        lines.extend(map_replace_line("tv_wonder_id_to_helper_building_type", key, helper_building))
+        lines.extend(map_replace_line(INTERMEDIATE_BUILDING_WONDER_ID_MAP, helper_building, wonder_id))
 
         for part in PARTS:
             module_building = f"building_type:tv_wonder_{wonder['key']}_{part}"
             lines.extend(map_replace_line(module_building_type_map_name(part), key, module_building))
+            lines.extend(map_replace_line(INTERMEDIATE_BUILDING_WONDER_ID_MAP, module_building, wonder_id))
 
         for style in ceremony_styles(wonder):
             ritual_plan = ritual_plan_for_style(wonder, mechanics, style)
@@ -300,9 +306,9 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
                 )
             final_building = f"building_type:{wonder['final_buildings'][style]}"
             lines.extend(map_replace_line(final_building_type_map_name(style), key, final_building))
-            if not wonder.get("is_unique"):
-                lines.extend(map_replace_line(FINAL_BUILDING_DISPLAY_ID_MAP, final_building, wonder_id))
-                lines.extend(map_replace_line(FINAL_BUILDING_RITUAL_STYLE_MAP, final_building, style))
+            lines.extend(map_replace_line(FINAL_BUILDING_WONDER_ID_MAP, final_building, wonder_id))
+            lines.extend(map_replace_line(FINAL_BUILDING_DISPLAY_ID_MAP, final_building, wonder_id))
+            lines.extend(map_replace_line(FINAL_BUILDING_RITUAL_STYLE_MAP, final_building, style))
 
         if wonder.get("is_unique"):
             location_key = wonder.get("location")
@@ -328,33 +334,6 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
             if row_index > 9:
                 raise ValueError(f"Suitability row key only reserves row 1..9: {wonder['key']} row {row_index}")
 
-    lines.append(f"{T}set_global_variable = {{ name = tv_wonder_map_version value = {WONDER_MAP_SCHEMA_VERSION} }}")
-    lines.append("}")
-    lines.append("")
-
-
-def append_rebuild_if_needed(lines: list[str], first_wonder: dict) -> None:
-    first_key = str(int(first_wonder["id"]))
-    lines.append("tv_wonder_index_rebuild_global_maps_if_needed_effect = {")
-    lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ has_global_variable = tv_wonder_map_version }} }}")
-    lines.append(f"{T}{T}tv_wonder_index_rebuild_global_maps_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else_if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ global_var:tv_wonder_map_version = {WONDER_MAP_SCHEMA_VERSION} }} }}")
-    lines.append(f"{T}{T}tv_wonder_index_rebuild_global_maps_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else_if = {{")
-    lines.append(f"{T}{T}limit = {{ NOT = {{ has_global_variable_map = tv_wonder_id_to_is_unique }} }}")
-    lines.append(f"{T}{T}tv_wonder_index_rebuild_global_maps_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append(f"{T}else_if = {{")
-    lines.append(
-        f"{T}{T}limit = {{ "
-        f"NOT = {{ is_key_in_global_variable_map = {{ name = tv_wonder_id_to_is_unique target = {first_key} }} }} }}"
-    )
-    lines.append(f"{T}{T}tv_wonder_index_rebuild_global_maps_effect = yes")
-    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -366,7 +345,6 @@ def generate() -> str:
 
     lines = render_header(SCRIPT_REL)
     append_rebuild_global_maps(lines, wonders, mechanics, source_data)
-    append_rebuild_if_needed(lines, wonders[0])
     append_clear_cache_effect(lines, "tv_wonder_index_clear_locked_wonder_cache_effect", WONDER_CACHE_VARS)
     append_clear_cache_effect(lines, "tv_wonder_index_clear_selected_ritual_cache_effect", RITUAL_CACHE_VARS)
     append_cache_effect(

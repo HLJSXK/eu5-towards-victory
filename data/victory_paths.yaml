@@ -43,6 +43,13 @@ paths:
   # ── CONQUEST ──────────────────────────────────────────────────────────────
   - id: conquest
     score_var: tv_conquest_score
+    gui:
+      order: 0
+      tab_label:
+        en: "Conquest"
+        zh: "征服"
+      icon: "gfx/interface/icons/flat_icons/tabicons/military.dds"
+      progress_style: progress_bar_blue_alt
     call_updater_in_checker: true      # true → emit tv_update_{id}_score_effect = yes at top of checker
     score_var_init_in_checker: false   # true → emit extra has_variable init for score_var in checker
 
@@ -58,7 +65,7 @@ paths:
     # 1对1: Progress pct body — inserted verbatim into tv_update_all_progress_pct_effect
     progress_pct_body: |
       # ── Conquest Victory ─────────────────────────────────────────────────────
-      # piecewise: thresholds 200/400/600/1200/2500 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -121,6 +128,16 @@ paths:
       flavor:
         en: '"The greatest happiness is to vanquish your enemies." — Genghis Khan'
         zh: '"最大的幸福就是征服你的敌人。" — 成吉思汗'
+      overview_card:
+        title:
+          en: "[tv_conquest_victory|E]：Banners Beyond the Border"
+          zh: "[tv_conquest_victory|E]：疆界之外的旌旗"
+        playstyle:
+          en: "Playstyle: expand aggressively, subdue rivals, and turn direct rule plus subject land into a single imperial machine."
+          zh: "玩法风格：主动扩张、压制对手，并把直属领土与附属国疆域共同纳入帝国机器。"
+        formula:
+          en: "Progress formula: [tv_conquest_score|e] = owned [location|e]s + 0.5 × subject-or-below [location|e]s; victory progress is the current milestone segment's linear share, capped at 100%."
+          zh: "进程公式：[tv_conquest_score|e] = 直属[location|e]数量 + 0.5 × 附属及其下级国家[location|e]数量；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
         en: "[tv_conquest_score|e]: [Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,500"
         zh: "[tv_conquest_score|e]：[Country.MakeScope.GetVariable('tv_conquest_score').GetValue|0] / 2,500"
@@ -130,16 +147,19 @@ paths:
         is_short_term: false
         is_long_term: false
         threshold: 200
-        extra_trigger_block: null
-        modifier:
-          discipline: 0.05
-        modifier_name:
-          en: "Seasoned Legions"
-          zh: "百炼雄师"
-        custom_grant_body: |
-          add_country_modifier = { modifier = tv_conquest_m1_bonus days = -1 }
-          custom_tooltip = { text = tv_conquest_m1_govhouse_tt }
-          hidden_effect = { tv_govhouse_create_effect = yes }
+        extra_trigger_block: |
+          custom_tooltip = {
+            text = TV_CONQUEST_M1_EXTRA_TRIGGER_DESC
+            is_subject = no
+          }
+        reward_options:
+          - modifier:
+              discipline: 0.05
+          - modifier:
+              military_tactics: 0.25
+          - modifier:
+              land_morale_modifier: 0.10
+        unlock_body: null
         loc:
           title:
             en: "Conquest Victory — Milestone 1"
@@ -150,6 +170,9 @@ paths:
           trigger_desc:
             en: "[tv_conquest_score|e] ≥ 200"
             zh: "[tv_conquest_score|e] ≥ 200"
+          extra_trigger_desc:
+            en: "Is not a [subject|E]"
+            zh: "不是[subject|E]"
           event_title:
             en: "[tv_conquest_victory|E]：The Empire Grows"
             zh: "[tv_conquest_victory|E]：帝国正在壮大"
@@ -165,11 +188,13 @@ paths:
         is_long_term: false
         threshold: 400
         extra_trigger_block: null
-        modifier:
-          global_manpower_modifier: 0.25
-        modifier_name:
-          en: "Manpower Surge"
-          zh: "兵源汹涌"
+        reward_options:
+          - modifier:
+              naval_damage_done: 0.10
+          - modifier:
+              naval_damage_taken: -0.10
+          - modifier:
+              naval_morale_modifier: 0.10
         loc:
           title:
             en: "Conquest Victory — Milestone 2"
@@ -195,14 +220,13 @@ paths:
         is_long_term: false
         threshold: 600
         extra_trigger_block: null
-        modifier:
-          pop_join_rebel_threshold: -0.05
-          monthly_legitimacy: 0.10
-          monthly_republican_tradition: 0.10
-          monthly_devotion: 0.10
-        modifier_name:
-          en: "Iron Governance"
-          zh: "铁腕治国"
+        reward_options:
+          - modifier:
+              global_pop_conversion_speed: 0.01
+          - modifier:
+              global_pop_assimilation_speed: 0.01
+          - modifier:
+              stability_investment: 0.05
         loc:
           title:
             en: "Conquest Victory — Short-term Victory"
@@ -228,12 +252,13 @@ paths:
         is_long_term: false
         threshold: 1200
         extra_trigger_block: null
-        modifier:
-          global_integration_speed_modifier: 0.25
-          annexation_speed_modifier: 0.25
-        modifier_name:
-          en: "Imperial Absorption"
-          zh: "帝国消化"
+        reward_options:
+          - modifier:
+              global_manpower_modifier: 0.20
+          - modifier:
+              mercenary_maintenance_efficiency: -0.20
+          - modifier:
+              global_levy_size_modifier: 0.10
         loc:
           title:
             en: "Conquest Victory — Milestone 4"
@@ -259,12 +284,13 @@ paths:
         is_long_term: true
         threshold: 2500
         extra_trigger_block: null
-        modifier:
-          global_war_score_efficiency: 0.5
-          siege_ability: 0.5
-        modifier_name:
-          en: "Unstoppable Tide"
-          zh: "势如破竹"
+        reward_options:
+          - modifier:
+              global_integration_speed_modifier: 0.50
+          - modifier:
+              annexation_speed_modifier: 0.50
+          - modifier:
+              global_war_score_efficiency: 0.50
         loc:
           title:
             en: "Conquest Victory — Long-term Victory"
@@ -288,6 +314,13 @@ paths:
   # ── PROSPERITY ────────────────────────────────────────────────────────────
   - id: prosperity
     score_var: tv_prosperity_score
+    gui:
+      order: 1
+      tab_label:
+        en: "Prosperity"
+        zh: "繁荣"
+      icon: "gfx/interface/icons/location_icons/new/prosperity.dds"
+      progress_style: progress_bar_green_alt
     call_updater_in_checker: true      # player gets monthly update; AI still uses 12-month batch in situation
     score_var_init_in_checker: false
 
@@ -350,7 +383,7 @@ paths:
 
     progress_pct_body: |
       # ── Prosperity Victory ────────────────────────────────────────────────────
-      # piecewise: thresholds 2000/3000/5000/7000/11000 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -413,6 +446,16 @@ paths:
       flavor:
         en: '"Prosperity is the fruit of labour." — Thucydides'
         zh: '"繁荣是劳动的果实。" — 修昔底德'
+      overview_card:
+        title:
+          en: "[tv_prosperity_victory|E]：Granaries Full, Cities Awake"
+          zh: "[tv_prosperity_victory|E]：粮仓充盈，城镇苏醒"
+        playstyle:
+          en: "Playstyle: cultivate a stable, well-governed realm where population, taxes, development, and construction capacity compound into domestic supremacy."
+          zh: "玩法风格：经营稳定且治理良好的国家，让人口、税基、发展度与建设能力共同滚成国内优势。"
+        formula:
+          en: "Progress formula: [tv_prosperity_score|e] = ([population|e] + total owned-location [development|e] + country tax base) × 50/(owned [location|e]s + 50) × (100 + stability)/100 × [government_power|e]/100; victory progress is the current milestone segment's linear share, capped at 100%."
+          zh: "进程公式：[tv_prosperity_score|e] = （总[population|e] + 直属地点[development|e]总和 + 国家税基） × 50/（直属[location|e]数量 + 50） × （100 + 稳定度）/100 × [government_power|e]/100；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
         en: "[tv_prosperity_score|e]: [Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 11,000"
         zh: "[tv_prosperity_score|e]：[Country.MakeScope.GetVariable('tv_prosperity_score').GetValue|0] / 11,000"
@@ -423,15 +466,14 @@ paths:
         is_long_term: false
         threshold: 2000
         extra_trigger_block: null
-        modifier:
-          global_monthly_prosperity: 0.001
-        modifier_name:
-          en: "Steady Prosperity"
-          zh: "稳步繁荣"
-        custom_grant_body: |
-          add_country_modifier = { modifier = tv_prosperity_m1_bonus days = -1 }
-          custom_tooltip = { text = tv_prosperity_m1_engineering_department_grant_tt }
-          hidden_effect = { tv_engineering_department_create_effect = yes }
+        reward_options:
+          - modifier:
+              global_monthly_prosperity: 0.001
+          - modifier:
+              global_population_growth: 0.001
+          - modifier:
+              global_monthly_development: 0.001
+        unlock_body: null
         loc:
           title:
             en: "Prosperity Victory — Milestone 1"
@@ -457,11 +499,13 @@ paths:
         is_long_term: false
         threshold: 3000
         extra_trigger_block: null
-        modifier:
-          global_population_growth: 0.001
-        modifier_name:
-          en: "Growing Population"
-          zh: "人口滋长"
+        reward_options:
+          - modifier:
+              tax_income_efficiency: 0.025
+          - modifier:
+              global_production_efficiency: 0.05
+          - modifier:
+              global_raw_material_output: 0.10
         loc:
           title:
             en: "Prosperity Victory — Milestone 2"
@@ -487,14 +531,13 @@ paths:
         is_long_term: false
         threshold: 5000
         extra_trigger_block: null
-        modifier:
-          global_build_buildings_cost: -0.25
-          city_upgrade_cost_modifier: -0.25
-          town_upgrade_cost_modifier: -0.25
-          rural_settlement_upgrade_cost_modifier: -0.25
-        modifier_name:
-          en: "Builder's Economy"
-          zh: "建设经济"
+        reward_options:
+          - modifier:
+              global_build_buildings_cost: -0.10
+          - modifier:
+              global_max_rgo_size_modifier_in_rural: 0.20
+          - modifier:
+              global_max_rgo_size_modifier_in_non_rural: 0.20
         loc:
           title:
             en: "Prosperity Victory — Short-term Victory"
@@ -520,12 +563,13 @@ paths:
         is_long_term: false
         threshold: 7000
         extra_trigger_block: null
-        modifier:
-          global_construction_speed: 0.5
-          global_distance_from_capital_speed_propagation: 0.20
-        modifier_name:
-          en: "Construction Boom"
-          zh: "建造大潮"
+        reward_options:
+          - modifier:
+              global_distance_from_capital_speed_propagation: 0.10
+          - modifier:
+              land_cost_on_distance_from_capital_speed_propagation: 0.20
+          - modifier:
+              sea_cost_on_distance_from_capital_when_maritime: -1
         loc:
           title:
             en: "Prosperity Victory — Milestone 4"
@@ -551,12 +595,13 @@ paths:
         is_long_term: true
         threshold: 11000
         extra_trigger_block: null
-        modifier:
-          global_estate_max_tax: 0.5
-          tax_income_efficiency: 0.1
-        modifier_name:
-          en: "Peak Taxation"
-          zh: "税收峰值"
+        reward_options:
+          - modifier:
+              global_estate_max_tax: 0.50
+          - modifier:
+              global_estate_target_satisfaction: 0.10
+          - modifier:
+              monthly_inflation: -0.001
         loc:
           title:
             en: "Prosperity Victory — Long-term Victory"
@@ -580,6 +625,13 @@ paths:
   # ── TRADE ─────────────────────────────────────────────────────────────────
   - id: trade
     score_var: tv_trade_score
+    gui:
+      order: 2
+      tab_label:
+        en: "Trade"
+        zh: "贸易"
+      icon: "gfx/interface/icons/flat_icons/trade.dds"
+      progress_style: progress_bar_blue_alt
     call_updater_in_checker: true
     score_var_init_in_checker: false
 
@@ -588,7 +640,7 @@ paths:
 
     progress_pct_body: |
       # ── Trade Victory ─────────────────────────────────────────────────────────
-      # piecewise: thresholds 100/200/400/1000/2000 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -663,6 +715,16 @@ paths:
       flavor:
         en: '"Venice does not make war; Venice makes money."'
         zh: '"威尼斯不打仗；威尼斯赚钱。"'
+      overview_card:
+        title:
+          en: "[tv_trade_victory|E]：Ledgers Across the Seas"
+          zh: "[tv_trade_victory|E]：账册越过海洋"
+        playstyle:
+          en: "Playstyle: dominate [market|e]s, grow [merchant|e] reach, and convert commercial command into a treasury that wins without marching."
+          zh: "玩法风格：主导[market|e]、扩张[merchant|e]网络，把商业控制转化为无需行军也能取胜的国库。"
+        formula:
+          en: "Progress formula: [tv_trade_score|e] = monthly [trade_income|e]; victory progress is the current milestone segment's linear share, capped at 100%. Milestones 3 and 5 also require leading [merchant|e] position in enough [market|e]s."
+          zh: "进程公式：[tv_trade_score|e] = 每月[trade_income|e]；胜利进度按当前里程碑段线性折算，上限100%。第3/5里程碑还要求主导足够数量的[market|e]。"
       progress_display:
         en: "[tv_trade_score|e]: [Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
         zh: "[tv_trade_score|e]：[Country.MakeScope.GetVariable('tv_trade_score').GetValue|0] / 2,000"
@@ -673,15 +735,14 @@ paths:
         is_long_term: false
         threshold: 100
         extra_trigger_block: null
-        modifier:
-          merchant_maintenance_efficiency: 0.10
-        custom_grant_body: |
-          add_country_modifier = { modifier = tv_trade_m1_bonus days = -1 }
-          custom_tooltip = { text = tv_trade_m1_io_grant_tt }
-          hidden_effect = { tv_trade_league_create_effect = yes }
-        modifier_name:
-          en: "Merchant Efficiency"
-          zh: "商人效率"
+        reward_options:
+          - modifier:
+              merchant_maintenance_efficiency: 0.10
+          - modifier:
+              global_merchant_capacity_modifier: 0.10
+          - modifier:
+              global_merchant_power: 0.20
+        unlock_body: null
         loc:
           title:
             en: "Trade Victory — Milestone 1"
@@ -707,11 +768,13 @@ paths:
         is_long_term: false
         threshold: 200
         extra_trigger_block: null
-        modifier:
-          global_foreign_build_buildings_cost: -0.20
-        modifier_name:
-          en: "Foreign Investment"
-          zh: "海外投资"
+        reward_options:
+          - modifier:
+              global_foreign_build_buildings_cost: -0.10
+          - modifier:
+              diplomatic_reputation: 2
+          - modifier:
+              spy_network_construction: 0.20
         loc:
           title:
             en: "Trade Victory — Milestone 2"
@@ -745,13 +808,13 @@ paths:
           		count >= 5
           	}
           }
-        modifier:
-          naval_range: 500
-          trade_range: 500
-          colonial_range: 500
-        modifier_name:
-          en: "Maritime Reach"
-          zh: "海洋霸权"
+        reward_options:
+          - modifier:
+              diplomatic_range: 1000
+          - modifier:
+              trade_range: 1000
+          - modifier:
+              colonial_range: 1000
         loc:
           title:
             en: "Trade Victory — Short-term Victory"
@@ -777,12 +840,13 @@ paths:
         is_long_term: false
         threshold: 1000
         extra_trigger_block: null
-        modifier:
-          global_trade_center_power: 0.50
-          global_merchant_capacity_modifier: 0.25
-        modifier_name:
-          en: "Market Dominance"
-          zh: "市场支配"
+        reward_options:
+          - modifier:
+              global_trade_protection_factor: 0.50
+          - modifier:
+              global_trade_center_power: 0.25
+          - modifier:
+              colonial_migration_size: 0.10
         loc:
           title:
             en: "Trade Victory — Milestone 4"
@@ -815,13 +879,13 @@ paths:
           		count >= 10
           	}
           }
-        modifier:
-          trade_land_efficiency: 0.10
-          trade_sea_efficiency: 0.10
-          trade_income: 0.25
-        modifier_name:
-          en: "Trade Hegemon"
-          zh: "贸易霸主"
+        reward_options:
+          - modifier:
+              colonial_migration_size: 0.10
+          - modifier:
+              war_no_cb_cost_modifier: -1.00
+          - modifier:
+              trade_income: 0.20
         loc:
           title:
             en: "Trade Victory — Long-term Victory"
@@ -845,6 +909,13 @@ paths:
   # ── DIPLOMATIC ────────────────────────────────────────────────────────────
   - id: diplomatic
     score_var: tv_diplomatic_victory_points
+    gui:
+      order: 3
+      tab_label:
+        en: "Diplomatic"
+        zh: "外交"
+      icon: "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
+      progress_style: progress_bar_blue_alt
     call_updater_in_checker: false     # accumulated by Diplomatic Alliance tier monthly effect
     score_var_init_in_checker: true    # DVP variable may not exist before alliance foundation
 
@@ -852,7 +923,7 @@ paths:
 
     progress_pct_body: |
       # ── Diplomatic Victory ────────────────────────────────────────────────────
-      # piecewise: thresholds 1/50/500/2500/15000 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -914,6 +985,16 @@ paths:
       flavor:
         en: '"An army is of little use where reason fails."'
         zh: '"在理性失败之处，军随谓少用。"'
+      overview_card:
+        title:
+          en: "[tv_diplomatic_victory|E]：Every Treaty Turns Toward Us"
+          zh: "[tv_diplomatic_victory|E]：每份条约都转向我们"
+        playstyle:
+          en: "Playstyle: establish the alliance, raise alliance tier, and make other thrones depend on your guarantees, assemblies, and diplomatic timing."
+          zh: "玩法风格：建立联盟、提升联盟等级，并让诸王座依赖你的保障、议会与外交时机。"
+        formula:
+          en: "Progress formula: [tv_diplomatic_victory_points|e] comes from monthly [tv_alliance_tier|e] output after [tv_diplomatic_alliance|e] membership: the alliance leader gains the full current tier, while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
+          zh: "进程公式：[tv_diplomatic_victory_points|e]来自加入[tv_diplomatic_alliance|e]后每月的[tv_alliance_tier|e]产出：联盟领袖获得完整当前等级，非领袖成员获得一半；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
         en: "[tv_diplomatic_victory_points|e]: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
         zh: "[tv_diplomatic_victory_points|e]：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
@@ -923,51 +1004,30 @@ paths:
         is_short_term: false
         is_long_term: false
         threshold: 1
-        extra_trigger_block: |
-          custom_tooltip = {
-          	text = TV_DIPLOMATIC_M1_EXTRA_TRIGGER_DESC
-          	has_variable = tv_diplomatic_support_count
-          	var:tv_diplomatic_support_count >= 2
-          }
-        custom_grant_body: |
-          add_country_modifier = { modifier = tv_diplomatic_m1_bonus days = -1 }
-          if = {
-              limit = {
-                  custom_tooltip = {
-                      text = TV_HAS_VARIABLE_NOT_SET_TT
-                      NOT = { has_variable = tv_diplomatic_victory_points }
-                  }
-              }
-              set_variable = { name = tv_diplomatic_victory_points value = 1 }
-          }
-          else_if = {
-              limit = { var:tv_diplomatic_victory_points < 1 }
-              set_variable = { name = tv_diplomatic_victory_points value = 1 }
-          }
-        modifier:
-          monthly_diplomats: 0.10
-        modifier_name:
-          en: "Diplomatic Corps"
-          zh: "外交团队"
+        unlock_body: null
+        reward_options:
+          - modifier:
+              diplomatic_reputation: 2
+          - modifier:
+              improve_relation_impact: 0.20
+          - modifier:
+              spy_network_construction: 0.20
         loc:
           title:
             en: "Diplomatic Victory — Milestone 1"
             zh: "外交胜利 — 里程碑一"
           meaning:
-            en: "Two nations have pledged [tv_diplomatic_support|e]. A voice that carries weight in the courts of nations."
-            zh: "两个国家已承诺[tv_diplomatic_support|e]。一个在各国宫廷中具有分量的声音。"
+            en: "The [tv_diplomatic_alliance|e] has taken formal shape. A voice that carries weight in the courts of nations."
+            zh: "[tv_diplomatic_alliance|e]已经正式成形。一个在各国宫廷中具有分量的声音。"
           trigger_desc:
             en: "[tv_diplomatic_victory_points|e] ≥ 1"
             zh: "[tv_diplomatic_victory_points|e] ≥ 1"
-          extra_trigger_desc:
-            en: "[tv_diplomatic_support|E] Supporters ≥ 2"
-            zh: "[tv_diplomatic_support|E]国 ≥ 2"
           event_title:
             en: "[tv_diplomatic_victory|E]：A Voice Among Nations"
             zh: "[tv_diplomatic_victory|E]：外交展露头角"
           event_desc:
-            en: "Our patient diplomacy has begun to bear fruit in the only form that matters: other courts have chosen to spend their credibility on us. Through [alliance|e]s, [royal_marriage|e]s, promises, dinners, condolences, and carefully timed silences, we have earned a place at the table of [great_power|e]s. Two nations have now pledged [tv_diplomatic_support|e], enough to make our design visible without making it look desperate. The first stones of [tv_diplomatic_alliance|E] are not stones at all, but signatures, witnesses, and shared risk. Enemies will call it intrigue; friends will call it order. Both will be correct enough."
-            zh: "我们耐心的外交终于以唯一真正重要的形式结果：其他宫廷愿意把自己的信誉押在我们身上。通过[alliance|e]、[royal_marriage|e]、承诺、宴席、吊唁与恰到好处的沉默，我们在[great_power|e]的桌前赢得了一席之地。两个国家如今已给予[tv_diplomatic_support|e]，足以让我们的构想显形，却还不至于显得饥渴。[tv_diplomatic_alliance|E]的第一批基石并非石料，而是签名、见证人与共同承担的风险。敌人会称之为阴谋，朋友会称之为秩序。两者都不算全错。"
+            en: "Our patient diplomacy has begun to bear fruit in the only form that matters: institutions other courts must answer. Through [alliance|e]s, [royal_marriage|e]s, promises, dinners, condolences, and carefully timed silences, we have earned a place at the table of [great_power|e]s. The first stones of the [tv_diplomatic_alliance|E] are not stones at all, but signatures, witnesses, and shared risk. Enemies will call it intrigue; friends will call it order. Both will be correct enough."
+            zh: "我们耐心的外交终于以唯一真正重要的形式结果：一种其他宫廷必须回应的制度。通过[alliance|e]、[royal_marriage|e]、承诺、宴席、吊唁与恰到好处的沉默，我们在[great_power|e]的桌前赢得了一席之地。[tv_diplomatic_alliance|E]的第一批基石并非石料，而是签名、见证人与共同承担的风险。敌人会称之为阴谋，朋友会称之为秩序。两者都不算全错。"
           event_option:
             en: "Seal friendship until it hardens into policy."
             zh: "把友谊盖上印，直到它凝固为政策。"
@@ -977,11 +1037,13 @@ paths:
         is_long_term: false
         threshold: 50
         extra_trigger_block: null
-        modifier:
-          diplomatic_reputation: 2
-        modifier_name:
-          en: "Extended Reach"
-          zh: "外交扩容"
+        reward_options:
+          - modifier:
+              diplomatic_capacity_modifier: 0.25
+          - modifier:
+              monthly_diplomats: 0.10
+          - modifier:
+              diplomatic_spending_cost: -0.01
         loc:
           title:
             en: "Diplomatic Victory — Milestone 2"
@@ -1007,11 +1069,13 @@ paths:
         is_long_term: false
         threshold: 500
         extra_trigger_block: null
-        modifier:
-          diplomatic_range: 1000
-        modifier_name:
-          en: "Renowned Statecraft"
-          zh: "享誉外交"
+        reward_options:
+          - modifier:
+              diplomatic_range: 1000
+          - modifier:
+              trade_range: 1000
+          - modifier:
+              colonial_range: 1000
         loc:
           title:
             en: "Diplomatic Victory — Short-term Victory"
@@ -1037,11 +1101,13 @@ paths:
         is_long_term: false
         threshold: 2500
         extra_trigger_block: null
-        modifier:
-          improve_relation_impact: 0.50
-        modifier_name:
-          en: "Grand Strategy"
-          zh: "大国战略"
+        reward_options:
+          - modifier:
+              subject_loyalty: 0.10
+          - modifier:
+              subject_income_modifier: 0.05
+          - modifier:
+              subject_opinions: 10
         loc:
           title:
             en: "Diplomatic Victory — Milestone 4"
@@ -1067,11 +1133,13 @@ paths:
         is_long_term: true
         threshold: 15000
         extra_trigger_block: null
-        modifier:
-          diplomatic_reputation: 10
-        modifier_name:
-          en: "Diplomatic Hegemon"
-          zh: "外交霸主"
+        reward_options:
+          - modifier:
+              diplomatic_reputation: 10
+          - modifier:
+              improve_relation_impact: 1.00
+          - modifier:
+              spy_network_construction: 1.00
         loc:
           title:
             en: "Diplomatic Victory — Long-term Victory"
@@ -1095,6 +1163,13 @@ paths:
   # ── CULTURAL ──────────────────────────────────────────────────────────────
   - id: cultural
     score_var: tv_cultural_influence_points
+    gui:
+      order: 4
+      tab_label:
+        en: "Cultural"
+        zh: "文化"
+      icon: "gfx/interface/icons/flat_icons/cultural_influence.dds"
+      progress_style: progress_bar_green_alt
     call_updater_in_checker: false     # accumulated via on_action, no updater effect
     score_var_init_in_checker: false   # monthly_country_pulse always initializes it
 
@@ -1102,7 +1177,7 @@ paths:
 
     progress_pct_body: |
       # ── Cultural Victory ──────────────────────────────────────────────────────
-      # piecewise: thresholds 50/200/400/800/1600 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -1165,6 +1240,16 @@ paths:
       flavor:
         en: '"Art is the signature of civilisations."'
         zh: '"艺术是文明的印记。"'
+      overview_card:
+        title:
+          en: "[tv_cultural_victory|E]：The Court Becomes an Age"
+          zh: "[tv_cultural_victory|E]：宫廷成为时代"
+        playstyle:
+          en: "Playstyle: patronize [artist|e]s, create [work_of_art|e]s, tour abroad, and turn admiration into durable cultural gravity."
+          zh: "玩法风格：赞助[artist|e]、创作[work_of_art|e]、组织海外巡演，把仰慕转化为持久的文化引力。"
+        formula:
+          en: "Progress formula: [tv_cultural_influence_points|e] gains +3 per created [work_of_art|e]; victory progress is the current milestone segment's linear share, capped at 100%. Milestones 2-5 also require rising [tv_arts_intl_influence|e]."
+          zh: "进程公式：每创作一件[work_of_art|e]获得+3[tv_cultural_influence_points|e]；胜利进度按当前里程碑段线性折算，上限100%。第2-5里程碑还要求逐步提升[tv_arts_intl_influence|e]。"
       progress_display:
         en: "[tv_cultural_influence_points|e]: [Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 1600"
         zh: "[tv_cultural_influence_points|e]：[Country.MakeScope.GetVariable('tv_cultural_influence_points').GetValue|0] / 1600"
@@ -1175,22 +1260,14 @@ paths:
         is_long_term: false
         threshold: 50
         extra_trigger_block: null
-        modifier:
-          hire_artist_cost_modifier: -0.50
-        modifier_name:
-          en: "Patron of the Arts"
-          zh: "艺术赞助人"
-        custom_grant_body: |
-          add_country_modifier = { modifier = tv_cultural_m1_bonus days = -1 }
-          custom_tooltip = { text = tv_cultural_m1_io_grant_tt }
-          hidden_effect = {
-              set_variable = { name = tv_arts_exhibition_member value = 1 }
-              create_international_organization = {
-                  type = international_organization_type:tv_arts_exhibition
-                  add_country_to_international_organization = prev
-                  set_leader_country = prev
-              }
-          }
+        reward_options:
+          - modifier:
+              num_possible_artists: 1
+          - modifier:
+              artist_salary_modifier: -0.10
+          - modifier:
+              hire_artist_cost_modifier: -0.50
+        unlock_body: null
         loc:
           title:
             en: "Cultural Victory — Milestone 1"
@@ -1224,11 +1301,13 @@ paths:
           		var:tv_arts_intl_influence >= 25
           	}
           }
-        modifier:
-          cultures_capacity: 2
-        modifier_name:
-          en: "Cultural Breadth"
-          zh: "文化包容"
+        reward_options:
+          - modifier:
+              skill_of_new_artists: 0.10
+          - modifier:
+              artist_monthly_start_chance: 0.20
+          - modifier:
+              country_cabinet_efficiency: 0.10
         loc:
           title:
             en: "Cultural Victory — Milestone 2"
@@ -1265,11 +1344,13 @@ paths:
           		var:tv_arts_intl_influence >= 50
           	}
           }
-        modifier:
-          num_possible_artists: 5
-        modifier_name:
-          en: "House of Artists"
-          zh: "艺术殿堂"
+        reward_options:
+          - modifier:
+              cultural_tradition_modifier: 0.25
+          - modifier:
+              cultural_influence_modifier: 0.25
+          - modifier:
+              monthly_prestige: 0.05
         loc:
           title:
             en: "Cultural Victory — Short-term Victory"
@@ -1306,12 +1387,13 @@ paths:
           		var:tv_arts_intl_influence >= 75
           	}
           }
-        modifier:
-          cultural_influence_modifier: 0.50
-          cultural_tradition_modifier: 0.50
-        modifier_name:
-          en: "Cultural Beacon"
-          zh: "文化灯塔"
+        reward_options:
+          - modifier:
+              global_pop_assimilation_speed_modifier: 0.50
+          - modifier:
+              cultures_capacity: 2
+          - modifier:
+              monthly_rebel_growth: -0.0005
         loc:
           title:
             en: "Cultural Victory — Milestone 4"
@@ -1348,11 +1430,13 @@ paths:
           		var:tv_arts_intl_influence >= 100
           	}
           }
-        modifier:
-          num_possible_artists: 10
-        modifier_name:
-          en: "Cultural Hegemon"
-          zh: "文化霸主"
+        reward_options:
+          - modifier:
+              num_possible_artists: 10
+          - modifier:
+              skill_of_new_artists: 0.30
+          - modifier:
+              cultural_influence_modifier: 1.00
         loc:
           title:
             en: "Cultural Victory — Long-term Victory"
@@ -1379,6 +1463,13 @@ paths:
   # ── SCIENCE ───────────────────────────────────────────────────────────────
   - id: science
     score_var: tv_science_score
+    gui:
+      order: 5
+      tab_label:
+        en: "Science"
+        zh: "科技"
+      icon: "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+      progress_style: progress_bar_blue_alt
     call_updater_in_checker: true
     score_var_init_in_checker: false
 
@@ -1387,7 +1478,7 @@ paths:
 
     progress_pct_body: |
       # ── Scientific Victory ────────────────────────────────────────────────────
-      # piecewise: thresholds 100/150/200/300/400 → each milestone = +20%
+      # piecewise progress: each milestone band contributes 20%
       if = {
       	limit = {
       		custom_tooltip = {
@@ -1610,6 +1701,16 @@ paths:
       flavor:
         en: '"The true method of knowledge is experiment." — William Blake'
         zh: '"认识真相的真正方法是实验。" — 威廉·布莱克'
+      overview_card:
+        title:
+          en: "[tv_science_victory|E]：Reason Builds the Future"
+          zh: "[tv_science_victory|E]：理性建造未来"
+        playstyle:
+          en: "Playstyle: race through [advance|e]s, build the [tv_academy_of_sciences|e], and turn scholarship into institutions, production, and long-term momentum."
+          zh: "玩法风格：加速研究[advance|e]、建设[tv_academy_of_sciences|e]，把学术转化为制度、生产与长期动能。"
+        formula:
+          en: "Progress formula: [tv_science_score|e] = total researched [advance|e]s; victory progress is the current milestone segment's linear share, capped at 100%. Each milestone also requires the matching [tv_academy_of_sciences|E] level."
+          zh: "进程公式：[tv_science_score|e] = 已研究[advance|e]总数；胜利进度按当前里程碑段线性折算，上限100%。每个里程碑还要求[tv_academy_of_sciences|E]达到对应等级。"
       progress_display:
         en: "[tv_science_score|e]: [Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
         zh: "[tv_science_score|e]：[Country.MakeScope.GetVariable('tv_science_score').GetValue|0] / 400"
@@ -1625,43 +1726,18 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 1
           }
-        modifier:
-          global_max_literacy: 10
-        modifier_name:
-          en: "Literate Nation"
-          zh: "知识之国"
-        custom_grant_body: |
-          add_country_modifier = { modifier = tv_science_m1_bonus days = -1 }
-          custom_tooltip = { text = tv_science_m1_io_grant_tt }
-          hidden_effect = {
-              if = {
-                  limit = {
-                  	custom_tooltip = {
-                  		text = TV_HAS_VARIABLE_NOT_SET_TT
-                  		NOT = { has_variable = tv_academy_io_member }
-                  	}
-                  }
-                  set_variable = { name = tv_academy_io_member value = 1 }
-                  set_variable = { name = tv_research_phase value = 0 }
-                  set_variable = { name = tv_research_interest value = 0 }
-                  set_variable = { name = tv_research_b_done value = 0 }
-                  set_variable = { name = tv_rm_subprocess_a value = 0 }
-                  set_variable = { name = tv_rm_subprocess_b value = 0 }
-                  set_variable = { name = tv_rm_subprocess_c value = 0 }
-                  set_variable = { name = tv_rm_subprocess_d_ready value = 0 }
-                  set_variable = { name = tv_med_progress  value = 0 }
-                  set_variable = { name = tv_med_disp_adm  value = 0 }
-                  set_variable = { name = tv_med_disp_dip  value = 0 }
-                  set_variable = { name = tv_med_disp_mil  value = 0 }
-                  create_international_organization = {
-                      type = international_organization_type:tv_academy_of_sciences
-                      hidden_effect = {
-                          add_country_to_international_organization = prev
-                          set_leader_country = prev
-                      }
-                  }
-              }
-          }
+        reward_options:
+          - modifier:
+              global_nobles_max_literacy: 10
+              global_clergy_max_literacy: 10
+              global_burghers_max_literacy: 10
+          - modifier:
+              global_peasants_max_literacy: 10
+              global_laborers_max_literacy: 10
+              global_soldiers_max_literacy: 10
+          - modifier:
+              global_max_literacy: 5
+        unlock_body: null
         loc:
           title:
             en: "Scientific Victory — Milestone 1"
@@ -1695,11 +1771,13 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 2
           }
-        modifier:
-          clergy_estate_target_satisfaction: 0.10
-        modifier_name:
-          en: "Age of Learning"
-          zh: "学识时代"
+        reward_options:
+          - modifier:
+              clergy_estate_target_satisfaction: 0.025
+          - modifier:
+              research_speed_modifier: 0.05
+          - modifier:
+              global_institution_growth_modifier: 0.20
         loc:
           title:
             en: "Scientific Victory — Milestone 2"
@@ -1733,11 +1811,13 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 3
           }
-        modifier:
-          global_institution_growth_modifier: 1.0
-        modifier_name:
-          en: "Age of Enlightenment"
-          zh: "启蒙时代"
+        reward_options:
+          - modifier:
+              research_speed: 0.05
+          - modifier:
+              global_monthly_literacy: 0.002
+          - modifier:
+              global_production_efficiency: 0.05
         loc:
           title:
             en: "Scientific Victory — Short-term Victory"
@@ -1771,11 +1851,13 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 4
           }
-        modifier:
-          research_speed_modifier: 0.10
-        modifier_name:
-          en: "Preeminent Science"
-          zh: "科学巅峰"
+        reward_options:
+          - modifier:
+              non_rural_migration_attraction: 1
+          - modifier:
+              rural_migration_attraction: 1
+          - modifier:
+              global_migration_speed_modifier: 0.25
         loc:
           title:
             en: "Scientific Victory — Milestone 4"
@@ -1809,12 +1891,13 @@ paths:
           	has_variable = tv_academy_of_sciences_level
           	var:tv_academy_of_sciences_level >= 5
           }
-        modifier:
-          global_institution_growth_modifier: 2.0
-          global_max_literacy: 20
-        modifier_name:
-          en: "Industrial Vanguard"
-          zh: "工业先驱"
+        reward_options:
+          - modifier:
+              research_speed_modifier: 0.10
+          - modifier:
+              research_speed: 0.10
+          - modifier:
+              global_pop_promotion_speed_modifier: 0.50
         loc:
           title:
             en: "Scientific Victory — Long-term Victory"

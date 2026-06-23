@@ -486,7 +486,7 @@ tv_return_local_exhibition_guest_artist_effect = {
 				remove_variable = tv_local_exhibition_guest_host
 			}
 			scope:local_exhibition_guest_country = {
-				trigger_event_non_silently = { id = tv_arts_exhibition.363 }
+				trigger_event_non_silently = { id = tv_arts_exhibition.363 days = 1 }
 			}
 		}
 	}
@@ -539,18 +539,18 @@ tv_end_local_exhibition_effect = {
 		tv_set_local_exhibition_enthusiasm_effect = { value = 0 }
 		if = {
 			limit = { var:tv_local_exhibition_last_rating >= 4 }
-			trigger_event_non_silently = { id = tv_arts_exhibition.313 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.313 days = 1 }
 		}
 		else_if = {
 			limit = { var:tv_local_exhibition_last_rating >= 3 }
-			trigger_event_non_silently = { id = tv_arts_exhibition.312 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.312 days = 1 }
 		}
 		else_if = {
 			limit = { var:tv_local_exhibition_last_rating >= 2 }
-			trigger_event_non_silently = { id = tv_arts_exhibition.311 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.311 days = 1 }
 		}
 		else = {
-			trigger_event_non_silently = { id = tv_arts_exhibition.310 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.310 days = 1 }
 		}
 		remove_variable = tv_local_exhibition_active
 		remove_variable = tv_local_exhibition_location
@@ -573,16 +573,16 @@ tv_end_local_exhibition_effect = {
 
 tv_roll_local_exhibition_monthly_events_effect = {
 	random_list = {
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.320 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.321 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.322 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.323 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.324 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.325 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.326 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.327 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.328 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.329 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.320 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.321 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.322 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.323 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.324 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.325 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.326 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.327 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.328 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.329 days = 1 } }
 		90 = {}
 	}
 }
@@ -900,11 +900,11 @@ tv_roll_arts_exchange_monthly_events_effect = {
 	random_list = {
 		2 = {
 			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 2 } }
-			trigger_event_non_silently = { id = tv_arts_exhibition.401 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.401 days = 1 }
 		}
 		2 = {
 			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 1 } }
-			trigger_event_non_silently = { id = tv_arts_exhibition.402 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.402 days = 1 }
 		}
 		2 = {
 			trigger = {
@@ -916,27 +916,27 @@ tv_roll_arts_exchange_monthly_events_effect = {
 					artist_skill >= 0.70
 				}
 			}
-			trigger_event_non_silently = { id = tv_arts_exhibition.403 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.403 days = 1 }
 		}
 		2 = {
 			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 1 } }
-			trigger_event_non_silently = { id = tv_arts_exhibition.404 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.404 days = 1 }
 		}
 		1 = {
 			trigger = { variable_list_size = { name = tv_arts_exchange_foreign_participants value >= 1 } }
-			trigger_event_non_silently = { id = tv_arts_exhibition.405 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.405 days = 1 }
 		}
 		1 = {
 			trigger = { variable_list_size = { name = tv_arts_exchange_participants value >= 1 } }
-			trigger_event_non_silently = { id = tv_arts_exhibition.406 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.406 days = 1 }
 		}
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.407 } }
-		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.408 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.407 days = 1 } }
+		1 = { trigger_event_non_silently = { id = tv_arts_exhibition.408 days = 1 } }
 		1 = {
 			trigger = { has_ruler = yes }
-			trigger_event_non_silently = { id = tv_arts_exhibition.409 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.409 days = 1 }
 		}
-		2 = { trigger_event_non_silently = { id = tv_arts_exhibition.410 } }
+		2 = { trigger_event_non_silently = { id = tv_arts_exhibition.410 days = 1 } }
 	}
 }
 
@@ -957,7 +957,7 @@ tv_arts_exchange_monthly_effect = {
 			}
 			set_variable = { name = tv_arts_exchange_invite_event_fired value = 1 }
 			tv_prepare_arts_exchange_auto_invites_effect = yes
-			trigger_event_non_silently = { id = tv_arts_exhibition.400 }
+			trigger_event_non_silently = { id = tv_arts_exhibition.400 days = 1 }
 		}
 		if = {
 			limit = { var:tv_arts_exchange_months_remaining > 1 }
@@ -982,7 +982,7 @@ tv_end_arts_exchange_effect = {
 				has_variable = tv_arts_exchange_active
 			}
 		}
-		trigger_event_non_silently = { id = tv_arts_exhibition.420 }
+		trigger_event_non_silently = { id = tv_arts_exhibition.420 days = 1 }
 	}
 	remove_variable = tv_arts_exchange_active
 	remove_variable = tv_arts_exchange_months_elapsed

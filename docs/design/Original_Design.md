@@ -101,7 +101,7 @@ Tab4展示当前国际组织的成员
 ## 主要机制：奇观建设
 达到里程碑1时，建立“工程部”国际组织
 为了确保内容丰富性并降低开发难度，定义一系列所有国家均可建设的奇观
-具体奇观清单、基础效果、选址限制、测绘偏好、仪式分支和分支奖励以 `data/wonders.yaml`、`data/wonder_mechanics.yaml` 与 `data/unique_wonders.yaml` 为准。本文档只保留工程部与奇观建设流程设计，不再维护逐奇观定义。
+具体奇观清单、基础效果、选址限制、测绘偏好、仪式分支和分支奖励以 `data/wonders.yaml`、`data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml` 与 `data/unique_wonders.yaml` 为准。本文档只保留工程部与奇观建设流程设计，不再维护逐奇观定义。
 ### 独特奇观
 根据历史上真实存在的奇观，为拥有特定地点的国家提供额外选项，这些独特奇观本身还是归属于某一种通用奇观，但效果更强。
 ### 建设阶段
@@ -124,11 +124,11 @@ UI显示为：Card包裹：最左侧首席工程师头像-右侧Card：纯风味
 在后续阶段，无论因为何种原因导致支持度归0，都将导致“奇观建设被迫中止！”，这将损失10%各阶层忠诚度，大工程师宣布退隐（死亡），损失20点威望，并完全重置奇观建设的所有进度，只有我明确标识不重置的变量得到保留。
 2. 测绘
 测绘阶段决定了奇观建造的最大等级、建造成本、建造时间
-玩家需要指派首席工程师前往国家内部的一个地点进行测绘，每种奇观天生就有其限制的位置。（不满足的地点根本不可选择；逐奇观选址限制以 `data/wonders.yaml`、`data/wonder_mechanics.yaml` 与 `data/unique_wonders.yaml` 为准）
+玩家需要指派首席工程师前往国家内部的一个地点进行测绘，每种奇观天生就有其限制的位置。（不满足的地点根本不可选择；逐奇观选址限制以 `data/wonders.yaml`、`data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml` 与 `data/unique_wonders.yaml` 为准）
 测绘本身不花费任何资源
 测绘的速度取决于首席科学家的军事能力，显示一个进度条，到100%时测绘完成
 测绘的结果是3个0~100的百分数，称为规模称职度、物流称职度、组织称职度，它们由多个因素决定：
-1）每种奇观天生就有其偏好，且不对玩家可见，需要玩家自行探索。这种先天的偏好性对三个称职度产生等量效果，至多产生25%的称职度；逐奇观测绘偏好以 `data/wonders.yaml`、`data/wonder_mechanics.yaml` 与 `data/unique_wonders.yaml` 为准。
+1）每种奇观天生就有其偏好，且不对玩家可见，需要玩家自行探索。这种先天的偏好性对三个称职度产生等量效果，至多产生25%的称职度；逐奇观测绘偏好以 `data/wonders.yaml`、`data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml` 与 `data/unique_wonders.yaml` 为准。
 2）测绘本身的结果是完全随机的，通过3次随机产生3项称职度加值，至多产生25%的称职度
 3）测绘期间，将产生月度随机事件，事件包括2类，第一类是直接增加/降低5%称职度，第二类是二选一，通过消耗某种资源增加5%称职度或是放弃。这些事件都有3个版本，对应三种称职度。可消耗的资源包括：scale=1的金钱、威望、贵族/市民/教士的10%忠诚度、被测绘地点的10%繁荣度、被测绘地点的20%人群满意度。所有事件在同一个random列表中，确保一次不发生多个，且每个事件的月度概率固定为1%
 4）测绘的结果还直接受到首席工程师行政能力的影响，但影响较小，至多产生10%的称职度
@@ -202,7 +202,7 @@ UI显示为：Card包裹：最左侧首席工程师头像-右侧Card：纯风味
 在顶部显示信息提示：玩家需要从3个仪式风格中选择一个，并满足所需的条件
 紧接着一行是三个按钮，玩家选择后即代表选择该风格，三个按钮的选定状态互斥
 在任何风格被选定的状态下，进一步显示下面的具体仪式内容：包括两个部分，第一部分是为了完成仪式需要实行的步骤，第二部分是纯信息展示，显示该仪式完成后奇观将拥有的效果
-逐奇观仪式定义以 `data/wonder_mechanics.yaml` 与 `data/unique_wonders.yaml` 为准。
+逐奇观仪式定义以 `data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml` 与 `data/unique_wonders.yaml` 为准。
 ## 次要机制：首席工程师
 首席工程师
 
