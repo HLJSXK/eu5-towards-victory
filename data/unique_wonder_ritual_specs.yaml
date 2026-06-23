@@ -1293,7 +1293,7 @@ unique_wonders:
     base_key: palace_of_nations
     location: granada
     runtime_prefix: tv_wonder_alhambra
-    status: design_complete
+    status: evidence_verified
   event_ids:
   - id: 1004
     key: alhambra_opening
@@ -1463,13 +1463,13 @@ unique_wonders:
       - checklist
       repeated_rows: One checklist row per treaty clause and one incident row per palace risk point.
       per_entity_status: Clauses need sworn/violated/witnessed/narrowed state; risk points need secure/threatened/occupied/repaired state.
-      current_projection: The design-only node_graph compresses rows into war_validation and treaty_clause_status variables.
+      current_projection: The current evidence_verified node_graph is still a design-level projection; it compresses rows into war_validation, treaty_clause_status, and reward_branch summary variables while backend evidence is mapped.
     uniqueness_constraints:
     - The loop must remain about Granada's capitulation palace, symbolic keys, water courts, protected elites, and foreign witnesses.
     - A normal war victory is not enough; the palace must remain credible as preserved courtly order.
     - The player should not be rewarded for sacking or flattening the palace's negotiated identity.
     projection_notes: >
-      Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Compress them in node_graph into four planning events and summary variables. Replace per-clause and per-court rows with incident_log/checklist summaries for design_complete only. Drop no war or treaty primitive; unresolved listener, clause, and scaling gaps remain blockers for compiler_mapped or source codegen.
+      Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Compress them in node_graph into four planning events and summary variables for the current evidence layer. The listener, repeated-row, and branch-scaling primitives now have intermediate backend evidence, but the graph is not yet compiler_mapped because Granada palace-control checks, per-court risk semantics, node-level capabilities, scope/listener contracts, variables with roles, actions/checks, and generation metadata still need a strong DSL rewrite. Drop no war, treaty, palace-risk, or reward primitive.
   compiler_gap_ledger:
   - primitive: war_outcome_capitulation_gate
     design_semantics: Validate the rite only during a supported war or peace outcome window where Granada remains controlled and the palace is not discredited.
@@ -1484,13 +1484,17 @@ unique_wonders:
     - reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_ending_war as root country after winning/losing for both sides plus scope:winner, scope:loser, and scope:war.
     - src/in_game/common/on_action/tv_engineering_department_on_action.txt bridges on_pre_winning_war to tv_engineering_department_ritual_on_pre_winning_war and on_ending_war to tv_engineering_department_ritual_on_ending_war.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_selected_ritual_pre_winning_war_listener_trigger and tv_wonder_selected_ritual_ending_war_listener_trigger.
-    verification_status: verified_existing
+    - capability:listener_gate
+    - data/unique_wonder_ritual_capabilities.yaml:listener_gate supports pre_winning_war and ending_war as intermediate listener contracts with may_write_src false.
+    - template:semantic_contract_fragment can summarize listener_gate contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster: war_listener_scope_contract
     search_questions:
     - Which on_action scopes are available to check the winner, war target, and Granada control during pre_winning_war and ending_war?
     - Can a design-only listener gate safely save Granada and war context before a visible treaty event?
     blocked_by:
-    - War listener scope contracts are not mapped for this specific ritual.
+    - Loadable EU5 source remains blocked until a later source writer consumes the listener_gate contract and writes exact on_action/scope-saving code for Alhambra.
+    - The current Alhambra node_graph still needs a strong DSL listener_contract and variable-role rewrite before compiler_mapped can be claimed.
     fallback_if_unavailable: Keep war validation as an explicit trigger/check requirement and allow a costly non-war palace concord fallback only in design_ir.
   - primitive: granada_palace_control_treaty_checks
     design_semantics: Check Alhambra-specific control, occupation, siege, water-court usability, protected households, and safe-conduct integrity before settlement.
@@ -1503,13 +1507,14 @@ unique_wonders:
     - reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt exposes owner/controller-style location contract patterns.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt contains fixed unique-wonder host checks such as location:genoa has_owner/owner blocks and many tv_wonder_location_can_host_unique_* triggers.
     - reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses Granada ownership checks, proving local Granada script evidence exists but not the full palace-risk model.
+    - capability:listener_gate covers war timing only; it does not cover Granada occupation, siege, water-court integrity, protected households, or per-court palace-risk checks.
     verification_status: interface_candidate
     harness_backlog_cluster: war_listener_scope_contract
     search_questions:
     - Which existing location triggers distinguish owner, controller, occupation, siege, and local unrest for a fixed wonder site?
     - Are waterworks and protected-household states representable as variables or only as design-level rows?
     blocked_by:
-    - No verified palace-risk interface exists in the Harness backend.
+    - No verified Harness backend capability/template exists for Granada-specific occupation, siege, water-court integrity, protected-household, or per-court palace-risk checks.
     fallback_if_unavailable: Collapse site checks into a readable checklist while preserving individual palace risks in design_ir.
   - primitive: treaty_clause_ui_rows
     design_semantics: Render treaty clauses as individual checklist rows with sworn, violated, witnessed, or narrowed status.
@@ -1521,13 +1526,17 @@ unique_wonders:
     - scripts/wonder_unique_rituals/pharos.py:pharos_route_row and pharos_stage_2_card generate repeated GUI rows from PHAROS_ROUTE_KEYS with per-route status variables.
     - scripts/wonder_unique_rituals/pharos.py:append_pharos_selected_route_completion_lines writes per-route passed state and increments tv_wonder_pharos_route_progress.
     - Verified existing repeated-row source pattern only; current Harness UI components remain semantic and do not write treaty-clause rows.
-    verification_status: verified_existing
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - data/unique_wonder_ritual_capabilities.yaml:repeated_entity_row_checklist_incident_log_backend preserves repeated entity rows and projects them into checklist or incident-log summaries with may_write_src false.
+    - template:semantic_contract_fragment can summarize incident_event, retry_event, and choice_event semantic contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which Engineering Department GUI generator pattern can render per-clause rows without manual source edits?
     - Should treaty clauses be stored as fixed variables or generated from design_ir entity sets?
     blocked_by:
-    - Current Harness UI components are semantic and do not write repeated source rows.
+    - Loadable GUI row expansion remains blocked until a later source writer expands treaty_clause_register into per-clause checklist rows.
+    - The current Alhambra node_graph still needs variables with checklist_state/incident_state roles before compiler_mapped can be claimed.
     fallback_if_unavailable: Display treaty_clause_status as a summary and keep per-clause rows in design_ir.
   - primitive: settlement_branch_reward_scaling
     design_semantics: Scale prestige, diplomatic reputation expression, and local memory by mercy, tribute, or deterrence branch and by clause integrity.
@@ -1539,13 +1548,17 @@ unique_wonders:
     - capability:final_reward_handoff documents final handoff semantics but cannot generate branch-specific source rewards.
     - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_roll_step_6_cost_effect and tv_wonder_hagia_complete_step_6_effect show branch-variable reward/cost scaling.
     - src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt:tv_wonder_execute_finalization_hidden_event_effect dispatches hidden finalization by var:tv_wonder_locked, including unique Dome and Alhambra branches.
-    verification_status: interface_candidate
+    - capability:branch_specific_reward_scaling
+    - data/unique_wonder_ritual_capabilities.yaml:branch_specific_reward_scaling documents branch variables that shape incident outcomes and final reward summaries with may_write_src false.
+    - template:final_reward_dispatch_stub can document the final handoff as an intermediate effect stub only.
+    verification_status: backend_ready
     harness_backlog_cluster: branch_specific_reward_scaling
     search_questions:
     - Which existing finalization hidden executor patterns can carry branch variables without unsafe option-tooltip mutation?
     - Can reward previews show branch differences without claiming the source generator supports them?
     blocked_by:
-    - Branch scaling is not backend-ready in the current template registry.
+    - Loadable reward effects remain blocked until a later source writer maps mercy, tribute, and deterrence reward branches into concrete EU5 effects.
+    - The current Alhambra node_graph still needs reward_state variables with node read/write declarations before compiler_mapped can be claimed.
     fallback_if_unavailable: Use one designed reward description and preserve branch scaling as non-codegen design data.
   ui_model:
     components:
@@ -1604,13 +1617,21 @@ unique_wonders:
   implementation_notes:
     source_ritual_key: capitulation_treaty
     implementation_source: design_only_high_fidelity_spec
-    verification_status: design_complete
-    verified_interfaces: []
+    verification_status: evidence_verified
+    verified_interfaces:
+    - capability:listener_gate semantic war-listener contract for pre_winning_war and ending_war
+    - capability:repeated_entity_row_checklist_incident_log_backend intermediate backend contract
+    - capability:branch_specific_reward_scaling intermediate backend contract
+    - existing Engineering Department on_action bridge evidence for ritual war listeners
     needs_verification:
-    - war_outcome_capitulation_gate
     - granada_palace_control_treaty_checks
-    - treaty_clause_ui_rows
-    - settlement_branch_reward_scaling
+    - strong_node_graph_scope_listener_and_variable_contracts
+    - loadable_source_writer_for_war_listener_treaty_rows_and_branch_rewards
+    remaining_source_writer_blockers:
+    - War listener mapping is backend-ready only as an intermediate listener_gate contract; no loadable on_action/scope-saving writer exists for Alhambra.
+    - Granada palace control, occupation/siege/unrest, water-court integrity, protected households, and per-court risk checks remain interface_candidate.
+    - Treaty clause rows are preserved through an intermediate repeated-row backend contract, but no loadable GUI row expander exists.
+    - Branch reward scaling is preserved through an intermediate backend contract, but no loadable reward-effect writer exists.
 - identity:
     id: 107
     key: unique_machu_picchu
@@ -2269,13 +2290,13 @@ unique_wonders:
       - incident_log
       repeated_rows: Actor slot for the selected official plus incident rows for service duties.
       per_entity_status: Candidate rows need available/assigned/factional/discredited/vindicated state; duties need unopened/entrusted/scandalized/disciplined/dedicated state.
-      current_projection: The design-only node_graph compresses candidate rows into assigned_official and official_quality, and duty rows into incident_status.
+      current_projection: The current source_codegen_ready node_graph remains intermediate-only; it preserves candidate rows through assigned_official and official_quality summary variables, and duty rows through incident_status and duty_status summary variables.
     uniqueness_constraints:
     - The actor must be a sacred official tied to Peter's tomb, not a generic scholar or engineer.
     - Relics, alms, pilgrim thresholds, choir offices, and chapel patronage are required design surfaces.
     - Clergy satisfaction is earned through disciplined service, not a free estate privilege.
     projection_notes: >
-      Preserve sacred official candidates, actor quality, factional risk, branch reward semantics, and apostolic service duty rows in design_ir. The compiler_mapped node_graph preserves the four decisive beats--threshold opening, sacred official assignment, scandal retry, and reward handoff--as a strong Harness state machine. It compresses candidate rows and per-duty incident rows into assigned_official, official_quality, incident_status, duty_status, and reward_branch summary variables only for the current Harness projection. Replace no selector, tracked set, per-duty UI requirement, or branch consequence; unresolved character, clergy, row, and actor-to-incident primitives remain in compiler_gap_ledger and block all source-codegen statuses.
+      Preserve sacred official candidates, actor quality, factional risk, branch reward semantics, and apostolic service duty rows in design_ir. The current source_codegen_ready node_graph preserves the four decisive beats--threshold opening, sacred official assignment, scandal retry, and reward handoff--as a strong Harness state machine, but it is still an intermediate-only projection. It compresses candidate rows and per-duty incident rows into assigned_official, official_quality, incident_status, duty_status, and reward_branch summary variables only for the current Harness projection. Replace no selector, tracked set, per-duty UI requirement, or branch consequence; loadable EU5 source remains blocked by remaining_source_writer_blockers until a later source writer maps the character selector, clergy predicates, actor-quality incident routing, and per-duty GUI rows.
   compiler_gap_ledger:
   - primitive: sacred_official_character_selector
     design_semantics: Let the player assign a cardinal, bishop, relic custodian, alms prefect, or artist-canon style sacred official with role and quality state.

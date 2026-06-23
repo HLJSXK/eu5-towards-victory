@@ -157,7 +157,7 @@ The output kinds below are Markdown fragments, skeletons, stubs, summaries, or l
 ## Design IR Preservation Summary
 
 - Compiler primitives: sacred_official_character_selector, clergy_state_faith_eligibility_checks, actor_quality_incident_reward_mapping, relic_alms_pilgrim_duty_rows
-- Projection notes: Preserve sacred official candidates, actor quality, factional risk, branch reward semantics, and apostolic service duty rows in design_ir. The compiler_mapped node_graph preserves the four decisive beats--threshold opening, sacred official assignment, scandal retry, and reward handoff--as a strong Harness state machine. It compresses candidate rows and per-duty incident rows into assigned_official, official_quality, incident_status, duty_status, and reward_branch summary variables only for the current Harness projection. Replace no selector, tracked set, per-duty UI requirement, or branch consequence; unresolved character, clergy, row, and actor-to-incident primitives remain in compiler_gap_ledger and block all source-codegen statuses.
+- Projection notes: Preserve sacred official candidates, actor quality, factional risk, branch reward semantics, and apostolic service duty rows in design_ir. The current source_codegen_ready node_graph preserves the four decisive beats--threshold opening, sacred official assignment, scandal retry, and reward handoff--as a strong Harness state machine, but it is still an intermediate-only projection. It compresses candidate rows and per-duty incident rows into assigned_official, official_quality, incident_status, duty_status, and reward_branch summary variables only for the current Harness projection. Replace no selector, tracked set, per-duty UI requirement, or branch consequence; loadable EU5 source remains blocked by remaining_source_writer_blockers until a later source writer maps the character selector, clergy predicates, actor-quality incident routing, and per-duty GUI rows.
 
 
 ### Tracked Entity Sets
@@ -189,7 +189,7 @@ The output kinds below are Markdown fragments, skeletons, stubs, summaries, or l
 | components | actor_slots, incident_log |
 | repeated_rows | Actor slot for the selected official plus incident rows for service duties. |
 | per_entity_status | Candidate rows need available/assigned/factional/discredited/vindicated state; duties need unopened/entrusted/scandalized/disciplined/dedicated state. |
-| current_projection | The design-only node_graph compresses candidate rows into assigned_official and official_quality, and duty rows into incident_status. |
+| current_projection | The current source_codegen_ready node_graph remains intermediate-only; it preserves candidate rows through assigned_official and official_quality summary variables, and duty rows through incident_status and duty_status summary variables. |
 | uniqueness_constraints | The actor must be a sacred official tied to Peter's tomb, not a generic scholar or engineer., Relics, alms, pilgrim thresholds, choir offices, and chapel patronage are required design surfaces., Clergy satisfaction is earned through disciplined service, not a free estate privilege. |
 
 ## Compiler Gap Ledger
