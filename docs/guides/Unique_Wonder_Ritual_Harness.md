@@ -69,6 +69,23 @@ Every authoring pass must include these sections before implementation:
 is worth preserving and should drive later codebase exploration; they do not mean the design
 should be flattened to the current template registry.
 
+## Evidence Mapping Stage
+
+Run an evidence mapping pass after `design_complete` and before any source compiler or
+source-codegen readiness claim. Use `compiler_gap_ledger.search_questions` as the entry point
+for codebase exploration, then update each row with concrete evidence such as paths, helper
+functions, event IDs, variable names, UI patterns, scopes, capabilities, or templates.
+
+- `verified_existing` means codebase evidence exists, often through a manual implementation
+  or bespoke generator. It does not mean the Harness source generator can emit that primitive.
+- `interface_candidate` means a likely interface or pattern exists, but the mapping is not
+  proven enough for backend generation.
+- `backend_ready` means the primitive is backed by current Harness capability/template
+  evidence. Use explicit `capability:<key>` or `template:<key>` evidence.
+- `source_codegen_ready`, legacy `implementation_ready`, and `harness_generated` require all
+  compiler gap rows to be `backend_ready`; unresolved rows and `verified_existing` rows still
+  block those statuses.
+
 ## Status Model
 
 Use statuses to describe which layer is complete:
@@ -127,6 +144,25 @@ Allowed `compiler_gap_ledger.verification_status` values are:
 
 The first three are unresolved compiler gaps. They do not block `design_complete`; they do
 block `source_codegen_ready`, legacy `implementation_ready`, and `harness_generated`.
+`verified_existing` also blocks source-codegen statuses because it proves existing codebase
+feasibility, not generator support. Only `backend_ready` satisfies source-codegen gap closure.
+
+## Projection Contract
+
+`design_ir` is the high-fidelity design layer. `node_graph` is only the current Harness
+projection. When that projection is lossy, `design_ir.projection_notes` must explain what is
+preserved, replaced, compressed, summarized, or intentionally omitted.
+
+- Named tracked sets in `design_ir.tracked_entity_sets`, such as route, office, debt,
+  manuscript, district, or frontier networks, must not be silently compressed into one
+  anonymous counter.
+- If `design_ir.ui_feedback_model` declares repeated rows or per-entity status, projection
+  notes must say whether the current node graph preserves rows/status, substitutes a summary,
+  or compresses them for the current Harness layer.
+- `compiler_mapped` may accept a lossy projection when the node graph passes semantic
+  validation and the loss is documented.
+- `source_codegen_ready`, legacy `implementation_ready`, and `harness_generated` must still
+  hard fail while any compiler gap row is not `backend_ready`.
 
 ## Template Registry
 

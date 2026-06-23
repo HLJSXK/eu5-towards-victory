@@ -587,11 +587,14 @@ def design_ir_fixture() -> dict:
 
 
 def compiler_gap_row(verification_status: str = "needs_codebase_search") -> dict:
+    codebase_evidence = ["fixture evidence"]
+    if verification_status == "backend_ready":
+        codebase_evidence = ["capability:route_gate", "template:semantic_contract_fragment"]
     return {
         "primitive": "test_route_rows",
         "design_semantics": "Repeated named route rows must survive design even before source compiler support exists.",
         "required_game_interfaces": ["route map UI", "per-route variables"],
-        "codebase_evidence": ["fixture evidence"],
+        "codebase_evidence": codebase_evidence,
         "verification_status": verification_status,
         "search_questions": ["Which source compiler primitive should own repeated route rows?"],
         "blocked_by": ["fixture unresolved gap"],
@@ -878,11 +881,57 @@ def main() -> None:
     invalid_gap_status = high_fidelity_design_entry(verification_status="maybe_later")
     assert_has_error("invalid compiler gap status", invalid_gap_status, "invalid verification_status")
 
+    verified_without_evidence = high_fidelity_design_entry(verification_status="verified_existing")
+    verified_without_evidence["compiler_gap_ledger"][0]["codebase_evidence"] = []
+    assert_has_error(
+        "verified existing missing evidence",
+        verified_without_evidence,
+        "verified_existing requires codebase_evidence",
+    )
+
+    backend_without_registry_evidence = high_fidelity_design_entry(verification_status="backend_ready")
+    backend_without_registry_evidence["compiler_gap_ledger"][0]["codebase_evidence"] = [
+        "scripts/manual_evidence_only.py"
+    ]
+    assert_has_error(
+        "backend ready missing registry evidence",
+        backend_without_registry_evidence,
+        "backend_ready requires valid capability:<key> or template:<key>",
+    )
+
+    needs_search_without_questions = high_fidelity_design_entry()
+    needs_search_without_questions["compiler_gap_ledger"][0]["search_questions"] = []
+    assert_has_error(
+        "needs_codebase_search missing questions",
+        needs_search_without_questions,
+        "needs_codebase_search requires meaningful search_questions",
+    )
+
     source_ready_with_gap = high_fidelity_design_entry(status="source_codegen_ready")
     assert_has_error(
         "source_codegen_ready unresolved compiler gap",
         source_ready_with_gap,
         "unresolved compiler gap",
+    )
+
+    source_ready_verified_existing = high_fidelity_design_entry(
+        status="source_codegen_ready",
+        verification_status="verified_existing",
+    )
+    assert_has_error(
+        "source_codegen_ready verified_existing gap",
+        source_ready_verified_existing,
+        "not backend_ready",
+    )
+
+    implementation_ready_verified_existing = high_fidelity_design_entry(
+        status="implementation_ready",
+        verification_status="verified_existing",
+    )
+    assert_has_error(
+        "implementation_ready verified_existing gap",
+        implementation_ready_verified_existing,
+        "not backend_ready",
     )
 
     flattened_route = high_fidelity_design_entry()
@@ -906,6 +955,49 @@ def main() -> None:
     )
     if not any("tracked route set" in warning for warning in flattening_warnings):
         raise AssertionError(f"flattened route fixture did not warn: {flattening_warnings}")
+
+    many_named_routes_without_projection = high_fidelity_design_entry()
+    many_named_routes_without_projection["design_ir"]["tracked_entity_sets"][0]["entities"] = [
+        {"key": f"route_{idx}"} for idx in range(1, 7)
+    ]
+    many_named_routes_without_projection["design_ir"]["projection_notes"] = ""
+    named_route_warnings = anti_flattening_warnings_for_payload(
+        {"unique_wonders": [many_named_routes_without_projection]},
+        design_matrix={"unique_wonders": []},
+    )
+    if not any("6 named entities" in warning and "projection strategy" in warning for warning in named_route_warnings):
+        raise AssertionError(f"many named routes fixture did not warn: {named_route_warnings}")
+
+    repeated_rows_without_projection = high_fidelity_design_entry()
+    repeated_rows_without_projection["design_ir"]["projection_notes"] = "Manual note preserves the high-fidelity idea."
+    repeated_rows_warnings = anti_flattening_warnings_for_payload(
+        {"unique_wonders": [repeated_rows_without_projection]},
+        design_matrix={"unique_wonders": []},
+    )
+    if not any("row/status projection" in warning for warning in repeated_rows_warnings):
+        raise AssertionError(f"repeated rows fixture did not warn: {repeated_rows_warnings}")
+
+    public_debt_without_projection = high_fidelity_design_entry()
+    public_debt_without_projection["design_ir"]["tracked_entity_sets"][0] = {
+        "key": "public_debt_pledges",
+        "entity_type": "debt_pledge",
+        "entities": [{"key": f"pledge_{idx}"} for idx in range(1, 7)],
+        "state_values": ["open", "honored", "defaulted"],
+        "per_entity_state": {"status_variable_pattern": "tv_wonder_test_pledge_<pledge>_status"},
+        "selector": "The player selects which pledge backs the founding bargain.",
+        "ui_binding": "incident_log:public_debt_pledges renders pledge risk state.",
+    }
+    public_debt_without_projection["design_ir"]["ui_feedback_model"] = {
+        "components": ["incident_log", "checklist"],
+        "per_entity_status": "Each public debt pledge has a separate risk status.",
+    }
+    public_debt_without_projection["design_ir"]["projection_notes"] = ""
+    public_debt_warnings = anti_flattening_warnings_for_payload(
+        {"unique_wonders": [public_debt_without_projection]},
+        design_matrix={"unique_wonders": []},
+    )
+    if not any("6 named entities" in warning for warning in public_debt_warnings):
+        raise AssertionError(f"public debt fixture did not warn on named entities: {public_debt_warnings}")
 
     occupied_event_id = valid_entry()
     assert_has_error(

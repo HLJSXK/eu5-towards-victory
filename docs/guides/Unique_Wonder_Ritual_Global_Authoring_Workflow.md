@@ -45,6 +45,17 @@ turns entries into `data/unique_wonder_ritual_specs.yaml` records.
      the current registry.
    - Formal spec generation remains a later pass and must still run Harness design,
      semantic graph, and source/codegen checks at the appropriate status layer.
+7. Run evidence mapping before source compiler readiness.
+   - Use each `compiler_gap_ledger.search_questions` entry to search the codebase for
+     existing functions, event IDs, variables, scopes, UI patterns, capabilities, or templates.
+   - Promote rows only as far as the evidence supports: `interface_candidate` for plausible
+     interfaces, `verified_existing` for manual/codebase evidence, and `backend_ready` only
+     for current Harness capability/template support.
+   - A `verified_existing` row proves that a primitive exists somewhere in the codebase; it
+     does not prove the source compiler can generate it.
+   - If a current `node_graph` projection compresses repeated rows, named entity networks,
+     per-entity status, selectors, or multi-axis UI feedback, record the loss and reason in
+     `design_ir.projection_notes`.
 
 ## Matrix Field Semantics
 
@@ -93,5 +104,5 @@ items for the full-corpus design pass, not reasons to generate formal specs earl
 
 During spec conversion, treat `design_complete` as the first target status. Promote to
 `compiler_mapped` only after a current Harness `node_graph` projection exists, and promote
-to `source_codegen_ready` only after unresolved compiler gaps are gone. `needs_codebase_search`
+to `source_codegen_ready` only after every compiler gap row is `backend_ready`. `needs_codebase_search`
 is expected in early high-fidelity specs and should drive the next codebase exploration pass.

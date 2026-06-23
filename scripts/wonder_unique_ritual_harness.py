@@ -741,6 +741,7 @@ def pharos_design_ir() -> dict[str, Any]:
         "compiler_primitives": [
             "alexandria_hostile_privateer_clearance",
             "mediterranean_named_route_set",
+            "route_map_scope_feedback",
             "per_route_status_projection",
             "active_route_selection",
             "controlled_route_pass",
@@ -749,6 +750,7 @@ def pharos_design_ir() -> dict[str, Any]:
             "privateer_threat_progress",
             "route_progress_counter",
             "repeated_route_ui_rows",
+            "incident_log_progress_track_projection",
             "source_compiler_route_row_generation",
         ],
         "phases": [
@@ -845,18 +847,17 @@ def pharos_design_ir() -> dict[str, Any]:
 
 
 def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
-    evidence = [
-        "scripts/wonder_unique_rituals/pharos.py",
-        "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py",
-        "previous event ids 7300-7308",
-    ]
-    no_search = ["None; manual implementation already provides existing codebase evidence."]
+    no_search = ["No remaining codebase search for this primitive; manual implementation evidence is listed below."]
     return [
         {
             "primitive": "alexandria_hostile_privateer_clearance",
             "design_semantics": "Clear hostile privateer pressure around Alexandria before the lighthouse can certify routes.",
             "required_game_interfaces": ["sea_zone area privateer scan", "privateer power mutation", "monthly delayed event"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:append_pharos_triggers emits tv_wonder_pharos_alexandria_hostile_privateers_trigger and tv_wonder_pharos_alexandria_hostile_privateers_at_least_<count>_trigger with any_privateer_in_area",
+                "scripts/wonder_unique_rituals/pharos.py:append_pharos_effects emits tv_wonder_pharos_clear_privateers_effect with every_privateer_in_area and change_privateer_power = -0.4",
+                "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py:event ids 7301-7303 call tv_wonder_pharos_clear_privateers_effect; 7304 calls tv_wonder_pharos_enter_stage_2_effect",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
@@ -866,17 +867,39 @@ def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
             "primitive": "mediterranean_named_route_set",
             "design_semantics": "Track eight named Mediterranean routes as distinct certifiable entities.",
             "required_game_interfaces": ["fixed location scopes", "per-route variable projection"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:PHAROS_ROUTE_KEYS defines constantinople, venice, genoa, malta, tunis, palermo, candia, and gibraltar",
+                "scripts/wonder_unique_rituals/pharos.py:PHAROS_ROUTE_IDS assigns stable route ids 1-8 for tv_wonder_pharos_active_route",
+                "scripts/wonder_unique_rituals/pharos.py:append_pharos_triggers emits per-route triggers for every PHAROS_ROUTE_KEYS entry",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
             "fallback_if_unavailable": "Keep the route set as authored data in the manual Pharos plugin.",
         },
         {
+            "primitive": "route_map_scope_feedback",
+            "design_semantics": "Show route-map or equivalent map/scope feedback for each named route's location and owner.",
+            "required_game_interfaces": ["GUI scope variables", "location display", "owner country display", "route_map-style UI"],
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:pharos_route_row reads tv_wonder_pharos_route_<route>_location and tv_wonder_pharos_route_<route>_owner",
+                "scripts/wonder_unique_rituals/pharos.py:pharos_stage_2_card loops PHAROS_ROUTE_KEYS and appends pharos_route_row for every route",
+                "src/in_game/gui/panels/organization/tv_engineering_department.gui:Pharos generated rows call GetLocation.GetName and GetCountry.GetNameWithFlag from route variables",
+            ],
+            "verification_status": "verified_existing",
+            "search_questions": no_search,
+            "blocked_by": [],
+            "fallback_if_unavailable": "Use route_map summary text only as a projection and keep per-route scope feedback in design_ir.",
+        },
+        {
             "primitive": "per_route_status_projection",
             "design_semantics": "Expose pending, controlled, basing, and unresolved state per route.",
             "required_game_interfaces": ["country variables", "location owner projection", "GUI variable reads"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:append_pharos_set_route_projection_lines writes tv_wonder_pharos_route_<route>_location, _owner, and _status",
+                "scripts/wonder_unique_rituals/pharos.py:pharos_status_visible reads tv_wonder_pharos_route_<route>_status in GUI visibility expressions",
+                "scripts/wonder_unique_rituals/pharos.py:append_pharos_selected_route_completion_lines writes tv_wonder_pharos_route_<route>_passed for completed rows",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
@@ -886,7 +909,11 @@ def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
             "primitive": "active_route_selection",
             "design_semantics": "Select one pending route at a time and save active route/location/owner state for events.",
             "required_game_interfaces": ["random_list trigger filters", "saved route variables", "monthly event scheduling"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_roll_route_effect uses random_list branches filtered by tv_wonder_pharos_route_<route>_pending_trigger",
+                "scripts/wonder_unique_rituals/pharos.py:append_pharos_select_route_lines writes tv_wonder_pharos_active_route, tv_wonder_pharos_active_route_id, tv_wonder_pharos_event_route_location, and tv_wonder_pharos_event_route_owner",
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_evaluate_selected_route_effect dispatches selected routes to event ids 7305, 7306, or 7307",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
@@ -896,7 +923,11 @@ def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
             "primitive": "controlled_route_pass",
             "design_semantics": "A route passes immediately when the builder controls the route location.",
             "required_game_interfaces": ["owns = location:<route>", "route passed variable"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:append_pharos_triggers emits tv_wonder_pharos_route_<route>_controlled_trigger with owns = location:<route>",
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_complete_selected_controlled_route_effect sets tv_wonder_pharos_active_route_status = 1",
+                "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py:event id 7305 calls tv_wonder_pharos_complete_selected_controlled_route_effect",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
@@ -906,7 +937,11 @@ def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
             "primitive": "basing_route_pass",
             "design_semantics": "A route passes when the foreign owner already has reciprocal fleet basing with the builder.",
             "required_game_interfaces": ["fleet basing relation trigger", "route passed variable"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:append_pharos_triggers emits tv_wonder_pharos_route_<route>_basing_trigger with gives_fleet_basing_rights_to and receives_fleet_basing_rights_from",
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_complete_selected_basing_route_effect sets tv_wonder_pharos_active_route_status = 2",
+                "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py:event id 7306 calls tv_wonder_pharos_complete_selected_basing_route_effect",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
@@ -916,7 +951,11 @@ def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
             "primitive": "foreign_harbor_bargain",
             "design_semantics": "If a foreign route has an owner but no qualifying basing, the player can pay to create reciprocal basing.",
             "required_game_interfaces": ["route owner scope", "create_relation fleet_basing_rights", "costed event option"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_evaluate_selected_route_effect dispatches owned foreign route scopes to event id 7307 when no control or basing pass exists",
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_create_selected_route_basing_effect creates bidirectional relation_type:fleet_basing_rights with scope:tv_wonder_pharos_event_route_owner",
+                "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py:event id 7307 charges change_gold_effect and calls tv_wonder_pharos_create_selected_route_basing_effect",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
@@ -926,7 +965,11 @@ def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
             "primitive": "privateer_threat_progress",
             "design_semantics": "Project hostile privateer count into a visible threat percentage.",
             "required_game_interfaces": ["counted privateer triggers", "progress_track GUI"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_refresh_threat_effect writes tv_wonder_pharos_privateer_threat_pct from hostile privateer count thresholds",
+                "scripts/wonder_unique_rituals/pharos.py:pharos_stage_1_card renders pharos_piechart bound to tv_wonder_pharos_privateer_threat_pct",
+                "scripts/wonder_unique_rituals/pharos.py:events 7301-7303 clear privateers and refresh display before event 7304 enters route stage",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
@@ -936,7 +979,11 @@ def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
             "primitive": "route_progress_counter",
             "design_semantics": "Count certified routes from zero to eight and fire the final light event at completion.",
             "required_game_interfaces": ["per-route passed variables", "clamped counter", "completion event"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_refresh_route_progress_effect counts tv_wonder_pharos_route_<route>_passed and clamps tv_wonder_pharos_route_progress to 0-8",
+                "scripts/wonder_unique_rituals/pharos.py:tv_wonder_pharos_maybe_finish_routes_effect checks tv_wonder_pharos_route_progress >= PHAROS_ROUTE_COUNT and schedules event id 7308",
+                "scripts/wonder_unique_rituals/pharos.py:pharos_stage_2_card renders pharos_piechart and x/8 raw_text from tv_wonder_pharos_route_progress",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
@@ -946,17 +993,42 @@ def pharos_compiler_gap_ledger() -> list[dict[str, Any]]:
             "primitive": "repeated_route_ui_rows",
             "design_semantics": "Render one route-map row per Mediterranean route with location, owner, and status.",
             "required_game_interfaces": ["fixed GUI rows", "location and owner variable projection", "status localization"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:pharos_route_row builds one fixed-height row with route location, owner, and Control/Basing/Unheld status labels",
+                "scripts/wonder_unique_rituals/pharos.py:pharos_stage_2_card iterates PHAROS_ROUTE_KEYS and emits eight pharos_route_row blocks",
+                "src/in_game/gui/panels/organization/tv_engineering_department.gui:generated Pharos block contains per-route rows for constantinople, venice, genoa, malta, tunis, palermo, candia, and gibraltar",
+            ],
             "verification_status": "verified_existing",
             "search_questions": no_search,
             "blocked_by": [],
             "fallback_if_unavailable": "Use route_map summary plus projection_notes until repeated-row source codegen exists.",
         },
         {
+            "primitive": "incident_log_progress_track_projection",
+            "design_semantics": "Combine visible progress tracks with event-chain incident history for privateer and foreign-harbor route incidents.",
+            "required_game_interfaces": ["progress_track GUI", "event-chain incident projection", "stage text localization"],
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py:pharos_stage_1_card and pharos_stage_2_card render separate progress piecharts for threat and route count",
+                "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py:event ids 7301-7303 and 7307 provide the incident-like player-facing choices",
+                "data/unique_wonder_ritual_specs.yaml:design_ir.ui_feedback_model records incident_log as current event-chain projection rather than a generated source UI component",
+            ],
+            "verification_status": "interface_candidate",
+            "search_questions": [
+                "Should the source compiler model event-chain incident history as a first-class incident_log UI binding or leave it as projection_notes?",
+                "Which Harness projection rule should connect multiple progress_track widgets to incident event rows without flattening either axis?",
+            ],
+            "blocked_by": ["No source compiler or Harness UI generator owns combined incident_log plus progress_track projection yet."],
+            "fallback_if_unavailable": "Keep Pharos event-chain incidents and progress tracks as manual projection evidence without claiming backend readiness.",
+        },
+        {
             "primitive": "source_compiler_route_row_generation",
             "design_semantics": "Future source compiler should generate per-route state, selectors, and repeated UI rows from design_ir.",
             "required_game_interfaces": ["source compiler route-set expansion", "GUI row generation", "event/effect generation"],
-            "codebase_evidence": evidence,
+            "codebase_evidence": [
+                "scripts/wonder_unique_rituals/pharos.py provides existing manual generation patterns for route rows, selectors, triggers, and effects",
+                "data/unique_wonder_ritual_codegen_templates.yaml has no source-writing route-row expansion template; all v1 templates are intermediate-only",
+                "data/unique_wonder_ritual_capabilities.yaml:route_gate documents route semantics but may_write_src is false",
+            ],
             "verification_status": "needs_codebase_search",
             "search_questions": [
                 "Which existing generator owns repeated Engineering Department ritual UI row expansion?",
@@ -1627,7 +1699,54 @@ def _validate_design_ir(entry: dict[str, Any], *, required: bool) -> list[str]:
     return errors
 
 
-def _validate_compiler_gap_ledger(entry: dict[str, Any], *, required: bool) -> list[str]:
+def _ledger_evidence_strings(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    if isinstance(value, dict):
+        return [f"{key}:{child}".strip() for key, child in value.items() if str(child).strip()]
+    text = str(value).strip()
+    return [text] if text else []
+
+
+def _is_meaningful_search_questions(value: Any) -> bool:
+    questions = _string_refs(value)
+    if not questions:
+        return False
+    empty_markers = {"none", "n/a", "na", "no", "not applicable", "already verified"}
+    return any(question.strip().lower().rstrip(".") not in empty_markers for question in questions)
+
+
+def _valid_backend_ready_evidence_tokens(
+    row: dict[str, Any],
+    *,
+    template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
+) -> list[str]:
+    templates = supported_codegen_template_keys(template_registry)
+    capabilities = supported_capability_keys(capability_registry)
+    valid: list[str] = []
+    for evidence in _ledger_evidence_strings(row.get("codebase_evidence")):
+        prefix, sep, key = evidence.partition(":")
+        if not sep:
+            continue
+        prefix = prefix.strip().lower()
+        key = key.strip()
+        if prefix == "template" and key in templates:
+            valid.append(evidence)
+        elif prefix == "capability" and key in capabilities:
+            valid.append(evidence)
+    return valid
+
+
+def _validate_compiler_gap_ledger(
+    entry: dict[str, Any],
+    *,
+    required: bool,
+    template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
+) -> list[str]:
     errors: list[str] = []
     ledger = entry.get("compiler_gap_ledger")
     if ledger is None:
@@ -1650,12 +1769,28 @@ def _validate_compiler_gap_ledger(entry: dict[str, Any], *, required: bool) -> l
             if primitive in seen:
                 errors.append(_issue(entry, f"compiler_gap_ledger duplicate primitive {primitive}"))
             seen.add(primitive)
-        for field in sorted(COMPILER_GAP_REQUIRED_FIELDS - {"blocked_by"}):
+        for field in sorted(COMPILER_GAP_REQUIRED_FIELDS - {"blocked_by", "codebase_evidence"}):
             if field in row and not _has_content(row.get(field)):
                 errors.append(_issue(entry, f"compiler_gap_ledger {primitive}.{field} must not be empty"))
         status = row.get("verification_status")
         if status not in COMPILER_GAP_VERIFICATION_STATUSES:
             errors.append(_issue(entry, f"compiler_gap_ledger {primitive} has invalid verification_status {status!r}"))
+            continue
+        if status == "needs_codebase_search" and not _is_meaningful_search_questions(row.get("search_questions")):
+            errors.append(_issue(entry, f"compiler_gap_ledger {primitive} needs_codebase_search requires meaningful search_questions"))
+        if status == "verified_existing" and not _has_content(row.get("codebase_evidence")):
+            errors.append(_issue(entry, f"compiler_gap_ledger {primitive} verified_existing requires codebase_evidence"))
+        if status == "backend_ready" and not _valid_backend_ready_evidence_tokens(
+            row,
+            template_registry=template_registry,
+            capability_registry=capability_registry,
+        ):
+            errors.append(
+                _issue(
+                    entry,
+                    f"compiler_gap_ledger {primitive} backend_ready requires valid capability:<key> or template:<key> codebase_evidence",
+                )
+            )
     return errors
 
 
@@ -2565,6 +2700,28 @@ def codegen_support_errors(
             f"{key}: source-codegen-ready status has unresolved compiler gap(s): "
             + ", ".join(str(row.get("primitive", "<unknown>")) for row in unresolved_gaps)
         )
+    ledger = entry.get("compiler_gap_ledger", [])
+    non_backend_ready = [
+        row
+        for row in ledger
+        if isinstance(row, dict) and row.get("verification_status") != "backend_ready"
+    ]
+    if non_backend_ready:
+        errors.append(
+            f"{key}: source-codegen-ready status has compiler gap row(s) not backend_ready: "
+            + ", ".join(str(row.get("primitive", "<unknown>")) for row in non_backend_ready)
+        )
+    for row in ledger if isinstance(ledger, list) else []:
+        if not isinstance(row, dict) or row.get("verification_status") != "backend_ready":
+            continue
+        if not _valid_backend_ready_evidence_tokens(
+            row,
+            template_registry=template_registry,
+            capability_registry=capability_registry,
+        ):
+            errors.append(
+                f"{key}: compiler gap {row.get('primitive', '<unknown>')} backend_ready requires valid capability:<key> or template:<key> codebase_evidence"
+            )
     verified = set(str(template) for template in generation.get("verified_templates", []) or [])
     blocked = set(str(template) for template in generation.get("blocked_templates", []) or [])
     used = templates_used_by_entry(entry)
@@ -2835,6 +2992,77 @@ def _design_ir_projection_notes(entry: dict[str, Any]) -> str:
     return _lower_text(design_ir.get("projection_notes"))
 
 
+PROJECTION_STRATEGY_TOKENS = {
+    "compress",
+    "compression",
+    "flatten",
+    "preserve",
+    "projection",
+    "replace",
+    "retain",
+    "summarize",
+}
+
+
+def _projection_strategy_text(entry: dict[str, Any]) -> str:
+    node_graph = entry.get("node_graph") if isinstance(entry.get("node_graph"), dict) else {}
+    return _lower_text(
+        [
+            _design_ir_projection_notes(entry),
+            node_graph.get("projection_notes"),
+            node_graph.get("summary"),
+            node_graph.get("graph_shape"),
+            node_graph.get("mechanic_signature"),
+        ]
+    )
+
+
+def _has_projection_strategy(value: str) -> bool:
+    return any(token in value for token in PROJECTION_STRATEGY_TOKENS)
+
+
+def _tracked_named_entity_count(design_ir: dict[str, Any]) -> int:
+    count = 0
+    for tracked in design_ir.get("tracked_entity_sets", []) or []:
+        if not isinstance(tracked, dict):
+            continue
+        entities = tracked.get("entities")
+        if not isinstance(entities, list):
+            continue
+        for entity in entities:
+            if isinstance(entity, dict) and any(entity.get(field) for field in ("key", "display_name", "name")):
+                count += 1
+            elif isinstance(entity, str) and entity.strip():
+                count += 1
+    return count
+
+
+def _has_nested_key(value: Any, keys: set[str]) -> bool:
+    if isinstance(value, dict):
+        return any(str(key) in keys or _has_nested_key(child, keys) for key, child in value.items())
+    if isinstance(value, list):
+        return any(_has_nested_key(child, keys) for child in value)
+    return False
+
+
+def _ui_model_declares_repeated_or_per_entity_status(ui_model: Any) -> bool:
+    if _has_nested_key(ui_model, {"repeated_rows", "per_entity_status"}):
+        return True
+    text = _lower_text(ui_model)
+    if "repeated" in text and "rows" in text:
+        return True
+    return any(
+        token in text
+        for token in (
+            "repeated row",
+            "repeated rows",
+            "per-entity status",
+            "per entity status",
+            "one row per",
+        )
+    )
+
+
 def _matrix_entry_expects_named_routes(matrix_entry: dict[str, Any]) -> bool:
     ui_values = set(_string_refs(matrix_entry.get("expected_ui_model")))
     text = _lower_text(
@@ -2894,6 +3122,17 @@ def anti_flattening_warnings_for_payload(
                 warnings.append(
                     f"{key}: uniqueness_notes mention {', '.join(missing_specific)}, but design_ir does not preserve that interface"
                 )
+            named_entity_count = _tracked_named_entity_count(design_ir)
+            if named_entity_count > 5 and not _has_projection_strategy(_projection_strategy_text(entry)):
+                warnings.append(
+                    f"{key}: design_ir.tracked_entity_sets declares {named_entity_count} named entities, but projection_notes/node_graph do not explain projection strategy"
+                )
+            if _ui_model_declares_repeated_or_per_entity_status(design_ir.get("ui_feedback_model")):
+                projection_notes = _design_ir_projection_notes(entry)
+                if not any(token in projection_notes for token in ("row", "rows", "status", "projection", "compress", "compression")):
+                    warnings.append(
+                        f"{key}: design_ir.ui_feedback_model declares repeated rows or per-entity status, but projection_notes do not explain row/status projection"
+                    )
         implementation_notes = entry.get("implementation_notes") or {}
         has_manual_evidence = str(implementation_notes.get("implementation_source", "")).strip() not in {"", "none"}
         node_graph = entry.get("node_graph") or {}
@@ -2979,11 +3218,28 @@ def validate_spec_payload(
 
         requires_design_ir = _is_status_requiring_design_ir(status)
         errors.extend(_validate_design_ir(entry, required=requires_design_ir))
-        errors.extend(_validate_compiler_gap_ledger(entry, required=requires_design_ir))
+        errors.extend(
+            _validate_compiler_gap_ledger(
+                entry,
+                required=requires_design_ir,
+                template_registry=template_registry,
+                capability_registry=capability_registry,
+            )
+        )
         unresolved_gaps = unresolved_compiler_gap_rows(entry)
         if status in CODEGEN_ELIGIBLE_STATUSES and unresolved_gaps:
             primitives = ", ".join(str(row.get("primitive", "<unknown>")) for row in unresolved_gaps)
             errors.append(_issue(entry, f"source-codegen-ready status has unresolved compiler gap(s): {primitives}"))
+        if status in CODEGEN_ELIGIBLE_STATUSES:
+            ledger = entry.get("compiler_gap_ledger", [])
+            non_backend_ready = [
+                row
+                for row in ledger
+                if isinstance(row, dict) and row.get("verification_status") != "backend_ready"
+            ]
+            if non_backend_ready:
+                primitives = ", ".join(str(row.get("primitive", "<unknown>")) for row in non_backend_ready)
+                errors.append(_issue(entry, f"source-codegen-ready status has compiler gap row(s) not backend_ready: {primitives}"))
 
         entry_event_ids = event_ids_in_entry(entry)
         for event_id in entry_event_ids:

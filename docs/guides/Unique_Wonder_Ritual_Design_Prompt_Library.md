@@ -42,7 +42,13 @@ hook, or crisis resolution - not from a default monthly progress bar.
    existing supported listeners only.
 6. Put unsupported or unverified primitives in `compiler_gap_ledger`; do not remove them
    from the design.
-7. Keep every EU5 interface conservative: event IDs below 10000, variables with
+7. After `design_complete`, run evidence mapping from `compiler_gap_ledger.search_questions`.
+   `verified_existing` means manual/codebase evidence exists; it is not generator support.
+   Use `backend_ready` only when current Harness capability/template evidence exists.
+8. If the current `node_graph` projection compresses named entity sets, repeated rows,
+   per-entity status, selectors, or multi-axis UI feedback, explain the loss and reason in
+   `design_ir.projection_notes`.
+9. Keep every EU5 interface conservative: event IDs below 10000, variables with
    the ritual prefix, declared readers/writers, resolved localization refs,
    tooltip/pre-evaluation safety, valid `listener_contract`, verified templates,
    and no unsupported capability or node-kind invention.
@@ -846,6 +852,11 @@ Hard requirements:
   localization refs, tooltip/pre-evaluation safety, listener_contract, hidden
   executor, capability, node-kind, template, or verified-interface checks.
 - Do not copy vanilla script. Use vanilla mechanisms only as design inspiration.
+- Treat evidence mapping as a separate pass after `design_complete` and before source
+  compiler readiness.
+- `verified_existing` is codebase evidence, not generator readiness; only `backend_ready`
+  can satisfy source-codegen gap closure.
+- Lossy `design_ir` to `node_graph` projections must leave auditable `projection_notes`.
 
 Required output fields:
 
