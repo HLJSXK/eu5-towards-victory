@@ -1065,8 +1065,12 @@ unique_wonders:
     - per-entity incident_log rows
     - country or location variables keyed by access group
     - selectable compact branch state
-    codebase_evidence: []
-    verification_status: needs_codebase_search
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py:append_pharos_set_route_projection_lines writes tv_wonder_pharos_route_<route>_location/status/owner variables for each PHAROS_ROUTE_KEYS entry.
+    - scripts/wonder_unique_rituals/pharos.py:pharos_route_row renders a GUI row per route, and pharos_stage_2_card loops PHAROS_ROUTE_KEYS into repeated visible rows.
+    - Verified existing bespoke row pattern only; no current Harness backend expands design_ir tracked_entity_sets into source incident_log rows.
+    verification_status: verified_existing
+    harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which Engineering Department GUI pattern should own repeated incident rows keyed by designed entity sets?
     - Can current variable maps safely key sanctuary participant status without introducing hot-path rebuilds?
@@ -1079,8 +1083,12 @@ unique_wonders:
     - event-scoped opposition actor or country variable
     - retry branch state
     - clergy or local-notable pressure checks
-    codebase_evidence: []
-    verification_status: semantic_only
+    codebase_evidence:
+    - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt uses holy-site selectors with looking_for_a = holy_site, none_available_msg_key, is_location_holy_site_for, and is_location_holy_site_type.
+    - reference_game_files/game/in_game/events/DHE/flavor_SCO.txt and flavor_TUR.txt show clergy/religion pressure via dominant_religion, religion.group, estate_type:clergy_estate, and add_estate_satisfaction.
+    - src/in_game/common/static_modifiers/tv_engineering_department_wonder_mechanics_modifiers.txt contains clergy_estate_target_satisfaction ceremony modifiers, proving the project already uses clergy pressure outputs.
+    verification_status: interface_candidate
+    harness_backlog_cluster: bounded_opposition_religious_community_pressure
     search_questions:
     - Which existing event or disaster patterns represent bounded opposition without spawning a full rebel system?
     - Can a ritual-local opposition variable preserve tooltip safety during event option preview?
@@ -1096,7 +1104,12 @@ unique_wonders:
     codebase_evidence:
     - capability:event_chain can document visible branch semantics but cannot generate this source behavior.
     - capability:retry_branch can document retry semantics but cannot generate access-group consequences.
+    - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_complete_step_6_effect branches on tv_wonder_hagia_step_6_cost and applies different gold/prestige/estate consequences.
+    - reference_game_files/game/in_game/events/DHE/flavor_TUR.txt contains religion.group and clergy estate satisfaction branches that can inform later witness/community pressure mapping.
     verification_status: interface_candidate
+    harness_backlog_cluster:
+    - branch_specific_reward_scaling
+    - bounded_opposition_religious_community_pressure
     search_questions:
     - Which existing event option patterns safely branch reward previews from saved community or religion scopes?
     - Are there verified local unrest, clergy, or tolerance triggers suitable for guard-overreach checks?
@@ -1109,8 +1122,12 @@ unique_wonders:
     - fixed-site location scope display
     - incident_log row projection
     - checklist row projection
-    codebase_evidence: []
-    verification_status: needs_codebase_search
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py:pharos_route_row demonstrates generated GUI rows bound to per-entity status variables.
+    - scripts/wonder_unique_rituals/pharos.py:append_pharos_select_route_lines stores active route, route id, event route location, and event route owner variables before rendering route evidence.
+    - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt provides holy-site selector/interface evidence for sacred location discovery, but not a Jerusalem-specific Harness backend.
+    verification_status: verified_existing
+    harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which Pharos or Hagia GUI rows can be generalized for fixed-site evidence and per-duty status?
     - Can the Harness express incident_log plus checklist row projection without a source GUI generator?
@@ -1463,7 +1480,12 @@ unique_wonders:
     - war outcome or peace settlement state
     codebase_evidence:
     - Harness supports listener names pre_winning_war and ending_war semantically, but source mapping for this ritual is not verified.
-    verification_status: needs_codebase_search
+    - reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_pre_winning_war/on_winning_war scopes as root country plus scope:winner, scope:loser, and scope:war.
+    - reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_ending_war as root country after winning/losing for both sides plus scope:winner, scope:loser, and scope:war.
+    - src/in_game/common/on_action/tv_engineering_department_on_action.txt bridges on_pre_winning_war to tv_engineering_department_ritual_on_pre_winning_war and on_ending_war to tv_engineering_department_ritual_on_ending_war.
+    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_selected_ritual_pre_winning_war_listener_trigger and tv_wonder_selected_ritual_ending_war_listener_trigger.
+    verification_status: verified_existing
+    harness_backlog_cluster: war_listener_scope_contract
     search_questions:
     - Which on_action scopes are available to check the winner, war target, and Granada control during pre_winning_war and ending_war?
     - Can a design-only listener gate safely save Granada and war context before a visible treaty event?
@@ -1477,8 +1499,12 @@ unique_wonders:
     - local unrest or devastation checks
     - treaty state variables
     - palace risk rows
-    codebase_evidence: []
-    verification_status: semantic_only
+    codebase_evidence:
+    - reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt exposes owner/controller-style location contract patterns.
+    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt contains fixed unique-wonder host checks such as location:genoa has_owner/owner blocks and many tv_wonder_location_can_host_unique_* triggers.
+    - reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses Granada ownership checks, proving local Granada script evidence exists but not the full palace-risk model.
+    verification_status: interface_candidate
+    harness_backlog_cluster: war_listener_scope_contract
     search_questions:
     - Which existing location triggers distinguish owner, controller, occupation, siege, and local unrest for a fixed wonder site?
     - Are waterworks and protected-household states representable as variables or only as design-level rows?
@@ -1491,8 +1517,12 @@ unique_wonders:
     - repeated checklist rows
     - per-clause variables
     - localization labels for clause status
-    codebase_evidence: []
-    verification_status: needs_codebase_search
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py:pharos_route_row and pharos_stage_2_card generate repeated GUI rows from PHAROS_ROUTE_KEYS with per-route status variables.
+    - scripts/wonder_unique_rituals/pharos.py:append_pharos_selected_route_completion_lines writes per-route passed state and increments tv_wonder_pharos_route_progress.
+    - Verified existing repeated-row source pattern only; current Harness UI components remain semantic and do not write treaty-clause rows.
+    verification_status: verified_existing
+    harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which Engineering Department GUI generator pattern can render per-clause rows without manual source edits?
     - Should treaty clauses be stored as fixed variables or generated from design_ir entity sets?
@@ -1507,7 +1537,10 @@ unique_wonders:
     - tooltip-safe preview of reward differences
     codebase_evidence:
     - capability:final_reward_handoff documents final handoff semantics but cannot generate branch-specific source rewards.
+    - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_roll_step_6_cost_effect and tv_wonder_hagia_complete_step_6_effect show branch-variable reward/cost scaling.
+    - src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt:tv_wonder_execute_finalization_hidden_event_effect dispatches hidden finalization by var:tv_wonder_locked, including unique Dome and Alhambra branches.
     verification_status: interface_candidate
+    harness_backlog_cluster: branch_specific_reward_scaling
     search_questions:
     - Which existing finalization hidden executor patterns can carry branch variables without unsafe option-tooltip mutation?
     - Can reward previews show branch differences without claiming the source generator supports them?
@@ -1804,7 +1837,7 @@ unique_wonders:
     base_key: sky_dome_grand_temple
     location: rome
     runtime_prefix: tv_wonder_st_peters_basilica
-    status: design_complete
+    status: compiler_mapped
   event_ids:
   - id: 1008
     key: st_peters_opening
@@ -1815,9 +1848,22 @@ unique_wonders:
   - id: 1011
     key: st_peters_reward
   node_graph:
-    model: design_projection_only_v1
+    model: state_machine_dsl_v1
     historical_mechanic: Sacred official assignment for an apostolic threshold dedication over Peter's tomb.
     summary: The player proves that Saint Peter's can operate as a staffed apostolic institution by assigning a sacred official whose authority, competence, and factional baggage shape the dedication dispute.
+    graph_shape: actor_assignment_retry_handoff
+    archetypes:
+    - patronage_actor_assignment
+    completion_policy:
+      allow_terminal_outgoing: false
+    scope_contract:
+      root_scope: country
+      current_scope: country
+      target_scopes:
+      - character
+      - location
+      tooltip_safe: true
+      unsafe_pre_eval: false
     mechanic_signature:
       wonder_specific_hook: The basilica's authority depends on a named sacred official who can guard relics, regulate pilgrims, account for alms, discipline clergy, and make Rome's apostolic claim legible under the dome.
       core_interaction_loop: The player opens the threshold dedication, assigns a cardinal, bishop, relic custodian, alms officer, or similar official, resolves the first scandal created by that actor's strengths and weaknesses, and then seals the dedication.
@@ -1841,39 +1887,286 @@ unique_wonders:
     - tv_wonder_st_peters_basilica_assigned_official
     - tv_wonder_st_peters_basilica_official_quality
     - tv_wonder_st_peters_basilica_incident_status
+    - tv_wonder_st_peters_basilica_duty_status
+    - tv_wonder_st_peters_basilica_reward_branch
+    variables:
+    - name: tv_wonder_st_peters_basilica_stage
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - stage_state
+      writer_nodes:
+      - st_peters_opening
+      - st_peters_assignment
+      - st_peters_scandal
+      - st_peters_reward
+      reader_nodes:
+      - st_peters_assignment
+      - st_peters_scandal
+      - st_peters_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_st_peters_basilica_assigned_official
+      scope: country
+      type: character_reference
+      initial_value: none
+      roles:
+      - assigned_actor
+      writer_nodes:
+      - st_peters_assignment
+      reader_nodes:
+      - st_peters_scandal
+      - st_peters_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_st_peters_basilica_official_quality
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - actor_quality_state
+      writer_nodes:
+      - st_peters_assignment
+      reader_nodes:
+      - st_peters_scandal
+      - st_peters_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_st_peters_basilica_incident_status
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - incident_state
+      writer_nodes:
+      - st_peters_scandal
+      reader_nodes:
+      - st_peters_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_st_peters_basilica_duty_status
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - checklist_state
+      writer_nodes:
+      - st_peters_scandal
+      reader_nodes:
+      - st_peters_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_st_peters_basilica_reward_branch
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - reward_state
+      writer_nodes:
+      - st_peters_scandal
+      - st_peters_reward
+      reader_nodes:
+      - st_peters_reward
+      cleanup: final_reward_hidden_handoff
     nodes:
     - key: st_peters_opening
       kind: event
+      capabilities:
+      - event_chain
       event_id: 1008
       player_visible: true
+      enter_condition: Rome site and Saint Peter threshold preparation are visible to the sponsor.
+      completion_condition: Threshold inventory is opened and the assignment gate is prepared.
+      failure_or_retry: false
+      retry_target: null
       next_nodes:
       - st_peters_assignment
-      failure_or_retry: false
+      writes:
+      - tv_wonder_st_peters_basilica_stage
+      reads: []
+      ui_state:
+        component_key: apostolic_duties
+        variable_refs:
+        - tv_wonder_st_peters_basilica_stage
+      loc_refs:
+      - tv_engineering_department.1008.t
+      - tv_engineering_department.1008.d
+      - tv_engineering_department.1008.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: The basilica doors, high altar, relic inventories, pilgrim hostels, and alms ledgers are prepared for dedication.
     - key: st_peters_assignment
       kind: assignment_gate
+      capabilities:
+      - actor_assignment
       event_id: 1009
       player_visible: true
+      enter_condition: The threshold is prepared and a sacred official candidate can be assigned.
+      completion_condition: An official role and quality band are recorded for the dedication.
+      failure_or_retry: false
+      retry_target: null
       next_nodes:
       - st_peters_scandal
-      failure_or_retry: false
+      writes:
+      - tv_wonder_st_peters_basilica_stage
+      - tv_wonder_st_peters_basilica_assigned_official
+      - tv_wonder_st_peters_basilica_official_quality
+      reads:
+      - tv_wonder_st_peters_basilica_stage
+      ui_state:
+        component_key: sacred_official
+        variable_refs:
+        - tv_wonder_st_peters_basilica_assigned_official
+        - tv_wonder_st_peters_basilica_official_quality
+      loc_refs:
+      - tv_engineering_department.1009.t
+      - tv_engineering_department.1009.d
+      - tv_engineering_department.1009.a
+      - tv_engineering_department.1009.b
+      - tv_engineering_department.1009.c
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - character
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: The sponsor assigns the sacred official who will carry keys, guard relics, and organize clergy service.
     - key: st_peters_scandal
       kind: retry_event
+      capabilities:
+      - retry_branch
       event_id: 1010
       player_visible: true
-      next_nodes:
-      - st_peters_reward
+      enter_condition: The assigned official has exposed a relic, alms, pilgrim-access, choir, or patronage incident.
+      completion_condition: The scandal is corrected, accepted as a narrower dedication, or sent back to reassignment.
       failure_or_retry: true
       retry_target: st_peters_assignment
+      next_nodes:
+      - st_peters_assignment
+      - st_peters_reward
+      writes:
+      - tv_wonder_st_peters_basilica_stage
+      - tv_wonder_st_peters_basilica_incident_status
+      - tv_wonder_st_peters_basilica_duty_status
+      - tv_wonder_st_peters_basilica_reward_branch
+      reads:
+      - tv_wonder_st_peters_basilica_stage
+      - tv_wonder_st_peters_basilica_assigned_official
+      - tv_wonder_st_peters_basilica_official_quality
+      ui_state:
+        component_key: dedication_incidents
+        variable_refs:
+        - tv_wonder_st_peters_basilica_incident_status
+        - tv_wonder_st_peters_basilica_duty_status
+        - tv_wonder_st_peters_basilica_reward_branch
+      loc_refs:
+      - tv_engineering_department.1010.t
+      - tv_engineering_department.1010.d
+      - tv_engineering_department.1010.a
+      - tv_engineering_department.1010.b
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - character
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: The assigned official's weakness exposes a relic, alms, pilgrim-access, or clerical-obedience dispute.
     - key: st_peters_reward
       kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
       event_id: 1011
       player_visible: true
-      next_nodes: []
+      enter_condition: Assignment and first service scandal are resolved into a final dedication branch.
+      completion_condition: Permanent country, local building memory, and one-time reward semantics are handed to finalization.
       failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_st_peters_basilica_stage
+      - tv_wonder_st_peters_basilica_reward_branch
+      reads:
+      - tv_wonder_st_peters_basilica_stage
+      - tv_wonder_st_peters_basilica_assigned_official
+      - tv_wonder_st_peters_basilica_official_quality
+      - tv_wonder_st_peters_basilica_incident_status
+      - tv_wonder_st_peters_basilica_duty_status
+      - tv_wonder_st_peters_basilica_reward_branch
+      ui_state:
+        component_key: apostolic_duties
+        variable_refs:
+        - tv_wonder_st_peters_basilica_stage
+        - tv_wonder_st_peters_basilica_reward_branch
+      loc_refs:
+      - tv_engineering_department.1011.t
+      - tv_engineering_department.1011.d
+      - tv_engineering_department.1011.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: The threshold opens under recognized clergy obligations and the apostolic tomb becomes a disciplined service center.
+    edges:
+    - from: st_peters_opening
+      to: st_peters_assignment
+      condition: threshold inventory prepared
+      effect: set stage to assignment prepared
+      label_key: tv_engineering_department.1008.a
+    - from: st_peters_assignment
+      to: st_peters_scandal
+      condition: sacred official assigned
+      effect: save assigned official and quality state
+      label_key: tv_engineering_department.1009.a
+    - from: st_peters_scandal
+      to: st_peters_assignment
+      condition: reassignment chosen after scandal
+      effect: preserve incident evidence and reopen actor slot
+      label_key: tv_engineering_department.1010.a
+    - from: st_peters_scandal
+      to: st_peters_reward
+      condition: scandal corrected or narrower dedication accepted
+      effect: save duty status and reward branch
+      label_key: tv_engineering_department.1010.b
+    actions:
+    - key: start_threshold_dedication
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: assign_sacred_official_contract
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_assignment_scandal
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: branch_retry_event
+    - key: dispatch_apostolic_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: rome_threshold_ready
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ST_PETERS_OFFICIAL_STATUS
+      generator_template: semantic_contract_fragment
+    - key: official_assignment_ready
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ST_PETERS_OFFICIAL_STATUS
+      generator_template: semantic_contract_fragment
+    - key: service_incident_resolved
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ST_PETERS_INCIDENT_STATUS
+      generator_template: semantic_contract_fragment
   design_ir:
     compiler_primitives:
     - sacred_official_character_selector
@@ -1977,7 +2270,7 @@ unique_wonders:
     - Relics, alms, pilgrim thresholds, choir offices, and chapel patronage are required design surfaces.
     - Clergy satisfaction is earned through disciplined service, not a free estate privilege.
     projection_notes: >
-      Preserve sacred official candidates, actor quality, factional risk, and apostolic service duty rows in design_ir. Compress the current node_graph into assignment, scandal, and reward nodes for design_complete only. Replace detailed actor-slot rows and duty incident rows with summary variables. Drop no selector or per-duty UI requirement; all unresolved character, clergy, and row primitives remain in compiler_gap_ledger.
+      Preserve sacred official candidates, actor quality, factional risk, branch reward semantics, and apostolic service duty rows in design_ir. The compiler_mapped node_graph preserves the four decisive beats--threshold opening, sacred official assignment, scandal retry, and reward handoff--as a strong Harness state machine. It compresses candidate rows and per-duty incident rows into assigned_official, official_quality, incident_status, duty_status, and reward_branch summary variables only for the current Harness projection. Replace no selector, tracked set, per-duty UI requirement, or branch consequence; unresolved character, clergy, row, and actor-to-incident primitives remain in compiler_gap_ledger and block all source-codegen statuses.
   compiler_gap_ledger:
   - primitive: sacred_official_character_selector
     design_semantics: Let the player assign a cardinal, bishop, relic custodian, alms prefect, or artist-canon style sacred official with role and quality state.
@@ -1987,7 +2280,12 @@ unique_wonders:
     - role and quality UI
     codebase_evidence:
     - capability:actor_assignment documents assignment semantics but does not certify source selector generation.
-    verification_status: needs_codebase_search
+    - scripts/wonder_unique_rituals/hagia.py:append_hagia_assignment_effect stores tv_wonder_hagia_assignee_<step> with scope:target or the saved ruler scope.
+    - scripts/wonder_unique_rituals/hagia.py:hagia_step_portrait renders assigned characters with Player.MakeScope.GetVariable('tv_wonder_hagia_assignee_<step>').GetCharacter and action tv_wonder_hagia_assign_step_<step>.
+    - docs/technical/IO_Leader_System.md documents custom character references stored as country variables such as tv_arts_exhibition_leader_char and read through leader_country.var:*.
+    - Verified existing character storage/display pattern only; current Harness actor_assignment remains a semantic capability, not a source selector backend.
+    verification_status: verified_existing
+    harness_backlog_cluster: actor_assignment_character_selector_backend
     search_questions:
     - Which generic action or country interaction patterns can select or create a character for a wonder-specific sacred office?
     - How should tooltip pre-evaluation guard a freshly assigned character variable?
@@ -2000,8 +2298,12 @@ unique_wonders:
     - clergy estate or state-faith checks
     - Rome site control
     - hostile religion or religious-crisis branch checks
-    codebase_evidence: []
-    verification_status: semantic_only
+    codebase_evidence:
+    - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt uses holy-site and religion selectors through is_location_holy_site_for, is_holy_site_for, and is_location_holy_site_type.
+    - reference_game_files/game/in_game/events/DHE/flavor_TUR.txt shows religion.group checks and add_estate_satisfaction against estate_type:clergy_estate.
+    - src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt and tv_engineering_department_wonder_mechanics_modifiers.txt already use local_clergy_estate_power and clergy_estate_target_satisfaction for wonder/building rewards.
+    verification_status: interface_candidate
+    harness_backlog_cluster: bounded_opposition_religious_community_pressure
     search_questions:
     - Which existing triggers safely test clergy participation, state religion compatibility, and hostile religious authority?
     - Can non-Catholic sponsors translate the role into their own official clergy without special-case source code?
@@ -2016,7 +2318,11 @@ unique_wonders:
     - reward branch variable
     codebase_evidence:
     - capability:retry_branch can document reassignment/retry semantics but does not generate actor-quality incident routing.
+    - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_step_<step>_assigned_trigger gates stages on tv_wonder_hagia_assignee_<step> variables.
+    - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_roll_step_6_cost_effect and tv_wonder_hagia_complete_step_6_effect show saved branch variables driving different costs and rewards.
+    - src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt:tv_wonder_execute_finalization_hidden_event_effect centralizes final reward/cleanup dispatch behind hidden execution.
     verification_status: interface_candidate
+    harness_backlog_cluster: branch_specific_reward_scaling
     search_questions:
     - Which existing event patterns branch on character attributes, estate alignment, or role variables?
     - Can final reward handoff read a role-quality variable without exposing unsafe option mutations?
@@ -2029,8 +2335,12 @@ unique_wonders:
     - per-duty incident_log rows
     - service duty variables
     - panel status localization
-    codebase_evidence: []
-    verification_status: needs_codebase_search
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py:pharos_route_row renders repeated status rows, proving a generated source pattern for entity-row UI outside the Harness backend.
+    - scripts/wonder_unique_rituals/hagia.py:hagia_step_card and hagia_step_portrait show actor-related row/card status using assigned-character variables and action buttons.
+    - Current Harness supports semantic actor_slots/checklist/incident_log components, but no source backend expands apostolic_service_duties into repeated duty rows.
+    verification_status: verified_existing
+    harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which Engineering Department GUI row patterns can render actor-related duty incidents?
     - Should service duties be modeled as checklist rows, incident rows, or both?
@@ -2045,6 +2355,44 @@ unique_wonders:
     - type: incident_log
       key: dedication_incidents
       status_variable: tv_wonder_st_peters_basilica_incident_status
+    - type: checklist
+      key: apostolic_duties
+      status_variable: tv_wonder_st_peters_basilica_duty_status
+    bindings:
+    - key: sacred_official_binding
+      component_key: sacred_official
+      variable_refs:
+      - tv_wonder_st_peters_basilica_assigned_official
+      - tv_wonder_st_peters_basilica_official_quality
+      node_refs:
+      - st_peters_assignment
+      - st_peters_scandal
+      - st_peters_reward
+      loc_refs:
+      - TV_ENGINEERING_ST_PETERS_OFFICIAL_STATUS
+    - key: dedication_incident_binding
+      component_key: dedication_incidents
+      variable_refs:
+      - tv_wonder_st_peters_basilica_incident_status
+      - tv_wonder_st_peters_basilica_reward_branch
+      node_refs:
+      - st_peters_scandal
+      - st_peters_reward
+      loc_refs:
+      - TV_ENGINEERING_ST_PETERS_INCIDENT_STATUS
+    - key: apostolic_duties_binding
+      component_key: apostolic_duties
+      variable_refs:
+      - tv_wonder_st_peters_basilica_stage
+      - tv_wonder_st_peters_basilica_duty_status
+      - tv_wonder_st_peters_basilica_reward_branch
+      node_refs:
+      - st_peters_opening
+      - st_peters_scandal
+      - st_peters_reward
+      loc_refs:
+      - TV_ENGINEERING_ST_PETERS_OFFICIAL_STATUS
+      - TV_ENGINEERING_ST_PETERS_INCIDENT_STATUS
   rewards:
     permanent_country_modifier:
       status: designed
@@ -2095,8 +2443,13 @@ unique_wonders:
   implementation_notes:
     source_ritual_key: dedication
     implementation_source: design_only_high_fidelity_spec
-    verification_status: design_complete
-    verified_interfaces: []
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - Harness strong DSL semantic graph
+    - capability:event_chain semantic projection
+    - capability:actor_assignment semantic projection
+    - capability:retry_branch semantic projection
+    - capability:final_reward_handoff semantic projection
     needs_verification:
     - sacred_official_character_selector
     - clergy_state_faith_eligibility_checks
@@ -2683,8 +3036,13 @@ unique_wonders:
     - tax and customs income checks
     - minting or seigniorage values
     - treasury and solvency state
-    codebase_evidence: []
-    verification_status: needs_codebase_search
+    codebase_evidence:
+    - data/index/static_modifiers.txt lists finance-facing modifiers including minting_income_factor, tax_income_efficiency, trade_income, bank_interest, monthly_loan_capacity_investment, total_loan_capacity_modifier, and take_on_debt_cost_modifier.
+    - data/index/scripted_triggers.txt and reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt expose has_gold_org_country_trigger.
+    - reference_game_files/game/in_game/common/scripted_effects/country_gold_effects.txt defines change_gold_effect, pay_gold_org_country_effect, and transfer_gold_to_org_country_effect.
+    - reference_game_files/game/in_game/events/government/republics.txt and government/parliaments.txt include num_loans and monthly_income_trade_and_tax checks suitable for later finance interface mapping.
+    verification_status: interface_candidate
+    harness_backlog_cluster: finance_public_credit_interface
     search_questions:
     - Which EU5 country triggers/effects expose loans, interest, tax income, minting income, and trade income safely?
     - Are fiscal values readable in event tooltips without unsafe pre-evaluation?
@@ -2700,7 +3058,11 @@ unique_wonders:
     - cost and reward scaling
     codebase_evidence:
     - capability:final_reward_handoff documents final handoff semantics but does not generate branch-specific fiscal rewards.
+    - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_complete_step_6_effect proves branch variables can drive different reward/cost effects in bespoke ritual code.
+    - src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt:tv_wonder_execute_finalization_hidden_event_effect proves hidden finalization dispatch can consume saved wonder state after visible options.
+    - data/index/static_modifiers.txt provides fiscal modifier targets for later branch scaling, but not a Harness branch-reward backend.
     verification_status: interface_candidate
+    harness_backlog_cluster: branch_specific_reward_scaling
     search_questions:
     - Which existing finalization effects can read a branch variable and apply different country modifiers or one-time rewards?
     - Can branch preview text show different fiscal outcomes without invoking hidden mutation in option tooltips?
@@ -2713,8 +3075,12 @@ unique_wonders:
     - estate satisfaction or privilege checks
     - merchant/creditor pressure variables
     - incident branch state
-    codebase_evidence: []
-    verification_status: semantic_only
+    codebase_evidence:
+    - reference_game_files/game/in_game/events/government/republics.txt uses is_merchant_republic, any_market_with_merchants, random_market_with_merchants, estate_satisfaction:burghers_estate, and add_estate_satisfaction for merchant-republic pressure.
+    - reference_game_files/game/in_game/events/government/republic_factions.txt branches on estate_type:burghers_estate, estate_power, has_merchant_power, and add_merchant_power.
+    - data/index/scripted_effects.txt includes tv_wonder_accept_burghers_demand_effect, tv_wonder_bribe_burghers_demand_effect, tv_wonder_refute_burghers_demand_effect, and tv_wonder_roll_burghers_demand_effect as project-owned estate pressure interfaces.
+    verification_status: interface_candidate
+    harness_backlog_cluster: finance_public_credit_interface
     search_questions:
     - Which estate or privilege APIs can represent merchant-creditor overprivilege without inventing a new estate?
     - Can crown-heavy and creditor-heavy branches be represented as temporary burdens before final handoff?
@@ -2728,8 +3094,12 @@ unique_wonders:
     - per-pledge status variables
     - default-risk display
     - pledge selector
-    codebase_evidence: []
-    verification_status: needs_codebase_search
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py:append_pharos_set_route_projection_lines writes generated per-entity route status/location/owner variables.
+    - scripts/wonder_unique_rituals/pharos.py:pharos_route_row and pharos_stage_2_card render one repeated GUI row per entity key.
+    - Existing repeated-row evidence is bespoke route UI; no current Harness backend expands public_credit_pledges into pledge/default-risk incident rows.
+    verification_status: verified_existing
+    harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which repeated-row GUI pattern should render pledge status and default risk?
     - Should pledge rows be generated from design_ir tracked_entity_sets or stored as fixed variables?
