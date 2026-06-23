@@ -6,6 +6,7 @@ Pattern: 5 law categories × 4 policy levels each.
 - L2-L4 share identical boilerplate; only cohesion_cost, country_modifier, and policy IDs differ.
 - Policy changes are adjacent-only: no policy counts as level 0, so level N can
   be selected only from level N-1 or N+1.
+- Law changes require the Diplomatic Alliance's parliament law-vote path.
 - AI voting uses reform tier base bias, opinion toward the leader, and leader diplomatic reputation.
 """
 
@@ -33,6 +34,7 @@ FILE_HEADER = (
     "# ══════════════════════════════════════════════════════════════════════════════\n"
     "# TOWARDS VICTORY — DIPLOMATIC ALLIANCE LAWS\n"
     "# 5 law categories × 4 policy levels each\n"
+    "# Law changes require Alliance Assembly parliament voting\n"
     "# Cohesion thresholds: L1=0, L2=25, L3=50, L4=75\n"
     "# tv_alliance_tier is the sum of all current policy levels above 1\n"
     "# ══════════════════════════════════════════════════════════════════════════════\n"
@@ -219,7 +221,7 @@ def gen_law(law: dict) -> str:
     lines.append(T*2 + "international_organization_type = international_organization_type:tv_diplomatic_alliance")
     lines.append(T + "}")
     lines.append(T + "allow = {")
-    lines.append(T*2 + "always = yes")
+    lines.append(T*2 + "uses_parliament_for_law_votes_trigger = yes")
     lines.append(T + "}")
     lines.append(T + "locked = {")
     lines.append(T + "}")
