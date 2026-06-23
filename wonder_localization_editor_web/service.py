@@ -39,6 +39,7 @@ from scripts.wonder_mechanics.io import (
     load_unique_wonders_source_data,
     load_wonders_source_data,
     save_mechanics_source_data,
+    save_yaml_document,
 )
 from scripts.wonder_mechanics.modifiers import authored_final_building_local_modifiers
 from scripts.wonder_mechanics.naming import (
