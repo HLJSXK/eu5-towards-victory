@@ -203,6 +203,7 @@ The output kinds below are Markdown fragments, skeletons, stubs, summaries, or l
 
 ## Remaining Source Writer Blockers
 
+Source field: `implementation_notes.remaining_source_writer_blockers`.
 This fragment is not loadable EU5 source. It is an intermediate Harness artifact and does not write `src/` files.
 
 - Loadable generic_action/GUI writer for the sacred-official character selector is not implemented.

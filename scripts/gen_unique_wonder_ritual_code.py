@@ -571,6 +571,7 @@ def render_entry_fragment(
     lines.extend(["", "## Remaining Source Writer Blockers", ""])
     lines.extend(
         [
+            "Source field: `implementation_notes.remaining_source_writer_blockers`.",
             "This fragment is not loadable EU5 source. It is an intermediate Harness artifact and does not write `src/` files.",
             "",
         ]
