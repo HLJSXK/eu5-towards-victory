@@ -993,8 +993,8 @@ paths:
           en: "Playstyle: establish the alliance, raise alliance tier, and make other thrones depend on your guarantees, assemblies, and diplomatic timing."
           zh: "玩法风格：建立联盟、提升联盟等级，并让诸王座依赖你的保障、议会与外交时机。"
         formula:
-          en: "Progress formula: [tv_diplomatic_victory_points|e] starts at 1 when the [tv_diplomatic_alliance|e] is founded through the IO establishment flow. Each month after establishment, the alliance leader gains the full current [tv_alliance_tier|e], while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
-          zh: "进程公式：通过IO建立流程创立[tv_diplomatic_alliance|e]时，[tv_diplomatic_victory_points|e]起始为1。建立后每月联盟领袖获得完整当前[tv_alliance_tier|e]，非领袖成员获得一半；胜利进度按当前里程碑段线性折算，上限100%。"
+          en: "Progress formula: [tv_diplomatic_victory_points|e] comes from monthly [tv_alliance_tier|e] output after [tv_diplomatic_alliance|e] membership: the alliance leader gains the full current tier, while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
+          zh: "进程公式：[tv_diplomatic_victory_points|e]来自加入[tv_diplomatic_alliance|e]后每月的[tv_alliance_tier|e]产出：联盟领袖获得完整当前等级，非领袖成员获得一半；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
         en: "[tv_diplomatic_victory_points|e]: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
         zh: "[tv_diplomatic_victory_points|e]：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"

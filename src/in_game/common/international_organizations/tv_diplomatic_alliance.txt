@@ -24,6 +24,7 @@
 	has_parliament = yes
 	parliament_type = tv_alliance_assembly
 	resolution_widget = parliament
+	special_statuses_implemented = { tv_alliance_advocator tv_alliance_member_status }
 
 	variables = {
 		# Tier is first so DataModelFirst in the GUI decoration picks it up as the large piechart
@@ -70,6 +71,10 @@
 
 	can_initiate_policy_votes = {
 		is_leader_of_international_organization = scope:recipient
+	}
+
+	can_vote_in_parliament = {
+		"country_highest_rated_special_status_power(scope:recipient)" > 0
 	}
 
 	show_on_diplomatic_map = yes
@@ -124,6 +129,24 @@
 
 	on_joined = {
 		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
+		if = {
+			limit = {
+				custom_tooltip = {
+					text = TV_HAS_VARIABLE_NOT_SET_TT
+					NOT = { has_variable = tv_diplomatic_victory_points }
+				}
+			}
+			set_variable = { name = tv_diplomatic_victory_points value = 0 }
+		}
+		set_variable = { name = tv_diplomatic_victory_enabled value = 1 }
+		tv_update_all_progress_pct_effect = yes
+		if = {
+			limit = {
+				NOT = { has_variable = tv_diplomatic_alliance_self_establishing }
+				NOT = { is_leader_of_international_organization = prev }
+			}
+			tv_check_diplomatic_milestones_effect = yes
+		}
 	}
 
 	on_left = {

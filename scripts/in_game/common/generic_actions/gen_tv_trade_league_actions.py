@@ -104,6 +104,7 @@ tv_expel_trade_league_member = {
 
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
+TRADE_CHAIN_DISTANCE_SQ_THRESHOLD = 150000
 DISPLAY_ROW_COUNT = 10
 INTELLIGENCE_ROW_COUNT = 10
 INDENT_4 = "\t" * 4
@@ -760,6 +761,136 @@ def intelligence_cancel_action() -> str:
     return base_action("tv_trade_cancel_intelligence_network", body)
 
 
+def trade_chain_start_action() -> str:
+    body = f"""\tpotential = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+\t\t\thas_variable = tv_grand_merchant_char
+\t\t\tvar:tv_grand_merchant_char ?= {{ is_alive = yes }}
+\t\t}}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+\t\t\thas_variable = tv_grand_merchant_char
+\t\t\tvar:tv_grand_merchant_char ?= {{ is_alive = yes }}
+\t\t\tNOT = {{ has_variable = tv_trade_chain_active }}
+\t\t\ttv_grand_merchant_available_for_trade_chain_trigger = yes
+\t\t}}
+\t}}
+\tselect_trigger = {{
+\t\tlooking_for_a = market
+\t\ttarget_flag = target
+\t\tname = "tv_trade_select_chain_origin_market"
+\t\tnone_available_msg_key = "tv_trade_no_chain_origin_market_available"
+\t\tcolumn = {{ data = name }}
+\t\tvisible = {{ in_trade_range_of = scope:actor }}
+\t\tenabled = {{ in_trade_range_of = scope:actor }}
+\t\tshow_why_not_enabled = yes
+\t}}
+\tselect_trigger = {{
+\t\tlooking_for_a = market
+\t\ttarget_flag = target_1
+\t\tname = "tv_trade_select_chain_destination_market"
+\t\tnone_available_msg_key = "tv_trade_no_chain_destination_market_available"
+\t\tcolumn = {{ data = name }}
+\t\tvisible = {{
+\t\t\texists = scope:target
+\t\t\tin_trade_range_of = scope:actor
+\t\t\tlocation = {{
+\t\t\t\tdistance_to_squared = {{
+\t\t\t\t\tlocation = scope:target.location
+\t\t\t\t\tvalue >= {TRADE_CHAIN_DISTANCE_SQ_THRESHOLD}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t\tenabled = {{
+\t\t\texists = scope:target
+\t\t\tin_trade_range_of = scope:actor
+\t\t\tlocation = {{
+\t\t\t\tdistance_to_squared = {{
+\t\t\t\t\tlocation = scope:target.location
+\t\t\t\t\tvalue >= {TRADE_CHAIN_DISTANCE_SQ_THRESHOLD}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t\tshow_why_not_enabled = yes
+\t}}
+\teffect = {{
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\texists = scope:target
+\t\t\t\texists = scope:target_1
+\t\t\t}}
+\t\t\tscope:target = {{
+\t\t\t\tlocation = {{ save_scope_as = tv_trade_chain_origin_location_scope }}
+\t\t\t}}
+\t\t\tscope:target_1 = {{
+\t\t\t\tlocation = {{ save_scope_as = tv_trade_chain_destination_location_scope }}
+\t\t\t}}
+\t\t\tscope:actor = {{
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{
+{actor_leader_limit(indent=INDENT_6)}
+\t\t\t\t\t\thas_variable = tv_grand_merchant_char
+\t\t\t\t\t\tvar:tv_grand_merchant_char ?= {{ is_alive = yes }}
+\t\t\t\t\t\tNOT = {{ has_variable = tv_trade_chain_active }}
+\t\t\t\t\t\ttv_grand_merchant_available_for_trade_chain_trigger = yes
+\t\t\t\t\t\tscope:tv_trade_chain_origin_location_scope = {{
+\t\t\t\t\t\t\tdistance_to_squared = {{
+\t\t\t\t\t\t\t\tlocation = scope:tv_trade_chain_destination_location_scope
+\t\t\t\t\t\t\t\tvalue >= {TRADE_CHAIN_DISTANCE_SQ_THRESHOLD}
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+\t\t\t\t\tset_variable = {{ name = tv_trade_chain_active value = 1 }}
+\t\t\t\t\tset_variable = {{ name = tv_trade_chain_origin_location value = scope:tv_trade_chain_origin_location_scope }}
+\t\t\t\t\tset_variable = {{ name = tv_trade_chain_destination_location value = scope:tv_trade_chain_destination_location_scope }}
+\t\t\t\t\tset_variable = {{ name = tv_trade_chain_distance_sq value = {{ value = "scope:tv_trade_chain_origin_location_scope.distance_to_squared(scope:tv_trade_chain_destination_location_scope)" }} }}
+\t\t\t\t\tset_variable = {{ name = tv_trade_chain_valid value = 0 }}
+\t\t\t\t\tset_variable = {{ name = tv_trade_chain_status value = 1 }}
+\t\t\t\t\ttv_trade_league_refresh_trade_chain_effect = yes
+\t\t\t\t\ttv_trade_league_refresh_trade_chain_members_display_effect = yes
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t}}"""
+    return base_action("tv_trade_start_chain", body)
+
+
+def trade_chain_cancel_action() -> str:
+    body = f"""\tpotential = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+\t\t\thas_variable = tv_grand_merchant_char
+\t\t\tvar:tv_grand_merchant_char ?= {{ is_alive = yes }}
+\t\t\thas_variable = tv_trade_chain_active
+\t\t}}
+\t}}
+\tallow = {{
+\t\tscope:actor = {{
+{actor_leader_limit()}
+\t\t\thas_variable = tv_grand_merchant_char
+\t\t\tvar:tv_grand_merchant_char ?= {{ is_alive = yes }}
+\t\t\thas_variable = tv_trade_chain_active
+\t\t}}
+\t}}
+\teffect = {{
+\t\tscope:actor = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+{actor_leader_limit(indent=INDENT_5)}
+\t\t\t\t\thas_variable = tv_grand_merchant_char
+\t\t\t\t\tvar:tv_grand_merchant_char ?= {{ is_alive = yes }}
+\t\t\t\t\thas_variable = tv_trade_chain_active
+\t\t\t\t}}
+\t\t\t\ttv_trade_league_clear_trade_chain_effect = yes
+\t\t\t}}
+\t\t}}
+\t}}"""
+    return base_action("tv_trade_cancel_chain", body)
+
+
 def selected_monopoly_value_max(goods: list[str], indexes: dict[str, int], action: str) -> str:
     branches: list[str] = []
     for good in goods:
@@ -1119,6 +1250,8 @@ def fixed_selected_actions(goods: list[str], indexes: dict[str, int]) -> list[st
         *(intelligence_row_select_action(row) for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
         intelligence_start_action(),
         intelligence_cancel_action(),
+        trade_chain_start_action(),
+        trade_chain_cancel_action(),
         selected_market_value_action(goods, indexes, "virtual_demand", "tv_trade_select_virtual_demand_market"),
         selected_adjust_action(goods, indexes, "virtual_demand", "increase"),
         selected_adjust_action(goods, indexes, "virtual_demand", "decrease"),

@@ -200,6 +200,10 @@ tv_io_establishment_mark_basic_requirements_effect = {
 		if = {
 			limit = { tv_conquest_establishment_basic_requirement = yes }
 			set_variable = { name = tv_conquest_establishment_basic_done value = 1 }
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_io_establishment.101 days = 1 }
+			}
 		}
 	}
 	if = {
@@ -210,6 +214,10 @@ tv_io_establishment_mark_basic_requirements_effect = {
 		if = {
 			limit = { tv_prosperity_establishment_basic_requirement = yes }
 			set_variable = { name = tv_prosperity_establishment_basic_done value = 1 }
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_io_establishment.102 days = 1 }
+			}
 		}
 	}
 	if = {
@@ -220,6 +228,10 @@ tv_io_establishment_mark_basic_requirements_effect = {
 		if = {
 			limit = { tv_trade_establishment_basic_requirement = yes }
 			set_variable = { name = tv_trade_establishment_basic_done value = 1 }
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_io_establishment.103 days = 1 }
+			}
 		}
 	}
 	if = {
@@ -230,6 +242,10 @@ tv_io_establishment_mark_basic_requirements_effect = {
 		if = {
 			limit = { tv_diplomatic_establishment_basic_requirement = yes }
 			set_variable = { name = tv_diplomatic_establishment_basic_done value = 1 }
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_io_establishment.104 days = 1 }
+			}
 		}
 	}
 	if = {
@@ -240,6 +256,10 @@ tv_io_establishment_mark_basic_requirements_effect = {
 		if = {
 			limit = { tv_cultural_establishment_basic_requirement = yes }
 			set_variable = { name = tv_cultural_establishment_basic_done value = 1 }
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_io_establishment.105 days = 1 }
+			}
 		}
 	}
 	if = {
@@ -250,6 +270,10 @@ tv_io_establishment_mark_basic_requirements_effect = {
 		if = {
 			limit = { tv_science_establishment_basic_requirement = yes }
 			set_variable = { name = tv_science_establishment_basic_done value = 1 }
+			if = {
+				limit = { is_ai = no }
+				trigger_event_non_silently = { id = tv_io_establishment.106 days = 1 }
+			}
 		}
 	}
 }

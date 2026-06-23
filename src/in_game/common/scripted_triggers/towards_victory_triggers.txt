@@ -474,6 +474,23 @@ tv_conquest_headquarters_can_build_in_location = {
 	}
 }
 
+tv_conquest_headquarters_can_build_in_capital = {
+	custom_tooltip = {
+		text = TV_CONQUEST_ESTABLISHMENT_STEP2_REQUIREMENT
+		capital ?= {
+			is_capital = yes
+			location_and_owner_can_build = { building_type = tv_conquest_headquarters }
+			NOT = { has_building = building_type:tv_conquest_headquarters }
+			NOT = {
+				any_buildings_in_location = {
+					building_type = building_type:tv_conquest_headquarters
+					building_levels_under_construction >= 1
+				}
+			}
+		}
+	}
+}
+
 tv_conquest_establishment_basic_done = {
 	custom_tooltip = {
 		text = TV_CONQUEST_ESTABLISHMENT_STEP1_DONE_TT
@@ -512,6 +529,23 @@ tv_prosperity_headquarters_can_build_in_location = {
 			any_buildings_in_location = {
 				building_type = building_type:tv_prosperity_headquarters
 				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_prosperity_headquarters_can_build_in_capital = {
+	custom_tooltip = {
+		text = TV_PROSPERITY_ESTABLISHMENT_STEP2_REQUIREMENT
+		capital ?= {
+			is_capital = yes
+			location_and_owner_can_build = { building_type = tv_prosperity_headquarters }
+			NOT = { has_building = building_type:tv_prosperity_headquarters }
+			NOT = {
+				any_buildings_in_location = {
+					building_type = building_type:tv_prosperity_headquarters
+					building_levels_under_construction >= 1
+				}
 			}
 		}
 	}
@@ -560,6 +594,23 @@ tv_trade_headquarters_can_build_in_location = {
 	}
 }
 
+tv_trade_headquarters_can_build_in_capital = {
+	custom_tooltip = {
+		text = TV_TRADE_ESTABLISHMENT_STEP2_REQUIREMENT
+		capital ?= {
+			is_capital = yes
+			location_and_owner_can_build = { building_type = tv_trade_headquarters }
+			NOT = { has_building = building_type:tv_trade_headquarters }
+			NOT = {
+				any_buildings_in_location = {
+					building_type = building_type:tv_trade_headquarters
+					building_levels_under_construction >= 1
+				}
+			}
+		}
+	}
+}
+
 tv_trade_establishment_basic_done = {
 	custom_tooltip = {
 		text = TV_TRADE_ESTABLISHMENT_STEP1_DONE_TT
@@ -598,6 +649,23 @@ tv_diplomatic_headquarters_can_build_in_location = {
 			any_buildings_in_location = {
 				building_type = building_type:tv_diplomatic_headquarters
 				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_diplomatic_headquarters_can_build_in_capital = {
+	custom_tooltip = {
+		text = TV_DIPLOMATIC_ESTABLISHMENT_STEP2_REQUIREMENT
+		capital ?= {
+			is_capital = yes
+			location_and_owner_can_build = { building_type = tv_diplomatic_headquarters }
+			NOT = { has_building = building_type:tv_diplomatic_headquarters }
+			NOT = {
+				any_buildings_in_location = {
+					building_type = building_type:tv_diplomatic_headquarters
+					building_levels_under_construction >= 1
+				}
 			}
 		}
 	}
@@ -646,6 +714,23 @@ tv_cultural_headquarters_can_build_in_location = {
 	}
 }
 
+tv_cultural_headquarters_can_build_in_capital = {
+	custom_tooltip = {
+		text = TV_CULTURAL_ESTABLISHMENT_STEP2_REQUIREMENT
+		capital ?= {
+			is_capital = yes
+			location_and_owner_can_build = { building_type = tv_cultural_headquarters }
+			NOT = { has_building = building_type:tv_cultural_headquarters }
+			NOT = {
+				any_buildings_in_location = {
+					building_type = building_type:tv_cultural_headquarters
+					building_levels_under_construction >= 1
+				}
+			}
+		}
+	}
+}
+
 tv_cultural_establishment_basic_done = {
 	custom_tooltip = {
 		text = TV_CULTURAL_ESTABLISHMENT_STEP1_DONE_TT
@@ -684,6 +769,23 @@ tv_science_headquarters_can_build_in_location = {
 			any_buildings_in_location = {
 				building_type = building_type:tv_science_headquarters
 				building_levels_under_construction >= 1
+			}
+		}
+	}
+}
+
+tv_science_headquarters_can_build_in_capital = {
+	custom_tooltip = {
+		text = TV_SCIENCE_ESTABLISHMENT_STEP2_REQUIREMENT
+		capital ?= {
+			is_capital = yes
+			location_and_owner_can_build = { building_type = tv_science_headquarters }
+			NOT = { has_building = building_type:tv_science_headquarters }
+			NOT = {
+				any_buildings_in_location = {
+					building_type = building_type:tv_science_headquarters
+					building_levels_under_construction >= 1
+				}
 			}
 		}
 	}

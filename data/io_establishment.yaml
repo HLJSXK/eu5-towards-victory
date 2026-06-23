@@ -119,6 +119,8 @@ paths:
       	text = TV_TRADE_ESTABLISHMENT_STEP1_REQUIREMENT
       	monthly_trade_income >= 50
       }
+    ai_headquarters_requirement_body: |
+      monthly_trade_income >= 100
     headquarters:
       building: tv_trade_headquarters
       name:
@@ -167,6 +169,8 @@ paths:
       	text = TV_DIPLOMATIC_ESTABLISHMENT_STEP1_REQUIREMENT
       	modifier:diplomatic_reputation >= 10
       }
+    ai_headquarters_requirement_body: |
+      modifier:diplomatic_reputation >= 15
     headquarters:
       building: tv_diplomatic_headquarters
       name:

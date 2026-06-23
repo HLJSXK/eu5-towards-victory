@@ -7,6 +7,44 @@
 
 namespace = tv_io_establishment
 
+tv_io_establishment.101 = {
+	type = country_event
+	title = tv_io_establishment.101.t
+	desc = tv_io_establishment.101.d
+	outcome = neutral
+	trigger = {
+		tv_conquest_establishment_basic_done = yes
+		NOT = { tv_conquest_establishment_headquarters_done = yes }
+		NOT = { has_variable = tv_conquest_victory_enabled }
+	}
+	option = {
+		name = tv_io_establishment.101.a
+	}
+	option = {
+		name = tv_io_establishment.101.b
+		trigger = { tv_conquest_headquarters_can_build_in_capital = yes }
+		if = {
+			limit = { tv_conquest_headquarters_can_build_in_capital = yes }
+			capital ?= {
+				construct_building = { building_type = building_type:tv_conquest_headquarters }
+			}
+		}
+	}
+}
+
+tv_io_establishment.201 = {
+	type = country_event
+	title = tv_io_establishment.201.t
+	desc = tv_io_establishment.201.d
+	outcome = neutral
+	trigger = {
+		tv_conquest_establishment_ready_to_appoint = yes
+	}
+	option = {
+		name = tv_io_establishment.201.a
+	}
+}
+
 tv_io_establishment.1 = {
 	type = country_event
 	title = tv_io_establishment.1.t
@@ -14,6 +52,44 @@ tv_io_establishment.1 = {
 	outcome = neutral
 	option = {
 		name = tv_io_establishment.1.a
+	}
+}
+
+tv_io_establishment.102 = {
+	type = country_event
+	title = tv_io_establishment.102.t
+	desc = tv_io_establishment.102.d
+	outcome = neutral
+	trigger = {
+		tv_prosperity_establishment_basic_done = yes
+		NOT = { tv_prosperity_establishment_headquarters_done = yes }
+		NOT = { has_variable = tv_prosperity_victory_enabled }
+	}
+	option = {
+		name = tv_io_establishment.102.a
+	}
+	option = {
+		name = tv_io_establishment.102.b
+		trigger = { tv_prosperity_headquarters_can_build_in_capital = yes }
+		if = {
+			limit = { tv_prosperity_headquarters_can_build_in_capital = yes }
+			capital ?= {
+				construct_building = { building_type = building_type:tv_prosperity_headquarters }
+			}
+		}
+	}
+}
+
+tv_io_establishment.202 = {
+	type = country_event
+	title = tv_io_establishment.202.t
+	desc = tv_io_establishment.202.d
+	outcome = neutral
+	trigger = {
+		tv_prosperity_establishment_ready_to_appoint = yes
+	}
+	option = {
+		name = tv_io_establishment.202.a
 	}
 }
 
@@ -27,6 +103,44 @@ tv_io_establishment.2 = {
 	}
 }
 
+tv_io_establishment.103 = {
+	type = country_event
+	title = tv_io_establishment.103.t
+	desc = tv_io_establishment.103.d
+	outcome = neutral
+	trigger = {
+		tv_trade_establishment_basic_done = yes
+		NOT = { tv_trade_establishment_headquarters_done = yes }
+		NOT = { has_variable = tv_trade_victory_enabled }
+	}
+	option = {
+		name = tv_io_establishment.103.a
+	}
+	option = {
+		name = tv_io_establishment.103.b
+		trigger = { tv_trade_headquarters_can_build_in_capital = yes }
+		if = {
+			limit = { tv_trade_headquarters_can_build_in_capital = yes }
+			capital ?= {
+				construct_building = { building_type = building_type:tv_trade_headquarters }
+			}
+		}
+	}
+}
+
+tv_io_establishment.203 = {
+	type = country_event
+	title = tv_io_establishment.203.t
+	desc = tv_io_establishment.203.d
+	outcome = neutral
+	trigger = {
+		tv_trade_establishment_ready_to_appoint = yes
+	}
+	option = {
+		name = tv_io_establishment.203.a
+	}
+}
+
 tv_io_establishment.3 = {
 	type = country_event
 	title = tv_io_establishment.3.t
@@ -34,6 +148,44 @@ tv_io_establishment.3 = {
 	outcome = neutral
 	option = {
 		name = tv_io_establishment.3.a
+	}
+}
+
+tv_io_establishment.104 = {
+	type = country_event
+	title = tv_io_establishment.104.t
+	desc = tv_io_establishment.104.d
+	outcome = neutral
+	trigger = {
+		tv_diplomatic_establishment_basic_done = yes
+		NOT = { tv_diplomatic_establishment_headquarters_done = yes }
+		NOT = { has_variable = tv_diplomatic_victory_enabled }
+	}
+	option = {
+		name = tv_io_establishment.104.a
+	}
+	option = {
+		name = tv_io_establishment.104.b
+		trigger = { tv_diplomatic_headquarters_can_build_in_capital = yes }
+		if = {
+			limit = { tv_diplomatic_headquarters_can_build_in_capital = yes }
+			capital ?= {
+				construct_building = { building_type = building_type:tv_diplomatic_headquarters }
+			}
+		}
+	}
+}
+
+tv_io_establishment.204 = {
+	type = country_event
+	title = tv_io_establishment.204.t
+	desc = tv_io_establishment.204.d
+	outcome = neutral
+	trigger = {
+		tv_diplomatic_establishment_ready_to_appoint = yes
+	}
+	option = {
+		name = tv_io_establishment.204.a
 	}
 }
 
@@ -47,6 +199,44 @@ tv_io_establishment.4 = {
 	}
 }
 
+tv_io_establishment.105 = {
+	type = country_event
+	title = tv_io_establishment.105.t
+	desc = tv_io_establishment.105.d
+	outcome = neutral
+	trigger = {
+		tv_cultural_establishment_basic_done = yes
+		NOT = { tv_cultural_establishment_headquarters_done = yes }
+		NOT = { has_variable = tv_cultural_victory_enabled }
+	}
+	option = {
+		name = tv_io_establishment.105.a
+	}
+	option = {
+		name = tv_io_establishment.105.b
+		trigger = { tv_cultural_headquarters_can_build_in_capital = yes }
+		if = {
+			limit = { tv_cultural_headquarters_can_build_in_capital = yes }
+			capital ?= {
+				construct_building = { building_type = building_type:tv_cultural_headquarters }
+			}
+		}
+	}
+}
+
+tv_io_establishment.205 = {
+	type = country_event
+	title = tv_io_establishment.205.t
+	desc = tv_io_establishment.205.d
+	outcome = neutral
+	trigger = {
+		tv_cultural_establishment_ready_to_appoint = yes
+	}
+	option = {
+		name = tv_io_establishment.205.a
+	}
+}
+
 tv_io_establishment.5 = {
 	type = country_event
 	title = tv_io_establishment.5.t
@@ -54,6 +244,44 @@ tv_io_establishment.5 = {
 	outcome = neutral
 	option = {
 		name = tv_io_establishment.5.a
+	}
+}
+
+tv_io_establishment.106 = {
+	type = country_event
+	title = tv_io_establishment.106.t
+	desc = tv_io_establishment.106.d
+	outcome = neutral
+	trigger = {
+		tv_science_establishment_basic_done = yes
+		NOT = { tv_science_establishment_headquarters_done = yes }
+		NOT = { has_variable = tv_science_victory_enabled }
+	}
+	option = {
+		name = tv_io_establishment.106.a
+	}
+	option = {
+		name = tv_io_establishment.106.b
+		trigger = { tv_science_headquarters_can_build_in_capital = yes }
+		if = {
+			limit = { tv_science_headquarters_can_build_in_capital = yes }
+			capital ?= {
+				construct_building = { building_type = building_type:tv_science_headquarters }
+			}
+		}
+	}
+}
+
+tv_io_establishment.206 = {
+	type = country_event
+	title = tv_io_establishment.206.t
+	desc = tv_io_establishment.206.d
+	outcome = neutral
+	trigger = {
+		tv_science_establishment_ready_to_appoint = yes
+	}
+	option = {
+		name = tv_io_establishment.206.a
 	}
 }
 

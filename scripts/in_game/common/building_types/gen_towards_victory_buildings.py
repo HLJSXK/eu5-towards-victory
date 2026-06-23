@@ -27,8 +27,9 @@ HEADER = (
     "# Verification — Step 3, Reference: capital_buildings.txt:17-56, Quote: \"location_potential = { is_capital = yes }\"\n"
     "# Verification — Step 3, Reference: capital_buildings.txt:15, Quote: \"build_time = large_capital_build_time\"\n"
     "# Verification — Step 3, Reference: culture_buildings.txt:1-48, Quote: \"category = cultural_category\"\n"
+    "# Verification — Step 3, Reference: trade_company_buildings.txt:75-79, Quote: \"on_construction_ended = { ... }\"\n"
     "# Verification — Step 3, Reference: unique_buildings.txt:516-524, Quote: \"location.owner = { ... }\" (on_built owner access)\n"
-    "# Verification — Step 3, Reference: estate_buildings.txt, Quote: \"scope:actor = { ... }\" in allow block\n"
+    "# Verification — Step 3, Reference: culture_buildings.txt:288-291, Quote: \"owner = { ... }\" in allow block\n"
 )
 
 T = "\t"  # single tab shorthand
@@ -140,7 +141,7 @@ def gen_headquarters_building(est: dict) -> str:
     lines.append(T + "}")
     lines.append("")
     lines.append(T + "allow = {")
-    lines.append(T*2 + "scope:actor = {")
+    lines.append(T*2 + "owner = {")
     lines.append(T*3 + "OR = {")
     lines.append(T*4 + f"has_variable = tv_{pid}_establishment_basic_done")
     lines.append(T*4 + f"has_variable = tv_{pid}_victory_enabled")
@@ -164,10 +165,14 @@ def gen_headquarters_building(est: dict) -> str:
     lines.append(T*2 + "is_no_longer_capital = yes")
     lines.append(T + "}")
     lines.append("")
-    lines.append(T + "on_built = {")
+    lines.append(T + "on_construction_ended = {")
     lines.append(T*2 + "hidden_effect = {")
-    lines.append(T*3 + "location.owner = {")
+    lines.append(T*3 + "owner = {")
     lines.append(T*4 + f"set_variable = {{ name = tv_{pid}_establishment_headquarters_done value = 1 }}")
+    lines.append(T*4 + "if = {")
+    lines.append(T*5 + f"limit = {{ is_ai = no  NOT = {{ has_variable = tv_{pid}_victory_enabled }} }}")
+    lines.append(T*5 + f"trigger_event_non_silently = {{ id = tv_io_establishment.{200 + int(est['event_id'])} days = 1 }}")
+    lines.append(T*4 + "}")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
     lines.append(T + "}")

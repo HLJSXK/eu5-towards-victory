@@ -11,4 +11,23 @@
 		NOT = { is_leader_of_international_organization = scope:recipient }
 	}
 	leader = yes
+	special_status_power = {
+		value = 10
+	}
+}
+
+tv_alliance_member_status = {
+	priority = 5
+	can_bestow_trigger = {
+		is_member_of_international_organization = scope:recipient
+	}
+	auto_bestowal_trigger = {
+		is_member_of_international_organization = scope:recipient
+	}
+	auto_rescind_trigger = {
+		NOT = { is_member_of_international_organization = scope:recipient }
+	}
+	special_status_power = {
+		value = 10
+	}
 }

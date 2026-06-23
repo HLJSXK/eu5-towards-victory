@@ -1614,244 +1614,353 @@ situation_panel = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
 					ignoreinvisible = yes
-					vbox = {
+					card_common = {
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = fixed
 						size = { -1 430 }
-						using = bg_paper_card_situations
-						spacing = 8
-						widget = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 45 }
+						blockoverride "card_bg" {
+							using = bg_paper_card_situations
+						}
+						blockoverride "header_decor_templates" {
 							using = bg_card_header_situation
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								margin = { 12 0 }
-								align = nobaseline|left
-								fontsize = 17
-								text = "TV_CONQUEST_ESTABLISHMENT_TITLE"
+							using = bg_cabinet_card_frame
+						}
+						blockoverride "header_size" { size = {-1 42} }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/military.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_CONQUEST_ESTABLISHMENT_TITLE"
+							fontsize = 17
+							default_format = "#yellow_titles"
+						}
+						blockoverride "common_header_extra_right" {
+							widget = {
+								size = { 88 24 }
+								using = bg_text_mask_container_dark_blue
+								text_single = {
+									size = { 100% 100% }
+									autoresize = no
+									align = center|nobaseline
+									fontsize = 12
+									default_format = "#subtle_name"
+									text = "TV_VICTORY_LOCKED_REWARD"
+								}
 							}
 						}
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 372 }
-							spacing = 8
-							margin = { 10 4 }
+						blockoverride "card_common_bottom_margin" {
+							margin = { 10 8 }
+						}
+						blockoverride "common_bottom_content" {
 							vbox = {
 								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = fixed
-								size = { -1 94 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
+								size = { 470 356 }
+								spacing = 8
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
-										fontsize = 14
-										align = nobaseline|left
+									size = { -1 94 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "1"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP1_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 56 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_conquest_establishment_basic_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_conquest_establishment_basic_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 48 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_CONQUEST_ESTABLISHMENT_STEP1_TEXT"
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 48 }
+											spacing = 10
+											widget = {
+												size = { 4 48 }
+												background = {
+													using = color_red_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_conquest_establishment_basic_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_conquest_establishment_basic_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 48 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_CONQUEST_ESTABLISHMENT_STEP1_TEXT"
+												}
+											}
+										}
+									}
+								}
+								card_common = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "2"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP2_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_conquest_establishment_headquarters_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_conquest_establishment_headquarters_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_CONQUEST_ESTABLISHMENT_STEP2_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_build_conquest_headquarters"
-											title = "tv_build_conquest_headquarters"
-											description = "tv_build_conquest_headquarters_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_build_conquest_headquarters" }
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
-										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_red_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_conquest_establishment_headquarters_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_conquest_establishment_headquarters_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_CONQUEST_ESTABLISHMENT_STEP2_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_build_conquest_headquarters"
+													title = "tv_build_conquest_headquarters"
+													description = "tv_build_conquest_headquarters_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_build_conquest_headquarters" }
+												}
+											}
+										}
 									}
 								}
-								hbox = {
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_conquest_victory_enabled').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_conquest_victory_enabled').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "3"
+											}
 										}
 									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_CONQUEST_ESTABLISHMENT_STEP3_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
+									blockoverride "common_header_text" {
+										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										fontsize = 14
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_establish_conquest_io"
-											title = "tv_establish_conquest_io"
-											description = "tv_establish_conquest_io_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_establish_conquest_io" }
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_red_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_conquest_victory_enabled').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_conquest_victory_enabled').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_CONQUEST_ESTABLISHMENT_STEP3_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_establish_conquest_io"
+													title = "tv_establish_conquest_io"
+													description = "tv_establish_conquest_io_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_establish_conquest_io" }
+												}
+											}
 										}
 									}
 								}
@@ -3517,244 +3626,353 @@ situation_panel = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
 					ignoreinvisible = yes
-					vbox = {
+					card_common = {
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = fixed
 						size = { -1 430 }
-						using = bg_paper_card_situations
-						spacing = 8
-						widget = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 45 }
+						blockoverride "card_bg" {
+							using = bg_paper_card_situations
+						}
+						blockoverride "header_decor_templates" {
 							using = bg_card_header_situation
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								margin = { 12 0 }
-								align = nobaseline|left
-								fontsize = 17
-								text = "TV_PROSPERITY_ESTABLISHMENT_TITLE"
+							using = bg_cabinet_card_frame
+						}
+						blockoverride "header_size" { size = {-1 42} }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_PROSPERITY_ESTABLISHMENT_TITLE"
+							fontsize = 17
+							default_format = "#yellow_titles"
+						}
+						blockoverride "common_header_extra_right" {
+							widget = {
+								size = { 88 24 }
+								using = bg_text_mask_container_dark_blue
+								text_single = {
+									size = { 100% 100% }
+									autoresize = no
+									align = center|nobaseline
+									fontsize = 12
+									default_format = "#subtle_name"
+									text = "TV_VICTORY_LOCKED_REWARD"
+								}
 							}
 						}
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 372 }
-							spacing = 8
-							margin = { 10 4 }
+						blockoverride "card_common_bottom_margin" {
+							margin = { 10 8 }
+						}
+						blockoverride "common_bottom_content" {
 							vbox = {
 								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = fixed
-								size = { -1 94 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
+								size = { 470 356 }
+								spacing = 8
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
-										fontsize = 14
-										align = nobaseline|left
+									size = { -1 94 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "1"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP1_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 56 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_prosperity_establishment_basic_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_prosperity_establishment_basic_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 48 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_PROSPERITY_ESTABLISHMENT_STEP1_TEXT"
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 48 }
+											spacing = 10
+											widget = {
+												size = { 4 48 }
+												background = {
+													using = color_light_green_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_prosperity_establishment_basic_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_prosperity_establishment_basic_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 48 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_PROSPERITY_ESTABLISHMENT_STEP1_TEXT"
+												}
+											}
+										}
+									}
+								}
+								card_common = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "2"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP2_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_prosperity_establishment_headquarters_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_prosperity_establishment_headquarters_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_PROSPERITY_ESTABLISHMENT_STEP2_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_build_prosperity_headquarters"
-											title = "tv_build_prosperity_headquarters"
-											description = "tv_build_prosperity_headquarters_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_build_prosperity_headquarters" }
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
-										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_light_green_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_prosperity_establishment_headquarters_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_prosperity_establishment_headquarters_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_PROSPERITY_ESTABLISHMENT_STEP2_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_build_prosperity_headquarters"
+													title = "tv_build_prosperity_headquarters"
+													description = "tv_build_prosperity_headquarters_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_build_prosperity_headquarters" }
+												}
+											}
+										}
 									}
 								}
-								hbox = {
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_prosperity_victory_enabled').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_prosperity_victory_enabled').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "3"
+											}
 										}
 									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_PROSPERITY_ESTABLISHMENT_STEP3_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
+									blockoverride "common_header_text" {
+										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										fontsize = 14
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_establish_prosperity_io"
-											title = "tv_establish_prosperity_io"
-											description = "tv_establish_prosperity_io_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_establish_prosperity_io" }
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_light_green_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_prosperity_victory_enabled').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_prosperity_victory_enabled').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_PROSPERITY_ESTABLISHMENT_STEP3_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_establish_prosperity_io"
+													title = "tv_establish_prosperity_io"
+													description = "tv_establish_prosperity_io_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_establish_prosperity_io" }
+												}
+											}
 										}
 									}
 								}
@@ -5420,244 +5638,353 @@ situation_panel = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
 					ignoreinvisible = yes
-					vbox = {
+					card_common = {
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = fixed
 						size = { -1 430 }
-						using = bg_paper_card_situations
-						spacing = 8
-						widget = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 45 }
+						blockoverride "card_bg" {
+							using = bg_paper_card_situations
+						}
+						blockoverride "header_decor_templates" {
 							using = bg_card_header_situation
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								margin = { 12 0 }
-								align = nobaseline|left
-								fontsize = 17
-								text = "TV_TRADE_ESTABLISHMENT_TITLE"
+							using = bg_cabinet_card_frame
+						}
+						blockoverride "header_size" { size = {-1 42} }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/trade.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_TRADE_ESTABLISHMENT_TITLE"
+							fontsize = 17
+							default_format = "#yellow_titles"
+						}
+						blockoverride "common_header_extra_right" {
+							widget = {
+								size = { 88 24 }
+								using = bg_text_mask_container_dark_blue
+								text_single = {
+									size = { 100% 100% }
+									autoresize = no
+									align = center|nobaseline
+									fontsize = 12
+									default_format = "#subtle_name"
+									text = "TV_VICTORY_LOCKED_REWARD"
+								}
 							}
 						}
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 372 }
-							spacing = 8
-							margin = { 10 4 }
+						blockoverride "card_common_bottom_margin" {
+							margin = { 10 8 }
+						}
+						blockoverride "common_bottom_content" {
 							vbox = {
 								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = fixed
-								size = { -1 94 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
+								size = { 470 356 }
+								spacing = 8
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
-										fontsize = 14
-										align = nobaseline|left
+									size = { -1 94 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "1"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP1_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 56 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_trade_establishment_basic_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_trade_establishment_basic_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 48 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_TRADE_ESTABLISHMENT_STEP1_TEXT"
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 48 }
+											spacing = 10
+											widget = {
+												size = { 4 48 }
+												background = {
+													using = color_yellow_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_trade_establishment_basic_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_trade_establishment_basic_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 48 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_TRADE_ESTABLISHMENT_STEP1_TEXT"
+												}
+											}
+										}
+									}
+								}
+								card_common = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "2"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP2_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_trade_establishment_headquarters_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_trade_establishment_headquarters_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_TRADE_ESTABLISHMENT_STEP2_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_build_trade_headquarters"
-											title = "tv_build_trade_headquarters"
-											description = "tv_build_trade_headquarters_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_build_trade_headquarters" }
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
-										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_yellow_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_trade_establishment_headquarters_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_trade_establishment_headquarters_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_TRADE_ESTABLISHMENT_STEP2_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_build_trade_headquarters"
+													title = "tv_build_trade_headquarters"
+													description = "tv_build_trade_headquarters_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_build_trade_headquarters" }
+												}
+											}
+										}
 									}
 								}
-								hbox = {
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_trade_victory_enabled').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_trade_victory_enabled').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "3"
+											}
 										}
 									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_TRADE_ESTABLISHMENT_STEP3_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
+									blockoverride "common_header_text" {
+										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										fontsize = 14
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_establish_trade_io"
-											title = "tv_establish_trade_io"
-											description = "tv_establish_trade_io_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_establish_trade_io" }
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_yellow_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_trade_victory_enabled').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_trade_victory_enabled').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_TRADE_ESTABLISHMENT_STEP3_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_establish_trade_io"
+													title = "tv_establish_trade_io"
+													description = "tv_establish_trade_io_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_establish_trade_io" }
+												}
+											}
 										}
 									}
 								}
@@ -7323,244 +7650,353 @@ situation_panel = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
 					ignoreinvisible = yes
-					vbox = {
+					card_common = {
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = fixed
 						size = { -1 430 }
-						using = bg_paper_card_situations
-						spacing = 8
-						widget = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 45 }
+						blockoverride "card_bg" {
+							using = bg_paper_card_situations
+						}
+						blockoverride "header_decor_templates" {
 							using = bg_card_header_situation
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								margin = { 12 0 }
-								align = nobaseline|left
-								fontsize = 17
-								text = "TV_DIPLOMATIC_ESTABLISHMENT_TITLE"
+							using = bg_cabinet_card_frame
+						}
+						blockoverride "header_size" { size = {-1 42} }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_DIPLOMATIC_ESTABLISHMENT_TITLE"
+							fontsize = 17
+							default_format = "#yellow_titles"
+						}
+						blockoverride "common_header_extra_right" {
+							widget = {
+								size = { 88 24 }
+								using = bg_text_mask_container_dark_blue
+								text_single = {
+									size = { 100% 100% }
+									autoresize = no
+									align = center|nobaseline
+									fontsize = 12
+									default_format = "#subtle_name"
+									text = "TV_VICTORY_LOCKED_REWARD"
+								}
 							}
 						}
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 372 }
-							spacing = 8
-							margin = { 10 4 }
+						blockoverride "card_common_bottom_margin" {
+							margin = { 10 8 }
+						}
+						blockoverride "common_bottom_content" {
 							vbox = {
 								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = fixed
-								size = { -1 94 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
+								size = { 470 356 }
+								spacing = 8
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
-										fontsize = 14
-										align = nobaseline|left
+									size = { -1 94 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "1"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP1_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 56 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_diplomatic_establishment_basic_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_diplomatic_establishment_basic_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 48 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_DIPLOMATIC_ESTABLISHMENT_STEP1_TEXT"
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 48 }
+											spacing = 10
+											widget = {
+												size = { 4 48 }
+												background = {
+													using = color_white_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_diplomatic_establishment_basic_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_diplomatic_establishment_basic_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 48 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_DIPLOMATIC_ESTABLISHMENT_STEP1_TEXT"
+												}
+											}
+										}
+									}
+								}
+								card_common = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "2"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP2_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_diplomatic_establishment_headquarters_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_diplomatic_establishment_headquarters_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_DIPLOMATIC_ESTABLISHMENT_STEP2_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_build_diplomatic_headquarters"
-											title = "tv_build_diplomatic_headquarters"
-											description = "tv_build_diplomatic_headquarters_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_build_diplomatic_headquarters" }
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
-										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_white_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_diplomatic_establishment_headquarters_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_diplomatic_establishment_headquarters_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_DIPLOMATIC_ESTABLISHMENT_STEP2_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_build_diplomatic_headquarters"
+													title = "tv_build_diplomatic_headquarters"
+													description = "tv_build_diplomatic_headquarters_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_build_diplomatic_headquarters" }
+												}
+											}
+										}
 									}
 								}
-								hbox = {
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_diplomatic_victory_enabled').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_diplomatic_victory_enabled').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "3"
+											}
 										}
 									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_DIPLOMATIC_ESTABLISHMENT_STEP3_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
+									blockoverride "common_header_text" {
+										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										fontsize = 14
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_establish_diplomatic_io"
-											title = "tv_establish_diplomatic_io"
-											description = "tv_establish_diplomatic_io_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_establish_diplomatic_io" }
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_white_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_diplomatic_victory_enabled').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_diplomatic_victory_enabled').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_DIPLOMATIC_ESTABLISHMENT_STEP3_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_establish_diplomatic_io"
+													title = "tv_establish_diplomatic_io"
+													description = "tv_establish_diplomatic_io_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_establish_diplomatic_io" }
+												}
+											}
 										}
 									}
 								}
@@ -9226,244 +9662,353 @@ situation_panel = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
 					ignoreinvisible = yes
-					vbox = {
+					card_common = {
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = fixed
 						size = { -1 430 }
-						using = bg_paper_card_situations
-						spacing = 8
-						widget = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 45 }
+						blockoverride "card_bg" {
+							using = bg_paper_card_situations
+						}
+						blockoverride "header_decor_templates" {
 							using = bg_card_header_situation
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								margin = { 12 0 }
-								align = nobaseline|left
-								fontsize = 17
-								text = "TV_CULTURAL_ESTABLISHMENT_TITLE"
+							using = bg_cabinet_card_frame
+						}
+						blockoverride "header_size" { size = {-1 42} }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_CULTURAL_ESTABLISHMENT_TITLE"
+							fontsize = 17
+							default_format = "#yellow_titles"
+						}
+						blockoverride "common_header_extra_right" {
+							widget = {
+								size = { 88 24 }
+								using = bg_text_mask_container_dark_blue
+								text_single = {
+									size = { 100% 100% }
+									autoresize = no
+									align = center|nobaseline
+									fontsize = 12
+									default_format = "#subtle_name"
+									text = "TV_VICTORY_LOCKED_REWARD"
+								}
 							}
 						}
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 372 }
-							spacing = 8
-							margin = { 10 4 }
+						blockoverride "card_common_bottom_margin" {
+							margin = { 10 8 }
+						}
+						blockoverride "common_bottom_content" {
 							vbox = {
 								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = fixed
-								size = { -1 94 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
+								size = { 470 356 }
+								spacing = 8
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
-										fontsize = 14
-										align = nobaseline|left
+									size = { -1 94 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "1"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP1_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 56 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_cultural_establishment_basic_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_cultural_establishment_basic_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 48 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_CULTURAL_ESTABLISHMENT_STEP1_TEXT"
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 48 }
+											spacing = 10
+											widget = {
+												size = { 4 48 }
+												background = {
+													using = color_purple_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_cultural_establishment_basic_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_cultural_establishment_basic_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 48 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_CULTURAL_ESTABLISHMENT_STEP1_TEXT"
+												}
+											}
+										}
+									}
+								}
+								card_common = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "2"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP2_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_cultural_establishment_headquarters_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_cultural_establishment_headquarters_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_CULTURAL_ESTABLISHMENT_STEP2_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_build_cultural_headquarters"
-											title = "tv_build_cultural_headquarters"
-											description = "tv_build_cultural_headquarters_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_build_cultural_headquarters" }
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
-										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_purple_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_cultural_establishment_headquarters_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_cultural_establishment_headquarters_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_CULTURAL_ESTABLISHMENT_STEP2_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_build_cultural_headquarters"
+													title = "tv_build_cultural_headquarters"
+													description = "tv_build_cultural_headquarters_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_build_cultural_headquarters" }
+												}
+											}
+										}
 									}
 								}
-								hbox = {
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_cultural_victory_enabled').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_cultural_victory_enabled').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "3"
+											}
 										}
 									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_CULTURAL_ESTABLISHMENT_STEP3_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
+									blockoverride "common_header_text" {
+										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										fontsize = 14
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_establish_cultural_io"
-											title = "tv_establish_cultural_io"
-											description = "tv_establish_cultural_io_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_establish_cultural_io" }
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_purple_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_cultural_victory_enabled').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_cultural_victory_enabled').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_CULTURAL_ESTABLISHMENT_STEP3_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_establish_cultural_io"
+													title = "tv_establish_cultural_io"
+													description = "tv_establish_cultural_io_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_establish_cultural_io" }
+												}
+											}
 										}
 									}
 								}
@@ -11129,244 +11674,353 @@ situation_panel = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
 					ignoreinvisible = yes
-					vbox = {
+					card_common = {
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = fixed
 						size = { -1 430 }
-						using = bg_paper_card_situations
-						spacing = 8
-						widget = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 45 }
+						blockoverride "card_bg" {
+							using = bg_paper_card_situations
+						}
+						blockoverride "header_decor_templates" {
 							using = bg_card_header_situation
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								margin = { 12 0 }
-								align = nobaseline|left
-								fontsize = 17
-								text = "TV_SCIENCE_ESTABLISHMENT_TITLE"
+							using = bg_cabinet_card_frame
+						}
+						blockoverride "header_size" { size = {-1 42} }
+						blockoverride "common_header_icon_texture" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+						}
+						blockoverride "common_header_text" {
+							text = "TV_SCIENCE_ESTABLISHMENT_TITLE"
+							fontsize = 17
+							default_format = "#yellow_titles"
+						}
+						blockoverride "common_header_extra_right" {
+							widget = {
+								size = { 88 24 }
+								using = bg_text_mask_container_dark_blue
+								text_single = {
+									size = { 100% 100% }
+									autoresize = no
+									align = center|nobaseline
+									fontsize = 12
+									default_format = "#subtle_name"
+									text = "TV_VICTORY_LOCKED_REWARD"
+								}
 							}
 						}
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = fixed
-							size = { -1 372 }
-							spacing = 8
-							margin = { 10 4 }
+						blockoverride "card_common_bottom_margin" {
+							margin = { 10 8 }
+						}
+						blockoverride "common_bottom_content" {
 							vbox = {
 								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = fixed
-								size = { -1 94 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
+								size = { 470 356 }
+								spacing = 8
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
-										fontsize = 14
-										align = nobaseline|left
+									size = { -1 94 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "1"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP1_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 56 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_science_establishment_basic_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_science_establishment_basic_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 48 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_SCIENCE_ESTABLISHMENT_STEP1_TEXT"
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 48 }
+											spacing = 10
+											widget = {
+												size = { 4 48 }
+												background = {
+													using = color_blue_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_science_establishment_basic_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_science_establishment_basic_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 48 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_SCIENCE_ESTABLISHMENT_STEP1_TEXT"
+												}
+											}
+										}
+									}
+								}
+								card_common = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "2"
+											}
+										}
+									}
+									blockoverride "common_header_text" {
 										text = "TV_ESTABLISHMENT_STEP2_TITLE"
-									}
-								}
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_science_establishment_headquarters_done').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_science_establishment_headquarters_done').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
-										}
-									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_SCIENCE_ESTABLISHMENT_STEP2_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
-											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_build_science_headquarters"
-											title = "tv_build_science_headquarters"
-											description = "tv_build_science_headquarters_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_build_science_headquarters" }
-										}
-									}
-								}
-							}
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								size = { -1 118 }
-								using = bg_paper_card_situations
-								spacing = 4
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = fixed
-									size = { -1 32 }
-									using = bg_card_header_situation
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
 										fontsize = 14
-										align = nobaseline|left
-										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_blue_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_science_establishment_headquarters_done').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_science_establishment_headquarters_done').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_SCIENCE_ESTABLISHMENT_STEP2_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_build_science_headquarters"
+													title = "tv_build_science_headquarters"
+													description = "tv_build_science_headquarters_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_build_science_headquarters" }
+												}
+											}
+										}
 									}
 								}
-								hbox = {
+								card_common = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = fixed
-									size = { -1 80 }
-									spacing = 10
-									margin = { 10 4 }
-									widget = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 34 42 }
-										text_single = {
-											visible = "[Country.MakeScope.GetVariable('tv_science_victory_enabled').IsSet]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_pass!"
-										}
-										text_single = {
-											visible = "[Not(Country.MakeScope.GetVariable('tv_science_victory_enabled').IsSet)]"
-											size = { 100% 100% }
-											autoresize = no
-											align = center|nobaseline
-											fontsize = 22
-											raw_text = "@trigger_fail!"
+									size = { -1 118 }
+									blockoverride "card_bg" {
+										using = bg_paper_card_situations
+									}
+									blockoverride "header_decor_templates" {
+										using = bg_card_header_situation
+										using = bg_cabinet_card_frame
+									}
+									blockoverride "header_size" { size = {-1 34} }
+									blockoverride "common_header_icon" {
+										widget = {
+											size = { 28 28 }
+											using = bg_circle_piechart
+											text_single = {
+												size = { 100% 100% }
+												autoresize = no
+												align = center|nobaseline
+												fontsize = 14
+												raw_text = "3"
+											}
 										}
 									}
-									vbox = {
-										layoutpolicy_horizontal = fixed
-										layoutpolicy_vertical = fixed
-										size = { 420 72 }
-										spacing = 6
-										text_multi = {
-											layoutpolicy_horizontal = fixed
-											minimumsize = { 420 -1 }
-											maximumsize = { 420 -1 }
-											max_width = 420
-											autoresize = yes
-											align = nobaseline|left
-											text = "TV_SCIENCE_ESTABLISHMENT_STEP3_TEXT"
-										}
-										action_button = {
-											layoutpolicy_horizontal = fixed
+									blockoverride "common_header_text" {
+										text = "TV_ESTABLISHMENT_STEP3_TITLE"
+										fontsize = 14
+										default_format = "#yellow_titles"
+									}
+									blockoverride "card_common_bottom_margin" {
+										margin = { 8 6 }
+									}
+									blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = fixed
-											size = { 190 34 }
-											using = button_regular_texture
-											using = action_button_common_template
-											using = button_common_textobj_template
-											fontsize = 13
-											text = "tv_establish_science_io"
-											title = "tv_establish_science_io"
-											description = "tv_establish_science_io_desc"
-											actor = "[SituationView.GetPlayer]"
-											left_action = { action_name = "tv_establish_science_io" }
+											size = { 452 72 }
+											spacing = 10
+											widget = {
+												size = { 4 72 }
+												background = {
+													using = color_blue_texture
+													alpha = 0.65
+												}
+											}
+											widget = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 42 42 }
+												widget = {
+													size = { 34 34 }
+													parentanchor = center
+													widgetanchor = center
+													using = bg_circle_piechart
+													text_single = {
+														visible = "[Country.MakeScope.GetVariable('tv_science_victory_enabled').IsSet]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_pass!"
+													}
+													text_single = {
+														visible = "[Not(Country.MakeScope.GetVariable('tv_science_victory_enabled').IsSet)]"
+														size = { 100% 100% }
+														autoresize = no
+														align = center|nobaseline
+														fontsize = 22
+														raw_text = "@trigger_fail!"
+													}
+												}
+											}
+											vbox = {
+												layoutpolicy_horizontal = fixed
+												layoutpolicy_vertical = fixed
+												size = { 388 72 }
+												spacing = 6
+												text_multi = {
+													layoutpolicy_horizontal = fixed
+													minimumsize = { 388 -1 }
+													maximumsize = { 388 -1 }
+													max_width = 388
+													autoresize = yes
+													fontsize = 13
+													default_format = "#subtle_name"
+													align = nobaseline|left
+													text = "TV_SCIENCE_ESTABLISHMENT_STEP3_TEXT"
+												}
+												action_button = {
+													layoutpolicy_horizontal = fixed
+													layoutpolicy_vertical = fixed
+													size = { 190 34 }
+													using = button_regular_texture
+													using = action_button_common_template
+													using = button_common_textobj_template
+													fontsize = 13
+													text = "tv_establish_science_io"
+													title = "tv_establish_science_io"
+													description = "tv_establish_science_io_desc"
+													actor = "[SituationView.GetPlayer]"
+													left_action = { action_name = "tv_establish_science_io" }
+												}
+											}
 										}
 									}
 								}
