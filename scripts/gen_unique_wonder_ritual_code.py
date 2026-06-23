@@ -27,6 +27,7 @@ from wonder_unique_ritual_harness import (  # noqa: E402
     supported_archetype_keys,
     supported_capability_keys,
     supported_codegen_template_keys,
+    template_registry_index,
     validate_spec_payload,
 )
 
@@ -102,6 +103,54 @@ def _collect_loc_refs(entry: dict[str, Any]) -> list[str]:
     return sorted(dict.fromkeys(refs))
 
 
+def _registry_contract_summary(value: Any) -> str:
+    if value is True:
+        return "true"
+    if value is False:
+        return "false"
+    if value is None:
+        return ""
+    return str(value)
+
+
+def _used_node_capabilities(entry: dict[str, Any]) -> list[str]:
+    capabilities: list[str] = []
+    for node in ((entry.get("node_graph") or {}).get("nodes") or []):
+        if not isinstance(node, dict):
+            continue
+        node_capabilities = node.get("capabilities")
+        if not isinstance(node_capabilities, list):
+            node_capabilities = [node_capabilities]
+        capabilities.extend(str(capability) for capability in node_capabilities if capability)
+    return sorted(dict.fromkeys(capabilities))
+
+
+def _used_templates(entry: dict[str, Any]) -> list[str]:
+    templates: list[str] = []
+    generation = entry.get("generation") if isinstance(entry.get("generation"), dict) else {}
+    templates.extend(str(template) for template in generation.get("verified_templates", []) or [])
+    node_graph = entry.get("node_graph") or {}
+    for action in node_graph.get("actions", []) or []:
+        if isinstance(action, dict) and action.get("generator_template"):
+            templates.append(str(action["generator_template"]))
+    for check in node_graph.get("checks", []) or []:
+        if isinstance(check, dict) and check.get("generator_template"):
+            templates.append(str(check["generator_template"]))
+    return sorted(dict.fromkeys(templates))
+
+
+def _entity_rows(tracked: dict[str, Any]) -> str:
+    rows: list[str] = []
+    for entity in tracked.get("entities", []) or []:
+        if not isinstance(entity, dict):
+            rows.append(str(entity))
+            continue
+        label = entity.get("display_name") or entity.get("key") or ""
+        key = entity.get("key")
+        rows.append(f"{key} ({label})" if key and label and key != label else str(label or key))
+    return ", ".join(rows)
+
+
 def render_entry_fragment(
     entry: dict[str, Any],
     *,
@@ -123,6 +172,9 @@ def render_entry_fragment(
     generation = entry.get("generation") or {}
     mechanic_signature = node_graph.get("mechanic_signature") if isinstance(node_graph.get("mechanic_signature"), dict) else {}
     cadence_signature = node_graph.get("cadence_signature") if isinstance(node_graph.get("cadence_signature"), dict) else {}
+    design_ir = entry.get("design_ir") if isinstance(entry.get("design_ir"), dict) else {}
+    implementation_notes = entry.get("implementation_notes") if isinstance(entry.get("implementation_notes"), dict) else {}
+    template_index = template_registry_index(template_registry)
     capability_index = capability_registry_index(capability_registry)
     archetype_index = archetype_registry_index(archetype_registry)
     event_rows = _event_rows_by_node(entry)
@@ -250,6 +302,50 @@ def render_entry_fragment(
             ]
         )
     lines.extend(_md_table(["node", "kind", "capabilities", "verified_interface"], capability_rows))
+    lines.extend(
+        [
+            "",
+            "## Template / Capability Contract Boundary",
+            "",
+            "All registry contracts used by this fragment are intermediate-only and must keep `may_write_src=false`.",
+            "The output kinds below are Markdown fragments, skeletons, stubs, summaries, or localization drafts; they are not loadable EU5 source files.",
+            "",
+            "### Templates",
+            "",
+        ]
+    )
+    template_rows: list[list[Any]] = []
+    for template_key in _used_templates(entry):
+        contract = template_index.get(template_key, {})
+        template_rows.append(
+            [
+                template_key,
+                contract.get("verified_interface", ""),
+                _join(contract.get("output_kinds")),
+                _registry_contract_summary(contract.get("may_write_src")),
+                contract.get("notes", ""),
+            ]
+        )
+    lines.extend(_md_table(["template", "verified_interface", "output_kinds", "may_write_src", "notes"], template_rows))
+    lines.extend(["", "### Capabilities", ""])
+    contract_capability_rows: list[list[Any]] = []
+    for capability_key in _used_node_capabilities(entry):
+        contract = capability_index.get(capability_key, {})
+        contract_capability_rows.append(
+            [
+                capability_key,
+                contract.get("verified_interface", ""),
+                _join(contract.get("output_kinds")),
+                _registry_contract_summary(contract.get("may_write_src")),
+                contract.get("notes", ""),
+            ]
+        )
+    lines.extend(
+        _md_table(
+            ["capability", "verified_interface", "output_kinds", "may_write_src", "notes"],
+            contract_capability_rows,
+        )
+    )
     lines.extend(["", "## Scope Contract Summary", ""])
     scope_rows: list[list[Any]] = []
     for node in node_graph.get("nodes", []) or []:
@@ -379,6 +475,112 @@ def render_entry_fragment(
             ]
         )
     lines.extend(_md_table(["binding", "component", "variables", "nodes", "loc_refs"], binding_rows))
+    lines.extend(["", "## Design IR Preservation Summary", ""])
+    lines.extend(
+        [
+            f"- Compiler primitives: {_join(design_ir.get('compiler_primitives'))}",
+            f"- Projection notes: {design_ir.get('projection_notes', '')}",
+            "",
+            "### Tracked Entity Sets",
+            "",
+        ]
+    )
+    tracked_rows: list[list[Any]] = []
+    for tracked in design_ir.get("tracked_entity_sets", []) or []:
+        if not isinstance(tracked, dict):
+            continue
+        tracked_rows.append(
+            [
+                tracked.get("key", ""),
+                tracked.get("entity_type", ""),
+                _entity_rows(tracked),
+                _join(tracked.get("state_values")),
+                _join(tracked.get("per_entity_state")),
+                tracked.get("selector", ""),
+                tracked.get("ui_binding", ""),
+            ]
+        )
+    lines.extend(
+        _md_table(
+            ["set", "entity_type", "entities", "states", "per_entity_state", "selector", "ui_binding"],
+            tracked_rows,
+        )
+    )
+    lines.extend(["", "### Selectors", ""])
+    selector_rows: list[list[Any]] = []
+    for selector in design_ir.get("selectors", []) or []:
+        if isinstance(selector, dict):
+            selector_rows.append(
+                [
+                    selector.get("key", ""),
+                    selector.get("selection_space", ""),
+                    selector.get("projection_state", ""),
+                ]
+            )
+    lines.extend(_md_table(["selector", "selection_space", "projection_state"], selector_rows))
+    lines.extend(["", "### Risk Branches", ""])
+    risk_rows: list[list[Any]] = []
+    for branch in design_ir.get("risk_branches", []) or []:
+        if isinstance(branch, dict):
+            risk_rows.append(
+                [
+                    branch.get("key", ""),
+                    branch.get("risk", ""),
+                    branch.get("retry_or_failure", ""),
+                ]
+            )
+    lines.extend(_md_table(["branch", "risk", "retry_or_failure"], risk_rows))
+    ui_feedback = design_ir.get("ui_feedback_model") if isinstance(design_ir.get("ui_feedback_model"), dict) else {}
+    lines.extend(
+        [
+            "",
+            "### UI Feedback / Uniqueness",
+            "",
+        ]
+    )
+    ui_rows = [
+        ["components", _join(ui_feedback.get("components"))],
+        ["repeated_rows", ui_feedback.get("repeated_rows") or ui_feedback.get("rows", "")],
+        ["per_entity_status", ui_feedback.get("per_entity_status", "")],
+        ["current_projection", ui_feedback.get("current_projection", "")],
+        ["uniqueness_constraints", _join(design_ir.get("uniqueness_constraints"))],
+    ]
+    lines.extend(_md_table(["field", "design"], ui_rows))
+    lines.extend(["", "## Compiler Gap Ledger", ""])
+    gap_rows: list[list[Any]] = []
+    for row in entry.get("compiler_gap_ledger", []) or []:
+        if not isinstance(row, dict):
+            continue
+        gap_rows.append(
+            [
+                row.get("primitive", ""),
+                row.get("verification_status", ""),
+                row.get("harness_backlog_cluster", ""),
+                row.get("design_semantics", ""),
+                _join(row.get("codebase_evidence")),
+                _join(row.get("blocked_by")),
+                row.get("fallback_if_unavailable", ""),
+            ]
+        )
+    lines.extend(
+        _md_table(
+            ["primitive", "status", "backlog_cluster", "semantics", "evidence", "blocked_by", "fallback"],
+            gap_rows,
+        )
+    )
+    lines.extend(["", "## Remaining Source Writer Blockers", ""])
+    lines.extend(
+        [
+            "This fragment is not loadable EU5 source. It is an intermediate Harness artifact and does not write `src/` files.",
+            "",
+        ]
+    )
+    blockers = implementation_notes.get("remaining_source_writer_blockers", []) or []
+    if blockers:
+        for blocker in blockers:
+            lines.append(f"- {blocker}")
+    else:
+        lines.append("- No source-writer blockers were listed in the spec, but this v1 generator still emits only intermediate Markdown.")
     lines.extend(["", "## Localization Draft Inventory", ""])
     for loc_key in _collect_loc_refs(entry):
         lines.append(f"- `{loc_key}`")
@@ -439,6 +641,7 @@ def render_index(
             "# Unique Wonder Ritual Codegen Index",
             "",
             "This file records the current Harness codegen dry-run/write surface.",
+            "The v1 generator emits intermediate Markdown fragments only; it does not write loadable EU5 source or `src/` files.",
             "",
             f"- Generated fragments: {len(generated)}",
             f"- Skipped non-codegen specs: {len(skipped)}",
@@ -455,7 +658,7 @@ def render_index(
             lines.append(f"- `{row['key']}` -> `{row['path']}`")
         lines.append("")
     else:
-        lines.append("No eligible `implementation_ready` or `harness_generated` specs were selected.")
+        lines.append("No eligible `source_codegen_ready`, `implementation_ready`, or `harness_generated` specs were selected.")
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
 

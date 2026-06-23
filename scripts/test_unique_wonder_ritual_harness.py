@@ -654,6 +654,9 @@ def high_fidelity_design_entry(
     entry["identity"]["status"] = status
     entry["design_ir"] = design_ir_fixture()
     entry["compiler_gap_ledger"] = [compiler_gap_row(verification_status)]
+    entry["implementation_notes"]["remaining_source_writer_blockers"] = [
+        "Fixture backend is intermediate-only and not loadable EU5 source."
+    ]
     return entry
 
 
@@ -928,6 +931,7 @@ def main() -> None:
         "## Archetype Summary",
         "## Event Skeleton",
         "## Capability Summary",
+        "## Template / Capability Contract Boundary",
         "## Scope Contract Summary",
         "## Listener Contract Summary",
         "## Hidden Executor / Tooltip Safety Notes",
@@ -938,6 +942,33 @@ def main() -> None:
     ):
         if expected not in generated_text:
             raise AssertionError(f"codegen dry-run missing {expected!r}")
+
+    high_fidelity_result = generate_fragments_for_payload(
+        {"unique_wonders": [high_fidelity_design_entry(status="source_codegen_ready", verification_status="backend_ready")]},
+        wonder_keys={"unique_test_wonder"},
+    )
+    high_fidelity_text = high_fidelity_result["generated"][0]["text"]
+    for expected in (
+        "## Design IR Preservation Summary",
+        "test_routes",
+        "alpha, beta",
+        "Repeated route rows",
+        "The node_graph projection preserves design intent",
+        "## Compiler Gap Ledger",
+        "test_route_rows",
+        "backend_ready",
+        "capability:route_gate",
+        "## Remaining Source Writer Blockers",
+        "not loadable EU5 source",
+        "Fixture backend is intermediate-only",
+        "`may_write_src=false`",
+        "| may_write_src |",
+        "| event_chain |",
+    ):
+        if expected not in high_fidelity_text:
+            raise AssertionError(f"high-fidelity codegen dry-run missing {expected!r}")
+    if "may_write_src | true" in high_fidelity_text:
+        raise AssertionError("high-fidelity codegen dry-run implies source-writing support")
 
     duplicate = valid_entry()
     duplicate["event_ids"][2]["id"] = 1002
