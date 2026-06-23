@@ -885,44 +885,303 @@ unique_wonders:
     base_key: sky_dome_grand_temple
     location: jerusalem
     runtime_prefix: tv_wonder_dome_of_the_rock
-    status: stub
-  event_ids: []
+    status: design_complete
+  event_ids:
+  - id: 1000
+    key: dome_opening
+  - id: 1001
+    key: dome_compact
+  - id: 1002
+    key: dome_settlement
+  - id: 1003
+    key: dome_reward
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_dome_of_the_rock needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: design_projection_only_v1
+    historical_mechanic: Sanctuary custody covenant over Jerusalem's sacred platform.
+    summary: The player proves that the Dome can make sovereignty visible as guarded custody, not conquest, by settling access rules among jurists, guards, pilgrims, local notables, and supervised witnesses.
+    mechanic_signature:
+      wonder_specific_hook: The golden dome over the Rock makes sovereignty public only when the sponsor can publish access rules that bind guards, jurists, pilgrims, endowment officers, and local communities on the Jerusalem platform.
+      core_interaction_loop: The player opens a custody covenant, chooses the compact that governs gates and pilgrim access, resolves a bounded sanctuary dispute, and accepts a final custody settlement rather than waiting through a generic monthly dedication.
+      player_decision_pattern: Choices trade visible sovereignty, tolerant access, guard discipline, and diplomatic witnesses; failure pressure comes from pilgrim rejection or military overreach rather than from elapsed time.
+      state_feedback_model: The incident log records the compact and dispute outcome while the checklist records whether access groups and custody duties have recognized the covenant.
+      failure_or_tension_model: Overbearing guards or rejected witnesses send the rite back to a calmer compact or a reduced proclamation that preserves order but loses diplomatic reach.
+      reward_expression: The reward expresses lawful custody through tolerance of the state faith and diplomatic reputation, with a local memory for protected platform access.
+      reuse_risk_mitigation: This loop depends on the Rock, Jerusalem gates, intercommunal access, and visible custody; a generic sky-dome temple cannot reuse it without losing the contested sanctuary sovereignty proof.
+    cadence_signature:
+      cadence_type: event_driven
+      cadence_rationale: Event-driven pacing fits because the decisive act is a public covenant and its follow-up dispute, not a progress bar; each event changes who accepts custody of the sanctuary.
+      player_agency_model: The player chooses the access compact, decides how to answer opposition, and determines whether sovereignty is shown as guarded tolerance or narrower control.
+      non_monthly_triggers_or_reason: Non-monthly validation is the visible compact choice and the settlement event that resolves pilgrim, guard, and witness acceptance before reward handoff.
+      pacing_failure_mode: The pacing fails if the covenant becomes flavor over a standard event chain, so the tracked access groups and risk branches remain in design_ir even though the projection compresses them.
     listeners: []
+    entry_node: dome_opening
+    terminal_nodes:
+    - dome_reward
+    runtime_variables:
+    - tv_wonder_dome_of_the_rock_stage
+    - tv_wonder_dome_of_the_rock_compact_status
+    - tv_wonder_dome_of_the_rock_opposition_pressure
+    - tv_wonder_dome_of_the_rock_reward_branch
+    nodes:
+    - key: dome_opening
+      kind: event
+      event_id: 1000
+      player_visible: true
+      next_nodes:
+      - dome_compact
+      failure_or_retry: false
+      historical_anchor: The commissioner convenes custodians at the Rock before the access covenant is read.
+    - key: dome_compact
+      kind: choice_event
+      event_id: 1001
+      player_visible: true
+      next_nodes:
+      - dome_settlement
+      failure_or_retry: false
+      historical_anchor: Gate wardens, judges, pilgrims, and witnesses accept different compact terms.
+    - key: dome_settlement
+      kind: retry_event
+      event_id: 1002
+      player_visible: true
+      next_nodes:
+      - dome_reward
+      failure_or_retry: true
+      retry_target: dome_compact
+      historical_anchor: Pilgrims or guards challenge the compact and force reconciliation, suppression, or a narrower settlement.
+    - key: dome_reward
+      kind: final_reward_dispatch
+      event_id: 1003
+      player_visible: true
+      next_nodes: []
+      failure_or_retry: false
+      historical_anchor: The custody covenant is sealed on the platform and the Dome becomes a recognized sanctuary of ordered sovereignty.
+  design_ir:
+    compiler_primitives:
+    - sanctuary_access_compact_rows
+    - bounded_sanctuary_opposition_scope
+    - interfaith_witness_guard_overreach_branch
+    - jerusalem_sacred_site_ui_evidence
+    phases:
+    - key: custody_opening
+      gameplay_stage: Convene the ruler's commissioner, religious judge, gate wardens, reciters, local notables, and supervised witnesses on the Jerusalem platform.
+    - key: access_compact
+      gameplay_stage: Choose whether the covenant privileges disciplined guard custody, broad pilgrim access, or jurist-led public rules.
+    - key: contested_settlement
+      gameplay_stage: Resolve rejection by pilgrims, overreach by guards, or witness suspicion without turning the sanctuary into a battlefield.
+    - key: covenant_seal
+      gameplay_stage: Seal the access rules, endowment duties, and threshold discipline as the final public proof.
+    player_proofs:
+    - The player proves control of Jerusalem as lawful custody rather than ordinary conquest.
+    - The player proves that soldiers, jurists, pilgrims, and local communities can obey one platform rule.
+    - The player proves diplomatic credibility by allowing witnesses to understand access without surrendering sovereignty.
+    tracked_entity_sets:
+    - key: sanctuary_access_groups
+      entity_type: access_group
+      entities:
+      - key: gate_wardens
+        display_name: Platform Gate Wardens
+      - key: religious_jurists
+        display_name: State-Faith Jurists
+      - key: pilgrim_caravans
+        display_name: Visiting Pilgrim Groups
+      - key: local_notables
+        display_name: Jerusalem Local Notables
+      - key: supervised_witnesses
+        display_name: Supervised Intercommunal Witnesses
+      state_values:
+      - unbound
+      - accepts_compact
+      - contests_access
+      - overawed_by_guards
+      - recognizes_custody
+      per_entity_state:
+        status_variable_pattern: tv_wonder_dome_of_the_rock_access_<group>_status
+        pressure_variable_pattern: tv_wonder_dome_of_the_rock_access_<group>_pressure
+      selector: Select the access group whose acceptance or objection currently defines the covenant crisis.
+      ui_binding: incident_log:sanctuary_access_groups should render one row per access group with compact and pressure state.
+    - key: custody_duties
+      entity_type: sanctuary_duty
+      entities:
+      - key: gate_keys
+        display_name: Gate Keys And Watch Lists
+      - key: cisterns
+        display_name: Cisterns And Water Carriers
+      - key: lamps
+        display_name: Dome Lamps And Inscriptions
+      - key: endowment_deeds
+        display_name: Endowment Deeds And Scribes
+      - key: pilgrim_routes
+        display_name: Guarded Pilgrim Routes
+      state_values:
+      - unchecked
+      - entrusted
+      - disputed
+      - sealed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_dome_of_the_rock_duty_<duty>_status
+      selector: Select the duty whose failure would make custody look like plunder rather than stewardship.
+      ui_binding: checklist:custody_duties should show each duty as unchecked, entrusted, disputed, or sealed.
+    selectors:
+    - key: access_compact_selector
+      selection_space: guard discipline, jurist proclamation, pilgrim access, and witnessed tolerance compact options.
+      projection_state: Compressed into dome_compact in the current design-only node graph.
+    - key: contested_group_selector
+      selection_space: The access group or custody duty currently causing sanctuary pressure.
+      projection_state: Preserved in design_ir only; the node_graph summarizes it as dome_settlement.
+    risk_branches:
+    - key: guard_overreach
+      risk: Guards treat custody as occupation, raising opposition pressure and forcing reconciliation or a narrower proclamation.
+      retry_or_failure: Retry the compact with stricter threshold discipline or accept weaker diplomatic recognition.
+    - key: pilgrim_rejection
+      risk: Pilgrims or local notables reject rules that feel like exclusion.
+      retry_or_failure: Reopen access terms or complete with reduced tolerance expression.
+    - key: witness_suspicion
+      risk: Supervised witnesses report coercion instead of lawful access.
+      retry_or_failure: Add jurist oversight or lose part of the diplomatic reward.
+    player_actions:
+    - Choose the custody compact that defines who holds keys, reads rules, and escorts pilgrims.
+    - Spend legitimacy, clergy goodwill, or diplomatic capital to calm a contested access group.
+    - Accept a narrower sovereign proclamation when broad witnessed access is too risky.
+    map_scope_evidence:
+    - Fixed site is Jerusalem, and the design must preserve location ownership/control, platform building presence, and local unrest evidence before implementation.
+    - Access groups refer to location-local sanctuary participants and country-level diplomatic witnesses; later mapping must decide which scopes can be real.
+    ui_feedback_model:
+      components:
+      - incident_log
+      - checklist
+      repeated_rows: One row per sanctuary access group plus one checklist row per custody duty.
+      per_entity_status: Each access group needs compact acceptance and pressure status; each custody duty needs entrusted/disputed/sealed status.
+      current_projection: The design-only node_graph compresses these rows into compact_status and opposition_pressure variables.
+    uniqueness_constraints:
+    - The Rock is the sacred object; the ritual is about visible custody of a contested platform, not a generic dome dedication.
+    - Jerusalem access rules, guard thresholds, endowment deeds, cisterns, and witnesses are mandatory design surfaces.
+    - Conquest cannot speed the rite; sovereignty is proven by restraint and recognized access.
+    projection_notes: >
+      Preserve the full access-group and custody-duty tracked sets in design_ir. Compress them in the current node_graph into four player-visible planning nodes and two summary variables. Replace per-row UI with incident_log/checklist summaries for the design_complete layer only. Drop no historical primitive from the spec; unresolved rows remain in compiler_gap_ledger and block any source-codegen readiness.
+  compiler_gap_ledger:
+  - primitive: sanctuary_access_compact_rows
+    design_semantics: Render and update per-group compact status for gate wardens, jurists, pilgrim caravans, local notables, and supervised witnesses.
+    required_game_interfaces:
+    - per-entity incident_log rows
+    - country or location variables keyed by access group
+    - selectable compact branch state
+    codebase_evidence: []
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which Engineering Department GUI pattern should own repeated incident rows keyed by designed entity sets?
+    - Can current variable maps safely key sanctuary participant status without introducing hot-path rebuilds?
+    blocked_by:
+    - No Harness source compiler primitive owns access-group row expansion.
+    fallback_if_unavailable: Keep the access groups in design_ir and project only compact_status plus opposition_pressure summary text.
+  - primitive: bounded_sanctuary_opposition_scope
+    design_semantics: Create or represent a bounded religious/legal opposition actor without escalating the wonder rite into an unbounded rebellion.
+    required_game_interfaces:
+    - event-scoped opposition actor or country variable
+    - retry branch state
+    - clergy or local-notable pressure checks
+    codebase_evidence: []
+    verification_status: semantic_only
+    search_questions:
+    - Which existing event or disaster patterns represent bounded opposition without spawning a full rebel system?
+    - Can a ritual-local opposition variable preserve tooltip safety during event option preview?
+    blocked_by:
+    - Opposition scope design is not mapped to verified EU5 interfaces.
+    fallback_if_unavailable: Represent opposition as a summarized pressure variable and keep the actor-level semantics in design_ir.
+  - primitive: interfaith_witness_guard_overreach_branch
+    design_semantics: Branch the settlement by witness acceptance and guard overreach so tolerance and diplomacy depend on restraint.
+    required_game_interfaces:
+    - event option branches
+    - religious or community witness state
+    - guard discipline cost and reward scaling
+    codebase_evidence:
+    - capability:event_chain can document visible branch semantics but cannot generate this source behavior.
+    - capability:retry_branch can document retry semantics but cannot generate access-group consequences.
+    verification_status: interface_candidate
+    search_questions:
+    - Which existing event option patterns safely branch reward previews from saved community or religion scopes?
+    - Are there verified local unrest, clergy, or tolerance triggers suitable for guard-overreach checks?
+    blocked_by:
+    - Branch consequences and reward scaling need codebase search before backend mapping.
+    fallback_if_unavailable: Keep the branch as narrative event design with a reduced-reward retry path.
+  - primitive: jerusalem_sacred_site_ui_evidence
+    design_semantics: Show Jerusalem site evidence, platform control, access group pressure, and custody duty completion without flattening to a single counter.
+    required_game_interfaces:
+    - fixed-site location scope display
+    - incident_log row projection
+    - checklist row projection
+    codebase_evidence: []
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which Pharos or Hagia GUI rows can be generalized for fixed-site evidence and per-duty status?
+    - Can the Harness express incident_log plus checklist row projection without a source GUI generator?
+    blocked_by:
+    - Current Harness has semantic UI components but no source-writing repeated-row backend.
+    fallback_if_unavailable: Use static panel text and summary variables while keeping row-level design_ir authoritative.
   ui_model:
-    components: []
+    components:
+    - type: incident_log
+      key: sanctuary_incidents
+      status_variable: tv_wonder_dome_of_the_rock_opposition_pressure
+    - type: checklist
+      key: custody_compact
+      status_variable: tv_wonder_dome_of_the_rock_compact_status
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: data/unique_wonders.yaml ritual.country_modifier
+      description: Preserve the Dome's tolerance_own and diplomatic_reputation ceremony theme as lawful sanctuary custody.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir custody_duties
+      description: Local site memory for protected platform gates, cistern service, lamps, inscriptions, and guarded pilgrim access.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir settlement branch
+      description: One-time legitimacy, clergy, or diplomatic witness reward scaled by whether the compact is broad, disciplined, or narrowed.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS
+    - TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS
+    event_keys:
+    - event_id: 1000
+      title_key: tv_engineering_department.1000.t
+      desc_key: tv_engineering_department.1000.d
+      option_keys:
+      - tv_engineering_department.1000.a
+      node_key: dome_opening
+    - event_id: 1001
+      title_key: tv_engineering_department.1001.t
+      desc_key: tv_engineering_department.1001.d
+      option_keys:
+      - tv_engineering_department.1001.a
+      - tv_engineering_department.1001.b
+      - tv_engineering_department.1001.c
+      node_key: dome_compact
+    - event_id: 1002
+      title_key: tv_engineering_department.1002.t
+      desc_key: tv_engineering_department.1002.d
+      option_keys:
+      - tv_engineering_department.1002.a
+      - tv_engineering_department.1002.b
+      node_key: dome_settlement
+    - event_id: 1003
+      title_key: tv_engineering_department.1003.t
+      desc_key: tv_engineering_department.1003.d
+      option_keys:
+      - tv_engineering_department.1003.a
+      node_key: dome_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_dome_of_the_rock
   implementation_notes:
     source_ritual_key: dome_pilgrimage
-    implementation_source: none
-    verification_status: needs_design
+    implementation_source: design_only_high_fidelity_spec
+    verification_status: design_complete
     verified_interfaces: []
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - sanctuary_access_compact_rows
+    - bounded_sanctuary_opposition_scope
+    - interfaith_witness_guard_overreach_branch
+    - jerusalem_sacred_site_ui_evidence
 - identity:
     id: 104
     key: unique_angkor_wat
@@ -1017,44 +1276,308 @@ unique_wonders:
     base_key: palace_of_nations
     location: granada
     runtime_prefix: tv_wonder_alhambra
-    status: stub
-  event_ids: []
+    status: design_complete
+  event_ids:
+  - id: 1004
+    key: alhambra_opening
+  - id: 1005
+    key: alhambra_war_validation
+  - id: 1006
+    key: alhambra_treaty_branch
+  - id: 1007
+    key: alhambra_reward
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_alhambra needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
-    listeners: []
+    model: design_projection_only_v1
+    historical_mechanic: Capitulation palace treaty validated by a real war outcome around Granada.
+    summary: The player proves that the Alhambra can turn military possession of Granada into courtly concord by sealing a capitulation treaty under war-pressure rather than by clicking a generic palace ceremony.
+    mechanic_signature:
+      wonder_specific_hook: The red palace, Gate of Justice, water courts, treaty rolls, translators, protected households, and foreign observers make the Alhambra a test of whether victory can become governed surrender.
+      core_interaction_loop: The player opens the treaty court, waits for or checks a real war-validation window, chooses mercy, tribute, or deterrence clauses, and handles whether the palace looks protected or merely occupied.
+      player_decision_pattern: Choices decide which settlement terms define the reward and whether defeated elites, royal treasury, envoys, artisans, or garrison officers absorb the cost.
+      state_feedback_model: The incident log tracks the war validation and treaty crisis while the checklist tracks whether key clauses have been witnessed and preserved.
+      failure_or_tension_model: A threatened palace, dishonored safe-conduct, or harsh settlement forces repair, hostage guarantees, or a humbled dedication with weaker diplomatic reach.
+      reward_expression: The reward expresses prestige and diplomatic reputation earned from a visible, enforceable capitulation rather than raw conquest.
+      reuse_risk_mitigation: This design belongs to Granada's surrender palace; ordinary palaces do not combine war outcome, protected court artistry, waterworks, symbolic keys, and foreign treaty witnesses.
+    cadence_signature:
+      cadence_type: war_validated
+      cadence_rationale: The Alhambra's ritual power comes from a war or peace window where the palace proves itself when the victor can protect surrender terms before victory hardens into ordinary occupation.
+      player_agency_model: The player times validation around a war outcome, keeps Granada controlled, and chooses which capitulation doctrine will be visible to foreign courts.
+      non_monthly_triggers_or_reason: Non-monthly validation is the supported war listener or explicit war-outcome check plus the treaty branch event before reward handoff.
+      pacing_failure_mode: The pacing fails if any war victory counts; design_ir preserves Granada-specific control, treaty clauses, water court integrity, and foreign witness evidence.
+    listeners:
+    - pre_winning_war
+    - ending_war
+    entry_node: alhambra_opening
+    terminal_nodes:
+    - alhambra_reward
+    runtime_variables:
+    - tv_wonder_alhambra_stage
+    - tv_wonder_alhambra_war_validation
+    - tv_wonder_alhambra_treaty_clause_status
+    - tv_wonder_alhambra_reward_branch
+    nodes:
+    - key: alhambra_opening
+      kind: event
+      event_id: 1004
+      player_visible: true
+      next_nodes:
+      - alhambra_war_validation
+      failure_or_retry: false
+      historical_anchor: Envoys assemble symbolic keys, translators, safe-conduct passes, and protected household lists in Granada.
+    - key: alhambra_war_validation
+      kind: listener_gate
+      event_id: 1005
+      player_visible: true
+      next_nodes:
+      - alhambra_treaty_branch
+      failure_or_retry: false
+      historical_anchor: The palace treaty waits for a real victory or peace window while the Alhambra remains controlled.
+    - key: alhambra_treaty_branch
+      kind: retry_event
+      event_id: 1006
+      player_visible: true
+      next_nodes:
+      - alhambra_reward
+      failure_or_retry: true
+      retry_target: alhambra_war_validation
+      historical_anchor: The player chooses mercy, tribute, or deterrence and answers disputes over water, artisans, hostages, and protected elites.
+    - key: alhambra_reward
+      kind: final_reward_dispatch
+      event_id: 1007
+      player_visible: true
+      next_nodes: []
+      failure_or_retry: false
+      historical_anchor: The treaty is read in the Hall of Ambassadors and the palace becomes a diplomatic proof of restrained conquest.
+  design_ir:
+    compiler_primitives:
+    - war_outcome_capitulation_gate
+    - granada_palace_control_treaty_checks
+    - treaty_clause_ui_rows
+    - settlement_branch_reward_scaling
+    phases:
+    - key: treaty_court_opening
+      gameplay_stage: Assemble envoys, notaries, translators, symbolic keys, protected households, water overseers, guards, and foreign observers inside the palace.
+    - key: war_validation_window
+      gameplay_stage: Validate the rite during a real victory or peace window while Granada and the Alhambra remain controlled and unsacked.
+    - key: clause_selection
+      gameplay_stage: Choose mercy, tribute, or deterrence clauses that decide who is protected, paid, watched, or humiliated.
+    - key: concord_or_humbled_dedication
+      gameplay_stage: Resolve whether the settlement is witnessed as courtly concord or reduced to a narrower occupation dedication.
+    player_proofs:
+    - The player proves that war victory can preserve a conquered court instead of consuming it.
+    - The player proves that treaty clauses, waterworks, artisans, protected households, and foreign audiences remain credible after surrender.
+    - The player proves diplomatic reputation through enforceable restraint, not only through owning Granada.
+    tracked_entity_sets:
+    - key: treaty_clause_register
+      entity_type: treaty_clause
+      entities:
+      - key: symbolic_keys
+        display_name: Symbolic Keys Of Granada
+      - key: protected_households
+        display_name: Protected Households And Elites
+      - key: artisan_rosters
+        display_name: Artisans And Palace Workshops
+      - key: acequia_water
+        display_name: Acequia Water And Courts
+      - key: safe_conducts
+        display_name: Safe-Conduct Passes
+      - key: foreign_copies
+        display_name: Foreign Treaty Copies
+      state_values:
+      - unwritten
+      - sworn
+      - violated
+      - witnessed
+      - narrowed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_alhambra_clause_<clause>_status
+        witness_variable_pattern: tv_wonder_alhambra_clause_<clause>_witnessed
+      selector: Select the treaty clause currently at risk during the capitulation court.
+      ui_binding: checklist:treaty_clause_register should render one row per clause with sworn/violated/witnessed state.
+    - key: palace_risk_points
+      entity_type: palace_risk
+      entities:
+      - key: gate_of_justice
+        display_name: Gate Of Justice
+      - key: hall_of_ambassadors
+        display_name: Hall Of Ambassadors
+      - key: court_of_lions
+        display_name: Court Of The Lions
+      - key: water_channels
+        display_name: Palace Water Channels
+      - key: vega_overlook
+        display_name: Walls Overlooking The Vega
+      state_values:
+      - secure
+      - threatened
+      - occupied
+      - repaired
+      per_entity_state:
+        status_variable_pattern: tv_wonder_alhambra_risk_<point>_status
+      selector: Select the palace risk point whose damage would discredit the treaty.
+      ui_binding: incident_log:palace_risk_points should show visible crisis rows for threatened court spaces.
+    selectors:
+    - key: war_validation_selector
+      selection_space: Supported pre_winning_war or ending_war windows where Granada remains controlled by the sponsor.
+      projection_state: Preserved as alhambra_war_validation summary because source listener mapping is unresolved.
+    - key: treaty_branch_selector
+      selection_space: Mercy, tribute, or deterrence settlement doctrine with different clause and reward consequences.
+      projection_state: Compressed into alhambra_treaty_branch for design_complete only.
+    risk_branches:
+    - key: dishonored_safe_conduct
+      risk: A treaty branch violates protected households or safe-conduct passes, weakening diplomatic recognition.
+      retry_or_failure: Repair the clause, grant hostages, or accept a prestige-only humbled dedication.
+    - key: palace_water_disruption
+      risk: The acequia or fountains fail, making preservation look false.
+      retry_or_failure: Delay for repairs or complete with lower diplomatic reward.
+    - key: harsh_occupation
+      risk: Victory turns into coercive occupation before witnesses accept the terms.
+      retry_or_failure: Return to the war-validation gate or seal a deterrence branch with diplomatic cost.
+    player_actions:
+    - Time the treaty court around a war victory or peace settlement while keeping Granada controlled.
+    - Choose mercy, tribute, or deterrence as the treaty's visible doctrine.
+    - Pay for repairs, hostages, translators, artisan protection, or safe-conduct guarantees when a clause is challenged.
+    map_scope_evidence:
+    - Fixed site is Granada; later mapping must verify owner/control, occupation, siege, local unrest, and final Alhambra building evidence.
+    - War validation needs country-war scope evidence plus location-specific Granada control rather than a generic victory flag.
+    ui_feedback_model:
+      components:
+      - incident_log
+      - checklist
+      repeated_rows: One checklist row per treaty clause and one incident row per palace risk point.
+      per_entity_status: Clauses need sworn/violated/witnessed/narrowed state; risk points need secure/threatened/occupied/repaired state.
+      current_projection: The design-only node_graph compresses rows into war_validation and treaty_clause_status variables.
+    uniqueness_constraints:
+    - The loop must remain about Granada's capitulation palace, symbolic keys, water courts, protected elites, and foreign witnesses.
+    - A normal war victory is not enough; the palace must remain credible as preserved courtly order.
+    - The player should not be rewarded for sacking or flattening the palace's negotiated identity.
+    projection_notes: >
+      Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Compress them in node_graph into four planning events and summary variables. Replace per-clause and per-court rows with incident_log/checklist summaries for design_complete only. Drop no war or treaty primitive; unresolved listener, clause, and scaling gaps remain blockers for compiler_mapped or source codegen.
+  compiler_gap_ledger:
+  - primitive: war_outcome_capitulation_gate
+    design_semantics: Validate the rite only during a supported war or peace outcome window where Granada remains controlled and the palace is not discredited.
+    required_game_interfaces:
+    - pre_winning_war listener
+    - ending_war listener
+    - location ownership/control checks
+    - war outcome or peace settlement state
+    codebase_evidence:
+    - Harness supports listener names pre_winning_war and ending_war semantically, but source mapping for this ritual is not verified.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which on_action scopes are available to check the winner, war target, and Granada control during pre_winning_war and ending_war?
+    - Can a design-only listener gate safely save Granada and war context before a visible treaty event?
+    blocked_by:
+    - War listener scope contracts are not mapped for this specific ritual.
+    fallback_if_unavailable: Keep war validation as an explicit trigger/check requirement and allow a costly non-war palace concord fallback only in design_ir.
+  - primitive: granada_palace_control_treaty_checks
+    design_semantics: Check Alhambra-specific control, occupation, siege, water-court usability, protected households, and safe-conduct integrity before settlement.
+    required_game_interfaces:
+    - location control and occupation checks
+    - local unrest or devastation checks
+    - treaty state variables
+    - palace risk rows
+    codebase_evidence: []
+    verification_status: semantic_only
+    search_questions:
+    - Which existing location triggers distinguish owner, controller, occupation, siege, and local unrest for a fixed wonder site?
+    - Are waterworks and protected-household states representable as variables or only as design-level rows?
+    blocked_by:
+    - No verified palace-risk interface exists in the Harness backend.
+    fallback_if_unavailable: Collapse site checks into a readable checklist while preserving individual palace risks in design_ir.
+  - primitive: treaty_clause_ui_rows
+    design_semantics: Render treaty clauses as individual checklist rows with sworn, violated, witnessed, or narrowed status.
+    required_game_interfaces:
+    - repeated checklist rows
+    - per-clause variables
+    - localization labels for clause status
+    codebase_evidence: []
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which Engineering Department GUI generator pattern can render per-clause rows without manual source edits?
+    - Should treaty clauses be stored as fixed variables or generated from design_ir entity sets?
+    blocked_by:
+    - Current Harness UI components are semantic and do not write repeated source rows.
+    fallback_if_unavailable: Display treaty_clause_status as a summary and keep per-clause rows in design_ir.
+  - primitive: settlement_branch_reward_scaling
+    design_semantics: Scale prestige, diplomatic reputation expression, and local memory by mercy, tribute, or deterrence branch and by clause integrity.
+    required_game_interfaces:
+    - branch-specific reward variables
+    - final reward handoff
+    - tooltip-safe preview of reward differences
+    codebase_evidence:
+    - capability:final_reward_handoff documents final handoff semantics but cannot generate branch-specific source rewards.
+    verification_status: interface_candidate
+    search_questions:
+    - Which existing finalization hidden executor patterns can carry branch variables without unsafe option-tooltip mutation?
+    - Can reward previews show branch differences without claiming the source generator supports them?
+    blocked_by:
+    - Branch scaling is not backend-ready in the current template registry.
+    fallback_if_unavailable: Use one designed reward description and preserve branch scaling as non-codegen design data.
   ui_model:
-    components: []
+    components:
+    - type: incident_log
+      key: capitulation_incidents
+      status_variable: tv_wonder_alhambra_war_validation
+    - type: checklist
+      key: treaty_clauses
+      status_variable: tv_wonder_alhambra_treaty_clause_status
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: data/unique_wonders.yaml ritual.country_modifier
+      description: Preserve the Alhambra's monthly_prestige and diplomatic_reputation ceremony theme as witnessed capitulation concord.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir palace_risk_points
+      description: Local site memory for protected water courts, gate discipline, artisan rosters, and treaty-copy archives.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir settlement branch
+      description: One-time prestige, diplomatic, or stability award shaped by mercy, tribute, or deterrence clause integrity.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_ALHAMBRA_WAR_STATUS
+    - TV_ENGINEERING_ALHAMBRA_TREATY_STATUS
+    event_keys:
+    - event_id: 1004
+      title_key: tv_engineering_department.1004.t
+      desc_key: tv_engineering_department.1004.d
+      option_keys:
+      - tv_engineering_department.1004.a
+      node_key: alhambra_opening
+    - event_id: 1005
+      title_key: tv_engineering_department.1005.t
+      desc_key: tv_engineering_department.1005.d
+      option_keys:
+      - tv_engineering_department.1005.a
+      node_key: alhambra_war_validation
+    - event_id: 1006
+      title_key: tv_engineering_department.1006.t
+      desc_key: tv_engineering_department.1006.d
+      option_keys:
+      - tv_engineering_department.1006.a
+      - tv_engineering_department.1006.b
+      - tv_engineering_department.1006.c
+      node_key: alhambra_treaty_branch
+    - event_id: 1007
+      title_key: tv_engineering_department.1007.t
+      desc_key: tv_engineering_department.1007.d
+      option_keys:
+      - tv_engineering_department.1007.a
+      node_key: alhambra_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_alhambra
   implementation_notes:
     source_ritual_key: capitulation_treaty
-    implementation_source: none
-    verification_status: needs_design
+    implementation_source: design_only_high_fidelity_spec
+    verification_status: design_complete
     verified_interfaces: []
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - war_outcome_capitulation_gate
+    - granada_palace_control_treaty_checks
+    - treaty_clause_ui_rows
+    - settlement_branch_reward_scaling
 - identity:
     id: 107
     key: unique_machu_picchu
@@ -1281,44 +1804,304 @@ unique_wonders:
     base_key: sky_dome_grand_temple
     location: rome
     runtime_prefix: tv_wonder_st_peters_basilica
-    status: stub
-  event_ids: []
+    status: design_complete
+  event_ids:
+  - id: 1008
+    key: st_peters_opening
+  - id: 1009
+    key: st_peters_assignment
+  - id: 1010
+    key: st_peters_scandal
+  - id: 1011
+    key: st_peters_reward
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_st_peters_basilica needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: design_projection_only_v1
+    historical_mechanic: Sacred official assignment for an apostolic threshold dedication over Peter's tomb.
+    summary: The player proves that Saint Peter's can operate as a staffed apostolic institution by assigning a sacred official whose authority, competence, and factional baggage shape the dedication dispute.
+    mechanic_signature:
+      wonder_specific_hook: The basilica's authority depends on a named sacred official who can guard relics, regulate pilgrims, account for alms, discipline clergy, and make Rome's apostolic claim legible under the dome.
+      core_interaction_loop: The player opens the threshold dedication, assigns a cardinal, bishop, relic custodian, alms officer, or similar official, resolves the first scandal created by that actor's strengths and weaknesses, and then seals the dedication.
+      player_decision_pattern: Choices trade clerical legitimacy, service competence, estate satisfaction, alms transparency, and pilgrim access rather than accumulating monthly progress.
+      state_feedback_model: The actor slot shows the assigned official and their quality band while the incident log records relic, alms, or pilgrim-access disputes created by that assignment.
+      failure_or_tension_model: A factional or weak official can cause a relic scandal, alms dispute, or access disorder, forcing reassignment or a reduced dedication interpretation.
+      reward_expression: The reward expresses true-faith tolerance and clergy satisfaction as a service network disciplined by a credible official.
+      reuse_risk_mitigation: This assignment belongs to Saint Peter's because the apostolic tomb, Rome, relic custody, alms, pilgrim thresholds, and clerical obligations converge in one sacred office.
+    cadence_signature:
+      cadence_type: actor_assignment
+      cadence_rationale: Actor assignment fits because the dedication is credible only if a named sacred official can administer clergy, relics, pilgrims, and alms before the public threshold opens.
+      player_agency_model: The player chooses the official, accepts their factional or competence cost, and decides whether to retry after the assignment exposes a scandal.
+      non_monthly_triggers_or_reason: Non-monthly validation is the actor selection plus the scandal branch tied to the chosen official's role or quality.
+      pacing_failure_mode: The pacing fails if the actor is flavor only; design_ir preserves candidate rows, duty rows, and actor-quality consequences even though node_graph summarizes them.
     listeners: []
+    entry_node: st_peters_opening
+    terminal_nodes:
+    - st_peters_reward
+    runtime_variables:
+    - tv_wonder_st_peters_basilica_stage
+    - tv_wonder_st_peters_basilica_assigned_official
+    - tv_wonder_st_peters_basilica_official_quality
+    - tv_wonder_st_peters_basilica_incident_status
+    nodes:
+    - key: st_peters_opening
+      kind: event
+      event_id: 1008
+      player_visible: true
+      next_nodes:
+      - st_peters_assignment
+      failure_or_retry: false
+      historical_anchor: The basilica doors, high altar, relic inventories, pilgrim hostels, and alms ledgers are prepared for dedication.
+    - key: st_peters_assignment
+      kind: assignment_gate
+      event_id: 1009
+      player_visible: true
+      next_nodes:
+      - st_peters_scandal
+      failure_or_retry: false
+      historical_anchor: The sponsor assigns the sacred official who will carry keys, guard relics, and organize clergy service.
+    - key: st_peters_scandal
+      kind: retry_event
+      event_id: 1010
+      player_visible: true
+      next_nodes:
+      - st_peters_reward
+      failure_or_retry: true
+      retry_target: st_peters_assignment
+      historical_anchor: The assigned official's weakness exposes a relic, alms, pilgrim-access, or clerical-obedience dispute.
+    - key: st_peters_reward
+      kind: final_reward_dispatch
+      event_id: 1011
+      player_visible: true
+      next_nodes: []
+      failure_or_retry: false
+      historical_anchor: The threshold opens under recognized clergy obligations and the apostolic tomb becomes a disciplined service center.
+  design_ir:
+    compiler_primitives:
+    - sacred_official_character_selector
+    - clergy_state_faith_eligibility_checks
+    - actor_quality_incident_reward_mapping
+    - relic_alms_pilgrim_duty_rows
+    phases:
+    - key: threshold_preparation
+      gameplay_stage: Prepare the basilica doors, high altar, tomb confession, sacristy, treasury, choir stalls, hostels, relic inventories, and alms ledgers.
+    - key: sacred_official_assignment
+      gameplay_stage: Assign the official whose role will define whether the dedication is clerical, pastoral, administrative, or patronage-driven.
+    - key: first_assignment_scandal
+      gameplay_stage: Resolve the relic, alms, pilgrim-access, choir, or patronage dispute revealed by that official.
+    - key: apostolic_dedication
+      gameplay_stage: Open the threshold after duties are accepted and the official's authority has survived the first dispute.
+    player_proofs:
+    - The player proves that Rome's apostolic basilica is a functioning institution, not just a dome over a tomb.
+    - The player proves that clergy, relic custodians, alms officers, pilgrims, and artists can answer to a credible sacred official.
+    - The player proves that true-faith tolerance and clergy satisfaction come from disciplined service rather than unchecked clerical privilege.
+    tracked_entity_sets:
+    - key: sacred_official_candidates
+      entity_type: actor_candidate
+      entities:
+      - key: cardinal_administrator
+        display_name: Cardinal Administrator
+      - key: diocesan_bishop
+        display_name: Diocesan Bishop
+      - key: relic_custodian
+        display_name: Relic Custodian
+      - key: alms_prefect
+        display_name: Alms Prefect
+      - key: artist_canon
+        display_name: Artist Canon
+      state_values:
+      - available
+      - assigned
+      - factional
+      - discredited
+      - vindicated
+      per_entity_state:
+        status_variable_pattern: tv_wonder_st_peters_basilica_candidate_<candidate>_status
+        quality_variable_pattern: tv_wonder_st_peters_basilica_candidate_<candidate>_quality
+      selector: Select the sacred official whose role and quality shape the dedication incident.
+      ui_binding: actor_slots:sacred_official_candidates should show the selected official, role, quality, and factional risk.
+    - key: apostolic_service_duties
+      entity_type: service_duty
+      entities:
+      - key: relic_inventory
+        display_name: Relic Inventory
+      - key: alms_ledger
+        display_name: Alms Ledger
+      - key: pilgrim_threshold
+        display_name: Pilgrim Threshold
+      - key: choir_offices
+        display_name: Choir Offices
+      - key: chapel_patronage
+        display_name: Chapel Patronage
+      state_values:
+      - unopened
+      - entrusted
+      - scandalized
+      - disciplined
+      - dedicated
+      per_entity_state:
+        status_variable_pattern: tv_wonder_st_peters_basilica_duty_<duty>_status
+      selector: Select the service duty challenged by the assigned official's weakness or faction.
+      ui_binding: incident_log:apostolic_service_duties should render one incident row per duty with scandal and resolution status.
+    selectors:
+    - key: sacred_official_selector
+      selection_space: Candidate clergy or sacred officials with role, quality, estate alignment, and scandal risk.
+      projection_state: Compressed into assigned_official and official_quality variables until character selector support is mapped.
+    - key: duty_incident_selector
+      selection_space: Relic, alms, pilgrim access, choir, or patronage duty challenged by the selected official.
+      projection_state: Preserved in design_ir and summarized by incident_status in the current node_graph.
+    risk_branches:
+    - key: relic_scandal
+      risk: The official mishandles relic inventories or tomb access, making the dedication look corrupt.
+      retry_or_failure: Reassign the official, audit relics, or accept a narrower clergy satisfaction reward.
+    - key: alms_dispute
+      risk: Alms officers and pilgrims accuse the basilica of buying splendor with poor relief.
+      retry_or_failure: Redirect one-time reward into alms or take an incident penalty before final dedication.
+    - key: factional_official
+      risk: A strong candidate belongs to a faction that wants patronage control over chapels or offerings.
+      retry_or_failure: Keep the candidate for stronger service but accept estate tension, or retry with a weaker neutral official.
+    player_actions:
+    - Select the sacred official and accept their quality, role, and factional cost.
+    - Resolve the first scandal through reassignment, audit, alms redistribution, or a reduced dedication.
+    - Seal clergy obligations only after the actor's authority has survived visible pressure.
+    map_scope_evidence:
+    - Fixed site is Rome; later mapping must verify ownership/control, final Saint Peter's building presence, pilgrim access, and religious/clergy participation.
+    - Candidate actors may be characters, generated officials, or semantic role variables; source scope support must be searched before compiler mapping.
+    ui_feedback_model:
+      components:
+      - actor_slots
+      - incident_log
+      repeated_rows: Actor slot for the selected official plus incident rows for service duties.
+      per_entity_status: Candidate rows need available/assigned/factional/discredited/vindicated state; duties need unopened/entrusted/scandalized/disciplined/dedicated state.
+      current_projection: The design-only node_graph compresses candidate rows into assigned_official and official_quality, and duty rows into incident_status.
+    uniqueness_constraints:
+    - The actor must be a sacred official tied to Peter's tomb, not a generic scholar or engineer.
+    - Relics, alms, pilgrim thresholds, choir offices, and chapel patronage are required design surfaces.
+    - Clergy satisfaction is earned through disciplined service, not a free estate privilege.
+    projection_notes: >
+      Preserve sacred official candidates, actor quality, factional risk, and apostolic service duty rows in design_ir. Compress the current node_graph into assignment, scandal, and reward nodes for design_complete only. Replace detailed actor-slot rows and duty incident rows with summary variables. Drop no selector or per-duty UI requirement; all unresolved character, clergy, and row primitives remain in compiler_gap_ledger.
+  compiler_gap_ledger:
+  - primitive: sacred_official_character_selector
+    design_semantics: Let the player assign a cardinal, bishop, relic custodian, alms prefect, or artist-canon style sacred official with role and quality state.
+    required_game_interfaces:
+    - character or generated-official selector
+    - actor variable storage
+    - role and quality UI
+    codebase_evidence:
+    - capability:actor_assignment documents assignment semantics but does not certify source selector generation.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which generic action or country interaction patterns can select or create a character for a wonder-specific sacred office?
+    - How should tooltip pre-evaluation guard a freshly assigned character variable?
+    blocked_by:
+    - No verified source selector is mapped for this ritual.
+    fallback_if_unavailable: Represent the official as a semantic role variable while keeping candidate rows in design_ir.
+  - primitive: clergy_state_faith_eligibility_checks
+    design_semantics: Require a compatible state-faith or clergy institution without hard-coding a single religion or papal owner.
+    required_game_interfaces:
+    - clergy estate or state-faith checks
+    - Rome site control
+    - hostile religion or religious-crisis branch checks
+    codebase_evidence: []
+    verification_status: semantic_only
+    search_questions:
+    - Which existing triggers safely test clergy participation, state religion compatibility, and hostile religious authority?
+    - Can non-Catholic sponsors translate the role into their own official clergy without special-case source code?
+    blocked_by:
+    - Religion and clergy eligibility policy needs codebase search and design confirmation before mapping.
+    fallback_if_unavailable: Keep eligibility as design text and require only ownership/control in any lossy projection.
+  - primitive: actor_quality_incident_reward_mapping
+    design_semantics: Make the assigned official's quality and factional risk choose the first scandal and influence final reward expression.
+    required_game_interfaces:
+    - actor quality variable
+    - branch-specific incident selection
+    - reward branch variable
+    codebase_evidence:
+    - capability:retry_branch can document reassignment/retry semantics but does not generate actor-quality incident routing.
+    verification_status: interface_candidate
+    search_questions:
+    - Which existing event patterns branch on character attributes, estate alignment, or role variables?
+    - Can final reward handoff read a role-quality variable without exposing unsafe option mutations?
+    blocked_by:
+    - Actor-to-incident routing is not represented by current Harness templates.
+    fallback_if_unavailable: Use a fixed scandal event and preserve actor-quality routing in design_ir.
+  - primitive: relic_alms_pilgrim_duty_rows
+    design_semantics: Track relic inventory, alms ledger, pilgrim threshold, choir offices, and chapel patronage as separate service duties.
+    required_game_interfaces:
+    - per-duty incident_log rows
+    - service duty variables
+    - panel status localization
+    codebase_evidence: []
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which Engineering Department GUI row patterns can render actor-related duty incidents?
+    - Should service duties be modeled as checklist rows, incident rows, or both?
+    blocked_by:
+    - Current Harness has semantic actor_slots and incident_log only; no repeated source-row backend exists.
+    fallback_if_unavailable: Show incident_status summary while retaining per-duty rows in design_ir.
   ui_model:
-    components: []
+    components:
+    - type: actor_slots
+      key: sacred_official
+      status_variable: tv_wonder_st_peters_basilica_assigned_official
+    - type: incident_log
+      key: dedication_incidents
+      status_variable: tv_wonder_st_peters_basilica_incident_status
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: data/unique_wonders.yaml ritual.country_modifier
+      description: Preserve Saint Peter's tolerance_own and clergy_estate_target_satisfaction ceremony theme as disciplined apostolic service.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir apostolic_service_duties
+      description: Local site memory for relic custody, alms ledgers, pilgrim thresholds, choir offices, and chapel obligations.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir assigned official branch
+      description: One-time clergy, tolerance, alms, or prestige reward shaped by the assigned official's role and scandal resolution.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_ST_PETERS_OFFICIAL_STATUS
+    - TV_ENGINEERING_ST_PETERS_INCIDENT_STATUS
+    event_keys:
+    - event_id: 1008
+      title_key: tv_engineering_department.1008.t
+      desc_key: tv_engineering_department.1008.d
+      option_keys:
+      - tv_engineering_department.1008.a
+      node_key: st_peters_opening
+    - event_id: 1009
+      title_key: tv_engineering_department.1009.t
+      desc_key: tv_engineering_department.1009.d
+      option_keys:
+      - tv_engineering_department.1009.a
+      - tv_engineering_department.1009.b
+      - tv_engineering_department.1009.c
+      node_key: st_peters_assignment
+    - event_id: 1010
+      title_key: tv_engineering_department.1010.t
+      desc_key: tv_engineering_department.1010.d
+      option_keys:
+      - tv_engineering_department.1010.a
+      - tv_engineering_department.1010.b
+      node_key: st_peters_scandal
+    - event_id: 1011
+      title_key: tv_engineering_department.1011.t
+      desc_key: tv_engineering_department.1011.d
+      option_keys:
+      - tv_engineering_department.1011.a
+      node_key: st_peters_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_st_peters_basilica
   implementation_notes:
     source_ritual_key: dedication
-    implementation_source: none
-    verification_status: needs_design
+    implementation_source: design_only_high_fidelity_spec
+    verification_status: design_complete
     verified_interfaces: []
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - sacred_official_character_selector
+    - clergy_state_faith_eligibility_checks
+    - actor_quality_incident_reward_mapping
+    - relic_alms_pilgrim_duty_rows
 - identity:
     id: 113
     key: unique_lalibela_churches
@@ -1721,44 +2504,303 @@ unique_wonders:
     base_key: national_bank
     location: genoa
     runtime_prefix: tv_wonder_bank_of_saint_george
-    status: stub
-  event_ids: []
+    status: design_complete
+  event_ids:
+  - id: 1012
+    key: bank_opening
+  - id: 1013
+    key: bank_charter_branch
+  - id: 1014
+    key: bank_credit_incident
+  - id: 1015
+    key: bank_reward
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_bank_of_saint_george needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: design_projection_only_v1
+    historical_mechanic: Public credit charter founding that turns Genoese debt, tax streams, coin trust, and merchant syndicates into state machinery.
+    summary: The player proves that the Bank of Saint George can make public credit credible by choosing a founding charter and surviving the first creditor, crown, or open-market challenge.
+    mechanic_signature:
+      wonder_specific_hook: San Giorgio is not a generic bank; its founding binds old public obligations, merchant creditors, pledged revenues, coin assays, archive seals, and guarded harbor counters into one trusted machine.
+      core_interaction_loop: The player opens the ledger oath, chooses creditor privilege, crown supervision, or open merchant access, resolves the immediate credit incident created by that charter, and then seals the bank as public authority.
+      player_decision_pattern: Choices decide who controls trust, who bears political cost, and which pledge rows become credible enough to support minting and tax efficiency.
+      state_feedback_model: The checklist tracks charter acceptance and pledge categories while the incident log records creditor overreach, crown distrust, or open-market default pressure.
+      failure_or_tension_model: Overprivileged creditors cause social friction, crown-heavy control weakens merchant trust, and open access risks default; each can retry or seal a narrower charter.
+      reward_expression: The reward expresses minting income and tax efficiency as public confidence in coin assays, pledged tax streams, and enforceable debt ledgers.
+      reuse_risk_mitigation: The loop belongs to Genoa's public-credit institution because state debt, merchant syndicates, port revenue, archive seals, and a fortified bank hall are the monument itself.
+    cadence_signature:
+      cadence_type: instant_but_branching
+      cadence_rationale: Instant branching fits because the core drama is the founding charter bargain, a one-time public oath with distinct fiscal and social costs rather than a timer.
+      player_agency_model: The player chooses the charter doctrine, accepts its trust or political cost, and resolves the first incident that tests the chosen credit compact.
+      non_monthly_triggers_or_reason: Non-monthly validation is the immediate charter option and the credit incident branch that confirms whether creditors, the crown, or merchants trust the ledger.
+      pacing_failure_mode: The pacing fails if ledgers become anonymous monthly points; design_ir preserves pledge rows, charter branches, and default risk even when projected into a short event skeleton.
     listeners: []
+    entry_node: bank_opening
+    terminal_nodes:
+    - bank_reward
+    runtime_variables:
+    - tv_wonder_bank_of_saint_george_stage
+    - tv_wonder_bank_of_saint_george_charter_branch
+    - tv_wonder_bank_of_saint_george_pledge_status
+    - tv_wonder_bank_of_saint_george_default_risk
+    nodes:
+    - key: bank_opening
+      kind: event
+      event_id: 1012
+      player_visible: true
+      next_nodes:
+      - bank_charter_branch
+      failure_or_retry: false
+      historical_anchor: The doge's officers, merchant creditors, notaries, mint masters, customs farmers, and guards gather around the ledger oath.
+    - key: bank_charter_branch
+      kind: choice_event
+      event_id: 1013
+      player_visible: true
+      next_nodes:
+      - bank_credit_incident
+      failure_or_retry: false
+      historical_anchor: The player chooses whether creditors, crown officers, or open merchants receive the founding privilege.
+    - key: bank_credit_incident
+      kind: retry_event
+      event_id: 1014
+      player_visible: true
+      next_nodes:
+      - bank_reward
+      failure_or_retry: true
+      retry_target: bank_charter_branch
+      historical_anchor: The chosen charter immediately triggers creditor overreach, crown distrust, or market default pressure.
+    - key: bank_reward
+      kind: final_reward_dispatch
+      event_id: 1015
+      player_visible: true
+      next_nodes: []
+      failure_or_retry: false
+      historical_anchor: The public ledger is sealed, a verified coin is presented, and pledged revenues become trusted state capacity.
+  design_ir:
+    compiler_primitives:
+    - public_credit_interfaces
+    - charter_branch_fiscal_scaling
+    - merchant_creditor_privilege_checks
+    - per_pledge_ledger_rows_default_risk
+    phases:
+    - key: ledger_oath_opening
+      gameplay_stage: Convene doge's officers, Anziani, creditors, notaries, mint masters, customs farmers, insurers, harbor scribes, and guards in the bank hall.
+    - key: charter_branch
+      gameplay_stage: Choose creditor privilege, crown supervision, or open merchant access as the public-credit charter.
+    - key: credit_incident
+      gameplay_stage: Resolve the first trust shock created by the charter, whether creditor overreach, crown distrust, or default risk.
+    - key: public_credit_seal
+      gameplay_stage: Seal the ledger, pledge tax streams, verify coin trust, and publish the charter at the harbor gate.
+    player_proofs:
+    - The player proves that debt ledgers, tax streams, minting, and merchant syndicates can become a public institution.
+    - The player proves that trust is allocated by charter choice, not by passive fiscal progress.
+    - The player proves that public credit can survive its first default or privilege crisis.
+    tracked_entity_sets:
+    - key: charter_options
+      entity_type: charter_branch
+      entities:
+      - key: creditor_privilege
+        display_name: Creditor Privilege Charter
+      - key: crown_supervision
+        display_name: Crown Supervision Charter
+      - key: open_merchant_access
+        display_name: Open Merchant Access Charter
+      state_values:
+      - available
+      - selected
+      - contested
+      - sealed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_bank_of_saint_george_charter_<branch>_status
+      selector: Select which compact gives the bank authority over debts, taxes, and coin trust.
+      ui_binding: checklist:charter_options should show branch availability, selected branch, contest state, and final seal.
+    - key: public_credit_pledges
+      entity_type: credit_pledge
+      entities:
+      - key: old_war_debts
+        display_name: Old War Debts
+      - key: customs_dues
+        display_name: Customs Dues
+      - key: salt_tax
+        display_name: Salt Tax
+      - key: port_tolls
+        display_name: Port Tolls
+      - key: coin_assays
+        display_name: Coin Assays
+      - key: archive_volumes
+        display_name: Archive Volumes
+      state_values:
+      - unpledged
+      - pledged
+      - distrusted
+      - defaulted
+      - honored
+      per_entity_state:
+        status_variable_pattern: tv_wonder_bank_of_saint_george_pledge_<pledge>_status
+        default_risk_variable_pattern: tv_wonder_bank_of_saint_george_pledge_<pledge>_default_risk
+      selector: Select the pledge whose trust or default risk is tested by the chosen charter.
+      ui_binding: incident_log:public_credit_pledges should render one row per pledge with trust and default-risk state.
+    selectors:
+    - key: charter_branch_selector
+      selection_space: Creditor privilege, crown supervision, or open merchant access charter options.
+      projection_state: Preserved as charter_branch variable and compressed into bank_charter_branch node.
+    - key: pledge_risk_selector
+      selection_space: Debt, customs, salt, port toll, coin assay, and archive pledge rows.
+      projection_state: Preserved in design_ir; node_graph summarizes the selected pressure as pledge_status and default_risk.
+    risk_branches:
+    - key: creditor_overprivilege
+      risk: Creditors receive too much control and provoke social or crown resentment.
+      retry_or_failure: Reopen charter terms or seal a high-trust branch with political cost.
+    - key: crown_heavy_charter
+      risk: Crown supervision reassures rulers but makes merchants distrust the ledger.
+      retry_or_failure: Add merchant guarantees or accept weaker minting-income expression.
+    - key: open_access_default
+      risk: Broad market access improves legitimacy but exposes default risk in weak pledge rows.
+      retry_or_failure: Narrow the charter, pledge stronger revenue, or complete with a lower tax-efficiency expression.
+    player_actions:
+    - Choose the founding charter branch that allocates control of credit.
+    - Decide which pledge class bears the first trust test and whether to guarantee, narrow, or publish it.
+    - Accept a fiscal, estate, or legitimacy cost when the charter creates immediate opposition.
+    map_scope_evidence:
+    - Fixed site is Genoa; later mapping must preserve ownership/control, final bank building presence, usable harbor, and urban order.
+    - Public credit primitives need country finance evidence for debt, loans, taxes, minting, trade income, and merchant or creditor groups.
+    ui_feedback_model:
+      components:
+      - checklist
+      - incident_log
+      repeated_rows: Charter option checklist rows plus one incident row per public-credit pledge.
+      per_entity_status: Charter rows need selected/contested/sealed state; pledge rows need pledged/distrusted/defaulted/honored and default-risk state.
+      current_projection: The design-only node_graph compresses these rows into charter_branch, pledge_status, and default_risk variables.
+    uniqueness_constraints:
+    - The ledger, not the hall alone, is the monument; public debts and pledged revenues must stay visible.
+    - The founding choice must branch immediately among creditor, crown, and open-merchant trust models.
+    - The reward must stay fiscal, with minting income and tax efficiency from credible public credit rather than a generic trade or monthly bank progress bar.
+    projection_notes: >
+      Preserve charter options, pledge rows, default risk, and branch fiscal semantics in design_ir. Compress them into four planning nodes and three summary variables for design_complete. Replace per-pledge incident rows and charter checklist rows with summary UI bindings until a row generator exists. Drop the old monthly audit pacing from this pilot; unresolved finance and pledge primitives block compiler_mapped and all source-codegen statuses.
+  compiler_gap_ledger:
+  - primitive: public_credit_interfaces
+    design_semantics: Detect and represent loans, debt burden, tax streams, minting income, trade income, and treasury promises as public-credit material.
+    required_game_interfaces:
+    - country loan or debt checks
+    - tax and customs income checks
+    - minting or seigniorage values
+    - treasury and solvency state
+    codebase_evidence: []
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which EU5 country triggers/effects expose loans, interest, tax income, minting income, and trade income safely?
+    - Are fiscal values readable in event tooltips without unsafe pre-evaluation?
+    blocked_by:
+    - Finance interface mapping has not been searched for this ritual.
+    fallback_if_unavailable: Keep fiscal evidence semantic and branch only on a coarse solvency/treasury check in future projections.
+  - primitive: charter_branch_fiscal_scaling
+    design_semantics: Scale minting-income, tax-efficiency expression, and one-time fiscal/social costs by creditor, crown, or open-merchant charter branch.
+    required_game_interfaces:
+    - branch state variable
+    - final reward handoff
+    - tooltip-safe branch preview
+    - cost and reward scaling
+    codebase_evidence:
+    - capability:final_reward_handoff documents final handoff semantics but does not generate branch-specific fiscal rewards.
+    verification_status: interface_candidate
+    search_questions:
+    - Which existing finalization effects can read a branch variable and apply different country modifiers or one-time rewards?
+    - Can branch preview text show different fiscal outcomes without invoking hidden mutation in option tooltips?
+    blocked_by:
+    - Current Harness templates do not support source fiscal scaling by branch.
+    fallback_if_unavailable: Use one fixed reward theme and preserve branch scaling in design_ir for a later backend.
+  - primitive: merchant_creditor_privilege_checks
+    design_semantics: Check merchant, burgher, creditor, or crown privilege pressure so charter choice has social cost.
+    required_game_interfaces:
+    - estate satisfaction or privilege checks
+    - merchant/creditor pressure variables
+    - incident branch state
+    codebase_evidence: []
+    verification_status: semantic_only
+    search_questions:
+    - Which estate or privilege APIs can represent merchant-creditor overprivilege without inventing a new estate?
+    - Can crown-heavy and creditor-heavy branches be represented as temporary burdens before final handoff?
+    blocked_by:
+    - Merchant-creditor social interface is not verified for this source layer.
+    fallback_if_unavailable: Represent the pressure as a ritual-local incident variable and keep estate semantics in design_ir.
+  - primitive: per_pledge_ledger_rows_default_risk
+    design_semantics: Track old debts, customs dues, salt tax, port tolls, coin assays, and archive volumes as separate pledge rows with default risk.
+    required_game_interfaces:
+    - repeated incident_log rows
+    - per-pledge status variables
+    - default-risk display
+    - pledge selector
+    codebase_evidence: []
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which repeated-row GUI pattern should render pledge status and default risk?
+    - Should pledge rows be generated from design_ir tracked_entity_sets or stored as fixed variables?
+    blocked_by:
+    - No current Harness source generator owns per-pledge row expansion.
+    fallback_if_unavailable: Use pledge_status and default_risk summaries while preserving all pledge rows in design_ir.
   ui_model:
-    components: []
+    components:
+    - type: checklist
+      key: charter_options
+      status_variable: tv_wonder_bank_of_saint_george_charter_branch
+    - type: incident_log
+      key: credit_incidents
+      status_variable: tv_wonder_bank_of_saint_george_default_risk
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: data/unique_wonders.yaml ritual.country_modifier
+      description: Preserve the Bank's minting_income_factor and tax_income_efficiency ceremony theme as credible public credit.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir public_credit_pledges
+      description: Local site memory for sealed archives, guarded coin chests, pledged revenue counters, and published harbor notices.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir charter branch
+      description: One-time fiscal, merchant-trust, or stability reward/cost shaped by the selected charter and default-risk incident.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CHARTER_STATUS
+    - TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CREDIT_STATUS
+    event_keys:
+    - event_id: 1012
+      title_key: tv_engineering_department.1012.t
+      desc_key: tv_engineering_department.1012.d
+      option_keys:
+      - tv_engineering_department.1012.a
+      node_key: bank_opening
+    - event_id: 1013
+      title_key: tv_engineering_department.1013.t
+      desc_key: tv_engineering_department.1013.d
+      option_keys:
+      - tv_engineering_department.1013.a
+      - tv_engineering_department.1013.b
+      - tv_engineering_department.1013.c
+      node_key: bank_charter_branch
+    - event_id: 1014
+      title_key: tv_engineering_department.1014.t
+      desc_key: tv_engineering_department.1014.d
+      option_keys:
+      - tv_engineering_department.1014.a
+      - tv_engineering_department.1014.b
+      node_key: bank_credit_incident
+    - event_id: 1015
+      title_key: tv_engineering_department.1015.t
+      desc_key: tv_engineering_department.1015.d
+      option_keys:
+      - tv_engineering_department.1015.a
+      node_key: bank_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_bank_of_saint_george
   implementation_notes:
     source_ritual_key: bank_founding
-    implementation_source: none
-    verification_status: needs_design
+    implementation_source: design_only_high_fidelity_spec
+    verification_status: design_complete
     verified_interfaces: []
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - public_credit_interfaces
+    - charter_branch_fiscal_scaling
+    - merchant_creditor_privilege_checks
+    - per_pledge_ledger_rows_default_risk
 - identity:
     id: 123
     key: unique_cahokia_mounds
