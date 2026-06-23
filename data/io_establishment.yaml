@@ -167,6 +167,8 @@ paths:
       	text = TV_DIPLOMATIC_ESTABLISHMENT_STEP1_REQUIREMENT
       	modifier:diplomatic_reputation >= 10
       }
+    ai_headquarters_requirement_body: |
+      modifier:diplomatic_reputation >= 15
     headquarters:
       building: tv_diplomatic_headquarters
       name:

@@ -631,7 +631,7 @@
  TV_DIPLOMATIC_FLAVOR: "\"An army is of little use where reason fails.\""
  TV_DIPLOMATIC_OVERVIEW_TITLE: "[tv_diplomatic_victory|E]：Every Treaty Turns Toward Us"
  TV_DIPLOMATIC_OVERVIEW_PLAYSTYLE: "Playstyle: establish the alliance, raise alliance tier, and make other thrones depend on your guarantees, assemblies, and diplomatic timing."
- TV_DIPLOMATIC_OVERVIEW_FORMULA: "Progress formula: [tv_diplomatic_victory_points|e] starts at 1 when the [tv_diplomatic_alliance|e] is founded through the IO establishment flow. Each month after establishment, the alliance leader gains the full current [tv_alliance_tier|e], while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
+ TV_DIPLOMATIC_OVERVIEW_FORMULA: "Progress formula: [tv_diplomatic_victory_points|e] comes from monthly [tv_alliance_tier|e] output after [tv_diplomatic_alliance|e] membership: the alliance leader gains the full current tier, while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
  tv_victory_select_path_diplomatic: "Diplomatic"
  tv_victory_select_path_diplomatic_desc: "Show the Diplomatic Victory page."
  PERFORM_tv_victory_select_path_diplomatic_ACTION_SETUP: "When we switch victory path pages."

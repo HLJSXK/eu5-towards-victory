@@ -10,6 +10,7 @@
 		custom_tooltip = { text = tv_create_diplomatic_alliance_tt }
 		hidden_effect = {
 			save_scope_as = tv_founder
+			set_variable = { name = tv_diplomatic_alliance_self_establishing value = 1 }
 			create_international_organization = {
 				type = international_organization_type:tv_diplomatic_alliance
 				add_country_to_international_organization = prev
@@ -19,6 +20,7 @@
 				set_variable = { name = tv_alliance_cohesion value = 0 }
 				set_variable = { name = tv_alliance_tier value = 0 }
 			}
+			remove_variable = tv_diplomatic_alliance_self_establishing
 			set_variable = { name = tv_alliance_tier value = 0 }
 		}
 	}
@@ -29,11 +31,7 @@
 				NOT = { has_variable = tv_diplomatic_victory_points }
 			}
 		}
-		set_variable = { name = tv_diplomatic_victory_points value = 1 }
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_victory_points < 1 }
-		set_variable = { name = tv_diplomatic_victory_points value = 1 }
+		set_variable = { name = tv_diplomatic_victory_points value = 0 }
 	}
 }
 

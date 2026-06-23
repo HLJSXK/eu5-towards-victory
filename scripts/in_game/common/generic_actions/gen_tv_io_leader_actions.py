@@ -141,9 +141,26 @@ def _headquarters_building(est: dict) -> str:
     return est["headquarters"]["building"]
 
 
+def _ai_headquarters_requirement_block(est: dict, indent: str) -> str:
+    requirement = est.get("ai_headquarters_requirement_body", "").strip()
+    if not requirement:
+        return ""
+    lines = [f"{indent}OR = {{", f"{indent}\tis_ai = no"]
+    for line in requirement.splitlines():
+        if line.strip():
+            lines.append(f"{indent}\t{line.rstrip()}")
+        else:
+            lines.append("")
+    lines.append(f"{indent}}}")
+    return "\n".join(lines) + "\n"
+
+
 def gen_build_headquarters(est: dict) -> str:
     pid = est["id"]
     building = _headquarters_building(est)
+    ai_requirement_allow = _ai_headquarters_requirement_block(est, "\t\t\t")
+    ai_requirement_enabled = _ai_headquarters_requirement_block(est, "\t\t\t\t")
+    ai_requirement_effect = _ai_headquarters_requirement_block(est, "\t\t\t\t\t")
     return (
         f"tv_build_{pid}_headquarters = {{\n"
         f"\ttype = owncountry\n"
@@ -164,6 +181,7 @@ def gen_build_headquarters(est: dict) -> str:
         f"\t\t\ttv_{pid}_establishment_basic_done = yes\n"
         f"\t\t\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}\n"
         f"\t\t\tNOT = {{ tv_{pid}_establishment_headquarters_done = yes }}\n"
+        f"{ai_requirement_allow}"
         f"\t\t}}\n"
         f"\t}}\n"
         f"\n"
@@ -189,6 +207,7 @@ def gen_build_headquarters(est: dict) -> str:
         f"\t\t\tscope:actor = {{\n"
         f"\t\t\t\ttv_{pid}_establishment_basic_done = yes\n"
         f"\t\t\t\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}\n"
+        f"{ai_requirement_enabled}"
         f"\t\t\t}}\n"
         f"\t\t\ttv_{pid}_headquarters_can_build_in_location = yes\n"
         f"\t\t}}\n"
@@ -201,6 +220,7 @@ def gen_build_headquarters(est: dict) -> str:
         f"\t\t\t\tscope:actor = {{\n"
         f"\t\t\t\t\ttv_{pid}_establishment_basic_done = yes\n"
         f"\t\t\t\t\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}\n"
+        f"{ai_requirement_effect}"
         f"\t\t\t\t}}\n"
         f"\t\t\t\tscope:target = {{ tv_{pid}_headquarters_can_build_in_location = yes }}\n"
         f"\t\t\t}}\n"
