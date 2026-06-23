@@ -1293,15 +1293,15 @@ unique_wonders:
     base_key: palace_of_nations
     location: granada
     runtime_prefix: tv_wonder_alhambra
-    status: compiler_mapped
+    status: source_codegen_ready
   event_ids:
-  - id: 1004
+  - id: 7309
     key: alhambra_opening
-  - id: 1005
+  - id: 7310
     key: alhambra_war_validation
-  - id: 1006
+  - id: 7311
     key: alhambra_treaty_branch
-  - id: 1007
+  - id: 7312
     key: alhambra_reward
   node_graph:
     model: state_machine_dsl_v1
@@ -1418,7 +1418,7 @@ unique_wonders:
       kind: event
       capabilities:
       - event_chain
-      event_id: 1004
+      event_id: 7309
       player_visible: true
       enter_condition: Granada treaty court can be opened for the completed Alhambra without claiming source-side palace-control codegen.
       completion_condition: Envoys, notaries, translators, symbolic keys, protected households, safe-conduct passes, water overseers, guards, and foreign observers are assembled.
@@ -1434,9 +1434,9 @@ unique_wonders:
         variable_refs:
         - tv_wonder_alhambra_stage
       loc_refs:
-      - tv_engineering_department.1004.t
-      - tv_engineering_department.1004.d
-      - tv_engineering_department.1004.a
+      - TV_ENGINEERING_ALHAMBRA_OPENING_TITLE
+      - TV_ENGINEERING_ALHAMBRA_OPENING_DESC
+      - TV_ENGINEERING_ALHAMBRA_OPENING_PREPARE
       scope_contract:
         root_scope: country
         current_scope: country
@@ -1449,7 +1449,8 @@ unique_wonders:
       kind: listener_gate
       capabilities:
       - listener_gate
-      event_id: 1005
+      - fixed_site_integrity_control_pressure_backend
+      event_id: 7310
       player_visible: true
       enter_condition: Treaty validation waits for a supported pre-winning-war or ending-war window while Granada remains the fixed site evidence in design_ir.
       completion_condition: A real war or peace outcome window is recorded as palace treaty validation without promoting Granada palace-risk checks to backend_ready.
@@ -1470,9 +1471,9 @@ unique_wonders:
         - tv_wonder_alhambra_war_validation
         - tv_wonder_alhambra_palace_risk_status
       loc_refs:
-      - tv_engineering_department.1005.t
-      - tv_engineering_department.1005.d
-      - tv_engineering_department.1005.a
+      - TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_TITLE
+      - TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_DESC
+      - TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_VALIDATE
       scope_contract:
         root_scope: country
         current_scope: country
@@ -1498,9 +1499,10 @@ unique_wonders:
       kind: retry_event
       capabilities:
       - retry_branch
+      - fixed_site_integrity_control_pressure_backend
       - repeated_entity_row_checklist_incident_log_backend
       - branch_specific_reward_scaling
-      event_id: 1006
+      event_id: 7311
       player_visible: true
       enter_condition: War validation exists and the treaty court must choose how mercy, tribute, or deterrence treats clauses and palace risks.
       completion_condition: Mercy, tribute, or deterrence records clause status, palace-risk status, and reward branch, or sends the ritual back to war validation.
@@ -1527,11 +1529,11 @@ unique_wonders:
         - tv_wonder_alhambra_palace_risk_status
         - tv_wonder_alhambra_reward_branch
       loc_refs:
-      - tv_engineering_department.1006.t
-      - tv_engineering_department.1006.d
-      - tv_engineering_department.1006.a
-      - tv_engineering_department.1006.b
-      - tv_engineering_department.1006.c
+      - TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TITLE
+      - TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DESC
+      - TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_MERCY
+      - TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TRIBUTE
+      - TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DETERRENCE
       scope_contract:
         root_scope: country
         current_scope: country
@@ -1545,7 +1547,7 @@ unique_wonders:
       capabilities:
       - final_reward_handoff
       - branch_specific_reward_scaling
-      event_id: 1007
+      event_id: 7312
       player_visible: true
       enter_condition: A treaty doctrine has been accepted and the remaining source-writer blockers are documented outside the reward node.
       completion_condition: Permanent country, local palace memory, and one-time reward semantics are handed off as intermediate reward-summary data only.
@@ -1568,9 +1570,9 @@ unique_wonders:
         - tv_wonder_alhambra_palace_risk_status
         - tv_wonder_alhambra_reward_branch
       loc_refs:
-      - tv_engineering_department.1007.t
-      - tv_engineering_department.1007.d
-      - tv_engineering_department.1007.a
+      - TV_ENGINEERING_ALHAMBRA_REWARD_TITLE
+      - TV_ENGINEERING_ALHAMBRA_REWARD_DESC
+      - TV_ENGINEERING_ALHAMBRA_REWARD_SEAL
       scope_contract:
         root_scope: country
         current_scope: country
@@ -1584,12 +1586,12 @@ unique_wonders:
       to: alhambra_war_validation
       condition: treaty court opened
       effect: set stage to war-validation wait
-      label_key: tv_engineering_department.1004.a
+      label_key: TV_ENGINEERING_ALHAMBRA_OPENING_PREPARE
     - from: alhambra_war_validation
       to: alhambra_treaty_branch
       condition: pre_winning_war or ending_war validation recorded
       effect: save war-validation and palace-risk summary state
-      label_key: tv_engineering_department.1005.a
+      label_key: TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_VALIDATE
     - from: alhambra_treaty_branch
       to: alhambra_war_validation
       condition: safe-conduct, water court, or occupation dispute discredits the clause
@@ -1599,17 +1601,17 @@ unique_wonders:
       to: alhambra_reward
       condition: mercy branch accepted
       effect: save protected-household clause integrity and diplomatic reward branch
-      label_key: tv_engineering_department.1006.a
+      label_key: TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_MERCY
     - from: alhambra_treaty_branch
       to: alhambra_reward
       condition: tribute branch accepted
       effect: save tribute schedule, protected order, and reward branch
-      label_key: tv_engineering_department.1006.b
+      label_key: TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TRIBUTE
     - from: alhambra_treaty_branch
       to: alhambra_reward
       condition: deterrence branch accepted
       effect: save guarded-audience deterrence and reduced diplomatic branch state
-      label_key: tv_engineering_department.1006.c
+      label_key: TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DETERRENCE
     actions:
     - key: open_alhambra_treaty_court
       kind: generator_template
@@ -1742,13 +1744,13 @@ unique_wonders:
       - checklist
       repeated_rows: One checklist row per treaty clause and one incident row per palace risk point.
       per_entity_status: Clauses need sworn/violated/witnessed/narrowed state; risk points need secure/threatened/occupied/repaired state.
-      current_projection: The current compiler_mapped node_graph is a strong Harness DSL projection; it preserves war_validation, treaty_clause_status, palace_risk_status, and reward_branch summary variables while per-clause and per-risk rows remain authoritative in design_ir.
+      current_projection: The current source_codegen_ready node_graph is still an intermediate-only strong Harness DSL projection; it preserves war_validation, treaty_clause_status, palace_risk_status, and reward_branch summary variables while per-clause and per-risk rows remain authoritative in design_ir.
     uniqueness_constraints:
     - The loop must remain about Granada's capitulation palace, symbolic keys, water courts, protected elites, and foreign witnesses.
     - A normal war victory is not enough; the palace must remain credible as preserved courtly order.
     - The player should not be rewarded for sacking or flattening the palace's negotiated identity.
     projection_notes: >
-      Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Project them into a compiler_mapped strong DSL graph with four planning events, listener/state contracts, checklist and incident summary variables, branch reward state, actions, checks, and UI bindings. The listener, repeated-row, and branch-scaling primitives have intermediate backend evidence, but Granada palace-control checks, per-court risk semantics, loadable source writers, and real GUI row expansion remain unresolved. Drop no war, treaty, palace-risk, or reward primitive.
+      Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Project them into a source_codegen_ready strong DSL graph with four planning events, listener/state contracts, checklist and incident summary variables, branch reward state, actions, checks, and UI bindings. The listener, fixed-site integrity/control-pressure, repeated-row, and branch-scaling primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop no war, treaty, palace-risk, or reward primitive.
   compiler_gap_ledger:
   - primitive: war_outcome_capitulation_gate
     design_semantics: Validate the rite only during a supported war or peace outcome window where Granada remains controlled and the palace is not discredited.
@@ -1782,17 +1784,22 @@ unique_wonders:
     - treaty state variables
     - palace risk rows
     codebase_evidence:
-    - reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt exposes owner/controller-style location contract patterns.
-    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt contains fixed unique-wonder host checks such as location:genoa has_owner/owner blocks and many tv_wonder_location_can_host_unique_* triggers.
-    - reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses Granada ownership checks, proving local Granada script evidence exists but not the full palace-risk model.
-    - capability:listener_gate covers war timing only; it does not cover Granada occupation, siege, water-court integrity, protected households, or per-court palace-risk checks.
-    verification_status: interface_candidate
-    harness_backlog_cluster: war_listener_scope_contract
+    - reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt defines is_owned_by_target_or_subject with owner checks and is_controlled_by_target_or_subject with controller checks.
+    - reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses location:granada = { owner = c:CAS } for Granada ownership evidence.
+    - reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses owns = location:granada for Granada owner-scoped event eligibility.
+    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_location_meets_unique_alhambra_base_site_rules_trigger with this = location:granada and is_capital = yes.
+    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_can_build_unique_alhambra_trigger and tv_wonder_player_visible_site_rules_unique_alhambra_trigger with owns = location:granada.
+    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines unique Alhambra final/intermediate building checks for fixed-site building evidence.
+    - capability:fixed_site_integrity_control_pressure_backend
+    - data/unique_wonder_ritual_capabilities.yaml:fixed_site_integrity_control_pressure_backend preserves fixed-site owner/controller/final-building evidence, occupation/siege/local-pressure semantics, and palace-risk incident rows as an intermediate backend contract with may_write_src false.
+    - template:semantic_contract_fragment can summarize fixed-site integrity and palace-risk contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
+    harness_backlog_cluster: fixed_site_integrity_control_pressure_backend
     search_questions:
     - Which existing location triggers distinguish owner, controller, occupation, siege, and local unrest for a fixed wonder site?
     - Are waterworks and protected-household states representable as variables or only as design-level rows?
     blocked_by:
-    - No verified Harness backend capability/template exists for Granada-specific occupation, siege, water-court integrity, protected-household, or per-court palace-risk checks.
+    - Loadable EU5 source remains blocked until a later source writer maps the intermediate site-integrity contract to exact occupation, siege, unrest/devastation, water-court, protected-household, safe-conduct, and palace-risk predicates.
     fallback_if_unavailable: Collapse site checks into a readable checklist while preserving individual palace risks in design_ir.
   - primitive: treaty_clause_ui_rows
     design_semantics: Render treaty clauses as individual checklist rows with sworn, violated, witnessed, or narrowed status.
@@ -1896,50 +1903,61 @@ unique_wonders:
     - TV_ENGINEERING_ALHAMBRA_WAR_STATUS
     - TV_ENGINEERING_ALHAMBRA_TREATY_STATUS
     event_keys:
-    - event_id: 1004
-      title_key: tv_engineering_department.1004.t
-      desc_key: tv_engineering_department.1004.d
+    - event_id: 7309
+      title_key: TV_ENGINEERING_ALHAMBRA_OPENING_TITLE
+      desc_key: TV_ENGINEERING_ALHAMBRA_OPENING_DESC
       option_keys:
-      - tv_engineering_department.1004.a
+      - TV_ENGINEERING_ALHAMBRA_OPENING_PREPARE
       node_key: alhambra_opening
-    - event_id: 1005
-      title_key: tv_engineering_department.1005.t
-      desc_key: tv_engineering_department.1005.d
+    - event_id: 7310
+      title_key: TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_TITLE
+      desc_key: TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_DESC
       option_keys:
-      - tv_engineering_department.1005.a
+      - TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_VALIDATE
       node_key: alhambra_war_validation
-    - event_id: 1006
-      title_key: tv_engineering_department.1006.t
-      desc_key: tv_engineering_department.1006.d
+    - event_id: 7311
+      title_key: TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TITLE
+      desc_key: TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DESC
       option_keys:
-      - tv_engineering_department.1006.a
-      - tv_engineering_department.1006.b
-      - tv_engineering_department.1006.c
+      - TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_MERCY
+      - TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TRIBUTE
+      - TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DETERRENCE
       node_key: alhambra_treaty_branch
-    - event_id: 1007
-      title_key: tv_engineering_department.1007.t
-      desc_key: tv_engineering_department.1007.d
+    - event_id: 7312
+      title_key: TV_ENGINEERING_ALHAMBRA_REWARD_TITLE
+      desc_key: TV_ENGINEERING_ALHAMBRA_REWARD_DESC
       option_keys:
-      - tv_engineering_department.1007.a
+      - TV_ENGINEERING_ALHAMBRA_REWARD_SEAL
       node_key: alhambra_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_alhambra
+  generation:
+    status: source_codegen_ready
+    target_files:
+    - data/generated_fragments/unique_wonder_rituals/unique_alhambra_ritual_codegen.md
+    verified_templates:
+    - sequential_event_chain
+    - branch_retry_event
+    - semantic_contract_fragment
+    - final_reward_dispatch_stub
+    blocked_templates: []
+    dry_run_notes: Intermediate-only Harness fragment eligibility for Alhambra; may_write_src remains false and loadable EU5 source remains blocked by source-writer gaps.
   implementation_notes:
     source_ritual_key: capitulation_treaty
     implementation_source: design_only_high_fidelity_spec
-    verification_status: compiler_mapped
+    verification_status: source_codegen_ready
     verified_interfaces:
     - Harness strong state_machine_dsl_v1 semantic graph for Alhambra
     - capability:listener_gate semantic war-listener contract for pre_winning_war and ending_war
+    - capability:fixed_site_integrity_control_pressure_backend intermediate backend contract
     - capability:repeated_entity_row_checklist_incident_log_backend intermediate backend contract
     - capability:branch_specific_reward_scaling intermediate backend contract
     - existing Engineering Department on_action bridge evidence for ritual war listeners
     needs_verification:
-    - granada_palace_control_treaty_checks
     - loadable_source_writer_for_war_listener_treaty_rows_and_branch_rewards
     remaining_source_writer_blockers:
     - War listener mapping is backend-ready only as an intermediate listener_gate contract; no loadable on_action/scope-saving writer exists for Alhambra.
-    - Granada palace control, occupation/siege/unrest, water-court integrity, protected households, and per-court risk checks remain interface_candidate.
+    - Fixed Granada site integrity, occupation/siege/local-pressure, water-court, protected-household, safe-conduct, and per-court risk checks are backend-ready only as an intermediate fixed-site contract; no loadable source predicate writer exists.
     - Treaty clause rows are preserved through an intermediate repeated-row backend contract, but no loadable GUI row expander exists.
     - Branch reward scaling is preserved through an intermediate backend contract, but no loadable reward-effect writer exists.
 - identity:
