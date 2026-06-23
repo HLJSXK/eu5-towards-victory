@@ -885,20 +885,32 @@ unique_wonders:
     base_key: sky_dome_grand_temple
     location: jerusalem
     runtime_prefix: tv_wonder_dome_of_the_rock
-    status: design_complete
+    status: source_codegen_ready
   event_ids:
-  - id: 1000
+  - id: 1004
     key: dome_opening
-  - id: 1001
+  - id: 1005
     key: dome_compact
-  - id: 1002
+  - id: 1006
     key: dome_settlement
-  - id: 1003
+  - id: 1007
     key: dome_reward
   node_graph:
-    model: design_projection_only_v1
+    model: state_machine_dsl_v1
     historical_mechanic: Sanctuary custody covenant over Jerusalem's sacred platform.
     summary: The player proves that the Dome can make sovereignty visible as guarded custody, not conquest, by settling access rules among jurists, guards, pilgrims, local notables, and supervised witnesses.
+    graph_shape: sanctuary_access_compact_retry_handoff
+    archetypes:
+    - custom_sanctuary_custody_compact
+    completion_policy:
+      allow_terminal_outgoing: false
+    scope_contract:
+      root_scope: country
+      current_scope: country
+      target_scopes:
+      - location
+      tooltip_safe: true
+      unsafe_pre_eval: false
     mechanic_signature:
       wonder_specific_hook: The golden dome over the Rock makes sovereignty public only when the sponsor can publish access rules that bind guards, jurists, pilgrims, endowment officers, and local communities on the Jerusalem platform.
       core_interaction_loop: The player opens a custody covenant, chooses the compact that governs gates and pilgrim access, resolves a bounded sanctuary dispute, and accepts a final custody settlement rather than waiting through a generic monthly dedication.
@@ -907,6 +919,7 @@ unique_wonders:
       failure_or_tension_model: Overbearing guards or rejected witnesses send the rite back to a calmer compact or a reduced proclamation that preserves order but loses diplomatic reach.
       reward_expression: The reward expresses lawful custody through tolerance of the state faith and diplomatic reputation, with a local memory for protected platform access.
       reuse_risk_mitigation: This loop depends on the Rock, Jerusalem gates, intercommunal access, and visible custody; a generic sky-dome temple cannot reuse it without losing the contested sanctuary sovereignty proof.
+      custom_archetype_statement: Dome of the Rock needs a bespoke sanctuary compact shape because the decisive state is not a route, actor, stockpile, listener, or five-node incident gauntlet. The four public beats preserve access-group acceptance, custody-duty entrustment, bounded religious opposition, guard overreach, witnessed tolerance, and Jerusalem fixed-site evidence as coupled covenant rows before final reward handoff.
     cadence_signature:
       cadence_type: event_driven
       cadence_rationale: Event-driven pacing fits because the decisive act is a public covenant and its follow-up dispute, not a progress bar; each event changes who accepts custody of the sanctuary.
@@ -920,41 +933,352 @@ unique_wonders:
     runtime_variables:
     - tv_wonder_dome_of_the_rock_stage
     - tv_wonder_dome_of_the_rock_compact_status
+    - tv_wonder_dome_of_the_rock_access_group_status
+    - tv_wonder_dome_of_the_rock_custody_duty_status
     - tv_wonder_dome_of_the_rock_opposition_pressure
+    - tv_wonder_dome_of_the_rock_site_evidence_status
     - tv_wonder_dome_of_the_rock_reward_branch
+    variables:
+    - name: tv_wonder_dome_of_the_rock_stage
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - stage_state
+      writer_nodes:
+      - dome_opening
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      reader_nodes:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_dome_of_the_rock_compact_status
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - checklist_state
+      writer_nodes:
+      - dome_compact
+      - dome_settlement
+      reader_nodes:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_dome_of_the_rock_access_group_status
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - incident_state
+      writer_nodes:
+      - dome_compact
+      - dome_settlement
+      reader_nodes:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_dome_of_the_rock_custody_duty_status
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - checklist_state
+      writer_nodes:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      reader_nodes:
+      - dome_settlement
+      - dome_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_dome_of_the_rock_opposition_pressure
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - incident_state
+      writer_nodes:
+      - dome_compact
+      - dome_settlement
+      reader_nodes:
+      - dome_settlement
+      - dome_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_dome_of_the_rock_site_evidence_status
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - incident_state
+      writer_nodes:
+      - dome_compact
+      - dome_settlement
+      reader_nodes:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_dome_of_the_rock_reward_branch
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - reward_state
+      writer_nodes:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      reader_nodes:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      cleanup: final_reward_hidden_handoff
     nodes:
     - key: dome_opening
       kind: event
-      event_id: 1000
+      capabilities:
+      - event_chain
+      - bounded_opposition_religious_community_pressure
+      event_id: 1004
       player_visible: true
+      enter_condition: Jerusalem fixed-site custody covenant can be opened for the completed Dome without claiming loadable sacred-site predicate generation.
+      completion_condition: The commissioner gathers gate wardens, jurists, reciters, local notables, pilgrims, witnesses, and duty officers before the access compact is chosen.
+      failure_or_retry: false
+      retry_target: null
       next_nodes:
       - dome_compact
-      failure_or_retry: false
+      writes:
+      - tv_wonder_dome_of_the_rock_stage
+      reads: []
+      ui_state:
+        component_key: custody_compact
+        variable_refs:
+        - tv_wonder_dome_of_the_rock_stage
+      loc_refs:
+      - tv_engineering_department.1000.t
+      - tv_engineering_department.1000.d
+      - tv_engineering_department.1000.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: The commissioner convenes custodians at the Rock before the access covenant is read.
     - key: dome_compact
       kind: choice_event
-      event_id: 1001
+      capabilities:
+      - event_chain
+      - bounded_opposition_religious_community_pressure
+      - repeated_entity_row_checklist_incident_log_backend
+      - fixed_site_integrity_control_pressure_backend
+      - branch_specific_reward_scaling
+      event_id: 1005
       player_visible: true
+      enter_condition: The custody opening is recorded and the player must choose guard discipline, jurist proclamation, or supervised pilgrim witnesses as the compact.
+      completion_condition: The compact saves access-group status, custody-duty status, Jerusalem site evidence, opposition pressure, and provisional reward branch as intermediate Harness state.
+      failure_or_retry: false
+      retry_target: null
       next_nodes:
       - dome_settlement
-      failure_or_retry: false
+      writes:
+      - tv_wonder_dome_of_the_rock_stage
+      - tv_wonder_dome_of_the_rock_compact_status
+      - tv_wonder_dome_of_the_rock_access_group_status
+      - tv_wonder_dome_of_the_rock_custody_duty_status
+      - tv_wonder_dome_of_the_rock_opposition_pressure
+      - tv_wonder_dome_of_the_rock_site_evidence_status
+      - tv_wonder_dome_of_the_rock_reward_branch
+      reads:
+      - tv_wonder_dome_of_the_rock_stage
+      - tv_wonder_dome_of_the_rock_compact_status
+      - tv_wonder_dome_of_the_rock_access_group_status
+      - tv_wonder_dome_of_the_rock_site_evidence_status
+      - tv_wonder_dome_of_the_rock_reward_branch
+      ui_state:
+        component_key: sanctuary_incidents
+        variable_refs:
+        - tv_wonder_dome_of_the_rock_compact_status
+        - tv_wonder_dome_of_the_rock_access_group_status
+        - tv_wonder_dome_of_the_rock_custody_duty_status
+        - tv_wonder_dome_of_the_rock_site_evidence_status
+        - tv_wonder_dome_of_the_rock_reward_branch
+      loc_refs:
+      - tv_engineering_department.1001.t
+      - tv_engineering_department.1001.d
+      - tv_engineering_department.1001.a
+      - tv_engineering_department.1001.b
+      - tv_engineering_department.1001.c
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: Gate wardens, judges, pilgrims, and witnesses accept different compact terms.
     - key: dome_settlement
       kind: retry_event
-      event_id: 1002
+      capabilities:
+      - retry_branch
+      - bounded_opposition_religious_community_pressure
+      - repeated_entity_row_checklist_incident_log_backend
+      - fixed_site_integrity_control_pressure_backend
+      - branch_specific_reward_scaling
+      event_id: 1006
       player_visible: true
-      next_nodes:
-      - dome_reward
+      enter_condition: Pilgrims, guards, witnesses, or a custody duty challenge the compact before the covenant can be sealed.
+      completion_condition: Reconciliation, stricter threshold discipline, jurist oversight, or a narrower proclamation records settlement pressure and either retries the compact or moves to reward.
       failure_or_retry: true
       retry_target: dome_compact
+      next_nodes:
+      - dome_compact
+      - dome_reward
+      writes:
+      - tv_wonder_dome_of_the_rock_stage
+      - tv_wonder_dome_of_the_rock_compact_status
+      - tv_wonder_dome_of_the_rock_access_group_status
+      - tv_wonder_dome_of_the_rock_custody_duty_status
+      - tv_wonder_dome_of_the_rock_opposition_pressure
+      - tv_wonder_dome_of_the_rock_site_evidence_status
+      - tv_wonder_dome_of_the_rock_reward_branch
+      reads:
+      - tv_wonder_dome_of_the_rock_stage
+      - tv_wonder_dome_of_the_rock_compact_status
+      - tv_wonder_dome_of_the_rock_access_group_status
+      - tv_wonder_dome_of_the_rock_custody_duty_status
+      - tv_wonder_dome_of_the_rock_opposition_pressure
+      - tv_wonder_dome_of_the_rock_site_evidence_status
+      - tv_wonder_dome_of_the_rock_reward_branch
+      ui_state:
+        component_key: sanctuary_incidents
+        variable_refs:
+        - tv_wonder_dome_of_the_rock_access_group_status
+        - tv_wonder_dome_of_the_rock_custody_duty_status
+        - tv_wonder_dome_of_the_rock_opposition_pressure
+        - tv_wonder_dome_of_the_rock_site_evidence_status
+        - tv_wonder_dome_of_the_rock_reward_branch
+      loc_refs:
+      - tv_engineering_department.1002.t
+      - tv_engineering_department.1002.d
+      - tv_engineering_department.1002.a
+      - tv_engineering_department.1002.b
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: Pilgrims or guards challenge the compact and force reconciliation, suppression, or a narrower settlement.
     - key: dome_reward
       kind: final_reward_dispatch
-      event_id: 1003
+      capabilities:
+      - final_reward_handoff
+      - branch_specific_reward_scaling
+      event_id: 1007
       player_visible: true
-      next_nodes: []
+      enter_condition: The access compact and contested settlement have produced a final broad, disciplined, jurist-led, or narrowed custody branch.
+      completion_condition: Permanent country, local platform memory, and one-time reward semantics are handed off as intermediate reward-summary data only.
       failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_dome_of_the_rock_stage
+      - tv_wonder_dome_of_the_rock_custody_duty_status
+      - tv_wonder_dome_of_the_rock_reward_branch
+      reads:
+      - tv_wonder_dome_of_the_rock_stage
+      - tv_wonder_dome_of_the_rock_compact_status
+      - tv_wonder_dome_of_the_rock_access_group_status
+      - tv_wonder_dome_of_the_rock_custody_duty_status
+      - tv_wonder_dome_of_the_rock_opposition_pressure
+      - tv_wonder_dome_of_the_rock_site_evidence_status
+      - tv_wonder_dome_of_the_rock_reward_branch
+      ui_state:
+        component_key: custody_compact
+        variable_refs:
+        - tv_wonder_dome_of_the_rock_compact_status
+        - tv_wonder_dome_of_the_rock_custody_duty_status
+        - tv_wonder_dome_of_the_rock_reward_branch
+      loc_refs:
+      - tv_engineering_department.1003.t
+      - tv_engineering_department.1003.d
+      - tv_engineering_department.1003.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: The custody covenant is sealed on the platform and the Dome becomes a recognized sanctuary of ordered sovereignty.
+    edges:
+    - from: dome_opening
+      to: dome_compact
+      condition: custody covenant convened
+      effect: set stage to access compact selection
+      label_key: tv_engineering_department.1000.a
+    - from: dome_compact
+      to: dome_settlement
+      condition: guard discipline, jurist proclamation, or supervised witness compact chosen
+      effect: save compact, access-group, custody-duty, Jerusalem site, opposition, and provisional reward state
+      label_key: TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS
+    - from: dome_settlement
+      to: dome_compact
+      condition: guard overreach, pilgrim rejection, or witness suspicion requires the compact to be reopened
+      effect: preserve pressure evidence and retry access compact selection
+      label_key: tv_engineering_department.1002.a
+    - from: dome_settlement
+      to: dome_reward
+      condition: sanctuary opposition is bounded and the compact can be sealed
+      effect: save final custody-duty status and reward branch
+      label_key: tv_engineering_department.1002.b
+    actions:
+    - key: open_dome_custody_covenant
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: choose_dome_access_compact
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_dome_sanctuary_settlement
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: branch_retry_event
+    - key: dispatch_dome_custody_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: dome_jerusalem_site_evidence_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS
+      generator_template: semantic_contract_fragment
+    - key: dome_access_compact_rows_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS
+      generator_template: semantic_contract_fragment
+    - key: dome_custody_duty_rows_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS
+      generator_template: semantic_contract_fragment
+    - key: dome_witness_guard_branch_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS
+      generator_template: semantic_contract_fragment
   design_ir:
     compiler_primitives:
     - sanctuary_access_compact_rows
@@ -1051,13 +1375,13 @@ unique_wonders:
       - checklist
       repeated_rows: One row per sanctuary access group plus one checklist row per custody duty.
       per_entity_status: Each access group needs compact acceptance and pressure status; each custody duty needs entrusted/disputed/sealed status.
-      current_projection: The design-only node_graph compresses these rows into compact_status and opposition_pressure variables.
+      current_projection: The current source_codegen_ready node_graph is still intermediate-only; it preserves access_group_status, custody_duty_status, compact_status, opposition_pressure, site_evidence_status, and reward_branch summary variables while per-access-group and per-duty rows remain authoritative in design_ir.
     uniqueness_constraints:
     - The Rock is the sacred object; the ritual is about visible custody of a contested platform, not a generic dome dedication.
     - Jerusalem access rules, guard thresholds, endowment deeds, cisterns, and witnesses are mandatory design surfaces.
     - Conquest cannot speed the rite; sovereignty is proven by restraint and recognized access.
     projection_notes: >
-      Preserve the full access-group and custody-duty tracked sets in design_ir. Compress them in the current node_graph into four player-visible planning nodes and two summary variables. Replace per-row UI with incident_log/checklist summaries for the design_complete layer only. Drop no historical primitive from the spec; unresolved rows remain in compiler_gap_ledger and block any source-codegen readiness.
+      Preserve the full access-group and custody-duty tracked sets in design_ir. Project them into a source_codegen_ready strong DSL graph with four player-visible planning nodes, checklist and incident summary variables, fixed Jerusalem site evidence, bounded opposition semantics, witness/guard branch state, actions, checks, scope contracts, and UI bindings. The repeated-row, bounded religious-community pressure, fixed-site integrity, and branch-scaling primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop no access group, custody duty, guard-overreach branch, witness branch, Jerusalem sacred-site requirement, or per-row UI intent.
   compiler_gap_ledger:
   - primitive: sanctuary_access_compact_rows
     design_semantics: Render and update per-group compact status for gate wardens, jurists, pilgrim caravans, local notables, and supervised witnesses.
@@ -1068,14 +1392,18 @@ unique_wonders:
     codebase_evidence:
     - scripts/wonder_unique_rituals/pharos.py:append_pharos_set_route_projection_lines writes tv_wonder_pharos_route_<route>_location/status/owner variables for each PHAROS_ROUTE_KEYS entry.
     - scripts/wonder_unique_rituals/pharos.py:pharos_route_row renders a GUI row per route, and pharos_stage_2_card loops PHAROS_ROUTE_KEYS into repeated visible rows.
-    - Verified existing bespoke row pattern only; no current Harness backend expands design_ir tracked_entity_sets into source incident_log rows.
-    verification_status: verified_existing
+    - Verified existing bespoke row pattern only; current Harness backend preserves design_ir tracked_entity_sets as intermediate incident_log/checklist summaries and does not expand them into loadable source rows.
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - data/unique_wonder_ritual_capabilities.yaml:repeated_entity_row_checklist_incident_log_backend preserves repeated entity rows and projects them into checklist or incident-log summaries with may_write_src false.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize choice_event and retry_event semantic contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which Engineering Department GUI pattern should own repeated incident rows keyed by designed entity sets?
     - Can current variable maps safely key sanctuary participant status without introducing hot-path rebuilds?
     blocked_by:
-    - No Harness source compiler primitive owns access-group row expansion.
+    - Loadable GUI/source row expansion remains blocked until a later source writer expands sanctuary_access_groups into per-group incident rows.
     fallback_if_unavailable: Keep the access groups in design_ir and project only compact_status plus opposition_pressure summary text.
   - primitive: bounded_sanctuary_opposition_scope
     design_semantics: Create or represent a bounded religious/legal opposition actor without escalating the wonder rite into an unbounded rebellion.
@@ -1087,13 +1415,17 @@ unique_wonders:
     - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt uses holy-site selectors with looking_for_a = holy_site, none_available_msg_key, is_location_holy_site_for, and is_location_holy_site_type.
     - reference_game_files/game/in_game/events/DHE/flavor_SCO.txt and flavor_TUR.txt show clergy/religion pressure via dominant_religion, religion.group, estate_type:clergy_estate, and add_estate_satisfaction.
     - src/in_game/common/static_modifiers/tv_engineering_department_wonder_mechanics_modifiers.txt contains clergy_estate_target_satisfaction ceremony modifiers, proving the project already uses clergy pressure outputs.
-    verification_status: interface_candidate
+    - capability:bounded_opposition_religious_community_pressure
+    - data/unique_wonder_ritual_capabilities.yaml:bounded_opposition_religious_community_pressure covers bounded clergy, holy-site, state-faith, and religious-community eligibility/pressure semantics as an intermediate backend contract with may_write_src false.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize bounded opposition scope contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster: bounded_opposition_religious_community_pressure
     search_questions:
     - Which existing event or disaster patterns represent bounded opposition without spawning a full rebel system?
     - Can a ritual-local opposition variable preserve tooltip safety during event option preview?
     blocked_by:
-    - Opposition scope design is not mapped to verified EU5 interfaces.
+    - Loadable source remains blocked until a later source writer maps the bounded religious-community pressure contract to exact clergy, holy-site, local-notable, and tooltip-safe event predicates.
     fallback_if_unavailable: Represent opposition as a summarized pressure variable and keep the actor-level semantics in design_ir.
   - primitive: interfaith_witness_guard_overreach_branch
     design_semantics: Branch the settlement by witness acceptance and guard overreach so tolerance and diplomacy depend on restraint.
@@ -1106,7 +1438,15 @@ unique_wonders:
     - capability:retry_branch can document retry semantics but cannot generate access-group consequences.
     - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_complete_step_6_effect branches on tv_wonder_hagia_step_6_cost and applies different gold/prestige/estate consequences.
     - reference_game_files/game/in_game/events/DHE/flavor_TUR.txt contains religion.group and clergy estate satisfaction branches that can inform later witness/community pressure mapping.
-    verification_status: interface_candidate
+    - capability:branch_specific_reward_scaling
+    - data/unique_wonder_ritual_capabilities.yaml:branch_specific_reward_scaling documents branch variables that shape incident outcomes and final reward summaries with may_write_src false.
+    - capability:bounded_opposition_religious_community_pressure
+    - data/unique_wonder_ritual_capabilities.yaml:bounded_opposition_religious_community_pressure covers bounded clergy, holy-site, state-faith, and religious-community pressure semantics for witness and guard-overreach branches as an intermediate backend contract.
+    - template:branch_retry_event
+    - data/unique_wonder_ritual_codegen_templates.yaml:branch_retry_event can document retry branches and target nodes as intermediate event skeleton rows only.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize choice_event and retry_event branch contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster:
     - branch_specific_reward_scaling
     - bounded_opposition_religious_community_pressure
@@ -1114,7 +1454,7 @@ unique_wonders:
     - Which existing event option patterns safely branch reward previews from saved community or religion scopes?
     - Are there verified local unrest, clergy, or tolerance triggers suitable for guard-overreach checks?
     blocked_by:
-    - Branch consequences and reward scaling need codebase search before backend mapping.
+    - Loadable branch consequences and reward effects remain blocked until a later source writer maps witness acceptance, guard overreach, clergy/community pressure, and reward branch variables into concrete EU5 event effects.
     fallback_if_unavailable: Keep the branch as narrative event design with a reduced-reward retry path.
   - primitive: jerusalem_sacred_site_ui_evidence
     design_semantics: Show Jerusalem site evidence, platform control, access group pressure, and custody duty completion without flattening to a single counter.
@@ -1126,13 +1466,23 @@ unique_wonders:
     - scripts/wonder_unique_rituals/pharos.py:pharos_route_row demonstrates generated GUI rows bound to per-entity status variables.
     - scripts/wonder_unique_rituals/pharos.py:append_pharos_select_route_lines stores active route, route id, event route location, and event route owner variables before rendering route evidence.
     - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt provides holy-site selector/interface evidence for sacred location discovery, but not a Jerusalem-specific Harness backend.
-    verification_status: verified_existing
+    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_location_meets_unique_dome_of_the_rock_base_site_rules_trigger with this = location:jerusalem.
+    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_can_build_unique_dome_of_the_rock_trigger and tv_wonder_player_visible_site_rules_unique_dome_of_the_rock_trigger with owns = location:jerusalem.
+    - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines unique Dome of the Rock final/intermediate building checks for fixed-site building evidence.
+    - data/wonder_localization.yaml defines fixed Jerusalem proposal/site and world-news localization for unique_dome_of_the_rock.
+    - capability:fixed_site_integrity_control_pressure_backend
+    - data/unique_wonder_ritual_capabilities.yaml:fixed_site_integrity_control_pressure_backend preserves fixed-site owner/controller/final-building evidence and site-integrity incident rows as an intermediate backend contract with may_write_src false.
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - data/unique_wonder_ritual_capabilities.yaml:repeated_entity_row_checklist_incident_log_backend preserves repeated entity rows and projects them into checklist or incident-log summaries with may_write_src false.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize fixed-site, incident-log, and checklist contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
     harness_backlog_cluster: repeated_entity_row_checklist_incident_log_backend
     search_questions:
     - Which Pharos or Hagia GUI rows can be generalized for fixed-site evidence and per-duty status?
     - Can the Harness express incident_log plus checklist row projection without a source GUI generator?
     blocked_by:
-    - Current Harness has semantic UI components but no source-writing repeated-row backend.
+    - Loadable Jerusalem sacred-site predicates, access/custody row expansion, and GUI source remain blocked until a later source writer maps this intermediate contract to exact source files.
     fallback_if_unavailable: Use static panel text and summary variables while keeping row-level design_ir authoritative.
   ui_model:
     components:
@@ -1142,6 +1492,62 @@ unique_wonders:
     - type: checklist
       key: custody_compact
       status_variable: tv_wonder_dome_of_the_rock_compact_status
+    - type: checklist
+      key: custody_duties
+      status_variable: tv_wonder_dome_of_the_rock_custody_duty_status
+    - type: incident_log
+      key: jerusalem_site_evidence
+      status_variable: tv_wonder_dome_of_the_rock_site_evidence_status
+    bindings:
+    - key: dome_sanctuary_incidents_binding
+      component_key: sanctuary_incidents
+      variable_refs:
+      - tv_wonder_dome_of_the_rock_access_group_status
+      - tv_wonder_dome_of_the_rock_opposition_pressure
+      - tv_wonder_dome_of_the_rock_reward_branch
+      node_refs:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      loc_refs:
+      - TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS
+    - key: dome_custody_compact_binding
+      component_key: custody_compact
+      variable_refs:
+      - tv_wonder_dome_of_the_rock_stage
+      - tv_wonder_dome_of_the_rock_compact_status
+      - tv_wonder_dome_of_the_rock_reward_branch
+      node_refs:
+      - dome_opening
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      loc_refs:
+      - TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS
+    - key: dome_custody_duties_binding
+      component_key: custody_duties
+      variable_refs:
+      - tv_wonder_dome_of_the_rock_custody_duty_status
+      - tv_wonder_dome_of_the_rock_compact_status
+      - tv_wonder_dome_of_the_rock_reward_branch
+      node_refs:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      loc_refs:
+      - TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS
+      - TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS
+    - key: dome_jerusalem_site_evidence_binding
+      component_key: jerusalem_site_evidence
+      variable_refs:
+      - tv_wonder_dome_of_the_rock_site_evidence_status
+      - tv_wonder_dome_of_the_rock_access_group_status
+      node_refs:
+      - dome_compact
+      - dome_settlement
+      - dome_reward
+      loc_refs:
+      - TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS
   rewards:
     permanent_country_modifier:
       status: designed
@@ -1160,13 +1566,13 @@ unique_wonders:
     - TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS
     - TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS
     event_keys:
-    - event_id: 1000
+    - event_id: 1004
       title_key: tv_engineering_department.1000.t
       desc_key: tv_engineering_department.1000.d
       option_keys:
       - tv_engineering_department.1000.a
       node_key: dome_opening
-    - event_id: 1001
+    - event_id: 1005
       title_key: tv_engineering_department.1001.t
       desc_key: tv_engineering_department.1001.d
       option_keys:
@@ -1174,14 +1580,14 @@ unique_wonders:
       - tv_engineering_department.1001.b
       - tv_engineering_department.1001.c
       node_key: dome_compact
-    - event_id: 1002
+    - event_id: 1006
       title_key: tv_engineering_department.1002.t
       desc_key: tv_engineering_department.1002.d
       option_keys:
       - tv_engineering_department.1002.a
       - tv_engineering_department.1002.b
       node_key: dome_settlement
-    - event_id: 1003
+    - event_id: 1007
       title_key: tv_engineering_department.1003.t
       desc_key: tv_engineering_department.1003.d
       option_keys:
@@ -1189,16 +1595,36 @@ unique_wonders:
       node_key: dome_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_dome_of_the_rock
+  generation:
+    status: source_codegen_ready
+    target_files:
+    - data/generated_fragments/unique_wonder_rituals/unique_dome_of_the_rock_ritual_codegen.md
+    verified_templates:
+    - sequential_event_chain
+    - branch_retry_event
+    - semantic_contract_fragment
+    - final_reward_dispatch_stub
+    blocked_templates: []
+    dry_run_notes: Intermediate-only Harness fragment eligibility for Dome of the Rock; may_write_src remains false and loadable EU5 source remains blocked by source-writer gaps.
   implementation_notes:
     source_ritual_key: dome_pilgrimage
     implementation_source: design_only_high_fidelity_spec
-    verification_status: design_complete
-    verified_interfaces: []
-    needs_verification:
-    - sanctuary_access_compact_rows
-    - bounded_sanctuary_opposition_scope
-    - interfaith_witness_guard_overreach_branch
-    - jerusalem_sacred_site_ui_evidence
+    verification_status: source_codegen_ready
+    verified_interfaces:
+    - Harness strong state_machine_dsl_v1 semantic graph for Dome of the Rock
+    - capability:repeated_entity_row_checklist_incident_log_backend intermediate backend contract
+    - capability:bounded_opposition_religious_community_pressure intermediate backend contract
+    - capability:fixed_site_integrity_control_pressure_backend intermediate backend contract
+    - capability:branch_specific_reward_scaling intermediate backend contract
+    - capability:final_reward_handoff semantic projection
+    - template:semantic_contract_fragment intermediate contract summaries
+    remaining_source_writer_blockers:
+    - Access-group compact rows are backend-ready only as intermediate checklist/incident summaries; no loadable GUI/source row expander exists for gate wardens, jurists, pilgrim caravans, local notables, or supervised witnesses.
+    - Custody-duty rows are preserved in design_ir and summarized by custody_duty_status; no loadable GUI/source row expander exists for keys, cisterns, lamps, endowment deeds, or guarded pilgrim routes.
+    - Bounded religious-community and local-notable pressure is represented by an intermediate backend contract; exact clergy, holy-site, witness, and tooltip-safe source predicates remain for a later source writer.
+    - Jerusalem sacred-site ownership/control/final-building evidence is backend-ready only as an intermediate fixed-site contract; no loadable source predicate writer maps all site pressure checks.
+    - Guard-overreach, interfaith-witness, and narrowed-proclamation reward branches are intermediate branch variables; no loadable EU5 reward effect writer exists.
+    - No loadable EU5 src files are generated by this Harness v1 source_codegen_ready state; all used templates and capabilities keep may_write_src false.
 - identity:
     id: 104
     key: unique_angkor_wat
