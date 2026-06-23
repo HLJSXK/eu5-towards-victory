@@ -1293,7 +1293,7 @@ unique_wonders:
     base_key: palace_of_nations
     location: granada
     runtime_prefix: tv_wonder_alhambra
-    status: evidence_verified
+    status: compiler_mapped
   event_ids:
   - id: 1004
     key: alhambra_opening
@@ -1304,9 +1304,21 @@ unique_wonders:
   - id: 1007
     key: alhambra_reward
   node_graph:
-    model: design_projection_only_v1
+    model: state_machine_dsl_v1
     historical_mechanic: Capitulation palace treaty validated by a real war outcome around Granada.
     summary: The player proves that the Alhambra can turn military possession of Granada into courtly concord by sealing a capitulation treaty under war-pressure rather than by clicking a generic palace ceremony.
+    graph_shape: war_listener_treaty_retry_handoff
+    archetypes:
+    - listener_resolution_ritual
+    completion_policy:
+      allow_terminal_outgoing: false
+    scope_contract:
+      root_scope: country
+      current_scope: country
+      target_scopes:
+      - location
+      tooltip_safe: true
+      unsafe_pre_eval: false
     mechanic_signature:
       wonder_specific_hook: The red palace, Gate of Justice, water courts, treaty rolls, translators, protected households, and foreign observers make the Alhambra a test of whether victory can become governed surrender.
       core_interaction_loop: The player opens the treaty court, waits for or checks a real war-validation window, chooses mercy, tribute, or deterrence clauses, and handles whether the palace looks protected or merely occupied.
@@ -1331,40 +1343,307 @@ unique_wonders:
     - tv_wonder_alhambra_stage
     - tv_wonder_alhambra_war_validation
     - tv_wonder_alhambra_treaty_clause_status
+    - tv_wonder_alhambra_palace_risk_status
     - tv_wonder_alhambra_reward_branch
+    variables:
+    - name: tv_wonder_alhambra_stage
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - stage_state
+      writer_nodes:
+      - alhambra_opening
+      - alhambra_treaty_branch
+      - alhambra_reward
+      reader_nodes:
+      - alhambra_war_validation
+      - alhambra_treaty_branch
+      - alhambra_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_alhambra_war_validation
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - listener_state
+      writer_nodes:
+      - alhambra_war_validation
+      reader_nodes:
+      - alhambra_war_validation
+      - alhambra_treaty_branch
+      - alhambra_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_alhambra_treaty_clause_status
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - checklist_state
+      writer_nodes:
+      - alhambra_treaty_branch
+      reader_nodes:
+      - alhambra_treaty_branch
+      - alhambra_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_alhambra_palace_risk_status
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - incident_state
+      writer_nodes:
+      - alhambra_war_validation
+      - alhambra_treaty_branch
+      reader_nodes:
+      - alhambra_war_validation
+      - alhambra_treaty_branch
+      - alhambra_reward
+      cleanup: final_reward_hidden_handoff
+    - name: tv_wonder_alhambra_reward_branch
+      scope: country
+      type: integer
+      initial_value: 0
+      roles:
+      - reward_state
+      writer_nodes:
+      - alhambra_treaty_branch
+      - alhambra_reward
+      reader_nodes:
+      - alhambra_treaty_branch
+      - alhambra_reward
+      cleanup: final_reward_hidden_handoff
     nodes:
     - key: alhambra_opening
       kind: event
+      capabilities:
+      - event_chain
       event_id: 1004
       player_visible: true
+      enter_condition: Granada treaty court can be opened for the completed Alhambra without claiming source-side palace-control codegen.
+      completion_condition: Envoys, notaries, translators, symbolic keys, protected households, safe-conduct passes, water overseers, guards, and foreign observers are assembled.
+      failure_or_retry: false
+      retry_target: null
       next_nodes:
       - alhambra_war_validation
-      failure_or_retry: false
+      writes:
+      - tv_wonder_alhambra_stage
+      reads: []
+      ui_state:
+        component_key: capitulation_incidents
+        variable_refs:
+        - tv_wonder_alhambra_stage
+      loc_refs:
+      - tv_engineering_department.1004.t
+      - tv_engineering_department.1004.d
+      - tv_engineering_department.1004.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: Envoys assemble symbolic keys, translators, safe-conduct passes, and protected household lists in Granada.
     - key: alhambra_war_validation
       kind: listener_gate
+      capabilities:
+      - listener_gate
       event_id: 1005
       player_visible: true
+      enter_condition: Treaty validation waits for a supported pre-winning-war or ending-war window while Granada remains the fixed site evidence in design_ir.
+      completion_condition: A real war or peace outcome window is recorded as palace treaty validation without promoting Granada palace-risk checks to backend_ready.
+      failure_or_retry: false
+      retry_target: null
       next_nodes:
       - alhambra_treaty_branch
-      failure_or_retry: false
+      writes:
+      - tv_wonder_alhambra_war_validation
+      - tv_wonder_alhambra_palace_risk_status
+      reads:
+      - tv_wonder_alhambra_stage
+      - tv_wonder_alhambra_war_validation
+      - tv_wonder_alhambra_palace_risk_status
+      ui_state:
+        component_key: capitulation_incidents
+        variable_refs:
+        - tv_wonder_alhambra_war_validation
+        - tv_wonder_alhambra_palace_risk_status
+      loc_refs:
+      - tv_engineering_department.1005.t
+      - tv_engineering_department.1005.d
+      - tv_engineering_department.1005.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      listener_contract:
+        listener: pre_winning_war
+        cadence: pre_winning_war_or_ending_war
+        reads:
+        - tv_wonder_alhambra_war_validation
+        - tv_wonder_alhambra_palace_risk_status
+        writes:
+        - tv_wonder_alhambra_war_validation
+        - tv_wonder_alhambra_palace_risk_status
+        completion_check: Record supported war-outcome validation only when the pre_winning_war or ending_war window can still be tied back to Granada treaty credibility in design_ir.
+        failure_route: alhambra_treaty_branch can return here when harsh occupation, dishonored safe-conduct, or palace-water disruption discredits the first settlement proof.
+        secondary_listener: ending_war
+        secondary_listener_coverage: ending_war is declared at graph level and preserved as the peace-window counterpart to pre_winning_war; both remain intermediate listener_gate semantics, not source on_action codegen.
       historical_anchor: The palace treaty waits for a real victory or peace window while the Alhambra remains controlled.
     - key: alhambra_treaty_branch
       kind: retry_event
+      capabilities:
+      - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
       event_id: 1006
       player_visible: true
-      next_nodes:
-      - alhambra_reward
+      enter_condition: War validation exists and the treaty court must choose how mercy, tribute, or deterrence treats clauses and palace risks.
+      completion_condition: Mercy, tribute, or deterrence records clause status, palace-risk status, and reward branch, or sends the ritual back to war validation.
       failure_or_retry: true
       retry_target: alhambra_war_validation
+      next_nodes:
+      - alhambra_war_validation
+      - alhambra_reward
+      writes:
+      - tv_wonder_alhambra_stage
+      - tv_wonder_alhambra_treaty_clause_status
+      - tv_wonder_alhambra_palace_risk_status
+      - tv_wonder_alhambra_reward_branch
+      reads:
+      - tv_wonder_alhambra_stage
+      - tv_wonder_alhambra_war_validation
+      - tv_wonder_alhambra_treaty_clause_status
+      - tv_wonder_alhambra_palace_risk_status
+      - tv_wonder_alhambra_reward_branch
+      ui_state:
+        component_key: treaty_clauses
+        variable_refs:
+        - tv_wonder_alhambra_treaty_clause_status
+        - tv_wonder_alhambra_palace_risk_status
+        - tv_wonder_alhambra_reward_branch
+      loc_refs:
+      - tv_engineering_department.1006.t
+      - tv_engineering_department.1006.d
+      - tv_engineering_department.1006.a
+      - tv_engineering_department.1006.b
+      - tv_engineering_department.1006.c
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: The player chooses mercy, tribute, or deterrence and answers disputes over water, artisans, hostages, and protected elites.
     - key: alhambra_reward
       kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      - branch_specific_reward_scaling
       event_id: 1007
       player_visible: true
-      next_nodes: []
+      enter_condition: A treaty doctrine has been accepted and the remaining source-writer blockers are documented outside the reward node.
+      completion_condition: Permanent country, local palace memory, and one-time reward semantics are handed off as intermediate reward-summary data only.
       failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_alhambra_stage
+      - tv_wonder_alhambra_reward_branch
+      reads:
+      - tv_wonder_alhambra_stage
+      - tv_wonder_alhambra_war_validation
+      - tv_wonder_alhambra_treaty_clause_status
+      - tv_wonder_alhambra_palace_risk_status
+      - tv_wonder_alhambra_reward_branch
+      ui_state:
+        component_key: treaty_clauses
+        variable_refs:
+        - tv_wonder_alhambra_treaty_clause_status
+        - tv_wonder_alhambra_palace_risk_status
+        - tv_wonder_alhambra_reward_branch
+      loc_refs:
+      - tv_engineering_department.1007.t
+      - tv_engineering_department.1007.d
+      - tv_engineering_department.1007.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
       historical_anchor: The treaty is read in the Hall of Ambassadors and the palace becomes a diplomatic proof of restrained conquest.
+    edges:
+    - from: alhambra_opening
+      to: alhambra_war_validation
+      condition: treaty court opened
+      effect: set stage to war-validation wait
+      label_key: tv_engineering_department.1004.a
+    - from: alhambra_war_validation
+      to: alhambra_treaty_branch
+      condition: pre_winning_war or ending_war validation recorded
+      effect: save war-validation and palace-risk summary state
+      label_key: tv_engineering_department.1005.a
+    - from: alhambra_treaty_branch
+      to: alhambra_war_validation
+      condition: safe-conduct, water court, or occupation dispute discredits the clause
+      effect: preserve clause evidence and retry the war-listener validation
+      label_key: TV_ENGINEERING_ALHAMBRA_WAR_STATUS
+    - from: alhambra_treaty_branch
+      to: alhambra_reward
+      condition: mercy branch accepted
+      effect: save protected-household clause integrity and diplomatic reward branch
+      label_key: tv_engineering_department.1006.a
+    - from: alhambra_treaty_branch
+      to: alhambra_reward
+      condition: tribute branch accepted
+      effect: save tribute schedule, protected order, and reward branch
+      label_key: tv_engineering_department.1006.b
+    - from: alhambra_treaty_branch
+      to: alhambra_reward
+      condition: deterrence branch accepted
+      effect: save guarded-audience deterrence and reduced diplomatic branch state
+      label_key: tv_engineering_department.1006.c
+    actions:
+    - key: open_alhambra_treaty_court
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: validate_alhambra_war_listener_contract
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_alhambra_treaty_branch
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: branch_retry_event
+    - key: dispatch_alhambra_reward_summary
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: alhambra_war_window_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ALHAMBRA_WAR_STATUS
+      generator_template: semantic_contract_fragment
+    - key: alhambra_treaty_clause_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ALHAMBRA_TREATY_STATUS
+      generator_template: semantic_contract_fragment
+    - key: alhambra_reward_branch_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ALHAMBRA_TREATY_STATUS
+      generator_template: semantic_contract_fragment
   design_ir:
     compiler_primitives:
     - war_outcome_capitulation_gate
@@ -1463,13 +1742,13 @@ unique_wonders:
       - checklist
       repeated_rows: One checklist row per treaty clause and one incident row per palace risk point.
       per_entity_status: Clauses need sworn/violated/witnessed/narrowed state; risk points need secure/threatened/occupied/repaired state.
-      current_projection: The current evidence_verified node_graph is still a design-level projection; it compresses rows into war_validation, treaty_clause_status, and reward_branch summary variables while backend evidence is mapped.
+      current_projection: The current compiler_mapped node_graph is a strong Harness DSL projection; it preserves war_validation, treaty_clause_status, palace_risk_status, and reward_branch summary variables while per-clause and per-risk rows remain authoritative in design_ir.
     uniqueness_constraints:
     - The loop must remain about Granada's capitulation palace, symbolic keys, water courts, protected elites, and foreign witnesses.
     - A normal war victory is not enough; the palace must remain credible as preserved courtly order.
     - The player should not be rewarded for sacking or flattening the palace's negotiated identity.
     projection_notes: >
-      Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Compress them in node_graph into four planning events and summary variables for the current evidence layer. The listener, repeated-row, and branch-scaling primitives now have intermediate backend evidence, but the graph is not yet compiler_mapped because Granada palace-control checks, per-court risk semantics, node-level capabilities, scope/listener contracts, variables with roles, actions/checks, and generation metadata still need a strong DSL rewrite. Drop no war, treaty, palace-risk, or reward primitive.
+      Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Project them into a compiler_mapped strong DSL graph with four planning events, listener/state contracts, checklist and incident summary variables, branch reward state, actions, checks, and UI bindings. The listener, repeated-row, and branch-scaling primitives have intermediate backend evidence, but Granada palace-control checks, per-court risk semantics, loadable source writers, and real GUI row expansion remain unresolved. Drop no war, treaty, palace-risk, or reward primitive.
   compiler_gap_ledger:
   - primitive: war_outcome_capitulation_gate
     design_semantics: Validate the rite only during a supported war or peace outcome window where Granada remains controlled and the palace is not discredited.
@@ -1494,7 +1773,6 @@ unique_wonders:
     - Can a design-only listener gate safely save Granada and war context before a visible treaty event?
     blocked_by:
     - Loadable EU5 source remains blocked until a later source writer consumes the listener_gate contract and writes exact on_action/scope-saving code for Alhambra.
-    - The current Alhambra node_graph still needs a strong DSL listener_contract and variable-role rewrite before compiler_mapped can be claimed.
     fallback_if_unavailable: Keep war validation as an explicit trigger/check requirement and allow a costly non-war palace concord fallback only in design_ir.
   - primitive: granada_palace_control_treaty_checks
     design_semantics: Check Alhambra-specific control, occupation, siege, water-court usability, protected households, and safe-conduct integrity before settlement.
@@ -1536,7 +1814,6 @@ unique_wonders:
     - Should treaty clauses be stored as fixed variables or generated from design_ir entity sets?
     blocked_by:
     - Loadable GUI row expansion remains blocked until a later source writer expands treaty_clause_register into per-clause checklist rows.
-    - The current Alhambra node_graph still needs variables with checklist_state/incident_state roles before compiler_mapped can be claimed.
     fallback_if_unavailable: Display treaty_clause_status as a summary and keep per-clause rows in design_ir.
   - primitive: settlement_branch_reward_scaling
     design_semantics: Scale prestige, diplomatic reputation expression, and local memory by mercy, tribute, or deterrence branch and by clause integrity.
@@ -1558,16 +1835,49 @@ unique_wonders:
     - Can reward previews show branch differences without claiming the source generator supports them?
     blocked_by:
     - Loadable reward effects remain blocked until a later source writer maps mercy, tribute, and deterrence reward branches into concrete EU5 effects.
-    - The current Alhambra node_graph still needs reward_state variables with node read/write declarations before compiler_mapped can be claimed.
     fallback_if_unavailable: Use one designed reward description and preserve branch scaling as non-codegen design data.
   ui_model:
     components:
     - type: incident_log
       key: capitulation_incidents
       status_variable: tv_wonder_alhambra_war_validation
+    - type: incident_log
+      key: palace_risks
+      status_variable: tv_wonder_alhambra_palace_risk_status
     - type: checklist
       key: treaty_clauses
       status_variable: tv_wonder_alhambra_treaty_clause_status
+    bindings:
+    - key: alhambra_capitulation_incidents_binding
+      component_key: capitulation_incidents
+      variable_refs:
+      - tv_wonder_alhambra_stage
+      - tv_wonder_alhambra_war_validation
+      node_refs:
+      - alhambra_opening
+      - alhambra_war_validation
+      loc_refs:
+      - TV_ENGINEERING_ALHAMBRA_WAR_STATUS
+    - key: alhambra_palace_risks_binding
+      component_key: palace_risks
+      variable_refs:
+      - tv_wonder_alhambra_palace_risk_status
+      node_refs:
+      - alhambra_war_validation
+      - alhambra_treaty_branch
+      - alhambra_reward
+      loc_refs:
+      - TV_ENGINEERING_ALHAMBRA_WAR_STATUS
+    - key: alhambra_treaty_clauses_binding
+      component_key: treaty_clauses
+      variable_refs:
+      - tv_wonder_alhambra_treaty_clause_status
+      - tv_wonder_alhambra_reward_branch
+      node_refs:
+      - alhambra_treaty_branch
+      - alhambra_reward
+      loc_refs:
+      - TV_ENGINEERING_ALHAMBRA_TREATY_STATUS
   rewards:
     permanent_country_modifier:
       status: designed
@@ -1617,15 +1927,15 @@ unique_wonders:
   implementation_notes:
     source_ritual_key: capitulation_treaty
     implementation_source: design_only_high_fidelity_spec
-    verification_status: evidence_verified
+    verification_status: compiler_mapped
     verified_interfaces:
+    - Harness strong state_machine_dsl_v1 semantic graph for Alhambra
     - capability:listener_gate semantic war-listener contract for pre_winning_war and ending_war
     - capability:repeated_entity_row_checklist_incident_log_backend intermediate backend contract
     - capability:branch_specific_reward_scaling intermediate backend contract
     - existing Engineering Department on_action bridge evidence for ritual war listeners
     needs_verification:
     - granada_palace_control_treaty_checks
-    - strong_node_graph_scope_listener_and_variable_contracts
     - loadable_source_writer_for_war_listener_treaty_rows_and_branch_rewards
     remaining_source_writer_blockers:
     - War listener mapping is backend-ready only as an intermediate listener_gate contract; no loadable on_action/scope-saving writer exists for Alhambra.
