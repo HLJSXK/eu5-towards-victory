@@ -23,37 +23,12 @@ OUT_FILE = (
 
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
-DISPLAY_ROW_COUNT = 10
+MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
 
 
 def good_name(good: str) -> str:
     return f"${good}$"
-
-
-CATEGORY_LABELS = {
-    "basic": ("基础商品", "在垄断列表中显示基础商品。"),
-    "food": ("食品", "在垄断列表中显示食品。"),
-    "manufactured": ("制成品", "在垄断列表中显示制成品。"),
-    "luxury": ("奢侈品", "在垄断列表中显示奢侈品。"),
-}
-
-
-def category_entries(categories: list[dict]) -> list[tuple[str, str]]:
-    entries: list[tuple[str, str]] = []
-    for category in categories:
-        label, desc = CATEGORY_LABELS[category["id"]]
-        action = category["action"]
-        entries.extend(
-            [
-                (action, label),
-                (f"{action}_desc", desc),
-                (f"PERFORM_{action}_ACTION_SETUP", "当我们使用贸易联盟垄断控制时。"),
-                (f"PERFORM_{action}_ACTION_LOG", "我们使用了一项贸易联盟垄断控制。"),
-                (f"PERFORM_{action}_ACTION_MAP", ""),
-            ]
-        )
-    return entries
 
 
 def perform_entries(action: str) -> list[tuple[str, str]]:
@@ -66,13 +41,15 @@ def perform_entries(action: str) -> list[tuple[str, str]]:
 
 def fixed_action_entries() -> list[tuple[str, str]]:
     entries: list[tuple[str, str]] = [
-        ("TV_TRADE_LEAGUE_PREVIOUS_PAGE_SHORT", "<"),
-        ("TV_TRADE_LEAGUE_NEXT_PAGE_SHORT", ">"),
-        ("tv_trade_previous_monopoly_page", "上一页"),
-        ("tv_trade_previous_monopoly_page_desc", "显示上一页商品。"),
-        ("tv_trade_next_monopoly_page", "下一页"),
-        ("tv_trade_next_monopoly_page_desc", "显示下一页商品。"),
-        ("tv_trade_select_monopoly_row_desc", "显示此商品的垄断详情。"),
+        ("tv_trade_select_monopoly_slot_desc", "显示此垄断槽商品的详情。"),
+        ("TV_TRADE_LEAGUE_EMPTY_MONOPOLY_SLOT", "没有商品在该槽位达到25%垄断潜力。"),
+        ("TV_TRADE_LEAGUE_MONOPOLY_POTENTIAL", "有垄断潜力"),
+        ("TV_TRADE_LEAGUE_LOW_MONOPOLY", "低垄断"),
+        ("TV_TRADE_LEAGUE_HIGH_MONOPOLY", "高垄断"),
+        ("TV_TRADE_LEAGUE_COMPLETE_MONOPOLY", "完全垄断"),
+        ("TV_TRADE_LEAGUE_ORIGIN_MONOPOLY", "原产垄断"),
+        ("TV_TRADE_LEAGUE_TRANSIT_MONOPOLY", "中转垄断"),
+        ("TV_TRADE_LEAGUE_CONSUMER_MONOPOLY", "消费垄断"),
         ("tv_trade_previous_intelligence_page", "上一页"),
         ("tv_trade_previous_intelligence_page_desc", "显示上一页情报。"),
         ("tv_trade_next_intelligence_page", "下一页"),
@@ -111,16 +88,14 @@ def fixed_action_entries() -> list[tuple[str, str]]:
         ("tv_trade_no_chain_origin_market_available", "@trigger_no! 没有贸易范围内的[market|E]可用。"),
         ("tv_trade_no_chain_destination_market_available", "@trigger_no! 没有贸易范围内的远距离[market|E]可用。"),
     ]
-    for row in range(1, DISPLAY_ROW_COUNT + 1):
-        entries.append((f"tv_trade_select_monopoly_row_{row}", "选择商品"))
-        entries.append((f"tv_trade_select_monopoly_row_{row}_desc", "显示此商品的垄断详情。"))
+    for slot in range(1, MONOPOLY_SLOT_COUNT + 1):
+        entries.append((f"tv_trade_select_monopoly_slot_{slot}", f"选择垄断槽{slot}"))
+        entries.append((f"tv_trade_select_monopoly_slot_{slot}_desc", "显示此垄断槽商品的详情。"))
     for row in range(1, INTELLIGENCE_ROW_COUNT + 1):
         entries.append((f"tv_trade_select_intelligence_row_{row}", "选择市场"))
         entries.append((f"tv_trade_select_intelligence_row_{row}_desc", "显示此市场的情报详情。"))
     actions = [
-        "tv_trade_previous_monopoly_page",
-        "tv_trade_next_monopoly_page",
-        *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+        *(f"tv_trade_select_monopoly_slot_{slot}" for slot in range(1, MONOPOLY_SLOT_COUNT + 1)),
         "tv_trade_previous_intelligence_page",
         "tv_trade_next_intelligence_page",
         *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
@@ -158,9 +133,6 @@ def generate(data: dict) -> bytes:
         "# Do not edit directly - modify the data file and re-run the generator.",
         "",
     ]
-    for key, value in category_entries(data["categories"]):
-        escaped = value.replace('"', '\\"')
-        lines.append(f' {key}: "{escaped}"')
     for key, value in fixed_action_entries():
         escaped = value.replace('"', '\\"')
         lines.append(f' {key}: "{escaped}"')

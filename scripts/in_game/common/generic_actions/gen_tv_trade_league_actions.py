@@ -105,7 +105,7 @@ tv_expel_trade_league_member = {
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
 TRADE_CHAIN_DISTANCE_SQ_THRESHOLD = 150000
-DISPLAY_ROW_COUNT = 10
+MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
 INDENT_4 = "\t" * 4
 INDENT_5 = "\t" * 5
@@ -217,40 +217,6 @@ def base_action(action_id: str, body: str, selected: bool = False) -> str:
 \tai_will_do = {{ add = -100 }}
 }}
 """
-
-
-def select_category_action(category: dict, first_good_index: int) -> str:
-    body = f"""\tpotential = {{
-\t\t{actor_member_trigger()}
-\t}}
-\tallow = {{
-\t\t{actor_member_trigger()}
-\t}}
-\teffect = {{
-\t\tscope:actor = {{
-\t\t\tset_variable = {{ name = tv_trade_selected_monopoly_category value = {category["value"]} }}
-\t\t\tset_variable = {{ name = tv_trade_selected_monopoly_page value = 1 }}
-\t\t\tset_variable = {{ name = tv_trade_selected_good value = {first_good_index} }}
-\t\t\ttv_trade_league_refresh_monopoly_display_effect = yes
-\t\t}}
-\t}}"""
-    return base_action(category["action"], body, selected=True)
-
-
-def select_good_action(good: str, index: int) -> str:
-    body = f"""\tpotential = {{
-\t\t{actor_member_trigger()}
-\t}}
-\tallow = {{
-\t\t{actor_member_trigger()}
-\t}}
-\teffect = {{
-\t\tscope:actor = {{
-\t\t\tset_variable = {{ name = tv_trade_selected_good value = {index} }}
-\t\t\ttv_trade_league_refresh_selected_good_projection_effect = yes
-\t\t}}
-\t}}"""
-    return base_action(f"tv_trade_select_monopoly_good_{good}", body, selected=True)
 
 
 def monopoly_value_max(good: str, action: str) -> str:
@@ -610,33 +576,9 @@ def selected_recalculate_lines(good: str, indent: str) -> list[str]:
     ]
 
 
-def page_action(direction: str) -> str:
-    if direction == "previous":
-        action_id = "tv_trade_previous_monopoly_page"
-        mutation = "change_variable = { name = tv_trade_selected_monopoly_page subtract = 1 }"
-    else:
-        action_id = "tv_trade_next_monopoly_page"
-        mutation = "change_variable = { name = tv_trade_selected_monopoly_page add = 1 }"
-    body = f"""\tpotential = {{
-\t\t{actor_member_trigger()}
-\t}}
-\tallow = {{
-\t\t{actor_member_trigger()}
-\t}}
-\teffect = {{
-\t\tscope:actor = {{
-\t\t\ttv_trade_league_refresh_monopoly_page_limits_effect = yes
-\t\t\t{mutation}
-\t\t\ttv_trade_league_select_first_displayed_monopoly_good_effect = yes
-\t\t\ttv_trade_league_refresh_monopoly_display_effect = yes
-\t\t}}
-\t}}"""
-    return base_action(action_id, body, selected=True)
-
-
-def row_select_action(row: int) -> str:
-    visible_var = f"tv_trade_display_row_{row}_visible"
-    good_index_var = f"tv_trade_display_row_{row}_good_index"
+def slot_select_action(slot: int) -> str:
+    visible_var = f"tv_trade_monopoly_slot_{slot}_unlocked"
+    good_index_var = f"tv_trade_monopoly_slot_{slot}_good_index"
     body = f"""\tpotential = {{
 \t\t{actor_member_trigger()}
 \t}}
@@ -644,18 +586,22 @@ def row_select_action(row: int) -> str:
 \t\tscope:actor = {{
 {actor_member_limit()}
 \t\t\tvar:{visible_var} ?= {{ this >= 1 }}
+\t\t\tvar:{good_index_var} ?= {{ this > 0 }}
 \t\t}}
 \t}}
 \teffect = {{
 \t\tscope:actor = {{
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:{visible_var} ?= {{ this >= 1 }} }}
+\t\t\t\tlimit = {{
+\t\t\t\t\tvar:{visible_var} ?= {{ this >= 1 }}
+\t\t\t\t\tvar:{good_index_var} ?= {{ this > 0 }}
+\t\t\t\t}}
 \t\t\t\tset_variable = {{ name = tv_trade_selected_good value = var:{good_index_var} }}
 \t\t\t\ttv_trade_league_refresh_selected_good_projection_effect = yes
 \t\t\t}}
 \t\t}}
 \t}}"""
-    return base_action(f"tv_trade_select_monopoly_row_{row}", body, selected=True)
+    return base_action(f"tv_trade_select_monopoly_slot_{slot}", body, selected=True)
 
 
 def intelligence_page_action(direction: str) -> str:
@@ -1242,9 +1188,7 @@ def selected_cancel_embargo_action(goods: list[str], indexes: dict[str, int]) ->
 
 def fixed_selected_actions(goods: list[str], indexes: dict[str, int]) -> list[str]:
     return [
-        page_action("previous"),
-        page_action("next"),
-        *(row_select_action(row) for row in range(1, DISPLAY_ROW_COUNT + 1)),
+        *(slot_select_action(slot) for slot in range(1, MONOPOLY_SLOT_COUNT + 1)),
         intelligence_page_action("previous"),
         intelligence_page_action("next"),
         *(intelligence_row_select_action(row) for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
@@ -1265,52 +1209,10 @@ def fixed_selected_actions(goods: list[str], indexes: dict[str, int]) -> list[st
     ]
 
 
-def good_actions(good: str, index: int) -> str:
-    blocks = [
-        select_good_action(good, index),
-        market_value_action(good, "virtual_demand", "tv_trade_select_virtual_demand_market"),
-        adjust_action(good, "virtual_demand", "increase"),
-        adjust_action(good, "virtual_demand", "decrease"),
-        cancel_action(good, "virtual_demand"),
-        market_value_action(good, "virtual_supply", "tv_trade_select_virtual_supply_market"),
-        adjust_action(good, "virtual_supply", "increase"),
-        adjust_action(good, "virtual_supply", "decrease"),
-        cancel_action(good, "virtual_supply"),
-        embargo_action(good),
-        cancel_embargo_action(good),
-    ]
-    return "\n".join(blocks)
-
-
-def validate_categories(data: dict) -> None:
-    goods = data["goods"]
-    seen: dict[str, str] = {}
-    for category in data["categories"]:
-        if not category["goods"]:
-            raise ValueError(f"Trade League monopoly category {category['id']} has no goods")
-        for good in category["goods"]:
-            if good in seen:
-                raise ValueError(
-                    f"Trade League monopoly good {good} is in both {seen[good]} and {category['id']}"
-                )
-            seen[good] = category["id"]
-    missing = [good for good in goods if good not in seen]
-    extra = [good for good in seen if good not in goods]
-    if missing:
-        raise ValueError(f"Trade League monopoly goods missing categories: {', '.join(missing)}")
-    if extra:
-        raise ValueError(f"Trade League monopoly categories list unknown goods: {', '.join(extra)}")
-
-
 def generate(data: dict) -> str:
-    validate_categories(data)
     goods = data["goods"]
     good_indexes = good_index_map(goods)
     blocks = [EXPEL_ACTION]
-    blocks.extend(
-        select_category_action(category, good_indexes[category["goods"][0]])
-        for category in data["categories"]
-    )
     blocks.extend(fixed_selected_actions(goods, good_indexes))
     return HEADER + "\n".join(blocks)
 

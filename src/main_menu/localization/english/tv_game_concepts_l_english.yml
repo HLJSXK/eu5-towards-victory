@@ -201,7 +201,7 @@
  game_concept_tv_grand_merchant_desc: "The appointed character who leads the [tv_trade_league|e]. Without a [tv_grand_merchant|e], the trade-chain, intelligence, and monopoly systems remain inactive."
 
  game_concept_tv_trade_monopoly: "Trade Monopoly"
- game_concept_tv_trade_monopoly_desc: "A [tv_trade_league|e] monopoly state for one commodity. Each month the league averages control across the top three origin markets, key nodes, and consumer markets, then sums those three category scores into a 0-300% monopoly level. Reaching 100% marks the good as monopolized. Monopoly actions can lock part of that level for virtual demand, virtual production, or embargo pressure."
+ game_concept_tv_trade_monopoly_desc: "A [tv_trade_league|e] monopoly state for one commodity. Each month the league scans all markets and computes origin, transit, and consumer control; the final 0-100% monopoly level is the highest of those three values. Goods with at least 25% potential can fill monopoly slots, while monopoly actions require a slotted good at 50% or higher and can lock part of that level for virtual demand, virtual production, or embargo pressure."
 
  # ── Diplomatic Victory Unique Mechanics ───────────────────────────────────
  game_concept_tv_diplomatic_alliance: "Diplomatic Alliance"
