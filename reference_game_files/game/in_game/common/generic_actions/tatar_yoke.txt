@@ -74,7 +74,7 @@
 				limit = {
 					exists = international_organization:tatar_yoke.leader_country
 					scope:actor = {
-						total_population > scope:target_country.total_population
+						great_power_score > scope:target_country.great_power_score
 					}
 				}
 				add = 30
@@ -105,7 +105,7 @@ ask_to_become_tax_collector = {
 					international_organization = international_organization:tatar_yoke
 				}
 			}
-			total_population > 300
+			great_power_score > 100
 		}
 		international_organization:tatar_yoke = {
 			NOT = {
@@ -164,7 +164,7 @@ ask_to_become_tax_collector = {
 					}
 					exists = scope:tatar_collector
 					scope:actor = {
-						total_population > "total_population(scope:tatar_collector)"
+						great_power_score > "great_power_score(scope:tatar_collector)"
 					}
 				}
 				add = 30

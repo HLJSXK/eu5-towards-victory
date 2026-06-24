@@ -105,11 +105,12 @@ types CaesarSDK
                         autoresize = no
                         text = "POPS_OK"
                     }
-                    action_tooltip = {
-                    	title = "AGREE_LEGAL_DOCUMENT"
-                    	on_action = "[LegalDocsViewer.Agree]"
+                    tooltipwidget = {
+                        LeftClickButtonTooltip = {
+                            blockoverride "onclick_text" { text = "AGREE_LEGAL_DOCUMENT" } 
+                        }
                     }
-                    tooltipwidget = { BasicFunctionalTooltip = {} }
+                    onclick = "[LegalDocsViewer.Agree]"
                 }
             }
         }

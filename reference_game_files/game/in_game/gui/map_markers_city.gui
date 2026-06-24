@@ -98,10 +98,6 @@ types map_marker_city {
 		allow_outside = yes
 		size = "[CityMarker.GetRankSize]"
 		texture = "[CityMarker.GetLocation.GetRankIcon]"
-		datacontext = "[CityMarker.GetLocation]"
-		tooltipwidget = {
-			using = location_rank_tooltip
-		}
 
 		widgetanchor = center
 		parentanchor = center

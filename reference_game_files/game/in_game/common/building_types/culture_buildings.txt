@@ -1,5 +1,4 @@
 ﻿university = {
-	audio_tier = 3
 	is_foreign = no
 	pop_type = clergy
 	max_levels = 1
@@ -50,7 +49,6 @@
 }
 
 library = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -91,7 +89,6 @@ library = {
 #Hyanggyo https://en.wikipedia.org/wiki/Hyanggyo
 #Shuyuan https://en.wikipedia.org/wiki/Academies_of_Classical_Learning
 confucian_school = {
-	audio_tier = 1
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -114,7 +111,7 @@ confucian_school = {
 	country_potential = {
 		OR = {
 			culture = { has_culture_group = culture_group:confucian_group }
-			religion ?= religion:sanjiao
+			religion = religion:sanjiao
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:sect
 				international_organization_has_policy = policy:confucianism_policy
@@ -147,7 +144,6 @@ confucian_school = {
 #Seowon https://en.wikipedia.org/wiki/Seowon
 #Shuyuan https://en.wikipedia.org/wiki/Academies_of_Classical_Learning
 confucian_academy = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -197,7 +193,6 @@ confucian_academy = {
 }
 
 opera_house = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -239,7 +234,6 @@ opera_house = {
 }
 
 theater = {
-	audio_tier = 1
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -271,7 +265,6 @@ theater = {
 }
 
 jesuit_college = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = clergy
@@ -310,8 +303,7 @@ jesuit_college = {
 		local_cultural_influence = 0.2
 		local_nobles_max_literacy = 10
 		local_monthly_literacy = 0.1
-		local_lutheranism_movement_growth_modifier = -0.4
-		local_calvinism_movement_growth_modifier = -0.4
+		local_pop_conversion_speed = 0.02
 	}
 
 	unique_production_methods = {
@@ -330,7 +322,6 @@ jesuit_college = {
 }
 
 art_school = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -360,9 +351,8 @@ art_school = {
 	
 	capital_country_modifier = {
 		skill_of_new_artists = 0.1
-		work_of_art_sell_value_modifier = 0.1
 	}
-
+	
 	possible_production_methods = {
 		art_school_maintenance
 	}
@@ -370,7 +360,6 @@ art_school = {
 }
 
 arts_academy = {
-	audio_tier = 3
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -405,9 +394,8 @@ arts_academy = {
 	
 	capital_country_modifier = {
 		skill_of_new_artists = 0.25
-		work_of_art_sell_value_modifier = 0.2
 	}
-
+	
 	possible_production_methods = {
 		arts_academy_maintenance
 	}

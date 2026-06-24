@@ -1,5 +1,4 @@
 ﻿stockade = {
-	audio_tier = 1
 	
 	max_levels = 1
 	pop_type = soldiers
@@ -47,7 +46,6 @@
 }
 
 castle = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = 1
 	pop_type = soldiers
@@ -95,7 +93,6 @@ castle = {
 }
 
 bastion = {
-	audio_tier = 3
 	is_foreign = no
 	max_levels = 1
 	pop_type = soldiers
@@ -143,7 +140,6 @@ bastion = {
 }
 
 star_fort = {
-	audio_tier = 4
 	is_foreign = no
 	max_levels = 1
 	pop_type = soldiers
@@ -188,7 +184,6 @@ star_fort = {
 }
 
 fortress = {
-	audio_tier = 6
 	is_foreign = no
 	max_levels = 1
 	pop_type = soldiers
@@ -237,7 +232,6 @@ fortress = {
 
 
 city_walls = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = 1
 	pop_type = soldiers
@@ -264,7 +258,6 @@ city_walls = {
 
 	allow = {
 		NOT = { has_building = building_type:theodosian_walls }
-		NOT = { has_building = building_type:walls_of_lucca }
 	}
 	
 

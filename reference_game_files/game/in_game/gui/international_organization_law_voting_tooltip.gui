@@ -20,12 +20,10 @@ template individual_country_voting_tooltip {
 					TooltipManualTableField = {
 						blockoverride "field_content" {
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								autoresize = no
 								text = "VOTE_NUMBER"
 							}
+							expand = {}
 							text_single = {
-								autoresize = yes
 								text = "[VoterGlue.GetVotes|0L]"
 								tooltipwidget = {
 									ContextualTooltipType = {
@@ -126,12 +124,10 @@ template individual_country_not_voting_tooltip {
 					TooltipManualTableField = {
 						blockoverride "field_content" {
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								autoresize = no
 								text = "VOTE_NUMBER"
 							}
+							expand = {}
 							text_single = {
-								autoresize = yes
 								text = "[ResolutionGlue.GetVotes(Country.Self)|0L]"
 								tooltipwidget = {
 									ContextualTooltipType = {

@@ -17,6 +17,7 @@ template to_market_price {
 	}
 }
 template trade_details {
+	
 	TooltipTextBlock = {
 		blockoverride "text" {
 			text = "TRADE_OWNER_LABEL"
@@ -27,27 +28,6 @@ template trade_details {
 			using = CountryTooltip
 		}
 	}
-
-	TooltipTextBlock = {
-		visible = "[Not(Trade.IsLocked)]"
-		blockoverride "text" {
-			text = "TRADE_ORIGIN_AUTOMATIC"
-		}
-	}
-	TooltipTextBlock = {
-		visible = "[And(Trade.IsLocked, Trade.IsFromTradeOrder)]"
-		blockoverride "text" {
-			text = "TRADE_ORIGIN_FROM_TRADE_ORDER"
-		}
-	}
-	TooltipTextBlock = {
-		visible = "[And(Trade.IsLocked, Not(Trade.IsFromTradeOrder))]"
-		blockoverride "text" {
-			text = "TRADE_ORIGIN_MANUAL"
-		}
-	}
-
-	
 	TooltipTextBlock = {
 		visible = "[IsOutCompeted(Trade.Self)]"
 		blockoverride "textblock_background_tint"  {
@@ -67,13 +47,11 @@ template trade_details {
 				visible = "[Trade.GetGoods.IsFood]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "FOOD_VOLUME"
 						default_format = "#subtle_name"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Multiply_CFixedPoint(Trade.GetQuantityOfGoodsActuallyMoved, Trade.GetGoods.GetFoodOutput)|2]@food!"
 					}
 				}
@@ -81,13 +59,11 @@ template trade_details {
 			TooltipManualTableField = {
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "SHIPPING_VOLUME"
 						default_format = "#subtle_name"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetQuantityOfGoodsActuallyMoved|V2]@good!"
 					}
 				}
@@ -101,13 +77,11 @@ template trade_details {
 				}
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "DESIRED_VOLUME"
 						default_format = "#subtle_name"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetDesiredGoodsShipped|V2]@good!"
 						tooltipwidget = {
 							container = {
@@ -147,13 +121,11 @@ template trade_details {
 				visible = "[And(Trade.HasTradeHappened, Trade.HasTradeQueuedCapacity)]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "SHIPPING_VOLUME_NEXT"
 						default_format = "#subtle_name"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetDesiredGoodsToShip|V2]@good!"
 					}
 				}
@@ -214,13 +186,11 @@ template trade_details {
 				datacontext = "[Trade.GetFromMarket]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						tooltipwidget = { using = goods_market_price_tooltip }
 						text = "TRADE_MERCHANT_BUYING"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "-[Trade.GetBuy|2]@gold!"
 						default_format = "#R"
 						tooltipwidget = {
@@ -254,12 +224,10 @@ template trade_details {
 				visible = "[Trade.IsExport]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "TRADE_MERCHANT_VALUE_TOOLTIP"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "-[Trade.GetMaintenance|2]@gold!"
 						default_format = "#R"
 						tooltipwidget = {
@@ -273,12 +241,10 @@ template trade_details {
 				visible = "[GreaterThan_CFixedPoint(Trade.GetSoundTollFee,'(CFixedPoint)0')]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "TRADE_TT_SOUND_TOLL"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "-[Trade.GetSoundTollFee|2]@gold!"
 						default_format = "#R"
 					}
@@ -340,12 +306,10 @@ template trade_details {
 				visible = "[Not(Trade.IsExport)]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "TRADE_MERCHANT_VALUE_TOOLTIP"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "-[Trade.GetMaintenance|2]@gold!"
 						default_format = "#R"
 						tooltipwidget = {
@@ -360,12 +324,10 @@ template trade_details {
 				# visible = "[Not(Trade.IsExport)]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "TRADE_TT_SOUND_TOLL"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "-[Trade.GetSoundTollFee|2]@gold!"
 						default_format = "#R"
 					}
@@ -377,13 +339,11 @@ template trade_details {
 				datacontext = "[Trade.GetToMarket]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						tooltipwidget = { using = goods_market_price_tooltip }
 						text = "TRADE_MERCHANT_SELLING"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetSell|+=2]@gold!"
 						tooltipwidget = {
 							ContextualTooltipType = {
@@ -484,13 +444,11 @@ template TradeProfitSummary {
 				datacontext = "[Trade.GetFromMarket]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						tooltipwidget = { using = goods_market_price_tooltip }
 						text = "TRADE_MERCHANT_BUYING_SUMMARY"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "-[Trade.GetBuy|2]@gold!"
 						default_format = "#R"
 						tooltipwidget = {
@@ -523,12 +481,10 @@ template TradeProfitSummary {
 			TooltipManualTableField = {
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "[Trade.GetAssignedMerchantValueInfo]"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "-[Trade.GetMaintenance|2]@gold!"
 						default_format = "#R"
 						tooltipwidget = {
@@ -542,12 +498,10 @@ template TradeProfitSummary {
 				visible = "[GreaterThan_CFixedPoint(Trade.GetSoundTollFee,'(CFixedPoint)0')]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "[sound_toll|e]"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "-[Trade.GetSoundTollFee|2]@gold!"
 						default_format = "#R"
 					}
@@ -559,13 +513,11 @@ template TradeProfitSummary {
 				datacontext = "[Trade.GetToMarket]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						tooltipwidget = { using = goods_market_price_tooltip }
 						text = "TRADE_MERCHANT_SELLING_SUMMARY"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetSell|+=2]@gold!"
 						tooltipwidget = {
 							ContextualTooltipType = {
@@ -603,12 +555,10 @@ template TradeProfitDetails {
 			TooltipManualTableField = {
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "TOTAL_PROFIT"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetProfit|+=2]@gold!"
 					}
 				}
@@ -617,12 +567,10 @@ template TradeProfitDetails {
 			TooltipManualTableField = {
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "TRADE_CAPACITY_USED"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetAssignedMerchantCapacityModifiedPlayer] [merchant_capacity_icon]"
 					}
 				}
@@ -632,12 +580,10 @@ template TradeProfitDetails {
 				visible = "[Not(Trade.HasTradeHappened)]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "PROFIT_TRADE_PREFIX_TT"
 					}
+					expand = {}									
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetProfitPerMerchantCapacity|2]@profit_trade!"
 					}
 				}
@@ -647,12 +593,10 @@ template TradeProfitDetails {
 				visible = "[Trade.HasTradeHappened]"
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "PROFIT_TRADE_PREFIX_TT"
 					}
+					expand = {}
 					text_single = {
-						autoresize = yes
 						raw_text = "[Trade.GetProfitPerMerchantCapacity|+=2]@profit_trade!"
 					}
 				}
@@ -666,12 +610,10 @@ template TradeProfitDetails {
 			TooltipManualTableField = {
 				blockoverride "field_content" {
 					text_single = {
-						layoutpolicy_horizontal = expanding
-						autoresize = no
 						text = "TRADE_TT_TOTAL_INCOME"
 					}
+					expand = {}
 					text_single = {
-						autoresize = yes
 						raw_text = "[Multiply_CFixedPoint(Trade.GetProfitPerMerchantCapacity, Trade.GetOwner.GetModifier('trade_income'))|2+=]@income!"
 					}
 					tagtooltip_enabled = yes

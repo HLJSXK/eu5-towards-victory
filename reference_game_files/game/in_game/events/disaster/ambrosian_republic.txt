@@ -420,10 +420,7 @@ ambrosian_republic_disaster.10 = {
 
 		custom_tooltip = {
 			text = establish_union_with_target_country_tt
-			set_variable = {
-				name = chose_ally_union
-				years = 10
-			}
+			set_variable = chose_ally_union
 		}
 	}
 }

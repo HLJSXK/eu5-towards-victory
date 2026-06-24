@@ -492,12 +492,9 @@ types WarViewer
 				disableframe = 4
 
 				raw_text = "Attackers"
-				action_tooltip = {
-					title = "WAR_VIEWER_OPEN_VIEW"
-					on_action = "[WarGlue.ShowAttackers]"
-				}
-				tooltipwidget = { BasicFunctionalTooltip = {} }
+				onclick = "[WarGlue.ShowAttackers]"
 				down = "[WarGlue.IsShowingAttackers]"
+				tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "WAR_VIEWER_OPEN_VIEW" } } }
 			}
 
 			button = {
@@ -524,12 +521,9 @@ types WarViewer
 				disableframe = 4
 
 				raw_text = "Defenders"
-				action_tooltip = {
-					title = "WAR_VIEWER_OPEN_VIEW"
-					on_action = "[WarGlue.ShowDefenders]"
-				}
-				tooltipwidget = { BasicFunctionalTooltip = {} }
+				onclick = "[WarGlue.ShowDefenders]"
 				down = "[Not(WarGlue.IsShowingAttackers)]"
+				tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "WAR_VIEWER_OPEN_VIEW" } } }
 			}
 		}
 
@@ -647,12 +641,9 @@ window = {
 								disableframe = 4
 
 								text = "[WarGlue.GetName]"
-								action_tooltip = {
-									title = "WAR_VIEWER_OPEN_VIEW"
-									on_action = "[WarViewer.OpenWarView(WarGlue.AccessSelf)]"
-								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
+								onclick = "[WarViewer.OpenWarView(WarGlue.AccessSelf)]"
 								down = "[WarViewer.IsWarViewOpen(WarGlue.Self)]"
+								tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "WAR_VIEWER_OPEN_VIEW" } } }
 							}
 						}
 					}

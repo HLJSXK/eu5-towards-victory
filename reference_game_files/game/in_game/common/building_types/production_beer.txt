@@ -1,9 +1,7 @@
 ﻿brewery = {
-	audio_tier = 1
 	is_foreign = no
 	pop_type = burghers
 	max_levels = guild_max_level
-	startup_ramp_target = guild_startup_ramp_target
 	
 	category = consumer_goods_category
 	
@@ -21,86 +19,80 @@
 	unique_production_methods = {
 	
 		wheat_brewery_maintenance = {
-			wheat = 0.9944
-			lumber = 0.2484
-			tools = 0.0999
-
+			wheat = 1.0
+			lumber = 0.25
+			tools = 0.1
+			
 			produced = beer
 			output = 1
-
-			debug_max_profit = guild_profit_margin
+			
 			category = guild_input
 		}
-
+	
 		millet_brewery_maintenance = {
-			millet = 0.9944
-			lumber = 0.2484
-			tools = 0.0999
-
+			millet = 1.0
+			lumber = 0.25
+			tools = 0.1
+			
 			produced = beer
 			output = 1
-
-			debug_max_profit = guild_profit_margin
+			
 			category = guild_input
 		}
-
+	
 		fruit_brewery_maintenance = {
-			fruit = 1.0412
-			lumber = 0.208
-			tools = 0.1045
-
+			fruit = 1
+			lumber = 0.2
+			tools = 0.1
+			
 			produced = beer
 			output = 1
-
-			debug_max_profit = guild_profit_margin
+			
 			category = guild_input
 		}
 
 		maize_brewery_maintenance = {
-			maize = 1.3724
-			pottery = 0.2943
-
+			maize = 1.4
+			pottery = 0.3
+			
 			produced = beer
 			output = 1
-
-			debug_max_profit = guild_profit_margin
 			category = guild_input
+				
 		}
 
 		bavarian_brewery_maintenance = {
-			wheat = 1.3345
-			lumber = 0.2218
-			tools = 0.1109
+			wheat = 1.2
+			lumber = 0.2
+			tools = 0.1
 			
 			produced = beer
 			output = 1.2
 			
 			category = guild_input			
-			debug_max_profit = guild_profit_margin
+			debug_max_profit = 0.4
 		}
 	
 		honey_brewery_maintenance = {
-			beeswax = 0.2603
-			millet = 0.5206
-			lumber = 0.208
-			tools = 0.1045
+			beeswax = 0.25
+			millet = 0.5
+			lumber = 0.2
+			tools = 0.1
 
 			produced = beer
 			output = 1
 
-			debug_max_profit = guild_profit_margin
 			category = guild_input
 		}
 
 		rice_brewery_maintenance = {
-			rice = 0.9944
-			lumber = 0.2484
-			tools = 0.0999
+			rice = 1.0
+			lumber = 0.25
+			tools = 0.1
 
 			produced = beer
 			output = 1
 
-			debug_max_profit = guild_profit_margin
 			category = guild_input
 		}
 	}
@@ -111,11 +103,9 @@
 }
 
 beer_workshop = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = workshop_max_level
-	startup_ramp_target = workshop_startup_ramp_target
 	
 	category = consumer_goods_category
 	
@@ -133,59 +123,59 @@ beer_workshop = {
 	unique_production_methods = {
 	
 		wheat_beer_workshop_maintenance = {
-			wheat = 1.0513
-			lumber = 0.2625
-			tools = 0.105
+			wheat = 1.0
+			lumber = 0.25
+			tools = 0.1
 			
 			produced = beer
 			output = 1.1
 			
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 			
 			category = workshop_input
 		}
 	
 		millet_beer_workshop_maintenance = {
-			millet = 1.0513
-			lumber = 0.2625
-			tools = 0.105
+			millet = 1.0
+			lumber = 0.25
+			tools = 0.1
 			
 			produced = beer
 			output = 1.1
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 			
 			category = workshop_input
 		}
 	
 		fruit_beer_workshop_maintenance = {
-			fruit = 1.0995
-			lumber = 0.2202
-			tools = 0.1101
+			fruit = 1
+			lumber = 0.2
+			tools = 0.1
 			
 			produced = beer
 			output = 1.1
 			
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 			
 			category = workshop_input
 		}
 
 		maize_beer_workshop_maintenance = {
-			maize = 1.4298
-			pottery = 0.3302
+			maize = 1.3
+			pottery = 0.3
 			
 			produced = beer
 			output = 1.1
 			
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 			category = workshop_input
 				
 		}
 
 		bavarian_beer_workshop_maintenance = {
-			wheat = 1.3449
-			lumber = 0.2444
-			tools = 0.1228
+			wheat = 1.1
+			lumber = 0.2
+			tools = 0.1
 			
 			produced = beer
 			output = 1.3
@@ -193,32 +183,32 @@ beer_workshop = {
 			
 			
 			category = workshop_input			
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 		}
 	
 		honey_beer_workshop_maintenance = {
-			beeswax = 0.275
-			millet = 0.55
-			lumber = 0.22
-			tools = 0.11
+			beeswax = 0.25
+			millet = 0.5
+			lumber = 0.2
+			tools = 0.1
 
 			produced = beer
 			output = 1.1
 
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 
 			category = workshop_input
 		}
 
 		rice_beer_workshop_maintenance = {
-			rice = 1.0513
-			lumber = 0.2625
-			tools = 0.105
+			rice = 1.0
+			lumber = 0.25
+			tools = 0.1
 
 			produced = beer
 			output = 1.1
 
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 
 			category = workshop_input
 		}
@@ -232,11 +222,9 @@ beer_workshop = {
 }
 
 brewery_manufactory = {
-	audio_tier = 3
 	is_foreign = no
 	pop_type = burghers
 	max_levels = manufactory_max_level
-	startup_ramp_target = manufactory_startup_ramp_target
 	
 	category = consumer_goods_category
 	
@@ -256,14 +244,14 @@ brewery_manufactory = {
 	unique_production_methods = {
 		brewery_manufactory_maintenance = {
 			
-			lumber = 0.3179
-			wheat = 2.1231
-			tools = 0.159
+			lumber = 0.3
+			wheat = 2.0
+			tools = 0.15
 			
 			produced = beer
 			output = 2
 			
-			debug_max_profit = manufactory_profit_margin
+			debug_max_profit = 0.75
 
 			category = manufactory_input
 		}
@@ -274,12 +262,9 @@ brewery_manufactory = {
 }
 
 brewery_mill = {
-	audio_tier = 5
 	is_foreign = no
 	pop_type = laborers
-	is_mill = yes
 	max_levels = mills_max_level
-	startup_ramp_target = mills_startup_ramp_target
 	
 	category = consumer_goods_category
 	
@@ -299,14 +284,14 @@ brewery_mill = {
 	unique_production_methods = {
 		brewery_mill_maintenance = {
 			
-			lumber = 0.5038
-			wheat = 4.4144
-			tools = 0.2519
+			lumber = 0.4
+			wheat = 3.5
+			tools = 0.2
 			
 			produced = beer
 			output = 4
 			
-			debug_max_profit = mills_profit_margin
+			debug_max_profit = 1.0
 
 			category = mills_input
 		}
@@ -314,8 +299,4 @@ brewery_mill = {
 
 	custom_tags = { lategame_manufactory }
 	construction_demand = mill_construction
-
-	raw_modifier = {
-		local_burghers_desired_pop = 0.05
-	}
 }

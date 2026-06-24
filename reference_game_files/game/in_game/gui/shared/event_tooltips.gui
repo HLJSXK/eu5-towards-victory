@@ -87,16 +87,16 @@ template DHEEvent_tooltip {
 				textcontext = "[DHEEventEntry.GetTrigger]"
 
 				blockoverride "block_title" {
-					text = "[SelectLocalization(Or(DHEEventEntry.IsTriggerTrue, Not(DHEEventEntry.HasTrigger)), 'REQUIREMENT_ARE_MET', 'REQUIREMENT_ARE_NOT_MET')]"
+					text = "[SelectLocalization(DHEEventEntry.IsTriggerTrue, 'REQUIREMENT_ARE_MET', 'REQUIREMENT_ARE_NOT_MET')]"
 
 					background = {
-						visible = "[Or(DHEEventEntry.IsTriggerTrue, Not(DHEEventEntry.HasTrigger))]"
+						visible = "[DHEEventEntry.IsTriggerTrue]"
 						using = color_mid_light_green_texture
 						alpha = 0.9
 					}
 
 					background = {
-						visible = "[And(Not(DHEEventEntry.IsTriggerTrue), DHEEventEntry.HasTrigger)]"
+						visible = "[Not(DHEEventEntry.IsTriggerTrue)]"
 						using = color_mid_red_texture
 						alpha = 0.7
 					}

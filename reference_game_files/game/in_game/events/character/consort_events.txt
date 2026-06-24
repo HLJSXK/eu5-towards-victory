@@ -867,30 +867,27 @@ consort_events.104 = {
 	option = {
 		name = consort_events.104.a
 		trigger = {
-			exists = scope:target_consort
-			scope:target_consort = {
+			consort = {
 				adm > 50
 			}
 		}
 		heir = { add_adm = 7 }
 	}
-
+	
 	option = {
 		name = consort_events.104.b
 		trigger = {
-			exists = scope:target_consort
-			scope:target_consort = {
+			consort = {
 				dip > 50
 			}
 		}
 		heir = { add_dip = 7 }
 	}
-
+	
 	option = {
 		name = consort_events.104.c
 		trigger = {
-			exists = scope:target_consort
-			scope:target_consort = {
+			consort = {
 				mil > 50
 			}
 		}

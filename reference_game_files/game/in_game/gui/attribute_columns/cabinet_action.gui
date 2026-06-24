@@ -88,8 +88,6 @@ types SelectionCardsTypes
 			datamodel = "[RowList.GetRows]"
 			item = {
 				text_multi = {
-					visible = "[CPdxStringView.IsStringViewNotEmptyOrNull]"
-					layoutpolicy_horizontal = expanding
 					margin = { 10 5 }
 					align = nobaseline
 					fontsize = 14
@@ -100,7 +98,7 @@ types SelectionCardsTypes
 						maximumsize = { 520 -1 }
 					}
 					
-					text = "[CPdxStringView.GetStringView]"
+					text = "[CString.GetString]"
 
 					background = {
 						visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInDataModel)]"
@@ -113,7 +111,7 @@ types SelectionCardsTypes
 	}
 
 	type card_block_list = card_list {
-		ontextcontextchanged = "[SetBlockListFromTextContext(PdxGuiWidget.AccessSelf)]"
+		ontextcontextchanged = "[SetBlockListWithTitleFromTextContext(PdxGuiWidget.AccessSelf)]"
 
 		vbox = {
 			layoutpolicy_horizontal = expanding
@@ -124,18 +122,18 @@ types SelectionCardsTypes
 
 					card_column = {
 						visible = "[BlockListBlock.IsSingle]"
-						layoutpolicy_horizontal = expanding
+
 						blockoverride "column_datamodel" { datamodel = "[BlockListBlock.GetSingleRows]" }
 						blockoverride "field_text" {
 							layoutpolicy_horizontal = expanding
 							minimumsize = { -1 30 }
 							autoresize = yes
-							align = left|nobaseline
 							multiline = yes
-							text = "[ConditionLine.GetText]"
+							align = left|nobaseline
+							text = "[CPdxStringView.GetStringView]"
 						}
 
-						blockoverride "field_left" {}
+						blockoverride "field_left" {}	
 						blockoverride "field_right" { expand = {} }
 					}
 
@@ -144,32 +142,30 @@ types SelectionCardsTypes
 						layoutpolicy_horizontal = expanding
 
 						card_column = {
-							layoutpolicy_horizontal = expanding
 							blockoverride "column_datamodel" { datamodel = "[BlockListBlock.GetPairRows]" }
 							blockoverride "field_text" {
-								maximumsize = { -1 30 }
+								maximumsize = { 440 30 }
 								minimumsize = { -1 30 }
 								autoresize = yes
 								align = left|nobaseline
 								text = "[StringViewPair.GetLeft.GetStringView]"
 							}
 
-							blockoverride "field_left" {}
+							blockoverride "field_left" {}	
 							blockoverride "field_right" { expand = {} }
 						}
 
 						card_column = {
-							layoutpolicy_horizontal = fixed
 							blockoverride "column_datamodel" { datamodel = "[BlockListBlock.GetPairRows]" }
 							blockoverride "field_text" {
-								maximumsize = { -1 30 }
+								maximumsize = { 70 30 }
 								minimumsize = { -1 30 }
 								autoresize = yes
 								align = right|nobaseline
 								text = "[StringViewPair.GetRight.GetStringView]"
 							}
 
-							blockoverride "field_left" { expand = {} }
+							blockoverride "field_left" { expand = {} }	
 							blockoverride "field_right" {}
 						}
 					}
@@ -193,14 +189,14 @@ types SelectionCardsTypes
 								}
 				
 								blockoverride "column_title" {
-									visible = "[TableColumn.GetTitle.IsStringViewNotEmptyOrNull]"
+									visible = "[TableColumn.HasTitle]"
 								}
 				
 								blockoverride "column_title_text" {
 									maximumsize = { 70 30 }
 									minimumsize = { -1 30 }
 									autoresize = yes
-									text = "[TableColumn.GetTitle.GetStringView]"
+									text = "[TableColumn.GetTitle]"
 									align = "[TableColumn.GetTextAlignment]"
 								}
 				
@@ -251,13 +247,11 @@ types SelectionCardsTypes
 			margin = { 0 2 }
 
 			card_column = {
-				layoutpolicy_horizontal = expanding
 				blockoverride "column_datamodel" { datamodel = "[StringPairList.GetRows]" }
 				blockoverride "field_text" {
-					maximumsize = { -1 30 }
+					maximumsize = { 440 30 }
 					minimumsize = { -1 30 }
 					autoresize = yes
-					
 					align = left|nobaseline
 					text = "[StringViewPair.GetLeft.GetStringView][AddTextIf(Not(StringViewPair.GetLeft.IsStringViewNotEmptyOrNull), ' ')]"
 				}
@@ -267,69 +261,18 @@ types SelectionCardsTypes
 			}
 
 			card_column = {
-				layoutpolicy_horizontal = fixed
 				blockoverride "column_datamodel" { datamodel = "[StringPairList.GetRows]" }
 				blockoverride "field_text" {
-					maximumsize = { -1 30 }
+					maximumsize = { 70 30 }
 					minimumsize = { -1 30 }
 					autoresize = yes
 					align = right|nobaseline
 					text = "[StringViewPair.GetRight.GetStringView][AddTextIf(Not(StringViewPair.GetRight.IsStringViewNotEmptyOrNull), ' ')]"
 				}
 
-				blockoverride "field_left" { expand = {} }
+				blockoverride "field_left" { expand = {} }	
 				blockoverride "field_right" {}
 			}
-		}
-	}
-
-	type card_2row_stringpair_list = card_list {
-		ontextcontextchanged = "[SetStringPairListFromTextContext(PdxGuiWidget.AccessSelf)]"
-
-		datamodel = "[StringPairList.GetRows]"
-		item = {
-			hbox = {
-				layoutpolicy_horizontal = expanding
-				margin = { 5 0 }
-				spacing = 5
-				background = {
-					visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInDataModel)]"
-					block "bg_color" { using = color_intense_bg_blue_texture }
-					alpha = 0.2
-				}
-
-				datacontext = "[StringToIconAndText(StringViewPair.GetLeft.GetString)]"
-				text_single = {
-					autoresize = yes
-					using = Font_Size_Medium
-					visible = "[StringViewPair.GetRight.IsStringViewNotEmptyOrNull]"
-					text = "[IconAndText.GetIcon]"
-
-					tagtooltip_enabled = yes
-					tooltip = "[IconAndText.GetText]"
-				}
-
-				vbox = {
-					visible = "[StringViewPair.GetRight.IsStringViewNotEmptyOrNull]"
-					layoutpolicy_horizontal = expanding
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						text = "[IconAndText.GetText]"
-					}
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						text = "[StringViewPair.GetRight.GetStringView]"
-					}
-				}
-
-				text_multi = {
-					margin = { 5 5 }
-					visible = "[Not(StringViewPair.GetRight.IsStringViewNotEmptyOrNull)]"
-					layoutpolicy_horizontal = expanding
-					autoresize = yes
-					text = "[IconAndText.GetText]"
-				}
-			}	
 		}
 	}
 }
@@ -586,9 +529,7 @@ types CabinetActionColumns
 	}
 
 	type cabinet_action_power = widget {
-		block cabinet_action_power_bg_size {
-			size = { 36 36 }
-		}
+		size = { 36 36 }
 		
 		background = {
 			alwaystransparent = yes
@@ -620,9 +561,7 @@ types CabinetActionColumns
 		}
 
 		icon = {
-			block cabinet_action_power_icon_size {
-				size = { 75% 75%}
-			}
+			size = { 75% 75% }
 			texture = "[GetCabinetActionIcon(CabinetAction.Self)]"
 			parentanchor = center
 			glow = {

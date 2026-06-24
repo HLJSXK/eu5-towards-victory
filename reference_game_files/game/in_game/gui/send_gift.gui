@@ -6,7 +6,10 @@ basic_priority_dialog = {
 		text = "[SendGiftWindow.GetTitle]"
 	}
 
-	blockoverride "close_on_action" { on_action = "[SendGiftWindow.OnDecline]" }
+	blockoverride "close_onclick" {
+		onclick = "[SendGiftWindow.OnDecline]"
+	}
+
 	blockoverride "content"  {
 		vbox = {
 			layoutpolicy_horizontal = expanding
@@ -90,23 +93,17 @@ basic_priority_dialog = {
 		button_regular = {
 			size = {120 30}
 			text = "CANCEL_BUTTON"
-			action_tooltip = {
-				title = "CANCEL_BUTTON"
-				on_action = "[SendGiftWindow.OnDecline]"
-			}
-			tooltipwidget = { BasicFunctionalTooltip = {} }
+			onclick = "[SendGiftWindow.OnDecline]"
 			input_action = "close_window"
 			use_global_input_instance = yes
+			tooltip_enabled = no
 		}
 
 		button_regular = {
 			size = {120 30}
 			text = "OK_BUTTON"
             enabled = "[SendGiftWindow.IsEnabled]"
-			action_tooltip = {
-				title = "OK_BUTTON"
-				on_action = "[SendGiftWindow.OnAccept]"
-			}
+			onclick = "[SendGiftWindow.OnAccept]"
 			input_action = "confirm"
 			use_global_input_instance = yes
 

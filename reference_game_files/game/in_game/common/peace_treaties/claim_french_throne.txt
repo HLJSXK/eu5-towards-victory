@@ -44,7 +44,7 @@
 
 		scope:winner = {
 			is_subject = no
-			country_economical_base > scope:loser.country_economical_base
+			great_power_score > scope:loser.great_power_score
 		}
 	}
 

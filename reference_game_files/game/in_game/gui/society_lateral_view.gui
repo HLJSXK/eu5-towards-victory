@@ -1,26 +1,5 @@
-types SocietyOverview {
+﻿types SocietyOverview {
 	type society_view = lateralview {
-
-		blockoverride "lateralview_topbuttons_extra" {
-			widget = {
-				parentanchor = vcenter
-				size = { 40 40 }
-				position = { 30 0 }
-
-				button_automation_shortcut = {
-					parentanchor = vcenter
-					size = { 25 25 }
-
-
-					action_tooltip = {
-						title = "OPEN_AUTOMATION_PANEL_FILTER"
-						on_action = "[OpenLateralViewWithFilter('automation', 'automation_filter_society')]"
-					}
-
-					tooltipwidget = { BasicFunctionalTooltip = {} }
-				}
-			}
-		}
 
 		blockoverride "panel_header" {
 			window_header_alt = {
@@ -52,10 +31,7 @@ types SocietyOverview {
 							text = "CULTURE_TAB"
 						}
 
-						action_tooltip = {
-							title = "OPEN_TAB"
-							on_action = "[OpenLateralView('country_culture')]"
-						}
+						onclick = "[OpenLateralView('country_culture')]"
 						down = "[IsLateralViewOpened('country_culture')]"
 					}
 
@@ -75,10 +51,7 @@ types SocietyOverview {
 							text = "RELIGION_TAB"
 						}
 
-						action_tooltip = {
-							title = "OPEN_TAB"
-							on_action = "[OpenLateralView('country_religion')]"
-						}
+						onclick = "[OpenLateralView('country_religion')]"
 						down = "[IsLateralViewOpened('country_religion')]"
 					}
 
@@ -98,10 +71,7 @@ types SocietyOverview {
 							text = "PEOPLE_TAB"
 						}
 
-						action_tooltip = {
-							title = "OPEN_TAB"
-							on_action = "[OpenLateralView('country_people')]"
-						}
+						onclick = "[OpenLateralView('country_people')]"
 						down = "[IsLateralViewOpened('country_people')]"
 					}
 				}

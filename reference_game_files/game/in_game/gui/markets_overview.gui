@@ -33,25 +33,25 @@ lateralview_full = {
 						sort_by_key_button = {
 							name = "owner"
 							layoutpolicy_vertical = expanding
-							size = { 80 -1 }
+							size = { 60 -1 }
 						}
 
 						sort_by_key_button = {
 							name = "name"
-							layoutpolicy_vertical = expanding
-							size = { 440 -1 }
+							using = layoutpolicy_expanding
+							layoutstretchfactor_horizontal = 3
 						}
 
 						sort_by_key_button = {
 							name = "value"
 							layoutpolicy_vertical = expanding
-							size = { 130 -1 }
+							size = { 150 -1 }
 						}
 
 						sort_by_key_button = {
 							name = "capacity"
 							layoutpolicy_vertical = expanding
-							size = { 300 -1 }
+							size = { 260 -1 }
 						}
 
 						sort_by_key_button = {
@@ -59,10 +59,11 @@ lateralview_full = {
 							layoutpolicy_vertical = expanding
 							size = { 120 -1 }
 						}
+						widget = { size = { 30 -1 } layoutpolicy_vertical = expanding }
 						sort_by_key_button = {
 							name = "surplus"
 							layoutpolicy_vertical = expanding
-							size = { 160 -1 }
+							size = { 180 -1 }
 						}
 
 						sort_by_key_button = {
@@ -74,7 +75,7 @@ lateralview_full = {
 						sort_by_key_button = {
 							name = "language"
 							layoutpolicy_vertical = expanding
-							size = { 140 -1 }
+							size = { 150 -1 }
 						}
 
 						sort_by_key_button = {
@@ -119,48 +120,37 @@ lateralview_full = {
 											}
 										}
 
-
-										container = {
+										text_single = {
 											layoutpolicy_horizontal = expanding
-											layoutstretchfactor_horizontal = 1
-											text_single = {
-												size = { 440 32 }
-												layoutpolicy_horizontal = expanding
-												layoutstretchfactor_horizontal = 3
-												autoresize = no
-												align = left|nobaseline
+											layoutstretchfactor_horizontal = 3
+											autoresize = no
+											align = left|nobaseline
 
-												text = "[Market.GetNameWithNoTooltip]"
-												default_format = "#subtle_name"
+											text = "[Market.GetNameWithNoTooltip]"
+											default_format = "#subtle_name"
 
-												tooltipwidget = {
-														using = Market_tooltip
-												}
-												sort_by_highlight = {
-													name = "name"
-												}
+											tooltipwidget = {
+													using = Market_tooltip
+											}
+											sort_by_highlight = {
+												name = "name"
 											}
 										}
 
-										container = {
+										text_single = {
 											layoutpolicy_horizontal = expanding
 											layoutstretchfactor_horizontal = 1
-											text_single = {
-												size = { 100 32 }
-												layoutpolicy_horizontal = expanding
-												layoutstretchfactor_horizontal = 1
-												autoresize = no
-												align = right|nobaseline
+											autoresize = no
+											align = left|nobaseline
 
-												raw_text = "[Market.GetTotalValueTraded|2]@gold!"		
-																		
-												tooltipwidget = {
-													using = market_value_tooltip
-												}
-												default_format = "#important_number"
-												sort_by_highlight = {
-													name = "value"
-												}
+											raw_text = "[Market.GetTotalValueTraded|2]@gold!"		
+																	
+											tooltipwidget = {
+												using = market_value_tooltip
+											}
+											default_format = "#important_number"
+											sort_by_highlight = {
+												name = "value"
 											}
 										}
 										
@@ -172,7 +162,7 @@ lateralview_full = {
 												layoutpolicy_horizontal = expanding
 												layoutstretchfactor_horizontal = 1
 												autoresize = no
-												align = center|nobaseline
+												align = right|nobaseline
 
 												raw_text = "[Market.GetMerchantTotalCapacityInMarket|0]"		
 																		
@@ -205,7 +195,7 @@ lateralview_full = {
 											layoutpolicy_horizontal = expanding
 											layoutstretchfactor_horizontal = 1
 											autoresize = no
-											align = right|nobaseline
+											align = left|nobaseline
 
 											raw_text = "[Market.GetMonthlyFoodBalance|+=2]@food!"		
 																	
@@ -217,6 +207,8 @@ lateralview_full = {
 											}
 										}
 										
+										widget = { size = { 30 -1 } layoutpolicy_vertical = expanding }
+
 										widget = {
 											layoutpolicy_vertical = expanding
 											size = { 140 -1 }
@@ -224,7 +216,7 @@ lateralview_full = {
 											overlappingitembox = {
 												size = { 125 32 }
 												margin = {0 4}
-												parentanchor = center
+												parentanchor = vcenter
 												datamodel = "[DataModelFirst(Market.GetSurplusGoods, '(int32)5')]"
 												item = {
 													icon = {
@@ -250,7 +242,7 @@ lateralview_full = {
 											overlappingitembox = {
 												size = { 125 32 }
 												margin = {0 4}
-												parentanchor = center
+												parentanchor = vcenter
 												datamodel = "[DataModelFirst(Market.GetHighestDemandGoods, '(int32)5')]"
 												item = {
 													icon = {
@@ -296,7 +288,6 @@ lateralview_full = {
 										}
 
 										text_single = {
-											margin_right = 10
 											layoutpolicy_horizontal = expanding
 											layoutstretchfactor_horizontal = 1
 											autoresize = no

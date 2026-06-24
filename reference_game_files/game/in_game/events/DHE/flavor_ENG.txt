@@ -26,6 +26,7 @@ flavor_eng.1 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1385.1.1
 		to = 1410.1.1
 		monthly_chance = 5
@@ -224,6 +225,7 @@ flavor_eng.2 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1400.1.1
 		to = 1500.1.1
 		monthly_chance = 10
@@ -365,6 +367,7 @@ flavor_eng.3 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1485.1.1
 		to = 1509.1.1
 		monthly_chance = 10
@@ -451,6 +454,7 @@ flavor_eng.4 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1490.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -543,6 +547,7 @@ flavor_eng.5 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1485.1.1
 		to = 1510.1.1
 		monthly_chance = 10
@@ -606,6 +611,7 @@ flavor_eng.6 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1509.1.1
 		to = 1599.1.1
 		monthly_chance = 1
@@ -661,16 +667,15 @@ flavor_eng.7 = {
 
 	dynamic_historical_event = {
 		tag = ENG
-		from = 1500.1.1
-		to = 1600.1.1
+        tag = GBR
+		from = 1530.1.1
+		to = 1560.1.1
 		monthly_chance = 100
 	}
 
 	trigger = {
 
 		religion = religion:catholic
-
-		religion:lutheran = { is_religion_enabled = yes }
 
 		ruler ?= {
 			is_female = no
@@ -854,6 +859,7 @@ flavor_eng.8 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1640.1.1
 		to = 1700.1.1
 		monthly_chance = 5
@@ -946,6 +952,7 @@ flavor_eng.9 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1530.1.1
 		to = 1560.1.1
 		monthly_chance = 10
@@ -1082,6 +1089,7 @@ flavor_eng.10 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1337.1.1
 		to = 1450.1.1
 		monthly_chance = 1
@@ -1189,6 +1197,7 @@ flavor_eng.11 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1337.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -1285,6 +1294,7 @@ flavor_eng.12 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1337.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -1428,6 +1438,7 @@ flavor_eng.13 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1337.1.1
 		to = 1600.1.1
 		monthly_chance = 1
@@ -1544,6 +1555,7 @@ flavor_eng.14 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1337.1.1
 		to = 1500.1.1
 		monthly_chance = 1
@@ -1640,6 +1652,7 @@ flavor_eng.15 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1555.1.1
 		to = 1577.1.1
 		monthly_chance = 20
@@ -1815,7 +1828,7 @@ flavor_eng.16 = {
 			}
 			triggered_desc = {
 				trigger = {
-					country_economical_base < scope:target_country.country_economical_base
+					great_power_score < scope:target_country.great_power_score
 				}
 				desc = flavor_eng.16.desc_castilian_power
 			}
@@ -1827,6 +1840,7 @@ flavor_eng.16 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1530.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -1853,7 +1867,7 @@ flavor_eng.16 = {
 				ruler_or_regent ?= {
 					religion = religion:catholic
 				}
-				country_economical_base < c:CAS.country_economical_base
+				great_power_score < c:CAS.great_power_score
 			}
 		}
 		trigger_else = {	#If they formed Spain and they are relevant to us
@@ -1870,7 +1884,7 @@ flavor_eng.16 = {
 				ruler_or_regent ?= {
 					religion = religion:catholic
 				}
-				country_economical_base < c:SPA.country_economical_base
+				great_power_score < c:SPA.great_power_score
 			}
 		}
 		country_exists = c:PAP
@@ -1951,6 +1965,7 @@ flavor_eng.17 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1540.1.1
 		to = 1580.1.1
 		monthly_chance = 5
@@ -2083,6 +2098,7 @@ flavor_eng.18 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1552.1.1
 		to = 1592.1.1
 		monthly_chance = 5
@@ -2161,6 +2177,7 @@ flavor_eng.19 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1537.1.1
 		to = 1579.1.1
 		monthly_chance = 5
@@ -2278,6 +2295,7 @@ flavor_eng.20 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1558.1.1
 		to = 1579.1.1
 		monthly_chance = 10
@@ -2471,6 +2489,7 @@ flavor_eng.21 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1571.1.1
 		to = 1700.1.1
 		monthly_chance = 1
@@ -2557,6 +2576,7 @@ flavor_eng.22 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1500.1.1
 		to = 1650.1.1
 		monthly_chance = 5
@@ -2659,6 +2679,7 @@ flavor_eng.23 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1580.1.1
 		to = 1598.1.1
 		monthly_chance = 20
@@ -2794,6 +2815,7 @@ flavor_eng.24 = {
 	historical_info = flavor_eng.24.historical_info
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1637.1.1
 		to = 1837.1.1
 		monthly_chance = 10
@@ -2841,6 +2863,7 @@ flavor_eng.25 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1637.1.1
 		to = 1837.1.1
 		monthly_chance = 10
@@ -3039,6 +3062,7 @@ flavor_eng.26 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1637.1.1
 		to = 1837.1.1
 		monthly_chance = 5
@@ -3147,6 +3171,7 @@ flavor_eng.27 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1600.1.1
 		to = 1700.1.1
 		monthly_chance = 5
@@ -3184,7 +3209,7 @@ flavor_eng.27 = {
 			}
 			ordered_rival = {
 				limit = { religion = religion:catholic }
-				order_by = country_economical_base
+				order_by = great_power_score
 				check_range_bounds = no
 				max = 1
 				save_scope_as = target_country
@@ -3196,7 +3221,7 @@ flavor_eng.27 = {
 			}
 			ordered_enemy = {
 				limit = { religion = religion:catholic }
-				order_by = country_economical_base
+				order_by = great_power_score
 				check_range_bounds = no
 				max = 1
 				save_scope_as = target_country
@@ -3275,6 +3300,7 @@ flavor_eng.28 = {
 	historical_info = flavor_eng.28.historical_info
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1650.1.1
 		to = 1750.1.1
 		monthly_chance = 4
@@ -3290,7 +3316,6 @@ flavor_eng.28 = {
 			owner ?= root
 			is_capital = yes
 		}
-		has_embraced_institution = institution:banking
 		OR = {
 			AND = {
 				at_war = yes
@@ -3298,7 +3323,6 @@ flavor_eng.28 = {
 			}
 			num_loans > 0
 		}
-		has_advance = central_bank_advance
 		societal_value:capital_economy_vs_traditional_economy < -50
 	}
 
@@ -3312,23 +3336,6 @@ flavor_eng.28 = {
 
 		unlock_government_reform_effect = { type = bank_of_england_reform }
 		add_reform = government_reform:bank_of_england_reform
-		if = {
-			limit = {
-				location:london = {
-					NOT = { has_building = building_type:central_bank }
-				}
-			}
-			location:london = {
-				change_building_level_in_location = {
-					building = building_type:central_bank
-					value = 1
-					owner = root
-				}
-			}
-		}
-		else = {
-			change_gold_effect = { scale = 3.00 }
-		}
 	}
 
 	option = {
@@ -3351,6 +3358,7 @@ flavor_eng.29 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1700.1.1
 		to = 1730.1.1
 		monthly_chance = 5
@@ -3450,6 +3458,7 @@ flavor_eng.30 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1700.1.1
 		to = 1745.1.1
 		monthly_chance = 1
@@ -3502,6 +3511,7 @@ flavor_eng.31 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1700.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -3578,6 +3588,7 @@ flavor_eng.32 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1740.1.1
 		to = 1770.1.1
 		monthly_chance = 5
@@ -3676,6 +3687,7 @@ flavor_eng.33 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1728.1.1
 		to = 1740.1.1
 		monthly_chance = 10
@@ -3770,6 +3782,7 @@ flavor_eng.34 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1750.1.1
 		to = 1760.1.1
 		monthly_chance = 5
@@ -3815,6 +3828,7 @@ flavor_eng.35 = {
 	historical_info = flavor_eng.35.historical_info
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1728.1.1
 		to = 1790.1.1
 		monthly_chance = 10
@@ -3916,6 +3930,7 @@ flavor_eng.37 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1600.1.1
 		to = 1650.1.1
 		monthly_chance = 5
@@ -4005,6 +4020,7 @@ flavor_eng.38 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1630.1.1
 		to = 1670.1.1
 		monthly_chance = 1
@@ -4058,6 +4074,7 @@ flavor_eng.39 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		tag = SCO
 		from = 1776.1.1
 		to = 1790.1.1
@@ -4127,6 +4144,7 @@ flavor_eng.41 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1680.1.1
 		to = 1700.1.1
 		monthly_chance = 5
@@ -4174,6 +4192,7 @@ flavor_eng.42 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1672.1.1
 		to = 1727.1.1
 		monthly_chance = 5
@@ -4212,6 +4231,7 @@ flavor_eng.43 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1593.1.1
 		to = 1616.1.1
 		monthly_chance = 5
@@ -4301,6 +4321,7 @@ flavor_eng.44 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1385.1.1
 		to = 1500.1.1
 		monthly_chance = 1
@@ -4400,6 +4421,7 @@ flavor_eng.45 = {
 	historical_info = flavor_eng.45.historical_info
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1300.1.1
 		to = 1500.1.1
 		monthly_chance = 33
@@ -4409,6 +4431,10 @@ flavor_eng.45 = {
 	trigger = {
 		has_ruler = yes
 		owns_or_non_sovereign_subject_owns = location:york
+		OR = {
+			ruler ?= character:eng_edward_iii
+			ruler.father ?= character:eng_edward_iii
+		}
 		ruler.dynasty ?= dynasty:plantagenet_dynasty
 		dynasty:plantagenet_dynasty = {
 			any_character_in_dynasty = {
@@ -4416,6 +4442,8 @@ flavor_eng.45 = {
 				is_ruler = no
 				is_female = no
 				is_adult = yes
+				exists = father
+				father ?= character:eng_edward_iii
 			}
 		}
 
@@ -4440,22 +4468,13 @@ flavor_eng.45 = {
 					is_ruler = no
 					is_female = no
 					is_adult = yes
-				}
-				weight = {
-					base = 1
-					modifier = {
-						factor = 100
-						trigger = {
-							exists = father
-							father ?= character:eng_edward_iii
-						}
-					}
+					father ?= character:eng_edward_iii
 				}
 				save_scope_as = target_character
 				change_dynasty = dynasty:york_dynasty
 				every_descendant = {
 					change_dynasty = dynasty:york_dynasty
-				}
+				}				
 			}
 			scope:target_character.dynasty = { save_scope_as = target_dynasty }
 		}
@@ -4489,6 +4508,7 @@ flavor_eng.46 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1300.1.1
 		to = 1500.1.1
 		monthly_chance = 33
@@ -4498,9 +4518,12 @@ flavor_eng.46 = {
 	trigger = {
 		has_ruler = yes
 		owns_or_non_sovereign_subject_owns = location:lancaster
-		ruler.dynasty ?= dynasty:plantagenet_dynasty
-		dynasty:plantagenet_dynasty = {
-			any_character_in_dynasty = {
+		OR = {
+			ruler = character:eng_edward_iii
+			ruler.father ?= character:eng_edward_iii
+		}
+		character:eng_edward_iii ?= {
+			any_child = {
 				is_heir = no
 				is_ruler = no
 				is_female = no
@@ -4517,7 +4540,7 @@ flavor_eng.46 = {
 				is_female = yes
 				is_adult = yes
 				is_married = no
-				age_in_years < 35
+				age_in_years < 50
 				is_alive = yes
 			}
 		}
@@ -4530,8 +4553,8 @@ flavor_eng.46 = {
 
 	immediate = {
 		event_illustration_estate_effect = { foreground = estate_type:nobles_estate background = estate_type:nobles_estate }
-		dynasty:plantagenet_dynasty = {
-			random_character_in_dynasty = {
+		character:eng_edward_iii ?= {
+			random_child = {
 				limit = {
 					is_heir = no
 					is_ruler = no
@@ -4540,16 +4563,6 @@ flavor_eng.46 = {
 					is_married = no
 					age_in_years < 40
 					is_alive = yes
-				}
-				weight = {
-					base = 1
-					modifier = {
-						factor = 100
-						trigger = {
-							exists = father
-							father ?= character:eng_edward_iii
-						}
-					}
 				}
 				add_fertility = 100
 				save_scope_as = target
@@ -4562,8 +4575,7 @@ flavor_eng.46 = {
 					is_ruler = no
 					is_female = yes
 					is_adult = yes
-					is_married = no
-					age_in_years < 35
+					age_in_years < 50
 					is_alive = yes
 				}
 				add_fertility = 100
@@ -4685,7 +4697,8 @@ flavor_eng.47 = {
 
 	dynamic_historical_event = {
 		tag = ENG
-		from = 1341.6.6
+        tag = GBR
+		from = 1340.1.1
 		to = 1348.1.1
 		monthly_chance = 100
 	}
@@ -4738,6 +4751,7 @@ flavor_eng.48 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1300.1.1
 		to = 1400.1.1
 		monthly_chance = 20
@@ -4874,6 +4888,7 @@ flavor_eng.49 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1400.1.1
 		to = 1500.1.1
 		monthly_chance = 20
@@ -4943,6 +4958,7 @@ flavor_eng.50 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1380.1.1
 		to = 1400.1.1
 		monthly_chance = 5
@@ -4993,6 +5009,7 @@ flavor_eng.51 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1340.1.1
 		to = 1360.1.1
 		monthly_chance = 5
@@ -5010,14 +5027,11 @@ flavor_eng.51 = {
 	immediate = {
 		event_illustration_estate_effect = { foreground = estate_type:nobles_estate background = estate_type:nobles_estate }
 		unlock_law_effect = { type = eng_order_of_the_garter_law }
-		set_active_chivalric_order = chivalric_order:order_of_the_garter
-		ruler ?= { join_chivalric_order = chivalric_order:order_of_the_garter }
 	}
 
 	option = {
 		name = flavor_eng.51.a
 		historical_option = yes
-		custom_tooltip = flavor_eng.51.order_tt
 
 		add_government_power = government_power_mild_bonus
 
@@ -5025,7 +5039,6 @@ flavor_eng.51 = {
 	}
 	option = {
 		name = flavor_eng.51.b
-		custom_tooltip = flavor_eng.51.order_tt
 
 		add_prestige = prestige_mild_bonus
 
@@ -5033,7 +5046,6 @@ flavor_eng.51 = {
 	}
 	option = {
 		name = flavor_eng.51.c
-		custom_tooltip = flavor_eng.51.order_tt
 		
 		add_religious_influence = religious_influence_mild_bonus
 
@@ -5041,7 +5053,6 @@ flavor_eng.51 = {
 	}
 	option = {
 		name = flavor_eng.51.d
-		custom_tooltip = flavor_eng.51.order_tt
 		
 		culture ?= { add_cultural_influence = cultural_influence_mild_bonus }	
 
@@ -5049,7 +5060,6 @@ flavor_eng.51 = {
 	}
 	option = {
 		name = flavor_eng.51.e
-		custom_tooltip = flavor_eng.51.order_tt
 
 		add_stability = stability_mild_bonus
 
@@ -5074,6 +5084,7 @@ flavor_eng.52 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1337.1.1
 		to = 1347.1.1
 		monthly_chance = 5
@@ -5134,6 +5145,7 @@ flavor_eng.53 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1340.1.1
 		to = 1360.1.1
 		monthly_chance = 1
@@ -5201,6 +5213,7 @@ flavor_eng.54 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1380.1.1
 		to = 1400.1.1
 		monthly_chance = 5
@@ -5351,6 +5364,7 @@ flavor_eng.55 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1336.1.1
 		to = 1381.1.1
 		monthly_chance = 1
@@ -5511,6 +5525,7 @@ flavor_eng.57 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1370.1.1
 		to = 1400.1.1
 		monthly_chance = 5
@@ -5614,6 +5629,7 @@ flavor_eng.58 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1370.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -5688,6 +5704,7 @@ flavor_eng.62 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1370.1.1
 		to = 1416.1.1
 		monthly_chance = 1
@@ -5801,6 +5818,7 @@ flavor_eng.63 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1390.1.1
 		to = 1600.1.1
 		monthly_chance = 1
@@ -5892,6 +5910,7 @@ flavor_eng.64 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1340.1.1
 		to = 1380.1.1
 		monthly_chance = 1
@@ -5964,6 +5983,7 @@ flavor_eng.65 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1201.1.1
 		to = 1748.1.1
 		monthly_chance = 1
@@ -6074,6 +6094,7 @@ flavor_eng.66 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1201.1.1
 		to = 1748.1.1
 		monthly_chance = 1
@@ -6159,6 +6180,7 @@ flavor_eng.67 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1601.1.1
 		to = 1850.1.1
 		monthly_chance = 1
@@ -6228,6 +6250,7 @@ flavor_eng.68 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1340.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -6299,6 +6322,7 @@ flavor_eng.69 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1300.1.1
 		to = 1400.1.1
 		monthly_chance = 5
@@ -6319,7 +6343,7 @@ flavor_eng.69 = {
 		event_illustration_estate_effect = { foreground = estate_type:clergy_estate background = estate_type:clergy_estate }
 		character:ubv_william_ockham = {
 			save_scope_as = william_ockham
-			owner.ruler_or_regent ?= {
+			owner.ruler = {
 				save_scope_as = william_patron
 			}
 		}
@@ -6369,6 +6393,7 @@ flavor_eng.70 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1350.1.1
 		to = 1500.1.1
 		monthly_chance = 1
@@ -6497,6 +6522,7 @@ flavor_eng.71 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1340.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -6537,7 +6563,7 @@ flavor_eng.71 = {
 		name = flavor_eng.71.a
 		historical_option = yes
 
-		province_definition:somerset_province = {
+		province_definition:hampshire_province = {
 			every_location_in_province_definition = {
 				every_pop = {
 					limit = {
@@ -6557,7 +6583,7 @@ flavor_eng.71 = {
 	option = {
 		name = flavor_eng.71.b
 
-		province_definition:hampshire_province = {
+		province_definition:somerset_province = {
 			every_location_in_province_definition = {
 				every_pop = {
 					limit = {
@@ -6577,8 +6603,6 @@ flavor_eng.71 = {
 	option = {
 		name = flavor_eng.71.c
 		trigger = { ruler = { dip >= 50 } }
-
-		change_gold_effect = { scale = -2 }
 
 		province_definition:somerset_province = {
 			every_location_in_province_definition = {
@@ -6628,6 +6652,7 @@ flavor_eng.72 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1370.1.1
 		to = 1400.1.1
 		monthly_chance = 5
@@ -6717,12 +6742,9 @@ flavor_eng.72 = {
 
 		add_government_power = government_power_extreme_penalty
 
-		custom_tooltip = commission_established_tt
-		hidden_effect = {
-			set_variable = {
-				name = commission_established
-				value = 1
-			}
+		set_variable = {
+			name = commission_established
+			value = 1
 		}
 
 		add_reform = government_reform:ruling_commission_of_england
@@ -6797,6 +6819,7 @@ flavor_eng.73 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1370.1.1
 		to = 1400.1.1
 		monthly_chance = 5
@@ -6935,6 +6958,7 @@ flavor_eng.74 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1360.1.1
 		to = 1390.1.1
 		monthly_chance = 10
@@ -7039,6 +7063,7 @@ flavor_eng.75 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1350.1.1
 		to = 1370.1.1
 		monthly_chance = 1
@@ -7116,6 +7141,7 @@ flavor_eng.76 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1390.1.1
 		to = 1425.1.1
 		monthly_chance = 1
@@ -7266,6 +7292,7 @@ flavor_eng.78 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1390.1.1
 		to = 1425.1.1
 		monthly_chance = 10
@@ -7512,6 +7539,7 @@ flavor_eng.82 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1360.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -7572,6 +7600,7 @@ flavor_eng.83 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1350.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -7624,6 +7653,7 @@ flavor_eng.84 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1340.1.1
 		to = 1370.1.1
 		monthly_chance = 1
@@ -7676,6 +7706,7 @@ flavor_eng.85 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1360.1.1
 		to = 1400.1.1
 		monthly_chance = 5
@@ -7759,6 +7790,7 @@ flavor_eng.86 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1360.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -8058,6 +8090,7 @@ flavor_eng.92 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1400.1.1
 		to = 1650.1.1
 		monthly_chance = 5
@@ -8069,11 +8102,8 @@ flavor_eng.92 = {
 		c:BYZ = {
 			owns = location:constantinople
 			OR = { has_truce_with = c:TUR is_at_war_with = c:TUR }
-			custom_tooltip = {
-				text = variable_western_tour_tt
-				has_variable = western_tour
-			}
-			country_economical_base < c:TUR.country_economical_base
+			has_variable = western_tour
+			great_power_score < c:TUR.great_power_score
 		}
 		location:constantinople = {
 			any_neighbor_location = { owner = c:TUR }
@@ -8155,6 +8185,7 @@ flavor_eng.93 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1400.1.1
 		to = 1500.1.1
 		monthly_chance = 5
@@ -8230,6 +8261,7 @@ flavor_eng.94 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1412.1.1
 		to = 1460.1.1
 		monthly_chance = 1
@@ -8327,75 +8359,6 @@ flavor_eng.94 = {
 
 }
 
-scripted_effect tripartite_add_percy_pops = {
-	dynasty:percy_dynasty ?= {
-		random_character_in_dynasty = {
-			limit = {
-				is_alive = yes
-				owner = root
-				is_adult = yes
-				is_female = no
-				has_estate = estate_type:nobles_estate
-			}
-			save_scope_as = henry_percy
-		}
-	}
-	if = {
-		limit = { NOT = { exists = scope:henry_percy } }
-		create_character = {
-			first_name = name_henry
-			dynasty = dynasty:percy_dynasty
-			estate = estate_type:nobles_estate
-			religion = religion:catholic
-			adm = 35
-			dip = 45
-			mil = 65
-			birth_date = 1341.11.10
-			birth_location = location:alnwick
-			save_scope_as = henry_percy
-		}
-	}
-	scope:henry_percy = { change_character_allegiance = scope:tripartite_uprising }
-
-	province_definition:northumberland_province = {
-		every_location_in_province_definition = {
-			limit = { owner ?= root }
-			every_pop = {
-				limit = { owner ?= root }
-				if = {
-					limit = { pop_type = pop_type:nobles }
-					add_pop_satisfaction = pop_satisfaction_ultimate_penalty
-				}
-				change_pop_allegiance = scope:tripartite_uprising
-			}
-		}
-	}
-}
-
-scripted_effect tripartite_add_mortimer_pops = {
-	character:wls_edmund_mortimer_1376 ?= { change_character_allegiance = scope:tripartite_uprising }
-
-	province_definition:staffordshire_province = {
-		every_location_in_province_definition = {
-			limit = { owner ?= root }
-			every_pop = {
-				limit = { owner ?= root }
-				if = {
-					limit = { pop_type = pop_type:nobles }
-					add_pop_satisfaction = pop_satisfaction_ultimate_penalty
-				}
-				change_pop_allegiance = scope:tripartite_uprising
-			}
-		}
-	}
-}
-
-scripted_effect tripartite_start_uprising = {
-	scope:tripartite_uprising = {
-		start_civil_war = { raise_all_levies = { type = army instant = yes } }
-	}
-}
-
 # The Tripartite Indenture
 flavor_eng.95 = {
 	hide_portraits = yes
@@ -8419,12 +8382,7 @@ flavor_eng.95 = {
 
 		character:wls_owain_glyndwr ?= { is_alive = yes }
 
-		c:WLS = {
-			custom_tooltip = {
-				text = variable_tripartite_indenture_tt
-				has_variable = tripartite_indenture
-			}
-		}
+		c:WLS = { has_variable = tripartite_indenture }
 
 		character:wls_edmund_mortimer_1376 ?= { is_alive = yes }
 
@@ -8452,6 +8410,80 @@ flavor_eng.95 = {
 		location:london = { save_scope_as = target_location }
 
 		ruler = { save_scope_as = target_character }
+
+		create_rebel = {
+			category = estate
+			estate = nobles_estate
+			name = percy_uprising
+			save_scope_as = percy_uprising
+		}
+
+		every_owned_location = {
+			limit = {
+				province_definition = province_definition:northumberland_province
+			}
+			every_pop = {
+				limit = {
+					owner = root
+					pop_type = pop_type:nobles
+				}
+				add_pop_satisfaction = pop_satisfaction_ultimate_penalty
+				change_pop_allegiance = scope:percy_uprising
+			}
+		}
+
+		dynasty:percy_dynasty ?= {
+			random_character_in_dynasty = {
+				limit = {
+					is_alive = yes
+					owner = root
+					is_adult = yes
+					is_female = no
+					has_estate = estate_type:nobles_estate
+				}
+				save_scope_as = henry_percy
+			}
+		}
+		if = {
+			limit = { NOT = { exists = scope:henry_percy } }
+			create_character = {
+				first_name = name_henry
+				dynasty = dynasty:percy_dynasty
+				estate = estate_type:nobles_estate
+				religion = religion:catholic
+				adm = 35
+				dip = 45
+				mil = 65
+				birth_date = 1341.11.10
+				birth_location = location:alnwick
+				save_scope_as = henry_percy
+			}
+		}
+		scope:henry_percy = { change_character_allegiance = scope:percy_uprising }
+
+		create_rebel = {
+			category = estate
+			estate = nobles_estate
+			name = mortimer_uprising
+			save_scope_as = mortimer_uprising
+		}
+
+		every_owned_location = {
+			limit = {
+				province_definition = province_definition:staffordshire_province
+			}
+			every_pop = {
+				limit = {
+					owner = root
+					pop_type = pop_type:nobles
+				}
+				add_pop_satisfaction = pop_satisfaction_ultimate_penalty
+				change_pop_allegiance = scope:mortimer_uprising
+			}
+		}
+
+		character:wls_edmund_mortimer_1376 ?= { change_character_allegiance = scope:mortimer_uprising }
+
 	}
 
 	option = {
@@ -8462,17 +8494,39 @@ flavor_eng.95 = {
 			value = estate_satisfaction_severe_bonus
 		}
 
-		custom_tooltip = {
-			text = flavor_eng.95.tt4
-			create_rebel = {
-				category = estate
-				estate = nobles_estate
-				name = percy_and_mortimer_uprising
-				save_scope_as = tripartite_uprising
+		custom_tooltip = flavor_eng.95.tt4
+
+		hidden_effect = {
+			scope:percy_uprising = {
+				start_civil_war = {
+					if = {
+						limit = {
+							root = { at_war = yes }
+						}
+						every_province = {
+							raise_levies = {
+								instant = yes
+								type = army
+							}
+						}
+					}
+				}
 			}
-			tripartite_add_percy_pops = yes
-			tripartite_add_mortimer_pops = yes
-			tripartite_start_uprising = yes
+			scope:mortimer_uprising = {
+				start_civil_war = {
+					if = {
+						limit = {
+							root = { at_war = yes }
+						}
+						every_province = {
+							raise_levies = {
+								instant = yes
+								type = army
+							}
+						}
+					}
+				}
+			}
 		}
 
 	}
@@ -8491,34 +8545,53 @@ flavor_eng.95 = {
 
 		change_gold_effect = { scale = -12 }
 
-		hidden_effect = {
-			random_list =  {
-				75 = {
-					dynasty:percy_dynasty = { save_scope_as = dishonorable_dynasty }
-					set_variable = { name = bribe_accepted value = 1 }
+		random_list =  {
+			75 = {
+				destroy_rebel = scope:percy_uprising
+				dynasty:percy_dynasty = { save_scope_as = dishonorable_dynasty }
+				set_variable = { name = bribe_accepted value = 1 }
+				hidden_effect = {
 					c:WLS = {
 						trigger_event_silently = { id = flavor_wls.16 }
 					}
-					create_rebel = {
-						category = estate
-						estate = nobles_estate
-						name = mortimer_uprising
-						save_scope_as = tripartite_uprising
-					}
-					tripartite_add_mortimer_pops = yes
-					tripartite_start_uprising = yes
 				}
-				25 = {
-					set_variable = { name = bribe_refused value = 1 }
-					create_rebel = {
-						category = estate
-						estate = nobles_estate
-						name = percy_and_mortimer_uprising
-						save_scope_as = tripartite_uprising
+			}
+			25 = {
+				set_variable = { name = bribe_refused value = 1 }
+				hidden_effect = {
+					scope:percy_uprising = {
+						start_civil_war = {
+							if = {
+								limit = {
+									PREV.owner = { at_war = yes }
+								}
+								every_province = {
+									raise_levies = {
+										instant = yes
+										type = army
+									}
+								}
+							}
+						}
 					}
-					tripartite_add_percy_pops = yes
-					tripartite_add_mortimer_pops = yes
-					tripartite_start_uprising = yes
+				}
+			}
+		}
+
+		hidden_effect = {
+			scope:mortimer_uprising = {
+				start_civil_war = {
+					if = {
+						limit = {
+							PREV.owner = { at_war = yes }
+						}
+						every_province = {
+							raise_levies = {
+								instant = yes
+								type = army
+							}
+						}
+					}
 				}
 			}
 		}
@@ -8526,6 +8599,8 @@ flavor_eng.95 = {
 		trigger_event_silently = { id = flavor_wls.16 }
 
 		custom_tooltip = flavor_eng.95.tt2
+		custom_tooltip = flavor_eng.95.tt4
+
 	}
 
 	option = {
@@ -8542,34 +8617,53 @@ flavor_eng.95 = {
 
 		change_gold_effect = { scale = -12 }
 
-		hidden_effect = {
-			random_list =  {
-				75 = {
-					dynasty:mortimer_dynasty = { save_scope_as = dishonorable_dynasty }
-					set_variable = { name = bribe_accepted value = 1 }
+		random_list =  {
+			75 = {
+				destroy_rebel = scope:mortimer_uprising
+				dynasty:mortimer_dynasty = { save_scope_as = dishonorable_dynasty }
+				set_variable = { name = bribe_accepted value = 1 }
+				hidden_effect = {
 					c:WLS = {
 						trigger_event_silently = { id = flavor_wls.16 }
 					}
-					create_rebel = {
-						category = estate
-						estate = nobles_estate
-						name = percy_uprising
-						save_scope_as = tripartite_uprising
-					}
-					tripartite_add_percy_pops = yes
-					tripartite_start_uprising = yes
 				}
-				25 = {
-					set_variable = { name = bribe_refused value = 1 }
-					create_rebel = {
-						category = estate
-						estate = nobles_estate
-						name = percy_and_mortimer_uprising
-						save_scope_as = tripartite_uprising
+			}
+			25 = {
+				set_variable = { name = bribe_refused value = 1 }
+				hidden_effect = {
+					scope:mortimer_uprising = {
+						start_civil_war = {
+							if = {
+								limit = {
+									PREV.owner = { at_war = yes }
+								}
+								every_province = {
+									raise_levies = {
+										instant = yes
+										type = army
+									}
+								}
+							}
+						}
 					}
-					tripartite_add_percy_pops = yes
-					tripartite_add_mortimer_pops = yes
-					tripartite_start_uprising = yes
+				}
+			}
+		}
+
+		hidden_effect = {
+			scope:percy_uprising = {
+				start_civil_war = {
+					if = {
+						limit = {
+							PREV.owner = { at_war = yes }
+						}
+						every_province = {
+							raise_levies = {
+								instant = yes
+								type = army
+							}
+						}
+					}
 				}
 			}
 		}
@@ -8577,6 +8671,8 @@ flavor_eng.95 = {
 		trigger_event_silently = { id = flavor_wls.16 }
 
 		custom_tooltip = flavor_eng.95.tt3
+		custom_tooltip = flavor_eng.95.tt4
+
 	}
 
 	historical_info = flavor_eng.95.historical_info
@@ -8595,6 +8691,7 @@ flavor_eng.96 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1425.1.1
 		to = 1470.1.1
 		monthly_chance = 1
@@ -8684,6 +8781,7 @@ flavor_eng.97 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1385.1.1
 		to = 1500.1.1
 		monthly_chance = 1
@@ -8944,6 +9042,7 @@ flavor_eng.98 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1400.1.1
 		to = 1450.1.1
 		monthly_chance = 1
@@ -9061,6 +9160,7 @@ flavor_eng.99 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1400.1.1
 		to = 1500.1.1
 		monthly_chance = 5
@@ -9189,6 +9289,7 @@ flavor_eng.100 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1437.1.1
 		to = 1637.1.1
 		monthly_chance = 5
@@ -9601,25 +9702,13 @@ flavor_eng.102 = {
 	hide_portraits = yes
 	type = country_event
 	title = flavor_eng.102.title
-	desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = {
-					religion = religion:lollardy
-				}
-				desc = flavor_eng.102.desc_lollard
-			}
-			triggered_desc = {
-				trigger = { always = yes }
-				desc = flavor_eng.102.desc
-			}
-		}
-	}
+	desc = flavor_eng.102.desc
 	outcome = neutral
 
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1390.1.1
 		to = 1450.1.1
 		monthly_chance = 5
@@ -9715,6 +9804,7 @@ flavor_eng.103 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1380.1.1
 		to = 1410.1.1
 		monthly_chance = 5
@@ -9847,6 +9937,7 @@ flavor_eng.104 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1457.1.28
 		to = 1487.1.1
 		monthly_chance = 10
@@ -9855,14 +9946,8 @@ flavor_eng.104 = {
 	trigger = {
 
 		OR = {
-			custom_tooltip = {
-				text = variable_supports_house_of_york_tt
-				has_variable = supports_house_of_york
-			}
-			custom_tooltip = {
-				text = variable_supports_house_of_lancaster_tt
-				has_variable = supports_house_of_lancaster
-			}
+			has_variable = supports_house_of_york
+			has_variable = supports_house_of_lancaster
 		}
 
 		any_character = {
@@ -10146,6 +10231,7 @@ flavor_eng.106 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1440.1.1
 		to = 1490.1.1
 		monthly_chance = 1
@@ -10266,6 +10352,7 @@ flavor_eng.107 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1490.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -10298,14 +10385,8 @@ flavor_eng.107 = {
 
 		NOT = {
 			OR = {
-				custom_tooltip = {
-					text = variable_supports_house_of_york_tt
-					has_variable = supports_house_of_york
-				}
-				custom_tooltip = {
-					text = variable_supports_house_of_lancaster_tt
-					has_variable = supports_house_of_lancaster
-				}
+				has_variable = supports_house_of_york
+				has_variable = supports_house_of_lancaster
 			}
 		}
 
@@ -10378,6 +10459,7 @@ flavor_eng.109 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1480.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -10442,6 +10524,7 @@ flavor_eng.110 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1460.1.1
 		to = 1480.1.1
 		monthly_chance = 10
@@ -10551,6 +10634,7 @@ flavor_eng.111 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1490.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -10710,6 +10794,7 @@ flavor_eng.112 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1490.1.1
 		to = 1560.1.1
 		monthly_chance = 10
@@ -10806,6 +10891,7 @@ flavor_eng.114 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1500.1.1
 		to = 1530.1.1
 		monthly_chance = 5
@@ -10926,6 +11012,7 @@ flavor_eng.115 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1514.1.1
 		to = 1534.1.1
 		monthly_chance = 5
@@ -11032,6 +11119,7 @@ flavor_eng.116 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1500.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -11178,6 +11266,7 @@ flavor_eng.117 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1530.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -11257,6 +11346,7 @@ flavor_eng.118 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1500.1.1
 		to = 1550.1.1
 		monthly_chance = 1
@@ -11444,6 +11534,7 @@ flavor_eng.121 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1530.1.1
 		to = 1580.1.1
 		monthly_chance = 5
@@ -11685,6 +11776,7 @@ flavor_eng.122 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1510.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -11787,6 +11879,7 @@ flavor_eng.123 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1530.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -11901,6 +11994,7 @@ flavor_eng.124 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1536.1.1
 		to = 1550.1.1
 		monthly_chance = 10
@@ -12009,6 +12103,7 @@ flavor_eng.125 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1530.1.1
 		to = 1560.1.1
 		monthly_chance = 20
@@ -12147,6 +12242,7 @@ flavor_eng.126 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1525.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -12298,6 +12394,7 @@ flavor_eng.127 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1530.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -12363,6 +12460,7 @@ flavor_eng.128 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1495.1.1
 		to = 1520.1.1
 		monthly_chance = 5
@@ -12457,6 +12555,7 @@ flavor_eng.129 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1540.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -12535,6 +12634,7 @@ flavor_eng.131 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1544.1.1
 		to = 1590.1.1
 		monthly_chance = 1
@@ -12645,6 +12745,7 @@ flavor_eng.132 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1500.1.1
 		to = 1530.1.1
 		monthly_chance = 1
@@ -12753,6 +12854,7 @@ flavor_eng.133 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1510.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -12914,6 +13016,7 @@ flavor_eng.134 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1540.1.1
 		to = 1570.1.1
 		monthly_chance = 5
@@ -13048,6 +13151,7 @@ flavor_eng.136 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1570.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -13417,6 +13521,7 @@ flavor_eng.139 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1584.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -13529,6 +13634,7 @@ flavor_eng.140 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1580.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -13698,6 +13804,7 @@ flavor_eng.141 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1543.1.1
 		to = 1580.1.1
 		monthly_chance = 5
@@ -13853,6 +13960,7 @@ flavor_eng.142 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1550.1.1
 		to = 1590.1.1
 		monthly_chance = 5
@@ -13981,6 +14089,7 @@ flavor_eng.144 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1606.1.1
 		to = 1656.1.1
 		monthly_chance = 5
@@ -14215,6 +14324,7 @@ flavor_eng.145 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1590.1.1
 		to = 1700.1.1
 		monthly_chance = 5
@@ -14309,6 +14419,7 @@ flavor_eng.147 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1580.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -14423,6 +14534,7 @@ flavor_eng.148 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1540.1.1
 		to = 1600.1.1
 		monthly_chance = 1
@@ -14498,6 +14610,7 @@ flavor_eng.149 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1580.1.1
 		to = 1610.1.1
 		monthly_chance = 5
@@ -14657,6 +14770,7 @@ flavor_eng.150 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1584.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -14726,6 +14840,7 @@ flavor_eng.151 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1550.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -14843,6 +14958,7 @@ flavor_eng.152 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1562.1.1
 		to = 1590.1.1
 		monthly_chance = 5
@@ -15019,6 +15135,7 @@ flavor_eng.153 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1580.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -15172,6 +15289,7 @@ flavor_eng.154 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1595.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -15242,6 +15360,7 @@ flavor_eng.155 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1570.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -15408,6 +15527,7 @@ flavor_eng.156 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1570.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -15512,6 +15632,7 @@ flavor_eng.157 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1600.1.1
 		to = 1650.1.1
 		monthly_chance = 5
@@ -15625,6 +15746,7 @@ flavor_eng.158 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1590.1.1
 		to = 1700.1.1
 		monthly_chance = 5
@@ -15726,6 +15848,7 @@ flavor_eng.159 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1600.1.1
 		to = 1650.1.1
 		monthly_chance = 1
@@ -15839,6 +15962,7 @@ flavor_eng.160 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1595.1.1
 		to = 1630.1.1
 		monthly_chance = 1
@@ -15990,6 +16114,7 @@ flavor_eng.161 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1600.1.1
 		to = 1610.1.1
 		monthly_chance = 20
@@ -16147,6 +16272,7 @@ flavor_eng.162 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1605.1.1
 		to = 1640.1.1
 		monthly_chance = 5
@@ -16267,6 +16393,7 @@ flavor_eng.163 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1599.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -16378,6 +16505,7 @@ flavor_eng.164 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1600.1.1
 		to = 1650.1.1
 		monthly_chance = 5
@@ -16509,6 +16637,7 @@ flavor_eng.165 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1580.1.1
 		to = 1620.1.1
 		monthly_chance = 1
@@ -16599,6 +16728,7 @@ flavor_eng.166 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1600.1.1
 		to = 1625.1.1
 		monthly_chance = 5
@@ -16772,6 +16902,7 @@ flavor_eng.167 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1590.1.1
 		to = 1620.1.1
 		monthly_chance = 5
@@ -16888,6 +17019,7 @@ flavor_eng.168 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1612.1.1
 		to = 1700.1.1
 		monthly_chance = 1
@@ -17085,6 +17217,7 @@ flavor_eng.169 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1605.1.1
 		to = 1650.1.1
 		monthly_chance = 1
@@ -17185,6 +17318,7 @@ flavor_eng.172 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1625.1.1
 		to = 1665.1.1
 		monthly_chance = 1
@@ -17289,6 +17423,7 @@ flavor_eng.173 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1615.1.1
 		to = 1640.1.1
 		monthly_chance = 1
@@ -17371,6 +17506,7 @@ flavor_eng.174 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1660.1.1
 		to = 1700.1.1
 		monthly_chance = 1
@@ -17466,6 +17602,7 @@ flavor_eng.175 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1667.1.1
 		to = 1700.1.1
 		monthly_chance = 5
@@ -17567,6 +17704,7 @@ flavor_eng.176 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1666.1.1
 		to = 1667.1.1
 		monthly_chance = 10
@@ -17734,6 +17872,7 @@ flavor_eng.177 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1615.1.1
 		to = 1625.1.1
 		monthly_chance = 10
@@ -17774,7 +17913,7 @@ flavor_eng.177 = {
 	immediate = {
 		event_illustration_estate_effect = { foreground = estate_type:nobles_estate background = estate_type:nobles_estate }
 		create_character = {
-			first_name = name_rebecca
+			first_name = Rebecca
 			last_name = Rolfe
 			estate = estate_type:peasants_estate
 			adm = 10
@@ -17900,6 +18039,7 @@ flavor_eng.178 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1620.1.1
 		to = 1641.1.1
 		monthly_chance = 1
@@ -18024,6 +18164,7 @@ flavor_eng.179 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1631.1.1
 		to = 1661.1.1
 		monthly_chance = 1
@@ -18117,6 +18258,7 @@ flavor_eng.180 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1628.1.1
 		to = 1660.1.1
 		monthly_chance = 1
@@ -18289,6 +18431,7 @@ flavor_eng.181 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1659.1.1
 		to = 1700.1.1
 		monthly_chance = 1
@@ -18587,6 +18730,7 @@ flavor_eng.183 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1641.1.1
 		to = 1681.1.1
 		monthly_chance = 5
@@ -18832,6 +18976,7 @@ flavor_eng.185 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1604.1.1
 		to = 1644.1.1
 		monthly_chance = 1
@@ -18952,6 +19097,7 @@ flavor_eng.186 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1620.1.1
 		to = 1640.1.1
 		monthly_chance = 5
@@ -19175,6 +19321,7 @@ flavor_eng.187 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1639.1.1
 		to = 1669.1.1
 		monthly_chance = 5
@@ -19269,6 +19416,7 @@ flavor_eng.188 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1641.1.1
 		to = 1671.1.1
 		monthly_chance = 5
@@ -19379,6 +19527,7 @@ flavor_eng.190 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1650.1.1
 		to = 1690.1.1
 		monthly_chance = 1
@@ -19451,6 +19600,7 @@ flavor_eng.191 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1662.1.1
 		to = 1720.1.1
 		monthly_chance = 1
@@ -19557,6 +19707,7 @@ flavor_eng.192 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1653.1.1
 		to = 1693.1.1
 		monthly_chance = 1
@@ -19676,6 +19827,7 @@ flavor_eng.193 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1687.1.1
 		to = 1730.1.1
 		monthly_chance = 5
@@ -19780,6 +19932,7 @@ flavor_eng.195 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1679.1.1
 		to = 1750.1.1
 		monthly_chance = 5
@@ -19886,6 +20039,7 @@ flavor_eng.196 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1660.1.1
 		to = 1710.1.1
 		monthly_chance = 1
@@ -19986,6 +20140,7 @@ flavor_eng.197 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1660.1.1
 		to = 1690.1.1
 		monthly_chance = 5
@@ -20102,6 +20257,7 @@ flavor_eng.198 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1660.1.1
 		to = 1750.1.1
 		monthly_chance = 1
@@ -20219,6 +20375,7 @@ flavor_eng.199 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1665.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -20312,6 +20469,7 @@ flavor_eng.200 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1345.1.1
 		to = 1600.1.1
 		monthly_chance = 1
@@ -20357,7 +20515,7 @@ flavor_eng.200 = {
 				limit = {
 					within_diplomatic_range = root
 				}
-				order_by = country_economical_base
+				order_by = modifier:great_power_score
 				max = {
 					every_in_list = {
 						list = french_countries
@@ -20401,6 +20559,7 @@ flavor_eng.201 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1340.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -20459,6 +20618,7 @@ flavor_eng.202 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1340.1.1
 		to = 1346.1.1
 		monthly_chance = 10
@@ -20524,6 +20684,7 @@ flavor_eng.203 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1430.1.1
 		to = 1450.1.1
 		monthly_chance = 1
@@ -20616,6 +20777,7 @@ flavor_eng.204 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1700.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -20704,6 +20866,7 @@ flavor_eng.205 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1654.1.1
 		to = 1690.1.1
 		monthly_chance = 1
@@ -20798,6 +20961,7 @@ flavor_eng.206 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1670.1.1
 		to = 1680.1.1
 		monthly_chance = 10
@@ -20972,6 +21136,7 @@ flavor_eng.207 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1620.1.1
 		to = 1640.1.1
 		monthly_chance = 1
@@ -21155,6 +21320,7 @@ flavor_eng.210 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1680.1.1
 		to = 1690.1.1
 		monthly_chance = 10
@@ -21227,6 +21393,7 @@ flavor_eng.211 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1698.1.1
 		to = 1725.1.1
 		monthly_chance = 5
@@ -21418,6 +21585,7 @@ flavor_eng.213 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1700.1.1
 		to = 1750.1.1
 		monthly_chance = 1
@@ -21492,6 +21660,7 @@ flavor_eng.214 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1719.1.1
 		to = 1731.1.1
 		monthly_chance = 5
@@ -21584,6 +21753,7 @@ flavor_eng.215 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1710.1.1
 		to = 1740.1.1
 		monthly_chance = 5
@@ -21693,6 +21863,7 @@ flavor_eng.216 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1765.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -21822,6 +21993,7 @@ flavor_eng.217 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1720.1.1
 		to = 1750.1.1
 		monthly_chance = 1
@@ -21992,6 +22164,7 @@ flavor_eng.218 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1760.1.1
 		to = 1780.1.1
 		monthly_chance = 1
@@ -22147,6 +22320,7 @@ flavor_eng.219 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1768.1.1
 		to = 1800.1.1
 		monthly_chance = 5
@@ -22249,6 +22423,7 @@ flavor_eng.220 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1768.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -22361,6 +22536,7 @@ flavor_eng.221 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1745.1.1
 		to = 1810.1.1
 		monthly_chance = 1
@@ -22435,6 +22611,7 @@ flavor_eng.222 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1779.1.1
 		to = 1810.1.1
 		monthly_chance = 1
@@ -22608,6 +22785,7 @@ flavor_eng.223 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1779.1.1
 		to = 1810.1.1
 		monthly_chance = 1
@@ -22698,6 +22876,7 @@ flavor_eng.224 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1760.1.1
 		to = 1790.1.1
 		monthly_chance = 1
@@ -22822,6 +23001,7 @@ flavor_eng.225 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1780.1.1
 		to = 1800.1.1
 		monthly_chance = 10
@@ -22944,6 +23124,7 @@ flavor_eng.226 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1765.1.1
 		to = 1780.1.1
 		monthly_chance = 5
@@ -23023,6 +23204,7 @@ flavor_eng.227 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1765.1.1
 		to = 1780.1.1
 		monthly_chance = 5
@@ -23273,6 +23455,7 @@ flavor_eng.228 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1795.1.1
 		to = 1820.1.1
 		monthly_chance = 5
@@ -23378,6 +23561,7 @@ flavor_eng.229 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1795.1.1
 		to = 1820.1.1
 		monthly_chance = 5
@@ -23476,6 +23660,7 @@ flavor_eng.230 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1775.1.1
 		to = 1820.1.1
 		monthly_chance = 5
@@ -23566,6 +23751,7 @@ flavor_eng.231 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1775.1.1
 		to = 1800.1.1
 		monthly_chance = 5
@@ -23644,6 +23830,7 @@ flavor_eng.232 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1709.1.1
 		to = 1738.1.1
 		monthly_chance = 5
@@ -23733,6 +23920,7 @@ flavor_eng.233 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1773.1.1
 		to = 1800.1.1
 		monthly_chance = 5
@@ -23846,6 +24034,7 @@ flavor_eng.234 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1769.1.1
 		to = 1789.1.1
 		monthly_chance = 1
@@ -23960,6 +24149,7 @@ flavor_eng.235 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1770.1.1
 		to = 1790.1.1
 		monthly_chance = 10
@@ -24105,6 +24295,7 @@ flavor_eng.236 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1770.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -24212,6 +24403,7 @@ flavor_eng.237 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1785.1.1
 		to = 1790.1.1
 		monthly_chance = 10
@@ -24334,6 +24526,7 @@ flavor_eng.238 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1790.1.1
 		to = 1820.1.1
 		monthly_chance = 10
@@ -24472,6 +24665,7 @@ flavor_eng.239 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1799.1.1
 		to = 1820.1.1
 		monthly_chance = 5
@@ -24563,6 +24757,7 @@ flavor_eng.240 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1770.1.1
 		to = 1820.1.1
 		monthly_chance = 1
@@ -24591,10 +24786,7 @@ flavor_eng.240 = {
 					owner ?= root
 				}
 			}
-			custom_tooltip = {
-				text = variable_the_iron_bridge_tt
-				has_variable = the_iron_bridge
-			}
+			has_variable = the_iron_bridge
 		}
 
 
@@ -24744,6 +24936,7 @@ flavor_eng.241 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1765.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -24898,6 +25091,7 @@ flavor_eng.242 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1770.1.1
 		to = 1790.1.1
 		monthly_chance = 1
@@ -25012,6 +25206,7 @@ flavor_eng.243 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1750.1.1
 		to = 1780.1.1
 		monthly_chance = 5
@@ -25021,10 +25216,7 @@ flavor_eng.243 = {
 
 		OR = {
 			AND = {
-				custom_tooltip = {
-					text = variable_restoration_comedy_allowed_tt
-					has_variable = restoration_comedy_allowed
-				}
+				has_variable = restoration_comedy_allowed
 				societal_value:traditionalist_vs_innovative >= 0
 			}
 			societal_value:traditionalist_vs_innovative >= 20
@@ -25090,6 +25282,7 @@ flavor_eng.244 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1750.1.1
 		to = 1800.1.1
 		monthly_chance = 10
@@ -25159,6 +25352,7 @@ flavor_eng.245 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1800.1.1
 		to = 1820.1.1
 		monthly_chance = 5
@@ -25249,6 +25443,7 @@ flavor_eng.246 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1800.1.1
 		to = 1820.1.1
 		monthly_chance = 5
@@ -25322,6 +25517,7 @@ flavor_eng.247 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1800.1.1
 		to = 1820.1.1
 		monthly_chance = 5
@@ -25390,6 +25586,7 @@ flavor_eng.248 = {
 
 	dynamic_historical_event = {
 		tag = ENG
+		tag = GBR
 		from = 1790.1.1
 		to = 1820.1.1
 		monthly_chance = 5
@@ -25456,6 +25653,7 @@ flavor_eng.249 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = ENG
+        tag = GBR
 		from = 1676.1.1
 		to = 1723.1.1
 		monthly_chance = 5

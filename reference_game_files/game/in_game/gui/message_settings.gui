@@ -77,12 +77,9 @@ window = {
 								
 	
 								checkbox_diamond_alt = {
-									down = "[MessageSettingItem.IsChecked]"
-									action_tooltip = {
-										title = "MESSAGE_SETTINGS_TOGGLE_TOOLTIP"
-										on_action = "[MessageSettingItem.OnCheck(Not(MessageSettingItem.IsChecked))]"
-									}
-									tooltipwidget = { BasicFunctionalTooltip = {} }
+									checked = "[MessageSettingItem.IsChecked]"
+									onclick = "[MessageSettingItem.OnCheck(Not(MessageSettingItem.IsChecked))]"
+									tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "MESSAGE_SETTINGS_TOGGLE_TOOLTIP" } } }
 								}
 	
 								text_multi = {
@@ -101,13 +98,10 @@ window = {
 				size = {120 30}
 				name = "accept_button"
 				text = "OK_BUTTON"
-				action_tooltip = {
-					title = "MESSAGE_SETTINGS_CONFIRM_TOOLTIP"
-					on_action = "[MessageSettings.Save]"
-				}
-				tooltipwidget = { BasicFunctionalTooltip = {} }
+				onclick = "[MessageSettings.Save]"
 				input_action = "confirm"
 				use_global_input_instance = yes
+				tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "MESSAGE_SETTINGS_CONFIRM_TOOLTIP" } } }
 				using = snd_UI_confirm
 			}
 		}
@@ -116,6 +110,8 @@ window = {
 	button_close_alt = {
 		position = { -7 10 }
 		parentanchor = right|top
-		blockoverride "close_on_action" { on_action = "[MessageSettings.Close]" }
+		blockoverride "close_onclick" {
+			onclick = "[MessageSettings.Close]"
+		}
 	}
 }

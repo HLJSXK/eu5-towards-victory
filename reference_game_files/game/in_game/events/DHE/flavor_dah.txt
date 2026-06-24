@@ -15,7 +15,6 @@ flavor_dah.1 = { #Founding of Dahomey
 	}
 
 	trigger = {
-		is_real_country = yes # ROOT becomes the temporary land owner below; pirates/mercenaries cannot take land
 		OR = {
 			AND = {
 				own_entire_province = province_definition:fon_province
@@ -228,7 +227,6 @@ flavor_dah.1 = { #Founding of Dahomey
 
 	option = {
 		name = flavor_dah.1.b
-		high_risk_option = yes
 
 		trigger = {
 			NOT = {

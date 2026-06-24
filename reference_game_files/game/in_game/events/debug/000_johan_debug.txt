@@ -889,8 +889,7 @@ johan.11 = {
 		name = johan.1.d
 		location:visby = {
 			create_country_from_location = {
-					overlord = root
-					subject_type = subject_type:vassal
+					make_subject_of = {  target = root type = subject_type:vassal }
 				}
 		}
 	}

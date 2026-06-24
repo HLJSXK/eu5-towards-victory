@@ -3,8 +3,7 @@
 	is_foreign = no
 	pop_type = burghers
 	max_levels = guild_max_level
-	startup_ramp_target = rural_startup_ramp_target
-
+	
 	employment_size = guild_employment
 	
 	
@@ -19,10 +18,10 @@
 	megalopolis = yes
 
 	location_potential = {
-		dominant_culture ?= culture:maori_culture
+		dominant_culture = culture:maori_culture
 	}
 	country_potential = {
-		culture ?= culture:maori_culture
+		culture = culture:maori_culture
 	}
 	
 	allow = {		
@@ -31,11 +30,10 @@
 
 	unique_production_methods = {
 		pounamou_carver_maintenance = {
-			gems = 0.208
+			gems = 0.2
 			produced = jewelry
 			output = 0.2
-
-			debug_max_profit = rural_profit_margin
+			
 			category = guild_input
 		}
 	}
@@ -44,7 +42,6 @@
 }
 
 bardic_school = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = burghers
@@ -83,7 +80,6 @@ bardic_school = {
 }
 
 hanseatic_kontor = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	need_good_relation = yes
@@ -122,7 +118,6 @@ hanseatic_kontor = {
 }
 
 hanseatic_shipwright_guild = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	need_good_relation = yes
@@ -158,7 +153,6 @@ hanseatic_shipwright_guild = {
 }
 
 hanseatic_town_hall = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	need_good_relation = yes
@@ -209,7 +203,6 @@ hanseatic_town_hall = {
 }
 
 fondaco = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	need_good_relation = yes
@@ -261,7 +254,6 @@ fondaco = {
 }
 
 venetian_arsenal = {
-	audio_tier = 6
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -278,7 +270,7 @@ venetian_arsenal = {
 		is_port = yes
 	}
 	country_potential = {
-		has_advance = ven_stato_da_mar
+		has_advance = venetian_arsenal_advance
 	}
 	build_time = huge_port_building_time
 	modifier = {
@@ -291,7 +283,7 @@ venetian_arsenal = {
 	}
 	
 	capital_country_modifier = {
-		navy_maintenance_efficiency = 0.10
+		navy_galley_power = 0.05
 	}
 
 	
@@ -309,7 +301,6 @@ venetian_arsenal = {
 }
 
 kurultai = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -330,7 +321,7 @@ kurultai = {
 	
 	country_potential = {
 		has_advance = kurultai_advance		# just to hide from those who do not get the tech.
-		government_type ?= government_type:steppe_horde
+		government_type = government_type:steppe_horde
 	}
 	
 	location_potential = {
@@ -369,7 +360,6 @@ kurultai = {
 }
 
 gallowglass_sept = {  # ESTATE BUILDING
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -386,7 +376,7 @@ gallowglass_sept = {  # ESTATE BUILDING
 	location_potential = {
 		OR = {
 			any_pop = { 
-				culture ?= culture:norse_gael
+				culture = culture:norse_gael
 				OR = {
 					pop_type = pop_type:soldiers
 					pop_type = pop_type:peasants
@@ -420,7 +410,6 @@ gallowglass_sept = {  # ESTATE BUILDING
 }
 
 order_stronghold = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -464,7 +453,6 @@ order_stronghold = {
 }
 
 order_commandery = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -500,14 +488,14 @@ order_commandery = {
 	
 	country_potential = {
 		modifier:target_of_military_sponsorships = yes
-		religion ?= religion:catholic
+		religion = religion:catholic
 	}
 	
 	build_time = soldier_building
 	
 	allow = {
 		owner = { within_diplomatic_range = scope:actor }
-		dominant_religion ?= religion:catholic
+		dominant_religion = religion:catholic
 	}
 
 	remove_if = {
@@ -548,7 +536,6 @@ order_commandery = {
 }
 
 banking_office = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = yes
 	need_good_relation = yes
@@ -592,7 +579,6 @@ banking_office = {
 }
 
 tribes_of_galway = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = burghers
@@ -635,7 +621,6 @@ tribes_of_galway = {
 }
 
 copenhagen_dockyard = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -683,7 +668,6 @@ copenhagen_dockyard = {
 }
 
 caravanserai = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -736,7 +720,6 @@ caravanserai = {
 }
 
 caravan_stop = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -789,7 +772,6 @@ caravan_stop = {
 }
 
 cinque_port = {  # ESTATE BUILDING
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -835,11 +817,9 @@ cinque_port = {  # ESTATE BUILDING
 }
 
 eng_royal_forest = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
-	startup_ramp_target = rural_startup_ramp_target
 	pop_type = peasants
 	forbidden_for_estates = yes
 	
@@ -874,10 +854,9 @@ eng_royal_forest = {
 		eng_royal_forest_maintenance = {
 			produced = wild_game
 			output = 1.0
-			weaponry = 0.104
-			wine = 0.104
-			horses = 0.104
-			debug_max_profit = rural_profit_margin
+			weaponry = 0.1
+			wine = 0.1
+			horses = 0.1
 			category = building_maintenance
 		}
 	}
@@ -893,7 +872,6 @@ eng_royal_forest = {
 }
 
 seat_of_cardinal = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -941,7 +919,7 @@ seat_of_cardinal = {
 	can_close = no
 
 	remove_if = {
-		NOT = { owner = { religion ?= religion:catholic } }
+		NOT = { owner = { religion = religion:catholic } }
 	}
 
 	can_destroy = {
@@ -952,7 +930,6 @@ seat_of_cardinal = {
 }
 
 north_sea_shipyards = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -1000,7 +977,6 @@ north_sea_shipyards = {
 }
 
 galley_barracks = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = slaves
@@ -1038,7 +1014,6 @@ galley_barracks = {
 }
 
 janissary_barracks = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = slaves
@@ -1071,7 +1046,6 @@ janissary_barracks = {
 }
 
 safaviyya_order_hall = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = tribesmen	#Qizilbash are intentionally tribesmen pops
@@ -1094,52 +1068,12 @@ safaviyya_order_hall = {
 	}
 	allow = {
 		dominant_culture = { has_culture_group = culture_group:iranian_group }
-		dominant_religion ?= religion:shia
-	}
-	construction_demand = early_soldier_building_construction
-}
-
-warrior_lodge = {
-	audio_tier = 2
-	is_special = yes
-	is_foreign = no
-	pop_type = tribesmen
-	max_levels = 1
-	employment_size = generic_tribesmen_employment
-	category = military_category
-	forbidden_for_estates = yes
-
-	rural_settlement = yes
-	town = yes
-	city = yes
-	megalopolis = yes
-
-	build_time = medium_soldier_building
-
-	country_potential = {
-		government_type ?= government_type:tribe
-		NOT = { is_capital_mesoamerica = yes }
-		NOT = { is_capital_in_south_america_or_carribean = yes }
-		capital ?= { continent = continent:america }
-	}
-
-	modifier = {
-		local_manpower = 0.009
-		can_recruit_regiment_in_this_location = yes
-	}
-
-	raw_modifier = {
-		local_may_build_north_american_units = yes
-	}
-
-	possible_production_methods = {
-		early_soldier_building_maintenance
+		dominant_religion = religion:shia
 	}
 	construction_demand = early_soldier_building_construction
 }
 
 ghilman_barracks = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = slaves
@@ -1163,7 +1097,6 @@ ghilman_barracks = {
 }
 
 stannary_court = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -1216,13 +1149,13 @@ stannary_court = {
 	}
 
 	modifier = {
-		local_peasants_estate_power = 2
+		local_max_control = -0.25
+		local_peasants_estate_power = 1
 		local_burghers_estate_power = 1
 	}
 }
 
 lieutenancy = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -1244,19 +1177,13 @@ lieutenancy = {
 		has_road_to_capital = yes
 		owner.capital != this
 	}
-
-	important_for_AI = yes
-	AI_ignore_available_worker_flag = yes
-	ai_ignore_maintenance = yes
-	ai_forbid_shutdown = yes
-
 	country_potential = {
 		culture = { has_culture_group = culture_group:iberian_group }
 
 		OR = {
-			government_type ?= government_type:monarchy
-			government_type ?= government_type:theocracy
-			government_type ?= government_type:republic
+			government_type = government_type:monarchy
+			government_type = government_type:theocracy
+			government_type = government_type:republic
 		}
 	}
 
@@ -1302,7 +1229,6 @@ lieutenancy = {
 }
 
 barcelona_royal_shipyard = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -1352,7 +1278,6 @@ barcelona_royal_shipyard = {
 }
 
 uffizi = {
-	audio_tier = 5
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -1388,7 +1313,6 @@ uffizi = {
 }
 
 ostrog = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -1439,7 +1363,6 @@ ostrog = {
 }
 
 pomor_outpost = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -1490,7 +1413,6 @@ pomor_outpost = {
 }
 
 brethren_marsh = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -1509,8 +1431,8 @@ brethren_marsh = {
 	allow = {	
 		owner = {
 			OR = {
-				culture ?= culture:basque
-				culture ?= culture:castilian
+				culture = culture:basque
+				culture = culture:castilian
 			}
 		}	
 	}
@@ -1518,13 +1440,13 @@ brethren_marsh = {
 	location_potential = {
 		is_port = yes
 		OR = {
-			dominant_culture ?= culture:basque
+			dominant_culture = culture:basque
 			province_definition = province_definition:montana_province
 		}
 	}
 	
 	country_potential = {	
-		culture ?= culture:basque		#else always shown for all .
+		culture = culture:basque		#else always shown for all .
 	}
 
 	build_time = medium_port_building_time
@@ -1552,7 +1474,6 @@ brethren_marsh = {
 }
 
 sofa_barracks = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -1586,7 +1507,6 @@ sofa_barracks = {
 }
 
 cawa_barracks = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -1618,7 +1538,6 @@ cawa_barracks = {
 }
 
 kings_manor = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -1680,7 +1599,6 @@ kings_manor = {
 }
 
 polders = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -1725,7 +1643,6 @@ polders = {
 }
 
 telpochcalli = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -1755,7 +1672,7 @@ telpochcalli = {
 		local_manpower = 0.03
 	}
 	capital_country_modifier = {
-		army_reinforce_efficiency = 0.10
+		army_reinforce_cost = -0.05
 	}
 	
 	possible_production_methods = {
@@ -1765,7 +1682,6 @@ telpochcalli = {
 }
 
 calmecac = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = clergy
@@ -1806,7 +1722,6 @@ calmecac = {
 }
 
 panaqa_building = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = peasants
@@ -1848,7 +1763,6 @@ panaqa_building = {
 }
 
 pukara_building = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -1893,7 +1807,6 @@ pukara_building = {
 }
 
 terraces = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -1933,7 +1846,6 @@ terraces = {
 }
 
 tambo = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -1972,7 +1884,6 @@ tambo = {
 }
 
 incamisana = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -2005,7 +1916,6 @@ incamisana = {
 }
 
 royal_society = {
-	audio_tier = 5
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -2063,14 +1973,13 @@ royal_society = {
 	}
 
 	capital_country_modifier = {
-		research_speed_modifier = 0.05
+		research_speed = 0.05
 		global_monthly_literacy = 0.025
 	}
 
 }
 
 royal_academy_of_arts = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -2117,7 +2026,7 @@ royal_academy_of_arts = {
 	}
 
 	capital_country_modifier = {
-		court_spending_efficiency = -0.05
+		court_spending_cost_modifier = 0.05
 		skill_of_new_artists = 0.1
 		global_monthly_art_start_chance = 0.15
 	}
@@ -2127,7 +2036,6 @@ royal_academy_of_arts = {
 }
 
 peel_towers = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -2176,7 +2084,6 @@ peel_towers = {
 }
 
 dun_fort = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = tribesmen
@@ -2194,7 +2101,10 @@ dun_fort = {
 	build_time = small_fort_building
 	
 	country_potential = {
-		modifier:allow_dun_fort = yes
+		OR = {
+			has_estate_privilege = estate_privilege:scottish_clans
+			has_estate_privilege = estate_privilege:autonomous_scottish_clans
+		}
 	}
 	location_potential = {
 		OR = {
@@ -2223,7 +2133,6 @@ dun_fort = {
 }
 
 kokufu = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -2282,7 +2191,6 @@ kokufu = {
 }
 
 gosho = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -2338,7 +2246,6 @@ gosho = {
 }
 
 yamashiro = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -2431,7 +2338,6 @@ yamashiro = {
 }
 
 yakata = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -2478,7 +2384,6 @@ yakata = {
 }
 
 shoen = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -2488,7 +2393,6 @@ shoen = {
 	category = rgo_building_category
 
 	max_levels = japanese_clan_building_cap
-	startup_ramp_target = rural_startup_ramp_target
 	employment_size = rural_peasant_produce_employment
 	pop_size_created = rural_peasant_produce_employment
 
@@ -2552,40 +2456,35 @@ shoen = {
 		shoen_quarries_maintenance = {
 			produced = stone
 			output = 0.5
-			tools = 0.139
-			debug_max_profit = rural_profit_margin
+			tools = 0.13
 			category = building_maintenance
 		}
 		shoen_lumbermills_maintenance = {
 			produced = lumber
 			output = 0.6
-			tools = 0.146
-			fiber_crops = 0.156
-			debug_max_profit = rural_profit_margin
+			tools = 0.14
+			fiber_crops = 0.15
 			category = building_maintenance
 		}
 		shoen_fiber_crops_farm_maintenance = {
 			produced = fiber_crops
 			output = 0.5
-			lumber = 0.262
-			tools = 0.147
-			debug_max_profit = rural_profit_margin
+			lumber = 0.25
+			tools = 0.14
 			category = building_maintenance
 		}
 		shoen_ironsand_maintenance = {
 			produced = iron
 			output = 0.3
-			sand = 0.535
-			tools = 0.161
-			debug_max_profit = rural_profit_margin
+			sand = 0.50
+			tools = 0.15
 			category = building_maintenance
 		}
 		shoen_masonry_maintenance = {
 			produced = masonry
 			output = 0.8
-			lumber = 0.304
+			lumber = 0.3
 			tools = 0.07
-			debug_max_profit = rural_profit_margin
 			category = building_maintenance
 		}
 	}
@@ -2594,7 +2493,6 @@ shoen = {
 }
 
 tatara = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -2604,7 +2502,6 @@ tatara = {
 	category = basic_industry_category
 
 	max_levels = japanese_clan_building_cap
-	startup_ramp_target = rural_startup_ramp_target
 	employment_size = estate_peasants_employment
 	pop_size_created = estate_peasants_employment
 
@@ -2640,15 +2537,13 @@ tatara = {
 		tamagahane_blacksmith = {
 			produced = tools
 			output = 0.5
-			iron = 0.417
-			debug_max_profit = rural_profit_margin
+			iron = 0.4
 			category = guild_input
 		}
 		tamagahane_bladesmith = {
 			produced = weaponry
 			output = 0.2
-			iron = 0.167
-			debug_max_profit = rural_profit_margin
+			iron = 0.17
 			category = guild_input
 		}
 	}
@@ -2657,7 +2552,6 @@ tatara = {
 }
 
 clan_shipyards = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -2714,7 +2608,6 @@ clan_shipyards = {
 }
 
 clan_family_shrine = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = yes
 	stronger_power_projection = no
@@ -2768,7 +2661,6 @@ clan_family_shrine = {
 }
 
 korean_gunnery_land_defense = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -2793,7 +2685,6 @@ korean_gunnery_land_defense = {
 }
 
 korean_gunnery_coastal_defense = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -2822,7 +2713,6 @@ korean_gunnery_coastal_defense = {
 }
 
 kremlin = {
-	audio_tier = 6
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -2877,7 +2767,6 @@ kremlin = {
 }
 
 stroganov_school_of_iconic_art = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = burghers
@@ -2898,13 +2787,13 @@ stroganov_school_of_iconic_art = {
 				tag = MOS
 				tag = RUS
 			}
-			religion ?= religion:orthodox
+			religion = religion:orthodox
 			has_variable = stroganov_school_of_iconic_art
 		}
 	}
 
 	remove_if = {
-		NOT = { owner = { religion ?= religion:orthodox } }
+		NOT = { owner = { religion = religion:orthodox } }
 	}
 
 	allow = {
@@ -2942,7 +2831,6 @@ stroganov_school_of_iconic_art = {
 }
 
 venetian_palaces = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -2980,7 +2868,6 @@ venetian_palaces = {
 }
 
 venetian_quarter = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	pop_type = burghers
@@ -3019,7 +2906,6 @@ venetian_quarter = {
 }
 
 galata = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 
@@ -3061,7 +2947,6 @@ galata = {
 }
 
 novodevichy_convent = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -3085,7 +2970,7 @@ novodevichy_convent = {
 			}
 			has_variable = novodevichy_convent
 		}
-		religion ?= religion:orthodox
+		religion = religion:orthodox
 	}
 
 	location_potential = {
@@ -3115,7 +3000,6 @@ novodevichy_convent = {
 }
 
 moscow_artillery_yard = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -3176,7 +3060,6 @@ moscow_artillery_yard = {
 }
 
 bund = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	max_levels = bund_cap
@@ -3215,7 +3098,6 @@ bund = {
 }
 
 kalari = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -3238,7 +3120,6 @@ kalari = {
 }
 
 ibadat_khana = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = clergy
@@ -3275,7 +3156,6 @@ ibadat_khana = {
 }
 
 academy_of_sciences = {
-	audio_tier = 5
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -3335,7 +3215,6 @@ academy_of_sciences = {
 }
 
 greek_latin_academy = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = clergy
@@ -3395,7 +3274,6 @@ greek_latin_academy = {
 }
 
 sukharev_tower = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = burghers
@@ -3453,7 +3331,6 @@ sukharev_tower = {
 }
 
 the_bock_fortifications = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -3489,7 +3366,7 @@ the_bock_fortifications = {
 	
 	modifier = {
 		local_defensive = 0.10
-		local_fort_maintenance_efficiency = 0.20
+		local_fort_maintenance_cost = -0.10
 		local_garrison_size = 0.1
 	}
 
@@ -3503,7 +3380,6 @@ the_bock_fortifications = {
 }
 
 ruined_great_wall_of_china = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -3544,7 +3420,6 @@ ruined_great_wall_of_china = {
 }
 
 repaired_great_wall_of_china = {
-	audio_tier = 6
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -3589,7 +3464,6 @@ repaired_great_wall_of_china = {
 }
 
 free_economic_society = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -3651,7 +3525,6 @@ free_economic_society = {
 }
 
 imperial_academy_of_arts = {
-	audio_tier = 5
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -3709,7 +3582,6 @@ imperial_academy_of_arts = {
 }
 
 moscow_orphanage = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -3769,7 +3641,6 @@ moscow_orphanage = {
 }
 
 institute_of_noble_maidens = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -3833,7 +3704,6 @@ institute_of_noble_maidens = {
 }
 
 royal_atarazanas_seville = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -3878,7 +3748,6 @@ royal_atarazanas_seville = {
 }
 
 alhambra = {
-	audio_tier = 6
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -3897,7 +3766,7 @@ alhambra = {
 	country_potential = {
 		OR = {
 			tag = GRA
-			culture ?= culture:andalusi
+			culture = culture:andalusi
 		}
 	}
 
@@ -3922,7 +3791,6 @@ alhambra = {
 }
 
 theodosian_walls = {
-	audio_tier = 6
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -3998,7 +3866,6 @@ theodosian_walls = {
 }
 
 bey_fortress = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -4097,7 +3964,6 @@ bey_fortress = {
 }
 
 mamluk_barracks = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = slaves
@@ -4142,7 +4008,6 @@ mamluk_barracks = {
 }
 
 coastal_settlements = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -4188,7 +4053,6 @@ coastal_settlements = {
 }
 
 kurmina_headquarter = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = soldiers
@@ -4229,7 +4093,6 @@ kurmina_headquarter = {
 }
 
 great_enclosure = {
-	audio_tier = 5
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -4258,7 +4121,6 @@ great_enclosure = {
 }
 
 great_hill_complex = {
-	audio_tier = 5
 	is_special = yes
 	is_foreign = no
 	pop_type = clergy
@@ -4287,7 +4149,6 @@ great_hill_complex = {
 }
 
 great_valley_complex = {
-	audio_tier = 5
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -4316,7 +4177,6 @@ great_valley_complex = {
 }
 
 trans_saharan_trade_outposts = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = yes
 	need_good_relation = yes
@@ -4359,7 +4219,6 @@ trans_saharan_trade_outposts = {
 }
 
 khmer_baray = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = laborers
@@ -4372,12 +4231,12 @@ khmer_baray = {
 	megalopolis = yes
 	expensive = yes
 	location_potential = {
-		dominant_culture ?= culture:khmer_culture
+		dominant_culture = culture:khmer_culture
 	}
 	country_potential = {
 		OR = {
 			tag = KHM
-			culture ?= culture:khmer_culture
+			culture = culture:khmer_culture
 		}
 	}
 	build_time = huge_unique_build_time
@@ -4395,7 +4254,6 @@ khmer_baray = {
 }
 
 bajang_ratu = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -4440,7 +4298,6 @@ bajang_ratu = {
 }
 
 bubu_building = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	max_levels = 2
@@ -4475,7 +4332,6 @@ bubu_building = {
 }
 
 fulani_cattle_rearing_pen = {
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	max_levels = fulani_cattle_rearing_pen_max_level
@@ -4499,7 +4355,7 @@ fulani_cattle_rearing_pen = {
 		raw_material = goods:livestock
 		region = region:guinea_region
 		any_pop = {
-			culture ?= culture:fulbe
+			culture = culture:fulbe
 		}
 	}
 	
@@ -4520,7 +4376,6 @@ fulani_cattle_rearing_pen = {
 }
 
 walls_of_benin = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -4561,7 +4416,6 @@ walls_of_benin = {
 }
 
 zazzau_walls = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -4600,7 +4454,6 @@ zazzau_walls = {
 }
 
 eghabho_nore_mansion = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = eghabho_nore_mansion_max_level
@@ -4641,7 +4494,6 @@ eghabho_nore_mansion = {
 }
 
 ribat = {
-	audio_tier = 3
 	is_special = yes
 	
 	max_levels = 1
@@ -4680,7 +4532,6 @@ ribat = {
 }
 
 por_feitoria = {
-	audio_tier = 3
 	is_special = yes
 	in_empty = any
 	is_foreign = yes
@@ -4699,23 +4550,16 @@ por_feitoria = {
 			continent != scope:actor.capital.continent
 		}
 	}
-
-	allow = {
-		OR = {
-			is_coastal_within_range = yes
-			is_adjacent_to_owned_or_subject_owns = yes
-		}
-	}
-
+	
 	rural_settlement = yes
 	town = yes
 	city = yes
 	megalopolis = yes
-
+	
 	expensive = yes
 	build_time = trade_post_build_time
-
-
+	
+	
 	unique_production_methods = {
 		feitoria_maintenance = {
 			masonry = 0.5
@@ -4734,7 +4578,6 @@ por_feitoria = {
 }
 
 gurgaddi = {
-	audio_tier = 3
 	is_special = yes
 
 	max_levels = 1
@@ -4777,7 +4620,6 @@ gurgaddi = {
 }
 
 sufi_mosque = {
-	audio_tier = 3
 	is_special = yes
 	max_levels = 1
 	pop_type = clergy
@@ -4814,7 +4656,6 @@ sufi_mosque = {
 }
 
 wali_songo_shrine = {
-	audio_tier = 3
 	is_special = yes
 	max_levels = 1
 	pop_type = clergy
@@ -4854,7 +4695,6 @@ wali_songo_shrine = {
 }
 
 zhixian = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -4878,15 +4718,7 @@ zhixian = {
 
 	location_potential = {
 	}
-
-	remove_if = {
-		owner = {
-			NOT = {
-				is_leader_of_international_organization = international_organization:middle_kingdom
-			}
-		}
-	}
-
+	
 	unique_production_methods = {
 		zhixian_maintenance = {
 			paper = 0.25
@@ -4906,7 +4738,6 @@ zhixian = {
 }
 
 seljuk_mint = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = burghers
@@ -4920,18 +4751,14 @@ seljuk_mint = {
 	town = yes
 	city = yes
 	megalopolis = yes
-	ai_forbid_shutdown = yes
 	
-	important_for_AI = yes
 	AI_ignore_available_worker_flag = yes
 	build_time = large_capital_build_time
-	ai_unique_location_list = { konya sivas }
-	ai_ignore_maintenance = yes
 
 	expensive = yes
 	
 	country_potential = {
-		culture ?= {
+		culture = {
 			OR = {
 				this = culture:turkish_culture
 				this = culture:turkoman_culture
@@ -4952,19 +4779,6 @@ seljuk_mint = {
 
 	allow = {
 		NOT = { has_building = building_type:local_governor }
-	}
-
-	remove_if = {
-		owner = {
-			NOT = {
-				culture = {
-					OR = {
-						this = culture:turkish_culture
-						this = culture:turkoman_culture
-					}
-				}
-			}
-		}
 	}
 
 	increase_per_level_cost = 0.2
@@ -4990,7 +4804,6 @@ seljuk_mint = {
 }
 
 tur_kodjabashi_office = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -5050,7 +4863,6 @@ tur_kodjabashi_office = {
 }
 
 qalat_al_mashwar = {
-	audio_tier = 4
 	is_special = yes
 	is_foreign = no
 	pop_type = nobles
@@ -5082,7 +4894,6 @@ qalat_al_mashwar = {
 }
 
 german_river_toll_castle = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -5124,7 +4935,6 @@ german_river_toll_castle = {
 }
 
 german_mountain_toll_castle = {
-	audio_tier = 3
 	is_special = yes
 	is_foreign = no
 	max_levels = 1
@@ -5167,7 +4977,6 @@ german_mountain_toll_castle = {
 }
 
 hippodrome = {
-	audio_tier = 5
 	is_foreign = no
 	max_levels = 1
 	pop_type = laborers
@@ -5205,174 +5014,5 @@ hippodrome = {
 	capital_country_modifier = {
 		global_estate_target_satisfaction = small_permanent_target_satisfaction
 		global_crown_estate_power = 0.2
-	}
-}
-
-porto_pisano = {
-	audio_tier = 3
-	is_special = yes
-	is_foreign = no
-	pop_type = burghers
-	max_levels = porto_pisano_max_level
-	employment_size = trade_employment
-	category = naval_category
-	rural_settlement = no
-	town = yes
-	city = yes
-	megalopolis = yes
-	expensive = yes
-	location_potential = {
-		this = location:pisa
-	}
-	country_potential = {
-		always = no
-	}
-	build_time = huge_port_building_time
-
-	modifier = {
-		local_merchant_capacity = 2
-		local_merchant_power = 2
-	}
-	
-	capital_country_modifier = {
-		selling_efficiency = tiny_trade_efficiency_bonus
-	}
-
-	market_center_modifier = {
-		local_trade_center_power = 0.05
-	}
-	
-	unique_production_methods = {
-		porto_pisano_maintenance = {
-			paper = 0.5
-			naval_supplies = 1.0
-			tools = 0.2
-			lumber = 1.0
-			furniture = 0.2
-			category = building_maintenance
-		}
-	}
-
-	construction_demand = port_building_construction
-}
-
-gymnasium_building = {
-	audio_tier = 3
-	is_special = yes
-	is_foreign = no
-	pop_type = clergy
-	max_levels = 1
-	
-	category = cultural_category
-	employment_size = huge_religious_building_employment
-	
-	town = yes
-	city = yes
-	megalopolis = yes
-
-	expensive = yes
-
-	country_potential = {
-		has_reform = government_reform:study_of_the_classics
-	}
-
-	build_time = large_cultural_building_time
-	
-	forbidden_for_estates = yes
-
-	location_potential = {
-		is_capital = yes
-	}
-
-	remove_if = {
-		location.owner ?= {
-			NOT = {
-				has_reform = government_reform:study_of_the_classics
-			}
-		}
-	}
-	
-	modifier = {
-		local_cultural_tradition = 0.5
-		local_nobles_max_literacy = 10
-		local_monthly_literacy = 0.1
-		local_institution_growth_modifier = 0.33
-	}
-
-	capital_country_modifier = {
-		research_speed_modifier = 0.05
-		global_max_literacy = 5
-	}
-	
-	possible_production_methods = {
-		university_maintenance
-	}
-	
-	construction_demand = university_construction
-}
-
-hsa_burgtor = {
-	audio_tier = 3
-	is_special = yes
-	is_foreign = yes
-	max_levels = 2
-	pop_type = soldiers
-	need_good_relation = yes
-	category = defense_category
-	employment_size = castle_employment
-	pop_size_created = castle_employment
-	city = yes
-	megalopolis = yes
-	build_time = small_fort_building
-	expensive = yes
-	possible_production_methods = {
-		burgtor_maintenance
-	}
-
-	#root = location
-
-	location_potential = {
-		custom_tooltip = {
-			text = location_owner_same_culture_group_as_us_tt
-			owner ?= {
-				culture = {
-					any_culture_group = {
-						any_culture_in_culture_group = {
-							this = c:HSA.culture
-						}
-					}
-				}
-			}
-		}
-	}
-
-	#root = building
-
-	remove_if = {
-		OR = {
-			location.owner ?= {
-				culture = {
-					any_culture_group = {
-						NOT = {
-							any_culture_in_culture_group = {
-								this = c:HSA.culture
-							}
-						}
-					}
-				}
-			}
-			location = { has_owner = no }
-			location.owner ?= {
-				is_at_war_with = root.owner
-			}
-		}
-	}
-
-	increase_per_level_cost = 1
-	construction_demand = fort_construction
-	modifier = {
-		local_garrison_size = 0.1
-		local_defensive = 0.1
-		manpower_to_building_owner = 0.005
 	}
 }

@@ -16,8 +16,7 @@ roof_of_africa = {
 		has_or_had_tag = ETH
 	}
 	land_morale_modifier = 0.1
-	ai_weight = { add = 10 }
-
+	
 	requires = the_ark_of_the_covenant
 }
 solomonid_claim = {
@@ -62,7 +61,7 @@ eternal_crusade = {
 		has_or_had_tag = ETH
 		religion.group = religion_group:christian
 	}
-	army_reinforce_efficiency = 0.2
+	army_reinforce_cost = -0.1
 }
 prester_john = {
 	content_priority = 400

@@ -136,7 +136,7 @@ window = {
 										expand = {}
 
 										button_checkbox = {
-											down = "[AISettingsMenuItem.GetValue]"
+											checked = "[AISettingsMenuItem.GetValue]"
 											onclick = "[AISettingsMenuItem.SetValue(Not(AISettingsMenuItem.GetValue))]"
 											tooltip = "[AISettingsMenuItem.GetTooltip]"	
 										}
@@ -157,22 +157,16 @@ window = {
 					using = button_resize_to_fit_text
 					name = "cancel_button"
 					text = "CANCEL_BUTTON"
-					action_tooltip = {
-						title = "AI_SETTINGS_CLOSE_TOOLTIP"
-						on_action = "[AISettingsMenu.Close]"
-					}
-					tooltipwidget = { BasicFunctionalTooltip = {} }
+					onclick = "[AISettingsMenu.Close]"
+					tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "AI_SETTINGS_CLOSE_TOOLTIP" } } }
 				}
 
 				button_regular = {
 					using = button_resize_to_fit_text
 					name = "reset_button"
 					text = "RESET_TO_DEFAULT"
-					action_tooltip = {
-						title = "AI_SETTINGS_RESET_TOOLTIP"
-						on_action = "[AISettingsMenu.Reset]"
-					}
-					tooltipwidget = { BasicFunctionalTooltip = {} }
+					onclick = "[AISettingsMenu.Reset]"
+					tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "AI_SETTINGS_RESET_TOOLTIP" } } }
 				}
 
 				expand = {}
@@ -181,12 +175,9 @@ window = {
 					using = button_resize_to_fit_text
 					name = "save_button"
 					text = "SAVE_AND_CLOSE"
-					action_tooltip = {
-						title = "AI_SETTINGS_CONFIRM_TOOLTIP"
-						on_action = "[AISettingsMenu.Save]"
-					}
-					tooltipwidget = { BasicFunctionalTooltip = {} }
+					onclick = "[AISettingsMenu.Save]"
 					input_action = "confirm"
+					tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "AI_SETTINGS_CONFIRM_TOOLTIP" } } }
 				}
 			}
 		}
@@ -200,7 +191,9 @@ window = {
 		ui_direction_button_holder_right = {}
 
 		button_close_alt = {
-			blockoverride "close_on_action" { on_action = "[AISettingsMenu.Close]" }
+			blockoverride "close_onclick" {
+				onclick = "[AISettingsMenu.Close]"
+			}
 		}
 	}
 }

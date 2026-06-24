@@ -304,14 +304,14 @@ template appoint_cabinet_member {
 			TooltipTextBlock = {
 				visible = "[CabinetItem.GetCabinet.IsCharacterSet]"
 				blockoverride "text" {
-					text = "[CabinetItem.GetReplaceMemberDescription]"
+					text = "[CabinetItem.GetAdvisorUIAction.GetDescription]"
 				}
 			}
 
 			TooltipTextBlock = {
 				visible = "[Not(CabinetItem.GetCabinet.IsCharacterSet)]"
 				blockoverride "text" {
-					text = "[CabinetItem.GetAssignMemberDescription]"
+					text = "[CabinetItem.GetNoAdvisorUIAction.GetDescription]"
 				}
 			}
 		}

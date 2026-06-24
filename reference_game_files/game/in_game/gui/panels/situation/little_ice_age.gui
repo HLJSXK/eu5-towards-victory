@@ -266,8 +266,7 @@ situation_panel = {
 						}
 							
 						blockoverride "tooltip_content" {
-							TooltipScrolledStringPairList = {
-								blockoverride "block_scrollarea" { maximumsize = { -1 300 } }
+							TooltipStringPairList = {
 								textcontext = "[Player.GetStarvingProvinces]"
 							}
 						}

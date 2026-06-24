@@ -224,25 +224,12 @@ types CountryHeaders {
 							#	}
 							#}
 							text_single = {
-								visible = "[Not(And(GreaterThan_CFixedPoint(Estate.GetRelativePower, '(CFixedPoint)0'), LessThan_CFixedPoint(Estate.GetRelativePower, '(CFixedPoint)0.01')))]"
+								#visible = "[Not(Estate.GetType.IsAlwaysLoyal)]"
 								align = left|nobaseline
 								maximumsize = { 55 20 }
 								autoresize = yes
 
 								raw_text = "[Estate.GetRelativePower|0%] @power!|"
-
-								datacontext = "[Estate]"
-								tooltipwidget = {
-									using = estate_relative_power_tooltip
-								}
-							}
-							text_single = {
-								visible = "[And(GreaterThan_CFixedPoint(Estate.GetRelativePower, '(CFixedPoint)0'), LessThan_CFixedPoint(Estate.GetRelativePower, '(CFixedPoint)0.01'))]"
-								align = left|nobaseline
-								maximumsize = { 55 20 }
-								autoresize = yes
-
-								raw_text = "<1% @power!|"
 
 								datacontext = "[Estate]"
 								tooltipwidget = {
@@ -786,26 +773,31 @@ types CountryHeaders {
 
 					card_header_button_04 = {
 						size = {100% 100%}
-
-						action_tooltip = {
-							title = "ADD_NEW_PRIVILEGE"
-							on_action = "[EstatesItem.AddNewPrivilege]"
+						
+						onclick = "[EstatesItem.AddNewPrivilege]"
+						tooltipwidget = { 
+							LeftClickButtonTooltip = {
+								blockoverride "onclick_text" { text = "ADD_NEW_PRIVILEGE" }
+							}
 						}
-						tooltipwidget = { BasicFunctionalTooltip = {} }
 					}
 				}
 						
-				# Toggle button — opens estate actions window
 				hbox = {
-					card_header_button_04 = {
-						size = { 32 45 }
-
-						action_tooltip = {
-							title = "ESTATE_ACTIONS_MENU_T"
-							on_action = "[EstatesItem.OpenActionsWindow]"
+					tooltipmeta = {
+						texture = "gfx/interface/icons/modifier_types/estate_building_destruction_satisfaction_impact.dds"
+					}
+					card_header_action_button_04 = {
+						size = {32 45}
+						title = "PERFORM_REDUCTION_T"
+						
+						actor = "[Player]"
+						parameter = {
+							parameter_name = "target"
+							parameter_value = "[EstatesItem.GetEstate]"
 						}
-						tooltipwidget = { BasicFunctionalTooltip = {} }
-
+						left_click_and_hold_action = { action_name = "perform_reduction" }
+						
 						background = {
 							using = color_government_texture
 							texture_density = 2
@@ -817,24 +809,82 @@ types CountryHeaders {
 								blend_mode = overlay
 								alpha = 0.5
 							}
+							modify_texture = {
+								visible = "[Not(UIAction.IsEnabled)]"
+								using = color_greyish_texture
+								alpha = 1
+								blend_mode = normal
+							}
 						}
-
+						
 						icon = {
 							size = { 80% 60% }
 							parentanchor = center
-							texture = "gfx/interface/icons/flat_icons/menu_icon.dds"
+							texture = "gfx/interface/icons/modifier_types/estate_building_destruction_satisfaction_impact.dds"
 							texture_density = 2
 
 							glow = {
 								name = "drop_shadow"
 								glow_radius = 3
-								color = { 0.0 0.0 0.0 1.0 }
+								color = {0.0 0.0 0.0 1.0}
+								alpha = 0.4
+							}
+						}
+					}				
+				}
+				
+				
+				hbox = {
+					tooltipmeta = {
+						texture = "gfx/interface/icons/resources/bribe.dds"
+					}
+					card_header_action_button_04 = {
+						size = {32 45}
+						title = "BRIBE_ESTATE_T"
+						
+					
+						
+						actor = "[Player]"
+						parameter = {
+							parameter_name = "target"
+							parameter_value = "[EstatesItem.GetEstate]"
+						}
+						left_click_and_hold_action = { action_name = "bribe_estate" }
+						
+						background = {
+							using = color_government_texture
+							texture_density = 2
+							modify_texture = {
+								texture = "gfx/interface/component_overlay/overlay_texture.dds"
+								texture_density = 2
+								spriteType = Corneredtiled
+								spriteborder = { 0 0 }
+								blend_mode = overlay
+								alpha = 0.5
+							}
+							modify_texture = {
+								visible = "[Not(UIAction.IsEnabled)]"
+								using = color_greyish_texture
+								alpha = 1
+								blend_mode = normal
+							}
+						}
+						
+						icon = {
+							size = { 80% 60% }
+							parentanchor = center
+							texture = "gfx/interface/icons/resources/bribe.dds"
+							texture_density = 2
+
+							glow = {
+								name = "drop_shadow"
+								glow_radius = 3
+								color = {0.0 0.0 0.0 1.0}
 								alpha = 0.4
 							}
 						}
 					}
 				}
-
 			}
 		}
 	}
@@ -1331,52 +1381,6 @@ types CountryHeaders {
 									using = international_organization_resolution_voting_tooltip
 								}										
 							}
-						}
-					}
-
-					widget = {
-						size = { 31 31 }
-						using = bg_circle
-						visible = "[Or(ResolutionGlue.EnactResolutionIsActive, ResolutionGlue.RepealResolutionIsActive)]"
-
-						piechart = {
-							size = { 100% 100% }
-							using = piechart_angles
-							parentanchor = center
-
-							icon = {
-								visible = "[Not(ResolutionGlue.HasCountryVotedFromPointer(Player.Self))]"
-								parentanchor = center
-								size = { 70% 70% }
-								texture = "gfx/interface/icons/international_organizations/law_voting.dds"
-								texture_density = 2
-							}
-
-							icon = {
-								visible = "[ResolutionGlue.HasCountryVotedFromPointer(Player.Self)]"
-								parentanchor = center
-								size = { 70% 70% }
-								texture = "gfx/interface/icons/international_organizations/law_voting_yes.dds"
-								texture_density = 2
-							}
-
-							pieslice = {
-								texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
-								value = "[FixedPointToFloat(ResolutionGlue.GetProgressToDeadline)]"
-								using = color_value_progress_blue
-							}
-
-							pieslice = {
-								texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
-								value = "[Subtract_float('(float)100.0', FixedPointToFloat(ResolutionGlue.GetProgressToDeadline))]"
-								using = color_value_progress_gray
-							}
-
-							datacontext = "[ResolutionGlue.GetVoteToEnactAction]"
-
-							tooltipwidget = {
-								using = international_organization_resolution_voting_tooltip
-							}										
 						}
 					}
 				}
@@ -2002,13 +2006,15 @@ types CountryHeaders {
 		
 		blockoverride "reform_action"{
 			datacontext = "[ReformItem.GetReform]"
-			using = reform_item_action_provider
+			datacontext = "[ReformItem.GetUIAction]"
+			using = button_action_provider
+			enabled = yes
 
 			tooltipwidget = {
 				using = GovernmentReform_tooltip
 				blockoverride "UIActionDescription" {
 					TooltipBlockList = {
-						visible = "[And(ReformItem.ShowImplementedTooltip, Not(StringIsEmpty(ReformItem.GetImplementedTooltip)))]"
+						visible = "[Not(StringIsEmpty(ReformItem.GetImplementedTooltip))]"
 						textcontext = "[ReformItem.GetImplementedTooltip]"
 					}
 				}
@@ -2120,7 +2126,7 @@ types CountryHeaders {
 			using = GovernmentReform_tooltip
 			blockoverride "UIActionDescription" {
 				TooltipBlockList = {
-					visible = "[And(ReformItem.ShowImplementedTooltip, Not(StringIsEmpty(ReformItem.GetImplementedTooltip)))]"
+					visible = "[Not(StringIsEmpty(ReformItem.GetImplementedTooltip))]"
 					textcontext = "[ReformItem.GetImplementedTooltip]"
 				}
 				TooltipConditionList = {
@@ -2335,7 +2341,7 @@ template government_main_tabs {
 		}		
 
 		down = "[IsLateralViewOpened('government')]"
-		datacontext = "[GetAutomatedSystemItem5('estates', 'parliament', 'cabinetmembers', 'cabinet', 'laws')]"
+		datacontext = "[GetAutomatedSystemItem4('estates', 'parliament', 'cabinet', 'laws')]"
 		using = multi_automated_tab
 
 		blockoverride "on_action_left" { on_action = "[OpenLateralView('government')]" }
@@ -2356,10 +2362,7 @@ template government_main_tabs {
 		tooltipwidget = {
 			using = SubTabValuesTooltip
 		}
-		action_tooltip = {
-			title = "OPEN_TAB"
-			on_action = "[OpenLateralView('societal_values')]"
-		}
+		onclick = "[OpenLateralView('societal_values')]"
 		down = "[IsLateralViewOpened('societal_values')]"
 	}
 
@@ -2378,10 +2381,7 @@ template government_main_tabs {
 			using = SubTabDHETooltip
 		}
 		visible = "[IsInmersionModeDisabled]"
-		action_tooltip = {
-			title = "OPEN_TAB"
-			on_action = "[ShowDHEHistoryForCountry(Player.Self)]"
-		}
+		onclick = "[ShowDHEHistoryForCountry(Player.Self)]"
 		down = "[IsLateralViewOpened('country_dhe')]"
 	}
 
@@ -2399,10 +2399,7 @@ template government_main_tabs {
 			using = TabMissionsTooltip
 		}
 		visible = "[IsMissionsEnabled]"
-		action_tooltip = {
-			title = "OPEN_TAB"
-			on_action = "[OpenLateralView('missions')]"
-		}
+		onclick = "[OpenLateralView('missions')]"
 		down = "[IsLateralViewOpened('missions')]"
 	}
 
@@ -2420,10 +2417,7 @@ template government_main_tabs {
 			using = TabBureaucraciesTooltip
 		}
 		visible = "[PlayerHasBureaucracies]"
-		action_tooltip = {
-			title = "OPEN_TAB"
-			on_action = "[OpenLateralView('bureaucracies')]"
-		}
+		onclick = "[OpenLateralView('bureaucracies')]"
 		down = "[IsLateralViewOpened('bureaucracies')]"
 	}
 }
@@ -2431,27 +2425,6 @@ template government_main_tabs {
 lateralview = {
 	name = "government_lateralview"
 	widgetid = "government_lateralview"
-
-	blockoverride "lateralview_topbuttons_extra" {
-		widget = {
-			parentanchor = vcenter
-			size = { 40 40 }
-			position = { 30 0 }
-
-			button_automation_shortcut = {
-				parentanchor = vcenter
-				size = { 25 25 }
-
-
-				action_tooltip = {
-					title = "OPEN_AUTOMATION_PANEL_FILTER"
-					on_action = "[OpenLateralViewWithFilter('automation', 'automation_filter_government')]"
-				}
-
-				tooltipwidget = { BasicFunctionalTooltip = {} }
-			}
-		}
-	}
 
 	blockoverride "panel_header" {
 		window_header_alt = {
@@ -2676,7 +2649,11 @@ lateralview = {
 						set_parent_size_to_minimum = yes
 					}
 
-					tooltipwidget = { BasicFunctionalTooltip = {} }
+					tooltipwidget = { 
+						LeftClickButtonTooltip = {
+							blockoverride "onclick_text" { text = "SETTLE_SIDEMENU" }
+						}
+					}
 
 					blockoverride "icon_texture" {
 						texture = "gfx/interface/buttons/flats/country_rank.dds"
@@ -2693,10 +2670,7 @@ lateralview = {
 						visible = no
 					}
 
-					action_tooltip = {
-						title = "SETTLE_SIDEMENU"
-						on_action = "[OpenLateralView('form_new_country')]"
-					}
+					onclick = "[OpenLateralView('form_new_country')]"
 					# enabled = "[Or(Or(Or(
 					# 		GetGenericAction('migrate_pop_based_country').IsEnabledForCountry(Player.Self),
 					# 		GetGenericAction('steppe_horde_to_monarchy').IsVisibleForCountry(Player.Self)), 
@@ -2873,11 +2847,14 @@ lateralview = {
 								texture_density = 2
 							}
 
-							action_tooltip = {
-								title = "RULING_HISTORY_COUNTRY_SIDEMENU"
-								on_action = "[ShowRulingHistoryForCountry(Player.Self)]"
+							onclick = "[ShowRulingHistoryForCountry(Player.Self)]"
+							tooltipwidget = {
+								LeftClickButtonTooltip = {
+									blockoverride "onclick_text" { 
+										text = "RULING_HISTORY_COUNTRY_SIDEMENU"
+									}
+								}
 							}
-							tooltipwidget = { BasicFunctionalTooltip = {} }
 						}
 					}
 
@@ -2920,12 +2897,15 @@ lateralview = {
 								using = bg_circle_alt_brown
 
 								enabled = "[Character.HasUnit]"
-								action_tooltip = {
-									title = "SELECT_UNIT_TT"
-									on_action = "[SelectUnitAndPan(Character.GetUnitPointer)]"
-								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
+								onclick = "[SelectUnitAndPan(Character.GetUnitPointer)]"
 
+								tooltipwidget = {
+									LeftClickButtonTooltip = {
+										blockoverride "onclick_text" { 
+											text = "SELECT_UNIT_TT"
+										}
+									}
+								}
 							}
 
 							navigational_button_alt = {
@@ -2947,11 +2927,14 @@ lateralview = {
 								using = bg_circle_alt_brown
 
 								enabled = "[Character.HasUnit]"
-								action_tooltip = {
-									title = "SELECT_UNIT_TT"
-									on_action = "[SelectUnitAndPan(Character.GetUnitPointer)]"
+								onclick = "[SelectUnitAndPan(Character.GetUnitPointer)]"
+								tooltipwidget = {
+									LeftClickButtonTooltip = {
+										blockoverride "onclick_text" { 
+											text = "SELECT_UNIT_TT"
+										}
+									}
 								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
 							}
 							
 							text_single = {
@@ -3174,11 +3157,12 @@ lateralview = {
 									size = {100% 100%}
 									position = {-2 -2}
 
-									action_tooltip = {
-										title = "CONSORT_SIDEMENU"
-										on_action = "[ShowConsortSelection(Player.GetGovernment.GetRuler)]"
+									tooltipwidget = { 
+										LeftClickButtonTooltip = {
+											blockoverride "onclick_text" { text = "CONSORT_SIDEMENU" }
+										}
 									}
-									tooltipwidget = { BasicFunctionalTooltip = {} }
+									onclick = "[ShowConsortSelection(Player.GetGovernment.GetRuler)]"
 								}
 
 								button = {
@@ -3192,10 +3176,12 @@ lateralview = {
 									position = {0 8}
 									using = bg_card_header_02
 
-									action_tooltip = {
-										title = "CONSORT_SIDEMENU"
-										on_action = "[ShowConsortSelection(Player.GetGovernment.GetRuler)]"
+									tooltipwidget = { 
+										LeftClickButtonTooltip = {
+											blockoverride "onclick_text" { text = "CONSORT_SIDEMENU" }
+										}
 									}
+									onclick = "[ShowConsortSelection(Player.GetGovernment.GetRuler)]"
 									
 									icon = {
 										size = { 15 15 }
@@ -3498,10 +3484,9 @@ lateralview = {
 							}							
 
 							down = "[GovernmentView.IsLowerTabCabinet]"
-							datacontext = "[GetAutomatedSystemItem2('cabinetmembers', 'cabinet')]"
-							using = multi_automated_tab
+							datacontext = "[GetAutomatedSystemItem('cabinet')]"
+							using = automated_tab
 
-							blockoverride "on_action_right_title" { title = "TOGGLE_CABINET_AUTOMATION" }
 							blockoverride "on_action_left" { on_action = "[GovernmentView.SetLowerTabToCabinet]" }
 							blockoverride "text" { text = "SUBTAB_GOVERNMENT_CABINET" }
 						}
@@ -3845,7 +3830,7 @@ lateralview = {
 									}
 									blockoverride "subheader_unified_bottom_text" {
 										text = "[Player.GetModifierValueNoFormat('legislative_efficiency')]"
-										align = right|nobaseline
+										align = right|nobaseline		
 									}
 								}
 							}
@@ -4109,11 +4094,14 @@ lateralview = {
                                             texture =  "gfx/interface/icons/flat_icons/menu_icon.dds"
                                             texture_density = 2
                                         }
-                                        action_tooltip = {
-                                        	title = "COMPACT_CABINET_VIEW"
-                                        	on_action = "[LateralView.Vars.Toggle( 'cabinet_compacted' )]"
+                                        onclick = "[LateralView.Vars.Toggle( 'cabinet_compacted' )]"
+										tooltipwidget = {
+                                            LeftClickButtonTooltip = {
+                                                blockoverride "onclick_text" {
+                                                    text = "COMPACT_CABINET_VIEW"
+                                                }
+                                            }
                                         }
-										tooltipwidget = { BasicFunctionalTooltip = {} }
                                     }
                                     header_button_right = {
                                         visible = "[LateralView.Vars.Exists( 'cabinet_compacted' )]"
@@ -4126,11 +4114,14 @@ lateralview = {
                                             texture =  "gfx/interface/icons/flat_icons/menu_icon_square.dds"
                                             texture_density = 2
                                         }
-                                        action_tooltip = {
-                                        	title = "EXPANDED_CABINET_VIEW"
-                                        	on_action = "[LateralView.Vars.Toggle( 'cabinet_compacted' )]"
+                                        onclick = "[LateralView.Vars.Toggle( 'cabinet_compacted' )]"
+										tooltipwidget = {
+                                            LeftClickButtonTooltip = {
+                                                blockoverride "onclick_text" {
+                                                    text = "EXPANDED_CABINET_VIEW"
+                                                }
+                                            }
                                         }
-										tooltipwidget = { BasicFunctionalTooltip = {} }
                                     }
                                 }
 							}
@@ -4209,10 +4200,20 @@ lateralview = {
 														### Advisors Data
 														# Advisor Assigned
 														cabinet_character_button = {
+															datacontext = "[CabinetItem.GetNoAdvisorUIAction]"
 															tooltipwidget = {
 																using = appoint_cabinet_member
 															}
-															using = cabinet_item_advisor_action_provider
+															using = button_action_provider_base
+														}
+														
+														cabinet_character_button = {
+															datacontext = "[CabinetItem.GetAdvisorUIAction]"
+															datacontext = "[CabinetItem]"
+															tooltipwidget = {
+																using = appoint_cabinet_member
+															}
+															using = button_action_provider_base
 														}
 
 														card_header_action_button_01 = {
@@ -4261,6 +4262,11 @@ lateralview = {
 																		using = action_tooltip_inner_content
 																	}
 
+																	blockoverride "tooltip_ui_action_block" {
+																		TooltipUIActionBlockOld = {
+																			visible = "[PdxGuiWidget.HasUIAction]"
+																		}
+																	}
 																}
 															}
 														}
@@ -4358,10 +4364,10 @@ lateralview = {
 					}
 
 					AutomatedSection = {
-						datacontext = "[GetAutomatedSystemItem2('cabinetmembers', 'cabinet')]"
-
+						datacontext = "[GetAutomatedSystemItem('cabinet')]"
+						
 						blockoverride "glow_anim_automation_visible" {
-							visible = "[AutomatedMultiSystemItem.IsEnabled]"
+							visible = "[AutomatedSystemsItem.IsEnabled]"
 						}
 					}
 				}
@@ -5078,7 +5084,7 @@ lateralview = {
 																	}
 																	text_multi = {
 																		margin_left = 1
-																		autoresize = no
+																		autoresize = yes
 																		layoutpolicy_horizontal = expanding
 																		align = left|nobaseline
 																		text = "[ParliamentAgendaItem.GetName]"
@@ -5152,7 +5158,7 @@ lateralview = {
 
 					AutomatedSection = {
 						datacontext = "[GetAutomatedSystemItem('parliament')]"
-
+						
 						blockoverride "glow_anim_automation_visible" {
 							visible = "[AutomatedSystemsItem.IsEnabled]"
 						}

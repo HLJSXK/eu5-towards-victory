@@ -60,14 +60,15 @@ unlock_crossbowmen_advance = {
 unlock_reformed_crusader_knights_advance = {
 	age = age_2_renaissance
 	unlock_unit = a_late_crusader_knights
-	unlock_unit = a_order_knights
-	unlock_unit = a_order_knights_2
 	unlock_levy = levy_late_crusader_knights
 
 	requires = regiment_reinforcement_speed_renaissance
 
 	potential = {
-		modifier:allow_military_order_units = yes
+		OR = {
+			has_reform = government_reform:military_order_reform
+			has_estate_privilege = estate_privilege:clergy_military_orders
+		}
 	}
 
 }

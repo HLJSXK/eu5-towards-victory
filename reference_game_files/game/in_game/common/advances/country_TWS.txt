@@ -1,27 +1,21 @@
 ﻿tws_unified_legal_code = {
-	age = age_1_traditions
+	age = age_2_renaissance
 	icon = scholasticism
-
 	potential = {
 		has_or_had_tag = TWS
 	}
 
-	stability_cost_efficiency = 0.2
+	legislative_efficiency = 0.1
 
-	requires = library_advance
+	requires = crown_power_advance_renaissance
 }
 
 tws_ensure_loyal_families = {
 	age = age_2_renaissance
-	icon = tws_ensure_loyal_families
-
 	potential = {
 		has_or_had_tag = TWS
 	}
 
-	monthly_devotion = 0.1
-	monthly_legitimacy = 0.1
-	monthly_republican_tradition = 0.1
 	nobles_estate_satisfaction_recovery = 0.001
 
 	requires = coastal_fort_advance
@@ -29,56 +23,51 @@ tws_ensure_loyal_families = {
 
 tws_revitalize_the_lands = {
 	age = age_3_discovery
-	icon = colonies
-
 	potential = {
 		has_or_had_tag = TWS
 	}
+	icon = colonies
 
 	global_migration_speed_modifier = 0.1
-	global_monthly_prosperity = 0.001
 
 	requires = coastal_trade_routes_advance
 }
 
-tws_oversea_ambitions = {
-	age = age_4_reformation
-	icon = glorious_arms
-
+tws_capable_vicars = {
+	age = age_3_discovery
 	potential = {
 		has_or_had_tag = TWS
 	}
 
-	anti_piracy_warfare_modifier = 0.1
-	global_maritime_presence_modifier = 0.25
+	set_cabinet_member_cost_modifier = -0.2
+	estate_power_from_cabinet = -0.1
 
-	requires = naval_morale_advance_3
+
+	requires = regulate_court_procedures
 }
 
-tws_capable_vicars = {
-	age = age_5_absolutism
-	icon = tws_capable_vicars
-
+tws_oversea_ambitions = {
+	age = age_4_reformation
 	potential = {
 		has_or_had_tag = TWS
 	}
+	icon = glorious_arms
 
-	estate_power_from_cabinet = -0.1
-	set_cabinet_member_cost_modifier = -0.2
+	global_maritime_presence_modifier = 0.25
 
-	requires = absolute_rulership
+	requires = shipyard_advance
 }
 
 tws_protect_the_coastline = {
-	age = age_6_revolutions
+	age = age_4_reformation
 	icon = maritime_advance_age_2
 
 	potential = {
 		has_or_had_tag = TWS
 	}
 
-	navy_tradition_decay = -0.001
-	naval_morale_modifier = 0.10
+	anti_piracy_warfare_modifier = 0.1
+	navy_galley_power = 0.1
 
-	requires = modern_bureaucracy
+	requires = port_authority_advance
 }

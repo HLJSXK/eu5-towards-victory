@@ -488,7 +488,7 @@ basic_priority_dialog = {
 					icon = {
 						size = { 100% 100% }
 						using = color_black_texture
-						alpha = "[Select_float(AgendaView.ShowHistoricalContext,'(float)0.6','(float)0')]"
+						alpha = 0.6
 					}
 
 					scrollarea = {
@@ -732,7 +732,7 @@ basic_priority_dialog = {
 
 				checkbox_square_alt = {
 					onclick = "[ToggleSkipAgenda]"
-					down = "[SkipAgenda]"
+					checked = "[SkipAgenda]"
 					tooltip_enabled = no
 				}
 
@@ -746,14 +746,15 @@ basic_priority_dialog = {
 					using = button_resize_to_fit_text
 					text = "CLOSE"
 
-					action_tooltip = {
-						title = "CLOSE"
-						on_action = "[AgendaView.Close]"
-					}
-					tooltipwidget = { BasicFunctionalTooltip = {} }
+					onclick = "[AgendaView.Close]"
 					input_action = "close_window"
 					use_global_input_instance = yes
 
+					tooltipwidget = {
+						LeftClickButtonTooltip = {
+							blockoverride "onclick_text" { text = "CLOSE" }
+						}
+					}
 				}
 			}
 		}

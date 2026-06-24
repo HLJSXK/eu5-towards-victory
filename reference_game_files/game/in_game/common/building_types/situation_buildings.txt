@@ -1,5 +1,4 @@
 ﻿lutheran_preachers = {
-	audio_tier = 2
 	is_special = yes
 	max_levels = reformation_preachers_max_level
 	pop_type = clergy
@@ -15,15 +14,19 @@
 	city = yes
 	megalopolis = yes
 	
+	conversion_religion = lutheran
+	
 	country_potential = {
-		religion ?= religion:lutheran
-		situation:reformation = {
-			situation_is_active = yes
+		custom_tooltip = {
+			text = not_buildable_only_situation
+			always = no
 		}
 	}
 	allow = {
-		owner ?= { this = scope:actor }
-		is_city = yes
+		custom_tooltip = {
+			text = not_buildable_only_situation
+			always = no
+		}
 	}
 	can_destroy = {
 		custom_tooltip = {
@@ -37,11 +40,11 @@
 		}
 
 	}
-
+	
 	remove_if = {
 		OR = {
 			location = {
-				dominant_religion ?= religion:lutheran
+				dominant_religion = religion:lutheran
 				situation:council_of_trent = {
 					situation_is_active = yes
 				}
@@ -54,8 +57,8 @@
 			}
 		}
 	}
-
-	price = lutheran_preachers_building
+	
+	price = free_building
 	destroy_price = remove_lutheran_preacher
 	on_built = {
 		hidden_effect = {
@@ -121,12 +124,11 @@
 	build_time = generic_event_building
 	
 	modifier = {
-		local_lutheranism_movement_growth_modifier = 0.25
+		building_missionary_effort_scaled = 0.01		#1% each month
 	}
 }
 
 calvinist_preachers = {
-	audio_tier = 2
 	is_special = yes
 	max_levels = reformation_preachers_max_level
 	pop_type = clergy
@@ -141,21 +143,19 @@ calvinist_preachers = {
 	city = yes
 	megalopolis = yes
 	
+	conversion_religion = calvinist
+	
 	country_potential = {
-		religion ?= religion:calvinist
-		situation:reformation = {
-			situation_is_active = yes
-		}
+		always = no
 	}
 	allow = {
-		owner ?= { this = scope:actor }
-		is_city = yes
+		always = no
 	}
 	
 	remove_if = {
 		OR = {
 			location = {
-				dominant_religion ?= religion:calvinist
+				dominant_religion = religion:calvinist
 				situation:council_of_trent = {
 					situation_has_ended = yes
 				}
@@ -180,7 +180,7 @@ calvinist_preachers = {
 		}
 	}
 	
-	price = calvinist_preachers_building
+	price = free_building
 	destroy_price = remove_lutheran_preacher
 	on_built = {
 		hidden_effect = {
@@ -244,6 +244,6 @@ calvinist_preachers = {
 	build_time = generic_event_building
 	
 	modifier = {
-		local_calvinism_movement_growth_modifier = 0.25
+		building_missionary_effort_scaled = 0.01		#1% each month
 	}
 }

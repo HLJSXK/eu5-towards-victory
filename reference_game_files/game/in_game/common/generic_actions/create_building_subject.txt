@@ -3,13 +3,7 @@
 
 	allow = {
 		scope:actor = {
-			or = {
-				is_subject = no
-				subject_type = {
-					allow_subject_creation = yes
-				}
-			}
-			NOT = { has_active_senior_partner = yes }
+			has_limited_diplomacy = no
 		}
 	}
 
@@ -84,11 +78,8 @@
 				}
 			}
 		}
-		enabled = {
-			NOT = { modifier:is_head_of_cabinet = yes }
-		}
 	}
-
+	
 	effect = {
 		if = {
 			limit = {

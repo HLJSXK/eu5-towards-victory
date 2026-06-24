@@ -42,12 +42,15 @@ lateralview = {
 						size = { 23 23 }
 						visible = "[IsPlayerValid]"
 						datacontext = "[SeaZoneView.GetLocation]"
-						action_tooltip = {
-							title = "[SelectLocalization(IsSeazoneFaved(Location.Self), 'UNPIN_OUTLINER', 'PIN_OUTLINER')]"
-							on_action = "[ToggleSeazoneFav(Location.Self)]"
+						onclick = "[ToggleSeazoneFav(Location.Self)]"
+						checked = "[IsSeazoneFaved(Location.Self)]"
+						tooltipwidget = { 
+							LeftClickButtonTooltip = {
+								blockoverride "onclick_text" { 
+									text = "[SelectLocalization(IsSeazoneFaved(Location.Self), 'UNPIN_OUTLINER', 'PIN_OUTLINER')]"
+								}
+							}
 						}
-						tooltipwidget = { BasicFunctionalTooltip = {} }
-						down = "[IsSeazoneFaved(Location.Self)]"
 					}
 
 					expand = {}

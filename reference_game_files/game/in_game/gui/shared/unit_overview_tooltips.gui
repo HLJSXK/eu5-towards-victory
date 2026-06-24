@@ -20,28 +20,16 @@ template TT_ArmyMorale {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "TT_ARMYMORALE_TEXT"
                 }
             }
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
 				blockoverride "block_title" {
 					text = "LIST_TITLE_SOURCES"
 				}
 				textcontext = "[Player.GetDefaultLandMoraleTooltip]"
-			}
-
-			text_single = {
-				visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 			}
         }
     }
@@ -67,28 +55,16 @@ template TT_NavyMorale {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "TT_NAVYMORALE_TEXT"
                 }
             }
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
 				blockoverride "block_title" {
 					text = "LIST_TITLE_SOURCES"
 				}
 				textcontext = "[Player.GetDefaultNavalMoraleTooltip]"
-			}
-
-			text_single = {
-				visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 			}
         }
     }
@@ -114,7 +90,6 @@ template FortLimitTooltip {
 		blockoverride "tooltip_content" {
 
 			TooltipTextBlock = {
-				visible = "[HasFortCountIntelOn(Country.Self)]"
 				tooltipmeta = {
 					texture = "[GetConceptTexture('fort_limit')]"
 					game_concept = "[fort_limit|e]"
@@ -125,21 +100,10 @@ template FortLimitTooltip {
 			}
 
 			TooltipStringPairList = {
-				visible = "[HasFortCountIntelOn(Country.Self)]"
 				blockoverride "block_title" {
 					text = "FORTS_LIMIT_TT_LIST_TITLE"
 				}
 				textcontext = "[GetFortLimitBreakdown(Country.Self)]"
-			}
-
-			text_single = {
-				visible = "[Not(HasFortCountIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_FORT_COUNT_UNKNOWN"
 			}
 		}
 	}
@@ -198,8 +162,8 @@ template Average_ArmyExperienceTooltip {
 			TooltipStringPairList = {
 				blockoverride "block_title" {
 					max_width = 430
-					visible = "[StringPairList.GetTitle.IsStringViewNotEmptyOrNull]"
-					text = "[StringPairList.GetTitle.GetStringView]"
+					visible = "[StringPairList.HasTitle]"
+					text = "[StringPairList.GetTitle]"
 				}
 				textcontext = "[Player.GetAverageArmyExperienceInfo]"
 			}
@@ -262,8 +226,8 @@ template Average_NavyExperienceTooltip {
 			TooltipStringPairList = {
 				blockoverride "block_title" {
 					max_width = 430
-					visible = "[StringPairList.GetTitle.IsStringViewNotEmptyOrNull]"
-					text = "[StringPairList.GetTitle.GetStringView]"
+					visible = "[StringPairList.HasTitle]"
+					text = "[StringPairList.GetTitle]"
 				}
 				textcontext = "[Player.GetAverageNavyExperienceInfo]"
 			}
@@ -282,7 +246,6 @@ template ArmyTraditionTooltip {
 				using = tooltip_title_icon_size
 					using = marker_bg_circle
 				piechart = {
-					visible = "[HasArmyTraditionIntelOn(Country.Self)]"
 					parentanchor = center
 					block "piechart_size" {
 						size = { 90% 90% }
@@ -326,42 +289,28 @@ template ArmyTraditionTooltip {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasArmyTraditionIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "TT_ARMYTRADITION_TEXT"
                 }
             }
 
 			TooltipStringPairList = {
-				visible = "[HasArmyTraditionIntelOn(Country.Self)]"
 				blockoverride "block_title" {
 					text = "TT_ARMYTRADITION_LIST_T"
 				}
 				textcontext = "[Country.GetCurrencyTooltipDescription('army_tradition')]"
 			}
-			TooltipScrolledStringPairList = {
-				blockoverride "block_scrollarea" { maximumsize = { -1 400 } }
-				visible = "[HasArmyTraditionIntelOn(Country.Self)]"
+			TooltipStringPairList = {
 				blockoverride "block_title" {
 					text = "MONTHLY_ARMY_TRADITION_SOURCES"
 				}
 				textcontext = "[Country.GetMonthlyCurrencyChangeBreakdown('army_tradition')]"
 			}
             TooltipTextBlock = {
-				visible = "[HasArmyTraditionIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "[Localize('game_concept_army_tradition_desc')]"
                 }
             }
-			text_single = {
-				visible = "[Not(HasArmyTraditionIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_ARMY_TRADITION_UNKNOWN"
-			}
         }
     }
 }
@@ -377,7 +326,6 @@ template NavyTraditionTooltip {
 				using = tooltip_title_icon_size
 					using = marker_bg_circle
 				piechart = {
-					visible = "[HasNavyTraditionIntelOn(Country.Self)]"
 					parentanchor = center
 					block "piechart_size" {
 						size = { 90% 90% }
@@ -420,42 +368,28 @@ template NavyTraditionTooltip {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasNavyTraditionIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "TT_NAVYTRADITION_TEXT"
                 }
             }
 
 			TooltipStringPairList = {
-				visible = "[HasNavyTraditionIntelOn(Country.Self)]"
 				blockoverride "block_title" {
 					text = "TT_NAVYTRADITION_LIST_T"
 				}
 				textcontext = "[Country.GetCurrencyTooltipDescription('navy_tradition')]"
 			}
-			TooltipScrolledStringPairList = {
-				blockoverride "block_scrollarea" { maximumsize = { -1 400 } }
-				visible = "[HasNavyTraditionIntelOn(Country.Self)]"
+			TooltipStringPairList = {
 				blockoverride "block_title" {
 					text = "MONTHLY_NAVY_TRADITION_SOURCES"
 				}
 				textcontext = "[Country.GetMonthlyCurrencyChangeBreakdown('navy_tradition')]"
 			}
             TooltipTextBlock = {
-				visible = "[HasNavyTraditionIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "[Localize('game_concept_navy_tradition_desc')]"
                 }
             }
-			text_single = {
-				visible = "[Not(HasNavyTraditionIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_NAVY_TRADITION_UNKNOWN"
-			}
         }
     }
 }
@@ -481,28 +415,16 @@ template DisciplineTooltip {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "TT_AVERAGE_DISCIPLINE_TEXT"
                 }
             }
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "block_title" {
                     text = "LIST_TITLE_SOURCES"
                 }
 				textcontext =  "[Country.GetDescriptionFor('discipline')]"
-			}
-
-			text_single = {
-				visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 			}
         }
     }
@@ -529,7 +451,6 @@ template CombatDisciplineTooltip {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 datacontext = "[CombatSide]"
                 blockoverride "text" {
                     text = "TT_AVERAGE_DISCIPLINE_COMBAT_TEXT"
@@ -537,21 +458,10 @@ template CombatDisciplineTooltip {
             }
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "block_title" {
                     text = "LIST_TITLE_SOURCES"
                 }
 				textcontext = "[CombatSide.GetCommander.GetCombatModifierDescription(CombatSide.GetCountry, 'discipline', CombatSide.GetCombat.IsNavalCombat)]"
-			}
-
-			text_single = {
-				visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 			}
         }
     }
@@ -577,28 +487,16 @@ template MilitaryTacticsTooltip {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "TT_MILITARYTACTICS_TEXT"
                 }
             }
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "block_title" {
                     text = "LIST_TITLE_SOURCES"
                 }
 				textcontext = "[Country.GetDescriptionFor('military_tactics')]"
-			}
-
-			text_single = {
-				visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 			}
         }
     }
@@ -625,7 +523,6 @@ template CombatMilitaryTacticsTooltip {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 datacontext = "[CombatSide]"
                 blockoverride "text" {
                     text = "TT_MILITARYTACTICS_COMBAT_TEXT"
@@ -633,21 +530,10 @@ template CombatMilitaryTacticsTooltip {
             }
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "block_title" {
                     text = "LIST_TITLE_SOURCES"
                 }
 				textcontext = "[CombatSide.GetCommander.GetCombatModifierDescription(CombatSide.GetCountry, 'military_tactics', CombatSide.GetCombat.IsNavalCombat)]"
-			}
-
-			text_single = {
-				visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 			}
         }
     }
@@ -674,28 +560,16 @@ template LevyCombatEfficiencyTooltip {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "TT_LEVY_COMBAT_EFFICIENCY_TEXT"
                 }
             }
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "block_title" {
                     text = "LIST_TITLE_SOURCES"
                 }
 				textcontext = "[Country.GetDescriptionFor('levy_combat_efficiency_modifier')]"
-			}
-
-			text_single = {
-				visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 			}
         }
     }
@@ -721,14 +595,12 @@ template NavalDamageTooltip {
         blockoverride "tooltip_content" {
 
             TooltipTextBlock = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "text" {
                     text = "TT_NAVALDAMAGE_TEXT"
                 }
             }
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "block_title" {
                     text = "TT_NAVALDAMAGETAKEN_PAIRLIST_TITLE"
                 }
@@ -736,21 +608,10 @@ template NavalDamageTooltip {
 			}
 
 			TooltipStringPairList = {
-				visible = "[HasCombatModifiersIntelOn(Country.Self)]"
                 blockoverride "block_title" {
                     text = "TT_NAVALDAMAGEDONE_PAIRLIST_TITLE"
                 }
 				textcontext = "[Player.GetDescriptionFor('naval_damage_done')]"
-			}
-
-			text_single = {
-				visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				align = right|nobaseline
-
-				tagtooltip_enabled = yes
-				text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 			}
         }
     }

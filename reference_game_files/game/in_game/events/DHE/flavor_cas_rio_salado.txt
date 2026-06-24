@@ -237,6 +237,7 @@ flavor_cas_rio_salado.5 = { #Battle of Río Salado Morocco driven out of Iberia
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = CAS
+		tag = SPA
 		from = 1337.1.1
 		to = 1360.1.1
 		monthly_chance = 100
@@ -284,6 +285,7 @@ flavor_cas_rio_salado.6 = { #Monastery Guadalupe
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = CAS
+		tag = SPA
 		from = 1337.1.1
 		to = 1360.1.1
 		monthly_chance = 100
@@ -305,10 +307,7 @@ flavor_cas_rio_salado.6 = { #Monastery Guadalupe
 	trigger = {
 		has_ruler = yes
 		owns = location:guadalupe
-		custom_tooltip = {
-			text = variable_won_battle_of_rio_salado_tt
-			has_variable = won_battle_of_rio_salado
-		}
+		has_variable = won_battle_of_rio_salado
 	}
 
 	option = {
@@ -352,6 +351,7 @@ flavor_cas_rio_salado.7 = { #Monastery Tordesillas
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = CAS
+		tag = SPA
 		from = 1337.1.1
 		to = 1360.1.1
 		monthly_chance = 20
@@ -373,10 +373,7 @@ flavor_cas_rio_salado.7 = { #Monastery Tordesillas
 	trigger = {
 		has_ruler = yes
 		owns = location:valladolid
-		custom_tooltip = {
-			text = variable_won_battle_of_rio_salado_tt
-			has_variable = won_battle_of_rio_salado
-		}
+		has_variable = won_battle_of_rio_salado
 	}
 
 	option = {

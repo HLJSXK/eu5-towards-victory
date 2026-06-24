@@ -376,10 +376,7 @@ flavor_kor.4 = {
 		monthly_chance = 100	#Should always happen
 	}
 	trigger = {
-		custom_tooltip = {
-			text = kor_freed_from_mongol_influence_tt
-			kor_freed_from_mongol_influence = yes
-		}
+		kor_freed_from_mongol_influence = yes
 		has_ruler = yes
 	}
 	illustration_tags = {
@@ -423,10 +420,7 @@ flavor_kor.5 = {
 		monthly_chance = 1
 	}
 	trigger = {
-		custom_tooltip = {
-			text = kor_tied_to_mongol_influence_tt
-			kor_tied_to_mongol_influence = yes
-		}
+		kor_tied_to_mongol_influence = yes
 	}
 	illustration_tags = {
         10 = happy
@@ -676,24 +670,11 @@ flavor_kor.10 = {
 	option = {
 		name = flavor_kor.10.a
 		historical_option = yes
-		if = {
-			limit = {
-				can_declare_legal_war_on = { target = scope:target_country }
-			}
-			declare_war_with_cb = {
-				target = scope:target_country
-				type = casus_belli:cb_conquer_province
-				target_province = location:hwaju.province
-			}
+		declare_war_with_cb = {
+			target = scope:target_country
+			type = casus_belli:cb_conquer_province
+			target_province = location:hwaju.province
 		}
-		else = {
-			add_casus_belli = {
-				target = scope:target_country
-				type = casus_belli:cb_conquer_province
-				province = location:hwaju.province
-			}
-		}
-		
 	}
 	option = {
 		name = flavor_kor.10.b
@@ -735,19 +716,8 @@ flavor_kor.11 = {
 				limit = {
 					is_ownable = yes
 					NOT = { is_core_of = root }
-					OR = {
-						owner = root
-						dominant_culture = root.culture
-					}
 				}
 				add_core = root
-				if = {
-					limit = {
-						owner = root
-						NOT = { integration_level = core }
-					}
-					change_integration_level = core
-				}
 			}
 		}
 	}
@@ -913,10 +883,7 @@ flavor_kor.14 = {
 	}
 	
 	trigger = {
-		custom_tooltip = {
-			text = variable_tt_kor_has_confucianism_active
-			has_variable = kor_has_confucianism_active
-		}
+		has_variable = kor_has_confucianism_active
 	}
 	option = {
 		name = flavor_kor.14.a
@@ -966,10 +933,7 @@ flavor_kor.15 = {
 			}
 		}
 		at_war = no
-		custom_tooltip = {
-			text = variable_tt_had_successful_coup
-			has_variable = had_successful_coup
-		}
+		has_variable = had_successful_coup
 		government_power < 20
 		stability < 10
 		exists = ruler
@@ -1079,10 +1043,7 @@ flavor_kor.16 = {
 	}
 	trigger = {
 		stability > 20
-		custom_tooltip = {
-			text = is_joseon_dynasty_tt
-			is_joseon_dynasty = yes
-		}
+		is_joseon_dynasty = yes
 	}
 	illustration_tags = {
         10 = regular
@@ -1505,10 +1466,7 @@ flavor_kor.22 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = has_korean_factionalism_tt
-			has_korean_factionalism = yes
-		}
+		has_korean_factionalism = yes
 		has_ruler = yes
 	}
 
@@ -1964,10 +1922,7 @@ flavor_kor.29 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = is_joseon_dynasty_tt
-			is_joseon_dynasty = yes
-		}
+		is_joseon_dynasty = yes
 	}
 
 	illustration_tags = {
@@ -2813,7 +2768,6 @@ flavor_kor.39 = {
 		unlock_government_reform_effect = {
 			type = kor_sadae_reform
 		}
-		remove_current_major_government_reform = yes
 		add_reform = government_reform:kor_sadae_reform
 	}
 
@@ -3056,12 +3010,9 @@ flavor_kor.101 = {
 	outcome = neutral
 	fire_only_once = yes
 	trigger = {
-		custom_tooltip = {
-			text = kor_no_literati_purges_yet_tt
-			OR = {
-				NOT = { has_variable = literati_purges }
-				var:literati_purges = 0
-			}
+		OR = {
+			NOT = { has_variable = literati_purges }
+			var:literati_purges = 0
 		}
 	}
 	dynamic_historical_event = {
@@ -3131,11 +3082,8 @@ flavor_kor.102 = {
 	outcome = neutral
 	fire_only_once = yes
 	trigger = {
-		custom_tooltip = {
-			text = kor_one_literati_purge_passed_tt
-			has_variable = literati_purges
-			var:literati_purges = 1
-		}
+		has_variable = literati_purges
+		var:literati_purges = 1
 	}
 	dynamic_historical_event = {
 		tag = KOR
@@ -3184,11 +3132,8 @@ flavor_kor.103 = {
 	outcome = neutral
 	fire_only_once = yes
 	trigger = {
-		custom_tooltip = {
-			text = kor_two_literati_purges_passed_tt
-			has_variable = literati_purges
-			var:literati_purges = 2
-		}
+		has_variable = literati_purges
+		var:literati_purges = 2
 	}
 	dynamic_historical_event = {
 		tag = KOR
