@@ -191,7 +191,11 @@ required variable roles, supported listeners/UI components/output kinds, a verif
 `branch_specific_reward_scaling`, and
 `bounded_opposition_religious_community_pressure`; these contracts provide evidence mapping
 for richer `design_ir` primitives while still producing only intermediate fragments, stubs, or
-summaries.
+summaries. `auxiliary_building_completion_listener_backend` is the construction/auxiliary
+completion counterpart: it preserves completion listener, annex inspection, repair retry, and
+reward-handoff semantics as markdown fragments, trigger/effect stubs, GUI summaries, and
+tooltip notes only. It must not generate `on_action`, `building_type` hooks, or loadable EU5
+source.
 
 Codegen-eligible nodes must declare `capabilities`. The validator rejects unknown
 capabilities, capabilities that do not support the node kind, missing capability-required
@@ -209,6 +213,9 @@ requirements, terminal-node capability requirements, a verification tier, `may_w
 and notes. The v1 registry archetypes are `expedition_route_chain`,
 `patronage_actor_assignment`, `resource_accumulation_ritual`, `monthly_pressure_countdown`,
 `incident_retry_gauntlet`, `listener_resolution_ritual`, and `hidden_executor_finalization`.
+`public_credit_charter_retry` and `arsenal_ropewalk_launch_inspection` are pilot archetypes
+for public-credit branching and auxiliary-completion inspection respectively; both remain
+intermediate-only and keep `may_write_src: false`.
 
 `compiler_mapped`, `source_codegen_ready`, legacy `implementation_ready`, and
 `harness_generated` specs may declare `node_graph.archetypes`.
@@ -270,6 +277,11 @@ The v1 registry is deliberately small:
 - node kinds: `event`, `choice_event`, `assignment_gate`, `resource_gate`, `route_gate`,
   `listener_gate`, `incident_event`, `hidden_executor_handoff`, `retry_event`,
   `monthly_progress_gate`, `final_reward_dispatch`
+- listener kinds: `monthly`, `ruler_death`, `pre_winning_war`, `ending_war`,
+  `auxiliary_building_completion`. The auxiliary completion listener is an intermediate
+  Harness contract for construction/annex completion inspection only; the observed
+  `on_construction_ended` source evidence remains owned by source generators outside v1
+  unique-ritual codegen.
 - action kinds: `effect_script`, `generator_template`, `reward_dispatch_stub`
 - check kinds: `trigger_script`, `generator_template`
 - templates: `sequential_event_chain`, `branch_retry_event`, `monthly_progress_gate`,

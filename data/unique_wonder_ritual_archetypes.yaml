@@ -224,3 +224,37 @@ archetypes:
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
     notes: "Public-credit charter bargaining rituals with fiscal pressure, pledge/default-risk rows, and branch-shaped reward handoff. Intermediate contract only: it preserves public-credit, fiscal-pressure, and pledge-row semantics for Harness fragments and is not a source writer."
+
+  - key: arsenal_ropewalk_launch_inspection
+    required_capabilities:
+      - event_chain
+      - retry_branch
+      - resource_gate
+      - auxiliary_building_completion_listener_backend
+      - final_reward_handoff
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - resource_gate
+      - listener_gate
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - resource_state
+      - listener_state
+      - reward_state
+    required_ui_components:
+      - checklist
+      - material_stockpile
+    required_listeners:
+      - auxiliary_building_completion
+    min_nodes: 5
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Venetian Arsenal-style rituals where a ropewalk, foundry, or guarded-basin work package is prepared, completed by an auxiliary-building/construction listener, inspected for defects, and either repaired/retried or handed to a final reward. Intermediate-only reference tag; it does not generate on_construction_ended hooks or loadable EU5 source."

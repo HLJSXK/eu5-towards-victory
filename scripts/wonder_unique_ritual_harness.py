@@ -90,7 +90,13 @@ SUPPORTED_UI_COMPONENTS = {
     "incident_log",
     "progress_track",
 }
-SUPPORTED_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
+SUPPORTED_LISTENERS = {
+    "monthly",
+    "ruler_death",
+    "pre_winning_war",
+    "ending_war",
+    "auxiliary_building_completion",
+}
 SUPPORTED_CADENCE_TYPES = {
     "instant_but_branching",
     "event_driven",

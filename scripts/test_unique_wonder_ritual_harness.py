@@ -54,6 +54,7 @@ BACKEND_CAPABILITIES = [
     "branch_specific_reward_scaling",
     "finance_public_credit_interface_backend",
     "bounded_opposition_religious_community_pressure",
+    "auxiliary_building_completion_listener_backend",
 ]
 
 
@@ -636,6 +637,77 @@ def resource_listener_hidden_entry(localization: dict[str, str] | None = None) -
     return entry
 
 
+def auxiliary_completion_backend_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["listeners"] = ["monthly", "auxiliary_building_completion"]
+    graph["variables"].append(
+        {
+            "name": "tv_wonder_test_auxiliary_listener",
+            "scope": "country",
+            "type": "number",
+            "roles": ["listener_state"],
+            "initial_value": 0,
+            "writer_nodes": ["final_prep"],
+            "reader_nodes": ["final_prep"],
+            "cleanup": "project_state_clear",
+        }
+    )
+    final_prep = graph["nodes"][4]
+    final_prep["kind"] = "listener_gate"
+    final_prep["capabilities"] = ["auxiliary_building_completion_listener_backend"]
+    final_prep["reads"].append("tv_wonder_test_auxiliary_listener")
+    final_prep["writes"].append("tv_wonder_test_auxiliary_listener")
+    final_prep["ui_state"]["variable_refs"].append("tv_wonder_test_auxiliary_listener")
+    final_prep["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    final_prep["listener_contract"] = {
+        "listener": "auxiliary_building_completion",
+        "cadence": "auxiliary_building_completion_or_annex_inspection",
+        "reads": ["tv_wonder_test_auxiliary_listener"],
+        "writes": ["tv_wonder_test_auxiliary_listener"],
+        "completion_check": "auxiliary_completion_marked",
+        "failure_route": "retry_choice",
+    }
+    return entry
+
+
+def arsenal_ropewalk_launch_inspection_entry() -> dict:
+    entry = auxiliary_completion_backend_entry()
+    graph = entry["node_graph"]
+    graph["archetypes"] = ["arsenal_ropewalk_launch_inspection"]
+    graph["listeners"] = ["auxiliary_building_completion"]
+    graph["cadence_signature"] = {
+        "cadence_type": "construction_or_auxiliary_building",
+        "cadence_rationale": "The fixture resolves when an auxiliary building or annex inspection completes, then routes through repair or reward rather than monthly progress.",
+        "player_agency_model": "The player chooses the arsenal work package, prepares visible stockpiles, and decides whether the completion inspection should be repaired or accepted.",
+        "non_monthly_triggers_or_reason": "Non-monthly validation is the auxiliary-building completion listener plus a repair branch that can return to material preparation before final reward dispatch.",
+        "pacing_failure_mode": "The pacing fails if construction completion becomes a one-click finish, so the fixture keeps a stockpile gate, listener contract, and retry branch visible.",
+    }
+    graph["variables"][1]["roles"] = ["resource_state"]
+    resource_gate = graph["nodes"][2]
+    resource_gate["kind"] = "resource_gate"
+    resource_gate["capabilities"] = ["resource_gate"]
+    resource_gate["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    graph["actions"][2]["generator_template"] = "semantic_contract_fragment"
+    graph["checks"][1]["generator_template"] = "semantic_contract_fragment"
+    entry["generation"]["verified_templates"] = NON_MONTHLY_TEMPLATES
+    entry["ui_model"]["components"].append(
+        {"type": "material_stockpile", "key": "stockpile", "value_variable": "tv_wonder_test_progress"}
+    )
+    return entry
+
+
+def arsenal_missing_completion_backend_entry() -> dict:
+    entry = arsenal_ropewalk_launch_inspection_entry()
+    for test_node in entry["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "auxiliary_building_completion_listener_backend"
+        ]
+    return entry
+
+
 def pure_non_monthly_cadence_entry() -> dict:
     entry = valid_entry()
     graph = entry["node_graph"]
@@ -952,6 +1024,8 @@ def main() -> None:
         ("branch scaling backend", branch_scaling_backend_entry()),
         ("finance public credit backend", finance_public_credit_backend_entry()),
         ("bounded religious pressure backend", bounded_religious_pressure_backend_entry()),
+        ("auxiliary completion backend", auxiliary_completion_backend_entry()),
+        ("arsenal ropewalk launch inspection", arsenal_ropewalk_launch_inspection_entry()),
     ):
         backend_errors = validate_spec_payload(
             {"unique_wonders": [entry]},
@@ -966,6 +1040,12 @@ def main() -> None:
         "public credit archetype missing finance backend",
         finance_public_credit_missing_backend_entry(),
         "archetype 'public_credit_charter_retry' missing required capability(s): finance_public_credit_interface_backend",
+    )
+
+    assert_has_error(
+        "arsenal archetype missing completion backend",
+        arsenal_missing_completion_backend_entry(),
+        "archetype 'arsenal_ropewalk_launch_inspection' missing required capability(s): auxiliary_building_completion_listener_backend",
     )
 
     for capability_key in BACKEND_CAPABILITIES:
@@ -1116,6 +1196,30 @@ def main() -> None:
         finance_public_credit_backend_entry(),
         "unsupported value(s): loadable_src",
         capability_registry=finance_source_output_registry,
+    )
+
+    auxiliary_writable_registry = deepcopy(load_capability_registry())
+    for capability in auxiliary_writable_registry["capabilities"]:
+        if capability.get("key") == "auxiliary_building_completion_listener_backend":
+            capability["may_write_src"] = True
+            break
+    assert_has_error(
+        "auxiliary completion capability may_write_src",
+        auxiliary_completion_backend_entry(),
+        "must declare may_write_src: false",
+        capability_registry=auxiliary_writable_registry,
+    )
+
+    auxiliary_source_output_registry = deepcopy(load_capability_registry())
+    for capability in auxiliary_source_output_registry["capabilities"]:
+        if capability.get("key") == "auxiliary_building_completion_listener_backend":
+            capability["output_kinds"].append("loadable_src")
+            break
+    assert_has_error(
+        "auxiliary completion capability source output",
+        auxiliary_completion_backend_entry(),
+        "unsupported value(s): loadable_src",
+        capability_registry=auxiliary_source_output_registry,
     )
 
     needs_search_without_questions = high_fidelity_design_entry()

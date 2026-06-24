@@ -3316,44 +3316,845 @@ unique_wonders:
     base_key: national_shipyard
     location: venice
     runtime_prefix: tv_wonder_venetian_arsenal
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1020
+    key: arsenal_opening
+  - id: 1021
+    key: arsenal_work_package
+  - id: 1022
+    key: arsenal_material_stockpile
+  - id: 1023
+    key: arsenal_repair_retry
+  - id: 1024
+    key: arsenal_reward
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_venetian_arsenal needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
-    listeners: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - arsenal_ropewalk_launch_inspection
+    historical_mechanic: Venetian state shipbuilding inspection over ropewalks, foundries, guarded basins, and public Marriage of the Sea ceremony.
+    summary: The player proves the Arsenal by selecting a ropewalk, foundry, or guarded-basin work package, preparing the materials, letting auxiliary-building completion trigger an inspection, repairing a defect if needed, and handing the result to the Marriage of the Sea reward.
+    mechanic_signature:
+      wonder_specific_hook: The Venetian Arsenal is not a generic shipyard; its docks, ropewalks, foundries, guarded basins, locks, and civic procession turn production-line secrecy into a public proof of naval power.
+      core_interaction_loop: The player chooses which industrial facility must carry the launch proof, stocks rope, timber, pitch, iron, bronze, pumps, and guarded crews, waits for the auxiliary completion inspection, and then repairs or accepts the launch result before reward handoff.
+      player_decision_pattern: Choices decide whether rope quality, foundry output, or basin watertightness receives priority, whether scarce materials are held for repair, and whether the state exposes enough ritual ceremony to make secret production credible.
+      state_feedback_model: The checklist records selected facility and inspection state while the material stockpile shows preparation readiness and the listener state records whether annex completion has triggered the defect branch.
+      failure_or_tension_model: A flawed ropewalk, foundry shortage, or basin leak sends the player to a repair or retry choice that can return to material preparation instead of pretending construction completion is automatically safe.
+      reward_expression: The final reward remains the Marriage of the Sea handoff, expressing shipbuilding speed and naval morale through a proven launch process rather than a passive dockyard dedication.
+      reuse_risk_mitigation: Ordinary ports can build ships, but only the Arsenal makes industrial secrecy, civic ceremony, ropewalk length, foundry reliability, and guarded basin inspection the ritual proof.
+    cadence_signature:
+      cadence_type: construction_or_auxiliary_building
+      cadence_rationale: Construction or auxiliary-building cadence fits because the decisive validation happens when the selected annex or work package is completed and inspected, not on a monthly pulse or a simple opening event.
+      player_agency_model: The player chooses the facility work package, commits material stockpiles, and decides whether a completion defect should be repaired, retried, or accepted as a narrower launch proof.
+      non_monthly_triggers_or_reason: Non-monthly validation is the auxiliary-building completion listener and the inspection branch that tests ropewalk, foundry, or basin readiness before final reward dispatch.
+      pacing_failure_mode: The pacing fails if completion becomes a generic finalization click, so design_ir preserves separate facility rows, stockpile readiness, inspection risks, and repair choices even when the node graph projects them into summary variables.
+    listeners:
+    - auxiliary_building_completion
+    entry_node: arsenal_opening
+    terminal_nodes:
+    - arsenal_reward
+    runtime_variables:
+    - tv_wonder_venetian_arsenal_stage
+    - tv_wonder_venetian_arsenal_work_package
+    - tv_wonder_venetian_arsenal_stockpile_status
+    - tv_wonder_venetian_arsenal_listener_state
+    - tv_wonder_venetian_arsenal_inspection_result
+    - tv_wonder_venetian_arsenal_defect_state
+    - tv_wonder_venetian_arsenal_reward_branch
+    graph_shape: arsenal_ropewalk_launch_inspection
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_venetian_arsenal_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_opening
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      reader_nodes:
+      - arsenal_opening
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_work_package
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_work_package
+      reader_nodes:
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_stockpile_status
+      scope: country
+      type: number
+      roles:
+      - resource_state
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_repair_retry
+      reader_nodes:
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_listener_state
+      scope: country
+      type: number
+      roles:
+      - listener_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      reader_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_inspection_result
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      reader_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_defect_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      reader_nodes:
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_repair_retry
+      - arsenal_reward
+      reader_nodes:
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    nodes:
+    - key: arsenal_opening
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1020
+      player_visible: true
+      enter_condition: The completed Venetian Arsenal can open its Marriage of the Sea proof without claiming source generation for auxiliary completion.
+      completion_condition: The Senate, shipwrights, rope masters, founders, basin guards, and civic officiants assemble to select the industrial proof.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+      loc_refs:
+      - tv_engineering_department.1020.t
+      - tv_engineering_department.1020.d
+      - tv_engineering_department.1020.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes:
+      - arsenal_work_package
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: The Arsenal opens with the shipwrights' books closed, guards posted at the basin gates, and the civic rite waiting outside.
+    - key: arsenal_work_package
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - resource_gate
+      event_id: 1021
+      player_visible: true
+      enter_condition: The Arsenal opening is recorded and the player must choose ropewalk, foundry, or guarded basin as the launch proof.
+      completion_condition: The selected work package and first stockpile demand are saved for inspection and repair projection.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+      loc_refs:
+      - tv_engineering_department.1021.t
+      - tv_engineering_department.1021.d
+      - tv_engineering_department.1021.a
+      - tv_engineering_department.1021.b
+      - tv_engineering_department.1021.c
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes:
+      - arsenal_material_stockpile
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: Ropewalk masters, cannon founders, and basin wardens each offer a different way to prove the Arsenal's hidden machinery.
+    - key: arsenal_material_stockpile
+      kind: resource_gate
+      capabilities:
+      - resource_gate
+      event_id: 1022
+      player_visible: true
+      enter_condition: A work package has been selected and its material stockpile must be declared before the annex completion can be trusted.
+      completion_condition: Rope fiber, timber, pitch, iron, bronze, pumps, caissons, and guarded crews are recorded as prepared or short.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_stockpile_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+      loc_refs:
+      - tv_engineering_department.1022.t
+      - tv_engineering_department.1022.d
+      - tv_engineering_department.1022.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes:
+      - arsenal_completion_listener
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: Stockpiles are tallied behind guarded doors so the civic launch does not reveal the state's production secrets too early.
+    - key: arsenal_completion_listener
+      kind: listener_gate
+      capabilities:
+      - auxiliary_building_completion_listener_backend
+      event_id: 1022
+      player_visible: false
+      enter_condition: The selected auxiliary or construction work package is waiting for completion or annex inspection.
+      completion_condition: Auxiliary-building completion semantics are preserved as an intermediate listener contract and then route into inspection or repair.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+        - tv_wonder_venetian_arsenal_listener_state
+        - tv_wonder_venetian_arsenal_inspection_result
+        - tv_wonder_venetian_arsenal_defect_state
+      loc_refs:
+      - TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+      scope_contract:
+        root_scope: country
+        current_scope: location
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      listener_contract:
+        listener: auxiliary_building_completion
+        cadence: auxiliary_building_completion_or_annex_inspection
+        reads:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+        - tv_wonder_venetian_arsenal_listener_state
+        writes:
+        - tv_wonder_venetian_arsenal_listener_state
+        - tv_wonder_venetian_arsenal_inspection_result
+        - tv_wonder_venetian_arsenal_defect_state
+        completion_check: selected auxiliary building or construction annex has completed and is ready for inspection in a later source-owned hook
+        failure_route: arsenal_repair_retry
+      next_nodes:
+      - arsenal_repair_retry
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: The listener stands for the moment when an annex, ropewalk reach, foundry bay, or basin work is complete enough for guarded inspection.
+    - key: arsenal_repair_retry
+      kind: retry_event
+      capabilities:
+      - retry_branch
+      - auxiliary_building_completion_listener_backend
+      event_id: 1023
+      player_visible: true
+      enter_condition: The completion inspection reports whether the selected work package launched cleanly or exposed a defect.
+      completion_condition: The player repairs a flawed ropewalk, foundry shortage, or basin leak, retries material preparation, or accepts a narrower launch proof.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      - tv_wonder_venetian_arsenal_reward_branch
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      - tv_wonder_venetian_arsenal_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+        - tv_wonder_venetian_arsenal_listener_state
+        - tv_wonder_venetian_arsenal_inspection_result
+        - tv_wonder_venetian_arsenal_defect_state
+        - tv_wonder_venetian_arsenal_reward_branch
+      loc_refs:
+      - tv_engineering_department.1023.t
+      - tv_engineering_department.1023.d
+      - tv_engineering_department.1023.a
+      - tv_engineering_department.1023.b
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes:
+      - arsenal_material_stockpile
+      - arsenal_reward
+      failure_or_retry: true
+      retry_target: arsenal_material_stockpile
+      historical_anchor: A bad rope strand, an empty bronze pile, or a leaking basin can be repaired before the Senate lets the civic launch proceed.
+    - key: arsenal_reward
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      event_id: 1024
+      player_visible: true
+      enter_condition: The selected work package is inspected, repaired or accepted, and ready to carry the Marriage of the Sea.
+      completion_condition: Shipbuilding-speed, naval-morale, local Arsenal memory, and one-time launch proof semantics are handed to the final reward layer only as intermediate data.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      - tv_wonder_venetian_arsenal_reward_branch
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+        - tv_wonder_venetian_arsenal_inspection_result
+        - tv_wonder_venetian_arsenal_defect_state
+        - tv_wonder_venetian_arsenal_reward_branch
+      loc_refs:
+      - tv_engineering_department.1024.t
+      - tv_engineering_department.1024.d
+      - tv_engineering_department.1024.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes: []
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: The repaired or accepted launch proof is carried into the Marriage of the Sea as a public sign of secret industrial discipline.
+    edges:
+    - from: arsenal_opening
+      to: arsenal_work_package
+      condition: arsenal council convened
+      effect: set stage to facility work-package selection
+      label_key: tv_engineering_department.1020.a
+    - from: arsenal_work_package
+      to: arsenal_material_stockpile
+      condition: ropewalk, foundry, or guarded basin selected
+      effect: save work package and first stockpile demand
+      label_key: TV_ENGINEERING_VENETIAN_ARSENAL_PROCESS_STATUS
+    - from: arsenal_material_stockpile
+      to: arsenal_completion_listener
+      condition: stockpile and guarded crews are prepared for annex completion
+      effect: preserve material readiness and wait for auxiliary completion listener
+      label_key: TV_ENGINEERING_VENETIAN_ARSENAL_STOCKPILE_STATUS
+    - from: arsenal_completion_listener
+      to: arsenal_repair_retry
+      condition: auxiliary completion or annex inspection fires the intermediate listener contract
+      effect: save inspection result and possible defect state
+      label_key: TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+    - from: arsenal_repair_retry
+      to: arsenal_material_stockpile
+      condition: flawed ropewalk, foundry shortage, or basin leak needs repair
+      effect: return to material preparation with defect state preserved
+      label_key: tv_engineering_department.1023.a
+    - from: arsenal_repair_retry
+      to: arsenal_reward
+      condition: repaired or narrower launch proof accepted
+      effect: save final reward branch and inspection state
+      label_key: tv_engineering_department.1023.b
+    actions:
+    - key: open_arsenal_launch_books
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: choose_arsenal_work_package
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: prepare_arsenal_stockpile
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: preserve_arsenal_completion_listener
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_arsenal_repair_retry
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: branch_retry_event
+    - key: dispatch_arsenal_launch_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: arsenal_work_package_rows_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_VENETIAN_ARSENAL_PROCESS_STATUS
+      generator_template: semantic_contract_fragment
+    - key: arsenal_stockpile_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_VENETIAN_ARSENAL_STOCKPILE_STATUS
+      generator_template: semantic_contract_fragment
+    - key: arsenal_completion_listener_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+      generator_template: semantic_contract_fragment
+  design_ir:
+    compiler_primitives:
+    - arsenal_facility_work_package_rows
+    - arsenal_material_stockpile_preparation
+    - auxiliary_completion_listener_inspection
+    - loadable_auxiliary_completion_source_writer
+    - per_facility_repair_retry_rows
+    phases:
+    - key: secret_council_opening
+      gameplay_stage: Convene Senate officers, shipwrights, ropewalk masters, founders, basin guards, Arsenalotti foremen, and civic officiants while keeping shipbuilding secrets inside guarded doors.
+    - key: facility_work_package_choice
+      gameplay_stage: Choose whether the ropewalk, foundry, or guarded basin will carry the launch proof for the Marriage of the Sea.
+    - key: material_stockpile_preparation
+      gameplay_stage: Prepare hemp, rope, timber, oakum, pitch, tar, iron, bronze, pumps, caissons, guarded crews, and secrecy watches for the selected work package.
+    - key: completion_inspection
+      gameplay_stage: Let auxiliary-building completion or annex inspection trigger a defect branch without pretending the Harness can emit the real on_construction_ended hook.
+    - key: repair_or_launch
+      gameplay_stage: Repair a flawed ropewalk, foundry shortage, or basin leak, or accept a narrower but credible launch proof before final reward handoff.
+    player_proofs:
+    - The player proves that the Arsenal's industrial process is organized enough to launch a fleet under civic ritual.
+    - The player proves that secret state production can still be inspected and trusted by public officers.
+    - The player proves that material readiness matters differently for ropewalks, foundries, and guarded basins.
+    - The player proves that completion is not safe until the selected annex or work package survives inspection or repair.
+    tracked_entity_sets:
+    - key: arsenal_work_packages
+      entity_type: facility_work_package
+      entities:
+      - key: ropewalk
+        display_name: Ropewalk And Cordage Line
+      - key: foundry
+        display_name: Foundry And Shot Bay
+      - key: guarded_basin
+        display_name: Guarded Basin And Lock Gate
+      state_values:
+      - available
+      - selected
+      - stockpiled
+      - completed
+      - defect_found
+      - repaired
+      - accepted_for_launch
+      per_entity_state:
+        status_variable_pattern: tv_wonder_venetian_arsenal_work_package_<package>_status
+        defect_variable_pattern: tv_wonder_venetian_arsenal_work_package_<package>_defect
+      selector: Select the ropewalk, foundry, or guarded basin whose completion and inspection will prove the Arsenal.
+      ui_binding: checklist:arsenal_work_packages should show each facility as available, selected, stockpiled, defect_found, repaired, or accepted.
+    - key: arsenal_material_stockpiles
+      entity_type: material_stockpile
+      entities:
+      - key: hemp_and_rope
+        display_name: Hemp And Finished Rope
+      - key: timber_and_oakum
+        display_name: Timber And Oakum
+      - key: pitch_and_tar
+        display_name: Pitch And Tar
+      - key: iron_and_bronze
+        display_name: Iron And Bronze
+      - key: pumps_and_caissons
+        display_name: Pumps And Caissons
+      - key: guarded_crews
+        display_name: Guarded Arsenalotti Crews
+      state_values:
+      - missing
+      - pledged
+      - delivered
+      - inspected
+      - short
+      - consumed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_venetian_arsenal_stockpile_<material>_status
+        shortage_variable_pattern: tv_wonder_venetian_arsenal_stockpile_<material>_shortage
+      selector: Select the material row whose shortage or readiness matters for the chosen work package.
+      ui_binding: material_stockpile:arsenal_material_stockpiles should render one row per material with readiness and shortage state.
+    - key: arsenal_inspection_risks
+      entity_type: inspection_risk
+      entities:
+      - key: flawed_ropewalk
+        display_name: Flawed Ropewalk
+      - key: foundry_shortage
+        display_name: Foundry Shortage
+      - key: basin_leak
+        display_name: Basin Leak
+      state_values:
+      - dormant
+      - triggered
+      - repaired
+      - accepted_narrowly
+      per_entity_state:
+        status_variable_pattern: tv_wonder_venetian_arsenal_inspection_<risk>_status
+      selector: Select the inspection defect produced by the completed work package.
+      ui_binding: checklist:arsenal_inspection_risks should show whether each defect is dormant, triggered, repaired, or accepted narrowly.
+    selectors:
+    - key: arsenal_work_package_selector
+      selection_space: Ropewalk, foundry, or guarded basin work package.
+      projection_state: Projected into tv_wonder_venetian_arsenal_work_package while design_ir keeps all three facility rows.
+    - key: material_stockpile_selector
+      selection_space: Hemp, rope, timber, oakum, pitch, tar, iron, bronze, pumps, caissons, and guarded crews.
+      projection_state: Projected into tv_wonder_venetian_arsenal_stockpile_status while design_ir keeps per-material rows.
+    - key: inspection_defect_selector
+      selection_space: Flawed ropewalk, foundry shortage, or basin leak.
+      projection_state: Projected into inspection_result and defect_state variables after the listener gate.
+    risk_branches:
+    - key: flawed_ropewalk
+      risk: Rope laid too quickly fails tension inspection and risks embarrassing the public launch.
+      retry_or_failure: Return to material stockpile and repair cordage, or accept a narrower reward branch.
+    - key: foundry_shortage
+      risk: Cannon bronze, shot, or tools are short when the foundry bay is inspected.
+      retry_or_failure: Requisition missing metal and retry, or launch with reduced industrial reach.
+    - key: basin_leak
+      risk: A guarded basin, caisson, or lock gate leaks before the launch procession can trust it.
+      retry_or_failure: Repair pumps and caissons, then wait for inspection again, or accept a cautious launch.
+    player_actions:
+    - Choose whether the ritual proves ropewalk discipline, foundry supply, or guarded basin readiness.
+    - Commit material stockpiles and guarded crews without exposing all state shipbuilding secrets.
+    - Respond to completion inspection by repairing, retrying, or accepting a narrower final proof.
+    - Hand the accepted proof to the Marriage of the Sea reward instead of claiming construction source generation is complete.
+    map_scope_evidence:
+    - Fixed site is Venice; later mapping must preserve location ownership/control, completed Venetian Arsenal building, selected annex or work package, and guarded-basin local state.
+    - Existing project evidence shows auxiliary-building ritual completion can be marked from on_construction_ended, but this spec only records the intermediate listener semantics.
+    - Current on_action bridges cover monthly, ruler-death, pre-winning-war, and ending-war ritual listeners; no construction-completion on_action bridge is generated here.
+    ui_feedback_model:
+      components:
+      - checklist
+      - material_stockpile
+      repeated_rows: One checklist row per facility work package, one material row per stockpile class, and one inspection risk row for flawed ropewalk, foundry shortage, or basin leak.
+      per_entity_status: Facility rows need selected, stockpiled, completed, defect_found, repaired, and accepted states; material rows need delivered, short, inspected, and consumed states.
+      current_projection: The compiler_mapped node_graph compresses facility rows into work_package, stockpile rows into stockpile_status, and inspection rows into inspection_result plus defect_state while preserving full rows in design_ir.
+    uniqueness_constraints:
+    - The proof must involve the Arsenal's production line, not a generic harbor or shipyard ceremony.
+    - Ropewalk, foundry, and guarded basin must stay as distinct selectable work packages.
+    - State shipbuilding secrecy and civic Marriage of the Sea ritual flavor must both remain visible.
+    - Completion must trigger inspection and possible repair before final reward handoff.
+    projection_notes: |
+      Preserve the ropewalk, foundry, and guarded-basin work-package rows, material stockpile rows, secrecy/civic ritual flavor, auxiliary completion listener semantics, and flawed-ropewalk/foundry-shortage/basin-leak repair branches in design_ir. The compiler_mapped node_graph is an intermediate-only projection: it summarizes facility rows through work_package, preparation through stockpile_status, completion listener state through listener_state, inspection through inspection_result and defect_state, and final handoff through reward_branch. It does not generate on_action entries, building_type on_construction_ended hooks, GUI row expansion, or loadable EU5 source.
+  compiler_gap_ledger:
+  - primitive: arsenal_facility_work_package_rows
+    design_semantics: Preserve ropewalk, foundry, and guarded-basin work packages as distinct selectable facility rows with separate inspection outcomes.
+    required_game_interfaces:
+    - per-facility checklist rows
+    - selected facility state variable
+    - per-facility defect state
+    - tooltip-safe selection preview
+    codebase_evidence:
+    - data/unique_wonder_ritual_design_matrix.yaml records the Venetian Arsenal basis as ropewalk, foundry, and basin inspection under construction_or_auxiliary_building cadence.
+    - Existing Harness repeated-row support is intermediate-only and does not yet generate loadable per-facility GUI rows for this arsenal shape.
+    verification_status: semantic_only
+    harness_backlog_cluster: arsenal_facility_rows
+    search_questions:
+    - Which future GUI row expander should own per-facility checklist rows for construction or auxiliary-building rituals?
+    - Should ropewalk, foundry, and basin state be generated as fixed variables or a reusable tracked row set?
+    blocked_by:
+    - No loadable GUI/source row expander exists for Arsenal-specific facility work packages.
+    fallback_if_unavailable: Keep all facility rows in design_ir and project them through tv_wonder_venetian_arsenal_work_package.
+  - primitive: arsenal_material_stockpile_preparation
+    design_semantics: Track material readiness for rope, timber, pitch, metal, pumps, caissons, and guarded crews before completion inspection.
+    required_game_interfaces:
+    - material_stockpile UI summary
+    - resource gate trigger or effect stub
+    - selected work-package preparation state
+    codebase_evidence:
+    - capability:resource_gate
+    - data/unique_wonder_ritual_capabilities.yaml:resource_gate documents stockpile and cost-gate semantics with may_write_src false.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize resource-gate contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
+    harness_backlog_cluster: resource_gate
+    search_questions:
+    - Which exact EU5 resources or goods should later map to hemp, timber, pitch, metal, pumps, caissons, and guarded crews?
+    blocked_by:
+    - Loadable resource predicates and effects remain blocked until a later source writer maps the semantic stockpile rows to exact game interfaces.
+    fallback_if_unavailable: Use one stockpile_status summary variable while preserving per-material rows in design_ir.
+  - primitive: auxiliary_completion_listener_inspection
+    design_semantics: Preserve the construction or auxiliary-building completion listener, annex inspection, defect result, and repair retry handoff without generating source hooks.
+    required_game_interfaces:
+    - auxiliary-building completion listener contract
+    - completion or annex inspection state
+    - repair retry route
+    - final reward handoff state
+    codebase_evidence:
+    - docs/knowledge/anti_patterns.yaml records that auxiliary-building ritual completion should use on_construction_ended rather than relying only on on_built.
+    - docs/guides/AI_Tool_Workflow_Prompt.md records the same style-2 annex completion fix.
+    - src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt has auxiliary on_construction_ended blocks that call tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect.
+    - src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt defines tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect and tv_wonder_complete_active_ritual_effect.
+    - capability:auxiliary_building_completion_listener_backend
+    - data/unique_wonder_ritual_capabilities.yaml:auxiliary_building_completion_listener_backend preserves completion listener, annex inspection, and repair retry semantics as an intermediate backend with may_write_src false.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize listener contracts without loadable EU5 source.
+    verification_status: backend_ready
+    harness_backlog_cluster: auxiliary_building_completion_listener_backend
+    search_questions:
+    - Which later source writer should connect Arsenal-specific inspection events to the generic auxiliary-building completion hook?
+    blocked_by:
+    - Backend-ready here means intermediate Harness contract only; no on_action, building_type hook, or loadable EU5 source writer is certified.
+    fallback_if_unavailable: Keep listener state semantic and route completion through a visible inspection event in a future manual implementation.
+  - primitive: loadable_auxiliary_completion_source_writer
+    design_semantics: Emit or update actual loadable EU5 source for construction or auxiliary-building completion hooks.
+    required_game_interfaces:
+    - building_type on_construction_ended hook generation
+    - safe owner/location scope transition
+    - active ritual completion effect
+    - integration with generated src files
+    codebase_evidence:
+    - src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt shows existing generated auxiliary on_construction_ended hooks.
+    - scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py owns those generated building_type hooks outside the unique ritual Harness.
+    - src/in_game/common/on_action/tv_engineering_department_on_action.txt covers monthly, ruler-death, pre-winning-war, and ending-war ritual listeners, not construction completion.
+    verification_status: needs_codebase_search
+    harness_backlog_cluster: source_writer_boundary
+    search_questions:
+    - Should unique-wonder Harness ever own generated building_type on_construction_ended hooks, or should that remain in the existing wonder mechanics generator?
+    - What contract is needed before a source writer can safely emit loadable construction-completion source for unique rituals?
+    blocked_by:
+    - v1 Harness forbids writing loadable EU5 src and all new contracts in this pass keep may_write_src false.
+    fallback_if_unavailable: Leave Venetian Arsenal at compiler_mapped with the intermediate listener contract and no source generation claim.
+  - primitive: per_facility_repair_retry_rows
+    design_semantics: Preserve flawed ropewalk, foundry shortage, and basin leak as separate risk rows with repair, retry, or narrower launch outcomes.
+    required_game_interfaces:
+    - per-risk checklist rows
+    - retry branch event
+    - defect state variable
+    - reward branch summary
+    codebase_evidence:
+    - capability:retry_branch
+    - data/unique_wonder_ritual_capabilities.yaml:retry_branch documents failure and retry branches without emitting event code.
+    - capability:auxiliary_building_completion_listener_backend
+    - data/unique_wonder_ritual_capabilities.yaml:auxiliary_building_completion_listener_backend preserves repair retry semantics for completion inspection as an intermediate backend.
+    - template:branch_retry_event
+    - data/unique_wonder_ritual_codegen_templates.yaml:branch_retry_event documents retry branches as intermediate event skeleton rows only.
+    verification_status: backend_ready
+    harness_backlog_cluster: repair_retry_branch
+    search_questions:
+    - Which later GUI row pattern should expose separate flawed-ropewalk, foundry-shortage, and basin-leak outcomes?
+    blocked_by:
+    - Loadable per-risk GUI/source expansion remains blocked even though the current retry semantics are backend-ready as an intermediate Harness projection.
+    fallback_if_unavailable: Use defect_state and reward_branch summary variables while preserving all risk rows in design_ir.
   ui_model:
-    components: []
+    components:
+    - type: checklist
+      key: arsenal_process_checklist
+      status_variable: tv_wonder_venetian_arsenal_work_package
+    - type: material_stockpile
+      key: arsenal_material_stockpile
+      value_variable: tv_wonder_venetian_arsenal_stockpile_status
+    bindings:
+    - key: arsenal_process_checklist_binding
+      component_key: arsenal_process_checklist
+      variable_refs:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      - tv_wonder_venetian_arsenal_reward_branch
+      node_refs:
+      - arsenal_opening
+      - arsenal_work_package
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      loc_refs:
+      - TV_ENGINEERING_VENETIAN_ARSENAL_PROCESS_STATUS
+      - TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+    - key: arsenal_material_stockpile_binding
+      component_key: arsenal_material_stockpile
+      variable_refs:
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_defect_state
+      node_refs:
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      loc_refs:
+      - TV_ENGINEERING_VENETIAN_ARSENAL_STOCKPILE_STATUS
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: data/wonder_localization.yaml ceremony theme
+      description: Preserve Marriage of the Sea shipbuilding speed and naval morale as a reward for proving guarded industrial launch discipline.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir arsenal_work_packages
+      description: Local Arsenal memory for the selected ropewalk, foundry, or basin work package and its repaired inspection state.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir inspection branch
+      description: One-time launch confidence, shipbuilding preparation, or civic prestige branch shaped by repaired defects or narrower accepted proof.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_VENETIAN_ARSENAL_PROCESS_STATUS
+    - TV_ENGINEERING_VENETIAN_ARSENAL_STOCKPILE_STATUS
+    - TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+    event_keys:
+    - event_id: 1020
+      title_key: tv_engineering_department.1020.t
+      desc_key: tv_engineering_department.1020.d
+      option_keys:
+      - tv_engineering_department.1020.a
+      node_key: arsenal_opening
+    - event_id: 1021
+      title_key: tv_engineering_department.1021.t
+      desc_key: tv_engineering_department.1021.d
+      option_keys:
+      - tv_engineering_department.1021.a
+      - tv_engineering_department.1021.b
+      - tv_engineering_department.1021.c
+      node_key: arsenal_work_package
+    - event_id: 1022
+      title_key: tv_engineering_department.1022.t
+      desc_key: tv_engineering_department.1022.d
+      option_keys:
+      - tv_engineering_department.1022.a
+      node_key: arsenal_material_stockpile
+    - event_id: 1023
+      title_key: tv_engineering_department.1023.t
+      desc_key: tv_engineering_department.1023.d
+      option_keys:
+      - tv_engineering_department.1023.a
+      - tv_engineering_department.1023.b
+      node_key: arsenal_repair_retry
+    - event_id: 1024
+      title_key: tv_engineering_department.1024.t
+      desc_key: tv_engineering_department.1024.d
+      option_keys:
+      - tv_engineering_department.1024.a
+      node_key: arsenal_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_venetian_arsenal
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Venetian Arsenal is compiler_mapped only. The Harness records intermediate listener, stockpile, inspection, repair, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: marriage_of_the_sea
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: design_only_high_fidelity_spec
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - Harness state_machine_dsl_v1 compiler_mapped projection for Venetian Arsenal
+    - capability:auxiliary_building_completion_listener_backend intermediate backend contract
+    - capability:resource_gate semantic stockpile projection
+    - capability:retry_branch semantic repair projection
+    - capability:final_reward_handoff semantic reward projection
+    - archetype:arsenal_ropewalk_launch_inspection reference blueprint
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable_source_writer_for_auxiliary_completion_listener_and_facility_rows
+    - exact EU5 resource mapping for ropewalk, foundry, and guarded basin stockpiles
+    remaining_source_writer_blockers:
+    - The new auxiliary_building_completion listener backend is intermediate-only; it preserves completion listener, annex inspection, and repair retry semantics but does not generate on_action, building_type, or loadable EU5 source.
+    - Ropewalk, foundry, and guarded-basin facility rows remain high-fidelity design_ir rows projected through summary variables; no loadable GUI/source row expander exists.
+    - Material stockpile rows are preserved semantically through resource_gate but not mapped to exact EU5 goods, construction demands, or effects.
+    - Venetian Arsenal remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 115
     key: unique_malacca_port

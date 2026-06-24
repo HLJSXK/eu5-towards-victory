@@ -223,6 +223,34 @@ capabilities:
     may_write_src: false
     notes: "Documents listener-driven completion/failure contracts without creating on_action code."
 
+  - key: auxiliary_building_completion_listener_backend
+    supported_node_kinds:
+      - listener_gate
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.ui_state
+      - node.scope_contract
+    required_variable_roles:
+      - listener_state
+    supported_listener_kinds:
+      - auxiliary_building_completion
+    supported_ui_components:
+      - checklist
+      - material_stockpile
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for preserving auxiliary-building completion listener, annex inspection, flawed ropewalk/foundry/basin repair retry, and reward-handoff semantics. It only emits Harness markdown fragments, trigger/effect stubs, GUI summaries, and tooltip notes; it does not generate on_action entries, building_type hooks, or loadable EU5 source."
+
   - key: branch_specific_reward_scaling
     supported_node_kinds:
       - choice_event
