@@ -924,12 +924,13 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - retry_branch
+  - overland_relay_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Inca Royal Road Network at Picchu: Stone roads, rope bridges, tambos, and runners stitch the Andes into a state that can speak across mountains. Most other wonders lack this exact Imperial Post Road Network role and the named Relay Message proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: overland_or_canal_route_proof
+  similarity_group: overland_relay_route_proof
   authoring_status: drafted
 - wonder_id: 128
   wonder_key: unique_roman_aqueducts

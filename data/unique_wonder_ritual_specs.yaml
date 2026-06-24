@@ -145,6 +145,7 @@ metadata:
     supported_capabilities:
     - actor_assignment
     - actor_assignment_character_selector_backend
+    - auxiliary_building_completion_listener_backend
     - bounded_opposition_religious_community_pressure
     - branch_specific_reward_scaling
     - event_chain
@@ -153,16 +154,21 @@ metadata:
     - fixed_site_integrity_control_pressure_backend
     - listener_gate
     - monthly_progress
+    - overland_relay_route_certification_backend
+    - pilgrimage_route_certification_backend
     - repeated_entity_row_checklist_incident_log_backend
     - resource_gate
     - retry_branch
     - route_gate
     supported_archetypes:
+    - arsenal_ropewalk_launch_inspection
     - expedition_route_chain
     - hidden_executor_finalization
     - incident_retry_gauntlet
     - listener_resolution_ritual
     - monthly_pressure_countdown
+    - new_jerusalem_rock_route
+    - overland_relay_route_proof
     - patronage_actor_assignment
     - public_credit_charter_retry
     - resource_accumulation_ritual
@@ -5958,44 +5964,735 @@ unique_wonders:
     base_key: imperial_post_road_network
     location: picchu
     runtime_prefix: tv_wonder_inca_royal_road
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1030
+    key: open_four_quarters_relay
+  - id: 1031
+    key: certify_road_segment_and_tambo
+  - id: 1032
+    key: resolve_relay_incident
+  - id: 1033
+    key: final_relay_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_inca_royal_road needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - overland_relay_route_proof
+    historical_mechanic: Qhapaq Nan relay certification through named stone road segments, rope bridges, tambos, chasqui runner handoffs, and a delivered quipu message.
+    summary: The player opens a Four Quarters relay proof from Picchu, certifies named stone road segments, rope-bridge checkpoints, and stocked tambos, resolves a bridge, supply, runner-delay, or awkward-route incident, and hands the runner-carried relay message to the existing Inca final reward path.
+    mechanic_signature:
+      wonder_specific_hook: The Inca Royal Road is not a generic pilgrimage path or coastal route; it proves imperial reach by making runners, tambos, rope bridges, and stone roads carry a quipu message through Andean terrain.
+      core_interaction_loop: The player declares the relay message, certifies the active road segment and tambo support, responds to bridge failure, missing supplies, runner delay, or route awkwardness, then completes a rerouted or fully certified runner handoff.
+      player_decision_pattern: Decisions choose which endpoint and road segment can carry the first message, whether to spend support on bridges or tambos, and whether to reroute or accept a lower-prestige domestic-only relay when the wider route cannot pass.
+      state_feedback_model: The route_map summarizes named road segment, tambo, bridge, endpoint, and runner handoff status while the incident_log preserves bridge failure, missing tambo supply, runner delay, reroute, and domestic-only fallback state.
+      failure_or_tension_model: A broken rope bridge, empty tambo, delayed runner, unaffordable repair, or diplomatically awkward endpoint can send the player back to route certification or narrow the proof to a domestic-only relay.
+      reward_expression: The final reward remains the Full Relay Line Dispatch handoff through existing Inca finalization effects, with the Harness recording route proof, relay message state, and fallback branch as intermediate state only.
+      reuse_risk_mitigation: Lalibela proves sacred church geography and Pharos proves maritime lanes; this rite proves overland state communication through chasqui runners, tambos, rope bridges, road segments, and a runner-carried quipu message.
+    cadence_signature:
+      cadence_type: route_certification
+      cadence_rationale: Route certification fits because the decisive validation is a named relay line carrying a message across stone roads, rope bridges, tambos, and runner waypoints rather than monthly roadwork or a single ceremony click.
+      player_agency_model: The player qualifies the endpoint and waypoints, chooses how to answer route incidents, and decides whether the final relay proof remains empire-wide or becomes a domestic-only fallback.
+      non_monthly_triggers_or_reason: Non-monthly validation comes from the route gate, active segment/tambo checkpoint, runner-message handoff branch, incident reroute decision, domestic-only fallback choice, and final reward dispatch.
+      pacing_failure_mode: The pacing fails if the Royal Road becomes a generic progress counter or Lalibela-style recognition route, so the node graph keeps relay message state, route state, incident state, reroute, and final handoff as separate beats.
+    runtime_variables:
+    - tv_wonder_inca_royal_road_stage
+    - tv_wonder_inca_royal_road_route_status
+    - tv_wonder_inca_royal_road_relay_message_status
+    - tv_wonder_inca_royal_road_incident_state
+    - tv_wonder_inca_royal_road_reward_branch
+    entry_node: open_four_quarters_relay
+    terminal_nodes:
+    - final_relay_reward_handoff
+    graph_shape: overland_relay_route_proof_projection
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_inca_royal_road_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      reader_nodes:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_inca_royal_road_route_status
+      scope: country
+      type: number
+      roles:
+      - route_state
+      initial_value: 0
+      writer_nodes:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      reader_nodes:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_inca_royal_road_relay_message_status
+      scope: country
+      type: number
+      roles:
+      - relay_message_state
+      initial_value: 0
+      writer_nodes:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      reader_nodes:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_inca_royal_road_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - resolve_relay_incident
+      reader_nodes:
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_inca_royal_road_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      reader_nodes:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_four_quarters_relay
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1030
+      player_visible: true
+      historical_anchor: Officials at Picchu knot the relay message and declare that the first line must prove the Four Quarters can speak through stone roads, tambos, bridges, and runners.
+      enter_condition: The Inca Royal Road Network has reached the unique ritual moment at Picchu.
+      completion_condition: The relay message is opened, Picchu is recorded as road head, and the player sees that certification depends on road relay infrastructure instead of a generic ceremony.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_road_segment_and_tambo
+      writes:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      reads:
+      - tv_wonder_inca_royal_road_stage
+      ui_state:
+        component_key: inca_royal_road_route_map
+        variable_refs:
+        - tv_wonder_inca_royal_road_stage
+        - tv_wonder_inca_royal_road_route_status
+        - tv_wonder_inca_royal_road_relay_message_status
+      loc_refs:
+      - TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: certify_road_segment_and_tambo
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - route_gate
+      - overland_relay_route_certification_backend
+      event_id: 1031
+      player_visible: true
+      historical_anchor: Chasqui runners test stone stairs, a rope bridge, a guarded pass, and a stocked tambo before the message can move toward the endpoint.
+      enter_condition: The relay message is sealed and at least one named road segment, tambo, rope bridge, or endpoint waypoint still needs certification.
+      completion_condition: The active segment, bridge checkpoint, tambo supply, runner handoff, endpoint route, and provisional relay proof are saved as intermediate Harness state.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      writes:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_reward_branch
+      reads:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_reward_branch
+      ui_state:
+        component_key: inca_royal_road_route_map
+        variable_refs:
+        - tv_wonder_inca_royal_road_stage
+        - tv_wonder_inca_royal_road_route_status
+        - tv_wonder_inca_royal_road_relay_message_status
+        - tv_wonder_inca_royal_road_reward_branch
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: resolve_relay_incident
+      kind: incident_event
+      capabilities:
+      - event_chain
+      - retry_branch
+      - overland_relay_route_certification_backend
+      event_id: 1032
+      player_visible: true
+      historical_anchor: A failed rope bridge, empty tambo, delayed runner, unaffordable repair, or awkward endpoint route can discredit the first relay unless the line is repaired or rerouted.
+      enter_condition: A relay route incident is recorded before the message can count as certified.
+      completion_condition: The player either repairs and retries the road segment, reroutes the line, or accepts a lower-prestige domestic-only relay proof.
+      failure_or_retry: true
+      retry_target: certify_road_segment_and_tambo
+      next_nodes:
+      - certify_road_segment_and_tambo
+      - final_relay_reward_handoff
+      writes:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      reads:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      ui_state:
+        component_key: inca_relay_incident_log
+        variable_refs:
+        - tv_wonder_inca_royal_road_stage
+        - tv_wonder_inca_royal_road_route_status
+        - tv_wonder_inca_royal_road_relay_message_status
+        - tv_wonder_inca_royal_road_incident_state
+        - tv_wonder_inca_royal_road_reward_branch
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: final_relay_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      event_id: 1033
+      player_visible: true
+      historical_anchor: The final runner presents the quipu message at Picchu or a certified endpoint, and officials decide whether the route proof is empire-wide or domestic-only.
+      enter_condition: The relay message has either passed the named route or has explicitly accepted a rerouted or domestic-only fallback.
+      completion_condition: Existing Inca finalization visible and hidden reward effects remain the only source reward path.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_reward_branch
+      reads:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      ui_state:
+        component_key: inca_relay_incident_log
+        variable_refs:
+        - tv_wonder_inca_royal_road_stage
+        - tv_wonder_inca_royal_road_relay_message_status
+        - tv_wonder_inca_royal_road_reward_branch
+      loc_refs:
+      - tv_engineering_department.500.d_unique_inca_royal_road
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    edges:
+    - from: open_four_quarters_relay
+      to: certify_road_segment_and_tambo
+      condition: relay_message_declared
+      effect: open_four_quarters_relay_projection
+      label_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+    - from: certify_road_segment_and_tambo
+      to: resolve_relay_incident
+      condition: bridge_supply_runner_or_endpoint_incident
+      effect: record_overland_relay_incident_projection
+      label_key: TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+    - from: certify_road_segment_and_tambo
+      to: final_relay_reward_handoff
+      condition: relay_message_arrived
+      effect: prepare_relay_reward_handoff_projection
+      label_key: tv_engineering_department.500.d_unique_inca_royal_road
+    - from: resolve_relay_incident
+      to: certify_road_segment_and_tambo
+      condition: repair_reroute_and_retry
+      effect: retry_relay_route_certification_projection
+      label_key: TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT
+    - from: resolve_relay_incident
+      to: final_relay_reward_handoff
+      condition: accept_domestic_only_relay
+      effect: mark_domestic_only_relay_projection
+      label_key: tv_engineering_department.600.d_unique_inca_royal_road
+    actions:
+    - key: open_inca_four_quarters_relay
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: certify_inca_segment_tambo_bridge_and_runner
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_inca_relay_incident
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: dispatch_inca_relay_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: inca_overland_route_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      generator_template: semantic_contract_fragment
+    - key: inca_relay_message_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      generator_template: semantic_contract_fragment
+    - key: inca_relay_incident_contract
+      kind: generator_template
+      tooltip_key: TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT
+      generator_template: semantic_contract_fragment
     listeners: []
+  design_ir:
+    compiler_primitives:
+    - qhapaq_nan_named_relay_route_set
+    - road_segment_tambo_bridge_status_projection
+    - runner_relay_message_proof
+    - relay_incident_reroute_domestic_fallback
+    - route_map_incident_log_projection
+    - relay_proof_final_reward_handoff
+    - source_compiler_overland_relay_route_generation
+    phases:
+    - key: declare_four_quarters_relay_message
+      gameplay_stage: Officials at Picchu knot a quipu message and name the first relay line that must prove the Four Quarters can be joined by road.
+      entry_condition: The Inca Royal Road Network has reached its unique ritual moment.
+      exit_condition: The route map records Picchu as road head and exposes the endpoint, segment, bridge, tambo, and runner handoff checks.
+    - key: certify_road_segment_tambo_and_bridge
+      gameplay_stage: Chasqui runners and road officials certify stone roads, a rope bridge checkpoint, stocked tambos, qollqa supply, and the selected route endpoint.
+      entry_condition: The relay message is sealed and at least one route waypoint still lacks road, bridge, supply, or runner proof.
+      exit_condition: The active route is certified, blocked by an incident, or narrowed toward a domestic-only relay.
+    - key: resolve_relay_incident_or_reroute
+      gameplay_stage: A bridge failure, missing tambo supply, runner delay, unaffordable repair, or awkward endpoint route is repaired, rerouted, or accepted as a weaker domestic proof.
+      entry_condition: A route incident is recorded before the message can arrive with full prestige.
+      exit_condition: The route is retried with repaired support, rerouted to another certified segment, or marked domestic-only.
+    - key: handoff_relay_reward
+      gameplay_stage: The final runner presents the relay message and officials hand the certified or domestic-only relay proof to the Full Relay Line Dispatch reward path.
+      entry_condition: The message has arrived or the fallback is explicit.
+      exit_condition: The existing finalization visible and hidden reward effects remain the only source-level reward handoff.
+    player_proofs:
+    - Prove the Royal Road can move a runner-carried quipu message through Andean terrain rather than merely claim a completed road.
+    - Prove named stone road segments, tambos, rope bridge checkpoints, runner handoffs, and an endpoint remain visible route state.
+    - Prove bridge failure, missing tambo supply, runner delay, unaffordable repair, and awkward routes can produce reroute or domestic-only fallback decisions.
+    - Prove final rewards remain a handoff to the existing Inca finalization path instead of new loadable source generated by the Harness.
+    tracked_entity_sets:
+    - key: inca_royal_road_relay_segments
+      entity_type: route
+      entities:
+      - key: picchu_road_head
+        display_name: Picchu Road Head
+        route_id: 1
+        waypoint_role: origin_and_message_sealing_place
+      - key: vilcanota_stone_stair
+        display_name: Vilcanota Stone Stair Segment
+        route_id: 2
+        waypoint_role: paved_stone_road_and_retaining_wall_check
+      - key: apurimac_rope_bridge
+        display_name: Apurimac Rope Bridge Checkpoint
+        route_id: 3
+        waypoint_role: woven_bridge_crossing_and_guarded_ravine
+      - key: high_pass_tambo
+        display_name: High Pass Tambo
+        route_id: 4
+        waypoint_role: rest_station_runner_exchange_and_coca_supply
+      - key: qollqa_supply_yard
+        display_name: Qollqa Supply Yard
+        route_id: 5
+        waypoint_role: maize_chuno_sandals_and_llama_loads
+      - key: four_quarters_endpoint
+        display_name: Four Quarters Relay Endpoint
+        route_id: 6
+        waypoint_role: final_message_arrival_or_domestic_fallback_endpoint
+      state_values:
+      - pending
+      - passable
+      - stocked
+      - delayed
+      - blocked
+      - rerouted
+      - domestic_only
+      per_entity_state:
+        status_variable_pattern: tv_wonder_inca_royal_road_segment_<route_key>_status
+        bridge_variable_pattern: tv_wonder_inca_royal_road_segment_<route_key>_bridge
+        tambo_supply_variable_pattern: tv_wonder_inca_royal_road_segment_<route_key>_tambo_supply
+        runner_variable_pattern: tv_wonder_inca_royal_road_segment_<route_key>_runner
+      selector: The current Harness projection saves a summary route status, but design_ir preserves each named road segment, tambo, bridge checkpoint, and endpoint for a future route selector.
+      ui_binding: route_map:inca_royal_road_relay_segments renders one row per road segment, rope bridge, tambo, qollqa, and endpoint with passable, stocked, delayed, rerouted, or domestic-only status.
+    - key: inca_runner_relay_message_handoffs
+      entity_type: relay_message
+      entities:
+      - key: sealed_quipu_message
+        display_name: Sealed Quipu Message
+      - key: first_chasqui_handoff
+        display_name: First Chasqui Handoff
+      - key: bridge_checkpoint_handoff
+        display_name: Rope Bridge Handoff
+      - key: tambo_runner_exchange
+        display_name: Tambo Runner Exchange
+      - key: endpoint_delivery
+        display_name: Endpoint Delivery
+      state_values:
+      - sealed
+      - handed_off
+      - delayed
+      - delivered
+      - domestic_only
+      per_entity_state:
+        status_variable_pattern: tv_wonder_inca_royal_road_message_<handoff_key>_status
+        delay_variable_pattern: tv_wonder_inca_royal_road_message_<handoff_key>_delay
+      selector: The relay message status summarizes runner handoff proof while design_ir preserves each chasqui exchange.
+      ui_binding: route_map:inca_runner_relay_message_handoffs shows whether the quipu message is sealed, handed off, delayed, delivered, or narrowed to domestic-only proof.
+    - key: inca_relay_route_incidents
+      entity_type: relay_incident
+      entities:
+      - key: bridge_failure
+        display_name: Rope Bridge Failure
+      - key: missing_tambo_supply
+        display_name: Missing Tambo Supply
+      - key: runner_delay
+        display_name: Runner Delay
+      - key: unaffordable_repair
+        display_name: Unaffordable Bridge or Road Repair
+      - key: awkward_endpoint_route
+        display_name: Awkward Endpoint Route
+      state_values:
+      - dormant
+      - active
+      - repaired
+      - rerouted
+      - domestic_only
+      per_entity_state:
+        status_variable_pattern: tv_wonder_inca_royal_road_incident_<incident_key>_status
+        response_variable_pattern: tv_wonder_inca_royal_road_incident_<incident_key>_response
+      selector: The incident branch records which route problem is active and whether it is repaired, rerouted, or converted to domestic-only relay proof.
+      ui_binding: incident_log:inca_relay_route_incidents records bridge failure, missing tambo supply, runner delay, unaffordable repair, awkward endpoint route, reroute, and domestic-only fallback decisions.
+    selectors:
+    - key: active_relay_route_segment
+      selection_space: pending or blocked inca_royal_road_relay_segments
+      selection_state: tv_wonder_inca_royal_road_route_status plus future segment-specific status variables.
+      resolution_events:
+      - 1031
+      - 1032
+    - key: relay_message_handoff_branch
+      selection_space: sealed, delayed, delivered, rerouted, or domestic-only relay message proof
+      selection_state: tv_wonder_inca_royal_road_relay_message_status
+      resolution_events:
+      - 1031
+      - 1032
+      - 1033
+    - key: relay_endpoint_branch
+      selection_space: full endpoint certification, rerouted endpoint, or domestic-only fallback endpoint
+      selection_state: tv_wonder_inca_royal_road_reward_branch
+      resolution_events:
+      - 1033
+    risk_branches:
+    - key: bridge_failure
+      risk: A woven rope bridge frays, collapses, or cannot carry runners and llama loads safely.
+      player_response: Renew the bridge and retry, reroute around the ravine, or accept a domestic-only proof that never crosses the failed checkpoint.
+    - key: missing_tambo_supply
+      risk: A tambo lacks maize, chuno, sandals, coca, water, bedding, or runner relief.
+      player_response: Spend supply to stock the station, reroute to a prepared tambo, or narrow the proof to a local relay.
+    - key: runner_delay
+      risk: A chasqui handoff is late enough that the route cannot prove fast state communication.
+      player_response: Reassign runners and retry the segment, accept a slower domestic certification, or reroute to a safer endpoint.
+    - key: awkward_endpoint_route
+      risk: The selected endpoint is blocked, unaffordable to protect, or diplomatically awkward for a first proof.
+      player_response: Choose a new endpoint, pay for recognition and guards, or complete the relay as lower-prestige domestic certification.
+    player_actions:
+    - Open the Four Quarters relay message at Picchu instead of confirming a one-click ceremony.
+    - Certify named road segments, tambos, rope bridges, runner handoffs, route endpoint, and relay-message proof.
+    - Resolve bridge failure, missing tambo supply, runner delay, unaffordable repair, or awkward endpoint route through repair, reroute, retry, or domestic-only fallback.
+    - Hand off the completed or domestic-only relay proof to the existing finalization reward path.
+    map_scope_evidence:
+    - Picchu is the fixed wonder location and the road head for this intermediate relay proof.
+    - The design intentionally uses overland route rows rather than Lalibela church waypoints or Pharos maritime route rows.
+    - data/index/scripted_effects.txt lists Inca finalization visible, hidden, construction, and broadcast effects used for final reward handoff.
+    - No current Harness source compiler expands overland relay route rows, tambo supply, rope bridge checkpoints, runner handoffs, or route incidents into loadable EU5 source.
+    ui_feedback_model:
+      components:
+      - route_map
+      - incident_log
+      route_map: Six relay rows show Picchu road head, stone stair, rope bridge, high-pass tambo, qollqa supply yard, and endpoint as pending, passable, stocked, delayed, blocked, rerouted, or domestic-only.
+      incident_log: Relay incidents record bridge failure, missing tambo supply, runner delay, unaffordable repair, awkward endpoint route, repair, reroute, retry, and domestic-only fallback.
+      repeated_rows: The design requires one route_map row per road segment/checkpoint and one incident_log row when bridge, tambo, runner, cost, or endpoint problems appear.
+      per_entity_status: Each segment keeps separate road, bridge, tambo, runner, endpoint, and incident state in design_ir.
+      current_projection: The compiler_mapped node_graph compresses road segments into route_status, runner handoffs into relay_message_status, route incidents into incident_state, and full or domestic proof into reward_branch while preserving all rows in design_ir.
+    uniqueness_constraints:
+    - The proof is imperial communication over mountains: stone roads, tambos, rope bridges, and runners must carry a message, not just host a festival.
+    - The route endpoint and waypoints are overland relay infrastructure tied to Picchu and the Four Quarters, not church-to-church pilgrimage waypoints or maritime lanes.
+    - Bridge failure, missing tambo supply, and runner delay matter because the reward is movement and administrative transmission, not abstract prestige.
+    - The domestic-only fallback preserves a working internal relay while explicitly losing the wider prestige of a fully certified Four Quarters route.
+    projection_notes: The current compiler_mapped node_graph is an intermediate-only strong DSL projection. It preserves Qhapaq Nan road segments, named tambos, rope bridge checkpoints, relay endpoint, runner-carried quipu message, runner handoffs, bridge failure, missing tambo supply, runner delay, reroute, domestic-only fallback, route_map row/status, incident_log, and final reward handoff semantics in design_ir, but compresses repeated road, bridge, tambo, message, and incident rows into summary runtime variables until a future source compiler can generate loadable overland route state, selectors, GUI rows, event source, and effect source.
+  compiler_gap_ledger:
+  - primitive: qhapaq_nan_named_relay_route_set
+    design_semantics: Preserve the Inca Royal Road as a Picchu-headed overland relay route with a named endpoint, waypoints, stone road segments, tambos, and rope bridge checkpoints.
+    required_game_interfaces:
+    - route endpoint and waypoint authoring data
+    - overland route_map UI summary
+    - intermediate route state variables
+    codebase_evidence:
+    - capability:overland_relay_route_certification_backend
+    - capability:route_gate
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contract; no source route compiler is claimed.
+    blocked_by: []
+    fallback_if_unavailable: Keep the overland route set in design_ir and project it as route_map summary only.
+  - primitive: road_segment_tambo_bridge_status_projection
+    design_semantics: Preserve per-segment stone road, tambo supply, rope bridge, endpoint, rerouted, and domestic-only status without flattening the relay route into one anonymous counter.
+    required_game_interfaces:
+    - per-segment route status projection
+    - repeated route_map rows
+    - summary runtime variables
+    codebase_evidence:
+    - capability:overland_relay_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no loadable repeated-row GUI source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Preserve all road, tambo, bridge, and endpoint rows in design_ir and summarize them in the node graph.
+  - primitive: runner_relay_message_proof
+    design_semantics: Preserve runner-carried relay message state, including sealed quipu, chasqui handoffs, bridge handoff, tambo exchange, endpoint delivery, delay, and domestic-only proof.
+    required_game_interfaces:
+    - relay message state projection
+    - route_map row summary
+    - player-facing tooltip summary
+    codebase_evidence:
+    - capability:overland_relay_route_certification_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate overland relay backend contract; exact runner or quipu source syntax is not generated.
+    blocked_by: []
+    fallback_if_unavailable: Keep relay message handoffs as design_ir route semantics and summarize them through relay_message_status.
+  - primitive: relay_incident_reroute_domestic_fallback
+    design_semantics: Preserve bridge failure, missing tambo supply, runner delay, unaffordable repair, awkward endpoint, retry, reroute, and domestic-only fallback branch semantics.
+    required_game_interfaces:
+    - incident_log summary
+    - retry branch
+    - route state mutation stubs
+    codebase_evidence:
+    - capability:retry_branch
+    - capability:overland_relay_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend and retry contracts; no loadable incident event source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Keep incident, reroute, and fallback semantics in design_ir and retain a retry/domestic-only projection node.
+  - primitive: route_map_incident_log_projection
+    design_semantics: Preserve route_map and incident_log UI intent for road rows, bridge checkpoints, tambos, runner handoffs, incident rows, reroutes, and domestic-only fallback state.
+    required_game_interfaces:
+    - route_map UI rows
+    - incident_log UI rows
+    - per-entity status projection
+    codebase_evidence:
+    - capability:overland_relay_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate UI summary contracts; no loadable GUI row source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Use route_map and incident_log summaries while preserving per-row design_ir.
+  - primitive: relay_proof_final_reward_handoff
+    design_semantics: Hand full relay proof or explicit domestic-only fallback to the existing Inca finalization reward path.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing Inca finalization visible effect
+    - existing hidden finalization cleanup/broadcast effect
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - data/index/scripted_effects.txt:tv_wonder_unique_inca_royal_road_finalization_visible_effect
+    - data/index/scripted_effects.txt:tv_wonder_unique_inca_royal_road_style_1_finalization_hidden_effect
+    - src/in_game/events/tv_wonder_finalization_events.txt:Inca inauguration option calls construct_final_building and finalization_visible_effect
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff contract and existing finalization evidence; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave the reward as the existing finalization path and keep Inca relay proof as design metadata.
+  - primitive: source_compiler_overland_relay_route_generation
+    design_semantics: A future source compiler would expand overland route endpoints, road segment selectors, tambo supply gates, rope bridge checkpoints, runner message handoffs, repeated route_map rows, incident_log rows, reroute, and domestic-only effects into loadable EU5 source.
+    required_game_interfaces:
+    - source compiler overland route-set expansion
+    - loadable event/effect generation
+    - loadable Engineering Department GUI row generation
+    codebase_evidence:
+    - data/unique_wonder_ritual_capabilities.yaml:overland_relay_route_certification_backend is intermediate-only and may_write_src false.
+    - scripts/wonder_unique_rituals/pharos.py manually generates route selectors, route status projection, and route rows for Pharos as evidence of a hand-authored route pattern only.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which future Harness source compiler should own overland relay endpoint, road segment, tambo, bridge, and runner row expansion?
+    - How should relay message, route incident, reroute, and domestic-only fallback effects be represented without guessing EU5 syntax?
+    blocked_by:
+    - No source compiler for overland relay route certification is in scope for this round.
+    - The new backend is intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep Inca Royal Road at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: route_map
+      key: inca_royal_road_route_map
+      value_variable: tv_wonder_inca_royal_road_route_status
+    - type: incident_log
+      key: inca_relay_incident_log
+      status_variable: tv_wonder_inca_royal_road_incident_state
+    bindings:
+    - key: inca_royal_road_route_map_binding
+      component_key: inca_royal_road_route_map
+      variable_refs:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      node_refs:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+    - key: inca_relay_incident_log_binding
+      component_key: inca_relay_incident_log
+      variable_refs:
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      node_refs:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      - TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT
+      - tv_engineering_department.600.d_unique_inca_royal_road
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing Inca ceremony modifier handoff
+      description: The relay proof hands off to the existing Full Relay Line Dispatch country reward path; Harness does not generate a new modifier grant.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir Qhapaq Nan route memory
+      description: Local memory remains the Picchu road head, certified stone road segments, renewed rope bridge checkpoint, stocked tambos, qollqa supplies, runner stations, and route registers preserved in design_ir.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing finalization visible reward effect
+      description: One-time ruler, engineer, completion celebration, support, and finalization rewards remain routed through the existing Inca finalization visible effect.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+    - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+    event_keys:
+    - event_id: 1030
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_inca_royal_road
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      node_key: open_four_quarters_relay
+    - event_id: 1031
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_inca_royal_road
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      node_key: certify_road_segment_and_tambo
+    - event_id: 1032
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_inca_royal_road
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT
+      node_key: resolve_relay_incident
+    - event_id: 1033
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.600.d_unique_inca_royal_road
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      node_key: final_relay_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_inca_royal_road
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Inca Royal Road is compiler_mapped only. The Harness records intermediate overland relay route, road segment, tambo, rope bridge, runner message, incident, reroute, domestic-only fallback, and reward-handoff semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: relay_message
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir plus existing Inca finalization effects only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:overland_relay_route_certification_backend intermediate backend contract
+    - capability:route_gate semantic projection
+    - capability:retry_branch semantic projection
+    - capability:final_reward_handoff semantic projection
+    - data/index/scripted_effects.txt Inca finalization visible and hidden effects
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable overland relay route source compiler
+    - loadable route_map repeated GUI rows
+    - exact EU5 route endpoint, road segment, tambo, rope bridge, runner message, reroute, and domestic-only fallback script syntax
+    remaining_source_writer_blockers:
+    - The new overland_relay_route_certification_backend is intermediate-only and may_write_src false.
+    - No Harness source compiler expands Inca road segment rows, tambo rows, rope bridge checkpoints, runner handoff rows, or domestic-only fallback effects into loadable EU5 source.
+    - Inca Royal Road remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 128
     key: unique_roman_aqueducts

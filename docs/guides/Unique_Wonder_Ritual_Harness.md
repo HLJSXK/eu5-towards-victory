@@ -196,7 +196,12 @@ summaries. `pilgrimage_route_certification_backend` is the route-certification c
 it preserves pilgrimage route endpoint, waypoint, offering, recognition-proof, failed-route
 fallback, and local-only circuit semantics as markdown fragments, trigger/effect stubs, GUI
 summaries, and tooltip notes only. It must not generate route source, GUI rows, event chains,
-or other loadable EU5 `src` files. `auxiliary_building_completion_listener_backend` is the construction/auxiliary
+or other loadable EU5 `src` files. `overland_relay_route_certification_backend` is the
+overland relay counterpart: it preserves named road segments, tambos, rope-bridge
+checkpoints, runner-carried relay message proof, reroute, and domestic-only fallback
+semantics as markdown fragments, trigger/effect stubs, GUI summaries, and tooltip notes
+only. It must not generate route source, GUI rows, event chains, or other loadable EU5
+`src` files. `auxiliary_building_completion_listener_backend` is the construction/auxiliary
 completion counterpart: it preserves completion listener, annex inspection, repair retry, and
 reward-handoff semantics as markdown fragments, trigger/effect stubs, GUI summaries, and
 tooltip notes only. It must not generate `on_action`, `building_type` hooks, or loadable EU5
@@ -219,7 +224,9 @@ and notes. The v1 registry archetypes are `expedition_route_chain`,
 `patronage_actor_assignment`, `resource_accumulation_ritual`, `monthly_pressure_countdown`,
 `incident_retry_gauntlet`, `listener_resolution_ritual`, and `hidden_executor_finalization`.
 `public_credit_charter_retry` and `arsenal_ropewalk_launch_inspection` are pilot archetypes
-for public-credit branching and auxiliary-completion inspection respectively; both remain
+for public-credit branching and auxiliary-completion inspection respectively.
+`overland_relay_route_proof` is the pilot archetype for road-segment, tambo, rope-bridge,
+runner-message, reroute, and domestic-only relay certification. All three remain
 intermediate-only and keep `may_write_src: false`.
 
 `compiler_mapped`, `source_codegen_ready`, legacy `implementation_ready`, and

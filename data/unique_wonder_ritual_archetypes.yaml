@@ -71,6 +71,39 @@ archetypes:
     may_write_src: false
     notes: "Lalibela-style pilgrimage certification rituals where a carved New Jerusalem route, named waypoints, offerings, recognition proof, route incidents, and a local-only fallback are preserved as intermediate Harness semantics. Non-exclusive reference tag; it does not generate route, GUI, event, or loadable EU5 source."
 
+  - key: overland_relay_route_proof
+    required_capabilities:
+      - event_chain
+      - route_gate
+      - retry_branch
+      - final_reward_handoff
+      - overland_relay_route_certification_backend
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - route_gate
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - route_state
+      - incident_state
+      - reward_state
+      - relay_message_state
+    required_ui_components:
+      - route_map
+      - incident_log
+    required_listeners: []
+    min_nodes: 4
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Overland relay-road certification rituals where named road segments, tambos, rope-bridge checkpoints, runner message handoffs, route incidents, reroutes, and domestic-only relay fallback are preserved as intermediate Harness semantics. Non-exclusive reference tag; it does not generate route, GUI, event, or loadable EU5 source."
+
   - key: patronage_actor_assignment
     required_capabilities:
       - event_chain

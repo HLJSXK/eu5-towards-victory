@@ -54,12 +54,20 @@ BACKEND_CAPABILITIES = [
     "actor_assignment_character_selector_backend",
     "repeated_entity_row_checklist_incident_log_backend",
     "pilgrimage_route_certification_backend",
+    "overland_relay_route_certification_backend",
     "branch_specific_reward_scaling",
     "finance_public_credit_interface_backend",
     "bounded_opposition_religious_community_pressure",
     "auxiliary_building_completion_listener_backend",
 ]
 PILGRIMAGE_ROUTE_BACKEND_OUTPUTS = {
+    "markdown_fragment",
+    "trigger_stub",
+    "effect_stub",
+    "gui_summary",
+    "player_facing_tooltip",
+}
+OVERLAND_RELAY_BACKEND_OUTPUTS = {
     "markdown_fragment",
     "trigger_stub",
     "effect_stub",
@@ -73,6 +81,13 @@ NEW_JERUSALEM_ARCHETYPE_CAPABILITIES = {
     "retry_branch",
     "final_reward_handoff",
     "pilgrimage_route_certification_backend",
+}
+OVERLAND_RELAY_ARCHETYPE_CAPABILITIES = {
+    "event_chain",
+    "route_gate",
+    "retry_branch",
+    "final_reward_handoff",
+    "overland_relay_route_certification_backend",
 }
 
 
@@ -586,6 +601,177 @@ def pilgrimage_route_certification_backend_entry() -> dict:
     return entry
 
 
+def overland_relay_route_certification_backend_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["archetypes"] = ["overland_relay_route_proof"]
+    graph["listeners"] = []
+    graph["cadence_signature"] = {
+        "cadence_type": "route_certification",
+        "cadence_rationale": "The fixture resolves by certifying named overland road segments, tambos, rope-bridge checkpoints, runner message handoffs, route incidents, and final reward handoff rather than waiting on a calendar tick.",
+        "player_agency_model": "The player qualifies the endpoint and road segment, resolves bridge, supply, runner-delay, or awkward-route incidents, and chooses reroute or domestic-only fallback before reward dispatch.",
+        "non_monthly_triggers_or_reason": "Non-monthly validation comes from the route gate, runner message handoff, incident retry branch, reroute choice, domestic-only fallback, and final reward handoff.",
+        "pacing_failure_mode": "The pacing fails if relay certification becomes a generic route or pilgrimage counter, so road segment, relay message, incident, and reward branch state stay separate.",
+    }
+    graph["variables"] = [
+        {
+            "name": "tv_wonder_test_stage",
+            "scope": "country",
+            "type": "number",
+            "roles": ["stage_state"],
+            "initial_value": 0,
+            "writer_nodes": ["opening", "materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+            "reader_nodes": ["opening", "materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_route",
+            "scope": "country",
+            "type": "number",
+            "roles": ["route_state"],
+            "initial_value": 0,
+            "writer_nodes": ["materials", "monthly_gate", "retry_choice"],
+            "reader_nodes": ["materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_relay_message",
+            "scope": "country",
+            "type": "number",
+            "roles": ["relay_message_state"],
+            "initial_value": 0,
+            "writer_nodes": ["materials", "monthly_gate", "retry_choice"],
+            "reader_nodes": ["materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_incident",
+            "scope": "country",
+            "type": "number",
+            "roles": ["incident_state"],
+            "initial_value": 0,
+            "writer_nodes": ["retry_choice"],
+            "reader_nodes": ["retry_choice", "final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_reward",
+            "scope": "country",
+            "type": "number",
+            "roles": ["reward_state"],
+            "initial_value": 0,
+            "writer_nodes": ["final_prep", "reward"],
+            "reader_nodes": ["final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+    ]
+    graph["nodes"][0]["reads"] = ["tv_wonder_test_stage"]
+    graph["nodes"][0]["writes"] = ["tv_wonder_test_stage"]
+    graph["nodes"][0]["ui_state"] = {"variable_refs": ["tv_wonder_test_stage"]}
+    graph["nodes"][1]["kind"] = "route_gate"
+    graph["nodes"][1]["capabilities"] = ["route_gate", "overland_relay_route_certification_backend"]
+    graph["nodes"][1]["reads"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_relay_message",
+    ]
+    graph["nodes"][1]["writes"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_relay_message",
+    ]
+    graph["nodes"][1]["ui_state"] = {
+        "variable_refs": ["tv_wonder_test_route", "tv_wonder_test_relay_message"]
+    }
+    graph["nodes"][1]["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    graph["nodes"][2]["kind"] = "choice_event"
+    graph["nodes"][2]["capabilities"] = ["event_chain", "overland_relay_route_certification_backend"]
+    graph["nodes"][2]["reads"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_relay_message",
+    ]
+    graph["nodes"][2]["writes"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_relay_message",
+    ]
+    graph["nodes"][2]["ui_state"] = {
+        "variable_refs": ["tv_wonder_test_route", "tv_wonder_test_relay_message"]
+    }
+    graph["nodes"][2]["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    graph["nodes"][3]["kind"] = "incident_event"
+    graph["nodes"][3]["capabilities"] = [
+        "event_chain",
+        "retry_branch",
+        "overland_relay_route_certification_backend",
+    ]
+    graph["nodes"][3]["reads"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_relay_message",
+        "tv_wonder_test_incident",
+    ]
+    graph["nodes"][3]["writes"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_relay_message",
+        "tv_wonder_test_incident",
+    ]
+    graph["nodes"][3]["ui_state"] = {
+        "variable_refs": [
+            "tv_wonder_test_route",
+            "tv_wonder_test_relay_message",
+            "tv_wonder_test_incident",
+        ]
+    }
+    graph["nodes"][3]["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    graph["nodes"][4]["kind"] = "choice_event"
+    graph["nodes"][4]["capabilities"] = ["event_chain"]
+    graph["nodes"][4]["reads"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_relay_message",
+        "tv_wonder_test_incident",
+        "tv_wonder_test_reward",
+    ]
+    graph["nodes"][4]["writes"] = ["tv_wonder_test_stage", "tv_wonder_test_reward"]
+    graph["nodes"][4]["ui_state"] = {"variable_refs": ["tv_wonder_test_reward"]}
+    graph["nodes"][5]["reads"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_relay_message",
+        "tv_wonder_test_incident",
+        "tv_wonder_test_reward",
+    ]
+    graph["nodes"][5]["writes"] = ["tv_wonder_test_stage", "tv_wonder_test_reward"]
+    graph["nodes"][5]["ui_state"] = {"variable_refs": ["tv_wonder_test_reward"]}
+    graph["actions"][2]["generator_template"] = "semantic_contract_fragment"
+    graph["checks"][1]["generator_template"] = "semantic_contract_fragment"
+    entry["generation"]["verified_templates"] = NON_MONTHLY_TEMPLATES
+    entry["ui_model"] = {
+        "components": [
+            {"type": "route_map", "key": "route", "value_variable": "tv_wonder_test_route"},
+            {"type": "incident_log", "key": "incident", "status_variable": "tv_wonder_test_incident"},
+        ],
+        "bindings": [
+            {
+                "key": "route_binding",
+                "component_key": "route",
+                "variable_refs": [
+                    "tv_wonder_test_route",
+                    "tv_wonder_test_relay_message",
+                    "tv_wonder_test_incident",
+                    "tv_wonder_test_reward",
+                ],
+                "node_refs": ["materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+                "loc_refs": ["ui.progress.label"],
+            }
+        ],
+    }
+    return entry
+
+
 def incident_retry_entry() -> dict:
     entry = valid_entry()
     graph = entry["node_graph"]
@@ -1053,6 +1239,30 @@ def pilgrimage_backend_contract_errors(capability_registry: dict) -> list[str]:
     return errors
 
 
+def overland_relay_backend_contract_errors(capability_registry: dict) -> list[str]:
+    capability_index = {
+        capability["key"]: capability
+        for capability in capability_registry.get("capabilities", [])
+        if isinstance(capability, dict) and capability.get("key")
+    }
+    contract = capability_index.get("overland_relay_route_certification_backend")
+    if contract is None:
+        return ["missing overland_relay_route_certification_backend"]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append("overland_relay_route_certification_backend must declare may_write_src: false")
+    if contract.get("verified_interface") != "harness_v1_intermediate_backend_contract":
+        errors.append("overland_relay_route_certification_backend must use the intermediate backend interface")
+    output_kinds = set(str(kind) for kind in contract.get("output_kinds", []) or [])
+    missing = sorted(OVERLAND_RELAY_BACKEND_OUTPUTS - output_kinds)
+    extra = sorted(output_kinds - OVERLAND_RELAY_BACKEND_OUTPUTS)
+    if missing:
+        errors.append("overland_relay_route_certification_backend missing output kind(s): " + ", ".join(missing))
+    if extra:
+        errors.append("overland_relay_route_certification_backend has unsupported output kind(s): " + ", ".join(extra))
+    return errors
+
+
 def new_jerusalem_archetype_contract_errors(archetype_registry: dict) -> list[str]:
     archetype_index = {
         archetype["key"]: archetype
@@ -1076,11 +1286,47 @@ def new_jerusalem_archetype_contract_errors(archetype_registry: dict) -> list[st
     return errors
 
 
+def overland_relay_archetype_contract_errors(archetype_registry: dict) -> list[str]:
+    archetype_index = {
+        archetype["key"]: archetype
+        for archetype in archetype_registry.get("archetypes", [])
+        if isinstance(archetype, dict) and archetype.get("key")
+    }
+    contract = archetype_index.get("overland_relay_route_proof")
+    if contract is None:
+        return ["missing overland_relay_route_proof"]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append("overland_relay_route_proof must declare may_write_src: false")
+    capabilities = set(str(capability) for capability in contract.get("required_capabilities", []) or [])
+    missing_capabilities = sorted(OVERLAND_RELAY_ARCHETYPE_CAPABILITIES - capabilities)
+    if missing_capabilities:
+        errors.append("overland_relay_route_proof missing capability(s): " + ", ".join(missing_capabilities))
+    roles = set(str(role) for role in contract.get("required_variable_roles", []) or [])
+    if "relay_message_state" not in roles:
+        errors.append("overland_relay_route_proof missing relay_message_state role")
+    ui_components = set(str(component) for component in contract.get("required_ui_components", []) or [])
+    for component in ("route_map", "incident_log"):
+        if component not in ui_components:
+            errors.append(f"overland_relay_route_proof missing ui component {component!r}")
+    return errors
+
+
 def lalibela_repo_entry() -> dict:
     return deepcopy(list_index(load_spec_data())["unique_lalibela_churches"])
 
 
+def inca_royal_road_repo_entry() -> dict:
+    return deepcopy(list_index(load_spec_data())["unique_inca_royal_road"])
+
+
 def assert_lalibela_error(name: str, entry: dict, needle: str) -> None:
+    errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
+    if not any(needle in error for error in errors):
+        raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
+
+
+def assert_inca_royal_road_error(name: str, entry: dict, needle: str) -> None:
     errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
@@ -1243,6 +1489,36 @@ def main() -> None:
         "source-codegen-ready status has unresolved compiler gap(s): source_compiler_pilgrimage_route_generation",
     )
 
+    inca = inca_royal_road_repo_entry()
+    if inca["identity"]["status"] != "compiler_mapped":
+        raise AssertionError(f"Inca Royal Road status should be compiler_mapped, got {inca['identity']['status']!r}")
+    if inca["node_graph"]["model"] != "state_machine_dsl_v1":
+        raise AssertionError(f"Inca Royal Road node_graph should be state_machine_dsl_v1, got {inca['node_graph']['model']!r}")
+    inca_errors = validate_spec_payload({"unique_wonders": [inca]}, require_all_wonders=False)
+    if inca_errors:
+        raise AssertionError(f"Inca Royal Road compiler_mapped fixture unexpectedly failed: {inca_errors}")
+
+    inca_source_gap = next(
+        row
+        for row in inca["compiler_gap_ledger"]
+        if row.get("primitive") == "source_compiler_overland_relay_route_generation"
+    )
+    if inca_source_gap.get("verification_status") != "needs_codebase_search":
+        raise AssertionError("Inca Royal Road source compiler gap must remain needs_codebase_search")
+
+    inca_missing_backend = inca_royal_road_repo_entry()
+    for test_node in inca_missing_backend["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "overland_relay_route_certification_backend"
+        ]
+    assert_inca_royal_road_error(
+        "Inca Royal Road missing overland backend",
+        inca_missing_backend,
+        "archetype 'overland_relay_route_proof' missing required capability(s): overland_relay_route_certification_backend",
+    )
+
     incident_errors = validate_spec_payload(
         {"unique_wonders": [incident_retry_entry()]},
         wonders=[WONDER],
@@ -1279,9 +1555,16 @@ def main() -> None:
     pilgrimage_contract_errors = pilgrimage_backend_contract_errors(capability_registry)
     if pilgrimage_contract_errors:
         raise AssertionError(f"pilgrimage route backend contract unexpectedly failed: {pilgrimage_contract_errors}")
-    archetype_contract_errors = new_jerusalem_archetype_contract_errors(load_archetype_registry())
+    overland_contract_errors = overland_relay_backend_contract_errors(capability_registry)
+    if overland_contract_errors:
+        raise AssertionError(f"overland relay backend contract unexpectedly failed: {overland_contract_errors}")
+    archetype_registry = load_archetype_registry()
+    archetype_contract_errors = new_jerusalem_archetype_contract_errors(archetype_registry)
     if archetype_contract_errors:
         raise AssertionError(f"new Jerusalem archetype contract unexpectedly failed: {archetype_contract_errors}")
+    overland_archetype_contract_errors = overland_relay_archetype_contract_errors(archetype_registry)
+    if overland_archetype_contract_errors:
+        raise AssertionError(f"overland relay archetype contract unexpectedly failed: {overland_archetype_contract_errors}")
     capability_index = {
         capability["key"]: capability
         for capability in capability_registry["capabilities"]
@@ -1304,6 +1587,7 @@ def main() -> None:
         ("auxiliary completion backend", auxiliary_completion_backend_entry()),
         ("arsenal ropewalk launch inspection", arsenal_ropewalk_launch_inspection_entry()),
         ("pilgrimage route certification backend", pilgrimage_route_certification_backend_entry()),
+        ("overland relay route certification backend", overland_relay_route_certification_backend_entry()),
     ):
         backend_errors = validate_spec_payload(
             {"unique_wonders": [entry]},
@@ -1361,6 +1645,43 @@ def main() -> None:
         "new Jerusalem archetype missing incident log",
         pilgrimage_missing_incident_ui,
         "archetype 'new_jerusalem_rock_route' missing ui component(s): incident_log",
+    )
+
+    overland_missing_backend = overland_relay_route_certification_backend_entry()
+    for test_node in overland_missing_backend["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "overland_relay_route_certification_backend"
+        ]
+    assert_has_error(
+        "overland relay archetype missing backend",
+        overland_missing_backend,
+        "archetype 'overland_relay_route_proof' missing required capability(s): overland_relay_route_certification_backend",
+    )
+
+    overland_missing_route_ui = overland_relay_route_certification_backend_entry()
+    overland_missing_route_ui["ui_model"]["components"] = [
+        component
+        for component in overland_missing_route_ui["ui_model"]["components"]
+        if component.get("type") != "route_map"
+    ]
+    assert_has_error(
+        "overland relay archetype missing route map",
+        overland_missing_route_ui,
+        "archetype 'overland_relay_route_proof' missing ui component(s): route_map",
+    )
+
+    overland_missing_incident_ui = overland_relay_route_certification_backend_entry()
+    overland_missing_incident_ui["ui_model"]["components"] = [
+        component
+        for component in overland_missing_incident_ui["ui_model"]["components"]
+        if component.get("type") != "incident_log"
+    ]
+    assert_has_error(
+        "overland relay archetype missing incident log",
+        overland_missing_incident_ui,
+        "archetype 'overland_relay_route_proof' missing ui component(s): incident_log",
     )
 
     for capability_key in BACKEND_CAPABILITIES:
@@ -1564,6 +1885,45 @@ def main() -> None:
     missing_output_errors = pilgrimage_backend_contract_errors(pilgrimage_missing_output_registry)
     if not any("missing output kind(s): effect_stub" in error for error in missing_output_errors):
         raise AssertionError(f"pilgrimage backend missing output fixture did not fail: {missing_output_errors}")
+
+    overland_writable_registry = deepcopy(load_capability_registry())
+    for capability in overland_writable_registry["capabilities"]:
+        if capability.get("key") == "overland_relay_route_certification_backend":
+            capability["may_write_src"] = True
+            break
+    assert_has_error(
+        "overland relay capability may_write_src",
+        overland_relay_route_certification_backend_entry(),
+        "must declare may_write_src: false",
+        capability_registry=overland_writable_registry,
+    )
+
+    overland_source_output_registry = deepcopy(load_capability_registry())
+    for capability in overland_source_output_registry["capabilities"]:
+        if capability.get("key") == "overland_relay_route_certification_backend":
+            capability["output_kinds"].append("loadable_src")
+            break
+    assert_has_error(
+        "overland relay capability source output",
+        overland_relay_route_certification_backend_entry(),
+        "unsupported value(s): loadable_src",
+        capability_registry=overland_source_output_registry,
+    )
+
+    overland_missing_output_registry = deepcopy(load_capability_registry())
+    for capability in overland_missing_output_registry["capabilities"]:
+        if capability.get("key") == "overland_relay_route_certification_backend":
+            capability["output_kinds"] = [
+                output_kind
+                for output_kind in capability.get("output_kinds", [])
+                if output_kind != "effect_stub"
+            ]
+            break
+    overland_missing_output_errors = overland_relay_backend_contract_errors(overland_missing_output_registry)
+    if not any("missing output kind(s): effect_stub" in error for error in overland_missing_output_errors):
+        raise AssertionError(
+            f"overland relay backend missing output fixture did not fail: {overland_missing_output_errors}"
+        )
 
     auxiliary_writable_registry = deepcopy(load_capability_registry())
     for capability in auxiliary_writable_registry["capabilities"]:
