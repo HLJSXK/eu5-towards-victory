@@ -5647,6 +5647,403 @@ wonder_localization:
     tv_engineering_department.1135.t: The Arsenal Gate Receives the Marks
     tv_engineering_department.1135.d: Accepted cannon are stamped, armor harness is fitted, rejected metal is displayed as scrap, wage books are signed, and delivery rolls leave the arsenal gate. Milan now turns foundry contracts into land morale and production efficiency.
     tv_engineering_department.1135.a: Seal the Milan Arsenal reward.
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_PRIMARY_STATUS: Saint Basil's Cathedral Red Square chapel procession status
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_ROW_STATUS: Saint Basil's Cathedral proof rows
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_INCIDENT_LOG_LABEL: Saint Basil's Cathedral incident and retry log
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_PROGRESS_STATUS: Saint Basil's Cathedral ritual progress
+    tv_engineering_department.1136.t: Saint Basil's Cathedral Opens the Red Square Chapel Procession
+    tv_engineering_department.1136.d: Witnesses gather around Moscow, Red Square, the Kremlin gate route, clustered chapels, painted domes, alms stations, bell schedules, victory banners, merchant rows, clergy, veterans, petitioners, and guards. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1136.a: Open the Red Square chapel procession.
+    tv_engineering_department.1137.t: Choose the Saint Basil's Cathedral Proof
+    tv_engineering_department.1137.d: The sponsor must decide whether chapel order, victory memory, or public almsgiving carries the intercession proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1137.a: Let the chapels carry the intercession order.
+    tv_engineering_department.1137.b: Let victory banners and veterans carry the memory.
+    tv_engineering_department.1137.c: Let alms and public petitions carry the proof.
+    tv_engineering_department.1138.t: Certify the Saint Basil's Cathedral Rows
+    tv_engineering_department.1138.d: Inspectors and witnesses check chapel lamps, icon bearers, bell signals, sermon books, alms bowls, market closures, pilgrim places, guard cordons, and victory-banner stations. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1138.a: Certify the Saint Basil's Cathedral rows.
+    tv_engineering_department.1139.t: The Saint Basil's Cathedral Proof Falters
+    tv_engineering_department.1139.d: The ritual can fail because clergy object to the order, veterans claim the victory memory has been slighted, merchants resist the Red Square closures, or a succession prayer is challenged before the crowd. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1139.a: Return to the rows and retry.
+    tv_engineering_department.1139.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1140.t: Retry the Saint Basil's Cathedral Settlement
+    tv_engineering_department.1140.d: The retry branch lets the sponsor reorder the procession, compensate the offended witnesses, reopen the route, and retry the public intercession instead of flattening the rite into a generic cathedral blessing. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1140.a: Repair the proof and retry.
+    tv_engineering_department.1140.b: Accept the narrower branch.
+    tv_engineering_department.1141.t: Seal the Saint Basil's Cathedral Reward
+    tv_engineering_department.1141.d: The final handoff preserves monthly legitimacy, one-time legitimacy or unrest relief, and a local memory of prepared chapels, bell schedules, alms stations, guard posts, and victory petitions. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1141.a: Seal the Saint Basil's Cathedral reward.
+    TV_ENGINEERING_TRINITY_LAVRA_PRIMARY_STATUS: Trinity Lavra fortified scriptorium vigil status
+    TV_ENGINEERING_TRINITY_LAVRA_ROW_STATUS: Trinity Lavra proof rows
+    TV_ENGINEERING_TRINITY_LAVRA_INCIDENT_LOG_LABEL: Trinity Lavra incident and retry log
+    TV_ENGINEERING_TRINITY_LAVRA_PROGRESS_STATUS: Trinity Lavra ritual progress
+    tv_engineering_department.1142.t: Trinity Lavra Opens the Fortified Scriptorium Vigil
+    tv_engineering_department.1142.d: Witnesses gather around Moscow's Trinity Lavra, fortified walls, relic chapels, manuscript rooms, guest houses, pilgrim roads, novice schools, icon workshops, donation charters, relic guards, abbots, scribes, and patrons. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1142.a: Open the fortified scriptorium vigil.
+    tv_engineering_department.1143.t: Choose the Trinity Lavra Proof
+    tv_engineering_department.1143.d: The sponsor must decide whether the vigil privileges corrected manuscripts, relic guardianship, or pilgrim-road teaching before research can become public authority. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1143.a: Put corrected manuscripts first.
+    tv_engineering_department.1143.b: Put relic custody first.
+    tv_engineering_department.1143.c: Put pilgrim teaching roads first.
+    tv_engineering_department.1144.t: Certify the Trinity Lavra Rows
+    tv_engineering_department.1144.d: Inspectors and witnesses check library inventories, copied chronicles, corrected glosses, icon diagrams, novice lessons, pilgrim letters, guesthouse ledgers, donation seals, and wall watches. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1144.a: Certify the Trinity Lavra rows.
+    tv_engineering_department.1145.t: The Trinity Lavra Proof Falters
+    tv_engineering_department.1145.d: The ritual can fail because the monastery is overmilitarized, pilgrims lose trust, a manuscript chest is disputed, or relic guards refuse to let scholars turn the vigil into a state muster. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1145.a: Return to the rows and retry.
+    tv_engineering_department.1145.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1146.t: Retry the Trinity Lavra Settlement
+    tv_engineering_department.1146.d: The retry branch lets the sponsor renew monastic vows, separate guards from scribes, restore pilgrim trust, and retry the manuscript rows rather than changing the reward into army morale. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1146.a: Repair the proof and retry.
+    tv_engineering_department.1146.b: Accept the narrower branch.
+    tv_engineering_department.1147.t: Seal the Trinity Lavra Reward
+    tv_engineering_department.1147.d: The final handoff preserves research speed, one-time research or stability recovery, and a local memory of inventoried libraries, scriptoria, guesthouse routes, and protected records. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1147.a: Seal the Trinity Lavra reward.
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_PRIMARY_STATUS: Temple of Heaven winter solstice cosmic sacrifice status
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_ROW_STATUS: Temple of Heaven proof rows
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_INCIDENT_LOG_LABEL: Temple of Heaven incident and retry log
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_PROGRESS_STATUS: Temple of Heaven ritual progress
+    tv_engineering_department.1148.t: Temple of Heaven Opens the Winter Solstice Cosmic Sacrifice
+    tv_engineering_department.1148.d: Witnesses gather around Dadu's Temple of Heaven precinct, circular altar stones, fasting palace, cypress roads, calendar tables, music and dance rosters, harvest reports, ritual officials, censors, animals, grain offerings, and sovereign witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1148.a: Open the winter solstice cosmic sacrifice.
+    tv_engineering_department.1149.t: Choose the Temple of Heaven Proof
+    tv_engineering_department.1149.d: The sponsor must decide whether astronomical measurement, harvest offering, or public sovereign discipline carries the Mandate proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1149.a: Let the calendar tables carry the proof.
+    tv_engineering_department.1149.b: Let the harvest offerings carry the proof.
+    tv_engineering_department.1149.c: Let public sovereign fasting carry the proof.
+    tv_engineering_department.1150.t: Certify the Temple of Heaven Rows
+    tv_engineering_department.1150.d: Inspectors and witnesses check altar measurements, tablet placements, purified vessels, calendar readings, grain and animal lists, music rosters, fasting records, censor notes, and harvest bundles. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1150.a: Certify the Temple of Heaven rows.
+    tv_engineering_department.1151.t: The Temple of Heaven Proof Falters
+    tv_engineering_department.1151.d: The ritual can fail because a calendar reading is disputed, an offering is impure, a censor challenges the ruler's fasting discipline, or succession anxiety makes Heaven's witness politically unsafe. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1151.a: Return to the rows and retry.
+    tv_engineering_department.1151.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1152.t: Retry the Temple of Heaven Settlement
+    tv_engineering_department.1152.d: The retry branch lets the sponsor correct the sacrifice, name the failed official, remeasure the altar rows, and retry the public offering rather than turning the temple into a normal clergy festival. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1152.a: Repair the proof and retry.
+    tv_engineering_department.1152.b: Accept the narrower branch.
+    tv_engineering_department.1153.t: Seal the Temple of Heaven Reward
+    tv_engineering_department.1153.d: The final handoff preserves monthly legitimacy, state-faith tolerance, one-time mandate stability, and local memory of cleaned altar stones, purified vessels, calendar tables, and harvest reports. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1153.a: Seal the Temple of Heaven reward.
+    TV_ENGINEERING_ESCORIAL_MONASTERY_PRIMARY_STATUS: El Escorial royal cloister and pantheon vigil status
+    TV_ENGINEERING_ESCORIAL_MONASTERY_ROW_STATUS: El Escorial proof rows
+    TV_ENGINEERING_ESCORIAL_MONASTERY_INCIDENT_LOG_LABEL: El Escorial incident and retry log
+    TV_ENGINEERING_ESCORIAL_MONASTERY_PROGRESS_STATUS: El Escorial ritual progress
+    tv_engineering_department.1154.t: El Escorial Opens the Royal Cloister And Pantheon Vigil
+    tv_engineering_department.1154.d: Witnesses gather around El Escorial's austere monastery-palace, basilica, royal apartments, library, council rooms, pantheon, dynastic tomb keys, monastic schedules, court lodging lists, confessors, librarians, monks, ministers, and heirs. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1154.a: Open the royal cloister and pantheon vigil.
+    tv_engineering_department.1155.t: Choose the El Escorial Proof
+    tv_engineering_department.1155.d: The sponsor must decide whether dynastic burial, library-council order, or monastic discipline carries the royal cloister dedication. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1155.a: Let the pantheon carry dynastic memory.
+    tv_engineering_department.1155.b: Let library and council order carry the proof.
+    tv_engineering_department.1155.c: Let monastic discipline carry the dedication.
+    tv_engineering_department.1156.t: Certify the El Escorial Rows
+    tv_engineering_department.1156.d: Inspectors and witnesses check pantheon inspections, tomb-key custody, basilica service books, library catalogues, sealed council memorials, royal apartment rolls, dynastic masses, and court lodging lists. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1156.a: Certify the El Escorial rows.
+    tv_engineering_department.1157.t: The El Escorial Proof Falters
+    tv_engineering_department.1157.d: The ritual can fail because a burial precedence dispute, doctrinal objection, missing council memorial, or contested succession interrupts the vigil and threatens to make the monastery a factional palace. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1157.a: Return to the rows and retry.
+    tv_engineering_department.1157.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1158.t: Retry the El Escorial Settlement
+    tv_engineering_department.1158.d: The retry branch lets the sponsor repair the cloister settlement, reseal the library rows, settle tomb custody, and retry the vigil with dynastic memory and administrative order kept distinct. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1158.a: Repair the proof and retry.
+    tv_engineering_department.1158.b: Accept the narrower branch.
+    tv_engineering_department.1159.t: Seal the El Escorial Reward
+    tv_engineering_department.1159.d: The final handoff preserves monthly legitimacy, stability investment, one-time dynastic stability or corruption relief, and local memory of pantheon, library, cloister, and council rosters. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1159.a: Seal the El Escorial reward.
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_PRIMARY_STATUS: University of Bologna doctorate convocation of the nations status
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_ROW_STATUS: University of Bologna proof rows
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_INCIDENT_LOG_LABEL: University of Bologna incident and retry log
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_PROGRESS_STATUS: University of Bologna ritual progress
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_ACTOR_STATUS: University of Bologna assigned ritual actor
+    tv_engineering_department.1160.t: University of Bologna Opens the Doctorate Convocation Of The Nations
+    tv_engineering_department.1160.d: Witnesses gather around Bologna's law schools, student nations, lecture halls, rented lodgings, notary benches, manuscript desks, rector officers, jurists, foreign scholars, landlords, stationers, city magistrates, and degree witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1160.a: Open the doctorate convocation of the nations.
+    tv_engineering_department.1161.t: Choose the University of Bologna Proof
+    tv_engineering_department.1161.d: The sponsor must decide which doctor or jurist can mediate student-nation precedence while turning law teaching into recognized public authority. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1161.a: Assign a civil-law doctor.
+    tv_engineering_department.1161.b: Assign a canon-law mediator.
+    tv_engineering_department.1161.c: Assign a foreign nation rector.
+    tv_engineering_department.1162.t: Certify the University of Bologna Rows
+    tv_engineering_department.1162.d: Inspectors and witnesses check matriculation rolls, student nation books, lecture schedules, glossed manuscripts, disputation dockets, examination records, notary seals, rent settlements, and degree charters. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1162.a: Certify the University of Bologna rows.
+    tv_engineering_department.1163.t: The University of Bologna Proof Falters
+    tv_engineering_department.1163.d: The ritual can fail because a hostile student nation rejects the doctor, rent privileges are disputed, foreign scholars refuse precedence, or jurists claim the convocation has become a city power grab. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1163.a: Return to the rows and retry.
+    tv_engineering_department.1163.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1164.t: Retry the University of Bologna Settlement
+    tv_engineering_department.1164.d: The retry branch lets the sponsor replace the doctor, concede a privilege, reopen the disputation docket, and retry the convocation with the actor slot still visible. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1164.a: Repair the proof and retry.
+    tv_engineering_department.1164.b: Accept the narrower branch.
+    tv_engineering_department.1165.t: Seal the University of Bologna Reward
+    tv_engineering_department.1165.d: The final handoff preserves research speed, pop promotion speed, one-time scholar or legal legitimacy rewards, and local memory of degree rolls, nation books, notary seals, and graduate placement. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1165.a: Seal the University of Bologna reward.
+    TV_ENGINEERING_VARANASI_GHATS_PRIMARY_STATUS: Varanasi Ghats dawn lamps on the river steps status
+    TV_ENGINEERING_VARANASI_GHATS_ROW_STATUS: Varanasi Ghats proof rows
+    TV_ENGINEERING_VARANASI_GHATS_INCIDENT_LOG_LABEL: Varanasi Ghats incident and retry log
+    TV_ENGINEERING_VARANASI_GHATS_PROGRESS_STATUS: Varanasi Ghats ritual progress
+    tv_engineering_department.1166.t: Varanasi Ghats Opens the Dawn Lamps On The River Steps
+    tv_engineering_department.1166.d: Witnesses gather around Varanasi's river steps, lamp platforms, bathing places, cremation wood books, ash pits, boatmen, priests, pilgrim hostels, sanitation officers, festival routes, water marks, mourners, bathers, and crowd stewards. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1166.a: Open the dawn lamps on the river steps.
+    tv_engineering_department.1167.t: Choose the Varanasi Ghats Proof
+    tv_engineering_department.1167.d: The sponsor must decide whether lamp procession, bathing order, or cremation access defines how sacred water becomes a controlled civic routine. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1167.a: Order the lamp platforms first.
+    tv_engineering_department.1167.b: Order bathing access first.
+    tv_engineering_department.1167.c: Order cremation and mourning access first.
+    tv_engineering_department.1168.t: Certify the Varanasi Ghats Rows
+    tv_engineering_department.1168.d: Inspectors and witnesses check cleaned steps, water-level marks, lamp platforms, priest rosters, boatman registries, cremation wood books, ash pits, pilgrim registers, hostel ledgers, sanitation reports, and festival paths. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1168.a: Certify the Varanasi Ghats rows.
+    tv_engineering_department.1169.t: The Varanasi Ghats Proof Falters
+    tv_engineering_department.1169.d: The ritual can fail because overcrowded steps, contested cremation access, unsafe water, boatman refusal, or a festival crowd crush forces the sponsor to choose between holiness and civic order. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1169.a: Return to the rows and retry.
+    tv_engineering_department.1169.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1170.t: Retry the Varanasi Ghats Settlement
+    tv_engineering_department.1170.d: The retry branch lets the sponsor separate the processions, subsidize pilgrims, clean the steps, reset cremation access, and retry the dawn lamp register instead of abstracting the river into a temple counter. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1170.a: Repair the proof and retry.
+    tv_engineering_department.1170.b: Accept the narrower branch.
+    tv_engineering_department.1171.t: Seal the Varanasi Ghats Reward
+    tv_engineering_department.1171.d: The final handoff preserves stability investment, conversion speed, one-time religious unity or unrest relief, and local memory of cleaned steps, lamp platforms, cremation books, and pilgrim hostels. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1171.a: Seal the Varanasi Ghats reward.
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_PRIMARY_STATUS: Brihadishvara Temple great vimana consecration status
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_ROW_STATUS: Brihadishvara Temple proof rows
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_INCIDENT_LOG_LABEL: Brihadishvara Temple incident and retry log
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_PROGRESS_STATUS: Brihadishvara Temple ritual progress
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_ACTOR_STATUS: Brihadishvara Temple assigned ritual actor
+    tv_engineering_department.1172.t: Brihadishvara Temple Opens the Great Vimana Consecration
+    tv_engineering_department.1172.d: Witnesses gather around Thanjavur's great vimana, walled courts, bronzes, inscription walls, lamp ledgers, dancer and musician rosters, temple-land seals, village service lists, royal ancestors, priests, accountants, guardians, and officials. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1172.a: Open the great vimana consecration.
+    tv_engineering_department.1173.t: Choose the Brihadishvara Temple Proof
+    tv_engineering_department.1173.d: The sponsor must decide which priest, official, guardian, or scholar can steward the consecration without letting factional service rows discredit royal devotion. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1173.a: Assign a senior priest.
+    tv_engineering_department.1173.b: Assign a royal accountant.
+    tv_engineering_department.1173.c: Assign a temple guardian-scholar.
+    tv_engineering_department.1174.t: Certify the Brihadishvara Temple Rows
+    tv_engineering_department.1174.d: Inspectors and witnesses check anointed vimana stones, bronze inventories, lamp ledgers, dancer and musician rosters, inscription readings, temple-land audit seals, village confirmations, procession routes, and ancestor offerings. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1174.a: Certify the Brihadishvara Temple rows.
+    tv_engineering_department.1175.t: The Brihadishvara Temple Proof Falters
+    tv_engineering_department.1175.d: The ritual can fail because a weak steward mishandles temple lands, bronzes go missing, a service village refuses obligation, or the consecration reads as factional royal theater. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1175.a: Return to the rows and retry.
+    tv_engineering_department.1175.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1176.t: Retry the Brihadishvara Temple Settlement
+    tv_engineering_department.1176.d: The retry branch lets the sponsor replace the steward, narrow the rite, audit the village rows again, and retry the consecration with actor quality shaping the reward branch. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1176.a: Repair the proof and retry.
+    tv_engineering_department.1176.b: Accept the narrower branch.
+    tv_engineering_department.1177.t: Seal the Brihadishvara Temple Reward
+    tv_engineering_department.1177.d: The final handoff preserves monthly legitimacy, conversion speed, one-time legitimacy or temple-economy rewards, and local memory of vimana stones, bronzes, inscriptions, service rosters, and offerings. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1177.a: Seal the Brihadishvara Temple reward.
+    TV_ENGINEERING_CALICUT_PORT_CITY_PRIMARY_STATUS: Calicut Port City Zamorin's pepper wharf covenant status
+    TV_ENGINEERING_CALICUT_PORT_CITY_ROW_STATUS: Calicut Port City proof rows
+    TV_ENGINEERING_CALICUT_PORT_CITY_INCIDENT_LOG_LABEL: Calicut Port City incident and retry log
+    TV_ENGINEERING_CALICUT_PORT_CITY_PROGRESS_STATUS: Calicut Port City ritual progress
+    tv_engineering_department.1178.t: Calicut Port City Opens the Zamorin'S Pepper Wharf Covenant
+    tv_engineering_department.1178.d: Witnesses gather around Kozhikode's monsoon docks, pepper warehouses, anchorage tallies, interpreter benches, broker licenses, customs receipts, pilot notes, shipyards, foreign merchant streets, weighing tables, warehouse keys, and Zamorin's officers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1178.a: Open the Zamorin's pepper wharf covenant.
+    tv_engineering_department.1179.t: Choose the Calicut Port City Proof
+    tv_engineering_department.1179.d: The sponsor must decide which merchant community receives privileged pepper access and what cost the port state accepts for trusted monsoon trade. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1179.a: Privilege long-distance Muslim merchants.
+    tv_engineering_department.1179.b: Privilege local pepper brokers.
+    tv_engineering_department.1179.c: Privilege mixed foreign factory access.
+    tv_engineering_department.1180.t: Certify the Calicut Port City Rows
+    tv_engineering_department.1180.d: Inspectors and witnesses check monsoon schedules, pepper sample records, calibrated weights, broker licenses, interpreter registers, warehouse keys, anchorage tallies, customs receipts, pilot notes, and dispute ledgers. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1180.a: Certify the Calicut Port City rows.
+    tv_engineering_department.1181.t: The Calicut Port City Proof Falters
+    tv_engineering_department.1181.d: The ritual can fail because foreign merchants reject the privilege bargain, brokers cheat the weights, a warehouse key dispute stalls pepper sales, or the chosen compact provokes local merchant resistance. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1181.a: Return to the rows and retry.
+    tv_engineering_department.1181.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1182.t: Retry the Calicut Port City Settlement
+    tv_engineering_department.1182.d: The retry branch lets the sponsor revise the wharf covenant, rebalance access, reseal warehouse and interpreter rows, and retry the bargain without turning Calicut into a generic market charter. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1182.a: Repair the proof and retry.
+    tv_engineering_department.1182.b: Accept the narrower branch.
+    tv_engineering_department.1183.t: Seal the Calicut Port City Reward
+    tv_engineering_department.1183.d: The final handoff preserves trade income, trade range, one-time treasury or merchant rewards, and local memory of monsoon schedules, pepper weights, brokers, interpreters, and customs ledgers. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1183.a: Seal the Calicut Port City reward.
+    TV_ENGINEERING_MALBORK_CASTLE_PRIMARY_STATUS: Malbork Castle chapter muster of the brick fortress status
+    TV_ENGINEERING_MALBORK_CASTLE_ROW_STATUS: Malbork Castle proof rows
+    TV_ENGINEERING_MALBORK_CASTLE_INCIDENT_LOG_LABEL: Malbork Castle incident and retry log
+    TV_ENGINEERING_MALBORK_CASTLE_PROGRESS_STATUS: Malbork Castle ritual progress
+    TV_ENGINEERING_MALBORK_CASTLE_LISTENER_STATUS: Malbork Castle pre_winning_war validation state
+    tv_engineering_department.1184.t: Malbork Castle Opens the Chapter Muster Of The Brick Fortress
+    tv_engineering_department.1184.d: Witnesses gather around Malbork's brick High Castle, convent halls, chapel, granaries, stables, river barges, armories, banner rolls, chapter registers, commanders, brothers, garrison clerks, oath days, and Vistula supply routes. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1184.a: Open the chapter muster of the brick fortress.
+    tv_engineering_department.1185.t: Choose the Malbork Castle Proof
+    tv_engineering_department.1185.d: The sponsor must decide whether chapel oath, granary discipline, or river-wall service proves the military order before a winning war validates the fortress. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1185.a: Swear the chapel oath.
+    tv_engineering_department.1185.b: Count granary and armory service.
+    tv_engineering_department.1185.c: Prove the river walls and barges.
+    tv_engineering_department.1186.t: Certify the Malbork Castle Rows
+    tv_engineering_department.1186.d: Inspectors and witnesses check chapter rolls, granary seals, repaired armories, stable rosters, river barges, oath days, blessed banners, wall stores, and commandery service accounts. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1186.a: Certify the Malbork Castle rows.
+    tv_engineering_department.1187.t: The Malbork Castle Proof Falters
+    tv_engineering_department.1187.d: The ritual can fail because the order favors plunder over discipline, stores run short, commanderies contest service, or a war report shows the fortress survived without proving its oath. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1187.a: Return to the rows and retry.
+    tv_engineering_department.1187.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1188.t: Retry the Malbork Castle Settlement
+    tv_engineering_department.1188.d: The retry branch lets the sponsor reform the oath, resupply granaries, repair the wall rows, and retry the chapter muster before the war proof can hand off morale and manpower. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1188.a: Repair the proof and retry.
+    tv_engineering_department.1188.b: Accept the narrower branch.
+    tv_engineering_department.1189.t: Seal the Malbork Castle Reward
+    tv_engineering_department.1189.d: The final handoff preserves land morale, manpower, one-time garrison or army tradition rewards, and local memory of chapter rolls, granary seals, armories, banners, and river supply. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1189.a: Seal the Malbork Castle reward.
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_PRIMARY_STATUS: Zaporizhian Sich rada and river-fort oath status
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_ROW_STATUS: Zaporizhian Sich proof rows
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_INCIDENT_LOG_LABEL: Zaporizhian Sich incident and retry log
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_PROGRESS_STATUS: Zaporizhian Sich ritual progress
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_LISTENER_STATUS: Zaporizhian Sich ending_war validation state
+    tv_engineering_department.1190.t: Zaporizhian Sich Opens the Rada And River-Fort Oath
+    tv_engineering_department.1190.d: Witnesses gather around the Sich river fort, rada circle, palisades, kurin rolls, boats, wagon camps, powder ledgers, forges, scouts, horse lists, officer elections, blessed standards, frontier settlements, and Dnieper routes. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1190.a: Open the rada and river-fort oath.
+    tv_engineering_department.1191.t: Choose the Zaporizhian Sich Proof
+    tv_engineering_department.1191.d: The sponsor must decide whether elected oath, boat-and-wagon mobility, or frontier settlement service proves the host after war ends. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1191.a: Let the rada oath carry the proof.
+    tv_engineering_department.1191.b: Let boats and wagons carry the proof.
+    tv_engineering_department.1191.c: Let frontier settlement service carry the proof.
+    tv_engineering_department.1192.t: Certify the Zaporizhian Sich Rows
+    tv_engineering_department.1192.d: Inspectors and witnesses check rada rolls, blessed standards, officer elections, powder ledgers, caulked boats, repaired wagons, scout routes, horse lists, forge stores, and palisade repairs. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1192.a: Certify the Zaporizhian Sich rows.
+    tv_engineering_department.1193.t: The Zaporizhian Sich Proof Falters
+    tv_engineering_department.1193.d: The ritual can fail because the host scatters, boats are lost, a wagon camp is overrun, elected officers quarrel, or the ending-war audit shows a raid but not a disciplined frontier service framework. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1193.a: Return to the rows and retry.
+    tv_engineering_department.1193.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1194.t: Retry the Zaporizhian Sich Settlement
+    tv_engineering_department.1194.d: The retry branch lets the sponsor remuster the host, recaulk boats, rebuild wagons and palisades, and retry the rada proof before morale and manpower can become durable. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1194.a: Repair the proof and retry.
+    tv_engineering_department.1194.b: Accept the narrower branch.
+    tv_engineering_department.1195.t: Seal the Zaporizhian Sich Reward
+    tv_engineering_department.1195.d: The final handoff preserves land morale, manpower, one-time frontier security or tradition rewards, and local memory of rada rolls, standards, boats, wagons, scouts, and palisade repairs. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1195.a: Seal the Zaporizhian Sich reward.
+    TV_ENGINEERING_REGISTAN_SQUARE_PRIMARY_STATUS: Registan Square madrasa festival lecturer appointment status
+    TV_ENGINEERING_REGISTAN_SQUARE_ROW_STATUS: Registan Square proof rows
+    TV_ENGINEERING_REGISTAN_SQUARE_INCIDENT_LOG_LABEL: Registan Square incident and retry log
+    TV_ENGINEERING_REGISTAN_SQUARE_PROGRESS_STATUS: Registan Square ritual progress
+    TV_ENGINEERING_REGISTAN_SQUARE_ACTOR_STATUS: Registan Square assigned ritual actor
+    tv_engineering_department.1196.t: Registan Square Opens the Madrasa Festival Lecturer Appointment
+    tv_engineering_department.1196.d: Witnesses gather around Samarkand's Registan, madrasas, tiled facades, public square, lecture carpets, market edges, envoy seating plans, caravan lists, safe-conduct tablets, guard cordons, scholars, merchants, judges, and foreign witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1196.a: Open the madrasa festival lecturer appointment.
+    tv_engineering_department.1197.t: Choose the Registan Square Proof
+    tv_engineering_department.1197.d: The sponsor must decide which lecturer can speak between madrasas, markets, and envoys without letting one school monopolize the square. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1197.a: Assign a senior madrasa scholar.
+    tv_engineering_department.1197.b: Assign a market-facing jurist.
+    tv_engineering_department.1197.c: Assign an envoy-friendly lecturer.
+    tv_engineering_department.1198.t: Certify the Registan Square Rows
+    tv_engineering_department.1198.d: Inspectors and witnesses check repaired tilework, lecture carpets, envoy seating plans, safe-conduct tablets, caravan lists, gift inventories, guard cordons, and public disputation scripts. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1198.a: Certify the Registan Square rows.
+    tv_engineering_department.1199.t: The Registan Square Proof Falters
+    tv_engineering_department.1199.d: The ritual can fail because a rival madrasa rejects the lecturer, market elders object to closed ceremony, envoys dispute precedence, or the square turns scholarship into factional display. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1199.a: Return to the rows and retry.
+    tv_engineering_department.1199.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1200.t: Retry the Registan Square Settlement
+    tv_engineering_department.1200.d: The retry branch lets the sponsor hold a public debate, change the lecturer's mandate, reseat envoys, and retry the festival while preserving the plaza as scholarship in public theater. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1200.a: Repair the proof and retry.
+    tv_engineering_department.1200.b: Accept the narrower branch.
+    tv_engineering_department.1201.t: Seal the Registan Square Reward
+    tv_engineering_department.1201.d: The final handoff preserves monthly prestige, diplomatic reputation, one-time scholar or diplomatic rewards, and local memory of tilework, lecture carpets, safe-conducts, caravan lists, and public debate. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1201.a: Seal the Registan Square reward.
+    TV_ENGINEERING_FERGHANA_PALACE_PRIMARY_STATUS: Ferghana Palace Kokand audience of the valley gates status
+    TV_ENGINEERING_FERGHANA_PALACE_ROW_STATUS: Ferghana Palace proof rows
+    TV_ENGINEERING_FERGHANA_PALACE_INCIDENT_LOG_LABEL: Ferghana Palace incident and retry log
+    TV_ENGINEERING_FERGHANA_PALACE_PROGRESS_STATUS: Ferghana Palace ritual progress
+    TV_ENGINEERING_FERGHANA_PALACE_STOCKPILE_STATUS: Ferghana Palace tribute and gift stockpile
+    tv_engineering_department.1202.t: Ferghana Palace Opens the Kokand Audience Of The Valley Gates
+    tv_engineering_department.1202.d: Witnesses gather around Kokand's painted halls, carved columns, garden banquet spaces, valley gates, robe lists, tribute trays, horse registers, silk samples, envoy letters, qadi judgments, road-gate petitions, beks, merchants, horse breeders, and palace officers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1202.a: Open the Kokand audience of the valley gates.
+    tv_engineering_department.1203.t: Choose the Ferghana Palace Proof
+    tv_engineering_department.1203.d: The sponsor must decide which valley constituency receives audience access and what tribute, robes, horses, and road judgments must be stockpiled before oaths are credible. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1203.a: Privilege the beks at audience.
+    tv_engineering_department.1203.b: Privilege merchants and road envoys.
+    tv_engineering_department.1203.c: Privilege horse breeders and frontier guests.
+    tv_engineering_department.1204.t: Certify the Ferghana Palace Rows
+    tv_engineering_department.1204.d: Inspectors and witnesses check audience carpets, robe lists, tribute trays, horse registers, silk samples, road-gate judgments, envoy letters, garden banquet oaths, qadi notes, and gate-guard rosters. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1204.a: Certify the Ferghana Palace rows.
+    tv_engineering_department.1205.t: The Ferghana Palace Proof Falters
+    tv_engineering_department.1205.d: The ritual can fail because tribute trays are short, horse registers are challenged, beks dispute precedence, road-gate judgments offend merchants, or the audience bargain seems overgenerous. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1205.a: Return to the rows and retry.
+    tv_engineering_department.1205.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1206.t: Retry the Ferghana Palace Settlement
+    tv_engineering_department.1206.d: The retry branch lets the sponsor renegotiate audience terms, restock robes and horses, rehear road-gate judgments, and retry the palace bargain without copying a generic estate privilege chain. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1206.a: Repair the proof and retry.
+    tv_engineering_department.1206.b: Accept the narrower branch.
+    tv_engineering_department.1207.t: Seal the Ferghana Palace Reward
+    tv_engineering_department.1207.d: The final handoff preserves diplomatic reputation, monthly legitimacy, one-time legitimacy or trade rewards, and local memory of robes, horses, tribute trays, road judgments, envoy letters, and garden oaths. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1207.a: Seal the Ferghana Palace reward.
+    TV_ENGINEERING_LOUVRE_PALACE_PRIMARY_STATUS: Louvre Palace court exhibition and envoy gallery status
+    TV_ENGINEERING_LOUVRE_PALACE_ROW_STATUS: Louvre Palace proof rows
+    TV_ENGINEERING_LOUVRE_PALACE_INCIDENT_LOG_LABEL: Louvre Palace incident and retry log
+    TV_ENGINEERING_LOUVRE_PALACE_PROGRESS_STATUS: Louvre Palace ritual progress
+    tv_engineering_department.1208.t: Louvre Palace Opens the Court Exhibition And Envoy Gallery
+    tv_engineering_department.1208.d: Witnesses gather around Paris's Louvre, Seine landing, courtyards, galleries, facades, studios, guard rooms, council chambers, royal household officers, artists, architects, ambassadors, translators, secretaries, heralds, printers, and courtiers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1208.a: Open the court exhibition and envoy gallery.
+    tv_engineering_department.1209.t: Choose the Louvre Palace Proof
+    tv_engineering_department.1209.d: The sponsor must decide whether monarchy, artists, or diplomats control gallery access in the court exhibition before prestige and diplomatic reputation are trusted. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1209.a: Let the monarchy control gallery access.
+    tv_engineering_department.1209.b: Let artists and stewards control display order.
+    tv_engineering_department.1209.c: Let diplomats and precedence control the gallery.
+    tv_engineering_department.1210.t: Certify the Louvre Palace Rows
+    tv_engineering_department.1210.d: Inspectors and witnesses check gallery inventories, patronage rolls, envoy seating plans, restored facades, guarded Seine approaches, displayed gifts, dynastic portrait routes, guard orders, and printed exhibition lists. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1210.a: Certify the Louvre Palace rows.
+    tv_engineering_department.1211.t: The Louvre Palace Proof Falters
+    tv_engineering_department.1211.d: The ritual can fail because too much court control weakens artistic legitimacy, open access causes diplomatic scandal, a gift is mishandled, or artists object to being used as mere precedence furniture. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1211.a: Return to the rows and retry.
+    tv_engineering_department.1211.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1212.t: Retry the Louvre Palace Settlement
+    tv_engineering_department.1212.d: The retry branch lets the sponsor revise exhibition access, reseat envoys, republish patronage rolls, and retry the court settlement while preserving art and diplomacy as the same palace machine. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1212.a: Repair the proof and retry.
+    tv_engineering_department.1212.b: Accept the narrower branch.
+    tv_engineering_department.1213.t: Seal the Louvre Palace Reward
+    tv_engineering_department.1213.d: The final handoff preserves monthly prestige, diplomatic reputation, one-time prestige or favor, and local memory of gallery inventories, envoy seating, restored facades, Seine guards, gifts, and portraits. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1213.a: Seal the Louvre Palace reward.
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_PRIMARY_STATUS: Lyon Silk Workshops Grande Fabrique loom charter status
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_ROW_STATUS: Lyon Silk Workshops proof rows
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_INCIDENT_LOG_LABEL: Lyon Silk Workshops incident and retry log
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_PROGRESS_STATUS: Lyon Silk Workshops ritual progress
+    tv_engineering_department.1214.t: Lyon Silk Workshops Opens the Grande Fabrique Loom Charter
+    tv_engineering_department.1214.d: Witnesses gather around Lyon's silk workshops, loom rooms, dye houses, pattern archives, merchant counting rooms, Saone and Rhone bridges, fair booths, master weavers, apprentices, dyers, pattern drawers, merchants, inspectors, notaries, guards, and labor mediators. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1214.a: Open the Grande Fabrique loom charter.
+    tv_engineering_department.1215.t: Choose the Lyon Silk Workshops Proof
+    tv_engineering_department.1215.d: The sponsor must decide whether canut masters, dye houses, merchants, or open workshop access receives privilege in exchange for luxury production discipline. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1215.a: Privilege master weavers and loom order.
+    tv_engineering_department.1215.b: Privilege dye houses and pattern standards.
+    tv_engineering_department.1215.c: Privilege merchants and open fair access.
+    tv_engineering_department.1216.t: Certify the Lyon Silk Workshops Rows
+    tv_engineering_department.1216.d: Inspectors and witnesses check sealed pattern books, dye samples, apprentice rolls, inspected looms, merchant ledgers, fair contracts, river manifests, cloth bolts, wage notes, and sample cards. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1216.a: Certify the Lyon Silk Workshops rows.
+    tv_engineering_department.1217.t: The Lyon Silk Workshops Proof Falters
+    tv_engineering_department.1217.d: The ritual can fail because a closed guild charter raises output but sparks unrest, open access weakens quality, dye contamination ruins samples, or merchant credit collapses before the fair. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1217.a: Return to the rows and retry.
+    tv_engineering_department.1217.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1218.t: Retry the Lyon Silk Workshops Settlement
+    tv_engineering_department.1218.d: The retry branch lets the sponsor revise the guild charter, mediate labor, reseal dye and pattern rows, and retry the loom proof without turning Lyon into a generic market bargain. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1218.a: Repair the proof and retry.
+    tv_engineering_department.1218.b: Accept the narrower branch.
+    tv_engineering_department.1219.t: Seal the Lyon Silk Workshops Reward
+    tv_engineering_department.1219.d: The final handoff preserves global production efficiency, trade income, one-time output or artisan rewards, and local memory of pattern books, dye samples, apprentice rolls, inspected looms, ledgers, and river manifests. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1219.a: Seal the Lyon Silk Workshops reward.
+    TV_ENGINEERING_CARCASSONNE_CASTLE_PRIMARY_STATUS: Carcassonne Castle double-wall watch proof status
+    TV_ENGINEERING_CARCASSONNE_CASTLE_ROW_STATUS: Carcassonne Castle proof rows
+    TV_ENGINEERING_CARCASSONNE_CASTLE_INCIDENT_LOG_LABEL: Carcassonne Castle incident and retry log
+    TV_ENGINEERING_CARCASSONNE_CASTLE_PROGRESS_STATUS: Carcassonne Castle ritual progress
+    TV_ENGINEERING_CARCASSONNE_CASTLE_LISTENER_STATUS: Carcassonne Castle pre_winning_war validation state
+    tv_engineering_department.1220.t: Carcassonne Castle Opens the Double-Wall Watch Proof
+    tv_engineering_department.1220.d: Witnesses gather around Carcassonne's inner castle, outer walls, towers, market gates, granaries, crossbow stores, bell rosters, vineyard roads, village warning horns, gate keys, patrol captains, wall masons, townspeople, and frontier soldiers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.
+    tv_engineering_department.1220.a: Open the double-wall watch proof.
+    tv_engineering_department.1221.t: Choose the Carcassonne Castle Proof
+    tv_engineering_department.1221.d: The sponsor must decide whether inner keep, outer towers, or market gates define the defense before a pre-winning-war audit seals the double-wall proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.
+    tv_engineering_department.1221.a: Let the inner keep carry the doctrine.
+    tv_engineering_department.1221.b: Let the outer towers carry the doctrine.
+    tv_engineering_department.1221.c: Let market gates and roads carry the doctrine.
+    tv_engineering_department.1222.t: Certify the Carcassonne Castle Rows
+    tv_engineering_department.1222.d: Inspectors and witnesses check tower bell rosters, gate keys, crossbow stores, granary measures, repaired walls, market patrols, vineyard road watches, village warning horns, and wall-layer reports. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.
+    tv_engineering_department.1222.a: Certify the Carcassonne Castle rows.
+    tv_engineering_department.1223.t: The Carcassonne Castle Proof Falters
+    tv_engineering_department.1223.d: The ritual can fail because one wall layer is breached, the market gate opens too late, granaries are short, village horns fail, or the war audit shows only the inner keep held. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.
+    tv_engineering_department.1223.a: Return to the rows and retry.
+    tv_engineering_department.1223.b: Bring the dispute to a visible settlement.
+    tv_engineering_department.1224.t: Retry the Carcassonne Castle Settlement
+    tv_engineering_department.1224.d: The retry branch lets the sponsor repair the breached layer, privilege the correct gate watch, restock towers, and retry the proof before garrison size and morale become durable. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.
+    tv_engineering_department.1224.a: Repair the proof and retry.
+    tv_engineering_department.1224.b: Accept the narrower branch.
+    tv_engineering_department.1225.t: Seal the Carcassonne Castle Reward
+    tv_engineering_department.1225.d: The final handoff preserves garrison size, land morale, one-time garrison or manpower rewards, and local memory of wall rosters, gate keys, crossbow stores, granaries, patrols, and warning horns. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
+    tv_engineering_department.1225.a: Seal the Carcassonne Castle reward.
   simp_chinese:
     TV_ENGINEERING_ANGKOR_WAT_ALIGNMENT_STATUS: 吴哥王权神圣化校准教义
     TV_ENGINEERING_ANGKOR_WAT_ROW_STATUS: 吴哥护城河、回廊与贡赋行
@@ -11268,3 +11665,400 @@ wonder_localization:
     tv_engineering_department.1135.t: 兵工厂门接收印记
     tv_engineering_department.1135.d: 合格火炮被盖印，甲具试身，拒收金属作为废料展示，工资簿签署，交付名册离开兵工厂门。米兰把铸造合同转化为陆军士气与生产效率。
     tv_engineering_department.1135.a: 封存米兰兵工厂奖励。
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_PRIMARY_STATUS: 'ZH draft: Saint Basil''s Cathedral Red Square chapel procession status'
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_ROW_STATUS: 'ZH draft: Saint Basil''s Cathedral proof rows'
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_INCIDENT_LOG_LABEL: 'ZH draft: Saint Basil''s Cathedral incident and retry log'
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_PROGRESS_STATUS: 'ZH draft: Saint Basil''s Cathedral ritual progress'
+    tv_engineering_department.1136.t: 'ZH draft: Saint Basil''s Cathedral Opens the Red Square Chapel Procession'
+    tv_engineering_department.1136.d: 'ZH draft: Witnesses gather around Moscow, Red Square, the Kremlin gate route, clustered chapels, painted domes, alms stations, bell schedules, victory banners, merchant rows, clergy, veterans, petitioners, and guards. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1136.a: 'ZH draft: Open the Red Square chapel procession.'
+    tv_engineering_department.1137.t: 'ZH draft: Choose the Saint Basil''s Cathedral Proof'
+    tv_engineering_department.1137.d: 'ZH draft: The sponsor must decide whether chapel order, victory memory, or public almsgiving carries the intercession proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1137.a: 'ZH draft: Let the chapels carry the intercession order.'
+    tv_engineering_department.1137.b: 'ZH draft: Let victory banners and veterans carry the memory.'
+    tv_engineering_department.1137.c: 'ZH draft: Let alms and public petitions carry the proof.'
+    tv_engineering_department.1138.t: 'ZH draft: Certify the Saint Basil''s Cathedral Rows'
+    tv_engineering_department.1138.d: 'ZH draft: Inspectors and witnesses check chapel lamps, icon bearers, bell signals, sermon books, alms bowls, market closures, pilgrim places, guard cordons, and victory-banner stations. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1138.a: 'ZH draft: Certify the Saint Basil''s Cathedral rows.'
+    tv_engineering_department.1139.t: 'ZH draft: The Saint Basil''s Cathedral Proof Falters'
+    tv_engineering_department.1139.d: 'ZH draft: The ritual can fail because clergy object to the order, veterans claim the victory memory has been slighted, merchants resist the Red Square closures, or a succession prayer is challenged before the crowd. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1139.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1139.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1140.t: 'ZH draft: Retry the Saint Basil''s Cathedral Settlement'
+    tv_engineering_department.1140.d: 'ZH draft: The retry branch lets the sponsor reorder the procession, compensate the offended witnesses, reopen the route, and retry the public intercession instead of flattening the rite into a generic cathedral blessing. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1140.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1140.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1141.t: 'ZH draft: Seal the Saint Basil''s Cathedral Reward'
+    tv_engineering_department.1141.d: 'ZH draft: The final handoff preserves monthly legitimacy, one-time legitimacy or unrest relief, and a local memory of prepared chapels, bell schedules, alms stations, guard posts, and victory petitions. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1141.a: 'ZH draft: Seal the Saint Basil''s Cathedral reward.'
+    TV_ENGINEERING_TRINITY_LAVRA_PRIMARY_STATUS: 'ZH draft: Trinity Lavra fortified scriptorium vigil status'
+    TV_ENGINEERING_TRINITY_LAVRA_ROW_STATUS: 'ZH draft: Trinity Lavra proof rows'
+    TV_ENGINEERING_TRINITY_LAVRA_INCIDENT_LOG_LABEL: 'ZH draft: Trinity Lavra incident and retry log'
+    TV_ENGINEERING_TRINITY_LAVRA_PROGRESS_STATUS: 'ZH draft: Trinity Lavra ritual progress'
+    tv_engineering_department.1142.t: 'ZH draft: Trinity Lavra Opens the Fortified Scriptorium Vigil'
+    tv_engineering_department.1142.d: 'ZH draft: Witnesses gather around Moscow''s Trinity Lavra, fortified walls, relic chapels, manuscript rooms, guest houses, pilgrim roads, novice schools, icon workshops, donation charters, relic guards, abbots, scribes, and patrons. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1142.a: 'ZH draft: Open the fortified scriptorium vigil.'
+    tv_engineering_department.1143.t: 'ZH draft: Choose the Trinity Lavra Proof'
+    tv_engineering_department.1143.d: 'ZH draft: The sponsor must decide whether the vigil privileges corrected manuscripts, relic guardianship, or pilgrim-road teaching before research can become public authority. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1143.a: 'ZH draft: Put corrected manuscripts first.'
+    tv_engineering_department.1143.b: 'ZH draft: Put relic custody first.'
+    tv_engineering_department.1143.c: 'ZH draft: Put pilgrim teaching roads first.'
+    tv_engineering_department.1144.t: 'ZH draft: Certify the Trinity Lavra Rows'
+    tv_engineering_department.1144.d: 'ZH draft: Inspectors and witnesses check library inventories, copied chronicles, corrected glosses, icon diagrams, novice lessons, pilgrim letters, guesthouse ledgers, donation seals, and wall watches. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1144.a: 'ZH draft: Certify the Trinity Lavra rows.'
+    tv_engineering_department.1145.t: 'ZH draft: The Trinity Lavra Proof Falters'
+    tv_engineering_department.1145.d: 'ZH draft: The ritual can fail because the monastery is overmilitarized, pilgrims lose trust, a manuscript chest is disputed, or relic guards refuse to let scholars turn the vigil into a state muster. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1145.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1145.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1146.t: 'ZH draft: Retry the Trinity Lavra Settlement'
+    tv_engineering_department.1146.d: 'ZH draft: The retry branch lets the sponsor renew monastic vows, separate guards from scribes, restore pilgrim trust, and retry the manuscript rows rather than changing the reward into army morale. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1146.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1146.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1147.t: 'ZH draft: Seal the Trinity Lavra Reward'
+    tv_engineering_department.1147.d: 'ZH draft: The final handoff preserves research speed, one-time research or stability recovery, and a local memory of inventoried libraries, scriptoria, guesthouse routes, and protected records. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1147.a: 'ZH draft: Seal the Trinity Lavra reward.'
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_PRIMARY_STATUS: 'ZH draft: Temple of Heaven winter solstice cosmic sacrifice status'
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_ROW_STATUS: 'ZH draft: Temple of Heaven proof rows'
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_INCIDENT_LOG_LABEL: 'ZH draft: Temple of Heaven incident and retry log'
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_PROGRESS_STATUS: 'ZH draft: Temple of Heaven ritual progress'
+    tv_engineering_department.1148.t: 'ZH draft: Temple of Heaven Opens the Winter Solstice Cosmic Sacrifice'
+    tv_engineering_department.1148.d: 'ZH draft: Witnesses gather around Dadu''s Temple of Heaven precinct, circular altar stones, fasting palace, cypress roads, calendar tables, music and dance rosters, harvest reports, ritual officials, censors, animals, grain offerings, and sovereign witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1148.a: 'ZH draft: Open the winter solstice cosmic sacrifice.'
+    tv_engineering_department.1149.t: 'ZH draft: Choose the Temple of Heaven Proof'
+    tv_engineering_department.1149.d: 'ZH draft: The sponsor must decide whether astronomical measurement, harvest offering, or public sovereign discipline carries the Mandate proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1149.a: 'ZH draft: Let the calendar tables carry the proof.'
+    tv_engineering_department.1149.b: 'ZH draft: Let the harvest offerings carry the proof.'
+    tv_engineering_department.1149.c: 'ZH draft: Let public sovereign fasting carry the proof.'
+    tv_engineering_department.1150.t: 'ZH draft: Certify the Temple of Heaven Rows'
+    tv_engineering_department.1150.d: 'ZH draft: Inspectors and witnesses check altar measurements, tablet placements, purified vessels, calendar readings, grain and animal lists, music rosters, fasting records, censor notes, and harvest bundles. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1150.a: 'ZH draft: Certify the Temple of Heaven rows.'
+    tv_engineering_department.1151.t: 'ZH draft: The Temple of Heaven Proof Falters'
+    tv_engineering_department.1151.d: 'ZH draft: The ritual can fail because a calendar reading is disputed, an offering is impure, a censor challenges the ruler''s fasting discipline, or succession anxiety makes Heaven''s witness politically unsafe. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1151.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1151.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1152.t: 'ZH draft: Retry the Temple of Heaven Settlement'
+    tv_engineering_department.1152.d: 'ZH draft: The retry branch lets the sponsor correct the sacrifice, name the failed official, remeasure the altar rows, and retry the public offering rather than turning the temple into a normal clergy festival. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1152.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1152.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1153.t: 'ZH draft: Seal the Temple of Heaven Reward'
+    tv_engineering_department.1153.d: 'ZH draft: The final handoff preserves monthly legitimacy, state-faith tolerance, one-time mandate stability, and local memory of cleaned altar stones, purified vessels, calendar tables, and harvest reports. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1153.a: 'ZH draft: Seal the Temple of Heaven reward.'
+    TV_ENGINEERING_ESCORIAL_MONASTERY_PRIMARY_STATUS: 'ZH draft: El Escorial royal cloister and pantheon vigil status'
+    TV_ENGINEERING_ESCORIAL_MONASTERY_ROW_STATUS: 'ZH draft: El Escorial proof rows'
+    TV_ENGINEERING_ESCORIAL_MONASTERY_INCIDENT_LOG_LABEL: 'ZH draft: El Escorial incident and retry log'
+    TV_ENGINEERING_ESCORIAL_MONASTERY_PROGRESS_STATUS: 'ZH draft: El Escorial ritual progress'
+    tv_engineering_department.1154.t: 'ZH draft: El Escorial Opens the Royal Cloister And Pantheon Vigil'
+    tv_engineering_department.1154.d: 'ZH draft: Witnesses gather around El Escorial''s austere monastery-palace, basilica, royal apartments, library, council rooms, pantheon, dynastic tomb keys, monastic schedules, court lodging lists, confessors, librarians, monks, ministers, and heirs. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1154.a: 'ZH draft: Open the royal cloister and pantheon vigil.'
+    tv_engineering_department.1155.t: 'ZH draft: Choose the El Escorial Proof'
+    tv_engineering_department.1155.d: 'ZH draft: The sponsor must decide whether dynastic burial, library-council order, or monastic discipline carries the royal cloister dedication. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1155.a: 'ZH draft: Let the pantheon carry dynastic memory.'
+    tv_engineering_department.1155.b: 'ZH draft: Let library and council order carry the proof.'
+    tv_engineering_department.1155.c: 'ZH draft: Let monastic discipline carry the dedication.'
+    tv_engineering_department.1156.t: 'ZH draft: Certify the El Escorial Rows'
+    tv_engineering_department.1156.d: 'ZH draft: Inspectors and witnesses check pantheon inspections, tomb-key custody, basilica service books, library catalogues, sealed council memorials, royal apartment rolls, dynastic masses, and court lodging lists. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1156.a: 'ZH draft: Certify the El Escorial rows.'
+    tv_engineering_department.1157.t: 'ZH draft: The El Escorial Proof Falters'
+    tv_engineering_department.1157.d: 'ZH draft: The ritual can fail because a burial precedence dispute, doctrinal objection, missing council memorial, or contested succession interrupts the vigil and threatens to make the monastery a factional palace. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1157.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1157.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1158.t: 'ZH draft: Retry the El Escorial Settlement'
+    tv_engineering_department.1158.d: 'ZH draft: The retry branch lets the sponsor repair the cloister settlement, reseal the library rows, settle tomb custody, and retry the vigil with dynastic memory and administrative order kept distinct. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1158.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1158.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1159.t: 'ZH draft: Seal the El Escorial Reward'
+    tv_engineering_department.1159.d: 'ZH draft: The final handoff preserves monthly legitimacy, stability investment, one-time dynastic stability or corruption relief, and local memory of pantheon, library, cloister, and council rosters. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1159.a: 'ZH draft: Seal the El Escorial reward.'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_PRIMARY_STATUS: 'ZH draft: University of Bologna doctorate convocation of the nations status'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_ROW_STATUS: 'ZH draft: University of Bologna proof rows'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_INCIDENT_LOG_LABEL: 'ZH draft: University of Bologna incident and retry log'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_PROGRESS_STATUS: 'ZH draft: University of Bologna ritual progress'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_ACTOR_STATUS: 'ZH draft: University of Bologna assigned ritual actor'
+    tv_engineering_department.1160.t: 'ZH draft: University of Bologna Opens the Doctorate Convocation Of The Nations'
+    tv_engineering_department.1160.d: 'ZH draft: Witnesses gather around Bologna''s law schools, student nations, lecture halls, rented lodgings, notary benches, manuscript desks, rector officers, jurists, foreign scholars, landlords, stationers, city magistrates, and degree witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1160.a: 'ZH draft: Open the doctorate convocation of the nations.'
+    tv_engineering_department.1161.t: 'ZH draft: Choose the University of Bologna Proof'
+    tv_engineering_department.1161.d: 'ZH draft: The sponsor must decide which doctor or jurist can mediate student-nation precedence while turning law teaching into recognized public authority. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1161.a: 'ZH draft: Assign a civil-law doctor.'
+    tv_engineering_department.1161.b: 'ZH draft: Assign a canon-law mediator.'
+    tv_engineering_department.1161.c: 'ZH draft: Assign a foreign nation rector.'
+    tv_engineering_department.1162.t: 'ZH draft: Certify the University of Bologna Rows'
+    tv_engineering_department.1162.d: 'ZH draft: Inspectors and witnesses check matriculation rolls, student nation books, lecture schedules, glossed manuscripts, disputation dockets, examination records, notary seals, rent settlements, and degree charters. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1162.a: 'ZH draft: Certify the University of Bologna rows.'
+    tv_engineering_department.1163.t: 'ZH draft: The University of Bologna Proof Falters'
+    tv_engineering_department.1163.d: 'ZH draft: The ritual can fail because a hostile student nation rejects the doctor, rent privileges are disputed, foreign scholars refuse precedence, or jurists claim the convocation has become a city power grab. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1163.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1163.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1164.t: 'ZH draft: Retry the University of Bologna Settlement'
+    tv_engineering_department.1164.d: 'ZH draft: The retry branch lets the sponsor replace the doctor, concede a privilege, reopen the disputation docket, and retry the convocation with the actor slot still visible. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1164.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1164.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1165.t: 'ZH draft: Seal the University of Bologna Reward'
+    tv_engineering_department.1165.d: 'ZH draft: The final handoff preserves research speed, pop promotion speed, one-time scholar or legal legitimacy rewards, and local memory of degree rolls, nation books, notary seals, and graduate placement. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1165.a: 'ZH draft: Seal the University of Bologna reward.'
+    TV_ENGINEERING_VARANASI_GHATS_PRIMARY_STATUS: 'ZH draft: Varanasi Ghats dawn lamps on the river steps status'
+    TV_ENGINEERING_VARANASI_GHATS_ROW_STATUS: 'ZH draft: Varanasi Ghats proof rows'
+    TV_ENGINEERING_VARANASI_GHATS_INCIDENT_LOG_LABEL: 'ZH draft: Varanasi Ghats incident and retry log'
+    TV_ENGINEERING_VARANASI_GHATS_PROGRESS_STATUS: 'ZH draft: Varanasi Ghats ritual progress'
+    tv_engineering_department.1166.t: 'ZH draft: Varanasi Ghats Opens the Dawn Lamps On The River Steps'
+    tv_engineering_department.1166.d: 'ZH draft: Witnesses gather around Varanasi''s river steps, lamp platforms, bathing places, cremation wood books, ash pits, boatmen, priests, pilgrim hostels, sanitation officers, festival routes, water marks, mourners, bathers, and crowd stewards. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1166.a: 'ZH draft: Open the dawn lamps on the river steps.'
+    tv_engineering_department.1167.t: 'ZH draft: Choose the Varanasi Ghats Proof'
+    tv_engineering_department.1167.d: 'ZH draft: The sponsor must decide whether lamp procession, bathing order, or cremation access defines how sacred water becomes a controlled civic routine. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1167.a: 'ZH draft: Order the lamp platforms first.'
+    tv_engineering_department.1167.b: 'ZH draft: Order bathing access first.'
+    tv_engineering_department.1167.c: 'ZH draft: Order cremation and mourning access first.'
+    tv_engineering_department.1168.t: 'ZH draft: Certify the Varanasi Ghats Rows'
+    tv_engineering_department.1168.d: 'ZH draft: Inspectors and witnesses check cleaned steps, water-level marks, lamp platforms, priest rosters, boatman registries, cremation wood books, ash pits, pilgrim registers, hostel ledgers, sanitation reports, and festival paths. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1168.a: 'ZH draft: Certify the Varanasi Ghats rows.'
+    tv_engineering_department.1169.t: 'ZH draft: The Varanasi Ghats Proof Falters'
+    tv_engineering_department.1169.d: 'ZH draft: The ritual can fail because overcrowded steps, contested cremation access, unsafe water, boatman refusal, or a festival crowd crush forces the sponsor to choose between holiness and civic order. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1169.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1169.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1170.t: 'ZH draft: Retry the Varanasi Ghats Settlement'
+    tv_engineering_department.1170.d: 'ZH draft: The retry branch lets the sponsor separate the processions, subsidize pilgrims, clean the steps, reset cremation access, and retry the dawn lamp register instead of abstracting the river into a temple counter. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1170.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1170.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1171.t: 'ZH draft: Seal the Varanasi Ghats Reward'
+    tv_engineering_department.1171.d: 'ZH draft: The final handoff preserves stability investment, conversion speed, one-time religious unity or unrest relief, and local memory of cleaned steps, lamp platforms, cremation books, and pilgrim hostels. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1171.a: 'ZH draft: Seal the Varanasi Ghats reward.'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_PRIMARY_STATUS: 'ZH draft: Brihadishvara Temple great vimana consecration status'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_ROW_STATUS: 'ZH draft: Brihadishvara Temple proof rows'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_INCIDENT_LOG_LABEL: 'ZH draft: Brihadishvara Temple incident and retry log'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_PROGRESS_STATUS: 'ZH draft: Brihadishvara Temple ritual progress'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_ACTOR_STATUS: 'ZH draft: Brihadishvara Temple assigned ritual actor'
+    tv_engineering_department.1172.t: 'ZH draft: Brihadishvara Temple Opens the Great Vimana Consecration'
+    tv_engineering_department.1172.d: 'ZH draft: Witnesses gather around Thanjavur''s great vimana, walled courts, bronzes, inscription walls, lamp ledgers, dancer and musician rosters, temple-land seals, village service lists, royal ancestors, priests, accountants, guardians, and officials. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1172.a: 'ZH draft: Open the great vimana consecration.'
+    tv_engineering_department.1173.t: 'ZH draft: Choose the Brihadishvara Temple Proof'
+    tv_engineering_department.1173.d: 'ZH draft: The sponsor must decide which priest, official, guardian, or scholar can steward the consecration without letting factional service rows discredit royal devotion. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1173.a: 'ZH draft: Assign a senior priest.'
+    tv_engineering_department.1173.b: 'ZH draft: Assign a royal accountant.'
+    tv_engineering_department.1173.c: 'ZH draft: Assign a temple guardian-scholar.'
+    tv_engineering_department.1174.t: 'ZH draft: Certify the Brihadishvara Temple Rows'
+    tv_engineering_department.1174.d: 'ZH draft: Inspectors and witnesses check anointed vimana stones, bronze inventories, lamp ledgers, dancer and musician rosters, inscription readings, temple-land audit seals, village confirmations, procession routes, and ancestor offerings. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1174.a: 'ZH draft: Certify the Brihadishvara Temple rows.'
+    tv_engineering_department.1175.t: 'ZH draft: The Brihadishvara Temple Proof Falters'
+    tv_engineering_department.1175.d: 'ZH draft: The ritual can fail because a weak steward mishandles temple lands, bronzes go missing, a service village refuses obligation, or the consecration reads as factional royal theater. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1175.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1175.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1176.t: 'ZH draft: Retry the Brihadishvara Temple Settlement'
+    tv_engineering_department.1176.d: 'ZH draft: The retry branch lets the sponsor replace the steward, narrow the rite, audit the village rows again, and retry the consecration with actor quality shaping the reward branch. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1176.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1176.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1177.t: 'ZH draft: Seal the Brihadishvara Temple Reward'
+    tv_engineering_department.1177.d: 'ZH draft: The final handoff preserves monthly legitimacy, conversion speed, one-time legitimacy or temple-economy rewards, and local memory of vimana stones, bronzes, inscriptions, service rosters, and offerings. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1177.a: 'ZH draft: Seal the Brihadishvara Temple reward.'
+    TV_ENGINEERING_CALICUT_PORT_CITY_PRIMARY_STATUS: 'ZH draft: Calicut Port City Zamorin''s pepper wharf covenant status'
+    TV_ENGINEERING_CALICUT_PORT_CITY_ROW_STATUS: 'ZH draft: Calicut Port City proof rows'
+    TV_ENGINEERING_CALICUT_PORT_CITY_INCIDENT_LOG_LABEL: 'ZH draft: Calicut Port City incident and retry log'
+    TV_ENGINEERING_CALICUT_PORT_CITY_PROGRESS_STATUS: 'ZH draft: Calicut Port City ritual progress'
+    tv_engineering_department.1178.t: 'ZH draft: Calicut Port City Opens the Zamorin''S Pepper Wharf Covenant'
+    tv_engineering_department.1178.d: 'ZH draft: Witnesses gather around Kozhikode''s monsoon docks, pepper warehouses, anchorage tallies, interpreter benches, broker licenses, customs receipts, pilot notes, shipyards, foreign merchant streets, weighing tables, warehouse keys, and Zamorin''s officers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1178.a: 'ZH draft: Open the Zamorin''s pepper wharf covenant.'
+    tv_engineering_department.1179.t: 'ZH draft: Choose the Calicut Port City Proof'
+    tv_engineering_department.1179.d: 'ZH draft: The sponsor must decide which merchant community receives privileged pepper access and what cost the port state accepts for trusted monsoon trade. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1179.a: 'ZH draft: Privilege long-distance Muslim merchants.'
+    tv_engineering_department.1179.b: 'ZH draft: Privilege local pepper brokers.'
+    tv_engineering_department.1179.c: 'ZH draft: Privilege mixed foreign factory access.'
+    tv_engineering_department.1180.t: 'ZH draft: Certify the Calicut Port City Rows'
+    tv_engineering_department.1180.d: 'ZH draft: Inspectors and witnesses check monsoon schedules, pepper sample records, calibrated weights, broker licenses, interpreter registers, warehouse keys, anchorage tallies, customs receipts, pilot notes, and dispute ledgers. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1180.a: 'ZH draft: Certify the Calicut Port City rows.'
+    tv_engineering_department.1181.t: 'ZH draft: The Calicut Port City Proof Falters'
+    tv_engineering_department.1181.d: 'ZH draft: The ritual can fail because foreign merchants reject the privilege bargain, brokers cheat the weights, a warehouse key dispute stalls pepper sales, or the chosen compact provokes local merchant resistance. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1181.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1181.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1182.t: 'ZH draft: Retry the Calicut Port City Settlement'
+    tv_engineering_department.1182.d: 'ZH draft: The retry branch lets the sponsor revise the wharf covenant, rebalance access, reseal warehouse and interpreter rows, and retry the bargain without turning Calicut into a generic market charter. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1182.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1182.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1183.t: 'ZH draft: Seal the Calicut Port City Reward'
+    tv_engineering_department.1183.d: 'ZH draft: The final handoff preserves trade income, trade range, one-time treasury or merchant rewards, and local memory of monsoon schedules, pepper weights, brokers, interpreters, and customs ledgers. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1183.a: 'ZH draft: Seal the Calicut Port City reward.'
+    TV_ENGINEERING_MALBORK_CASTLE_PRIMARY_STATUS: 'ZH draft: Malbork Castle chapter muster of the brick fortress status'
+    TV_ENGINEERING_MALBORK_CASTLE_ROW_STATUS: 'ZH draft: Malbork Castle proof rows'
+    TV_ENGINEERING_MALBORK_CASTLE_INCIDENT_LOG_LABEL: 'ZH draft: Malbork Castle incident and retry log'
+    TV_ENGINEERING_MALBORK_CASTLE_PROGRESS_STATUS: 'ZH draft: Malbork Castle ritual progress'
+    TV_ENGINEERING_MALBORK_CASTLE_LISTENER_STATUS: 'ZH draft: Malbork Castle pre_winning_war validation state'
+    tv_engineering_department.1184.t: 'ZH draft: Malbork Castle Opens the Chapter Muster Of The Brick Fortress'
+    tv_engineering_department.1184.d: 'ZH draft: Witnesses gather around Malbork''s brick High Castle, convent halls, chapel, granaries, stables, river barges, armories, banner rolls, chapter registers, commanders, brothers, garrison clerks, oath days, and Vistula supply routes. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1184.a: 'ZH draft: Open the chapter muster of the brick fortress.'
+    tv_engineering_department.1185.t: 'ZH draft: Choose the Malbork Castle Proof'
+    tv_engineering_department.1185.d: 'ZH draft: The sponsor must decide whether chapel oath, granary discipline, or river-wall service proves the military order before a winning war validates the fortress. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1185.a: 'ZH draft: Swear the chapel oath.'
+    tv_engineering_department.1185.b: 'ZH draft: Count granary and armory service.'
+    tv_engineering_department.1185.c: 'ZH draft: Prove the river walls and barges.'
+    tv_engineering_department.1186.t: 'ZH draft: Certify the Malbork Castle Rows'
+    tv_engineering_department.1186.d: 'ZH draft: Inspectors and witnesses check chapter rolls, granary seals, repaired armories, stable rosters, river barges, oath days, blessed banners, wall stores, and commandery service accounts. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1186.a: 'ZH draft: Certify the Malbork Castle rows.'
+    tv_engineering_department.1187.t: 'ZH draft: The Malbork Castle Proof Falters'
+    tv_engineering_department.1187.d: 'ZH draft: The ritual can fail because the order favors plunder over discipline, stores run short, commanderies contest service, or a war report shows the fortress survived without proving its oath. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1187.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1187.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1188.t: 'ZH draft: Retry the Malbork Castle Settlement'
+    tv_engineering_department.1188.d: 'ZH draft: The retry branch lets the sponsor reform the oath, resupply granaries, repair the wall rows, and retry the chapter muster before the war proof can hand off morale and manpower. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1188.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1188.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1189.t: 'ZH draft: Seal the Malbork Castle Reward'
+    tv_engineering_department.1189.d: 'ZH draft: The final handoff preserves land morale, manpower, one-time garrison or army tradition rewards, and local memory of chapter rolls, granary seals, armories, banners, and river supply. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1189.a: 'ZH draft: Seal the Malbork Castle reward.'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_PRIMARY_STATUS: 'ZH draft: Zaporizhian Sich rada and river-fort oath status'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_ROW_STATUS: 'ZH draft: Zaporizhian Sich proof rows'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_INCIDENT_LOG_LABEL: 'ZH draft: Zaporizhian Sich incident and retry log'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_PROGRESS_STATUS: 'ZH draft: Zaporizhian Sich ritual progress'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_LISTENER_STATUS: 'ZH draft: Zaporizhian Sich ending_war validation state'
+    tv_engineering_department.1190.t: 'ZH draft: Zaporizhian Sich Opens the Rada And River-Fort Oath'
+    tv_engineering_department.1190.d: 'ZH draft: Witnesses gather around the Sich river fort, rada circle, palisades, kurin rolls, boats, wagon camps, powder ledgers, forges, scouts, horse lists, officer elections, blessed standards, frontier settlements, and Dnieper routes. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1190.a: 'ZH draft: Open the rada and river-fort oath.'
+    tv_engineering_department.1191.t: 'ZH draft: Choose the Zaporizhian Sich Proof'
+    tv_engineering_department.1191.d: 'ZH draft: The sponsor must decide whether elected oath, boat-and-wagon mobility, or frontier settlement service proves the host after war ends. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1191.a: 'ZH draft: Let the rada oath carry the proof.'
+    tv_engineering_department.1191.b: 'ZH draft: Let boats and wagons carry the proof.'
+    tv_engineering_department.1191.c: 'ZH draft: Let frontier settlement service carry the proof.'
+    tv_engineering_department.1192.t: 'ZH draft: Certify the Zaporizhian Sich Rows'
+    tv_engineering_department.1192.d: 'ZH draft: Inspectors and witnesses check rada rolls, blessed standards, officer elections, powder ledgers, caulked boats, repaired wagons, scout routes, horse lists, forge stores, and palisade repairs. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1192.a: 'ZH draft: Certify the Zaporizhian Sich rows.'
+    tv_engineering_department.1193.t: 'ZH draft: The Zaporizhian Sich Proof Falters'
+    tv_engineering_department.1193.d: 'ZH draft: The ritual can fail because the host scatters, boats are lost, a wagon camp is overrun, elected officers quarrel, or the ending-war audit shows a raid but not a disciplined frontier service framework. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1193.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1193.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1194.t: 'ZH draft: Retry the Zaporizhian Sich Settlement'
+    tv_engineering_department.1194.d: 'ZH draft: The retry branch lets the sponsor remuster the host, recaulk boats, rebuild wagons and palisades, and retry the rada proof before morale and manpower can become durable. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1194.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1194.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1195.t: 'ZH draft: Seal the Zaporizhian Sich Reward'
+    tv_engineering_department.1195.d: 'ZH draft: The final handoff preserves land morale, manpower, one-time frontier security or tradition rewards, and local memory of rada rolls, standards, boats, wagons, scouts, and palisade repairs. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1195.a: 'ZH draft: Seal the Zaporizhian Sich reward.'
+    TV_ENGINEERING_REGISTAN_SQUARE_PRIMARY_STATUS: 'ZH draft: Registan Square madrasa festival lecturer appointment status'
+    TV_ENGINEERING_REGISTAN_SQUARE_ROW_STATUS: 'ZH draft: Registan Square proof rows'
+    TV_ENGINEERING_REGISTAN_SQUARE_INCIDENT_LOG_LABEL: 'ZH draft: Registan Square incident and retry log'
+    TV_ENGINEERING_REGISTAN_SQUARE_PROGRESS_STATUS: 'ZH draft: Registan Square ritual progress'
+    TV_ENGINEERING_REGISTAN_SQUARE_ACTOR_STATUS: 'ZH draft: Registan Square assigned ritual actor'
+    tv_engineering_department.1196.t: 'ZH draft: Registan Square Opens the Madrasa Festival Lecturer Appointment'
+    tv_engineering_department.1196.d: 'ZH draft: Witnesses gather around Samarkand''s Registan, madrasas, tiled facades, public square, lecture carpets, market edges, envoy seating plans, caravan lists, safe-conduct tablets, guard cordons, scholars, merchants, judges, and foreign witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1196.a: 'ZH draft: Open the madrasa festival lecturer appointment.'
+    tv_engineering_department.1197.t: 'ZH draft: Choose the Registan Square Proof'
+    tv_engineering_department.1197.d: 'ZH draft: The sponsor must decide which lecturer can speak between madrasas, markets, and envoys without letting one school monopolize the square. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1197.a: 'ZH draft: Assign a senior madrasa scholar.'
+    tv_engineering_department.1197.b: 'ZH draft: Assign a market-facing jurist.'
+    tv_engineering_department.1197.c: 'ZH draft: Assign an envoy-friendly lecturer.'
+    tv_engineering_department.1198.t: 'ZH draft: Certify the Registan Square Rows'
+    tv_engineering_department.1198.d: 'ZH draft: Inspectors and witnesses check repaired tilework, lecture carpets, envoy seating plans, safe-conduct tablets, caravan lists, gift inventories, guard cordons, and public disputation scripts. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1198.a: 'ZH draft: Certify the Registan Square rows.'
+    tv_engineering_department.1199.t: 'ZH draft: The Registan Square Proof Falters'
+    tv_engineering_department.1199.d: 'ZH draft: The ritual can fail because a rival madrasa rejects the lecturer, market elders object to closed ceremony, envoys dispute precedence, or the square turns scholarship into factional display. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1199.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1199.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1200.t: 'ZH draft: Retry the Registan Square Settlement'
+    tv_engineering_department.1200.d: 'ZH draft: The retry branch lets the sponsor hold a public debate, change the lecturer''s mandate, reseat envoys, and retry the festival while preserving the plaza as scholarship in public theater. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1200.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1200.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1201.t: 'ZH draft: Seal the Registan Square Reward'
+    tv_engineering_department.1201.d: 'ZH draft: The final handoff preserves monthly prestige, diplomatic reputation, one-time scholar or diplomatic rewards, and local memory of tilework, lecture carpets, safe-conducts, caravan lists, and public debate. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1201.a: 'ZH draft: Seal the Registan Square reward.'
+    TV_ENGINEERING_FERGHANA_PALACE_PRIMARY_STATUS: 'ZH draft: Ferghana Palace Kokand audience of the valley gates status'
+    TV_ENGINEERING_FERGHANA_PALACE_ROW_STATUS: 'ZH draft: Ferghana Palace proof rows'
+    TV_ENGINEERING_FERGHANA_PALACE_INCIDENT_LOG_LABEL: 'ZH draft: Ferghana Palace incident and retry log'
+    TV_ENGINEERING_FERGHANA_PALACE_PROGRESS_STATUS: 'ZH draft: Ferghana Palace ritual progress'
+    TV_ENGINEERING_FERGHANA_PALACE_STOCKPILE_STATUS: 'ZH draft: Ferghana Palace tribute and gift stockpile'
+    tv_engineering_department.1202.t: 'ZH draft: Ferghana Palace Opens the Kokand Audience Of The Valley Gates'
+    tv_engineering_department.1202.d: 'ZH draft: Witnesses gather around Kokand''s painted halls, carved columns, garden banquet spaces, valley gates, robe lists, tribute trays, horse registers, silk samples, envoy letters, qadi judgments, road-gate petitions, beks, merchants, horse breeders, and palace officers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1202.a: 'ZH draft: Open the Kokand audience of the valley gates.'
+    tv_engineering_department.1203.t: 'ZH draft: Choose the Ferghana Palace Proof'
+    tv_engineering_department.1203.d: 'ZH draft: The sponsor must decide which valley constituency receives audience access and what tribute, robes, horses, and road judgments must be stockpiled before oaths are credible. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1203.a: 'ZH draft: Privilege the beks at audience.'
+    tv_engineering_department.1203.b: 'ZH draft: Privilege merchants and road envoys.'
+    tv_engineering_department.1203.c: 'ZH draft: Privilege horse breeders and frontier guests.'
+    tv_engineering_department.1204.t: 'ZH draft: Certify the Ferghana Palace Rows'
+    tv_engineering_department.1204.d: 'ZH draft: Inspectors and witnesses check audience carpets, robe lists, tribute trays, horse registers, silk samples, road-gate judgments, envoy letters, garden banquet oaths, qadi notes, and gate-guard rosters. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1204.a: 'ZH draft: Certify the Ferghana Palace rows.'
+    tv_engineering_department.1205.t: 'ZH draft: The Ferghana Palace Proof Falters'
+    tv_engineering_department.1205.d: 'ZH draft: The ritual can fail because tribute trays are short, horse registers are challenged, beks dispute precedence, road-gate judgments offend merchants, or the audience bargain seems overgenerous. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1205.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1205.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1206.t: 'ZH draft: Retry the Ferghana Palace Settlement'
+    tv_engineering_department.1206.d: 'ZH draft: The retry branch lets the sponsor renegotiate audience terms, restock robes and horses, rehear road-gate judgments, and retry the palace bargain without copying a generic estate privilege chain. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1206.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1206.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1207.t: 'ZH draft: Seal the Ferghana Palace Reward'
+    tv_engineering_department.1207.d: 'ZH draft: The final handoff preserves diplomatic reputation, monthly legitimacy, one-time legitimacy or trade rewards, and local memory of robes, horses, tribute trays, road judgments, envoy letters, and garden oaths. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1207.a: 'ZH draft: Seal the Ferghana Palace reward.'
+    TV_ENGINEERING_LOUVRE_PALACE_PRIMARY_STATUS: 'ZH draft: Louvre Palace court exhibition and envoy gallery status'
+    TV_ENGINEERING_LOUVRE_PALACE_ROW_STATUS: 'ZH draft: Louvre Palace proof rows'
+    TV_ENGINEERING_LOUVRE_PALACE_INCIDENT_LOG_LABEL: 'ZH draft: Louvre Palace incident and retry log'
+    TV_ENGINEERING_LOUVRE_PALACE_PROGRESS_STATUS: 'ZH draft: Louvre Palace ritual progress'
+    tv_engineering_department.1208.t: 'ZH draft: Louvre Palace Opens the Court Exhibition And Envoy Gallery'
+    tv_engineering_department.1208.d: 'ZH draft: Witnesses gather around Paris''s Louvre, Seine landing, courtyards, galleries, facades, studios, guard rooms, council chambers, royal household officers, artists, architects, ambassadors, translators, secretaries, heralds, printers, and courtiers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1208.a: 'ZH draft: Open the court exhibition and envoy gallery.'
+    tv_engineering_department.1209.t: 'ZH draft: Choose the Louvre Palace Proof'
+    tv_engineering_department.1209.d: 'ZH draft: The sponsor must decide whether monarchy, artists, or diplomats control gallery access in the court exhibition before prestige and diplomatic reputation are trusted. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1209.a: 'ZH draft: Let the monarchy control gallery access.'
+    tv_engineering_department.1209.b: 'ZH draft: Let artists and stewards control display order.'
+    tv_engineering_department.1209.c: 'ZH draft: Let diplomats and precedence control the gallery.'
+    tv_engineering_department.1210.t: 'ZH draft: Certify the Louvre Palace Rows'
+    tv_engineering_department.1210.d: 'ZH draft: Inspectors and witnesses check gallery inventories, patronage rolls, envoy seating plans, restored facades, guarded Seine approaches, displayed gifts, dynastic portrait routes, guard orders, and printed exhibition lists. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1210.a: 'ZH draft: Certify the Louvre Palace rows.'
+    tv_engineering_department.1211.t: 'ZH draft: The Louvre Palace Proof Falters'
+    tv_engineering_department.1211.d: 'ZH draft: The ritual can fail because too much court control weakens artistic legitimacy, open access causes diplomatic scandal, a gift is mishandled, or artists object to being used as mere precedence furniture. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1211.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1211.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1212.t: 'ZH draft: Retry the Louvre Palace Settlement'
+    tv_engineering_department.1212.d: 'ZH draft: The retry branch lets the sponsor revise exhibition access, reseat envoys, republish patronage rolls, and retry the court settlement while preserving art and diplomacy as the same palace machine. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1212.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1212.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1213.t: 'ZH draft: Seal the Louvre Palace Reward'
+    tv_engineering_department.1213.d: 'ZH draft: The final handoff preserves monthly prestige, diplomatic reputation, one-time prestige or favor, and local memory of gallery inventories, envoy seating, restored facades, Seine guards, gifts, and portraits. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1213.a: 'ZH draft: Seal the Louvre Palace reward.'
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_PRIMARY_STATUS: 'ZH draft: Lyon Silk Workshops Grande Fabrique loom charter status'
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_ROW_STATUS: 'ZH draft: Lyon Silk Workshops proof rows'
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_INCIDENT_LOG_LABEL: 'ZH draft: Lyon Silk Workshops incident and retry log'
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_PROGRESS_STATUS: 'ZH draft: Lyon Silk Workshops ritual progress'
+    tv_engineering_department.1214.t: 'ZH draft: Lyon Silk Workshops Opens the Grande Fabrique Loom Charter'
+    tv_engineering_department.1214.d: 'ZH draft: Witnesses gather around Lyon''s silk workshops, loom rooms, dye houses, pattern archives, merchant counting rooms, Saone and Rhone bridges, fair booths, master weavers, apprentices, dyers, pattern drawers, merchants, inspectors, notaries, guards, and labor mediators. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1214.a: 'ZH draft: Open the Grande Fabrique loom charter.'
+    tv_engineering_department.1215.t: 'ZH draft: Choose the Lyon Silk Workshops Proof'
+    tv_engineering_department.1215.d: 'ZH draft: The sponsor must decide whether canut masters, dye houses, merchants, or open workshop access receives privilege in exchange for luxury production discipline. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1215.a: 'ZH draft: Privilege master weavers and loom order.'
+    tv_engineering_department.1215.b: 'ZH draft: Privilege dye houses and pattern standards.'
+    tv_engineering_department.1215.c: 'ZH draft: Privilege merchants and open fair access.'
+    tv_engineering_department.1216.t: 'ZH draft: Certify the Lyon Silk Workshops Rows'
+    tv_engineering_department.1216.d: 'ZH draft: Inspectors and witnesses check sealed pattern books, dye samples, apprentice rolls, inspected looms, merchant ledgers, fair contracts, river manifests, cloth bolts, wage notes, and sample cards. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1216.a: 'ZH draft: Certify the Lyon Silk Workshops rows.'
+    tv_engineering_department.1217.t: 'ZH draft: The Lyon Silk Workshops Proof Falters'
+    tv_engineering_department.1217.d: 'ZH draft: The ritual can fail because a closed guild charter raises output but sparks unrest, open access weakens quality, dye contamination ruins samples, or merchant credit collapses before the fair. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1217.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1217.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1218.t: 'ZH draft: Retry the Lyon Silk Workshops Settlement'
+    tv_engineering_department.1218.d: 'ZH draft: The retry branch lets the sponsor revise the guild charter, mediate labor, reseal dye and pattern rows, and retry the loom proof without turning Lyon into a generic market bargain. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1218.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1218.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1219.t: 'ZH draft: Seal the Lyon Silk Workshops Reward'
+    tv_engineering_department.1219.d: 'ZH draft: The final handoff preserves global production efficiency, trade income, one-time output or artisan rewards, and local memory of pattern books, dye samples, apprentice rolls, inspected looms, ledgers, and river manifests. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1219.a: 'ZH draft: Seal the Lyon Silk Workshops reward.'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_PRIMARY_STATUS: 'ZH draft: Carcassonne Castle double-wall watch proof status'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_ROW_STATUS: 'ZH draft: Carcassonne Castle proof rows'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_INCIDENT_LOG_LABEL: 'ZH draft: Carcassonne Castle incident and retry log'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_PROGRESS_STATUS: 'ZH draft: Carcassonne Castle ritual progress'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_LISTENER_STATUS: 'ZH draft: Carcassonne Castle pre_winning_war validation state'
+    tv_engineering_department.1220.t: 'ZH draft: Carcassonne Castle Opens the Double-Wall Watch Proof'
+    tv_engineering_department.1220.d: 'ZH draft: Witnesses gather around Carcassonne''s inner castle, outer walls, towers, market gates, granaries, crossbow stores, bell rosters, vineyard roads, village warning horns, gate keys, patrol captains, wall masons, townspeople, and frontier soldiers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
+    tv_engineering_department.1220.a: 'ZH draft: Open the double-wall watch proof.'
+    tv_engineering_department.1221.t: 'ZH draft: Choose the Carcassonne Castle Proof'
+    tv_engineering_department.1221.d: 'ZH draft: The sponsor must decide whether inner keep, outer towers, or market gates define the defense before a pre-winning-war audit seals the double-wall proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
+    tv_engineering_department.1221.a: 'ZH draft: Let the inner keep carry the doctrine.'
+    tv_engineering_department.1221.b: 'ZH draft: Let the outer towers carry the doctrine.'
+    tv_engineering_department.1221.c: 'ZH draft: Let market gates and roads carry the doctrine.'
+    tv_engineering_department.1222.t: 'ZH draft: Certify the Carcassonne Castle Rows'
+    tv_engineering_department.1222.d: 'ZH draft: Inspectors and witnesses check tower bell rosters, gate keys, crossbow stores, granary measures, repaired walls, market patrols, vineyard road watches, village warning horns, and wall-layer reports. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
+    tv_engineering_department.1222.a: 'ZH draft: Certify the Carcassonne Castle rows.'
+    tv_engineering_department.1223.t: 'ZH draft: The Carcassonne Castle Proof Falters'
+    tv_engineering_department.1223.d: 'ZH draft: The ritual can fail because one wall layer is breached, the market gate opens too late, granaries are short, village horns fail, or the war audit shows only the inner keep held. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
+    tv_engineering_department.1223.a: 'ZH draft: Return to the rows and retry.'
+    tv_engineering_department.1223.b: 'ZH draft: Bring the dispute to a visible settlement.'
+    tv_engineering_department.1224.t: 'ZH draft: Retry the Carcassonne Castle Settlement'
+    tv_engineering_department.1224.d: 'ZH draft: The retry branch lets the sponsor repair the breached layer, privilege the correct gate watch, restock towers, and retry the proof before garrison size and morale become durable. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
+    tv_engineering_department.1224.a: 'ZH draft: Repair the proof and retry.'
+    tv_engineering_department.1224.b: 'ZH draft: Accept the narrower branch.'
+    tv_engineering_department.1225.t: 'ZH draft: Seal the Carcassonne Castle Reward'
+    tv_engineering_department.1225.d: 'ZH draft: The final handoff preserves garrison size, land morale, one-time garrison or manpower rewards, and local memory of wall rosters, gate keys, crossbow stores, granaries, patrols, and warning horns. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
+    tv_engineering_department.1225.a: 'ZH draft: Seal the Carcassonne Castle reward.'
