@@ -2189,7 +2189,7 @@ unique_wonders:
     - Harness supports listener names pre_winning_war and ending_war semantically, but source mapping for this ritual is not verified.
     - reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_pre_winning_war/on_winning_war scopes as root country plus scope:winner, scope:loser, and scope:war.
     - reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_ending_war as root country after winning/losing for both sides plus scope:winner, scope:loser, and scope:war.
-    - src/in_game/common/on_action/tv_engineering_department_on_action.txt bridges on_pre_winning_war to tv_engineering_department_ritual_on_pre_winning_war and on_ending_war to tv_engineering_department_ritual_on_ending_war.
+    - src/in_game/common/on_action/tv_pulse_bridges.txt bridges on_pre_winning_war to tv_engineering_department_ritual_on_pre_winning_war and on_ending_war to tv_engineering_department_ritual_on_ending_war.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_selected_ritual_pre_winning_war_listener_trigger and tv_wonder_selected_ritual_ending_war_listener_trigger.
     - capability:listener_gate
     - data/unique_wonder_ritual_capabilities.yaml:listener_gate supports pre_winning_war and ending_war as intermediate listener contracts with may_write_src false.

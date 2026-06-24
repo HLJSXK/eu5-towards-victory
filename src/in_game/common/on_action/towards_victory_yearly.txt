@@ -6,7 +6,7 @@
 
 # Supplemental on_action hooks for Towards Victory
 # Diplomatic and Cultural point accumulation hooks.
-# Hardcoded vanilla on_actions delegate to TV-owned callbacks so singleton effect blocks do not collide.
+# Parent hook bridge registration lives in tv_pulse_bridges.txt.
 
 tv_io_establishment_monthly_pulse = {
 	effect = {
@@ -14,10 +14,7 @@ tv_io_establishment_monthly_pulse = {
 	}
 }
 
-on_work_of_art_created = {
-	on_actions = { tv_on_work_of_art_created_callback }
-}
-
+# Registered under on_work_of_art_created by tv_pulse_bridges.txt.
 tv_on_work_of_art_created_callback = {
 	effect = {
 		root.owner ?= {

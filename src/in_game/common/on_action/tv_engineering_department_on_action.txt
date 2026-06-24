@@ -1,25 +1,5 @@
 ﻿# Towards Victory - Engineering Department on_action hooks
 
-on_game_start = {
-	on_actions = {
-		tv_wonder_initialize_index_on_game_start
-		tv_wonder_sync_final_building_level_maps_on_game_start
-		tv_wonder_initialize_existing_unique_wonders_on_game_start
-		tv_wonder_initialize_country_auto_cache_on_game_start
-		tv_wonder_initialize_location_display_state_on_game_start
-	}
-}
-
-on_game_load = {
-	on_actions = {
-		tv_wonder_initialize_index_on_game_load
-		tv_wonder_sync_final_building_level_maps_on_game_load
-		tv_wonder_initialize_existing_unique_wonders_on_game_load
-		tv_wonder_initialize_country_auto_cache_on_game_load
-		tv_wonder_initialize_location_display_state_on_game_load
-	}
-}
-
 tv_wonder_initialize_index_on_game_start = {
 	effect = {
 		hidden_effect = {
@@ -242,10 +222,6 @@ tv_engineering_department_ritual_on_ruler_death = {
 			tv_wonder_complete_active_ritual_effect = yes
 		}
 	}
-}
-
-on_pre_winning_war = {
-	on_actions = { tv_engineering_department_ritual_on_pre_winning_war }
 }
 
 tv_engineering_department_ritual_on_pre_winning_war = {

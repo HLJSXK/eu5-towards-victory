@@ -699,7 +699,7 @@ def gen_on_actions(data: dict) -> str:
     lines = [HEADER, ""]
     lines.append("# Supplemental on_action hooks for Towards Victory")
     lines.append("# Diplomatic and Cultural point accumulation hooks.")
-    lines.append("# Hardcoded vanilla on_actions delegate to TV-owned callbacks so singleton effect blocks do not collide.")
+    lines.append("# Parent hook bridge registration lives in tv_pulse_bridges.txt.")
     lines.append("")
     if establishment_paths(data):
         lines.append("tv_io_establishment_monthly_pulse = {")
@@ -711,10 +711,7 @@ def gen_on_actions(data: dict) -> str:
     for hook in data.get("on_actions", []):
         hook_name = hook["hook"]
         callback = hook.get("callback", f"tv_{hook_name}_callback")
-        lines.append(f"{hook_name} = {{")
-        lines.append(f"\ton_actions = {{ {callback} }}")
-        lines.append(f"}}")
-        lines.append("")
+        lines.append(f"# Registered under {hook_name} by tv_pulse_bridges.txt.")
         lines.append(f"{callback} = {{")
         lines.append(f"\teffect = {{")
         lines.append(indent(hook["effect_body"].rstrip(), 2))

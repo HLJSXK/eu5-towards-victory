@@ -979,7 +979,7 @@ tv_example_on_war_declared = {
 }
 ```
 
-For singleton pulse files that are copied from vanilla, use the pulse registry generator rather than hand-editing the generated output.
+For vanilla singleton pulses and shared hardcoded/general hook registrations, use the on_action bridge registry generator. It emits a TV-owned `tv_pulse_bridges.txt` bridge instead of vanilla filenames or feature-local parent hook blocks, and registers TV callbacks through `on_actions = { ... }` rather than copying vanilla pulse bodies.
 
 #### Monthly Country Pulse Event Delay
 

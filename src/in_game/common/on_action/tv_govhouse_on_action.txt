@@ -1,37 +1,5 @@
 ﻿# Towards Victory — Governor's House on_action hooks
 
-on_character_moved_country = {
-	on_actions = { tv_govhouse_governor_moved_country }
-}
-
-on_new_ruler = {
-	on_actions = { tv_govhouse_new_ruler }
-}
-
-on_character_marriage = {
-	on_actions = { tv_govhouse_character_marriage }
-}
-
-on_royal_marriage = {
-	on_actions = { tv_govhouse_royal_marriage }
-}
-
-on_dependency_gained = {
-	on_actions = { tv_govhouse_on_dependency_gained }
-}
-
-on_becoming_free = {
-	on_actions = { tv_govhouse_on_becoming_free }
-}
-
-on_subject_created = {
-	on_actions = { tv_govhouse_on_subject_created }
-}
-
-on_transfer_subject = {
-	on_actions = { tv_govhouse_on_transfer_subject }
-}
-
 # Monthly tick: advance Grand General training and resolve it after 12 months.
 tv_govhouse_training_monthly_pulse = {
 	effect = {

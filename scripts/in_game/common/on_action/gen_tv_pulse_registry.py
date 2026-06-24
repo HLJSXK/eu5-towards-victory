@@ -1,10 +1,12 @@
 """
-Generate vanilla singleton pulse files by copying them verbatim and injecting
-Towards Victory custom on_action names into their on_actions = {} blocks.
+Generate a bridge file that registers Towards Victory custom on_action names
+under vanilla singleton pulses and other shared/hardcoded on_actions.
 
-Hardcoded hooks from _hardcoded.txt are delegate-only: the generated mod file
-must not copy vanilla events/effects, because duplicate singleton effect blocks
-make Jomini keep only the most recent effect.
+The generated file is a small additive bridge. It declares only parent hook keys
+plus TV-owned `on_actions = { ... }`, letting vanilla or feature files provide
+the events/random_events/effect bodies. This avoids copying vanilla pulse
+content into the mod, avoids vanilla filename collisions, and avoids scattering
+singleton bridge blocks across feature files.
 
 Usage:
     conda run --no-capture-output -n eu5 python scripts/in_game/common/on_action/gen_tv_pulse_registry.py
@@ -21,23 +23,35 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 
 REGISTRY = REPO_ROOT / "data" / "pulse_registry.yaml"
 
-VANILLA_SOURCES = {
+HARDCODED_ON_ACTIONS = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "_hardcoded.txt"
+
+SOURCE_FILES: dict[str, Path | None] = {
     "monthly_country_pulse": REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_monthly.txt",
     "yearly_country_pulse":  REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_yearly.txt",
     "on_character_death":    REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
-    "on_ruler_death":        REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "_hardcoded.txt",
+    "on_ruler_death":        HARDCODED_ON_ACTIONS,
+    "on_game_start":         HARDCODED_ON_ACTIONS,
+    # on_game_load is fired by the CMF scripted GUI layer, not vanilla _hardcoded.txt.
+    "on_game_load":          None,
+    "on_work_of_art_created": HARDCODED_ON_ACTIONS,
+    "on_character_moved_country": HARDCODED_ON_ACTIONS,
+    "on_new_ruler":          HARDCODED_ON_ACTIONS,
+    "on_character_marriage": HARDCODED_ON_ACTIONS,
+    "on_royal_marriage":     HARDCODED_ON_ACTIONS,
+    "on_dependency_gained":  HARDCODED_ON_ACTIONS,
+    "on_becoming_free":      HARDCODED_ON_ACTIONS,
+    "on_subject_created":    HARDCODED_ON_ACTIONS,
+    "on_transfer_subject":   HARDCODED_ON_ACTIONS,
+    "on_war_declared":       HARDCODED_ON_ACTIONS,
+    "on_join_war":           HARDCODED_ON_ACTIONS,
+    "on_ending_war":         HARDCODED_ON_ACTIONS,
+    "on_pre_winning_war":    HARDCODED_ON_ACTIONS,
+    "on_location_changed_owner": HARDCODED_ON_ACTIONS,
+    # CMF scripted GUIs fire this custom callback hook.
+    "cmf_on_callback":       None,
 }
 
-OUTPUT_FILES = {
-    "monthly_country_pulse": REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "country_monthly.txt",
-    "yearly_country_pulse":  REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "country_yearly.txt",
-    "on_character_death":    REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
-    "on_ruler_death":        REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "ruler_death_pulses.txt",
-}
-
-DELEGATE_ONLY_PULSE = {
-    "on_ruler_death",
-}
+OUTPUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "on_action" / "tv_pulse_bridges.txt"
 
 SCRIPT_REL = "scripts/in_game/common/on_action/gen_tv_pulse_registry.py"
 DATA_REL    = "data/pulse_registry.yaml"
@@ -50,52 +64,15 @@ HEADER_TEMPLATE = """\
 
 """
 
-def find_on_actions_insertion(lines: list[str], pulse_name: str) -> int:
-    """Return the line index just before the closing } of the on_actions block
-    inside the named pulse definition. Raises ValueError if not found."""
-    in_pulse = False
-    pulse_depth = 0
-    in_on_actions = False
-    on_actions_depth = 0
-
-    for i, raw in enumerate(lines):
-        stripped = raw.strip()
-
-        if not in_pulse:
-            # Match e.g. "monthly_country_pulse = {"
-            if stripped.startswith(pulse_name) and "=" in stripped and "{" in stripped:
-                in_pulse = True
-                pulse_depth = 1
-            continue
-
-        # Count brace depth within the pulse block
-        opens  = stripped.count("{")
-        closes = stripped.count("}")
-
-        if not in_on_actions:
-            pulse_depth += opens - closes
-            if pulse_depth <= 0:
-                break  # exited pulse without finding on_actions
-            if "on_actions" in stripped and "=" in stripped and "{" in stripped:
-                in_on_actions = True
-                on_actions_depth = 1
-        else:
-            on_actions_depth += opens - closes
-            if on_actions_depth <= 0:
-                return i  # this line is the closing }
-
-    raise ValueError(f"on_actions block not found inside '{pulse_name}'")
-
-
-def extract_pulse_block(lines: list[str], pulse_name: str) -> list[str]:
-    """Return only the named on_action block from a multi-action vanilla file."""
+def extract_on_action_block(lines: list[str], hook_name: str) -> list[str]:
+    """Return only the named on_action block from a multi-action source file."""
     start_idx: int | None = None
     depth = 0
 
     for i, raw in enumerate(lines):
         stripped = raw.strip()
         if start_idx is None:
-            if stripped.startswith(pulse_name) and "=" in stripped and "{" in stripped:
+            if stripped.startswith(hook_name) and "=" in stripped and "{" in stripped:
                 start_idx = i
                 depth = stripped.count("{") - stripped.count("}")
                 if depth <= 0:
@@ -106,22 +83,13 @@ def extract_pulse_block(lines: list[str], pulse_name: str) -> list[str]:
         if depth <= 0:
             return lines[start_idx:i + 1]
 
-    raise ValueError(f"pulse block not found or unterminated: '{pulse_name}'")
+    raise ValueError(f"on_action block not found or unterminated: '{hook_name}'")
 
 
-def inject_additions(lines: list[str], insertion_idx: int, additions: list[str]) -> list[str]:
-    """Insert the TV addition names before lines[insertion_idx]."""
-    indent = "\t\t"
-    added = [f"{indent}# Towards Victory additions\n"]
-    for name in additions:
-        added.append(f"{indent}{name}\n")
-    return lines[:insertion_idx] + added + lines[insertion_idx:]
-
-
-def build_delegate_block(pulse_name: str, additions: list[str]) -> list[str]:
-    """Build a small hardcoded-hook bridge that calls TV-owned on_actions."""
+def build_bridge_block(hook_name: str, additions: list[str]) -> list[str]:
+    """Build a small bridge that registers TV-owned on_actions."""
     lines = [
-        f"{pulse_name} = {{\n",
+        f"{hook_name} = {{\n",
         "\ton_actions = {\n",
         "\t\t# Towards Victory additions\n",
     ]
@@ -134,38 +102,44 @@ def build_delegate_block(pulse_name: str, additions: list[str]) -> list[str]:
     return lines
 
 
-def generate_file(pulse_name: str, additions: list[str]) -> None:
-    src_path = VANILLA_SOURCES[pulse_name]
-    out_path = OUTPUT_FILES[pulse_name]
+def generate_block(hook_name: str, additions: list[str]) -> list[str]:
+    src_path = SOURCE_FILES[hook_name]
 
-    print(f"Reading vanilla: {src_path.relative_to(REPO_ROOT)}")
-    # Use utf-8-sig to strip UTF-8 BOM if present (some vanilla files start with BOM)
-    text = src_path.read_text(encoding="utf-8-sig")
-    lines = text.splitlines(keepends=True)
-    if pulse_name in DELEGATE_ONLY_PULSE:
-        extract_pulse_block(lines, pulse_name)
-        lines = build_delegate_block(pulse_name, additions)
+    if src_path is None:
+        print(f"Skipping source verification for custom hook: {hook_name}")
     else:
-        idx = find_on_actions_insertion(lines, pulse_name)
-        lines = inject_additions(lines, idx, additions)
-
-    header = HEADER_TEMPLATE.format(script=SCRIPT_REL, data=DATA_REL)
-    output = header + "".join(lines)
-
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(output, encoding="utf-8-sig")
-    print(f"Wrote: {out_path.relative_to(REPO_ROOT)}")
+        print(f"Reading source: {src_path.relative_to(REPO_ROOT)}")
+        # Use utf-8-sig to strip UTF-8 BOM if present (some vanilla files start with BOM)
+        text = src_path.read_text(encoding="utf-8-sig")
+        lines = text.splitlines(keepends=True)
+        extract_on_action_block(lines, hook_name)
+    return build_bridge_block(hook_name, additions)
 
 
 def main() -> None:
     registry = yaml.safe_load(REGISTRY.read_text(encoding="utf-8"))
-    pulses = registry.get("pulses", {})
+    groups = [
+        ("singleton pulse/death bridges", registry.get("pulses", {})),
+        ("general/hardcoded hook bridges", registry.get("bridges", {})),
+    ]
 
-    for pulse_name, additions in pulses.items():
-        if pulse_name not in VANILLA_SOURCES:
-            print(f"WARNING: no vanilla source mapped for '{pulse_name}', skipping")
-            continue
-        generate_file(pulse_name, additions)
+    blocks: list[str] = []
+    for label, hooks in groups:
+        group_blocks: list[str] = []
+        for hook_name, additions in hooks.items():
+            if hook_name not in SOURCE_FILES:
+                print(f"WARNING: no source mapping for '{hook_name}', skipping")
+                continue
+            group_blocks.append("".join(generate_block(hook_name, additions)).rstrip())
+        if group_blocks:
+            blocks.append(f"# {label}")
+            blocks.extend(group_blocks)
+
+    header = HEADER_TEMPLATE.format(script=SCRIPT_REL, data=DATA_REL)
+    output = header + "\n\n".join(blocks) + "\n"
+    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_FILE.write_text(output, encoding="utf-8-sig")
+    print(f"Wrote: {OUTPUT_FILE.relative_to(REPO_ROOT)}")
 
     print("Done.")
 

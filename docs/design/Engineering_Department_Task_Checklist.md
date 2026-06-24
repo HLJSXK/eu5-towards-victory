@@ -27,4 +27,4 @@ Status key: `[ ]` pending, `[~]` in progress, `[x]` complete.
 - [x] 11. Great Engineer proposals keep exclusion, but if refuting/bribing empties the feasible deck, immediately rebuild and roll a new feasible proposal instead of waiting for a new engineer.
   - Audit: `tv_wonder_reroll_proposal_after_rejection_effect` removes the current proposal, rolls, and rebuilds the feasible deck if the roll leaves no proposal.
 - [x] 12. Add four new wonder types with site suitability, base modifiers, three ceremonies each, buildings, events, UI, actions, triggers, localization, and validation: Giant Necropolis Complex, Great Lighthouse, Hydraulic Workshop Complex, Mining City.
-  - Audit: new proposal/site/ceremony/action/building/modifier/localization/game-concept entries are present for wonder IDs 4-7; `ruler_death_pulses.txt` is generated for Dynastic Burial.
+  - Audit: new proposal/site/ceremony/action/building/modifier/localization/game-concept entries are present for wonder IDs 4-7; `tv_pulse_bridges.txt` includes the Dynastic Burial `on_ruler_death` bridge.

@@ -1,16 +1,6 @@
 ﻿# Towards Victory - Wonder ownership transfer hooks
 
-# Singleton hardcoded hook.
 # root = changed location; scope:winner = new owner; scope:loser = previous owner.
-# Keep all TV location-owner callbacks in this one on_actions bridge instead of
-# defining a second top-level on_location_changed_owner block.
-on_location_changed_owner = {
-	on_actions = {
-		tv_govhouse_location_changed_owner
-		tv_wonder_ownership_location_changed_owner
-	}
-}
-
 # Fires only when the changed location has completed TV wonder state.
 tv_wonder_ownership_location_changed_owner = {
 	trigger = {

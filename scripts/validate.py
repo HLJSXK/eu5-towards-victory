@@ -475,31 +475,6 @@ def _same_ignoring_final_newline(left: str, right: str) -> bool:
 
 def check_vanilla_copy_integrity() -> None:
     """Ensure generated vanilla-copy files preserve copied vanilla content."""
-    pulse_files = {
-        "src/in_game/common/on_action/country_monthly.txt":
-            "reference_game_files/game/in_game/common/on_action/country_monthly.txt",
-        "src/in_game/common/on_action/country_yearly.txt":
-            "reference_game_files/game/in_game/common/on_action/country_yearly.txt",
-        "src/in_game/common/on_action/character_death_pulses.txt":
-            "reference_game_files/game/in_game/common/on_action/character_death_pulses.txt",
-    }
-    tv_pulse_block = re.compile(
-        r"\n?\t\t# Towards Victory additions\n(?:\t\ttv_[^\n]+\n)+"
-    )
-    for out_rel, vanilla_rel in pulse_files.items():
-        out_path = REPO_ROOT / out_rel
-        vanilla_path = REPO_ROOT / vanilla_rel
-        if not out_path.exists() or not vanilla_path.exists():
-            continue
-        copied = _strip_generated_header(_read_normalized_text(out_path))
-        copied_without_tv = tv_pulse_block.sub("\n", copied, count=1)
-        vanilla = _read_normalized_text(vanilla_path)
-        if not _same_ignoring_final_newline(copied_without_tv, vanilla):
-            issues.append(
-                f"[VANILLA_COPY] {out_rel} -- copied vanilla content differs from "
-                f"{vanilla_rel}; only the TV additions block may differ"
-            )
-
     character_out = REPO_ROOT / "src/in_game/common/customizable_localization/character_title.txt"
     character_vanilla = REPO_ROOT / "reference_game_files/game/in_game/common/customizable_localization/character_title.txt"
     if character_out.exists() and character_vanilla.exists():
