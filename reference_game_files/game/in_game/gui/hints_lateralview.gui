@@ -214,11 +214,6 @@ types HintsTypes
 							}
 
 							icon_hint = {	
-								visible = "[EqualTo_string(ScriptedHintItem.GetHintKey, 'hint_societal_values')]"
-								texture = "[GetConceptTexture('societal_value')]"
-							}
-
-							icon_hint = {	
 								visible = "[EqualTo_string(ScriptedHintItem.GetHintKey, 'hint_eco')]"
 								# texture = "gfx/interface/icons/trade_goods/icon_goods_slaves_goods.dds"
 								using = icon_colored_adm_texture
@@ -862,7 +857,7 @@ lateralview = {
 								alwaystransparent = yes
 								size = { 20 20 }
 								tooltip_enabled = no
-								down = "[HintsLateralView.IsAdmHintsOn]"
+								checked = "[HintsLateralView.IsAdmHintsOn]"
 								onclick = "[HintsLateralView.ToggleAdm]"
 							}
 						}
@@ -941,7 +936,7 @@ lateralview = {
 								alwaystransparent = yes
 								size = { 20 20 }
 								tooltip_enabled = no
-								down = "[HintsLateralView.IsDiploHintsOn]"
+								checked = "[HintsLateralView.IsDiploHintsOn]"
 								onclick = "[HintsLateralView.ToggleDiplo]"
 							}
 						}
@@ -1019,7 +1014,7 @@ lateralview = {
 								alwaystransparent = yes
 								size = { 20 20 }
 								tooltip_enabled = no
-								down = "[HintsLateralView.IsMilHintsOn]"
+								checked = "[HintsLateralView.IsMilHintsOn]"
 								onclick = "[HintsLateralView.ToggleMil]"
 							}
 						}

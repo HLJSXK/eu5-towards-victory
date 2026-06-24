@@ -46,12 +46,15 @@ types OrganizationPanel
 							parentanchor = vcenter
 								size = { 23 23 }
 								visible = "[IsPlayerValid]"
-								action_tooltip = {
-									title = "[SelectLocalization(IsIOFaved(InternationalOrganization.Self), 'UNPIN_OUTLINER', 'PIN_OUTLINER')]"
-									on_action = "[ToggleIOFav(InternationalOrganization.Self)]"
+								onclick = "[ToggleIOFav(InternationalOrganization.Self)]"
+								checked = "[IsIOFaved(InternationalOrganization.Self)]"
+								tooltipwidget = { 
+									LeftClickButtonTooltip = {
+										blockoverride "onclick_text" { 
+											text = "[SelectLocalization(IsIOFaved(InternationalOrganization.Self), 'UNPIN_OUTLINER', 'PIN_OUTLINER')]"
+										}
+									}
 								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
-								down = "[IsIOFaved(InternationalOrganization.Self)]"
 							}
 
 						tooltipwidget = {
@@ -222,10 +225,7 @@ types OrganizationPanel
 								using = SubTabIOOverviewTooltip
 							}
 
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'overview' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'overview' )]"
 							down = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
 						}
 
@@ -240,10 +240,7 @@ types OrganizationPanel
 							tooltipwidget = {
 								using = SubTabIOTreasuryTooltip
 							}
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'treasury' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'treasury' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'treasury' )]"
 						}
 
@@ -260,10 +257,7 @@ types OrganizationPanel
 									using = SubTabIOCandidatesTooltip
 								}
 							# }
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'candidates' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'candidates' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'candidates' )]"
 						}
 
@@ -285,10 +279,7 @@ types OrganizationPanel
 							tooltipwidget = {
 								using = SubTabIOLawsTooltip
 							}
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'laws' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'laws' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'laws' )]"
 						}
 
@@ -307,10 +298,7 @@ types OrganizationPanel
 									using = SubTabIOResolutionsTooltip
 								}
 							}
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'resolutions' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'resolutions' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'resolutions' )]"
 						}
 
@@ -327,10 +315,7 @@ types OrganizationPanel
 									using = SubTabIOCardinalsTooltip
 								}
 							# }
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'cardinals' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'cardinals' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'cardinals' )]"
 						}
 
@@ -353,10 +338,7 @@ types OrganizationPanel
 									using = SubTabIOFactionsTooltip
 								}
 							# }
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'factions' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'factions' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'factions' )]"
 						}
 
@@ -375,10 +357,7 @@ types OrganizationPanel
 									using = SubTabIOSaintsTooltip
 								}
 							# }
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'saints' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'saints' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'saints' )]"
 						}
 
@@ -395,10 +374,7 @@ types OrganizationPanel
 									using = SubTabIOHolySitesTooltip
 								}
 							# }
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'holy_sites' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'holy_sites' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'holy_sites' )]"
 						}
 
@@ -418,30 +394,8 @@ types OrganizationPanel
 								}
 							}
 							
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'parliament' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'parliament' )]"
 							down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'parliament' )]"
-						}
-						
-						button_secondary_tab_alt = {
-							using = layoutpolicy_expanding
-							block "organization_custom_tab_visible" {
-								visible = no
-							}
-							blockoverride "tab_text"{
-								block "organization_custom_tab_text" {
-									text = ""
-								}
-							}
-							block "organization_custom_tab_tooltip" {
-								tooltip_enabled = no
-							}
-							# block "organization_custom_tab_click" {
-								onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'custom' )]"
-								down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
-							# }
 						}
 						
 						button_secondary_tab_alt = {
@@ -455,10 +409,7 @@ types OrganizationPanel
 							tooltipwidget = {
 								using = SubTabIOAllMembersTooltip
 							}
-							action_tooltip = {
-								title = "OPEN_TAB"
-								on_action = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'members' )]"
-							}
+							onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'members' )]"
 							block "organization_members_tab_down" {
 								down = "[Or(InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' ),
 									And(And(Not(InternationalOrganizationsView.HasOverview), Not(InternationalOrganizationsView.HasActions)), 
@@ -466,6 +417,25 @@ types OrganizationPanel
 							}
 						}
 
+						button_secondary_tab_alt = {
+							using = layoutpolicy_expanding
+							block "organization_custom_tab_visible" {
+								visible = no
+							}
+							blockoverride "tab_text"{
+								block "organization_custom_tab_text" {
+									text = ""
+								}
+							}
+							block "organization_custom_tab_tooltip" {
+								tooltip = ""
+							}
+							# block "organization_custom_tab_click" {
+								onclick = "[InternationalOrganizationsView.Vars.Set( 'organizations', 'custom' )]"
+								down = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
+								tooltip_enabled = no
+							# }
+						}
 
 						# block "organization_custom_tabs" {}
 					}
@@ -592,9 +562,9 @@ types OrganizationPanel
                             margin_top = 5
 							spacing = 5
                             layoutpolicy_horizontal = expanding
-                            layoutpolicy_vertical = expanding
                             block "organization_custom_content" {}
                         }
+                        expand = {}
                     }
 					# vbox = {
 					# 	layoutpolicy_horizontal = expanding
@@ -661,7 +631,10 @@ types OrganizationPanel
 		blockoverride "menu_setup" {
 			name = "io_subheader_select_menu"
 		}
-		blockoverride "close_on_action" { on_action = "[IoSubheaderSelectMenu.OnClose]" }
+		blockoverride "close_button" {
+			onclick = "[IoSubheaderSelectMenu.OnClose]"
+		}
+
 		blockoverride "select_content" {
 			minimumsize = { 350 -1 }
 			spacing = 0
@@ -690,12 +663,15 @@ types OrganizationPanel
 				button_checkbox_visibility = {
 					size = { 30 30 }
 					position = { 5 1 }
-					down = "[InternationalOrganizationsView.Vars.Exists( 'laws_extended_view')]"
-					action_tooltip = {
-						title = "[SelectLocalization(InternationalOrganizationsView.Vars.Exists( 'laws_extended_view'), 'LAWS_COMPACTED_VIEW', 'LAWS_EXPANDED_VIEW')]"
-						on_action = "[InternationalOrganizationsView.Vars.Toggle( 'laws_extended_view')]"
+					checked = "[InternationalOrganizationsView.Vars.Exists( 'laws_extended_view')]"
+					onclick = "[InternationalOrganizationsView.Vars.Toggle( 'laws_extended_view')]"
+					tooltipwidget = {
+						LeftClickButtonTooltip = {
+							blockoverride "onclick_text" {
+								text = "[SelectLocalization(InternationalOrganizationsView.Vars.Exists( 'laws_extended_view'), 'LAWS_COMPACTED_VIEW', 'LAWS_EXPANDED_VIEW')]"
+							}
+						}
 					}
-					tooltipwidget = { BasicFunctionalTooltip = {} }
 				}
 
 				text_single = {
@@ -852,7 +828,6 @@ types OrganizationPanel
 								margin_right = 4
 								expand = {}
 								hbox = {
-									allow_outside = yes
 									spacing = 8
 									datacontext = "[ResolutionGlue.GetTarget('target').GetLaw]"
 									datamodel = "[Law.GetPoliciesDataModel]"
@@ -904,55 +879,8 @@ types OrganizationPanel
 													blockoverride "concept_link" {
 														text = "[policy|e]"
 													}
-													blockoverride "effects_list" {
-														TooltipConditionList = {
-															blockoverride "block_title" {
-																text = "game_concept_effects"
-															}
-															visible = "[ConditionList.HasItems]"
-															datacontext = "[StringToConditionListOnlyPassedAndNeutral(UIAction.GetEffects)]"
-														}
-														TooltipStringPairList = {
-															visible = "[Not(StringIsEmpty(Policy.GetModifierTextFor(IoSubheaderSelectMenu.Parent.GetPlayer.Self)))]"
-															blockoverride "block_title" {
-																text = "[modifiers|e]"
-															}
-															textcontext = "[Policy.GetModifierTextFor(IoSubheaderSelectMenu.Parent.GetPlayer.Self)]"
-														}
-														TooltipRowList = {
-															visible = "[Not(StringIsEmpty(Policy.GetEffectOnlyText))]"
-															blockoverride "rowlist_footer_visibility" {
-																visible = no
-															}
-															blockoverride "block_title" {
-																text = "WHEN_IMPLEMENTED"
-															}
-															ontextcontextchanged = "[SetRowListWithTitleFromTextContext(PdxGuiWidget.AccessSelf)]"
-															textcontext = "[Policy.GetEffectOnlyText]"
-														}
-													}
-													blockoverride "extra_tooltip_content" {
-														TooltipTextBlock = {
-															visible = "[Policy.BenefitsEmperor]"
-															blockoverride "bg_listbase" {
-																using = bg_listbase_template
-																background = {
-																	visible = "[InternationalOrganizationsView.GetInternationalOrganization.IsIOLeaderCountry(InternationalOrganizationsView.GetPlayer)]"
-																	using = text_mask_container_texture
-																	modify_texture = {
-																		using = color_mid_green_texture
-																	}
-																	alpha = 0.55
-																}
-															}
-															blockoverride "text" {
-																text = "POLICIES_BENEFITING_EMPEROR_SINGLE_DESC"
-															}
-														}
-													}
 												}
 											}
-											block "io_subheader_policy_emperor_comfort" {}
 										}
 									}
 								}
@@ -1100,10 +1028,8 @@ types OrganizationPanel
 										layoutpolicy_horizontal = expanding
 										using = Font_Size_Small
 										align = nobaseline|left
-										default_format = "#yellow_titles"										
-										text = "[ResolutionGlue.GetTarget('target').GetLaw.GetNameWithNoTooltip]"
-										datacontext = "[ResolutionGlue.GetTarget('target').GetLaw]"
-										tooltipwidget = { using = IO_Law_tooltip }
+										default_format = "#yellow_titles"
+										text = "[Law.GetName]"
 									}
 									hbox = {
 										layoutpolicy_horizontal = expanding
@@ -1205,25 +1131,6 @@ types OrganizationPanel
 												blockoverride "concept_link" {
 													text = "[policy|e]"
 												}
-												blockoverride "extra_tooltip_content" {
-													TooltipTextBlock = {
-														visible = "[Policy.BenefitsEmperor]"
-														blockoverride "bg_listbase" {
-															using = bg_listbase_template
-															background = {
-																visible = "[InternationalOrganizationsView.GetInternationalOrganization.IsIOLeaderCountry(InternationalOrganizationsView.GetPlayer)]"
-																using = text_mask_container_texture
-																modify_texture = {
-																	using = color_mid_green_texture
-																}
-																alpha = 0.55
-															}
-														}
-														blockoverride "text" {
-															text = "POLICIES_BENEFITING_EMPEROR_SINGLE_DESC"
-														}
-													}
-												}
 											}
 											
 											hbox = {
@@ -1264,7 +1171,6 @@ types OrganizationPanel
 															margin = { 5 5 }
 														}
 													}
-													block "io_subheader_policy_emperor_comfort_extended" {}
 												}
 				
 												hbox = {

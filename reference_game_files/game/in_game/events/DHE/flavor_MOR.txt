@@ -1532,10 +1532,7 @@ flavor_mor.25 = { #GRAVEYARD
 		monthly_chance = 10
 	}
 	trigger = {
-		custom_tooltip = {
-			text = variable_accepted_sidi_ahmed_ou_moussa_variable_tt
-			has_variable = accepted_sidi_ahmed_ou_moussa_variable
-		}
+		has_variable = accepted_sidi_ahmed_ou_moussa_variable
 		character:sidi_ahmed_ou_moussa_script = { is_alive = no }
 		owns = location:tiznit
 	}
@@ -2445,22 +2442,10 @@ flavor_mor.38 = {
 	option = {
 		name = flavor_mor.38.a
 
-		if = {
-			limit = {
-				can_declare_legal_war_on = { target = scope:target_country }
-			}
-			declare_war_with_cb = {
-				target = scope:target_country
-				type = casus_belli:cb_conquer_province
-				target_province = scope:target_country.capital.province
-			}
-		}
-		else = {
-			add_casus_belli = {
-				target = scope:target_country
-				type = casus_belli:cb_conquer_province
-				province = scope:target_country.capital.province
-			}
+		declare_war_with_cb = {
+			target = scope:target_country
+			type = casus_belli:cb_conquer_province
+			target_province = scope:target_country.capital.province
 		}
 	}
 

@@ -158,7 +158,7 @@ flavor_bah.1000 = {
 
         show_as_tooltip = {
             scope:target_art = {
-                move_art_and_owner = { location = root.capital country = root }
+                move_art = root.capital
             }
             add_truce_with = { target = scope:target_country }
         }
@@ -207,7 +207,7 @@ flavor_bah.1001 = {
 		historical_option = yes
 
         scope:target_art = {
-			move_art_and_owner = { location = scope:target_country2.capital country = scope:target_country2 }
+			move_art = scope:target_country2.capital
 		}
 		add_truce_with = { target = scope:target_country2 mutual = yes }
 

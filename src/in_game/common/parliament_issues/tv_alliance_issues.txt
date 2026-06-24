@@ -33,7 +33,7 @@
 	wants_this_parliament_issue_bias = {
 		add = {
 			desc = "VOTE_BASE_VALUE"
-			value = -25
+			value = 25
 		}
 		if = {
 			limit = {
@@ -88,7 +88,7 @@ tv_alliance_shared_intelligence_board = {
 	wants_this_parliament_issue_bias = {
 		add = {
 			desc = "VOTE_BASE_VALUE"
-			value = -25
+			value = 25
 		}
 		if = {
 			limit = {
@@ -143,7 +143,7 @@ tv_alliance_commercial_compromise = {
 	wants_this_parliament_issue_bias = {
 		add = {
 			desc = "VOTE_BASE_VALUE"
-			value = -25
+			value = 25
 		}
 		if = {
 			limit = {
@@ -162,4 +162,3 @@ tv_alliance_commercial_compromise = {
 		}
 	}
 }
-

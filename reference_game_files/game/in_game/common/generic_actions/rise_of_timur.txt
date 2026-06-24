@@ -6,11 +6,6 @@ rot_declare_conquest_ambition = {
 			tag = TIM
 		}
 	}
-	allow = {
-		scope:actor = {
-			is_rebel_country = no
-		}
-	}
 
 	automation_tick = never
 	automation_tick_frequency = 12
@@ -107,11 +102,6 @@ rot_plan_invasion = {
 	potential = {
 		scope:actor = {
 			tag = TIM
-		}
-	}
-	allow = {
-		scope:actor = {
-			is_rebel_country = no
 		}
 	}
 
@@ -275,12 +265,6 @@ rot_plan_invasion = {
 				divide = -10
 			}
 			multiply = "scope:actor.relative_military_strength(scope:target)"
-			if = {
-				limit = {
-					scope:target = { NOT = { is_neighbor_of = scope:actor } }
-				}
-				subtract = 1000
-			}
 		}
 	}
 }
@@ -295,7 +279,6 @@ rot_select_core_region = {
 	price = price:rot_select_core_region_price
 	allow = {
 		scope:actor = {
-			is_rebel_country = no
 			custom_tooltip = {
 				text = rot_has_NOT_selected_core_region_tt
 				NOT = { has_variable = rot_has_selected_core_region }
@@ -477,7 +460,6 @@ rot_reform_into_monarchy = {
 	price = price:rot_reform_into_monarchy_price
 	allow = {
 		scope:actor = {
-			is_rebel_country = no
 			at_war = no
 			NOT = { country_type = location }
 			custom_tooltip = {
@@ -524,7 +506,6 @@ rot_promote_regional_culture = {
 	}
 	allow = {
 		scope:actor = {
-			is_rebel_country = no
 			trigger_if = {
 				limit = { has_variable = rot_has_selected_core_region }
 				var:rot_has_selected_core_region = {

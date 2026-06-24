@@ -137,6 +137,24 @@ potential = {
 
 Direct `any_international_organizations_member_of` under `potential` can evaluate from an invalid root and log inconsistent trigger scopes (`invalid vs. country`). Vanilla `bribe_voter_for_policy` uses `scope:actor = { any_international_organizations_member_of = { ... } }` in its country interaction potential.
 
+#### Country Interaction Selection Pre-Evaluation
+
+Country interactions opened from panel buttons can evaluate `accept` scoring before a `select_trigger` has populated `scope:recipient`. Guard direct recipient reads inside `accept` with `exists = scope:recipient`, as vanilla `invite_settlers` does:
+
+```pdx
+accept = {
+    if = {
+        limit = { exists = scope:recipient }
+        add = {
+            desc = "THEIR_OPINION_TOOLTIP"
+            value = "scope:recipient.opinion(scope:actor)"
+        }
+    }
+}
+```
+
+The same interaction may also preview or walk `effect` before a selected target exists, so effect bodies that pass `scope:recipient` into IO membership changes should put the real mutation behind `if = { limit = { exists = scope:recipient } ... }`. Any actor-owned variable used by `accept` should be initialized at the lifecycle point that creates the feature; if an existing script can still evaluate before initialization, gate the value read with `scope:actor = { has_variable = <var> }` rather than reading `scope:actor.var:<var>` directly.
+
 #### International Organization Monthly Effects and Tooltips
 
 The shared IO tooltip can render visible children of an IO type's `monthly_effect` block. For internal monthly maintenance such as state repair, variable smoothing, member cleanup, or cached GUI refreshes, wrap the logic in `hidden_effect`:
@@ -239,7 +257,11 @@ Create an entry under `common/international_organization_special_statuses`, list
 
 Vanilla `policy_vote` checks `country_combined_special_status_power(scope:recipient) > 0` for IOs using parliament law votes. If no implemented special status supplies voting power, a law debate may begin but the IO parliament page has no voter group to display.
 
+The same vanilla law-vote path calls `call_parliament_for_law_change`, which must resolve a meeting location before it activates the IO parliament issue. For non-HRE IOs the lookup order is: `parliament_seat`, then a proposer-owned location that is owned by the IO, then a random IO-owned location. If a custom IO has no IO-owned locations, set the IO variable `parliament_seat` to a valid location such as the leader country's capital before policy votes can be proposed; otherwise `set_parliament_location` can receive a null target.
+
 Custom IO parliament sessions also need at least one valid `common/parliament_agendas` entry for the participating special status. Define it with `type = international_organization` and `special_status = <status>`, with `potential`/`allow` that pass for the IO. Otherwise the parliament UI can report that no special status wants to propose an issue even when valid `parliament_issues` exist.
+
+For player-callable idle IO parliament sessions, also ensure at least one normal issue for the participating special status is positively desired in ordinary states. The vanilla `call_organization_parliament` action builds its chooser from `every_possible_parliament_issue`; if all custom issues have non-positive `wants_this_parliament_issue_bias` after their normal base and modifiers, the picker can report that no special status has any issue to bring even when `potential`, `allow`, and `selectable_for` pass.
 
 For single-member or founder-only IOs, do not use the vanilla `call_organization_parliament` issue picker for support-token meetings. Even with a leader/founder special status, the picker can still report that no special status wants to propose an issue, and `propose_parliament_issue` initializes support from the issue special status before marking the proposer as voting yes. Redesign the mechanic before enabling custom support meetings for a founder-only IO.
 

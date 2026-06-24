@@ -10,18 +10,15 @@
 	allow = {
 		scope:target = {
 			NOT = { has_town_rights = town_rights_type:granary_town }
-			custom_tooltip = {
-				text = imperial_breadbasket_rights_rank_tt
-				OR = {
-					location_rank = location_rank:city
-					location_rank = location_rank:megalopolis
-				}
+			OR = {
+				location_rank = location_rank:city
+				location_rank = location_rank:megalopolis
 			}
 			custom_tooltip = {
 				text = imperial_breadbasket_rights_granary_tt
 				any_buildings_in_location = {
 					building_type = building_type:granary
-					building_level >= 5
+					is_at_max_level = yes
 				}
 			}
 		}
@@ -47,14 +44,11 @@ constantinopolitan_silk_monopoly_rights = {
 		}
 	}
 	
-	allow = {
+	allow = { 
 		scope:target = {
-			custom_tooltip = {
-				text = constantinopolitan_silk_monopoly_rights_tt
-				this = location:constantinople
-				is_full_expanded_rgo = yes
-			}
-		}
+			this = location:constantinople
+			is_full_expanded_rgo = yes
+		} 
 	}
 	
 	location_modifier = {
@@ -82,9 +76,11 @@ scholai_literacy_rights = {
 	allow = {
 		scope:target = {
 			dominant_culture ?= { has_culture_group = culture_group:greek_group }
-
-			has_building = building_type:university
-			development >= 20
+	
+			average_location_literacy <= {
+				value = owner.average_country_literacy
+				multiply = 1.25
+			}
 		}
 	}
 	location_modifier = {
@@ -109,14 +105,11 @@ municipia_privilegia = {
 		}
 	}
 	allow = {
-		custom_tooltip = {
-			text = municipia_privilegia_latin_tt
-			scope:target.owner = {
-				OR = {
-					societal_value:latinization_vs_hellenization < -50
-					court_language = language:latin_language
-					dominant_language = language:latin_language
-				}
+		scope:target.owner = { 
+			OR = {
+				societal_value:latinization_vs_hellenization < -50
+				court_language = language:latin_language
+				dominant_language = language:latin_language
 			}
 		}
 	}

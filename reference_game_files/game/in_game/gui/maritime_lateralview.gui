@@ -91,23 +91,6 @@ lateralview = {
 	name = "maritime_lateralview"
 	widgetid = "maritime_lateralview"
 
-	blockoverride "lateralview_topbuttons_extra" {
-		widget = {
-			parentanchor = vcenter
-			size = { 40 40 }
-			position = { 30 0 }
-			button_automation_shortcut = {
-				parentanchor = vcenter
-				size = { 25 25 }
-				action_tooltip = {
-					title = "OPEN_AUTOMATION_PANEL_FILTER"
-					on_action = "[OpenLateralViewWithFilter('automation', 'automation_filter_expansion')]"
-				}
-				tooltipwidget = { BasicFunctionalTooltip = {} }
-			}
-		}
-	}
-
 	blockoverride "panel_header" {
 		using = geopolitics_header
 	}
@@ -224,14 +207,35 @@ lateralview = {
 						layoutpolicy_vertical = expanding
 						name = "balance_overview_scene"
 						scene = "[Player.GenerateSceneDesc('maritime')]"
-						alpha = 1
-
-						using = scene_fade_horizontal
+						alpha = 0.5
+		
+						icon = {
+							size = { 100% 100% }
+							using = color_black_texture
+							alpha = 0.8
+		
+							modify_texture = {
+								using = bg_fade_vertical_up_mask_texture
+								blend_mode = alphamultiply
+							}
+						}
 					}
 				}
 
 				hbox = {
 					margin = { 8 0 }
+
+					background = {
+						using = color_dark_blue_texture
+						alpha = 1
+						margin_top = -140
+
+						modify_texture = {
+							using = bg_fade_vertical_up_mask_texture
+							blend_mode = alphamultiply
+							alpha = 1
+						}
+					}
 
 					vbox = {
 						using = layoutpolicy_expanding
@@ -420,10 +424,7 @@ lateralview = {
 						tooltipwidget = {
 							using = SubTabCoastsTooltip
 						}
-						action_tooltip = {
-							title = "OPEN_TAB"
-							on_action = "[MaritimeLateralView.Vars.Set( 'low_tab', 'coasts' )]"
-						}
+						onclick = "[MaritimeLateralView.Vars.Set( 'low_tab', 'coasts' )]"
 						down = "[MaritimeLateralView.Vars.NotExistOrHasValue( 'low_tab', 'coasts' )]"
 					}
 

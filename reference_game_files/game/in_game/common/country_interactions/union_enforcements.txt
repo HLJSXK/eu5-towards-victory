@@ -14,20 +14,8 @@
 		looking_for_a = country
 		interaction_source_list = {
 			scope:actor = {
-				union = {
-					if = {
-						limit = {
-							modifier:enabled_union_enforcement_actions = yes
-							country_has_special_status = {
-								type = special_status:senior_partner
-								country = scope:actor
-							}
-						}
-						every_international_organization_member = {
-							limit = { NOT = { this = scope:actor } }
-							add_to_list = source
-						}
-					}
+				every_subject = {
+					add_to_list = source
 				}
 			}
 		}
@@ -110,20 +98,8 @@ union_enforce_culture = {
 		looking_for_a = country
 		interaction_source_list = {
 			scope:actor = {
-				union = {
-					if = {
-						limit = {
-							modifier:enabled_union_enforcement_actions = yes
-							country_has_special_status = {
-								type = special_status:senior_partner
-								country = scope:actor
-							}
-						}
-						every_international_organization_member = {
-							limit = { NOT = { this = scope:actor } }
-							add_to_list = source
-						}
-					}
+				every_subject = {
+					add_to_list = source
 				}
 			}
 		}

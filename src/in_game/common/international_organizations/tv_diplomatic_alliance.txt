@@ -121,13 +121,18 @@
 	}
 
 	on_creation = {
+		set_parliament_type = parliament_type:tv_alliance_assembly
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
 		}
+		tv_diplomatic_alliance_sync_parliament_special_statuses_effect = yes
 	}
 
 	on_joined = {
+		scope:recipient = {
+			tv_diplomatic_alliance_sync_parliament_special_statuses_effect = yes
+		}
 		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
 		if = {
 			limit = {
@@ -150,6 +155,19 @@
 	}
 
 	on_left = {
+		if = {
+			limit = { exists = scope:recipient }
+			scope:recipient = {
+				international_organization_remove_special_status = {
+					type = special_status:tv_alliance_advocator
+					country = root
+				}
+				international_organization_remove_special_status = {
+					type = special_status:tv_alliance_member_status
+					country = root
+				}
+			}
+		}
 		remove_variable = tv_diplomatic_alliance_member
 	}
 

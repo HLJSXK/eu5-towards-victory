@@ -333,10 +333,15 @@ lateralview_full = {
 												layoutpolicy_horizontal = expanding
 												autoresize = no
 												align = right|nobaseline
-												raw_text = "#G [Country.GetGDP|4]#!@gold!"
+	
+												text = "[Country.GetGDP|2+=%]"
 											}
-											tooltip = "[gdp_per_capita]"
-											tagtooltip_enabled = yes
+											# icon = {
+											# 	size = { 16 16 }
+											# 	texture = "[GetConceptTexture('income')]"
+											# }
+											# tooltip = "[income]"
+											# tagtooltip_enabled = yes
 											sort_by_highlight = {
 												name = "gdp"
 											}

@@ -30,22 +30,6 @@ succession_crisis.1 = {
 		}
 		if = {
 			limit = {
-				tag = BYZ
-				character:byz_andronikos_iii_palaiologos ?= { is_alive = no }
-				character:byz_john_kantakouzenos ?= {
-					is_alive = yes
-					is_adult = yes
-					is_ruler = no
-					owner = ROOT
-					NOT = { has_character_modifier = BYZ_kantakouzenos_co_emperor }
-				}
-			}
-			character:byz_john_kantakouzenos = {
-				save_scope_as = scope_pretender
-			}
-		}
-		else_if = {
-			limit = {
 				"estate_power(estate_type:nobles_estate)" >= 0.5
 				has_ruler = yes
 				ruler = {
@@ -241,16 +225,11 @@ succession_crisis.1 = {
 		every_character = {
 			limit = {
 				owner = root
-				NOT = { this = scope:scope_pretender }
 				is_adult = yes
 				is_alive = yes
 				OR = {
+					is_close_relative = scope:scope_pretender
 					is_spouse_of = scope:scope_pretender
-					AND = {
-						has_dynasty = yes
-						scope:scope_pretender = { has_dynasty = yes }
-						dynasty = scope:scope_pretender.dynasty
-					}
 				}
 				NOR = {
 					is_ruler = yes
@@ -738,9 +717,13 @@ succession_crisis.6 = {
 		set_variable = {
 			name = approximate_target_country_income_variable
 			value = {
-				add = scope:actor.monthly_income_total
+				add = scope:target_country.monthly_income_total
 				multiply = 4
-				min = 200
+				min = 50
+				max = {
+					value = monthly_income_total
+					multiply = 12
+				}
 			}
 		}
 
@@ -804,10 +787,7 @@ succession_crisis.6 = {
 	option = {
 		name = succession_crisis.6.b
 
-		trigger = {
-			exists = scope:target_province
-			has_limited_diplomacy = no
-		}
+		trigger = { exists = scope:target_province }
 
 		ai_chance = { factor = 10 }
 
@@ -871,8 +851,6 @@ succession_crisis.7 = {
 		trigger = {
 			scope:target_country2 = { has_variable = money_request_variable }
 		}
-
-		hidden_effect = { add_gold = scope:target_country_2.var:approximate_target_country_income_variable }
 
 		give_loan = {
 			target = scope:target_country2

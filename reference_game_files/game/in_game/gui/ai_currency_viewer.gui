@@ -399,12 +399,9 @@ window = {
 								disableframe = 4
 
 								text = "[AiCurrencyClassGlue.GetName]"
-								action_tooltip = {
-									title = "AI_CURRENCY_VIEWER_OPEN_VIEW"
-									on_action = "[AiCurrencyViewer.OpenAiCurrencyClassView(AiCurrencyClassGlue.AccessSelf)]"
-								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
+								onclick = "[AiCurrencyViewer.OpenAiCurrencyClassView(AiCurrencyClassGlue.AccessSelf)]"
 								down = "[AiCurrencyViewer.IsAiCurrencyClassViewOpen(AiCurrencyClassGlue.Self)]"
+								tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "AI_CURRENCY_VIEWER_OPEN_VIEW" } } }
 							}
 						}
 					}

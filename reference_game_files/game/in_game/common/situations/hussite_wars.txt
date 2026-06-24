@@ -3,10 +3,7 @@
 	hint_tag = hint_hussite_wars
 	
 	can_start = {	
-		c:BOH = {
-			is_subject = no
-			religion = religion:hussite
-		}
+		always = no #starts with event hussite_wars.2
 	}
 	
 	can_end = {
@@ -30,7 +27,7 @@
 						is_neighbor_of = c:BOH
 					}
 					OR = {
-						is_subject_of = c:BOH
+						is_subject_of = c:BOH 
 						NOT = { is_allied_with = { target = c:BOH } }
 					}
 				}
@@ -48,8 +45,6 @@
 			name = heretics_converted_variable
 			value = 0
 		}
-
-		c:BOH = { trigger_event_non_silently = hussite_wars.11 }
 	}
 
 	on_monthly = { 
@@ -62,19 +57,16 @@
 			9 = {}
 			1 = {
 				trigger = {
-					country_exists = international_organization:hre.leader_country
-					international_organization:hre.leader_country = {
-						NOT = { tag = BOH }
-						religion = religion:catholic
+					c:PAP ?= {
 						can_declare_war_on = c:BOH
-						NOT = { has_truce_with = c:BOH }
-						NOT = { is_at_war_with = c:BOH }
+						NOT = {	has_truce_with = c:BOH	}
+						NOT = {	is_at_war_with = c:BOH	}
 						at_war = no
 						is_during_bankruptcy = no
 						war_exhaustion_percentage < 0.2
 					}
 				}
-				international_organization:hre.leader_country = { trigger_event_non_silently = hussite_wars.9 }
+				c:PAP = { trigger_event_non_silently = hussite_wars.9 }
 			}
 		}
 	}
@@ -126,7 +118,6 @@
 				name = victorious_hussites_variable
 				years = 1
 			}
-			set_global_variable = hussites_won_hussite_wars
 		}
 	}
 
@@ -152,29 +143,29 @@
 			custom_tooltip = "HUSSITE_WARS_SIDE_BOHEMIA"
 		}
 		else_if = {
-			limit = {
+			limit = {	
 				has_owner = yes
 				owner = {
 					OR = {
 						AND = {
-							is_subject_of = international_organization:hre.leader_country
+							is_subject_of = c:PAP
 							subject_loyalty > 50
 						}
 						has_mutual_scripted_relation = {
 							type = relation_type:alliance
-							target = international_organization:hre.leader_country
+							target = c:PAP
 						}
 					}
 				}
 			}
-			custom_tooltip = "HUSSITE_WARS_SIDE_EMPEROR"
+			custom_tooltip = "HUSSITE_WARS_SIDE_POPE"
 		}
 		else_if = {
 			limit = {
 				has_owner = yes
-				owner = international_organization:hre.leader_country
+				owner = c:PAP
 			}
-			custom_tooltip = emperor_hw_tt
+			custom_tooltip = pope_hw_tt
 		}
 		else_if = {
 			limit = {
@@ -212,17 +203,17 @@
 			value = owner.country_color
 		}
 		else_if = {
-			limit = {
+			limit = {	
 				has_owner = yes
 				owner = {
 					OR = {
 						AND = {
-							is_subject_or_below_of = international_organization:hre.leader_country
+							is_subject_or_below_of = c:PAP
 							subject_loyalty > 50
 						}
 						has_mutual_scripted_relation = {
 							type = relation_type:alliance
-							target = international_organization:hre.leader_country
+							target = c:PAP
 						}
 					}
 				}
@@ -232,7 +223,7 @@
 		else_if = {
 			limit = {
 				has_owner = yes
-				owner = international_organization:hre.leader_country
+				owner = c:PAP
 			}
 			value = owner.country_color
 		}
@@ -275,22 +266,22 @@
 			value = c:BOH.country_color
 		}
 		else_if = {
-			limit = {
+			limit = {	
 				has_owner = yes
 				owner = {
 					OR = {
 						AND = {
-							is_subject_or_below_of = international_organization:hre.leader_country
+							is_subject_or_below_of = c:PAP
 							subject_loyalty > 50
 						}
 						has_mutual_scripted_relation = {
 							type = relation_type:alliance
-							target = international_organization:hre.leader_country
+							target = c:PAP
 						}
 					}
 				}
 			}
-			value = international_organization:hre.leader_country.country_color
+			value = c:PAP.country_color
 		}
 	}
 	
@@ -299,10 +290,10 @@
 			has_owner = yes
 			OR = {
 				owner = c:BOH
-				owner = international_organization:hre.leader_country
+				owner = c:PAP
 			}
 		}
-
+	
 		desc = "LOCATION_OWNER_NAME"
 		color = owner.country_color
 	}

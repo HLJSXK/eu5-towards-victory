@@ -10,12 +10,9 @@
 
 	can_end = {
 		#We make sure that all important regions have been infected before ending the situation
-		custom_tooltip = {
-			text = great_pestilence_regions_infected_tt
-			var:var_carib_was_infected = yes
-			var:var_mesoamerica_was_infected = yes
-			var:var_andes_was_infected = yes
-		}
+		var:var_carib_was_infected = yes
+		var:var_mesoamerica_was_infected = yes
+		var:var_andes_was_infected = yes
 
 		#The situation can only end if the disease has exhausted itself
 		NOT = {
@@ -26,10 +23,7 @@
 			any_country_with_capital_in_geography = {
 				count <= 30
 				country_type = location
-				custom_tooltip = {
-					text = great_pestilence_americas_spread_tt
-					NOT = { has_variable = had_great_pestilence }
-				}
+				NOT = {has_variable = had_great_pestilence}
 			}
 		}
 	}

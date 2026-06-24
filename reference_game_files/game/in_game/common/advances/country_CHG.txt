@@ -42,8 +42,7 @@ chg_border_wars = {
 	requires = chg_the_mountain_khanate
 
 	land_morale_modifier = 0.05
-	army_reinforce_efficiency = 0.2
-	ai_weight = { add = 10 }
+	army_reinforce_cost = -0.1
 }
 
 chg_sons_of_chagatai = {
@@ -54,7 +53,7 @@ chg_sons_of_chagatai = {
 
 	requires = crown_power_advance_discovery
 
-	diplomatic_annexation_efficiency = 0.3
+	diplomatic_annexation_cost = -0.15
 }
 
 chg_tradition_of_conquest = {

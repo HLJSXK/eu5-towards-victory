@@ -120,12 +120,10 @@ template ReorgUnit {
 
 			card_header_button_01 = {
 				size = { 100% 100% }
-				action_tooltip = {
-					title = "SELECT_UNIT"
-					on_action = "[SelectUnit(ReorgWindow.GetRight.Self)]"
-				}
-				tooltipwidget = { BasicFunctionalTooltip = {} }
+				onclick = "[SelectUnit(ReorgWindow.GetRight.Self)]"
+				onclick = "[ReorgWindow.OnClose]"
 				enabled = "[Not(ReorgWindow.GetRight.IsEmpty)]"
+				tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "SELECT_UNIT" }}}
 				hbox = {
 					ignoreinvisible = yes
 					widget = {
@@ -377,7 +375,10 @@ select_menu_left = {
 		name = "reorg_window"
 	}
 
-	blockoverride "close_on_action" { on_action = "[ReorgWindow.OnClose]" }
+	blockoverride "close_button" {
+		onclick = "[ReorgWindow.OnClose]"
+	}
+
 	blockoverride "select_content" {
 		vbox = {
 			using = layoutpolicy_expanding

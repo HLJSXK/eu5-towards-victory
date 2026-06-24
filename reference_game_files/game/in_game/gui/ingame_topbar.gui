@@ -639,12 +639,13 @@ widget = {
 			parentanchor = left|vcenter
 			size = { 30 30 }
 
-			action_tooltip = {
-				title = "[GetMultiplayerChat.GetTooltip]"
-				on_action = "[ToggleMultiplayerChat]"
+			tooltipwidget = {
+				LeftClickButtonTooltip = {
+					blockoverride "onclick_text" { text = "[GetMultiplayerChat.GetTooltip]" }
+				}
 			}
-			tooltipwidget = { BasicFunctionalTooltip = {} }
 
+			onclick = "[ToggleMultiplayerChat]"
 
 			block "button_texture" {
 				texture = "gfx/interface/buttons/round_button_texture_alt.dds"
@@ -730,12 +731,13 @@ widget = {
 		widgetanchor = bottom|left
 		position = { 0 -48 }
 		size = { 360 60 }
-		action_tooltip = {
-			title = "[GetMultiplayerChat.GetTooltip]"
-			on_action = "[ToggleMultiplayerChat]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
+		onclick = "[ToggleMultiplayerChat]"
 
+		tooltipwidget = {
+			LeftClickButtonTooltip = {
+				blockoverride "onclick_text" { text = "[GetMultiplayerChat.GetTooltip]" }
+			}
+		}
 
 		hbox = {
 			parentanchor = left|vcenter

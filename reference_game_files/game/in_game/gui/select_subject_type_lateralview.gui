@@ -36,12 +36,9 @@ lateralview = {
 					button_checkbox = {
 						size = { 23 23 }
 						parentanchor = vcenter|hcenter
-						down = "[SelectSubjectTypeLateralView.IsChangingCountry]"
-						action_tooltip = {
-							title = "TOGGLE_SELECTION"
-							on_action = "[SelectSubjectTypeLateralView.ChangeCountry]"
-						}
-						tooltipwidget = { BasicFunctionalTooltip = {} }
+						tooltip_enabled = no
+						checked = "[SelectSubjectTypeLateralView.IsChangingCountry]"
+						onclick = "[SelectSubjectTypeLateralView.ChangeCountry]"
 					}
 				}
 			}

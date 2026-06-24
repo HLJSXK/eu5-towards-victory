@@ -6,10 +6,10 @@
 
 	potential = {
 		scope:actor = {
-			modifier:is_pope = no
 			religion.group = religion_group:christian
-			any_country_with_chivalric_order = {
-				has_different_order_of_chivalry = scope:actor
+			any_in_global_list = {
+				variable = countries_with_chivalric_orders
+				has_different_order_of_chivalry = { country = scope:actor }
 			}
 		}
 	}
@@ -40,7 +40,7 @@
 			is_artist = no
 		}
 		enabled = {
-			is_in_chivalric_order = no
+			modifier:is_in_chivalric_order = no
 			religion.group = religion_group:christian
 			OR = {
 				has_estate = estate_type:nobles_estate
@@ -51,69 +51,38 @@
 
 	select_trigger = {
 		looking_for_a = country
-		interaction_source_list = {
-			every_country_with_chivalric_order = {
-				add_to_list = source
-			}
-		}
+		source_global_list = countries_with_chivalric_orders
 		target_flag = target
 		name = "join_foreign_order_of_chivalry_select_title"
 		none_available_msg_key = "join_foreign_order_of_chivalry_no_countries"
 		column = { data = name }
 		visible = {
 			NOT = { root = scope:actor }
-			scope:recipient = {
-				custom_tooltip = {
-					text = character_can_join_order_of_chivalry_tt
-					is_adult = yes
-					character_is_eligible_for_active_order = root
-				}
-			}
+			character_can_join_order_of_chivalry = { country = root character = scope:recipient }
 			not = { is_at_war_with = scope:actor }
-			has_different_order_of_chivalry = scope:actor
+			has_different_order_of_chivalry = { country = scope:actor }
 			within_diplomatic_range = scope:actor
 		}
 	}
 	ai_will_do = {
-		add = 0
-		# Never join a foreign order if we have our own
-		if = {
-			limit = {
-				scope:actor = { has_chivalric_order = yes }
-			}
-			add = -1000
-		}
-		# Only worthwhile if the target order is diplomatically desirable
+		add = 5
 		if = {
 			limit = {
 				scope:target = { has_desirable_order_of_chivalry_for_target_country = { country = scope:actor } }
 			}
-			add = 10
+			add = 20
 		}
-		# Strongly prefer rulers and heirs for the diplomatic prestige
 		if = {
-			limit = {
-				scope:recipient = {
-					OR = {
-						is_ruler = yes
-						is_heir = yes
-					}
-				}
-			}
-			add = 15
+			limit = { scope:target = { has_policy = order_of_saint_george_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_saint_george)"
 		}
-		# Moderately prefer high-skill characters
 		if = {
-			limit = {
-				scope:recipient = {
-					OR = {
-						mil >= 5
-						adm >= 5
-						dip >= 5
-					}
-				}
-			}
-			add = 5
+			limit = { scope:target = { has_policy = order_of_the_ermine_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_the_ermine)"
+		}
+		if = {
+			limit = { scope:target = { has_policy = order_of_the_dragon_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_the_dragon)"
 		}
 	}
 	effect = {
@@ -123,7 +92,7 @@
 			}
 		}
 		scope:recipient = {
-			join_active_chivalric_order_of = scope:target
+			join_order_of_chivalry_effect = { country = scope:target }
 		}
 		if = {
 			limit = { exists = scope:target }
@@ -143,23 +112,16 @@ invite_to_order_of_chivalry = {
 	message = yes
 
 	potential = {
-		scope:actor = {
-			has_chivalric_order = yes
-		}
 	}
 
 	allow = {
 		scope:actor = {
-
 			custom_tooltip = {
 				text = order_of_chivalry_country_cooldown
 				not = { has_variable = order_of_chivalry_country_cooldown }
 			}
 		}
 	}
-
-	ai_tick = monthly
-	ai_tick_frequency = 90
 
 	select_trigger = {
 		looking_for_a = character
@@ -171,14 +133,13 @@ invite_to_order_of_chivalry = {
 		}
 		visible = {
 			is_alive = yes
-			custom_tooltip = {
-				text = character_can_join_order_of_chivalry_tt
-				is_adult = yes
-				character_is_eligible_for_active_order = scope:actor
+			character_can_join_order_of_chivalry = {
+				country = scope:actor
+				character = root
 			}
 		}
 		enabled = {
-			is_in_chivalric_order = no
+			modifier:is_in_chivalric_order = no 
 			religion.group = religion_group:christian
 			owner = { within_diplomatic_range = scope:actor }
 			OR = {
@@ -189,41 +150,58 @@ invite_to_order_of_chivalry = {
 	}
 
 	ai_will_do = {
-		add = 0
-		# Strongly prefer rulers and heirs
+		add = 25	#Base Value
 		if = {
-			limit = {
-				scope:recipient = {
-					OR = {
-						is_ruler = yes
-						is_heir = yes
-					}
-				}
-			}
-			add = 25
+			limit = { scope:actor = { has_policy = order_of_saint_george_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_saint_george)"
 		}
-		# Moderately prefer high-skill characters
 		if = {
-			limit = {
-				scope:recipient = {
-					OR = {
-						mil >= 5
-						adm >= 5
-						dip >= 5
-					}
-				}
-			}
-			add = 10
+			limit = { scope:actor = { has_policy = order_of_the_ermine_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_the_ermine)"
 		}
-		# Base weight for other eligible nobles — low to avoid spamming
 		if = {
-			limit = {
-				scope:recipient = {
-					NOT = { is_ruler = yes }
-					NOT = { is_heir = yes }
-				}
-			}
-			add = 2
+			limit = { scope:actor = { has_policy = order_of_the_dragon_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_the_dragon)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = order_of_the_band_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_the_band)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = order_of_the_swan_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_the_swan)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = order_of_the_black_eagle_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_the_black_eagle)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = order_of_the_white_eagle_policy } }
+			add = "scope:recipient.add_static_modifier_utility(joined_order_of_the_white_eagle)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = society_with_the_donkey } }
+			add = "scope:recipient.add_static_modifier_utility(joined_society_with_the_donkey)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = society_lion_nassau } }
+			add = "scope:recipient.add_static_modifier_utility(joined_society_lion_nassau)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = society_bengler_mainz } }
+			add = "scope:recipient.add_static_modifier_utility(joined_society_bengler_mainz)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = society_furspang_franconia } }
+			add = "scope:recipient.add_static_modifier_utility(joined_society_furspang_franconia)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = society_elephant_tyrol } }
+			add = "scope:recipient.add_static_modifier_utility(joined_society_elephant_tyrol)"
+		}
+		if = {
+			limit = { scope:actor = { has_policy = society_hubertus_cologne } }
+			add = "scope:recipient.add_static_modifier_utility(joined_society_hubertus_cologne)"
 		}
 	}
 	effect = {
@@ -233,7 +211,7 @@ invite_to_order_of_chivalry = {
 			}
 		}
 		scope:recipient = {
-			join_active_chivalric_order_of = scope:actor
+			join_order_of_chivalry_effect = { country = scope:actor }
 		}
 	}
 }

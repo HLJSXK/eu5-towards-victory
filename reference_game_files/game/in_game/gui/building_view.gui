@@ -1,4 +1,4 @@
-﻿lateralview = {
+lateralview = {
 	name = "building_view"
 
 	blockoverride "panel_header" {
@@ -46,60 +46,13 @@
 				size = { -1 220 }
 				using = bg_age_event_frame
 
-				background = {
-					texture =  "[GetGoodsIllustration(BuildingView.GetGoods)]"
+				datacontext = "[BuildingView.GetGoods]"
+				background = { 
+					texture =  "[GetGoodsIllustration(Goods.Self)]"
 					texture_density = 2
 					alpha = 0.5
 					spriteType = stretched
-					spriteborder = { 0 0 }
-				}
-
-				datacontext = "[BuildingView.GetBuilding]"	
-				widget = { # establishment piechart
-					size = { 100 100 }
-					visible = "[Building.GetHasEstablishmentRamp]"
-					parentanchor = center
-					piechart = {
-						parentanchor = center
-						using = bg_circle_piechart
-						size = { 100 100 }
-						using = piechart_angles
-						pieslice_no_highlight = {
-							filter_mouse = none
-							alwaystransparent = yes
-							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
-							value = "[FixedPointToFloat(Building.GetEstablishmentProgressFraction)]"
-							color = { 1 1 1 1 }
-						}
-						pieslice_no_highlight = {
-							filter_mouse = none
-							alwaystransparent = yes
-							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
-							value = "[Subtract_float('(float)1.0', FixedPointToFloat(Building.GetEstablishmentProgressFraction))]"
-							color = { 1 1 1 0 }
-						}
-						icon = {
-							parentanchor = center
-							size = { 60 60 }
-							texture = "gfx/interface/icons/flat_icons/building_panel/establishment.dds"
-						}
-					}
-					tooltipwidget = {
-						SimpleContextualStringPairTooltipType = {
-							blockoverride "title_icon" {
-								icon = {
-									using = tooltip_title_icon_size
-									texture = "gfx/interface/icons/flat_icons/building_panel/establishment.dds"
-								}
-							}
-							blockoverride "concept_link" {
-								text = "[establishment|e]"
-							}
-							blockoverride "tooltip_textcontext" {
-								textcontext = "[Building.GetEstablishmentTooltip]"
-							}
-						}
-					}
+					spriteborder = { 0 0 }            
 				}
 			}
 
@@ -110,7 +63,7 @@
 					hbox = {
 						margin_left = 12
 						using = layoutpolicy_expanding
-						maximumsize = { -1 80 }
+						maximumsize = { -1 40 }
 	
 						background = {
 							using = button_secondary_tab_alt_color
@@ -722,7 +675,7 @@
 		
 											text_single = {
 												autoresize = no
-												size = { 130 15 }
+												size = { 155 15 }
 												align = left|nobaseline
 												default_format = "#yellow_titles"
 												text = "[Building.GetName]"
@@ -993,26 +946,10 @@
 														on_action = "[ToggleBuilding(Building.Self)]"
 													}
 												}
-
 		
 											}
 										}
-
-										button_square_checkbox = {
-											size = { 20 20 }
-											visible = "[Building.GetType.IsMultipleLevels]"
-											tooltipwidget = { using = AutoExpand_Building_Tooltip }
-											blockoverride "check_texture" {
-												texture = "gfx/interface/icons/flat_icons/mass_upgrade.dds"
-											}
-											blockoverride "checked_visible" { visible = "[IsAutoExpand(Building.Self)]" }
-											blockoverride "unchecked_visible" { visible = "[Not(IsAutoExpand(Building.Self))]" }
-											action_tooltip = {
-												title = "[SelectLocalization(IsAutoExpand(Building.Self), 'TOGGLE_AUTO_EXPAND_ON', 'TOGGLE_AUTO_EXPAND_OFF')]"
-												on_action = "[ToggleAutoExpandBuilding(Building.Self)]"
-											}
-										}
-
+		
 										widget = { #builder
 											layoutpolicy_vertical = expanding
 											size = { 120 -1 }
@@ -1038,7 +975,6 @@
 															visible = "[Not(GreaterThan_int32(Building.GetLevelsUnderConstruction, '(int32)0'))]"
 															enabled = "[CanDestroyBuilding(Building.Self)]"
 															description = "[GetDestroyBuildingInfo(Building.Self)]"
-															confirmation = "[GetDestroyBuildingInfo(Building.Self)]"
 															on_action = "[DestroyBuilding(Building.Self)]"
 															on_action = "[PlayAudioEffect('UI_action_building_destroy')]"
 														}
@@ -1136,7 +1072,6 @@
 												}
 											}
 										}
-
 									}
 								}
 							}
@@ -1224,7 +1159,7 @@
 																	onclick = "[ChangeBuildingProductionMethod(Building.Self, ProductionMethod.Self, GetPossibleProductionMethodIndex(BuildingType.Self, PossibleProductionMethods.Self))]"
 																	enabled = "[CanChangeToProductionMethod(Building.Self, ProductionMethod.Self, GetPossibleProductionMethodIndex(BuildingType.Self, PossibleProductionMethods.Self))]"
 																	size = { 30 30 }
-																	down = no
+																	checked = no
 																	tooltip_enabled = no
 																	alwaystransparent = yes
 																}
@@ -1343,7 +1278,7 @@
 															blockoverride "production_method_active_icon"{
 																button_checkbox_round = {
 																	size = { 30 30 }
-																	down = yes
+																	checked = yes
 																	tooltip_enabled = no
 																	alwaystransparent = yes
 																	onclick = "[ChangeBuildingProductionMethod(Building.Self, ProductionMethod.Self, GetPossibleProductionMethodIndex(BuildingType.Self, PossibleProductionMethods.Self))]"

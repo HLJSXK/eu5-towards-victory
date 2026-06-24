@@ -6,6 +6,7 @@
 		NOT = { is_dominant_country_of = culture }
 	}
 	allow = {
+		NOT = { has_variable = forming_new_culture_active }
 		in_civil_war = no
 		OR = {
 			country_rank = country_rank:rank_kingdom
@@ -21,6 +22,20 @@
 					is_disloyal_subject = yes
 				}
 			}
+		}
+	}
+	on_activate = {
+		scope:actor = {
+			set_variable = {
+				name = forming_new_culture_active
+				value = yes
+			}
+		}
+	}
+
+	on_deactivate = {
+		scope:actor = {
+			remove_variable = forming_new_culture_active
 		}
 	}
 

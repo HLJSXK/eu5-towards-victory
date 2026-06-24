@@ -1,5 +1,4 @@
 ﻿entrepot = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -28,10 +27,10 @@
 	
 	market_center_modifier = {
 		local_trade_center_power = 0.1
-		maximum_stockpile_capacity = 20
+		
 	}
-
-
+	
+	
 	possible_production_methods = {
 		market_center_building_maintenance
 	}
@@ -39,7 +38,6 @@
 }
 
 trading_hub = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -68,10 +66,9 @@ trading_hub = {
 	
 	market_center_modifier = {
 		local_trade_center_power = 0.1
-		maximum_stockpile_capacity = 30
 	}
-
-
+	
+	
 	possible_production_methods =  {
 		market_center_building_maintenance
 	}
@@ -79,7 +76,6 @@ trading_hub = {
 }
 
 customs_house = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -109,10 +105,9 @@ customs_house = {
 	
 	market_center_modifier = {
 		local_trade_center_power = 0.1
-		maximum_stockpile_capacity = 50
 	}
-
-
+	
+	
 	possible_production_methods = {
 		market_center_building_maintenance
 	}
@@ -120,7 +115,6 @@ customs_house = {
 }
 
 stock_exchange = {
-	audio_tier = 3
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -150,10 +144,9 @@ stock_exchange = {
 	
 	market_center_modifier = {
 		local_trade_center_power = 0.1
-		maximum_stockpile_capacity = 75
 	}
-
-
+	
+	
 	possible_production_methods = {
 		market_center_building_maintenance
 	}
@@ -161,7 +154,6 @@ stock_exchange = {
 }
 
 clearing_house = {
-	audio_tier = 3
 	is_foreign = no
 	pop_type = burghers
 	max_levels = 1
@@ -191,10 +183,9 @@ clearing_house = {
 	
 	market_center_modifier = {
 		local_trade_center_power = 0.1
-		maximum_stockpile_capacity = 100
 	}
-
-
+	
+	
 	possible_production_methods = {
 		market_center_building_maintenance
 	}
@@ -202,7 +193,6 @@ clearing_house = {
 }
 
 market_warehouse = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = market_warehouse_max_level
@@ -232,12 +222,12 @@ market_warehouse = {
 		local_merchant_power = 0.1
 		local_trades_per_burgher = 0.1
 	}
-
+	
 	market_center_modifier = {
-		maximum_stockpile_capacity = 25
+		maximum_stockpile_capacity = 200
 	}
-
-
+	
+	
 	construction_demand =  warehouse_construction
 	possible_production_methods = {
 		warehouse_maintenance
@@ -245,7 +235,6 @@ market_warehouse = {
 }
 
 funduq = { #https://es.wikipedia.org/wiki/Funduq
-	audio_tier = 2
 	is_special = yes
 	is_foreign = no
 	pop_type = burghers
@@ -260,9 +249,7 @@ funduq = { #https://es.wikipedia.org/wiki/Funduq
 		
 	
 	country_potential = {
-        religion ?= {
-			group = religion_group:muslim
-		}
+        religion.group = religion_group:muslim
 	}
 	
 	allow = {
@@ -286,9 +273,9 @@ funduq = { #https://es.wikipedia.org/wiki/Funduq
 		local_merchant_capacity = 1
 		local_trades_per_burgher = 0.1
 	}
-
+	
 	market_center_modifier = {
-		maximum_stockpile_capacity = 50
+		maximum_stockpile_capacity = 200
 	}
 
 	construction_demand = funduq_building_construction

@@ -1,5 +1,4 @@
-﻿
-##########################
+﻿##########################
 # Manufactories
 ##########################
 
@@ -11,22 +10,6 @@ manufactories_advance = {
 	
 	allow = { has_embraced_institution = institution:manufactories }
 }
-
-central_bank_advance = {
-	age = age_5_absolutism
-
-	unlock_building = central_bank
-	max_bonds = 5
-
-	allow = {
-		has_embraced_institution = institution:banking
-	}
-
-	requires = manufactories_advance
-
-	ai_weight = { add = 100 }
-}
-
 
 lead_ore_dressing = {
 	age = age_5_absolutism
@@ -108,8 +91,8 @@ sanitation_advance = {
 
 	requires = government_size_absolutism
 
-	global_life_expectancy = 4
-	global_disease_resistance = 0.07
+	global_life_expectancy = 3
+	global_disease_resistance = 0.05
 }
 
 construction_speed_absolutism = {
@@ -132,8 +115,8 @@ rgo_size_advance_absolutism = {
 	icon = efficient_mining
 
 	requires = pop_promotion_speed_age_5
-
-	global_max_rgo_size_modifier = 0.20
+	
+	global_max_rgo_size_modifier = 0.10
 }
 
 lumber_improvements_absolutism = {
@@ -155,8 +138,8 @@ food_advance_absolutism = {
 	icon = expanded_supply_trains
 
 	requires = rgo_size_advance_absolutism
-
-	global_monthly_food_modifier = 0.20
+	
+	global_monthly_food_modifier = 0.10
 }
 
 ##########################
@@ -216,10 +199,10 @@ hollander_beater = {
 maritime_advance_age_5 = {
 	age = age_5_absolutism
 	icon = merchant_power_from_maritime_reformation_advance
-
+	
 	requires = merchant_power_from_maritime_absolutism_advance
-
-	global_maritime_presence_modifier = 0.20
+	
+	global_maritime_presence_modifier = 0.1
 }
 
 the_constitution = {
@@ -289,7 +272,7 @@ diplomatic_range_age_5 = {
 	age = age_5_absolutism
 	icon = diplomatic_range_age_1
 	requires = measuring_the_world
-	diplomatic_range_modifier = 0.33
+	diplomatic_range_modifier = 0.25
 }
 
 spy_construction_absolutism = {
@@ -298,7 +281,7 @@ spy_construction_absolutism = {
 
 	requires = power_projection_advance_5
 
-	spy_network_construction = 0.15
+	spy_network_construction = 0.1
 }
 
 subject_loyalty_absolutism = {
@@ -340,10 +323,9 @@ naval_doctrines_advance = {
 
 military_revolution_advance = {
 	age = age_5_absolutism
-
+		
 	possible_frontage_modifier = 0.10
 	depth = 0
-	ai_weight = { add = 100 }
 
 	allow = { has_embraced_institution = institution:military_revolution }
 }
@@ -422,7 +404,6 @@ absolutism_agressive_advance = {
 	icon = diplomatic_influence
 
 	antagonism_received_modifier = -0.1
-	antagonism_development_impact = -0.20
 	requires = anti_piracy_warfare
 }
 
@@ -430,7 +411,7 @@ supply_depot_advance_age_5_absolutism = {
 	age = age_5_absolutism
 	icon = merchants_and_trade
 			
-	supply_depot_capacity = 500
+	supply_depot_capacity = 25
 	trade_company_headquarters_level = 1
 		
 	requires = absolutism_agressive_advance
@@ -449,15 +430,14 @@ naval_morale_advance_5 = {
 	age = age_5_absolutism
 	icon = global_trade_routes_advance
 	requires = anti_piracy_warfare
-	naval_morale = 0.35
+	naval_morale = 0.25
 }
 
 gustavian_infantry = {
 	age = age_5_absolutism
 	icon = offensive_army
 	requires = supply_depot_advance_age_5_absolutism
-	land_morale = 0.35
-	ai_weight = { add = 20 }
+	land_morale = 0.25
 }
 
 country_unification_advance = {
@@ -465,5 +445,5 @@ country_unification_advance = {
 	icon = diplomatic_range_age_1
 
 	requires = absolutism_agressive_advance
-	diplomatic_annexation_efficiency = 0.4
+	diplomatic_annexation_cost = -0.2
 }

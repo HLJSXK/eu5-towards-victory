@@ -230,7 +230,7 @@ template contextmenu_entry_button_inner_template {
 
 template contextmenu_entry_button_template {
 	size = { 100% 100% }
-	block "button_texture" { using = button_regular_texture }
+	using = button_regular_texture
 	using = button_common_template
 
 	block "onclick_closecontextmenu" {
@@ -272,9 +272,7 @@ types ContextMenuTypes
 			autoresizeviewport = yes
 			autoresizescrollarea = yes
 
-			block "contextmenu_scroll_maximumsize" {
-				maximumsize = { -1 1050 }
-			}
+			maximumsize = { -1 1050 }
 			
 			viewportwidget = {
 				widget = {
@@ -375,7 +373,6 @@ types ContextMenuTypes
 			# block "title_toggle" {
 
 				widget = {
-					visible = "[ExtraTooltipInfo.HasSections]"
 					size = { 20 20 }
 					icon = {
 						parentanchor = center
@@ -393,7 +390,7 @@ types ContextMenuTypes
 							alpha = 0.3
 						}
 
-						visible = "[Not(ContextMenu.IsSectionOpened(SectionIndex.Self))]"
+						visible = "[And(ExtraTooltipInfo.HasSections, Not(ContextMenu.IsSectionOpened(SectionIndex.Self)))]"
 					}
 
 					icon = {
@@ -412,7 +409,7 @@ types ContextMenuTypes
 							alpha = 0.3
 						}
 
-						visible = "[ContextMenu.IsSectionOpened(SectionIndex.Self)]"
+						visible = "[And(ExtraTooltipInfo.HasSections, ContextMenu.IsSectionOpened(SectionIndex.Self))]"
 					}
 				}
 			# }

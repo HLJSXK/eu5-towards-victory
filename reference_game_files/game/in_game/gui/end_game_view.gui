@@ -676,11 +676,12 @@ window = {
 		parentanchor = hcenter|bottom
 		text = "CONTINUE_PAST_END_DATE"
 		visible = "[EndGameView.CanContinuePastEndDate]"
-		action_tooltip = {
-			title = "CONTINUE_PAST_END_DATE_TOOLTIP"
-			on_action = "[EndGameView.OnContinue]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
+		onclick = "[EndGameView.OnContinue]"
+		tooltipwidget = {
+			LeftClickButtonTooltip = {
+				blockoverride "onclick_text" { text = "CONTINUE_PAST_END_DATE_TOOLTIP" } 
+			}
+		}		
 	}
 
 	flowcontainer = {
@@ -693,21 +694,23 @@ window = {
 		button_regular = {
 			size = { 240 26 }
 			text = "EXIT"
-			action_tooltip = {
-				title = "END_GAME_VIEW_QUIT_TOOLTIP"
-				on_action = "[EndGameView.OnQuit]"
-			}
-			tooltipwidget = { BasicFunctionalTooltip = {} }
+			onclick = "[EndGameView.OnQuit]"
+			tooltipwidget = {
+				LeftClickButtonTooltip = {
+					blockoverride "onclick_text" { text = "END_GAME_VIEW_QUIT_TOOLTIP" } 
+				}
+			}					
 		}
 
 		button_regular = {
 			size = { 240 26 }
 			text = "END_GAME_VIEW_OBSERVE"
-			action_tooltip = {
-				title = "END_GAME_VIEW_OBSERVE_TOOLTIP"
-				on_action = "[EndGameView.OnObserve]"
-			}
-			tooltipwidget = { BasicFunctionalTooltip = {} }
+			onclick = "[EndGameView.OnObserve]"
+			tooltipwidget = {
+				LeftClickButtonTooltip = {
+					blockoverride "onclick_text" { text = "END_GAME_VIEW_OBSERVE_TOOLTIP" } 
+				}
+			}			
 		}
 	}
 

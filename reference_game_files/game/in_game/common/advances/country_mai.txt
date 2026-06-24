@@ -40,10 +40,9 @@ mai_zealous_fight_against_heretics = {
 	}
 	icon = offensive_army
 	land_morale_modifier = 0.1
-	ai_weight = { add = 10 }
 
 	requires = global_clergy_max_literacy_advance
-
+	
 }
 
 mai_vicar_of_mainz = {
@@ -52,7 +51,7 @@ mai_vicar_of_mainz = {
 		has_or_had_tag = MAI
 	}
 	icon = late_feudal_relations
-	stability_cost_efficiency = 0.2
+	stability_cost = -0.1
 
 	requires = paved_road_advance
 }
@@ -63,7 +62,7 @@ mai_mainz_kingdom = {
 		has_or_had_tag = MAI
 	}
 	icon = scholasticism
-	cultural_influence_modifier = 0.20
+	cultural_influence_modifier = 0.33
 
 	requires = confessional_court
 }

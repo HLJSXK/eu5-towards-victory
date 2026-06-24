@@ -7,7 +7,7 @@ guelphs_io = {
     leader_change_trigger_type = timed
     months_between_leader_changes = 1
     leader_score = {
-        value = country_tax_base
+        value = great_power_score
     }
 	unique = yes
 	show_on_diplomatic_map = yes
@@ -30,15 +30,7 @@ guelphs_io = {
 	can_join_trigger = {
 		capital.region = region:italy_region
 		in_civil_war = no
-		OR = {
-			NOT = { is_member_of_international_organization = international_organization:ghibellines_io }
-			AND = {
-				is_member_of_international_organization = international_organization:ghibellines_io
-				ruler ?= {
-					has_character_modifier = gag_favors_guelphs
-				}
-			}
-		}
+		NOT = { is_member_of_international_organization = international_organization:ghibellines_io }
 		religion.group = religion_group:christian
 		international_organization:hre ?= {
 			OR = {
@@ -57,17 +49,6 @@ guelphs_io = {
 				situation = guelphs_and_ghibellines
 				years = 2
 				variable = gag_recently_left_a_faction
-			}
-		}
-	}
-
-	on_joined = {
-		if = {
-			limit = {
-				is_member_of_international_organization = international_organization:ghibellines_io
-			}
-			international_organization:ghibellines_io = {
-				remove_country_from_international_organization = root
 			}
 		}
 	}
@@ -92,9 +73,6 @@ guelphs_io = {
 		is_member_of_international_organization = scope:recipient
 		NOT = { has_variable = gag_blocked_from_leading }
 		religion = religion:catholic
-		capital ?= {
-			region = region:italy_region
-		}
 	}
 	auto_leave_trigger = {
 		NOT = { tag = PAP }
@@ -152,7 +130,7 @@ ghibellines_io = {
     leader_change_trigger_type = timed
     months_between_leader_changes = 1
     leader_score = {
-        value = country_tax_base 
+        value = great_power_score
     }
 	unique = yes
 	show_on_diplomatic_map = yes
@@ -178,15 +156,7 @@ ghibellines_io = {
 			capital.region = region:italy_region
 		}
 		is_rebel_country = no
-		OR = {
-			NOT = { is_member_of_international_organization = international_organization:guelphs_io }
-			AND = {
-				is_member_of_international_organization = international_organization:guelphs_io
-				ruler ?= {
-					has_character_modifier = gag_favors_ghibellines
-				}
-			}
-		}
+		NOT = { is_member_of_international_organization = international_organization:guelphs_io }
 		religion.group = religion_group:christian
 		modifier:gag_support_guelphs = no
 		NOT = {
@@ -194,17 +164,6 @@ ghibellines_io = {
 				situation = guelphs_and_ghibellines
 				years = 2
 				variable = gag_recently_left_a_faction
-			}
-		}
-	}
-
-	on_joined = {
-		if = {
-			limit = {
-				is_member_of_international_organization = international_organization:guelphs_io
-			}
-			international_organization:guelphs_io = {
-				remove_country_from_international_organization = root
 			}
 		}
 	}
@@ -228,9 +187,6 @@ ghibellines_io = {
 		is_member_of_international_organization = scope:recipient
 		NOT = { has_variable = gag_blocked_from_leading }
 		religion = religion:catholic
-		capital ?= {
-			region = region:italy_region
-		}
 	}
 	auto_leave_trigger = {
 		OR = {
@@ -246,7 +202,6 @@ ghibellines_io = {
 		nobles_estate_target_satisfaction = medium_permanent_target_satisfaction
 		peasants_estate_target_satisfaction = small_permanent_target_satisfaction
 		monthly_religious_influence = -0.1
-		ghibelline_imperial_protection = yes
 	}
 	leader_modifier = { monthly_prestige = 0.05 }
 	on_left = {

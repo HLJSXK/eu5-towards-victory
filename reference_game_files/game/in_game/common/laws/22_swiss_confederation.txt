@@ -91,8 +91,8 @@ sc_representative = {
 					value = {
 						value = modifier:bias_for_militarist_policies
 						multiply = {
-							value = country_tax_base
-							subtract = io_get_average_tax_base
+							value = great_power_score
+							subtract = io_get_average_great_power_score
 						}
 					}
 				}
@@ -151,8 +151,8 @@ sc_representative = {
 					value = {
 						value = modifier:bias_for_militarist_policies
 						multiply = {
-							value = country_tax_base
-							subtract = io_get_average_tax_base
+							value = great_power_score
+							subtract = io_get_average_great_power_score
 						}
 					}
 				}
@@ -240,8 +240,8 @@ sc_election_method = {
 					value = {
 						value = modifier:bias_for_militarist_policies
 						multiply = {
-							value = country_tax_base
-							subtract = io_get_average_tax_base
+							value = great_power_score
+							subtract = io_get_average_great_power_score
 						}
 					}
 				}
@@ -278,8 +278,8 @@ sc_election_method = {
 					value = {
 						value = modifier:bias_for_militarist_policies
 						multiply = {
-							value = country_tax_base
-							subtract = io_get_average_tax_base
+							value = great_power_score
+							subtract = io_get_average_great_power_score
 						}
 					}
 				}
@@ -323,8 +323,8 @@ sc_election_method = {
 					value = {
 						value = modifier:bias_for_militarist_policies
 						multiply = {
-							value = country_tax_base
-							subtract = io_get_average_tax_base
+							value = great_power_score
+							subtract = io_get_average_great_power_score
 						}
 					}
 				}
@@ -384,8 +384,8 @@ sc_ruling_period = {
 					value = {
 						value = modifier:bias_for_militarist_policies
 						multiply = {
-							value = country_tax_base
-							subtract = io_get_average_tax_base
+							value = great_power_score
+							subtract = io_get_average_great_power_score
 						}
 					}
 				}
@@ -436,8 +436,8 @@ sc_ruling_period = {
 					value = {
 						value = modifier:bias_for_militarist_policies
 						multiply = {
-							value = country_tax_base
-							subtract = io_get_average_tax_base
+							value = great_power_score
+							subtract = io_get_average_great_power_score
 						}
 					}
 				}
@@ -602,8 +602,8 @@ sc_internal_politics = {
 			}
 			add = {
 				desc = "BENEFITS_US"
-				value = io_get_average_tax_base
-				subtract = country_tax_base
+				value = io_get_average_great_power_score
+				subtract = great_power_score
 			}
 		}
 	}
@@ -649,8 +649,8 @@ sc_internal_politics = {
 			}
 			add = {
 				desc = "BENEFITS_US"
-				value = io_get_average_tax_base
-				subtract = country_tax_base
+				value = io_get_average_great_power_score
+				subtract = great_power_score
 			}
 		}
 	}
@@ -833,8 +833,8 @@ sc_war_politics = {
 			}
 			add = {
 				desc = "BENEFITS_US"
-				value = io_get_average_tax_base
-				subtract = country_tax_base
+				value = io_get_average_great_power_score
+				subtract = great_power_score
 			}
 		}
 	}
@@ -896,8 +896,8 @@ sc_war_politics = {
 			}
 			add = {
 				desc = "BENEFITS_US"
-				value = io_get_average_tax_base
-				subtract = country_tax_base
+				value = io_get_average_great_power_score
+				subtract = great_power_score
 			}
 		}
 	}

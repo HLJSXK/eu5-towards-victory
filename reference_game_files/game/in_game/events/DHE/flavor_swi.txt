@@ -772,10 +772,7 @@ flavor_swi.1001 = { #Murder Night of Zurich - historical Murder Night
 	trigger = {
 		owns = location:zurich
 		has_ruler = yes
-		custom_tooltip = {
-			text = variable_zur_guild_constitution_accepted_tt
-			has_variable = zur_guild_constitution_accepted
-		}
+		has_variable = zur_guild_constitution_accepted
 	}
 
 	option = {
@@ -844,10 +841,7 @@ flavor_swi.1002 = { #Sack of Rapperswil - historical Murder Night
 			owns = location:kyburg #targets Rapperswil, double check if inside Zug
 		}
 		has_ruler = yes
-		custom_tooltip = {
-			text = variable_zur_coup_prevented_tt
-			has_variable = zur_coup_prevented
-		}
+		has_variable = zur_coup_prevented
 	}
 
 	option = {
@@ -933,10 +927,7 @@ flavor_swi.1003 = { #Murder Night of Zurich - Guild Constitution declined
 		character:zur_rudolf_brun = {
 			is_ruler = yes
 		}
-		custom_tooltip = {
-			text = variable_zur_guild_constitution_declined_tt
-			has_variable = zur_guild_constitution_declined
-		}
+		has_variable = zur_guild_constitution_declined
 	}
 
 	option = {
@@ -1065,7 +1056,7 @@ flavor_swi.1101 = { #Zwingli is accused as a heretic
 		tag = WER
 		from = 1516.1.1
 		to = 1526.1.1
-		monthly_chance = 20
+		monthly_chance = 6
 	}
 
 	illustration_tags = {
@@ -1089,6 +1080,7 @@ flavor_swi.1101 = { #Zwingli is accused as a heretic
 			is_alive = yes
 			owner = root
 		}
+		religion = religion:catholic
 	}
 
 	option = {
@@ -1253,10 +1245,7 @@ flavor_swi.1103 = { #Conversion of Zwingli
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_swi_zwingli_won_debate_tt
-			has_variable = swi_zwingli_won_debate
-		}
+		has_variable = swi_zwingli_won_debate
 		dominant_religion = religion:lutheran
 	}
 
@@ -1349,10 +1338,7 @@ flavor_swi.1104 = { #Zwingli Imprisoned - Peasants Revolt
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_swi_zwingli_imprisoned_debate_tt
-			has_variable = swi_zwingli_imprisoned_debate
-		}
+		has_variable = swi_zwingli_imprisoned_debate
 		dominant_religion = religion:lutheran
 		character:swi_huldrych_zwingli = {
 			is_alive = yes

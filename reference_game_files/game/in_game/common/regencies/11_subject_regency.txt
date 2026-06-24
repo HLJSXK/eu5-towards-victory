@@ -10,8 +10,8 @@
 				is_eligible_heir = root
 			}
 
-			country_economical_base >= {
-				value = root.country_economical_base
+			great_power_score >= {
+				value = root.great_power_score
 				multiply = 0.5
 			}
 
@@ -32,8 +32,8 @@
 					can_become_a_regent = yes
 					is_eligible_heir = root
 				}
-				country_economical_base >= {
-					value = root.country_economical_base
+				great_power_score >= {
+					value = root.great_power_score
 					multiply = 0.5
 				}
 

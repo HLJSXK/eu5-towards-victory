@@ -529,10 +529,7 @@ flavor_chi.7 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_mng_accepted_jesuits_tt
-			has_variable = mng_accepted_jesuits
-		}
+		has_variable = mng_accepted_jesuits
 		"religion_percentage_in_country(religion:catholic)" > 0
 		NOT = {
 			religion = religion:catholic
@@ -722,10 +719,7 @@ flavor_chi.9 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_mng_accepted_jesuits_tt
-			has_variable = mng_accepted_jesuits
-		}
+		has_variable = mng_accepted_jesuits
 		country_exists = c:PAP
 	}
 
@@ -845,10 +839,7 @@ flavor_chi.11 = {
 
 	trigger = {
 		owns = location:xiangshan_xinhui	#macau!
-		custom_tooltip = {
-			text = variable_mng_accepted_jesuits_tt
-			has_variable = mng_accepted_jesuits
-		}
+		has_variable = mng_accepted_jesuits
 	}
 
 	illustration_tags = {
@@ -2487,6 +2478,7 @@ flavor_chi.33 = {
 
 	dynamic_historical_event = {
 		tag = CHI
+		tag = YUA
 		from = 1337.1.1
 		to = 1821.1.1
 		monthly_chance = 10
@@ -2503,7 +2495,7 @@ flavor_chi.33 = {
 	trigger = {
 		is_yuan_china = yes
 		in_civil_war = no
-		international_organization:middle_kingdom.leader_country ?= { this != root }
+		NOT = { international_organization:middle_kingdom.leader_country ?= ROOT }
 	}
 
 	option = {
@@ -2516,14 +2508,6 @@ flavor_chi.33 = {
 			form_country = formable_country:YUA_f
 		}
 		change_country_name = NORTHERN_YUA
-		international_organization:middle_kingdom.leader_country ?= {
-			if = {
-				limit = {
-					NOT = { tag = CHI }
-				}
-				form_country = formable_country:CHI_f
-			}
-		}
 	}
 }
 
@@ -2635,7 +2619,6 @@ flavor_chi.34 = {
 
 	option = {
 		name = flavor_chi.34.b
-		high_risk_option = yes
 
 		trigger = {
 			is_ai = no
@@ -2696,6 +2679,7 @@ flavor_chi.36 = {
 	
 	dynamic_historical_event = {
 		tag = CHI
+		tag = YUA
 		from = 1350.1.1
 		to = 1450.1.1
 		monthly_chance = 25
@@ -2825,6 +2809,7 @@ flavor_chi.38 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = CHI
+		tag = YUA
 		from = 1350.1.1
 		to = 1450.1.1
 		monthly_chance = 25
@@ -2873,6 +2858,7 @@ flavor_chi.39 = {
 	fire_only_once = yes
 	dynamic_historical_event = {
 		tag = CHI
+		tag = YUA
 		from = 1350.1.1
 		to = 1450.1.1
 		monthly_chance = 20
@@ -5175,7 +5161,6 @@ flavor_chi.75 = {
 		}
 		has_ruler = yes
 		has_reform = government_reform:three_departments_system
-		has_bureaucracy_of_type = bureaucracy_type:six_boards_bureaucracy
 	}
 
 	immediate = {
@@ -5202,10 +5187,6 @@ flavor_chi.75 = {
 		}
 		add_legitimacy = legitimacy_mild_bonus
 		add_policy = policy:chi_direct_report
-		every_current_bureaucracy = {
-			limit = { bureaucracy_type = bureaucracy_type:central_secretariat_bureaucracy }
-			root = { remove_bureaucracy = prev }
-		}
 	}
 
 	option = {
@@ -5217,19 +5198,6 @@ flavor_chi.75 = {
 		}
 		add_research_progress = research_progress_mild_bonus
 		add_policy = policy:chi_grand_secretariat
-		every_current_bureaucracy = {
-			limit = { bureaucracy_type = bureaucracy_type:central_secretariat_bureaucracy }
-			root = { remove_bureaucracy = prev }
-		}
-		if = {
-			limit = { NOT = { has_bureaucracy_of_type = bureaucracy_type:grand_secretariat_bureaucracy } }
-			add_bureaucracy = bureaucracy_type:grand_secretariat_bureaucracy
-			every_current_bureaucracy = {
-				limit = { bureaucracy_type = bureaucracy_type:grand_secretariat_bureaucracy }
-				set_entrenchment = 30
-				set_maintenance = 0.50
-			}
-		}
 	}
 
 	option = {
@@ -6087,10 +6055,7 @@ flavor_chi.88 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_mng_accepted_jesuits_tt
-			has_variable = mng_accepted_jesuits
-		}
+		has_variable = mng_accepted_jesuits
 	}
 
 	image = "gfx/interface/illustrations/institutions/scientific_revolution.dds"
@@ -6149,10 +6114,7 @@ flavor_chi.89 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_enabled_treasure_voyages_tt
-			has_variable = enabled_treasure_voyages
-		}
+		has_variable = enabled_treasure_voyages
 		OR = {
 			gold >= yearly_gold
 			current_year >= 1420
@@ -8198,7 +8160,6 @@ flavor_chi.113 = {
 
 	option = {
 		name = flavor_chi.113.b
-		high_risk_option = yes
 
 		trigger = {
 			is_ai = no
@@ -8488,7 +8449,6 @@ flavor_chi.117 = {
 
 	option = {
 		name = flavor_chi.117.b
-		high_risk_option = yes
 
 		show_as_tooltip = {
 			scope:target_rebels = {
@@ -8574,10 +8534,7 @@ flavor_chi.119 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_li_zicheng_rebellion_var_tt
-			has_variable = li_zicheng_rebellion_var
-		}
+		has_variable = li_zicheng_rebellion_var
 		owns = location:dadu
 		exists = international_organization:middle_kingdom.leader_country
 	}
@@ -8628,10 +8585,7 @@ flavor_chi.120 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_li_zicheng_rebellion_var_tt
-			has_variable = li_zicheng_rebellion_var
-		}
+		has_variable = li_zicheng_rebellion_var
 		international_organization:middle_kingdom.leader_country ?= ROOT
 		exists = character:chi_li_zicheng
 	}
@@ -9391,10 +9345,7 @@ flavor_chi.1100 = {
 		has_ruler = yes
 		country_exists = c:CHI
 		c:CHI = {
-			custom_tooltip = {
-				text = variable_mng_accepted_jesuits_tt
-				has_variable = mng_accepted_jesuits
-			}
+			has_variable = mng_accepted_jesuits
 		}
 	}
 

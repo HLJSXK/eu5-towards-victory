@@ -68,38 +68,39 @@ organization_religious_theme = {
 	blockoverride "ios_information_header_content_extra_1" {
 		using = ios_header_content_extra_template
 		blockoverride "ios_header_content_extra" {
-			hbox = {
-				text_single = {
-					autoresize = yes
-					align = right
-					margin_right = 6
-					raw_text = "[GetReligionByKey('catholic').GetReformDesire|2%Y]"
+		hbox = {
+			using = layoutpolicy_expanding	
+			text_single = {
+				autoresize = yes
+				align = right
+				margin_right = -3
+				raw_text = "[GetReligionByKey('catholic').GetReformDesire|2%Y]"
+			}
+	
+			widget = {
+				size = { 24 24 }
+				using = organization_piechart_template
+				blockoverride "organization_piechart_size" { size = { 24 24 } }
+				blockoverride "organization_piechart_value" 
+				{
+					value = "[FixedPointToFloat(GetReligionByKey('catholic').GetReformDesire)]"
 				}
-		
-				widget = {
-					size = { 22 22 }
-					using = organization_piechart_template
-					blockoverride "organization_piechart_size" { size = { 22 22 } }
-					blockoverride "organization_piechart_value" 
-					{
-						value = "[FixedPointToFloat(GetReligionByKey('catholic').GetReformDesire)]"
-					}
-					blockoverride "organization_piechart_max_value" 
-					{
-						value = "[Subtract_float('(float)1.0', FixedPointToFloat(GetReligionByKey('catholic').GetReformDesire))]"
-					}
-					blockoverride "organization_piechart_icon" 
-					{
-						texture = "gfx/interface/icons/religious_aspects/reform_desire.dds"
-					}
+				blockoverride "organization_piechart_max_value" 
+				{
+					value = "[Subtract_float('(float)1.0', FixedPointToFloat(GetReligionByKey('catholic').GetReformDesire))]"
 				}
-				tooltipwidget = {
-					using = reform_desire_tooltip
-					blockoverride "religion_context" {
-						datacontext = "[GetReligionByKey('catholic')]"
-					}
+				blockoverride "organization_piechart_icon" 
+				{
+					texture = "gfx/interface/icons/religious_aspects/reform_desire.dds"
 				}
 			}
+			tooltipwidget = {
+				using = reform_desire_tooltip
+				blockoverride "religion_context" {
+					datacontext = "[GetReligionByKey('catholic')]"
+				}
+			}
+		}
 		}
 	}
 	blockoverride "ios_information_header_content_extra_2" {
@@ -107,9 +108,8 @@ organization_religious_theme = {
 		blockoverride "ios_header_content_extra" {
 			text_single = {
 				autoresize = yes
-				maximumsize = { 40 -1 }
-				align = center
-				raw_text = "[GetPlayer.GetShortCurrencyValue('religious_influence')]"
+				align = right
+				raw_text = "[GetPlayer.GetCurrencyValue('religious_influence')|2%]"
 			}
 	
 			widget = {
@@ -323,6 +323,11 @@ organization_religious_theme = {
 																		}
 																	}
 	
+																	blockoverride "tooltip_ui_action_block" {
+																		TooltipUIActionBlockOld = {
+																			visible = "[PdxGuiWidget.HasUIAction]"
+																		}
+																	}
 																}
 															}
 														}
@@ -441,6 +446,11 @@ organization_religious_theme = {
 																			}
 																		}
 	
+																		blockoverride "tooltip_ui_action_block" {
+																			TooltipUIActionBlockOld = {
+																				visible = "[PdxGuiWidget.HasUIAction]"
+																			}
+																		}
 																	}
 																}
 															}
@@ -560,6 +570,11 @@ organization_religious_theme = {
 																			}
 																		}
 	
+																		blockoverride "tooltip_ui_action_block" {
+																			TooltipUIActionBlockOld = {
+																				visible = "[PdxGuiWidget.HasUIAction]"
+																			}
+																		}
 																	}
 																}
 															}
@@ -634,6 +649,11 @@ organization_religious_theme = {
 																			}
 																		}
 	
+																		blockoverride "tooltip_ui_action_block" {
+																			TooltipUIActionBlockOld = {
+																				visible = "[PdxGuiWidget.HasUIAction]"
+																			}
+																		}
 																	}
 																}
 															}
@@ -755,6 +775,11 @@ organization_religious_theme = {
 																			}
 																		}
 	
+																		blockoverride "tooltip_ui_action_block" {
+																			TooltipUIActionBlockOld = {
+																				visible = "[PdxGuiWidget.HasUIAction]"
+																			}
+																		}
 																	}
 																}
 															}

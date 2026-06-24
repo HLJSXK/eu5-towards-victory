@@ -319,7 +319,9 @@
 						}
 					}
 					NOT = {
-						var:strongest_beylik_variable ?= {
+						any_in_global_list = {
+							variable = eligible_beylik_list
+							is_subject = no
 							num_locations >= 100
 						}
 					}

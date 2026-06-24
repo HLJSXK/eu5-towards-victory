@@ -13,12 +13,7 @@ template religion_tooltip {
 		}
 		
 		blockoverride "tooltip_content" {
-			TooltipDebugTextBlock = {
-				blockoverride "text" {
-					debug_text = "[Religion.GetDebugText]"
-				}
-			}
-
+		
 			TooltipScrolledBlockList = {
 				blockoverride "block_scrollarea" { maximumsize = { -1 450 } }
 				textcontext = "[Religion.GetTooltip]"
@@ -115,11 +110,6 @@ template religion_group_tooltip {
 			text = [religion_group|E]
 		}
 		blockoverride "tooltip_content" {
-			TooltipDebugTextBlock = {
-				blockoverride "text" {
-					debug_text = "[ReligionGroup.GetDebugText]"
-				}
-			}
 
 			TooltipScrolledStringPairList = {
 				blockoverride "block_scrollarea" { maximumsize = { -1 225 } }
@@ -995,60 +985,15 @@ template God_tooltip {
 			}
 
 			TooltipTextBlock = {
-				visible = "[And(God.HasMonarchPower, HasDlc('d008_fate_of_the_phoenix'))]"
+				visible = "[God.HasMonarchPower]"
 				blockoverride "text" {
 					text = "[God.GetMonarchPowerTooltip]"
 				}
 			}
 
-			TooltipListBase = {
-				visible = "[And(God.HasOmens, HasDlc('d008_fate_of_the_phoenix'))]"
-				blockoverride "block_title" {
-					text = "god_omens_desc"
-				}
-
-				TooltipListScrollArea = {
-					blockoverride "block_scrollarea" {
-						maximumsize = { -1 310 }
-					}
-					blockoverride "scrollarea_content" {
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							set_parent_dimension_to_minimum = height
-
-							fixedgridbox = {
-								addcolumn = 100%
-								addrow = 30
-								datamodel = "[God.GetOmens]"
-								item = {
-									widget = {
-										size = { 100% 30 }
-										background = {
-											visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInDataModel)]"
-											using = tooltip_table_field_texture
-										}
-
-										hbox = {
-											using = layoutpolicy_expanding
-											margin = { 10 0 }
-											spacing = 5
-											icon = {
-												size = { 20 20 }
-												texture = "[GetOmenIcon(Omen.Self)]"
-											}
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												autoresize = no
-												align = left
-												text = "[Omen.GetName]"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+			TooltipStringPairList = {
+				visible = "[God.HasOmens]"
+				textcontext = "[God.GetOmensTooltip]"
 			}
 
 			TooltipStringPairList = {
@@ -1271,6 +1216,11 @@ template Available_omens_tooltip {
 		}
 		
 		blockoverride "tooltip_content" {
+			TooltipTextBlock = {
+				blockoverride "text" {
+					text = "AVAILABLE_OMENS_DESC"
+				}
+			}
 
 			TooltipStringPairList = {
 				blockoverride "block_title" {
@@ -1281,7 +1231,7 @@ template Available_omens_tooltip {
 
 			TooltipListBase = {
 				blockoverride "block_title" {
-					text = "ACTIVE_OMENS"
+					text = "OFFERED_OMENS"
 				}
 
 				TooltipListScrollArea = {
@@ -1298,6 +1248,11 @@ template Available_omens_tooltip {
 							item = {
 								widget = {
 									size = { 100% 30 }
+									background = {
+										visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInDataModel)]"
+										using = tooltip_table_field_texture
+									}
+
 									hbox = {
 										using = layoutpolicy_expanding
 										margin = { 10 0 }
@@ -1321,6 +1276,62 @@ template Available_omens_tooltip {
 		
 				TooltipListEmptyContent = {
 					visible = "[IsDataModelEmpty(Player.GetActiveOmens)]"
+				}
+			}
+
+			TooltipListBase = {
+				blockoverride "block_title" {
+					text = "AVAILABLE_OMENS"
+				}
+
+				TooltipListScrollArea = {
+					visible = "[DataModelHasItems(CountryReligionLateralView.GetActiveGods)]"
+					blockoverride "block_scrollarea" {
+						maximumsize = { -1 310 }
+					}
+					blockoverride "scrollarea_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							set_parent_dimension_to_minimum = height
+							datamodel = "[CountryReligionLateralView.GetActiveGods]"
+							item = {
+								fixedgridbox = {
+									addcolumn = 100%
+									addrow = 30
+									datamodel = "[God.GetOmens]"
+									item = {
+										widget = {
+											size = { 100% 30 }
+											background = {
+												visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInDataModel)]"
+												using = tooltip_table_field_texture
+											}
+		
+											hbox = {
+												using = layoutpolicy_expanding
+												margin = { 10 0 }
+												spacing = 5
+												icon = {
+													size = { 20 20 }
+													texture = "[GetOmenIcon(Omen.Self)]"
+												}
+												text_single = {
+													layoutpolicy_horizontal = expanding
+													autoresize = no
+													align = left
+													text = "[Omen.GetName]"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+		
+				TooltipListEmptyContent = {
+					visible = "[IsDataModelEmpty(CountryReligionLateralView.GetActiveGods)]"
 				}
 			}
 		}
@@ -1468,11 +1479,6 @@ template HolySite_tooltip {
 		}
 
 		blockoverride "tooltip_content" {
-			TooltipDebugTextBlock = {
-				blockoverride "text" {
-					debug_text = "[HolySite.GetDebugText]"
-				}
-			}
 			using = HolySite_tooltip_content
 		}
 	}
@@ -1556,5 +1562,10 @@ template religion_actions_tooltip {
 			blockoverride "conditions_list" {}
 		}
 
+		blockoverride "tooltip_ui_action_block" {
+			TooltipUIActionBlockOld = {
+				visible = "[PdxGuiWidget.HasUIAction]"
+			}
+		}
 	}
 }

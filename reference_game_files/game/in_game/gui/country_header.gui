@@ -45,7 +45,7 @@ types CountryHeaders {
 			block "character_widget" {
 
 				widget = {
-					position = { 0 -20 }
+					position = { 0 -30 }
 					allow_outside = yes
 					block "portrait_io_widget" {
 						size = { 250 200 }
@@ -88,6 +88,19 @@ types CountryHeaders {
 		hbox = {
 			layoutpolicy_horizontal = expanding
 			layoutpolicy_vertical = expanding
+
+			background = {
+				using = color_dark_blue_texture
+				alpha = 0.8
+
+				margin_top = -140
+
+				modify_texture = {
+					using = bg_fade_vertical_up_mask_texture
+					blend_mode = alphamultiply
+					alpha = 1
+				}
+			}
 
 			### RULER TITLE, COAT, SKILLS
 			datacontext = "[Country.GetGovernment]"
@@ -149,14 +162,23 @@ template one_country_header_template  {
 		}
 	}
 
-	using = scene_fade_vertical_up
+	background = {
+		using = color_dark_blue_texture
+		alpha = 1
+
+		margin_top = -140
+
+		modify_texture = {
+			using = bg_fade_vertical_up_mask_texture
+			blend_mode = alphamultiply
+			alpha = 1
+		}
+	}
 
 	container = {
 		scissor=yes
 		block "CountryContext" {}
-		block "one_country_character_visible" {
-			visible = "[Country.GetGovernment.HasRulerOrRegent]"
-		}
+		visible = "[Country.GetGovernment.HasRulerOrRegent]"
 		block "character_portrait_anchor" {
 			parentanchor = bottom
 		}
@@ -177,12 +199,11 @@ template one_country_header_template  {
 	hbox = {
 		layoutpolicy_horizontal = expanding
 		layoutpolicy_vertical = expanding
-		block "one_country_ruler_title_visible" {}
 		
 		### RULER TITLE, COAT, SKILLS
-		block "CountryContext" { datacontext = "[Country.GetGovernment]" }
+		block "CountryContext" {}
 		block "country_container_visible" {}
-		
+		datacontext = "[Country.GetGovernment]"
 		country_government_character = {
 			blockoverride "character_name_maximumsize" {
 				maximumsize = { 200 -1 }
@@ -210,8 +231,18 @@ template two_countries_header_template  {
 			spriteborder = { 0 0 }
 		}
 	}
+	background = {
+		using = color_dark_blue_texture
+		alpha = 1
 
-	using = scene_fade_vertical_up
+		margin_top = -50
+
+		modify_texture = {
+			using = bg_fade_vertical_up_mask_texture
+			blend_mode = alphamultiply
+			alpha = 1
+		}
+	}
 
 	container = {
 		block "FirstCountryVisible" {}

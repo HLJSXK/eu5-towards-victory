@@ -19,9 +19,8 @@
 	}
 	combat = {
 		jungle = 0.20
-		coastal = -0.10
 	}
-
+	
 	maintenance_demand =  elephant_auxiliary_maintenance
 	construction_demand = elephant_auxiliary_construction
 
@@ -49,7 +48,6 @@ a_indian_elephant_cavalry = {
 	}
 	combat = {
 		jungle = 0.20
-		coastal = -0.10
 	}
 	#root = location. Checks location_potential first so don't need that scripting in
 	mercenaries_per_location = {
@@ -71,7 +69,7 @@ a_orissan_elephant_cavalry = {
 	location_potential = {
 		market ?= { is_produced_in_market = goods:elephants }
 	}
-	combat = { jungle = 0.20 coastal = -0.10 }
+	combat = { jungle = 0.20 }
 	#root = location. Checks location_potential first so don't need that scripting in
 	mercenaries_per_location = {
 		pop_type = nobles
@@ -91,7 +89,7 @@ a_bengali_elephant_cavalry = {
 	location_potential = {
 		market ?= { is_produced_in_market = goods:elephants }
 	}
-	combat = { jungle = 0.20 coastal = -0.10 }
+	combat = { jungle = 0.20 }
 	#root = location. Checks location_potential first so don't need that scripting in
 	mercenaries_per_location = {
 		pop_type = nobles
@@ -111,7 +109,7 @@ a_thai_elephant_cavalry = {
 	location_potential = {
 		market ?= { is_produced_in_market = goods:elephants }
 	}
-	combat = { jungle = 0.20 coastal = -0.10 }
+	combat = { jungle = 0.20 }
 	#root = location. Checks location_potential first so don't need that scripting in
 	mercenaries_per_location = {
 		pop_type = nobles
@@ -132,7 +130,7 @@ a_siamese_advanced_elephant_cavalry = {
 	location_potential = {
 		market ?= { is_produced_in_market = goods:elephants }
 	}
-	combat = { jungle = 0.20 coastal = -0.10 }
+	combat = { jungle = 0.20 }
 	#root = location. Checks location_potential first so don't need that scripting in
 	mercenaries_per_location = {
 		pop_type = nobles
@@ -154,7 +152,7 @@ a_khmer_ballista_elephant_infantry = {
 	location_potential = {
 		market ?= { is_produced_in_market = goods:elephants }
 	}
-	combat = { jungle = 0.20 coastal = -0.10 }
+	combat = { jungle = 0.20 }
 	#root = location. Checks location_potential first so don't need that scripting in
 	mercenaries_per_location = {
 		pop_type = nobles

@@ -56,7 +56,7 @@
 								alwaystransparent = no
 								datacontext = "[ImportantReligionItem.GetReligion]" 
 								onmousehierarchyenter = "[PdxGuiWidget.SetHighlightReligion(Religion.Self)]"
-								onmousehierarchyenter = "[PdxGuiWidget.PushMapModeOverride('religion_data')]"
+								onmousehierarchyenter = "[PdxGuiWidget.PushMapModeOverride('location_religion')]"
 								tooltipwidget = {
 									using = religion_tooltip
 								}

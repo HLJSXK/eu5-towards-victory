@@ -249,40 +249,6 @@ widget = {
 	}
 }
 
-### Holy Site
-widget = {
-	name = "holy_site_marker"
-	allow_outside = yes
-	size = { 40 40 }
-	position = { 0 0 }
-
-	icon = {
-		parentanchor = center
-		size = { 40 40 }
-		texture = "gfx/interface/icons/location_icons/holy_sites.dds"
-		texture_density = 2
-
-		tooltipwidget = {
-			container = {
-				alwaystransparent = no
-				datacontext = "[HolySiteMarker.GetLocation]"
-				using = HolySitesLocation_Tooltip
-			}
-		}
-	}
-
-	text_single = {
-		datacontext = "[HolySiteMarker.GetLocation]"
-		visible = "[LessThanOrEqualTo_int32(GetZoomStep, '(int32)7')]"
-		parentanchor = right|vcenter
-		position = { 4 0 }
-		snap_to_pixels = no
-		default_format = "#high"
-		text = "[GetDataModelSize(Location.GetHolySites)]"
-		using = Font_Size_Medium
-	}
-}
-
 ### Market
 widget = {
 	name = "market_marker"
@@ -1712,7 +1678,7 @@ template unit_marker_item_modifiers {
 
 						blockoverride "tooltip_content" {
 							TooltipStringPairList = {
-								textcontext = "[TitleDescTooltip.GetDesc.GetStringView]"
+								textcontext = "[TitleDescTooltip.GetDesc]"
 							}
 					
 							vbox = {
@@ -1723,7 +1689,7 @@ template unit_marker_item_modifiers {
 								ontextcontextchanged = "[SetTitleDescTooltipFromTextContext(PdxGuiWidget.AccessSelf)]"
 					
 								TooltipStringPairList = {
-									textcontext = "[TitleDescTooltip.GetDesc.GetStringView]"
+									textcontext = "[TitleDescTooltip.GetDesc]"
 								}
 							}
 						}
@@ -2519,7 +2485,6 @@ widget = {
 			name = "unit_items_grid"
 			addcolumn = @unit_marker_item_width
 			addrow = @unit_marker_item_height
-			datamodel_reuse_widgets = yes
 			allow_outside = yes
 
 			parentanchor = center
@@ -2607,40 +2572,16 @@ widget = {
 									# margin_left = @[unit_marker_morale_progressbar_size * 0.6]
 									margin = {8 0}
 									margin_right = 7
-									hbox = {
-										spacing = -2
-										country_flag_small = {
-											datacontext = "[Unit.GetCountry]"
-											size = { 40 28 }
-		
-											blockoverride "click" {
-												onclick = "[UnitMarkerItem.OnFlagClick]"
-											}
+									country_flag_small = {
+										datacontext = "[Unit.GetCountry]"
+										size = { 40 28 }
 	
-											blockoverride "double_click" {
-												ondoubleclick = "[UnitMarkerItem.OnRightClick]"
-											}
+										blockoverride "click" {
+											onclick = "[UnitMarkerItem.OnFlagClick]"
 										}
-	
-										widget = {
-											size = { 8 26 }
-											allow_outside = yes
-	
-											unit_composition_bar = {
-												size = { 6 24 }
-											}
-	
-											icon = {
-												size = { 100% 100% }
-												texture = "gfx/interface/component_tiles/square_outline_alt.dds"
-												texture_density = 2
-												spriteType = corneredstretched
-												spriteBorder = { 20 20 }
-												modify_texture = {
-													using = color_super_dark_brown_texture
-													blend_mode = multiply
-												}
-											}
+
+										blockoverride "double_click" {
+											ondoubleclick = "[UnitMarkerItem.OnRightClick]"
 										}
 									}
 									
@@ -2657,7 +2598,6 @@ widget = {
 											align = center|nobaseline
 											text = "[UnitMarkerItem.GetLabel]"
 										}
-										
 										widget = {
 											layoutpolicy_horizontal = expanding
 											size = { -1 5 }
@@ -2673,11 +2613,7 @@ widget = {
 											progressbar = {
 												visible = "[Not(Unit.HasMaximumMaintenance)]"
 												size = { 100% 5 }
-												progresstexture = "gfx/interface/progressbars/progress_bar_yellow.dds"
-												noprogresstexture = "gfx/interface/progressbars/progress_black.dds"
-												texture_density = 2
-												spriteType = Corneredstretched
-												spriteborder = { 12 0 }
+												using = progress_bar_goldish
 												value = "[UnitMarkerItem.GetAverageMoralePercent]"
 												tooltipwidget = {
 													using = UnitMorale_tooltip
@@ -2878,10 +2814,9 @@ widget = {
 									# margin_left = @[unit_marker_morale_progressbar_size * 0.6]
 									margin = {4 0}
 									margin_right = 8
-									margin_bottom = 2
 									vbox = {
 										using = layoutpolicy_expanding
-										margin_bottom = 2
+										margin_bottom = 4
 
 										expand = {}
 
@@ -2918,43 +2853,19 @@ widget = {
 										}
 									}
 
-									hbox = {
-										spacing = -2
+									country_flag_small = {
+										datacontext = "[Unit.GetCountry]"
+										size = { 42 29 }
 	
-										widget = {
-											size = { 8 26 }
-											allow_outside = yes
-	
-											unit_composition_bar = {
-												size = { 6 26 }
-											}
-	
-											icon = {
-												size = { 100% 100% }
-												texture = "gfx/interface/component_tiles/square_outline_alt.dds"
-												texture_density = 2
-												spriteType = corneredstretched
-												spriteBorder = { 20 20 }
-												modify_texture = {
-													using = color_super_dark_brown_texture
-													blend_mode = multiply
-												}
-											}
+										blockoverride "click" {
+											onclick = "[UnitMarkerItem.OnFlagClick]"
 										}
 
-										country_flag_small = {
-											datacontext = "[Unit.GetCountry]"
-											size = { 42 29 }
-		
-											blockoverride "click" {
-												onclick = "[UnitMarkerItem.OnFlagClick]"
-											}
-	
-											blockoverride "double_click" {
-												ondoubleclick = "[UnitMarkerItem.OnRightClick]"
-											}
+										blockoverride "double_click" {
+											ondoubleclick = "[UnitMarkerItem.OnRightClick]"
 										}
 									}
+									
 								}
 							}
 
@@ -3721,7 +3632,7 @@ widget = {
 		widgetanchor = center
 		size = { 30 30 }
 		visible = "[PortMarker.ShouldBeShown]"
-		# down = "[PortMarker.HasVisibleShips]"
+		# frame = "[Select_int32(PortMarker.HasVisibleShips,'(int32)2','(int32)1')]"
 		datacontext = "[PortMarker]"
 
 		icon = {
@@ -3792,7 +3703,7 @@ widget = {
 widget = {
 	name = "raw_goods_marker"
 	allow_outside = yes
-	size = "[Min_CVector2f(Multiply_CVector2f(GetInverseZoom2, '(CVector2f)9333, 9333'), '(CVector2f)85, 85')]"
+	size = "[Min_CVector2f(Multiply_CVector2f(GetInverseZoom2, '(CVector2f)7000, 7000'), '(CVector2f)64, 64')]"
 
 	datacontext = "[RawGoodsMarker]"
 	datacontext = "[RawGoodsMarker.GetLocation]"
@@ -3800,26 +3711,24 @@ widget = {
 	datacontext = "[RawGoodsMarker.GetLocation.GetMarket]"
 
 	button = {
-		size = { 75% 75% }
-		parentanchor = center
+		visible = "[Not(Location.HasSpecificBaseModifier)]"
+		size = { 100% 100% }
 		texture = "[GetGoodsIcon(Location.GetRawMaterial.Self)]"
 		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightGoods(Location.GetRawMaterial.Self)]"
 		tooltipwidget = {
 			using = SpecificGoodsMarket_tooltip
 		}
-		action_tooltip = {
-			click_type = left
-			click_mode = single
-			title = "OPEN_GOOD_PANEL"
-			on_action = "[ShowGoods(Location.GetRawMaterial.Self)]"
-		}
+		# action_tooltip = {
+		# 	click_type = left
+		# 	click_mode = single
+		# 	title = "OPEN_GOOD_PANEL"
+		# 	on_action = "[ShowGoods(Location.GetRawMaterial.Self)]"
+		# }
 	}
 
 	button = {
 		visible = "[Location.HasSpecificBaseModifier]"
-		parentanchor = bottom|right
-		position = { 0	0 }
-		size = { 50% 50% }
+		size = { 150% 150% }
 		icon = {
 			size = { 100% 100% }
 			texture = "[Location.GetSpecificBaseModifier.GetModifier.GetIcon]"
@@ -4337,58 +4246,6 @@ widget = {
 
 		onclick = "[SelectLocation(BlockedVisionMarker.GetLocation)]"
 		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(BlockedVisionMarker.GetLocation)]"
-	}
-}
-
-### WinterBlocked Marker
-widget = {
-	name = "winter_blocked_marker"
-	size = { 20 20 }
-	widgetanchor = left
-	position = { 0 2 }
-
-	tooltipwidget = {
-		ContextualTooltipType = {
-			blockoverride "title_icon" {
-				icon = {
-					texture = "gfx/interface/mapitems/stuck_in_ice.dds"
-					using = tooltip_title_icon_size
-				}
-			}
-			blockoverride "title_text" {
-					text = "WINTER_BLOCKED_TOOLTIP_TEXT"
-			}
-
-			blockoverride "tooltip_content" {
-				TooltipStringPairList = {
-					textcontext = "[WinterBlockedMarker.GetTooltip]"
-				}
-			}
-		}
-	}
-
-	tooltip_offset = { 20 20 }
-
-	button = {
-		parentanchor = center
-		allow_outside = yes
-
-		block "button_size" {
-			size = { 100% 100% }
-		}
-
-		tooltip_enabled = no
-		texture = "gfx/interface/mapitems/stuck_in_ice.dds"
-		glow = {
-			name = "drop_shadow"
-			glow_radius = 3
-			color = {0.0 0.0 0.0 1.0}
-			alpha = 0.5
-		}
-		texture_density = 2
-
-		onclick = "[SelectLocation(WinterBlockedMarker.GetLocation)]"
-		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(WinterBlockedMarker.GetLocation)]"
 	}
 }
 
