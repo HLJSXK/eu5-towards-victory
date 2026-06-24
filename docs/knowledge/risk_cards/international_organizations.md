@@ -100,13 +100,26 @@ that create, find, or mutate TV IOs.
     `game_data = { category = internationalorganization }`. Missing definitions can
     trigger startup DB assertions even when the status is not explicitly using parliament.
 
-17. Define member opinion biases for every TV IO type.
+17. Give parliament law votes a real meeting location.
+    `call_parliament_for_law_change` ends by calling `set_parliament_location` on a saved
+    `parliament_location`. For non-HRE IOs it can use `parliament_seat`, a proposer-owned
+    IO-owned location, or a random IO-owned location. If a TV IO has no IO-owned locations,
+    set its `parliament_seat` variable to a valid location such as the leader capital before
+    policy votes can be proposed.
+
+18. Keep IO-scoped helpers out of unstable creation-block roots.
+    A `create_international_organization = { ... }` body can be walked during generic-action
+    pre-evaluation before the new IO is a stable root. Do not call helpers there if they start
+    with IO-only triggers such as `international_organization_type`. Prefer the IO type's
+    `on_creation` / `on_joined` hooks, or switch to a verified saved IO scope after creation.
+
+19. Define member opinion biases for every TV IO type.
     Each IO type should have a matching `io_opinion_<io_type>` entry under
     `in_game/common/biases/` and the same key localized in both supported languages.
     Missing the bias logs a startup warning that the organization needs an opinion of
     other members.
 
-18. Keep idle parliament issues positively desirable.
+20. Keep idle parliament issues positively desirable.
     When a custom IO uses vanilla `call_organization_parliament` for normal, non-law
     sessions, make sure at least one issue for the participating special status has
     valid `potential` / `allow` / `selectable_for` and positive

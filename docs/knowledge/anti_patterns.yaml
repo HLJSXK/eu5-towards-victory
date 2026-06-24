@@ -1632,6 +1632,24 @@
   source: "reference_game_files/game/in_game/common/resolutions/policy_vote.txt:620; reference_game_files/game/in_game/common/international_organization_special_statuses/readme.txt:12; reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:14570"
   notes: "The policy_vote resolution requires country_combined_special_status_power(scope:recipient) > 0 when uses_parliament_for_law_votes_trigger is active. Without a participating special status, the law debate can open but the IO parliament page has no voter group to show."
 
+- id: io_law_vote_without_parliament_location
+  pattern: ''
+  bad: "IO law votes routed through parliament for an organization that has neither a parliament_seat nor an owned location"
+  correction: "For uses_parliament_for_law_votes IOs with no IO-owned locations, set the IO variable parliament_seat to a valid location such as the leader country's capital before any law vote can be proposed."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt:226-294; runtime error.log tv_diplomatic_alliance 2026-06-24"
+  notes: "Vanilla call_parliament_for_law_change unconditionally calls set_parliament_location = scope:parliament_location. For non-HRE IOs it first uses parliament_seat, then a proposer-owned location that is owned by the IO, then a random IO-owned location. Diplomatic Alliance has no IO-owned locations, so law votes reached set_parliament_location with a null target until parliament_seat was set from the leader capital."
+
+- id: io_scoped_effect_called_inside_create_io_block
+  pattern: ''
+  bad: "Calling an IO-scoped helper with IO-only triggers directly inside create_international_organization's effect block"
+  correction: "Put IO-scoped initialization in the IO type's on_creation/on_joined hooks, or call it only after switching to a saved IO scope that is verified to exist. Keep create_international_organization blocks free of helpers that assume root is the new IO during pre-evaluation."
+  category: scope
+  scope: international_organization
+  source: "runtime error.log tv_diplomatic_alliance 2026-06-24; reference_game_files/game/in_game/common/international_organizations/readme.txt:75"
+  notes: "Generic-action tooltip/effect pre-evaluation can walk a create_international_organization block before the new IO is a stable root. An IO helper that starts with international_organization_type then logs 'Expected international_organization, but got country'. Diplomatic Alliance fixed this by relying on IO on_creation/on_joined and removing the direct helper call from the creation block."
+
 - id: io_special_status_missing_parliament_modifier_types
   pattern: ''
   bad: "Defining a custom IO special status without the matching auto-requested parliament modifier type pair"
