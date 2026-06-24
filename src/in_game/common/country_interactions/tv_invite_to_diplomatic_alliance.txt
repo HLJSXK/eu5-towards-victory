@@ -1,12 +1,6 @@
 ﻿tv_invite_to_diplomatic_alliance = {
 	type = diplomacy
 	category = CATEGORY_FRIENDLY_ACTIONS
-
-	cooldown = {
-		type = tv_invite_to_diplomatic_alliance
-		years = 1
-	}
-
 	ai_tick = monthly
 	ai_tick_frequency = 60
 
