@@ -16,7 +16,9 @@ from gen_unique_wonder_ritual_code import (  # noqa: E402
     generate_fragments_for_payload,
 )
 from wonder_unique_ritual_harness import (  # noqa: E402
+    list_index,
     load_capability_registry,
+    load_spec_data,
     load_template_registry,
     validate_capability_registry,
     validate_spec_payload,
@@ -1074,6 +1076,16 @@ def new_jerusalem_archetype_contract_errors(archetype_registry: dict) -> list[st
     return errors
 
 
+def lalibela_repo_entry() -> dict:
+    return deepcopy(list_index(load_spec_data())["unique_lalibela_churches"])
+
+
+def assert_lalibela_error(name: str, entry: dict, needle: str) -> None:
+    errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
+    if not any(needle in error for error in errors):
+        raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
+
+
 def main() -> None:
     good_errors = validate_spec_payload(
         {"unique_wonders": [valid_entry()]},
@@ -1192,6 +1204,44 @@ def main() -> None:
     )
     if pilgrimage_route_errors:
         raise AssertionError(f"pilgrimage route certification fixture unexpectedly failed: {pilgrimage_route_errors}")
+
+    lalibela = lalibela_repo_entry()
+    if lalibela["identity"]["status"] != "compiler_mapped":
+        raise AssertionError(f"Lalibela status should be compiler_mapped, got {lalibela['identity']['status']!r}")
+    if lalibela["node_graph"]["model"] != "state_machine_dsl_v1":
+        raise AssertionError(f"Lalibela node_graph should be state_machine_dsl_v1, got {lalibela['node_graph']['model']!r}")
+    lalibela_errors = validate_spec_payload({"unique_wonders": [lalibela]}, require_all_wonders=False)
+    if lalibela_errors:
+        raise AssertionError(f"Lalibela compiler_mapped fixture unexpectedly failed: {lalibela_errors}")
+
+    lalibela_source_gap = next(
+        row
+        for row in lalibela["compiler_gap_ledger"]
+        if row.get("primitive") == "source_compiler_pilgrimage_route_generation"
+    )
+    if lalibela_source_gap.get("verification_status") != "needs_codebase_search":
+        raise AssertionError("Lalibela source compiler gap must remain needs_codebase_search")
+
+    lalibela_missing_backend = lalibela_repo_entry()
+    for test_node in lalibela_missing_backend["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "pilgrimage_route_certification_backend"
+        ]
+    assert_lalibela_error(
+        "Lalibela missing pilgrimage backend",
+        lalibela_missing_backend,
+        "archetype 'new_jerusalem_rock_route' missing required capability(s): pilgrimage_route_certification_backend",
+    )
+
+    lalibela_source_ready_with_gap = lalibela_repo_entry()
+    lalibela_source_ready_with_gap["identity"]["status"] = "source_codegen_ready"
+    assert_lalibela_error(
+        "Lalibela source_codegen_ready unresolved compiler gap",
+        lalibela_source_ready_with_gap,
+        "source-codegen-ready status has unresolved compiler gap(s): source_compiler_pilgrimage_route_generation",
+    )
 
     incident_errors = validate_spec_payload(
         {"unique_wonders": [incident_retry_entry()]},
@@ -1377,6 +1427,13 @@ def main() -> None:
             raise AssertionError(f"high-fidelity codegen dry-run missing {expected!r}")
     if "may_write_src | true" in high_fidelity_text:
         raise AssertionError("high-fidelity codegen dry-run implies source-writing support")
+
+    full_repo_codegen = generate_fragments_for_payload(load_spec_data())
+    full_repo_generated_keys = {row["key"] for row in full_repo_codegen["generated"]}
+    if len(full_repo_generated_keys) != 4:
+        raise AssertionError(f"full repo codegen should generate 4 fragments, got {sorted(full_repo_generated_keys)}")
+    if "unique_lalibela_churches" in full_repo_generated_keys:
+        raise AssertionError("Lalibela must remain skipped by source-codegen dry-run")
 
     duplicate = valid_entry()
     duplicate["event_ids"][2]["id"] = 1002

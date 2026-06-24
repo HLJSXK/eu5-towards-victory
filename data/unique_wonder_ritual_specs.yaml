@@ -3272,7 +3272,7 @@ unique_wonders:
     base_key: sacred_mountain
     location: lalibela
     runtime_prefix: tv_wonder_lalibela_churches
-    status: design_complete
+    status: compiler_mapped
   event_ids:
   - id: 1026
     key: new_jerusalem_route_opening
@@ -3283,11 +3283,25 @@ unique_wonders:
   - id: 1029
     key: recognition_reward_handoff
   node_graph:
-    model: design_ir_projection_v1
+    model: state_machine_dsl_v1
     archetypes:
     - new_jerusalem_rock_route
     historical_mechanic: Rock-hewn New Jerusalem pilgrimage certification through Lalibela's carved churches, offerings, pilgrim route proof, and local-only fallback.
     summary: The player traces a New Jerusalem route through Lalibela's rock-hewn churches, proves pilgrims can move between waypoints, supplies offerings and lodging, handles a broken pilgrim link or missing offering, and hands recognized pilgrimage proof to the existing final reward path.
+    mechanic_signature:
+      wonder_specific_hook: Lalibela's rite treats the excavated churches as a walkable New Jerusalem carved downward from living rock, so the proof is the route between named sanctuaries rather than a generic sacred-mountain dedication.
+      core_interaction_loop: The player opens the carved route, certifies named church waypoints with offerings and recognition proof, resolves broken pilgrim links or missing offerings, and then hands the accepted pilgrimage proof to the existing final reward path.
+      player_decision_pattern: Decisions are about whether pilgrims can descend and move safely, whether bread, water, lamps, cross guards, and village recognition are sufficient, and whether to repair a disputed route segment or accept a local-only circuit.
+      state_feedback_model: The route_map summarizes New Jerusalem waypoint status, the material stockpile summarizes offering readiness, and the incident_log preserves broken-link, missing-offering, recognition-dispute, retry, and local-only fallback state.
+      failure_or_tension_model: A broken trench passage, missing offering, or disputed recognition can send the player back to waypoint certification; accepting the local-only fallback preserves sanctity while narrowing wider pilgrimage recognition.
+      reward_expression: The final reward remains the Holy City Pilgrimage Day handoff through existing Lalibela finalization effects, with the Harness recording recognized or local-only route proof as intermediate state only.
+      reuse_risk_mitigation: Ordinary pilgrim festivals can reward devotion, but Lalibela must prove a specific church-to-church geography with named rock-hewn waypoints, offerings, endpoint recognition, route incidents, and local-only fallback semantics.
+    cadence_signature:
+      cadence_type: route_certification
+      cadence_rationale: Route certification fits because the decisive validation is the pilgrim circuit through named carved churches, offering checks, incident resolution, and recognition handoff rather than a monthly pulse or single ceremony click.
+      player_agency_model: The player opens the route, certifies waypoint offerings and recognition, chooses repair or retry when a pilgrim link breaks, and decides whether the final proof is wide recognition or a local-only holy circuit.
+      non_monthly_triggers_or_reason: Non-monthly validation comes from the route gate, offering/resource gate, broken-link incident branch, repair retry decision, local-only fallback choice, and final reward dispatch.
+      pacing_failure_mode: The pacing fails if Lalibela becomes one anonymous dedication event, so the node graph keeps route state, offering state, incident state, recognition proof, retry, and final handoff as separate beats.
     runtime_variables:
     - tv_wonder_lalibela_churches_stage
     - tv_wonder_lalibela_churches_route_status
@@ -3370,6 +3384,8 @@ unique_wonders:
       - broken_pilgrim_link_incident
       - recognition_reward_handoff
       reader_nodes:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
       - recognition_reward_handoff
       cleanup: project_state_clear
     nodes:
@@ -3398,9 +3414,17 @@ unique_wonders:
         - tv_wonder_lalibela_churches_route_status
       loc_refs:
       - TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
     - key: waypoint_offering_certification
-      kind: route_gate
+      kind: choice_event
       capabilities:
+      - event_chain
       - route_gate
       - resource_gate
       - pilgrimage_route_certification_backend
@@ -3423,9 +3447,11 @@ unique_wonders:
       - tv_wonder_lalibela_churches_stage
       - tv_wonder_lalibela_churches_route_status
       - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_recognition_proof
       ui_state:
         component_key: lalibela_route_map
         variable_refs:
+        - tv_wonder_lalibela_churches_stage
         - tv_wonder_lalibela_churches_route_status
         - tv_wonder_lalibela_churches_offering_status
         - tv_wonder_lalibela_churches_recognition_proof
@@ -3461,12 +3487,15 @@ unique_wonders:
       - tv_wonder_lalibela_churches_incident_state
       - tv_wonder_lalibela_churches_recognition_proof
       reads:
+      - tv_wonder_lalibela_churches_stage
       - tv_wonder_lalibela_churches_route_status
       - tv_wonder_lalibela_churches_offering_status
       - tv_wonder_lalibela_churches_incident_state
+      - tv_wonder_lalibela_churches_recognition_proof
       ui_state:
         component_key: lalibela_incident_log
         variable_refs:
+        - tv_wonder_lalibela_churches_stage
         - tv_wonder_lalibela_churches_route_status
         - tv_wonder_lalibela_churches_offering_status
         - tv_wonder_lalibela_churches_incident_state
@@ -3508,6 +3537,13 @@ unique_wonders:
         - tv_wonder_lalibela_churches_recognition_proof
       loc_refs:
       - tv_engineering_department.500.d_unique_lalibela_churches
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
     edges:
     - from: new_jerusalem_route_opening
       to: waypoint_offering_certification
@@ -3534,6 +3570,40 @@ unique_wonders:
       condition: accept_local_only_circuit
       effect: mark_local_only_fallback_projection
       label_key: tv_engineering_department.600.d_unique_lalibela_churches
+    actions:
+    - key: open_lalibela_new_jerusalem_route
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: certify_lalibela_waypoints_and_offerings
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_lalibela_pilgrim_link_incident
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: dispatch_lalibela_recognition_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: lalibela_route_map_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      generator_template: semantic_contract_fragment
+    - key: lalibela_offering_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      generator_template: semantic_contract_fragment
+    - key: lalibela_incident_contract
+      kind: generator_template
+      tooltip_key: TV_WONDER_LOCK_UNIQUE_LALIBELA_CHURCHES_TT
+      generator_template: semantic_contract_fragment
     listeners: []
   design_ir:
     compiler_primitives:
@@ -3666,12 +3736,13 @@ unique_wonders:
       material_stockpile: Offering readiness is summarized as bread, water, lamp, cross-guard, and village-recognition support rather than loadable resource script.
       repeated_rows: The design requires one row per church waypoint and one incident/offering status line when a route problem appears.
       per_entity_status: Each waypoint keeps separate route, offering, recognition, and incident state in design_ir.
+      current_projection: The compiler_mapped node_graph compresses church waypoints into route_status, offerings into offering_status, route problems into incident_state, and recognition or local-only proof into recognition_proof while preserving all rows in design_ir.
     uniqueness_constraints:
     - Lalibela's proof is spatial: churches cut downward from rock replace Jerusalem's sacred geography with a walkable highland route.
     - The route endpoint and waypoints are church-to-church passages inside one carved holy city, not maritime lanes, roads, or ordinary pilgrim hospitality.
     - Broken-link and missing-offering incidents matter because a carved city cannot claim wider recognition if pilgrims cannot descend, eat, carry crosses, and leave with proof.
     - The local-only fallback preserves sanctity while explicitly losing wider route recognition, which keeps the mechanism distinct from a generic festival or route counter.
-    projection_notes: The current node_graph is a lossy design_complete projection. It preserves New Jerusalem route, route endpoint, named waypoint, offering, recognition proof, incident, local-only fallback, route_map row/status, incident_log, and final reward handoff semantics in design_ir, but compresses repeated waypoint rows and offering rows into summary runtime variables until a future source compiler can generate loadable route state, selectors, GUI rows, and event/effect source.
+    projection_notes: The current compiler_mapped node_graph is an intermediate-only strong DSL projection. It preserves New Jerusalem route, route endpoint, named waypoint, offering, recognition proof, incident, local-only fallback, route_map row/status, incident_log, and final reward handoff semantics in design_ir, but compresses repeated waypoint rows and offering rows into summary runtime variables until a future source compiler can generate loadable route state, selectors, GUI rows, and event/effect source.
   compiler_gap_ledger:
   - primitive: rock_hewn_new_jerusalem_route_set
     design_semantics: Preserve Lalibela as a church-to-church New Jerusalem route through carved rock, with a route endpoint and named waypoints.
@@ -3776,7 +3847,7 @@ unique_wonders:
     blocked_by:
     - No source compiler for pilgrimage route certification is in scope for this round.
     - The new backend is intermediate-only and may_write_src false.
-    fallback_if_unavailable: Keep Lalibela at design_complete with high-fidelity design_ir and no source generation.
+    fallback_if_unavailable: Keep Lalibela at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
     components:
     - type: route_map
@@ -3788,6 +3859,49 @@ unique_wonders:
     - type: material_stockpile
       key: lalibela_offerings
       value_variable: tv_wonder_lalibela_churches_offering_status
+    bindings:
+    - key: lalibela_route_map_binding
+      component_key: lalibela_route_map
+      variable_refs:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_incident_state
+      - tv_wonder_lalibela_churches_recognition_proof
+      node_refs:
+      - new_jerusalem_route_opening
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+    - key: lalibela_incident_log_binding
+      component_key: lalibela_incident_log
+      variable_refs:
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_incident_state
+      - tv_wonder_lalibela_churches_recognition_proof
+      node_refs:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      - TV_WONDER_LOCK_UNIQUE_LALIBELA_CHURCHES_TT
+      - tv_engineering_department.600.d_unique_lalibela_churches
+    - key: lalibela_offering_stockpile_binding
+      component_key: lalibela_offerings
+      variable_refs:
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_recognition_proof
+      node_refs:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
   rewards:
     permanent_country_modifier:
       status: designed
@@ -3832,10 +3946,16 @@ unique_wonders:
       node_key: recognition_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_lalibela_churches
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Lalibela is compiler_mapped only. The Harness records intermediate route, waypoint, offering, incident, local-only fallback, and reward-handoff semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: holy_city_pilgrimage
-    implementation_source: existing Lalibela finalization effects plus intermediate Harness design_ir only
-    verification_status: design_complete_intermediate_only
+    implementation_source: existing Lalibela finalization effects plus compiler_mapped intermediate Harness design_ir only
+    verification_status: compiler_mapped
     verified_interfaces:
     - capability:pilgrimage_route_certification_backend intermediate backend contract
     - capability:route_gate semantic projection
@@ -3850,7 +3970,7 @@ unique_wonders:
     remaining_source_writer_blockers:
     - The new pilgrimage_route_certification_backend is intermediate-only and may_write_src false.
     - No Harness source compiler expands Lalibela waypoint rows, offering rows, route selectors, or local-only fallback effects into loadable EU5 source.
-    - Lalibela remains design_complete; do not promote it to source_codegen_ready until every compiler_gap_ledger row is backend_ready and source writer contracts exist.
+    - Lalibela remains compiler_mapped; do not promote it to source_codegen_ready until every compiler_gap_ledger row is backend_ready and source writer contracts exist.
 - identity:
     id: 114
     key: unique_venetian_arsenal
