@@ -54,7 +54,13 @@ that create, find, or mutate TV IOs.
    Wrap IO membership checks in `scope:actor = { ... }`; direct country-scoped IO iterators
    under `potential` can evaluate from an invalid root.
 
-10. Use route `trade_volume` for Trade League market control.
+10. Guard country interaction pre-selection reads.
+   Country interaction `accept` scoring and sometimes `effect` preview paths can be evaluated
+   from panel buttons before a `select_trigger` has populated `scope:recipient`. Put direct
+   `scope:recipient` reads behind `exists = scope:recipient`, and initialize actor-owned
+   variables at the lifecycle point that creates the IO before reading them in `accept`.
+
+11. Use route `trade_volume` for Trade League market control.
    For the Trade League monopoly system, annual global refresh may rank origin markets by
    `produced_in_market:<good>` and consumer markets by `goods_demand_in_market(goods:<good>)`,
    but route control itself must come from market export/import iterators. Sum market
@@ -63,44 +69,44 @@ that create, find, or mutate TV IOs.
    Do not substitute `traded_in_market:<good>`, `goods_supply_in_market`, or member-present
    market totals; those are market availability/proxy values, not member-owned route volume.
 
-11. Keep Trade League bulk monopoly state off IO variables.
+12. Keep Trade League bulk monopoly state off IO variables.
    The generated per-good monopoly/action state is intentionally stored on `leader_country`,
    while the IO is saved as a named scope only for membership checks. Do not reintroduce a
    giant `variables = {}` block on `tv_trade_league`; initializing those IO variables caused
    severe runtime stutter. GUI reads should go through
    `GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable(...)`.
 
-12. Keep Trade League generated monopoly maintenance off the IO monthly_effect.
+13. Keep Trade League generated monopoly maintenance off the IO monthly_effect.
     Even hidden IO monthly maintenance for the per-good Trade League monopoly refresh caused
     severe runtime stutter. Register a named country monthly pulse through `data/pulse_registry.yaml`,
     save the country scope, iterate that country's `every_international_organizations_member_of`
     filtered to `tv_trade_league` plus `leader_country ?= <saved country>`, and only then call the
     IO-scoped refresh effect.
 
-13. Do not seed TV IOs with enacted laws at creation.
+14. Do not seed TV IOs with enacted laws at creation.
     All TV IOs start lawless unless a design document explicitly says otherwise. For Trade League,
     leave the IO definition without a `laws = { ... }` block that maps laws to default policies;
     law groups are enacted later through policy votes.
 
-14. Match IO membership iterators to trigger/effect context.
+15. Match IO membership iterators to trigger/effect context.
     `any_international_organizations_member_of` is trigger syntax. In effect bodies,
     use `every_international_organizations_member_of = { limit = { ... } ... }`
     when you need to enter matching IO scopes and run effects.
 
-15. Define custom special-status parliament modifier type pairs.
+16. Define custom special-status parliament modifier type pairs.
     Every custom IO special status key that can be implemented by an IO needs
     `<status>_can_participate_in_parliament` and `<status>_agenda_impact` in
     `main_menu/common/modifier_type_definitions`, both with
     `game_data = { category = internationalorganization }`. Missing definitions can
     trigger startup DB assertions even when the status is not explicitly using parliament.
 
-16. Define member opinion biases for every TV IO type.
+17. Define member opinion biases for every TV IO type.
     Each IO type should have a matching `io_opinion_<io_type>` entry under
     `in_game/common/biases/` and the same key localized in both supported languages.
     Missing the bias logs a startup warning that the organization needs an opinion of
     other members.
 
-17. Keep idle parliament issues positively desirable.
+18. Keep idle parliament issues positively desirable.
     When a custom IO uses vanilla `call_organization_parliament` for normal, non-law
     sessions, make sure at least one issue for the participating special status has
     valid `potential` / `allow` / `selectable_for` and positive

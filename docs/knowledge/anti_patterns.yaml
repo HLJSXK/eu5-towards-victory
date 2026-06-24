@@ -1903,3 +1903,14 @@
   scope: any
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:3193,4113,4177,6833,6849,7114,15791"
   notes: "EU5 1.3 replaced several cost-style modifier keys with good-colored percent efficiency keys, including build-building, court-spending, stability-cost, fort-maintenance, and bureaucracy-maintenance variants. Keeping the old sign reverses the intended gameplay effect."
+
+- id: country_interaction_accept_unset_selection_reads
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['country_interactions']
+  bad: "Reading `scope:recipient` or an unset actor variable directly inside country interaction accept scoring or a target-mutating effect before the select_trigger has chosen a country"
+  correction: "Guard recipient-dependent reads and mutations with `exists = scope:recipient`. Initialize actor-owned variables at the feature creation lifecycle point, and gate nullable value reads with `has_variable` before using `scope:actor.var:<name>` in `accept`."
+  category: scope
+  scope: country
+  source: "runtime error.log for tv_invite_to_diplomatic_alliance, 2026-06-24; reference_game_files/game/in_game/common/country_interactions/invite_settlers.txt:90-104"
+  notes: "Country interaction accept/effect paths can be evaluated from panel buttons before the selector populates recipient. Direct reads then report wrong-type `none`, unset variables, or unset `var` scopes while the player is only looking at the country picker."

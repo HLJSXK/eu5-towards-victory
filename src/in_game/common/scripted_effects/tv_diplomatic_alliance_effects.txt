@@ -21,6 +21,7 @@
 				set_variable = { name = tv_alliance_tier value = 0 }
 			}
 			remove_variable = tv_diplomatic_alliance_self_establishing
+			set_variable = { name = tv_diplomatic_alliance_member_count value = 1 }
 			set_variable = { name = tv_alliance_tier value = 0 }
 		}
 	}

@@ -137,6 +137,24 @@ potential = {
 
 Direct `any_international_organizations_member_of` under `potential` can evaluate from an invalid root and log inconsistent trigger scopes (`invalid vs. country`). Vanilla `bribe_voter_for_policy` uses `scope:actor = { any_international_organizations_member_of = { ... } }` in its country interaction potential.
 
+#### Country Interaction Selection Pre-Evaluation
+
+Country interactions opened from panel buttons can evaluate `accept` scoring before a `select_trigger` has populated `scope:recipient`. Guard direct recipient reads inside `accept` with `exists = scope:recipient`, as vanilla `invite_settlers` does:
+
+```pdx
+accept = {
+    if = {
+        limit = { exists = scope:recipient }
+        add = {
+            desc = "THEIR_OPINION_TOOLTIP"
+            value = "scope:recipient.opinion(scope:actor)"
+        }
+    }
+}
+```
+
+The same interaction may also preview or walk `effect` before a selected target exists, so effect bodies that pass `scope:recipient` into IO membership changes should put the real mutation behind `if = { limit = { exists = scope:recipient } ... }`. Any actor-owned variable used by `accept` should be initialized at the lifecycle point that creates the feature; if an existing script can still evaluate before initialization, gate the value read with `scope:actor = { has_variable = <var> }` rather than reading `scope:actor.var:<var>` directly.
+
 #### International Organization Monthly Effects and Tooltips
 
 The shared IO tooltip can render visible children of an IO type's `monthly_effect` block. For internal monthly maintenance such as state repair, variable smoothing, member cleanup, or cached GUI refreshes, wrap the logic in `hidden_effect`:
