@@ -83,10 +83,11 @@ that create, find, or mutate TV IOs.
     relevant TV IO plus `leader_country ?= <saved country>`, and only then call the IO-scoped
     refresh effect.
 
-14. Do not seed TV IOs with enacted laws at creation.
-    All TV IOs start lawless unless a design document explicitly says otherwise. For Trade League,
-    leave the IO definition without a `laws = { ... }` block that maps laws to default policies;
-    law groups are enacted later through policy votes.
+14. Seed IO laws only when the design requires a baseline state.
+    Trade League, Arts Exhibition, Academy of Sciences, and Governor's House start without
+    initial policies unless a later design explicitly changes them. Diplomatic Alliance is the
+    current exception: its IO definition must seed all five law groups to their baseline
+    no-effect policies so creation starts at the baseline tier-0 state rather than no law.
 
 15. Match IO membership iterators to trigger/effect context.
     `any_international_organizations_member_of` is trigger syntax. In effect bodies,

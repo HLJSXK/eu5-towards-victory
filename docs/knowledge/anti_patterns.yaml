@@ -232,12 +232,12 @@
   pattern: '(?:^\s*default:\s*true\s*$|(?s:tv_trade_league\s*=\s*\{.*?\blaws\s*=\s*\{\s*\w))'
   detectability: lint
   only_in_paths: ['trade_league_laws.yaml', 'tv_trade_league.txt']
-  bad: "TV IO type starts with enacted laws or generated default policies"
-  correction: "Keep TV IOs lawless at creation unless a design document explicitly says otherwise. For Trade League, do not emit a laws block with policy mappings in the IO type; laws are enacted later through policy votes."
+  bad: "Trade League starts with enacted laws or generated default policies"
+  correction: "Keep Trade League lawless at creation: do not emit a laws block with policy mappings in the IO type, and do not mark generated Trade League policies as default. Diplomatic Alliance is a separate design exception that explicitly seeds baseline no-effect policies."
   category: script
   scope: international_organization
   source: "user design clarification (2026-05-25); reference_game_files/game/main_menu/setup/start/15_international_organizations.txt:288"
-  notes: "AI generated default level-1 Trade League policies into tv_trade_league's IO definition. This violated the design that all TV IOs start with no laws. Vanilla setup shows an IO can explicitly start with laws = {  }."
+  notes: "AI generated default level-1 Trade League policies into tv_trade_league's IO definition. This violated the Trade League design that policies are enacted later through votes. Vanilla setup shows an IO can explicitly start with laws = {  }; Diplomatic Alliance intentionally uses a non-empty laws block for its baseline tier-0 state."
 
 - id: tv_io_missing_opinion_bias
   pattern: ''
