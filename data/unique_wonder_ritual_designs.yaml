@@ -845,6 +845,693 @@ unique_wonders:
         distinct from id 132 Angkor Waterworks: water is present here as sacred
         and royal infrastructure supporting legitimacy, not as the primary
         economic output theme.
+    harness_spec:
+      identity:
+        id: 104
+        key: unique_angkor_wat
+        base_key: giant_tower_temple
+        location: angkor
+        runtime_prefix: tv_wonder_angkor_wat
+        status: compiler_mapped
+      event_ids:
+      - id: 1046
+        key: open_devaraja_causeway
+      - id: 1047
+        key: choose_gallery_alignment
+      - id: 1048
+        key: certify_moat_and_tribute_rows
+      - id: 1049
+        key: resolve_procession_incident
+      - id: 1050
+        key: reconcile_temple_households
+      - id: 1051
+        key: final_devaraja_reward_handoff
+      node_graph:
+        model: state_machine_dsl_v1
+        archetypes:
+        - incident_retry_gauntlet
+        historical_mechanic: Angkor Wat proves divine kingship through a visible causeway, moat-water, gallery, inscription, temple-service, and tribute alignment dispute before the Devaraja Procession can confer legitimacy.
+        summary: The player opens the western causeway rite, chooses whether galleries, moat-water, or temple-service registers carry the proof, certifies the visible rows, resolves a rival ritual-household or procession failure, and seals either a broad public entrance or a narrower royal-only opening.
+        mechanic_signature:
+          wonder_specific_hook: Angkor Wat is treated as a stone diagram of royal cosmology where causeways, moats, carved galleries, central towers, temple dancers, inscription scribes, rice tribute, and state-faith service must line up before the Devaraja entrance is credible.
+          core_interaction_loop: The player convenes the court at the western causeway, chooses the alignment proof, reviews moat water, gallery custodians, rice registers, and temple-service rows, then answers a contested procession incident that can send the rite back through reconciliation.
+          player_decision_pattern: Choices decide whether the entrance emphasizes cosmic gallery order, water and causeway purification, or land-and-service registers, then decide whether rival ritual households are compensated, subordinated, or bypassed by a narrower royal opening.
+          state_feedback_model: The progress_track summarizes causeway alignment, the checklist records the chosen proof and register status, and the incident_log records procession rejection, servant compensation, guard overreach, reconciliation, retry, or narrowed reward branch.
+          failure_or_tension_model: A rejected gallery order, failed moat procession, or rival temple household can block public entry; the player can fund reconciliation and retry the certification or accept a smaller court-only Devaraja proof.
+          reward_expression: Full certification preserves monthly legitimacy and state-faith tolerance as a public temple-city order, while a narrowed branch still grants local royal entry memory but records weaker religious integration for future source work.
+          reuse_risk_mitigation: The loop belongs to Angkor Wat because spatial cosmology itself is the mechanic; ordinary temples do not make a west-causeway route, moat water, bas-relief galleries, rice registers, and divine kingship into one operational proof.
+        cadence_signature:
+          cadence_type: event_driven
+          cadence_rationale: Event-driven pacing fits because the decisive beat is a visible Devaraja procession incident at the causeway and galleries, not monthly accumulation.
+          player_agency_model: The player selects the alignment doctrine, inspects concrete rows, and chooses whether a procession failure is repaired, politically contained, or accepted as a narrower opening.
+          non_monthly_triggers_or_reason: Non-monthly validation comes from the certification event and the follow-up incident branch that tests the chosen causeway, moat, gallery, or register proof.
+          pacing_failure_mode: The pacing fails if Angkor becomes a single dedication click or an anonymous monthly bar, so the design preserves named temple-city rows, an incident choice, retry, and branch-shaped reward.
+        listeners: []
+        entry_node: open_devaraja_causeway
+        terminal_nodes:
+        - final_devaraja_reward_handoff
+        runtime_variables:
+        - tv_wonder_angkor_wat_stage
+        - tv_wonder_angkor_wat_alignment_choice
+        - tv_wonder_angkor_wat_row_status
+        - tv_wonder_angkor_wat_incident_state
+        - tv_wonder_angkor_wat_reward_branch
+        graph_shape: devaraja_causeway_incident_retry
+        completion_policy:
+          allow_terminal_outgoing: false
+        variables:
+        - name: tv_wonder_angkor_wat_stage
+          scope: country
+          type: number
+          roles:
+          - stage_state
+          initial_value: 0
+          writer_nodes:
+          - open_devaraja_causeway
+          - choose_gallery_alignment
+          - certify_moat_and_tribute_rows
+          - resolve_procession_incident
+          - reconcile_temple_households
+          - final_devaraja_reward_handoff
+          reader_nodes:
+          - choose_gallery_alignment
+          - certify_moat_and_tribute_rows
+          - resolve_procession_incident
+          - reconcile_temple_households
+          - final_devaraja_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_angkor_wat_alignment_choice
+          scope: country
+          type: number
+          roles:
+          - checklist_state
+          initial_value: 0
+          writer_nodes:
+          - choose_gallery_alignment
+          reader_nodes:
+          - certify_moat_and_tribute_rows
+          - resolve_procession_incident
+          - final_devaraja_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_angkor_wat_row_status
+          scope: country
+          type: number
+          roles:
+          - checklist_state
+          initial_value: 0
+          writer_nodes:
+          - certify_moat_and_tribute_rows
+          reader_nodes:
+          - resolve_procession_incident
+          - reconcile_temple_households
+          cleanup: project_state_clear
+        - name: tv_wonder_angkor_wat_incident_state
+          scope: country
+          type: number
+          roles:
+          - incident_state
+          initial_value: 0
+          writer_nodes:
+          - resolve_procession_incident
+          - reconcile_temple_households
+          reader_nodes:
+          - certify_moat_and_tribute_rows
+          - reconcile_temple_households
+          - final_devaraja_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_angkor_wat_reward_branch
+          scope: country
+          type: number
+          roles:
+          - reward_state
+          initial_value: 0
+          writer_nodes:
+          - choose_gallery_alignment
+          - resolve_procession_incident
+          - reconcile_temple_households
+          - final_devaraja_reward_handoff
+          reader_nodes:
+          - resolve_procession_incident
+          - reconcile_temple_households
+          - final_devaraja_reward_handoff
+          cleanup: project_state_clear
+        nodes:
+        - key: open_devaraja_causeway
+          kind: event
+          capabilities:
+          - event_chain
+          event_id: 1046
+          player_visible: true
+          historical_anchor: Western causeway, naga balustrades, moat water, and quincunx towers begin the public Devaraja entrance.
+          enter_condition: Angkor Wat final building exists at Angkor and the sponsor begins the unique proof.
+          completion_condition: The causeway is opened and the alignment choice is available.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - choose_gallery_alignment
+          writes:
+          - tv_wonder_angkor_wat_stage
+          reads: []
+          ui_state:
+            variable_refs:
+            - tv_wonder_angkor_wat_stage
+          loc_refs:
+          - tv_engineering_department.1046.t
+          - tv_engineering_department.1046.d
+          - tv_engineering_department.1046.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: choose_gallery_alignment
+          kind: choice_event
+          capabilities:
+          - event_chain
+          - branch_specific_reward_scaling
+          event_id: 1047
+          player_visible: true
+          historical_anchor: The court chooses whether cosmic galleries, moat procession, or temple-service registers carry the Devaraja proof.
+          enter_condition: The western causeway has been opened.
+          completion_condition: Alignment choice and provisional reward branch are stored.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - certify_moat_and_tribute_rows
+          writes:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_alignment_choice
+          - tv_wonder_angkor_wat_reward_branch
+          reads:
+          - tv_wonder_angkor_wat_stage
+          ui_state:
+            variable_refs:
+            - tv_wonder_angkor_wat_alignment_choice
+            - tv_wonder_angkor_wat_reward_branch
+          loc_refs:
+          - tv_engineering_department.1047.t
+          - tv_engineering_department.1047.d
+          - tv_engineering_department.1047.a
+          - tv_engineering_department.1047.b
+          - tv_engineering_department.1047.c
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: certify_moat_and_tribute_rows
+          kind: choice_event
+          capabilities:
+          - event_chain
+          - repeated_entity_row_checklist_incident_log_backend
+          event_id: 1048
+          player_visible: true
+          historical_anchor: Moat water, gallery custodians, rice tribute baskets, inscription copies, and temple-service rows are checked before entry.
+          enter_condition: An Angkor alignment choice exists.
+          completion_condition: The row status is recorded for the incident test.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - resolve_procession_incident
+          writes:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_row_status
+          reads:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_alignment_choice
+          - tv_wonder_angkor_wat_incident_state
+          ui_state:
+            variable_refs:
+            - tv_wonder_angkor_wat_alignment_choice
+            - tv_wonder_angkor_wat_row_status
+          loc_refs:
+          - tv_engineering_department.1048.t
+          - tv_engineering_department.1048.d
+          - tv_engineering_department.1048.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: resolve_procession_incident
+          kind: incident_event
+          capabilities:
+          - event_chain
+          - retry_branch
+          - branch_specific_reward_scaling
+          - repeated_entity_row_checklist_incident_log_backend
+          event_id: 1049
+          player_visible: true
+          historical_anchor: A rival ritual household, rejected gallery order, or overzealous guard action threatens the public procession.
+          enter_condition: Certified rows have exposed the contested Devaraja pressure point.
+          completion_condition: Incident state and reward pressure are recorded.
+          failure_or_retry: true
+          retry_target: certify_moat_and_tribute_rows
+          next_nodes:
+          - reconcile_temple_households
+          writes:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_incident_state
+          - tv_wonder_angkor_wat_reward_branch
+          reads:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_alignment_choice
+          - tv_wonder_angkor_wat_row_status
+          - tv_wonder_angkor_wat_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_angkor_wat_incident_state
+            - tv_wonder_angkor_wat_reward_branch
+          loc_refs:
+          - tv_engineering_department.1049.t
+          - tv_engineering_department.1049.d
+          - tv_engineering_department.1049.a
+          - tv_engineering_department.1049.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: reconcile_temple_households
+          kind: retry_event
+          capabilities:
+          - retry_branch
+          - branch_specific_reward_scaling
+          event_id: 1050
+          player_visible: true
+          historical_anchor: The sponsor decides whether to compensate temple servants, discipline guards, or narrow the entry to the royal household.
+          enter_condition: A procession incident has been recorded.
+          completion_condition: The player selects retry reconciliation or a narrower doctrine.
+          failure_or_retry: true
+          retry_target: certify_moat_and_tribute_rows
+          next_nodes:
+          - final_devaraja_reward_handoff
+          writes:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_incident_state
+          - tv_wonder_angkor_wat_reward_branch
+          reads:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_row_status
+          - tv_wonder_angkor_wat_incident_state
+          - tv_wonder_angkor_wat_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_angkor_wat_incident_state
+            - tv_wonder_angkor_wat_reward_branch
+          loc_refs:
+          - tv_engineering_department.1050.t
+          - tv_engineering_department.1050.d
+          - tv_engineering_department.1050.a
+          - tv_engineering_department.1050.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: final_devaraja_reward_handoff
+          kind: final_reward_dispatch
+          capabilities:
+          - final_reward_handoff
+          event_id: 1051
+          player_visible: true
+          historical_anchor: The temple-service register is sealed and the Devaraja procession enters the central towers.
+          enter_condition: The public or narrowed Devaraja entrance has been accepted.
+          completion_condition: Permanent Angkor ceremony rewards are handed to the existing finalization layer.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes: []
+          writes:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_reward_branch
+          reads:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_alignment_choice
+          - tv_wonder_angkor_wat_incident_state
+          - tv_wonder_angkor_wat_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_angkor_wat_reward_branch
+          loc_refs:
+          - tv_engineering_department.1051.t
+          - tv_engineering_department.1051.d
+          - tv_engineering_department.1051.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - none
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        edges:
+        - from: open_devaraja_causeway
+          to: choose_gallery_alignment
+          condition: causeway opened for Devaraja proof
+          effect: set stage to alignment choice
+          label_key: tv_engineering_department.1046.a
+        - from: choose_gallery_alignment
+          to: certify_moat_and_tribute_rows
+          condition: gallery, moat, or register doctrine selected
+          effect: store alignment choice and provisional reward branch
+          label_key: TV_ENGINEERING_ANGKOR_WAT_ALIGNMENT_STATUS
+        - from: certify_moat_and_tribute_rows
+          to: resolve_procession_incident
+          condition: row certification exposes public procession pressure
+          effect: preserve row status for incident branch
+          label_key: TV_ENGINEERING_ANGKOR_WAT_ROW_STATUS
+        - from: resolve_procession_incident
+          to: certify_moat_and_tribute_rows
+          condition: retry row certification after procession rejection
+          effect: return to row proof with incident state preserved
+          label_key: tv_engineering_department.1049.a
+        - from: resolve_procession_incident
+          to: reconcile_temple_households
+          condition: incident requires settlement choice
+          effect: store temple-household conflict state
+          label_key: TV_ENGINEERING_ANGKOR_WAT_INCIDENT_LOG_LABEL
+        - from: reconcile_temple_households
+          to: certify_moat_and_tribute_rows
+          condition: compensate and retry public entrance
+          effect: return to certification with reconciliation branch
+          label_key: tv_engineering_department.1050.a
+        - from: reconcile_temple_households
+          to: final_devaraja_reward_handoff
+          condition: accept narrowed royal-only opening
+          effect: mark narrowed reward branch
+          label_key: tv_engineering_department.1050.b
+        - from: certify_moat_and_tribute_rows
+          to: final_devaraja_reward_handoff
+          condition: rows pass without procession dispute
+          effect: prepare full Devaraja reward branch
+          label_key: tv_engineering_department.1051.a
+        actions: []
+        checks: []
+      design_ir:
+        compiler_primitives:
+        - angkor_alignment_row_set
+        - devaraja_procession_incident_branch
+        - temple_household_retry_and_narrowing
+        - angkor_reward_branch_handoff
+        - loadable_angkor_source_generation
+        phases:
+        - key: causeway_opening
+          gameplay_stage: Court, priests, dancers, guards, inscription scribes, moat keepers, and provincial tribute bearers assemble on the western causeway.
+          entry_condition: Angkor Wat is completed at Angkor and the sponsor can begin the unique proof.
+          exit_condition: The alignment doctrine choice is visible to the player.
+        - key: choose_alignment_doctrine
+          gameplay_stage: Choose gallery cosmology, moat procession, or temple-service register as the public proof.
+          entry_condition: The causeway has opened.
+          exit_condition: Alignment choice and provisional reward branch are stored.
+        - key: certify_rows
+          gameplay_stage: Check moat water, gallery custodians, rice baskets, copied land grants, dancers, guards, and temple-service obligations as named rows.
+          entry_condition: An alignment doctrine exists.
+          exit_condition: Row status is ready for the visible incident branch.
+        - key: resolve_incident
+          gameplay_stage: Rival ritual households, rejected procession order, or guard overreach force a retry or settlement.
+          entry_condition: Row certification exposes tension.
+          exit_condition: The player chooses repair, reconciliation, or narrowed royal entry.
+        - key: handoff_reward
+          gameplay_stage: Seal the temple-service register and hand the full or narrowed Devaraja proof to the existing reward layer.
+          entry_condition: The public procession passes or the narrowed branch is accepted.
+          exit_condition: Existing finalization remains the only loadable source handoff.
+        player_proofs:
+        - Prove that Angkor Wat's geometry, water, inscriptions, rice tribute, and temple personnel can support public royal legitimacy.
+        - Prove that the procession can fail through social and ritual pressure, then be retried or narrowed.
+        - Prove that the reward remains legitimacy and state-faith tolerance rather than generic temple prestige.
+        tracked_entity_sets:
+        - key: angkor_alignment_rows
+          entity_type: temple_city_alignment_row
+          entities:
+          - key: western_causeway
+            display_name: Western Causeway
+          - key: moat_lustral_water
+            display_name: Moat Lustral Water
+          - key: gallery_custodians
+            display_name: Gallery Custodians
+          - key: rice_tribute_registers
+            display_name: Rice Tribute Registers
+          - key: temple_service_households
+            display_name: Temple Service Households
+          - key: royal_entry_guard
+            display_name: Royal Entry Guard
+          state_values:
+          - unchecked
+          - selected
+          - certified
+          - contested
+          - repaired
+          - accepted
+          per_entity_state: Each row records whether its part of the entrance is selected, certified, contested, repaired, or accepted for a narrowed opening.
+          selector: The player chooses the doctrine and certification branch that foregrounds specific rows.
+          ui_binding: checklist and progress_track summarize row status while incident_log preserves row-level contest notes.
+        selectors:
+        - key: alignment_doctrine_selector
+          scope: country
+          options:
+          - gallery_cosmology
+          - moat_procession
+          - temple_service_register
+          selection_state: Projected into tv_wonder_angkor_wat_alignment_choice while design_ir keeps each named row.
+        risk_branches:
+        - key: rival_temple_household
+          trigger: A ritual household rejects the order or compensation of the public entry.
+          player_response: Compensate and retry, discipline overreach, or accept a narrower royal-only entrance.
+          failure_state: Narrowed reward branch and weaker public tolerance proof.
+        - key: failed_moat_or_gallery_procession
+          trigger: Moat water, gallery order, or guard route fails the visible incident test.
+          player_response: Return to row certification or proceed with reduced legitimacy breadth.
+          failure_state: Retry loop or narrowed reward branch.
+        player_actions:
+        - Open the causeway rite.
+        - Choose the Angkor alignment doctrine.
+        - Certify named moat, gallery, tribute, and service rows.
+        - Resolve the procession incident with retry or narrowed acceptance.
+        - Seal the Devaraja reward handoff.
+        map_scope_evidence:
+        - Fixed site Angkor and final Angkor Wat building anchor all checks.
+        - Country scope owns stage, choice, incident, and reward variables.
+        - Location scope remains a semantic target for future source-owned site predicates.
+        ui_feedback_model:
+          components:
+          - progress_track
+          - checklist
+          - incident_log
+          repeated_rows: One row each for causeway, moat, gallery, tribute registers, temple households, and royal guard status.
+          per_entity_status: Rows preserve selected, certified, contested, repaired, and narrowed states in design_ir.
+        uniqueness_constraints:
+        - Must preserve Angkor Wat as royal cosmology in stone, not generic temple dedication.
+        - Must keep water sacred and processional, distinct from Angkor Hydraulic System economic waterworks.
+        - Must keep rice tribute and inscription registers tied to legitimacy and tolerance rewards.
+        projection_notes: The compiler_mapped node_graph preserves the named causeway, moat, gallery, tribute, temple-service, and guard rows in design_ir, then compresses them into alignment_choice and row_status variables for current Harness validation. The incident_log projection retains rival-household, failed-procession, retry, and narrowed-entry status without generating loadable GUI rows or EU5 source.
+      compiler_gap_ledger:
+      - primitive: angkor_alignment_row_set
+        design_semantics: Preserve named causeway, moat, gallery, tribute, temple-service, and guard rows with per-row certification state.
+        required_game_interfaces:
+        - checklist and progress-track row rendering
+        - location ownership/control predicates
+        - final-building presence predicate
+        codebase_evidence:
+        - capability:repeated_entity_row_checklist_incident_log_backend
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer expands Harness repeated rows into loadable GUI status rows?
+        blocked_by:
+        - loadable repeated-row GUI/source generation
+        fallback_if_unavailable: Keep row details in design_ir and project them through tv_wonder_angkor_wat_row_status.
+      - primitive: devaraja_procession_incident_branch
+        design_semantics: A visible procession incident can reject, contest, or narrow the Devaraja entrance.
+        required_game_interfaces:
+        - incident event branch
+        - retry event branch
+        - reward branch variable
+        codebase_evidence:
+        - capability:retry_branch
+        - capability:branch_specific_reward_scaling
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer maps incident and retry branches into loadable events?
+        blocked_by:
+        - loadable event/effect generation
+        fallback_if_unavailable: Preserve incident semantics as intermediate Markdown and variables only.
+      - primitive: temple_household_retry_and_narrowing
+        design_semantics: The player can compensate and retry public access or accept a smaller royal-only entry.
+        required_game_interfaces:
+        - branch-specific cost and reward scaling
+        - tooltip-safe player choice
+        codebase_evidence:
+        - capability:retry_branch
+        - capability:branch_specific_reward_scaling
+        verification_status: backend_ready
+        search_questions:
+        - Which EU5 cost and reward effects should a later source writer use for compensation or narrowing?
+        blocked_by:
+        - exact loadable cost/reward scripting
+        fallback_if_unavailable: Keep narrowed branch as reward_branch summary state.
+      - primitive: angkor_reward_branch_handoff
+        design_semantics: Full or narrowed Devaraja proof hands legitimacy and tolerance rewards to the existing finalization layer.
+        required_game_interfaces:
+        - final reward dispatch
+        - permanent country modifier handoff
+        codebase_evidence:
+        - capability:final_reward_handoff
+        verification_status: backend_ready
+        search_questions:
+        - Which future source compiler maps branch state to permanent Angkor ceremony modifiers?
+        blocked_by:
+        - loadable reward effect writer
+        fallback_if_unavailable: Keep rewards designed and handoff semantic-only.
+      - primitive: loadable_angkor_source_generation
+        design_semantics: Generate actual EU5 events, effects, triggers, and GUI rows for the Devaraja procession.
+        required_game_interfaces:
+        - loadable event source writer
+        - loadable scripted effect writer
+        - loadable GUI row writer
+        codebase_evidence: []
+        verification_status: needs_codebase_search
+        search_questions:
+        - Is there a current Harness source writer that can emit Angkor-specific event chains, row UI, and reward effects?
+        blocked_by:
+        - Harness v1 emits intermediate fragments only
+        fallback_if_unavailable: Keep unique_angkor_wat at compiler_mapped with high-fidelity design_ir and no source generation.
+      ui_model:
+        components:
+        - type: incident_log
+          key: angkor_procession_incident_log
+          status_variable: tv_wonder_angkor_wat_incident_state
+        - type: progress_track
+          key: angkor_alignment_progress
+          value_variable: tv_wonder_angkor_wat_row_status
+        - type: checklist
+          key: angkor_alignment_checklist
+          status_variable: tv_wonder_angkor_wat_alignment_choice
+        bindings:
+        - key: angkor_alignment_checklist_binding
+          component_key: angkor_alignment_checklist
+          variable_refs:
+          - tv_wonder_angkor_wat_alignment_choice
+          - tv_wonder_angkor_wat_row_status
+          node_refs:
+          - choose_gallery_alignment
+          - certify_moat_and_tribute_rows
+          loc_refs:
+          - TV_ENGINEERING_ANGKOR_WAT_ALIGNMENT_STATUS
+          - TV_ENGINEERING_ANGKOR_WAT_ROW_STATUS
+        - key: angkor_incident_binding
+          component_key: angkor_procession_incident_log
+          variable_refs:
+          - tv_wonder_angkor_wat_incident_state
+          - tv_wonder_angkor_wat_reward_branch
+          node_refs:
+          - resolve_procession_incident
+          - reconcile_temple_households
+          - final_devaraja_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_ANGKOR_WAT_INCIDENT_LOG_LABEL
+          - tv_engineering_department.1049.t
+        - key: angkor_progress_binding
+          component_key: angkor_alignment_progress
+          variable_refs:
+          - tv_wonder_angkor_wat_stage
+          - tv_wonder_angkor_wat_row_status
+          node_refs:
+          - open_devaraja_causeway
+          - certify_moat_and_tribute_rows
+          - final_devaraja_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_ANGKOR_WAT_PROGRESS_STATUS
+      rewards:
+        permanent_country_modifier:
+          status: designed
+          source: data/unique_wonders.yaml ritual.country_modifier
+          description: Preserve monthly_legitimacy and tolerance_own as the Devaraja procession turns royal cosmology and state-faith service into public order.
+        local_building_reward:
+          status: designed
+          source: design_ir Angkor alignment rows
+          description: Local Angkor memory for cleaned causeway, moat lustral points, gallery custodians, copied land grants, temple-service households, and controlled royal entry.
+        one_time_reward:
+          status: designed
+          source: design_ir procession incident branch
+          description: One-time legitimacy, prestige, religious-estate, or local prosperity reward shaped by public reconciliation, repaired procession, or narrowed royal-only entrance.
+      localization:
+        panel_text_keys:
+        - TV_ENGINEERING_ANGKOR_WAT_ALIGNMENT_STATUS
+        - TV_ENGINEERING_ANGKOR_WAT_ROW_STATUS
+        - TV_ENGINEERING_ANGKOR_WAT_PROGRESS_STATUS
+        - TV_ENGINEERING_ANGKOR_WAT_INCIDENT_LOG_LABEL
+        event_keys:
+        - event_id: 1046
+          title_key: tv_engineering_department.1046.t
+          desc_key: tv_engineering_department.1046.d
+          option_keys:
+          - tv_engineering_department.1046.a
+          node_key: open_devaraja_causeway
+        - event_id: 1047
+          title_key: tv_engineering_department.1047.t
+          desc_key: tv_engineering_department.1047.d
+          option_keys:
+          - tv_engineering_department.1047.a
+          - tv_engineering_department.1047.b
+          - tv_engineering_department.1047.c
+          node_key: choose_gallery_alignment
+        - event_id: 1048
+          title_key: tv_engineering_department.1048.t
+          desc_key: tv_engineering_department.1048.d
+          option_keys:
+          - tv_engineering_department.1048.a
+          node_key: certify_moat_and_tribute_rows
+        - event_id: 1049
+          title_key: tv_engineering_department.1049.t
+          desc_key: tv_engineering_department.1049.d
+          option_keys:
+          - tv_engineering_department.1049.a
+          - tv_engineering_department.1049.b
+          node_key: resolve_procession_incident
+        - event_id: 1050
+          title_key: tv_engineering_department.1050.t
+          desc_key: tv_engineering_department.1050.d
+          option_keys:
+          - tv_engineering_department.1050.a
+          - tv_engineering_department.1050.b
+          node_key: reconcile_temple_households
+        - event_id: 1051
+          title_key: tv_engineering_department.1051.t
+          desc_key: tv_engineering_department.1051.d
+          option_keys:
+          - tv_engineering_department.1051.a
+          node_key: final_devaraja_reward_handoff
+        world_news_keys:
+        - tv_engineering_department.600.d_unique_angkor_wat
+      generation:
+        status: compiler_mapped_intermediate_only
+        target_files: []
+        verified_templates: []
+        blocked_templates: []
+        dry_run_notes: Angkor Wat is compiler_mapped only. The Harness records intermediate causeway, moat, gallery, temple-service, procession incident, retry, narrowed reward, UI, and reward semantics but does not generate loadable EU5 src.
+      implementation_notes:
+        source_ritual_key: devaraja_entrance
+        implementation_source: compiler_mapped intermediate Harness design_ir only
+        verification_status: compiler_mapped
+        verified_interfaces:
+        - capability:event_chain semantic event projection
+        - capability:retry_branch semantic retry projection
+        - capability:branch_specific_reward_scaling intermediate branch contract
+        - capability:repeated_entity_row_checklist_incident_log_backend intermediate row projection
+        - capability:final_reward_handoff semantic reward projection
+        - archetype:incident_retry_gauntlet reference blueprint
+        needs_verification:
+        - loadable Angkor-specific event/effect/trigger source generation
+        - loadable checklist, progress_track, and incident_log repeated GUI rows
+        - exact EU5 predicates for Angkor site pressure, temple households, row certification, and reward scaling
   - id: 105
     key: unique_potala_palace
     base_key: sacred_mountain
@@ -1651,6 +2338,708 @@ unique_wonders:
         troops prove the garrison system worked. Implementers should keep the
         war listeners conditional so the ritual cannot gain progress from a war
         while Himeji itself is occupied or neglected.
+    harness_spec:
+      identity:
+        id: 108
+        key: unique_himeji_castle
+        base_key: star_fortress_city
+        location: shikama
+        runtime_prefix: tv_wonder_himeji_castle
+        status: compiler_mapped
+      event_ids:
+      - id: 1052
+        key: open_white_heron_receipt
+      - id: 1053
+        key: choose_layered_gate_doctrine
+      - id: 1054
+        key: prove_layered_gate_at_war_end
+      - id: 1055
+        key: resolve_bypassed_gate_layer
+      - id: 1056
+        key: repair_or_accept_keep_receipt
+      - id: 1057
+        key: final_himeji_reward_handoff
+      node_graph:
+        model: state_machine_dsl_v1
+        archetypes:
+        - listener_resolution_ritual
+        historical_mechanic: Himeji Castle proves that white-plaster elegance is a working defensive maze by testing layered gates, wells, stores, captains, and recovery at an ending_war review.
+        summary: The player opens the White Heron receipt, chooses whether gates, stores, or command routes define the doctrine, waits for an ending_war validation, resolves any bypassed layer or delayed recovery, and seals either full garrison doctrine or a narrower repair receipt.
+        mechanic_signature:
+          wonder_specific_hook: Himeji Castle is not a generic fort; its proof is the white heron maze of layered gates, angled approaches, wells, rice stores, watch rotations, and keep signals that turns graceful architecture into disciplined defense.
+          core_interaction_loop: The player accepts the castle receipt, selects a defensive doctrine, lets an ending_war listener test whether the castle held or recovered, then decides whether a bypassed gate layer is repaired and retried or recorded as a narrower garrison lesson.
+          player_decision_pattern: Choices decide whether Himeji teaches gate confusion, store-and-well endurance, or captain signal discipline, then decide after war review whether to pay for repairs, re-run the proof, or accept a weaker but honest receipt.
+          state_feedback_model: The progress_track shows war-review readiness, the checklist records the selected gate doctrine and listener state, and the incident_log records bypassed gates, late recovery, repair, retry, or narrower receipt branch.
+          failure_or_tension_model: The ending_war review can reveal that an approach was bypassed, stores failed, wells were threatened, or the site was recovered too late; those results force repair or a narrower morale doctrine.
+          reward_expression: Full validation preserves garrison-size and land-morale rewards as a repeatable castle doctrine, while a narrowed receipt still gives local keep memory but records weaker national confidence for future source work.
+          reuse_risk_mitigation: The loop belongs to Himeji because the mechanic is beautiful confusion under war pressure; most castles do not make route deception, layered gates, and postwar receipt timing the central proof.
+        cadence_signature:
+          cadence_type: war_validated
+          cadence_rationale: War validation fits because Himeji's layered gates and twisting approaches should prove their value in an actual conflict window through an ending_war review, not by passive time.
+          player_agency_model: The player chooses the defensive doctrine before the listener fires and then decides whether a flawed war review is repaired and retried or accepted as a narrower receipt.
+          non_monthly_triggers_or_reason: Non-monthly validation is the ending_war listener plus a visible repair or narrowed-receipt branch tied to site control and layered gate integrity.
+          pacing_failure_mode: The pacing fails if the castle receipt becomes ordinary event text, so the graph preserves a declared war listener, site-integrity pressure, incident logging, and retry.
+        listeners:
+        - ending_war
+        entry_node: open_white_heron_receipt
+        terminal_nodes:
+        - final_himeji_reward_handoff
+        runtime_variables:
+        - tv_wonder_himeji_castle_stage
+        - tv_wonder_himeji_castle_gate_doctrine
+        - tv_wonder_himeji_castle_listener_state
+        - tv_wonder_himeji_castle_incident_state
+        - tv_wonder_himeji_castle_reward_branch
+        graph_shape: ending_war_layered_gate_receipt
+        completion_policy:
+          allow_terminal_outgoing: false
+        variables:
+        - name: tv_wonder_himeji_castle_stage
+          scope: country
+          type: number
+          roles:
+          - stage_state
+          initial_value: 0
+          writer_nodes:
+          - open_white_heron_receipt
+          - choose_layered_gate_doctrine
+          - prove_layered_gate_at_war_end
+          - resolve_bypassed_gate_layer
+          - repair_or_accept_keep_receipt
+          - final_himeji_reward_handoff
+          reader_nodes:
+          - choose_layered_gate_doctrine
+          - prove_layered_gate_at_war_end
+          - resolve_bypassed_gate_layer
+          - repair_or_accept_keep_receipt
+          - final_himeji_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_himeji_castle_gate_doctrine
+          scope: country
+          type: number
+          roles:
+          - checklist_state
+          initial_value: 0
+          writer_nodes:
+          - choose_layered_gate_doctrine
+          reader_nodes:
+          - prove_layered_gate_at_war_end
+          - resolve_bypassed_gate_layer
+          - final_himeji_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_himeji_castle_listener_state
+          scope: country
+          type: number
+          roles:
+          - listener_state
+          initial_value: 0
+          writer_nodes:
+          - prove_layered_gate_at_war_end
+          reader_nodes:
+          - prove_layered_gate_at_war_end
+          - resolve_bypassed_gate_layer
+          - repair_or_accept_keep_receipt
+          - final_himeji_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_himeji_castle_incident_state
+          scope: country
+          type: number
+          roles:
+          - incident_state
+          initial_value: 0
+          writer_nodes:
+          - resolve_bypassed_gate_layer
+          - repair_or_accept_keep_receipt
+          reader_nodes:
+          - repair_or_accept_keep_receipt
+          - final_himeji_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_himeji_castle_reward_branch
+          scope: country
+          type: number
+          roles:
+          - reward_state
+          initial_value: 0
+          writer_nodes:
+          - choose_layered_gate_doctrine
+          - resolve_bypassed_gate_layer
+          - repair_or_accept_keep_receipt
+          - final_himeji_reward_handoff
+          reader_nodes:
+          - resolve_bypassed_gate_layer
+          - repair_or_accept_keep_receipt
+          - final_himeji_reward_handoff
+          cleanup: project_state_clear
+        nodes:
+        - key: open_white_heron_receipt
+          kind: event
+          capabilities:
+          - event_chain
+          event_id: 1052
+          player_visible: true
+          historical_anchor: Inspectors enter Himeji's white keep complex to receive the keys, rosters, wells, stores, and layered approaches.
+          enter_condition: Himeji Castle final building exists at Shikama and the sponsor begins the unique proof.
+          completion_condition: The receipt is opened and the gate doctrine choice is available.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - choose_layered_gate_doctrine
+          writes:
+          - tv_wonder_himeji_castle_stage
+          reads: []
+          ui_state:
+            variable_refs:
+            - tv_wonder_himeji_castle_stage
+          loc_refs:
+          - tv_engineering_department.1052.t
+          - tv_engineering_department.1052.d
+          - tv_engineering_department.1052.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: choose_layered_gate_doctrine
+          kind: choice_event
+          capabilities:
+          - event_chain
+          - branch_specific_reward_scaling
+          event_id: 1053
+          player_visible: true
+          historical_anchor: The player chooses whether Himeji proves gate confusion, stores and wells, or captain signal discipline.
+          enter_condition: The White Heron receipt is open.
+          completion_condition: Gate doctrine and provisional reward branch are stored.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - prove_layered_gate_at_war_end
+          writes:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_gate_doctrine
+          - tv_wonder_himeji_castle_reward_branch
+          reads:
+          - tv_wonder_himeji_castle_stage
+          ui_state:
+            variable_refs:
+            - tv_wonder_himeji_castle_gate_doctrine
+            - tv_wonder_himeji_castle_reward_branch
+          loc_refs:
+          - tv_engineering_department.1053.t
+          - tv_engineering_department.1053.d
+          - tv_engineering_department.1053.a
+          - tv_engineering_department.1053.b
+          - tv_engineering_department.1053.c
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: prove_layered_gate_at_war_end
+          kind: listener_gate
+          capabilities:
+          - listener_gate
+          event_id: 1054
+          player_visible: true
+          historical_anchor: An ending_war review asks whether Himeji held, recovered, or exposed a neglected gate layer before peace was sealed.
+          enter_condition: A gate doctrine is selected and the ritual waits for an ending_war validation window.
+          completion_condition: Listener state records clean proof, late recovery, or flawed receipt pressure.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - resolve_bypassed_gate_layer
+          - final_himeji_reward_handoff
+          writes:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_listener_state
+          reads:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_gate_doctrine
+          - tv_wonder_himeji_castle_listener_state
+          ui_state:
+            variable_refs:
+            - tv_wonder_himeji_castle_listener_state
+            - tv_wonder_himeji_castle_gate_doctrine
+          loc_refs:
+          - tv_engineering_department.1054.t
+          - tv_engineering_department.1054.d
+          - tv_engineering_department.1054.a
+          listener_contract:
+            listener: ending_war
+            cadence: Fires from the supported ending_war listener when the builder can prove Himeji remained controlled or was recovered before peace.
+            reads:
+            - tv_wonder_himeji_castle_stage
+            - tv_wonder_himeji_castle_gate_doctrine
+            - tv_wonder_himeji_castle_listener_state
+            writes:
+            - tv_wonder_himeji_castle_stage
+            - tv_wonder_himeji_castle_listener_state
+            completion_check: Site controlled, final building present, and selected doctrine not disproved by occupation, siege, or late recovery.
+            failure_route: resolve_bypassed_gate_layer
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: resolve_bypassed_gate_layer
+          kind: incident_event
+          capabilities:
+          - event_chain
+          - retry_branch
+          - fixed_site_integrity_control_pressure_backend
+          - branch_specific_reward_scaling
+          event_id: 1055
+          player_visible: true
+          historical_anchor: The war review exposes a bypassed gate, threatened well, emptied store, or recovery too late for a confident receipt.
+          enter_condition: The ending_war listener reports flawed Himeji evidence.
+          completion_condition: Incident state and reward pressure are recorded.
+          failure_or_retry: true
+          retry_target: prove_layered_gate_at_war_end
+          next_nodes:
+          - repair_or_accept_keep_receipt
+          writes:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_incident_state
+          - tv_wonder_himeji_castle_reward_branch
+          reads:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_gate_doctrine
+          - tv_wonder_himeji_castle_listener_state
+          - tv_wonder_himeji_castle_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_himeji_castle_listener_state
+            - tv_wonder_himeji_castle_incident_state
+            - tv_wonder_himeji_castle_reward_branch
+          loc_refs:
+          - tv_engineering_department.1055.t
+          - tv_engineering_department.1055.d
+          - tv_engineering_department.1055.a
+          - tv_engineering_department.1055.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: repair_or_accept_keep_receipt
+          kind: retry_event
+          capabilities:
+          - retry_branch
+          - branch_specific_reward_scaling
+          event_id: 1056
+          player_visible: true
+          historical_anchor: Captains, well keepers, storehouse clerks, and plasterers present repair terms or a humbler keep receipt.
+          enter_condition: A bypassed or delayed gate-layer incident exists.
+          completion_condition: The player chooses repair and retry or a narrower garrison lesson.
+          failure_or_retry: true
+          retry_target: prove_layered_gate_at_war_end
+          next_nodes:
+          - final_himeji_reward_handoff
+          writes:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_incident_state
+          - tv_wonder_himeji_castle_reward_branch
+          reads:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_listener_state
+          - tv_wonder_himeji_castle_incident_state
+          - tv_wonder_himeji_castle_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_himeji_castle_incident_state
+            - tv_wonder_himeji_castle_reward_branch
+          loc_refs:
+          - tv_engineering_department.1056.t
+          - tv_engineering_department.1056.d
+          - tv_engineering_department.1056.a
+          - tv_engineering_department.1056.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: final_himeji_reward_handoff
+          kind: final_reward_dispatch
+          capabilities:
+          - final_reward_handoff
+          event_id: 1057
+          player_visible: true
+          historical_anchor: Himeji's gate rosters, well tallies, store ledgers, and white keep seal become national garrison doctrine.
+          enter_condition: A clean or narrowed Himeji receipt has been accepted.
+          completion_condition: Permanent castle ceremony rewards are handed to the existing finalization layer.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes: []
+          writes:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_reward_branch
+          reads:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_gate_doctrine
+          - tv_wonder_himeji_castle_listener_state
+          - tv_wonder_himeji_castle_incident_state
+          - tv_wonder_himeji_castle_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_himeji_castle_reward_branch
+          loc_refs:
+          - tv_engineering_department.1057.t
+          - tv_engineering_department.1057.d
+          - tv_engineering_department.1057.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - none
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        edges:
+        - from: open_white_heron_receipt
+          to: choose_layered_gate_doctrine
+          condition: castle receipt opened
+          effect: set stage to gate doctrine choice
+          label_key: tv_engineering_department.1052.a
+        - from: choose_layered_gate_doctrine
+          to: prove_layered_gate_at_war_end
+          condition: gate doctrine selected
+          effect: store doctrine and wait for ending_war proof
+          label_key: TV_ENGINEERING_HIMEJI_CASTLE_GATE_STATUS
+        - from: prove_layered_gate_at_war_end
+          to: resolve_bypassed_gate_layer
+          condition: ending_war review exposes bypass, late recovery, or supply weakness
+          effect: store flawed listener state
+          label_key: TV_ENGINEERING_HIMEJI_CASTLE_WAR_REVIEW_STATUS
+        - from: prove_layered_gate_at_war_end
+          to: final_himeji_reward_handoff
+          condition: ending_war review proves the selected layer cleanly
+          effect: prepare full garrison reward branch
+          label_key: tv_engineering_department.1057.a
+        - from: resolve_bypassed_gate_layer
+          to: prove_layered_gate_at_war_end
+          condition: repair and retry the war review
+          effect: return to ending_war listener proof
+          label_key: tv_engineering_department.1055.a
+        - from: resolve_bypassed_gate_layer
+          to: repair_or_accept_keep_receipt
+          condition: incident requires receipt settlement
+          effect: preserve bypassed layer details
+          label_key: TV_ENGINEERING_HIMEJI_CASTLE_INCIDENT_LOG_LABEL
+        - from: repair_or_accept_keep_receipt
+          to: prove_layered_gate_at_war_end
+          condition: fund repairs and demand another proof
+          effect: retry listener validation
+          label_key: tv_engineering_department.1056.a
+        - from: repair_or_accept_keep_receipt
+          to: final_himeji_reward_handoff
+          condition: accept narrower keep receipt
+          effect: mark narrowed reward branch
+          label_key: tv_engineering_department.1056.b
+        actions: []
+        checks: []
+      design_ir:
+        compiler_primitives:
+        - himeji_layered_gate_doctrine_rows
+        - ending_war_site_integrity_listener
+        - bypassed_gate_repair_retry_branch
+        - himeji_reward_branch_handoff
+        - loadable_himeji_source_generation
+        phases:
+        - key: receipt_opening
+          gameplay_stage: Inspectors, captains, ashigaru officers, well keepers, storehouse clerks, and plasterers open the White Heron receipt.
+          entry_condition: Himeji Castle is completed at Shikama.
+          exit_condition: The defensive doctrine selector is visible.
+        - key: choose_defensive_doctrine
+          gameplay_stage: Choose gate confusion, stores and wells, or captain signal discipline as Himeji's national lesson.
+          entry_condition: The receipt is open.
+          exit_condition: Doctrine and reward branch are stored.
+        - key: ending_war_review
+          gameplay_stage: A supported ending_war listener checks whether the site was held, recovered in time, or exposed as neglected.
+          entry_condition: Doctrine exists and the country reaches a war-ending validation point.
+          exit_condition: Listener state records full proof or flawed receipt pressure.
+        - key: repair_or_narrow
+          gameplay_stage: Repair bypassed gates, wells, stores, or signals and retry, or accept a narrower garrison lesson.
+          entry_condition: The listener exposed a flaw.
+          exit_condition: The player returns to listener validation or proceeds to final handoff.
+        - key: reward_handoff
+          gameplay_stage: Seal gate rosters, well tallies, store ledgers, and captain signals into national garrison doctrine.
+          entry_condition: Full or narrowed receipt is accepted.
+          exit_condition: Existing finalization remains the only loadable source handoff.
+        player_proofs:
+        - Prove that Himeji's beauty hides a working defensive maze under war pressure.
+        - Prove that ending_war validation depends on site integrity rather than a passive timer.
+        - Prove that bypassed layers can force repair, retry, or a narrower morale lesson.
+        tracked_entity_sets:
+        - key: himeji_layer_rows
+          entity_type: layered_castle_receipt_row
+          entities:
+          - key: outer_gate_turns
+            display_name: Outer Gate Turns
+          - key: inner_bailey_signals
+            display_name: Inner Bailey Signals
+          - key: wells_and_water
+            display_name: Wells And Water
+          - key: rice_and_powder_stores
+            display_name: Rice And Powder Stores
+          - key: white_plaster_repairs
+            display_name: White Plaster Repairs
+          - key: captain_rosters
+            display_name: Captain Rosters
+          state_values:
+          - unchecked
+          - selected
+          - war_reviewed
+          - bypassed
+          - repaired
+          - accepted
+          per_entity_state: Each layer records selected doctrine, war-review proof, bypass pressure, repair state, and final acceptance.
+          selector: The player selects which layer carries the doctrine, then the ending_war listener tests it.
+          ui_binding: progress_track and checklist summarize doctrine and listener state while incident_log preserves bypass and repair rows.
+        selectors:
+        - key: gate_doctrine_selector
+          scope: country
+          options:
+          - confusing_gate_approaches
+          - storehouse_and_well_endurance
+          - captain_signal_discipline
+          selection_state: Projected into tv_wonder_himeji_castle_gate_doctrine while design_ir keeps layer rows.
+        risk_branches:
+        - key: bypassed_gate_layer
+          trigger: ending_war review shows an approach, store, well, or signal layer failed or was recovered too late.
+          player_response: Repair and retry the war review, or accept a narrower receipt.
+          failure_state: Narrowed garrison reward branch.
+        - key: site_integrity_failure
+          trigger: Shikama is occupied, under siege, or not credibly controlled when the war ends.
+          player_response: Delay until recovery or record a weaker postwar repair doctrine.
+          failure_state: Listener state blocks full reward.
+        player_actions:
+        - Open the White Heron receipt.
+        - Choose layered-gate doctrine.
+        - Wait for ending_war validation.
+        - Resolve bypassed layer repair or narrowed receipt.
+        - Seal garrison reward handoff.
+        map_scope_evidence:
+        - Fixed site Shikama and final Himeji building anchor the listener proof.
+        - Country scope stores doctrine, listener, incident, and reward variables.
+        - Location scope is a semantic target for future occupation, siege, control, and final-building predicates.
+        ui_feedback_model:
+          components:
+          - progress_track
+          - incident_log
+          - checklist
+          repeated_rows: One row each for gates, baileys, wells, stores, plaster repairs, and captain rosters.
+          per_entity_status: Rows preserve selected, war_reviewed, bypassed, repaired, and accepted states in design_ir.
+        uniqueness_constraints:
+        - Must preserve Himeji's layered route confusion and white-plaster defensive aesthetic.
+        - Must use ending_war as a real validation point, not a monthly timer.
+        - Must keep reward themes on garrison size and land morale.
+        projection_notes: The compiler_mapped node_graph preserves named Himeji gate, bailey, well, store, plaster, and captain rows in design_ir, then compresses them into gate_doctrine and listener_state variables for current Harness validation. The ending_war listener, bypass incident, retry, and narrowed receipt are preserved semantically without generating loadable war hooks or GUI rows.
+      compiler_gap_ledger:
+      - primitive: himeji_layered_gate_doctrine_rows
+        design_semantics: Preserve named gate, bailey, well, store, plaster, and captain rows as the castle receipt surface.
+        required_game_interfaces:
+        - checklist and progress-track row rendering
+        - site final-building evidence
+        codebase_evidence:
+        - capability:repeated_entity_row_checklist_incident_log_backend
+        verification_status: backend_ready
+        search_questions:
+        - Which future GUI/source writer expands castle receipt rows into loadable status widgets?
+        blocked_by:
+        - loadable repeated-row GUI/source generation
+        fallback_if_unavailable: Keep row details in design_ir and project through tv_wonder_himeji_castle_gate_doctrine.
+      - primitive: ending_war_site_integrity_listener
+        design_semantics: Use ending_war validation while checking fixed-site control, recovery timing, and layered gate integrity.
+        required_game_interfaces:
+        - ending_war listener
+        - fixed-site control and occupation checks
+        codebase_evidence:
+        - capability:listener_gate
+        - capability:fixed_site_integrity_control_pressure_backend
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer binds this intermediate listener contract to actual ending_war hooks?
+        blocked_by:
+        - loadable listener hook generation
+        fallback_if_unavailable: Keep listener state as intermediate contract only.
+      - primitive: bypassed_gate_repair_retry_branch
+        design_semantics: A bypassed layer can be repaired and retried or accepted as a narrower receipt.
+        required_game_interfaces:
+        - retry branch
+        - branch-specific reward scaling
+        codebase_evidence:
+        - capability:retry_branch
+        - capability:branch_specific_reward_scaling
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer maps repair costs and retry state into loadable effects?
+        blocked_by:
+        - loadable event/effect generation
+        fallback_if_unavailable: Preserve repair and narrowed receipt through incident_state and reward_branch.
+      - primitive: himeji_reward_branch_handoff
+        design_semantics: Full or narrowed receipt hands garrison-size and land-morale rewards to the finalization layer.
+        required_game_interfaces:
+        - final reward dispatch
+        - permanent country modifier handoff
+        codebase_evidence:
+        - capability:final_reward_handoff
+        verification_status: backend_ready
+        search_questions:
+        - Which future source compiler maps Himeji branch state to permanent ceremony modifiers?
+        blocked_by:
+        - loadable reward effect writer
+        fallback_if_unavailable: Keep rewards designed and handoff semantic-only.
+      - primitive: loadable_himeji_source_generation
+        design_semantics: Generate actual EU5 events, ending_war hooks, effects, triggers, and GUI rows for Himeji's receipt.
+        required_game_interfaces:
+        - loadable listener source writer
+        - loadable event/effect source writer
+        - loadable GUI row writer
+        codebase_evidence: []
+        verification_status: needs_codebase_search
+        search_questions:
+        - Is there a current Harness source writer that can emit Himeji-specific ending_war listeners, event chains, and reward effects?
+        blocked_by:
+        - Harness v1 emits intermediate fragments only
+        fallback_if_unavailable: Keep unique_himeji_castle at compiler_mapped with high-fidelity design_ir and no source generation.
+      ui_model:
+        components:
+        - type: progress_track
+          key: himeji_war_review_progress
+          value_variable: tv_wonder_himeji_castle_listener_state
+        - type: incident_log
+          key: himeji_gate_incident_log
+          status_variable: tv_wonder_himeji_castle_incident_state
+        - type: checklist
+          key: himeji_gate_checklist
+          status_variable: tv_wonder_himeji_castle_gate_doctrine
+        bindings:
+        - key: himeji_gate_checklist_binding
+          component_key: himeji_gate_checklist
+          variable_refs:
+          - tv_wonder_himeji_castle_gate_doctrine
+          - tv_wonder_himeji_castle_listener_state
+          node_refs:
+          - choose_layered_gate_doctrine
+          - prove_layered_gate_at_war_end
+          loc_refs:
+          - TV_ENGINEERING_HIMEJI_CASTLE_GATE_STATUS
+          - TV_ENGINEERING_HIMEJI_CASTLE_WAR_REVIEW_STATUS
+        - key: himeji_incident_binding
+          component_key: himeji_gate_incident_log
+          variable_refs:
+          - tv_wonder_himeji_castle_incident_state
+          - tv_wonder_himeji_castle_reward_branch
+          node_refs:
+          - resolve_bypassed_gate_layer
+          - repair_or_accept_keep_receipt
+          - final_himeji_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_HIMEJI_CASTLE_INCIDENT_LOG_LABEL
+          - tv_engineering_department.1055.t
+        - key: himeji_progress_binding
+          component_key: himeji_war_review_progress
+          variable_refs:
+          - tv_wonder_himeji_castle_stage
+          - tv_wonder_himeji_castle_listener_state
+          node_refs:
+          - open_white_heron_receipt
+          - prove_layered_gate_at_war_end
+          - final_himeji_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_HIMEJI_CASTLE_PROGRESS_STATUS
+      rewards:
+        permanent_country_modifier:
+          status: designed
+          source: data/unique_wonders.yaml ritual.country_modifier
+          description: Preserve global_garrison_size_modifier and land_morale_modifier as Himeji turns layered gates, stores, wells, and captain signals into national defensive doctrine.
+        local_building_reward:
+          status: designed
+          source: design_ir Himeji layer rows
+          description: Local Shikama memory for accepted gate keys, mapped approaches, inspected wells, store ledgers, plaster repairs, and captain rosters.
+        one_time_reward:
+          status: designed
+          source: design_ir ending_war review branch
+          description: One-time army tradition, morale, manpower, local garrison, or repair reward shaped by clean war review, repaired bypass, or narrowed keep receipt.
+      localization:
+        panel_text_keys:
+        - TV_ENGINEERING_HIMEJI_CASTLE_GATE_STATUS
+        - TV_ENGINEERING_HIMEJI_CASTLE_WAR_REVIEW_STATUS
+        - TV_ENGINEERING_HIMEJI_CASTLE_PROGRESS_STATUS
+        - TV_ENGINEERING_HIMEJI_CASTLE_INCIDENT_LOG_LABEL
+        event_keys:
+        - event_id: 1052
+          title_key: tv_engineering_department.1052.t
+          desc_key: tv_engineering_department.1052.d
+          option_keys:
+          - tv_engineering_department.1052.a
+          node_key: open_white_heron_receipt
+        - event_id: 1053
+          title_key: tv_engineering_department.1053.t
+          desc_key: tv_engineering_department.1053.d
+          option_keys:
+          - tv_engineering_department.1053.a
+          - tv_engineering_department.1053.b
+          - tv_engineering_department.1053.c
+          node_key: choose_layered_gate_doctrine
+        - event_id: 1054
+          title_key: tv_engineering_department.1054.t
+          desc_key: tv_engineering_department.1054.d
+          option_keys:
+          - tv_engineering_department.1054.a
+          node_key: prove_layered_gate_at_war_end
+        - event_id: 1055
+          title_key: tv_engineering_department.1055.t
+          desc_key: tv_engineering_department.1055.d
+          option_keys:
+          - tv_engineering_department.1055.a
+          - tv_engineering_department.1055.b
+          node_key: resolve_bypassed_gate_layer
+        - event_id: 1056
+          title_key: tv_engineering_department.1056.t
+          desc_key: tv_engineering_department.1056.d
+          option_keys:
+          - tv_engineering_department.1056.a
+          - tv_engineering_department.1056.b
+          node_key: repair_or_accept_keep_receipt
+        - event_id: 1057
+          title_key: tv_engineering_department.1057.t
+          desc_key: tv_engineering_department.1057.d
+          option_keys:
+          - tv_engineering_department.1057.a
+          node_key: final_himeji_reward_handoff
+        world_news_keys:
+        - tv_engineering_department.600.d_unique_himeji_castle
+      generation:
+        status: compiler_mapped_intermediate_only
+        target_files: []
+        verified_templates: []
+        blocked_templates: []
+        dry_run_notes: Himeji Castle is compiler_mapped only. The Harness records intermediate ending_war listener, layered-gate doctrine, site-integrity pressure, bypass incident, repair retry, narrowed reward, UI, and reward semantics but does not generate loadable EU5 src.
+      implementation_notes:
+        source_ritual_key: castle_receipt
+        implementation_source: compiler_mapped intermediate Harness design_ir only
+        verification_status: compiler_mapped
+        verified_interfaces:
+        - capability:event_chain semantic event projection
+        - capability:listener_gate supported ending_war semantic contract
+        - capability:fixed_site_integrity_control_pressure_backend intermediate site pressure contract
+        - capability:retry_branch semantic repair projection
+        - capability:branch_specific_reward_scaling intermediate branch contract
+        - capability:final_reward_handoff semantic reward projection
+        - archetype:listener_resolution_ritual reference blueprint
+        needs_verification:
+        - loadable Himeji-specific ending_war listener source generation
+        - loadable event/effect/trigger source generation
+        - exact EU5 predicates for gate layers, site recovery, occupation, siege, stores, wells, and reward scaling
   - id: 109
     key: unique_taj_mahal
     base_key: giant_necropolis
@@ -5065,6 +6454,693 @@ unique_wonders:
         material features such as posts, mounds, plazas, storage, maize, craft
         goods, and river delegations. Reward scaling should never allow a feast
         to run profitably during actual famine or occupation.
+    harness_spec:
+      identity:
+        id: 123
+        key: unique_cahokia_mounds
+        base_key: world_monument_group
+        location: cahokia
+        runtime_prefix: tv_wonder_cahokia_mounds
+        status: compiler_mapped
+      event_ids:
+      - id: 1058
+        key: open_woodhenge_calendar
+      - id: 1059
+        key: choose_calendar_proof
+      - id: 1060
+        key: certify_mound_plaza_rows
+      - id: 1061
+        key: resolve_solar_alignment_dispute
+      - id: 1062
+        key: reconcile_feast_delegations
+      - id: 1063
+        key: final_woodhenge_reward_handoff
+      node_graph:
+        model: state_machine_dsl_v1
+        archetypes:
+        - incident_retry_gauntlet
+        historical_mechanic: Cahokia Mound City proves civic authority by making Woodhenge sunrise, mound repair, plaza gathering, storage houses, canoe delegations, and feast redistribution agree on ceremonial time.
+        summary: The player opens the Woodhenge calendar, chooses whether solar posts, mound-plaza repair, or feast storage carries the proof, certifies civic rows, resolves a calendar or delegation dispute, and seals full civic cohesion or a narrower plaza rite.
+        mechanic_signature:
+          wonder_specific_hook: Cahokia is a mound city where earthen pyramids, timber solar circles, plazas, palisades, storage houses, maize, craft offerings, and river delegations make timekeeping into public command.
+          core_interaction_loop: The player convenes calendar specialists and plaza stewards, selects the proof, certifies post, mound, plaza, storage, delegation, and feast rows, then answers a solar alignment or settlement dispute that can force retry or narrowing.
+          player_decision_pattern: Choices decide whether the rite emphasizes sunrise observation, renewed mound faces and cleared plazas, or stored food and visiting-community obligations, then decide whether rejected alignment is corrected, mediated, or narrowed.
+          state_feedback_model: The progress_track summarizes the civic calendar proof, the checklist records selected row status, and the incident_log records alignment rejection, delegation refusal, storage shortfall, mediation, retry, or narrower plaza branch.
+          failure_or_tension_model: A disputed sunrise marker, split settlement delegation, short storage house, or contested feast order can block the rite; the player can repair rows and retry or accept a smaller ceremonial gathering.
+          reward_expression: Full certification preserves monthly prestige and global monthly prosperity as disciplined civic time and redistribution, while a narrowed branch keeps local mound memory but records weaker regional cohesion.
+          reuse_risk_mitigation: The loop belongs to Cahokia because calendar, earthwork repair, plaza assembly, and food redistribution are the same public system; most monuments cannot make ceremonial timekeeping a civic prosperity proof.
+        cadence_signature:
+          cadence_type: event_driven
+          cadence_rationale: Event-driven pacing fits because the decisive beat is the Woodhenge final rite dispute and its resolution, not elapsed monthly progress.
+          player_agency_model: The player chooses the calendar proof, verifies concrete civic rows, and decides whether a failed alignment or delegation dispute is repaired and retried or accepted as narrower.
+          non_monthly_triggers_or_reason: Non-monthly validation comes from the row certification event and the visible solar or feast dispute branch that immediately tests public acceptance.
+          pacing_failure_mode: The pacing fails if Cahokia becomes a passive calendar bar, so design_ir preserves named civic rows, an incident choice, retry, and branch-shaped reward.
+        listeners: []
+        entry_node: open_woodhenge_calendar
+        terminal_nodes:
+        - final_woodhenge_reward_handoff
+        runtime_variables:
+        - tv_wonder_cahokia_mounds_stage
+        - tv_wonder_cahokia_mounds_calendar_choice
+        - tv_wonder_cahokia_mounds_row_status
+        - tv_wonder_cahokia_mounds_incident_state
+        - tv_wonder_cahokia_mounds_reward_branch
+        graph_shape: woodhenge_calendar_incident_retry
+        completion_policy:
+          allow_terminal_outgoing: false
+        variables:
+        - name: tv_wonder_cahokia_mounds_stage
+          scope: country
+          type: number
+          roles:
+          - stage_state
+          initial_value: 0
+          writer_nodes:
+          - open_woodhenge_calendar
+          - choose_calendar_proof
+          - certify_mound_plaza_rows
+          - resolve_solar_alignment_dispute
+          - reconcile_feast_delegations
+          - final_woodhenge_reward_handoff
+          reader_nodes:
+          - choose_calendar_proof
+          - certify_mound_plaza_rows
+          - resolve_solar_alignment_dispute
+          - reconcile_feast_delegations
+          - final_woodhenge_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_cahokia_mounds_calendar_choice
+          scope: country
+          type: number
+          roles:
+          - checklist_state
+          initial_value: 0
+          writer_nodes:
+          - choose_calendar_proof
+          reader_nodes:
+          - certify_mound_plaza_rows
+          - resolve_solar_alignment_dispute
+          - final_woodhenge_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_cahokia_mounds_row_status
+          scope: country
+          type: number
+          roles:
+          - checklist_state
+          initial_value: 0
+          writer_nodes:
+          - certify_mound_plaza_rows
+          reader_nodes:
+          - resolve_solar_alignment_dispute
+          - reconcile_feast_delegations
+          cleanup: project_state_clear
+        - name: tv_wonder_cahokia_mounds_incident_state
+          scope: country
+          type: number
+          roles:
+          - incident_state
+          initial_value: 0
+          writer_nodes:
+          - resolve_solar_alignment_dispute
+          - reconcile_feast_delegations
+          reader_nodes:
+          - certify_mound_plaza_rows
+          - reconcile_feast_delegations
+          - final_woodhenge_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_cahokia_mounds_reward_branch
+          scope: country
+          type: number
+          roles:
+          - reward_state
+          initial_value: 0
+          writer_nodes:
+          - choose_calendar_proof
+          - resolve_solar_alignment_dispute
+          - reconcile_feast_delegations
+          - final_woodhenge_reward_handoff
+          reader_nodes:
+          - resolve_solar_alignment_dispute
+          - reconcile_feast_delegations
+          - final_woodhenge_reward_handoff
+          cleanup: project_state_clear
+        nodes:
+        - key: open_woodhenge_calendar
+          kind: event
+          capabilities:
+          - event_chain
+          event_id: 1058
+          player_visible: true
+          historical_anchor: Calendar specialists, mound crews, plaza stewards, storage keepers, and canoe delegations gather before the timber circle.
+          enter_condition: Cahokia Mounds final building exists at Cahokia and the sponsor begins the unique proof.
+          completion_condition: The Woodhenge calendar is opened and the proof choice is available.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - choose_calendar_proof
+          writes:
+          - tv_wonder_cahokia_mounds_stage
+          reads: []
+          ui_state:
+            variable_refs:
+            - tv_wonder_cahokia_mounds_stage
+          loc_refs:
+          - tv_engineering_department.1058.t
+          - tv_engineering_department.1058.d
+          - tv_engineering_department.1058.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: choose_calendar_proof
+          kind: choice_event
+          capabilities:
+          - event_chain
+          - branch_specific_reward_scaling
+          event_id: 1059
+          player_visible: true
+          historical_anchor: The player chooses whether cedar posts, mound and plaza repair, or feast storage carries Cahokia's civic proof.
+          enter_condition: The Woodhenge calendar has opened.
+          completion_condition: Calendar choice and provisional reward branch are stored.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - certify_mound_plaza_rows
+          writes:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_calendar_choice
+          - tv_wonder_cahokia_mounds_reward_branch
+          reads:
+          - tv_wonder_cahokia_mounds_stage
+          ui_state:
+            variable_refs:
+            - tv_wonder_cahokia_mounds_calendar_choice
+            - tv_wonder_cahokia_mounds_reward_branch
+          loc_refs:
+          - tv_engineering_department.1059.t
+          - tv_engineering_department.1059.d
+          - tv_engineering_department.1059.a
+          - tv_engineering_department.1059.b
+          - tv_engineering_department.1059.c
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: certify_mound_plaza_rows
+          kind: choice_event
+          capabilities:
+          - event_chain
+          - repeated_entity_row_checklist_incident_log_backend
+          event_id: 1060
+          player_visible: true
+          historical_anchor: Cedar posts, mound faces, plaza clearing, storage houses, canoe delegations, and feast distribution are checked.
+          enter_condition: A calendar proof choice exists.
+          completion_condition: Civic row status is recorded for the dispute test.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - resolve_solar_alignment_dispute
+          writes:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_row_status
+          reads:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_calendar_choice
+          - tv_wonder_cahokia_mounds_incident_state
+          ui_state:
+            variable_refs:
+            - tv_wonder_cahokia_mounds_calendar_choice
+            - tv_wonder_cahokia_mounds_row_status
+          loc_refs:
+          - tv_engineering_department.1060.t
+          - tv_engineering_department.1060.d
+          - tv_engineering_department.1060.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: resolve_solar_alignment_dispute
+          kind: incident_event
+          capabilities:
+          - event_chain
+          - retry_branch
+          - branch_specific_reward_scaling
+          - repeated_entity_row_checklist_incident_log_backend
+          event_id: 1061
+          player_visible: true
+          historical_anchor: A rejected sunrise line, storage shortfall, or split settlement delegation threatens the final rite.
+          enter_condition: Civic rows have exposed a public dispute.
+          completion_condition: Dispute state and reward pressure are recorded.
+          failure_or_retry: true
+          retry_target: certify_mound_plaza_rows
+          next_nodes:
+          - reconcile_feast_delegations
+          writes:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_incident_state
+          - tv_wonder_cahokia_mounds_reward_branch
+          reads:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_calendar_choice
+          - tv_wonder_cahokia_mounds_row_status
+          - tv_wonder_cahokia_mounds_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_cahokia_mounds_incident_state
+            - tv_wonder_cahokia_mounds_reward_branch
+          loc_refs:
+          - tv_engineering_department.1061.t
+          - tv_engineering_department.1061.d
+          - tv_engineering_department.1061.a
+          - tv_engineering_department.1061.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: reconcile_feast_delegations
+          kind: retry_event
+          capabilities:
+          - retry_branch
+          - branch_specific_reward_scaling
+          event_id: 1062
+          player_visible: true
+          historical_anchor: Plaza stewards mediate between post setters, mound crews, storage keepers, and visiting communities.
+          enter_condition: A solar alignment or feast delegation incident exists.
+          completion_condition: The player selects retry mediation or a narrower plaza rite.
+          failure_or_retry: true
+          retry_target: certify_mound_plaza_rows
+          next_nodes:
+          - final_woodhenge_reward_handoff
+          writes:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_incident_state
+          - tv_wonder_cahokia_mounds_reward_branch
+          reads:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_row_status
+          - tv_wonder_cahokia_mounds_incident_state
+          - tv_wonder_cahokia_mounds_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_cahokia_mounds_incident_state
+            - tv_wonder_cahokia_mounds_reward_branch
+          loc_refs:
+          - tv_engineering_department.1062.t
+          - tv_engineering_department.1062.d
+          - tv_engineering_department.1062.a
+          - tv_engineering_department.1062.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: final_woodhenge_reward_handoff
+          kind: final_reward_dispatch
+          capabilities:
+          - final_reward_handoff
+          event_id: 1063
+          player_visible: true
+          historical_anchor: The sunrise line, mound repair, plaza feast, and storage distribution are sealed as Cahokia's civic calendar.
+          enter_condition: The full or narrowed Woodhenge rite has been accepted.
+          completion_condition: Permanent Cahokia ceremony rewards are handed to the existing finalization layer.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes: []
+          writes:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_reward_branch
+          reads:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_calendar_choice
+          - tv_wonder_cahokia_mounds_incident_state
+          - tv_wonder_cahokia_mounds_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_cahokia_mounds_reward_branch
+          loc_refs:
+          - tv_engineering_department.1063.t
+          - tv_engineering_department.1063.d
+          - tv_engineering_department.1063.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - none
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        edges:
+        - from: open_woodhenge_calendar
+          to: choose_calendar_proof
+          condition: Woodhenge calendar opened
+          effect: set stage to calendar proof selection
+          label_key: tv_engineering_department.1058.a
+        - from: choose_calendar_proof
+          to: certify_mound_plaza_rows
+          condition: calendar proof selected
+          effect: store proof choice and provisional reward branch
+          label_key: TV_ENGINEERING_CAHOKIA_MOUNDS_CALENDAR_STATUS
+        - from: certify_mound_plaza_rows
+          to: resolve_solar_alignment_dispute
+          condition: civic row certification exposes calendar or feast pressure
+          effect: preserve civic row status for incident branch
+          label_key: TV_ENGINEERING_CAHOKIA_MOUNDS_ROW_STATUS
+        - from: resolve_solar_alignment_dispute
+          to: certify_mound_plaza_rows
+          condition: retry row certification after rejected alignment
+          effect: return to civic row proof with dispute state preserved
+          label_key: tv_engineering_department.1061.a
+        - from: resolve_solar_alignment_dispute
+          to: reconcile_feast_delegations
+          condition: dispute requires settlement choice
+          effect: store delegation conflict state
+          label_key: TV_ENGINEERING_CAHOKIA_MOUNDS_INCIDENT_LOG_LABEL
+        - from: reconcile_feast_delegations
+          to: certify_mound_plaza_rows
+          condition: mediate and retry public calendar proof
+          effect: return to certification with reconciliation branch
+          label_key: tv_engineering_department.1062.a
+        - from: reconcile_feast_delegations
+          to: final_woodhenge_reward_handoff
+          condition: accept narrower plaza rite
+          effect: mark narrowed reward branch
+          label_key: tv_engineering_department.1062.b
+        - from: certify_mound_plaza_rows
+          to: final_woodhenge_reward_handoff
+          condition: civic rows pass without dispute
+          effect: prepare full Woodhenge reward branch
+          label_key: tv_engineering_department.1063.a
+        actions: []
+        checks: []
+      design_ir:
+        compiler_primitives:
+        - cahokia_civic_calendar_rows
+        - solar_alignment_dispute_branch
+        - feast_delegation_retry_and_narrowing
+        - cahokia_reward_branch_handoff
+        - loadable_cahokia_source_generation
+        phases:
+        - key: calendar_opening
+          gameplay_stage: Calendar specialists, mound crews, plaza stewards, craft makers, storage keepers, and river delegations open the Woodhenge final rite.
+          entry_condition: Cahokia Mounds is completed at Cahokia.
+          exit_condition: The calendar proof selector is visible.
+        - key: choose_calendar_proof
+          gameplay_stage: Choose sunrise posts, mound-plaza repair, or feast storage and delegation as the proof.
+          entry_condition: The calendar has opened.
+          exit_condition: Calendar choice and reward branch are stored.
+        - key: certify_civic_rows
+          gameplay_stage: Check cedar posts, mound facing, plaza clearing, storage houses, canoe delegations, and feast distribution as named rows.
+          entry_condition: A proof choice exists.
+          exit_condition: Row status is ready for the visible dispute branch.
+        - key: resolve_dispute
+          gameplay_stage: Rejected solar alignment, split settlement groups, or insufficient stores force mediation, retry, or narrowing.
+          entry_condition: Civic certification exposes tension.
+          exit_condition: The player chooses mediation retry or narrower plaza rite.
+        - key: handoff_reward
+          gameplay_stage: Seal the Woodhenge calendar and hand full or narrowed civic proof to prestige and prosperity rewards.
+          entry_condition: Full public calendar or narrower plaza rite accepted.
+          exit_condition: Existing finalization remains the only loadable source handoff.
+        player_proofs:
+        - Prove that Cahokia can turn solar observation into civic coordination rather than isolated ritual.
+        - Prove that mound repair, storage, visiting delegations, and feast distribution can fail and be retried.
+        - Prove that rewards remain monthly prestige and prosperity through ordered civic time.
+        tracked_entity_sets:
+        - key: cahokia_civic_calendar_rows
+          entity_type: civic_calendar_row
+          entities:
+          - key: cedar_sunrise_posts
+            display_name: Cedar Sunrise Posts
+          - key: monks_mound_facing
+            display_name: Monks Mound Facing
+          - key: grand_plaza_clearing
+            display_name: Grand Plaza Clearing
+          - key: storage_house_maize
+            display_name: Storage House Maize
+          - key: canoe_delegations
+            display_name: Canoe Delegations
+          - key: feast_distribution
+            display_name: Feast Distribution
+          state_values:
+          - unchecked
+          - selected
+          - certified
+          - disputed
+          - mediated
+          - accepted
+          per_entity_state: Each row records whether it is selected, certified, disputed, mediated, or accepted for the final rite.
+          selector: The player chooses which civic proof leads the Woodhenge rite.
+          ui_binding: checklist and progress_track summarize row status while incident_log preserves dispute and mediation rows.
+        selectors:
+        - key: calendar_proof_selector
+          scope: country
+          options:
+          - cedar_sunrise_alignment
+          - mound_plaza_repair
+          - feast_storage_delegation
+          selection_state: Projected into tv_wonder_cahokia_mounds_calendar_choice while design_ir keeps all civic rows.
+        risk_branches:
+        - key: rejected_solar_alignment
+          trigger: Observers reject the sunrise line or the cedar-post proof is politically contested.
+          player_response: Re-site the proof and retry certification, mediate witnesses, or accept a narrower plaza rite.
+          failure_state: Narrowed reward branch and weaker regional prestige.
+        - key: feast_delegation_split
+          trigger: Storage shortfall or visiting settlement dispute blocks public redistribution.
+          player_response: Rebalance stores, negotiate delegation order, or reduce the feast circle.
+          failure_state: Retry loop or narrowed prosperity reward branch.
+        player_actions:
+        - Open the Woodhenge calendar.
+        - Choose the calendar proof.
+        - Certify named mound, plaza, storage, and delegation rows.
+        - Resolve the solar or feast dispute with retry or narrower acceptance.
+        - Seal the Woodhenge reward handoff.
+        map_scope_evidence:
+        - Fixed site Cahokia and final Cahokia Mounds building anchor all checks.
+        - Country scope owns stage, choice, row, incident, and reward variables.
+        - Location scope remains a semantic target for future mound, plaza, storage, and river-access predicates.
+        ui_feedback_model:
+          components:
+          - checklist
+          - progress_track
+          - incident_log
+          repeated_rows: One row each for sunrise posts, mound facing, plaza clearing, maize storage, canoe delegations, and feast distribution.
+          per_entity_status: Rows preserve selected, certified, disputed, mediated, and accepted states in design_ir.
+        uniqueness_constraints:
+        - Must avoid invented theology and stay anchored in material features: posts, mounds, plazas, storage, maize, craft goods, and river delegations.
+        - Must keep the calendar as civic coordination rather than generic religious ceremony.
+        - Must keep reward themes on prestige and prosperity.
+        projection_notes: The compiler_mapped node_graph preserves named Woodhenge, mound, plaza, storage, delegation, and feast rows in design_ir, then compresses them into calendar_choice and row_status variables for current Harness validation. The incident_log projection retains rejected alignment, delegation split, mediation, retry, and narrowed rite status without generating loadable GUI rows or EU5 source.
+      compiler_gap_ledger:
+      - primitive: cahokia_civic_calendar_rows
+        design_semantics: Preserve named Woodhenge, mound, plaza, storage, canoe delegation, and feast rows with per-row state.
+        required_game_interfaces:
+        - checklist and progress-track row rendering
+        - location ownership/control predicates
+        - final-building presence predicate
+        codebase_evidence:
+        - capability:repeated_entity_row_checklist_incident_log_backend
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer expands Cahokia civic rows into loadable GUI status rows?
+        blocked_by:
+        - loadable repeated-row GUI/source generation
+        fallback_if_unavailable: Keep row details in design_ir and project them through tv_wonder_cahokia_mounds_row_status.
+      - primitive: solar_alignment_dispute_branch
+        design_semantics: A rejected sunrise line or row certification dispute can block the Woodhenge rite.
+        required_game_interfaces:
+        - incident event branch
+        - retry event branch
+        - reward branch variable
+        codebase_evidence:
+        - capability:retry_branch
+        - capability:branch_specific_reward_scaling
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer maps Cahokia dispute branches into loadable events?
+        blocked_by:
+        - loadable event/effect generation
+        fallback_if_unavailable: Preserve dispute semantics as intermediate Markdown and variables only.
+      - primitive: feast_delegation_retry_and_narrowing
+        design_semantics: Storage or settlement delegation failure can be mediated and retried or accepted as a smaller plaza rite.
+        required_game_interfaces:
+        - retry branch
+        - branch-specific reward scaling
+        codebase_evidence:
+        - capability:retry_branch
+        - capability:branch_specific_reward_scaling
+        verification_status: backend_ready
+        search_questions:
+        - Which EU5 effects should a later source writer use for food, storage, mediation, and narrowed feast outcomes?
+        blocked_by:
+        - exact loadable cost/reward scripting
+        fallback_if_unavailable: Keep narrowed branch as reward_branch summary state.
+      - primitive: cahokia_reward_branch_handoff
+        design_semantics: Full or narrowed Woodhenge proof hands prestige and prosperity rewards to the existing finalization layer.
+        required_game_interfaces:
+        - final reward dispatch
+        - permanent country modifier handoff
+        codebase_evidence:
+        - capability:final_reward_handoff
+        verification_status: backend_ready
+        search_questions:
+        - Which future source compiler maps Cahokia branch state to permanent ceremony modifiers?
+        blocked_by:
+        - loadable reward effect writer
+        fallback_if_unavailable: Keep rewards designed and handoff semantic-only.
+      - primitive: loadable_cahokia_source_generation
+        design_semantics: Generate actual EU5 events, effects, triggers, and GUI rows for the Woodhenge rite.
+        required_game_interfaces:
+        - loadable event source writer
+        - loadable scripted effect writer
+        - loadable GUI row writer
+        codebase_evidence: []
+        verification_status: needs_codebase_search
+        search_questions:
+        - Is there a current Harness source writer that can emit Cahokia-specific event chains, row UI, and reward effects?
+        blocked_by:
+        - Harness v1 emits intermediate fragments only
+        fallback_if_unavailable: Keep unique_cahokia_mounds at compiler_mapped with high-fidelity design_ir and no source generation.
+      ui_model:
+        components:
+        - type: checklist
+          key: cahokia_calendar_checklist
+          status_variable: tv_wonder_cahokia_mounds_calendar_choice
+        - type: progress_track
+          key: cahokia_calendar_progress
+          value_variable: tv_wonder_cahokia_mounds_row_status
+        - type: incident_log
+          key: cahokia_calendar_incident_log
+          status_variable: tv_wonder_cahokia_mounds_incident_state
+        bindings:
+        - key: cahokia_calendar_checklist_binding
+          component_key: cahokia_calendar_checklist
+          variable_refs:
+          - tv_wonder_cahokia_mounds_calendar_choice
+          - tv_wonder_cahokia_mounds_row_status
+          node_refs:
+          - choose_calendar_proof
+          - certify_mound_plaza_rows
+          loc_refs:
+          - TV_ENGINEERING_CAHOKIA_MOUNDS_CALENDAR_STATUS
+          - TV_ENGINEERING_CAHOKIA_MOUNDS_ROW_STATUS
+        - key: cahokia_incident_binding
+          component_key: cahokia_calendar_incident_log
+          variable_refs:
+          - tv_wonder_cahokia_mounds_incident_state
+          - tv_wonder_cahokia_mounds_reward_branch
+          node_refs:
+          - resolve_solar_alignment_dispute
+          - reconcile_feast_delegations
+          - final_woodhenge_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_CAHOKIA_MOUNDS_INCIDENT_LOG_LABEL
+          - tv_engineering_department.1061.t
+        - key: cahokia_progress_binding
+          component_key: cahokia_calendar_progress
+          variable_refs:
+          - tv_wonder_cahokia_mounds_stage
+          - tv_wonder_cahokia_mounds_row_status
+          node_refs:
+          - open_woodhenge_calendar
+          - certify_mound_plaza_rows
+          - final_woodhenge_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_CAHOKIA_MOUNDS_PROGRESS_STATUS
+      rewards:
+        permanent_country_modifier:
+          status: designed
+          source: data/unique_wonders.yaml ritual.country_modifier
+          description: Preserve monthly_prestige and global_monthly_prosperity as Cahokia turns calendar authority, mound repair, storage, and redistribution into civic order.
+        local_building_reward:
+          status: designed
+          source: design_ir Cahokia civic calendar rows
+          description: Local Cahokia memory for aligned cedar posts, repaired mound faces, cleared plaza, filled storage houses, canoe delegations, and feast obligations.
+        one_time_reward:
+          status: designed
+          source: design_ir solar and feast dispute branch
+          description: One-time prestige, legitimacy, local prosperity, supply, or settlement-cohesion reward shaped by full alignment, mediated dispute, or narrowed plaza rite.
+      localization:
+        panel_text_keys:
+        - TV_ENGINEERING_CAHOKIA_MOUNDS_CALENDAR_STATUS
+        - TV_ENGINEERING_CAHOKIA_MOUNDS_ROW_STATUS
+        - TV_ENGINEERING_CAHOKIA_MOUNDS_PROGRESS_STATUS
+        - TV_ENGINEERING_CAHOKIA_MOUNDS_INCIDENT_LOG_LABEL
+        event_keys:
+        - event_id: 1058
+          title_key: tv_engineering_department.1058.t
+          desc_key: tv_engineering_department.1058.d
+          option_keys:
+          - tv_engineering_department.1058.a
+          node_key: open_woodhenge_calendar
+        - event_id: 1059
+          title_key: tv_engineering_department.1059.t
+          desc_key: tv_engineering_department.1059.d
+          option_keys:
+          - tv_engineering_department.1059.a
+          - tv_engineering_department.1059.b
+          - tv_engineering_department.1059.c
+          node_key: choose_calendar_proof
+        - event_id: 1060
+          title_key: tv_engineering_department.1060.t
+          desc_key: tv_engineering_department.1060.d
+          option_keys:
+          - tv_engineering_department.1060.a
+          node_key: certify_mound_plaza_rows
+        - event_id: 1061
+          title_key: tv_engineering_department.1061.t
+          desc_key: tv_engineering_department.1061.d
+          option_keys:
+          - tv_engineering_department.1061.a
+          - tv_engineering_department.1061.b
+          node_key: resolve_solar_alignment_dispute
+        - event_id: 1062
+          title_key: tv_engineering_department.1062.t
+          desc_key: tv_engineering_department.1062.d
+          option_keys:
+          - tv_engineering_department.1062.a
+          - tv_engineering_department.1062.b
+          node_key: reconcile_feast_delegations
+        - event_id: 1063
+          title_key: tv_engineering_department.1063.t
+          desc_key: tv_engineering_department.1063.d
+          option_keys:
+          - tv_engineering_department.1063.a
+          node_key: final_woodhenge_reward_handoff
+        world_news_keys:
+        - tv_engineering_department.600.d_unique_cahokia_mounds
+      generation:
+        status: compiler_mapped_intermediate_only
+        target_files: []
+        verified_templates: []
+        blocked_templates: []
+        dry_run_notes: Cahokia Mounds is compiler_mapped only. The Harness records intermediate Woodhenge, mound, plaza, storage, delegation, feast, dispute, retry, narrowed reward, UI, and reward semantics but does not generate loadable EU5 src.
+      implementation_notes:
+        source_ritual_key: woodhenge_final_rite
+        implementation_source: compiler_mapped intermediate Harness design_ir only
+        verification_status: compiler_mapped
+        verified_interfaces:
+        - capability:event_chain semantic event projection
+        - capability:retry_branch semantic mediation projection
+        - capability:branch_specific_reward_scaling intermediate branch contract
+        - capability:repeated_entity_row_checklist_incident_log_backend intermediate row projection
+        - capability:final_reward_handoff semantic reward projection
+        - archetype:incident_retry_gauntlet reference blueprint
+        needs_verification:
+        - loadable Cahokia-specific event/effect/trigger source generation
+        - loadable checklist, progress_track, and incident_log repeated GUI rows
+        - exact EU5 predicates for civic rows, storage, river delegation, alignment dispute, and reward scaling
   - id: 124
     key: unique_great_zimbabwe
     base_key: world_market
@@ -12683,6 +14759,710 @@ unique_wonders:
         appointments, treaties, and rights after succession. Keep the reward
         centered on research and diplomatic credibility, not generic piety or
         prestige.
+    harness_spec:
+      identity:
+        id: 156
+        key: unique_vatican_archives
+        base_key: library_of_nation
+        location: rome
+        runtime_prefix: tv_wonder_vatican_archives
+        status: compiler_mapped
+      event_ids:
+      - id: 1064
+        key: open_apostolic_archive_seal
+      - id: 1065
+        key: assign_archive_keyholder
+      - id: 1066
+        key: choose_register_access_rule
+      - id: 1067
+        key: resolve_archive_scandal
+      - id: 1068
+        key: reassign_or_seal_registers
+      - id: 1069
+        key: final_archive_reward_handoff
+      node_graph:
+        model: state_machine_dsl_v1
+        archetypes:
+        - patronage_actor_assignment
+        historical_mechanic: Vatican Archives proves diplomatic memory by assigning a trusted archive keyholder, choosing which sealed registers can be opened, and surviving a scandal or leak test before the Apostolic Archive Seal.
+        summary: The player opens the archive seal, assigns a keyholder, chooses public, diplomatic, or restricted register access, resolves a scandal from weak custody or exposed papers, and either reassigns the office or seals a full archive reward branch.
+        mechanic_signature:
+          wonder_specific_hook: Vatican Archives is power stored as paper, seal, shelf, and custody; the ritual depends on who holds keys, which registers open, and whether diplomatic memory can serve the state without losing control of secrets.
+          core_interaction_loop: The player convenes cardinals, secretaries, archivists, guards, diplomats, and notaries, appoints a keyholder, chooses access policy, then answers a leak, partisan archivist, or exposed register incident before final reward handoff.
+          player_decision_pattern: Choices select a keyholder with different trust and competence implications, choose whether bulls, treaty copies, nuncio dispatches, or legal privileges are opened, and decide whether scandal is solved by reassignment or stricter seals.
+          state_feedback_model: The actor_slots UI shows the selected keyholder, the checklist records access policy and custody state, and the incident_log records scandal, leak, reassignment, sealed access, or full diplomatic reading.
+          failure_or_tension_model: A partisan archivist, unguarded room, leaked register, or disputed access license can force reassignment, retry of the custody test, or a reduced reward branch where the archive stays sealed but less useful.
+          reward_expression: Full certification preserves research speed and diplomatic reputation through trusted retrieval and sealed copies, while a stricter branch still grants local archive memory but records weaker diplomatic openness.
+          reuse_risk_mitigation: The loop belongs to Vatican Archives because controlled non-disclosure is the mechanic; ordinary libraries preserve knowledge, but this wonder turns papal registers, key custody, and diplomatic secrecy into gameplay.
+        cadence_signature:
+          cadence_type: actor_assignment
+          cadence_rationale: Actor assignment fits because the decisive pacing is the keyholder appointment and follow-up access test, not a passive register-counting timer.
+          player_agency_model: The player chooses the archive officer, chooses access policy, and decides whether scandal leads to reassignment, stricter seals, or a reduced but safe archive opening.
+          non_monthly_triggers_or_reason: Non-monthly validation is the assigned actor being locked into the visible slot and then tested by the register-access scandal branch.
+          pacing_failure_mode: The pacing fails if the archive becomes a generic research click, so design_ir preserves keyholder identity, register sets, access rules, scandal, reassignment, and reward branch.
+        listeners: []
+        entry_node: open_apostolic_archive_seal
+        terminal_nodes:
+        - final_archive_reward_handoff
+        runtime_variables:
+        - tv_wonder_vatican_archives_stage
+        - tv_wonder_vatican_archives_keyholder
+        - tv_wonder_vatican_archives_access_policy
+        - tv_wonder_vatican_archives_incident_state
+        - tv_wonder_vatican_archives_reward_branch
+        graph_shape: archive_keyholder_assignment_scandal_retry
+        completion_policy:
+          allow_terminal_outgoing: false
+        variables:
+        - name: tv_wonder_vatican_archives_stage
+          scope: country
+          type: number
+          roles:
+          - stage_state
+          initial_value: 0
+          writer_nodes:
+          - open_apostolic_archive_seal
+          - assign_archive_keyholder
+          - choose_register_access_rule
+          - resolve_archive_scandal
+          - reassign_or_seal_registers
+          - final_archive_reward_handoff
+          reader_nodes:
+          - assign_archive_keyholder
+          - choose_register_access_rule
+          - resolve_archive_scandal
+          - reassign_or_seal_registers
+          - final_archive_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_vatican_archives_keyholder
+          scope: character
+          type: scope_ref
+          roles:
+          - assigned_actor
+          initial_value: none
+          writer_nodes:
+          - assign_archive_keyholder
+          - reassign_or_seal_registers
+          reader_nodes:
+          - assign_archive_keyholder
+          - choose_register_access_rule
+          - resolve_archive_scandal
+          - final_archive_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_vatican_archives_access_policy
+          scope: country
+          type: number
+          roles:
+          - checklist_state
+          initial_value: 0
+          writer_nodes:
+          - choose_register_access_rule
+          reader_nodes:
+          - resolve_archive_scandal
+          - reassign_or_seal_registers
+          - final_archive_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_vatican_archives_incident_state
+          scope: country
+          type: number
+          roles:
+          - incident_state
+          initial_value: 0
+          writer_nodes:
+          - resolve_archive_scandal
+          - reassign_or_seal_registers
+          reader_nodes:
+          - reassign_or_seal_registers
+          - final_archive_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_vatican_archives_reward_branch
+          scope: country
+          type: number
+          roles:
+          - reward_state
+          initial_value: 0
+          writer_nodes:
+          - choose_register_access_rule
+          - resolve_archive_scandal
+          - reassign_or_seal_registers
+          - final_archive_reward_handoff
+          reader_nodes:
+          - resolve_archive_scandal
+          - reassign_or_seal_registers
+          - final_archive_reward_handoff
+          cleanup: project_state_clear
+        nodes:
+        - key: open_apostolic_archive_seal
+          kind: event
+          capabilities:
+          - event_chain
+          event_id: 1064
+          player_visible: true
+          historical_anchor: Cardinals, secretaries, notaries, guards, and diplomats gather before sealed rooms and register shelves.
+          enter_condition: Vatican Archives final building exists at Rome and the sponsor begins the unique proof.
+          completion_condition: The archive seal is opened and the keyholder assignment is available.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - assign_archive_keyholder
+          writes:
+          - tv_wonder_vatican_archives_stage
+          reads: []
+          ui_state:
+            variable_refs:
+            - tv_wonder_vatican_archives_stage
+          loc_refs:
+          - tv_engineering_department.1064.t
+          - tv_engineering_department.1064.d
+          - tv_engineering_department.1064.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: assign_archive_keyholder
+          kind: assignment_gate
+          capabilities:
+          - actor_assignment
+          - actor_assignment_character_selector_backend
+          event_id: 1065
+          player_visible: true
+          historical_anchor: The sponsor assigns a cardinal, secretary, jurist, or trusted archivist to hold keys and access licenses.
+          enter_condition: The archive seal has opened.
+          completion_condition: The selected keyholder is stored in an actor slot.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - choose_register_access_rule
+          writes:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_keyholder
+          reads:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_keyholder
+          ui_state:
+            variable_refs:
+            - tv_wonder_vatican_archives_keyholder
+          loc_refs:
+          - tv_engineering_department.1065.t
+          - tv_engineering_department.1065.d
+          - tv_engineering_department.1065.a
+          - tv_engineering_department.1065.b
+          - tv_engineering_department.1065.c
+          scope_contract:
+            root_scope: country
+            current_scope: character
+            target_scopes:
+            - character
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: choose_register_access_rule
+          kind: choice_event
+          capabilities:
+          - event_chain
+          - branch_specific_reward_scaling
+          event_id: 1066
+          player_visible: true
+          historical_anchor: The keyholder recommends whether bulls, treaty copies, nuncio dispatches, and legal privileges open broadly or stay sealed.
+          enter_condition: A keyholder is assigned.
+          completion_condition: Access policy and provisional reward branch are stored.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - resolve_archive_scandal
+          writes:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_access_policy
+          - tv_wonder_vatican_archives_reward_branch
+          reads:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_keyholder
+          ui_state:
+            variable_refs:
+            - tv_wonder_vatican_archives_keyholder
+            - tv_wonder_vatican_archives_access_policy
+            - tv_wonder_vatican_archives_reward_branch
+          loc_refs:
+          - tv_engineering_department.1066.t
+          - tv_engineering_department.1066.d
+          - tv_engineering_department.1066.a
+          - tv_engineering_department.1066.b
+          - tv_engineering_department.1066.c
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - character
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: resolve_archive_scandal
+          kind: incident_event
+          capabilities:
+          - event_chain
+          - retry_branch
+          - branch_specific_reward_scaling
+          - repeated_entity_row_checklist_incident_log_backend
+          event_id: 1067
+          player_visible: true
+          historical_anchor: A partisan keyholder, leaked dispatch, lost shelf mark, or exposed register threatens the archive's diplomatic authority.
+          enter_condition: A keyholder and access policy have been selected.
+          completion_condition: Scandal state and reward pressure are recorded.
+          failure_or_retry: true
+          retry_target: assign_archive_keyholder
+          next_nodes:
+          - reassign_or_seal_registers
+          writes:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_incident_state
+          - tv_wonder_vatican_archives_reward_branch
+          reads:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_keyholder
+          - tv_wonder_vatican_archives_access_policy
+          - tv_wonder_vatican_archives_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_vatican_archives_keyholder
+            - tv_wonder_vatican_archives_incident_state
+            - tv_wonder_vatican_archives_reward_branch
+          loc_refs:
+          - tv_engineering_department.1067.t
+          - tv_engineering_department.1067.d
+          - tv_engineering_department.1067.a
+          - tv_engineering_department.1067.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - character
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: reassign_or_seal_registers
+          kind: retry_event
+          capabilities:
+          - retry_branch
+          - branch_specific_reward_scaling
+          event_id: 1068
+          player_visible: true
+          historical_anchor: The sponsor can replace the keyholder, restrict access licenses, or accept a safer but less diplomatic reading.
+          enter_condition: An archive scandal has been recorded.
+          completion_condition: The player selects reassignment retry or stricter sealed access.
+          failure_or_retry: true
+          retry_target: assign_archive_keyholder
+          next_nodes:
+          - final_archive_reward_handoff
+          writes:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_keyholder
+          - tv_wonder_vatican_archives_incident_state
+          - tv_wonder_vatican_archives_reward_branch
+          reads:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_access_policy
+          - tv_wonder_vatican_archives_incident_state
+          - tv_wonder_vatican_archives_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_vatican_archives_keyholder
+            - tv_wonder_vatican_archives_incident_state
+            - tv_wonder_vatican_archives_reward_branch
+          loc_refs:
+          - tv_engineering_department.1068.t
+          - tv_engineering_department.1068.d
+          - tv_engineering_department.1068.a
+          - tv_engineering_department.1068.b
+          scope_contract:
+            root_scope: country
+            current_scope: character
+            target_scopes:
+            - character
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: final_archive_reward_handoff
+          kind: final_reward_dispatch
+          capabilities:
+          - final_reward_handoff
+          event_id: 1069
+          player_visible: true
+          historical_anchor: The archive index, key custody, access licenses, and sealed copies are accepted as diplomatic memory.
+          enter_condition: The full or restricted archive opening has been accepted.
+          completion_condition: Permanent Vatican Archives ceremony rewards are handed to the existing finalization layer.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes: []
+          writes:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_reward_branch
+          reads:
+          - tv_wonder_vatican_archives_stage
+          - tv_wonder_vatican_archives_keyholder
+          - tv_wonder_vatican_archives_access_policy
+          - tv_wonder_vatican_archives_incident_state
+          - tv_wonder_vatican_archives_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_vatican_archives_keyholder
+            - tv_wonder_vatican_archives_reward_branch
+          loc_refs:
+          - tv_engineering_department.1069.t
+          - tv_engineering_department.1069.d
+          - tv_engineering_department.1069.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - none
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        edges:
+        - from: open_apostolic_archive_seal
+          to: assign_archive_keyholder
+          condition: archive seal opened
+          effect: set stage to keyholder assignment
+          label_key: tv_engineering_department.1064.a
+        - from: assign_archive_keyholder
+          to: choose_register_access_rule
+          condition: archive keyholder assigned
+          effect: store assigned actor slot
+          label_key: TV_ENGINEERING_VATICAN_ARCHIVES_KEYHOLDER_STATUS
+        - from: choose_register_access_rule
+          to: resolve_archive_scandal
+          condition: access policy selected
+          effect: store access rule and provisional reward branch
+          label_key: TV_ENGINEERING_VATICAN_ARCHIVES_ACCESS_STATUS
+        - from: resolve_archive_scandal
+          to: assign_archive_keyholder
+          condition: reassign after failed custody test
+          effect: return to actor assignment
+          label_key: tv_engineering_department.1067.a
+        - from: resolve_archive_scandal
+          to: reassign_or_seal_registers
+          condition: scandal requires custody settlement
+          effect: preserve scandal state
+          label_key: TV_ENGINEERING_VATICAN_ARCHIVES_INCIDENT_LOG_LABEL
+        - from: reassign_or_seal_registers
+          to: assign_archive_keyholder
+          condition: appoint a new keyholder and retry access test
+          effect: clear actor slot for reassignment
+          label_key: tv_engineering_department.1068.a
+        - from: reassign_or_seal_registers
+          to: final_archive_reward_handoff
+          condition: accept stricter sealed access
+          effect: mark restricted reward branch
+          label_key: tv_engineering_department.1068.b
+        - from: choose_register_access_rule
+          to: final_archive_reward_handoff
+          condition: access policy passes without scandal
+          effect: prepare full archive reward branch
+          label_key: tv_engineering_department.1069.a
+        actions: []
+        checks: []
+      design_ir:
+        compiler_primitives:
+        - archive_keyholder_actor_slot
+        - sealed_register_access_rows
+        - archive_scandal_reassignment_retry
+        - archive_reward_branch_handoff
+        - loadable_archive_source_generation
+        phases:
+        - key: archive_seal_opening
+          gameplay_stage: Cardinals, secretaries, archivists, guards, notaries, translators, and diplomats open the archive custody question.
+          entry_condition: Vatican Archives is completed at Rome.
+          exit_condition: The keyholder assignment slot is visible.
+        - key: assign_keyholder
+          gameplay_stage: Assign a cardinal, secretary, jurist, or professional archivist to hold keys and access licenses.
+          entry_condition: The seal has opened.
+          exit_condition: Actor slot stores the keyholder.
+        - key: choose_access_policy
+          gameplay_stage: Choose which sealed registers can be opened for scholars, envoys, or state officers.
+          entry_condition: A keyholder exists.
+          exit_condition: Access policy and reward branch are stored.
+        - key: scandal_test
+          gameplay_stage: A leak, partisan reading, lost shelf mark, or exposed register tests custody.
+          entry_condition: Access policy exists.
+          exit_condition: Scandal state is resolved or triggers reassignment.
+        - key: handoff_reward
+          gameplay_stage: Seal the index and hand full or restricted archive proof to research and diplomacy rewards.
+          entry_condition: Full access or stricter sealed access is accepted.
+          exit_condition: Existing finalization remains the only loadable source handoff.
+        player_proofs:
+        - Prove that diplomatic memory depends on trusted key custody, not only shelves of manuscripts.
+        - Prove that sealed registers can be opened selectively without destroying secrecy.
+        - Prove that scandal can force reassignment, retry, or a reduced but safer archive reward.
+        tracked_entity_sets:
+        - key: archive_register_rows
+          entity_type: sealed_register_access_row
+          entities:
+          - key: papal_bulls
+            display_name: Papal Bulls
+          - key: treaty_copies
+            display_name: Treaty Copies
+          - key: nuncio_dispatches
+            display_name: Nuncio Dispatches
+          - key: legal_privilege_index
+            display_name: Legal Privilege Index
+          - key: cipher_lists
+            display_name: Cipher Lists
+          - key: access_licenses
+            display_name: Access Licenses
+          state_values:
+          - sealed
+          - opened
+          - restricted
+          - leaked
+          - reassigned
+          - certified
+          per_entity_state: Each row records whether it is opened, restricted, leaked, reassigned, or certified under the selected keyholder.
+          selector: The player selects keyholder and access policy before rows are tested by scandal pressure.
+          ui_binding: actor_slots displays keyholder, checklist displays policy rows, and incident_log records leaks and reassignment state.
+        selectors:
+        - key: keyholder_selector
+          scope: character
+          options:
+          - cardinal_custodian
+          - state_secretary
+          - canon_law_archivist
+          selection_state: Projected into tv_wonder_vatican_archives_keyholder while design_ir keeps actor identity semantics.
+        - key: access_policy_selector
+          scope: country
+          options:
+          - scholarly_finding_aids
+          - diplomatic_extracts
+          - sealed_privilege_only
+          selection_state: Projected into tv_wonder_vatican_archives_access_policy while design_ir keeps register rows.
+        risk_branches:
+        - key: partisan_archivist
+          trigger: The keyholder serves a faction or cannot keep access licenses disciplined.
+          player_response: Reassign the office and retry, or seal more rooms and accept lower diplomatic openness.
+          failure_state: Restricted reward branch.
+        - key: exposed_register
+          trigger: A nuncio dispatch, treaty copy, or privilege register leaks or is misread.
+          player_response: Re-index access, replace the keyholder, or accept a stricter archive seal.
+          failure_state: Scandal state and reduced branch.
+        player_actions:
+        - Open the Apostolic Archive Seal.
+        - Assign the archive keyholder.
+        - Choose register access rule.
+        - Resolve scandal with reassignment or restricted access.
+        - Seal the archive reward handoff.
+        map_scope_evidence:
+        - Fixed site Rome and final Vatican Archives building anchor all checks.
+        - Country scope owns stage, access, incident, and reward variables.
+        - Character scope owns the assigned keyholder actor slot.
+        ui_feedback_model:
+          components:
+          - actor_slots
+          - checklist
+          - incident_log
+          repeated_rows: One row each for bulls, treaty copies, nuncio dispatches, legal privilege index, cipher lists, and access licenses.
+          per_entity_status: Rows preserve sealed, opened, restricted, leaked, reassigned, and certified states in design_ir.
+        uniqueness_constraints:
+        - Must preserve sealed papal registers and diplomatic memory, not generic scholarship.
+        - Must keep controlled non-disclosure as the central proof.
+        - Must keep reward themes on research speed and diplomatic reputation.
+        projection_notes: The compiler_mapped node_graph preserves keyholder identity, register rows, access licenses, scandal, reassignment, and restricted access in design_ir, then compresses them into keyholder, access_policy, incident_state, and reward_branch variables for current Harness validation. Actor-slot and row projections remain intermediate-only and do not generate loadable selectors, GUI rows, or EU5 source.
+      compiler_gap_ledger:
+      - primitive: archive_keyholder_actor_slot
+        design_semantics: Preserve a visible assigned archive keyholder with character-scope custody semantics.
+        required_game_interfaces:
+        - character selector
+        - actor slot GUI summary
+        - tooltip-safe selected actor storage
+        codebase_evidence:
+        - capability:actor_assignment_character_selector_backend
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer emits real character selectors and actor-slot GUI rows?
+        blocked_by:
+        - loadable character selector and GUI generation
+        fallback_if_unavailable: Keep keyholder identity in design_ir and project through tv_wonder_vatican_archives_keyholder.
+      - primitive: sealed_register_access_rows
+        design_semantics: Preserve named register rows with opened, restricted, leaked, reassigned, and certified states.
+        required_game_interfaces:
+        - checklist row rendering
+        - incident log row rendering
+        codebase_evidence:
+        - capability:repeated_entity_row_checklist_incident_log_backend
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer expands archive register rows into loadable GUI status rows?
+        blocked_by:
+        - loadable repeated-row GUI/source generation
+        fallback_if_unavailable: Keep row details in design_ir and project them through access_policy and incident_state variables.
+      - primitive: archive_scandal_reassignment_retry
+        design_semantics: A leak or partisan keyholder can force reassignment and retry, or stricter sealed access.
+        required_game_interfaces:
+        - retry branch
+        - branch-specific reward scaling
+        codebase_evidence:
+        - capability:retry_branch
+        - capability:branch_specific_reward_scaling
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer maps reassignment, scandal, and restricted access into loadable events and effects?
+        blocked_by:
+        - loadable actor-to-incident source generation
+        fallback_if_unavailable: Preserve scandal and restricted branch as intermediate variables only.
+      - primitive: archive_reward_branch_handoff
+        design_semantics: Full or restricted archive proof hands research speed and diplomatic reputation rewards to the finalization layer.
+        required_game_interfaces:
+        - final reward dispatch
+        - permanent country modifier handoff
+        codebase_evidence:
+        - capability:final_reward_handoff
+        verification_status: backend_ready
+        search_questions:
+        - Which future source compiler maps Vatican archive branch state to permanent ceremony modifiers?
+        blocked_by:
+        - loadable reward effect writer
+        fallback_if_unavailable: Keep rewards designed and handoff semantic-only.
+      - primitive: loadable_archive_source_generation
+        design_semantics: Generate actual EU5 events, actor selectors, effects, triggers, and GUI rows for the Vatican Archives ritual.
+        required_game_interfaces:
+        - loadable character selector writer
+        - loadable event/effect source writer
+        - loadable GUI row writer
+        codebase_evidence: []
+        verification_status: needs_codebase_search
+        search_questions:
+        - Is there a current Harness source writer that can emit Vatican-specific actor assignment, event chains, row UI, and reward effects?
+        blocked_by:
+        - Harness v1 emits intermediate fragments only
+        fallback_if_unavailable: Keep unique_vatican_archives at compiler_mapped with high-fidelity design_ir and no source generation.
+      ui_model:
+        components:
+        - type: actor_slots
+          key: vatican_archive_keyholder_slot
+          status_variable: tv_wonder_vatican_archives_keyholder
+        - type: checklist
+          key: vatican_archive_access_checklist
+          status_variable: tv_wonder_vatican_archives_access_policy
+        - type: incident_log
+          key: vatican_archive_incident_log
+          status_variable: tv_wonder_vatican_archives_incident_state
+        bindings:
+        - key: vatican_keyholder_binding
+          component_key: vatican_archive_keyholder_slot
+          variable_refs:
+          - tv_wonder_vatican_archives_keyholder
+          - tv_wonder_vatican_archives_stage
+          node_refs:
+          - assign_archive_keyholder
+          - reassign_or_seal_registers
+          loc_refs:
+          - TV_ENGINEERING_VATICAN_ARCHIVES_KEYHOLDER_STATUS
+        - key: vatican_access_binding
+          component_key: vatican_archive_access_checklist
+          variable_refs:
+          - tv_wonder_vatican_archives_access_policy
+          - tv_wonder_vatican_archives_reward_branch
+          node_refs:
+          - choose_register_access_rule
+          - final_archive_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_VATICAN_ARCHIVES_ACCESS_STATUS
+          - TV_ENGINEERING_VATICAN_ARCHIVES_REWARD_STATUS
+        - key: vatican_incident_binding
+          component_key: vatican_archive_incident_log
+          variable_refs:
+          - tv_wonder_vatican_archives_incident_state
+          - tv_wonder_vatican_archives_reward_branch
+          node_refs:
+          - resolve_archive_scandal
+          - reassign_or_seal_registers
+          - final_archive_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_VATICAN_ARCHIVES_INCIDENT_LOG_LABEL
+          - tv_engineering_department.1067.t
+      rewards:
+        permanent_country_modifier:
+          status: designed
+          source: data/unique_wonders.yaml ritual.country_modifier
+          description: Preserve research_speed and diplomatic_reputation as trusted register retrieval, sealed copies, and credible memory in negotiation.
+        local_building_reward:
+          status: designed
+          source: design_ir archive register rows
+          description: Local Rome memory for sealed rooms, key custody, shelf marks, access licenses, treaty copies, nuncio dispatches, and guarded reading desks.
+        one_time_reward:
+          status: designed
+          source: design_ir archive scandal branch
+          description: One-time research, diplomatic favor, prestige, clergy, or secrecy reward shaped by reliable keyholder, corrected scandal, or stricter sealed-access branch.
+      localization:
+        panel_text_keys:
+        - TV_ENGINEERING_VATICAN_ARCHIVES_KEYHOLDER_STATUS
+        - TV_ENGINEERING_VATICAN_ARCHIVES_ACCESS_STATUS
+        - TV_ENGINEERING_VATICAN_ARCHIVES_REWARD_STATUS
+        - TV_ENGINEERING_VATICAN_ARCHIVES_INCIDENT_LOG_LABEL
+        event_keys:
+        - event_id: 1064
+          title_key: tv_engineering_department.1064.t
+          desc_key: tv_engineering_department.1064.d
+          option_keys:
+          - tv_engineering_department.1064.a
+          node_key: open_apostolic_archive_seal
+        - event_id: 1065
+          title_key: tv_engineering_department.1065.t
+          desc_key: tv_engineering_department.1065.d
+          option_keys:
+          - tv_engineering_department.1065.a
+          - tv_engineering_department.1065.b
+          - tv_engineering_department.1065.c
+          node_key: assign_archive_keyholder
+        - event_id: 1066
+          title_key: tv_engineering_department.1066.t
+          desc_key: tv_engineering_department.1066.d
+          option_keys:
+          - tv_engineering_department.1066.a
+          - tv_engineering_department.1066.b
+          - tv_engineering_department.1066.c
+          node_key: choose_register_access_rule
+        - event_id: 1067
+          title_key: tv_engineering_department.1067.t
+          desc_key: tv_engineering_department.1067.d
+          option_keys:
+          - tv_engineering_department.1067.a
+          - tv_engineering_department.1067.b
+          node_key: resolve_archive_scandal
+        - event_id: 1068
+          title_key: tv_engineering_department.1068.t
+          desc_key: tv_engineering_department.1068.d
+          option_keys:
+          - tv_engineering_department.1068.a
+          - tv_engineering_department.1068.b
+          node_key: reassign_or_seal_registers
+        - event_id: 1069
+          title_key: tv_engineering_department.1069.t
+          desc_key: tv_engineering_department.1069.d
+          option_keys:
+          - tv_engineering_department.1069.a
+          node_key: final_archive_reward_handoff
+        world_news_keys:
+        - tv_engineering_department.600.d_unique_vatican_archives
+      generation:
+        status: compiler_mapped_intermediate_only
+        target_files: []
+        verified_templates: []
+        blocked_templates: []
+        dry_run_notes: Vatican Archives is compiler_mapped only. The Harness records intermediate keyholder actor assignment, register access rows, scandal, reassignment retry, restricted reward, UI, and reward semantics but does not generate loadable EU5 src.
+      implementation_notes:
+        source_ritual_key: apostolic_archive_seal
+        implementation_source: compiler_mapped intermediate Harness design_ir only
+        verification_status: compiler_mapped
+        verified_interfaces:
+        - capability:actor_assignment semantic actor projection
+        - capability:actor_assignment_character_selector_backend intermediate actor selector contract
+        - capability:repeated_entity_row_checklist_incident_log_backend intermediate row projection
+        - capability:retry_branch semantic reassignment projection
+        - capability:branch_specific_reward_scaling intermediate branch contract
+        - capability:final_reward_handoff semantic reward projection
+        - archetype:patronage_actor_assignment reference blueprint
+        needs_verification:
+        - loadable Vatican-specific character selector and actor-slot GUI generation
+        - loadable event/effect/trigger source generation
+        - exact EU5 predicates for keyholder candidates, sealed registers, scandal, access licenses, and reward scaling
   - id: 157
     key: unique_temple_of_heaven
     base_key: sky_dome_grand_temple
@@ -13867,6 +16647,719 @@ unique_wonders:
         manifests, translation, and customs rather than battle or succession.
         Keep permanent rewards on trade income and diplomatic reputation; local
         merchant trust is supporting logic, not a replacement theme.
+    harness_spec:
+      identity:
+        id: 162
+        key: unique_canton_thirteen_factories
+        base_key: guild_alliance
+        location: guangzhou
+        runtime_prefix: tv_wonder_canton_thirteen_factories
+        status: compiler_mapped
+      event_ids:
+      - id: 1070
+        key: open_hong_charter_bargain
+      - id: 1071
+        key: choose_factory_access_holder
+      - id: 1072
+        key: audit_warehouse_keys_and_stockpile
+      - id: 1073
+        key: resolve_factory_access_incident
+      - id: 1074
+        key: renegotiate_access_bargain
+      - id: 1075
+        key: final_hong_charter_reward_handoff
+      node_graph:
+        model: state_machine_dsl_v1
+        archetypes:
+        - incident_retry_gauntlet
+        historical_mechanic: The Canton Thirteen Factories turn overseas commerce into a controlled bargain by deciding who holds factory keys, who guarantees warehouses, and how foreign residence boundaries survive dispute.
+        summary: The player opens the Hong Merchant Charter, chooses whether hong merchants, foreign factors, or crown customs clerks control privileged access, audits warehouse keys and cargo guarantees, handles a smuggling, insolvency, or fire-lane incident, and either renegotiates the bargain or accepts a narrower domestic compact.
+        mechanic_signature:
+          wonder_specific_hook: The ritual treats Canton as an enclosed overseas trade gate where factory keys, hong licenses, chop seals, interpreter registers, warehouses, tariff tables, complaint books, fire lanes, and Pearl River wharves make foreign commerce possible only through controlled access.
+          core_interaction_loop: The player chooses the access-holder doctrine, verifies named warehouse and factory rows, then resolves an immediate incident that can force renegotiation, reduced access, or a full charter reward.
+          player_decision_pattern: Choices decide whether merchant intermediaries, foreign factors, or state clerks receive the practical keys, then decide whether an access scandal is solved by new guarantees, tighter warehouses, or a lower-value domestic-only compact.
+          state_feedback_model: The checklist records the chosen access doctrine, material_stockpile records warehouse keys, cargo manifests, tariff tables, and debt bonds, and the incident_log records smuggling, insolvency, fire-watch, interpreter, or foreign-residence failures.
+          failure_or_tension_model: Too much access can empower foreign factories or smugglers; too much restriction can stall recognition and force a reduced domestic compact. The player can retry the audit with stricter guarantees or complete with a narrower branch.
+          reward_expression: Full certification preserves trade income and diplomatic reputation as regulated overseas access, while a narrowed branch keeps local port order and smaller trade gains through domestic hong control.
+          reuse_risk_mitigation: The loop belongs to the Thirteen Factories because the bargaining object is enclosed foreign factory access on the Pearl River; ordinary guild halls do not combine hong licenses, factory keys, bonded warehouses, interpreter registers, residence boundaries, and diplomatic trade procedure.
+        cadence_signature:
+          cadence_type: instant_but_branching
+          cadence_rationale: Instant-but-branching pacing fits because the decisive mechanic is a one-time charter bargain over who controls access, with immediate consequences for warehouses and foreign recognition rather than a monthly accumulation season.
+          player_agency_model: The player chooses the privileged access holder, reviews concrete warehouse and factory proof, and responds to a triggered incident by renegotiating, tightening access, or accepting a smaller compact.
+          non_monthly_triggers_or_reason: Non-monthly validation is the bargain option and its immediate warehouse-access incident branch.
+          pacing_failure_mode: The pacing fails if it becomes a generic timed trade bar, so the design preserves access-holder choices, named stockpile rows, incident pressure, retry, and branch-specific reward.
+        listeners: []
+        entry_node: open_hong_charter_bargain
+        terminal_nodes:
+        - final_hong_charter_reward_handoff
+        runtime_variables:
+        - tv_wonder_canton_thirteen_factories_stage
+        - tv_wonder_canton_thirteen_factories_access_choice
+        - tv_wonder_canton_thirteen_factories_warehouse_status
+        - tv_wonder_canton_thirteen_factories_incident_state
+        - tv_wonder_canton_thirteen_factories_reward_branch
+        graph_shape: hong_factory_access_incident_retry
+        completion_policy:
+          allow_terminal_outgoing: false
+        variables:
+        - name: tv_wonder_canton_thirteen_factories_stage
+          scope: country
+          type: number
+          roles:
+          - stage_state
+          initial_value: 0
+          writer_nodes:
+          - open_hong_charter_bargain
+          - choose_factory_access_holder
+          - audit_warehouse_keys_and_stockpile
+          - resolve_factory_access_incident
+          - renegotiate_access_bargain
+          - final_hong_charter_reward_handoff
+          reader_nodes:
+          - choose_factory_access_holder
+          - audit_warehouse_keys_and_stockpile
+          - resolve_factory_access_incident
+          - renegotiate_access_bargain
+          - final_hong_charter_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_canton_thirteen_factories_access_choice
+          scope: country
+          type: number
+          roles:
+          - checklist_state
+          initial_value: 0
+          writer_nodes:
+          - choose_factory_access_holder
+          reader_nodes:
+          - audit_warehouse_keys_and_stockpile
+          - resolve_factory_access_incident
+          - final_hong_charter_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_canton_thirteen_factories_warehouse_status
+          scope: country
+          type: number
+          roles:
+          - resource_state
+          - checklist_state
+          initial_value: 0
+          writer_nodes:
+          - audit_warehouse_keys_and_stockpile
+          reader_nodes:
+          - resolve_factory_access_incident
+          - renegotiate_access_bargain
+          - final_hong_charter_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_canton_thirteen_factories_incident_state
+          scope: country
+          type: number
+          roles:
+          - incident_state
+          initial_value: 0
+          writer_nodes:
+          - resolve_factory_access_incident
+          - renegotiate_access_bargain
+          reader_nodes:
+          - audit_warehouse_keys_and_stockpile
+          - renegotiate_access_bargain
+          - final_hong_charter_reward_handoff
+          cleanup: project_state_clear
+        - name: tv_wonder_canton_thirteen_factories_reward_branch
+          scope: country
+          type: number
+          roles:
+          - reward_state
+          initial_value: 0
+          writer_nodes:
+          - choose_factory_access_holder
+          - resolve_factory_access_incident
+          - renegotiate_access_bargain
+          - final_hong_charter_reward_handoff
+          reader_nodes:
+          - resolve_factory_access_incident
+          - renegotiate_access_bargain
+          - final_hong_charter_reward_handoff
+          cleanup: project_state_clear
+        nodes:
+        - key: open_hong_charter_bargain
+          kind: event
+          capabilities:
+          - event_chain
+          event_id: 1070
+          player_visible: true
+          historical_anchor: Hong merchants, customs clerks, interpreters, foreign supercargoes, and warehouse keepers gather at Guangzhou to open the factory-key bargain.
+          enter_condition: Canton Thirteen Factories final building exists at Guangzhou and the sponsor begins the unique proof.
+          completion_condition: The charter bargain is opened and access-holder choice is available.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - choose_factory_access_holder
+          writes:
+          - tv_wonder_canton_thirteen_factories_stage
+          reads: []
+          ui_state:
+            variable_refs:
+            - tv_wonder_canton_thirteen_factories_stage
+          loc_refs:
+          - tv_engineering_department.1070.t
+          - tv_engineering_department.1070.d
+          - tv_engineering_department.1070.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: choose_factory_access_holder
+          kind: choice_event
+          capabilities:
+          - event_chain
+          - branch_specific_reward_scaling
+          event_id: 1071
+          player_visible: true
+          historical_anchor: The sponsor chooses whether hong merchants, foreign factors, or crown customs clerks hold privileged factory and warehouse access.
+          enter_condition: The Hong Charter bargain has opened.
+          completion_condition: Access choice and provisional reward branch are stored.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - audit_warehouse_keys_and_stockpile
+          writes:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_access_choice
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          reads:
+          - tv_wonder_canton_thirteen_factories_stage
+          ui_state:
+            variable_refs:
+            - tv_wonder_canton_thirteen_factories_access_choice
+            - tv_wonder_canton_thirteen_factories_reward_branch
+          loc_refs:
+          - tv_engineering_department.1071.t
+          - tv_engineering_department.1071.d
+          - tv_engineering_department.1071.a
+          - tv_engineering_department.1071.b
+          - tv_engineering_department.1071.c
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: audit_warehouse_keys_and_stockpile
+          kind: resource_gate
+          capabilities:
+          - resource_gate
+          - repeated_entity_row_checklist_incident_log_backend
+          event_id: 1072
+          player_visible: true
+          historical_anchor: Factory keys, hong licenses, bonded warehouse seals, cargo manifests, tariff tables, debt bonds, interpreter registers, and fire buckets are counted before access is trusted.
+          enter_condition: An access-holder doctrine exists.
+          completion_condition: Warehouse and factory access stockpile state is recorded for the incident test.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes:
+          - resolve_factory_access_incident
+          writes:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_warehouse_status
+          reads:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_access_choice
+          - tv_wonder_canton_thirteen_factories_incident_state
+          ui_state:
+            variable_refs:
+            - tv_wonder_canton_thirteen_factories_access_choice
+            - tv_wonder_canton_thirteen_factories_warehouse_status
+          loc_refs:
+          - tv_engineering_department.1072.t
+          - tv_engineering_department.1072.d
+          - tv_engineering_department.1072.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: resolve_factory_access_incident
+          kind: incident_event
+          capabilities:
+          - event_chain
+          - retry_branch
+          - branch_specific_reward_scaling
+          - repeated_entity_row_checklist_incident_log_backend
+          event_id: 1073
+          player_visible: true
+          historical_anchor: A smuggling accusation, hong insolvency, factory fire-lane breach, interpreter dispute, or foreign-residence violation tests the charter.
+          enter_condition: Warehouse and access rows have exposed the pressure point.
+          completion_condition: Incident state and reward pressure are recorded.
+          failure_or_retry: true
+          retry_target: audit_warehouse_keys_and_stockpile
+          next_nodes:
+          - renegotiate_access_bargain
+          writes:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_incident_state
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          reads:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_access_choice
+          - tv_wonder_canton_thirteen_factories_warehouse_status
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_canton_thirteen_factories_incident_state
+            - tv_wonder_canton_thirteen_factories_reward_branch
+          loc_refs:
+          - tv_engineering_department.1073.t
+          - tv_engineering_department.1073.d
+          - tv_engineering_department.1073.a
+          - tv_engineering_department.1073.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: renegotiate_access_bargain
+          kind: retry_event
+          capabilities:
+          - retry_branch
+          - branch_specific_reward_scaling
+          event_id: 1074
+          player_visible: true
+          historical_anchor: The sponsor decides whether to demand new hong guarantees, tighten warehouse keys, or accept a domestic-only compact with weaker foreign recognition.
+          enter_condition: A factory access incident has been recorded.
+          completion_condition: The player selects retry renegotiation or a narrower compact.
+          failure_or_retry: true
+          retry_target: audit_warehouse_keys_and_stockpile
+          next_nodes:
+          - final_hong_charter_reward_handoff
+          writes:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_incident_state
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          reads:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_warehouse_status
+          - tv_wonder_canton_thirteen_factories_incident_state
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_canton_thirteen_factories_incident_state
+            - tv_wonder_canton_thirteen_factories_reward_branch
+          loc_refs:
+          - tv_engineering_department.1074.t
+          - tv_engineering_department.1074.d
+          - tv_engineering_department.1074.a
+          - tv_engineering_department.1074.b
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - location
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        - key: final_hong_charter_reward_handoff
+          kind: final_reward_dispatch
+          capabilities:
+          - final_reward_handoff
+          event_id: 1075
+          player_visible: true
+          historical_anchor: The Hong Charter is sealed with factory keys, warehouse marks, interpreter rolls, tariff tables, and the closed complaint book.
+          enter_condition: The full charter or narrowed compact has been accepted.
+          completion_condition: Permanent Canton Thirteen Factories ceremony rewards are handed to the existing finalization layer.
+          failure_or_retry: false
+          retry_target: null
+          next_nodes: []
+          writes:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          reads:
+          - tv_wonder_canton_thirteen_factories_stage
+          - tv_wonder_canton_thirteen_factories_access_choice
+          - tv_wonder_canton_thirteen_factories_warehouse_status
+          - tv_wonder_canton_thirteen_factories_incident_state
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          ui_state:
+            variable_refs:
+            - tv_wonder_canton_thirteen_factories_reward_branch
+          loc_refs:
+          - tv_engineering_department.1075.t
+          - tv_engineering_department.1075.d
+          - tv_engineering_department.1075.a
+          scope_contract:
+            root_scope: country
+            current_scope: country
+            target_scopes:
+            - none
+            tooltip_safe: true
+            unsafe_pre_eval: false
+        edges:
+        - from: open_hong_charter_bargain
+          to: choose_factory_access_holder
+          condition: Hong Charter bargain opened
+          effect: set stage to factory access choice
+          label_key: tv_engineering_department.1070.a
+        - from: choose_factory_access_holder
+          to: audit_warehouse_keys_and_stockpile
+          condition: hong, foreign, or crown access doctrine selected
+          effect: store access choice and provisional reward branch
+          label_key: TV_ENGINEERING_CANTON_FACTORIES_ACCESS_STATUS
+        - from: audit_warehouse_keys_and_stockpile
+          to: resolve_factory_access_incident
+          condition: warehouse and factory rows expose access pressure
+          effect: preserve stockpile status for incident branch
+          label_key: TV_ENGINEERING_CANTON_FACTORIES_STOCKPILE_STATUS
+        - from: resolve_factory_access_incident
+          to: audit_warehouse_keys_and_stockpile
+          condition: retry warehouse audit after access scandal
+          effect: return to stockpile proof with incident state preserved
+          label_key: tv_engineering_department.1073.a
+        - from: resolve_factory_access_incident
+          to: renegotiate_access_bargain
+          condition: incident requires renegotiation choice
+          effect: store access scandal state
+          label_key: TV_ENGINEERING_CANTON_FACTORIES_INCIDENT_LOG_LABEL
+        - from: renegotiate_access_bargain
+          to: audit_warehouse_keys_and_stockpile
+          condition: demand new guarantees and retry the audit
+          effect: return to stockpile certification with tighter access terms
+          label_key: tv_engineering_department.1074.a
+        - from: renegotiate_access_bargain
+          to: final_hong_charter_reward_handoff
+          condition: accept domestic-only compact
+          effect: mark narrowed reward branch
+          label_key: tv_engineering_department.1074.b
+        - from: audit_warehouse_keys_and_stockpile
+          to: final_hong_charter_reward_handoff
+          condition: warehouse keys and manifests pass without incident
+          effect: prepare full Hong Charter reward branch
+          label_key: tv_engineering_department.1075.a
+        actions: []
+        checks: []
+      design_ir:
+        compiler_primitives:
+        - factory_access_holder_branch
+        - bonded_warehouse_stockpile_rows
+        - factory_access_incident_retry
+        - canton_reward_branch_handoff
+        - loadable_canton_source_generation
+        phases:
+        - key: charter_bargain_opening
+          gameplay_stage: Hong merchants, customs clerks, interpreters, warehouse keepers, foreign supercargoes, compradores, fire-watch crews, and magistrates assemble to decide factory access.
+          entry_condition: Canton Thirteen Factories is completed at Guangzhou and the sponsor can begin the unique proof.
+          exit_condition: The access-holder choice is visible to the player.
+        - key: choose_access_holder
+          gameplay_stage: Choose hong merchant guarantees, foreign factor privileges, or crown customs custody as the access doctrine.
+          entry_condition: The charter bargain has opened.
+          exit_condition: Access choice and provisional reward branch are stored.
+        - key: audit_warehouse_rows
+          gameplay_stage: Check factory keys, hong licenses, bonded warehouse seals, cargo manifests, debt bonds, tariff tables, interpreter rolls, complaint books, and fire lanes as named rows.
+          entry_condition: An access doctrine exists.
+          exit_condition: Warehouse status is ready for the visible incident branch.
+        - key: resolve_access_incident
+          gameplay_stage: Smuggling accusation, hong insolvency, foreign residence violation, interpreter scandal, factory fire risk, or warehouse seizure threatens the charter.
+          entry_condition: Access rows have exposed the disputed proof.
+          exit_condition: Incident state is resolved, retried, or narrowed.
+        - key: handoff_reward
+          gameplay_stage: Seal the Hong Merchant Charter as either full regulated overseas access or a domestic-only compact.
+          entry_condition: Full access or a narrowed compact is accepted.
+          exit_condition: Existing finalization remains the only loadable source handoff.
+        player_proofs:
+        - Prove that overseas trade at Guangzhou is credible because access is licensed, housed, translated, and recorded.
+        - Prove that warehouse keys and bonded cargo can satisfy customs, merchants, foreign residents, and city order at the same time.
+        - Prove that a scandal can be renegotiated into stronger guarantees or a weaker domestic compact rather than becoming a generic trade bonus.
+        tracked_entity_sets:
+        - key: canton_access_rows
+          entity_type: factory_access_row
+          entities:
+          - key: hong_merchant_licenses
+            display_name: Hong Merchant Licenses
+          - key: factory_keys
+            display_name: Factory Keys
+          - key: bonded_warehouse_seals
+            display_name: Bonded Warehouse Seals
+          - key: cargo_manifests
+            display_name: Cargo Manifests
+          - key: tariff_tables
+            display_name: Tariff Tables
+          - key: debt_bonds
+            display_name: Debt Bonds
+          - key: interpreter_register
+            display_name: Interpreter Register
+          - key: complaint_book
+            display_name: Complaint Book
+          - key: fire_lanes
+            display_name: Fire Lanes
+          state_values:
+          - unassigned
+          - hong_controlled
+          - foreign_privileged
+          - crown_sealed
+          - contested
+          - certified
+          - restricted
+          per_entity_state: Each row records whether it is controlled by hong merchants, opened to foreign factors, sealed by customs clerks, contested by incident pressure, certified, or restricted.
+          selector: The player chooses access-holder doctrine before the warehouse row audit tests whether the bargain can survive.
+          ui_binding: checklist shows access doctrine, material_stockpile shows key and cargo status, and incident_log records smuggling, insolvency, fire-watch, interpreter, or residence-boundary failures.
+        selectors:
+        - key: access_holder_selector
+          scope: country
+          options:
+          - hong_merchant_guarantee
+          - foreign_factor_privilege
+          - crown_customs_custody
+          selection_state: Projected into tv_wonder_canton_thirteen_factories_access_choice while design_ir keeps the full access-holder bargain.
+        - key: warehouse_stockpile_audit
+          scope: location
+          options:
+          - keys_and_chop_seals
+          - manifests_and_tariffs
+          - debt_bonds_and_fire_lanes
+          selection_state: Projected into tv_wonder_canton_thirteen_factories_warehouse_status while design_ir keeps named stockpile rows.
+        risk_branches:
+        - key: foreign_factory_overreach
+          trigger: Foreign factors use privileged keys to ignore residence boundaries or complaint procedure.
+          player_response: Tighten warehouse access and retry, or accept lower foreign recognition under domestic-only control.
+          failure_state: Restricted reward branch.
+        - key: hong_insolvency_or_smuggling
+          trigger: A hong merchant cannot cover debt bonds, a smuggling accusation reaches customs, or a warehouse seizure ruins trust.
+          player_response: Demand new merchant guarantees and audit rows again, or seal the compact around safer but narrower domestic trade.
+          failure_state: Incident state and reduced branch.
+        - key: factory_fire_or_interpreter_dispute
+          trigger: Fire lanes, interpreter registers, or complaint books fail under crowded factory pressure.
+          player_response: Reopen the stockpile audit with stricter keys and records, or close access around a narrower charter.
+          failure_state: Incident state and reduced branch.
+        player_actions:
+        - Open the Hong Charter bargain.
+        - Choose the factory access holder.
+        - Audit warehouse keys and stockpile rows.
+        - Resolve access incident with renegotiation or restriction.
+        - Seal the full or narrowed Hong Charter reward handoff.
+        map_scope_evidence:
+        - Fixed site Guangzhou and final Canton Thirteen Factories building anchor all checks.
+        - Country scope owns stage, access, warehouse, incident, and reward variables.
+        - Location scope owns the factory, warehouse, wharf, fire-lane, and residence-boundary proof in design_ir.
+        ui_feedback_model:
+          components:
+          - checklist
+          - material_stockpile
+          - incident_log
+          repeated_rows: One row each for licenses, keys, warehouse seals, manifests, tariffs, debt bonds, interpreter register, complaint book, and fire lanes.
+          per_entity_status: Rows preserve unassigned, hong-controlled, foreign-privileged, crown-sealed, contested, certified, and restricted states in design_ir.
+        uniqueness_constraints:
+        - Must preserve enclosed foreign factory access as the bargaining object.
+        - Must keep hong merchants, bonded warehouses, interpreters, residence boundaries, and Pearl River customs procedure visible.
+        - Must keep reward themes on trade income and diplomatic reputation rather than generic production.
+        projection_notes: The compiler_mapped node_graph preserves access-holder selection, warehouse stockpile rows, incident pressure, renegotiation, domestic-only fallback, and reward branching in design_ir, then compresses them into access_choice, warehouse_status, incident_state, and reward_branch variables for current Harness validation. Stockpile rows and exact source effects remain intermediate-only and do not generate loadable GUI rows, trade-route code, market code, or EU5 source.
+      compiler_gap_ledger:
+      - primitive: factory_access_holder_branch
+        design_semantics: Preserve a visible choice among hong merchant guarantees, foreign factor privileges, and crown customs custody.
+        required_game_interfaces:
+        - choice event branch
+        - branch-specific reward scaling
+        - access doctrine checklist
+        codebase_evidence:
+        - capability:event_chain
+        - capability:branch_specific_reward_scaling
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer maps access doctrine choice into loadable events, effects, and reward scaling?
+        blocked_by:
+        - loadable branch effect writer
+        fallback_if_unavailable: Keep access doctrine in design_ir and project through tv_wonder_canton_thirteen_factories_access_choice.
+      - primitive: bonded_warehouse_stockpile_rows
+        design_semantics: Preserve named rows for factory keys, hong licenses, warehouse seals, manifests, tariffs, debt bonds, interpreter register, complaint book, and fire lanes.
+        required_game_interfaces:
+        - material stockpile GUI summary
+        - checklist row rendering
+        - incident log row rendering
+        codebase_evidence:
+        - capability:resource_gate
+        - capability:repeated_entity_row_checklist_incident_log_backend
+        verification_status: backend_ready
+        search_questions:
+        - Which future source writer expands Canton factory and warehouse rows into loadable GUI status rows?
+        blocked_by:
+        - loadable repeated-row GUI/source generation
+        fallback_if_unavailable: Keep row details in design_ir and project them through warehouse_status.
+      - primitive: factory_access_incident_retry
+        design_semantics: Smuggling, insolvency, fire-lane, interpreter, or residence-boundary incidents can force renegotiation and retry, or a narrowed compact.
+        required_game_interfaces:
+        - retry branch
+        - branch-specific reward scaling
+        - incident log
+        codebase_evidence:
+        - capability:retry_branch
+        - capability:branch_specific_reward_scaling
+        verification_status: backend_ready
+        search_questions:
+        - Which future source compiler maps Canton access incidents into loadable events and retry effects?
+        blocked_by:
+        - loadable incident and retry source writer
+        fallback_if_unavailable: Preserve incident and domestic-only branch as intermediate variables only.
+      - primitive: canton_reward_branch_handoff
+        design_semantics: Full or narrowed Hong Charter proof hands trade income and diplomatic reputation rewards to the finalization layer.
+        required_game_interfaces:
+        - final reward dispatch
+        - permanent country modifier handoff
+        codebase_evidence:
+        - capability:final_reward_handoff
+        verification_status: backend_ready
+        search_questions:
+        - Which future source compiler maps Canton branch state to permanent ceremony modifiers and one-time rewards?
+        blocked_by:
+        - loadable reward effect writer
+        fallback_if_unavailable: Keep rewards designed and handoff semantic-only.
+      - primitive: loadable_canton_source_generation
+        design_semantics: Generate actual EU5 events, effects, triggers, resource gates, GUI rows, and reward scaling for the Canton Thirteen Factories ritual.
+        required_game_interfaces:
+        - loadable event/effect source writer
+        - loadable resource/stockpile gate writer
+        - loadable GUI row writer
+        - loadable reward effect writer
+        codebase_evidence: []
+        verification_status: needs_codebase_search
+        search_questions:
+        - Is there a current Harness source writer that can emit Canton-specific instant branching, stockpile rows, incident retry, and reward effects?
+        blocked_by:
+        - Harness v1 emits intermediate fragments only
+        fallback_if_unavailable: Keep unique_canton_thirteen_factories at compiler_mapped with high-fidelity design_ir and no source generation.
+      ui_model:
+        components:
+        - type: checklist
+          key: canton_factory_access_checklist
+          status_variable: tv_wonder_canton_thirteen_factories_access_choice
+        - type: material_stockpile
+          key: canton_factory_warehouse_stockpile
+          status_variable: tv_wonder_canton_thirteen_factories_warehouse_status
+        - type: incident_log
+          key: canton_factory_incident_log
+          status_variable: tv_wonder_canton_thirteen_factories_incident_state
+        bindings:
+        - key: canton_access_binding
+          component_key: canton_factory_access_checklist
+          variable_refs:
+          - tv_wonder_canton_thirteen_factories_access_choice
+          - tv_wonder_canton_thirteen_factories_stage
+          node_refs:
+          - choose_factory_access_holder
+          - final_hong_charter_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_CANTON_FACTORIES_ACCESS_STATUS
+          - TV_ENGINEERING_CANTON_FACTORIES_REWARD_STATUS
+        - key: canton_stockpile_binding
+          component_key: canton_factory_warehouse_stockpile
+          variable_refs:
+          - tv_wonder_canton_thirteen_factories_warehouse_status
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          node_refs:
+          - audit_warehouse_keys_and_stockpile
+          - final_hong_charter_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_CANTON_FACTORIES_STOCKPILE_STATUS
+          - TV_ENGINEERING_CANTON_FACTORIES_REWARD_STATUS
+        - key: canton_incident_binding
+          component_key: canton_factory_incident_log
+          variable_refs:
+          - tv_wonder_canton_thirteen_factories_incident_state
+          - tv_wonder_canton_thirteen_factories_reward_branch
+          node_refs:
+          - resolve_factory_access_incident
+          - renegotiate_access_bargain
+          - final_hong_charter_reward_handoff
+          loc_refs:
+          - TV_ENGINEERING_CANTON_FACTORIES_INCIDENT_LOG_LABEL
+          - tv_engineering_department.1073.t
+      rewards:
+        permanent_country_modifier:
+          status: designed
+          source: data/unique_wonders.yaml ritual.country_modifier
+          description: Preserve trade_income and diplomatic_reputation as licensed hongs, controlled factory access, bonded warehouses, tariff procedure, interpreters, and reliable complaint handling.
+        local_building_reward:
+          status: designed
+          source: design_ir canton access rows
+          description: Local Guangzhou memory for hong licenses, factory keys, warehouse seals, manifests, debt bonds, tariff tables, interpreter registers, complaint books, fire lanes, and seasonal closure records.
+        one_time_reward:
+          status: designed
+          source: design_ir access incident branch
+          description: One-time treasury, trade income, merchant satisfaction, diplomatic favor, local prosperity, tariff efficiency, or smuggling reduction shaped by full access, corrected incident, or domestic-only compact.
+      localization:
+        panel_text_keys:
+        - TV_ENGINEERING_CANTON_FACTORIES_ACCESS_STATUS
+        - TV_ENGINEERING_CANTON_FACTORIES_STOCKPILE_STATUS
+        - TV_ENGINEERING_CANTON_FACTORIES_REWARD_STATUS
+        - TV_ENGINEERING_CANTON_FACTORIES_INCIDENT_LOG_LABEL
+        event_keys:
+        - event_id: 1070
+          title_key: tv_engineering_department.1070.t
+          desc_key: tv_engineering_department.1070.d
+          option_keys:
+          - tv_engineering_department.1070.a
+          node_key: open_hong_charter_bargain
+        - event_id: 1071
+          title_key: tv_engineering_department.1071.t
+          desc_key: tv_engineering_department.1071.d
+          option_keys:
+          - tv_engineering_department.1071.a
+          - tv_engineering_department.1071.b
+          - tv_engineering_department.1071.c
+          node_key: choose_factory_access_holder
+        - event_id: 1072
+          title_key: tv_engineering_department.1072.t
+          desc_key: tv_engineering_department.1072.d
+          option_keys:
+          - tv_engineering_department.1072.a
+          node_key: audit_warehouse_keys_and_stockpile
+        - event_id: 1073
+          title_key: tv_engineering_department.1073.t
+          desc_key: tv_engineering_department.1073.d
+          option_keys:
+          - tv_engineering_department.1073.a
+          - tv_engineering_department.1073.b
+          node_key: resolve_factory_access_incident
+        - event_id: 1074
+          title_key: tv_engineering_department.1074.t
+          desc_key: tv_engineering_department.1074.d
+          option_keys:
+          - tv_engineering_department.1074.a
+          - tv_engineering_department.1074.b
+          node_key: renegotiate_access_bargain
+        - event_id: 1075
+          title_key: tv_engineering_department.1075.t
+          desc_key: tv_engineering_department.1075.d
+          option_keys:
+          - tv_engineering_department.1075.a
+          node_key: final_hong_charter_reward_handoff
+        world_news_keys:
+        - tv_engineering_department.600.d_unique_canton_thirteen_factories
+      generation:
+        status: compiler_mapped_intermediate_only
+        target_files: []
+        verified_templates: []
+        blocked_templates: []
+        dry_run_notes: Canton Thirteen Factories is compiler_mapped only. The Harness records intermediate access-holder branching, warehouse stockpile rows, access incidents, retry, domestic-only fallback, UI, and reward semantics but does not generate loadable EU5 src.
+      implementation_notes:
+        source_ritual_key: hong_merchant_charter
+        implementation_source: compiler_mapped intermediate Harness design_ir only
+        verification_status: compiler_mapped
+        verified_interfaces:
+        - capability:event_chain semantic event projection
+        - capability:resource_gate semantic stockpile projection
+        - capability:repeated_entity_row_checklist_incident_log_backend intermediate row projection
+        - capability:retry_branch semantic access-incident projection
+        - capability:branch_specific_reward_scaling intermediate branch contract
+        - capability:final_reward_handoff semantic reward projection
+        - archetype:incident_retry_gauntlet reference blueprint
+        needs_verification:
+        - loadable Canton-specific resource/stockpile gate generation
+        - loadable event/effect/trigger source generation
+        - loadable GUI row generation for factory access and warehouse stockpile state
+        - exact EU5 predicates for hong merchants, warehouse access, foreign residence incidents, smuggling, fire lanes, interpreters, and reward scaling
   - id: 163
     key: unique_dardanelles_fortress
     base_key: coastal_defense_cannon
