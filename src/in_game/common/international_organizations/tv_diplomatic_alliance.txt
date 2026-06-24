@@ -105,7 +105,10 @@
 
 	on_joined = {
 		if = {
-			limit = { exists = scope:recipient }
+			limit = {
+				exists = scope:recipient
+				NOT = { is_leader_of_international_organization = prev }
+			}
 			scope:recipient = {
 				international_organization_add_special_status = {
 					type = special_status:tv_alliance_member_status
