@@ -89,14 +89,14 @@ tv_court_protocol = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -25 }
 			change_variable = { name = tv_alliance_tier add = 1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 1 }
 			}
 			# Sync tier to leader country
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -1 }
 			}
 		}
@@ -172,13 +172,13 @@ tv_court_protocol = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -50 }
 			change_variable = { name = tv_alliance_tier add = 2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 2 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -2 }
 			}
 		}
@@ -253,13 +253,13 @@ tv_court_protocol = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -75 }
 			change_variable = { name = tv_alliance_tier add = 3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 3 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -3 }
 			}
 		}
@@ -398,13 +398,13 @@ tv_information_network = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -25 }
 			change_variable = { name = tv_alliance_tier add = 1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 1 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -1 }
 			}
 		}
@@ -480,13 +480,13 @@ tv_information_network = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -50 }
 			change_variable = { name = tv_alliance_tier add = 2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 2 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -2 }
 			}
 		}
@@ -561,13 +561,13 @@ tv_information_network = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -75 }
 			change_variable = { name = tv_alliance_tier add = 3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 3 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -3 }
 			}
 		}
@@ -706,13 +706,13 @@ tv_commerce_consensus = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -25 }
 			change_variable = { name = tv_alliance_tier add = 1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 1 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -1 }
 			}
 		}
@@ -788,13 +788,13 @@ tv_commerce_consensus = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -50 }
 			change_variable = { name = tv_alliance_tier add = 2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 2 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -2 }
 			}
 		}
@@ -870,13 +870,13 @@ tv_commerce_consensus = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -75 }
 			change_variable = { name = tv_alliance_tier add = 3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 3 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -3 }
 			}
 		}
@@ -1014,13 +1014,13 @@ tv_faith_harmony = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -25 }
 			change_variable = { name = tv_alliance_tier add = 1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 1 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -1 }
 			}
 		}
@@ -1096,13 +1096,13 @@ tv_faith_harmony = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -50 }
 			change_variable = { name = tv_alliance_tier add = 2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 2 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -2 }
 			}
 		}
@@ -1177,13 +1177,13 @@ tv_faith_harmony = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -75 }
 			change_variable = { name = tv_alliance_tier add = 3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 3 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -3 }
 			}
 		}
@@ -1321,13 +1321,13 @@ tv_colonization_sphere = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -25 }
 			change_variable = { name = tv_alliance_tier add = 1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 1 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -1 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -1 }
 			}
 		}
@@ -1403,13 +1403,13 @@ tv_colonization_sphere = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -50 }
 			change_variable = { name = tv_alliance_tier add = 2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 2 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -2 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -2 }
 			}
 		}
@@ -1484,13 +1484,13 @@ tv_colonization_sphere = {
 		on_activate = {
 			change_variable = { name = tv_alliance_cohesion add = -75 }
 			change_variable = { name = tv_alliance_tier add = 3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = 3 }
 			}
 		}
 		on_deactivate = {
 			change_variable = { name = tv_alliance_tier add = -3 }
-			leader_country = {
+			leader_country ?= {
 				change_variable = { name = tv_alliance_tier add = -3 }
 			}
 		}

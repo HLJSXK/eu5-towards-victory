@@ -16,7 +16,9 @@ that create, find, or mutate TV IOs.
 
 3. Make nullable leader_country access optional.
    Use `leader_country ?= ...` in filters or tooltip-visible contexts. Vanilla IOs and newly
-   created IOs can have null leader countries during evaluation.
+   created IOs can have null leader countries during evaluation. IO law browsing can also
+   walk `on_activate` / `on_deactivate` effect chains, so mirrored leader-country writes there
+   must use `leader_country ?= { ... }`.
 
 4. Do not use IO `monthly_effect`.
    TV international_organization types must not define `monthly_effect` blocks. They have

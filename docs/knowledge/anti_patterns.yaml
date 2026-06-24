@@ -1681,6 +1681,16 @@
   source: "reference_game_files/game/in_game/common/laws/readme.txt:31-40; runtime error.log tv_alliance_laws.txt 2026-05-21"
   notes: "Generated Diplomatic Alliance laws wrapped IO variable checks and tier changes in scope:recipient in execution blocks. At runtime those blocks had no recipient event target, causing repeated 'Undefined event target recipient' and unset-scope errors."
 
+- id: io_policy_activation_direct_leader_country
+  pattern: ''
+  detectability: needs_parser
+  bad: "Using direct `leader_country = { ... }` inside IO policy on_activate/on_deactivate effect chains"
+  correction: "Keep IO variable writes on the current IO root, but enter the leader country with `leader_country ?= { ... }` for mirrored country state or side effects."
+  category: scope
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/parliament_agendas/10_hre_agendas.txt:104; runtime error.log tv_alliance_laws.txt 2026-06-25"
+  notes: "The law browser and policy tooltips can walk activation/deactivation effect chains before a leader country is available. Direct leader_country scope entry logs `Event target link 'leader_country' returned an invalid object`; the optional link safely no-ops when null."
+
 - id: io_policy_ai_math_scope_recipient_requires_exists
   pattern: ''
   detectability: needs_parser

@@ -237,13 +237,15 @@ allow = {
 
 on_activate = {
     change_variable = { name = tv_alliance_cohesion add = -25 }
-    leader_country = {
+    leader_country ?= {
         change_variable = { name = tv_alliance_tier add = 1 }
     }
 }
 ```
 
 Do not wrap those checks/effects in `scope:recipient = { ... }` unless the specific block documents `scope:recipient`. Runtime errors such as `Undefined event target 'recipient'` and `Event target link 'scope' returned an unset scope` can be caused by generated IO policies that use `scope:recipient` inside policy `allow`, `on_activate`, or `on_deactivate`.
+
+The policy tooltip/law browser can walk activation and deactivation effect chains before an IO has a resolvable leader country. Direct `leader_country = { ... }` can then log `Event target link 'leader_country' returned an invalid object`; use `leader_country ?= { ... }` for mirrored leader-country effects.
 
 `scope:recipient` is documented for IO policy AI math blocks such as `wants_this_policy_bias`, `wants_propose_policy`, `wants_keep_policy`, `reasons_to_join`, and `diplomatic_capacity_cost`, where root is a country and recipient is the IO. In custom non-unique IO laws, the engine can still pre-evaluate these maths without a recipient event target. Guard direct recipient reads with `exists = scope:recipient` in the same `limit` block, or use optional `scope:recipient ?= { ... }` for trigger-only checks, before reading `scope:recipient.leader_country` or IO variables.
 

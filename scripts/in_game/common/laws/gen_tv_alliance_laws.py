@@ -159,7 +159,7 @@ def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     lines.append(T*2 + "on_activate = {")
     lines.append(T*3 + f"change_variable = {{ name = tv_alliance_cohesion add = -{cost} }}")
     lines.append(T*3 + f"change_variable = {{ name = tv_alliance_tier add = {tier_contribution} }}")
-    lines.append(T*3 + "leader_country = {")
+    lines.append(T*3 + "leader_country ?= {")
     lines.append(T*4 + f"change_variable = {{ name = tv_alliance_tier add = {tier_contribution} }}")
     lines.append(T*3 + "}")
     if on_activate_note:
@@ -167,7 +167,7 @@ def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     lines.append(T*2 + "}")
     lines.append(T*2 + "on_deactivate = {")
     lines.append(T*3 + f"change_variable = {{ name = tv_alliance_tier add = -{tier_contribution} }}")
-    lines.append(T*3 + "leader_country = {")
+    lines.append(T*3 + "leader_country ?= {")
     lines.append(T*4 + f"change_variable = {{ name = tv_alliance_tier add = -{tier_contribution} }}")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
