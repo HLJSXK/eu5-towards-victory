@@ -144,10 +144,16 @@ metadata:
     - simple_progress_track_ui_binding
     supported_capabilities:
     - actor_assignment
+    - actor_assignment_character_selector_backend
+    - bounded_opposition_religious_community_pressure
+    - branch_specific_reward_scaling
     - event_chain
     - final_reward_handoff
+    - finance_public_credit_interface_backend
+    - fixed_site_integrity_control_pressure_backend
     - listener_gate
     - monthly_progress
+    - repeated_entity_row_checklist_incident_log_backend
     - resource_gate
     - retry_branch
     - route_gate
@@ -158,6 +164,7 @@ metadata:
     - listener_resolution_ritual
     - monthly_pressure_countdown
     - patronage_actor_assignment
+    - public_credit_charter_retry
     - resource_accumulation_ritual
     archetype_policy: Registry archetypes are optional, non-exclusive reference tags. They add contract checks when used, but custom_* archetype labels are allowed when mechanic_signature.custom_archetype_statement explains the new shape.
     cadence_policy: Implementation-ready specs must declare cadence_signature. Monthly listeners, monthly_progress_gate nodes, monthly_progress capabilities, or monthly_progress_gate templates require monthly_institutionalization or hybrid cadence with a concrete historical rationale and at least one non-monthly player interaction, risk, listener, event branch, trigger, or decision point.
@@ -393,10 +400,8 @@ unique_wonders:
     - The ritual depends on Alexandria as a lighthouse whose value is visual trust across sea lanes.
     - The eight Mediterranean routes make navigation visibility the proof; ordinary ports cannot reuse this without losing the Pharos claim.
     - The controlled/basing/foreign-bargain branch ties diplomacy and naval logistics to the light itself.
-    projection_notes: >
-      The current node_graph is an existing_plugin_parity projection. It preserves the manual implementation evidence and event IDs but compresses
-      per-route rows, route selector state, controlled/basing route passes, and the foreign harbor bargain into lightweight event nodes rather than a
-      full source-codegen-ready graph.
+    projection_notes: |
+      The current node_graph is an existing_plugin_parity projection. It preserves the manual implementation evidence and event IDs but compresses per-route rows, route selector state, controlled/basing route passes, and the foreign harbor bargain into lightweight event nodes rather than a full source-codegen-ready graph.
   compiler_gap_ledger:
   - primitive: alexandria_hostile_privateer_clearance
     design_semantics: Clear hostile privateer pressure around Alexandria before the lighthouse can certify routes.
@@ -1380,7 +1385,7 @@ unique_wonders:
     - The Rock is the sacred object; the ritual is about visible custody of a contested platform, not a generic dome dedication.
     - Jerusalem access rules, guard thresholds, endowment deeds, cisterns, and witnesses are mandatory design surfaces.
     - Conquest cannot speed the rite; sovereignty is proven by restraint and recognized access.
-    projection_notes: >
+    projection_notes: |
       Preserve the full access-group and custody-duty tracked sets in design_ir. Project them into a source_codegen_ready strong DSL graph with four player-visible planning nodes, checklist and incident summary variables, fixed Jerusalem site evidence, bounded opposition semantics, witness/guard branch state, actions, checks, scope contracts, and UI bindings. The repeated-row, bounded religious-community pressure, fixed-site integrity, and branch-scaling primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop no access group, custody duty, guard-overreach branch, witness branch, Jerusalem sacred-site requirement, or per-row UI intent.
   compiler_gap_ledger:
   - primitive: sanctuary_access_compact_rows
@@ -2175,7 +2180,7 @@ unique_wonders:
     - The loop must remain about Granada's capitulation palace, symbolic keys, water courts, protected elites, and foreign witnesses.
     - A normal war victory is not enough; the palace must remain credible as preserved courtly order.
     - The player should not be rewarded for sacking or flattening the palace's negotiated identity.
-    projection_notes: >
+    projection_notes: |
       Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Project them into a source_codegen_ready strong DSL graph with four planning events, listener/state contracts, checklist and incident summary variables, branch reward state, actions, checks, and UI bindings. The listener, fixed-site integrity/control-pressure, repeated-row, and branch-scaling primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop no war, treaty, palace-risk, or reward primitive.
   compiler_gap_ledger:
   - primitive: war_outcome_capitulation_gate
@@ -3049,7 +3054,7 @@ unique_wonders:
     - The actor must be a sacred official tied to Peter's tomb, not a generic scholar or engineer.
     - Relics, alms, pilgrim thresholds, choir offices, and chapel patronage are required design surfaces.
     - Clergy satisfaction is earned through disciplined service, not a free estate privilege.
-    projection_notes: >
+    projection_notes: |
       Preserve sacred official candidates, actor quality, factional risk, branch reward semantics, and apostolic service duty rows in design_ir. The current source_codegen_ready node_graph preserves the four decisive beats--threshold opening, sacred official assignment, scandal retry, and reward handoff--as a strong Harness state machine, but it is still an intermediate-only projection. It compresses candidate rows and per-duty incident rows into assigned_official, official_quality, incident_status, duty_status, and reward_branch summary variables only for the current Harness projection. Replace no selector, tracked set, per-duty UI requirement, or branch consequence; loadable EU5 source remains blocked by remaining_source_writer_blockers until a later source writer maps the character selector, clergy predicates, actor-quality incident routing, and per-duty GUI rows.
   compiler_gap_ledger:
   - primitive: sacred_official_character_selector
@@ -3675,6 +3680,8 @@ unique_wonders:
     key: bank_reward
   node_graph:
     model: state_machine_dsl_v1
+    archetypes:
+    - public_credit_charter_retry
     historical_mechanic: Public credit charter founding that turns Genoese debt, tax streams, coin trust, and merchant syndicates into state machinery.
     summary: The player proves that the Bank of Saint George can make public credit credible by choosing a founding charter and surviving the first creditor, crown, or open-market challenge.
     mechanic_signature:
@@ -4090,7 +4097,7 @@ unique_wonders:
     - The ledger, not the hall alone, is the monument; public debts and pledged revenues must stay visible.
     - The founding choice must branch immediately among creditor, crown, and open-merchant trust models.
     - The reward must stay fiscal, with minting income and tax efficiency from credible public credit rather than a generic trade or monthly bank progress bar.
-    projection_notes: >
+    projection_notes: |
       Preserve charter options, pledge rows, default risk, and branch fiscal semantics in design_ir. Project them into a source_codegen_ready strong DSL graph with four public-credit planning nodes, charter checklist and pledge incident summary variables, branch reward state, actions, checks, scope contracts, and UI bindings. The finance/public-credit, branch-scaling, merchant-creditor pressure, and repeated pledge-row primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop the old monthly audit pacing from this pilot; do not collapse the ledger to passive monthly points or a simple generic event chain.
   compiler_gap_ledger:
   - primitive: public_credit_interfaces

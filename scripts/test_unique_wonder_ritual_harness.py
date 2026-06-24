@@ -458,7 +458,7 @@ def branch_scaling_backend_entry() -> dict:
 def finance_public_credit_backend_entry() -> dict:
     entry = valid_entry()
     graph = entry["node_graph"]
-    graph["archetypes"] = ["incident_retry_gauntlet"]
+    graph["archetypes"] = ["public_credit_charter_retry"]
     graph["listeners"] = []
     graph["cadence_signature"] = {
         "cadence_type": "instant_but_branching",
@@ -484,6 +484,7 @@ def finance_public_credit_backend_entry() -> dict:
     graph["nodes"][2]["kind"] = "choice_event"
     graph["nodes"][2]["capabilities"] = ["event_chain", "finance_public_credit_interface_backend"]
     graph["nodes"][3]["capabilities"].append("finance_public_credit_interface_backend")
+    graph["nodes"][3]["capabilities"].append("repeated_entity_row_checklist_incident_log_backend")
     graph["nodes"][4]["kind"] = "incident_event"
     graph["nodes"][4]["capabilities"] = ["event_chain", "finance_public_credit_interface_backend"]
     graph["nodes"][5]["capabilities"].append("finance_public_credit_interface_backend")
@@ -495,6 +496,17 @@ def finance_public_credit_backend_entry() -> dict:
     entry["ui_model"]["components"].append(
         {"type": "incident_log", "key": "credit_incident", "status_variable": "tv_wonder_test_progress"}
     )
+    return entry
+
+
+def finance_public_credit_missing_backend_entry() -> dict:
+    entry = finance_public_credit_backend_entry()
+    for test_node in entry["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "finance_public_credit_interface_backend"
+        ]
     return entry
 
 
@@ -950,6 +962,12 @@ def main() -> None:
         if backend_errors:
             raise AssertionError(f"{name} fixture unexpectedly failed: {backend_errors}")
 
+    assert_has_error(
+        "public credit archetype missing finance backend",
+        finance_public_credit_missing_backend_entry(),
+        "archetype 'public_credit_charter_retry' missing required capability(s): finance_public_credit_interface_backend",
+    )
+
     for capability_key in BACKEND_CAPABILITIES:
         backend_gap = high_fidelity_design_entry(verification_status="backend_ready")
         backend_gap["compiler_gap_ledger"][0]["codebase_evidence"] = [
@@ -1403,6 +1421,18 @@ def main() -> None:
         valid_entry(),
         "must declare may_write_src: false",
         archetype_registry=registry_may_write_src,
+    )
+
+    public_credit_writable_archetype_registry = deepcopy(load_archetype_registry())
+    for archetype in public_credit_writable_archetype_registry["archetypes"]:
+        if archetype.get("key") == "public_credit_charter_retry":
+            archetype["may_write_src"] = True
+            break
+    assert_has_error(
+        "public credit archetype may_write_src",
+        finance_public_credit_backend_entry(),
+        "must declare may_write_src: false",
+        archetype_registry=public_credit_writable_archetype_registry,
     )
 
     archetype_missing_capability = valid_entry()

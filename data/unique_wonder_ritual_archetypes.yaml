@@ -192,3 +192,35 @@ archetypes:
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
     notes: "Finalization reference tag for routing unsafe or heavy completion work through a hidden executor handoff. Non-exclusive; it must not force the rest of the ritual into this shape."
+
+  - key: public_credit_charter_retry
+    required_capabilities:
+      - event_chain
+      - retry_branch
+      - branch_specific_reward_scaling
+      - repeated_entity_row_checklist_incident_log_backend
+      - finance_public_credit_interface_backend
+      - final_reward_handoff
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - retry_event
+      - incident_event
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - checklist_state
+      - incident_state
+      - reward_state
+    required_ui_components:
+      - checklist
+      - incident_log
+    required_listeners: []
+    min_nodes: 4
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Public-credit charter bargaining rituals with fiscal pressure, pledge/default-risk rows, and branch-shaped reward handoff. Intermediate contract only: it preserves public-credit, fiscal-pressure, and pledge-row semantics for Harness fragments and is not a source writer."
