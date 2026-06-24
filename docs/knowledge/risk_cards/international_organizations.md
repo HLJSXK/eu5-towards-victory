@@ -100,6 +100,13 @@ that create, find, or mutate TV IOs.
     Missing the bias logs a startup warning that the organization needs an opinion of
     other members.
 
+17. Keep idle parliament issues positively desirable.
+    When a custom IO uses vanilla `call_organization_parliament` for normal, non-law
+    sessions, make sure at least one issue for the participating special status has
+    valid `potential` / `allow` / `selectable_for` and positive
+    `wants_this_parliament_issue_bias` in ordinary founding or neutral-member states.
+    Otherwise the issue picker can show that no special status has issues to bring.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip

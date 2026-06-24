@@ -1680,6 +1680,16 @@
   source: "reference_game_files/game/in_game/common/parliament_agendas/readme.txt:1-11; reference_game_files/game/in_game/common/parliament_agendas/10_hre_agendas.txt:1-23"
   notes: "IO parliaments rely on special-status agendas as well as issues. Without a valid agenda for the participating special status, the UI can report that no special status wants to propose an issue even when parliament_issues exist."
 
+- id: io_idle_parliament_issue_nonpositive_wants_bias
+  pattern: ''
+  detectability: advisory
+  bad: "All idle IO parliament issues for a custom special status have non-positive wants_this_parliament_issue_bias in ordinary founding conditions"
+  correction: "Give at least one normal idle parliament_issue for the participating special status a positive base wants_this_parliament_issue_bias after normal modifiers, while keeping potential/allow/selectable_for valid."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/generic_actions/io_parliament.txt:86-120; reference_game_files/game/in_game/common/parliament_issues/readme.txt:13; runtime playtest of tv_diplomatic_alliance 2026-06-24"
+  notes: "The vanilla call_organization_parliament issue chooser reports that no special status has issues to bring when it cannot surface any issue. Diplomatic Alliance issues with base -25 and only opinion-based bonuses could leave a new or neutral alliance with no positively desired idle issue, even though the issue definitions otherwise passed potential/allow/selectable_for."
+
 - id: io_single_member_parliament_without_leader_special_status
   pattern: ''
   bad: "A single-member IO relies on a generic member special status to propose IO parliament issues"
