@@ -299,7 +299,6 @@ tv_govhouse = {
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
-			tv_govhouse_sync_supreme_overlord_status_effect = yes
 		}
 	}
 

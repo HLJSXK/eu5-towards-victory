@@ -32,13 +32,21 @@ tv_govhouse_create_effect = {
 				}
 			}
 		}
+		clear_saved_scope = tv_govhouse_new_io
 		set_variable = { name = tv_govhouse_member value = 1 }
 		create_international_organization = {
 			type = international_organization_type:tv_govhouse
 			add_country_to_international_organization = prev
 			set_leader_country = prev
-			tv_govhouse_sync_supreme_overlord_status_effect = yes
+			save_scope_as = tv_govhouse_new_io
 		}
+		if = {
+			limit = { exists = scope:tv_govhouse_new_io }
+			scope:tv_govhouse_new_io = {
+				tv_govhouse_sync_supreme_overlord_status_effect = yes
+			}
+		}
+		clear_saved_scope = tv_govhouse_new_io
 	}
 	if = {
 		limit = {
