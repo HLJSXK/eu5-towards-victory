@@ -36,9 +36,9 @@ HEADER = """\
 
 """
 
-MONOPOLY_DISPLAY_MAX_PCT = 300
+MONOPOLY_DISPLAY_MAX_PCT = 100
 EMBARGO_COST_PCT = 30
-DISPLAY_ROW_COUNT = 10
+MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
 CHART_SLOT_COUNT = 12
 CHART_MAX_HEIGHT = 56
@@ -475,172 +475,6 @@ def selected_visible(index: int) -> str:
     )
 
 
-def category_selected_expr(value: int, default: bool = False) -> str:
-    variable = "InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_monopoly_category')"
-    selected = f"EqualTo_CFixedPoint({variable}.GetValue, '(CFixedPoint){value}.0')"
-    if default:
-        return f"Or(Not({variable}.IsSet), {selected})"
-    return f"And({variable}.IsSet, {selected})"
-
-
-def category_visible(value: int, default: bool = False) -> str:
-    return f"[{category_selected_expr(value, default)}]"
-
-
-def category_button(category: dict, default: bool = False) -> str:
-    action = category["action"]
-    visible = category_visible(category["value"], default)
-    return f"""\
-\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 111 28 }}
-\t\t\t\t\t\t\t\t\tbackground = {{
-\t\t\t\t\t\t\t\t\t\tvisible = "{visible}"
-\t\t\t\t\t\t\t\t\t\tusing = click_modifier_bg_texture
-\t\t\t\t\t\t\t\t\t\talpha = 0.34
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\taction_button = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 111 28 }}
-\t\t\t\t\t\t\t\t\t\tusing = button_regular_texture_alt_yellow
-\t\t\t\t\t\t\t\t\t\tusing = action_button_common_template
-\t\t\t\t\t\t\t\t\t\tusing = button_common_textobj_template
-\t\t\t\t\t\t\t\t\t\tfontsize = 13
-\t\t\t\t\t\t\t\t\t\ttext = "{action}"
-\t\t\t\t\t\t\t\t\t\ttitle = "{action}"
-\t\t\t\t\t\t\t\t\t\tdescription = "{action}_desc"
-\t\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "{action}" }}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t}}
-"""
-
-
-def category_buttons(categories: list[dict]) -> str:
-    buttons = "".join(
-        category_button(category, default=index == 0)
-        for index, category in enumerate(categories)
-    )
-    return f"""\
-\t\t\t\t\t\t\t\thbox = {{
-\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 462 30 }}
-\t\t\t\t\t\t\t\t\tspacing = 6
-{buttons}\t\t\t\t\t\t\t\t}}
-"""
-
-
-def monopoly_row(good: str, index: int, category: dict, default_category: bool = False) -> str:
-    category_expr = category_selected_expr(category["value"], default_category)
-    return f"""\
-\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\tvisible = "[{category_expr}]"
-\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
-\t\t\t\t\t\t\t\t\tbackground = {{
-\t\t\t\t\t\t\t\t\t\tusing = tooltip_table_field_texture
-\t\t\t\t\t\t\t\t\t\talpha = 0.16
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\tbackground = {{
-\t\t\t\t\t\t\t\t\t\tvisible = "{selected_visible(index)}"
-\t\t\t\t\t\t\t\t\t\tusing = click_modifier_bg_texture
-\t\t\t\t\t\t\t\t\t\talpha = 0.34
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\thbox = {{
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
-\t\t\t\t\t\t\t\t\t\tspacing = 4
-\t\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 86 24 }}
-\t\t\t\t\t\t\t\t\t\t\thbox = {{
-\t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 86 24 }}
-\t\t\t\t\t\t\t\t\t\t\t\tspacing = 2
-\t\t\t\t\t\t\t\t\t\t\ticon = {{
-\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 20 20 }}
-\t\t\t\t\t\t\t\t\t\t\t\ttexture = "gfx/interface/icons/trade_goods/icon_goods_{good}.dds"
-\t\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\t\ttext = "{good}"
-\t\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|left
-\t\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t\t\t\texpand = {{}}
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
-\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
-\t\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_origin_control_pct_{good}').GetValue|0]%"
-\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
-\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
-\t\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_node_control_pct_{good}').GetValue|0]%"
-\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
-\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 72 24 }}
-\t\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_consumer_control_pct_{good}').GetValue|0]%"
-\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 62 24 }}
-\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 62 24 }}
-\t\t\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_monopoly_{good}').GetValue, '(CFixedPoint)1.0')]"
-\t\t\t\t\t\t\t\t\t\t\traw_text = "@trigger_yes!"
-\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|center
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 78 24 }}
-\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 78 24 }}
-\t\t\t\t\t\t\t\t\t\t\traw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_monopoly_level_pct_{good}').GetValue|0]%"
-\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|right
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\taction_button = {{
-\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
-\t\t\t\t\t\t\t\t\talpha = 0
-\t\t\t\t\t\t\t\t\talwaystransparent = no
-\t\t\t\t\t\t\t\t\tusing = action_button_common_template
-\t\t\t\t\t\t\t\t\ttitle = "tv_trade_select_monopoly_good_{good}"
-\t\t\t\t\t\t\t\t\tdescription = "tv_trade_select_monopoly_good_{good}_desc"
-\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "tv_trade_select_monopoly_good_{good}" }}
-\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t}}
-"""
-
-
 def action_row(good: str, action: str, title: str, icon: str) -> str:
     amount_var = f"tv_trade_{action}_amount_{good}"
     used_var = f"tv_trade_{action}_used_pct_{good}"
@@ -980,50 +814,6 @@ def action_card(good: str, index: int) -> str:
 """
 
 
-def validate_categories(data: dict) -> None:
-    goods = data["goods"]
-    seen: dict[str, str] = {}
-    for category in data["categories"]:
-        if not category["goods"]:
-            raise ValueError(f"Trade League monopoly category {category['id']} has no goods")
-        for good in category["goods"]:
-            if good in seen:
-                raise ValueError(
-                    f"Trade League monopoly good {good} is in both {seen[good]} and {category['id']}"
-                )
-            seen[good] = category["id"]
-    missing = [good for good in goods if good not in seen]
-    extra = [good for good in seen if good not in goods]
-    if missing:
-        raise ValueError(f"Trade League monopoly goods missing categories: {', '.join(missing)}")
-    if extra:
-        raise ValueError(f"Trade League monopoly categories list unknown goods: {', '.join(extra)}")
-
-
-def generate(data: dict) -> str:
-    validate_categories(data)
-    goods = data["goods"]
-    category_by_good = {
-        good: category
-        for category in data["categories"]
-        for good in category["goods"]
-    }
-    default_category = data["categories"][0]
-    buttons = category_buttons(data["categories"])
-    rows = "".join(
-        monopoly_row(
-            good,
-            index,
-            category_by_good[good],
-            default_category=category_by_good[good]["id"] == default_category["id"],
-        )
-        for index, good in enumerate(goods, start=1)
-    )
-    details = "".join(detail_card(good, index) for index, good in enumerate(goods, start=1))
-    actions = "".join(action_card(good, index) for index, good in enumerate(goods, start=1))
-    return HEADER + PREFIX + buttons + TABLE_HEADER + rows + LIST_CARD_SUFFIX + details + actions + SUFFIX
-
-
 def projected_var(variable: str) -> str:
     return f"InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{variable}')"
 
@@ -1108,100 +898,6 @@ def projected_market_link(market: str, width: int, height: int = 20) -> str:
 \t\t\t\t\t\t\t\t\t\t\ttooltipwidget = {{ using = Market_tooltip }}
 \t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t}}
-"""
-
-
-def projected_category_selected_expr(value: int, default: bool = False) -> str:
-    variable = projected_var("tv_trade_selected_monopoly_category")
-    selected = f"EqualTo_CFixedPoint({variable}.GetValue, '(CFixedPoint){value}.0')"
-    if default:
-        return f"Or(Not({variable}.IsSet), {selected})"
-    return f"And({variable}.IsSet, {selected})"
-
-
-def projected_category_button(category: dict, default: bool = False) -> str:
-    action = category["action"]
-    visible = f"[{projected_category_selected_expr(category['value'], default)}]"
-    return f"""\
-\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 111 28 }}
-\t\t\t\t\t\t\t\t\tbackground = {{
-\t\t\t\t\t\t\t\t\t\tvisible = "{visible}"
-\t\t\t\t\t\t\t\t\t\tusing = click_modifier_bg_texture
-\t\t\t\t\t\t\t\t\t\talpha = 0.34
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\taction_button = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 111 28 }}
-\t\t\t\t\t\t\t\t\t\tusing = button_regular_texture_alt_yellow
-\t\t\t\t\t\t\t\t\t\tusing = action_button_common_template
-\t\t\t\t\t\t\t\t\t\tusing = button_common_textobj_template
-\t\t\t\t\t\t\t\t\t\tfontsize = 13
-\t\t\t\t\t\t\t\t\t\ttext = "{action}"
-\t\t\t\t\t\t\t\t\t\ttitle = "{action}"
-\t\t\t\t\t\t\t\t\t\tdescription = "{action}_desc"
-\t\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "{action}" }}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t}}
-"""
-
-
-def projected_category_buttons(categories: list[dict]) -> str:
-    buttons = "".join(
-        projected_category_button(category, default=index == 0)
-        for index, category in enumerate(categories)
-    )
-    return f"""\
-\t\t\t\t\t\t\t\thbox = {{
-\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 462 30 }}
-\t\t\t\t\t\t\t\t\tspacing = 6
-{buttons}\t\t\t\t\t\t\t\t}}
-"""
-
-
-def projected_page_controls() -> str:
-    page = projected_var("tv_trade_selected_monopoly_page")
-    page_max = projected_var("tv_trade_selected_monopoly_page_max")
-    return f"""\
-\t\t\t\t\t\t\t\thbox = {{
-\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 462 30 }}
-\t\t\t\t\t\t\t\t\tspacing = 6
-\t\t\t\t\t\t\t\t\texpand = {{}}
-\t\t\t\t\t\t\t\t\taction_button = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 78 28 }}
-\t\t\t\t\t\t\t\t\t\tusing = button_regular_texture_alt_yellow
-\t\t\t\t\t\t\t\t\t\tusing = action_button_common_template
-\t\t\t\t\t\t\t\t\t\tusing = button_common_textobj_template
-\t\t\t\t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_PREVIOUS_PAGE_SHORT"
-\t\t\t\t\t\t\t\t\t\ttitle = "tv_trade_previous_monopoly_page"
-\t\t\t\t\t\t\t\t\t\tdescription = "tv_trade_previous_monopoly_page_desc"
-\t\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "tv_trade_previous_monopoly_page" }}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 88 28 }}
-\t\t\t\t\t\t\t\t\t\traw_text = "[{page}.GetValue|0]/[{page_max}.GetValue|0]"
-\t\t\t\t\t\t\t\t\t\talign = nobaseline|center
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\taction_button = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 78 28 }}
-\t\t\t\t\t\t\t\t\t\tusing = button_regular_texture_alt_yellow
-\t\t\t\t\t\t\t\t\t\tusing = action_button_common_template
-\t\t\t\t\t\t\t\t\t\tusing = button_common_textobj_template
-\t\t\t\t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_NEXT_PAGE_SHORT"
-\t\t\t\t\t\t\t\t\t\ttitle = "tv_trade_next_monopoly_page"
-\t\t\t\t\t\t\t\t\t\tdescription = "tv_trade_next_monopoly_page_desc"
-\t\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "tv_trade_next_monopoly_page" }}
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\texpand = {{}}
-\t\t\t\t\t\t\t\t}}
 """
 
 
@@ -1479,70 +1175,148 @@ def projected_row_good_entries(goods: list[str], row_index: str) -> str:
     return "\n".join(entries)
 
 
-def projected_monopoly_row(row: int, goods: list[str]) -> str:
-    row_visible = projected_var(f"tv_trade_display_row_{row}_visible")
-    row_index = projected_var(f"tv_trade_display_row_{row}_good_index")
+def projected_good_icon_entries(goods: list[str], index_var: str, size: int) -> str:
+    entries: list[str] = []
+    for index, good in enumerate(goods, start=1):
+        entries.append(
+            f"""\t\t\t\t\t\t\t\t\t\t\t\ticon = {{ visible = "{projected_row_good_visible(index_var, index)}" size = {{ {size} {size} }} texture = "gfx/interface/icons/trade_goods/icon_goods_{good}.dds" parentanchor = center }}"""
+        )
+    return "\n".join(entries)
+
+
+def projected_good_name_entries(goods: list[str], index_var: str, width: int, height: int) -> str:
+    entries: list[str] = []
+    for index, good in enumerate(goods, start=1):
+        entries.append(
+            f"""\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "{projected_row_good_visible(index_var, index)}" size = {{ {width} {height} }} text = "{good}" align = nobaseline|left }}"""
+        )
+    return "\n".join(entries)
+
+
+def projected_type_label_entries(type_var: str, width: int, height: int) -> str:
+    return f"""\
+\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[EqualTo_CFixedPoint({type_var}.GetValue, '(CFixedPoint)1.0')]" size = {{ {width} {height} }} text = "TV_TRADE_LEAGUE_ORIGIN_MONOPOLY" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[EqualTo_CFixedPoint({type_var}.GetValue, '(CFixedPoint)2.0')]" size = {{ {width} {height} }} text = "TV_TRADE_LEAGUE_TRANSIT_MONOPOLY" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[EqualTo_CFixedPoint({type_var}.GetValue, '(CFixedPoint)3.0')]" size = {{ {width} {height} }} text = "TV_TRADE_LEAGUE_CONSUMER_MONOPOLY" align = nobaseline|right }}"""
+
+
+def projected_stage_label_entries(stage_var: str, width: int, height: int) -> str:
+    return f"""\
+\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[EqualTo_CFixedPoint({stage_var}.GetValue, '(CFixedPoint)1.0')]" size = {{ {width} {height} }} text = "TV_TRADE_LEAGUE_MONOPOLY_POTENTIAL" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[EqualTo_CFixedPoint({stage_var}.GetValue, '(CFixedPoint)2.0')]" size = {{ {width} {height} }} text = "TV_TRADE_LEAGUE_LOW_MONOPOLY" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[EqualTo_CFixedPoint({stage_var}.GetValue, '(CFixedPoint)3.0')]" size = {{ {width} {height} }} text = "TV_TRADE_LEAGUE_HIGH_MONOPOLY" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ visible = "[EqualTo_CFixedPoint({stage_var}.GetValue, '(CFixedPoint)4.0')]" size = {{ {width} {height} }} text = "TV_TRADE_LEAGUE_COMPLETE_MONOPOLY" align = nobaseline|right }}"""
+
+
+def projected_slot_metric_row(label: str, variable: str) -> str:
+    value = projected_var(variable)
+    return f"""\t\t\t\t\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 344 19 }}
+\t\t\t\t\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 238 19 }} text = "{label}" align = nobaseline|left }}
+\t\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 102 19 }} raw_text = "[{value}.GetValue|0]%" align = nobaseline|right }}
+\t\t\t\t\t\t\t\t\t\t\t\t}}"""
+
+
+def projected_monopoly_slot_card(slot: int, goods: list[str]) -> str:
+    unlocked = projected_var(f"tv_trade_monopoly_slot_{slot}_unlocked")
+    good_index = projected_var(f"tv_trade_monopoly_slot_{slot}_good_index")
     selected = projected_var("tv_trade_selected_good")
-    selected_bg = f"[EqualTo_CFixedPoint({row_index}.GetValue, {selected}.GetValue)]"
-    monopoly = projected_var(f"tv_trade_display_row_{row}_monopoly")
+    pct = projected_var(f"tv_trade_monopoly_slot_{slot}_monopoly_level_pct")
+    type_var = projected_var(f"tv_trade_monopoly_slot_{slot}_monopoly_type")
+    stage_var = projected_var(f"tv_trade_monopoly_slot_{slot}_monopoly_stage")
+    selected_bg = f"[And(GreaterThan_CFixedPoint({good_index}.GetValue, '(CFixedPoint)0.0'), EqualTo_CFixedPoint({good_index}.GetValue, {selected}.GetValue))]"
+    filled = f"[GreaterThan_CFixedPoint({good_index}.GetValue, '(CFixedPoint)0.0')]"
+    empty = f"[Not(GreaterThan_CFixedPoint({good_index}.GetValue, '(CFixedPoint)0.0'))]"
+    good_names = projected_good_name_entries(goods, good_index, 196, 17)
+    stage_labels = projected_stage_label_entries(stage_var, 196, 17)
+    type_labels = projected_type_label_entries(type_var, 140, 17)
     return f"""\
 \t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint({row_visible}.GetValue, '(CFixedPoint)1.0')]"
+\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint({unlocked}.GetValue, '(CFixedPoint)1.0')]"
 \t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
-\t\t\t\t\t\t\t\t\tbackground = {{
-\t\t\t\t\t\t\t\t\t\tusing = tooltip_table_field_texture
-\t\t\t\t\t\t\t\t\t\talpha = 0.16
-\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\tbackground = {{
-\t\t\t\t\t\t\t\t\t\tvisible = "{selected_bg}"
-\t\t\t\t\t\t\t\t\t\tusing = click_modifier_bg_texture
-\t\t\t\t\t\t\t\t\t\talpha = 0.34
-\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\tsize = {{ 462 104 }}
+\t\t\t\t\t\t\t\t\tbackground = {{ using = tooltip_table_field_texture alpha = 0.18 }}
+\t\t\t\t\t\t\t\t\tbackground = {{ visible = "{selected_bg}" using = click_modifier_bg_texture alpha = 0.34 }}
 \t\t\t\t\t\t\t\t\thbox = {{
+\t\t\t\t\t\t\t\t\t\tvisible = "{filled}"
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
-\t\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\t\tsize = {{ 462 104 }}
+\t\t\t\t\t\t\t\t\t\tspacing = 10
 \t\t\t\t\t\t\t\t\t\twidget = {{
 \t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 86 24 }}
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 94 104 }}
+\t\t\t\t\t\t\t\t\t\t\tpiechart = {{
+\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 76 76 }}
+\t\t\t\t\t\t\t\t\t\t\t\tparentanchor = center
+\t\t\t\t\t\t\t\t\t\t\t\twidgetanchor = center
+\t\t\t\t\t\t\t\t\t\t\t\tusing = piechart_angles
+\t\t\t\t\t\t\t\t\t\t\t\ticon = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = {{ 97% 97% }} parentanchor = center color = {{ 0.45 0.59 0.67 1 }} alpha = 0.3 }}
+\t\t\t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat({pct}.GetValue)]" color = {{ 0.85 0.65 0.22 1 }} alpha = 0.8 }}
+\t\t\t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat({pct}.GetValue))]" color = {{ 1 1 1 0 }} }}
+{projected_good_icon_entries(goods, good_index, 38)}
+\t\t\t\t\t\t\t\t\t\t\t\tusing = bg_circle_piechart
+\t\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\t\tsize = {{ 348 96 }}
+\t\t\t\t\t\t\t\t\t\t\tspacing = 4
 \t\t\t\t\t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 86 24 }}
-\t\t\t\t\t\t\t\t\t\t\t\tspacing = 2
-{projected_row_good_entries(goods, row_index)}
-\t\t\t\t\t\t\t\t\t\t\t\texpand = {{}}
+\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 344 34 }}
+\t\t\t\t\t\t\t\t\t\t\t\tspacing = 4
+\t\t\t\t\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 200 34 }}
+\t\t\t\t\t\t\t\t\t\t\t\t\tignoreinvisible = yes
+{good_names}
+{stage_labels}
+\t\t\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\t\t\t\tsize = {{ 140 34 }}
+\t\t\t\t\t\t\t\t\t\t\t\t\tignoreinvisible = yes
+\t\t\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 140 17 }} raw_text = "[{pct}.GetValue|0]%" align = nobaseline|right }}
+{type_labels}
+\t\t\t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t\t}}
-{projected_metric_cell(f"tv_trade_display_row_{row}_origin_pct", suffix="%")}{projected_metric_cell(f"tv_trade_display_row_{row}_node_pct", suffix="%")}{projected_metric_cell(f"tv_trade_display_row_{row}_consumer_pct", suffix="%")}\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ 62 24 }}
-\t\t\t\t\t\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 62 24 }}
-\t\t\t\t\t\t\t\t\t\t\tvisible = "[GreaterThanOrEqualTo_CFixedPoint({monopoly}.GetValue, '(CFixedPoint)1.0')]"
-\t\t\t\t\t\t\t\t\t\t\traw_text = "@trigger_yes!"
-\t\t\t\t\t\t\t\t\t\t\talign = nobaseline|center
+{projected_slot_metric_row("TV_TRADE_LEAGUE_ORIGIN_CONTROL_COLUMN", f"tv_trade_monopoly_slot_{slot}_origin_pct")}
+{projected_slot_metric_row("TV_TRADE_LEAGUE_NODE_CONTROL_COLUMN", f"tv_trade_monopoly_slot_{slot}_node_pct")}
+{projected_slot_metric_row("TV_TRADE_LEAGUE_CONSUMER_CONTROL_COLUMN", f"tv_trade_monopoly_slot_{slot}_consumer_pct")}
 \t\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\t}}
-{projected_metric_cell(f"tv_trade_display_row_{row}_monopoly_level_pct", width=78, suffix="%")}\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\taction_button = {{
-\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\tsize = {{ 462 26 }}
-\t\t\t\t\t\t\t\t\talpha = 0
-\t\t\t\t\t\t\t\t\talwaystransparent = no
-\t\t\t\t\t\t\t\t\tusing = action_button_common_template
-\t\t\t\t\t\t\t\t\ttitle = "tv_trade_select_monopoly_row_{row}"
-\t\t\t\t\t\t\t\t\tdescription = "tv_trade_select_monopoly_row_desc"
-\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
-\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "tv_trade_select_monopoly_row_{row}" }}
+\t\t\t\t\t\t\t\t\ttext_multi = {{
+\t\t\t\t\t\t\t\t\t\tvisible = "{empty}"
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
+\t\t\t\t\t\t\t\t\t\tautoresize = yes
+\t\t\t\t\t\t\t\t\t\tmax_width = 430
+\t\t\t\t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_EMPTY_MONOPOLY_SLOT"
+\t\t\t\t\t\t\t\t\t\tmargin = {{ 12 38 }}
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\taction_button = {{
+\t\t\t\t\t\t\t\t\t\tvisible = "{filled}"
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\t\t\t\t\t\tsize = {{ 462 104 }}
+\t\t\t\t\t\t\t\t\t\talpha = 0
+\t\t\t\t\t\t\t\t\t\talwaystransparent = no
+\t\t\t\t\t\t\t\t\t\tusing = action_button_common_template
+\t\t\t\t\t\t\t\t\t\ttitle = "tv_trade_select_monopoly_slot_{slot}"
+\t\t\t\t\t\t\t\t\t\tdescription = "tv_trade_select_monopoly_slot_desc"
+\t\t\t\t\t\t\t\t\t\tactor = "[InternationalOrganizationsView.GetPlayer]"
+\t\t\t\t\t\t\t\t\t\tleft_action = {{ action_name = "tv_trade_select_monopoly_slot_{slot}" }}
+\t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t}}
 """
 
 
@@ -1848,9 +1622,10 @@ def projected_action_card() -> str:
 
 
 def projected_generate(data: dict) -> str:
-    validate_categories(data)
-    buttons = projected_category_buttons(data["categories"])
-    rows = "".join(projected_monopoly_row(row, data["goods"]) for row in range(1, DISPLAY_ROW_COUNT + 1))
+    slots = "".join(
+        projected_monopoly_slot_card(slot, data["goods"])
+        for slot in range(1, MONOPOLY_SLOT_COUNT + 1)
+    )
     return (
         HEADER
         + PREFIX
@@ -1858,10 +1633,7 @@ def projected_generate(data: dict) -> str:
         + OVERVIEW_CHART_SUFFIX
         + intelligence_content()
         + MONOPOLY_PREFIX
-        + buttons
-        + projected_page_controls()
-        + TABLE_HEADER
-        + rows
+        + slots
         + LIST_CARD_SUFFIX
         + projected_detail_card(data["goods"])
         + projected_action_card()

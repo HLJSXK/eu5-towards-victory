@@ -39,13 +39,11 @@ BASE_ACTIONS = [
     "tv_expel_trade_league_member",
 ]
 
-DISPLAY_ROW_COUNT = 10
+MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
 
 FIXED_MONOPOLY_ACTIONS = [
-    "tv_trade_previous_monopoly_page",
-    "tv_trade_next_monopoly_page",
-    *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+    *(f"tv_trade_select_monopoly_slot_{slot}" for slot in range(1, MONOPOLY_SLOT_COUNT + 1)),
     "tv_trade_previous_intelligence_page",
     "tv_trade_next_intelligence_page",
     *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
@@ -68,33 +66,11 @@ FIXED_MONOPOLY_ACTIONS = [
 
 def action_names(data: dict) -> list[str]:
     names = list(BASE_ACTIONS)
-    names.extend(category["action"] for category in data["categories"])
     names.extend(FIXED_MONOPOLY_ACTIONS)
     return names
 
 
-def validate_categories(data: dict) -> None:
-    goods = data["goods"]
-    seen: dict[str, str] = {}
-    for category in data["categories"]:
-        if not category["goods"]:
-            raise ValueError(f"Trade League monopoly category {category['id']} has no goods")
-        for good in category["goods"]:
-            if good in seen:
-                raise ValueError(
-                    f"Trade League monopoly good {good} is in both {seen[good]} and {category['id']}"
-                )
-            seen[good] = category["id"]
-    missing = [good for good in goods if good not in seen]
-    extra = [good for good in seen if good not in goods]
-    if missing:
-        raise ValueError(f"Trade League monopoly goods missing categories: {', '.join(missing)}")
-    if extra:
-        raise ValueError(f"Trade League monopoly categories list unknown goods: {', '.join(extra)}")
-
-
 def generate(data: dict) -> str:
-    validate_categories(data)
     actions = "\n".join(f"\t\t{action}" for action in action_names(data))
     return (
         HEADER

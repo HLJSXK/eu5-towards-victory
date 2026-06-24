@@ -41,18 +41,47 @@ HEADER = """\
 """
 
 TRADE_GOOD_VARIABLE_PREFIXES = (
+    "tv_trade_available_monopoly_level_pct",
+    "tv_trade_consumer_control_pct",
+    "tv_trade_embargo_active",
+    "tv_trade_embargo_country",
+    "tv_trade_embargo_location",
+    "tv_trade_embargo_used_pct",
     "tv_trade_global",
     "tv_trade_io",
+    "tv_trade_monopoly",
     "tv_trade_monopoly_level",
+    "tv_trade_monopoly_level_pct",
+    "tv_trade_monopoly_stage",
+    "tv_trade_monopoly_type",
+    "tv_trade_node_control_pct",
+    "tv_trade_origin_control_pct",
     "tv_trade_used_monopoly_level",
+    "tv_trade_used_monopoly_level_pct",
+    "tv_trade_virtual_demand_active",
+    "tv_trade_virtual_demand_amount",
+    "tv_trade_virtual_demand_location",
+    "tv_trade_virtual_demand_used_pct",
+    "tv_trade_virtual_supply_active",
+    "tv_trade_virtual_supply_amount",
+    "tv_trade_virtual_supply_applied",
+    "tv_trade_virtual_supply_location",
+    "tv_trade_virtual_supply_used_pct",
 )
 
-DISPLAY_ROW_FIELDS = (
+MONOPOLY_SLOT_COUNT = 2
+
+MONOPOLY_SLOT_FIELDS = (
     "consumer_pct",
+    "good",
+    "good_index",
     "monopoly",
     "monopoly_level_pct",
+    "monopoly_stage",
+    "monopoly_type",
     "node_pct",
     "origin_pct",
+    "unlocked",
 )
 
 INTELLIGENCE_ROW_FIELDS = (
@@ -75,6 +104,8 @@ SELECTED_BASE_VARIABLES = (
     "tv_trade_selected_intelligence_top_power_3",
     "tv_trade_selected_monopoly",
     "tv_trade_selected_monopoly_level_pct",
+    "tv_trade_selected_monopoly_stage",
+    "tv_trade_selected_monopoly_type",
     "tv_trade_selected_node_pct",
     "tv_trade_selected_origin_pct",
     "tv_trade_selected_used_monopoly_level_pct",
@@ -104,7 +135,35 @@ SELECTED_MARKET_FIELDS = (
 
 TRADE_EXTRA_VARIABLES = (
     "tv_trade_chain_active",
+    "tv_trade_full_consumer_weight",
+    "tv_trade_full_consumer_weighted_sum",
+    "tv_trade_full_export_pct",
+    "tv_trade_full_import_pct",
+    "tv_trade_full_local_demand",
+    "tv_trade_full_local_production",
+    "tv_trade_full_node_count",
+    "tv_trade_full_node_pct_sum",
+    "tv_trade_full_origin_weight",
+    "tv_trade_full_origin_weighted_sum",
+    "tv_trade_full_weighted_piece",
+    "tv_trade_good_global_consumption_calc",
+    "tv_trade_good_global_production_calc",
     "tv_trade_intelligence_candidate_country",
+    "tv_trade_league_member_count",
+    "tv_trade_market_candidate_local_demand",
+    "tv_trade_market_candidate_local_production",
+    "tv_trade_market_candidate_total_export",
+    "tv_trade_market_candidate_total_import",
+    "tv_trade_monopoly_candidate_consumer_pct",
+    "tv_trade_monopoly_candidate_good",
+    "tv_trade_monopoly_candidate_good_index",
+    "tv_trade_monopoly_candidate_level_pct",
+    "tv_trade_monopoly_candidate_monopoly",
+    "tv_trade_monopoly_candidate_node_pct",
+    "tv_trade_monopoly_candidate_origin_pct",
+    "tv_trade_monopoly_candidate_stage",
+    "tv_trade_monopoly_candidate_type",
+    "tv_trade_monopoly_slot_count",
 )
 
 
@@ -120,9 +179,11 @@ def add_trade_league_suppressions(targets: set[str]) -> None:
         for prefix in TRADE_GOOD_VARIABLE_PREFIXES:
             targets.add(f"{prefix}_{good}")
 
+    for slot in range(1, MONOPOLY_SLOT_COUNT + 1):
+        for field in MONOPOLY_SLOT_FIELDS:
+            targets.add(f"tv_trade_monopoly_slot_{slot}_{field}")
+
     for row in range(1, 11):
-        for field in DISPLAY_ROW_FIELDS:
-            targets.add(f"tv_trade_display_row_{row}_{field}")
         for field in INTELLIGENCE_ROW_FIELDS:
             targets.add(f"tv_trade_intelligence_row_{row}_{field}")
 

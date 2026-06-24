@@ -192,7 +192,7 @@
  game_concept_tv_grand_merchant_desc: "领导[tv_trade_league|e]的任命角色。没有[tv_grand_merchant|e]时，贸易链、商业情报和垄断系统不会激活。"
 
  game_concept_tv_trade_monopoly: "贸易垄断"
- game_concept_tv_trade_monopoly_desc: "[tv_trade_league|e]针对单一商品的垄断状态。每月联盟会分别计算前三个产地市场、关键节点和消费市场的平均控制率，再把三类分数相加，得到0-300%的垄断水平。达到100%即视为垄断。垄断行动可锁定一部分垄断水平，用于虚构需求、虚构生产或禁运施压。"
+ game_concept_tv_trade_monopoly_desc: "[tv_trade_league|e]针对单一商品的垄断状态。每月联盟会遍历全球市场，分别计算原产、中转和消费控制率；最终0-100%的垄断水平取三者中的最高值。达到25%的商品可填入垄断槽，入槽且达到50%后才可使用垄断行动，将部分垄断水平锁定到虚构需求、虚构生产或禁运施压。"
 
  # ── Diplomatic Victory Unique Mechanics ───────────────────────────────────
  game_concept_tv_diplomatic_alliance: "外交联盟"

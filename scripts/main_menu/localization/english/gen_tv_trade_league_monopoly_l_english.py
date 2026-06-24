@@ -23,37 +23,12 @@ OUT_FILE = (
 
 VIRTUAL_ACTION_COST_PCT = 5
 EMBARGO_COST_PCT = 30
-DISPLAY_ROW_COUNT = 10
+MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
 
 
 def good_name(good: str) -> str:
     return f"${good}$"
-
-
-CATEGORY_LABELS = {
-    "basic": ("Basic Goods", "Show basic goods in the monopoly list."),
-    "food": ("Food", "Show food goods in the monopoly list."),
-    "manufactured": ("Manufactured Goods", "Show manufactured goods in the monopoly list."),
-    "luxury": ("Luxury Goods", "Show luxury goods in the monopoly list."),
-}
-
-
-def category_entries(categories: list[dict]) -> list[tuple[str, str]]:
-    entries: list[tuple[str, str]] = []
-    for category in categories:
-        label, desc = CATEGORY_LABELS[category["id"]]
-        action = category["action"]
-        entries.extend(
-            [
-                (action, label),
-                (f"{action}_desc", desc),
-                (f"PERFORM_{action}_ACTION_SETUP", "When we use a Trade League monopoly control."),
-                (f"PERFORM_{action}_ACTION_LOG", "We used a Trade League monopoly control."),
-                (f"PERFORM_{action}_ACTION_MAP", ""),
-            ]
-        )
-    return entries
 
 
 def perform_entries(action: str) -> list[tuple[str, str]]:
@@ -66,13 +41,15 @@ def perform_entries(action: str) -> list[tuple[str, str]]:
 
 def fixed_action_entries() -> list[tuple[str, str]]:
     entries: list[tuple[str, str]] = [
-        ("TV_TRADE_LEAGUE_PREVIOUS_PAGE_SHORT", "<"),
-        ("TV_TRADE_LEAGUE_NEXT_PAGE_SHORT", ">"),
-        ("tv_trade_previous_monopoly_page", "Previous Page"),
-        ("tv_trade_previous_monopoly_page_desc", "Show the previous commodity page."),
-        ("tv_trade_next_monopoly_page", "Next Page"),
-        ("tv_trade_next_monopoly_page_desc", "Show the next commodity page."),
-        ("tv_trade_select_monopoly_row_desc", "Show monopoly details for this commodity."),
+        ("tv_trade_select_monopoly_slot_desc", "Show monopoly details for this commodity slot."),
+        ("TV_TRADE_LEAGUE_EMPTY_MONOPOLY_SLOT", "No commodity has at least 25% monopoly potential for this slot."),
+        ("TV_TRADE_LEAGUE_MONOPOLY_POTENTIAL", "Monopoly Potential"),
+        ("TV_TRADE_LEAGUE_LOW_MONOPOLY", "Low Monopoly"),
+        ("TV_TRADE_LEAGUE_HIGH_MONOPOLY", "High Monopoly"),
+        ("TV_TRADE_LEAGUE_COMPLETE_MONOPOLY", "Complete Monopoly"),
+        ("TV_TRADE_LEAGUE_ORIGIN_MONOPOLY", "Origin Monopoly"),
+        ("TV_TRADE_LEAGUE_TRANSIT_MONOPOLY", "Transit Monopoly"),
+        ("TV_TRADE_LEAGUE_CONSUMER_MONOPOLY", "Consumer Monopoly"),
         ("tv_trade_previous_intelligence_page", "Previous Page"),
         ("tv_trade_previous_intelligence_page_desc", "Show the previous intelligence page."),
         ("tv_trade_next_intelligence_page", "Next Page"),
@@ -138,16 +115,14 @@ def fixed_action_entries() -> list[tuple[str, str]]:
             "@trigger_no! No distant [market|E] in trade range is available.",
         ),
     ]
-    for row in range(1, DISPLAY_ROW_COUNT + 1):
-        entries.append((f"tv_trade_select_monopoly_row_{row}", "Select Commodity"))
-        entries.append((f"tv_trade_select_monopoly_row_{row}_desc", "Show monopoly details for this commodity."))
+    for slot in range(1, MONOPOLY_SLOT_COUNT + 1):
+        entries.append((f"tv_trade_select_monopoly_slot_{slot}", f"Select Monopoly Slot {slot}"))
+        entries.append((f"tv_trade_select_monopoly_slot_{slot}_desc", "Show monopoly details for this commodity slot."))
     for row in range(1, INTELLIGENCE_ROW_COUNT + 1):
         entries.append((f"tv_trade_select_intelligence_row_{row}", "Select Market"))
         entries.append((f"tv_trade_select_intelligence_row_{row}_desc", "Show intelligence details for this market."))
     actions = [
-        "tv_trade_previous_monopoly_page",
-        "tv_trade_next_monopoly_page",
-        *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+        *(f"tv_trade_select_monopoly_slot_{slot}" for slot in range(1, MONOPOLY_SLOT_COUNT + 1)),
         "tv_trade_previous_intelligence_page",
         "tv_trade_next_intelligence_page",
         *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
@@ -185,9 +160,6 @@ def generate(data: dict) -> bytes:
         "# Do not edit directly - modify the data file and re-run the generator.",
         "",
     ]
-    for key, value in category_entries(data["categories"]):
-        escaped = value.replace('"', '\\"')
-        lines.append(f' {key}: "{escaped}"')
     for key, value in fixed_action_entries():
         escaped = value.replace('"', '\\"')
         lines.append(f' {key}: "{escaped}"')
