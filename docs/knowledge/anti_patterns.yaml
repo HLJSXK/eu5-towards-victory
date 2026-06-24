@@ -1605,14 +1605,17 @@
   source: "reference_game_files/game/in_game/events/culture/cultural_event.txt:406-411; src/in_game/events/tv_arts_exhibition_events.txt:1302-1428"
   notes: "tv_arts_exhibition.406 created a work in the capital but the option tooltip was empty and the resulting artwork had no name. Vanilla named artworks pair create_art with both type = work_of_art_type:<type> and key = <loc_key>. Visible if/else_if branches can render the real create_art tooltip while still selecting the appropriate art type by artist_type."
 
-- id: io_monthly_effect_visible_tooltip
+- id: tv_io_monthly_effect_block_forbidden
   pattern: ''
-  bad: "Putting non-player-facing maintenance logic directly in an international_organization monthly_effect block"
-  correction: "Wrap hidden IO maintenance in monthly_effect = { hidden_effect = { ... } }. Use visible monthly_effect children only when the effect text is meant to appear in the shared IO tooltip."
+  validator: check_tv_io_monthly_effect_blocks
+  detectability: lint
+  only_in_paths: ['international_organizations']
+  bad: "Defining a monthly_effect block on a TV international_organization type"
+  correction: "Do not use IO monthly_effect blocks. Keep visible typed-variable monthly arithmetic in the variable's monthly_change, and move maintenance/completion side effects to registered country monthly pulses or explicit lifecycle hooks."
   category: script
   scope: international_organization
-  source: "reference_game_files/game/in_game/common/international_organizations/hre.txt:315-316; reference_game_files/game/in_game/common/international_organizations/union.txt:203-204; fixed in src/in_game/common/international_organizations/tv_govhouse.txt"
-  notes: "The shared IO tooltip can render visible monthly_effect children, exposing internal set_variable/custom_tooltip refresh logic. Vanilla HRE and Union wrap monthly maintenance in hidden_effect so the logic still runs but does not clutter player-facing IO tooltips. IO variable monthly_change remains the correct place for visible variable breakdowns."
+  source: "user project rule, 2026-06-24"
+  notes: "TV IO monthly_effect blocks have severe performance costs even when the body is hidden. IO variable monthly_change remains the correct place for visible variable breakdowns; side-effect maintenance should be routed through country pulses that first do cheap membership/leader checks."
 
 - id: io_parliament_tab_visible_not_overrideable
   pattern: 'blockoverride\s+"organization_parliament_tab_visible"'

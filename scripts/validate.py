@@ -587,6 +587,32 @@ def check_tv_io_icon_assets() -> None:
                 )
 
 
+def check_tv_io_monthly_effect_blocks() -> None:
+    """Ban IO monthly_effect blocks; use monthly_change or country pulses instead."""
+    if not TV_IO_DIR.exists():
+        return
+
+    monthly_effect_re = re.compile(r"\bmonthly_effect\s*=")
+    for path in sorted(TV_IO_DIR.rglob("*.txt")):
+        try:
+            content = path.read_text(encoding="utf-8-sig", errors="replace")
+        except OSError as exc:
+            issues.append(f"[IO_MONTHLY_EFFECT] Cannot read {path.relative_to(REPO_ROOT)}: {exc}")
+            continue
+
+        for line_num, raw_line in enumerate(content.splitlines(), 1):
+            line = raw_line.split("#", 1)[0]
+            if not monthly_effect_re.search(line):
+                continue
+            issues.append(
+                f"[IO_MONTHLY_EFFECT] {path.relative_to(REPO_ROOT)}:{line_num} -- "
+                "TV international_organization types must not define `monthly_effect` blocks; "
+                "IO monthly effects have severe performance costs. Keep visible variable arithmetic "
+                "in IO variable `monthly_change`, and move maintenance/completion side effects to "
+                "registered country monthly pulses or explicit lifecycle hooks."
+            )
+
+
 def check_event_id_numeric_range(path: Path, content: str) -> None:
     """Catch event IDs whose numeric part exceeds Jomini's four-digit limit."""
     rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
@@ -1299,6 +1325,7 @@ def main():
         check_vanilla_copy_integrity()
         check_location_window_generated_freshness()
         check_tv_io_icon_assets()
+        check_tv_io_monthly_effect_blocks()
         check_monthly_country_pulse_event_delay()
         check_knowledge_maintenance(anti_patterns)
         check_unique_wonder_ritual_harness(files)
