@@ -121,6 +121,7 @@
 	}
 
 	on_creation = {
+		set_parliament_type = parliament_type:tv_alliance_assembly
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
