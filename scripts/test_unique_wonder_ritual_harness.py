@@ -51,11 +51,27 @@ NON_MONTHLY_TEMPLATES = [
 BACKEND_CAPABILITIES = [
     "actor_assignment_character_selector_backend",
     "repeated_entity_row_checklist_incident_log_backend",
+    "pilgrimage_route_certification_backend",
     "branch_specific_reward_scaling",
     "finance_public_credit_interface_backend",
     "bounded_opposition_religious_community_pressure",
     "auxiliary_building_completion_listener_backend",
 ]
+PILGRIMAGE_ROUTE_BACKEND_OUTPUTS = {
+    "markdown_fragment",
+    "trigger_stub",
+    "effect_stub",
+    "gui_summary",
+    "player_facing_tooltip",
+}
+NEW_JERUSALEM_ARCHETYPE_CAPABILITIES = {
+    "event_chain",
+    "route_gate",
+    "resource_gate",
+    "retry_branch",
+    "final_reward_handoff",
+    "pilgrimage_route_certification_backend",
+}
 
 
 def event_row(event_id: int, node_key: str, *, retry: bool = False) -> dict:
@@ -416,6 +432,155 @@ def route_incident_entry() -> dict:
     entry["ui_model"]["components"].append(
         {"type": "route_map", "key": "route", "value_variable": "tv_wonder_test_route"}
     )
+    return entry
+
+
+def pilgrimage_route_certification_backend_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["archetypes"] = ["new_jerusalem_rock_route"]
+    graph["listeners"] = []
+    graph["cadence_signature"] = {
+        "cadence_type": "route_certification",
+        "cadence_rationale": "The fixture resolves by certifying a named pilgrimage route, checking offerings at waypoints, resolving a broken-link incident, and handing the proof to the final reward path instead of waiting on a calendar tick.",
+        "player_agency_model": "The player opens the route, supplies the waypoint offerings, chooses whether to repair a broken pilgrim link or accept a local-only fallback, and then commits the final recognition proof.",
+        "non_monthly_triggers_or_reason": "Non-monthly validation comes from the route gate, the offering/resource gate, the incident retry branch, and the final reward handoff.",
+        "pacing_failure_mode": "The pacing fails if pilgrimage certification becomes a single anonymous event, so route state, offering state, incident state, and recognition proof stay separate.",
+    }
+    graph["variables"] = [
+        {
+            "name": "tv_wonder_test_stage",
+            "scope": "country",
+            "type": "number",
+            "roles": ["stage_state"],
+            "initial_value": 0,
+            "writer_nodes": ["opening", "materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+            "reader_nodes": ["opening", "materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_route",
+            "scope": "country",
+            "type": "number",
+            "roles": ["route_state"],
+            "initial_value": 0,
+            "writer_nodes": ["materials", "retry_choice"],
+            "reader_nodes": ["materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_offering",
+            "scope": "country",
+            "type": "number",
+            "roles": ["resource_state"],
+            "initial_value": 0,
+            "writer_nodes": ["monthly_gate", "retry_choice"],
+            "reader_nodes": ["monthly_gate", "retry_choice", "final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_incident",
+            "scope": "country",
+            "type": "number",
+            "roles": ["incident_state"],
+            "initial_value": 0,
+            "writer_nodes": ["retry_choice"],
+            "reader_nodes": ["retry_choice", "final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_reward",
+            "scope": "country",
+            "type": "number",
+            "roles": ["reward_state"],
+            "initial_value": 0,
+            "writer_nodes": ["final_prep", "reward"],
+            "reader_nodes": ["final_prep", "reward"],
+            "cleanup": "project_state_clear",
+        },
+    ]
+    graph["nodes"][0]["reads"] = ["tv_wonder_test_stage"]
+    graph["nodes"][0]["writes"] = ["tv_wonder_test_stage"]
+    graph["nodes"][0]["ui_state"] = {"variable_refs": ["tv_wonder_test_stage"]}
+    graph["nodes"][1]["kind"] = "route_gate"
+    graph["nodes"][1]["capabilities"] = ["route_gate", "pilgrimage_route_certification_backend"]
+    graph["nodes"][1]["reads"] = ["tv_wonder_test_stage", "tv_wonder_test_route"]
+    graph["nodes"][1]["writes"] = ["tv_wonder_test_stage", "tv_wonder_test_route"]
+    graph["nodes"][1]["ui_state"] = {"variable_refs": ["tv_wonder_test_route"]}
+    graph["nodes"][1]["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    graph["nodes"][2]["kind"] = "resource_gate"
+    graph["nodes"][2]["capabilities"] = ["resource_gate", "pilgrimage_route_certification_backend"]
+    graph["nodes"][2]["reads"] = ["tv_wonder_test_stage", "tv_wonder_test_route", "tv_wonder_test_offering"]
+    graph["nodes"][2]["writes"] = ["tv_wonder_test_stage", "tv_wonder_test_offering"]
+    graph["nodes"][2]["ui_state"] = {"variable_refs": ["tv_wonder_test_route", "tv_wonder_test_offering"]}
+    graph["nodes"][2]["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    graph["nodes"][3]["kind"] = "incident_event"
+    graph["nodes"][3]["capabilities"] = ["event_chain", "retry_branch", "pilgrimage_route_certification_backend"]
+    graph["nodes"][3]["reads"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_offering",
+        "tv_wonder_test_incident",
+    ]
+    graph["nodes"][3]["writes"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_offering",
+        "tv_wonder_test_incident",
+    ]
+    graph["nodes"][3]["ui_state"] = {
+        "variable_refs": [
+            "tv_wonder_test_route",
+            "tv_wonder_test_offering",
+            "tv_wonder_test_incident",
+        ]
+    }
+    graph["nodes"][3]["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+    graph["nodes"][4]["kind"] = "choice_event"
+    graph["nodes"][4]["capabilities"] = ["event_chain"]
+    graph["nodes"][4]["reads"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_offering",
+        "tv_wonder_test_incident",
+        "tv_wonder_test_reward",
+    ]
+    graph["nodes"][4]["writes"] = ["tv_wonder_test_stage", "tv_wonder_test_reward"]
+    graph["nodes"][4]["ui_state"] = {"variable_refs": ["tv_wonder_test_reward"]}
+    graph["nodes"][5]["reads"] = [
+        "tv_wonder_test_stage",
+        "tv_wonder_test_route",
+        "tv_wonder_test_offering",
+        "tv_wonder_test_incident",
+        "tv_wonder_test_reward",
+    ]
+    graph["nodes"][5]["writes"] = ["tv_wonder_test_stage", "tv_wonder_test_reward"]
+    graph["nodes"][5]["ui_state"] = {"variable_refs": ["tv_wonder_test_reward"]}
+    graph["actions"][2]["generator_template"] = "semantic_contract_fragment"
+    graph["checks"][1]["generator_template"] = "semantic_contract_fragment"
+    entry["generation"]["verified_templates"] = NON_MONTHLY_TEMPLATES
+    entry["ui_model"] = {
+        "components": [
+            {"type": "route_map", "key": "route", "value_variable": "tv_wonder_test_route"},
+            {"type": "incident_log", "key": "incident", "status_variable": "tv_wonder_test_incident"},
+            {"type": "material_stockpile", "key": "offerings", "value_variable": "tv_wonder_test_offering"},
+            {"type": "checklist", "key": "checklist", "status_variable": "tv_wonder_test_stage"},
+        ],
+        "bindings": [
+            {
+                "key": "route_binding",
+                "component_key": "route",
+                "variable_refs": [
+                    "tv_wonder_test_route",
+                    "tv_wonder_test_offering",
+                    "tv_wonder_test_incident",
+                    "tv_wonder_test_reward",
+                ],
+                "node_refs": ["materials", "monthly_gate", "retry_choice", "final_prep", "reward"],
+                "loc_refs": ["ui.progress.label"],
+            }
+        ],
+    }
     return entry
 
 
@@ -862,6 +1027,53 @@ def assert_codegen_error(
     raise AssertionError(f"{name}: expected CodegenError containing {needle!r}")
 
 
+def pilgrimage_backend_contract_errors(capability_registry: dict) -> list[str]:
+    capability_index = {
+        capability["key"]: capability
+        for capability in capability_registry.get("capabilities", [])
+        if isinstance(capability, dict) and capability.get("key")
+    }
+    contract = capability_index.get("pilgrimage_route_certification_backend")
+    if contract is None:
+        return ["missing pilgrimage_route_certification_backend"]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append("pilgrimage_route_certification_backend must declare may_write_src: false")
+    if contract.get("verified_interface") != "harness_v1_intermediate_backend_contract":
+        errors.append("pilgrimage_route_certification_backend must use the intermediate backend interface")
+    output_kinds = set(str(kind) for kind in contract.get("output_kinds", []) or [])
+    missing = sorted(PILGRIMAGE_ROUTE_BACKEND_OUTPUTS - output_kinds)
+    extra = sorted(output_kinds - PILGRIMAGE_ROUTE_BACKEND_OUTPUTS)
+    if missing:
+        errors.append("pilgrimage_route_certification_backend missing output kind(s): " + ", ".join(missing))
+    if extra:
+        errors.append("pilgrimage_route_certification_backend has unsupported output kind(s): " + ", ".join(extra))
+    return errors
+
+
+def new_jerusalem_archetype_contract_errors(archetype_registry: dict) -> list[str]:
+    archetype_index = {
+        archetype["key"]: archetype
+        for archetype in archetype_registry.get("archetypes", [])
+        if isinstance(archetype, dict) and archetype.get("key")
+    }
+    contract = archetype_index.get("new_jerusalem_rock_route")
+    if contract is None:
+        return ["missing new_jerusalem_rock_route"]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append("new_jerusalem_rock_route must declare may_write_src: false")
+    capabilities = set(str(capability) for capability in contract.get("required_capabilities", []) or [])
+    missing_capabilities = sorted(NEW_JERUSALEM_ARCHETYPE_CAPABILITIES - capabilities)
+    if missing_capabilities:
+        errors.append("new_jerusalem_rock_route missing capability(s): " + ", ".join(missing_capabilities))
+    ui_components = set(str(component) for component in contract.get("required_ui_components", []) or [])
+    for component in ("route_map", "incident_log"):
+        if component not in ui_components:
+            errors.append(f"new_jerusalem_rock_route missing ui component {component!r}")
+    return errors
+
+
 def main() -> None:
     good_errors = validate_spec_payload(
         {"unique_wonders": [valid_entry()]},
@@ -972,6 +1184,15 @@ def main() -> None:
     if route_errors:
         raise AssertionError(f"route/incident fixture unexpectedly failed: {route_errors}")
 
+    pilgrimage_route_errors = validate_spec_payload(
+        {"unique_wonders": [pilgrimage_route_certification_backend_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if pilgrimage_route_errors:
+        raise AssertionError(f"pilgrimage route certification fixture unexpectedly failed: {pilgrimage_route_errors}")
+
     incident_errors = validate_spec_payload(
         {"unique_wonders": [incident_retry_entry()]},
         wonders=[WONDER],
@@ -1005,6 +1226,12 @@ def main() -> None:
     capability_errors = validate_capability_registry(capability_registry)
     if capability_errors:
         raise AssertionError(f"capability registry unexpectedly failed: {capability_errors}")
+    pilgrimage_contract_errors = pilgrimage_backend_contract_errors(capability_registry)
+    if pilgrimage_contract_errors:
+        raise AssertionError(f"pilgrimage route backend contract unexpectedly failed: {pilgrimage_contract_errors}")
+    archetype_contract_errors = new_jerusalem_archetype_contract_errors(load_archetype_registry())
+    if archetype_contract_errors:
+        raise AssertionError(f"new Jerusalem archetype contract unexpectedly failed: {archetype_contract_errors}")
     capability_index = {
         capability["key"]: capability
         for capability in capability_registry["capabilities"]
@@ -1026,6 +1253,7 @@ def main() -> None:
         ("bounded religious pressure backend", bounded_religious_pressure_backend_entry()),
         ("auxiliary completion backend", auxiliary_completion_backend_entry()),
         ("arsenal ropewalk launch inspection", arsenal_ropewalk_launch_inspection_entry()),
+        ("pilgrimage route certification backend", pilgrimage_route_certification_backend_entry()),
     ):
         backend_errors = validate_spec_payload(
             {"unique_wonders": [entry]},
@@ -1046,6 +1274,43 @@ def main() -> None:
         "arsenal archetype missing completion backend",
         arsenal_missing_completion_backend_entry(),
         "archetype 'arsenal_ropewalk_launch_inspection' missing required capability(s): auxiliary_building_completion_listener_backend",
+    )
+
+    pilgrimage_missing_backend = pilgrimage_route_certification_backend_entry()
+    for test_node in pilgrimage_missing_backend["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "pilgrimage_route_certification_backend"
+        ]
+    assert_has_error(
+        "new Jerusalem archetype missing pilgrimage backend",
+        pilgrimage_missing_backend,
+        "archetype 'new_jerusalem_rock_route' missing required capability(s): pilgrimage_route_certification_backend",
+    )
+
+    pilgrimage_missing_route_ui = pilgrimage_route_certification_backend_entry()
+    pilgrimage_missing_route_ui["ui_model"]["components"] = [
+        component
+        for component in pilgrimage_missing_route_ui["ui_model"]["components"]
+        if component.get("type") != "route_map"
+    ]
+    assert_has_error(
+        "new Jerusalem archetype missing route map",
+        pilgrimage_missing_route_ui,
+        "archetype 'new_jerusalem_rock_route' missing ui component(s): route_map",
+    )
+
+    pilgrimage_missing_incident_ui = pilgrimage_route_certification_backend_entry()
+    pilgrimage_missing_incident_ui["ui_model"]["components"] = [
+        component
+        for component in pilgrimage_missing_incident_ui["ui_model"]["components"]
+        if component.get("type") != "incident_log"
+    ]
+    assert_has_error(
+        "new Jerusalem archetype missing incident log",
+        pilgrimage_missing_incident_ui,
+        "archetype 'new_jerusalem_rock_route' missing ui component(s): incident_log",
     )
 
     for capability_key in BACKEND_CAPABILITIES:
@@ -1205,6 +1470,43 @@ def main() -> None:
         "unsupported value(s): loadable_src",
         capability_registry=finance_source_output_registry,
     )
+
+    pilgrimage_writable_registry = deepcopy(load_capability_registry())
+    for capability in pilgrimage_writable_registry["capabilities"]:
+        if capability.get("key") == "pilgrimage_route_certification_backend":
+            capability["may_write_src"] = True
+            break
+    assert_has_error(
+        "pilgrimage route capability may_write_src",
+        pilgrimage_route_certification_backend_entry(),
+        "must declare may_write_src: false",
+        capability_registry=pilgrimage_writable_registry,
+    )
+
+    pilgrimage_source_output_registry = deepcopy(load_capability_registry())
+    for capability in pilgrimage_source_output_registry["capabilities"]:
+        if capability.get("key") == "pilgrimage_route_certification_backend":
+            capability["output_kinds"].append("loadable_src")
+            break
+    assert_has_error(
+        "pilgrimage route capability source output",
+        pilgrimage_route_certification_backend_entry(),
+        "unsupported value(s): loadable_src",
+        capability_registry=pilgrimage_source_output_registry,
+    )
+
+    pilgrimage_missing_output_registry = deepcopy(load_capability_registry())
+    for capability in pilgrimage_missing_output_registry["capabilities"]:
+        if capability.get("key") == "pilgrimage_route_certification_backend":
+            capability["output_kinds"] = [
+                output_kind
+                for output_kind in capability.get("output_kinds", [])
+                if output_kind != "effect_stub"
+            ]
+            break
+    missing_output_errors = pilgrimage_backend_contract_errors(pilgrimage_missing_output_registry)
+    if not any("missing output kind(s): effect_stub" in error for error in missing_output_errors):
+        raise AssertionError(f"pilgrimage backend missing output fixture did not fail: {missing_output_errors}")
 
     auxiliary_writable_registry = deepcopy(load_capability_registry())
     for capability in auxiliary_writable_registry["capabilities"]:

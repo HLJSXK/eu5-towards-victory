@@ -454,10 +454,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - resource_gate
+  - pilgrimage_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: 'A broken pilgrim link or missing offering can force a local-only circuit, preserving sanctity but losing wider route recognition until route capability support exists.'
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This mechanism needs churches cut downward as a replacement Jerusalem; most pilgrimage sites cannot make carved spatial imitation the route proof.'
   similarity_group: new_jerusalem_rock_route
   authoring_status: drafted

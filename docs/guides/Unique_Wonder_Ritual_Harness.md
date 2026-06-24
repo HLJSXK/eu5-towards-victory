@@ -192,7 +192,11 @@ required variable roles, supported listeners/UI components/output kinds, a verif
 `branch_specific_reward_scaling`, and
 `bounded_opposition_religious_community_pressure`; these contracts provide evidence mapping
 for richer `design_ir` primitives while still producing only intermediate fragments, stubs, or
-summaries. `auxiliary_building_completion_listener_backend` is the construction/auxiliary
+summaries. `pilgrimage_route_certification_backend` is the route-certification counterpart:
+it preserves pilgrimage route endpoint, waypoint, offering, recognition-proof, failed-route
+fallback, and local-only circuit semantics as markdown fragments, trigger/effect stubs, GUI
+summaries, and tooltip notes only. It must not generate route source, GUI rows, event chains,
+or other loadable EU5 `src` files. `auxiliary_building_completion_listener_backend` is the construction/auxiliary
 completion counterpart: it preserves completion listener, annex inspection, repair retry, and
 reward-handoff semantics as markdown fragments, trigger/effect stubs, GUI summaries, and
 tooltip notes only. It must not generate `on_action`, `building_type` hooks, or loadable EU5
