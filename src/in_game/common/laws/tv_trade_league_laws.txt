@@ -583,7 +583,7 @@ tv_trade_investment_code_law = {
 		country_modifier = {
 			global_foreign_build_buildings_efficiency = 0.05
 			global_production_efficiency = 0.025
-			global_bureaucracy_maintenance_cost_modifier = 0.05
+			global_bureaucracy_maintenance_efficiency = -0.05
 		}
 		wants_this_policy_bias = {
 			add = {
@@ -605,7 +605,7 @@ tv_trade_investment_code_law = {
 		country_modifier = {
 			global_foreign_build_buildings_efficiency = 0.075
 			global_production_efficiency = 0.0375
-			global_bureaucracy_maintenance_cost_modifier = 0.05
+			global_bureaucracy_maintenance_efficiency = -0.05
 		}
 		wants_this_policy_bias = {
 			add = {
@@ -652,7 +652,7 @@ tv_trade_investment_code_law = {
 		country_modifier = {
 			global_foreign_build_buildings_efficiency = 0.15
 			global_production_efficiency = 0.075
-			global_bureaucracy_maintenance_cost_modifier = 0.05
+			global_bureaucracy_maintenance_efficiency = -0.05
 			global_max_control = -0.025
 		}
 		wants_this_policy_bias = {

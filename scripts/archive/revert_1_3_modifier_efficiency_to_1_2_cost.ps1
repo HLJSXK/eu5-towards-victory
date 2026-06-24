@@ -25,6 +25,7 @@ $ModifierMap = @{
     "court_spending_efficiency" = "court_spending_cost_modifier"
     "fort_maintenance_efficiency" = "fort_maintenance_cost"
     "local_fort_maintenance_efficiency" = "local_fort_maintenance_cost"
+    "global_bureaucracy_maintenance_efficiency" = "global_bureaucracy_maintenance_cost_modifier"
 }
 
 $TargetFiles = @(
