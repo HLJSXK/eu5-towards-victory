@@ -362,4 +362,170 @@ organization_panel = {
 			}
 		}
 	}
+
+	# -- Alliance Pillars tab --------------------------------------------------
+	blockoverride "organization_custom_tab_visible" {
+		visible = yes
+	}
+	blockoverride "organization_custom_tab_text" {
+		text = "TV_ALLIANCE_PILLARS_TAB"
+	}
+	blockoverride "organization_custom_tab_tooltip" {
+		tooltip = "TV_ALLIANCE_PILLARS_TAB_TOOLTIP"
+	}
+
+	blockoverride "organization_custom_content_visible" {
+		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'custom' )]"
+	}
+
+	blockoverride "organization_custom_content" {
+		margin_top = -5
+		spacing = 0
+		layoutpolicy_vertical = expanding
+
+		scrollarea = {
+			using = layoutpolicy_expanding
+			scrollbarpolicy_horizontal = always_off
+
+			scrollbar_vertical = {
+				using = Scrollbar_Vertical
+			}
+
+			scrollwidget = {
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					ignoreinvisible = yes
+					spacing = 10
+					margin = { 10 2 }
+
+					card_common = {
+						maximumsize = { 500 -1 }
+						blockoverride "common_header_icon" {}
+						blockoverride "common_header_text" {
+							text = "TV_ALLIANCE_PILLARS_ACTIVE_PILLAR_HEADER"
+						}
+						blockoverride "common_bottom_content" {
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = fixed
+								spacing = 10
+								margin = { 4 6 }
+								text_single = {
+									size = { 34 34 }
+									raw_text = "@legitimacy!"
+									fontsize = 28
+									align = center
+								}
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = "TV_ALLIANCE_PILLAR_SUBLIME_EMPIRE"
+									fontsize = 20
+									align = nobaseline|left
+								}
+							}
+						}
+					}
+
+					widget = {
+						size = { 470 42 }
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 4
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								text_single = {
+									text = "TV_ALLIANCE_PILLAR_COHESION_PROGRESS"
+									align = nobaseline|left
+								}
+								expand = {}
+								text_single = {
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue|1]/100"
+									align = nobaseline|right
+								}
+							}
+							widget = {
+								size = { 470 18 }
+								progressbar = {
+									size = { 470 18 }
+									max = 100
+									value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue]"
+									using = progress_bar_blue_alt
+								}
+							}
+						}
+					}
+
+					card_common = {
+						maximumsize = { 500 -1 }
+						blockoverride "common_header_icon" {}
+						blockoverride "common_header_text" {
+							text = "TV_ALLIANCE_SUBLIME_EMPIRE_MEMBERS_HEADER"
+						}
+						blockoverride "common_bottom_content" {
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = fixed
+								ignoreinvisible = yes
+								spacing = 5
+								margin = { 4 4 }
+								datamodel = "[InternationalOrganizationsView.GetMemberItems]"
+								item = {
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = fixed
+										ignoreinvisible = yes
+										spacing = 5
+										visible = "[And(Not(IsDataModelEmpty(MemberTypeItem.GetCountries)), MemberTypeItem.IsAllMembers)]"
+										datamodel = "[MemberTypeItem.GetCountries]"
+										item = {
+											widget = {
+												visible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.IsIOLeaderCountry(Country.Self))]"
+												size = { 470 34 }
+												paper_simple_card = {
+													size = { 470 34 }
+													hbox = {
+														layoutpolicy_horizontal = expanding
+														layoutpolicy_vertical = fixed
+														margin = { 6 4 }
+														spacing = 8
+														country_flag_small = {}
+														text_single = {
+															layoutpolicy_horizontal = expanding
+															text = "[Country.GetName]"
+															align = nobaseline|left
+														}
+														expand = {}
+														action_button = {
+															size = { 62 24 }
+															enabled = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue, '(CFixedPoint)100.0')]"
+															using = button_regular_texture_alt_red
+															using = action_button_common_template
+															using = button_common_textobj_template
+															fontsize = 13
+															text = "TV_ALLIANCE_SUBJUGATE_BUTTON"
+															title = "tv_alliance_sublime_empire_subjugate_member"
+															description = "tv_alliance_sublime_empire_subjugate_member_desc"
+															actor = "[InternationalOrganizationsView.GetPlayer]"
+															left_action = {
+																action_name = "tv_alliance_sublime_empire_subjugate_member"
+																parameter = {
+																	parameter_name = "target"
+																	parameter_value = "[Country.Self]"
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
