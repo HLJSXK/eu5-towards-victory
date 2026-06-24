@@ -16,7 +16,9 @@ that create, find, or mutate TV IOs.
 
 3. Make nullable leader_country access optional.
    Use `leader_country ?= ...` in filters or tooltip-visible contexts. Vanilla IOs and newly
-   created IOs can have null leader countries during evaluation.
+   created IOs can have null leader countries during evaluation. IO law browsing can also
+   walk `on_activate` / `on_deactivate` effect chains, so mirrored leader-country writes there
+   must use `leader_country ?= { ... }`.
 
 4. Do not use IO `monthly_effect`.
    TV international_organization types must not define `monthly_effect` blocks. They have
@@ -83,10 +85,11 @@ that create, find, or mutate TV IOs.
     relevant TV IO plus `leader_country ?= <saved country>`, and only then call the IO-scoped
     refresh effect.
 
-14. Do not seed TV IOs with enacted laws at creation.
-    All TV IOs start lawless unless a design document explicitly says otherwise. For Trade League,
-    leave the IO definition without a `laws = { ... }` block that maps laws to default policies;
-    law groups are enacted later through policy votes.
+14. Seed IO laws only when the design requires a baseline state.
+    Trade League, Arts Exhibition, Academy of Sciences, and Governor's House start without
+    initial policies unless a later design explicitly changes them. Diplomatic Alliance is the
+    current exception: its IO definition must seed all five law groups to their baseline
+    no-effect policies so creation starts at the baseline tier-0 state rather than no law.
 
 15. Match IO membership iterators to trigger/effect context.
     `any_international_organizations_member_of` is trigger syntax. In effect bodies,
@@ -107,19 +110,28 @@ that create, find, or mutate TV IOs.
     set its `parliament_seat` variable to a valid location such as the leader capital before
     policy votes can be proposed.
 
-18. Keep IO-scoped helpers out of unstable creation-block roots.
+18. Sync custom parliament special statuses from stable lifecycle points.
+    For custom IO statuses that drive parliament voting or visible special-status power, do
+    not rely only on `auto_bestowal_trigger` or same-tick `on_joined` state. Follow the HRE
+    free-city pattern: the action or lifecycle effect that creates, invites, promotes, demotes,
+    or removes a country should directly call `international_organization_add_special_status`
+    or `international_organization_remove_special_status` from the IO scope. Do not add
+    recurring monthly refreshes for special-status repair, and do not add extra parliament-seat
+    or full-member repair unless a separate law-vote/location bug proves it is needed.
+
+19. Keep IO-scoped helpers out of unstable creation-block roots.
     A `create_international_organization = { ... }` body can be walked during generic-action
     pre-evaluation before the new IO is a stable root. Do not call helpers there if they start
     with IO-only triggers such as `international_organization_type`. Prefer the IO type's
     `on_creation` / `on_joined` hooks, or switch to a verified saved IO scope after creation.
 
-19. Define member opinion biases for every TV IO type.
+20. Define member opinion biases for every TV IO type.
     Each IO type should have a matching `io_opinion_<io_type>` entry under
     `in_game/common/biases/` and the same key localized in both supported languages.
     Missing the bias logs a startup warning that the organization needs an opinion of
     other members.
 
-20. Keep idle parliament issues positively desirable.
+21. Keep idle parliament issues positively desirable.
     When a custom IO uses vanilla `call_organization_parliament` for normal, non-law
     sessions, make sure at least one issue for the participating special status has
     valid `potential` / `allow` / `selectable_for` and positive

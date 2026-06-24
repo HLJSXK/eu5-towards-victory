@@ -26,6 +26,14 @@
 	resolution_widget = parliament
 	special_statuses_implemented = { tv_alliance_advocator tv_alliance_member_status }
 
+	laws = {
+		tv_court_protocol = tv_adhoc_envoys_policy
+		tv_information_network = tv_royal_couriers_policy
+		tv_commerce_consensus = tv_non_piracy_policy
+		tv_faith_harmony = tv_cuius_regio_policy
+		tv_colonization_sphere = tv_free_colonization_policy
+	}
+
 	variables = {
 		# Tier is first so DataModelFirst in the GUI decoration picks it up as the large piechart
 		tv_alliance_tier = {
@@ -86,6 +94,9 @@
 
 	on_creation = {
 		set_parliament_type = parliament_type:tv_alliance_assembly
+		tv_diplomatic_alliance_stamp_creation_order_effect = yes
+		set_variable = { name = tv_alliance_cohesion value = 0 }
+		set_variable = { name = tv_alliance_tier value = 0 }
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
@@ -93,8 +104,14 @@
 	}
 
 	on_joined = {
-		scope:recipient = {
-			tv_diplomatic_alliance_sync_parliament_special_statuses_effect = yes
+		if = {
+			limit = { exists = scope:recipient }
+			scope:recipient = {
+				international_organization_add_special_status = {
+					type = special_status:tv_alliance_member_status
+					country = root
+				}
+			}
 		}
 		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
 		if = {

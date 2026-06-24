@@ -232,12 +232,12 @@
   pattern: '(?:^\s*default:\s*true\s*$|(?s:tv_trade_league\s*=\s*\{.*?\blaws\s*=\s*\{\s*\w))'
   detectability: lint
   only_in_paths: ['trade_league_laws.yaml', 'tv_trade_league.txt']
-  bad: "TV IO type starts with enacted laws or generated default policies"
-  correction: "Keep TV IOs lawless at creation unless a design document explicitly says otherwise. For Trade League, do not emit a laws block with policy mappings in the IO type; laws are enacted later through policy votes."
+  bad: "Trade League starts with enacted laws or generated default policies"
+  correction: "Keep Trade League lawless at creation: do not emit a laws block with policy mappings in the IO type, and do not mark generated Trade League policies as default. Diplomatic Alliance is a separate design exception that explicitly seeds baseline no-effect policies."
   category: script
   scope: international_organization
   source: "user design clarification (2026-05-25); reference_game_files/game/main_menu/setup/start/15_international_organizations.txt:288"
-  notes: "AI generated default level-1 Trade League policies into tv_trade_league's IO definition. This violated the design that all TV IOs start with no laws. Vanilla setup shows an IO can explicitly start with laws = {  }."
+  notes: "AI generated default level-1 Trade League policies into tv_trade_league's IO definition. This violated the Trade League design that policies are enacted later through votes. Vanilla setup shows an IO can explicitly start with laws = {  }; Diplomatic Alliance intentionally uses a non-empty laws block for its baseline tier-0 state."
 
 - id: tv_io_missing_opinion_bias
   pattern: ''
@@ -1635,6 +1635,16 @@
   source: "reference_game_files/game/in_game/common/resolutions/policy_vote.txt:620; reference_game_files/game/in_game/common/international_organization_special_statuses/readme.txt:12; reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:14570"
   notes: "The policy_vote resolution requires country_combined_special_status_power(scope:recipient) > 0 when uses_parliament_for_law_votes_trigger is active. Without a participating special status, the law debate can open but the IO parliament page has no voter group to show."
 
+- id: io_special_status_auto_bestow_without_lifecycle_sync
+  pattern: ''
+  detectability: advisory
+  bad: "A custom IO parliament special status relies only on auto_bestowal_trigger or same-tick on_joined state to appear"
+  correction: "For custom IO statuses that drive parliament voting or UI power, grant/remove the status directly in the action or lifecycle effect that creates, invites, promotes, demotes, or removes the country. Do not add recurring monthly refreshes for special-status repair."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/country_interactions/hre.txt:502-560; reference_game_files/game/in_game/common/international_organization_special_statuses/hre.txt:187-274; reference_game_files/game/in_game/common/resolutions/policy_vote.txt:620; runtime playtest of tv_diplomatic_alliance 2026-06-25"
+  notes: "HRE free city actions explicitly call international_organization_add_special_status from the HRE scope; free_city has an empty auto_bestowal_trigger and does not need a monthly repair pass. Diplomatic Alliance members could wait through monthly pulses without showing tv_alliance_* special statuses, but starting a law vote refreshed visible status/power state. The minimal TV pattern is to grant the leader's advocator status at creation and grant each joining country member status in on_joined, without recurring special-status maintenance or extra parliament-seat repair."
+
 - id: io_law_vote_without_parliament_location
   pattern: ''
   bad: "IO law votes routed through parliament for an organization that has neither a parliament_seat nor an owned location"
@@ -1670,6 +1680,16 @@
   scope: international_organization
   source: "reference_game_files/game/in_game/common/laws/readme.txt:31-40; runtime error.log tv_alliance_laws.txt 2026-05-21"
   notes: "Generated Diplomatic Alliance laws wrapped IO variable checks and tier changes in scope:recipient in execution blocks. At runtime those blocks had no recipient event target, causing repeated 'Undefined event target recipient' and unset-scope errors."
+
+- id: io_policy_activation_direct_leader_country
+  pattern: ''
+  detectability: needs_parser
+  bad: "Using direct `leader_country = { ... }` inside IO policy on_activate/on_deactivate effect chains"
+  correction: "Keep IO variable writes on the current IO root, but enter the leader country with `leader_country ?= { ... }` for mirrored country state or side effects."
+  category: scope
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/parliament_agendas/10_hre_agendas.txt:104; runtime error.log tv_alliance_laws.txt 2026-06-25"
+  notes: "The law browser and policy tooltips can walk activation/deactivation effect chains before a leader country is available. Direct leader_country scope entry logs `Event target link 'leader_country' returned an invalid object`; the optional link safely no-ops when null."
 
 - id: io_policy_ai_math_scope_recipient_requires_exists
   pattern: ''

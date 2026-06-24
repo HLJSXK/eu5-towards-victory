@@ -237,13 +237,15 @@ allow = {
 
 on_activate = {
     change_variable = { name = tv_alliance_cohesion add = -25 }
-    leader_country = {
+    leader_country ?= {
         change_variable = { name = tv_alliance_tier add = 1 }
     }
 }
 ```
 
 Do not wrap those checks/effects in `scope:recipient = { ... }` unless the specific block documents `scope:recipient`. Runtime errors such as `Undefined event target 'recipient'` and `Event target link 'scope' returned an unset scope` can be caused by generated IO policies that use `scope:recipient` inside policy `allow`, `on_activate`, or `on_deactivate`.
+
+The policy tooltip/law browser can walk activation and deactivation effect chains before an IO has a resolvable leader country. Direct `leader_country = { ... }` can then log `Event target link 'leader_country' returned an invalid object`; use `leader_country ?= { ... }` for mirrored leader-country effects.
 
 `scope:recipient` is documented for IO policy AI math blocks such as `wants_this_policy_bias`, `wants_propose_policy`, `wants_keep_policy`, `reasons_to_join`, and `diplomatic_capacity_cost`, where root is a country and recipient is the IO. In custom non-unique IO laws, the engine can still pre-evaluate these maths without a recipient event target. Guard direct recipient reads with `exists = scope:recipient` in the same `limit` block, or use optional `scope:recipient ?= { ... }` for trigger-only checks, before reading `scope:recipient.leader_country` or IO variables.
 
@@ -254,6 +256,8 @@ Do not wrap those checks/effects in `scope:recipient = { ... }` unless the speci
 For an IO law system that routes policy changes through the parliament UI, the parliament type and the laws are only part of the setup. `requires_vote = yes` on the law and `uses_parliament_for_law_votes = yes` on the parliament type start the policy vote flow, but vote eligibility is driven by special status power.
 
 Create an entry under `common/international_organization_special_statuses`, list that status in the IO type's `special_statuses_implemented`, give the status a `special_status_power`, and enable a matching `<status>_can_participate_in_parliament = yes` modifier in the IO parliament type. For any custom IO special status that can be implemented by an IO, define both `<status>_can_participate_in_parliament` as boolean and `<status>_agenda_impact` as percent in `main_menu/common/modifier_type_definitions` with `game_data = { category = internationalorganization }`; missing either name can log startup DB assertions.
+
+For custom IO statuses that drive parliament voting or visible special-status power, do not rely only on `auto_bestowal_trigger`. Follow the HRE free-city pattern at the lifecycle point that changes membership or rank: directly add or remove the special status from the IO scope. Do not add recurring monthly refreshes for special-status display repair, and do not add full-member or parliament-seat repair unless a separate runtime error proves it is needed.
 
 Vanilla `policy_vote` checks `country_combined_special_status_power(scope:recipient) > 0` for IOs using parliament law votes. If no implemented special status supplies voting power, a law debate may begin but the IO parliament page has no voter group to display.
 

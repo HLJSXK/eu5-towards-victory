@@ -30,10 +30,15 @@
  tv_invite_to_diplomatic_alliance_desc: "Invite this country to join our [tv_diplomatic_alliance|E]. Larger alliances are harder to expand."
  tv_expel_diplomatic_alliance_member: "Expel Alliance Member"
  tv_expel_diplomatic_alliance_member_desc: "Remove a member from our [tv_diplomatic_alliance|E]."
+ tv_alliance_sublime_empire_subjugate_member: "Subjugate Alliance Member"
+ tv_alliance_sublime_empire_subjugate_member_desc: "Spend 100 [tv_alliance_cohesion|E] to make the selected ordinary alliance member a vassal of the [tv_alliance_advocator|E]."
  tv_select_diplomatic_alliance_member: "Select Alliance Member"
  tv_no_diplomatic_alliance_member_available: "@trigger_no! No removable alliance members are available."
  TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC: "Accumulate [tv_alliance_cohesion|E] to reform alliance laws. Level 2/3/4 laws cost 25/50/75 Cohesion and each provide +1 [tv_alliance_tier|E]. Each Alliance Tier grants the leader +1 Diplomatic Victory Point per month. Cohesion mainly grows from the leader's [diplomatic_reputation|E] and keeping the alliance internally at peace."
  TV_DIPLOMATIC_ALLIANCE_MEMBER_MANAGEMENT_DESC: "Invite new countries into the alliance or expel existing members. Invitations require diplomatic acceptance; expulsions are the founder's prerogative."
+ TV_ALLIANCE_SUBJUGATION_TARGET_SELECTED_TT: "An alliance member is selected"
+ TV_ALLIANCE_COHESION_100_TT: "Alliance Cohesion is at least 100"
+ TV_ALLIANCE_SUBJUGATION_TARGET_MEMBER_TT: "Target is an ordinary member of our [tv_diplomatic_alliance|E]"
  TV_NOT_IN_DIPLOMATIC_ALLIANCE_TT: "Target is not already in a [tv_diplomatic_alliance|E]."
  TV_ALLIANCE_SIZE: "Alliance Size"
  TV_SAME_RELIGION: "Same Religion"
@@ -183,6 +188,13 @@
  # ── Panel Tab Labels ───────────────────────────────────────────────────
  TV_ALLIANCE_LAWS_TAB: "Alliance Laws"
  TV_ALLIANCE_ASSEMBLY_TAB: "Assembly"
+ TV_ALLIANCE_PILLARS_TAB: "Alliance Pillars"
+ TV_ALLIANCE_PILLARS_TAB_TOOLTIP: "Review the active alliance pillar and its powers."
+ TV_ALLIANCE_PILLARS_ACTIVE_PILLAR_HEADER: "Active Pillar"
+ TV_ALLIANCE_PILLAR_SUBLIME_EMPIRE: "Sublime Empire"
+ TV_ALLIANCE_PILLAR_COHESION_PROGRESS: "Alliance Cohesion"
+ TV_ALLIANCE_SUBLIME_EMPIRE_MEMBERS_HEADER: "Ordinary Members"
+ TV_ALLIANCE_SUBJUGATE_BUTTON: "Subjugate"
  tv_alliance_assembly: "Alliance Assembly"
 
  # ── Action notification message keys ─────────────────────────────────────────
@@ -195,6 +207,9 @@
  PERFORM_tv_expel_diplomatic_alliance_member_ACTION_SETUP: "When we expel a member from our [tv_diplomatic_alliance|E]."
  PERFORM_tv_expel_diplomatic_alliance_member_ACTION_LOG: "We expelled [SCOPE.sCountry('target').GetNameWithNoTooltip] from our [tv_diplomatic_alliance|E]."
  PERFORM_tv_expel_diplomatic_alliance_member_ACTION_MAP: ""
+ PERFORM_tv_alliance_sublime_empire_subjugate_member_ACTION_SETUP: "When we subjugate a member through the Sublime Empire pillar."
+ PERFORM_tv_alliance_sublime_empire_subjugate_member_ACTION_LOG: "We subjugated [SCOPE.sCountry('target').GetNameWithNoTooltip] through the Sublime Empire pillar."
+ PERFORM_tv_alliance_sublime_empire_subjugate_member_ACTION_MAP: ""
 
  # ── IO Leader management ──────────────────────────────────────────────
  tv_appoint_alliance_leader: "Appoint Advocator"
