@@ -201,7 +201,13 @@ overland relay counterpart: it preserves named road segments, tambos, rope-bridg
 checkpoints, runner-carried relay message proof, reroute, and domestic-only fallback
 semantics as markdown fragments, trigger/effect stubs, GUI summaries, and tooltip notes
 only. It must not generate route source, GUI rows, event chains, or other loadable EU5
-`src` files. `auxiliary_building_completion_listener_backend` is the construction/auxiliary
+`src` files. `maritime_trade_route_certification_backend` is the maritime-commercial
+counterpart: it preserves monsoon route endpoints, bonded warehouse certification,
+translator and merchant-law compacts, blocked or unaffordable route incidents, reroute, and
+lower-prestige domestic certification fallback semantics as markdown fragments,
+trigger/effect stubs, GUI summaries, and tooltip notes only. It must not generate trade-route,
+market, GUI, event-chain, or other loadable EU5 `src` files.
+`auxiliary_building_completion_listener_backend` is the construction/auxiliary
 completion counterpart: it preserves completion listener, annex inspection, repair retry, and
 reward-handoff semantics as markdown fragments, trigger/effect stubs, GUI summaries, and
 tooltip notes only. It must not generate `on_action`, `building_type` hooks, or loadable EU5
@@ -226,7 +232,10 @@ and notes. The v1 registry archetypes are `expedition_route_chain`,
 `public_credit_charter_retry` and `arsenal_ropewalk_launch_inspection` are pilot archetypes
 for public-credit branching and auxiliary-completion inspection respectively.
 `overland_relay_route_proof` is the pilot archetype for road-segment, tambo, rope-bridge,
-runner-message, reroute, and domestic-only relay certification. All three remain
+runner-message, reroute, and domestic-only relay certification. `maritime_trade_route_covenant`
+is the pilot archetype for monsoon route endpoints, warehouse seals, translator and
+merchant-law compact proof, route incidents, reroute, and domestic-only port certification.
+All four remain
 intermediate-only and keep `may_write_src: false`.
 
 `compiler_mapped`, `source_codegen_ready`, legacy `implementation_ready`, and

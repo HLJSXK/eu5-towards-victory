@@ -16,6 +16,7 @@ from gen_unique_wonder_ritual_code import (  # noqa: E402
     generate_fragments_for_payload,
 )
 from wonder_unique_ritual_harness import (  # noqa: E402
+    audit_summary,
     list_index,
     load_capability_registry,
     load_spec_data,
@@ -55,6 +56,7 @@ BACKEND_CAPABILITIES = [
     "repeated_entity_row_checklist_incident_log_backend",
     "pilgrimage_route_certification_backend",
     "overland_relay_route_certification_backend",
+    "maritime_trade_route_certification_backend",
     "branch_specific_reward_scaling",
     "finance_public_credit_interface_backend",
     "bounded_opposition_religious_community_pressure",
@@ -68,6 +70,13 @@ PILGRIMAGE_ROUTE_BACKEND_OUTPUTS = {
     "player_facing_tooltip",
 }
 OVERLAND_RELAY_BACKEND_OUTPUTS = {
+    "markdown_fragment",
+    "trigger_stub",
+    "effect_stub",
+    "gui_summary",
+    "player_facing_tooltip",
+}
+MARITIME_TRADE_BACKEND_OUTPUTS = {
     "markdown_fragment",
     "trigger_stub",
     "effect_stub",
@@ -88,6 +97,13 @@ OVERLAND_RELAY_ARCHETYPE_CAPABILITIES = {
     "retry_branch",
     "final_reward_handoff",
     "overland_relay_route_certification_backend",
+}
+MARITIME_TRADE_ARCHETYPE_CAPABILITIES = {
+    "event_chain",
+    "route_gate",
+    "retry_branch",
+    "final_reward_handoff",
+    "maritime_trade_route_certification_backend",
 }
 
 
@@ -772,6 +788,135 @@ def overland_relay_route_certification_backend_entry() -> dict:
     return entry
 
 
+def maritime_trade_route_certification_backend_entry() -> dict:
+    entry = valid_entry()
+    graph = entry["node_graph"]
+    graph["archetypes"] = ["maritime_trade_route_covenant"]
+    graph["listeners"] = []
+    graph["cadence_signature"] = {
+        "cadence_type": "route_certification",
+        "cadence_rationale": "The fixture resolves by certifying a named maritime monsoon endpoint, warehouse proof, translator and merchant-law compact, route incident branch, reroute or domestic fallback, and final reward handoff rather than waiting on a calendar tick.",
+        "player_agency_model": "The player qualifies a monsoon route, proves warehouse custody and translated merchant law, resolves a blocked or unaffordable route, and chooses reroute or lower-prestige domestic certification before reward dispatch.",
+        "non_monthly_triggers_or_reason": "Non-monthly validation comes from the route gate, warehouse certification choice, translator-law compact choice, route incident retry branch, domestic fallback branch, and final reward handoff.",
+        "pacing_failure_mode": "The pacing fails if maritime certification becomes a generic route counter, so route endpoint, warehouse, translator-law, incident, and reward branch state stay separate.",
+    }
+    graph["mechanic_signature"] = {
+        "wonder_specific_hook": "The fixture models Malacca-style port law by joining monsoon route timing, bonded warehouses, translators, shahbandars, and merchant judges into one maritime covenant proof.",
+        "core_interaction_loop": "The player opens the covenant, certifies a route, seals warehouse proof, signs a translator-law compact, resolves a blocked route through reroute or domestic certification, and then hands the branch to rewards.",
+        "player_decision_pattern": "Each decision weighs external merchant recognition against cost, delay, and domestic fallback: the player chooses whether a stronger reroute is worth more than a narrower local certificate.",
+        "state_feedback_model": "The route_map shows endpoint status, the progress_track shows covenant stage, and the incident_log records warehouse trouble, translator-law disputes, reroute choice, and domestic certification.",
+        "failure_or_tension_model": "A blocked, unaffordable, or diplomatically awkward route can loop back to route certification or continue as a lower-prestige domestic proof without pretending foreign merchants accepted the compact.",
+        "reward_expression": "The full branch gives a foreign-recognized maritime covenant reward stub, while the domestic fallback still completes the handoff with lower prestige and narrower commercial recognition.",
+        "reuse_risk_mitigation": "The fixture is not a pilgrimage, lighthouse visibility test, or overland relay; it depends on warehouses, translators, merchant law, and monsoon route economics.",
+    }
+    node_keys = list(NODE_KEYS)
+    graph["variables"] = [
+        {
+            "name": "tv_wonder_test_stage",
+            "scope": "country",
+            "type": "number",
+            "roles": ["stage_state"],
+            "initial_value": 0,
+            "writer_nodes": node_keys,
+            "reader_nodes": node_keys,
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_route",
+            "scope": "country",
+            "type": "number",
+            "roles": ["route_state"],
+            "initial_value": 0,
+            "writer_nodes": node_keys,
+            "reader_nodes": node_keys,
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_warehouse",
+            "scope": "country",
+            "type": "number",
+            "roles": ["warehouse_state"],
+            "initial_value": 0,
+            "writer_nodes": node_keys,
+            "reader_nodes": node_keys,
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_translator_law",
+            "scope": "country",
+            "type": "number",
+            "roles": ["translator_law_state"],
+            "initial_value": 0,
+            "writer_nodes": node_keys,
+            "reader_nodes": node_keys,
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_incident",
+            "scope": "country",
+            "type": "number",
+            "roles": ["incident_state"],
+            "initial_value": 0,
+            "writer_nodes": node_keys,
+            "reader_nodes": node_keys,
+            "cleanup": "project_state_clear",
+        },
+        {
+            "name": "tv_wonder_test_reward",
+            "scope": "country",
+            "type": "number",
+            "roles": ["reward_state"],
+            "initial_value": 0,
+            "writer_nodes": node_keys,
+            "reader_nodes": node_keys,
+            "cleanup": "project_state_clear",
+        },
+    ]
+    all_variables = [variable["name"] for variable in graph["variables"]]
+    for test_node in graph["nodes"]:
+        test_node["reads"] = list(all_variables)
+        test_node["writes"] = list(all_variables)
+        test_node["ui_state"] = {"variable_refs": list(all_variables)}
+        test_node["scope_contract"] = safe_scope_contract(target_scopes=["location"])
+
+    graph["nodes"][0]["kind"] = "choice_event"
+    graph["nodes"][0]["capabilities"] = ["event_chain", "maritime_trade_route_certification_backend"]
+    graph["nodes"][1]["kind"] = "route_gate"
+    graph["nodes"][1]["capabilities"] = ["route_gate", "maritime_trade_route_certification_backend"]
+    graph["nodes"][2]["kind"] = "choice_event"
+    graph["nodes"][2]["capabilities"] = ["event_chain", "maritime_trade_route_certification_backend"]
+    graph["nodes"][3]["kind"] = "incident_event"
+    graph["nodes"][3]["capabilities"] = [
+        "event_chain",
+        "retry_branch",
+        "maritime_trade_route_certification_backend",
+    ]
+    graph["nodes"][4]["kind"] = "choice_event"
+    graph["nodes"][4]["capabilities"] = ["event_chain", "maritime_trade_route_certification_backend"]
+    graph["nodes"][5]["kind"] = "final_reward_dispatch"
+    graph["nodes"][5]["capabilities"] = ["final_reward_handoff", "maritime_trade_route_certification_backend"]
+    graph["actions"][2]["generator_template"] = "semantic_contract_fragment"
+    graph["checks"][1]["generator_template"] = "semantic_contract_fragment"
+    entry["generation"]["verified_templates"] = NON_MONTHLY_TEMPLATES
+    entry["ui_model"] = {
+        "components": [
+            {"type": "route_map", "key": "route", "value_variable": "tv_wonder_test_route"},
+            {"type": "progress_track", "key": "progress", "value_variable": "tv_wonder_test_stage"},
+            {"type": "incident_log", "key": "incident", "status_variable": "tv_wonder_test_incident"},
+        ],
+        "bindings": [
+            {
+                "key": "maritime_route_binding",
+                "component_key": "route",
+                "variable_refs": list(all_variables),
+                "node_refs": node_keys,
+                "loc_refs": ["ui.progress.label"],
+            }
+        ],
+    }
+    return entry
+
+
 def incident_retry_entry() -> dict:
     entry = valid_entry()
     graph = entry["node_graph"]
@@ -1263,6 +1408,30 @@ def overland_relay_backend_contract_errors(capability_registry: dict) -> list[st
     return errors
 
 
+def maritime_trade_backend_contract_errors(capability_registry: dict) -> list[str]:
+    capability_index = {
+        capability["key"]: capability
+        for capability in capability_registry.get("capabilities", [])
+        if isinstance(capability, dict) and capability.get("key")
+    }
+    contract = capability_index.get("maritime_trade_route_certification_backend")
+    if contract is None:
+        return ["missing maritime_trade_route_certification_backend"]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append("maritime_trade_route_certification_backend must declare may_write_src: false")
+    if contract.get("verified_interface") != "harness_v1_intermediate_backend_contract":
+        errors.append("maritime_trade_route_certification_backend must use the intermediate backend interface")
+    output_kinds = set(str(kind) for kind in contract.get("output_kinds", []) or [])
+    missing = sorted(MARITIME_TRADE_BACKEND_OUTPUTS - output_kinds)
+    extra = sorted(output_kinds - MARITIME_TRADE_BACKEND_OUTPUTS)
+    if missing:
+        errors.append("maritime_trade_route_certification_backend missing output kind(s): " + ", ".join(missing))
+    if extra:
+        errors.append("maritime_trade_route_certification_backend has unsupported output kind(s): " + ", ".join(extra))
+    return errors
+
+
 def new_jerusalem_archetype_contract_errors(archetype_registry: dict) -> list[str]:
     archetype_index = {
         archetype["key"]: archetype
@@ -1312,12 +1481,43 @@ def overland_relay_archetype_contract_errors(archetype_registry: dict) -> list[s
     return errors
 
 
+def maritime_trade_archetype_contract_errors(archetype_registry: dict) -> list[str]:
+    archetype_index = {
+        archetype["key"]: archetype
+        for archetype in archetype_registry.get("archetypes", [])
+        if isinstance(archetype, dict) and archetype.get("key")
+    }
+    contract = archetype_index.get("maritime_trade_route_covenant")
+    if contract is None:
+        return ["missing maritime_trade_route_covenant"]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append("maritime_trade_route_covenant must declare may_write_src: false")
+    capabilities = set(str(capability) for capability in contract.get("required_capabilities", []) or [])
+    missing_capabilities = sorted(MARITIME_TRADE_ARCHETYPE_CAPABILITIES - capabilities)
+    if missing_capabilities:
+        errors.append("maritime_trade_route_covenant missing capability(s): " + ", ".join(missing_capabilities))
+    roles = set(str(role) for role in contract.get("required_variable_roles", []) or [])
+    for role in ("warehouse_state", "translator_law_state"):
+        if role not in roles:
+            errors.append(f"maritime_trade_route_covenant missing variable role {role!r}")
+    ui_components = set(str(component) for component in contract.get("required_ui_components", []) or [])
+    for component in ("route_map", "progress_track", "incident_log"):
+        if component not in ui_components:
+            errors.append(f"maritime_trade_route_covenant missing ui component {component!r}")
+    return errors
+
+
 def lalibela_repo_entry() -> dict:
     return deepcopy(list_index(load_spec_data())["unique_lalibela_churches"])
 
 
 def inca_royal_road_repo_entry() -> dict:
     return deepcopy(list_index(load_spec_data())["unique_inca_royal_road"])
+
+
+def malacca_repo_entry() -> dict:
+    return deepcopy(list_index(load_spec_data())["unique_malacca_port"])
 
 
 def assert_lalibela_error(name: str, entry: dict, needle: str) -> None:
@@ -1327,6 +1527,12 @@ def assert_lalibela_error(name: str, entry: dict, needle: str) -> None:
 
 
 def assert_inca_royal_road_error(name: str, entry: dict, needle: str) -> None:
+    errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
+    if not any(needle in error for error in errors):
+        raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
+
+
+def assert_malacca_error(name: str, entry: dict, needle: str) -> None:
     errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
@@ -1451,6 +1657,15 @@ def main() -> None:
     if pilgrimage_route_errors:
         raise AssertionError(f"pilgrimage route certification fixture unexpectedly failed: {pilgrimage_route_errors}")
 
+    maritime_route_errors = validate_spec_payload(
+        {"unique_wonders": [maritime_trade_route_certification_backend_entry()]},
+        wonders=[WONDER],
+        localization=loc(),
+        require_all_wonders=True,
+    )
+    if maritime_route_errors:
+        raise AssertionError(f"maritime trade route certification fixture unexpectedly failed: {maritime_route_errors}")
+
     lalibela = lalibela_repo_entry()
     if lalibela["identity"]["status"] != "compiler_mapped":
         raise AssertionError(f"Lalibela status should be compiler_mapped, got {lalibela['identity']['status']!r}")
@@ -1519,6 +1734,44 @@ def main() -> None:
         "archetype 'overland_relay_route_proof' missing required capability(s): overland_relay_route_certification_backend",
     )
 
+    malacca = malacca_repo_entry()
+    if malacca["identity"]["status"] != "compiler_mapped":
+        raise AssertionError(f"Malacca status should be compiler_mapped, got {malacca['identity']['status']!r}")
+    if malacca["node_graph"]["model"] != "state_machine_dsl_v1":
+        raise AssertionError(f"Malacca node_graph should be state_machine_dsl_v1, got {malacca['node_graph']['model']!r}")
+    malacca_errors = validate_spec_payload({"unique_wonders": [malacca]}, require_all_wonders=False)
+    if malacca_errors:
+        raise AssertionError(f"Malacca compiler_mapped fixture unexpectedly failed: {malacca_errors}")
+
+    malacca_source_gap = next(
+        row
+        for row in malacca["compiler_gap_ledger"]
+        if row.get("primitive") == "source_compiler_maritime_trade_route_generation"
+    )
+    if malacca_source_gap.get("verification_status") != "needs_codebase_search":
+        raise AssertionError("Malacca source compiler gap must remain needs_codebase_search")
+
+    malacca_missing_backend = malacca_repo_entry()
+    for test_node in malacca_missing_backend["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "maritime_trade_route_certification_backend"
+        ]
+    assert_malacca_error(
+        "Malacca missing maritime backend",
+        malacca_missing_backend,
+        "archetype 'maritime_trade_route_covenant' missing required capability(s): maritime_trade_route_certification_backend",
+    )
+
+    malacca_source_ready_with_gap = malacca_repo_entry()
+    malacca_source_ready_with_gap["identity"]["status"] = "source_codegen_ready"
+    assert_malacca_error(
+        "Malacca source_codegen_ready unresolved compiler gap",
+        malacca_source_ready_with_gap,
+        "source-codegen-ready status has unresolved compiler gap(s): source_compiler_maritime_trade_route_generation",
+    )
+
     incident_errors = validate_spec_payload(
         {"unique_wonders": [incident_retry_entry()]},
         wonders=[WONDER],
@@ -1558,6 +1811,9 @@ def main() -> None:
     overland_contract_errors = overland_relay_backend_contract_errors(capability_registry)
     if overland_contract_errors:
         raise AssertionError(f"overland relay backend contract unexpectedly failed: {overland_contract_errors}")
+    maritime_contract_errors = maritime_trade_backend_contract_errors(capability_registry)
+    if maritime_contract_errors:
+        raise AssertionError(f"maritime trade backend contract unexpectedly failed: {maritime_contract_errors}")
     archetype_registry = load_archetype_registry()
     archetype_contract_errors = new_jerusalem_archetype_contract_errors(archetype_registry)
     if archetype_contract_errors:
@@ -1565,6 +1821,9 @@ def main() -> None:
     overland_archetype_contract_errors = overland_relay_archetype_contract_errors(archetype_registry)
     if overland_archetype_contract_errors:
         raise AssertionError(f"overland relay archetype contract unexpectedly failed: {overland_archetype_contract_errors}")
+    maritime_archetype_contract_errors = maritime_trade_archetype_contract_errors(archetype_registry)
+    if maritime_archetype_contract_errors:
+        raise AssertionError(f"maritime trade archetype contract unexpectedly failed: {maritime_archetype_contract_errors}")
     capability_index = {
         capability["key"]: capability
         for capability in capability_registry["capabilities"]
@@ -1588,6 +1847,7 @@ def main() -> None:
         ("arsenal ropewalk launch inspection", arsenal_ropewalk_launch_inspection_entry()),
         ("pilgrimage route certification backend", pilgrimage_route_certification_backend_entry()),
         ("overland relay route certification backend", overland_relay_route_certification_backend_entry()),
+        ("maritime trade route certification backend", maritime_trade_route_certification_backend_entry()),
     ):
         backend_errors = validate_spec_payload(
             {"unique_wonders": [entry]},
@@ -1682,6 +1942,31 @@ def main() -> None:
         "overland relay archetype missing incident log",
         overland_missing_incident_ui,
         "archetype 'overland_relay_route_proof' missing ui component(s): incident_log",
+    )
+
+    maritime_missing_backend = maritime_trade_route_certification_backend_entry()
+    for test_node in maritime_missing_backend["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "maritime_trade_route_certification_backend"
+        ]
+    assert_has_error(
+        "maritime trade archetype missing backend",
+        maritime_missing_backend,
+        "archetype 'maritime_trade_route_covenant' missing required capability(s): maritime_trade_route_certification_backend",
+    )
+
+    maritime_missing_progress_ui = maritime_trade_route_certification_backend_entry()
+    maritime_missing_progress_ui["ui_model"]["components"] = [
+        component
+        for component in maritime_missing_progress_ui["ui_model"]["components"]
+        if component.get("type") != "progress_track"
+    ]
+    assert_has_error(
+        "maritime trade archetype missing progress track",
+        maritime_missing_progress_ui,
+        "archetype 'maritime_trade_route_covenant' missing ui component(s): progress_track",
     )
 
     for capability_key in BACKEND_CAPABILITIES:
@@ -1923,6 +2208,45 @@ def main() -> None:
     if not any("missing output kind(s): effect_stub" in error for error in overland_missing_output_errors):
         raise AssertionError(
             f"overland relay backend missing output fixture did not fail: {overland_missing_output_errors}"
+        )
+
+    maritime_writable_registry = deepcopy(load_capability_registry())
+    for capability in maritime_writable_registry["capabilities"]:
+        if capability.get("key") == "maritime_trade_route_certification_backend":
+            capability["may_write_src"] = True
+            break
+    assert_has_error(
+        "maritime trade capability may_write_src",
+        maritime_trade_route_certification_backend_entry(),
+        "must declare may_write_src: false",
+        capability_registry=maritime_writable_registry,
+    )
+
+    maritime_source_output_registry = deepcopy(load_capability_registry())
+    for capability in maritime_source_output_registry["capabilities"]:
+        if capability.get("key") == "maritime_trade_route_certification_backend":
+            capability["output_kinds"].append("loadable_src")
+            break
+    assert_has_error(
+        "maritime trade capability source output",
+        maritime_trade_route_certification_backend_entry(),
+        "unsupported value(s): loadable_src",
+        capability_registry=maritime_source_output_registry,
+    )
+
+    maritime_missing_output_registry = deepcopy(load_capability_registry())
+    for capability in maritime_missing_output_registry["capabilities"]:
+        if capability.get("key") == "maritime_trade_route_certification_backend":
+            capability["output_kinds"] = [
+                output_kind
+                for output_kind in capability.get("output_kinds", [])
+                if output_kind != "effect_stub"
+            ]
+            break
+    maritime_missing_output_errors = maritime_trade_backend_contract_errors(maritime_missing_output_registry)
+    if not any("missing output kind(s): effect_stub" in error for error in maritime_missing_output_errors):
+        raise AssertionError(
+            f"maritime trade backend missing output fixture did not fail: {maritime_missing_output_errors}"
         )
 
     auxiliary_writable_registry = deepcopy(load_capability_registry())
@@ -2266,6 +2590,18 @@ def main() -> None:
         archetype_registry=public_credit_writable_archetype_registry,
     )
 
+    maritime_writable_archetype_registry = deepcopy(load_archetype_registry())
+    for archetype in maritime_writable_archetype_registry["archetypes"]:
+        if archetype.get("key") == "maritime_trade_route_covenant":
+            archetype["may_write_src"] = True
+            break
+    assert_has_error(
+        "maritime trade archetype may_write_src",
+        maritime_trade_route_certification_backend_entry(),
+        "must declare may_write_src: false",
+        archetype_registry=maritime_writable_archetype_registry,
+    )
+
     archetype_missing_capability = valid_entry()
     archetype_missing_capability["node_graph"]["archetypes"] = ["resource_accumulation_ritual"]
     assert_has_error(
@@ -2448,6 +2784,17 @@ def main() -> None:
     explicit_stub = valid_entry()
     explicit_stub["identity"]["status"] = "stub"
     assert_codegen_error("explicit stub codegen", explicit_stub, "cannot be generated by Harness codegen")
+
+    summary = audit_summary()
+    if summary["source_codegen_ready_count"] != 4:
+        raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
+    if summary["harness_generated_count"] != 0:
+        raise AssertionError(f"harness_generated count should remain 0, got {summary['harness_generated_count']}")
+    if summary["codegen_tier_summary"]["may_write_src"] != 0:
+        raise AssertionError(
+            "codegen tier may_write_src count should remain 0, got "
+            f"{summary['codegen_tier_summary']['may_write_src']}"
+        )
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")
 

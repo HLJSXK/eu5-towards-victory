@@ -226,6 +226,38 @@ capabilities:
     may_write_src: false
     notes: "Intermediate backend contract for preserving overland relay route certification, named road segments, tambos, rope-bridge checkpoints, runner delay incidents, runner-carried relay message proof, reroute, and domestic-only fallback semantics. It only emits Harness markdown fragments, trigger/effect stubs, GUI summaries, and tooltip notes; it does not generate loadable EU5 route source."
 
+  - key: maritime_trade_route_certification_backend
+    supported_node_kinds:
+      - route_gate
+      - choice_event
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_node_fields:
+      - node.reads
+      - node.writes
+      - node.ui_state
+      - node.scope_contract
+    required_variable_roles:
+      - route_state
+      - warehouse_state
+      - translator_law_state
+    supported_listener_kinds: []
+    supported_ui_components:
+      - route_map
+      - progress_track
+      - incident_log
+      - checklist
+    output_kinds:
+      - markdown_fragment
+      - trigger_stub
+      - effect_stub
+      - gui_summary
+      - player_facing_tooltip
+    verified_interface: "harness_v1_intermediate_backend_contract"
+    may_write_src: false
+    notes: "Intermediate backend contract for preserving maritime-commercial route certification: monsoon route endpoints, bonded warehouse certification, translator and merchant-law compacts, blocked or unaffordable route incidents, reroute choices, and lower-prestige domestic certification fallback semantics. It only emits Harness markdown fragments, trigger/effect stubs, GUI summaries, and tooltip notes; it does not generate loadable EU5 route, trade, market, event, GUI, or other source files."
+
   - key: repeated_entity_row_checklist_incident_log_backend
     supported_node_kinds:
       - route_gate

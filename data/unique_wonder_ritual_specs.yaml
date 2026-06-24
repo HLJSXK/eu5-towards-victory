@@ -153,6 +153,7 @@ metadata:
     - finance_public_credit_interface_backend
     - fixed_site_integrity_control_pressure_backend
     - listener_gate
+    - maritime_trade_route_certification_backend
     - monthly_progress
     - overland_relay_route_certification_backend
     - pilgrimage_route_certification_backend
@@ -166,6 +167,7 @@ metadata:
     - hidden_executor_finalization
     - incident_retry_gauntlet
     - listener_resolution_ritual
+    - maritime_trade_route_covenant
     - monthly_pressure_countdown
     - new_jerusalem_rock_route
     - overland_relay_route_proof
@@ -4830,44 +4832,874 @@ unique_wonders:
     base_key: great_port
     location: malacca
     runtime_prefix: tv_wonder_malacca_port
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1034
+    key: open_port_covenant
+  - id: 1035
+    key: certify_monsoon_route
+  - id: 1036
+    key: certify_warehouse_seals
+  - id: 1037
+    key: compact_translator_merchant_law
+  - id: 1038
+    key: resolve_route_incident
+  - id: 1039
+    key: final_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_malacca_port needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - maritime_trade_route_covenant
+    historical_mechanic: The Port Covenant proves Malacca as a maritime-commercial hinge by certifying a monsoon route, sealing bonded warehouses, joining translators to merchant-law judges, and resolving a blocked route through reroute or domestic-only recognition before reward handoff.
     listeners: []
+    summary: Malacca is mapped as an intermediate-only maritime trade route covenant. The graph compresses route endpoints, warehouse certification, translator and merchant-law compact state, a route incident, reroute or lower-prestige domestic fallback, route_map and progress_track UI intent, and final reward handoff into Harness variables while design_ir preserves the full row-level semantics.
+    entry_node: open_port_covenant
+    terminal_nodes:
+    - final_reward_handoff
+    graph_shape: maritime_route_covenant_with_incident_reroute
+    completion_policy:
+      allow_terminal_outgoing: false
+    mechanic_signature:
+      wonder_specific_hook: Malacca turns the strait into a world market by coordinating monsoon arrivals, warehouse seals, translators, harbor masters, and merchant-law judges in one covenant.
+      core_interaction_loop: The player opens the Port Covenant, certifies one named monsoon route endpoint, proves bonded warehouse custody, signs a translator and merchant-law compact, then resolves a blocked route through reroute or domestic-only certification before final reward handoff.
+      player_decision_pattern: Decisions focus on which oceanic route receives first recognition, whether warehouse and legal proof are strong enough for foreign merchants, and whether an incident deserves an expensive reroute or a lower-prestige domestic fallback.
+      state_feedback_model: The route_map shows the selected monsoon endpoint and reroute status, the progress_track summarizes covenant stages, and the incident_log records warehouse, translator-law, blocked-route, reroute, and domestic-certification outcomes.
+      failure_or_tension_model: A route can be blocked, unaffordable, or diplomatically awkward; the player can pay for a reroute and stronger recognition or accept a domestic certificate that keeps the port functional but loses wider merchant prestige.
+      reward_expression: Full certification hands a foreign-recognized strait market proof to the existing final reward path; the fallback still completes the port covenant locally but marks reduced prestige and narrower commercial reach in design_ir.
+      reuse_risk_mitigation: The design is not Pharos visibility, Lalibela pilgrimage, or Inca relay messaging; its proof depends on maritime monsoon timing, bonded warehouses, translators, merchant law, and a strait market covenant.
+    cadence_signature:
+      cadence_type: route_certification
+      cadence_rationale: Route certification fits because Malacca's benefit turns on a named monsoon route, warehouse custody, translated toll law, and merchant recognition, not passive monthly progress or a generic ceremony.
+      player_agency_model: The player actively chooses certification posture, accepts costs for route protection or reroute, and decides whether foreign recognition is worth more than a lower-prestige domestic certificate.
+      non_monthly_triggers_or_reason: Non-monthly validation comes from the visible monsoon route gate, warehouse certification event, translator and merchant-law compact event, route incident branch, reroute choice, and final reward handoff.
+      pacing_failure_mode: The pacing fails if the covenant becomes a single trade bonus or a Pharos-style route counter; route endpoint, warehouse proof, translator-law compact, and domestic fallback must remain distinct states.
+    variables:
+    - name: tv_wonder_malacca_port_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_port_covenant
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      reader_nodes:
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_route_status
+      scope: country
+      type: number
+      roles:
+      - route_state
+      initial_value: 0
+      writer_nodes:
+      - open_port_covenant
+      - certify_monsoon_route
+      - resolve_route_incident
+      reader_nodes:
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_warehouse_status
+      scope: country
+      type: number
+      roles:
+      - warehouse_state
+      initial_value: 0
+      writer_nodes:
+      - open_port_covenant
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - resolve_route_incident
+      reader_nodes:
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_translator_law_status
+      scope: country
+      type: number
+      roles:
+      - translator_law_state
+      initial_value: 0
+      writer_nodes:
+      - open_port_covenant
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      reader_nodes:
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - resolve_route_incident
+      reader_nodes:
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - resolve_route_incident
+      - final_reward_handoff
+      reader_nodes:
+      - final_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_port_covenant
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - maritime_trade_route_certification_backend
+      event_id: 1034
+      player_visible: true
+      historical_anchor: port_covenant_proclamation
+      enter_condition: Malacca final port exists and the sponsor opens the Port Covenant proof.
+      completion_condition: Covenant stage, candidate route, warehouse, and translator-law proof states are initialized.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_monsoon_route
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      reads: []
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1034.t
+    - key: certify_monsoon_route
+      kind: route_gate
+      capabilities:
+      - route_gate
+      - maritime_trade_route_certification_backend
+      event_id: 1035
+      player_visible: true
+      historical_anchor: monsoon_route_endpoint
+      enter_condition: The Port Covenant has opened and a first monsoon route endpoint is ready for certification.
+      completion_condition: The selected endpoint is marked as certified, reroute-needed, or eligible for domestic fallback.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_warehouse_seals
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1035.t
+    - key: certify_warehouse_seals
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - maritime_trade_route_certification_backend
+      event_id: 1036
+      player_visible: true
+      historical_anchor: bonded_warehouse_certification
+      enter_condition: A monsoon endpoint has provisional recognition and cargo must be sealed through Malacca warehouses.
+      completion_condition: Warehouse certificates record bonded storage, stamped weights, cargo manifests, and safe waiting for the reversing monsoon.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - compact_translator_merchant_law
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1036.t
+    - key: compact_translator_merchant_law
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - maritime_trade_route_certification_backend
+      event_id: 1037
+      player_visible: true
+      historical_anchor: translator_merchant_law_compact
+      enter_condition: Warehouse custody is credible enough for foreign merchants to ask who translates tolls and judges disputes.
+      completion_condition: Translator rosters, merchant-law clauses, shahbandar jurisdiction, and debt-dispute procedures are compacted into a shared covenant.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - resolve_route_incident
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_translator_law_status
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1037.t
+    - key: resolve_route_incident
+      kind: incident_event
+      capabilities:
+      - event_chain
+      - retry_branch
+      - maritime_trade_route_certification_backend
+      event_id: 1038
+      player_visible: true
+      historical_anchor: blocked_route_reroute_choice
+      enter_condition: A certified route faces a blocked, unaffordable, or diplomatically awkward passage before the covenant can claim outside recognition.
+      completion_condition: The player either funds a reroute with stronger foreign recognition or records a lower-prestige domestic certification fallback.
+      failure_or_retry: true
+      retry_target: certify_monsoon_route
+      next_nodes:
+      - final_reward_handoff
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      - tv_wonder_malacca_port_reward_branch
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+        - tv_wonder_malacca_port_incident_state
+        - tv_wonder_malacca_port_reward_branch
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1038.t
+    - key: final_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      - maritime_trade_route_certification_backend
+      event_id: 1039
+      player_visible: true
+      historical_anchor: strait_market_reward_handoff
+      enter_condition: The route, warehouse, translator-law compact, and incident branch have produced either external recognition or domestic fallback proof.
+      completion_condition: The recognized route or domestic fallback branch is handed to the existing finalization reward path without generating loadable route source.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_reward_branch
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      - tv_wonder_malacca_port_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+        - tv_wonder_malacca_port_incident_state
+        - tv_wonder_malacca_port_reward_branch
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1039.t
+    edges:
+    - from: open_port_covenant
+      to: certify_monsoon_route
+      condition: port_covenant_opened
+      effect: initialize_monsoon_route_candidates
+      label_key: TV_ENGINEERING_MALACCA_EDGE_OPEN_TO_ROUTE
+    - from: certify_monsoon_route
+      to: certify_warehouse_seals
+      condition: monsoon_route_endpoint_selected
+      effect: record_route_endpoint_status
+      label_key: TV_ENGINEERING_MALACCA_EDGE_ROUTE_TO_WAREHOUSE
+    - from: certify_warehouse_seals
+      to: compact_translator_merchant_law
+      condition: warehouse_certificate_ready
+      effect: record_bonded_storage_proof
+      label_key: TV_ENGINEERING_MALACCA_EDGE_WAREHOUSE_TO_LAW
+    - from: compact_translator_merchant_law
+      to: resolve_route_incident
+      condition: translator_merchant_law_compact_signed
+      effect: expose_route_incident_branch
+      label_key: TV_ENGINEERING_MALACCA_EDGE_LAW_TO_INCIDENT
+    - from: resolve_route_incident
+      to: certify_monsoon_route
+      condition: player_orders_reroute_retry
+      effect: reopen_monsoon_route_selection
+      label_key: TV_ENGINEERING_MALACCA_EDGE_INCIDENT_REROUTE
+    - from: resolve_route_incident
+      to: final_reward_handoff
+      condition: route_incident_resolved_or_domestic_fallback_recorded
+      effect: set_reward_branch_for_final_handoff
+      label_key: TV_ENGINEERING_MALACCA_EDGE_INCIDENT_TO_REWARD
+    actions:
+    - key: record_maritime_route_contract
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_backend_contract
+      generator_template: semantic_contract_fragment
+    - key: dispatch_malacca_reward_stub
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_semantic_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: malacca_route_certificate_check
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_MALACCA_ROUTE_CERTIFICATE_TT
+      generator_template: semantic_contract_fragment
+    - key: malacca_domestic_fallback_check
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_MALACCA_DOMESTIC_FALLBACK_TT
+      generator_template: semantic_contract_fragment
+    projection_notes: The compiler_mapped node_graph is an intermediate-only strong DSL projection. It compresses named monsoon route endpoints into route_status, warehouse certificates into warehouse_status, translator and merchant-law compact proof into translator_law_status, blocked or awkward route choices into incident_state, and external or domestic certification into reward_branch while preserving the full maritime-commercial covenant in design_ir.
+  design_ir:
+    compiler_primitives:
+    - monsoon_route_endpoint_set
+    - warehouse_certification_projection
+    - translator_merchant_law_compact
+    - route_incident_reroute_domestic_fallback
+    - route_map_progress_track_projection
+    - malacca_covenant_final_reward_handoff
+    - source_compiler_maritime_trade_route_generation
+    phases:
+    - key: open_port_covenant
+      gameplay_stage: Port Covenant proof begins at Malacca's strait market.
+      entry_condition: The final Malacca port exists, the sponsor controls the port, and merchant communities are ready to test the covenant.
+      exit_condition: Candidate monsoon route, warehouse, translator, merchant-law, and incident state are initialized.
+    - key: certify_monsoon_route
+      gameplay_stage: Select and certify the first named monsoon route endpoint.
+      entry_condition: The covenant is open and route_map rows can show at least one route endpoint.
+      exit_condition: The route endpoint is certified, marked for reroute, or prepared for domestic-only fallback.
+    - key: certify_warehouse_seals
+      gameplay_stage: Prove the selected route can wait safely in bonded warehouses.
+      entry_condition: The route endpoint has provisional recognition.
+      exit_condition: Warehouse certificates record sealed cargo, stamped weights, manifests, and safe waiting for the return monsoon.
+    - key: compact_translator_merchant_law
+      gameplay_stage: Bind translators, shahbandars, and merchant-law judges into the covenant.
+      entry_condition: Warehouse custody is credible enough for foreign merchants to submit disputes.
+      exit_condition: Translator rosters, toll explanations, jurisdiction clauses, debt hearings, and dispute rulings are compacted.
+    - key: resolve_route_incident
+      gameplay_stage: A blocked, unaffordable, or diplomatically awkward route forces reroute or domestic certification.
+      entry_condition: The route, warehouse, and law compact are visible but one route incident remains unresolved.
+      exit_condition: The player pays for reroute, accepts domestic-only certification, or records the lower-prestige branch.
+    - key: final_reward_handoff
+      gameplay_stage: The maritime-commercial covenant is handed to final rewards.
+      entry_condition: Route, warehouse, translator-law compact, and incident branch have resolved.
+      exit_condition: The existing finalization reward path receives the full-recognition or domestic-fallback branch.
+    player_proofs:
+    - Monsoon route endpoint proof: one named maritime lane is visible, selected, and certified as reaching Malacca under a seasonal wind window.
+    - Warehouse certification proof: bonded stores, stamped weights, cargo manifests, and safe waiting through the return monsoon are recorded before legal recognition.
+    - Translator and merchant-law proof: interpreters, toll tables, shahbandar jurisdiction, and debt-dispute rulings are compacted so foreign merchants know the covenant before arrival.
+    - Incident proof: a blocked, unaffordable, or awkward route must be rerouted or downgraded to lower-prestige domestic certification rather than silently passing.
+    - Final reward proof: the selected reward branch explicitly distinguishes external strait-market recognition from domestic-only fallback.
+    tracked_entity_sets:
+    - key: malacca_monsoon_routes
+      entity_type: route
+      entities:
+      - key: china_sea_junk_route
+        display_name: China Sea Junk Route
+        endpoint: South China Sea merchants
+        monsoon_window: northeast_return
+        cargo_focus: ceramics, silk, copper cash
+      - key: gujarat_cambay_route
+        display_name: Gujarat-Cambay Textile Route
+        endpoint: western Indian merchants
+        monsoon_window: southwest_arrival
+        cargo_focus: textiles, indigo, silver
+      - key: coromandel_tamil_route
+        display_name: Coromandel-Tamil Cloth Route
+        endpoint: eastern Indian merchants
+        monsoon_window: southwest_arrival
+        cargo_focus: cloth, rice, horses
+      - key: arab_persian_dhow_route
+        display_name: Arab-Persian Dhow Route
+        endpoint: western ocean merchants
+        monsoon_window: long_ocean_layover
+        cargo_focus: aromatics, coin, legal brokers
+      - key: java_spice_route
+        display_name: Java-Spice Island Route
+        endpoint: island Southeast Asian merchants
+        monsoon_window: inter-island_window
+        cargo_focus: cloves, nutmeg, rice
+      state_values:
+      - pending
+      - endpoint_certified
+      - warehouse_certified
+      - translator_law_compacted
+      - blocked
+      - rerouted
+      - domestic_certified
+      - full_covenant
+      per_entity_state:
+        status_variable_pattern: tv_wonder_malacca_port_route_<route_key>_status
+        endpoint_variable_pattern: tv_wonder_malacca_port_route_<route_key>_endpoint
+        warehouse_variable_pattern: tv_wonder_malacca_port_route_<route_key>_warehouse_certificate
+        law_variable_pattern: tv_wonder_malacca_port_route_<route_key>_merchant_law_compact
+      selector: maritime route gate selects one pending or incident-marked monsoon route and writes tv_wonder_malacca_port_route_status in the current compiler_mapped projection.
+      ui_binding: route_map:malacca_monsoon_routes renders one row per endpoint with route, warehouse, translator-law, incident, reroute, or domestic certification status.
+    - key: malacca_warehouse_certificates
+      entity_type: warehouse_certificate
+      entities:
+      - key: bonded_spice_store
+        display_name: Bonded Spice Store
+      - key: textile_counting_house
+        display_name: Textile Counting House
+      - key: tin_and_coin_vault
+        display_name: Tin and Coin Vault
+      - key: safe_conduct_manifest_office
+        display_name: Safe-Conduct Manifest Office
+      state_values:
+      - unsealed
+      - weighed
+      - manifest_checked
+      - sealed_for_return_monsoon
+      - disputed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_malacca_port_warehouse_<certificate_key>_status
+        cargo_variable_pattern: tv_wonder_malacca_port_warehouse_<certificate_key>_cargo
+        dispute_variable_pattern: tv_wonder_malacca_port_warehouse_<certificate_key>_dispute
+      selector: warehouse certification event checks whether the active route has at least one matching bonded certificate row.
+      ui_binding: progress_track:malacca_warehouse_progress summarizes certified warehouse rows and incident_log records disputed cargo.
+    - key: malacca_translator_law_compacts
+      entity_type: merchant_law_compact
+      entities:
+      - key: toll_translation_roster
+        display_name: Toll Translation Roster
+      - key: shahbandar_jurisdiction_clause
+        display_name: Shahbandar Jurisdiction Clause
+      - key: debt_dispute_hearing
+        display_name: Debt Dispute Hearing
+      - key: safe_conduct_oath
+        display_name: Safe-Conduct Oath
+      state_values:
+      - unwritten
+      - translated
+      - witnessed
+      - compact_signed
+      - disputed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_malacca_port_law_<compact_key>_status
+        witness_variable_pattern: tv_wonder_malacca_port_law_<compact_key>_witness
+        dispute_variable_pattern: tv_wonder_malacca_port_law_<compact_key>_dispute
+      selector: translator and merchant-law compact event chooses whether the compact receives foreign recognition or remains a domestic certificate.
+      ui_binding: incident_log:malacca_merchant_law_incidents records missing translators, disputed tolls, and compact fallback state.
+    selectors:
+    - key: active_monsoon_route
+      selection_space: pending, blocked, or reroute-needed malacca_monsoon_routes
+      selection_state: tv_wonder_malacca_port_route_status plus future per-route status rows.
+      resolution_events:
+      - 1035
+      - 1038
+    - key: active_warehouse_certificate
+      selection_space: warehouse certificate rows tied to the selected route cargo.
+      selection_state: tv_wonder_malacca_port_warehouse_status.
+      resolution_events:
+      - 1036
+    - key: translator_merchant_law_compact_branch
+      selection_space: foreign-recognized compact versus lower-prestige domestic certification.
+      selection_state: tv_wonder_malacca_port_translator_law_status and tv_wonder_malacca_port_reward_branch.
+      resolution_events:
+      - 1037
+      - 1038
+      - 1039
+    risk_branches:
+    - key: blocked_monsoon_route
+      risk: A selected route is closed by piracy, blockade, hostile harbor politics, or unsafe anchorage.
+      player_response: Pay for reroute and stronger external recognition, or keep a lower-prestige domestic certificate that avoids claiming foreign-route proof.
+    - key: unaffordable_warehouse_certificate
+      risk: Bonded warehouse certification is too expensive because seals, guards, compensation funds, or spoilage protection cannot be funded.
+      player_response: Fund the certification, narrow the cargo list, or let the route continue only as a domestic strait-market proof.
+    - key: awkward_merchant_law_compact
+      risk: Translators or merchant judges cannot make tolls and debt rulings acceptable to a foreign merchant community.
+      player_response: Rewrite the compact, accept a prestige cost, reroute to a more cooperative community, or settle for domestic certification.
+    player_actions:
+    - Open the Port Covenant instead of confirming a one-click ceremony.
+    - Pick or qualify the first named monsoon route endpoint for Malacca.
+    - Certify warehouse seals, weights, and manifests for cargo waiting through the return monsoon.
+    - Compact translators, toll tables, shahbandar jurisdiction, and merchant-law dispute rules.
+    - Resolve blocked, unaffordable, or awkward route incidents through reroute or lower-prestige domestic certification.
+    - Hand off full external recognition or domestic fallback to the existing final reward path.
+    map_scope_evidence:
+    - Malacca is the fixed wonder location and the strait market is the local scope for the covenant.
+    - Route endpoints are preserved as maritime-commercial design rows rather than EU5 travel objects in this v1 Harness projection.
+    - The route_map UI intent shows endpoint rows and incident status; progress_track shows covenant stage across route, warehouse, law, incident, and reward handoff.
+    - No current source compiler owns monsoon route travel, warehouse certificate rows, translator-law compacts, or trade-route market source generation.
+    ui_feedback_model:
+      components:
+      - route_map
+      - progress_track
+      - incident_log
+      route_map: Monsoon endpoint rows show selected, certified, blocked, rerouted, domestic-certified, or full-covenant status.
+      progress_track: Covenant progress is stage-based across route endpoint, warehouse certificate, translator-law compact, incident resolution, and final reward handoff.
+      incident_log: Route incidents record blocked passage, unaffordable warehouse proof, awkward merchant-law compact, reroute choice, and domestic fallback.
+      repeated_rows: The design requires one row per monsoon route endpoint, one row per warehouse certificate, and one compact row per translator-law proof.
+      per_entity_status: Each route keeps separate endpoint, warehouse, translator-law, incident, reroute, and domestic fallback state in design_ir.
+      current_projection: The compiler_mapped node_graph compresses routes into route_status, warehouse rows into warehouse_status, translator-law compacts into translator_law_status, route problems into incident_state, and full or domestic recognition into reward_branch while preserving all rows in design_ir.
+    uniqueness_constraints:
+    - Malacca's proof is commercial and maritime: monsoon waiting, bonded warehouses, translators, merchant judges, and strait-market law make the wonder work.
+    - The covenant is not Pharos navigation visibility, Lalibela sacred geography, or Inca relay messaging; it proves that many oceanic merchants can trust one port's rules.
+    - Warehouse certification and translator-law compact are required before route recognition, so the route is not just a named endpoint list.
+    - The lower-prestige domestic fallback keeps failure meaningful by completing a local market certification while explicitly losing outside merchant recognition.
+    projection_notes: The current compiler_mapped node_graph is an intermediate-only strong DSL projection. It preserves monsoon route endpoints, warehouse certification, translator and merchant-law compact, route incident, reroute choice, lower-prestige domestic certification fallback, route_map and progress_track UI intent, incident_log status, and final reward handoff semantics in design_ir, but compresses repeated route, warehouse, compact, and incident rows into summary runtime variables until a future source compiler can generate loadable maritime route state, trade/market semantics, GUI rows, event source, and effect source.
+  compiler_gap_ledger:
+  - primitive: monsoon_route_endpoint_set
+    design_semantics: Preserve named monsoon route endpoints from China, India, Arabia/Persia, Java, Sumatra, and the island Southeast Asian strait market as certifiable maritime route rows.
+    required_game_interfaces:
+    - route endpoint authoring data
+    - route_map UI summary
+    - intermediate route state variables
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:route_gate
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contract; no source maritime route compiler is claimed.
+    blocked_by: []
+    fallback_if_unavailable: Keep monsoon endpoints in design_ir and project them through route_status summary only.
+  - primitive: warehouse_certification_projection
+    design_semantics: Preserve bonded warehouse seals, stamped weights, manifests, cargo custody, and safe waiting for the return monsoon as required route proof.
+    required_game_interfaces:
+    - warehouse certificate rows
+    - progress_track summary
+    - incident_log disputed cargo rows
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no loadable warehouse or goods source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Preserve all warehouse certificate rows in design_ir and summarize them in warehouse_status.
+  - primitive: translator_merchant_law_compact
+    design_semantics: Preserve interpreters, toll translations, shahbandar jurisdiction, safe-conduct oaths, and merchant-law debt dispute rulings as covenant proof.
+    required_game_interfaces:
+    - translator roster semantics
+    - merchant-law compact rows
+    - incident_log compact dispute rows
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no loadable merchant-law source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Keep compact rows in design_ir and summarize them in translator_law_status.
+  - primitive: route_incident_reroute_domestic_fallback
+    design_semantics: Preserve blocked, unaffordable, or awkward maritime route incidents plus reroute and lower-prestige domestic certification fallback branches.
+    required_game_interfaces:
+    - incident_log summary
+    - retry branch
+    - route state mutation stubs
+    - reward branch summary
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:retry_branch
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend and retry contracts; no loadable incident event source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Keep incident, reroute, and domestic fallback semantics in design_ir and retain a retry/fallback projection node.
+  - primitive: route_map_progress_track_projection
+    design_semantics: Preserve route_map and progress_track UI intent for monsoon endpoints, warehouse certification, translator-law compact state, route incident, reroute, domestic fallback, and reward handoff.
+    required_game_interfaces:
+    - route_map UI rows
+    - progress_track UI summary
+    - incident_log UI rows
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate UI summary contracts; no loadable GUI row source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Use route_map, progress_track, and incident_log summaries while preserving per-row design_ir.
+  - primitive: malacca_covenant_final_reward_handoff
+    design_semantics: Hand full foreign-recognized route proof or lower-prestige domestic certification fallback to the existing Malacca finalization reward path.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing Malacca ceremony modifier handoff
+    - existing hidden finalization cleanup/broadcast effect
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - data/index/scripted_effects.txt:tv_wonder_unique_malacca_port_finalization_visible_effect
+    - data/index/scripted_effects.txt:tv_wonder_unique_malacca_port_style_1_finalization_hidden_effect
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff contract and existing finalization evidence; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave the reward as the existing finalization path and keep Malacca route proof as design metadata.
+  - primitive: source_compiler_maritime_trade_route_generation
+    design_semantics: A future source compiler would expand monsoon route endpoints, warehouse certificate rows, translator-law compact rows, route incidents, reroute choices, domestic fallback effects, route_map rows, progress_track state, and trade/market semantics into loadable EU5 source.
+    required_game_interfaces:
+    - source compiler maritime route-set expansion
+    - loadable trade or market effect generation
+    - loadable event/effect generation
+    - loadable Engineering Department GUI row generation
+    codebase_evidence:
+    - data/unique_wonder_ritual_capabilities.yaml:maritime_trade_route_certification_backend is intermediate-only and may_write_src false.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which future Harness source compiler should own maritime route endpoint, warehouse, translator-law, reroute, and domestic fallback row expansion?
+    - How should route/trade/market semantics be represented without guessing EU5 syntax or writing loadable source?
+    blocked_by:
+    - No source compiler for maritime trade route certification is in scope for this round.
+    - The new backend is intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep Malacca at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: route_map
+      key: malacca_route_map
+      value_variable: tv_wonder_malacca_port_route_status
+    - type: progress_track
+      key: malacca_covenant_progress
+      value_variable: tv_wonder_malacca_port_stage
+    - type: incident_log
+      key: malacca_route_incident_log
+      status_variable: tv_wonder_malacca_port_incident_state
+    bindings:
+    - key: malacca_route_map_binding
+      component_key: malacca_route_map
+      variable_refs:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      - tv_wonder_malacca_port_reward_branch
+      node_refs:
+      - open_port_covenant
+      - certify_monsoon_route
+      - resolve_route_incident
+      - final_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_MALACCA_ROUTE_MAP_LABEL
+      - tv_engineering_department.1035.t
+    - key: malacca_progress_track_binding
+      component_key: malacca_covenant_progress
+      variable_refs:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      node_refs:
+      - open_port_covenant
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_MALACCA_PROGRESS_LABEL
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MALACCA_PORT_1
+    - key: malacca_incident_log_binding
+      component_key: malacca_route_incident_log
+      variable_refs:
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      - tv_wonder_malacca_port_reward_branch
+      node_refs:
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_MALACCA_INCIDENT_LOG_LABEL
+      - tv_engineering_department.1038.t
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing Malacca ceremony modifier handoff
+      description: The maritime route covenant hands full or domestic-certified strait-market proof to the existing Merchant-Port Covenant country reward path; Harness does not generate a new modifier grant.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir maritime-commercial covenant memory
+      description: Local memory remains Malacca's certified quays, bonded warehouses, translator benches, merchant-law court, and route incident ledger preserved in design_ir.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing finalization visible reward effect
+      description: One-time ruler, engineer, completion celebration, support, and finalization rewards remain routed through the existing Malacca finalization visible effect.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_CEREMONY_UNIQUE_MALACCA_PORT_INAUGURATED_BUTTON
+    - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MALACCA_PORT_1
+    - TV_ENGINEERING_MALACCA_ROUTE_MAP_LABEL
+    - TV_ENGINEERING_MALACCA_PROGRESS_LABEL
+    - TV_ENGINEERING_MALACCA_INCIDENT_LOG_LABEL
+    event_keys:
+    - event_id: 1034
+      title_key: tv_engineering_department.1034.t
+      desc_key: tv_engineering_department.1034.d
+      option_keys:
+      - tv_engineering_department.1034.a
+      node_key: open_port_covenant
+    - event_id: 1035
+      title_key: tv_engineering_department.1035.t
+      desc_key: tv_engineering_department.1035.d
+      option_keys:
+      - tv_engineering_department.1035.a
+      node_key: certify_monsoon_route
+    - event_id: 1036
+      title_key: tv_engineering_department.1036.t
+      desc_key: tv_engineering_department.1036.d
+      option_keys:
+      - tv_engineering_department.1036.a
+      node_key: certify_warehouse_seals
+    - event_id: 1037
+      title_key: tv_engineering_department.1037.t
+      desc_key: tv_engineering_department.1037.d
+      option_keys:
+      - tv_engineering_department.1037.a
+      node_key: compact_translator_merchant_law
+    - event_id: 1038
+      title_key: tv_engineering_department.1038.t
+      desc_key: tv_engineering_department.1038.d
+      option_keys:
+      - tv_engineering_department.1038.a
+      - tv_engineering_department.1038.b
+      node_key: resolve_route_incident
+    - event_id: 1039
+      title_key: tv_engineering_department.1039.t
+      desc_key: tv_engineering_department.1039.d
+      option_keys:
+      - tv_engineering_department.1039.a
+      node_key: final_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_malacca_port
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Malacca is compiler_mapped only. The Harness records intermediate maritime route, warehouse, translator-law compact, route incident, reroute, domestic fallback, UI, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: port_covenant
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir plus existing Malacca finalization effects only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:maritime_trade_route_certification_backend intermediate backend contract
+    - capability:route_gate semantic projection
+    - capability:retry_branch semantic projection
+    - capability:final_reward_handoff semantic projection
+    - archetype:maritime_trade_route_covenant reference blueprint
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable maritime trade route source compiler
+    - loadable route_map repeated GUI rows
+    - exact EU5 monsoon route, warehouse certificate, translator-law compact, reroute, domestic fallback, and trade/market script syntax
+    remaining_source_writer_blockers:
+    - The new maritime_trade_route_certification_backend is intermediate-only and may_write_src false.
+    - No Harness source compiler expands Malacca monsoon route rows, warehouse certificate rows, translator-law compact rows, route incidents, reroute choices, or domestic fallback effects into loadable EU5 source.
+    - Malacca remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 116
     key: unique_red_fort_delhi
