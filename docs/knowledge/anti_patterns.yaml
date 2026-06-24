@@ -1750,6 +1750,17 @@
   source: "reference_game_files/game/in_game/common/building_types/capital_buildings.txt:615-617; reference_game_files/game/in_game/common/missions/generic_traditional_economy_mission_pack.txt:173-176; fixed in src/in_game/common/scripted_triggers/tv_engineering_department_triggers.txt"
   notes: "Building max_levels can stop normal construction but a custom IO/generic-action button can still spend its scripted price unless its action and effect repeat the cap logic. Re-check inside the effect because generic action UI pre-evaluation and stale target lists can otherwise charge the player for a no-op."
 
+- id: has_building_is_not_completion_gate
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['scripted_triggers', 'generic_actions', 'scripted_effects']
+  bad: "Using has_building = building_type:X as the gate for a mechanic that should unlock only after X is completed"
+  correction: "Use has_building_with_at_least_one_level = X for completed-building gates. Keep separate under-construction checks such as building_levels_under_construction >= 1 when the mechanic needs to block duplicate queues."
+  category: script
+  scope: building
+  source: "User-reported IO establishment bug, 2026-06-24; fixed in scripts/gen_victory.py. Syntax verified in reference_game_files/game/in_game/events/economy/building_events.txt:7 and reference_game_files/game/main_menu/localization/english/triggers_l_english.yml:2033."
+  notes: "The IO establishment headquarters cache used has_building on the capital, so starting construction made the step-3 appoint-chief action available before the headquarters finished. The completed gate must require an actual built level."
+
 - id: scripted_trigger_typed_parameter_double_prefix
   pattern: 'location_and_owner_can_build\s*=\s*\{[^}]*\bbuilding_type\s*=\s*building_type:'
   detectability: lint

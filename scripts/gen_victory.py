@@ -263,7 +263,7 @@ def gen_triggers(data: dict) -> str:
             lines.append(f"tv_{pid}_establishment_headquarters_done = {{")
             lines.append("\tcustom_tooltip = {")
             lines.append(f"\t\ttext = TV_{PID}_ESTABLISHMENT_STEP2_DONE_TT")
-            lines.append(f"\t\tcapital ?= {{ has_building = building_type:{building} }}")
+            lines.append(f"\t\tcapital ?= {{ has_building_with_at_least_one_level = {building} }}")
             lines.append("\t}")
             lines.append("}")
             lines.append("")
