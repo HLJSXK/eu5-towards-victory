@@ -70,7 +70,7 @@ tv_expel_trade_league_member = {
 }
 
 
-tv_trade_select_monopoly_category_basic = {
+tv_trade_select_monopoly_slot_1 = {
 	type = owncountry
 	sound = UI_action_diplomacy_generic
 	show_message = no
@@ -88,200 +88,18 @@ tv_trade_select_monopoly_category_basic = {
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_trade_league
 			}
-		}
-	}
-	effect = {
-		scope:actor = {
-			set_variable = { name = tv_trade_selected_monopoly_category value = 1 }
-			set_variable = { name = tv_trade_selected_monopoly_page value = 1 }
-			set_variable = { name = tv_trade_selected_good value = 1 }
-			tv_trade_league_refresh_monopoly_display_effect = yes
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_category_food = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	effect = {
-		scope:actor = {
-			set_variable = { name = tv_trade_selected_monopoly_category value = 2 }
-			set_variable = { name = tv_trade_selected_monopoly_page value = 1 }
-			set_variable = { name = tv_trade_selected_good value = 61 }
-			tv_trade_league_refresh_monopoly_display_effect = yes
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_category_manufactured = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	effect = {
-		scope:actor = {
-			set_variable = { name = tv_trade_selected_monopoly_category value = 3 }
-			set_variable = { name = tv_trade_selected_monopoly_page value = 1 }
-			set_variable = { name = tv_trade_selected_good value = 42 }
-			tv_trade_league_refresh_monopoly_display_effect = yes
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_category_luxury = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	effect = {
-		scope:actor = {
-			set_variable = { name = tv_trade_selected_monopoly_category value = 4 }
-			set_variable = { name = tv_trade_selected_monopoly_page value = 1 }
-			set_variable = { name = tv_trade_selected_good value = 7 }
-			tv_trade_league_refresh_monopoly_display_effect = yes
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_previous_monopoly_page = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	effect = {
-		scope:actor = {
-			tv_trade_league_refresh_monopoly_page_limits_effect = yes
-			change_variable = { name = tv_trade_selected_monopoly_page subtract = 1 }
-			tv_trade_league_select_first_displayed_monopoly_good_effect = yes
-			tv_trade_league_refresh_monopoly_display_effect = yes
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_next_monopoly_page = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	effect = {
-		scope:actor = {
-			tv_trade_league_refresh_monopoly_page_limits_effect = yes
-			change_variable = { name = tv_trade_selected_monopoly_page add = 1 }
-			tv_trade_league_select_first_displayed_monopoly_good_effect = yes
-			tv_trade_league_refresh_monopoly_display_effect = yes
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_1 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_1_visible ?= { this >= 1 }
+			var:tv_trade_monopoly_slot_1_unlocked ?= { this >= 1 }
+			var:tv_trade_monopoly_slot_1_good_index ?= { this > 0 }
 		}
 	}
 	effect = {
 		scope:actor = {
 			if = {
-				limit = { var:tv_trade_display_row_1_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_1_good_index }
+				limit = {
+					var:tv_trade_monopoly_slot_1_unlocked ?= { this >= 1 }
+					var:tv_trade_monopoly_slot_1_good_index ?= { this > 0 }
+				}
+				set_variable = { name = tv_trade_selected_good value = var:tv_trade_monopoly_slot_1_good_index }
 				tv_trade_league_refresh_selected_good_projection_effect = yes
 			}
 		}
@@ -289,7 +107,7 @@ tv_trade_select_monopoly_row_1 = {
 	ai_will_do = { add = -100 }
 }
 
-tv_trade_select_monopoly_row_2 = {
+tv_trade_select_monopoly_slot_2 = {
 	type = owncountry
 	sound = UI_action_diplomacy_generic
 	show_message = no
@@ -307,278 +125,18 @@ tv_trade_select_monopoly_row_2 = {
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_trade_league
 			}
-			var:tv_trade_display_row_2_visible ?= { this >= 1 }
+			var:tv_trade_monopoly_slot_2_unlocked ?= { this >= 1 }
+			var:tv_trade_monopoly_slot_2_good_index ?= { this > 0 }
 		}
 	}
 	effect = {
 		scope:actor = {
 			if = {
-				limit = { var:tv_trade_display_row_2_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_2_good_index }
-				tv_trade_league_refresh_selected_good_projection_effect = yes
-			}
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_3 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_3_visible ?= { this >= 1 }
-		}
-	}
-	effect = {
-		scope:actor = {
-			if = {
-				limit = { var:tv_trade_display_row_3_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_3_good_index }
-				tv_trade_league_refresh_selected_good_projection_effect = yes
-			}
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_4 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_4_visible ?= { this >= 1 }
-		}
-	}
-	effect = {
-		scope:actor = {
-			if = {
-				limit = { var:tv_trade_display_row_4_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_4_good_index }
-				tv_trade_league_refresh_selected_good_projection_effect = yes
-			}
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_5 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_5_visible ?= { this >= 1 }
-		}
-	}
-	effect = {
-		scope:actor = {
-			if = {
-				limit = { var:tv_trade_display_row_5_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_5_good_index }
-				tv_trade_league_refresh_selected_good_projection_effect = yes
-			}
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_6 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_6_visible ?= { this >= 1 }
-		}
-	}
-	effect = {
-		scope:actor = {
-			if = {
-				limit = { var:tv_trade_display_row_6_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_6_good_index }
-				tv_trade_league_refresh_selected_good_projection_effect = yes
-			}
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_7 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_7_visible ?= { this >= 1 }
-		}
-	}
-	effect = {
-		scope:actor = {
-			if = {
-				limit = { var:tv_trade_display_row_7_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_7_good_index }
-				tv_trade_league_refresh_selected_good_projection_effect = yes
-			}
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_8 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_8_visible ?= { this >= 1 }
-		}
-	}
-	effect = {
-		scope:actor = {
-			if = {
-				limit = { var:tv_trade_display_row_8_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_8_good_index }
-				tv_trade_league_refresh_selected_good_projection_effect = yes
-			}
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_9 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_9_visible ?= { this >= 1 }
-		}
-	}
-	effect = {
-		scope:actor = {
-			if = {
-				limit = { var:tv_trade_display_row_9_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_9_good_index }
-				tv_trade_league_refresh_selected_good_projection_effect = yes
-			}
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_trade_select_monopoly_row_10 = {
-	type = owncountry
-	sound = UI_action_diplomacy_generic
-	show_message = no
-	ai_tick = never
-	automation_tick = never
-	potential = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-		}
-	}
-	allow = {
-		scope:actor = {
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_trade_league
-			}
-			var:tv_trade_display_row_10_visible ?= { this >= 1 }
-		}
-	}
-	effect = {
-		scope:actor = {
-			if = {
-				limit = { var:tv_trade_display_row_10_visible ?= { this >= 1 } }
-				set_variable = { name = tv_trade_selected_good value = var:tv_trade_display_row_10_good_index }
+				limit = {
+					var:tv_trade_monopoly_slot_2_unlocked ?= { this >= 1 }
+					var:tv_trade_monopoly_slot_2_good_index ?= { this > 0 }
+				}
+				set_variable = { name = tv_trade_selected_good value = var:tv_trade_monopoly_slot_2_good_index }
 				tv_trade_league_refresh_selected_good_projection_effect = yes
 			}
 		}

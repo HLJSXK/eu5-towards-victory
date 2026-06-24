@@ -14,17 +14,14 @@ import yaml
 ROOT = pathlib.Path(__file__).parent.parent
 VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
-TRADE_GOODS = ROOT / "data/trade_league_goods.yaml"
 VICTORY_PATHS = ROOT / "data/victory_paths.yaml"
 IO_ESTABLISHMENT = ROOT / "data/io_establishment.yaml"
 
-DISPLAY_ROW_COUNT = 10
+MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
 
 TRADE_MONOPOLY_ACTIONS = [
-    "tv_trade_previous_monopoly_page",
-    "tv_trade_next_monopoly_page",
-    *(f"tv_trade_select_monopoly_row_{row}" for row in range(1, DISPLAY_ROW_COUNT + 1)),
+    *(f"tv_trade_select_monopoly_slot_{slot}" for slot in range(1, MONOPOLY_SLOT_COUNT + 1)),
     "tv_trade_previous_intelligence_page",
     "tv_trade_next_intelligence_page",
     *(f"tv_trade_select_intelligence_row_{row}" for row in range(1, INTELLIGENCE_ROW_COUNT + 1)),
@@ -1019,40 +1016,7 @@ PERFORM_tv_expel_trade_league_member_ACTION={
 
 
 def trade_monopoly_message_entries() -> str:
-    with TRADE_GOODS.open(encoding="utf-8") as file:
-        data = yaml.safe_load(file)
-    goods = data["goods"]
-    seen = {}
-    for category in data["categories"]:
-        if not category["goods"]:
-            raise ValueError(f"Trade League monopoly category {category['id']} has no goods")
-        for good in category["goods"]:
-            if good in seen:
-                raise ValueError(
-                    f"Trade League monopoly good {good} is in both {seen[good]} and {category['id']}"
-                )
-            seen[good] = category["id"]
-    missing = [good for good in goods if good not in seen]
-    extra = [good for good in seen if good not in goods]
-    if missing:
-        raise ValueError(f"Trade League monopoly goods missing categories: {', '.join(missing)}")
-    if extra:
-        raise ValueError(f"Trade League monopoly categories list unknown goods: {', '.join(extra)}")
     blocks = ["\n# ---- Generated Trade League monopoly controls ----\n"]
-    for category in data["categories"]:
-        action = category["action"]
-        blocks.append(
-            f"""PERFORM_{action}_ACTION={{
-\tlog=no
-\tonmap=no
-\tpopup=no
-\tidle=no
-\toption=no
-\tpausepopup=no
-\tmessage_category = economy
-}}
-"""
-        )
     for action in TRADE_MONOPOLY_ACTIONS:
         blocks.append(
             f"""PERFORM_{action}_ACTION={{
