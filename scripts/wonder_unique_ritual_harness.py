@@ -1224,6 +1224,27 @@ def default_spec_for_wonder(wonder: dict[str, Any]) -> dict[str, Any]:
     return stub_spec(wonder)
 
 
+def design_harness_spec_index(designs: dict[str, Any] | None = None) -> dict[str, dict[str, Any]]:
+    payload = designs if designs is not None else load_optional_yaml(DESIGN_FILE)
+    specs: dict[str, dict[str, Any]] = {}
+    if not isinstance(payload, dict):
+        return specs
+    for key, entry in list_index(payload).items():
+        harness_spec = entry.get("harness_spec") if isinstance(entry, dict) else None
+        if isinstance(harness_spec, dict):
+            specs[key] = harness_spec
+    return specs
+
+
+def _spec_entry_status(entry: dict[str, Any]) -> str:
+    identity = entry.get("identity")
+    if isinstance(identity, dict) and identity.get("status"):
+        return str(identity["status"])
+    if entry.get("status"):
+        return str(entry["status"])
+    return "stub"
+
+
 def design_placeholder_block(wonder: dict[str, Any]) -> str:
     ritual_key = str((wonder.get("ritual") or {}).get("key") or "ritual")
     title = ritual_key.replace("_", " ").title()
@@ -1296,11 +1317,19 @@ def append_missing_design_placeholders() -> list[str]:
 def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]:
     wonders = load_unique_wonders()
     existing_by_key = list_index(existing or {})
+    design_specs_by_key = design_harness_spec_index()
     entries = []
     for wonder in wonders:
         key = str(wonder["key"])
         default_entry = default_spec_for_wonder(wonder)
-        entry = deepcopy(existing_by_key.get(key)) if key in existing_by_key else deepcopy(default_entry)
+        design_entry = design_specs_by_key.get(key)
+        existing_entry = deepcopy(existing_by_key[key]) if key in existing_by_key else None
+        if existing_entry is None:
+            entry = deepcopy(design_entry) if design_entry is not None else deepcopy(default_entry)
+        elif design_entry is not None and _spec_entry_status(existing_entry) in STUB_STATUSES:
+            entry = deepcopy(design_entry)
+        else:
+            entry = existing_entry
         if isinstance(entry.get("node_graph"), dict):
             entry["node_graph"].setdefault("listeners", (default_entry.get("node_graph") or {}).get("listeners", []))
         entry["identity"] = {**base_identity(wonder, entry.get("identity", {}).get("status", "stub")), **entry.get("identity", {})}

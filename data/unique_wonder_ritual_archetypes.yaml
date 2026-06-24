@@ -361,3 +361,42 @@ archetypes:
     verification_tier: harness_v1_mechanic_blueprint
     may_write_src: false
     notes: "Venetian Arsenal-style rituals where a ropewalk, foundry, or guarded-basin work package is prepared, completed by an auxiliary-building/construction listener, inspected for defects, and either repaired/retried or handed to a final reward. Intermediate-only reference tag; it does not generate on_construction_ended hooks or loadable EU5 source."
+
+  - key: polder_water_board_closure_inspection
+    required_capabilities:
+      - event_chain
+      - retry_branch
+      - resource_gate
+      - branch_specific_reward_scaling
+      - repeated_entity_row_checklist_incident_log_backend
+      - water_management_restoration_completion_backend
+      - final_reward_handoff
+    allowed_node_kinds:
+      - event
+      - choice_event
+      - resource_gate
+      - listener_gate
+      - incident_event
+      - retry_event
+      - final_reward_dispatch
+    required_variable_roles:
+      - stage_state
+      - checklist_state
+      - resource_state
+      - listener_state
+      - incident_state
+      - reward_state
+    required_ui_components:
+      - checklist
+      - material_stockpile
+      - incident_log
+    required_listeners:
+      - auxiliary_building_completion
+    min_nodes: 6
+    max_nodes: 24
+    requires_retry_path: true
+    requires_hidden_executor_handoff: false
+    terminal_requires_capability: final_reward_handoff
+    verification_tier: harness_v1_mechanic_blueprint
+    may_write_src: false
+    notes: "Dutch Polders-style water-board rituals where a dike, pump/sluice, or parcel-tax work package is chosen, prepared with material and fiscal readiness, resolved by auxiliary-building or restoration completion inspection, and either repaired/retried or handed to a raw-material and production reward. Intermediate-only reference tag; it does not generate construction hooks, GUI rows, or loadable EU5 source."

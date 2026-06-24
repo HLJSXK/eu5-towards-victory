@@ -1116,16 +1116,22 @@ unique_wonders:
   proposed_core_mechanic: Pair Dutch Polder Works with a functional annex, structural repair, or inspection target in the Dike Closure, then resolve the weakness found at completion.
   player_agency_model: The player chooses the practical work package and whether to prioritize ceremony, repair, or operating doctrine.
   expected_ui_model:
+  - checklist
   - incident_log
   - material_stockpile
   expected_capabilities:
   - event_chain
   - final_reward_handoff
   - retry_branch
-  expected_listeners: []
+  - resource_gate
+  - branch_specific_reward_scaling
+  - repeated_entity_row_checklist_incident_log_backend
+  - water_management_restoration_completion_backend
+  expected_listeners:
+  - auxiliary_building_completion
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
-  risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  risk_or_failure_branch: If the inspection exposes a storm breach, pump failure, blocked timber supply, or water-tax refusal, the player repairs and retries the work package or accepts a narrower maintenance doctrine. The Harness may now declare the intermediate auxiliary-building completion listener, but loadable construction hooks and source writers remain blocked.
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Dutch Polder Works at Amsterdam: Dikes, pumps, windmills, drainage boards, and reclaimed fields turn the sea into taxable land. Most other wonders lack this exact Giant Dam Project role and the named Dike Closure proof, so copying the loop would lose the site-specific claim.'
   similarity_group: urban_restoration_completion
   authoring_status: drafted
