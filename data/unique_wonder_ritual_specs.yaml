@@ -47207,132 +47207,2002 @@ unique_wonders:
     base_key: palace_of_nations
     location: vienna
     runtime_prefix: tv_wonder_schoenbrunn_palace
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1426
+    key: open_habsburg_congress_audience
+  - id: 1427
+    key: choose_diplomatic_apartment_protocol
+  - id: 1428
+    key: certify_garden_gallery_congress_rows
+  - id: 1429
+    key: confront_delegation_precedence_dispute
+  - id: 1430
+    key: renegotiate_court_precedence_retry
+  - id: 1431
+    key: final_congress_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_schoenbrunn_palace needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - custom_diplomatic_court_protocol
+    historical_mechanic: Schoenbrunn diplomatic congress protocol that turns palace apartments, ceremonial gardens, gallery precedence, and foreign delegation concessions into a formal court negotiation proof.
+    summary: The player opens a court congress, chooses whether apartments, gardens, or a concession table hosts the audience, certifies named palace protocol rows, resolves a delegation precedence dispute, and hands a full or narrowed diplomatic proof to the reward layer.
+    mechanic_signature:
+      wonder_specific_hook: Baroque palace wings, ceremonial gardens, galleries, and diplomatic apartments make Schoenbrunn a diplomatic theater where foreign envoys must accept the host's order of audience before the palace can claim congress authority.
+      core_interaction_loop: The player opens the Habsburg Congress Audience, chooses a diplomatic apartment protocol, garden promenade audience, or concession-table bargain, certifies apartment precedence, gallery seating, garden procession, and foreign delegation pledge rows, confronts a delegation that rejects rank order, then renegotiates, narrows, or completes the diplomatic reward handoff.
+      player_decision_pattern: The player chooses the court setting and decides whether court prestige, estate privilege, or foreign recognition pays for consensus, then resolves the dispute through a concrete retry or narrowed reception instead of waiting passively.
+      state_feedback_model: The UI exposes the chosen diplomatic focus, protocol row status, incident state, and reward branch so the player can see whether the congress is a full palace settlement or only a reduced court reception.
+      failure_or_tension_model: A foreign delegation can reject precedence or refuse a concession, forcing the player to rewrite the audience order, grant a privilege bargain, or accept a weaker diplomatic ceremony with less foreign recognition.
+      reward_expression: Full completion preserves diplomatic reputation and prestige as a palace congress reward, while a narrowed branch still records local ceremonial memory and a one-time diplomatic outcome shaped by the accepted protocol.
+      reuse_risk_mitigation: This loop belongs to Schoenbrunn because the gardens and apartments are the diplomatic instrument; a generic palace audience would not test negotiated precedence across rooms, promenades, galleries, and foreign envoys.
+      custom_archetype_statement: Schoenbrunn uses a custom court-protocol archetype because the proof is not a vote, coronation, or commercial law compact; the palace itself arranges rank through apartments, gardens, galleries, and delegation concessions.
+    cadence_signature:
+      cadence_type: player_action_sequence
+      cadence_rationale: player_action_sequence fits because Baroque palace wings, ceremonial gardens, galleries, and diplomatic apartments make Schoenbrunn a diplomatic theater where foreign envoys must accept the host's order of audience before the palace can claim congress authority. The ritual resolves through explicit selection, proof rows, risk or listener validation, retry, and reward handoff rather than passive monthly accumulation.
+      player_agency_model: The player chooses the court setting and decides whether court prestige, estate privilege, or foreign recognition pays for consensus, then resolves the dispute through a concrete retry or narrowed reception instead of waiting passively.
+      non_monthly_triggers_or_reason: The non-monthly validation is the player choice at choose_diplomatic_apartment_protocol, the proof event at certify_garden_gallery_congress_rows, the risk or listener branch at confront_delegation_precedence_dispute, and the retry decision at renegotiate_court_precedence_retry.
+      pacing_failure_mode: The pacing fails if Habsburg Congress Audience becomes a one-click reward or anonymous progress bar; proof rows, incident or listener state, and reward branch must remain visible.
     listeners: []
+    entry_node: open_habsburg_congress_audience
+    terminal_nodes:
+    - final_congress_reward_handoff
+    runtime_variables:
+    - tv_wonder_schoenbrunn_palace_stage
+    - tv_wonder_schoenbrunn_palace_focus
+    - tv_wonder_schoenbrunn_palace_row_status
+    - tv_wonder_schoenbrunn_palace_incident_state
+    - tv_wonder_schoenbrunn_palace_reward_branch
+    graph_shape: diplomatic_apartment_congress_protocol
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_schoenbrunn_palace_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_habsburg_congress_audience
+      - choose_diplomatic_apartment_protocol
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      reader_nodes:
+      - open_habsburg_congress_audience
+      - choose_diplomatic_apartment_protocol
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_schoenbrunn_palace_focus
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - choose_diplomatic_apartment_protocol
+      reader_nodes:
+      - choose_diplomatic_apartment_protocol
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_schoenbrunn_palace_row_status
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      reader_nodes:
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_schoenbrunn_palace_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      reader_nodes:
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_schoenbrunn_palace_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - choose_diplomatic_apartment_protocol
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      reader_nodes:
+      - choose_diplomatic_apartment_protocol
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_habsburg_congress_audience
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1426
+      player_visible: true
+      historical_anchor: Habsburg Congress Audience opens at the fixed site before the player chooses which historical proof will carry the ceremony.
+      enter_condition: The completed unique_schoenbrunn_palace wonder can open its unique ritual without claiming source generation.
+      completion_condition: The opening records the sponsor, site, and Habsburg Congress Audience proof frame.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - choose_diplomatic_apartment_protocol
+      writes:
+      - tv_wonder_schoenbrunn_palace_stage
+      reads:
+      - tv_wonder_schoenbrunn_palace_stage
+      ui_state:
+        variable_refs:
+        - tv_wonder_schoenbrunn_palace_stage
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      - tv_engineering_department.500.d_unique_schoenbrunn_palace
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: choose_diplomatic_apartment_protocol
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - branch_specific_reward_scaling
+      event_id: 1427
+      player_visible: true
+      historical_anchor: The player chooses diplomatic apartment precedence, garden audience choreography, or congress concession table as the visible doctrine for Habsburg Congress Audience.
+      enter_condition: The opening node is complete and the player must choose the ritual focus.
+      completion_condition: The chosen focus, provisional reward branch, and selected actor or listener state where applicable are saved for proof rows.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_garden_gallery_congress_rows
+      writes:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_focus
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      reads:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_focus
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_schoenbrunn_palace_stage
+        - tv_wonder_schoenbrunn_palace_focus
+        - tv_wonder_schoenbrunn_palace_reward_branch
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      - tv_engineering_department.500.d_unique_schoenbrunn_palace
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: certify_garden_gallery_congress_rows
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1428
+      player_visible: true
+      historical_anchor: 'The named proof rows are certified: diplomatic apartment rank, gallery seating order, garden procession route, foreign delegation pledge.'
+      enter_condition: The ritual focus is chosen and its named rows must be certified before reward handoff.
+      completion_condition: The proof rows update checklist, incident, and reward state for the next validation node.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - confront_delegation_precedence_dispute
+      writes:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      reads:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_focus
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_schoenbrunn_palace_stage
+        - tv_wonder_schoenbrunn_palace_focus
+        - tv_wonder_schoenbrunn_palace_row_status
+        - tv_wonder_schoenbrunn_palace_incident_state
+        - tv_wonder_schoenbrunn_palace_reward_branch
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      - tv_engineering_department.500.d_unique_schoenbrunn_palace
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: confront_delegation_precedence_dispute
+      kind: incident_event
+      capabilities:
+      - event_chain
+      - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1429
+      player_visible: true
+      historical_anchor: The ritual confronts a delegation rejects precedence and threatens to turn the congress into a minor court reception.
+      enter_condition: The proof rows have been inspected and the visible risk or listener check must resolve.
+      completion_condition: The risk is resolved, routed to retry, or marked as a narrowed reward branch.
+      failure_or_retry: true
+      retry_target: certify_garden_gallery_congress_rows
+      next_nodes:
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      writes:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      reads:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_focus
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_schoenbrunn_palace_stage
+        - tv_wonder_schoenbrunn_palace_focus
+        - tv_wonder_schoenbrunn_palace_row_status
+        - tv_wonder_schoenbrunn_palace_incident_state
+        - tv_wonder_schoenbrunn_palace_reward_branch
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      - tv_engineering_department.500.d_unique_schoenbrunn_palace
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: renegotiate_court_precedence_retry
+      kind: retry_event
+      capabilities:
+      - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1430
+      player_visible: true
+      historical_anchor: The player may rewrite precedence, buy consent with a privilege bargain, or accept a smaller reception before final reward handoff.
+      enter_condition: The risk branch is active and the player chooses repair, reconciliation, or a narrower doctrine.
+      completion_condition: The retry changes proof state and reward branch so the ritual cannot loop as a no-op.
+      failure_or_retry: true
+      retry_target: certify_garden_gallery_congress_rows
+      next_nodes:
+      - final_congress_reward_handoff
+      writes:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      reads:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_focus
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_schoenbrunn_palace_stage
+        - tv_wonder_schoenbrunn_palace_focus
+        - tv_wonder_schoenbrunn_palace_row_status
+        - tv_wonder_schoenbrunn_palace_incident_state
+        - tv_wonder_schoenbrunn_palace_reward_branch
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      - tv_engineering_department.500.d_unique_schoenbrunn_palace
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: final_congress_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      - branch_specific_reward_scaling
+      event_id: 1431
+      player_visible: true
+      historical_anchor: The completed or narrowed Habsburg Congress Audience proof is handed to the existing unique wonder ceremony reward layer.
+      enter_condition: The proof rows or narrowed doctrine are accepted and reward dispatch may run as an intermediate Harness handoff.
+      completion_condition: Permanent country, local building, and one-time reward channels remain assigned to the existing finalization layer.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      reads:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_focus
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_schoenbrunn_palace_stage
+        - tv_wonder_schoenbrunn_palace_focus
+        - tv_wonder_schoenbrunn_palace_row_status
+        - tv_wonder_schoenbrunn_palace_incident_state
+        - tv_wonder_schoenbrunn_palace_reward_branch
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      - tv_engineering_department.500.d_unique_schoenbrunn_palace
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    edges: []
+    actions: []
+    checks: []
+  design_ir:
+    phases:
+    - Open Habsburg Congress Audience at vienna after ownership, control, completed wonder, and solvency are confirmed by future source checks.
+    - 'Choose the core focus: diplomatic apartment precedence, garden audience choreography, or congress concession table.'
+    - 'Certify named proof rows: diplomatic apartment rank, gallery seating order, garden procession route, foreign delegation pledge.'
+    - 'Resolve the risk branch: a delegation rejects precedence and threatens to turn the congress into a minor court reception.'
+    - 'Retry, repair, or narrow the doctrine: rewrite precedence, buy consent with a privilege bargain, or accept a smaller reception.'
+    - Hand the accepted branch to permanent country, local building, and one-time reward channels without source generation.
+    player_proofs:
+    - The player opens the Habsburg Congress Audience, chooses a diplomatic apartment protocol, garden promenade audience, or concession-table bargain, certifies apartment precedence, gallery seating, garden procession, and foreign delegation pledge rows, confronts a delegation that rejects rank order, then renegotiates, narrows, or completes the diplomatic reward handoff.
+    - The non-monthly validation is the chosen focus, proof-row certification, visible risk branch, and final retry or handoff decision for Habsburg Congress Audience.
+    tracked_entity_sets:
+    - key: schoenbrunn_palace_proof_rows
+      entity_type: ritual_proof_rows
+      state_values:
+      - unchecked
+      - accepted
+      - contested
+      - narrowed
+      per_entity_state: 'Rows preserved by design_ir: diplomatic apartment rank, gallery seating order, garden procession route, foreign delegation pledge. The current Harness projection stores them in tv_wonder_schoenbrunn_palace_row_status until future GUI row generation exists.'
+      selector: Fixed wonder site plus the chosen ritual focus; no new source selector is written in this pass.
+      ui_binding: schoenbrunn_palace_checklist_binding
+    selectors:
+    - Fixed historical location selector from data/unique_wonders.yaml.
+    - Player selection among diplomatic apartment precedence, garden audience choreography, or congress concession table.
+    - Optional actor or listener state is represented only through existing Harness capability contracts.
+    risk_branches:
+    - a delegation rejects precedence and threatens to turn the congress into a minor court reception
+    - Retry path lets the player rewrite precedence, buy consent with a privilege bargain, or accept a smaller reception and changes state before reward handoff.
+    player_actions:
+    - Open the ritual from the completed unique wonder state.
+    - Choose diplomatic apartment precedence, garden audience choreography, or congress concession table.
+    - Resolve the visible incident or listener result through retry, repair, or narrowed reward branch.
+    map_scope_evidence:
+    - 'Fixed site: vienna.'
+    - 'Runtime prefix: tv_wonder_schoenbrunn_palace.'
+    - Scope contracts remain country-rooted with explicit location, character, or none targets and tooltip_safe true.
+    ui_feedback_model:
+    - 'Components: checklist, incident_log.'
+    - 'Variables shown through bindings: tv_wonder_schoenbrunn_palace_stage, tv_wonder_schoenbrunn_palace_focus, tv_wonder_schoenbrunn_palace_row_status, tv_wonder_schoenbrunn_palace_incident_state, tv_wonder_schoenbrunn_palace_reward_branch.'
+    uniqueness_constraints:
+    - This loop belongs to Schoenbrunn because the gardens and apartments are the diplomatic instrument; a generic palace audience would not test negotiated precedence across rooms, promenades, galleries, and foreign envoys.
+    projection_notes:
+    - The Harness projection preserves named rows as checklist or actor/incident summaries rather than generating loadable GUI row source.
+    - All source predicates, exact EU5 trigger text, and reward scaling remain future source-compiler work; this pass only confirms trigger/listener/scope feasibility against existing contracts.
+    compiler_primitives:
+    - schoenbrunn_palace_scope_trigger_checks
+    - schoenbrunn_palace_row_incident_projection
+    - schoenbrunn_palace_reward_handoff
+    - schoenbrunn_palace_source_compiler_generation
+  compiler_gap_ledger:
+  - primitive: schoenbrunn_palace_scope_trigger_checks
+    design_semantics: Confirm ownership, control, completed unique_schoenbrunn_palace final building, solvency, tooltip-safe selected scopes, and the ritual-specific focus before Habsburg Congress Audience can advance.
+    required_game_interfaces:
+    - country-rooted trigger projection
+    - fixed wonder location check
+    - tooltip-safe selected target guards
+    codebase_evidence:
+    - capability:event_chain
+    verification_status: backend_ready
+    search_questions:
+    - Covered by current Harness semantic contracts; exact source predicates are intentionally not generated in this pass.
+    blocked_by: []
+    fallback_if_unavailable: Keep unique_schoenbrunn_palace at compiler_mapped with scope checks documented in design_ir.
+  - primitive: schoenbrunn_palace_row_incident_projection
+    design_semantics: Preserve Habsburg Congress Audience proof rows, incident branch, retry state, and branch-specific reward summary without loadable GUI or event source.
+    required_game_interfaces:
+    - checklist or actor UI summary
+    - incident or listener state
+    - retry branch state
+    - branch reward variable
+    codebase_evidence:
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:retry_branch
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate row, incident, retry, and branch contracts; no loadable row source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Use tv_wonder_schoenbrunn_palace_row_status, incident/listener state, and reward branch summary variables while preserving row detail in design_ir.
+  - primitive: schoenbrunn_palace_reward_handoff
+    design_semantics: Hand full or narrowed Habsburg Congress Audience proof to permanent country, local building, and one-time reward channels through the existing unique wonder finalization layer.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing unique wonder ceremony modifier handoff
+    - intermediate branch summary
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff and branch summary contracts; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave reward effects on the existing unique_schoenbrunn_palace finalization path and keep ritual proof as design metadata.
+  - primitive: schoenbrunn_palace_source_compiler_generation
+    design_semantics: A future source compiler would expand Habsburg Congress Audience nodes, trigger checks, UI rows, localization, incident/listener resolution, and branch-shaped rewards into loadable EU5 source.
+    required_game_interfaces:
+    - loadable event/effect/trigger generation
+    - loadable Engineering Department GUI row generation
+    - exact EU5 predicates for row checks, incidents, listener state, and reward scaling
+    codebase_evidence:
+    - Current capabilities and archetypes are intermediate-only and may_write_src false.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which exact future EU5 predicates should verify owned controlled Vienna, completed Schoenbrunn, selected diplomatic target, and safe privilege or concession scope without tooltip pre-evaluation hazards?
+    - Which future Harness source compiler should own loadable generation for unique_schoenbrunn_palace?
+    blocked_by:
+    - No source compiler for this ritual shape is in scope for this round.
+    - All current Harness backend contracts are intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep unique_schoenbrunn_palace at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: checklist
+      key: schoenbrunn_palace_checklist
+      status_variable: tv_wonder_schoenbrunn_palace_row_status
+    - type: incident_log
+      key: schoenbrunn_palace_incident_log
+      status_variable: tv_wonder_schoenbrunn_palace_incident_state
+    bindings:
+    - key: schoenbrunn_palace_checklist_binding
+      component_key: schoenbrunn_palace_checklist
+      variable_refs:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_focus
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      node_refs:
+      - open_habsburg_congress_audience
+      - choose_diplomatic_apartment_protocol
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      - tv_engineering_department.500.d_unique_schoenbrunn_palace
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+    - key: schoenbrunn_palace_incident_log_binding
+      component_key: schoenbrunn_palace_incident_log
+      variable_refs:
+      - tv_wonder_schoenbrunn_palace_stage
+      - tv_wonder_schoenbrunn_palace_focus
+      - tv_wonder_schoenbrunn_palace_row_status
+      - tv_wonder_schoenbrunn_palace_incident_state
+      - tv_wonder_schoenbrunn_palace_reward_branch
+      node_refs:
+      - open_habsburg_congress_audience
+      - choose_diplomatic_apartment_protocol
+      - certify_garden_gallery_congress_rows
+      - confront_delegation_precedence_dispute
+      - renegotiate_court_precedence_retry
+      - final_congress_reward_handoff
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      - tv_engineering_department.500.d_unique_schoenbrunn_palace
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing unique_schoenbrunn_palace ceremony modifier handoff
+      description: diplomatic reputation, prestige, local court-protocol memory, and one-time diplomatic momentum shaped by the accepted audience branch
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir unique_schoenbrunn_palace local memory
+      description: Local Vienna memory for diplomatic apartment rank, gallery seating order, garden procession route, and foreign delegation pledge.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir unique_schoenbrunn_palace branch outcome
+      description: One-time reward branch shaped by a delegation rejects precedence and threatens to turn the congress into a minor court reception and the player's retry or narrowed-doctrine choice.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+    - tv_engineering_department.500.d_unique_schoenbrunn_palace
+    - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+    event_keys:
+    - event_id: 1426
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_schoenbrunn_palace
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      node_key: open_habsburg_congress_audience
+    - event_id: 1427
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_schoenbrunn_palace
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      node_key: choose_diplomatic_apartment_protocol
+    - event_id: 1428
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_schoenbrunn_palace
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      node_key: certify_garden_gallery_congress_rows
+    - event_id: 1429
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_schoenbrunn_palace
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      node_key: confront_delegation_precedence_dispute
+    - event_id: 1430
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_schoenbrunn_palace
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      node_key: renegotiate_court_precedence_retry
+    - event_id: 1431
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_schoenbrunn_palace_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_schoenbrunn_palace
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_SCHOENBRUNN_PALACE_TT
+      node_key: final_congress_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_schoenbrunn_palace
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: unique_schoenbrunn_palace is compiler_mapped only. The Harness records intermediate Habsburg Congress Audience node, row, incident/listener, retry, UI, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: habsburg_congress_audience
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:branch_specific_reward_scaling
+    - capability:event_chain
+    - capability:final_reward_handoff
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:retry_branch
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable event/effect/trigger source generation
+    - loadable GUI row generation
+    - exact EU5 predicates for wonder-specific row checks, incident or listener branches, selected scopes, and reward scaling
+    remaining_source_writer_blockers:
+    - All used capabilities and archetypes are intermediate-only and may_write_src false.
+    - No Harness source compiler expands this compiler_mapped ritual into loadable EU5 src.
+    - unique_schoenbrunn_palace remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 208
     key: unique_electoral_conference_hall
     base_key: great_assembly_hall
     location: frankfurt
     runtime_prefix: tv_wonder_electoral_conference_hall
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1432
+    key: open_golden_bull_convocation
+  - id: 1433
+    key: appoint_electoral_notary
+  - id: 1434
+    key: certify_elector_bench_vote_roll
+  - id: 1435
+    key: confront_disputed_vote_precedence
+  - id: 1436
+    key: reconcile_elector_bench_retry
+  - id: 1437
+    key: final_electoral_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_electoral_conference_hall needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - custom_electoral_vote_certification
+    historical_mechanic: Frankfurt electoral conference certification where prince-elector benches, vote rolls, imperial seals, and civic witnesses authenticate the selection order before legitimacy rewards are trusted.
+    summary: The player appoints an electoral notary, chooses the certification emphasis, audits elector benches and vote rolls, resolves a disputed precedence incident, and finishes with a broad or narrowed election-law proof.
+    mechanic_signature:
+      wonder_specific_hook: Frankfurt council chambers, prince-elector benches, imperial seals, and civic halls turn royal election into public architecture, so the ritual proves the hall by making every vote and seal visible.
+      core_interaction_loop: The player opens the Golden Bull Convocation, appoints an electoral notary, chooses elector bench order, imperial seal custody, or civic witness certification, certifies elector bench seats, vote roll entries, seal chest custody, and town hall witness rows, confronts a disputed voter or precedence challenge, then retries, narrows, or completes the legitimacy reward handoff.
+      player_decision_pattern: The player chooses who authenticates the vote, accepts the legal concession tied to recognition, and resolves a disputed bench order or narrowed convocation rather than allowing a generic assembly bonus.
+      state_feedback_model: The UI exposes the selected vote-certification focus, row status, notary actor, incident state, and reward branch so the hall reads as a formal election apparatus rather than a passive progress track.
+      failure_or_tension_model: A prince-elector bench or civic witness can refuse the order of precedence, forcing a reconciliation retry, a narrower vote roll, or a reduced legitimacy branch.
+      reward_expression: Full completion preserves legitimacy and imperial-law credibility, while a narrowed branch still records local election memory and a one-time authority reward scaled by the accepted certification.
+      reuse_risk_mitigation: This loop belongs to Frankfurt because it certifies election procedure through elector benches and Golden Bull seals; other assembly halls do not turn a ruler election into the wonder's core proof.
+      custom_archetype_statement: The Electoral Conference Hall uses a custom vote-certification archetype because the ritual is neither a generic actor appointment nor a civic diet; the notary only works after elector benches, vote rolls, seals, and witnesses certify a ruler election.
+    cadence_signature:
+      cadence_type: player_action_sequence
+      cadence_rationale: player_action_sequence fits because Frankfurt council chambers, prince-elector benches, imperial seals, and civic halls turn royal election into public architecture, so the ritual proves the hall by making every vote and seal visible. The ritual resolves through explicit selection, proof rows, risk or listener validation, retry, and reward handoff rather than passive monthly accumulation.
+      player_agency_model: The player chooses who authenticates the vote, accepts the legal concession tied to recognition, and resolves a disputed bench order or narrowed convocation rather than allowing a generic assembly bonus.
+      non_monthly_triggers_or_reason: The non-monthly validation is the player choice at appoint_electoral_notary, the proof event at certify_elector_bench_vote_roll, the risk or listener branch at confront_disputed_vote_precedence, and the retry decision at reconcile_elector_bench_retry.
+      pacing_failure_mode: The pacing fails if Golden Bull Convocation becomes a one-click reward or anonymous progress bar; proof rows, incident or listener state, and reward branch must remain visible.
     listeners: []
+    entry_node: open_golden_bull_convocation
+    terminal_nodes:
+    - final_electoral_reward_handoff
+    runtime_variables:
+    - tv_wonder_electoral_conference_hall_stage
+    - tv_wonder_electoral_conference_hall_focus
+    - tv_wonder_electoral_conference_hall_row_status
+    - tv_wonder_electoral_conference_hall_incident_state
+    - tv_wonder_electoral_conference_hall_reward_branch
+    - tv_wonder_electoral_conference_hall_electoral_notary
+    graph_shape: elector_bench_vote_roll_certification
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_electoral_conference_hall_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_golden_bull_convocation
+      - appoint_electoral_notary
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      reader_nodes:
+      - open_golden_bull_convocation
+      - appoint_electoral_notary
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_electoral_conference_hall_focus
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - appoint_electoral_notary
+      reader_nodes:
+      - appoint_electoral_notary
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_electoral_conference_hall_row_status
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      reader_nodes:
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_electoral_conference_hall_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      reader_nodes:
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_electoral_conference_hall_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - appoint_electoral_notary
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      reader_nodes:
+      - appoint_electoral_notary
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_electoral_conference_hall_electoral_notary
+      scope: character
+      type: number
+      roles:
+      - assigned_actor
+      initial_value: 0
+      writer_nodes:
+      - appoint_electoral_notary
+      reader_nodes:
+      - appoint_electoral_notary
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_golden_bull_convocation
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1432
+      player_visible: true
+      historical_anchor: Golden Bull Convocation opens at the fixed site before the player chooses which historical proof will carry the ceremony.
+      enter_condition: The completed unique_electoral_conference_hall wonder can open its unique ritual without claiming source generation.
+      completion_condition: The opening records the sponsor, site, and Golden Bull Convocation proof frame.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - appoint_electoral_notary
+      writes:
+      - tv_wonder_electoral_conference_hall_stage
+      reads:
+      - tv_wonder_electoral_conference_hall_stage
+      ui_state:
+        variable_refs:
+        - tv_wonder_electoral_conference_hall_stage
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_electoral_conference_hall
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: appoint_electoral_notary
+      kind: assignment_gate
+      capabilities:
+      - actor_assignment
+      - actor_assignment_character_selector_backend
+      event_id: 1433
+      player_visible: true
+      historical_anchor: The player chooses elector bench order, imperial seal custody, or civic witness certification as the visible doctrine for Golden Bull Convocation.
+      enter_condition: The opening node is complete and the player must choose the ritual focus.
+      completion_condition: The chosen focus, provisional reward branch, and selected actor or listener state where applicable are saved for proof rows.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_elector_bench_vote_roll
+      writes:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_focus
+      - tv_wonder_electoral_conference_hall_reward_branch
+      - tv_wonder_electoral_conference_hall_electoral_notary
+      reads:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_focus
+      - tv_wonder_electoral_conference_hall_reward_branch
+      - tv_wonder_electoral_conference_hall_electoral_notary
+      ui_state:
+        variable_refs:
+        - tv_wonder_electoral_conference_hall_stage
+        - tv_wonder_electoral_conference_hall_focus
+        - tv_wonder_electoral_conference_hall_reward_branch
+        - tv_wonder_electoral_conference_hall_electoral_notary
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_electoral_conference_hall
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - character
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: certify_elector_bench_vote_roll
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1434
+      player_visible: true
+      historical_anchor: 'The named proof rows are certified: prince-elector bench seats, vote roll entries, imperial seal chest, Frankfurt civic witness oath.'
+      enter_condition: The ritual focus is chosen and its named rows must be certified before reward handoff.
+      completion_condition: The proof rows update checklist, incident, and reward state for the next validation node.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - confront_disputed_vote_precedence
+      writes:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      reads:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_focus
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      - tv_wonder_electoral_conference_hall_electoral_notary
+      ui_state:
+        variable_refs:
+        - tv_wonder_electoral_conference_hall_stage
+        - tv_wonder_electoral_conference_hall_focus
+        - tv_wonder_electoral_conference_hall_row_status
+        - tv_wonder_electoral_conference_hall_incident_state
+        - tv_wonder_electoral_conference_hall_reward_branch
+        - tv_wonder_electoral_conference_hall_electoral_notary
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_electoral_conference_hall
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: confront_disputed_vote_precedence
+      kind: incident_event
+      capabilities:
+      - event_chain
+      - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1435
+      player_visible: true
+      historical_anchor: The ritual confronts a disputed elector or civic audience refuses the order of precedence and threatens a reduced convocation.
+      enter_condition: The proof rows have been inspected and the visible risk or listener check must resolve.
+      completion_condition: The risk is resolved, routed to retry, or marked as a narrowed reward branch.
+      failure_or_retry: true
+      retry_target: certify_elector_bench_vote_roll
+      next_nodes:
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      writes:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      reads:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_focus
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      - tv_wonder_electoral_conference_hall_electoral_notary
+      ui_state:
+        variable_refs:
+        - tv_wonder_electoral_conference_hall_stage
+        - tv_wonder_electoral_conference_hall_focus
+        - tv_wonder_electoral_conference_hall_row_status
+        - tv_wonder_electoral_conference_hall_incident_state
+        - tv_wonder_electoral_conference_hall_reward_branch
+        - tv_wonder_electoral_conference_hall_electoral_notary
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_electoral_conference_hall
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: reconcile_elector_bench_retry
+      kind: retry_event
+      capabilities:
+      - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1436
+      player_visible: true
+      historical_anchor: The player may reconcile the bench order, re-attest the seal chest, or accept a narrower vote certification before final reward handoff.
+      enter_condition: The risk branch is active and the player chooses repair, reconciliation, or a narrower doctrine.
+      completion_condition: The retry changes proof state and reward branch so the ritual cannot loop as a no-op.
+      failure_or_retry: true
+      retry_target: certify_elector_bench_vote_roll
+      next_nodes:
+      - final_electoral_reward_handoff
+      writes:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      reads:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_focus
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      - tv_wonder_electoral_conference_hall_electoral_notary
+      ui_state:
+        variable_refs:
+        - tv_wonder_electoral_conference_hall_stage
+        - tv_wonder_electoral_conference_hall_focus
+        - tv_wonder_electoral_conference_hall_row_status
+        - tv_wonder_electoral_conference_hall_incident_state
+        - tv_wonder_electoral_conference_hall_reward_branch
+        - tv_wonder_electoral_conference_hall_electoral_notary
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_electoral_conference_hall
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: final_electoral_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      - branch_specific_reward_scaling
+      event_id: 1437
+      player_visible: true
+      historical_anchor: The completed or narrowed Golden Bull Convocation proof is handed to the existing unique wonder ceremony reward layer.
+      enter_condition: The proof rows or narrowed doctrine are accepted and reward dispatch may run as an intermediate Harness handoff.
+      completion_condition: Permanent country, local building, and one-time reward channels remain assigned to the existing finalization layer.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_reward_branch
+      reads:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_focus
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      - tv_wonder_electoral_conference_hall_electoral_notary
+      ui_state:
+        variable_refs:
+        - tv_wonder_electoral_conference_hall_stage
+        - tv_wonder_electoral_conference_hall_focus
+        - tv_wonder_electoral_conference_hall_row_status
+        - tv_wonder_electoral_conference_hall_incident_state
+        - tv_wonder_electoral_conference_hall_reward_branch
+        - tv_wonder_electoral_conference_hall_electoral_notary
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_electoral_conference_hall
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    edges: []
+    actions: []
+    checks: []
+  design_ir:
+    phases:
+    - Open Golden Bull Convocation at frankfurt after ownership, control, completed wonder, and solvency are confirmed by future source checks.
+    - 'Choose the core focus: elector bench order, imperial seal custody, or civic witness certification.'
+    - 'Certify named proof rows: prince-elector bench seats, vote roll entries, imperial seal chest, Frankfurt civic witness oath.'
+    - 'Resolve the risk branch: a disputed elector or civic audience refuses the order of precedence and threatens a reduced convocation.'
+    - 'Retry, repair, or narrow the doctrine: reconcile the bench order, re-attest the seal chest, or accept a narrower vote certification.'
+    - Hand the accepted branch to permanent country, local building, and one-time reward channels without source generation.
+    player_proofs:
+    - The player opens the Golden Bull Convocation, appoints an electoral notary, chooses elector bench order, imperial seal custody, or civic witness certification, certifies elector bench seats, vote roll entries, seal chest custody, and town hall witness rows, confronts a disputed voter or precedence challenge, then retries, narrows, or completes the legitimacy reward handoff.
+    - The non-monthly validation is the chosen focus, proof-row certification, visible risk branch, and final retry or handoff decision for Golden Bull Convocation.
+    tracked_entity_sets:
+    - key: electoral_conference_hall_proof_rows
+      entity_type: ritual_proof_rows
+      state_values:
+      - unchecked
+      - accepted
+      - contested
+      - narrowed
+      per_entity_state: 'Rows preserved by design_ir: prince-elector bench seats, vote roll entries, imperial seal chest, Frankfurt civic witness oath. The current Harness projection stores them in tv_wonder_electoral_conference_hall_row_status until future GUI row generation exists.'
+      selector: Fixed wonder site plus the chosen ritual focus; no new source selector is written in this pass.
+      ui_binding: electoral_conference_hall_checklist_binding
+    selectors:
+    - Fixed historical location selector from data/unique_wonders.yaml.
+    - Player selection among elector bench order, imperial seal custody, or civic witness certification.
+    - Optional actor or listener state is represented only through existing Harness capability contracts.
+    risk_branches:
+    - a disputed elector or civic audience refuses the order of precedence and threatens a reduced convocation
+    - Retry path lets the player reconcile the bench order, re-attest the seal chest, or accept a narrower vote certification and changes state before reward handoff.
+    player_actions:
+    - Open the ritual from the completed unique wonder state.
+    - Choose elector bench order, imperial seal custody, or civic witness certification.
+    - Resolve the visible incident or listener result through retry, repair, or narrowed reward branch.
+    map_scope_evidence:
+    - 'Fixed site: frankfurt.'
+    - 'Runtime prefix: tv_wonder_electoral_conference_hall.'
+    - Scope contracts remain country-rooted with explicit location, character, or none targets and tooltip_safe true.
+    ui_feedback_model:
+    - 'Components: checklist, progress_track.'
+    - 'Variables shown through bindings: tv_wonder_electoral_conference_hall_stage, tv_wonder_electoral_conference_hall_focus, tv_wonder_electoral_conference_hall_row_status, tv_wonder_electoral_conference_hall_incident_state, tv_wonder_electoral_conference_hall_reward_branch, tv_wonder_electoral_conference_hall_electoral_notary.'
+    uniqueness_constraints:
+    - This loop belongs to Frankfurt because it certifies election procedure through elector benches and Golden Bull seals; other assembly halls do not turn a ruler election into the wonder's core proof.
+    projection_notes:
+    - The Harness projection preserves named rows as checklist or actor/incident summaries rather than generating loadable GUI row source.
+    - All source predicates, exact EU5 trigger text, and reward scaling remain future source-compiler work; this pass only confirms trigger/listener/scope feasibility against existing contracts.
+    compiler_primitives:
+    - electoral_conference_hall_scope_trigger_checks
+    - electoral_conference_hall_row_incident_projection
+    - electoral_conference_hall_reward_handoff
+    - electoral_conference_hall_source_compiler_generation
+  compiler_gap_ledger:
+  - primitive: electoral_conference_hall_scope_trigger_checks
+    design_semantics: Confirm ownership, control, completed unique_electoral_conference_hall final building, solvency, tooltip-safe selected scopes, and the ritual-specific focus before Golden Bull Convocation can advance.
+    required_game_interfaces:
+    - country-rooted trigger projection
+    - fixed wonder location check
+    - tooltip-safe selected target guards
+    codebase_evidence:
+    - capability:event_chain
+    - capability:actor_assignment
+    - capability:actor_assignment_character_selector_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by current Harness semantic contracts; exact source predicates are intentionally not generated in this pass.
+    blocked_by: []
+    fallback_if_unavailable: Keep unique_electoral_conference_hall at compiler_mapped with scope checks documented in design_ir.
+  - primitive: electoral_conference_hall_row_incident_projection
+    design_semantics: Preserve Golden Bull Convocation proof rows, incident branch, retry state, and branch-specific reward summary without loadable GUI or event source.
+    required_game_interfaces:
+    - checklist or actor UI summary
+    - incident or listener state
+    - retry branch state
+    - branch reward variable
+    codebase_evidence:
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:retry_branch
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate row, incident, retry, and branch contracts; no loadable row source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Use tv_wonder_electoral_conference_hall_row_status, incident/listener state, and reward branch summary variables while preserving row detail in design_ir.
+  - primitive: electoral_conference_hall_reward_handoff
+    design_semantics: Hand full or narrowed Golden Bull Convocation proof to permanent country, local building, and one-time reward channels through the existing unique wonder finalization layer.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing unique wonder ceremony modifier handoff
+    - intermediate branch summary
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff and branch summary contracts; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave reward effects on the existing unique_electoral_conference_hall finalization path and keep ritual proof as design metadata.
+  - primitive: electoral_conference_hall_source_compiler_generation
+    design_semantics: A future source compiler would expand Golden Bull Convocation nodes, trigger checks, UI rows, localization, incident/listener resolution, and branch-shaped rewards into loadable EU5 source.
+    required_game_interfaces:
+    - loadable event/effect/trigger generation
+    - loadable Engineering Department GUI row generation
+    - exact EU5 predicates for row checks, incidents, listener state, and reward scaling
+    codebase_evidence:
+    - Current capabilities and archetypes are intermediate-only and may_write_src false.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which exact future EU5 predicates should verify the selected voter, notary or policy target for Golden Bull certification without unsafe tooltip target reads?
+    - Which future Harness source compiler should own loadable generation for unique_electoral_conference_hall?
+    blocked_by:
+    - No source compiler for this ritual shape is in scope for this round.
+    - All current Harness backend contracts are intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep unique_electoral_conference_hall at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: checklist
+      key: electoral_conference_hall_checklist
+      status_variable: tv_wonder_electoral_conference_hall_row_status
+    - type: progress_track
+      key: electoral_conference_hall_progress_track
+      progress_variable: tv_wonder_electoral_conference_hall_row_status
+    bindings:
+    - key: electoral_conference_hall_checklist_binding
+      component_key: electoral_conference_hall_checklist
+      variable_refs:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_focus
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      - tv_wonder_electoral_conference_hall_electoral_notary
+      node_refs:
+      - open_golden_bull_convocation
+      - appoint_electoral_notary
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_electoral_conference_hall
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+    - key: electoral_conference_hall_progress_track_binding
+      component_key: electoral_conference_hall_progress_track
+      variable_refs:
+      - tv_wonder_electoral_conference_hall_stage
+      - tv_wonder_electoral_conference_hall_focus
+      - tv_wonder_electoral_conference_hall_row_status
+      - tv_wonder_electoral_conference_hall_incident_state
+      - tv_wonder_electoral_conference_hall_reward_branch
+      - tv_wonder_electoral_conference_hall_electoral_notary
+      node_refs:
+      - open_golden_bull_convocation
+      - appoint_electoral_notary
+      - certify_elector_bench_vote_roll
+      - confront_disputed_vote_precedence
+      - reconcile_elector_bench_retry
+      - final_electoral_reward_handoff
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_electoral_conference_hall
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing unique_electoral_conference_hall ceremony modifier handoff
+      description: legitimacy, imperial-law credibility, local election memory, and one-time authority momentum shaped by the certified vote branch
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir unique_electoral_conference_hall local memory
+      description: Local Frankfurt memory for prince-elector bench seats, vote roll entries, imperial seal chest, and civic witness oath.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir unique_electoral_conference_hall branch outcome
+      description: One-time reward branch shaped by a disputed elector or civic audience refuses the order of precedence and threatens a reduced convocation and the player's retry or narrowed-doctrine choice.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+    - tv_engineering_department.500.d_unique_electoral_conference_hall
+    - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+    event_keys:
+    - event_id: 1432
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_electoral_conference_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      node_key: open_golden_bull_convocation
+    - event_id: 1433
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_electoral_conference_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      node_key: appoint_electoral_notary
+    - event_id: 1434
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_electoral_conference_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      node_key: certify_elector_bench_vote_roll
+    - event_id: 1435
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_electoral_conference_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      node_key: confront_disputed_vote_precedence
+    - event_id: 1436
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_electoral_conference_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      node_key: reconcile_elector_bench_retry
+    - event_id: 1437
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_electoral_conference_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_electoral_conference_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_ELECTORAL_CONFERENCE_HALL_TT
+      node_key: final_electoral_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_electoral_conference_hall
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: unique_electoral_conference_hall is compiler_mapped only. The Harness records intermediate Golden Bull Convocation node, row, incident/listener, retry, UI, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: golden_bull_convocation
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:actor_assignment
+    - capability:actor_assignment_character_selector_backend
+    - capability:branch_specific_reward_scaling
+    - capability:event_chain
+    - capability:final_reward_handoff
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:retry_branch
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable event/effect/trigger source generation
+    - loadable GUI row generation
+    - exact EU5 predicates for wonder-specific row checks, incident or listener branches, selected scopes, and reward scaling
+    remaining_source_writer_blockers:
+    - All used capabilities and archetypes are intermediate-only and may_write_src false.
+    - No Harness source compiler expands this compiler_mapped ritual into loadable EU5 src.
+    - unique_electoral_conference_hall remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 209
     key: unique_aachen_cathedral
     base_key: grand_cathedral
     location: aachen
     runtime_prefix: tv_wonder_aachen_cathedral
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1438
+    key: open_imperial_coronation_liturgy
+  - id: 1439
+    key: prepare_coronation_successor_oath
+  - id: 1440
+    key: certify_throne_reliquary_liturgy_rows
+  - id: 1441
+    key: await_successor_oath_listener
+  - id: 1442
+    key: repeat_or_narrow_coronation_retry
+  - id: 1443
+    key: final_coronation_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_aachen_cathedral needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
-    listeners: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - custom_imperial_coronation_succession
+    historical_mechanic: Aachen coronation succession oath where the octagonal chapel, imperial throne, Gothic choir, reliquaries, and prepared successor bind ruler continuity to a ruler-death validation window.
+    summary: The player prepares a successor oath, chooses the coronation emphasis, certifies throne and reliquary rows, waits for the ruler-death succession listener, resolves weak recognition, and hands a full or narrowed legitimacy proof to rewards.
+    mechanic_signature:
+      wonder_specific_hook: Carolingian stone, an octagonal chapel, Gothic choir, imperial throne, and golden reliquaries make Aachen Cathedral a shrine of coronation memory, so the rite must survive an actual succession validation point.
+      core_interaction_loop: The player opens the Imperial Coronation Liturgy, prepares an heir, ruler, or dynastic guardian oath, chooses throne acclamation, reliquary procession, or choir liturgy, certifies octagonal chapel order, imperial throne access, reliquary guardianship, and princely witness rows, then the ruler_death listener validates whether the successor oath holds before retry or reward handoff.
+      player_decision_pattern: The player chooses oath terms before succession, decides how much clerical and princely recognition to risk, and responds to a weak succession with repeat liturgy or a narrower legitimacy claim.
+      state_feedback_model: The UI exposes the oath actor, liturgy focus, proof row status, listener state, incident state, and reward branch so the player sees preparation before succession and the outcome after the ruler-death validation.
+      failure_or_tension_model: If the throne rite lacks clerical or princely recognition when succession is validated, the player must repeat the liturgy, narrow the imperial claim, or accept reduced legitimacy.
+      reward_expression: Full completion preserves legitimacy and clergy satisfaction through a coronation memory reward, while a narrowed branch still records local liturgical memory and a one-time continuity reward shaped by succession strength.
+      reuse_risk_mitigation: This loop belongs to Aachen because it joins Charlemagne's chapel, the imperial throne, reliquaries, and actual succession; most cathedrals do not make ruler continuity the validation gate.
+      custom_archetype_statement: Aachen uses a custom imperial-coronation succession archetype because its key proof is a prepared oath surviving the ruler_death listener at a throne cathedral, not a generic cathedral procession or court appointment.
+    cadence_signature:
+      cadence_type: succession_validated
+      cadence_rationale: succession_validated fits because Carolingian stone, an octagonal chapel, Gothic choir, imperial throne, and golden reliquaries make Aachen Cathedral a shrine of coronation memory, so the rite must survive an actual succession validation point. The ritual resolves through explicit selection, proof rows, risk or listener validation, retry, and reward handoff rather than passive monthly accumulation.
+      player_agency_model: The player chooses oath terms before succession, decides how much clerical and princely recognition to risk, and responds to a weak succession with repeat liturgy or a narrower legitimacy claim.
+      non_monthly_triggers_or_reason: The non-monthly validation is the player choice at prepare_coronation_successor_oath, the proof event at certify_throne_reliquary_liturgy_rows, the risk or listener branch at await_successor_oath_listener, and the retry decision at repeat_or_narrow_coronation_retry.
+      pacing_failure_mode: The pacing fails if Imperial Coronation Liturgy becomes a one-click reward or anonymous progress bar; proof rows, incident or listener state, and reward branch must remain visible.
+    listeners:
+    - ruler_death
+    entry_node: open_imperial_coronation_liturgy
+    terminal_nodes:
+    - final_coronation_reward_handoff
+    runtime_variables:
+    - tv_wonder_aachen_cathedral_stage
+    - tv_wonder_aachen_cathedral_focus
+    - tv_wonder_aachen_cathedral_row_status
+    - tv_wonder_aachen_cathedral_incident_state
+    - tv_wonder_aachen_cathedral_reward_branch
+    - tv_wonder_aachen_cathedral_coronation_successor
+    - tv_wonder_aachen_cathedral_listener_state
+    graph_shape: coronation_oath_succession_validation
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_aachen_cathedral_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_imperial_coronation_liturgy
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      reader_nodes:
+      - open_imperial_coronation_liturgy
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_aachen_cathedral_focus
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - prepare_coronation_successor_oath
+      reader_nodes:
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_aachen_cathedral_row_status
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      reader_nodes:
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_aachen_cathedral_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      reader_nodes:
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_aachen_cathedral_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      reader_nodes:
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_aachen_cathedral_coronation_successor
+      scope: character
+      type: number
+      roles:
+      - assigned_actor
+      initial_value: 0
+      writer_nodes:
+      - prepare_coronation_successor_oath
+      reader_nodes:
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_aachen_cathedral_listener_state
+      scope: country
+      type: number
+      roles:
+      - listener_state
+      initial_value: 0
+      writer_nodes:
+      - prepare_coronation_successor_oath
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      reader_nodes:
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_imperial_coronation_liturgy
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1438
+      player_visible: true
+      historical_anchor: Imperial Coronation Liturgy opens at the fixed site before the player chooses which historical proof will carry the ceremony.
+      enter_condition: The completed unique_aachen_cathedral wonder can open its unique ritual without claiming source generation.
+      completion_condition: The opening records the sponsor, site, and Imperial Coronation Liturgy proof frame.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - prepare_coronation_successor_oath
+      writes:
+      - tv_wonder_aachen_cathedral_stage
+      reads:
+      - tv_wonder_aachen_cathedral_stage
+      ui_state:
+        variable_refs:
+        - tv_wonder_aachen_cathedral_stage
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      - tv_engineering_department.500.d_unique_aachen_cathedral
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: prepare_coronation_successor_oath
+      kind: assignment_gate
+      capabilities:
+      - actor_assignment
+      - actor_assignment_character_selector_backend
+      event_id: 1439
+      player_visible: true
+      historical_anchor: The player chooses throne acclamation, reliquary procession, or choir liturgy oath as the visible doctrine for Imperial Coronation Liturgy.
+      enter_condition: The opening node is complete and the player must choose the ritual focus.
+      completion_condition: The chosen focus, provisional reward branch, and selected actor or listener state where applicable are saved for proof rows.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_throne_reliquary_liturgy_rows
+      writes:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_focus
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_coronation_successor
+      - tv_wonder_aachen_cathedral_listener_state
+      reads:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_focus
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_coronation_successor
+      - tv_wonder_aachen_cathedral_listener_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_aachen_cathedral_stage
+        - tv_wonder_aachen_cathedral_focus
+        - tv_wonder_aachen_cathedral_reward_branch
+        - tv_wonder_aachen_cathedral_coronation_successor
+        - tv_wonder_aachen_cathedral_listener_state
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      - tv_engineering_department.500.d_unique_aachen_cathedral
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - character
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: certify_throne_reliquary_liturgy_rows
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1440
+      player_visible: true
+      historical_anchor: 'The named proof rows are certified: octagonal chapel order, imperial throne access, reliquary guardianship, princely witness register.'
+      enter_condition: The ritual focus is chosen and its named rows must be certified before reward handoff.
+      completion_condition: The proof rows update checklist, incident, and reward state for the next validation node.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - await_successor_oath_listener
+      writes:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      reads:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_focus
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_coronation_successor
+      - tv_wonder_aachen_cathedral_listener_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_aachen_cathedral_stage
+        - tv_wonder_aachen_cathedral_focus
+        - tv_wonder_aachen_cathedral_row_status
+        - tv_wonder_aachen_cathedral_incident_state
+        - tv_wonder_aachen_cathedral_reward_branch
+        - tv_wonder_aachen_cathedral_coronation_successor
+        - tv_wonder_aachen_cathedral_listener_state
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      - tv_engineering_department.500.d_unique_aachen_cathedral
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: await_successor_oath_listener
+      kind: listener_gate
+      capabilities:
+      - listener_gate
+      event_id: 1441
+      player_visible: true
+      historical_anchor: The ritual confronts the succession oath lacks clerical or princely recognition and threatens a reduced imperial claim.
+      enter_condition: The proof rows have been inspected and the visible risk or listener check must resolve.
+      completion_condition: The risk is resolved, routed to retry, or marked as a narrowed reward branch.
+      failure_or_retry: true
+      retry_target: certify_throne_reliquary_liturgy_rows
+      next_nodes:
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      writes:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_listener_state
+      reads:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_focus
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_coronation_successor
+      - tv_wonder_aachen_cathedral_listener_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_aachen_cathedral_stage
+        - tv_wonder_aachen_cathedral_focus
+        - tv_wonder_aachen_cathedral_row_status
+        - tv_wonder_aachen_cathedral_incident_state
+        - tv_wonder_aachen_cathedral_reward_branch
+        - tv_wonder_aachen_cathedral_coronation_successor
+        - tv_wonder_aachen_cathedral_listener_state
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      - tv_engineering_department.500.d_unique_aachen_cathedral
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - character
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      listener_contract:
+        listener: ruler_death
+        cadence: Succession validation when the prepared ruler or heir oath is tested after ruler death.
+        reads:
+        - tv_wonder_aachen_cathedral_stage
+        - tv_wonder_aachen_cathedral_focus
+        - tv_wonder_aachen_cathedral_row_status
+        - tv_wonder_aachen_cathedral_incident_state
+        - tv_wonder_aachen_cathedral_reward_branch
+        - tv_wonder_aachen_cathedral_coronation_successor
+        - tv_wonder_aachen_cathedral_listener_state
+        writes:
+        - tv_wonder_aachen_cathedral_stage
+        - tv_wonder_aachen_cathedral_incident_state
+        - tv_wonder_aachen_cathedral_reward_branch
+        - tv_wonder_aachen_cathedral_listener_state
+        completion_check: Successor oath, Aachen site control, chapel row status, and legitimacy recognition are checked by future source work.
+        failure_route: repeat_or_narrow_coronation_retry
+    - key: repeat_or_narrow_coronation_retry
+      kind: retry_event
+      capabilities:
+      - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1442
+      player_visible: true
+      historical_anchor: The player may repeat the liturgy, secure witnesses again, or accept a narrower coronation memory before final reward handoff.
+      enter_condition: The risk branch is active and the player chooses repair, reconciliation, or a narrower doctrine.
+      completion_condition: The retry changes proof state and reward branch so the ritual cannot loop as a no-op.
+      failure_or_retry: true
+      retry_target: certify_throne_reliquary_liturgy_rows
+      next_nodes:
+      - final_coronation_reward_handoff
+      writes:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_listener_state
+      reads:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_focus
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_coronation_successor
+      - tv_wonder_aachen_cathedral_listener_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_aachen_cathedral_stage
+        - tv_wonder_aachen_cathedral_focus
+        - tv_wonder_aachen_cathedral_row_status
+        - tv_wonder_aachen_cathedral_incident_state
+        - tv_wonder_aachen_cathedral_reward_branch
+        - tv_wonder_aachen_cathedral_coronation_successor
+        - tv_wonder_aachen_cathedral_listener_state
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      - tv_engineering_department.500.d_unique_aachen_cathedral
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: final_coronation_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      - branch_specific_reward_scaling
+      event_id: 1443
+      player_visible: true
+      historical_anchor: The completed or narrowed Imperial Coronation Liturgy proof is handed to the existing unique wonder ceremony reward layer.
+      enter_condition: The proof rows or narrowed doctrine are accepted and reward dispatch may run as an intermediate Harness handoff.
+      completion_condition: Permanent country, local building, and one-time reward channels remain assigned to the existing finalization layer.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_reward_branch
+      reads:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_focus
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_coronation_successor
+      - tv_wonder_aachen_cathedral_listener_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_aachen_cathedral_stage
+        - tv_wonder_aachen_cathedral_focus
+        - tv_wonder_aachen_cathedral_row_status
+        - tv_wonder_aachen_cathedral_incident_state
+        - tv_wonder_aachen_cathedral_reward_branch
+        - tv_wonder_aachen_cathedral_coronation_successor
+        - tv_wonder_aachen_cathedral_listener_state
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      - tv_engineering_department.500.d_unique_aachen_cathedral
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    edges: []
+    actions: []
+    checks: []
+  design_ir:
+    phases:
+    - Open Imperial Coronation Liturgy at aachen after ownership, control, completed wonder, and solvency are confirmed by future source checks.
+    - 'Choose the core focus: throne acclamation, reliquary procession, or choir liturgy oath.'
+    - 'Certify named proof rows: octagonal chapel order, imperial throne access, reliquary guardianship, princely witness register.'
+    - 'Resolve the risk branch: the succession oath lacks clerical or princely recognition and threatens a reduced imperial claim.'
+    - 'Retry, repair, or narrow the doctrine: repeat the liturgy, secure witnesses again, or accept a narrower coronation memory.'
+    - Hand the accepted branch to permanent country, local building, and one-time reward channels without source generation.
+    player_proofs:
+    - The player opens the Imperial Coronation Liturgy, prepares an heir, ruler, or dynastic guardian oath, chooses throne acclamation, reliquary procession, or choir liturgy, certifies octagonal chapel order, imperial throne access, reliquary guardianship, and princely witness rows, then the ruler_death listener validates whether the successor oath holds before retry or reward handoff.
+    - The non-monthly validation is the chosen focus, proof-row certification, visible risk branch, and final retry or handoff decision for Imperial Coronation Liturgy.
+    tracked_entity_sets:
+    - key: aachen_cathedral_proof_rows
+      entity_type: ritual_proof_rows
+      state_values:
+      - unchecked
+      - accepted
+      - contested
+      - narrowed
+      per_entity_state: 'Rows preserved by design_ir: octagonal chapel order, imperial throne access, reliquary guardianship, princely witness register. The current Harness projection stores them in tv_wonder_aachen_cathedral_row_status until future GUI row generation exists.'
+      selector: Fixed wonder site plus the chosen ritual focus; no new source selector is written in this pass.
+      ui_binding: aachen_cathedral_checklist_binding
+    selectors:
+    - Fixed historical location selector from data/unique_wonders.yaml.
+    - Player selection among throne acclamation, reliquary procession, or choir liturgy oath.
+    - Optional actor or listener state is represented only through existing Harness capability contracts.
+    risk_branches:
+    - the succession oath lacks clerical or princely recognition and threatens a reduced imperial claim
+    - Retry path lets the player repeat the liturgy, secure witnesses again, or accept a narrower coronation memory and changes state before reward handoff.
+    player_actions:
+    - Open the ritual from the completed unique wonder state.
+    - Choose throne acclamation, reliquary procession, or choir liturgy oath.
+    - Resolve the visible incident or listener result through retry, repair, or narrowed reward branch.
+    map_scope_evidence:
+    - 'Fixed site: aachen.'
+    - 'Runtime prefix: tv_wonder_aachen_cathedral.'
+    - Scope contracts remain country-rooted with explicit location, character, or none targets and tooltip_safe true.
+    ui_feedback_model:
+    - 'Components: actor_slots, incident_log.'
+    - 'Variables shown through bindings: tv_wonder_aachen_cathedral_stage, tv_wonder_aachen_cathedral_focus, tv_wonder_aachen_cathedral_row_status, tv_wonder_aachen_cathedral_incident_state, tv_wonder_aachen_cathedral_reward_branch, tv_wonder_aachen_cathedral_coronation_successor, tv_wonder_aachen_cathedral_listener_state.'
+    uniqueness_constraints:
+    - This loop belongs to Aachen because it joins Charlemagne's chapel, the imperial throne, reliquaries, and actual succession; most cathedrals do not make ruler continuity the validation gate.
+    projection_notes:
+    - The Harness projection preserves named rows as checklist or actor/incident summaries rather than generating loadable GUI row source.
+    - All source predicates, exact EU5 trigger text, and reward scaling remain future source-compiler work; this pass only confirms trigger/listener/scope feasibility against existing contracts.
+    compiler_primitives:
+    - aachen_cathedral_scope_trigger_checks
+    - aachen_cathedral_row_incident_projection
+    - aachen_cathedral_reward_handoff
+    - aachen_cathedral_source_compiler_generation
+  compiler_gap_ledger:
+  - primitive: aachen_cathedral_scope_trigger_checks
+    design_semantics: Confirm ownership, control, completed unique_aachen_cathedral final building, solvency, tooltip-safe selected scopes, and the ritual-specific focus before Imperial Coronation Liturgy can advance.
+    required_game_interfaces:
+    - country-rooted trigger projection
+    - fixed wonder location check
+    - tooltip-safe selected target guards
+    codebase_evidence:
+    - capability:event_chain
+    - capability:actor_assignment
+    - capability:actor_assignment_character_selector_backend
+    - capability:listener_gate
+    verification_status: backend_ready
+    search_questions:
+    - Covered by current Harness semantic contracts; exact source predicates are intentionally not generated in this pass.
+    blocked_by: []
+    fallback_if_unavailable: Keep unique_aachen_cathedral at compiler_mapped with scope checks documented in design_ir.
+  - primitive: aachen_cathedral_row_incident_projection
+    design_semantics: Preserve Imperial Coronation Liturgy proof rows, incident branch, retry state, and branch-specific reward summary without loadable GUI or event source.
+    required_game_interfaces:
+    - checklist or actor UI summary
+    - incident or listener state
+    - retry branch state
+    - branch reward variable
+    codebase_evidence:
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:retry_branch
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate row, incident, retry, and branch contracts; no loadable row source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Use tv_wonder_aachen_cathedral_row_status, incident/listener state, and reward branch summary variables while preserving row detail in design_ir.
+  - primitive: aachen_cathedral_reward_handoff
+    design_semantics: Hand full or narrowed Imperial Coronation Liturgy proof to permanent country, local building, and one-time reward channels through the existing unique wonder finalization layer.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing unique wonder ceremony modifier handoff
+    - intermediate branch summary
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff and branch summary contracts; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave reward effects on the existing unique_aachen_cathedral finalization path and keep ritual proof as design metadata.
+  - primitive: aachen_cathedral_source_compiler_generation
+    design_semantics: A future source compiler would expand Imperial Coronation Liturgy nodes, trigger checks, UI rows, localization, incident/listener resolution, and branch-shaped rewards into loadable EU5 source.
+    required_game_interfaces:
+    - loadable event/effect/trigger generation
+    - loadable Engineering Department GUI row generation
+    - exact EU5 predicates for row checks, incidents, listener state, and reward scaling
+    codebase_evidence:
+    - Current capabilities and archetypes are intermediate-only and may_write_src false.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which exact future EU5 predicates should bind ruler_death succession context, successor oath state, legitimacy, clergy recognition, and Aachen site ownership without same-fire scope hazards?
+    - Which future Harness source compiler should own loadable generation for unique_aachen_cathedral?
+    blocked_by:
+    - No source compiler for this ritual shape is in scope for this round.
+    - All current Harness backend contracts are intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep unique_aachen_cathedral at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: actor_slots
+      key: aachen_cathedral_actor_slots
+      value_variable: tv_wonder_aachen_cathedral_coronation_successor
+    - type: incident_log
+      key: aachen_cathedral_incident_log
+      status_variable: tv_wonder_aachen_cathedral_incident_state
+    bindings:
+    - key: aachen_cathedral_actor_slots_binding
+      component_key: aachen_cathedral_actor_slots
+      variable_refs:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_focus
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_coronation_successor
+      - tv_wonder_aachen_cathedral_listener_state
+      node_refs:
+      - open_imperial_coronation_liturgy
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      - tv_engineering_department.500.d_unique_aachen_cathedral
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+    - key: aachen_cathedral_incident_log_binding
+      component_key: aachen_cathedral_incident_log
+      variable_refs:
+      - tv_wonder_aachen_cathedral_stage
+      - tv_wonder_aachen_cathedral_focus
+      - tv_wonder_aachen_cathedral_row_status
+      - tv_wonder_aachen_cathedral_incident_state
+      - tv_wonder_aachen_cathedral_reward_branch
+      - tv_wonder_aachen_cathedral_coronation_successor
+      - tv_wonder_aachen_cathedral_listener_state
+      node_refs:
+      - open_imperial_coronation_liturgy
+      - prepare_coronation_successor_oath
+      - certify_throne_reliquary_liturgy_rows
+      - await_successor_oath_listener
+      - repeat_or_narrow_coronation_retry
+      - final_coronation_reward_handoff
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      - tv_engineering_department.500.d_unique_aachen_cathedral
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing unique_aachen_cathedral ceremony modifier handoff
+      description: legitimacy, clergy satisfaction, local coronation memory, and one-time continuity momentum shaped by the succession validation branch
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir unique_aachen_cathedral local memory
+      description: Local Aachen memory for octagonal chapel order, imperial throne access, reliquary guardianship, and princely witness register.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir unique_aachen_cathedral branch outcome
+      description: One-time reward branch shaped by the succession oath lacks clerical or princely recognition and threatens a reduced imperial claim and the player's retry or narrowed-doctrine choice.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+    - tv_engineering_department.500.d_unique_aachen_cathedral
+    - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+    event_keys:
+    - event_id: 1438
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_aachen_cathedral
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      node_key: open_imperial_coronation_liturgy
+    - event_id: 1439
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_aachen_cathedral
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      node_key: prepare_coronation_successor_oath
+    - event_id: 1440
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_aachen_cathedral
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      node_key: certify_throne_reliquary_liturgy_rows
+    - event_id: 1441
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_aachen_cathedral
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      node_key: await_successor_oath_listener
+    - event_id: 1442
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_aachen_cathedral
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      node_key: repeat_or_narrow_coronation_retry
+    - event_id: 1443
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_aachen_cathedral_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_aachen_cathedral
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_AACHEN_CATHEDRAL_TT
+      node_key: final_coronation_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_aachen_cathedral
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: unique_aachen_cathedral is compiler_mapped only. The Harness records intermediate Imperial Coronation Liturgy node, row, incident/listener, retry, UI, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: imperial_coronation_liturgy
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:actor_assignment
+    - capability:actor_assignment_character_selector_backend
+    - capability:branch_specific_reward_scaling
+    - capability:event_chain
+    - capability:final_reward_handoff
+    - capability:listener_gate
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:retry_branch
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable event/effect/trigger source generation
+    - loadable GUI row generation
+    - exact EU5 predicates for wonder-specific row checks, incident or listener branches, selected scopes, and reward scaling
+    remaining_source_writer_blockers:
+    - All used capabilities and archetypes are intermediate-only and may_write_src false.
+    - No Harness source compiler expands this compiler_mapped ritual into loadable EU5 src.
+    - unique_aachen_cathedral remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 210
     key: unique_nuremberg_imperial_castle
@@ -49533,44 +51403,661 @@ unique_wonders:
     base_key: great_assembly_hall
     location: lubeck
     runtime_prefix: tv_wonder_hanseatic_town_hall
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1444
+    key: open_league_diet_session
+  - id: 1445
+    key: appoint_luebeck_league_syndic
+  - id: 1446
+    key: certify_city_bench_commercial_law_rows
+  - id: 1447
+    key: confront_city_league_charter_dispute
+  - id: 1448
+    key: reconcile_city_vote_retry
+  - id: 1449
+    key: final_league_diet_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_hanseatic_town_hall needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - custom_hanseatic_city_diet_law
+    historical_mechanic: Luebeck Hanseatic diet session where city benches, league seals, market-square charters, staple privileges, and merchant-law clauses prove civic alliance and commercial jurisdiction.
+    summary: The player appoints a league syndic, chooses city vote or commercial-law emphasis, certifies league benches and charter rows, resolves a city-law dispute, and completes a broad or narrowed Hanseatic diet proof.
+    mechanic_signature:
+      wonder_specific_hook: Brick Gothic facades, council chambers, league benches, seals, and market-square charters make Luebeck's Hanseatic Town Hall a civic parliament for merchant cities, not merely a general assembly hall.
+      core_interaction_loop: The player opens the League Diet Session, appoints a Luebeck league syndic, chooses city-bench vote, staple-right charter, or merchant-court law, certifies league city benches, seal chest, market-square charter, and commercial court clause rows, confronts a city or merchant faction that rejects the order, then retries, narrows, or completes the civic-commercial reward handoff.
+      player_decision_pattern: The player chooses which city institution recognizes the diet, accepts the commercial-law concession attached to recognition, and resolves a league bench dispute through a retry or narrower city vote.
+      state_feedback_model: The UI exposes the league syndic, selected civic-law focus, proof row status, incident state, and reward branch so the town hall reads as an operating city league parliament with commercial law authority.
+      failure_or_tension_model: A league bench can reject the market-square charter order or a merchant court can refuse the staple clause, forcing a smaller city vote or a narrower commercial compact.
+      reward_expression: Full completion preserves diplomatic reputation and burgher satisfaction, while a narrowed branch still records local city-law memory and a one-time trade or civic reward shaped by the accepted league diet branch.
+      reuse_risk_mitigation: This loop belongs to Luebeck because it joins city benches, league seals, market charters, and commercial law; the Hamburg Kontor negotiates warehouse jurisdiction, while this town hall certifies inter-city civic rule.
+      custom_archetype_statement: The Hanseatic Town Hall uses a custom city-diet law archetype because the proof is a public league parliament and commercial-law vote, distinct from a Kontor warehouse oath or a generic assembly certification.
+    cadence_signature:
+      cadence_type: player_action_sequence
+      cadence_rationale: player_action_sequence fits because Brick Gothic facades, council chambers, league benches, seals, and market-square charters make Luebeck's Hanseatic Town Hall a civic parliament for merchant cities, not merely a general assembly hall. The ritual resolves through explicit selection, proof rows, risk or listener validation, retry, and reward handoff rather than passive monthly accumulation.
+      player_agency_model: The player chooses which city institution recognizes the diet, accepts the commercial-law concession attached to recognition, and resolves a league bench dispute through a retry or narrower city vote.
+      non_monthly_triggers_or_reason: The non-monthly validation is the player choice at appoint_luebeck_league_syndic, the proof event at certify_city_bench_commercial_law_rows, the risk or listener branch at confront_city_league_charter_dispute, and the retry decision at reconcile_city_vote_retry.
+      pacing_failure_mode: The pacing fails if League Diet Session becomes a one-click reward or anonymous progress bar; proof rows, incident or listener state, and reward branch must remain visible.
     listeners: []
+    entry_node: open_league_diet_session
+    terminal_nodes:
+    - final_league_diet_reward_handoff
+    runtime_variables:
+    - tv_wonder_hanseatic_town_hall_stage
+    - tv_wonder_hanseatic_town_hall_focus
+    - tv_wonder_hanseatic_town_hall_row_status
+    - tv_wonder_hanseatic_town_hall_incident_state
+    - tv_wonder_hanseatic_town_hall_reward_branch
+    - tv_wonder_hanseatic_town_hall_league_syndic
+    graph_shape: league_city_vote_commercial_law_compact
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_hanseatic_town_hall_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_league_diet_session
+      - appoint_luebeck_league_syndic
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      reader_nodes:
+      - open_league_diet_session
+      - appoint_luebeck_league_syndic
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_hanseatic_town_hall_focus
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - appoint_luebeck_league_syndic
+      reader_nodes:
+      - appoint_luebeck_league_syndic
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_hanseatic_town_hall_row_status
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      reader_nodes:
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_hanseatic_town_hall_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      reader_nodes:
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_hanseatic_town_hall_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - appoint_luebeck_league_syndic
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      reader_nodes:
+      - appoint_luebeck_league_syndic
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_hanseatic_town_hall_league_syndic
+      scope: character
+      type: number
+      roles:
+      - assigned_actor
+      initial_value: 0
+      writer_nodes:
+      - appoint_luebeck_league_syndic
+      reader_nodes:
+      - appoint_luebeck_league_syndic
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_league_diet_session
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1444
+      player_visible: true
+      historical_anchor: League Diet Session opens at the fixed site before the player chooses which historical proof will carry the ceremony.
+      enter_condition: The completed unique_hanseatic_town_hall wonder can open its unique ritual without claiming source generation.
+      completion_condition: The opening records the sponsor, site, and League Diet Session proof frame.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - appoint_luebeck_league_syndic
+      writes:
+      - tv_wonder_hanseatic_town_hall_stage
+      reads:
+      - tv_wonder_hanseatic_town_hall_stage
+      ui_state:
+        variable_refs:
+        - tv_wonder_hanseatic_town_hall_stage
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_hanseatic_town_hall
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: appoint_luebeck_league_syndic
+      kind: assignment_gate
+      capabilities:
+      - actor_assignment
+      - actor_assignment_character_selector_backend
+      event_id: 1445
+      player_visible: true
+      historical_anchor: The player chooses city-bench vote, staple-right charter, or merchant-court law as the visible doctrine for League Diet Session.
+      enter_condition: The opening node is complete and the player must choose the ritual focus.
+      completion_condition: The chosen focus, provisional reward branch, and selected actor or listener state where applicable are saved for proof rows.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_city_bench_commercial_law_rows
+      writes:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_focus
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      - tv_wonder_hanseatic_town_hall_league_syndic
+      reads:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_focus
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      - tv_wonder_hanseatic_town_hall_league_syndic
+      ui_state:
+        variable_refs:
+        - tv_wonder_hanseatic_town_hall_stage
+        - tv_wonder_hanseatic_town_hall_focus
+        - tv_wonder_hanseatic_town_hall_reward_branch
+        - tv_wonder_hanseatic_town_hall_league_syndic
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_hanseatic_town_hall
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - character
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: certify_city_bench_commercial_law_rows
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1446
+      player_visible: true
+      historical_anchor: 'The named proof rows are certified: league city benches, Hanseatic seal chest, market-square charter, commercial court clause.'
+      enter_condition: The ritual focus is chosen and its named rows must be certified before reward handoff.
+      completion_condition: The proof rows update checklist, incident, and reward state for the next validation node.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - confront_city_league_charter_dispute
+      writes:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      reads:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_focus
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      - tv_wonder_hanseatic_town_hall_league_syndic
+      ui_state:
+        variable_refs:
+        - tv_wonder_hanseatic_town_hall_stage
+        - tv_wonder_hanseatic_town_hall_focus
+        - tv_wonder_hanseatic_town_hall_row_status
+        - tv_wonder_hanseatic_town_hall_incident_state
+        - tv_wonder_hanseatic_town_hall_reward_branch
+        - tv_wonder_hanseatic_town_hall_league_syndic
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_hanseatic_town_hall
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: confront_city_league_charter_dispute
+      kind: incident_event
+      capabilities:
+      - event_chain
+      - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1447
+      player_visible: true
+      historical_anchor: The ritual confronts a league bench or merchant court rejects the charter order and threatens a narrower city vote.
+      enter_condition: The proof rows have been inspected and the visible risk or listener check must resolve.
+      completion_condition: The risk is resolved, routed to retry, or marked as a narrowed reward branch.
+      failure_or_retry: true
+      retry_target: certify_city_bench_commercial_law_rows
+      next_nodes:
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      writes:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      reads:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_focus
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      - tv_wonder_hanseatic_town_hall_league_syndic
+      ui_state:
+        variable_refs:
+        - tv_wonder_hanseatic_town_hall_stage
+        - tv_wonder_hanseatic_town_hall_focus
+        - tv_wonder_hanseatic_town_hall_row_status
+        - tv_wonder_hanseatic_town_hall_incident_state
+        - tv_wonder_hanseatic_town_hall_reward_branch
+        - tv_wonder_hanseatic_town_hall_league_syndic
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_hanseatic_town_hall
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: reconcile_city_vote_retry
+      kind: retry_event
+      capabilities:
+      - retry_branch
+      - repeated_entity_row_checklist_incident_log_backend
+      - branch_specific_reward_scaling
+      event_id: 1448
+      player_visible: true
+      historical_anchor: The player may reconcile city benches, split staple rights from court law, or accept a narrower commercial compact before final reward handoff.
+      enter_condition: The risk branch is active and the player chooses repair, reconciliation, or a narrower doctrine.
+      completion_condition: The retry changes proof state and reward branch so the ritual cannot loop as a no-op.
+      failure_or_retry: true
+      retry_target: certify_city_bench_commercial_law_rows
+      next_nodes:
+      - final_league_diet_reward_handoff
+      writes:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      reads:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_focus
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      - tv_wonder_hanseatic_town_hall_league_syndic
+      ui_state:
+        variable_refs:
+        - tv_wonder_hanseatic_town_hall_stage
+        - tv_wonder_hanseatic_town_hall_focus
+        - tv_wonder_hanseatic_town_hall_row_status
+        - tv_wonder_hanseatic_town_hall_incident_state
+        - tv_wonder_hanseatic_town_hall_reward_branch
+        - tv_wonder_hanseatic_town_hall_league_syndic
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_hanseatic_town_hall
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: final_league_diet_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      - branch_specific_reward_scaling
+      event_id: 1449
+      player_visible: true
+      historical_anchor: The completed or narrowed League Diet Session proof is handed to the existing unique wonder ceremony reward layer.
+      enter_condition: The proof rows or narrowed doctrine are accepted and reward dispatch may run as an intermediate Harness handoff.
+      completion_condition: Permanent country, local building, and one-time reward channels remain assigned to the existing finalization layer.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      reads:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_focus
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      - tv_wonder_hanseatic_town_hall_league_syndic
+      ui_state:
+        variable_refs:
+        - tv_wonder_hanseatic_town_hall_stage
+        - tv_wonder_hanseatic_town_hall_focus
+        - tv_wonder_hanseatic_town_hall_row_status
+        - tv_wonder_hanseatic_town_hall_incident_state
+        - tv_wonder_hanseatic_town_hall_reward_branch
+        - tv_wonder_hanseatic_town_hall_league_syndic
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_hanseatic_town_hall
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    edges: []
+    actions: []
+    checks: []
+  design_ir:
+    phases:
+    - Open League Diet Session at lubeck after ownership, control, completed wonder, and solvency are confirmed by future source checks.
+    - 'Choose the core focus: city-bench vote, staple-right charter, or merchant-court law.'
+    - 'Certify named proof rows: league city benches, Hanseatic seal chest, market-square charter, commercial court clause.'
+    - 'Resolve the risk branch: a league bench or merchant court rejects the charter order and threatens a narrower city vote.'
+    - 'Retry, repair, or narrow the doctrine: reconcile city benches, split staple rights from court law, or accept a narrower commercial compact.'
+    - Hand the accepted branch to permanent country, local building, and one-time reward channels without source generation.
+    player_proofs:
+    - The player opens the League Diet Session, appoints a Luebeck league syndic, chooses city-bench vote, staple-right charter, or merchant-court law, certifies league city benches, seal chest, market-square charter, and commercial court clause rows, confronts a city or merchant faction that rejects the order, then retries, narrows, or completes the civic-commercial reward handoff.
+    - The non-monthly validation is the chosen focus, proof-row certification, visible risk branch, and final retry or handoff decision for League Diet Session.
+    tracked_entity_sets:
+    - key: hanseatic_town_hall_proof_rows
+      entity_type: ritual_proof_rows
+      state_values:
+      - unchecked
+      - accepted
+      - contested
+      - narrowed
+      per_entity_state: 'Rows preserved by design_ir: league city benches, Hanseatic seal chest, market-square charter, commercial court clause. The current Harness projection stores them in tv_wonder_hanseatic_town_hall_row_status until future GUI row generation exists.'
+      selector: Fixed wonder site plus the chosen ritual focus; no new source selector is written in this pass.
+      ui_binding: hanseatic_town_hall_checklist_binding
+    selectors:
+    - Fixed historical location selector from data/unique_wonders.yaml.
+    - Player selection among city-bench vote, staple-right charter, or merchant-court law.
+    - Optional actor or listener state is represented only through existing Harness capability contracts.
+    risk_branches:
+    - a league bench or merchant court rejects the charter order and threatens a narrower city vote
+    - Retry path lets the player reconcile city benches, split staple rights from court law, or accept a narrower commercial compact and changes state before reward handoff.
+    player_actions:
+    - Open the ritual from the completed unique wonder state.
+    - Choose city-bench vote, staple-right charter, or merchant-court law.
+    - Resolve the visible incident or listener result through retry, repair, or narrowed reward branch.
+    map_scope_evidence:
+    - 'Fixed site: lubeck.'
+    - 'Runtime prefix: tv_wonder_hanseatic_town_hall.'
+    - Scope contracts remain country-rooted with explicit location, character, or none targets and tooltip_safe true.
+    ui_feedback_model:
+    - 'Components: checklist, actor_slots.'
+    - 'Variables shown through bindings: tv_wonder_hanseatic_town_hall_stage, tv_wonder_hanseatic_town_hall_focus, tv_wonder_hanseatic_town_hall_row_status, tv_wonder_hanseatic_town_hall_incident_state, tv_wonder_hanseatic_town_hall_reward_branch, tv_wonder_hanseatic_town_hall_league_syndic.'
+    uniqueness_constraints:
+    - This loop belongs to Luebeck because it joins city benches, league seals, market charters, and commercial law; the Hamburg Kontor negotiates warehouse jurisdiction, while this town hall certifies inter-city civic rule.
+    projection_notes:
+    - The Harness projection preserves named rows as checklist or actor/incident summaries rather than generating loadable GUI row source.
+    - All source predicates, exact EU5 trigger text, and reward scaling remain future source-compiler work; this pass only confirms trigger/listener/scope feasibility against existing contracts.
+    compiler_primitives:
+    - hanseatic_town_hall_scope_trigger_checks
+    - hanseatic_town_hall_row_incident_projection
+    - hanseatic_town_hall_reward_handoff
+    - hanseatic_town_hall_source_compiler_generation
+  compiler_gap_ledger:
+  - primitive: hanseatic_town_hall_scope_trigger_checks
+    design_semantics: Confirm ownership, control, completed unique_hanseatic_town_hall final building, solvency, tooltip-safe selected scopes, and the ritual-specific focus before League Diet Session can advance.
+    required_game_interfaces:
+    - country-rooted trigger projection
+    - fixed wonder location check
+    - tooltip-safe selected target guards
+    codebase_evidence:
+    - capability:event_chain
+    - capability:actor_assignment
+    - capability:actor_assignment_character_selector_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by current Harness semantic contracts; exact source predicates are intentionally not generated in this pass.
+    blocked_by: []
+    fallback_if_unavailable: Keep unique_hanseatic_town_hall at compiler_mapped with scope checks documented in design_ir.
+  - primitive: hanseatic_town_hall_row_incident_projection
+    design_semantics: Preserve League Diet Session proof rows, incident branch, retry state, and branch-specific reward summary without loadable GUI or event source.
+    required_game_interfaces:
+    - checklist or actor UI summary
+    - incident or listener state
+    - retry branch state
+    - branch reward variable
+    codebase_evidence:
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:retry_branch
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate row, incident, retry, and branch contracts; no loadable row source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Use tv_wonder_hanseatic_town_hall_row_status, incident/listener state, and reward branch summary variables while preserving row detail in design_ir.
+  - primitive: hanseatic_town_hall_reward_handoff
+    design_semantics: Hand full or narrowed League Diet Session proof to permanent country, local building, and one-time reward channels through the existing unique wonder finalization layer.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing unique wonder ceremony modifier handoff
+    - intermediate branch summary
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff and branch summary contracts; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave reward effects on the existing unique_hanseatic_town_hall finalization path and keep ritual proof as design metadata.
+  - primitive: hanseatic_town_hall_source_compiler_generation
+    design_semantics: A future source compiler would expand League Diet Session nodes, trigger checks, UI rows, localization, incident/listener resolution, and branch-shaped rewards into loadable EU5 source.
+    required_game_interfaces:
+    - loadable event/effect/trigger generation
+    - loadable Engineering Department GUI row generation
+    - exact EU5 predicates for row checks, incidents, listener state, and reward scaling
+    codebase_evidence:
+    - Current capabilities and archetypes are intermediate-only and may_write_src false.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which exact future EU5 predicates should verify selected league, city-policy, commercial-law, or target scope for the Luebeck diet without unsafe pre-evaluation?
+    - Which future Harness source compiler should own loadable generation for unique_hanseatic_town_hall?
+    blocked_by:
+    - No source compiler for this ritual shape is in scope for this round.
+    - All current Harness backend contracts are intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep unique_hanseatic_town_hall at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: checklist
+      key: hanseatic_town_hall_checklist
+      status_variable: tv_wonder_hanseatic_town_hall_row_status
+    - type: actor_slots
+      key: hanseatic_town_hall_actor_slots
+      value_variable: tv_wonder_hanseatic_town_hall_league_syndic
+    bindings:
+    - key: hanseatic_town_hall_checklist_binding
+      component_key: hanseatic_town_hall_checklist
+      variable_refs:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_focus
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      - tv_wonder_hanseatic_town_hall_league_syndic
+      node_refs:
+      - open_league_diet_session
+      - appoint_luebeck_league_syndic
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_hanseatic_town_hall
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+    - key: hanseatic_town_hall_actor_slots_binding
+      component_key: hanseatic_town_hall_actor_slots
+      variable_refs:
+      - tv_wonder_hanseatic_town_hall_stage
+      - tv_wonder_hanseatic_town_hall_focus
+      - tv_wonder_hanseatic_town_hall_row_status
+      - tv_wonder_hanseatic_town_hall_incident_state
+      - tv_wonder_hanseatic_town_hall_reward_branch
+      - tv_wonder_hanseatic_town_hall_league_syndic
+      node_refs:
+      - open_league_diet_session
+      - appoint_luebeck_league_syndic
+      - certify_city_bench_commercial_law_rows
+      - confront_city_league_charter_dispute
+      - reconcile_city_vote_retry
+      - final_league_diet_reward_handoff
+      loc_refs:
+      - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      - tv_engineering_department.500.d_unique_hanseatic_town_hall
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing unique_hanseatic_town_hall ceremony modifier handoff
+      description: diplomatic reputation, burgher satisfaction, local city-law memory, and one-time trade or civic momentum shaped by the accepted league diet branch
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir unique_hanseatic_town_hall local memory
+      description: Local Luebeck memory for league city benches, Hanseatic seal chest, market-square charter, and commercial court clause.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir unique_hanseatic_town_hall branch outcome
+      description: One-time reward branch shaped by a league bench or merchant court rejects the charter order and threatens a narrower city vote and the player's retry or narrowed-doctrine choice.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+    - tv_engineering_department.500.d_unique_hanseatic_town_hall
+    - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+    event_keys:
+    - event_id: 1444
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_hanseatic_town_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      node_key: open_league_diet_session
+    - event_id: 1445
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_hanseatic_town_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      node_key: appoint_luebeck_league_syndic
+    - event_id: 1446
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_hanseatic_town_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      node_key: certify_city_bench_commercial_law_rows
+    - event_id: 1447
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_hanseatic_town_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      node_key: confront_city_league_charter_dispute
+    - event_id: 1448
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_hanseatic_town_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      node_key: reconcile_city_vote_retry
+    - event_id: 1449
+      title_key: STATIC_MODIFIER_NAME_tv_wonder_unique_hanseatic_town_hall_ceremony_modifier
+      desc_key: tv_engineering_department.500.d_unique_hanseatic_town_hall
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_HANSEATIC_TOWN_HALL_TT
+      node_key: final_league_diet_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_hanseatic_town_hall
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: unique_hanseatic_town_hall is compiler_mapped only. The Harness records intermediate League Diet Session node, row, incident/listener, retry, UI, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: league_diet_session
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:actor_assignment
+    - capability:actor_assignment_character_selector_backend
+    - capability:branch_specific_reward_scaling
+    - capability:event_chain
+    - capability:final_reward_handoff
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:retry_branch
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable event/effect/trigger source generation
+    - loadable GUI row generation
+    - exact EU5 predicates for wonder-specific row checks, incident or listener branches, selected scopes, and reward scaling
+    remaining_source_writer_blockers:
+    - All used capabilities and archetypes are intermediate-only and may_write_src false.
+    - No Harness source compiler expands this compiler_mapped ritual into loadable EU5 src.
+    - unique_hanseatic_town_hall remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 215
     key: unique_dresden_art_gallery
