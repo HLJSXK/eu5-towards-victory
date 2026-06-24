@@ -161,6 +161,7 @@ metadata:
     - resource_gate
     - retry_branch
     - route_gate
+    - water_management_restoration_completion_backend
     supported_archetypes:
     - arsenal_ropewalk_launch_inspection
     - expedition_route_chain
@@ -172,6 +173,7 @@ metadata:
     - new_jerusalem_rock_route
     - overland_relay_route_proof
     - patronage_actor_assignment
+    - polder_water_board_closure_inspection
     - public_credit_charter_retry
     - resource_accumulation_ritual
     archetype_policy: Registry archetypes are optional, non-exclusive reference tags. They add contract checks when used, but custom_* archetype labels are allowed when mechanic_signature.custom_archetype_statement explains the new shape.
@@ -7751,44 +7753,941 @@ unique_wonders:
     base_key: giant_dam_project
     location: amsterdam
     runtime_prefix: tv_wonder_dutch_polders
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1040
+    key: open_water_board_oath
+  - id: 1041
+    key: choose_polder_work_package
+  - id: 1042
+    key: prepare_materials_and_assessments
+  - id: 1043
+    key: polder_completion_listener
+  - id: 1044
+    key: resolve_breach_or_tax_refusal
+  - id: 1045
+    key: final_polder_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_dutch_polders needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
-    listeners: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - polder_water_board_closure_inspection
+    historical_mechanic: Dutch water-board closure inspection that proves reclaimed land through ring dikes, pumps, sluices, parcel surveys, water-tax ledgers, and dike-watch rosters before the final Polder Closure reward.
+    summary: The player opens the water-board oath, chooses whether dike closure, pump and sluice readiness, or parcel and water-tax governance carries the proof, prepares materials and assessments, waits for an auxiliary completion inspection, resolves breach or tax refusal pressure, and hands the full or narrower polder proof to the raw-material and production reward path.
+    mechanic_signature:
+      wonder_specific_hook: Dutch Polder Works is not a generic dam; its wonder proof is a civic water-board machine where dikes, drainage windmills, sluices, survey chains, parcel maps, tax ledgers, and storm watches keep reclaimed land from returning to water.
+      core_interaction_loop: The player convenes Amsterdam magistrates and water-board officials, selects the practical work package, prepares clay, fascines, timber, wages, survey records, and water-tax assessments, then lets completion inspection expose whether the polder survives storms, pumps, and taxpayers before final reward handoff.
+      player_decision_pattern: Choices decide whether the first proof prioritizes closing the ring dike, making pump and sluice operation reliable, or binding landholders to parcel surveys and maintenance taxes, then decide whether a breach or refusal is repaired, retried, or accepted as a narrower doctrine.
+      state_feedback_model: The checklist shows selected work package and readiness state, the material_stockpile summarizes clay, fascines, timber, wages, and survey supplies, and the incident_log records storm breach, pump failure, blocked timber, water-tax refusal, repair, retry, and narrower reward branch.
+      failure_or_tension_model: Completion can reveal a storm breach, a broken pump or sluice, a blocked timber supply, or a refusal to pay water taxes; those incidents can return the player to material preparation or narrow the final benefit instead of making construction completion automatically safe.
+      reward_expression: Full certification hands raw-material output and production-efficiency proof to the existing Polder Closure reward, while a narrower doctrine still preserves local reclamation but records weaker resilience or fiscal confidence for future source work.
+      reuse_risk_mitigation: |
+        Other hydraulic wonders move water, but this loop belongs to the Dutch polders because the decisive proof is shared maintenance governance: measured parcels, water-tax ledgers, dike watches, and pump crews make new land permanently taxable.
+    cadence_signature:
+      cadence_type: construction_or_auxiliary_building
+      cadence_rationale: Construction or auxiliary-building cadence fits because the decisive validation is the completion inspection of the selected dike, pump/sluice, or parcel-tax work package, not passive monthly accumulation or a single dedication event.
+      player_agency_model: The player selects the operating doctrine, commits materials and fiscal readiness, and chooses whether a completion flaw is repaired and retried or accepted as a narrower polder closure proof.
+      non_monthly_triggers_or_reason: Non-monthly validation is the auxiliary-building completion listener plus the water-board inspection branch that tests dike closure, pump/sluice function, survey readiness, and tax assessment before final reward dispatch.
+      pacing_failure_mode: The pacing fails if the ritual becomes one finalization click or an anonymous monthly counter, so design_ir preserves work-package rows, material stockpiles, completion listener state, storm/tax incidents, and reward branches.
+    listeners:
+    - auxiliary_building_completion
+    entry_node: open_water_board_oath
+    terminal_nodes:
+    - final_polder_reward_handoff
+    runtime_variables:
+    - tv_wonder_dutch_polders_stage
+    - tv_wonder_dutch_polders_work_package
+    - tv_wonder_dutch_polders_material_status
+    - tv_wonder_dutch_polders_listener_state
+    - tv_wonder_dutch_polders_inspection_result
+    - tv_wonder_dutch_polders_breach_or_tax_refusal
+    - tv_wonder_dutch_polders_reward_branch
+    graph_shape: polder_water_board_closure_inspection
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_dutch_polders_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_water_board_oath
+      - choose_polder_work_package
+      - prepare_materials_and_assessments
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      reader_nodes:
+      - open_water_board_oath
+      - choose_polder_work_package
+      - prepare_materials_and_assessments
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_dutch_polders_work_package
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - choose_polder_work_package
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      reader_nodes:
+      - choose_polder_work_package
+      - prepare_materials_and_assessments
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_dutch_polders_material_status
+      scope: country
+      type: number
+      roles:
+      - resource_state
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - choose_polder_work_package
+      - prepare_materials_and_assessments
+      - resolve_breach_or_tax_refusal
+      reader_nodes:
+      - choose_polder_work_package
+      - prepare_materials_and_assessments
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_dutch_polders_listener_state
+      scope: country
+      type: number
+      roles:
+      - listener_state
+      initial_value: 0
+      writer_nodes:
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      reader_nodes:
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_dutch_polders_inspection_result
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - prepare_materials_and_assessments
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      reader_nodes:
+      - prepare_materials_and_assessments
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_dutch_polders_breach_or_tax_refusal
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      reader_nodes:
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_dutch_polders_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - choose_polder_work_package
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      reader_nodes:
+      - choose_polder_work_package
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_water_board_oath
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1040
+      player_visible: true
+      historical_anchor: Amsterdam magistrates, dike reeves, surveyors, millers, investors, and tax clerks open the water-board oath before anyone claims the sea has been turned into land.
+      enter_condition: The completed Dutch Polder Works can open the Ring Dike Closure and Water Board Oath without claiming loadable completion source generation.
+      completion_condition: The water-board chamber is convened, the fixed Amsterdam site is recorded, and the player sees that the proof needs governance and inspection.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - choose_polder_work_package
+      writes:
+      - tv_wonder_dutch_polders_stage
+      reads:
+      - tv_wonder_dutch_polders_stage
+      ui_state:
+        variable_refs:
+        - tv_wonder_dutch_polders_stage
+      loc_refs:
+      - tv_engineering_department.1040.t
+      - tv_engineering_department.1040.d
+      - tv_engineering_department.1040.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: choose_polder_work_package
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - branch_specific_reward_scaling
+      - water_management_restoration_completion_backend
+      event_id: 1041
+      player_visible: true
+      historical_anchor: Water-board officials ask whether the first proof should close the ring dike, certify pumps and sluices, or bind parcel surveys to water-tax ledgers.
+      enter_condition: The oath is opened and the player must choose the work package that will carry the closure proof.
+      completion_condition: The selected work package and provisional reward branch are saved for material preparation and completion inspection.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - prepare_materials_and_assessments
+      writes:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_reward_branch
+      reads:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_dutch_polders_stage
+        - tv_wonder_dutch_polders_work_package
+        - tv_wonder_dutch_polders_material_status
+        - tv_wonder_dutch_polders_reward_branch
+      loc_refs:
+      - tv_engineering_department.1041.t
+      - tv_engineering_department.1041.d
+      - tv_engineering_department.1041.a
+      - tv_engineering_department.1041.b
+      - tv_engineering_department.1041.c
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: prepare_materials_and_assessments
+      kind: resource_gate
+      capabilities:
+      - resource_gate
+      - repeated_entity_row_checklist_incident_log_backend
+      - water_management_restoration_completion_backend
+      event_id: 1042
+      player_visible: true
+      historical_anchor: Clay, fascines, timber, wages, survey chains, parcel maps, and water-tax assessment books are counted before the work can survive inspection.
+      enter_condition: A polder work package has been selected and its material, labor, survey, and fiscal readiness must be recorded.
+      completion_condition: Material readiness, survey assessment, and first incident exposure are saved as intermediate Harness state.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - polder_completion_listener
+      writes:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_inspection_result
+      reads:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_inspection_result
+      ui_state:
+        variable_refs:
+        - tv_wonder_dutch_polders_stage
+        - tv_wonder_dutch_polders_work_package
+        - tv_wonder_dutch_polders_material_status
+        - tv_wonder_dutch_polders_inspection_result
+      loc_refs:
+      - tv_engineering_department.1042.t
+      - tv_engineering_department.1042.d
+      - tv_engineering_department.1042.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: polder_completion_listener
+      kind: listener_gate
+      capabilities:
+      - water_management_restoration_completion_backend
+      event_id: 1043
+      player_visible: false
+      historical_anchor: The intermediate listener represents auxiliary-building or restoration completion, when the selected works become ready for water-board inspection.
+      enter_condition: Materials and assessments are ready and the selected polder work package waits for completion or annex inspection.
+      completion_condition: The auxiliary completion listener records whether the dike, pump/sluice, or parcel-tax package passes cleanly or exposes a breach, failure, or refusal.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      writes:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_listener_state
+      - tv_wonder_dutch_polders_inspection_result
+      - tv_wonder_dutch_polders_breach_or_tax_refusal
+      reads:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_listener_state
+      - tv_wonder_dutch_polders_inspection_result
+      ui_state:
+        variable_refs:
+        - tv_wonder_dutch_polders_stage
+        - tv_wonder_dutch_polders_work_package
+        - tv_wonder_dutch_polders_material_status
+        - tv_wonder_dutch_polders_listener_state
+        - tv_wonder_dutch_polders_inspection_result
+        - tv_wonder_dutch_polders_breach_or_tax_refusal
+      loc_refs:
+      - TV_ENGINEERING_DUTCH_POLDERS_COMPLETION_STATUS
+      scope_contract:
+        root_scope: country
+        current_scope: location
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      listener_contract:
+        listener: auxiliary_building_completion
+        cadence: auxiliary_building_completion_or_water_board_restoration_inspection
+        reads:
+        - tv_wonder_dutch_polders_stage
+        - tv_wonder_dutch_polders_work_package
+        - tv_wonder_dutch_polders_material_status
+        - tv_wonder_dutch_polders_listener_state
+        writes:
+        - tv_wonder_dutch_polders_listener_state
+        - tv_wonder_dutch_polders_inspection_result
+        - tv_wonder_dutch_polders_breach_or_tax_refusal
+        completion_check: selected dike, pump and sluice, or parcel-tax restoration work is complete enough for water-board inspection in a future source-owned hook
+        failure_route: resolve_breach_or_tax_refusal
+    - key: resolve_breach_or_tax_refusal
+      kind: retry_event
+      capabilities:
+      - retry_branch
+      - branch_specific_reward_scaling
+      - repeated_entity_row_checklist_incident_log_backend
+      - water_management_restoration_completion_backend
+      event_id: 1044
+      player_visible: true
+      historical_anchor: A storm breach, broken pump, blocked timber convoy, or water-tax refusal can discredit the closure unless the board repairs, retries, or accepts a narrower doctrine.
+      enter_condition: The completion inspection records a breach, pump failure, blocked material row, or tax-refusal incident before final closure.
+      completion_condition: The player repairs and retries preparation, or records a narrower reward branch that still completes the polder with weaker resilience or fiscal confidence.
+      failure_or_retry: true
+      retry_target: prepare_materials_and_assessments
+      next_nodes:
+      - prepare_materials_and_assessments
+      - final_polder_reward_handoff
+      writes:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_listener_state
+      - tv_wonder_dutch_polders_inspection_result
+      - tv_wonder_dutch_polders_breach_or_tax_refusal
+      - tv_wonder_dutch_polders_reward_branch
+      reads:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_listener_state
+      - tv_wonder_dutch_polders_inspection_result
+      - tv_wonder_dutch_polders_breach_or_tax_refusal
+      - tv_wonder_dutch_polders_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_dutch_polders_stage
+        - tv_wonder_dutch_polders_work_package
+        - tv_wonder_dutch_polders_material_status
+        - tv_wonder_dutch_polders_listener_state
+        - tv_wonder_dutch_polders_inspection_result
+        - tv_wonder_dutch_polders_breach_or_tax_refusal
+        - tv_wonder_dutch_polders_reward_branch
+      loc_refs:
+      - tv_engineering_department.1044.t
+      - tv_engineering_department.1044.d
+      - tv_engineering_department.1044.a
+      - tv_engineering_department.1044.b
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: final_polder_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      - branch_specific_reward_scaling
+      - water_management_restoration_completion_backend
+      event_id: 1045
+      player_visible: true
+      historical_anchor: The last clay bundles, turning pump wheels, witnessed sluice keys, parcel markers, tax ledger, and dike-watch roster carry the closure proof into the final reward.
+      enter_condition: The selected work package has either passed inspection or accepted a narrower doctrine after a repair incident.
+      completion_condition: Raw-material output, production efficiency, local polder memory, and one-time restoration rewards are handed to the existing finalization reward layer only as intermediate data.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_reward_branch
+      reads:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_listener_state
+      - tv_wonder_dutch_polders_inspection_result
+      - tv_wonder_dutch_polders_breach_or_tax_refusal
+      - tv_wonder_dutch_polders_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_dutch_polders_stage
+        - tv_wonder_dutch_polders_work_package
+        - tv_wonder_dutch_polders_material_status
+        - tv_wonder_dutch_polders_inspection_result
+        - tv_wonder_dutch_polders_breach_or_tax_refusal
+        - tv_wonder_dutch_polders_reward_branch
+      loc_refs:
+      - tv_engineering_department.1045.t
+      - tv_engineering_department.1045.d
+      - tv_engineering_department.1045.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    edges:
+    - from: open_water_board_oath
+      to: choose_polder_work_package
+      condition: water_board_oath_opened
+      effect: set stage to work-package selection
+      label_key: tv_engineering_department.1040.a
+    - from: choose_polder_work_package
+      to: prepare_materials_and_assessments
+      condition: ring dike, pump and sluice, or parcel-tax package selected
+      effect: save selected work package and provisional reward branch
+      label_key: TV_ENGINEERING_DUTCH_POLDERS_WORK_STATUS
+    - from: prepare_materials_and_assessments
+      to: polder_completion_listener
+      condition: materials, survey maps, and maintenance assessments are ready for completion inspection
+      effect: preserve material readiness and wait for auxiliary completion listener
+      label_key: TV_ENGINEERING_DUTCH_POLDERS_STOCKPILE_STATUS
+    - from: polder_completion_listener
+      to: resolve_breach_or_tax_refusal
+      condition: completion inspection exposes breach, pump failure, blocked material, or tax refusal
+      effect: save incident state for repair or narrowed doctrine
+      label_key: TV_ENGINEERING_DUTCH_POLDERS_COMPLETION_STATUS
+    - from: polder_completion_listener
+      to: final_polder_reward_handoff
+      condition: completion inspection passes without a blocking water-board incident
+      effect: prepare full polder reward branch
+      label_key: tv_engineering_department.1045.a
+    - from: resolve_breach_or_tax_refusal
+      to: prepare_materials_and_assessments
+      condition: repair and retry selected polder works
+      effect: return to material preparation with incident state preserved
+      label_key: tv_engineering_department.1044.a
+    - from: resolve_breach_or_tax_refusal
+      to: final_polder_reward_handoff
+      condition: accept narrower maintenance doctrine
+      effect: mark narrowed reward branch before final handoff
+      label_key: tv_engineering_department.1044.b
+    actions:
+    - key: open_dutch_water_board_oath
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: choose_dutch_polder_work_package
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_backend_contract
+      generator_template: semantic_contract_fragment
+    - key: prepare_dutch_materials_and_assessments
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_backend_contract
+      generator_template: semantic_contract_fragment
+    - key: record_dutch_completion_listener
+      kind: generator_template
+      scope: location
+      verified_interface: harness_v1_intermediate_backend_contract
+      generator_template: semantic_contract_fragment
+    - key: resolve_dutch_breach_or_tax_refusal
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_backend_contract
+      generator_template: branch_retry_event
+    - key: dispatch_dutch_polder_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: dutch_water_board_work_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_DUTCH_POLDERS_WORK_STATUS
+      generator_template: semantic_contract_fragment
+    - key: dutch_polder_stockpile_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_DUTCH_POLDERS_STOCKPILE_STATUS
+      generator_template: semantic_contract_fragment
+    - key: dutch_polder_completion_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_DUTCH_POLDERS_COMPLETION_STATUS
+      generator_template: semantic_contract_fragment
+  design_ir:
+    compiler_primitives:
+    - polder_work_package_rows
+    - material_and_assessment_stockpile_rows
+    - auxiliary_completion_water_board_inspection
+    - breach_tax_refusal_retry_branch
+    - water_board_reward_branch_handoff
+    - source_compiler_water_management_restoration_generation
+    phases:
+    - key: water_board_oath_opening
+      gameplay_stage: Amsterdam magistrates, investors, dike reeves, surveyors, millers, tax clerks, and watchmen open the water-board oath before claiming reclaimed land.
+      entry_condition: The Dutch Polder Works final building is present at Amsterdam and the sponsor can start the unique proof.
+      exit_condition: The work package selector is visible and the player understands that governance and inspection are required.
+    - key: choose_operating_work_package
+      gameplay_stage: Choose ring-dike closure, pump and sluice readiness, or parcel survey and water-tax governance as the proof package.
+      entry_condition: The oath has opened.
+      exit_condition: The selected package and provisional reward branch are stored.
+    - key: prepare_materials_surveys_and_assessments
+      gameplay_stage: Count clay, fascines, timber, wages, pump repairs, survey chains, parcel maps, and water-tax ledgers.
+      entry_condition: A work package exists.
+      exit_condition: Stockpile, survey, and fiscal readiness are recorded for completion inspection.
+    - key: inspect_completed_water_board_works
+      gameplay_stage: Auxiliary completion or restoration inspection tests whether the selected works survive storm, pump, material, and taxpayer pressure.
+      entry_condition: Materials and assessments are prepared and a completion listener fires in a future source-owned hook.
+      exit_condition: The inspection passes or records breach, pump failure, blocked timber, or water-tax refusal.
+    - key: repair_or_accept_narrower_doctrine
+      gameplay_stage: Repair the exposed flaw and retry preparation, or accept a narrower maintenance doctrine with a weaker reward branch.
+      entry_condition: Completion inspection recorded an incident.
+      exit_condition: The player returns to preparation or proceeds to final handoff with narrowed proof.
+    - key: handoff_polder_reward
+      gameplay_stage: Seal the water-tax ledger, read the dike-watch roster, and hand full or narrow polder proof to raw-material and production rewards.
+      entry_condition: The inspection is passed or the narrower doctrine is accepted.
+      exit_condition: Existing finalization and reward layers remain the only loadable source handoff.
+    player_proofs:
+    - Prove that Dutch Polder Works creates taxable land by binding engineering to a permanent water-board institution.
+    - Prove that dike closure, pump/sluice operation, and parcel-tax governance remain selectable work packages rather than anonymous progress.
+    - Prove that storms, pump failure, material blockage, and water-tax refusal can force repair, retry, or narrower reward decisions.
+    - Prove that raw-material output and production efficiency remain the reward theme rather than generic trade or prestige.
+    tracked_entity_sets:
+    - key: dutch_polder_work_packages
+      entity_type: water_board_work_package
+      entities:
+      - key: ring_dike_closure
+        display_name: Ring Dike Closure
+      - key: pump_and_sluice_readiness
+        display_name: Pump And Sluice Readiness
+      - key: parcel_tax_governance
+        display_name: Parcel Survey And Water-Tax Governance
+      state_values:
+      - available
+      - selected
+      - prepared
+      - inspected
+      - defect_found
+      - repaired
+      - accepted_for_closure
+      per_entity_state:
+        status_variable_pattern: tv_wonder_dutch_polders_work_package_<package>_status
+        defect_variable_pattern: tv_wonder_dutch_polders_work_package_<package>_defect
+      selector: Select the water-board work package whose completion inspection will carry the Polder Closure proof.
+      ui_binding: checklist:dutch_polder_work_packages should show each package as available, selected, prepared, inspected, repaired, or accepted.
+    - key: dutch_polder_material_assessments
+      entity_type: material_and_assessment
+      entities:
+      - key: clay_and_fascines
+        display_name: Clay And Fascines
+      - key: timber_and_pilework
+        display_name: Timber And Pilework
+      - key: windmill_pump_repairs
+        display_name: Windmill Pump Repairs
+      - key: sluice_keys_and_frames
+        display_name: Sluice Keys And Frames
+      - key: survey_chains_and_maps
+        display_name: Survey Chains And Parcel Maps
+      - key: wages_and_water_tax_ledgers
+        display_name: Wages And Water-Tax Ledgers
+      state_values:
+      - missing
+      - pledged
+      - delivered
+      - assessed
+      - short
+      - consumed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_dutch_polders_material_<material>_status
+        shortage_variable_pattern: tv_wonder_dutch_polders_material_<material>_shortage
+      selector: Select the material or assessment row whose shortage or readiness matters for the chosen work package.
+      ui_binding: material_stockpile:dutch_polder_material_assessments should render one row per material, repair, survey, or fiscal assessment class.
+    - key: dutch_polder_inspection_incidents
+      entity_type: water_board_incident
+      entities:
+      - key: storm_breach
+        display_name: Storm Breach
+      - key: pump_failure
+        display_name: Pump Failure
+      - key: blocked_timber_supply
+        display_name: Blocked Timber Supply
+      - key: water_tax_refusal
+        display_name: Water-Tax Refusal
+      state_values:
+      - dormant
+      - triggered
+      - repaired
+      - retried
+      - accepted_narrowly
+      per_entity_state:
+        status_variable_pattern: tv_wonder_dutch_polders_incident_<incident>_status
+        response_variable_pattern: tv_wonder_dutch_polders_incident_<incident>_response
+      selector: Select or record the inspection incident produced by the completed water-board work package.
+      ui_binding: incident_log:dutch_polder_inspection_incidents should show whether each incident is dormant, triggered, repaired, retried, or accepted narrowly.
+    selectors:
+    - key: polder_work_package_selector
+      selection_space: Ring dike closure, pump and sluice readiness, or parcel survey and water-tax governance.
+      selection_state: Projected into tv_wonder_dutch_polders_work_package while design_ir keeps all three rows.
+      resolution_events:
+      - 1041
+      - 1044
+    - key: material_assessment_selector
+      selection_space: Clay, fascines, timber, pump repairs, sluice frames, survey maps, wages, and tax ledgers.
+      selection_state: Projected into tv_wonder_dutch_polders_material_status while design_ir keeps each material and assessment row.
+      resolution_events:
+      - 1042
+      - 1044
+    - key: inspection_incident_selector
+      selection_space: Storm breach, pump failure, blocked timber supply, or water-tax refusal.
+      selection_state: Projected into inspection_result and breach_or_tax_refusal variables after the listener gate.
+      resolution_events:
+      - 1043
+      - 1044
+    risk_branches:
+    - key: storm_breach
+      risk: High water opens the new ring dike or damages clay and fascine work before the closure can be trusted.
+      player_response: Pay for repair and retry inspection, or accept a narrower resilience branch.
+    - key: pump_failure
+      risk: Windmill pumps, wheels, or sluice frames fail to lower water enough for parcels to be usable.
+      player_response: Repair pump crews and sluices, retry material preparation, or accept slower production gains.
+    - key: blocked_timber_supply
+      risk: War, blockade, shortage, or cost prevents timber and pilework from reaching the dike line.
+      player_response: Fund replacement supply and retry, or complete with a narrower doctrine that reduces one-time reward expression.
+    - key: water_tax_refusal
+      risk: Landholders, towns, or farmers resist the maintenance assessment that keeps the polder alive after celebration.
+      player_response: Renegotiate the levy and retry, or accept a weaker fiscal branch with less production confidence.
+    player_actions:
+    - Open the water-board oath instead of confirming a one-click Polder Closure.
+    - Choose which practical water-management work package proves the Dutch Polders.
+    - Commit materials, labor, survey records, and water-tax assessments before completion inspection.
+    - Resolve storm, pump, material, or taxpayer incidents through repair, retry, or narrower doctrine.
+    - Hand off the full or narrowed polder proof to raw-material, production, local memory, and one-time rewards.
+    map_scope_evidence:
+    - Amsterdam is the fixed wonder site and local water-board chamber for this proof.
+    - The final Dutch Polders building already exists in generated wonder mechanics; this Harness pilot records only intermediate unique ritual semantics.
+    - Existing Engineering Department evidence shows auxiliary-building ritual completion can be marked from construction-ended hooks, but this spec does not emit or alter those hooks.
+    - No current Harness source compiler expands water-board work-package rows, material rows, completion listener hooks, storm/flood proxies, tax-refusal effects, or GUI rows into loadable EU5 source.
+    ui_feedback_model:
+      components:
+      - checklist
+      - material_stockpile
+      - incident_log
+      repeated_rows: One checklist row per work package, one material row per clay/timber/pump/survey/tax item, and one incident row for storm breach, pump failure, blocked timber, or tax refusal.
+      per_entity_status: Work packages need selected, prepared, inspected, defect_found, repaired, and accepted states; material rows need pledged, delivered, assessed, short, and consumed states; incidents need triggered, repaired, retried, and accepted_narrowly state.
+      current_projection: The compiler_mapped node_graph compresses work packages into work_package, material rows into material_status, completion listener state into listener_state, inspection into inspection_result plus breach_or_tax_refusal, and reward shape into reward_branch while preserving full rows in design_ir.
+    uniqueness_constraints:
+    - The proof must involve Dutch water-board governance, not a generic dam opening or harbor dedication.
+    - Ring dike, pump and sluice operation, and parcel-tax governance must stay as distinct selectable work packages.
+    - Storm breach, pump failure, blocked timber, and water-tax refusal matter because polders survive through maintenance, measurement, and shared costs.
+    - The reward must stay raw-material and production focused, with local reclaimed-land memory and possible resilience branch after storm repair.
+    projection_notes: The current compiler_mapped node_graph is an intermediate-only strong DSL projection. It preserves Dutch water-board work packages, clay/fascine/timber/pump/survey/tax material rows, auxiliary completion listener semantics, storm breach, pump failure, blocked timber, water-tax refusal, repair, retry, narrower doctrine, checklist, material_stockpile, incident_log, and final reward handoff semantics in design_ir. It compresses row-level data into summary runtime variables until a future source compiler can generate loadable construction-completion hooks, water-management predicates, GUI rows, event source, and effect source.
+  compiler_gap_ledger:
+  - primitive: polder_work_package_rows
+    design_semantics: Preserve ring-dike closure, pump and sluice readiness, and parcel survey plus water-tax governance as distinct selectable work-package rows.
+    required_game_interfaces:
+    - per-work-package checklist rows
+    - selected work-package state variable
+    - per-work-package inspection outcome state
+    - tooltip-safe selection preview
+    codebase_evidence:
+    - capability:water_management_restoration_completion_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:branch_specific_reward_scaling
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no loadable work-package GUI row compiler is claimed.
+    blocked_by: []
+    fallback_if_unavailable: Keep all work-package rows in design_ir and project them through tv_wonder_dutch_polders_work_package.
+  - primitive: material_and_assessment_stockpile_rows
+    design_semantics: Track clay, fascines, timber, pump repairs, sluice frames, survey maps, wages, and water-tax ledgers before completion inspection.
+    required_game_interfaces:
+    - material_stockpile UI summary
+    - resource gate trigger or effect stub
+    - selected work-package preparation state
+    codebase_evidence:
+    - capability:resource_gate
+    - capability:water_management_restoration_completion_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - template:semantic_contract_fragment
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no exact EU5 goods, treasury, or survey predicates are generated.
+    blocked_by: []
+    fallback_if_unavailable: Use one material_status summary variable while preserving per-material and assessment rows in design_ir.
+  - primitive: auxiliary_completion_water_board_inspection
+    design_semantics: Preserve the auxiliary-building or restoration completion listener, water-board inspection, pass/fail state, and route into repair or reward without generating source hooks.
+    required_game_interfaces:
+    - auxiliary-building completion listener contract
+    - location-scoped completion or annex inspection state
+    - inspection result variable
+    - repair retry route
+    codebase_evidence:
+    - capability:water_management_restoration_completion_backend
+    - capability:auxiliary_building_completion_listener_backend
+    - template:semantic_contract_fragment
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate listener contracts; no on_action or building_type hook is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Keep completion inspection as semantic listener state and route through a visible repair event in a future implementation.
+  - primitive: breach_tax_refusal_retry_branch
+    design_semantics: Preserve storm breach, pump failure, blocked timber, and water-tax refusal as separate incident rows with repair, retry, or narrower doctrine outcomes.
+    required_game_interfaces:
+    - incident_log summary
+    - retry branch event
+    - incident state variables
+    - branch-specific reward summary
+    codebase_evidence:
+    - capability:retry_branch
+    - capability:branch_specific_reward_scaling
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    - capability:water_management_restoration_completion_backend
+    - template:branch_retry_event
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate retry and incident-row contracts; no loadable incident source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Use breach_or_tax_refusal and reward_branch summary variables while preserving all incident rows in design_ir.
+  - primitive: water_board_reward_branch_handoff
+    design_semantics: Hand full polder closure or narrower maintenance doctrine to the existing raw-material and production reward path.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing Dutch Polders finalization visible effect
+    - existing hidden finalization cleanup and broadcast effect
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - capability:branch_specific_reward_scaling
+    - data/index/scripted_effects.txt:tv_wonder_unique_dutch_polders_finalization_visible_effect
+    - data/index/scripted_effects.txt:tv_wonder_unique_dutch_polders_style_1_finalization_hidden_effect
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff and branch summary contracts; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave the reward as the existing finalization path and keep Dutch water-board proof as design metadata.
+  - primitive: source_compiler_water_management_restoration_generation
+    design_semantics: A future source compiler would expand water-board work-package rows, material and assessment rows, auxiliary completion hooks, storm or flood proxies, pump and sluice checks, tax-refusal incidents, repair/retry effects, GUI rows, and branch-shaped rewards into loadable EU5 source.
+    required_game_interfaces:
+    - source compiler water-management restoration expansion
+    - loadable auxiliary or construction completion hook generation
+    - loadable event/effect generation
+    - loadable Engineering Department GUI row generation
+    - exact EU5 predicates for devastation, occupation, treasury, labor, materials, estate or tax refusal proxies, and production rewards
+    codebase_evidence:
+    - data/unique_wonder_ritual_capabilities.yaml:water_management_restoration_completion_backend is intermediate-only and may_write_src false.
+    - data/unique_wonder_ritual_archetypes.yaml:polder_water_board_closure_inspection is an intermediate reference archetype only.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which future Harness source compiler should own construction-completion hooks for water-management restoration rituals?
+    - Which exact EU5 predicates and effects can represent flood/storm damage, pump or sluice state, material blockage, water-tax refusal, and branch-shaped raw-output or production rewards safely?
+    blocked_by:
+    - No source compiler for water-management restoration completion is in scope for this round.
+    - The new backend and archetype are intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep Dutch Polders at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: checklist
+      key: dutch_polder_work_checklist
+      status_variable: tv_wonder_dutch_polders_work_package
+    - type: material_stockpile
+      key: dutch_polder_stockpile
+      value_variable: tv_wonder_dutch_polders_material_status
+    - type: incident_log
+      key: dutch_polder_incident_log
+      status_variable: tv_wonder_dutch_polders_breach_or_tax_refusal
+    bindings:
+    - key: dutch_polder_work_checklist_binding
+      component_key: dutch_polder_work_checklist
+      variable_refs:
+      - tv_wonder_dutch_polders_stage
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_listener_state
+      - tv_wonder_dutch_polders_inspection_result
+      - tv_wonder_dutch_polders_reward_branch
+      node_refs:
+      - open_water_board_oath
+      - choose_polder_work_package
+      - prepare_materials_and_assessments
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_DUTCH_POLDERS_WORK_STATUS
+      - TV_ENGINEERING_DUTCH_POLDERS_COMPLETION_STATUS
+    - key: dutch_polder_stockpile_binding
+      component_key: dutch_polder_stockpile
+      variable_refs:
+      - tv_wonder_dutch_polders_work_package
+      - tv_wonder_dutch_polders_material_status
+      - tv_wonder_dutch_polders_inspection_result
+      node_refs:
+      - choose_polder_work_package
+      - prepare_materials_and_assessments
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      loc_refs:
+      - TV_ENGINEERING_DUTCH_POLDERS_STOCKPILE_STATUS
+    - key: dutch_polder_incident_log_binding
+      component_key: dutch_polder_incident_log
+      variable_refs:
+      - tv_wonder_dutch_polders_listener_state
+      - tv_wonder_dutch_polders_inspection_result
+      - tv_wonder_dutch_polders_breach_or_tax_refusal
+      - tv_wonder_dutch_polders_reward_branch
+      node_refs:
+      - polder_completion_listener
+      - resolve_breach_or_tax_refusal
+      - final_polder_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_DUTCH_POLDERS_INCIDENT_LOG_LABEL
+      - tv_engineering_department.1044.t
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing Dutch Polders ceremony modifier handoff
+      description: Preserve Polder Closure raw-material output and production-efficiency reward semantics as proof that reclaimed land, pump routines, and water-board maintenance are reliable.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir Dutch water-board work packages
+      description: Local Amsterdam memory for the selected ring dike, pump and sluice works, parcel maps, water-tax ledgers, dike-watch rosters, and repaired inspection state.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir breach or tax-refusal branch
+      description: One-time prosperity, production, treasury, or resilience reward branch shaped by full inspection, repaired storm damage, or narrower maintenance doctrine.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_DUTCH_POLDERS_WORK_STATUS
+    - TV_ENGINEERING_DUTCH_POLDERS_STOCKPILE_STATUS
+    - TV_ENGINEERING_DUTCH_POLDERS_COMPLETION_STATUS
+    - TV_ENGINEERING_DUTCH_POLDERS_INCIDENT_LOG_LABEL
+    event_keys:
+    - event_id: 1040
+      title_key: tv_engineering_department.1040.t
+      desc_key: tv_engineering_department.1040.d
+      option_keys:
+      - tv_engineering_department.1040.a
+      node_key: open_water_board_oath
+    - event_id: 1041
+      title_key: tv_engineering_department.1041.t
+      desc_key: tv_engineering_department.1041.d
+      option_keys:
+      - tv_engineering_department.1041.a
+      - tv_engineering_department.1041.b
+      - tv_engineering_department.1041.c
+      node_key: choose_polder_work_package
+    - event_id: 1042
+      title_key: tv_engineering_department.1042.t
+      desc_key: tv_engineering_department.1042.d
+      option_keys:
+      - tv_engineering_department.1042.a
+      node_key: prepare_materials_and_assessments
+    - event_id: 1043
+      title_key: tv_engineering_department.1043.t
+      desc_key: tv_engineering_department.1043.d
+      option_keys:
+      - tv_engineering_department.1043.a
+      node_key: polder_completion_listener
+    - event_id: 1044
+      title_key: tv_engineering_department.1044.t
+      desc_key: tv_engineering_department.1044.d
+      option_keys:
+      - tv_engineering_department.1044.a
+      - tv_engineering_department.1044.b
+      node_key: resolve_breach_or_tax_refusal
+    - event_id: 1045
+      title_key: tv_engineering_department.1045.t
+      desc_key: tv_engineering_department.1045.d
+      option_keys:
+      - tv_engineering_department.1045.a
+      node_key: final_polder_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_dutch_polders
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Dutch Polders is compiler_mapped only. The Harness records intermediate water-board work-package, material stockpile, auxiliary completion listener, breach or tax-refusal incident, retry, narrowed doctrine, UI, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: dike_closure
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir plus existing Dutch Polders finalization effects only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:water_management_restoration_completion_backend intermediate backend contract
+    - capability:resource_gate semantic stockpile projection
+    - capability:retry_branch semantic repair projection
+    - capability:branch_specific_reward_scaling intermediate branch contract
+    - capability:repeated_entity_row_checklist_incident_log_backend intermediate row projection
+    - capability:final_reward_handoff semantic reward projection
+    - archetype:polder_water_board_closure_inspection reference blueprint
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable water-management restoration source compiler
+    - loadable auxiliary-building or construction completion hook generation for this ritual
+    - loadable checklist, material_stockpile, and incident_log repeated GUI rows
+    - exact EU5 flood, storm, pump, sluice, timber, water-tax, labor, and production script syntax
+    remaining_source_writer_blockers:
+    - The new water_management_restoration_completion_backend is intermediate-only and may_write_src false.
+    - No Harness source compiler expands Dutch work-package rows, material assessment rows, auxiliary completion listener hooks, breach/tax-refusal incidents, repair/retry choices, or narrowed reward branches into loadable EU5 source.
+    - Dutch Polders remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 134
     key: unique_machu_picchu_terraces

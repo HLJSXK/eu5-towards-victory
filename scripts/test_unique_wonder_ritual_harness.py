@@ -61,6 +61,7 @@ BACKEND_CAPABILITIES = [
     "finance_public_credit_interface_backend",
     "bounded_opposition_religious_community_pressure",
     "auxiliary_building_completion_listener_backend",
+    "water_management_restoration_completion_backend",
 ]
 PILGRIMAGE_ROUTE_BACKEND_OUTPUTS = {
     "markdown_fragment",
@@ -77,6 +78,13 @@ OVERLAND_RELAY_BACKEND_OUTPUTS = {
     "player_facing_tooltip",
 }
 MARITIME_TRADE_BACKEND_OUTPUTS = {
+    "markdown_fragment",
+    "trigger_stub",
+    "effect_stub",
+    "gui_summary",
+    "player_facing_tooltip",
+}
+WATER_MANAGEMENT_BACKEND_OUTPUTS = {
     "markdown_fragment",
     "trigger_stub",
     "effect_stub",
@@ -104,6 +112,15 @@ MARITIME_TRADE_ARCHETYPE_CAPABILITIES = {
     "retry_branch",
     "final_reward_handoff",
     "maritime_trade_route_certification_backend",
+}
+POLDER_ARCHETYPE_CAPABILITIES = {
+    "event_chain",
+    "retry_branch",
+    "resource_gate",
+    "branch_specific_reward_scaling",
+    "repeated_entity_row_checklist_incident_log_backend",
+    "water_management_restoration_completion_backend",
+    "final_reward_handoff",
 }
 
 
@@ -1432,6 +1449,30 @@ def maritime_trade_backend_contract_errors(capability_registry: dict) -> list[st
     return errors
 
 
+def water_management_backend_contract_errors(capability_registry: dict) -> list[str]:
+    capability_index = {
+        capability["key"]: capability
+        for capability in capability_registry.get("capabilities", [])
+        if isinstance(capability, dict) and capability.get("key")
+    }
+    contract = capability_index.get("water_management_restoration_completion_backend")
+    if contract is None:
+        return ["missing water_management_restoration_completion_backend"]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append("water_management_restoration_completion_backend must declare may_write_src: false")
+    if contract.get("verified_interface") != "harness_v1_intermediate_backend_contract":
+        errors.append("water_management_restoration_completion_backend must use the intermediate backend interface")
+    output_kinds = set(str(kind) for kind in contract.get("output_kinds", []) or [])
+    missing = sorted(WATER_MANAGEMENT_BACKEND_OUTPUTS - output_kinds)
+    extra = sorted(output_kinds - WATER_MANAGEMENT_BACKEND_OUTPUTS)
+    if missing:
+        errors.append("water_management_restoration_completion_backend missing output kind(s): " + ", ".join(missing))
+    if extra:
+        errors.append("water_management_restoration_completion_backend has unsupported output kind(s): " + ", ".join(extra))
+    return errors
+
+
 def new_jerusalem_archetype_contract_errors(archetype_registry: dict) -> list[str]:
     archetype_index = {
         archetype["key"]: archetype
@@ -1508,6 +1549,36 @@ def maritime_trade_archetype_contract_errors(archetype_registry: dict) -> list[s
     return errors
 
 
+def polder_archetype_contract_errors(archetype_registry: dict) -> list[str]:
+    archetype_index = {
+        archetype["key"]: archetype
+        for archetype in archetype_registry.get("archetypes", [])
+        if isinstance(archetype, dict) and archetype.get("key")
+    }
+    contract = archetype_index.get("polder_water_board_closure_inspection")
+    if contract is None:
+        return ["missing polder_water_board_closure_inspection"]
+    errors: list[str] = []
+    if contract.get("may_write_src") is not False:
+        errors.append("polder_water_board_closure_inspection must declare may_write_src: false")
+    capabilities = set(str(capability) for capability in contract.get("required_capabilities", []) or [])
+    missing_capabilities = sorted(POLDER_ARCHETYPE_CAPABILITIES - capabilities)
+    if missing_capabilities:
+        errors.append("polder_water_board_closure_inspection missing capability(s): " + ", ".join(missing_capabilities))
+    roles = set(str(role) for role in contract.get("required_variable_roles", []) or [])
+    for role in ("checklist_state", "resource_state", "listener_state", "incident_state", "reward_state"):
+        if role not in roles:
+            errors.append(f"polder_water_board_closure_inspection missing variable role {role!r}")
+    ui_components = set(str(component) for component in contract.get("required_ui_components", []) or [])
+    for component in ("checklist", "material_stockpile", "incident_log"):
+        if component not in ui_components:
+            errors.append(f"polder_water_board_closure_inspection missing ui component {component!r}")
+    listeners = set(str(listener) for listener in contract.get("required_listeners", []) or [])
+    if "auxiliary_building_completion" not in listeners:
+        errors.append("polder_water_board_closure_inspection missing auxiliary_building_completion listener")
+    return errors
+
+
 def lalibela_repo_entry() -> dict:
     return deepcopy(list_index(load_spec_data())["unique_lalibela_churches"])
 
@@ -1518,6 +1589,10 @@ def inca_royal_road_repo_entry() -> dict:
 
 def malacca_repo_entry() -> dict:
     return deepcopy(list_index(load_spec_data())["unique_malacca_port"])
+
+
+def dutch_polders_repo_entry() -> dict:
+    return deepcopy(list_index(load_spec_data())["unique_dutch_polders"])
 
 
 def assert_lalibela_error(name: str, entry: dict, needle: str) -> None:
@@ -1534,6 +1609,24 @@ def assert_inca_royal_road_error(name: str, entry: dict, needle: str) -> None:
 
 def assert_malacca_error(name: str, entry: dict, needle: str) -> None:
     errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
+    if not any(needle in error for error in errors):
+        raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
+
+
+def assert_dutch_polders_error(
+    name: str,
+    entry: dict,
+    needle: str,
+    *,
+    capability_registry: dict | None = None,
+    archetype_registry: dict | None = None,
+) -> None:
+    errors = validate_spec_payload(
+        {"unique_wonders": [entry]},
+        require_all_wonders=False,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
+    )
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
 
@@ -1772,6 +1865,56 @@ def main() -> None:
         "source-codegen-ready status has unresolved compiler gap(s): source_compiler_maritime_trade_route_generation",
     )
 
+    dutch = dutch_polders_repo_entry()
+    if dutch["identity"]["status"] != "compiler_mapped":
+        raise AssertionError(f"Dutch Polders status should be compiler_mapped, got {dutch['identity']['status']!r}")
+    if dutch["node_graph"]["model"] != "state_machine_dsl_v1":
+        raise AssertionError(f"Dutch Polders node_graph should be state_machine_dsl_v1, got {dutch['node_graph']['model']!r}")
+    dutch_errors = validate_spec_payload({"unique_wonders": [dutch]}, require_all_wonders=False)
+    if dutch_errors:
+        raise AssertionError(f"Dutch Polders compiler_mapped fixture unexpectedly failed: {dutch_errors}")
+
+    dutch_source_gap = next(
+        row
+        for row in dutch["compiler_gap_ledger"]
+        if row.get("primitive") == "source_compiler_water_management_restoration_generation"
+    )
+    if dutch_source_gap.get("verification_status") != "needs_codebase_search":
+        raise AssertionError("Dutch Polders source compiler gap must remain needs_codebase_search")
+
+    dutch_missing_backend = dutch_polders_repo_entry()
+    for test_node in dutch_missing_backend["node_graph"]["nodes"]:
+        test_node["capabilities"] = [
+            capability
+            for capability in test_node.get("capabilities", [])
+            if capability != "water_management_restoration_completion_backend"
+        ]
+    assert_dutch_polders_error(
+        "Dutch Polders missing water-management backend",
+        dutch_missing_backend,
+        "archetype 'polder_water_board_closure_inspection' missing required capability(s): water_management_restoration_completion_backend",
+    )
+
+    dutch_missing_checklist_ui = dutch_polders_repo_entry()
+    dutch_missing_checklist_ui["ui_model"]["components"] = [
+        component
+        for component in dutch_missing_checklist_ui["ui_model"]["components"]
+        if component.get("type") != "checklist"
+    ]
+    assert_dutch_polders_error(
+        "Dutch Polders missing checklist UI",
+        dutch_missing_checklist_ui,
+        "archetype 'polder_water_board_closure_inspection' missing ui component(s): checklist",
+    )
+
+    dutch_source_ready_with_gap = dutch_polders_repo_entry()
+    dutch_source_ready_with_gap["identity"]["status"] = "source_codegen_ready"
+    assert_dutch_polders_error(
+        "Dutch Polders source_codegen_ready unresolved compiler gap",
+        dutch_source_ready_with_gap,
+        "source-codegen-ready status has unresolved compiler gap(s): source_compiler_water_management_restoration_generation",
+    )
+
     incident_errors = validate_spec_payload(
         {"unique_wonders": [incident_retry_entry()]},
         wonders=[WONDER],
@@ -1814,6 +1957,9 @@ def main() -> None:
     maritime_contract_errors = maritime_trade_backend_contract_errors(capability_registry)
     if maritime_contract_errors:
         raise AssertionError(f"maritime trade backend contract unexpectedly failed: {maritime_contract_errors}")
+    water_management_contract_errors = water_management_backend_contract_errors(capability_registry)
+    if water_management_contract_errors:
+        raise AssertionError(f"water management backend contract unexpectedly failed: {water_management_contract_errors}")
     archetype_registry = load_archetype_registry()
     archetype_contract_errors = new_jerusalem_archetype_contract_errors(archetype_registry)
     if archetype_contract_errors:
@@ -1824,6 +1970,9 @@ def main() -> None:
     maritime_archetype_contract_errors = maritime_trade_archetype_contract_errors(archetype_registry)
     if maritime_archetype_contract_errors:
         raise AssertionError(f"maritime trade archetype contract unexpectedly failed: {maritime_archetype_contract_errors}")
+    polder_archetype_errors = polder_archetype_contract_errors(archetype_registry)
+    if polder_archetype_errors:
+        raise AssertionError(f"polder water-board archetype contract unexpectedly failed: {polder_archetype_errors}")
     capability_index = {
         capability["key"]: capability
         for capability in capability_registry["capabilities"]
@@ -2040,6 +2189,8 @@ def main() -> None:
         raise AssertionError(f"full repo codegen should generate 4 fragments, got {sorted(full_repo_generated_keys)}")
     if "unique_lalibela_churches" in full_repo_generated_keys:
         raise AssertionError("Lalibela must remain skipped by source-codegen dry-run")
+    if "unique_dutch_polders" in full_repo_generated_keys:
+        raise AssertionError("Dutch Polders must remain skipped by source-codegen dry-run")
 
     duplicate = valid_entry()
     duplicate["event_ids"][2]["id"] = 1002
@@ -2247,6 +2398,48 @@ def main() -> None:
     if not any("missing output kind(s): effect_stub" in error for error in maritime_missing_output_errors):
         raise AssertionError(
             f"maritime trade backend missing output fixture did not fail: {maritime_missing_output_errors}"
+        )
+
+    water_management_writable_registry = deepcopy(load_capability_registry())
+    for capability in water_management_writable_registry["capabilities"]:
+        if capability.get("key") == "water_management_restoration_completion_backend":
+            capability["may_write_src"] = True
+            break
+    assert_dutch_polders_error(
+        "water management capability may_write_src",
+        dutch_polders_repo_entry(),
+        "must declare may_write_src: false",
+        capability_registry=water_management_writable_registry,
+    )
+
+    water_management_source_output_registry = deepcopy(load_capability_registry())
+    for capability in water_management_source_output_registry["capabilities"]:
+        if capability.get("key") == "water_management_restoration_completion_backend":
+            capability["output_kinds"].append("loadable_src")
+            break
+    assert_dutch_polders_error(
+        "water management capability source output",
+        dutch_polders_repo_entry(),
+        "unsupported value(s): loadable_src",
+        capability_registry=water_management_source_output_registry,
+    )
+
+    water_management_missing_output_registry = deepcopy(load_capability_registry())
+    for capability in water_management_missing_output_registry["capabilities"]:
+        if capability.get("key") == "water_management_restoration_completion_backend":
+            capability["output_kinds"] = [
+                output_kind
+                for output_kind in capability.get("output_kinds", [])
+                if output_kind != "effect_stub"
+            ]
+            break
+    water_management_missing_output_errors = water_management_backend_contract_errors(
+        water_management_missing_output_registry
+    )
+    if not any("missing output kind(s): effect_stub" in error for error in water_management_missing_output_errors):
+        raise AssertionError(
+            "water management backend missing output fixture did not fail: "
+            f"{water_management_missing_output_errors}"
         )
 
     auxiliary_writable_registry = deepcopy(load_capability_registry())
@@ -2600,6 +2793,18 @@ def main() -> None:
         maritime_trade_route_certification_backend_entry(),
         "must declare may_write_src: false",
         archetype_registry=maritime_writable_archetype_registry,
+    )
+
+    polder_writable_archetype_registry = deepcopy(load_archetype_registry())
+    for archetype in polder_writable_archetype_registry["archetypes"]:
+        if archetype.get("key") == "polder_water_board_closure_inspection":
+            archetype["may_write_src"] = True
+            break
+    assert_dutch_polders_error(
+        "polder archetype may_write_src",
+        dutch_polders_repo_entry(),
+        "must declare may_write_src: false",
+        archetype_registry=polder_writable_archetype_registry,
     )
 
     archetype_missing_capability = valid_entry()
