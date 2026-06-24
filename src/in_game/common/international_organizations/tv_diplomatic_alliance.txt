@@ -94,6 +94,9 @@
 
 	on_creation = {
 		set_parliament_type = parliament_type:tv_alliance_assembly
+		tv_diplomatic_alliance_stamp_creation_order_effect = yes
+		set_variable = { name = tv_alliance_cohesion value = 0 }
+		set_variable = { name = tv_alliance_tier value = 0 }
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
