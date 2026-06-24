@@ -205,3 +205,58 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 	}
 	clear_saved_scope = tv_diplomatic_alliance_keep_io
 }
+
+tv_diplomatic_alliance_country_monthly_pulse_effect = {
+	hidden_effect = {
+		save_scope_as = tv_diplomatic_alliance_pulse_country
+		every_international_organizations_member_of = {
+			limit = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:tv_diplomatic_alliance_pulse_country
+			}
+			tv_diplomatic_alliance_monthly_victory_points_effect = yes
+		}
+		clear_saved_scope = tv_diplomatic_alliance_pulse_country
+	}
+}
+
+tv_diplomatic_alliance_monthly_victory_points_effect = {
+	hidden_effect = {
+		if = {
+			limit = { international_organization_type = international_organization_type:tv_diplomatic_alliance }
+			leader_country ?= {
+				if = {
+					limit = {
+						custom_tooltip = {
+							text = TV_HAS_VARIABLE_NOT_SET_TT
+							NOT = { has_variable = tv_diplomatic_victory_points }
+						}
+					}
+					set_variable = { name = tv_diplomatic_victory_points value = 0 }
+				}
+			}
+			if = {
+				limit = {
+					var:tv_alliance_tier > 0
+					international_organization_has_leader = yes
+				}
+				set_local_variable = { name = tv_alliance_monthly_dvp value = var:tv_alliance_tier }
+				leader_country ?= {
+					change_variable = { name = tv_diplomatic_victory_points add = local_var:tv_alliance_monthly_dvp }
+				}
+				set_local_variable = { name = tv_alliance_member_monthly_dvp value = var:tv_alliance_tier }
+				change_local_variable = { name = tv_alliance_member_monthly_dvp divide = 2 }
+				every_international_organization_member = {
+					limit = { NOT = { is_leader_of_international_organization = prev } }
+					if = {
+						limit = { NOT = { has_variable = tv_diplomatic_victory_points } }
+						set_variable = { name = tv_diplomatic_victory_points value = 0 }
+					}
+					change_variable = { name = tv_diplomatic_victory_points add = local_var:tv_alliance_member_monthly_dvp }
+				}
+				remove_local_variable = tv_alliance_monthly_dvp
+				remove_local_variable = tv_alliance_member_monthly_dvp
+			}
+		}
+	}
+}
