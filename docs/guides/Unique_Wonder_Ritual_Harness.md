@@ -113,7 +113,8 @@ Use statuses to describe which layer is complete:
 A high-fidelity formal ritual spec must include:
 
 - `identity`: id, key, base key, location, runtime prefix, and status.
-- `event_ids`: explicit unique numeric IDs, all below `10000`.
+- `event_ids`: explicit unique numeric IDs, all below `10000`. Declared event ids are
+  unique across the spec file, and `node.event_id` values are unique within the same spec.
 - `design_ir`: phases/gameplay stages, player proofs, tracked entity sets, per-entity
   state, selectors, risk branches, player actions/decisions, map or scope evidence, UI
   feedback model, uniqueness constraints, and projection notes.
@@ -191,7 +192,26 @@ required variable roles, supported listeners/UI components/output kinds, a verif
 `branch_specific_reward_scaling`, and
 `bounded_opposition_religious_community_pressure`; these contracts provide evidence mapping
 for richer `design_ir` primitives while still producing only intermediate fragments, stubs, or
-summaries.
+summaries. `pilgrimage_route_certification_backend` is the route-certification counterpart:
+it preserves pilgrimage route endpoint, waypoint, offering, recognition-proof, failed-route
+fallback, and local-only circuit semantics as markdown fragments, trigger/effect stubs, GUI
+summaries, and tooltip notes only. It must not generate route source, GUI rows, event chains,
+or other loadable EU5 `src` files. `overland_relay_route_certification_backend` is the
+overland relay counterpart: it preserves named road segments, tambos, rope-bridge
+checkpoints, runner-carried relay message proof, reroute, and domestic-only fallback
+semantics as markdown fragments, trigger/effect stubs, GUI summaries, and tooltip notes
+only. It must not generate route source, GUI rows, event chains, or other loadable EU5
+`src` files. `maritime_trade_route_certification_backend` is the maritime-commercial
+counterpart: it preserves monsoon route endpoints, bonded warehouse certification,
+translator and merchant-law compacts, blocked or unaffordable route incidents, reroute, and
+lower-prestige domestic certification fallback semantics as markdown fragments,
+trigger/effect stubs, GUI summaries, and tooltip notes only. It must not generate trade-route,
+market, GUI, event-chain, or other loadable EU5 `src` files.
+`auxiliary_building_completion_listener_backend` is the construction/auxiliary
+completion counterpart: it preserves completion listener, annex inspection, repair retry, and
+reward-handoff semantics as markdown fragments, trigger/effect stubs, GUI summaries, and
+tooltip notes only. It must not generate `on_action`, `building_type` hooks, or loadable EU5
+source.
 
 Codegen-eligible nodes must declare `capabilities`. The validator rejects unknown
 capabilities, capabilities that do not support the node kind, missing capability-required
@@ -209,6 +229,14 @@ requirements, terminal-node capability requirements, a verification tier, `may_w
 and notes. The v1 registry archetypes are `expedition_route_chain`,
 `patronage_actor_assignment`, `resource_accumulation_ritual`, `monthly_pressure_countdown`,
 `incident_retry_gauntlet`, `listener_resolution_ritual`, and `hidden_executor_finalization`.
+`public_credit_charter_retry` and `arsenal_ropewalk_launch_inspection` are pilot archetypes
+for public-credit branching and auxiliary-completion inspection respectively.
+`overland_relay_route_proof` is the pilot archetype for road-segment, tambo, rope-bridge,
+runner-message, reroute, and domestic-only relay certification. `maritime_trade_route_covenant`
+is the pilot archetype for monsoon route endpoints, warehouse seals, translator and
+merchant-law compact proof, route incidents, reroute, and domestic-only port certification.
+All four remain
+intermediate-only and keep `may_write_src: false`.
 
 `compiler_mapped`, `source_codegen_ready`, legacy `implementation_ready`, and
 `harness_generated` specs may declare `node_graph.archetypes`.
@@ -247,7 +275,7 @@ solely because they are outside the union of declared archetype examples.
 - `node_graph.graph_shape`: optional authoring label for the graph shape.
 - `node_graph.completion_policy`: optional lifecycle policy; terminal outgoing edges are
   rejected unless `allow_terminal_outgoing: true` is explicitly set.
-- `node_graph.nodes`: each node declares `key`, `kind`, `event_id`, visibility,
+- `node_graph.nodes`: each node declares `key`, `kind`, a spec-unique `event_id`, visibility,
   capabilities, historical anchor, enter/completion checks, retry target, next nodes,
   reads/writes, UI state, and localization refs. Optional `scope_contract` declares
   root/current/target scopes plus tooltip and unsafe pre-evaluation policy; optional
@@ -270,6 +298,11 @@ The v1 registry is deliberately small:
 - node kinds: `event`, `choice_event`, `assignment_gate`, `resource_gate`, `route_gate`,
   `listener_gate`, `incident_event`, `hidden_executor_handoff`, `retry_event`,
   `monthly_progress_gate`, `final_reward_dispatch`
+- listener kinds: `monthly`, `ruler_death`, `pre_winning_war`, `ending_war`,
+  `auxiliary_building_completion`. The auxiliary completion listener is an intermediate
+  Harness contract for construction/annex completion inspection only; the observed
+  `on_construction_ended` source evidence remains owned by source generators outside v1
+  unique-ritual codegen.
 - action kinds: `effect_script`, `generator_template`, `reward_dispatch_stub`
 - check kinds: `trigger_script`, `generator_template`
 - templates: `sequential_event_chain`, `branch_retry_event`, `monthly_progress_gate`,

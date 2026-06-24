@@ -90,7 +90,13 @@ SUPPORTED_UI_COMPONENTS = {
     "incident_log",
     "progress_track",
 }
-SUPPORTED_LISTENERS = {"monthly", "ruler_death", "pre_winning_war", "ending_war"}
+SUPPORTED_LISTENERS = {
+    "monthly",
+    "ruler_death",
+    "pre_winning_war",
+    "ending_war",
+    "auxiliary_building_completion",
+}
 SUPPORTED_CADENCE_TYPES = {
     "instant_but_branching",
     "event_driven",
@@ -1338,7 +1344,7 @@ def build_spec_payload(existing: dict[str, Any] | None = None) -> dict[str, Any]
                 "supported_cadence_types": list(sorted(SUPPORTED_CADENCE_TYPES)),
                 "custom_archetype_prefix": CUSTOM_ARCHETYPE_PREFIX,
                 "required_ui_components": list(sorted(SUPPORTED_UI_COMPONENTS)),
-                "event_id_rule": "Every event id must be explicit, unique within this file, and < 10000.",
+                "event_id_rule": "Every declared event id must be explicit, unique within this file, and < 10000; every node.event_id must be unique within its spec.",
                 "state_machine_dsl_statuses": list(sorted(SEMANTIC_GRAPH_STATUSES)),
                 "supported_node_kinds": list(sorted(SUPPORTED_NODE_KINDS)),
                 "supported_action_kinds": list(sorted(SUPPORTED_ACTION_KINDS)),
@@ -2390,6 +2396,7 @@ def _validate_codegen_node_graph(
         return errors
 
     node_keys: set[str] = set()
+    node_event_ids: dict[int, str] = {}
     for node in nodes:
         if not isinstance(node, dict):
             errors.append(_issue(entry, "node_graph.nodes entries must be mappings"))
@@ -2413,6 +2420,15 @@ def _validate_codegen_node_graph(
         else:
             if event_id not in entry_event_id_set:
                 errors.append(_issue(entry, f"node {key} references undeclared event id {event_id}"))
+            if event_id in node_event_ids:
+                errors.append(
+                    _issue(
+                        entry,
+                        f"node {key} event_id {event_id} duplicates node {node_event_ids[event_id]}",
+                    )
+                )
+            else:
+                node_event_ids[event_id] = key
 
     errors.extend(
         _semantic_contract_errors(

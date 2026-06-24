@@ -21,7 +21,7 @@ metadata:
   - drafted
   - reviewed
   - frozen
-  supported_listener_policy: expected_listeners must use only monthly, ruler_death, pre_winning_war, and ending_war.
+  supported_listener_policy: expected_listeners must use only monthly, ruler_death, pre_winning_war, ending_war, and auxiliary_building_completion.
   freeze_policy: 'Set authoring_status: frozen only after the global matrix audit is clean enough for full-corpus spec authoring.'
 unique_wonders:
 - wonder_id: 101
@@ -454,10 +454,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - resource_gate
+  - pilgrimage_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: 'A broken pilgrim link or missing offering can force a local-only circuit, preserving sanctity but losing wider route recognition until route capability support exists.'
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This mechanism needs churches cut downward as a replacement Jerusalem; most pilgrimage sites cannot make carved spatial imitation the route proof.'
   similarity_group: new_jerusalem_rock_route
   authoring_status: drafted
@@ -487,10 +488,13 @@ unique_wonders:
   - event_chain
   - final_reward_handoff
   - retry_branch
-  expected_listeners: []
+  - resource_gate
+  - auxiliary_building_completion_listener_backend
+  expected_listeners:
+  - auxiliary_building_completion
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: 'A flawed ropewalk, foundry shortage, or basin leak should resolve through a construction-completion listener later; until then the design keeps the real completion gap visible.'
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: needs_eu5_verification
   uniqueness_notes: 'This proof needs an arsenal where industrial process is state secrecy and civic ceremony; ordinary ports and shipyards do not make production-line inspection the ritual.'
   similarity_group: arsenal_ropewalk_launch_inspection
   authoring_status: drafted
@@ -520,12 +524,13 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - retry_branch
+  - maritime_trade_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Port of Malacca at Malacca: Monsoon routes, warehouses, translators, and merchant law turn a strait into a world market. Most other wonders lack this exact Great Port role and the named Port Covenant proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: maritime_route_validation
+  similarity_group: maritime_trade_route_covenant
   authoring_status: drafted
 - wonder_id: 116
   wonder_key: unique_red_fort_delhi
@@ -920,12 +925,13 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - retry_branch
+  - overland_relay_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Inca Royal Road Network at Picchu: Stone roads, rope bridges, tambos, and runners stitch the Andes into a state that can speak across mountains. Most other wonders lack this exact Imperial Post Road Network role and the named Relay Message proof, so copying the loop would lose the site-specific claim.'
-  similarity_group: overland_or_canal_route_proof
+  similarity_group: overland_relay_route_proof
   authoring_status: drafted
 - wonder_id: 128
   wonder_key: unique_roman_aqueducts

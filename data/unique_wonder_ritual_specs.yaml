@@ -110,7 +110,7 @@ metadata:
     - material_stockpile
     - progress_track
     - route_map
-    event_id_rule: Every event id must be explicit, unique within this file, and < 10000.
+    event_id_rule: Every declared event id must be explicit, unique within this file, and < 10000; every node.event_id must be unique within its spec.
     state_machine_dsl_statuses:
     - compiler_mapped
     - harness_generated
@@ -144,20 +144,35 @@ metadata:
     - simple_progress_track_ui_binding
     supported_capabilities:
     - actor_assignment
+    - actor_assignment_character_selector_backend
+    - auxiliary_building_completion_listener_backend
+    - bounded_opposition_religious_community_pressure
+    - branch_specific_reward_scaling
     - event_chain
     - final_reward_handoff
+    - finance_public_credit_interface_backend
+    - fixed_site_integrity_control_pressure_backend
     - listener_gate
+    - maritime_trade_route_certification_backend
     - monthly_progress
+    - overland_relay_route_certification_backend
+    - pilgrimage_route_certification_backend
+    - repeated_entity_row_checklist_incident_log_backend
     - resource_gate
     - retry_branch
     - route_gate
     supported_archetypes:
+    - arsenal_ropewalk_launch_inspection
     - expedition_route_chain
     - hidden_executor_finalization
     - incident_retry_gauntlet
     - listener_resolution_ritual
+    - maritime_trade_route_covenant
     - monthly_pressure_countdown
+    - new_jerusalem_rock_route
+    - overland_relay_route_proof
     - patronage_actor_assignment
+    - public_credit_charter_retry
     - resource_accumulation_ritual
     archetype_policy: Registry archetypes are optional, non-exclusive reference tags. They add contract checks when used, but custom_* archetype labels are allowed when mechanic_signature.custom_archetype_statement explains the new shape.
     cadence_policy: Implementation-ready specs must declare cadence_signature. Monthly listeners, monthly_progress_gate nodes, monthly_progress capabilities, or monthly_progress_gate templates require monthly_institutionalization or hybrid cadence with a concrete historical rationale and at least one non-monthly player interaction, risk, listener, event branch, trigger, or decision point.
@@ -393,10 +408,8 @@ unique_wonders:
     - The ritual depends on Alexandria as a lighthouse whose value is visual trust across sea lanes.
     - The eight Mediterranean routes make navigation visibility the proof; ordinary ports cannot reuse this without losing the Pharos claim.
     - The controlled/basing/foreign-bargain branch ties diplomacy and naval logistics to the light itself.
-    projection_notes: >
-      The current node_graph is an existing_plugin_parity projection. It preserves the manual implementation evidence and event IDs but compresses
-      per-route rows, route selector state, controlled/basing route passes, and the foreign harbor bargain into lightweight event nodes rather than a
-      full source-codegen-ready graph.
+    projection_notes: |
+      The current node_graph is an existing_plugin_parity projection. It preserves the manual implementation evidence and event IDs but compresses per-route rows, route selector state, controlled/basing route passes, and the foreign harbor bargain into lightweight event nodes rather than a full source-codegen-ready graph.
   compiler_gap_ledger:
   - primitive: alexandria_hostile_privateer_clearance
     design_semantics: Clear hostile privateer pressure around Alexandria before the lighthouse can certify routes.
@@ -1380,7 +1393,7 @@ unique_wonders:
     - The Rock is the sacred object; the ritual is about visible custody of a contested platform, not a generic dome dedication.
     - Jerusalem access rules, guard thresholds, endowment deeds, cisterns, and witnesses are mandatory design surfaces.
     - Conquest cannot speed the rite; sovereignty is proven by restraint and recognized access.
-    projection_notes: >
+    projection_notes: |
       Preserve the full access-group and custody-duty tracked sets in design_ir. Project them into a source_codegen_ready strong DSL graph with four player-visible planning nodes, checklist and incident summary variables, fixed Jerusalem site evidence, bounded opposition semantics, witness/guard branch state, actions, checks, scope contracts, and UI bindings. The repeated-row, bounded religious-community pressure, fixed-site integrity, and branch-scaling primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop no access group, custody duty, guard-overreach branch, witness branch, Jerusalem sacred-site requirement, or per-row UI intent.
   compiler_gap_ledger:
   - primitive: sanctuary_access_compact_rows
@@ -2175,7 +2188,7 @@ unique_wonders:
     - The loop must remain about Granada's capitulation palace, symbolic keys, water courts, protected elites, and foreign witnesses.
     - A normal war victory is not enough; the palace must remain credible as preserved courtly order.
     - The player should not be rewarded for sacking or flattening the palace's negotiated identity.
-    projection_notes: >
+    projection_notes: |
       Preserve war-outcome validation, treaty clauses, palace risk points, and branch-specific reward semantics in design_ir. Project them into a source_codegen_ready strong DSL graph with four planning events, listener/state contracts, checklist and incident summary variables, branch reward state, actions, checks, and UI bindings. The listener, fixed-site integrity/control-pressure, repeated-row, and branch-scaling primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop no war, treaty, palace-risk, or reward primitive.
   compiler_gap_ledger:
   - primitive: war_outcome_capitulation_gate
@@ -3049,7 +3062,7 @@ unique_wonders:
     - The actor must be a sacred official tied to Peter's tomb, not a generic scholar or engineer.
     - Relics, alms, pilgrim thresholds, choir offices, and chapel patronage are required design surfaces.
     - Clergy satisfaction is earned through disciplined service, not a free estate privilege.
-    projection_notes: >
+    projection_notes: |
       Preserve sacred official candidates, actor quality, factional risk, branch reward semantics, and apostolic service duty rows in design_ir. The current source_codegen_ready node_graph preserves the four decisive beats--threshold opening, sacred official assignment, scandal retry, and reward handoff--as a strong Harness state machine, but it is still an intermediate-only projection. It compresses candidate rows and per-duty incident rows into assigned_official, official_quality, incident_status, duty_status, and reward_branch summary variables only for the current Harness projection. Replace no selector, tracked set, per-duty UI requirement, or branch consequence; loadable EU5 source remains blocked by remaining_source_writer_blockers until a later source writer maps the character selector, clergy predicates, actor-quality incident routing, and per-duty GUI rows.
   compiler_gap_ledger:
   - primitive: sacred_official_character_selector
@@ -3267,132 +3280,2426 @@ unique_wonders:
     base_key: sacred_mountain
     location: lalibela
     runtime_prefix: tv_wonder_lalibela_churches
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1026
+    key: new_jerusalem_route_opening
+  - id: 1027
+    key: waypoint_offering_certification
+  - id: 1028
+    key: broken_pilgrim_link_incident
+  - id: 1029
+    key: recognition_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_lalibela_churches needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - new_jerusalem_rock_route
+    historical_mechanic: Rock-hewn New Jerusalem pilgrimage certification through Lalibela's carved churches, offerings, pilgrim route proof, and local-only fallback.
+    summary: The player traces a New Jerusalem route through Lalibela's rock-hewn churches, proves pilgrims can move between waypoints, supplies offerings and lodging, handles a broken pilgrim link or missing offering, and hands recognized pilgrimage proof to the existing final reward path.
+    mechanic_signature:
+      wonder_specific_hook: Lalibela's rite treats the excavated churches as a walkable New Jerusalem carved downward from living rock, so the proof is the route between named sanctuaries rather than a generic sacred-mountain dedication.
+      core_interaction_loop: The player opens the carved route, certifies named church waypoints with offerings and recognition proof, resolves broken pilgrim links or missing offerings, and then hands the accepted pilgrimage proof to the existing final reward path.
+      player_decision_pattern: Decisions are about whether pilgrims can descend and move safely, whether bread, water, lamps, cross guards, and village recognition are sufficient, and whether to repair a disputed route segment or accept a local-only circuit.
+      state_feedback_model: The route_map summarizes New Jerusalem waypoint status, the material stockpile summarizes offering readiness, and the incident_log preserves broken-link, missing-offering, recognition-dispute, retry, and local-only fallback state.
+      failure_or_tension_model: A broken trench passage, missing offering, or disputed recognition can send the player back to waypoint certification; accepting the local-only fallback preserves sanctity while narrowing wider pilgrimage recognition.
+      reward_expression: The final reward remains the Holy City Pilgrimage Day handoff through existing Lalibela finalization effects, with the Harness recording recognized or local-only route proof as intermediate state only.
+      reuse_risk_mitigation: Ordinary pilgrim festivals can reward devotion, but Lalibela must prove a specific church-to-church geography with named rock-hewn waypoints, offerings, endpoint recognition, route incidents, and local-only fallback semantics.
+    cadence_signature:
+      cadence_type: route_certification
+      cadence_rationale: Route certification fits because the decisive validation is the pilgrim circuit through named carved churches, offering checks, incident resolution, and recognition handoff rather than a monthly pulse or single ceremony click.
+      player_agency_model: The player opens the route, certifies waypoint offerings and recognition, chooses repair or retry when a pilgrim link breaks, and decides whether the final proof is wide recognition or a local-only holy circuit.
+      non_monthly_triggers_or_reason: Non-monthly validation comes from the route gate, offering/resource gate, broken-link incident branch, repair retry decision, local-only fallback choice, and final reward dispatch.
+      pacing_failure_mode: The pacing fails if Lalibela becomes one anonymous dedication event, so the node graph keeps route state, offering state, incident state, recognition proof, retry, and final handoff as separate beats.
+    runtime_variables:
+    - tv_wonder_lalibela_churches_stage
+    - tv_wonder_lalibela_churches_route_status
+    - tv_wonder_lalibela_churches_offering_status
+    - tv_wonder_lalibela_churches_incident_state
+    - tv_wonder_lalibela_churches_recognition_proof
+    entry_node: new_jerusalem_route_opening
+    terminal_nodes:
+    - recognition_reward_handoff
+    graph_shape: new_jerusalem_rock_route_projection
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_lalibela_churches_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - new_jerusalem_route_opening
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      reader_nodes:
+      - new_jerusalem_route_opening
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_lalibela_churches_route_status
+      scope: country
+      type: number
+      roles:
+      - route_state
+      initial_value: 0
+      writer_nodes:
+      - new_jerusalem_route_opening
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      reader_nodes:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_lalibela_churches_offering_status
+      scope: country
+      type: number
+      roles:
+      - resource_state
+      initial_value: 0
+      writer_nodes:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      reader_nodes:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_lalibela_churches_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - broken_pilgrim_link_incident
+      reader_nodes:
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_lalibela_churches_recognition_proof
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      reader_nodes:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: new_jerusalem_route_opening
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1026
+      player_visible: true
+      historical_anchor: Priests mark Lalibela as a carved New Jerusalem before pilgrims enter the trench route.
+      enter_condition: The Rock-Hewn Churches are complete enough for the ritual route to be declared.
+      completion_condition: The projected route stage is opened and the player sees that the proof is a New Jerusalem circuit, not a generic dedication.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - waypoint_offering_certification
+      writes:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_route_status
+      reads:
+      - tv_wonder_lalibela_churches_stage
+      ui_state:
+        component_key: lalibela_route_map
+        variable_refs:
+        - tv_wonder_lalibela_churches_stage
+        - tv_wonder_lalibela_churches_route_status
+      loc_refs:
+      - TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: waypoint_offering_certification
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - route_gate
+      - resource_gate
+      - pilgrimage_route_certification_backend
+      event_id: 1027
+      player_visible: true
+      historical_anchor: Pilgrims move between carved churches with bread, water, lamps, processional crosses, and village recognition tokens.
+      enter_condition: The New Jerusalem route is open and at least one church waypoint still needs offering or recognition proof.
+      completion_condition: Route endpoint, waypoint state, offering readiness, and provisional recognition proof are saved as intermediate Harness state.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      writes:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_recognition_proof
+      reads:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_recognition_proof
+      ui_state:
+        component_key: lalibela_route_map
+        variable_refs:
+        - tv_wonder_lalibela_churches_stage
+        - tv_wonder_lalibela_churches_route_status
+        - tv_wonder_lalibela_churches_offering_status
+        - tv_wonder_lalibela_churches_recognition_proof
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: broken_pilgrim_link_incident
+      kind: incident_event
+      capabilities:
+      - event_chain
+      - retry_branch
+      - pilgrimage_route_certification_backend
+      event_id: 1028
+      player_visible: true
+      historical_anchor: A broken pilgrim link, missing offering, unsafe trench, or closed village road can force a local-only circuit.
+      enter_condition: A route segment lacks offering support, pilgrim access, or external recognition.
+      completion_condition: The player either repairs the broken link and retries certification, or accepts a local-only fallback that preserves sanctity but narrows wider route recognition.
+      failure_or_retry: true
+      retry_target: waypoint_offering_certification
+      next_nodes:
+      - waypoint_offering_certification
+      - recognition_reward_handoff
+      writes:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_incident_state
+      - tv_wonder_lalibela_churches_recognition_proof
+      reads:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_incident_state
+      - tv_wonder_lalibela_churches_recognition_proof
+      ui_state:
+        component_key: lalibela_incident_log
+        variable_refs:
+        - tv_wonder_lalibela_churches_stage
+        - tv_wonder_lalibela_churches_route_status
+        - tv_wonder_lalibela_churches_offering_status
+        - tv_wonder_lalibela_churches_incident_state
+        - tv_wonder_lalibela_churches_recognition_proof
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: recognition_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      event_id: 1029
+      player_visible: true
+      historical_anchor: Priests and pilgrims carry recognition proof from the carved holy city into the final ceremony.
+      enter_condition: The route either has wide recognition proof or has explicitly accepted a local-only sanctity fallback.
+      completion_condition: Existing Lalibela finalization visible and hidden reward effects remain the only source reward path.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_recognition_proof
+      reads:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_incident_state
+      - tv_wonder_lalibela_churches_recognition_proof
+      ui_state:
+        component_key: lalibela_incident_log
+        variable_refs:
+        - tv_wonder_lalibela_churches_stage
+        - tv_wonder_lalibela_churches_recognition_proof
+      loc_refs:
+      - tv_engineering_department.500.d_unique_lalibela_churches
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    edges:
+    - from: new_jerusalem_route_opening
+      to: waypoint_offering_certification
+      condition: route_declared
+      effect: open_new_jerusalem_route_projection
+      label_key: TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+    - from: waypoint_offering_certification
+      to: broken_pilgrim_link_incident
+      condition: broken_link_or_missing_offering
+      effect: record_route_incident_projection
+      label_key: TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+    - from: waypoint_offering_certification
+      to: recognition_reward_handoff
+      condition: route_recognized
+      effect: prepare_final_reward_handoff_projection
+      label_key: tv_engineering_department.500.d_unique_lalibela_churches
+    - from: broken_pilgrim_link_incident
+      to: waypoint_offering_certification
+      condition: repair_and_retry
+      effect: retry_waypoint_offering_projection
+      label_key: TV_WONDER_LOCK_UNIQUE_LALIBELA_CHURCHES_TT
+    - from: broken_pilgrim_link_incident
+      to: recognition_reward_handoff
+      condition: accept_local_only_circuit
+      effect: mark_local_only_fallback_projection
+      label_key: tv_engineering_department.600.d_unique_lalibela_churches
+    actions:
+    - key: open_lalibela_new_jerusalem_route
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: certify_lalibela_waypoints_and_offerings
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_lalibela_pilgrim_link_incident
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: dispatch_lalibela_recognition_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: lalibela_route_map_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      generator_template: semantic_contract_fragment
+    - key: lalibela_offering_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      generator_template: semantic_contract_fragment
+    - key: lalibela_incident_contract
+      kind: generator_template
+      tooltip_key: TV_WONDER_LOCK_UNIQUE_LALIBELA_CHURCHES_TT
+      generator_template: semantic_contract_fragment
     listeners: []
+  design_ir:
+    compiler_primitives:
+    - rock_hewn_new_jerusalem_route_set
+    - pilgrimage_waypoint_status_projection
+    - offering_resource_gate_projection
+    - route_incident_local_only_fallback
+    - route_map_incident_log_projection
+    - recognition_proof_final_reward_handoff
+    - source_compiler_pilgrimage_route_generation
+    phases:
+    - key: declare_carved_new_jerusalem
+      gameplay_stage: The ruler and clergy declare that Lalibela's trench route is a carved New Jerusalem in the Ethiopian highlands.
+      entry_condition: The Rock-Hewn Churches have reached the unique ritual moment at Lalibela.
+      exit_condition: The route map names the sacred circuit and prepares waypoint/offering checks.
+    - key: certify_pilgrim_waypoints_and_offerings
+      gameplay_stage: Pilgrims move through named rock-hewn church waypoints while offerings, water, bread, lamps, and recognition tokens are checked.
+      entry_condition: The New Jerusalem circuit is open and route waypoints are visible.
+      exit_condition: Waypoints are certified as recognized, supplied, or blocked.
+    - key: resolve_broken_link_or_local_only_circuit
+      gameplay_stage: A broken pilgrim link, missing offering, unsafe trench, or closed village road is either repaired or narrowed into a local-only circuit.
+      entry_condition: A route incident is recorded before full recognition proof exists.
+      exit_condition: The route is retried with repaired support or the local-only fallback is accepted.
+    - key: handoff_recognized_pilgrimage_reward
+      gameplay_stage: Recognized route proof or local-only sanctity is handed to the existing Lalibela finalization reward path.
+      entry_condition: Route proof is complete or the fallback is explicit.
+      exit_condition: The existing finalization visible and hidden reward effects remain the only source-level reward handoff.
+    player_proofs:
+    - Prove the churches act as a New Jerusalem route cut into living rock rather than an ordinary pilgrimage event.
+    - Prove pilgrims can move between named rock-hewn church waypoints with offerings, water, lodging, lamps, and processional recognition.
+    - Prove route incidents are visible and can either be repaired for wider recognition or accepted as a local-only sanctity fallback.
+    - Prove final rewards remain a handoff to the existing Lalibela finalization path instead of new loadable source generated by the Harness.
+    tracked_entity_sets:
+    - key: lalibela_new_jerusalem_waypoints
+      entity_type: route
+      entities:
+      - key: first_descent_gate
+        display_name: First Descent Gate
+        route_id: 1
+        waypoint_role: entry_from_highland_town
+      - key: bete_medhane_alem
+        display_name: Bete Medhane Alem Court
+        route_id: 2
+        waypoint_role: broad_public_church_and_processional_cross
+      - key: bete_maryam
+        display_name: Bete Maryam Offering Court
+        route_id: 3
+        waypoint_role: offering_water_bread_and_lamp_checkpoint
+      - key: bete_golgotha
+        display_name: Bete Golgotha Recognition Passage
+        route_id: 4
+        waypoint_role: clergy_memory_and_recognition_proof
+      - key: bete_giyorgis
+        display_name: Bete Giyorgis Cross Endpoint
+        route_id: 5
+        waypoint_role: final_cross_shaped_endpoint
+      state_values:
+      - pending
+      - supplied
+      - recognized
+      - broken_link
+      - local_only
+      per_entity_state:
+        status_variable_pattern: tv_wonder_lalibela_churches_waypoint_<route_key>_status
+        offering_variable_pattern: tv_wonder_lalibela_churches_waypoint_<route_key>_offering
+        recognition_variable_pattern: tv_wonder_lalibela_churches_waypoint_<route_key>_recognition
+        incident_variable_pattern: tv_wonder_lalibela_churches_waypoint_<route_key>_incident
+      selector: The current Harness projection saves a summary route status, but design_ir preserves each named church waypoint for a future route selector.
+      ui_binding: route_map:lalibela_new_jerusalem_waypoints renders one waypoint row per church with route, offering, recognition, and incident status; incident_log records broken-link or local-only fallback decisions.
+    - key: lalibela_pilgrim_offerings
+      entity_type: offering
+      entities:
+      - key: bread_and_honey_beer
+        display_name: Bread and Honey Beer
+      - key: lamp_oil_and_candles
+        display_name: Lamp Oil and Candles
+      - key: processional_cross_guard
+        display_name: Processional Cross Guard
+      - key: village_recognition_token
+        display_name: Village Recognition Token
+      state_values:
+      - needed
+      - delivered
+      - missing
+      - substituted
+      per_entity_state:
+        status_variable_pattern: tv_wonder_lalibela_churches_offering_<offering_key>_status
+        shortage_variable_pattern: tv_wonder_lalibela_churches_offering_<offering_key>_shortage
+      selector: The route gate checks whether the active waypoint has enough offering support before recognition can pass.
+      ui_binding: incident_log:lalibela_pilgrim_offerings records missing offering incidents and whether the player repairs or substitutes the offering.
+    selectors:
+    - key: active_pilgrim_waypoint
+      selection_space: pending or broken lalibela_new_jerusalem_waypoints
+      selection_state: tv_wonder_lalibela_churches_route_status plus future waypoint-specific status variables.
+      resolution_events:
+      - 1027
+      - 1028
+    - key: route_recognition_branch
+      selection_space: fully recognized route versus local-only circuit fallback
+      selection_state: tv_wonder_lalibela_churches_recognition_proof
+      resolution_events:
+      - 1029
+    risk_branches:
+    - key: broken_pilgrim_link
+      risk: A trench passage, village approach, or church-to-church link fails, proving the sacred geography is not yet usable by ordinary pilgrims.
+      player_response: Repair and retry the route certification, or accept a local-only circuit that preserves sanctity while losing wider route recognition.
+    - key: missing_offering
+      risk: Bread, water, lamps, cross guards, or recognition tokens are missing at a waypoint.
+      player_response: Spend resources or substitute a narrower local offering, which can push the route toward the local-only fallback.
+    - key: recognition_dispute
+      risk: Pilgrims reach the endpoint but outside communities do not yet recognize the carved route as a New Jerusalem proof.
+      player_response: Re-run waypoint recognition or complete the reward handoff with reduced external recognition preserved in design_ir.
+    player_actions:
+    - Open the New Jerusalem route at Lalibela instead of confirming a one-click ceremony.
+    - Certify named church waypoints, route endpoint, offering readiness, and recognition proof.
+    - Resolve broken pilgrim links or missing offerings through repair/retry or local-only fallback.
+    - Hand off the recognized or locally contained pilgrimage proof to the existing finalization reward path.
+    map_scope_evidence:
+    - Lalibela is the fixed wonder location and the New Jerusalem circuit is local to the rock-hewn church complex.
+    - Pharos provides existing manual evidence that named route sets, per-route status variables, active route selection, and route-map GUI rows can be preserved by Harness design_ir without generic flattening.
+    - data/index/scripted_triggers.txt lists Pharos per-route controlled, basing, pending, selected, and has-owner triggers as route-ledger evidence; it does not expose a generic pilgrimage route compiler.
+    - data/index/scripted_effects.txt lists Lalibela finalization visible/hidden effects and the shared finalization reward effects used for the final handoff.
+    ui_feedback_model:
+      components:
+      - route_map
+      - incident_log
+      - material_stockpile
+      route_map: Five New Jerusalem waypoint rows show pending, supplied, recognized, broken-link, or local-only state.
+      incident_log: Route incidents record broken pilgrim links, missing offerings, recognition disputes, retry choices, and the local-only fallback.
+      material_stockpile: Offering readiness is summarized as bread, water, lamp, cross-guard, and village-recognition support rather than loadable resource script.
+      repeated_rows: The design requires one row per church waypoint and one incident/offering status line when a route problem appears.
+      per_entity_status: Each waypoint keeps separate route, offering, recognition, and incident state in design_ir.
+      current_projection: The compiler_mapped node_graph compresses church waypoints into route_status, offerings into offering_status, route problems into incident_state, and recognition or local-only proof into recognition_proof while preserving all rows in design_ir.
+    uniqueness_constraints:
+    - Lalibela's proof is spatial: churches cut downward from rock replace Jerusalem's sacred geography with a walkable highland route.
+    - The route endpoint and waypoints are church-to-church passages inside one carved holy city, not maritime lanes, roads, or ordinary pilgrim hospitality.
+    - Broken-link and missing-offering incidents matter because a carved city cannot claim wider recognition if pilgrims cannot descend, eat, carry crosses, and leave with proof.
+    - The local-only fallback preserves sanctity while explicitly losing wider route recognition, which keeps the mechanism distinct from a generic festival or route counter.
+    projection_notes: The current compiler_mapped node_graph is an intermediate-only strong DSL projection. It preserves New Jerusalem route, route endpoint, named waypoint, offering, recognition proof, incident, local-only fallback, route_map row/status, incident_log, and final reward handoff semantics in design_ir, but compresses repeated waypoint rows and offering rows into summary runtime variables until a future source compiler can generate loadable route state, selectors, GUI rows, and event/effect source.
+  compiler_gap_ledger:
+  - primitive: rock_hewn_new_jerusalem_route_set
+    design_semantics: Preserve Lalibela as a church-to-church New Jerusalem route through carved rock, with a route endpoint and named waypoints.
+    required_game_interfaces:
+    - route endpoint and waypoint authoring data
+    - route_map UI summary
+    - intermediate route state variables
+    codebase_evidence:
+    - capability:pilgrimage_route_certification_backend
+    - capability:route_gate
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contract; no source route compiler is claimed.
+    blocked_by: []
+    fallback_if_unavailable: Keep the waypoint route set in design_ir and project it as route_map summary only.
+  - primitive: pilgrimage_waypoint_status_projection
+    design_semantics: Preserve per-waypoint pending, supplied, recognized, broken-link, and local-only status without flattening the route into one progress counter.
+    required_game_interfaces:
+    - per-waypoint route status projection
+    - repeated route_map rows
+    - summary runtime variables
+    codebase_evidence:
+    - capability:pilgrimage_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no loadable repeated-row GUI source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Preserve all waypoint rows in design_ir and summarize them in the node graph.
+  - primitive: offering_resource_gate_projection
+    design_semantics: Preserve bread, water, lamp, cross-guard, and village-recognition offering checks as route certification requirements.
+    required_game_interfaces:
+    - resource or stockpile gate
+    - offering status state
+    - player-facing tooltip summary
+    codebase_evidence:
+    - capability:resource_gate
+    - capability:pilgrimage_route_certification_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate resource and pilgrimage backend contracts; exact EU5 resource syntax is not generated.
+    blocked_by: []
+    fallback_if_unavailable: Keep offering readiness as design_ir material-stockpile semantics and do not emit source.
+  - primitive: route_incident_local_only_fallback
+    design_semantics: Preserve broken pilgrim link, missing offering, recognition dispute, retry, and local-only fallback branch semantics.
+    required_game_interfaces:
+    - incident_log summary
+    - retry branch
+    - route state mutation stubs
+    codebase_evidence:
+    - capability:retry_branch
+    - capability:pilgrimage_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend and retry contracts; no loadable incident event source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Keep incident and fallback semantics in design_ir and retain a retry/local-only projection node.
+  - primitive: route_map_incident_log_projection
+    design_semantics: Preserve route_map and incident_log UI intent for waypoint rows, offering incidents, recognition disputes, and local-only fallback state.
+    required_game_interfaces:
+    - route_map UI rows
+    - incident_log UI rows
+    - per-entity status projection
+    codebase_evidence:
+    - capability:pilgrimage_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate UI summary contracts; no loadable GUI row source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Use route_map and incident_log summaries while preserving per-row design_ir.
+  - primitive: recognition_proof_final_reward_handoff
+    design_semantics: Hand recognized route proof or explicit local-only fallback to the existing Lalibela finalization reward path.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing Lalibela finalization visible effect
+    - existing hidden finalization cleanup/broadcast effect
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - data/index/scripted_effects.txt:tv_wonder_unique_lalibela_churches_finalization_visible_effect
+    - data/index/scripted_effects.txt:tv_wonder_unique_lalibela_churches_style_1_finalization_hidden_effect
+    - src/in_game/events/tv_wonder_finalization_events.txt:Lalibela inauguration option calls construct_final_building, finalization_visible_effect, then hidden scheduler
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff contract and existing finalization evidence; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave the reward as the existing finalization path and keep Lalibela route proof as design metadata.
+  - primitive: source_compiler_pilgrimage_route_generation
+    design_semantics: A future source compiler would expand route endpoints, waypoint selectors, offering gates, repeated route_map rows, incident_log rows, and retry/local-only effects into loadable EU5 source.
+    required_game_interfaces:
+    - source compiler route-set expansion
+    - loadable event/effect generation
+    - loadable Engineering Department GUI row generation
+    codebase_evidence:
+    - scripts/wonder_unique_rituals/pharos.py manually generates route selectors, route status projection, and route rows for Pharos as evidence of a hand-authored pattern.
+    - data/unique_wonder_ritual_capabilities.yaml:pilgrimage_route_certification_backend is intermediate-only and may_write_src false.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which future Harness source compiler should own pilgrimage endpoint and waypoint row expansion?
+    - How should route endpoint, offering, recognition proof, and local-only fallback effects be represented without guessing EU5 syntax?
+    blocked_by:
+    - No source compiler for pilgrimage route certification is in scope for this round.
+    - The new backend is intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep Lalibela at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: route_map
+      key: lalibela_route_map
+      value_variable: tv_wonder_lalibela_churches_route_status
+    - type: incident_log
+      key: lalibela_incident_log
+      status_variable: tv_wonder_lalibela_churches_incident_state
+    - type: material_stockpile
+      key: lalibela_offerings
+      value_variable: tv_wonder_lalibela_churches_offering_status
+    bindings:
+    - key: lalibela_route_map_binding
+      component_key: lalibela_route_map
+      variable_refs:
+      - tv_wonder_lalibela_churches_stage
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_incident_state
+      - tv_wonder_lalibela_churches_recognition_proof
+      node_refs:
+      - new_jerusalem_route_opening
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+    - key: lalibela_incident_log_binding
+      component_key: lalibela_incident_log
+      variable_refs:
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_incident_state
+      - tv_wonder_lalibela_churches_recognition_proof
+      node_refs:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      - recognition_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      - TV_WONDER_LOCK_UNIQUE_LALIBELA_CHURCHES_TT
+      - tv_engineering_department.600.d_unique_lalibela_churches
+    - key: lalibela_offering_stockpile_binding
+      component_key: lalibela_offerings
+      variable_refs:
+      - tv_wonder_lalibela_churches_route_status
+      - tv_wonder_lalibela_churches_offering_status
+      - tv_wonder_lalibela_churches_recognition_proof
+      node_refs:
+      - waypoint_offering_certification
+      - broken_pilgrim_link_incident
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing Lalibela ceremony modifier handoff
+      description: The route proof hands off to the existing Holy City Pilgrimage Day country reward path; Harness does not generate a new modifier grant.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir New Jerusalem route memory
+      description: Local memory remains the rock-hewn church circuit, offering courts, safe trenches, water access, and pilgrim recognition rows preserved in design_ir.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing finalization visible reward effect
+      description: One-time ruler, engineer, completion celebration, support, and finalization rewards remain routed through the existing Lalibela finalization visible effect.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+    - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+    event_keys:
+    - event_id: 1026
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_lalibela_churches
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      node_key: new_jerusalem_route_opening
+    - event_id: 1027
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_lalibela_churches
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      node_key: waypoint_offering_certification
+    - event_id: 1028
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_lalibela_churches
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_LALIBELA_CHURCHES_TT
+      node_key: broken_pilgrim_link_incident
+    - event_id: 1029
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_LALIBELA_CHURCHES_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.600.d_unique_lalibela_churches
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_LALIBELA_CHURCHES_1
+      node_key: recognition_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_lalibela_churches
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Lalibela is compiler_mapped only. The Harness records intermediate route, waypoint, offering, incident, local-only fallback, and reward-handoff semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: holy_city_pilgrimage
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: existing Lalibela finalization effects plus compiler_mapped intermediate Harness design_ir only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:pilgrimage_route_certification_backend intermediate backend contract
+    - capability:route_gate semantic projection
+    - capability:resource_gate semantic projection
+    - capability:retry_branch semantic projection
+    - capability:final_reward_handoff semantic projection
+    - data/index/scripted_effects.txt Lalibela finalization visible and hidden effects
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable pilgrimage route source compiler
+    - loadable route_map repeated GUI rows
+    - exact EU5 route endpoint, waypoint, offering, and local-only fallback script syntax
+    remaining_source_writer_blockers:
+    - The new pilgrimage_route_certification_backend is intermediate-only and may_write_src false.
+    - No Harness source compiler expands Lalibela waypoint rows, offering rows, route selectors, or local-only fallback effects into loadable EU5 source.
+    - Lalibela remains compiler_mapped; do not promote it to source_codegen_ready until every compiler_gap_ledger row is backend_ready and source writer contracts exist.
 - identity:
     id: 114
     key: unique_venetian_arsenal
     base_key: national_shipyard
     location: venice
     runtime_prefix: tv_wonder_venetian_arsenal
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1020
+    key: arsenal_opening
+  - id: 1021
+    key: arsenal_work_package
+  - id: 1022
+    key: arsenal_material_stockpile
+  - id: 1025
+    key: arsenal_completion_listener
+  - id: 1023
+    key: arsenal_repair_retry
+  - id: 1024
+    key: arsenal_reward
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_venetian_arsenal needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
-    listeners: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - arsenal_ropewalk_launch_inspection
+    historical_mechanic: Venetian state shipbuilding inspection over ropewalks, foundries, guarded basins, and public Marriage of the Sea ceremony.
+    summary: The player proves the Arsenal by selecting a ropewalk, foundry, or guarded-basin work package, preparing the materials, letting auxiliary-building completion trigger an inspection, repairing a defect if needed, and handing the result to the Marriage of the Sea reward.
+    mechanic_signature:
+      wonder_specific_hook: The Venetian Arsenal is not a generic shipyard; its docks, ropewalks, foundries, guarded basins, locks, and civic procession turn production-line secrecy into a public proof of naval power.
+      core_interaction_loop: The player chooses which industrial facility must carry the launch proof, stocks rope, timber, pitch, iron, bronze, pumps, and guarded crews, waits for the auxiliary completion inspection, and then repairs or accepts the launch result before reward handoff.
+      player_decision_pattern: Choices decide whether rope quality, foundry output, or basin watertightness receives priority, whether scarce materials are held for repair, and whether the state exposes enough ritual ceremony to make secret production credible.
+      state_feedback_model: The checklist records selected facility and inspection state while the material stockpile shows preparation readiness and the listener state records whether annex completion has triggered the defect branch.
+      failure_or_tension_model: A flawed ropewalk, foundry shortage, or basin leak sends the player to a repair or retry choice that can return to material preparation instead of pretending construction completion is automatically safe.
+      reward_expression: The final reward remains the Marriage of the Sea handoff, expressing shipbuilding speed and naval morale through a proven launch process rather than a passive dockyard dedication.
+      reuse_risk_mitigation: Ordinary ports can build ships, but only the Arsenal makes industrial secrecy, civic ceremony, ropewalk length, foundry reliability, and guarded basin inspection the ritual proof.
+    cadence_signature:
+      cadence_type: construction_or_auxiliary_building
+      cadence_rationale: Construction or auxiliary-building cadence fits because the decisive validation happens when the selected annex or work package is completed and inspected, not on a monthly pulse or a simple opening event.
+      player_agency_model: The player chooses the facility work package, commits material stockpiles, and decides whether a completion defect should be repaired, retried, or accepted as a narrower launch proof.
+      non_monthly_triggers_or_reason: Non-monthly validation is the auxiliary-building completion listener and the inspection branch that tests ropewalk, foundry, or basin readiness before final reward dispatch.
+      pacing_failure_mode: The pacing fails if completion becomes a generic finalization click, so design_ir preserves separate facility rows, stockpile readiness, inspection risks, and repair choices even when the node graph projects them into summary variables.
+    listeners:
+    - auxiliary_building_completion
+    entry_node: arsenal_opening
+    terminal_nodes:
+    - arsenal_reward
+    runtime_variables:
+    - tv_wonder_venetian_arsenal_stage
+    - tv_wonder_venetian_arsenal_work_package
+    - tv_wonder_venetian_arsenal_stockpile_status
+    - tv_wonder_venetian_arsenal_listener_state
+    - tv_wonder_venetian_arsenal_inspection_result
+    - tv_wonder_venetian_arsenal_defect_state
+    - tv_wonder_venetian_arsenal_reward_branch
+    graph_shape: arsenal_ropewalk_launch_inspection
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_venetian_arsenal_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_opening
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      reader_nodes:
+      - arsenal_opening
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_work_package
+      scope: country
+      type: number
+      roles:
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_work_package
+      reader_nodes:
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_stockpile_status
+      scope: country
+      type: number
+      roles:
+      - resource_state
+      - checklist_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_repair_retry
+      reader_nodes:
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_listener_state
+      scope: country
+      type: number
+      roles:
+      - listener_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      reader_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_inspection_result
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      reader_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_defect_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      reader_nodes:
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    - name: tv_wonder_venetian_arsenal_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - arsenal_repair_retry
+      - arsenal_reward
+      reader_nodes:
+      - arsenal_repair_retry
+      - arsenal_reward
+      cleanup: project_state_clear
+    nodes:
+    - key: arsenal_opening
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1020
+      player_visible: true
+      enter_condition: The completed Venetian Arsenal can open its Marriage of the Sea proof without claiming source generation for auxiliary completion.
+      completion_condition: The Senate, shipwrights, rope masters, founders, basin guards, and civic officiants assemble to select the industrial proof.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+      loc_refs:
+      - tv_engineering_department.1020.t
+      - tv_engineering_department.1020.d
+      - tv_engineering_department.1020.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes:
+      - arsenal_work_package
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: The Arsenal opens with the shipwrights' books closed, guards posted at the basin gates, and the civic rite waiting outside.
+    - key: arsenal_work_package
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - resource_gate
+      event_id: 1021
+      player_visible: true
+      enter_condition: The Arsenal opening is recorded and the player must choose ropewalk, foundry, or guarded basin as the launch proof.
+      completion_condition: The selected work package and first stockpile demand are saved for inspection and repair projection.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+      loc_refs:
+      - tv_engineering_department.1021.t
+      - tv_engineering_department.1021.d
+      - tv_engineering_department.1021.a
+      - tv_engineering_department.1021.b
+      - tv_engineering_department.1021.c
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes:
+      - arsenal_material_stockpile
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: Ropewalk masters, cannon founders, and basin wardens each offer a different way to prove the Arsenal's hidden machinery.
+    - key: arsenal_material_stockpile
+      kind: resource_gate
+      capabilities:
+      - resource_gate
+      event_id: 1022
+      player_visible: true
+      enter_condition: A work package has been selected and its material stockpile must be declared before the annex completion can be trusted.
+      completion_condition: Rope fiber, timber, pitch, iron, bronze, pumps, caissons, and guarded crews are recorded as prepared or short.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_stockpile_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+      loc_refs:
+      - tv_engineering_department.1022.t
+      - tv_engineering_department.1022.d
+      - tv_engineering_department.1022.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes:
+      - arsenal_completion_listener
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: Stockpiles are tallied behind guarded doors so the civic launch does not reveal the state's production secrets too early.
+    - key: arsenal_completion_listener
+      kind: listener_gate
+      capabilities:
+      - auxiliary_building_completion_listener_backend
+      event_id: 1025
+      player_visible: false
+      enter_condition: The selected auxiliary or construction work package is waiting for completion or annex inspection.
+      completion_condition: Auxiliary-building completion semantics are preserved as an intermediate listener contract and then route into inspection or repair.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+        - tv_wonder_venetian_arsenal_listener_state
+        - tv_wonder_venetian_arsenal_inspection_result
+        - tv_wonder_venetian_arsenal_defect_state
+      loc_refs:
+      - TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+      scope_contract:
+        root_scope: country
+        current_scope: location
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      listener_contract:
+        listener: auxiliary_building_completion
+        cadence: auxiliary_building_completion_or_annex_inspection
+        reads:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+        - tv_wonder_venetian_arsenal_listener_state
+        writes:
+        - tv_wonder_venetian_arsenal_listener_state
+        - tv_wonder_venetian_arsenal_inspection_result
+        - tv_wonder_venetian_arsenal_defect_state
+        completion_check: selected auxiliary building or construction annex has completed and is ready for inspection in a later source-owned hook
+        failure_route: arsenal_repair_retry
+      next_nodes:
+      - arsenal_repair_retry
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: The listener stands for the moment when an annex, ropewalk reach, foundry bay, or basin work is complete enough for guarded inspection.
+    - key: arsenal_repair_retry
+      kind: retry_event
+      capabilities:
+      - retry_branch
+      - auxiliary_building_completion_listener_backend
+      event_id: 1023
+      player_visible: true
+      enter_condition: The completion inspection reports whether the selected work package launched cleanly or exposed a defect.
+      completion_condition: The player repairs a flawed ropewalk, foundry shortage, or basin leak, retries material preparation, or accepts a narrower launch proof.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      - tv_wonder_venetian_arsenal_reward_branch
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      - tv_wonder_venetian_arsenal_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+        - tv_wonder_venetian_arsenal_listener_state
+        - tv_wonder_venetian_arsenal_inspection_result
+        - tv_wonder_venetian_arsenal_defect_state
+        - tv_wonder_venetian_arsenal_reward_branch
+      loc_refs:
+      - tv_engineering_department.1023.t
+      - tv_engineering_department.1023.d
+      - tv_engineering_department.1023.a
+      - tv_engineering_department.1023.b
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes:
+      - arsenal_material_stockpile
+      - arsenal_reward
+      failure_or_retry: true
+      retry_target: arsenal_material_stockpile
+      historical_anchor: A bad rope strand, an empty bronze pile, or a leaking basin can be repaired before the Senate lets the civic launch proceed.
+    - key: arsenal_reward
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      event_id: 1024
+      player_visible: true
+      enter_condition: The selected work package is inspected, repaired or accepted, and ready to carry the Marriage of the Sea.
+      completion_condition: Shipbuilding-speed, naval-morale, local Arsenal memory, and one-time launch proof semantics are handed to the final reward layer only as intermediate data.
+      reads:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      - tv_wonder_venetian_arsenal_reward_branch
+      writes:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_venetian_arsenal_stage
+        - tv_wonder_venetian_arsenal_work_package
+        - tv_wonder_venetian_arsenal_stockpile_status
+        - tv_wonder_venetian_arsenal_inspection_result
+        - tv_wonder_venetian_arsenal_defect_state
+        - tv_wonder_venetian_arsenal_reward_branch
+      loc_refs:
+      - tv_engineering_department.1024.t
+      - tv_engineering_department.1024.d
+      - tv_engineering_department.1024.a
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      next_nodes: []
+      failure_or_retry: false
+      retry_target: null
+      historical_anchor: The repaired or accepted launch proof is carried into the Marriage of the Sea as a public sign of secret industrial discipline.
+    edges:
+    - from: arsenal_opening
+      to: arsenal_work_package
+      condition: arsenal council convened
+      effect: set stage to facility work-package selection
+      label_key: tv_engineering_department.1020.a
+    - from: arsenal_work_package
+      to: arsenal_material_stockpile
+      condition: ropewalk, foundry, or guarded basin selected
+      effect: save work package and first stockpile demand
+      label_key: TV_ENGINEERING_VENETIAN_ARSENAL_PROCESS_STATUS
+    - from: arsenal_material_stockpile
+      to: arsenal_completion_listener
+      condition: stockpile and guarded crews are prepared for annex completion
+      effect: preserve material readiness and wait for auxiliary completion listener
+      label_key: TV_ENGINEERING_VENETIAN_ARSENAL_STOCKPILE_STATUS
+    - from: arsenal_completion_listener
+      to: arsenal_repair_retry
+      condition: auxiliary completion or annex inspection fires the intermediate listener contract
+      effect: save inspection result and possible defect state
+      label_key: TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+    - from: arsenal_repair_retry
+      to: arsenal_material_stockpile
+      condition: flawed ropewalk, foundry shortage, or basin leak needs repair
+      effect: return to material preparation with defect state preserved
+      label_key: tv_engineering_department.1023.a
+    - from: arsenal_repair_retry
+      to: arsenal_reward
+      condition: repaired or narrower launch proof accepted
+      effect: save final reward branch and inspection state
+      label_key: tv_engineering_department.1023.b
+    actions:
+    - key: open_arsenal_launch_books
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: choose_arsenal_work_package
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: prepare_arsenal_stockpile
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: preserve_arsenal_completion_listener
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_arsenal_repair_retry
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: branch_retry_event
+    - key: dispatch_arsenal_launch_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: arsenal_work_package_rows_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_VENETIAN_ARSENAL_PROCESS_STATUS
+      generator_template: semantic_contract_fragment
+    - key: arsenal_stockpile_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_VENETIAN_ARSENAL_STOCKPILE_STATUS
+      generator_template: semantic_contract_fragment
+    - key: arsenal_completion_listener_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+      generator_template: semantic_contract_fragment
+  design_ir:
+    compiler_primitives:
+    - arsenal_facility_work_package_rows
+    - arsenal_material_stockpile_preparation
+    - auxiliary_completion_listener_inspection
+    - loadable_auxiliary_completion_source_writer
+    - per_facility_repair_retry_rows
+    phases:
+    - key: secret_council_opening
+      gameplay_stage: Convene Senate officers, shipwrights, ropewalk masters, founders, basin guards, Arsenalotti foremen, and civic officiants while keeping shipbuilding secrets inside guarded doors.
+    - key: facility_work_package_choice
+      gameplay_stage: Choose whether the ropewalk, foundry, or guarded basin will carry the launch proof for the Marriage of the Sea.
+    - key: material_stockpile_preparation
+      gameplay_stage: Prepare hemp, rope, timber, oakum, pitch, tar, iron, bronze, pumps, caissons, guarded crews, and secrecy watches for the selected work package.
+    - key: completion_inspection
+      gameplay_stage: Let auxiliary-building completion or annex inspection trigger a defect branch without pretending the Harness can emit the real on_construction_ended hook.
+    - key: repair_or_launch
+      gameplay_stage: Repair a flawed ropewalk, foundry shortage, or basin leak, or accept a narrower but credible launch proof before final reward handoff.
+    player_proofs:
+    - The player proves that the Arsenal's industrial process is organized enough to launch a fleet under civic ritual.
+    - The player proves that secret state production can still be inspected and trusted by public officers.
+    - The player proves that material readiness matters differently for ropewalks, foundries, and guarded basins.
+    - The player proves that completion is not safe until the selected annex or work package survives inspection or repair.
+    tracked_entity_sets:
+    - key: arsenal_work_packages
+      entity_type: facility_work_package
+      entities:
+      - key: ropewalk
+        display_name: Ropewalk And Cordage Line
+      - key: foundry
+        display_name: Foundry And Shot Bay
+      - key: guarded_basin
+        display_name: Guarded Basin And Lock Gate
+      state_values:
+      - available
+      - selected
+      - stockpiled
+      - completed
+      - defect_found
+      - repaired
+      - accepted_for_launch
+      per_entity_state:
+        status_variable_pattern: tv_wonder_venetian_arsenal_work_package_<package>_status
+        defect_variable_pattern: tv_wonder_venetian_arsenal_work_package_<package>_defect
+      selector: Select the ropewalk, foundry, or guarded basin whose completion and inspection will prove the Arsenal.
+      ui_binding: checklist:arsenal_work_packages should show each facility as available, selected, stockpiled, defect_found, repaired, or accepted.
+    - key: arsenal_material_stockpiles
+      entity_type: material_stockpile
+      entities:
+      - key: hemp_and_rope
+        display_name: Hemp And Finished Rope
+      - key: timber_and_oakum
+        display_name: Timber And Oakum
+      - key: pitch_and_tar
+        display_name: Pitch And Tar
+      - key: iron_and_bronze
+        display_name: Iron And Bronze
+      - key: pumps_and_caissons
+        display_name: Pumps And Caissons
+      - key: guarded_crews
+        display_name: Guarded Arsenalotti Crews
+      state_values:
+      - missing
+      - pledged
+      - delivered
+      - inspected
+      - short
+      - consumed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_venetian_arsenal_stockpile_<material>_status
+        shortage_variable_pattern: tv_wonder_venetian_arsenal_stockpile_<material>_shortage
+      selector: Select the material row whose shortage or readiness matters for the chosen work package.
+      ui_binding: material_stockpile:arsenal_material_stockpiles should render one row per material with readiness and shortage state.
+    - key: arsenal_inspection_risks
+      entity_type: inspection_risk
+      entities:
+      - key: flawed_ropewalk
+        display_name: Flawed Ropewalk
+      - key: foundry_shortage
+        display_name: Foundry Shortage
+      - key: basin_leak
+        display_name: Basin Leak
+      state_values:
+      - dormant
+      - triggered
+      - repaired
+      - accepted_narrowly
+      per_entity_state:
+        status_variable_pattern: tv_wonder_venetian_arsenal_inspection_<risk>_status
+      selector: Select the inspection defect produced by the completed work package.
+      ui_binding: checklist:arsenal_inspection_risks should show whether each defect is dormant, triggered, repaired, or accepted narrowly.
+    selectors:
+    - key: arsenal_work_package_selector
+      selection_space: Ropewalk, foundry, or guarded basin work package.
+      projection_state: Projected into tv_wonder_venetian_arsenal_work_package while design_ir keeps all three facility rows.
+    - key: material_stockpile_selector
+      selection_space: Hemp, rope, timber, oakum, pitch, tar, iron, bronze, pumps, caissons, and guarded crews.
+      projection_state: Projected into tv_wonder_venetian_arsenal_stockpile_status while design_ir keeps per-material rows.
+    - key: inspection_defect_selector
+      selection_space: Flawed ropewalk, foundry shortage, or basin leak.
+      projection_state: Projected into inspection_result and defect_state variables after the listener gate.
+    risk_branches:
+    - key: flawed_ropewalk
+      risk: Rope laid too quickly fails tension inspection and risks embarrassing the public launch.
+      retry_or_failure: Return to material stockpile and repair cordage, or accept a narrower reward branch.
+    - key: foundry_shortage
+      risk: Cannon bronze, shot, or tools are short when the foundry bay is inspected.
+      retry_or_failure: Requisition missing metal and retry, or launch with reduced industrial reach.
+    - key: basin_leak
+      risk: A guarded basin, caisson, or lock gate leaks before the launch procession can trust it.
+      retry_or_failure: Repair pumps and caissons, then wait for inspection again, or accept a cautious launch.
+    player_actions:
+    - Choose whether the ritual proves ropewalk discipline, foundry supply, or guarded basin readiness.
+    - Commit material stockpiles and guarded crews without exposing all state shipbuilding secrets.
+    - Respond to completion inspection by repairing, retrying, or accepting a narrower final proof.
+    - Hand the accepted proof to the Marriage of the Sea reward instead of claiming construction source generation is complete.
+    map_scope_evidence:
+    - Fixed site is Venice; later mapping must preserve location ownership/control, completed Venetian Arsenal building, selected annex or work package, and guarded-basin local state.
+    - Existing project evidence shows auxiliary-building ritual completion can be marked from on_construction_ended, but this spec only records the intermediate listener semantics.
+    - Current on_action bridges cover monthly, ruler-death, pre-winning-war, and ending-war ritual listeners; no construction-completion on_action bridge is generated here.
+    ui_feedback_model:
+      components:
+      - checklist
+      - material_stockpile
+      repeated_rows: One checklist row per facility work package, one material row per stockpile class, and one inspection risk row for flawed ropewalk, foundry shortage, or basin leak.
+      per_entity_status: Facility rows need selected, stockpiled, completed, defect_found, repaired, and accepted states; material rows need delivered, short, inspected, and consumed states.
+      current_projection: The compiler_mapped node_graph compresses facility rows into work_package, stockpile rows into stockpile_status, and inspection rows into inspection_result plus defect_state while preserving full rows in design_ir.
+    uniqueness_constraints:
+    - The proof must involve the Arsenal's production line, not a generic harbor or shipyard ceremony.
+    - Ropewalk, foundry, and guarded basin must stay as distinct selectable work packages.
+    - State shipbuilding secrecy and civic Marriage of the Sea ritual flavor must both remain visible.
+    - Completion must trigger inspection and possible repair before final reward handoff.
+    projection_notes: |
+      Preserve the ropewalk, foundry, and guarded-basin work-package rows, material stockpile rows, secrecy/civic ritual flavor, auxiliary completion listener semantics, and flawed-ropewalk/foundry-shortage/basin-leak repair branches in design_ir. The compiler_mapped node_graph is an intermediate-only projection: it summarizes facility rows through work_package, preparation through stockpile_status, completion listener state through listener_state, inspection through inspection_result and defect_state, and final handoff through reward_branch. It does not generate on_action entries, building_type on_construction_ended hooks, GUI row expansion, or loadable EU5 source.
+  compiler_gap_ledger:
+  - primitive: arsenal_facility_work_package_rows
+    design_semantics: Preserve ropewalk, foundry, and guarded-basin work packages as distinct selectable facility rows with separate inspection outcomes.
+    required_game_interfaces:
+    - per-facility checklist rows
+    - selected facility state variable
+    - per-facility defect state
+    - tooltip-safe selection preview
+    codebase_evidence:
+    - data/unique_wonder_ritual_design_matrix.yaml records the Venetian Arsenal basis as ropewalk, foundry, and basin inspection under construction_or_auxiliary_building cadence.
+    - Existing Harness repeated-row support is intermediate-only and does not yet generate loadable per-facility GUI rows for this arsenal shape.
+    verification_status: semantic_only
+    harness_backlog_cluster: arsenal_facility_rows
+    search_questions:
+    - Which future GUI row expander should own per-facility checklist rows for construction or auxiliary-building rituals?
+    - Should ropewalk, foundry, and basin state be generated as fixed variables or a reusable tracked row set?
+    blocked_by:
+    - No loadable GUI/source row expander exists for Arsenal-specific facility work packages.
+    fallback_if_unavailable: Keep all facility rows in design_ir and project them through tv_wonder_venetian_arsenal_work_package.
+  - primitive: arsenal_material_stockpile_preparation
+    design_semantics: Track material readiness for rope, timber, pitch, metal, pumps, caissons, and guarded crews before completion inspection.
+    required_game_interfaces:
+    - material_stockpile UI summary
+    - resource gate trigger or effect stub
+    - selected work-package preparation state
+    codebase_evidence:
+    - capability:resource_gate
+    - data/unique_wonder_ritual_capabilities.yaml:resource_gate documents stockpile and cost-gate semantics with may_write_src false.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize resource-gate contracts as intermediate Markdown/stub output only.
+    verification_status: backend_ready
+    harness_backlog_cluster: resource_gate
+    search_questions:
+    - Which exact EU5 resources or goods should later map to hemp, timber, pitch, metal, pumps, caissons, and guarded crews?
+    blocked_by:
+    - Loadable resource predicates and effects remain blocked until a later source writer maps the semantic stockpile rows to exact game interfaces.
+    fallback_if_unavailable: Use one stockpile_status summary variable while preserving per-material rows in design_ir.
+  - primitive: auxiliary_completion_listener_inspection
+    design_semantics: Preserve the construction or auxiliary-building completion listener, annex inspection, defect result, and repair retry handoff without generating source hooks.
+    required_game_interfaces:
+    - auxiliary-building completion listener contract
+    - completion or annex inspection state
+    - repair retry route
+    - final reward handoff state
+    codebase_evidence:
+    - docs/knowledge/anti_patterns.yaml records that auxiliary-building ritual completion should use on_construction_ended rather than relying only on on_built.
+    - docs/guides/AI_Tool_Workflow_Prompt.md records the same style-2 annex completion fix.
+    - src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt has auxiliary on_construction_ended blocks that call tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect.
+    - src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt defines tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect and tv_wonder_complete_active_ritual_effect.
+    - capability:auxiliary_building_completion_listener_backend
+    - data/unique_wonder_ritual_capabilities.yaml:auxiliary_building_completion_listener_backend preserves completion listener, annex inspection, and repair retry semantics as an intermediate backend with may_write_src false.
+    - template:semantic_contract_fragment
+    - data/unique_wonder_ritual_codegen_templates.yaml:semantic_contract_fragment can summarize listener contracts without loadable EU5 source.
+    verification_status: backend_ready
+    harness_backlog_cluster: auxiliary_building_completion_listener_backend
+    search_questions:
+    - Which later source writer should connect Arsenal-specific inspection events to the generic auxiliary-building completion hook?
+    blocked_by:
+    - Backend-ready here means intermediate Harness contract only; no on_action, building_type hook, or loadable EU5 source writer is certified.
+    fallback_if_unavailable: Keep listener state semantic and route completion through a visible inspection event in a future manual implementation.
+  - primitive: loadable_auxiliary_completion_source_writer
+    design_semantics: Emit or update actual loadable EU5 source for construction or auxiliary-building completion hooks.
+    required_game_interfaces:
+    - building_type on_construction_ended hook generation
+    - safe owner/location scope transition
+    - active ritual completion effect
+    - integration with generated src files
+    codebase_evidence:
+    - src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt shows existing generated auxiliary on_construction_ended hooks.
+    - scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py owns those generated building_type hooks outside the unique ritual Harness.
+    - src/in_game/common/on_action/tv_engineering_department_on_action.txt covers monthly, ruler-death, pre-winning-war, and ending-war ritual listeners, not construction completion.
+    verification_status: needs_codebase_search
+    harness_backlog_cluster: source_writer_boundary
+    search_questions:
+    - Should unique-wonder Harness ever own generated building_type on_construction_ended hooks, or should that remain in the existing wonder mechanics generator?
+    - What contract is needed before a source writer can safely emit loadable construction-completion source for unique rituals?
+    blocked_by:
+    - v1 Harness forbids writing loadable EU5 src and all new contracts in this pass keep may_write_src false.
+    fallback_if_unavailable: Leave Venetian Arsenal at compiler_mapped with the intermediate listener contract and no source generation claim.
+  - primitive: per_facility_repair_retry_rows
+    design_semantics: Preserve flawed ropewalk, foundry shortage, and basin leak as separate risk rows with repair, retry, or narrower launch outcomes.
+    required_game_interfaces:
+    - per-risk checklist rows
+    - retry branch event
+    - defect state variable
+    - reward branch summary
+    codebase_evidence:
+    - capability:retry_branch
+    - data/unique_wonder_ritual_capabilities.yaml:retry_branch documents failure and retry branches without emitting event code.
+    - capability:auxiliary_building_completion_listener_backend
+    - data/unique_wonder_ritual_capabilities.yaml:auxiliary_building_completion_listener_backend preserves repair retry semantics for completion inspection as an intermediate backend.
+    - template:branch_retry_event
+    - data/unique_wonder_ritual_codegen_templates.yaml:branch_retry_event documents retry branches as intermediate event skeleton rows only.
+    verification_status: backend_ready
+    harness_backlog_cluster: repair_retry_branch
+    search_questions:
+    - Which later GUI row pattern should expose separate flawed-ropewalk, foundry-shortage, and basin-leak outcomes?
+    blocked_by:
+    - Loadable per-risk GUI/source expansion remains blocked even though the current retry semantics are backend-ready as an intermediate Harness projection.
+    fallback_if_unavailable: Use defect_state and reward_branch summary variables while preserving all risk rows in design_ir.
   ui_model:
-    components: []
+    components:
+    - type: checklist
+      key: arsenal_process_checklist
+      status_variable: tv_wonder_venetian_arsenal_work_package
+    - type: material_stockpile
+      key: arsenal_material_stockpile
+      value_variable: tv_wonder_venetian_arsenal_stockpile_status
+    bindings:
+    - key: arsenal_process_checklist_binding
+      component_key: arsenal_process_checklist
+      variable_refs:
+      - tv_wonder_venetian_arsenal_stage
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_listener_state
+      - tv_wonder_venetian_arsenal_inspection_result
+      - tv_wonder_venetian_arsenal_defect_state
+      - tv_wonder_venetian_arsenal_reward_branch
+      node_refs:
+      - arsenal_opening
+      - arsenal_work_package
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      - arsenal_reward
+      loc_refs:
+      - TV_ENGINEERING_VENETIAN_ARSENAL_PROCESS_STATUS
+      - TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+    - key: arsenal_material_stockpile_binding
+      component_key: arsenal_material_stockpile
+      variable_refs:
+      - tv_wonder_venetian_arsenal_work_package
+      - tv_wonder_venetian_arsenal_stockpile_status
+      - tv_wonder_venetian_arsenal_defect_state
+      node_refs:
+      - arsenal_work_package
+      - arsenal_material_stockpile
+      - arsenal_completion_listener
+      - arsenal_repair_retry
+      loc_refs:
+      - TV_ENGINEERING_VENETIAN_ARSENAL_STOCKPILE_STATUS
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: data/wonder_localization.yaml ceremony theme
+      description: Preserve Marriage of the Sea shipbuilding speed and naval morale as a reward for proving guarded industrial launch discipline.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir arsenal_work_packages
+      description: Local Arsenal memory for the selected ropewalk, foundry, or basin work package and its repaired inspection state.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir inspection branch
+      description: One-time launch confidence, shipbuilding preparation, or civic prestige branch shaped by repaired defects or narrower accepted proof.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_VENETIAN_ARSENAL_PROCESS_STATUS
+    - TV_ENGINEERING_VENETIAN_ARSENAL_STOCKPILE_STATUS
+    - TV_ENGINEERING_VENETIAN_ARSENAL_INSPECTION_STATUS
+    event_keys:
+    - event_id: 1020
+      title_key: tv_engineering_department.1020.t
+      desc_key: tv_engineering_department.1020.d
+      option_keys:
+      - tv_engineering_department.1020.a
+      node_key: arsenal_opening
+    - event_id: 1021
+      title_key: tv_engineering_department.1021.t
+      desc_key: tv_engineering_department.1021.d
+      option_keys:
+      - tv_engineering_department.1021.a
+      - tv_engineering_department.1021.b
+      - tv_engineering_department.1021.c
+      node_key: arsenal_work_package
+    - event_id: 1022
+      title_key: tv_engineering_department.1022.t
+      desc_key: tv_engineering_department.1022.d
+      option_keys:
+      - tv_engineering_department.1022.a
+      node_key: arsenal_material_stockpile
+    - event_id: 1023
+      title_key: tv_engineering_department.1023.t
+      desc_key: tv_engineering_department.1023.d
+      option_keys:
+      - tv_engineering_department.1023.a
+      - tv_engineering_department.1023.b
+      node_key: arsenal_repair_retry
+    - event_id: 1024
+      title_key: tv_engineering_department.1024.t
+      desc_key: tv_engineering_department.1024.d
+      option_keys:
+      - tv_engineering_department.1024.a
+      node_key: arsenal_reward
     world_news_keys:
     - tv_engineering_department.600.d_unique_venetian_arsenal
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Venetian Arsenal is compiler_mapped only. The Harness records intermediate listener, stockpile, inspection, repair, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: marriage_of_the_sea
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: design_only_high_fidelity_spec
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - Harness state_machine_dsl_v1 compiler_mapped projection for Venetian Arsenal
+    - capability:auxiliary_building_completion_listener_backend intermediate backend contract
+    - capability:resource_gate semantic stockpile projection
+    - capability:retry_branch semantic repair projection
+    - capability:final_reward_handoff semantic reward projection
+    - archetype:arsenal_ropewalk_launch_inspection reference blueprint
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable_source_writer_for_auxiliary_completion_listener_and_facility_rows
+    - exact EU5 resource mapping for ropewalk, foundry, and guarded basin stockpiles
+    remaining_source_writer_blockers:
+    - The new auxiliary_building_completion listener backend is intermediate-only; it preserves completion listener, annex inspection, and repair retry semantics but does not generate on_action, building_type, or loadable EU5 source.
+    - Ropewalk, foundry, and guarded-basin facility rows remain high-fidelity design_ir rows projected through summary variables; no loadable GUI/source row expander exists.
+    - Material stockpile rows are preserved semantically through resource_gate but not mapped to exact EU5 goods, construction demands, or effects.
+    - Venetian Arsenal remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 115
     key: unique_malacca_port
     base_key: great_port
     location: malacca
     runtime_prefix: tv_wonder_malacca_port
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1034
+    key: open_port_covenant
+  - id: 1035
+    key: certify_monsoon_route
+  - id: 1036
+    key: certify_warehouse_seals
+  - id: 1037
+    key: compact_translator_merchant_law
+  - id: 1038
+    key: resolve_route_incident
+  - id: 1039
+    key: final_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_malacca_port needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - maritime_trade_route_covenant
+    historical_mechanic: The Port Covenant proves Malacca as a maritime-commercial hinge by certifying a monsoon route, sealing bonded warehouses, joining translators to merchant-law judges, and resolving a blocked route through reroute or domestic-only recognition before reward handoff.
     listeners: []
+    summary: Malacca is mapped as an intermediate-only maritime trade route covenant. The graph compresses route endpoints, warehouse certification, translator and merchant-law compact state, a route incident, reroute or lower-prestige domestic fallback, route_map and progress_track UI intent, and final reward handoff into Harness variables while design_ir preserves the full row-level semantics.
+    entry_node: open_port_covenant
+    terminal_nodes:
+    - final_reward_handoff
+    graph_shape: maritime_route_covenant_with_incident_reroute
+    completion_policy:
+      allow_terminal_outgoing: false
+    mechanic_signature:
+      wonder_specific_hook: Malacca turns the strait into a world market by coordinating monsoon arrivals, warehouse seals, translators, harbor masters, and merchant-law judges in one covenant.
+      core_interaction_loop: The player opens the Port Covenant, certifies one named monsoon route endpoint, proves bonded warehouse custody, signs a translator and merchant-law compact, then resolves a blocked route through reroute or domestic-only certification before final reward handoff.
+      player_decision_pattern: Decisions focus on which oceanic route receives first recognition, whether warehouse and legal proof are strong enough for foreign merchants, and whether an incident deserves an expensive reroute or a lower-prestige domestic fallback.
+      state_feedback_model: The route_map shows the selected monsoon endpoint and reroute status, the progress_track summarizes covenant stages, and the incident_log records warehouse, translator-law, blocked-route, reroute, and domestic-certification outcomes.
+      failure_or_tension_model: A route can be blocked, unaffordable, or diplomatically awkward; the player can pay for a reroute and stronger recognition or accept a domestic certificate that keeps the port functional but loses wider merchant prestige.
+      reward_expression: Full certification hands a foreign-recognized strait market proof to the existing final reward path; the fallback still completes the port covenant locally but marks reduced prestige and narrower commercial reach in design_ir.
+      reuse_risk_mitigation: The design is not Pharos visibility, Lalibela pilgrimage, or Inca relay messaging; its proof depends on maritime monsoon timing, bonded warehouses, translators, merchant law, and a strait market covenant.
+    cadence_signature:
+      cadence_type: route_certification
+      cadence_rationale: Route certification fits because Malacca's benefit turns on a named monsoon route, warehouse custody, translated toll law, and merchant recognition, not passive monthly progress or a generic ceremony.
+      player_agency_model: The player actively chooses certification posture, accepts costs for route protection or reroute, and decides whether foreign recognition is worth more than a lower-prestige domestic certificate.
+      non_monthly_triggers_or_reason: Non-monthly validation comes from the visible monsoon route gate, warehouse certification event, translator and merchant-law compact event, route incident branch, reroute choice, and final reward handoff.
+      pacing_failure_mode: The pacing fails if the covenant becomes a single trade bonus or a Pharos-style route counter; route endpoint, warehouse proof, translator-law compact, and domestic fallback must remain distinct states.
+    variables:
+    - name: tv_wonder_malacca_port_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_port_covenant
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      reader_nodes:
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_route_status
+      scope: country
+      type: number
+      roles:
+      - route_state
+      initial_value: 0
+      writer_nodes:
+      - open_port_covenant
+      - certify_monsoon_route
+      - resolve_route_incident
+      reader_nodes:
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_warehouse_status
+      scope: country
+      type: number
+      roles:
+      - warehouse_state
+      initial_value: 0
+      writer_nodes:
+      - open_port_covenant
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - resolve_route_incident
+      reader_nodes:
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_translator_law_status
+      scope: country
+      type: number
+      roles:
+      - translator_law_state
+      initial_value: 0
+      writer_nodes:
+      - open_port_covenant
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      reader_nodes:
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - resolve_route_incident
+      reader_nodes:
+      - resolve_route_incident
+      - final_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_malacca_port_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - resolve_route_incident
+      - final_reward_handoff
+      reader_nodes:
+      - final_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_port_covenant
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - maritime_trade_route_certification_backend
+      event_id: 1034
+      player_visible: true
+      historical_anchor: port_covenant_proclamation
+      enter_condition: Malacca final port exists and the sponsor opens the Port Covenant proof.
+      completion_condition: Covenant stage, candidate route, warehouse, and translator-law proof states are initialized.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_monsoon_route
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      reads: []
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1034.t
+    - key: certify_monsoon_route
+      kind: route_gate
+      capabilities:
+      - route_gate
+      - maritime_trade_route_certification_backend
+      event_id: 1035
+      player_visible: true
+      historical_anchor: monsoon_route_endpoint
+      enter_condition: The Port Covenant has opened and a first monsoon route endpoint is ready for certification.
+      completion_condition: The selected endpoint is marked as certified, reroute-needed, or eligible for domestic fallback.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_warehouse_seals
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1035.t
+    - key: certify_warehouse_seals
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - maritime_trade_route_certification_backend
+      event_id: 1036
+      player_visible: true
+      historical_anchor: bonded_warehouse_certification
+      enter_condition: A monsoon endpoint has provisional recognition and cargo must be sealed through Malacca warehouses.
+      completion_condition: Warehouse certificates record bonded storage, stamped weights, cargo manifests, and safe waiting for the reversing monsoon.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - compact_translator_merchant_law
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1036.t
+    - key: compact_translator_merchant_law
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - maritime_trade_route_certification_backend
+      event_id: 1037
+      player_visible: true
+      historical_anchor: translator_merchant_law_compact
+      enter_condition: Warehouse custody is credible enough for foreign merchants to ask who translates tolls and judges disputes.
+      completion_condition: Translator rosters, merchant-law clauses, shahbandar jurisdiction, and debt-dispute procedures are compacted into a shared covenant.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - resolve_route_incident
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_translator_law_status
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1037.t
+    - key: resolve_route_incident
+      kind: incident_event
+      capabilities:
+      - event_chain
+      - retry_branch
+      - maritime_trade_route_certification_backend
+      event_id: 1038
+      player_visible: true
+      historical_anchor: blocked_route_reroute_choice
+      enter_condition: A certified route faces a blocked, unaffordable, or diplomatically awkward passage before the covenant can claim outside recognition.
+      completion_condition: The player either funds a reroute with stronger foreign recognition or records a lower-prestige domestic certification fallback.
+      failure_or_retry: true
+      retry_target: certify_monsoon_route
+      next_nodes:
+      - final_reward_handoff
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      - tv_wonder_malacca_port_reward_branch
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+        - tv_wonder_malacca_port_incident_state
+        - tv_wonder_malacca_port_reward_branch
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1038.t
+    - key: final_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      - maritime_trade_route_certification_backend
+      event_id: 1039
+      player_visible: true
+      historical_anchor: strait_market_reward_handoff
+      enter_condition: The route, warehouse, translator-law compact, and incident branch have produced either external recognition or domestic fallback proof.
+      completion_condition: The recognized route or domestic fallback branch is handed to the existing finalization reward path without generating loadable route source.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_reward_branch
+      reads:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      - tv_wonder_malacca_port_reward_branch
+      ui_state:
+        variable_refs:
+        - tv_wonder_malacca_port_stage
+        - tv_wonder_malacca_port_route_status
+        - tv_wonder_malacca_port_warehouse_status
+        - tv_wonder_malacca_port_translator_law_status
+        - tv_wonder_malacca_port_incident_state
+        - tv_wonder_malacca_port_reward_branch
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+      loc_refs:
+      - tv_engineering_department.1039.t
+    edges:
+    - from: open_port_covenant
+      to: certify_monsoon_route
+      condition: port_covenant_opened
+      effect: initialize_monsoon_route_candidates
+      label_key: TV_ENGINEERING_MALACCA_EDGE_OPEN_TO_ROUTE
+    - from: certify_monsoon_route
+      to: certify_warehouse_seals
+      condition: monsoon_route_endpoint_selected
+      effect: record_route_endpoint_status
+      label_key: TV_ENGINEERING_MALACCA_EDGE_ROUTE_TO_WAREHOUSE
+    - from: certify_warehouse_seals
+      to: compact_translator_merchant_law
+      condition: warehouse_certificate_ready
+      effect: record_bonded_storage_proof
+      label_key: TV_ENGINEERING_MALACCA_EDGE_WAREHOUSE_TO_LAW
+    - from: compact_translator_merchant_law
+      to: resolve_route_incident
+      condition: translator_merchant_law_compact_signed
+      effect: expose_route_incident_branch
+      label_key: TV_ENGINEERING_MALACCA_EDGE_LAW_TO_INCIDENT
+    - from: resolve_route_incident
+      to: certify_monsoon_route
+      condition: player_orders_reroute_retry
+      effect: reopen_monsoon_route_selection
+      label_key: TV_ENGINEERING_MALACCA_EDGE_INCIDENT_REROUTE
+    - from: resolve_route_incident
+      to: final_reward_handoff
+      condition: route_incident_resolved_or_domestic_fallback_recorded
+      effect: set_reward_branch_for_final_handoff
+      label_key: TV_ENGINEERING_MALACCA_EDGE_INCIDENT_TO_REWARD
+    actions:
+    - key: record_maritime_route_contract
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_backend_contract
+      generator_template: semantic_contract_fragment
+    - key: dispatch_malacca_reward_stub
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_semantic_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: malacca_route_certificate_check
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_MALACCA_ROUTE_CERTIFICATE_TT
+      generator_template: semantic_contract_fragment
+    - key: malacca_domestic_fallback_check
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_MALACCA_DOMESTIC_FALLBACK_TT
+      generator_template: semantic_contract_fragment
+    projection_notes: The compiler_mapped node_graph is an intermediate-only strong DSL projection. It compresses named monsoon route endpoints into route_status, warehouse certificates into warehouse_status, translator and merchant-law compact proof into translator_law_status, blocked or awkward route choices into incident_state, and external or domestic certification into reward_branch while preserving the full maritime-commercial covenant in design_ir.
+  design_ir:
+    compiler_primitives:
+    - monsoon_route_endpoint_set
+    - warehouse_certification_projection
+    - translator_merchant_law_compact
+    - route_incident_reroute_domestic_fallback
+    - route_map_progress_track_projection
+    - malacca_covenant_final_reward_handoff
+    - source_compiler_maritime_trade_route_generation
+    phases:
+    - key: open_port_covenant
+      gameplay_stage: Port Covenant proof begins at Malacca's strait market.
+      entry_condition: The final Malacca port exists, the sponsor controls the port, and merchant communities are ready to test the covenant.
+      exit_condition: Candidate monsoon route, warehouse, translator, merchant-law, and incident state are initialized.
+    - key: certify_monsoon_route
+      gameplay_stage: Select and certify the first named monsoon route endpoint.
+      entry_condition: The covenant is open and route_map rows can show at least one route endpoint.
+      exit_condition: The route endpoint is certified, marked for reroute, or prepared for domestic-only fallback.
+    - key: certify_warehouse_seals
+      gameplay_stage: Prove the selected route can wait safely in bonded warehouses.
+      entry_condition: The route endpoint has provisional recognition.
+      exit_condition: Warehouse certificates record sealed cargo, stamped weights, manifests, and safe waiting for the return monsoon.
+    - key: compact_translator_merchant_law
+      gameplay_stage: Bind translators, shahbandars, and merchant-law judges into the covenant.
+      entry_condition: Warehouse custody is credible enough for foreign merchants to submit disputes.
+      exit_condition: Translator rosters, toll explanations, jurisdiction clauses, debt hearings, and dispute rulings are compacted.
+    - key: resolve_route_incident
+      gameplay_stage: A blocked, unaffordable, or diplomatically awkward route forces reroute or domestic certification.
+      entry_condition: The route, warehouse, and law compact are visible but one route incident remains unresolved.
+      exit_condition: The player pays for reroute, accepts domestic-only certification, or records the lower-prestige branch.
+    - key: final_reward_handoff
+      gameplay_stage: The maritime-commercial covenant is handed to final rewards.
+      entry_condition: Route, warehouse, translator-law compact, and incident branch have resolved.
+      exit_condition: The existing finalization reward path receives the full-recognition or domestic-fallback branch.
+    player_proofs:
+    - Monsoon route endpoint proof: one named maritime lane is visible, selected, and certified as reaching Malacca under a seasonal wind window.
+    - Warehouse certification proof: bonded stores, stamped weights, cargo manifests, and safe waiting through the return monsoon are recorded before legal recognition.
+    - Translator and merchant-law proof: interpreters, toll tables, shahbandar jurisdiction, and debt-dispute rulings are compacted so foreign merchants know the covenant before arrival.
+    - Incident proof: a blocked, unaffordable, or awkward route must be rerouted or downgraded to lower-prestige domestic certification rather than silently passing.
+    - Final reward proof: the selected reward branch explicitly distinguishes external strait-market recognition from domestic-only fallback.
+    tracked_entity_sets:
+    - key: malacca_monsoon_routes
+      entity_type: route
+      entities:
+      - key: china_sea_junk_route
+        display_name: China Sea Junk Route
+        endpoint: South China Sea merchants
+        monsoon_window: northeast_return
+        cargo_focus: ceramics, silk, copper cash
+      - key: gujarat_cambay_route
+        display_name: Gujarat-Cambay Textile Route
+        endpoint: western Indian merchants
+        monsoon_window: southwest_arrival
+        cargo_focus: textiles, indigo, silver
+      - key: coromandel_tamil_route
+        display_name: Coromandel-Tamil Cloth Route
+        endpoint: eastern Indian merchants
+        monsoon_window: southwest_arrival
+        cargo_focus: cloth, rice, horses
+      - key: arab_persian_dhow_route
+        display_name: Arab-Persian Dhow Route
+        endpoint: western ocean merchants
+        monsoon_window: long_ocean_layover
+        cargo_focus: aromatics, coin, legal brokers
+      - key: java_spice_route
+        display_name: Java-Spice Island Route
+        endpoint: island Southeast Asian merchants
+        monsoon_window: inter-island_window
+        cargo_focus: cloves, nutmeg, rice
+      state_values:
+      - pending
+      - endpoint_certified
+      - warehouse_certified
+      - translator_law_compacted
+      - blocked
+      - rerouted
+      - domestic_certified
+      - full_covenant
+      per_entity_state:
+        status_variable_pattern: tv_wonder_malacca_port_route_<route_key>_status
+        endpoint_variable_pattern: tv_wonder_malacca_port_route_<route_key>_endpoint
+        warehouse_variable_pattern: tv_wonder_malacca_port_route_<route_key>_warehouse_certificate
+        law_variable_pattern: tv_wonder_malacca_port_route_<route_key>_merchant_law_compact
+      selector: maritime route gate selects one pending or incident-marked monsoon route and writes tv_wonder_malacca_port_route_status in the current compiler_mapped projection.
+      ui_binding: route_map:malacca_monsoon_routes renders one row per endpoint with route, warehouse, translator-law, incident, reroute, or domestic certification status.
+    - key: malacca_warehouse_certificates
+      entity_type: warehouse_certificate
+      entities:
+      - key: bonded_spice_store
+        display_name: Bonded Spice Store
+      - key: textile_counting_house
+        display_name: Textile Counting House
+      - key: tin_and_coin_vault
+        display_name: Tin and Coin Vault
+      - key: safe_conduct_manifest_office
+        display_name: Safe-Conduct Manifest Office
+      state_values:
+      - unsealed
+      - weighed
+      - manifest_checked
+      - sealed_for_return_monsoon
+      - disputed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_malacca_port_warehouse_<certificate_key>_status
+        cargo_variable_pattern: tv_wonder_malacca_port_warehouse_<certificate_key>_cargo
+        dispute_variable_pattern: tv_wonder_malacca_port_warehouse_<certificate_key>_dispute
+      selector: warehouse certification event checks whether the active route has at least one matching bonded certificate row.
+      ui_binding: progress_track:malacca_warehouse_progress summarizes certified warehouse rows and incident_log records disputed cargo.
+    - key: malacca_translator_law_compacts
+      entity_type: merchant_law_compact
+      entities:
+      - key: toll_translation_roster
+        display_name: Toll Translation Roster
+      - key: shahbandar_jurisdiction_clause
+        display_name: Shahbandar Jurisdiction Clause
+      - key: debt_dispute_hearing
+        display_name: Debt Dispute Hearing
+      - key: safe_conduct_oath
+        display_name: Safe-Conduct Oath
+      state_values:
+      - unwritten
+      - translated
+      - witnessed
+      - compact_signed
+      - disputed
+      per_entity_state:
+        status_variable_pattern: tv_wonder_malacca_port_law_<compact_key>_status
+        witness_variable_pattern: tv_wonder_malacca_port_law_<compact_key>_witness
+        dispute_variable_pattern: tv_wonder_malacca_port_law_<compact_key>_dispute
+      selector: translator and merchant-law compact event chooses whether the compact receives foreign recognition or remains a domestic certificate.
+      ui_binding: incident_log:malacca_merchant_law_incidents records missing translators, disputed tolls, and compact fallback state.
+    selectors:
+    - key: active_monsoon_route
+      selection_space: pending, blocked, or reroute-needed malacca_monsoon_routes
+      selection_state: tv_wonder_malacca_port_route_status plus future per-route status rows.
+      resolution_events:
+      - 1035
+      - 1038
+    - key: active_warehouse_certificate
+      selection_space: warehouse certificate rows tied to the selected route cargo.
+      selection_state: tv_wonder_malacca_port_warehouse_status.
+      resolution_events:
+      - 1036
+    - key: translator_merchant_law_compact_branch
+      selection_space: foreign-recognized compact versus lower-prestige domestic certification.
+      selection_state: tv_wonder_malacca_port_translator_law_status and tv_wonder_malacca_port_reward_branch.
+      resolution_events:
+      - 1037
+      - 1038
+      - 1039
+    risk_branches:
+    - key: blocked_monsoon_route
+      risk: A selected route is closed by piracy, blockade, hostile harbor politics, or unsafe anchorage.
+      player_response: Pay for reroute and stronger external recognition, or keep a lower-prestige domestic certificate that avoids claiming foreign-route proof.
+    - key: unaffordable_warehouse_certificate
+      risk: Bonded warehouse certification is too expensive because seals, guards, compensation funds, or spoilage protection cannot be funded.
+      player_response: Fund the certification, narrow the cargo list, or let the route continue only as a domestic strait-market proof.
+    - key: awkward_merchant_law_compact
+      risk: Translators or merchant judges cannot make tolls and debt rulings acceptable to a foreign merchant community.
+      player_response: Rewrite the compact, accept a prestige cost, reroute to a more cooperative community, or settle for domestic certification.
+    player_actions:
+    - Open the Port Covenant instead of confirming a one-click ceremony.
+    - Pick or qualify the first named monsoon route endpoint for Malacca.
+    - Certify warehouse seals, weights, and manifests for cargo waiting through the return monsoon.
+    - Compact translators, toll tables, shahbandar jurisdiction, and merchant-law dispute rules.
+    - Resolve blocked, unaffordable, or awkward route incidents through reroute or lower-prestige domestic certification.
+    - Hand off full external recognition or domestic fallback to the existing final reward path.
+    map_scope_evidence:
+    - Malacca is the fixed wonder location and the strait market is the local scope for the covenant.
+    - Route endpoints are preserved as maritime-commercial design rows rather than EU5 travel objects in this v1 Harness projection.
+    - The route_map UI intent shows endpoint rows and incident status; progress_track shows covenant stage across route, warehouse, law, incident, and reward handoff.
+    - No current source compiler owns monsoon route travel, warehouse certificate rows, translator-law compacts, or trade-route market source generation.
+    ui_feedback_model:
+      components:
+      - route_map
+      - progress_track
+      - incident_log
+      route_map: Monsoon endpoint rows show selected, certified, blocked, rerouted, domestic-certified, or full-covenant status.
+      progress_track: Covenant progress is stage-based across route endpoint, warehouse certificate, translator-law compact, incident resolution, and final reward handoff.
+      incident_log: Route incidents record blocked passage, unaffordable warehouse proof, awkward merchant-law compact, reroute choice, and domestic fallback.
+      repeated_rows: The design requires one row per monsoon route endpoint, one row per warehouse certificate, and one compact row per translator-law proof.
+      per_entity_status: Each route keeps separate endpoint, warehouse, translator-law, incident, reroute, and domestic fallback state in design_ir.
+      current_projection: The compiler_mapped node_graph compresses routes into route_status, warehouse rows into warehouse_status, translator-law compacts into translator_law_status, route problems into incident_state, and full or domestic recognition into reward_branch while preserving all rows in design_ir.
+    uniqueness_constraints:
+    - Malacca's proof is commercial and maritime: monsoon waiting, bonded warehouses, translators, merchant judges, and strait-market law make the wonder work.
+    - The covenant is not Pharos navigation visibility, Lalibela sacred geography, or Inca relay messaging; it proves that many oceanic merchants can trust one port's rules.
+    - Warehouse certification and translator-law compact are required before route recognition, so the route is not just a named endpoint list.
+    - The lower-prestige domestic fallback keeps failure meaningful by completing a local market certification while explicitly losing outside merchant recognition.
+    projection_notes: The current compiler_mapped node_graph is an intermediate-only strong DSL projection. It preserves monsoon route endpoints, warehouse certification, translator and merchant-law compact, route incident, reroute choice, lower-prestige domestic certification fallback, route_map and progress_track UI intent, incident_log status, and final reward handoff semantics in design_ir, but compresses repeated route, warehouse, compact, and incident rows into summary runtime variables until a future source compiler can generate loadable maritime route state, trade/market semantics, GUI rows, event source, and effect source.
+  compiler_gap_ledger:
+  - primitive: monsoon_route_endpoint_set
+    design_semantics: Preserve named monsoon route endpoints from China, India, Arabia/Persia, Java, Sumatra, and the island Southeast Asian strait market as certifiable maritime route rows.
+    required_game_interfaces:
+    - route endpoint authoring data
+    - route_map UI summary
+    - intermediate route state variables
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:route_gate
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contract; no source maritime route compiler is claimed.
+    blocked_by: []
+    fallback_if_unavailable: Keep monsoon endpoints in design_ir and project them through route_status summary only.
+  - primitive: warehouse_certification_projection
+    design_semantics: Preserve bonded warehouse seals, stamped weights, manifests, cargo custody, and safe waiting for the return monsoon as required route proof.
+    required_game_interfaces:
+    - warehouse certificate rows
+    - progress_track summary
+    - incident_log disputed cargo rows
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no loadable warehouse or goods source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Preserve all warehouse certificate rows in design_ir and summarize them in warehouse_status.
+  - primitive: translator_merchant_law_compact
+    design_semantics: Preserve interpreters, toll translations, shahbandar jurisdiction, safe-conduct oaths, and merchant-law debt dispute rulings as covenant proof.
+    required_game_interfaces:
+    - translator roster semantics
+    - merchant-law compact rows
+    - incident_log compact dispute rows
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no loadable merchant-law source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Keep compact rows in design_ir and summarize them in translator_law_status.
+  - primitive: route_incident_reroute_domestic_fallback
+    design_semantics: Preserve blocked, unaffordable, or awkward maritime route incidents plus reroute and lower-prestige domestic certification fallback branches.
+    required_game_interfaces:
+    - incident_log summary
+    - retry branch
+    - route state mutation stubs
+    - reward branch summary
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:retry_branch
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend and retry contracts; no loadable incident event source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Keep incident, reroute, and domestic fallback semantics in design_ir and retain a retry/fallback projection node.
+  - primitive: route_map_progress_track_projection
+    design_semantics: Preserve route_map and progress_track UI intent for monsoon endpoints, warehouse certification, translator-law compact state, route incident, reroute, domestic fallback, and reward handoff.
+    required_game_interfaces:
+    - route_map UI rows
+    - progress_track UI summary
+    - incident_log UI rows
+    codebase_evidence:
+    - capability:maritime_trade_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate UI summary contracts; no loadable GUI row source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Use route_map, progress_track, and incident_log summaries while preserving per-row design_ir.
+  - primitive: malacca_covenant_final_reward_handoff
+    design_semantics: Hand full foreign-recognized route proof or lower-prestige domestic certification fallback to the existing Malacca finalization reward path.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing Malacca ceremony modifier handoff
+    - existing hidden finalization cleanup/broadcast effect
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - data/index/scripted_effects.txt:tv_wonder_unique_malacca_port_finalization_visible_effect
+    - data/index/scripted_effects.txt:tv_wonder_unique_malacca_port_style_1_finalization_hidden_effect
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff contract and existing finalization evidence; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave the reward as the existing finalization path and keep Malacca route proof as design metadata.
+  - primitive: source_compiler_maritime_trade_route_generation
+    design_semantics: A future source compiler would expand monsoon route endpoints, warehouse certificate rows, translator-law compact rows, route incidents, reroute choices, domestic fallback effects, route_map rows, progress_track state, and trade/market semantics into loadable EU5 source.
+    required_game_interfaces:
+    - source compiler maritime route-set expansion
+    - loadable trade or market effect generation
+    - loadable event/effect generation
+    - loadable Engineering Department GUI row generation
+    codebase_evidence:
+    - data/unique_wonder_ritual_capabilities.yaml:maritime_trade_route_certification_backend is intermediate-only and may_write_src false.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which future Harness source compiler should own maritime route endpoint, warehouse, translator-law, reroute, and domestic fallback row expansion?
+    - How should route/trade/market semantics be represented without guessing EU5 syntax or writing loadable source?
+    blocked_by:
+    - No source compiler for maritime trade route certification is in scope for this round.
+    - The new backend is intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep Malacca at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: route_map
+      key: malacca_route_map
+      value_variable: tv_wonder_malacca_port_route_status
+    - type: progress_track
+      key: malacca_covenant_progress
+      value_variable: tv_wonder_malacca_port_stage
+    - type: incident_log
+      key: malacca_route_incident_log
+      status_variable: tv_wonder_malacca_port_incident_state
+    bindings:
+    - key: malacca_route_map_binding
+      component_key: malacca_route_map
+      variable_refs:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      - tv_wonder_malacca_port_reward_branch
+      node_refs:
+      - open_port_covenant
+      - certify_monsoon_route
+      - resolve_route_incident
+      - final_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_MALACCA_ROUTE_MAP_LABEL
+      - tv_engineering_department.1035.t
+    - key: malacca_progress_track_binding
+      component_key: malacca_covenant_progress
+      variable_refs:
+      - tv_wonder_malacca_port_stage
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      node_refs:
+      - open_port_covenant
+      - certify_monsoon_route
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_MALACCA_PROGRESS_LABEL
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MALACCA_PORT_1
+    - key: malacca_incident_log_binding
+      component_key: malacca_route_incident_log
+      variable_refs:
+      - tv_wonder_malacca_port_route_status
+      - tv_wonder_malacca_port_warehouse_status
+      - tv_wonder_malacca_port_translator_law_status
+      - tv_wonder_malacca_port_incident_state
+      - tv_wonder_malacca_port_reward_branch
+      node_refs:
+      - certify_warehouse_seals
+      - compact_translator_merchant_law
+      - resolve_route_incident
+      - final_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_MALACCA_INCIDENT_LOG_LABEL
+      - tv_engineering_department.1038.t
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing Malacca ceremony modifier handoff
+      description: The maritime route covenant hands full or domestic-certified strait-market proof to the existing Merchant-Port Covenant country reward path; Harness does not generate a new modifier grant.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir maritime-commercial covenant memory
+      description: Local memory remains Malacca's certified quays, bonded warehouses, translator benches, merchant-law court, and route incident ledger preserved in design_ir.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing finalization visible reward effect
+      description: One-time ruler, engineer, completion celebration, support, and finalization rewards remain routed through the existing Malacca finalization visible effect.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_CEREMONY_UNIQUE_MALACCA_PORT_INAUGURATED_BUTTON
+    - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MALACCA_PORT_1
+    - TV_ENGINEERING_MALACCA_ROUTE_MAP_LABEL
+    - TV_ENGINEERING_MALACCA_PROGRESS_LABEL
+    - TV_ENGINEERING_MALACCA_INCIDENT_LOG_LABEL
+    event_keys:
+    - event_id: 1034
+      title_key: tv_engineering_department.1034.t
+      desc_key: tv_engineering_department.1034.d
+      option_keys:
+      - tv_engineering_department.1034.a
+      node_key: open_port_covenant
+    - event_id: 1035
+      title_key: tv_engineering_department.1035.t
+      desc_key: tv_engineering_department.1035.d
+      option_keys:
+      - tv_engineering_department.1035.a
+      node_key: certify_monsoon_route
+    - event_id: 1036
+      title_key: tv_engineering_department.1036.t
+      desc_key: tv_engineering_department.1036.d
+      option_keys:
+      - tv_engineering_department.1036.a
+      node_key: certify_warehouse_seals
+    - event_id: 1037
+      title_key: tv_engineering_department.1037.t
+      desc_key: tv_engineering_department.1037.d
+      option_keys:
+      - tv_engineering_department.1037.a
+      node_key: compact_translator_merchant_law
+    - event_id: 1038
+      title_key: tv_engineering_department.1038.t
+      desc_key: tv_engineering_department.1038.d
+      option_keys:
+      - tv_engineering_department.1038.a
+      - tv_engineering_department.1038.b
+      node_key: resolve_route_incident
+    - event_id: 1039
+      title_key: tv_engineering_department.1039.t
+      desc_key: tv_engineering_department.1039.d
+      option_keys:
+      - tv_engineering_department.1039.a
+      node_key: final_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_malacca_port
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Malacca is compiler_mapped only. The Harness records intermediate maritime route, warehouse, translator-law compact, route incident, reroute, domestic fallback, UI, and reward semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: port_covenant
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir plus existing Malacca finalization effects only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:maritime_trade_route_certification_backend intermediate backend contract
+    - capability:route_gate semantic projection
+    - capability:retry_branch semantic projection
+    - capability:final_reward_handoff semantic projection
+    - archetype:maritime_trade_route_covenant reference blueprint
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable maritime trade route source compiler
+    - loadable route_map repeated GUI rows
+    - exact EU5 monsoon route, warehouse certificate, translator-law compact, reroute, domestic fallback, and trade/market script syntax
+    remaining_source_writer_blockers:
+    - The new maritime_trade_route_certification_backend is intermediate-only and may_write_src false.
+    - No Harness source compiler expands Malacca monsoon route rows, warehouse certificate rows, translator-law compact rows, route incidents, reroute choices, or domestic fallback effects into loadable EU5 source.
+    - Malacca remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 116
     key: unique_red_fort_delhi
@@ -3675,6 +5982,8 @@ unique_wonders:
     key: bank_reward
   node_graph:
     model: state_machine_dsl_v1
+    archetypes:
+    - public_credit_charter_retry
     historical_mechanic: Public credit charter founding that turns Genoese debt, tax streams, coin trust, and merchant syndicates into state machinery.
     summary: The player proves that the Bank of Saint George can make public credit credible by choosing a founding charter and surviving the first creditor, crown, or open-market challenge.
     mechanic_signature:
@@ -4090,7 +6399,7 @@ unique_wonders:
     - The ledger, not the hall alone, is the monument; public debts and pledged revenues must stay visible.
     - The founding choice must branch immediately among creditor, crown, and open-merchant trust models.
     - The reward must stay fiscal, with minting income and tax efficiency from credible public credit rather than a generic trade or monthly bank progress bar.
-    projection_notes: >
+    projection_notes: |
       Preserve charter options, pledge rows, default risk, and branch fiscal semantics in design_ir. Project them into a source_codegen_ready strong DSL graph with four public-credit planning nodes, charter checklist and pledge incident summary variables, branch reward state, actions, checks, scope contracts, and UI bindings. The finance/public-credit, branch-scaling, merchant-creditor pressure, and repeated pledge-row primitives have intermediate backend evidence, but loadable source writers and real GUI row expansion remain unresolved. Drop the old monthly audit pacing from this pilot; do not collapse the ledger to passive monthly points or a simple generic event chain.
   compiler_gap_ledger:
   - primitive: public_credit_interfaces
@@ -4487,44 +6796,735 @@ unique_wonders:
     base_key: imperial_post_road_network
     location: picchu
     runtime_prefix: tv_wonder_inca_royal_road
-    status: stub
-  event_ids: []
+    status: compiler_mapped
+  event_ids:
+  - id: 1030
+    key: open_four_quarters_relay
+  - id: 1031
+    key: certify_road_segment_and_tambo
+  - id: 1032
+    key: resolve_relay_incident
+  - id: 1033
+    key: final_relay_reward_handoff
   node_graph:
-    model: not_authored
-    historical_mechanic: ''
-    summary: unique_inca_royal_road needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
-    nodes: []
+    model: state_machine_dsl_v1
+    archetypes:
+    - overland_relay_route_proof
+    historical_mechanic: Qhapaq Nan relay certification through named stone road segments, rope bridges, tambos, chasqui runner handoffs, and a delivered quipu message.
+    summary: The player opens a Four Quarters relay proof from Picchu, certifies named stone road segments, rope-bridge checkpoints, and stocked tambos, resolves a bridge, supply, runner-delay, or awkward-route incident, and hands the runner-carried relay message to the existing Inca final reward path.
+    mechanic_signature:
+      wonder_specific_hook: The Inca Royal Road is not a generic pilgrimage path or coastal route; it proves imperial reach by making runners, tambos, rope bridges, and stone roads carry a quipu message through Andean terrain.
+      core_interaction_loop: The player declares the relay message, certifies the active road segment and tambo support, responds to bridge failure, missing supplies, runner delay, or route awkwardness, then completes a rerouted or fully certified runner handoff.
+      player_decision_pattern: Decisions choose which endpoint and road segment can carry the first message, whether to spend support on bridges or tambos, and whether to reroute or accept a lower-prestige domestic-only relay when the wider route cannot pass.
+      state_feedback_model: The route_map summarizes named road segment, tambo, bridge, endpoint, and runner handoff status while the incident_log preserves bridge failure, missing tambo supply, runner delay, reroute, and domestic-only fallback state.
+      failure_or_tension_model: A broken rope bridge, empty tambo, delayed runner, unaffordable repair, or diplomatically awkward endpoint can send the player back to route certification or narrow the proof to a domestic-only relay.
+      reward_expression: The final reward remains the Full Relay Line Dispatch handoff through existing Inca finalization effects, with the Harness recording route proof, relay message state, and fallback branch as intermediate state only.
+      reuse_risk_mitigation: Lalibela proves sacred church geography and Pharos proves maritime lanes; this rite proves overland state communication through chasqui runners, tambos, rope bridges, road segments, and a runner-carried quipu message.
+    cadence_signature:
+      cadence_type: route_certification
+      cadence_rationale: Route certification fits because the decisive validation is a named relay line carrying a message across stone roads, rope bridges, tambos, and runner waypoints rather than monthly roadwork or a single ceremony click.
+      player_agency_model: The player qualifies the endpoint and waypoints, chooses how to answer route incidents, and decides whether the final relay proof remains empire-wide or becomes a domestic-only fallback.
+      non_monthly_triggers_or_reason: Non-monthly validation comes from the route gate, active segment/tambo checkpoint, runner-message handoff branch, incident reroute decision, domestic-only fallback choice, and final reward dispatch.
+      pacing_failure_mode: The pacing fails if the Royal Road becomes a generic progress counter or Lalibela-style recognition route, so the node graph keeps relay message state, route state, incident state, reroute, and final handoff as separate beats.
+    runtime_variables:
+    - tv_wonder_inca_royal_road_stage
+    - tv_wonder_inca_royal_road_route_status
+    - tv_wonder_inca_royal_road_relay_message_status
+    - tv_wonder_inca_royal_road_incident_state
+    - tv_wonder_inca_royal_road_reward_branch
+    entry_node: open_four_quarters_relay
+    terminal_nodes:
+    - final_relay_reward_handoff
+    graph_shape: overland_relay_route_proof_projection
+    completion_policy:
+      allow_terminal_outgoing: false
+    variables:
+    - name: tv_wonder_inca_royal_road_stage
+      scope: country
+      type: number
+      roles:
+      - stage_state
+      initial_value: 0
+      writer_nodes:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      reader_nodes:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_inca_royal_road_route_status
+      scope: country
+      type: number
+      roles:
+      - route_state
+      initial_value: 0
+      writer_nodes:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      reader_nodes:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_inca_royal_road_relay_message_status
+      scope: country
+      type: number
+      roles:
+      - relay_message_state
+      initial_value: 0
+      writer_nodes:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      reader_nodes:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_inca_royal_road_incident_state
+      scope: country
+      type: number
+      roles:
+      - incident_state
+      initial_value: 0
+      writer_nodes:
+      - resolve_relay_incident
+      reader_nodes:
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    - name: tv_wonder_inca_royal_road_reward_branch
+      scope: country
+      type: number
+      roles:
+      - reward_state
+      initial_value: 0
+      writer_nodes:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      reader_nodes:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      cleanup: project_state_clear
+    nodes:
+    - key: open_four_quarters_relay
+      kind: event
+      capabilities:
+      - event_chain
+      event_id: 1030
+      player_visible: true
+      historical_anchor: Officials at Picchu knot the relay message and declare that the first line must prove the Four Quarters can speak through stone roads, tambos, bridges, and runners.
+      enter_condition: The Inca Royal Road Network has reached the unique ritual moment at Picchu.
+      completion_condition: The relay message is opened, Picchu is recorded as road head, and the player sees that certification depends on road relay infrastructure instead of a generic ceremony.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - certify_road_segment_and_tambo
+      writes:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      reads:
+      - tv_wonder_inca_royal_road_stage
+      ui_state:
+        component_key: inca_royal_road_route_map
+        variable_refs:
+        - tv_wonder_inca_royal_road_stage
+        - tv_wonder_inca_royal_road_route_status
+        - tv_wonder_inca_royal_road_relay_message_status
+      loc_refs:
+      - TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: certify_road_segment_and_tambo
+      kind: choice_event
+      capabilities:
+      - event_chain
+      - route_gate
+      - overland_relay_route_certification_backend
+      event_id: 1031
+      player_visible: true
+      historical_anchor: Chasqui runners test stone stairs, a rope bridge, a guarded pass, and a stocked tambo before the message can move toward the endpoint.
+      enter_condition: The relay message is sealed and at least one named road segment, tambo, rope bridge, or endpoint waypoint still needs certification.
+      completion_condition: The active segment, bridge checkpoint, tambo supply, runner handoff, endpoint route, and provisional relay proof are saved as intermediate Harness state.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes:
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      writes:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_reward_branch
+      reads:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_reward_branch
+      ui_state:
+        component_key: inca_royal_road_route_map
+        variable_refs:
+        - tv_wonder_inca_royal_road_stage
+        - tv_wonder_inca_royal_road_route_status
+        - tv_wonder_inca_royal_road_relay_message_status
+        - tv_wonder_inca_royal_road_reward_branch
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: resolve_relay_incident
+      kind: incident_event
+      capabilities:
+      - event_chain
+      - retry_branch
+      - overland_relay_route_certification_backend
+      event_id: 1032
+      player_visible: true
+      historical_anchor: A failed rope bridge, empty tambo, delayed runner, unaffordable repair, or awkward endpoint route can discredit the first relay unless the line is repaired or rerouted.
+      enter_condition: A relay route incident is recorded before the message can count as certified.
+      completion_condition: The player either repairs and retries the road segment, reroutes the line, or accepts a lower-prestige domestic-only relay proof.
+      failure_or_retry: true
+      retry_target: certify_road_segment_and_tambo
+      next_nodes:
+      - certify_road_segment_and_tambo
+      - final_relay_reward_handoff
+      writes:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      reads:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      ui_state:
+        component_key: inca_relay_incident_log
+        variable_refs:
+        - tv_wonder_inca_royal_road_stage
+        - tv_wonder_inca_royal_road_route_status
+        - tv_wonder_inca_royal_road_relay_message_status
+        - tv_wonder_inca_royal_road_incident_state
+        - tv_wonder_inca_royal_road_reward_branch
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - location
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    - key: final_relay_reward_handoff
+      kind: final_reward_dispatch
+      capabilities:
+      - final_reward_handoff
+      event_id: 1033
+      player_visible: true
+      historical_anchor: The final runner presents the quipu message at Picchu or a certified endpoint, and officials decide whether the route proof is empire-wide or domestic-only.
+      enter_condition: The relay message has either passed the named route or has explicitly accepted a rerouted or domestic-only fallback.
+      completion_condition: Existing Inca finalization visible and hidden reward effects remain the only source reward path.
+      failure_or_retry: false
+      retry_target: null
+      next_nodes: []
+      writes:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_reward_branch
+      reads:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      ui_state:
+        component_key: inca_relay_incident_log
+        variable_refs:
+        - tv_wonder_inca_royal_road_stage
+        - tv_wonder_inca_royal_road_relay_message_status
+        - tv_wonder_inca_royal_road_reward_branch
+      loc_refs:
+      - tv_engineering_department.500.d_unique_inca_royal_road
+      scope_contract:
+        root_scope: country
+        current_scope: country
+        target_scopes:
+        - none
+        tooltip_safe: true
+        unsafe_pre_eval: false
+    edges:
+    - from: open_four_quarters_relay
+      to: certify_road_segment_and_tambo
+      condition: relay_message_declared
+      effect: open_four_quarters_relay_projection
+      label_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+    - from: certify_road_segment_and_tambo
+      to: resolve_relay_incident
+      condition: bridge_supply_runner_or_endpoint_incident
+      effect: record_overland_relay_incident_projection
+      label_key: TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+    - from: certify_road_segment_and_tambo
+      to: final_relay_reward_handoff
+      condition: relay_message_arrived
+      effect: prepare_relay_reward_handoff_projection
+      label_key: tv_engineering_department.500.d_unique_inca_royal_road
+    - from: resolve_relay_incident
+      to: certify_road_segment_and_tambo
+      condition: repair_reroute_and_retry
+      effect: retry_relay_route_certification_projection
+      label_key: TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT
+    - from: resolve_relay_incident
+      to: final_relay_reward_handoff
+      condition: accept_domestic_only_relay
+      effect: mark_domestic_only_relay_projection
+      label_key: tv_engineering_department.600.d_unique_inca_royal_road
+    actions:
+    - key: open_inca_four_quarters_relay
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: sequential_event_chain
+    - key: certify_inca_segment_tambo_bridge_and_runner
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: resolve_inca_relay_incident
+      kind: generator_template
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: semantic_contract_fragment
+    - key: dispatch_inca_relay_reward
+      kind: reward_dispatch_stub
+      scope: country
+      verified_interface: harness_v1_intermediate_fragment
+      generator_template: final_reward_dispatch_stub
+    checks:
+    - key: inca_overland_route_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      generator_template: semantic_contract_fragment
+    - key: inca_relay_message_contract
+      kind: generator_template
+      tooltip_key: TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      generator_template: semantic_contract_fragment
+    - key: inca_relay_incident_contract
+      kind: generator_template
+      tooltip_key: TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT
+      generator_template: semantic_contract_fragment
     listeners: []
+  design_ir:
+    compiler_primitives:
+    - qhapaq_nan_named_relay_route_set
+    - road_segment_tambo_bridge_status_projection
+    - runner_relay_message_proof
+    - relay_incident_reroute_domestic_fallback
+    - route_map_incident_log_projection
+    - relay_proof_final_reward_handoff
+    - source_compiler_overland_relay_route_generation
+    phases:
+    - key: declare_four_quarters_relay_message
+      gameplay_stage: Officials at Picchu knot a quipu message and name the first relay line that must prove the Four Quarters can be joined by road.
+      entry_condition: The Inca Royal Road Network has reached its unique ritual moment.
+      exit_condition: The route map records Picchu as road head and exposes the endpoint, segment, bridge, tambo, and runner handoff checks.
+    - key: certify_road_segment_tambo_and_bridge
+      gameplay_stage: Chasqui runners and road officials certify stone roads, a rope bridge checkpoint, stocked tambos, qollqa supply, and the selected route endpoint.
+      entry_condition: The relay message is sealed and at least one route waypoint still lacks road, bridge, supply, or runner proof.
+      exit_condition: The active route is certified, blocked by an incident, or narrowed toward a domestic-only relay.
+    - key: resolve_relay_incident_or_reroute
+      gameplay_stage: A bridge failure, missing tambo supply, runner delay, unaffordable repair, or awkward endpoint route is repaired, rerouted, or accepted as a weaker domestic proof.
+      entry_condition: A route incident is recorded before the message can arrive with full prestige.
+      exit_condition: The route is retried with repaired support, rerouted to another certified segment, or marked domestic-only.
+    - key: handoff_relay_reward
+      gameplay_stage: The final runner presents the relay message and officials hand the certified or domestic-only relay proof to the Full Relay Line Dispatch reward path.
+      entry_condition: The message has arrived or the fallback is explicit.
+      exit_condition: The existing finalization visible and hidden reward effects remain the only source-level reward handoff.
+    player_proofs:
+    - Prove the Royal Road can move a runner-carried quipu message through Andean terrain rather than merely claim a completed road.
+    - Prove named stone road segments, tambos, rope bridge checkpoints, runner handoffs, and an endpoint remain visible route state.
+    - Prove bridge failure, missing tambo supply, runner delay, unaffordable repair, and awkward routes can produce reroute or domestic-only fallback decisions.
+    - Prove final rewards remain a handoff to the existing Inca finalization path instead of new loadable source generated by the Harness.
+    tracked_entity_sets:
+    - key: inca_royal_road_relay_segments
+      entity_type: route
+      entities:
+      - key: picchu_road_head
+        display_name: Picchu Road Head
+        route_id: 1
+        waypoint_role: origin_and_message_sealing_place
+      - key: vilcanota_stone_stair
+        display_name: Vilcanota Stone Stair Segment
+        route_id: 2
+        waypoint_role: paved_stone_road_and_retaining_wall_check
+      - key: apurimac_rope_bridge
+        display_name: Apurimac Rope Bridge Checkpoint
+        route_id: 3
+        waypoint_role: woven_bridge_crossing_and_guarded_ravine
+      - key: high_pass_tambo
+        display_name: High Pass Tambo
+        route_id: 4
+        waypoint_role: rest_station_runner_exchange_and_coca_supply
+      - key: qollqa_supply_yard
+        display_name: Qollqa Supply Yard
+        route_id: 5
+        waypoint_role: maize_chuno_sandals_and_llama_loads
+      - key: four_quarters_endpoint
+        display_name: Four Quarters Relay Endpoint
+        route_id: 6
+        waypoint_role: final_message_arrival_or_domestic_fallback_endpoint
+      state_values:
+      - pending
+      - passable
+      - stocked
+      - delayed
+      - blocked
+      - rerouted
+      - domestic_only
+      per_entity_state:
+        status_variable_pattern: tv_wonder_inca_royal_road_segment_<route_key>_status
+        bridge_variable_pattern: tv_wonder_inca_royal_road_segment_<route_key>_bridge
+        tambo_supply_variable_pattern: tv_wonder_inca_royal_road_segment_<route_key>_tambo_supply
+        runner_variable_pattern: tv_wonder_inca_royal_road_segment_<route_key>_runner
+      selector: The current Harness projection saves a summary route status, but design_ir preserves each named road segment, tambo, bridge checkpoint, and endpoint for a future route selector.
+      ui_binding: route_map:inca_royal_road_relay_segments renders one row per road segment, rope bridge, tambo, qollqa, and endpoint with passable, stocked, delayed, rerouted, or domestic-only status.
+    - key: inca_runner_relay_message_handoffs
+      entity_type: relay_message
+      entities:
+      - key: sealed_quipu_message
+        display_name: Sealed Quipu Message
+      - key: first_chasqui_handoff
+        display_name: First Chasqui Handoff
+      - key: bridge_checkpoint_handoff
+        display_name: Rope Bridge Handoff
+      - key: tambo_runner_exchange
+        display_name: Tambo Runner Exchange
+      - key: endpoint_delivery
+        display_name: Endpoint Delivery
+      state_values:
+      - sealed
+      - handed_off
+      - delayed
+      - delivered
+      - domestic_only
+      per_entity_state:
+        status_variable_pattern: tv_wonder_inca_royal_road_message_<handoff_key>_status
+        delay_variable_pattern: tv_wonder_inca_royal_road_message_<handoff_key>_delay
+      selector: The relay message status summarizes runner handoff proof while design_ir preserves each chasqui exchange.
+      ui_binding: route_map:inca_runner_relay_message_handoffs shows whether the quipu message is sealed, handed off, delayed, delivered, or narrowed to domestic-only proof.
+    - key: inca_relay_route_incidents
+      entity_type: relay_incident
+      entities:
+      - key: bridge_failure
+        display_name: Rope Bridge Failure
+      - key: missing_tambo_supply
+        display_name: Missing Tambo Supply
+      - key: runner_delay
+        display_name: Runner Delay
+      - key: unaffordable_repair
+        display_name: Unaffordable Bridge or Road Repair
+      - key: awkward_endpoint_route
+        display_name: Awkward Endpoint Route
+      state_values:
+      - dormant
+      - active
+      - repaired
+      - rerouted
+      - domestic_only
+      per_entity_state:
+        status_variable_pattern: tv_wonder_inca_royal_road_incident_<incident_key>_status
+        response_variable_pattern: tv_wonder_inca_royal_road_incident_<incident_key>_response
+      selector: The incident branch records which route problem is active and whether it is repaired, rerouted, or converted to domestic-only relay proof.
+      ui_binding: incident_log:inca_relay_route_incidents records bridge failure, missing tambo supply, runner delay, unaffordable repair, awkward endpoint route, reroute, and domestic-only fallback decisions.
+    selectors:
+    - key: active_relay_route_segment
+      selection_space: pending or blocked inca_royal_road_relay_segments
+      selection_state: tv_wonder_inca_royal_road_route_status plus future segment-specific status variables.
+      resolution_events:
+      - 1031
+      - 1032
+    - key: relay_message_handoff_branch
+      selection_space: sealed, delayed, delivered, rerouted, or domestic-only relay message proof
+      selection_state: tv_wonder_inca_royal_road_relay_message_status
+      resolution_events:
+      - 1031
+      - 1032
+      - 1033
+    - key: relay_endpoint_branch
+      selection_space: full endpoint certification, rerouted endpoint, or domestic-only fallback endpoint
+      selection_state: tv_wonder_inca_royal_road_reward_branch
+      resolution_events:
+      - 1033
+    risk_branches:
+    - key: bridge_failure
+      risk: A woven rope bridge frays, collapses, or cannot carry runners and llama loads safely.
+      player_response: Renew the bridge and retry, reroute around the ravine, or accept a domestic-only proof that never crosses the failed checkpoint.
+    - key: missing_tambo_supply
+      risk: A tambo lacks maize, chuno, sandals, coca, water, bedding, or runner relief.
+      player_response: Spend supply to stock the station, reroute to a prepared tambo, or narrow the proof to a local relay.
+    - key: runner_delay
+      risk: A chasqui handoff is late enough that the route cannot prove fast state communication.
+      player_response: Reassign runners and retry the segment, accept a slower domestic certification, or reroute to a safer endpoint.
+    - key: awkward_endpoint_route
+      risk: The selected endpoint is blocked, unaffordable to protect, or diplomatically awkward for a first proof.
+      player_response: Choose a new endpoint, pay for recognition and guards, or complete the relay as lower-prestige domestic certification.
+    player_actions:
+    - Open the Four Quarters relay message at Picchu instead of confirming a one-click ceremony.
+    - Certify named road segments, tambos, rope bridges, runner handoffs, route endpoint, and relay-message proof.
+    - Resolve bridge failure, missing tambo supply, runner delay, unaffordable repair, or awkward endpoint route through repair, reroute, retry, or domestic-only fallback.
+    - Hand off the completed or domestic-only relay proof to the existing finalization reward path.
+    map_scope_evidence:
+    - Picchu is the fixed wonder location and the road head for this intermediate relay proof.
+    - The design intentionally uses overland route rows rather than Lalibela church waypoints or Pharos maritime route rows.
+    - data/index/scripted_effects.txt lists Inca finalization visible, hidden, construction, and broadcast effects used for final reward handoff.
+    - No current Harness source compiler expands overland relay route rows, tambo supply, rope bridge checkpoints, runner handoffs, or route incidents into loadable EU5 source.
+    ui_feedback_model:
+      components:
+      - route_map
+      - incident_log
+      route_map: Six relay rows show Picchu road head, stone stair, rope bridge, high-pass tambo, qollqa supply yard, and endpoint as pending, passable, stocked, delayed, blocked, rerouted, or domestic-only.
+      incident_log: Relay incidents record bridge failure, missing tambo supply, runner delay, unaffordable repair, awkward endpoint route, repair, reroute, retry, and domestic-only fallback.
+      repeated_rows: The design requires one route_map row per road segment/checkpoint and one incident_log row when bridge, tambo, runner, cost, or endpoint problems appear.
+      per_entity_status: Each segment keeps separate road, bridge, tambo, runner, endpoint, and incident state in design_ir.
+      current_projection: The compiler_mapped node_graph compresses road segments into route_status, runner handoffs into relay_message_status, route incidents into incident_state, and full or domestic proof into reward_branch while preserving all rows in design_ir.
+    uniqueness_constraints:
+    - The proof is imperial communication over mountains: stone roads, tambos, rope bridges, and runners must carry a message, not just host a festival.
+    - The route endpoint and waypoints are overland relay infrastructure tied to Picchu and the Four Quarters, not church-to-church pilgrimage waypoints or maritime lanes.
+    - Bridge failure, missing tambo supply, and runner delay matter because the reward is movement and administrative transmission, not abstract prestige.
+    - The domestic-only fallback preserves a working internal relay while explicitly losing the wider prestige of a fully certified Four Quarters route.
+    projection_notes: The current compiler_mapped node_graph is an intermediate-only strong DSL projection. It preserves Qhapaq Nan road segments, named tambos, rope bridge checkpoints, relay endpoint, runner-carried quipu message, runner handoffs, bridge failure, missing tambo supply, runner delay, reroute, domestic-only fallback, route_map row/status, incident_log, and final reward handoff semantics in design_ir, but compresses repeated road, bridge, tambo, message, and incident rows into summary runtime variables until a future source compiler can generate loadable overland route state, selectors, GUI rows, event source, and effect source.
+  compiler_gap_ledger:
+  - primitive: qhapaq_nan_named_relay_route_set
+    design_semantics: Preserve the Inca Royal Road as a Picchu-headed overland relay route with a named endpoint, waypoints, stone road segments, tambos, and rope bridge checkpoints.
+    required_game_interfaces:
+    - route endpoint and waypoint authoring data
+    - overland route_map UI summary
+    - intermediate route state variables
+    codebase_evidence:
+    - capability:overland_relay_route_certification_backend
+    - capability:route_gate
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contract; no source route compiler is claimed.
+    blocked_by: []
+    fallback_if_unavailable: Keep the overland route set in design_ir and project it as route_map summary only.
+  - primitive: road_segment_tambo_bridge_status_projection
+    design_semantics: Preserve per-segment stone road, tambo supply, rope bridge, endpoint, rerouted, and domestic-only status without flattening the relay route into one anonymous counter.
+    required_game_interfaces:
+    - per-segment route status projection
+    - repeated route_map rows
+    - summary runtime variables
+    codebase_evidence:
+    - capability:overland_relay_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend contracts; no loadable repeated-row GUI source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Preserve all road, tambo, bridge, and endpoint rows in design_ir and summarize them in the node graph.
+  - primitive: runner_relay_message_proof
+    design_semantics: Preserve runner-carried relay message state, including sealed quipu, chasqui handoffs, bridge handoff, tambo exchange, endpoint delivery, delay, and domestic-only proof.
+    required_game_interfaces:
+    - relay message state projection
+    - route_map row summary
+    - player-facing tooltip summary
+    codebase_evidence:
+    - capability:overland_relay_route_certification_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate overland relay backend contract; exact runner or quipu source syntax is not generated.
+    blocked_by: []
+    fallback_if_unavailable: Keep relay message handoffs as design_ir route semantics and summarize them through relay_message_status.
+  - primitive: relay_incident_reroute_domestic_fallback
+    design_semantics: Preserve bridge failure, missing tambo supply, runner delay, unaffordable repair, awkward endpoint, retry, reroute, and domestic-only fallback branch semantics.
+    required_game_interfaces:
+    - incident_log summary
+    - retry branch
+    - route state mutation stubs
+    codebase_evidence:
+    - capability:retry_branch
+    - capability:overland_relay_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate backend and retry contracts; no loadable incident event source is emitted.
+    blocked_by: []
+    fallback_if_unavailable: Keep incident, reroute, and fallback semantics in design_ir and retain a retry/domestic-only projection node.
+  - primitive: route_map_incident_log_projection
+    design_semantics: Preserve route_map and incident_log UI intent for road rows, bridge checkpoints, tambos, runner handoffs, incident rows, reroutes, and domestic-only fallback state.
+    required_game_interfaces:
+    - route_map UI rows
+    - incident_log UI rows
+    - per-entity status projection
+    codebase_evidence:
+    - capability:overland_relay_route_certification_backend
+    - capability:repeated_entity_row_checklist_incident_log_backend
+    verification_status: backend_ready
+    search_questions:
+    - Covered by intermediate UI summary contracts; no loadable GUI row source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Use route_map and incident_log summaries while preserving per-row design_ir.
+  - primitive: relay_proof_final_reward_handoff
+    design_semantics: Hand full relay proof or explicit domestic-only fallback to the existing Inca finalization reward path.
+    required_game_interfaces:
+    - final_reward_dispatch projection
+    - existing Inca finalization visible effect
+    - existing hidden finalization cleanup/broadcast effect
+    codebase_evidence:
+    - capability:final_reward_handoff
+    - data/index/scripted_effects.txt:tv_wonder_unique_inca_royal_road_finalization_visible_effect
+    - data/index/scripted_effects.txt:tv_wonder_unique_inca_royal_road_style_1_finalization_hidden_effect
+    - src/in_game/events/tv_wonder_finalization_events.txt:Inca inauguration option calls construct_final_building and finalization_visible_effect
+    verification_status: backend_ready
+    search_questions:
+    - Covered by final reward handoff contract and existing finalization evidence; no new reward source is generated.
+    blocked_by: []
+    fallback_if_unavailable: Leave the reward as the existing finalization path and keep Inca relay proof as design metadata.
+  - primitive: source_compiler_overland_relay_route_generation
+    design_semantics: A future source compiler would expand overland route endpoints, road segment selectors, tambo supply gates, rope bridge checkpoints, runner message handoffs, repeated route_map rows, incident_log rows, reroute, and domestic-only effects into loadable EU5 source.
+    required_game_interfaces:
+    - source compiler overland route-set expansion
+    - loadable event/effect generation
+    - loadable Engineering Department GUI row generation
+    codebase_evidence:
+    - data/unique_wonder_ritual_capabilities.yaml:overland_relay_route_certification_backend is intermediate-only and may_write_src false.
+    - scripts/wonder_unique_rituals/pharos.py manually generates route selectors, route status projection, and route rows for Pharos as evidence of a hand-authored route pattern only.
+    verification_status: needs_codebase_search
+    search_questions:
+    - Which future Harness source compiler should own overland relay endpoint, road segment, tambo, bridge, and runner row expansion?
+    - How should relay message, route incident, reroute, and domestic-only fallback effects be represented without guessing EU5 syntax?
+    blocked_by:
+    - No source compiler for overland relay route certification is in scope for this round.
+    - The new backend is intermediate-only and may_write_src false.
+    fallback_if_unavailable: Keep Inca Royal Road at compiler_mapped with high-fidelity design_ir and no source generation.
   ui_model:
-    components: []
+    components:
+    - type: route_map
+      key: inca_royal_road_route_map
+      value_variable: tv_wonder_inca_royal_road_route_status
+    - type: incident_log
+      key: inca_relay_incident_log
+      status_variable: tv_wonder_inca_royal_road_incident_state
+    bindings:
+    - key: inca_royal_road_route_map_binding
+      component_key: inca_royal_road_route_map
+      variable_refs:
+      - tv_wonder_inca_royal_road_stage
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      node_refs:
+      - open_four_quarters_relay
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+    - key: inca_relay_incident_log_binding
+      component_key: inca_relay_incident_log
+      variable_refs:
+      - tv_wonder_inca_royal_road_route_status
+      - tv_wonder_inca_royal_road_relay_message_status
+      - tv_wonder_inca_royal_road_incident_state
+      - tv_wonder_inca_royal_road_reward_branch
+      node_refs:
+      - certify_road_segment_and_tambo
+      - resolve_relay_incident
+      - final_relay_reward_handoff
+      loc_refs:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      - TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT
+      - tv_engineering_department.600.d_unique_inca_royal_road
   rewards:
     permanent_country_modifier:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing Inca ceremony modifier handoff
+      description: The relay proof hands off to the existing Full Relay Line Dispatch country reward path; Harness does not generate a new modifier grant.
     local_building_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: design_ir Qhapaq Nan route memory
+      description: Local memory remains the Picchu road head, certified stone road segments, renewed rope bridge checkpoint, stocked tambos, qollqa supplies, runner stations, and route registers preserved in design_ir.
     one_time_reward:
-      status: pending
-      source: needs_design
-      description: To be authored before this ritual can pass the Harness quality gates.
+      status: designed
+      source: existing finalization visible reward effect
+      description: One-time ruler, engineer, completion celebration, support, and finalization rewards remain routed through the existing Inca finalization visible effect.
   localization:
-    panel_text_keys: []
-    event_keys: []
+    panel_text_keys:
+    - TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+    - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+    event_keys:
+    - event_id: 1030
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_inca_royal_road
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      node_key: open_four_quarters_relay
+    - event_id: 1031
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_inca_royal_road
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      node_key: certify_road_segment_and_tambo
+    - event_id: 1032
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.500.d_unique_inca_royal_road
+      option_keys:
+      - TV_WONDER_LOCK_UNIQUE_INCA_ROYAL_ROAD_TT
+      node_key: resolve_relay_incident
+    - event_id: 1033
+      title_key: TV_ENGINEERING_CEREMONY_UNIQUE_INCA_ROYAL_ROAD_INAUGURATED_BUTTON
+      desc_key: tv_engineering_department.600.d_unique_inca_royal_road
+      option_keys:
+      - TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_INCA_ROYAL_ROAD_1
+      node_key: final_relay_reward_handoff
     world_news_keys:
     - tv_engineering_department.600.d_unique_inca_royal_road
+  generation:
+    status: compiler_mapped_intermediate_only
+    target_files: []
+    verified_templates: []
+    blocked_templates: []
+    dry_run_notes: Inca Royal Road is compiler_mapped only. The Harness records intermediate overland relay route, road segment, tambo, rope bridge, runner message, incident, reroute, domestic-only fallback, and reward-handoff semantics but does not generate loadable EU5 src.
   implementation_notes:
     source_ritual_key: relay_message
-    implementation_source: none
-    verification_status: needs_design
-    verified_interfaces: []
+    implementation_source: compiler_mapped intermediate Harness design_ir plus existing Inca finalization effects only
+    verification_status: compiler_mapped
+    verified_interfaces:
+    - capability:overland_relay_route_certification_backend intermediate backend contract
+    - capability:route_gate semantic projection
+    - capability:retry_branch semantic projection
+    - capability:final_reward_handoff semantic projection
+    - data/index/scripted_effects.txt Inca finalization visible and hidden effects
     needs_verification:
-    - full_ritual_design
-    - node_graph
-    - ui_model
-    - event_ids
+    - loadable overland relay route source compiler
+    - loadable route_map repeated GUI rows
+    - exact EU5 route endpoint, road segment, tambo, rope bridge, runner message, reroute, and domestic-only fallback script syntax
+    remaining_source_writer_blockers:
+    - The new overland_relay_route_certification_backend is intermediate-only and may_write_src false.
+    - No Harness source compiler expands Inca road segment rows, tambo rows, rope bridge checkpoints, runner handoff rows, or domestic-only fallback effects into loadable EU5 source.
+    - Inca Royal Road remains compiler_mapped, not source_codegen_ready or harness_generated.
 - identity:
     id: 128
     key: unique_roman_aqueducts
