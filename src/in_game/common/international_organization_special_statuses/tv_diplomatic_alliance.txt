@@ -5,7 +5,7 @@
 		is_leader_of_international_organization = scope:recipient
 	}
 	auto_bestowal_trigger = {
-		is_leader_of_international_organization = scope:recipient
+		always = yes
 	}
 	auto_rescind_trigger = {
 		NOT = { is_leader_of_international_organization = scope:recipient }
@@ -22,7 +22,7 @@ tv_alliance_member_status = {
 		is_member_of_international_organization = scope:recipient
 	}
 	auto_bestowal_trigger = {
-		is_member_of_international_organization = scope:recipient
+		always = yes
 	}
 	auto_rescind_trigger = {
 		NOT = { is_member_of_international_organization = scope:recipient }
