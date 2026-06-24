@@ -533,7 +533,7 @@ paths:
         extra_trigger_block: null
         reward_options:
           - modifier:
-              global_build_buildings_efficiency: 0.10
+              global_build_buildings_cost: -0.10
           - modifier:
               global_max_rgo_size_modifier_in_rural: 0.20
           - modifier:
@@ -770,7 +770,7 @@ paths:
         extra_trigger_block: null
         reward_options:
           - modifier:
-              global_foreign_build_buildings_efficiency: 0.10
+              global_foreign_build_buildings_cost: -0.10
           - modifier:
               diplomatic_reputation: 2
           - modifier:

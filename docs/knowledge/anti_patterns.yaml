@@ -1912,15 +1912,15 @@
   source: "runtime error.log, 2026-06: AUTO_MODIFIER_NAME_tv_wonder_auto_pirate_port_unscaled and AUTO_MODIFIER_NAME_tv_wonder_auto_unique_algiers_pirate_port_unscaled"
   notes: "Hidden Country Auto modifiers still load as modifier database entries and the localization system requests their AUTO_MODIFIER_NAME keys during startup."
 
-- id: eu5_1_3_cost_modifier_migration_sign
+- id: eu5_1_2_cost_modifier_compatibility
   pattern: ''
   detectability: advisory
-  bad: "Migrating old EU5 1.2 cost modifiers to EU5 1.3 by renaming the key but keeping the original sign"
-  correction: "Use the EU5 1.3 *_efficiency modifier key and invert the value sign: +x% cost becomes -x% efficiency, while -x% cost becomes +x% efficiency."
+  bad: "Using EU5 1.3 *_efficiency cost-style modifier keys while the project/reference data target EU5 1.2"
+  correction: "Use the EU5 1.2 *_cost modifier key. When rolling back from 1.3, invert the value sign: +x% efficiency becomes -x% cost, while -x% efficiency becomes +x% cost."
   category: modifier
   scope: any
-  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:3193,4113,4177,6833,6849,7114,15791"
-  notes: "EU5 1.3 replaced several cost-style modifier keys with good-colored percent efficiency keys, including build-building, court-spending, stability-cost, fort-maintenance, and bureaucracy-maintenance variants. Keeping the old sign reverses the intended gameplay effect."
+  source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:3115,4025,4057,4065,4073,6600,6616,6864,6872,15389"
+  notes: "The current reference files define 1.2 cost-style keys and do not define the migrated 1.3 efficiency keys. EU5 1.3 replaced several of these with good-colored percent efficiency variants; changing direction without sign inversion reverses the intended gameplay effect."
 
 - id: country_interaction_accept_unset_selection_reads
   pattern: ''

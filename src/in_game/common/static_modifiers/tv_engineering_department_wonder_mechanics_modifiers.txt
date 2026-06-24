@@ -5042,11 +5042,11 @@ tv_wonder_great_lighthouse_ritual_burden_modifier = {
 }
 
 tv_wonder_hydraulic_workshop_ritual_blessing_modifier = {
-	global_rural_build_buildings_efficiency = 0.2
+	global_rural_build_buildings_cost = -0.2
 }
 
 tv_wonder_hydraulic_workshop_ritual_burden_modifier = {
-	global_rural_build_buildings_efficiency = -0.4
+	global_rural_build_buildings_cost = 0.4
 }
 
 tv_wonder_mining_city_ritual_blessing_modifier = {
@@ -5122,11 +5122,11 @@ tv_wonder_star_fortress_city_ritual_burden_modifier = {
 }
 
 tv_wonder_great_wall_ritual_blessing_modifier = {
-	stability_cost_efficiency = 0.2
+	stability_cost = -0.2
 }
 
 tv_wonder_great_wall_ritual_burden_modifier = {
-	stability_cost_efficiency = -0.4
+	stability_cost = 0.4
 }
 
 tv_wonder_giant_armory_ritual_blessing_modifier = {
@@ -5316,11 +5316,11 @@ tv_wonder_world_monument_group_ritual_burden_modifier = {
 }
 
 tv_wonder_city_expansion_project_ritual_blessing_modifier = {
-	global_urban_build_buildings_efficiency = 0.05
+	global_urban_build_buildings_cost = -0.05
 }
 
 tv_wonder_city_expansion_project_ritual_burden_modifier = {
-	global_urban_build_buildings_efficiency = -0.1
+	global_urban_build_buildings_cost = 0.1
 }
 
 tv_wonder_megalithic_circle_ritual_blessing_modifier = {
@@ -5332,11 +5332,11 @@ tv_wonder_megalithic_circle_ritual_burden_modifier = {
 }
 
 tv_wonder_grand_cathedral_ritual_blessing_modifier = {
-	court_spending_efficiency = 0.05
+	court_spending_cost_modifier = -0.05
 }
 
 tv_wonder_grand_cathedral_ritual_burden_modifier = {
-	court_spending_efficiency = -0.1
+	court_spending_cost_modifier = 0.1
 }
 
 tv_wonder_great_monastery_ritual_blessing_modifier = {
@@ -5404,11 +5404,11 @@ tv_wonder_mobile_fortress_ritual_burden_modifier = {
 }
 
 tv_wonder_ancient_city_ruins_ritual_blessing_modifier = {
-	court_spending_efficiency = 0.2
+	court_spending_cost_modifier = -0.2
 }
 
 tv_wonder_ancient_city_ruins_ritual_burden_modifier = {
-	court_spending_efficiency = -0.4
+	court_spending_cost_modifier = 0.4
 }
 
 tv_wonder_summer_palace_ritual_blessing_modifier = {
@@ -5640,7 +5640,7 @@ tv_wonder_unique_jerusalem_holy_city_ceremony_modifier = {
 }
 
 tv_wonder_unique_stonehenge_ceremony_modifier = {
-	stability_cost_efficiency = 0.1
+	stability_cost = -0.1
 }
 
 tv_wonder_unique_tower_of_london_ceremony_modifier = {
@@ -5668,7 +5668,7 @@ tv_wonder_unique_gyeongbokgung_ceremony_modifier = {
 }
 
 tv_wonder_unique_changbai_mountain_altar_ceremony_modifier = {
-	court_spending_efficiency = 0.1
+	court_spending_cost_modifier = -0.1
 }
 
 tv_wonder_unique_belgrade_fortress_ceremony_modifier = {
@@ -5716,7 +5716,7 @@ tv_wonder_unique_temple_of_heaven_ceremony_modifier = {
 
 tv_wonder_unique_dujiangyan_ceremony_modifier = {
 	global_production_efficiency = 0.04
-	global_build_buildings_efficiency = 0.03
+	global_build_buildings_cost = -0.03
 }
 
 tv_wonder_unique_porcelain_tower_of_nanjing_ceremony_modifier = {
@@ -5775,7 +5775,7 @@ tv_wonder_unique_university_of_bologna_ceremony_modifier = {
 }
 
 tv_wonder_unique_carrara_marble_quarries_ceremony_modifier = {
-	global_build_buildings_efficiency = 0.05
+	global_build_buildings_cost = -0.05
 	global_production_efficiency = 0.03
 }
 
@@ -5825,7 +5825,7 @@ tv_wonder_unique_wawel_castle_ceremony_modifier = {
 }
 
 tv_wonder_unique_zamosc_ideal_city_ceremony_modifier = {
-	global_build_buildings_efficiency = 0.04
+	global_build_buildings_cost = -0.04
 	monthly_prestige = 0.05
 }
 
@@ -5974,7 +5974,7 @@ tv_wonder_unique_aachen_cathedral_ceremony_modifier = {
 }
 
 tv_wonder_unique_nuremberg_imperial_castle_ceremony_modifier = {
-	fort_maintenance_efficiency = 0.05
+	fort_maintenance_cost = -0.05
 	global_garrison_size_modifier = 0.08
 }
 
