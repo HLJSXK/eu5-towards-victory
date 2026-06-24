@@ -110,7 +110,7 @@ metadata:
     - material_stockpile
     - progress_track
     - route_map
-    event_id_rule: Every event id must be explicit, unique within this file, and < 10000.
+    event_id_rule: Every declared event id must be explicit, unique within this file, and < 10000; every node.event_id must be unique within its spec.
     state_machine_dsl_statuses:
     - compiler_mapped
     - harness_generated
@@ -3324,6 +3324,8 @@ unique_wonders:
     key: arsenal_work_package
   - id: 1022
     key: arsenal_material_stockpile
+  - id: 1025
+    key: arsenal_completion_listener
   - id: 1023
     key: arsenal_repair_retry
   - id: 1024
@@ -3584,7 +3586,7 @@ unique_wonders:
       kind: listener_gate
       capabilities:
       - auxiliary_building_completion_listener_backend
-      event_id: 1022
+      event_id: 1025
       player_visible: false
       enter_condition: The selected auxiliary or construction work package is waiting for completion or annex inspection.
       completion_condition: Auxiliary-building completion semantics are preserved as an intermediate listener contract and then route into inspection or repair.

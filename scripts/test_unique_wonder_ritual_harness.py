@@ -1117,6 +1117,14 @@ def main() -> None:
     duplicate["event_ids"][2]["id"] = 1002
     assert_has_error("duplicate event id", duplicate, "duplicates")
 
+    duplicate_node_event_id = valid_entry()
+    duplicate_node_event_id["node_graph"]["nodes"][4]["event_id"] = duplicate_node_event_id["node_graph"]["nodes"][2]["event_id"]
+    assert_has_error(
+        "duplicate node event id",
+        duplicate_node_event_id,
+        "node final_prep event_id 1003 duplicates node monthly_gate",
+    )
+
     missing_reward = valid_entry()
     missing_reward["rewards"]["one_time_reward"]["status"] = "pending"
     assert_has_error("missing reward", missing_reward, "one_time_reward")

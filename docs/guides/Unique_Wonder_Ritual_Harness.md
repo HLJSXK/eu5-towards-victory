@@ -113,7 +113,8 @@ Use statuses to describe which layer is complete:
 A high-fidelity formal ritual spec must include:
 
 - `identity`: id, key, base key, location, runtime prefix, and status.
-- `event_ids`: explicit unique numeric IDs, all below `10000`.
+- `event_ids`: explicit unique numeric IDs, all below `10000`. Declared event ids are
+  unique across the spec file, and `node.event_id` values are unique within the same spec.
 - `design_ir`: phases/gameplay stages, player proofs, tracked entity sets, per-entity
   state, selectors, risk branches, player actions/decisions, map or scope evidence, UI
   feedback model, uniqueness constraints, and projection notes.
@@ -254,7 +255,7 @@ solely because they are outside the union of declared archetype examples.
 - `node_graph.graph_shape`: optional authoring label for the graph shape.
 - `node_graph.completion_policy`: optional lifecycle policy; terminal outgoing edges are
   rejected unless `allow_terminal_outgoing: true` is explicitly set.
-- `node_graph.nodes`: each node declares `key`, `kind`, `event_id`, visibility,
+- `node_graph.nodes`: each node declares `key`, `kind`, a spec-unique `event_id`, visibility,
   capabilities, historical anchor, enter/completion checks, retry target, next nodes,
   reads/writes, UI state, and localization refs. Optional `scope_contract` declares
   root/current/target scopes plus tooltip and unsafe pre-evaluation policy; optional

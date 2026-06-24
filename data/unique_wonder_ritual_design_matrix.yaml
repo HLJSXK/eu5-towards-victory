@@ -21,7 +21,7 @@ metadata:
   - drafted
   - reviewed
   - frozen
-  supported_listener_policy: expected_listeners must use only monthly, ruler_death, pre_winning_war, and ending_war.
+  supported_listener_policy: expected_listeners must use only monthly, ruler_death, pre_winning_war, ending_war, and auxiliary_building_completion.
   freeze_policy: 'Set authoring_status: frozen only after the global matrix audit is clean enough for full-corpus spec authoring.'
 unique_wonders:
 - wonder_id: 101
@@ -487,10 +487,13 @@ unique_wonders:
   - event_chain
   - final_reward_handoff
   - retry_branch
-  expected_listeners: []
+  - resource_gate
+  - auxiliary_building_completion_listener_backend
+  expected_listeners:
+  - auxiliary_building_completion
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: 'A flawed ropewalk, foundry shortage, or basin leak should resolve through a construction-completion listener later; until then the design keeps the real completion gap visible.'
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: needs_eu5_verification
   uniqueness_notes: 'This proof needs an arsenal where industrial process is state secrecy and civic ceremony; ordinary ports and shipyards do not make production-line inspection the ritual.'
   similarity_group: arsenal_ropewalk_launch_inspection
   authoring_status: drafted
