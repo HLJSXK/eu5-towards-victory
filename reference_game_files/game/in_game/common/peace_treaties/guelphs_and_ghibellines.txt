@@ -38,12 +38,6 @@
 		}
 	}
 	allow = {
-		scope:loser = {
-			NOR = {
-				this = c:PAP
-				is_leader_of_international_organization = international_organization:hre
-			}
-		}
 		trigger_if = {
 			limit = {
 				scope:winner = { is_member_of_international_organization_of_type = { type = guelphs_io } }
@@ -97,12 +91,6 @@
 				join_years = 5
 				leave_variable = gag_recently_left_a_faction
 			}
-			international_organization:guelphs_io = {
-				change_variable = {
-					name = guelphs_progress
-					add = 0.005
-				}
-			}
 		}
 		if = {
 			limit = { scope:winner = { is_member_of_international_organization_of_type = { type = ghibellines_io } } }
@@ -112,24 +100,6 @@
 				join_variable = gag_recently_joined_a_faction
 				join_years = 5
 				leave_variable = gag_recently_left_a_faction
-			}
-			international_organization:ghibellines_io = {
-				change_variable = {
-					name = ghibellines_progress
-					add = 0.005
-				}
-			}
-		}
-		if = {
-			limit = {
-				scope:loser = {
-					ruler ?= {
-						has_character_modifier = guelphs_support_imperial_rivals_modifier
-					}
-				}
-			}
-			scope:loser.ruler = {
-				remove_character_modifier = guelphs_support_imperial_rivals_modifier
 			}
 		}
 		scope:winner = {
@@ -145,15 +115,9 @@
 				value = scope:recipient
 				years = 5
 			}
-			set_variable = {
-				name = gag_force_switched_faction_penalty 
-				value = scope:recipient
-				years = 10
-			}
 		}
 	}
 	ai_desire = {
-		add = 10
 		if = {
 			limit = {
 				scope:winner = {
@@ -176,6 +140,5 @@
 			}
 		}
 	}
-	ai_force_add = yes
 }
 

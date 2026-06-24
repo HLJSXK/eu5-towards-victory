@@ -27,11 +27,12 @@ widget = {
 
 						input_action = "close_window"
 						use_global_input_instance = yes
-						action_tooltip = {
-							title = "BACK_TOOLTIP_LEFT"
-							on_action = "[FrontEndLoadView.OnBack]"
-						}
-						tooltipwidget = { BasicFunctionalTooltip = {} }
+						onclick = "[FrontEndLoadView.OnBack]"				
+						tooltipwidget = {
+							LeftClickButtonTooltip = {
+								blockoverride "onclick_text" { text = "BACK_TOOLTIP_LEFT" } 
+							}
+						}        
 					}
 				}
 			}

@@ -5,17 +5,13 @@ types ModifierStuff
 	type OneOrSeveralTimedModifiers = icon {
 		texture = "gfx/interface/component_tiles/regular_banner.dds"
 		texture_density = 2
-		block "one_or_several_timed_modifiers_size" {
-			size = { 44 48 }
-		}
+		size = { 44 48 }
 		visible = "[GreaterThan_int32(GetDataModelSize(TimedModifierOwner.GetModifiers), '(int32)0')]"
 
 		# RIGHT DIVISION
 		flowcontainer = {
 			parentanchor = center
-			block "one_or_several_timed_modifiers_inner_pos" {
-				position = { 0 -5 }
-			}
+			position = { 0 -5 }
 			visible = "[Not(GreaterThan_int32(GetDataModelSize(TimedModifierOwner.GetModifiers), '(int32)1'))]"
 
 			layoutpolicy_horizontal = expanding
@@ -38,23 +34,17 @@ types ModifierStuff
 
 		flowcontainer = {
 			parentanchor = center
-			block "one_or_several_timed_modifiers_inner_spacing" {
-				position = { 3 -5}
-				spacing = 2
-			}
+			position = { 3 -5}
+			spacing = 2
 			visible = "[GreaterThan_int32(GetDataModelSize(TimedModifierOwner.GetModifiers), '(int32)1')]"
 
 			text_single = {
-				block "one_or_several_timed_modifiers_min_inner_size" {
-					minimumsize = { -1 26 }
-				}
+				minimumsize = { -1 26 }
 				align = nobaseline|hcenter
 				text = "[GetDataModelSize(TimedModifierOwner.GetModifiers)]"
 			}
 			icon = {
-				block "one_or_several_timed_modifiers_inner_size" {
-					size = { 26 26 }
-				}
+				size = { 26 26 }
 				texture = "[TimedModifierOwner.GetDisplayedCategoryTexture]"
 				texture_density = 2
 

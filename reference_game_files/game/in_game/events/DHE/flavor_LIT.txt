@@ -420,26 +420,6 @@ flavor_lit.5 = {
 		ruler_or_regent = { has_available_marriage_slot = yes }
 		is_subject = no
 		at_war = no
-		c:POL = {
-			ruler_or_regent = {
-				OR = {
-					any_child = {
-						is_alive = yes
-						is_adult = yes
-						has_available_marriage_slot = yes
-						NOT = { is_same_gender = c:LIT.ruler }
-						NOT = { is_close_relative = c:LIT.ruler }
-						modifier:blocked_from_marriage = no
-						NOT = {
-							c:LIT.ruler_or_regent ?= {
-								is_same_gender = PREV
-							}
-						}
-					}
-					character_age >= 32
-				}
-			}
-		}
 	}
 
 	illustration_tags = {
@@ -500,7 +480,7 @@ flavor_lit.5 = {
 								dynasty = ruler_or_regent.dynasty
 								father = scope:target_character2
 								female = yes
-								age = 16
+								age = 20
 								save_scope_as = target_character3
 							}
 						}
@@ -510,7 +490,7 @@ flavor_lit.5 = {
 								dynasty = ruler_or_regent.dynasty
 								father = scope:target_character2
 								female = no
-								age = 16
+								age = 20
 								save_scope_as = target_character3
 							}
 						}
@@ -542,6 +522,7 @@ flavor_lit.5 = {
 			add_casus_belli = {
 				target = ROOT
 				type = casus_belli:cb_claim_throne
+				years = 10
 			}
 		}
 	}
@@ -704,14 +685,8 @@ flavor_lit.8 = {
 			}
 		}
 		OR = {
-			custom_tooltip = {
-				text = variable_lit_pretending_to_convert_variable_tt
-				has_variable = lit_pretending_to_convert_variable
-			}
-			custom_tooltip = {
-				text = variable_lit_genuine_conversion_tt
-				has_variable = lit_genuine_conversion
-			}
+			has_variable = lit_pretending_to_convert_variable
+			has_variable = lit_genuine_conversion
 		}
 	}
 
@@ -877,14 +852,8 @@ flavor_lit.10 = {
 
 	trigger = {
 		c:LIT = {
-			custom_tooltip = {
-				text = variable_lit_pretending_to_convert_variable_tt
-				has_variable = lit_pretending_to_convert_variable
-			}
-			custom_tooltip = {
-				text = variable_lit_enable_conversion_to_catholicism_variable_tt
-				NOT = { has_variable = lit_enable_conversion_to_catholicism_variable }
-			}
+			has_variable = lit_pretending_to_convert_variable
+			NOT = { has_variable = lit_enable_conversion_to_catholicism_variable }
 			NOT = { religion.group = religion_group:christian }
 			at_war = no
 			is_subject = no
@@ -1073,6 +1042,7 @@ flavor_lit.11 = {
 				add_casus_belli = {
 					target = c:LIT
 					type = casus_belli:cb_claim_throne
+					years = 10
 				}
 			}
 		}
@@ -1082,6 +1052,7 @@ flavor_lit.11 = {
 					add_casus_belli = {
 						target = c:LIT
 						type = casus_belli:cb_claim_throne
+						years = 10
 					}
 				}
 			}
@@ -2045,7 +2016,7 @@ flavor_lit.25 = {
 		change_gold_effect = { scale = -10 }
 
 		scope:target_location = {
-			change_location_rank_effect = { location_rank = location_rank:city }
+			change_location_rank = location_rank:city
 			change_development = development_mild_bonus
 			change_prosperity = prosperity_mild_bonus
 
@@ -3456,10 +3427,7 @@ flavor_lit.44 = {
 		"religion_percentage_in_country(religion:romuva)" >= 0.05
 		is_situation_active = situation:reformation
 		religion.group = religion_group:christian
-		custom_tooltip = {
-			text = variable_lit_ressurection_of_romuva_paganism_flag_tt
-			has_variable = lit_ressurection_of_romuva_paganism_flag
-		}
+		has_variable = lit_ressurection_of_romuva_paganism_flag
 	}
 
 	illustration_tags = {

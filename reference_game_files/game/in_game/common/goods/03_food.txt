@@ -1,4 +1,15 @@
 ﻿
+wool = {
+	method = farming
+	category = raw_material
+	color = goods_wool
+	default_market_price = 2.5
+
+	base_production = 0.0005
+
+	food = 3.0
+	ai_rgo_size_importance = 1.5 # ai preference to avoid building a city on this rgo
+}
 
 wild_game = {
 	method = hunting
@@ -210,7 +221,8 @@ potato = {
 	default_market_price = 1
 	
 	demand_add = {
-		all = 0.001
+		peasants = 0.001
+		laborers = 0.001
 	}
 
 	demand_multiply = {

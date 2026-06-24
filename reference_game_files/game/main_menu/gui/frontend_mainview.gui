@@ -243,12 +243,13 @@ types Frontend
 			parentanchor = right|top
 			position = { 0 5 }
 			visible = "[And(Not(StatusWidget.IsAccountConnected), StatusWidget.SupportsConnectAccount)]"
-
-			action_tooltip = {
-				title = "ACCOUNT_UNLINK"
-				on_action = "[StatusWidget.ConnectAccount]"
+			tooltipwidget = {
+				LeftClickButtonTooltip = {
+					blockoverride "onclick_text" { text = "ACCOUNT_LINK" } 
+				}
 			}
-			tooltipwidget = { BasicFunctionalTooltip = {} }
+			
+			onclick = "[StatusWidget.ConnectAccount]"
 			enabled = "[And(Not(StatusWidget.IsBusy),And(And(StatusIsLoggedIn,Not(StatusWidget.IsAccountConnected)),StatusWidget.SupportsConnectAccount))]"
 
 			blockoverride "load_indicator" {
@@ -260,11 +261,13 @@ types Frontend
 			parentanchor = right|top
 			position = { 0 5 }
 			visible = "[And(StatusWidget.IsAccountConnected, StatusWidget.SupportsConnectAccount)]"
-
-			action_tooltip = {
-				title = "ACCOUNT_LINK"
-				on_action = "[StatusWidget.DisconnectAccount]"
+			tooltipwidget = {
+				LeftClickButtonTooltip = {
+					blockoverride "onclick_text" { text = "ACCOUNT_UNLINK" } 
+				}
 			}
+
+			onclick = "[StatusWidget.DisconnectAccount]"
 			enabled = "[And(Not(StatusWidget.IsBusy),And(And(StatusIsLoggedIn,StatusWidget.IsAccountConnected),StatusWidget.SupportsConnectAccount))]"
 
 			blockoverride "load_indicator" {
@@ -429,7 +432,7 @@ widget = {
 					click_type = left
 					click_mode = confirm
 					visible = "[Not(FrontEndMainView.GetLatestPlaythrough.IsIncompatible)]"
-					conditions = "[MakeItFailIf(Not(FrontEndMainView.HasLatestPlaythrough), Select_CString(FrontEndMainView.CanStartIndexingSaves, Localize('CONT_UNAVAILABLE'), FrontEndMainView.CanStartIndexingSavesDesc))]"
+					conditions = "[MakeItFailIf(Not(FrontEndMainView.HasLatestPlaythrough), FrontEndMainView.CanStartIndexingSavesDesc)]"
 					enabled = "[And4(FrontEndMainView.HasLatestPlaythrough, Not(FrontEndMainView.IsFirstTimePlaying), Not(FrontEndMainView.HasUnviewedLegalDocuments), FrontEndMainView.CanStartIndexingSaves)]"
 					title = "CONT_BTN"
 					description = "CONTINUE_BUTTON_CONFIRM"
@@ -974,7 +977,7 @@ widget = {
 
 						checkbox_square_alt = {
 							onclick = "[ToggleSkipWelcomeNewGame]"
-							down = "[IsWelcomeNewGameSkipped]"
+							checked = "[IsWelcomeNewGameSkipped]"
 							tooltip_enabled = no
 						}
 

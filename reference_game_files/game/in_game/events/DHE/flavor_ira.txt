@@ -456,10 +456,7 @@ flavor_ira.7 = {
 		10 = interior
 	}
 	trigger = {
-		custom_tooltip = {
-			text = variable_iskander_munshi_tt
-			has_variable = iskander_munshi
-		}
+		has_variable = iskander_munshi
 		var:iskander_munshi = {
 			is_alive = yes
 		}
@@ -1517,7 +1514,7 @@ flavor_ira.24 = {
 				limit = {
 					NOT = { location_rank = location_rank:city }
 				}
-				change_location_rank_effect = { location_rank = location_rank:city }
+				change_location_rank = location_rank:city
 			}
 			if = {
 				limit = {
@@ -2946,10 +2943,7 @@ flavor_ira.46 = {
 	fire_only_once = yes
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_ira_qajar_dynasty_rebellion_flag_tt
-			has_variable = ira_qajar_dynasty_rebellion_flag
-		}
+		has_variable = ira_qajar_dynasty_rebellion_flag
 		government_type = government_type:monarchy
 		OR = {
 			character:agha_muhammad_qajar = {
@@ -3209,7 +3203,6 @@ flavor_ira.47 = {
 
 	option = {
 		name = flavor_ira.47.c
-		high_risk_option = yes
 		custom_tooltip = {
 			text = flavor_ira.47.a.tt
 
@@ -3620,12 +3613,7 @@ flavor_ira.1000 = {
 		trigger_if = {
 			limit = {
 				is_situation_active = situation:rise_of_the_ottomans
-				situation:rise_of_the_ottomans = {
-					custom_tooltip = {
-						text = variable_strongest_beylik_variable_tt
-						has_variable = strongest_beylik_variable
-					}
-				}
+				situation:rise_of_the_ottomans = { has_variable = strongest_beylik_variable }
 			}
 			situation:rise_of_the_ottomans = {
 				var:strongest_beylik_variable = {
@@ -4096,10 +4084,7 @@ flavor_ira.1101 = {
 		10 = exterior
 	}
 	trigger = {
-		custom_tooltip = {
-			text = variable_ira_ghilman_event_tt
-			has_variable = ira_ghilman_event
-		}
+		has_variable = ira_ghilman_event
 		has_advance = ira_the_qizilbash
 		has_advance = ira_the_ghilman
 		country_has_estate = estate_type:tribes_estate
@@ -4336,7 +4321,7 @@ flavor_ira.1301 = {
 				limit = {
 					NOT = { location_rank = location_rank:city }
 				}
-				change_location_rank_effect = { location_rank = location_rank:city }
+				change_location_rank = location_rank:city
 			}
 		}
 	}
@@ -4375,12 +4360,7 @@ flavor_ira.1400 = {
 		trigger_if = {
 			limit = {
 				is_situation_active = situation:rise_of_the_ottomans
-				situation:rise_of_the_ottomans = {
-					custom_tooltip = {
-						text = variable_strongest_beylik_variable_tt
-						has_variable = strongest_beylik_variable
-					}
-				}
+				situation:rise_of_the_ottomans = { has_variable = strongest_beylik_variable }
 			}
 			situation:rise_of_the_ottomans = {
 				var:strongest_beylik_variable = {
@@ -4449,7 +4429,7 @@ flavor_ira.1400 = {
 
 		scope:shared_rival = {
 			ordered_rival = {
-				order_by = total_population
+				order_by = great_power_score
 				limit = {
 					exists = capital
 					capital.continent = continent:europe

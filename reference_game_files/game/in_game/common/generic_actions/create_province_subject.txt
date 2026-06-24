@@ -3,13 +3,7 @@
 
 	allow = {
 		scope:actor = {
-			or = {
-				is_subject = no
-				subject_type = {
-					allow_subject_creation = yes
-				}
-			}
-			NOT = { has_active_senior_partner = yes }
+			has_limited_diplomacy = no
 		}
 	}
 
@@ -46,11 +40,6 @@
 			subject_can_be_created_by = {
 				country = scope:actor
 				where = scope:target_province
-			}
-			scope:target_province = {
-				NOT = {
-					any_location_in_province = { integration_level = colonized }
-				}
 			}
 		}
 		map_color = {
@@ -92,9 +81,6 @@
 					ruler != root
 				}
 			}
-		}
-		enabled = {
-			NOT = { modifier:is_head_of_cabinet = yes }
 		}
 		map_color = {
 			if = {

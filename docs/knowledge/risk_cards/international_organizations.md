@@ -18,13 +18,14 @@ that create, find, or mutate TV IOs.
    Use `leader_country ?= ...` in filters or tooltip-visible contexts. Vanilla IOs and newly
    created IOs can have null leader countries during evaluation.
 
-4. Keep maintenance hidden.
-   Non-player-facing `monthly_effect` logic should be inside `hidden_effect`. Use IO variable
-   `monthly_change` only for visible breakdowns meant to appear in tooltips. When a visible
-   IO typed variable's progress UI or monthly tooltip depends on automatic monthly gain,
-   keep the real contribution in that variable's `monthly_change`. Do not move it to
-   `monthly_country_pulse`, country scripted effects, or IO `monthly_effect` to fix a
-   runtime bug; repair the `monthly_change` scope/conditions or cached country inputs instead.
+4. Do not use IO `monthly_effect`.
+   TV international_organization types must not define `monthly_effect` blocks. They have
+   severe performance costs even when hidden. Use IO variable `monthly_change` only for
+   visible breakdowns meant to appear in tooltips. When a visible IO typed variable's progress
+   UI or monthly tooltip depends on automatic monthly gain, keep the real contribution in that
+   variable's `monthly_change`. Move maintenance/completion side effects to registered country
+   monthly pulses or explicit lifecycle hooks; repair `monthly_change` scope/conditions or
+   cached country inputs rather than moving visible variable arithmetic elsewhere.
 
 5. Match scope to monthly_change.
    IO variable `monthly_change` evaluates from IO/variable context. Do not call country-scoped
@@ -76,12 +77,11 @@ that create, find, or mutate TV IOs.
    severe runtime stutter. GUI reads should go through
    `GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable(...)`.
 
-13. Keep Trade League generated monopoly maintenance off the IO monthly_effect.
-    Even hidden IO monthly maintenance for the per-good Trade League monopoly refresh caused
-    severe runtime stutter. Register a named country monthly pulse through `data/pulse_registry.yaml`,
-    save the country scope, iterate that country's `every_international_organizations_member_of`
-    filtered to `tv_trade_league` plus `leader_country ?= <saved country>`, and only then call the
-    IO-scoped refresh effect.
+13. Keep heavy generated maintenance behind cheap country-pulse gates.
+    Register a named country monthly pulse through `data/pulse_registry.yaml`, save the country
+    scope, iterate that country's `every_international_organizations_member_of` filtered to the
+    relevant TV IO plus `leader_country ?= <saved country>`, and only then call the IO-scoped
+    refresh effect.
 
 14. Do not seed TV IOs with enacted laws at creation.
     All TV IOs start lawless unless a design document explicitly says otherwise. For Trade League,
@@ -128,7 +128,7 @@ that create, find, or mutate TV IOs.
 
 ## Validation
 
-Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip
-rendering is part of the execution surface for IO maintenance and variables. For any visible IO
-typed variable changed during a task, verify that the monthly breakdown still appears in the
-IO variable tooltip.
+Run `validate.py --changed --fix --ai-report`; it fails any TV IO `monthly_effect` block. Then
+inspect shared IO tooltips in game. Tooltip rendering is part of the execution surface for IO
+variables. For any visible IO typed variable changed during a task, verify that the monthly
+breakdown still appears in the IO variable tooltip.

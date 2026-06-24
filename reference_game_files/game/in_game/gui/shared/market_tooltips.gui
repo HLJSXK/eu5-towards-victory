@@ -77,12 +77,10 @@ template Market_food_change_tooltip {
 						TooltipManualTableField = {
 							blockoverride "field_content" {
 								text_single = {
-									layoutpolicy_horizontal = expanding
-									autoresize = no
 									text = "[food_stockpile|e]"
 								}
+								expand = {}									
 								text_single = {
-									autoresize = yes
 									raw_text = "[Market.GetFoodStockpile|0W]/[Market.GetMaxFoodStockpile|0W]"
 								}
 							}
@@ -91,12 +89,10 @@ template Market_food_change_tooltip {
 						TooltipManualTableField = {
 							blockoverride "field_content" {
 								text_single = {
-									layoutpolicy_horizontal = expanding
-									autoresize = no
 									text = "MONTHLY_BALANCE"
 								}
+								expand = {}									
 								text_single = {
-									autoresize = yes
 									raw_text = "[Market.GetMonthlyFoodBalance|0+=]@food!" 
 								}
 							}
@@ -108,13 +104,11 @@ template Market_food_change_tooltip {
 							}
 							blockoverride "field_content" {
 								text_single = {
-									layoutpolicy_horizontal = expanding
-									autoresize = no
 									default_format = "#explanation_link"
 									text = "FOOD_PRICE"
 								}
+								expand = {}									
 								text_single = {
-									autoresize = yes
 									raw_text = "[Market.GetFoodPrice|2W]@gold!"
 								}
 							}
@@ -2655,12 +2649,10 @@ template market_hub_trade_tooltip {
 					TooltipManualTableField = {
 						blockoverride "field_content" {
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								autoresize = no
 								text = "MERCHANT_CAPACITY_LIST_ENTRY"
 							}
+							expand = {}									
 							text_single = {
-								autoresize = yes
 								raw_text = "[Market.GetTotalMerchantCapacity(Player.Self)|2L]@trade_capacity!"
 								tooltipwidget = {
 									using = merchant_capacity_tooltip
@@ -2691,12 +2683,10 @@ template market_hub_trade_tooltip {
 					TooltipManualTableField = {
 						blockoverride "field_content" {
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								autoresize = no
 								text = "MARKET_HUB_TC_BUTTON_TOTAL_PROFIT"
 							}
+							expand = {}									
 							text_single = {
-								autoresize = yes
 								raw_text = "[Merchant.GetTotalTradeProfit|2+=]@gold! ([Multiply_CFixedPoint(Merchant.GetTotalTradeProfit, Player.GetModifier('trade_income'))|2+=]@income!)"
 
 								tooltipwidget = {
@@ -2730,28 +2720,17 @@ template market_hub_trade_tooltip {
 						visible = "[GreaterThan_CFixedPoint(Merchant.GetUsedCapacity,'(CFixedPoint)0')]"
 						blockoverride "field_content" {
 							text_single = {
-								layoutpolicy_horizontal = expanding
-								autoresize = no
 								text = "MARKET_HUB_TC_BUTTON_PROFIT_PER_TC"
 							}
+							expand = {}									
 							text_single = {
-								autoresize = yes
 								raw_text = "[Divide_CFixedPoint(Merchant.GetTotalTradeProfit, Merchant.GetUsedCapacity)|2G]@profit_trade!"
 							}
 						}
 					}
 				}
 			}
-			
-			TooltipScrolledStringPairList = {
-				blockoverride "block_title" {
-					text = "TRADE_PROFIT_GROUPED_BY_GOOD_TT_TTILE"
-				}
-				blockoverride "block_scrollarea" { maximumsize = { -1 300 }}
-				textcontext = "[Merchant.GetCountry.GetTradeByGoodForCountryInfo(Merchant.GetMarket)]"
-			}
-					
-			
+
 			# TooltipTextBlock = {
 			# 	visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]"
 			# 	blockoverride "text" {
@@ -2876,11 +2855,12 @@ template Trades_tooltip {
 					size = { 22 22 }
 					texture = "gfx/interface/buttons/flats/button_simple_right.dds"
 					mirror = horizontal
-					action_tooltip = {
-						title = "PREVIOUS_TRADE_LINK"
-						on_action = "[TradesWrap.GoPrev]"
+					onclick = "[TradesWrap.GoPrev]"				
+					tooltipwidget = {
+						LeftClickButtonTooltip = {
+							blockoverride "onclick_text" { text = "PREVIOUS_TRADE_LINK" } 
+						}
 					}
-					tooltipwidget = { BasicFunctionalTooltip = {} }
 					
 					using = color_gold
 					using = overlay_window
@@ -2897,11 +2877,12 @@ template Trades_tooltip {
 					size = { 22 22 }
 					texture = "gfx/interface/buttons/flats/button_simple_right.dds"
 
-					action_tooltip = {
-						title = "NEXT_TRADE_LINK"
-						on_action = "[TradesWrap.GoNext]"
+					onclick = "[TradesWrap.GoNext]"				
+					tooltipwidget = {
+						LeftClickButtonTooltip = {
+							blockoverride "onclick_text" { text = "NEXT_TRADE_LINK" } 
+						}
 					}
-					tooltipwidget = { BasicFunctionalTooltip = {} }
 					
 					using = color_gold
 					using = overlay_window
@@ -3283,12 +3264,10 @@ template market_food_balance_tooltip {
 						TooltipManualTableField = {
 							blockoverride "field_content" {
 								text_single = {
-									layoutpolicy_horizontal = expanding
-									autoresize = no
 									text = "[food_stockpile|e]"
 								}
+								expand = {}									
 								text_single = {
-									autoresize = yes
 									raw_text = "[Market.GetFoodStockpile|0W]/[Market.GetMaxFoodStockpile|0W]"
 								}
 							}
@@ -3297,12 +3276,10 @@ template market_food_balance_tooltip {
 						TooltipManualTableField = {
 							blockoverride "field_content" {
 								text_single = {
-									layoutpolicy_horizontal = expanding
-									autoresize = no
 									text = "MONTHLY_BALANCE"
 								}
+								expand = {}									
 								text_single = {
-									autoresize = yes
 									raw_text = "[Market.GetMonthlyFoodBalance|0+=B]@food!" 
 								}
 								tooltipwidget = {
@@ -3317,13 +3294,11 @@ template market_food_balance_tooltip {
 							}
 							blockoverride "field_content" {
 								text_single = {
-									layoutpolicy_horizontal = expanding
-									autoresize = no
 									default_format = "#explanation_link"
 									text = "FOOD_PRICE"
 								}
+								expand = {}									
 								text_single = {
-									autoresize = yes
 									raw_text = "[Market.GetFoodPrice|2W]@gold!"
 								}
 							}
@@ -3808,37 +3783,37 @@ template market_burgher_trade_capacity {
 	}
 }
 
-# template ManualTradeCapacity_tooltip {
-# 	ContextualTooltipType = {
-# 		blockoverride "title_icon" {
-# 			icon = {
-# 				using = tooltip_title_icon_size
-# 				texture = "gfx/interface/icons/flat_icons/trade_capacity.dds"
-# 			}
-# 		}
+template ManualTradeCapacity_tooltip {
+	ContextualTooltipType = {
+		blockoverride "title_icon" {
+			icon = {
+				using = tooltip_title_icon_size
+				texture = "gfx/interface/icons/flat_icons/trade_capacity.dds"
+			}
+		}
 	
-# 		blockoverride "title_text" {
-# 			text = "RESERVED_TRADE_CAPACITY"
-# 		}
-# 		blockoverride "concept_link" {
-# 			text = [merchant_capacity|e]
-# 		}
-# 		blockoverride "tooltip_content" {		
-# 			TooltipTextBlock = {
-# 				visible = "[IsMarketAutomated(Market.Self)]"
-# 				blockoverride "text" {
-# 					text = "RESERVED_TRADE_CAPACITY_TT"
-# 				}
-# 			}
-# 			TooltipTextBlock = {
-# 				visible = "[Not(IsMarketAutomated(Market.Self))]"
-# 				blockoverride "text" {
-# 					text = "RESERVED_NOT_AUTOMATED_TRADE_CAPACITY_TT"
-# 				}
-# 			}
-# 		}
-# 	}
-# }
+		blockoverride "title_text" {
+			text = "RESERVED_TRADE_CAPACITY"
+		}
+		blockoverride "concept_link" {
+			text = [merchant_capacity|e]
+		}
+		blockoverride "tooltip_content" {		
+			TooltipTextBlock = {
+				visible = "[IsMarketAutomated(Market.Self)]"
+				blockoverride "text" {
+					text = "RESERVED_TRADE_CAPACITY_TT"
+				}
+			}
+			TooltipTextBlock = {
+				visible = "[Not(IsMarketAutomated(Market.Self))]"
+				blockoverride "text" {
+					text = "RESERVED_NOT_AUTOMATED_TRADE_CAPACITY_TT"
+				}
+			}
+		}
+	}
+}
 
 template AutomatedTradeCapacity_tooltip {
 	ContextualTooltipType = {
@@ -3855,18 +3830,10 @@ template AutomatedTradeCapacity_tooltip {
 		blockoverride "concept_link" {
 			text = [merchant_capacity|e]
 		}
-		blockoverride "tooltip_content" {
-			TooltipStringPairList = {
-				textcontext = "PLANNED_AUTOMATED_TRADE_CAPACITY_TT"
-			}
-
-			TooltipStringPairList = {
-				textcontext = "USED_AUTOMATED_TRADE_CAPACITY_TT"
-			}
-
+		blockoverride "tooltip_content" {		
 			TooltipTextBlock = {
 				blockoverride "text" {
-					text = "EXTRA_TRADE_CAPACITY_TT"
+					text = "AUTOMATED_TRADE_CAPACITY_TT"
 				}
 			}
 		}

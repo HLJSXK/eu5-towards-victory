@@ -22,7 +22,7 @@ union_foundation_law = {
 		propose_effect = {
 			scope:recipient ?= {
 				ordered_international_organization_member = {
-					order_by = country_economical_base
+					order_by = great_power_score
 					max = 1
 					check_range_bounds = no
 					save_scope_as = best_senior_partner_candidate
@@ -102,14 +102,14 @@ union_foundation_law = {
 							scope:recipient = {
 								every_international_organization_member = {
 									limit = { NOT = { this = scope:likely_senior_partner } }
-									add = country_economical_base
+									add = great_power_score
 								}
 							}
 							divide = {
 								value = scope:recipient.total_members
 								subtract = 1
 							}
-							subtract = scope:likely_senior_partner.country_economical_base
+							subtract = scope:likely_senior_partner.great_power_score
 							multiply = -1
 						}
 					}
@@ -268,6 +268,8 @@ union_codified_inheritance_law = {
 		}
 		country_modifier = {
 			monthly_legitimacy = 0.05
+		}
+		international_organization_modifier = {
 		}
 		wants_this_policy_bias = {
 			add = union_member_opinion_on_maintain

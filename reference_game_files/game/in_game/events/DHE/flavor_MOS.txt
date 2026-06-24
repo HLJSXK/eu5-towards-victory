@@ -11,6 +11,7 @@ flavor_mos.1 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1337.1.1
 		to = 1350.1.1
 		monthly_chance = 5
@@ -87,6 +88,7 @@ flavor_mos.2 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1420.1.1
 		to = 1480.1.1
 		monthly_chance = 25
@@ -154,6 +156,7 @@ flavor_mos.3 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1353.1.1
 		to = 1373.1.1
 		monthly_chance = 5
@@ -166,11 +169,11 @@ flavor_mos.3 = {
 
 		c:LIT = {
 			is_subject = no
-			country_economical_base > root.country_economical_base
+			great_power_score > root.great_power_score
 		}
 
 		c:GLH = {
-			country_economical_base > root.country_economical_base
+			great_power_score > root.great_power_score
 			OR = {
 				stability <= 25
 				in_civil_war = yes
@@ -294,6 +297,7 @@ flavor_mos.4 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1347.1.1
 		to = 1397.1.1
 		monthly_chance = 5
@@ -491,6 +495,7 @@ flavor_mos.5 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1337.1.1
 		to = 1387.1.1
 		monthly_chance = 5
@@ -597,6 +602,7 @@ flavor_mos.6 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1337.1.1
 		to = 1387.1.1
 		monthly_chance = 10
@@ -612,11 +618,8 @@ flavor_mos.6 = {
 			has_building_with_at_least_one_level = orthodox_monastery
 		}
 
-		custom_tooltip = {
-			text = mos_sergius_of_radonezh_alive_tt
-			character:mos_sergius_of_radonezh ?= {
-				is_alive = yes
-			}
+		character:mos_sergius_of_radonezh ?= {
+			is_alive = yes
 		}
 	}
 
@@ -730,6 +733,7 @@ flavor_mos.7 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1400.1.1
 		to = 1440.1.1
 		monthly_chance = 1
@@ -828,6 +832,7 @@ flavor_mos.8 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1370.1.1
 		to = 1390.1.1
 		monthly_chance = 10
@@ -948,6 +953,7 @@ flavor_mos.9 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1337.1.1
 		to = 1377.1.1
 		monthly_chance = 10
@@ -1094,6 +1100,7 @@ flavor_mos.10 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1338.1.1
 		to = 1378.1.1
 		monthly_chance = 5
@@ -1246,6 +1253,7 @@ flavor_mos.11 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1380.1.1
 		to = 1430.1.1
 		monthly_chance = 1
@@ -1409,6 +1417,7 @@ flavor_mos.12 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1380.1.1
 		to = 1450.1.1
 		monthly_chance = 5
@@ -1416,10 +1425,7 @@ flavor_mos.12 = {
 
 	trigger = {
 
-		custom_tooltip = {
-			text = mos_andrei_rublev_alive_tt
-			character:mos_andrei_rublev ?= { is_alive = yes }
-		}
+		character:mos_andrei_rublev ?= { is_alive = yes }
 	}
 
 	illustration_tags = {
@@ -1527,6 +1533,7 @@ flavor_mos.13 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1353.1.1
 		to = 1393.1.1
 		monthly_chance = 1
@@ -1611,6 +1618,7 @@ flavor_mos.14 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1340.1.1
 		to = 1378.1.1
 		monthly_chance = 5
@@ -1743,6 +1751,7 @@ flavor_mos.15 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1404.1.1
 		to = 1434.1.1
 		monthly_chance = 1
@@ -1856,6 +1865,7 @@ flavor_mos.16 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1389.1.1
 		to = 1453.1.1
 		monthly_chance = 10
@@ -2091,6 +2101,7 @@ flavor_mos.21 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1360.1.1
 		to = 1400.1.1
 		monthly_chance = 5
@@ -2165,6 +2176,7 @@ flavor_mos.22 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1390.1.1
 		to = 1450.1.1
 		monthly_chance = 1
@@ -2242,6 +2254,7 @@ flavor_mos.23 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1400.1.1
 		to = 1480.1.1
 		monthly_chance = 10
@@ -2263,7 +2276,7 @@ flavor_mos.23 = {
 		area:smolensk_area = {
 			any_location_in_area = {
 				percent > 0.5
-				top_owner ?= ROOT
+				top_owner = ROOT
 			}
 		}
 	}
@@ -2358,6 +2371,7 @@ flavor_mos.24 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1410.1.1
 		to = 1480.1.1
 		monthly_chance = 1
@@ -2584,6 +2598,7 @@ flavor_mos.27 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1436.1.1
 		to = 1456.1.1
 		monthly_chance = 10
@@ -2709,6 +2724,7 @@ flavor_mos.28 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1337.1.1
 		to = 1437.1.1
 		monthly_chance = 1
@@ -2820,6 +2836,7 @@ flavor_mos.29 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1360.1.1
 		to = 1400.1.1
 		monthly_chance = 1
@@ -2925,6 +2942,7 @@ flavor_mos.30 = {
 		
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1400.1.1
 		to = 1430.1.1
 		monthly_chance = 5
@@ -3042,6 +3060,7 @@ flavor_mos.31 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1447.1.1
 		to = 1547.1.1
 		monthly_chance = 1
@@ -3143,6 +3162,7 @@ flavor_mos.32 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1497.1.1
 		to = 1547.1.1
 		monthly_chance = 5
@@ -3221,6 +3241,7 @@ flavor_mos.33 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1469.1.1
 		to = 1484.1.1
 		monthly_chance = 20
@@ -3349,6 +3370,7 @@ flavor_mos.34 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1455.1.1
 		to = 1485.1.1
 		monthly_chance = 10
@@ -3486,6 +3508,7 @@ flavor_mos.35 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1485.1.1
 		to = 1515.1.1
 		monthly_chance = 10
@@ -3635,6 +3658,7 @@ flavor_mos.36 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1530.1.1
 		to = 1550.1.1
 		monthly_chance = 20
@@ -3780,6 +3804,7 @@ flavor_mos.37 = { #DEVASTATION
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1547.1.1
 		to = 1548.1.1
 		monthly_chance = 10
@@ -3943,6 +3968,7 @@ flavor_mos.38 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1450.1.1
 		to = 1700.1.1
 		monthly_chance = 1
@@ -4028,6 +4054,7 @@ flavor_mos.39 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1482.1.1
 		to = 1542.1.1
 		monthly_chance = 1
@@ -4146,6 +4173,7 @@ flavor_mos.40 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1475.1.1
 		to = 1525.1.1
 		monthly_chance = 10
@@ -4334,6 +4362,7 @@ flavor_mos.41 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1475.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -4525,6 +4554,7 @@ flavor_mos.42 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1530.1.1
 		to = 1560.1.1
 		monthly_chance = 20
@@ -4532,12 +4562,9 @@ flavor_mos.42 = {
 
 	trigger = {
 
-		custom_tooltip = {
-			text = mos_eleanor_glinskaya_regent_tt
-			character:mos_eleanor_glinskaya ?= {
-				is_alive = yes
-				is_regent = yes
-			}
+		character:mos_eleanor_glinskaya ?= {
+			is_alive = yes
+			is_regent = yes
 		}
 
 		any_character = {
@@ -4672,6 +4699,7 @@ flavor_mos.43 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1490.1.1
 		to = 1540.1.1
 		monthly_chance = 1
@@ -4818,6 +4846,7 @@ flavor_mos.44 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1460.1.1
 		to = 1500.1.1
 		monthly_chance = 5
@@ -4916,6 +4945,7 @@ flavor_mos.45 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1530.1.1
 		to = 1560.1.1
 		monthly_chance = 10
@@ -4980,7 +5010,12 @@ flavor_mos.45 = {
 		name = flavor_mos.45.a
 		historical_option = yes
 
-		add_country_modifier = { modifier = printing_boom years = 25 mode = add_and_extend }
+		research_advance = advance_type:printing_press_shop_advance
+
+		capital = {
+			construct_building = { building_type = building_type:printing_press_shop }
+			change_institution_progress = { type = institution:printing_press value = institution_progress_ultimate_bonus }
+		}
 
 		if = {
 			limit = {
@@ -5046,6 +5081,7 @@ flavor_mos.46 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1540.1.1
 		to = 1570.1.1
 		monthly_chance = 5
@@ -5053,11 +5089,8 @@ flavor_mos.46 = {
 
 	trigger = {
 
-		custom_tooltip = {
-			text = mos_ivan_fyodorov_alive_tt
-			character:mos_ivan_fyodorov ?= {
-				is_alive = yes
-			}
+		character:mos_ivan_fyodorov ?= {
+			is_alive = yes
 		}
 
 		capital = {
@@ -5161,6 +5194,7 @@ flavor_mos.47 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1460.1.1
 		to = 1540.1.1
 		monthly_chance = 1
@@ -5253,6 +5287,7 @@ flavor_mos.48 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1530.1.1
 		to = 1640.1.1
 		monthly_chance = 5
@@ -5380,6 +5415,7 @@ flavor_mos.49 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1500.1.1
 		to = 1550.1.1
 		monthly_chance = 5
@@ -5524,6 +5560,7 @@ flavor_mos.50 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1485.1.1
 		to = 1535.1.1
 		monthly_chance = 5
@@ -5660,6 +5697,7 @@ flavor_mos.51 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1475.1.1
 		to = 1550.1.1
 		monthly_chance = 1
@@ -5833,6 +5871,7 @@ flavor_mos.52 = {
 	
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1530.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -5952,6 +5991,7 @@ flavor_mos.53 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1600.1.1
 		to = 1700.1.1
 		monthly_chance = 5
@@ -6123,6 +6163,7 @@ flavor_mos.54 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1553.1.1
 		to = 1583.1.1
 		monthly_chance = 5
@@ -6244,6 +6285,7 @@ flavor_mos.55 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1470.1.1
 		to = 1500.1.1
 		monthly_chance = 5
@@ -6411,6 +6453,7 @@ flavor_mos.56 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1547.1.1
 		to = 1550.1.1
 		monthly_chance = 10
@@ -6422,10 +6465,7 @@ flavor_mos.56 = {
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_great_fire_moscow_tt
-			has_variable = great_fire_moscow
-		}
+		has_variable = great_fire_moscow
 		has_ruler = yes
 		location:moscow = {
 			owner = root
@@ -6435,7 +6475,7 @@ flavor_mos.56 = {
 		any_character = {
 			is_alive = yes
 			is_ruler = no
-			dynasty ?= dynasty:glinski_dynasty
+			dynasty = dynasty:glinski_dynasty
 			is_close_relative = root.ruler
 		}
 	}
@@ -6499,12 +6539,9 @@ flavor_mos.56 = {
 	option = {
 		name = flavor_mos.56.b
 		trigger = {
-			custom_tooltip = {
-				text = mos_eleanor_glinskaya_spouse_tt
-				character:mos_eleanor_glinskaya ?= {
-					is_alive = yes
-					is_spouse_of = root.ruler
-				}
+			character:mos_eleanor_glinskaya ?= {
+				is_alive = yes
+				is_spouse_of = root.ruler
 			}
 		}
 
@@ -6593,6 +6630,7 @@ flavor_mos.57 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1490.1.1
 		to = 1600.1.1
 		monthly_chance = 5
@@ -6714,6 +6752,7 @@ flavor_mos.58 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1500.1.1
 		to = 1550.1.1
 		monthly_chance = 1
@@ -6808,6 +6847,7 @@ flavor_mos.59 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1580.1.1
 		to = 1680.1.1
 		monthly_chance = 1
@@ -6859,7 +6899,7 @@ flavor_mos.59 = {
 						location_rank = location_rank:city
 					}
 				}
-				change_location_rank_effect = { location_rank = location_rank:town }
+				change_location_rank = location_rank:town
 			}
 			construct_building = {
 				building_type = building_type:port_authority
@@ -6918,6 +6958,7 @@ flavor_mos.60 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1537.1.1
 		to = 1637.1.1
 		monthly_chance = 1
@@ -6997,6 +7038,7 @@ flavor_mos.61 = {
 		
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1537.1.1
 		to = 1577.1.1
 		monthly_chance = 5
@@ -7107,6 +7149,7 @@ flavor_mos.62 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1555.1.1
 		to = 1650.1.1
 		monthly_chance = 10
@@ -7243,6 +7286,7 @@ flavor_mos.63 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1525.1.1
 		to = 1625.1.1
 		monthly_chance = 1
@@ -7340,6 +7384,7 @@ flavor_mos.64 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1585.1.1
 		to = 1675.1.1
 		monthly_chance = 5
@@ -7414,6 +7459,7 @@ flavor_mos.65 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1550.1.1
 		to = 1625.1.1
 		monthly_chance = 1
@@ -7553,6 +7599,7 @@ flavor_mos.66 = { #GRAVEYARD
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1570.1.1
 		to = 1650.1.1
 		monthly_chance = 1
@@ -7670,6 +7717,7 @@ flavor_mos.67 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1555.1.1
 		to = 1605.1.1
 		monthly_chance = 5
@@ -7737,6 +7785,7 @@ flavor_mos.68 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1520.1.1
 		to = 1600.1.1
 		monthly_chance = 1
@@ -7853,6 +7902,7 @@ flavor_mos.69 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1540.1.1
 		to = 1640.1.1
 		monthly_chance = 1
@@ -7935,6 +7985,7 @@ flavor_mos.70 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1549.1.1
 		to = 1579.1.1
 		monthly_chance = 5
@@ -8040,6 +8091,7 @@ flavor_mos.71 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1550.1.1
 		to = 1590.1.1
 		monthly_chance = 5
@@ -8108,6 +8160,7 @@ flavor_mos.72 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1550.1.1
 		to = 1625.1.1
 		monthly_chance = 1
@@ -8193,6 +8246,7 @@ flavor_mos.73 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1550.1.1
 		to = 1650.1.1
 		monthly_chance = 1
@@ -8271,6 +8325,7 @@ flavor_mos.74 = {
 	outcome = neutral
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1537.1.1
 		to = 1736.1.1
 		monthly_chance = 25
@@ -8507,6 +8562,7 @@ flavor_mos.75 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1537.1.1
 		to = 1700.1.1
 		monthly_chance = 1
@@ -8586,6 +8642,7 @@ flavor_mos.76 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1605.1.1
 		to = 1638.1.1
 		monthly_chance = 5
@@ -8598,10 +8655,7 @@ flavor_mos.76 = {
 			controller = root
 		}
 
-		custom_tooltip = {
-			text = variable_posolsky_prikaz_established_tt
-			has_variable = posolsky_prikaz_established
-		}
+		has_variable = posolsky_prikaz_established
 
 		has_reform = government_reform:prikazi_reform
 
@@ -8665,6 +8719,7 @@ flavor_mos.77 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1605.1.1
 		to = 1650.1.1
 		monthly_chance = 5
@@ -8751,6 +8806,7 @@ flavor_mos.78 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1550.1.1
 		to = 1650.1.1
 		monthly_chance = 1
@@ -8839,6 +8895,7 @@ flavor_mos.79 = {
 	
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1582.1.1
 		to = 1610.1.1
 		monthly_chance = 10
@@ -8981,6 +9038,7 @@ flavor_mos.80 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1580.1.1
 		to = 1620.1.1
 		monthly_chance = 10
@@ -8993,10 +9051,7 @@ flavor_mos.80 = {
 
 	trigger = {
 
-		custom_tooltip = {
-			text = variable_bolotnikov_uprising_possible_tt
-			has_variable = bolotnikov_uprising_possible
-		}
+		has_variable = bolotnikov_uprising_possible
 
 		character:mos_ivan_bolotnikov ?= {
 			is_alive = yes
@@ -9147,6 +9202,7 @@ flavor_mos.81 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1610.1.1
 		to = 1647.1.1
 		monthly_chance = 5
@@ -9246,6 +9302,7 @@ flavor_mos.82 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1600.1.1
 		to = 1680.1.1
 		monthly_chance = 1
@@ -9331,6 +9388,7 @@ flavor_mos.83 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1600.1.1
 		to = 1700.1.1
 		monthly_chance = 1
@@ -9417,6 +9475,7 @@ flavor_mos.84 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1570.1.1
 		to = 1670.1.1
 		monthly_chance = 1
@@ -9514,6 +9573,7 @@ flavor_mos.85 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1643.1.1
 		to = 1670.1.1
 		monthly_chance = 5
@@ -9655,6 +9715,7 @@ flavor_mos.86 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1580.1.1
 		to = 1630.1.1
 		monthly_chance = 5
@@ -9749,6 +9810,7 @@ flavor_mos.87 = {
 	
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1579.1.1
 		to = 1690.1.1
 		monthly_chance = 1
@@ -9855,6 +9917,7 @@ flavor_mos.88 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1656.1.1
 		to = 1680.1.1
 		monthly_chance = 5
@@ -10016,6 +10079,7 @@ flavor_mos.89 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1661.1.1
 		to = 1699.1.1
 		monthly_chance = 5
@@ -10136,6 +10200,7 @@ flavor_mos.90 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1690.1.1
 		to = 1740.1.1
 		monthly_chance = 10
@@ -10275,6 +10340,7 @@ flavor_mos.91 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1728.1.1
 		to = 1770.1.1
 		monthly_chance = 5
@@ -10552,6 +10618,7 @@ flavor_mos.93 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1690.1.1
 		to = 1750.1.1
 		monthly_chance = 1
@@ -10573,10 +10640,7 @@ flavor_mos.93 = {
 					}
 				}
 			}
-			custom_tooltip = {
-				text = variable_grand_embassy_tt
-				has_variable = grand_embassy
-			}
+			has_variable = grand_embassy
 		}
 
 	}
@@ -10657,6 +10721,7 @@ flavor_mos.94 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1685.1.1
 		to = 1725.1.1
 		monthly_chance = 5
@@ -10811,6 +10876,7 @@ flavor_mos.95 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1648.1.1
 		to = 1680.1.1
 		monthly_chance = 5
@@ -10981,6 +11047,7 @@ flavor_mos.96 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1625.1.1
 		to = 1680.1.1
 		monthly_chance = 5
@@ -11133,6 +11200,7 @@ flavor_mos.97 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1700.1.1
 		to = 1770.1.1
 		monthly_chance = 1
@@ -11283,6 +11351,7 @@ flavor_mos.98 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1700.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -11292,10 +11361,7 @@ flavor_mos.98 = {
 
 		has_policy = dop_law_governing_senate
 
-		custom_tooltip = {
-			text = variable_prikazi_tt
-			has_variable = prikazi
-		}
+		has_variable = prikazi
 
 		location:neva = {
 			owner = root
@@ -11369,6 +11435,7 @@ flavor_mos.99 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1690.1.1
 		to = 1790.1.1
 		monthly_chance = 1
@@ -11487,6 +11554,7 @@ flavor_mos.100 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1690.1.1
 		to = 1730.1.1
 		monthly_chance = 10
@@ -11614,6 +11682,7 @@ flavor_mos.101 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1690.1.1
 		to = 1740.1.1
 		monthly_chance = 10
@@ -11627,10 +11696,7 @@ flavor_mos.101 = {
 
 	trigger = {
 
-		custom_tooltip = {
-			text = variable_incognito_travels_in_progress_tt
-			has_variable = incognito_travels_in_progress
-		}
+		has_variable = incognito_travels_in_progress
 
 		has_regent = no
 
@@ -11834,6 +11900,7 @@ flavor_mos.102 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1695.1.1
 		to = 1745.1.1
 		monthly_chance = 5
@@ -11939,6 +12006,7 @@ flavor_mos.103 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1700.1.1
 		to = 1800.1.1
 		monthly_chance = 1
@@ -12075,6 +12143,7 @@ flavor_mos.104 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1675.1.1
 		to = 1700.1.1
 		monthly_chance = 5
@@ -12087,10 +12156,7 @@ flavor_mos.104 = {
 			controller = root
 		}
 
-		custom_tooltip = {
-			text = variable_posolsky_prikaz_established_tt
-			has_variable = posolsky_prikaz_established
-		}
+		has_variable = posolsky_prikaz_established
 	}
 
 	illustration_tags = {
@@ -12201,6 +12267,7 @@ flavor_mos.105 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1672.1.1
 		to = 1722.1.1
 		monthly_chance = 5
@@ -12348,6 +12415,7 @@ flavor_mos.106 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1672.1.1
 		to = 1752.1.1
 		monthly_chance = 1
@@ -12355,10 +12423,7 @@ flavor_mos.106 = {
 
 	trigger = {
 
-		custom_tooltip = {
-			text = variable_preobrazhensky_semenovsky_tt
-			has_variable = preobrazhensky_semenovsky
-		}
+		has_variable = preobrazhensky_semenovsky
 
 		government_type = government_type:monarchy
 
@@ -12431,6 +12496,7 @@ flavor_mos.107 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1674.1.1
 		to = 1710.1.1
 		monthly_chance = 10
@@ -12523,6 +12589,7 @@ flavor_mos.108 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1700.1.1
 		to = 1750.1.1
 		monthly_chance = 1
@@ -12703,6 +12770,7 @@ flavor_mos.109 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1700.1.1
 		to = 1755.1.1
 		monthly_chance = 10
@@ -12897,6 +12965,7 @@ flavor_mos.110 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1703.1.1
 		to = 1760.1.1
 		monthly_chance = 20
@@ -12914,10 +12983,7 @@ flavor_mos.110 = {
 		}
 
 		NOT = {
-			custom_tooltip = {
-				text = variable_gannibal_studies_abroad_tt
-				has_variable = gannibal_studies_abroad
-			}
+			has_variable = gannibal_studies_abroad
 		}
 	}
 
@@ -13029,6 +13095,7 @@ flavor_mos.111 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1705.1.1
 		to = 1775.1.1
 		monthly_chance = 5
@@ -13120,7 +13187,7 @@ flavor_mos.111 = {
 						location_rank = location_rank:city
 					}
 				}
-				change_location_rank_effect = { location_rank = location_rank:town }
+				change_location_rank = location_rank:town
 			}
 
 			construct_building = {
@@ -13184,6 +13251,7 @@ flavor_mos.112 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1710.1.1
 		to = 1729.1.1
 		monthly_chance = 20
@@ -13319,6 +13387,7 @@ flavor_mos.113 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1712.1.1
 		to = 1800.1.1
 		monthly_chance = 5
@@ -13363,7 +13432,7 @@ flavor_mos.113 = {
 						location_rank = location_rank:city
 					}
 				}
-				change_location_rank_effect = { location_rank = location_rank:town }
+				change_location_rank = location_rank:town
 			}
 			rename_location = st_petersburg
 			change_prosperity = prosperity_very_weak_bonus
@@ -13417,6 +13486,7 @@ flavor_mos.114 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1671.1.1
 		to = 1681.1.1
 		monthly_chance = 20
@@ -13583,6 +13653,7 @@ flavor_mos.115 = {
 
 	dynamic_historical_event = {
 		tag = MOS
+		tag = RUS
 		from = 1687.1.1
 		to = 1735.1.1
 		monthly_chance = 5

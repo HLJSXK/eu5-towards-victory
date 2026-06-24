@@ -4,10 +4,9 @@ appease_the_gods = {
 	type = religious
 
 	sound = UI_action_religion_generic
-
+	
 	potential = {
 		scope:actor.religion = religion:nahuatl
-		scope:actor = { NOT = { has_variable = completed_nahuatl_reform_society_disaster_variable } }
 	}
 
 	allow = {
@@ -105,10 +104,9 @@ ceremonial_festivals = {
 	type = religious
 
 	sound = UI_action_religion_generic
-
+	
 	potential = {
 		scope:actor.religion = religion:nahuatl
-		scope:actor = { NOT = { has_variable = completed_nahuatl_reform_society_disaster_variable } }
 	}
 
 	allow = {
@@ -377,10 +375,9 @@ open_war_path = {
 	type = religious
 
 	sound = UI_action_religion_generic
-
+	
 	potential = {
 		scope:actor.religion = religion:nahuatl
-		scope:actor = { NOT = { has_variable = completed_nahuatl_reform_society_disaster_variable } }
 	}
 
 	allow = {
@@ -617,10 +614,6 @@ reform_society_action = {
 
 	allow = {
 		scope:actor = {
-			custom_tooltip = {
-				text = reform_society_already_triggered_tt
-				NOT = { has_variable = eligible_for_reform_society_disaster_variable }
-			}
 			has_any_active_disaster = no
 			OR = {
 				num_locations >= 20

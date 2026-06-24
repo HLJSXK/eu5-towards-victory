@@ -74,7 +74,7 @@
 			has_embraced_institution = institution:legalism
 		}
 		country_modifier = {
-			stability_cost_efficiency = 0.2
+			stability_cost = -0.1
 			global_estate_target_satisfaction = small_permanent_target_satisfaction
 		}
 		estate_preferences = {
@@ -98,6 +98,7 @@
 			monthly_towards_decentralization = societal_value_monthly_move
 			peasants_estate_levy_size = 0.10
 			global_peasant_enfranchisment = 0.05
+			peasants_allowed_weapons = yes
 		}
 		estate_preferences = {
 			peasants_estate
@@ -115,33 +116,13 @@
 			global_pop_conversion_speed_modifier = 0.1
 			global_clergy_estate_power = 0.25
 			tolerance_heathen = -1
-			court_language_is_liturgical_language_importance_modifier = 3.0
+			court_language_is_liturgical_language_importance_modifier = 1.0
 			disallows_female_rulers = yes
 		}
 		estate_preferences = {
 			clergy_estate
 		}
 		years = 2
-	}
-
-	matrilineal_customary_law_policy = {
-		allow = {
-			NOT = { modifier:disallows_female_rulers = yes }
-		}
-		country_modifier = {
-			global_estate_target_satisfaction = tiny_permanent_target_satisfaction
-			monthly_towards_communalism = societal_value_minor_monthly_move
-		}
-		estate_preferences = {
-			nobles_estate
-		}
-		years = 2
-		on_activate = {
-			unlock_heir_selection_effect = { type = matrilineal_non_exclusive }
-		}
-		on_deactivate = {
-			lock_heir_selection_effect = { type = matrilineal_non_exclusive }
-		}
 	}
 
 	pyrenean_law_policy = {
@@ -216,7 +197,7 @@
 		}
 		country_modifier = {
 			monthly_towards_plutocracy = societal_value_monthly_move
-			court_spending_efficiency = 0.1
+			court_spending_cost_modifier = -0.05
 			burghers_estate_target_satisfaction = medium_permanent_target_satisfaction
 		}
 		estate_preferences = {
@@ -240,7 +221,7 @@
 		}
 		country_modifier = {
 			monthly_towards_centralization = societal_value_monthly_move
-			court_spending_efficiency = -0.1
+			court_spending_cost_modifier = 0.1
 			nobles_estate_target_satisfaction = medium_permanent_target_satisfaction
 			burghers_estate_target_satisfaction = tiny_permanent_target_satisfaction
 			clergy_estate_target_satisfaction = tiny_permanent_target_satisfaction
@@ -257,7 +238,7 @@
 		potential = {
 			OR = {
 				has_or_had_tag = WLS
-				culture = { is_defined_from_culture = culture:welsh }
+				culture = culture:welsh
 			}
 		}
 		allow = {			
@@ -385,16 +366,8 @@
 	byzantine_law = {
 		unique = yes
 		potential = {
-			OR = {
-				has_or_had_tag = BYZ
-				AND = {
-					culture = { has_culture_group = culture_group:greek_group }
-					OR = {
-						religion = religion:orthodox
-						religion = religion:hellenism_religion
-					}
-				}
-			}
+			culture = culture:greek_culture
+			religion = religion:orthodox
 		}
 		allow = {
 			has_embraced_institution = institution:legalism
@@ -496,7 +469,7 @@
 	scottish_civil_law = { #unlocked with found_college_of_justice
 		unique = yes
 		potential = {
-			culture = { is_defined_from_culture = culture:scottish }
+			culture = culture:scottish 
 			has_unlocked_policy_trigger = { type = scottish_civil_law }
 		}
 		country_modifier = {
@@ -552,7 +525,7 @@
 	dan_regional_law = {
 		unique = yes
 		potential = {
-			culture = { is_defined_from_culture = culture:danish }
+			culture = culture:danish
 		}
 		country_modifier = {
 			monthly_towards_decentralization = societal_value_minor_monthly_move
@@ -569,7 +542,7 @@
 	dan_danske_lov = {
 		unique = yes
 		potential = {
-			culture = { is_defined_from_culture = culture:danish }
+			culture = culture:danish
 		}
 		allow = {
 			has_advance = dan_danish_legislation
@@ -601,7 +574,7 @@
 					has_or_had_tag = CAS
 					has_or_had_tag = SPA
 				}
-				culture = { is_defined_from_culture = culture:castilian }
+				culture = culture:castilian
 			}
 		}
 		country_modifier = {
@@ -630,7 +603,7 @@
 					has_or_had_tag = CAS
 					has_or_had_tag = SPA
 				}
-				culture = { is_defined_from_culture = culture:castilian }
+				culture = culture:castilian
 			}
 		}
 		country_modifier = {
@@ -647,13 +620,13 @@
 	siete_partidas_law = {
 		unique = yes
 		potential = {
-			culture = { is_defined_from_culture = culture:castilian }
+			culture = culture:castilian
 		}
 		allow = {
 			OR = {
 				has_or_had_tag = CAS
 				has_or_had_tag = SPA
-				culture = { is_defined_from_culture = culture:castilian }
+				culture = culture:castilian
 			}
 		}
 		country_modifier = {
@@ -678,7 +651,7 @@
 			OR = {
 				has_or_had_tag = CAS
 				has_or_had_tag = SPA
-				culture = { is_defined_from_culture = culture:castilian }
+				culture = culture:castilian
 			}
 		}
 		country_modifier = {
@@ -863,7 +836,6 @@
 		country_modifier = {
 			pop_join_rebel_threshold = -0.03
 			government_size = 1
-			government_reform_slots = 1
 			country_cabinet_efficiency = 0.1
 		}
 		years = 2
@@ -885,27 +857,6 @@
 		}
 		estate_preferences = {
 			nobles_estate
-		}
-		years = 2
-	}
-	
-	carta_de_logu_policy = {
-		unique = yes
-		potential = {
-			culture = culture:sardinian
-		}
-		allow = {			
-			has_embraced_institution = institution:legalism
-			has_embraced_institution = institution:renaissance
-		}
-		country_modifier = {
-			monthly_towards_free_subjects = societal_value_monthly_move
-			monthly_towards_traditional_economy = societal_value_monthly_move
-			global_peasant_enfranchisment = 0.05
-			peasants_estate_target_satisfaction = medium_permanent_target_satisfaction
-		}
-		estate_preferences = {
-			peasants_estate
 		}
 		years = 2
 	}
@@ -951,9 +902,9 @@ language_of_pleading = {
 		potential = {
 			has_unlocked_policy_trigger = { type = multi_lingual_court }
 			OR = {
-				culture = { is_defined_from_culture = culture:kannadiga }
-				culture = { is_defined_from_culture = culture:telugu }
-				culture = { is_defined_from_culture = culture:tamil }
+				culture = culture:kannadiga
+				culture = culture:telugu
+				culture = culture:tamil
 			}
 		}
 		country_modifier = {

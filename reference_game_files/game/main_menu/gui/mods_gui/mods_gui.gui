@@ -10,7 +10,14 @@ types ModsPlayset
             name = "create_playset_editbox"
             layoutpolicy_horizontal = expanding
             layoutpolicy_vertical = fixed
-            tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "MODS_GUI_PLAYSET_LABEL_TOOLTIP" } } }
+            tooltipwidget = {
+
+                LeftClickButtonTooltip = {
+                    blockoverride "onclick_text" {
+                        text = "MODS_GUI_PLAYSET_LABEL_TOOLTIP"
+                    }
+                }
+            }
 
             blockoverride "editbox_label" {
                 text = "MODS_GUI_PLAYSET_LABEL"
@@ -514,28 +521,28 @@ types ModsPlayset
                                                 }
                                             }
 
-                                            button_checkbox = {
+                                            checkbutton = {
+                                                using = button_checkbox_template
                                                 visible = "[ModsGui.IsPlaysetActive( ModsPlayset.Id )]"
-                                                down = "[ModsGui.IsPlaysetActive( ModsPlayset.Id )]"
+                                                checked = "[ModsGui.IsPlaysetActive( ModsPlayset.Id )]"
                                                 enabled = "[And(ModsPlayset.IsEditable, ModsGui.InteractionsAllowed)]"
-                                                action_tooltip = {
-                                                	title = "MODS_GUI_DEACTIVATE_PLAYSET"
-                                                	on_action = "[ModsGui.ClearSelectedPlayset()]"
-                                                	on_action = "[ModsGui.ClearActivePlayset()]"
+                                                tooltipwidget = {
+                                                    LeftClickButtonTooltip = {
+                                                        blockoverride "onclick_text" { text = "MODS_GUI_DEACTIVATE_PLAYSET" } 
+                                                    }
                                                 }
-                                                tooltipwidget = { BasicFunctionalTooltip = {} }
+                                                onclick = "[ModsGui.ClearSelectedPlayset()]"
+                                                onclick = "[ModsGui.ClearActivePlayset()]"
                                             }
 
-                                            button_checkbox = {
+                                            checkbutton = {
+                                                using = button_checkbox_template
                                                 visible = "[Not( ModsGui.IsPlaysetActive( ModsPlayset.Id ) )]"
-                                                down = "[ModsGui.IsPlaysetActive( ModsPlayset.Id )]"
+                                                checked = "[ModsGui.IsPlaysetActive( ModsPlayset.Id )]"
                                                 enabled = "[And(ModsPlayset.IsEditable, ModsGui.InteractionsAllowed)]"
-                                                action_tooltip = {
-                                                	title = "MODS_GUI_ACTIVATE_PLAYSET"
-                                                	on_action = "[ModsGui.SetSelectedPlaysetId( ModsPlayset.Id )]"
-                                                	on_action = "[ModsGui.SetActivePlaysetId( ModsPlayset.Id )]"
-                                                }
-                                                tooltipwidget = { BasicFunctionalTooltip = {} }
+                                                tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "MODS_GUI_ACTIVATE_PLAYSET" } } }
+                                                onclick = "[ModsGui.SetSelectedPlaysetId( ModsPlayset.Id )]"
+                                                onclick = "[ModsGui.SetActivePlaysetId( ModsPlayset.Id )]"
                                             }
                                         }
                                     }
@@ -745,7 +752,7 @@ types ModsPlayset
 		scrollwidget = {
 			block "content" {
 				fixedgridbox = {
-					datamodel = "[ModsGui.GetPlayset( ModsGui.SelectedPlaysetId ).GetGameOrderedDlcs]"
+					datamodel = "[ModsGui.GetPlayset( ModsGui.SelectedPlaysetId ).Dlcs]"
 					addcolumn = 100%
 					addrow = 48
 					datamodel_wrap = 1
@@ -989,12 +996,13 @@ types ModsGui
                         checkbox_square_alt = {
                             size = { 22 22 }
                             enabled = "[And3(ModsGui.ActivePlayset.IsEditable, ModsGui.InteractionsAllowed, Not(ModsGui.ActivePlayset.ContainsMod(LocalMod.Id)))]"
-                            action_tooltip = {
-                            	title = "[SelectLocalization( ModsGui.ActivePlayset.ContainsMod(LocalMod.Id), 'MODS_GUI_LOCAL_MODS_SELECTED_LABEL', 'MODS_GUI_LOCAL_MODS_NOT_SELECTED_LABEL' )]"
-                            	on_action = "[ModsGui.ActivePlayset.AddMod( LocalMod.Id )]"
+                            onclick = "[ModsGui.ActivePlayset.AddMod( LocalMod.Id )]"
+                            checked = "[ModsGui.ActivePlayset.ContainsMod(LocalMod.Id)]"
+                            tooltipwidget = {
+                                LeftClickButtonTooltip = {
+                                    blockoverride "onclick_text" { text = "[SelectLocalization( ModsGui.ActivePlayset.ContainsMod(LocalMod.Id), 'MODS_GUI_LOCAL_MODS_SELECTED_LABEL', 'MODS_GUI_LOCAL_MODS_NOT_SELECTED_LABEL' )]" }
+                                }
                             }
-                            tooltipwidget = { BasicFunctionalTooltip = {} }
-                            down = "[ModsGui.ActivePlayset.ContainsMod(LocalMod.Id)]"
                         }
                     }
                 }
@@ -1149,12 +1157,13 @@ types ModsGui
 						checkbox_square_alt = {
 							size = { 22 22 }
 							enabled = "[And3(ModsGui.ActivePlayset.IsEditable, ModsGui.InteractionsAllowed, Not(ModsGui.ActivePlayset.ContainsMod(LocalMod.Id)))]"
-							action_tooltip = {
-								title = "[SelectLocalization( ModsGui.ActivePlayset.ContainsMod(LocalMod.Id), 'MODS_GUI_LOCAL_MODS_SELECTED_LABEL', 'MODS_GUI_LOCAL_MODS_NOT_SELECTED_LABEL' )]"
-								on_action = "[ModsGui.ActivePlayset.AddMod( LocalMod.Id )]"
+							onclick = "[ModsGui.ActivePlayset.AddMod( LocalMod.Id )]"
+							checked = "[ModsGui.ActivePlayset.ContainsMod(LocalMod.Id)]"
+							tooltipwidget = {
+								LeftClickButtonTooltip = {
+									blockoverride "onclick_text" { text = "[SelectLocalization( ModsGui.ActivePlayset.ContainsMod(LocalMod.Id), 'MODS_GUI_LOCAL_MODS_SELECTED_LABEL', 'MODS_GUI_LOCAL_MODS_NOT_SELECTED_LABEL' )]" }
+								}
 							}
-							tooltipwidget = { BasicFunctionalTooltip = {} }
-							down = "[ModsGui.ActivePlayset.ContainsMod(LocalMod.Id)]"
 						}
 					}
 				}
@@ -1430,13 +1439,14 @@ types ModsGui
         blockoverride "dlc_select_checked" {
             checkbox_square_alt = {
                 size = { 22 22 }
-                down = "[DlcEntry.IsEnabled]"
-                action_tooltip = {
-                	title = "[SelectLocalization(DlcEntry.IsEnabled, 'MODS_GUI_LOCAL_MODS_SELECTED_LABEL', 'MODS_GUI_LOCAL_MODS_NOT_SELECTED_LABEL')]"
-                	on_action = "[DlcEntry.ToggleEnabled]"
-                }
-                tooltipwidget = { BasicFunctionalTooltip = {} }
+                checked = "[DlcEntry.IsEnabled]"
+                onclick = "[DlcEntry.ToggleEnabled]"
                 enabled = "[DlcEntry.CanToggleEnabled]"
+                tooltipwidget = {
+                    LeftClickButtonTooltip = {
+                        blockoverride "onclick_text" { text = "[SelectLocalization(DlcEntry.IsEnabled, 'MODS_GUI_LOCAL_MODS_SELECTED_LABEL', 'MODS_GUI_LOCAL_MODS_NOT_SELECTED_LABEL')]" }
+                    }
+                }
             }
         }
     }
@@ -1598,13 +1608,14 @@ types ModsGui
         blockoverride "mod_checked" {
             checkbox_square_alt = {
                 size = { 22 22 }
-                down = yes
+                checked = yes
                 enabled = "[And( ModsPlaysetEntry.Playset.IsEditable, ModsGui.InteractionsAllowed )]"
-                action_tooltip = {
-                	title = "MODS_GUI_LOCAL_MODS_SELECTED_LABEL"
-                	on_action = "[ModsPlaysetEntry.Playset.RemoveMod( ModsPlaysetEntry.Id )]"
+                onclick = "[ModsPlaysetEntry.Playset.RemoveMod( ModsPlaysetEntry.Id )]"
+                tooltipwidget = {
+                    LeftClickButtonTooltip = {
+                        blockoverride "onclick_text" { text = "MODS_GUI_LOCAL_MODS_SELECTED_LABEL" }
+                    }
                 }
-                tooltipwidget = { BasicFunctionalTooltip = {} }
             }
         }
     }
@@ -1873,7 +1884,9 @@ types ModsGui
                 position = { -5 -6 }
             }
 
-            blockoverride "close_on_action" { on_action = "[GetVariableSystem.Set( 'mods_side', 'close' )]" }
+            blockoverride "close_onclick" {
+                onclick = "[GetVariableSystem.Set( 'mods_side', 'close' )]"
+            }
         }
 
         vbox = {
@@ -2112,12 +2125,13 @@ window = {
                                                 checkbox_square_alt = {
                                                     size = { 22 22 }
                                                     enabled = "[And(ModsGui.ActivePlayset.IsEditable, ModsGui.InteractionsAllowed)]"
-                                                    action_tooltip = {
-                                                    	title = "[SelectLocalization( ModsGui.AreAllDLCsToggled, 'MODS_GUI_REMOVE_ALL_DLCS_TO_PLAYSET', 'MODS_GUI_ADD_ALL_DLCS_TO_PLAYSET' )]"
-                                                    	on_action = "[ModsGui.ToggleAllDLCs]"
+                                                    onclick = "[ModsGui.ToggleAllDLCs]"
+                                                    checked = "[ModsGui.AreAllDLCsToggled]"
+                                                    tooltipwidget = {
+                                                        LeftClickButtonTooltip = {
+                                                            blockoverride "onclick_text" { text = "[SelectLocalization( ModsGui.AreAllDLCsToggled, 'MODS_GUI_REMOVE_ALL_DLCS_TO_PLAYSET', 'MODS_GUI_ADD_ALL_DLCS_TO_PLAYSET' )]" }
+                                                        }
                                                     }
-                                                    tooltipwidget = { BasicFunctionalTooltip = {} }
-                                                    down = "[ModsGui.AreAllDLCsToggled]"
                                                 }
         
                                                 icon = {
@@ -2249,23 +2263,25 @@ window = {
                                                     visible = "[GreaterThan_int32(GetDataModelSize(ModsGui.GetPlayset( ModsGui.SelectedPlaysetId ).ModifiableMods), '(int32)0' )]"
                                                     name = "playset_is_automatically_sorted"
                                                     size = { 22 22 }
-                                                    action_tooltip = {
-                                                    	title = "[SelectLocalization( ModsGui.ActivePlayset.IsAutomaticallySorted, 'MOD_PLAYSET_IS_AUTOMATICALLY_SORTED_ENABLED', 'MOD_PLAYSET_IS_AUTOMATICALLY_SORTED_DISABLED' )]"
-                                                    	on_action = "[ModsGui.ActivePlayset.ToggleIsAutomaticallySorted]"
-                                                    }
-                                                    tooltipwidget = { BasicFunctionalTooltip = {} }
+                                                    onclick = "[ModsGui.ActivePlayset.ToggleIsAutomaticallySorted]"
                                                     down = "[ModsGui.ActivePlayset.IsAutomaticallySorted]"
+                                                    tooltipwidget = {
+                                                        LeftClickButtonTooltip = {
+                                                            blockoverride "onclick_text" { text = "[SelectLocalization( ModsGui.ActivePlayset.IsAutomaticallySorted, 'MOD_PLAYSET_IS_AUTOMATICALLY_SORTED_ENABLED', 'MOD_PLAYSET_IS_AUTOMATICALLY_SORTED_DISABLED' )]" }
+                                                        }
+                                                    }
                                                 }
         
                                                 checkbox_square_alt = {
                                                     size = { 22 22 }
                                                     enabled = "[And(ModsGui.ActivePlayset.IsEditable, ModsGui.InteractionsAllowed)]"
-                                                    action_tooltip = {
-                                                    	title = "[SelectLocalization( ModsGui.AreAllModsToggled, 'MODS_GUI_REMOVE_ALL_MODS_TO_PLAYSET', 'MODS_GUI_ADD_ALL_MODS_TO_PLAYSET' )]"
-                                                    	on_action = "[ModsGui.ToggleAllMods]"
+                                                    onclick = "[ModsGui.ToggleAllMods]"
+                                                    checked = "[ModsGui.AreAllModsToggled]"
+                                                    tooltipwidget = {
+                                                        LeftClickButtonTooltip = {
+                                                            blockoverride "onclick_text" { text = "[SelectLocalization( ModsGui.AreAllModsToggled, 'MODS_GUI_REMOVE_ALL_MODS_TO_PLAYSET', 'MODS_GUI_ADD_ALL_MODS_TO_PLAYSET' )]" }
+                                                        }
                                                     }
-                                                    tooltipwidget = { BasicFunctionalTooltip = {} }
-                                                    down = "[ModsGui.AreAllModsToggled]"
                                                 }
         
                                                 icon = {

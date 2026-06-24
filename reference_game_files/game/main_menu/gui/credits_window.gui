@@ -37,7 +37,9 @@ widget = {
         #     name = "close_button"
         # }
 
-        blockoverride "close_on_action" { on_action = "[CreditsWindow.OnClose]" }
+        blockoverride "close_button" {
+            onclick = "[CreditsWindow.OnClose]"
+        }
     }
 
     vbox = {

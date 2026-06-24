@@ -298,7 +298,7 @@ types OrganizationPanel
 												visible = yes
 											}
 											blockoverride "law_action_button_setup" {
-												enabled = "[Or(ResolutionGlue.EnactResolutionIsActive, And(UIAction.IsEnabled, Not(InternationalOrganizationsView.HasActiveParliamentResolution)))]"
+												enabled = "[UIAction.IsEnabled]"
 												proposer = "[ResolutionGlue.GetProposer]"
 												actor = "[InternationalOrganizationsView.GetPlayer]"
 

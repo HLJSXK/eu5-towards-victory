@@ -205,8 +205,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "ARMY_SIZE_VALUE_DISPLAY"
+												text = "[Country.GetRegularArmySize|L]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -228,8 +227,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "MANPOWER_VALUE_DISPLAY"
+												text = "[Country.GetCurrencyValue('manpower')]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -250,8 +248,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "LEVY_STRENGTH_VALUE_DISPLAY"
+												text = "[Country.GetRaisedAndPotentialLevyStrength|L]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -273,8 +270,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "LEVY_COMBAT_EFFICIENCY_VALUE_DISPLAY"
+												text = "[Country.GetModifierValueNoFormat('levy_combat_efficiency_modifier')]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -300,20 +296,10 @@ lateralview_full = {
 				
 													blockoverride "tooltip_content" {
 														TooltipStringPairList = {
-															visible = "[HasCombatModifiersIntelOn(Country.Self)]"
 															blockoverride "block_title" {
 																text = "LIST_TITLE_SOURCES"
 															}
 															textcontext = "[Country.GetDescriptionFor('levy_combat_efficiency_modifier')]"
-														}
-														text_single = {
-															visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-															layoutpolicy_horizontal = expanding
-															autoresize = no
-															align = right|nobaseline
-				
-															tagtooltip_enabled = yes
-															text = "LEVY_COMBAT_EFFICIENCY_VALUE_DISPLAY"
 														}
 													}
 												}
@@ -331,8 +317,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "ARMY_TRADITION_VALUE_DISPLAY"
+												raw_text = "[MilitaryLedgerItem.GetCountry.GetCurrencyValue('army_tradition')]%"
 											}
 											icon = {
 												size = { 16 16 }
@@ -354,8 +339,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "DISCIPLINE_VALUE_DISPLAY"
+												text = "[Country.GetModifierValueNoFormat('discipline')]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -380,20 +364,10 @@ lateralview_full = {
 				
 													blockoverride "tooltip_content" {
 														TooltipStringPairList = {
-															visible = "[HasCombatModifiersIntelOn(Country.Self)]"
 															blockoverride "block_title" {
 																text = "LIST_TITLE_SOURCES"
 															}
 															textcontext = "[Country.GetDescriptionFor('discipline')]"
-														}
-														text_single = {
-															visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-															layoutpolicy_horizontal = expanding
-															autoresize = no
-															align = right|nobaseline
-				
-															tagtooltip_enabled = yes
-															text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 														}
 													}
 												}
@@ -411,8 +385,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "LAND_MORALE_VALUE_DISPLAY"
+												text = "[Country.GetDefaultLandMorale|+=2]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -466,8 +439,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "MILITARY_TACTICS_VALUE_DISPLAY"
+												raw_text = "[Country.GetModifierValueNoFormat('military_tactics')]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -492,20 +464,10 @@ lateralview_full = {
 				
 													blockoverride "tooltip_content" {
 														TooltipStringPairList = {
-															visible = "[HasCombatModifiersIntelOn(Country.Self)]"
 															blockoverride "block_title" {
 																text = "LIST_TITLE_SOURCES"
 															}
 															textcontext = "[Country.GetDescriptionFor('military_tactics')]"
-														}
-														text_single = {
-															visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-															layoutpolicy_horizontal = expanding
-															autoresize = no
-															align = right|nobaseline
-
-															tagtooltip_enabled = yes
-															text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 														}
 													}
 												}
@@ -525,8 +487,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "FORT_LIMIT_VALUE_DISPLAY"
+												raw_text = "[MilitaryLedgerItem.GetCountry.GetCurrentFortsAmount|2W]#medium /[MilitaryLedgerItem.GetCountry.GetFortLimit|2]#!"
 											}
 											icon = {
 												size = { 16 16 }
@@ -549,8 +510,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "SIEGE_ABILITY_VALUE_DISPLAY"
+												raw_text = "[Country.GetModifierValueNoFormat('siege_ability')]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -575,20 +535,10 @@ lateralview_full = {
 				
 													blockoverride "tooltip_content" {
 														TooltipStringPairList = {
-															visible = "[HasCombatModifiersIntelOn(Country.Self)]"
 															blockoverride "block_title" {
 																text = "LIST_TITLE_SOURCES"
 															}
 															textcontext = "[Country.GetDescriptionFor('siege_ability')]"
-														}
-														text_single = {
-															visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-															layoutpolicy_horizontal = expanding
-															autoresize = no
-															align = right|nobaseline
-
-															tagtooltip_enabled = yes
-															text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 														}
 													}
 												}
@@ -607,8 +557,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "FORT_DEFENSE_VALUE_DISPLAY"
+												raw_text = "[Country.GetModifierValueNoFormat('global_defensive')]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -633,20 +582,10 @@ lateralview_full = {
 				
 													blockoverride "tooltip_content" {
 														TooltipStringPairList = {
-															visible = "[HasCombatModifiersIntelOn(Country.Self)]"
 															blockoverride "block_title" {
 																text = "LIST_TITLE_SOURCES"
 															}
 															textcontext = "[Country.GetDescriptionFor('global_defensive')]"
-														}
-														text_single = {
-															visible = "[Not(HasCombatModifiersIntelOn(Country.Self))]"
-															layoutpolicy_horizontal = expanding
-															autoresize = no
-															align = right|nobaseline
-
-															tagtooltip_enabled = yes
-															text = "INTEL_FOG_COMBAT_MODIFIERS_UNKNOWN"
 														}
 													}
 												}
@@ -665,8 +604,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "NAVY_SIZE_VALUE_DISPLAY"
+												text = "[Country.GetNavySizeValue]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -689,8 +627,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "NAVY_LEVY_VALUE_DISPLAY"
+												text = "[Country.GetNavyLevyPower|L]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -713,8 +650,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "SAILORS_VALUE_DISPLAY"
+												text = "[Country.GetCurrencyValue('sailors')|0]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -736,8 +672,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "NAVY_TRADITION_VALUE_DISPLAY"
+												raw_text = "[Country.GetCurrencyValue('navy_tradition')|%2]%"
 											}
 											icon = {
 												size = { 16 16 }
@@ -760,8 +695,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "NAVAL_DAMAGE_DONE_VALUE_DISPLAY"
+												raw_text = "[Country.GetModifierValueNoFormat('naval_damage_done')]"
 											}
 											icon = {
 												size = { 16 16 }
@@ -783,8 +717,7 @@ lateralview_full = {
 												autoresize = no
 												align = right|nobaseline
 	
-												tagtooltip_enabled = yes
-												text = "NAVAL_DAMAGE_TAKEN_VALUE_DISPLAY"
+												raw_text = "[Country.GetModifierValueNoFormat('naval_damage_taken')]"
 											}
 											icon = {
 												size = { 16 16 }

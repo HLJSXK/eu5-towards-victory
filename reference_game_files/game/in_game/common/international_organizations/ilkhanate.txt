@@ -59,7 +59,7 @@
 	}
 	
 	leader_modifier = {
-		monthly_prestige = 0.1
+		great_power_score_exempt_from_forfeit = 50
 	}
 	
 	create_visible_trigger = {
@@ -97,16 +97,9 @@
 	}
 	
 	auto_disband_trigger = {
-		international_organization_has_leader = no
 		NOT = {
 			any_international_organization_member = {
-				OR = {
-					can_claim_ilkhanate = yes
-					has_special_status_in_international_organization = {
-						type = special_status:ilkhan_claimant
-						international_organization = international_organization:ilkhanate
-					}
-				}
+				can_claim_ilkhanate = yes
 			}
 		}
 	}

@@ -348,10 +348,10 @@ template slot_icons_playthroughitem {
 
 					TooltipTextBlock = {
 						blockoverride "block_title" {
-							text = "[TitleDescTooltip.GetTitle.GetStringView]"
+							text = "[TitleDescTooltip.GetTitle]"
 						}
 
-						textcontext = "[TitleDescTooltip.GetDesc.GetStringView]"
+						textcontext = "[TitleDescTooltip.GetDesc]"
 					}
 				}
 
@@ -790,6 +790,8 @@ types LoadSaveTypes
 			button_close_alt = {
 				size = { 25 25 }
 				position = { -5 0 }
+				
+				blockoverride "close_onclick" {}
 
 				blockoverride "close_button_tooltip" {}
 	
@@ -966,16 +968,13 @@ types LoadSaveTypes
 						hbox = {
 							spacing = 5
 							layoutpolicy_vertical = expanding
-							button_checkbox = {
+							checkbutton = {
+								using = button_checkbox_template
 								name = "cloud_save"
-								action_tooltip = {
-									title = "[SaveNameWindow.CloudSaveTooltip]"
-									enabled = "[SaveNameWindow.CanToggleCloudSaves]"
-									on_action = "[SaveNameWindow.OnCloudSaveClick]"
-								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
-								down = "[SaveNameWindow.IsCloudSaveSelected]"
+								tooltipwidget = {LeftClickButtonTooltip = {blockoverride "onclick_text"{text = "[SaveNameWindow.CloudSaveTooltip]"}enabled = "[SaveNameWindow.CanToggleCloudSaves]"}}
+								checked = "[SaveNameWindow.IsCloudSaveSelected]"
 								enabled = "[SaveNameWindow.CanToggleCloudSaves]"
+								onclick = "[SaveNameWindow.OnCloudSaveClick]"
 							}
 
 							icon = {
@@ -1105,26 +1104,20 @@ types LoadSaveTypes
 								using = layoutpolicy_expanding
 								name = "cancel_button"
 								text = "CANCEL"
-								action_tooltip = {
-									title = "LOAD_SAVE_MENU_CLOSE_TOOLTIP"
-									on_action = "[SaveNameWindow.Cancel]"
-								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
+								onclick = "[SaveNameWindow.Cancel]"
 								input_action = "close_window"
 								use_global_input_instance = yes
+								tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "LOAD_SAVE_MENU_CLOSE_TOOLTIP" } } }
 							}
 
 							button_regular = {
 								using = layoutpolicy_expanding
 								name = "save_button_nook"
 								onclick = "[SaveNameWindow.Save]"
-								action_tooltip = {
-									title = "[SaveNameWindow.GetSaveErrors]"
-									on_action = "[HideGameRules]"
-								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
+								onclick = "[HideGameRules]"
 								enabled = "[Not(GameSaveNameWindow.IsSaveOk)]"
 								visible = "[Not(GameSaveNameWindow.IsSaveOk)]"
+								tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "[SaveNameWindow.GetSaveErrors]" } } }
 								# using = snd_UI_confirm
 
 								block "confirm_button" {
@@ -1136,13 +1129,10 @@ types LoadSaveTypes
 								using = layoutpolicy_expanding
 								name = "save_button_ok"
 								onclick = "[SaveNameWindow.Save]"
-								action_tooltip = {
-									title = "SAVE"
-									on_action = "[HideGameRules]"
-								}
-								tooltipwidget = { BasicFunctionalTooltip = {} }
+								onclick = "[HideGameRules]"
 								enabled = "[GameSaveNameWindow.IsSaveOk]"
 								visible = "[GameSaveNameWindow.IsSaveOk]"
+								tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "SAVE" } } }
 								# using = snd_UI_confirm
 
 								block "confirm_button" {
@@ -1162,7 +1152,9 @@ types LoadSaveTypes
 				ui_direction_button_holder_right = {}
 	
 				button_close_alt = {
-					blockoverride "close_on_action" { on_action = "[SaveNameWindow.Cancel]" }
+					blockoverride "close_onclick" {
+						onclick = "[SaveNameWindow.Cancel]"
+					}
 				}
 			}
 		}
@@ -1234,7 +1226,7 @@ types LoadSaveTypes
 							action_tooltip = {
 								click_type = left
 								click_mode = single
-								title = "OPEN_TAB"
+								title = "TOGGLE_PLAYTHROUGH_SAVES_TOOLTIP"
 								on_action = "[PlaythroughItem.Select]"
 							}
 						}
@@ -1687,7 +1679,9 @@ types LoadSaveTypes
 					button_close_alt = {
 						input_action = "close_window"
 						use_global_input_instance = yes
-						blockoverride "close_on_action" { on_action = "[JominiLoadWindow.Cancel]" }
+						blockoverride "close_onclick" {
+							onclick = "[JominiLoadWindow.Cancel]"
+						}
 					}
 				}
 			# }

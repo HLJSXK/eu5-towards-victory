@@ -287,7 +287,23 @@ Types AchievementTypes {
 									}
 								}
                                 TooltipTextBlock = {
-                                    visible = "[Not(CanGetAchievements)]"
+                                    visible = "[Not(GameIsIronman)]"
+									blockoverride "text" {
+										text = "ACHIEVEMENT_NOT_POSSIBLE_IRONMAN"
+									}
+                                    background = {
+                                        using = color_mid_red_texture
+                                        alpha = 0.5
+
+                                        modify_texture = {
+                                            visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInDataModel)]"
+                                            using = color_white_texture
+                                            alpha = 0.1
+                                        }
+                                    }
+								}
+                                TooltipTextBlock = {
+                                    visible = "[And(GameIsIronman, Not(CanGetAchievements))]"
 									blockoverride "text" {
 										text = "ACHIEVEMENTS_DISABLED_NO_HEADER_PLAY_BUTTON"
 									}
@@ -468,7 +484,9 @@ window = {
         ui_direction_button_holder_right = {}
 
         button_close_alt = {
-            blockoverride "close_on_action" { on_action = "[AchievementWindow.Hide]" }
+            blockoverride "close_onclick" {
+                onclick = "[AchievementWindow.Hide]"
+            }
         }
     }
 
@@ -511,10 +529,7 @@ window = {
                                     text = "ACHIEVEMENT_FILTER_ALL"
                                 }
                                 down = "[AchievementWindow.ShouldShowAll]"
-                                action_tooltip = {
-                                	title = "OPEN_TAB"
-                                	on_action = "[AchievementWindow.ShowAll]"
-                                }
+                                onclick = "[AchievementWindow.ShowAll]"
                             }
                             button_main_tab_alt = {
                                 using = layoutpolicy_expanding
@@ -524,10 +539,7 @@ window = {
                                     text = "ACHIEVEMENT_FILTER_UNLOCKED"
                                 }
                                 down = "[AchievementWindow.ShouldShowUnlocked]"
-                                action_tooltip = {
-                                	title = "OPEN_TAB"
-                                	on_action = "[AchievementWindow.ShowUnlocked]"
-                                }
+                                onclick = "[AchievementWindow.ShowUnlocked]"
                             }
                             button_main_tab_alt = {
                                 using = layoutpolicy_expanding
@@ -538,10 +550,7 @@ window = {
                                     text = "ACHIEVEMENT_FILTER_POSSIBLE"
                                 }
                                 down = "[AchievementWindow.ShouldShowPossible]"
-                                action_tooltip = {
-                                	title = "OPEN_TAB"
-                                	on_action = "[AchievementWindow.ShowPossible]"
-                                }
+                                onclick = "[AchievementWindow.ShowPossible]"
                             }
                         }
                     }

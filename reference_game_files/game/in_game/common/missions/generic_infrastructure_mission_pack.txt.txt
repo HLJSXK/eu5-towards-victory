@@ -112,12 +112,11 @@
 			}
 		}
 		if = {
-			limit = {
+			limit = { 
 				capital = {
 					NOR = {
 						location_rank = location_rank:town
 						location_rank = location_rank:city
-						location_rank = location_rank:megalopolis
 					}
 				}
 			}
@@ -125,8 +124,8 @@
 		}
 		else_if = {
 			limit = {
-				capital = {
-					location_rank = location_rank:town
+				capital = { 
+					NOT = { location_rank = location_rank:city }
 				}
 			}
 			set_variable = capital_started_as_town_location_variable

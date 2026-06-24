@@ -123,17 +123,15 @@ template estate_income_tooltip {
 		}
 
 		blockoverride "tooltip_content" {
-			TooltipScrolledStringPairList = {
-				blockoverride "block_scrollarea" { maximumsize = { -1 300 } }
+			TooltipStringPairList = {
 				textcontext = "[Estate.GetTaxBaseInfo]"
 			}
 
-			TooltipScrolledStringPairList = {
+			TooltipStringPairList = {
 				visible = "[And(Not(Estate.GetType.IsAlwaysLoyal), Not(StringIsEmpty(Estate.GetEnfranchismentIncomeFromTaxBaseInfo)))]"
-				blockoverride "block_scrollarea" { maximumsize = { -1 300 } }
 				textcontext = "[Estate.GetEnfranchismentIncomeFromTaxBaseInfo]"
 			}
-		}
+		}		
 	}
 }
 

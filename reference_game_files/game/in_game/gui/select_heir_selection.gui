@@ -3,7 +3,10 @@ select_menu_left = {
 		name = "select_heir_selection"
 	}
 
-	blockoverride "close_on_action" { on_action = "[SelectHeirSelection.OnClose]" }
+	blockoverride "close_button" {
+		onclick = "[SelectHeirSelection.OnClose]"
+	}
+
 	blockoverride "select_content" {
 		expand = {}
 	}

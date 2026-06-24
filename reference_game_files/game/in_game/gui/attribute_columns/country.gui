@@ -1,4 +1,4 @@
-types CountryColumns
+﻿types CountryColumns
 {
 	type country_name = hbox {
 		margin = { 10 0 }
@@ -55,7 +55,7 @@ types CountryColumns
 				align = right|nobaseline
 				size = { 40 28 }
 				autoresize = no
-				text = "[InteractionTarget.GetCountry.GetGreatPowerPoints|0]"
+				text = "[InteractionTarget.GetCountry.GetGreatPowerScore|0]"
 			}
 			icon = {
 				size = { 28 28 }
@@ -203,7 +203,13 @@ types CountryColumns
 					margin_left = -2
 					margin_top = 8
 					
-					tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "MARRIAGE_FINDER_EXTRA_CHARACTERS" } } }
+					tooltipwidget = {
+						LeftClickButtonTooltip = {
+							blockoverride "onclick_text" {
+								text = "MARRIAGE_FINDER_EXTRA_CHARACTERS"						
+							}
+						}					
+					}
 	
 					hbox = {
 						icon = {
@@ -502,7 +508,6 @@ types CountryColumns
 		}
 
 		text_single = {
-			visible = "[HasArmySizeIntelOn(InteractionTarget.GetCountry)]"
 			minimumsize = { -1 28 }
 			layoutpolicy_vertical = fixed
 			layoutpolicy_horizontal = expanding
@@ -517,19 +522,10 @@ types CountryColumns
 					}
 					blockoverride "concept_link" {
 						raw_text = "[army|e]"
-					}
+					}					
 					textcontext = "target_army_size_simple"
 					}
 			}
-		}
-		text_single = {
-			visible = "[Not(HasArmySizeIntelOn(InteractionTarget.GetCountry))]"
-			tagtooltip_enabled = yes
-			minimumsize = { -1 28 }
-			layoutpolicy_vertical = fixed
-			layoutpolicy_horizontal = expanding
-			align = right|nobaseline
-			text = "INTEL_FOG_ARMY_SIZE_IT_UNKNOWN"
 		}
 	}
 
@@ -544,7 +540,6 @@ types CountryColumns
 		}
 
 		text_single = {
-			visible = "[HasArmySizeIntelOn(InteractionTarget.GetCountry)]"
 			minimumsize = { -1 28 }
 			layoutpolicy_vertical = fixed
 			layoutpolicy_horizontal = expanding
@@ -559,19 +554,10 @@ types CountryColumns
 					}
 					blockoverride "concept_link" {
 						raw_text = "[army|e]"
-					}
+					}					
 					textcontext = "target_regular_army_size_simple"
 					}
 			}
-		}
-		text_single = {
-			visible = "[Not(HasArmySizeIntelOn(InteractionTarget.GetCountry))]"
-			tagtooltip_enabled = yes
-			minimumsize = { -1 28 }
-			layoutpolicy_vertical = fixed
-			layoutpolicy_horizontal = expanding
-			align = right|nobaseline
-			text = "INTEL_FOG_ARMY_SIZE_IT_UNKNOWN"
 		}
 	}
 
@@ -620,7 +606,6 @@ types CountryColumns
 		}
 
 		text_single = {
-			visible = "[HasNavyStrengthIntelOn(InteractionTarget.GetCountry)]"
 			minimumsize = { -1 28 }
 			layoutpolicy_vertical = fixed
 			layoutpolicy_horizontal = expanding
@@ -642,15 +627,6 @@ types CountryColumns
 
 				}
 			}
-		}
-		text_single = {
-			visible = "[Not(HasNavyStrengthIntelOn(InteractionTarget.GetCountry))]"
-			tagtooltip_enabled = yes
-			minimumsize = { -1 28 }
-			layoutpolicy_vertical = fixed
-			layoutpolicy_horizontal = expanding
-			align = right|nobaseline
-			text = "INTEL_FOG_NAVY_STRENGTH_IT_UNKNOWN"
 		}
 	}
 

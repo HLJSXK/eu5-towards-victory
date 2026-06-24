@@ -22,8 +22,8 @@ cro_maritime_connections = {
 		has_or_had_tag = CRO
 	}
 	
-	monthly_prestige = 0.05
-	nobles_estate_satisfaction_recovery = 0.001
+	great_power_score_modifier = 0.1
+    nobles_estate_satisfaction_recovery = 0.001
 
 	requires = codified_laws
 }
@@ -34,7 +34,10 @@ cro_the_bashka_tablet = {
 
 	potential = {
 		has_or_had_tag = CRO
-		original_tag = CRO
+		NOR = {
+			has_or_had_tag = DAL
+			has_or_had_tag = SVN
+		}
 	}
 	
 	global_crown_estate_power = 0.1
@@ -44,7 +47,6 @@ cro_the_bashka_tablet = {
 
 svn_the_marturina_tax_system = {
 	age = age_1_traditions
-	icon = svn_the_marturina_tax_system
 
 	potential = {
 		has_or_had_tag = SVN
@@ -93,7 +95,10 @@ cro_the_banovac_silver_denar = {
 
 	potential = {
 		has_or_had_tag = CRO
-		original_tag = CRO
+		NOR = {
+			has_or_had_tag = DAL
+			has_or_had_tag = SVN
+		}
 	}
 
 	minting_income_factor = 0.1
@@ -155,7 +160,10 @@ cro_the_croatian_press = {
 
 	potential = {
 		has_or_had_tag = CRO
-		original_tag = CRO
+		NOR = {
+			has_or_had_tag = DAL
+			has_or_had_tag = SVN
+		}
 	}
 	
 	global_institution_growth_modifier = 0.20
@@ -200,7 +208,10 @@ cro_reliance_on_adriatic = {
 
 	potential = {
 		has_or_had_tag = CRO
-		original_tag = CRO
+		NOR = {
+			has_or_had_tag = DAL
+			has_or_had_tag = SVN
+		}
 	}
 
 	army_light_infantry_power = 0.10
@@ -275,7 +286,10 @@ cro_the_national_garrison_system = {
 
 	potential = {
 		has_or_had_tag = CRO
-		original_tag = CRO
+		NOR = {
+			has_or_had_tag = DAL
+			has_or_had_tag = SVN
+		}
 	}
 
 	global_garrison_growth = 0.01
@@ -333,7 +347,10 @@ cro_uniting_the_coast_and_the_inner_lands = {
 
 	potential = {
 		has_or_had_tag = CRO
-		original_tag = CRO
+		NOR = {
+			has_or_had_tag = DAL
+			has_or_had_tag = SVN
+		}
 	}
 
 	global_road_building_time = -0.1

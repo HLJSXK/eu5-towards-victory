@@ -15,7 +15,7 @@
 				NOT = {
 					any_international_organization_member = {
 						this != root
-						country_economical_base > root.country_economical_base
+						great_power_score > root.great_power_score
 					}
 				}
 			}
@@ -103,7 +103,7 @@ junior_partner = {
 		}
 	}
 	special_status_power = {
-		value = country_economical_base
+		value = great_power_score
 		if = {
 			limit = {
 				has_variable = integrated_in_union

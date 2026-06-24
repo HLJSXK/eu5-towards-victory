@@ -608,6 +608,7 @@ flavor_hab.12 = { #Kaspar Schlick
 
 	dynamic_historical_event = {
 		tag = HAB
+		tag = BOH
 		from = 1420.1.1
 		to = 1449.1.1
 		monthly_chance = 1
@@ -2171,10 +2172,7 @@ flavor_hab.36 = { #The Peasant Rebellion Spreads
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_hab_peasant_rebels_joining_tt
-			has_variable = hab_peasant_rebels_joining
-		}
+		has_variable = hab_peasant_rebels_joining
 		any_rebel = {
 			rebel_name_key = hab_salzburger_peasant_revolt
 		}
@@ -2304,10 +2302,7 @@ flavor_hab.38 = { #The Tomb of the First Emperor
 
 	trigger = {
 		has_ruler = yes
-		custom_tooltip = {
-			text = variable_austria_first_emperor_variable_tt
-			has_variable = austria_first_emperor_variable
-		}
+		has_variable = austria_first_emperor_variable
 		var:austria_first_emperor_variable ?= {
 			is_alive = no
 		}
@@ -2543,10 +2538,7 @@ flavor_hab.42 = { #The Trial of Martin Siebenbürger
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_siebenburger_trial_tt
-			has_variable = siebenburger_trial
-		}
+		has_variable = siebenburger_trial
 		owns = location:vienna
 	}
 
@@ -3087,10 +3079,7 @@ flavor_hab.52 = { #Fortifying Vienna
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_hab_fortify_vienna_variable_tt
-			has_variable = hab_fortify_vienna_variable
-		}
+		has_variable = hab_fortify_vienna_variable
 		at_war = no
 		owns = location:vienna
 	}
@@ -3502,11 +3491,8 @@ flavor_hab.59 = { #Expanding the Hofburg
 	trigger = {
 		has_ruler = yes
 		owns = location:vienna
-		custom_tooltip = {
-			text = flavor_hab.59.requirement_tt
-			work_of_art:hofburg ?= {
-				location = location:vienna
-			}
+		work_of_art:hofburg ?= {
+			location = location:vienna
 		}
 	}
 
@@ -4696,10 +4682,7 @@ flavor_hab.79 = { #St Stephens Cathedral Bell
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_hab_church_bell_variable_tt
-			has_variable = hab_church_bell_variable
-		}
+		has_variable = hab_church_bell_variable
 		owns = location:vienna
 		location:vienna = {
 			any_work_of_art_in_location = {
@@ -4986,6 +4969,7 @@ flavor_hab.84 = { #Bocskais Uprising
 
 	dynamic_historical_event = {
 		tag = HAB
+		tag = HUN
 		from = 1600.1.1
 		to = 1630.1.1
 		monthly_chance = 10
@@ -5101,10 +5085,7 @@ flavor_hab.85 = { #Bethlens Uprising
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_hab_bethlen_uprising_tt
-			has_variable = hab_bethlen_uprising
-		}
+		has_variable = hab_bethlen_uprising
 		any_owned_location = {
 			area = area:slovakia_area
 			count >= 20
@@ -5212,10 +5193,7 @@ flavor_hab.86 = { #Rakoczis Uprising
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_hab_rakoczi_uprising_tt
-			has_variable = hab_rakoczi_uprising
-		}
+		has_variable = hab_rakoczi_uprising
 		any_owned_location = {
 			area = area:slovakia_area
 			count >= 20
@@ -6636,14 +6614,8 @@ flavor_hab.1009 = { #Rudolfine House Rules - formerly flavor_hab.28
 			is_married = no
 		}
 		OR = {
-			custom_tooltip = {
-				text = variable_privilegium_maius_granted_tt
-				has_variable = privilegium_maius_granted
-			}
-			custom_tooltip = {
-				text = variable_privilegium_maius_accepted_tt
-				has_variable = privilegium_maius_accepted
-			}
+			has_variable = privilegium_maius_granted
+			has_variable = privilegium_maius_accepted
 		}
 	}
 
@@ -7133,10 +7105,7 @@ flavor_hab.1301 = { #College of Poets - Conrad Celtes
 
 	trigger = {
 		has_ruler = yes
-		custom_tooltip = {
-			text = variable_habsburg_renaissance_prince_tt
-			has_variable = habsburg_renaissance_prince
-		}
+		has_variable = habsburg_renaissance_prince
 		owns = location:vienna
 		location:vienna = {
 			has_building = building_type:university
@@ -7200,10 +7169,7 @@ flavor_hab.1302 = { #Theuerdank
 			is_married = yes
 			age_in_years > 40
 		}
-		custom_tooltip = {
-			text = variable_habsburg_renaissance_prince_tt
-			has_variable = habsburg_renaissance_prince
-		}
+		has_variable = habsburg_renaissance_prince
 
 	}
 
@@ -7266,10 +7232,7 @@ flavor_hab.1303 = { #Johannes Cuspinian
 
 	trigger = {
 		has_ruler = yes
-		custom_tooltip = {
-			text = variable_habsburg_renaissance_prince_tt
-			has_variable = habsburg_renaissance_prince
-		}
+		has_variable = habsburg_renaissance_prince
 		owns = location:vienna
 		location:vienna = {
 			has_building = building_type:university
@@ -8313,10 +8276,7 @@ flavor_hab.1605 = { #Lutherans are unhappy with Jesuit Colleges
 		"religion_percentage_in_country(religion:lutheran)" > 0
 		has_ruler = yes
 		religion = religion:catholic
-		custom_tooltip = {
-			text = variable_jesuit_colleges_sponsored_tt
-			has_variable = jesuit_colleges_sponsored
-		}
+		has_variable = jesuit_colleges_sponsored
 	}
 
 	option = {
@@ -8415,10 +8375,7 @@ flavor_hab.1606 = { #Pope and Spain is unhappy about Jesuit refusal
 		}
 		has_ruler = yes
 		religion = religion:catholic
-		custom_tooltip = {
-			text = variable_jesuit_colleges_rejected_tt
-			has_variable = jesuit_colleges_rejected
-		}
+		has_variable = jesuit_colleges_rejected
 		religion:catholic = {
 			any_country_in_religion = {
 				NOT = {
@@ -8660,10 +8617,7 @@ flavor_hab.1609 = { #Austrian Recatholicization - formerly flavor_hab.63
 		any_owned_location = {
 			dominant_religion = religion:lutheran
 		}
-		custom_tooltip = {
-			text = variable_hab_enable_recatholicization_tt
-			has_variable = hab_enable_recatholicization
-		}
+		has_variable = hab_enable_recatholicization
 	}
 
 	option = {
@@ -8863,7 +8817,7 @@ flavor_hab.1800 = { #Mühlviertel Textile Production
 				limit = {
 					location_rank = location_rank:rural_settlement
 				}
-				change_location_rank_effect = { location_rank = location_rank:town }
+				change_location_rank = location_rank:town
 			}
 			else = {
 				change_development = development_mild_bonus
@@ -8915,10 +8869,7 @@ flavor_hab.1801 = { #Mühlviertel Textile Production Success
 				value >= 4
 			}
 		}
-		custom_tooltip = {
-			text = variable_hab_push_for_muhlviertel_textile_industry_tt
-			has_variable = hab_push_for_muhlviertel_textile_industry
-		}
+		has_variable = hab_push_for_muhlviertel_textile_industry
 	}
 
 	option = {
@@ -8963,10 +8914,7 @@ flavor_hab.1802 = { #Mühlviertel Textile Production Failure
 				value < 4
 			}
 		}
-		custom_tooltip = {
-			text = variable_hab_push_for_muhlviertel_textile_industry_tt
-			has_variable = hab_push_for_muhlviertel_textile_industry
-		}
+		has_variable = hab_push_for_muhlviertel_textile_industry
 	}
 
 	option = {
@@ -9086,13 +9034,10 @@ flavor_hab.1901 = {  #Samson Wertheimer
 	}
 
 	trigger = {
-		character:hab_samuel_oppenheimer ?= {
+		character:hab_samuel_oppenheimer = {
 			in_cabinet = yes
 		}
-		custom_tooltip = {
-			text = variable_samuel_oppenheimer_hired_tt
-			has_variable = samuel_oppenheimer_hired
-		}
+		has_variable = samuel_oppenheimer_hired
 	}
 
 	option = {
@@ -9133,34 +9078,33 @@ flavor_hab.1902 = { #The Court Bankers finance in wartime
 	immediate = {
 		event_illustration_estate_effect = { foreground = estate_type:burghers_estate background = estate_type:burghers_estate }
 
-		if = {
-			limit = {
-				character:hab_samuel_oppenheimer ?= {
+		character:hab_samuel_oppenheimer = {
+			if = {
+				limit = {
 					in_cabinet = yes
 				}
 			}
-			character:hab_samuel_oppenheimer = {
-				save_scope_as = target_character
-			}
+			save_scope_as = target_character
 		}
-		else_if = {
-			limit = {
-				character:hab_samson_wertheimer ?= {
+		character:hab_samson_wertheimer = {
+			if = {
+				limit = {
 					in_cabinet = yes
+					character:hab_samuel_oppenheimer = {
+						in_cabinet = no
+					}
 				}
 			}
-			character:hab_samson_wertheimer = {
-				save_scope_as = target_character
-			}
+			save_scope_as = target_character
 		}
 	}
 
 	trigger = {
 		OR = {
-			character:hab_samuel_oppenheimer ?= {
+			character:hab_samuel_oppenheimer = {
 				in_cabinet = yes
 			}
-			character:hab_samson_wertheimer ?= {
+			character:hab_samson_wertheimer = {
 				in_cabinet = yes
 			}
 		}
@@ -9198,25 +9142,24 @@ flavor_hab.1903 = { #The Court Bankers finance in wartime
 	immediate = {
 		event_illustration_estate_effect = { foreground = estate_type:burghers_estate background = estate_type:burghers_estate }
 
-		if = {
-			limit = {
-				character:hab_samuel_oppenheimer ?= {
+		character:hab_samuel_oppenheimer = {
+			if = {
+				limit = {
 					in_cabinet = yes
 				}
 			}
-			character:hab_samuel_oppenheimer = {
-				save_scope_as = target_character
-			}
+			save_scope_as = target_character
 		}
-		else_if = {
-			limit = {
-				character:hab_samson_wertheimer ?= {
+		character:hab_samson_wertheimer = {
+			if = {
+				limit = {
 					in_cabinet = yes
+					character:hab_samuel_oppenheimer = {
+						in_cabinet = no
+					}
 				}
 			}
-			character:hab_samson_wertheimer = {
-				save_scope_as = target_character
-			}
+			save_scope_as = target_character
 		}
 		location:vienna = {
 			save_scope_as = target_location
@@ -9225,10 +9168,10 @@ flavor_hab.1903 = { #The Court Bankers finance in wartime
 
 	trigger = {
 		OR = {
-			character:hab_samuel_oppenheimer ?= {
+			character:hab_samuel_oppenheimer = {
 				in_cabinet = yes
 			}
-			character:hab_samson_wertheimer ?= {
+			character:hab_samson_wertheimer = {
 				in_cabinet = yes
 			}
 		}
@@ -9434,10 +9377,7 @@ flavor_hab.2101 = { #Pushback against enlightenment reforms
 
 	trigger = {
 		has_ruler = yes
-		custom_tooltip = {
-			text = variable_hab_reforms_of_enlightenment_tt
-			has_variable = hab_reforms_of_enlightenment
-		}
+		has_variable = hab_reforms_of_enlightenment
 		stability <= 25
 	}
 
@@ -9501,10 +9441,7 @@ flavor_hab.2102 = { #Embracement of enlighten reforms
 
 	trigger = {
 		has_ruler = yes
-		custom_tooltip = {
-			text = variable_hab_reforms_of_enlightenment_tt
-			has_variable = hab_reforms_of_enlightenment
-		}
+		has_variable = hab_reforms_of_enlightenment
 		stability > 25
 	}
 
@@ -9534,10 +9471,7 @@ flavor_hab.2103 = { #The Raabization of the Land Management - formerly flavor_ha
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = variable_hab_reforms_of_enlightenment_tt
-			has_variable = hab_reforms_of_enlightenment
-		}
+		has_variable = hab_reforms_of_enlightenment
 	}
 
 	immediate = {
@@ -9714,7 +9648,7 @@ flavor_hab.2200 = { #Growth of Wiener Neustadt
 				limit = {
 					location_rank = location_rank:rural_settlement
 				}
-				change_location_rank_effect = { location_rank = location_rank:town }
+				change_location_rank = location_rank:town
 			}
 			else = {
 				change_development = development_mild_bonus

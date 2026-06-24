@@ -7,17 +7,76 @@
 
 types EventWindows
 {
-	type AgeEventAdvancesList = vbox {
+	# type AgeEventAdvancesList = vbox {
+	# 	margin = { 8 0 }
+	# 	vbox = {
+
+	# 		background = {			
+	# 			texture = "gfx/interface/component_masks/age_event_mask_frame_horizontal.dds"
+	# 			texture_density = 2
+	# 			alpha = 0.6
+	# 			spriteType = corneredstretched
+	# 			spriteBorder = { 12 12 }
+		
+	# 			modify_texture = {
+	# 				using = color_bg_blue_texture
+	# 				blend_mode = add
+	# 				alpha = 0.7
+	# 			}
+	# 			modify_texture = {
+	# 				using = color_bg_blue_texture
+	# 				blend_mode = overlay
+	# 			}
+
+	# 			modify_texture = {
+	# 				texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_overlay.dds"
+	# 				texture_density = 2
+	# 				alpha = 1.0
+	# 				blend_mode = alphamultiply
+	# 			}
+	# 		}
+
+	# 		block "datamodel" {}
+	# 		item = {
+	# 			text_multi = {
+	# 				margin = { 0 4 }
+	# 				minimumsize = { @[banner_wide - 36] -1 }
+	# 				maximumsize = { @[banner_wide - 26] 26 }
+	# 				autoresize = yes
+	# 				fontsize = 11
+	# 				fontsize_min = 9
+	# 				align = nobaseline|center
+
+	# 				raw_text = "[CString.GetString]"
+
+	# 				background = {
+	# 					visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInParent)]"
+	# 					using = color_bg_blue_texture
+	# 					alpha = 0.4
+
+	# 					modify_texture = {
+	# 						texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_overlay.dds"
+	# 						texture_density = 2
+	# 						alpha = 1
+	# 						blend_mode = alphamultiply
+	# 					}
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# }
+
+	type OmensModifiersList = vbox {
 		margin = { 8 0 }
 		vbox = {
 
-			background = {
+			background = {			
 				texture = "gfx/interface/component_masks/age_event_mask_frame_horizontal.dds"
 				texture_density = 2
 				alpha = 0.6
 				spriteType = corneredstretched
 				spriteBorder = { 12 12 }
-
+		
 				modify_texture = {
 					using = color_bg_blue_texture
 					blend_mode = add
@@ -47,7 +106,7 @@ types EventWindows
 					fontsize_min = 9
 					align = nobaseline|center
 
-					raw_text = "[AdvanceDefinition.GetName]"
+					raw_text = "[CString.GetString]"
 
 					background = {
 						visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInParent)]"
@@ -78,7 +137,7 @@ types EventWindows
 				align = center
 				block "modifiers_list_bg" {
 					background = {
-						texture = "gfx/interface/component_tiles/omen_modifier_bg.dds"
+						texture = "gfx/interface/component_tiles/omen_modifier_bg.dds"	
 						texture_density = 2
 						alpha = 0.6
 						spriteType = CorneredStretched
@@ -87,7 +146,7 @@ types EventWindows
 					}
 				}
 
-				raw_text = "[CPdxStringView.GetStringView]"
+				raw_text = "[CString.GetString]"
 
 				# background = {
 				# 	visible = "[IsOdd_int32(PdxGuiWidget.GetIndexInParent)]"
@@ -1190,7 +1249,7 @@ AgeEventWindow = {
 
 				expand = {}
 
-				AgeEventAdvancesList = {
+				OmensModifiersList = {
 					blockoverride "datamodel" {
 						datamodel = "[GetCurrentAgeAdvancesList('adm')]"
 					}
@@ -1327,7 +1386,7 @@ AgeEventWindow = {
 
 				expand = {}
 
-				AgeEventAdvancesList = {
+				OmensModifiersList = {
 					blockoverride "datamodel" {
 						datamodel = "[GetCurrentAgeAdvancesList('dip')]"
 					}
@@ -1449,7 +1508,7 @@ AgeEventWindow = {
 
 				expand = {}
 
-				AgeEventAdvancesList = {
+				OmensModifiersList = {
 					blockoverride "datamodel" {
 						datamodel = "[GetCurrentAgeAdvancesList('mil')]"
 					}

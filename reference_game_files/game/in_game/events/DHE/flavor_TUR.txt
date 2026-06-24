@@ -2218,6 +2218,8 @@ flavor_tur.36 = {
 	option = {
 		name = flavor_tur.36.a
 
+		historical_option = yes
+
 		set_capital = location:edirne
 
 		location:edirne.province = {
@@ -2267,9 +2269,6 @@ flavor_tur.36 = {
 				}
 			}
 		}
-
-		# Disable for now for AI as it just bankrupts their country
-		ai_will_select = { value = 0 }
 	}
 
 	option = {
@@ -2363,7 +2362,7 @@ flavor_tur.38 = {
 
 		create_character = {
 			first_name = name_khalil
-			nickname = name_khayr.name_al_din
+			nickname = Hayreddin
 			adm = { 33 100 }
 			dip = { 33 100 }
 			mil = { 33 100 }
@@ -3014,10 +3013,7 @@ flavor_tur.50 = { #The Heir and the Hurufis
 
 	trigger = {
 		has_heir = yes
-		custom_tooltip = {
-			text = variable_hurufiyya_tt
-			has_variable = hurufiyya
-		}
+		has_variable = hurufiyya
 		ruler_or_regent ?= {
 			religion ?= {
 				exists = this
@@ -4133,10 +4129,7 @@ flavor_tur.62 = { #The Hidden Language
 
 	trigger = {
 
-		custom_tooltip = {
-			text = variable_dilsiz_tt
-			has_variable = dilsiz
-		}
+		has_variable = dilsiz
 
 		has_ruler = yes
 
@@ -4550,10 +4543,7 @@ flavor_tur.68 = { #Shaykh al-Islām #2
 
 		religion.group = religion_group:muslim
 
-		custom_tooltip = {
-			text = variable_sheikh_ul_islam_tt
-			has_variable = sheikh_ul_islam
-		}
+		has_variable = sheikh_ul_islam
 
 		any_character = {
 			NOT = { has_character_modifier = sheikh_ul_islam_modifier }
@@ -4631,10 +4621,7 @@ flavor_tur.69 = { #Shaykh al-Islām
 
 		government_power > 80
 
-		custom_tooltip = {
-			text = variable_sheikh_ul_islam_tt
-			has_variable = sheikh_ul_islam
-		}
+		has_variable = sheikh_ul_islam
 
 		has_advance = clergy_rights_laws_advance
 	}
@@ -4866,10 +4853,7 @@ flavor_tur.72 = { #Piri Reis
 
 		modifier:may_explore = yes
 
-		custom_tooltip = {
-			text = variable_kemal_reis_created_tt
-			has_variable = kemal_reis_created
-		}
+		has_variable = kemal_reis_created
 
 	}
 
@@ -6769,10 +6753,7 @@ flavor_tur.95 = { #The One True Emperor
 
 		"religion_group_percentage_in_country(religion_group:christian)" > 0
 
-		custom_tooltip = {
-			text = variable_dilsiz_tt
-			has_variable = dilsiz
-		}
+		has_variable = dilsiz
 
 		owns = location:constantinople
 
@@ -7155,10 +7136,7 @@ flavor_tur.99 = { #The Price of Ambition (Pargalı Ibrahim Pasha)
 		}
 
 		OR = {
-			custom_tooltip = {
-				text = variable_ottoman_imperial_harem_tt
-				has_variable = ottoman_imperial_harem
-			}
+			has_variable = ottoman_imperial_harem
 			has_policy = harem_policy
 			has_policy = valide_sultan_court_policy
 		}
@@ -10848,10 +10826,7 @@ flavor_tur.135 = { #The Unsavory Influences on [Sultan]
 		}
 
 		OR = {
-			custom_tooltip = {
-				text = variable_ottoman_imperial_harem_tt
-				has_variable = ottoman_imperial_harem
-			}
+			has_variable = ottoman_imperial_harem
 			has_policy = harem_policy
 			has_policy = valide_sultan_court_policy
 		}
@@ -11206,10 +11181,7 @@ flavor_tur.140 = { #The Tulip Period
 		religion.group = religion_group:muslim
 
 		OR = {
-			custom_tooltip = {
-				text = variable_ottoman_imperial_harem_tt
-				has_variable = ottoman_imperial_harem
-			}
+			has_variable = ottoman_imperial_harem
 			has_policy = harem_policy
 			has_policy = valide_sultan_court_policy
 		}
@@ -11598,10 +11570,7 @@ flavor_tur.144 = { #Modesty in Peril
 		societal_value:spiritualist_vs_humanist < 50
 
 		OR = {
-			custom_tooltip = {
-				text = variable_ottoman_imperial_harem_tt
-				has_variable = ottoman_imperial_harem
-			}
+			has_variable = ottoman_imperial_harem
 			has_policy = harem_policy
 			has_policy = valide_sultan_court_policy
 		}
@@ -12230,10 +12199,7 @@ flavor_tur.149 = { #The Eunuchs in Cairo
 		has_reform = government_reform:ottoman_eunuch_viziers
 
 		OR = {
-			custom_tooltip = {
-				text = variable_ottoman_imperial_harem_tt
-				has_variable = ottoman_imperial_harem
-			}
+			has_variable = ottoman_imperial_harem
 			has_policy = harem_policy
 			has_policy = valide_sultan_court_policy
 		}
@@ -12367,10 +12333,7 @@ flavor_tur.150 = { #The Wronged Servant
 		has_slavery = yes
 
 		OR = {
-			custom_tooltip = {
-				text = variable_ottoman_imperial_harem_tt
-				has_variable = ottoman_imperial_harem
-			}
+			has_variable = ottoman_imperial_harem
 			has_policy = harem_policy
 			has_policy = valide_sultan_court_policy
 		}
@@ -15596,13 +15559,12 @@ flavor_tur.185 = {
 
 		scope:capital_location = {
 			create_country_from_location = {
-				overlord = root
-				subject_type = subject_type:vassal
 				set_capital = scope:capital_location
 				set_new_ruler = scope:target_character
 				change_religion = root.religion
 				change_religion_for_ruler_and_family = { country = this religion = root.religion }
 				change_culture = root.culture
+				make_subject_of = { target = root type = subject_type:vassal }
 			}
 		}
 	}
@@ -18282,13 +18244,12 @@ flavor_tur.1003 = {
 
 		scope:target_capital = {
 			create_country_from_location = {
-				overlord = root
-				subject_type = subject_type:uc_bey
 				set_capital = scope:target_capital
 				set_new_ruler = scope:target_character
 				change_religion = root.religion
 				change_religion_for_ruler_and_family = { country = this religion = root.religion }
 				change_culture = culture:albanian
+				make_subject_of = {  target = root type = subject_type:uc_bey }
 				capital = {
 					construct_building = {
 						building_type = building_type:sergeantry
@@ -18443,7 +18404,6 @@ flavor_tur.1004 = {
 
 	option = {
 		name = flavor_tur.1004.c
-		high_risk_option = yes
 
 		cancel_subject = scope:target_country
 

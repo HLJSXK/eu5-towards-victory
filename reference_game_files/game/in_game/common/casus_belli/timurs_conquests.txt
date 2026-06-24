@@ -4,16 +4,13 @@
 # Timur's Conquests
 cb_timurs_conquests = {
 	create_visible = {
-		tag = TIM
-		is_situation_active = situation:rise_of_timur
+		has_reform = government_reform:timurid_empire
 	}
 	declare_enabled = {
-		tag = TIM
-		is_situation_active = situation:rise_of_timur
+		has_reform = government_reform:timurid_empire
 	}
 	create_enabled = {
-		tag = TIM
-		is_situation_active = situation:rise_of_timur
+		has_reform = government_reform:timurid_empire
 		is_neighbor_of = scope:target
 	}
 	war_goal_type = timurs_war_superiority

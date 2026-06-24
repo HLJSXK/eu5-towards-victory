@@ -284,11 +284,11 @@ vbox = {
 										raw_text = "Light"
 									}		
 									blockoverride "side_panel_header_properties" {
-										down = "[UnitViewer.IsLightEnvPropertiesVisible]"
+										checked = "[UnitViewer.IsLightEnvPropertiesVisible]"
 										onclick = "[UnitViewer.ToggleIsLightEnvPropertiesVisible]"
 									}		
 									blockoverride "side_panel_header_icon_properties" {
-										down = "[UnitViewer.IsLightEnvPropertiesVisible]"
+										frame = "[Select_int32(UnitViewer.IsLightEnvPropertiesVisible, '(int32)2', '(int32)1')]"
 									}		
 									blockoverride "side_panel_section_properties" {
 										visible = "[UnitViewer.IsLightEnvPropertiesVisible]"
@@ -306,11 +306,11 @@ vbox = {
 										raw_text = "Cubemap"
 									}		
 									blockoverride "side_panel_header_properties" {
-										down = "[UnitViewer.IsCubemapEnvPropertiesVisible]"
+										checked = "[UnitViewer.IsCubemapEnvPropertiesVisible]"
 										onclick = "[UnitViewer.ToggleIsCubemapEnvPropertiesVisible]"
 									}		
 									blockoverride "side_panel_header_icon_properties" {
-										down = "[UnitViewer.IsCubemapEnvPropertiesVisible]"
+										frame = "[Select_int32(UnitViewer.IsCubemapEnvPropertiesVisible, '(int32)2', '(int32)1')]"
 									}		
 									blockoverride "side_panel_section_properties" {
 										visible = "[UnitViewer.IsCubemapEnvPropertiesVisible]"
@@ -328,11 +328,11 @@ vbox = {
 										raw_text = "Fog"
 									}		
 									blockoverride "side_panel_header_properties" {
-										down = "[UnitViewer.IsFogEnvPropertiesVisible]"
+										checked = "[UnitViewer.IsFogEnvPropertiesVisible]"
 										onclick = "[UnitViewer.ToggleIsFogEnvPropertiesVisible]"
 									}		
 									blockoverride "side_panel_header_icon_properties" {
-										down = "[UnitViewer.IsFogEnvPropertiesVisible]"
+										frame = "[Select_int32(UnitViewer.IsFogEnvPropertiesVisible, '(int32)2', '(int32)1')]"
 									}		
 									blockoverride "side_panel_section_properties" {
 										visible = "[UnitViewer.IsFogEnvPropertiesVisible]"
@@ -349,11 +349,11 @@ vbox = {
 										raw_text = "Bloom"
 									}		
 									blockoverride "side_panel_header_properties" {
-										down = "[UnitViewer.IsBloomEnvPropertiesVisible]"
+										checked = "[UnitViewer.IsBloomEnvPropertiesVisible]"
 										onclick = "[UnitViewer.ToggleIsBloomEnvPropertiesVisible]"
 									}		
 									blockoverride "side_panel_header_icon_properties" {
-										down = "[UnitViewer.IsBloomEnvPropertiesVisible]"
+										frame = "[Select_int32(UnitViewer.IsBloomEnvPropertiesVisible, '(int32)2', '(int32)1')]"
 									}		
 									blockoverride "side_panel_section_properties" {
 										visible = "[UnitViewer.IsBloomEnvPropertiesVisible]"

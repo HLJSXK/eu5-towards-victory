@@ -208,14 +208,10 @@ flavor_sale_of_lusatia.1100 = { #Renew the Lusatian Pledge
 	}
 
 	trigger = {
-		custom_tooltip = {
-			text = pledge_of_lusatia_timeout_tt
-			NOT = { has_variable = pledge_of_lusatia_timeout }
+		NOT = {
+			has_variable = pledge_of_lusatia_timeout
 		}
-		custom_tooltip = {
-			text = pledge_of_lusatia_accepted_tt
-			has_variable = pledge_of_lusatia_accepted
-		}
+		has_variable = pledge_of_lusatia_accepted
 		OR = {
 			culture:saxon = {
 				any_country_in_culture = {

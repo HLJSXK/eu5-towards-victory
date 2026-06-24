@@ -1,6 +1,5 @@
 ﻿on_game_start = {
 	effect = {
-		setup_area_preferences = yes
 		#catholics
 		if = {
 			limit = { NOT = { has_global_variable_list = pope_countries } }
@@ -80,15 +79,6 @@
 			leader_country ?= {
 				set_variable = { name = hre_current_emperor_flg value = 1 }
 			}
-			# Retroactive fix: imperial_circles_law was missing its default policy from hre_setup_hre_variables
-			if = {
-				limit = {
-					hre_has_enabled_all_imperial_laws = yes
-					NOT = { international_organization_has_policy = policy:no_imperial_circles }
-					NOT = { international_organization_has_policy = policy:imperial_circles_established }
-				}
-				add_policy_to_international_organization = policy:no_imperial_circles
-			}
 		}
 
 		#Adding gods to pagans
@@ -128,9 +118,6 @@
 		}
 		c:BYZ = {
 			byz_set_up = yes
-		}
-		c:VER = {
-			ver_set_up = yes
 		}
 		c:TEU = {
 			every_current_war = {
@@ -200,62 +187,6 @@
 			}
 		}
 
-		# Born in the Purple: on_character_birth (common/on_action/character.txt) only fires for
-		# characters born after game start, so apply the modifier retroactively to the Palaiologoi
-		# who qualified historically. CAESAR-67579.
-		character:byz_andronikos_iii_palaiologos ?= {
-			add_character_modifier = {
-				modifier = byz_born_in_the_purple_modifier
-				years = -1
-				mode = add_and_extend
-				desc = byz_born_in_the_purple_modifier_desc
-			}
-		}
-		character:byz_john_v_palaiologos ?= {
-			add_character_modifier = {
-				modifier = byz_born_in_the_purple_modifier
-				years = -1
-				mode = add_and_extend
-				desc = byz_born_in_the_purple_modifier_desc
-			}
-		}
-		character:byz_michael_palaiologos_ii ?= {
-			add_character_modifier = {
-				modifier = byz_born_in_the_purple_modifier
-				years = -1
-				mode = add_and_extend
-				desc = byz_born_in_the_purple_modifier_desc
-			}
-		}
-		character:bul_theodora_palaiologos ?= {
-			add_character_modifier = {
-				modifier = byz_born_in_the_purple_modifier
-				years = -1
-				mode = add_and_extend
-				desc = byz_born_in_the_purple_modifier_desc
-			}
-		}
-		character:bul_irene_palaiologos ?= {
-			add_character_modifier = {
-				modifier = byz_born_in_the_purple_modifier
-				years = -1
-				mode = add_and_extend
-				desc = byz_born_in_the_purple_modifier_desc
-			}
-		}
-		character:mfa_teodoro_i_palaiologos ?= {
-			add_character_modifier = {
-				modifier = byz_born_in_the_purple_modifier
-				years = -1
-				mode = add_and_extend
-				desc = byz_born_in_the_purple_modifier_desc
-			}
-		}
-
-		c:BUL = {
-			trigger_event_silently = flavor_bul.7
-		}
-
 		#group conquest preferences
 		region:russian_region = {
 			every_country_with_capital_in_geography = {
@@ -281,7 +212,6 @@ on_siege_won = {
 		flavor_tur.214
 		flavor_tur.215
 		flavor_tur.216
-		flavor_ver.1003
 	}
 	effect = {
 		if = {
@@ -329,13 +259,6 @@ on_siege_won = {
 					trigger_event_silently = flavor_dlh.28
 				}
 			}
-		}
-		if = {
-			limit = {
-				this = c:PIS
-				scope:target = location:genoa
-			}
-			trigger_event_silently = flavor_pis.2
 		}
 	}
 }
@@ -459,14 +382,6 @@ on_location_occupied = {
 			}
 			trigger_event_silently = flavor_chi_mon.6
 		}
-
-		if = {
-			limit = {
-				this = c:PIS
-				scope:target = location:genoa
-			}
-			trigger_event_silently = flavor_pis.2
-		}
 	}
 }
 
@@ -482,34 +397,10 @@ on_location_lost = {
 in_battle = {
 }
 
-# on action called only once before each country
-on_new_age_global = {
-	effect = {
-		setup_area_preferences = yes
-	}
-}
-
 # scope is country, this is done for ALL active countries when a new nation is picked.
 on_new_age = {
 	events = {
 		ages_of_eu.1
-	}
-	effect = {
-		if = {
-			limit = {
-				has_game_rule = ai_personalities_random_per_age
-				is_ai = yes
-			}
-			random_list = {
-				1 = { set_personality = ai_personality:ai_aggressive }
-				1 = { set_personality = ai_personality:ai_expansionist }
-				1 = { set_personality = ai_personality:ai_defensive }
-				1 = { set_personality = ai_personality:ai_cautious }
-				1 = { set_personality = ai_personality:ai_opportunistic }
-				1 = { set_personality = ai_personality:ai_isolationist }
-				1 = { set_personality = ai_personality:ai_friendly }
-			}
-		}
 	}
 }
 
@@ -583,43 +474,16 @@ on_diplomatic_annex = {
 			}
 			set_variable = annexed_designated_vassal_variable
 		}
-		if = {
-			limit = {
-				has_or_had_tag = BYZ
-				scope:target = { owns = location:venice }
-			}
-			set_variable = venice_acquired_peacefully_variable
-		}
 	}
 }
 # fired before the annexation happens; root =  country doing the annexing ,  scope:target = country being annexed
 on_civil_war_annex = {
 	effect = {
 		if = {
-			limit = {
+			limit = { 
 				scope:target ?= { is_leader_of_international_organization = international_organization:middle_kingdom }
 			}
 			international_organization:middle_kingdom = { set_leader_country = root }
-		}
-		if = {
-			limit = {
-				tag = SBL
-				scope:target ?= c:SCO
-			}
-			scope:target = {
-				if = {
-					limit = { has_country_modifier = sco_civil_war_aggressive }
-					remove_country_modifier = sco_civil_war_aggressive
-				}
-				if = {
-					limit = { has_country_modifier = sco_civil_war_defensive }
-					remove_country_modifier = sco_civil_war_defensive
-				}
-			}
-			if = {
-				limit = { has_country_modifier = sco_hostile_dunbar_castle }
-				remove_country_modifier = sco_hostile_dunbar_castle
-			}
 		}
 	}
 }
@@ -1104,16 +968,6 @@ on_civil_war_start = {
 #root = country, scope:target = loan, scope:owner = lender (if existent, check with exists = scope:owner first before doing effects with it)
 on_loan_repaid = {
 	effect = {
-		if = {
-			limit = {
-				exists = scope:owner
-				scope:target = { has_loc_key = pawning_of_crown_jewels }
-				scope:owner = { has_variable = original_crown_jewels_lender }
-			}
-			scope:owner = {
-				trigger_event_non_silently = { id = flavor_byz_ven.3 }
-			}
-		}
 	}
 }
 
@@ -1127,26 +981,6 @@ on_loan_renewed = {
 
 #root = country
 on_bankruptcy = {
-	effect = {
-		if = {
-			limit = {
-				has_variable = original_crown_jewels_lender
-				exists = work_of_art:byzantine_crown_jewels
-				country_exists = c:BYZ
-			}
-			trigger_event_non_silently = { id = flavor_byz_ven.11 }
-			c:BYZ = { trigger_event_non_silently = { id = flavor_byz_ven.12 } }
-		}
-		if = {
-			limit = {
-				has_country_modifier = BYZ_lacking_jewels
-				country_exists = c:VEN
-				c:VEN = { has_variable = original_crown_jewels_lender }
-			}
-			trigger_event_non_silently = { id = flavor_byz_ven.13 }
-			c:VEN = { trigger_event_non_silently = { id = flavor_byz_ven.14 } }
-		}
-	}
 }
 
 # root and scope:winner = winner, scope:loser = loser
@@ -1365,52 +1199,14 @@ on_winning_war = {
 		if = {
 			limit = {
 				has_dlc = "d008_fate_of_the_phoenix"
+				scope:winner ?= {
+					religion = religion:hellenism_religion
+				}
 			}
-			scope:winner = {
+			scope:winner = { 
 				set_variable = { name = recently_won_a_war years = 5 }
 			}
 		}
-		if = {
-			limit = {
-				scope:war = {
-					casus_belli ?= casus_belli:cb_scaligeri_war
-				}
-			}
-			if = {
-				limit = {
-					scope:winner = {
-						tag = VEN
-					}
-					scope:loser = {
-						tag = VER
-					}
-				}
-				scope:war = {
-					every_attacker = {
-						trigger_event_non_silently = {
-							id = flavor_ver.8
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					scope:winner = {
-						tag = VER
-					}
-					scope:loser = {
-						tag = VEN
-					}
-				}
-				c:VER = {
-					trigger_event_non_silently = {
-						id = flavor_ver.7
-					}
-				}
-			}
-
-		}
-
 		if = {
 			limit = {
 				scope:winner = {
@@ -1644,7 +1440,13 @@ on_join_war = {
 				has_ruler = yes
 				is_at_war_with = ruler.employer
 			}
-			remove_commander = ruler
+			if = {
+				limit = { in_union_with = ruler.employer }
+				remove_commander = ruler
+			}
+			else = {
+				ruler = { remove_ruler = root }
+			}
 		}
 		else_if = {
 			limit = {
@@ -1958,10 +1760,7 @@ on_ending_war = {
 						percent >= 0.8
 						OR = {
 							is_ownable = no
-							AND = {
-								is_ownable = yes
-								owner ?= root
-							}
+							owner ?= root
 						}
 					}
 				}
@@ -1981,21 +1780,6 @@ on_ending_war = {
 			situation:rise_of_timur.var:rot_conquest_ambition = {
 				every_location_in_region = {
 					remove_location_modifier = rot_timur_scare
-				}
-			}
-		}
-		if = {
-			limit = {
-				scope:winner = { tag = TIM }
-				situation:rise_of_timur = { has_variable = rot_conquest_ambition }
-			}
-			situation:rise_of_timur.var:rot_conquest_ambition = {
-				every_location_in_region = {
-					limit = {
-						owner ?= c:TIM
-						integration_level = conquered
-					}
-					change_integration_level = integrated
 				}
 			}
 		}
@@ -2227,41 +2011,6 @@ on_war_declared = {
 							}
 						}
 					}
-				}
-			}
-		}
-		#Guelphs and Ghibellines
-		if = {
-			limit = {
-				is_situation_active = situation:guelphs_and_ghibellines
-				scope:actor = {
-					is_member_of_international_organization = international_organization:guelphs_io
-				}
-				scope:recipient = {
-					is_member_of_international_organization = international_organization:guelphs_io
-				}
-			}
-			international_organization:guelphs_io = {
-				change_variable = {
-					name = guelphs_progress
-					add = -0.01
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_situation_active = situation:guelphs_and_ghibellines
-				scope:actor = {
-					is_member_of_international_organization = international_organization:ghibellines_io
-				}
-				scope:recipient = {
-					is_member_of_international_organization = international_organization:ghibellines_io
-				}
-			}
-			international_organization:ghibellines_io = {
-				change_variable = {
-					name = ghibellines_progress
-					add = -0.01
 				}
 			}
 		}
@@ -2600,13 +2349,6 @@ on_great_battle_won = {
 		flavor_cas.76
 	}
 	effect = {
-		if = {
-			limit = {
-				is_member_of_no_foreign_or_italian_league = no
-				scope:target.owner ?= { is_member_of_no_foreign_or_italian_league = no }
-			}
-			iw_increase_tension_effect = { value = iw_tension_gain_tiny }
-		}
 		if = {
 			limit = {
 				exists = scope:actor.leader
@@ -3239,6 +2981,7 @@ on_new_ruler = {
 		flavor_mor_maghrebi_wars.1000 #The Ambitious Brother
 		flavor_mor_maghrebi_wars.1100 #The new ruler of the [ShowRegionNameWithNoTooltip('maghreb_region')]
 		flavor_hsa.3
+		flavor_wal.1 # Vlad the Impaler.
 		flavor_nap.119
 		flavor_ara.111
 		flavor_kbo.8 #Mai & Warrior
@@ -3379,9 +3122,6 @@ on_new_ruler = {
 				capital ?= {
 					region = region:italy_region
 				}
-				NOT = {
-					tag = PAP # pope always favors guelphs
-				}
 			}
 			scope:new_ruler = {
 				random_list = {
@@ -3441,7 +3181,6 @@ on_ruler_death = {
 		laws.0040 #Capital movement event
 		flavor_dlh.39 #End of the Tughlaq Dynasty
 		flavor_vol.1102 #The Poisoning of Yuri II - Fallback
-		flavor_tim.1 #Death of Timur
 	}
 
 	on_actions = {
@@ -3460,11 +3199,14 @@ on_ruler_death = {
 		}
 		if = {
 			limit = {
-				has_heir = no
 				OR = {
 					scope:old_ruler = { has_dynasty = no }	#If your old king had no dynasty then the whole system falls apart anyway
-					ruler ?= {	#Union of Crowns comes into effect if you have a ruler of not your old ruler's dynasty
+					ruler ?= {	#Union of Crowns comes into effect if you have a female ruler or a ruler of not your old ruler's dynasty
 						OR = {
+							AND = {
+								is_female = yes
+								modifier:is_praefecta = no
+							}
 							has_dynasty = no
 							NOT = { dynasty = scope:old_ruler.dynasty }
 						}
@@ -3475,6 +3217,10 @@ on_ruler_death = {
 							has_heir = no
 							heir ?= {	#Same for your heir
 								OR = {
+									AND = {
+										is_female = yes
+										modifier:is_praefecta = no
+									}
 									has_dynasty = no
 									NOT = { dynasty = scope:old_ruler.dynasty }
 								}
@@ -3568,9 +3314,9 @@ on_ruler_death = {
 				}
 			}
 
-			international_organization:hre ?= {
+			international_organization:hre = {
 				every_international_organization_member = {
-					limit = {
+					limit = { 
 						NOT = {	THIS = ROOT	} # Not inform the emperor tag
 						is_ai = no # Only relevant for humans, purely informational, dont trigger event for all AI princes
 					}
@@ -3596,7 +3342,7 @@ on_made_saint = {
 			type = estate_type:clergy_estate
 			value = {
 				value = scope:recipient.total_abilities
-				divide = 1000
+				divide = 15
 			}
 		}
 	}
@@ -4121,7 +3867,7 @@ on_union_formation = {
 			if = {
 				limit = {
 					exists = scope:second_leader
-					scope:first_leader.country_economical_base < scope:second_leader.country_economical_base
+					scope:first_leader.great_power_score < scope:second_leader.great_power_score
 				}
 				scope:second_leader = { save_scope_as = union_leader }
 			}
@@ -4239,7 +3985,7 @@ on_location_changed_owner = {
 			limit = {
 				has_dlc = "d008_fate_of_the_phoenix"
 				scope:winner ?= c:BYZ
-				root = location:iznik
+				root = location:izmit
 			}
 
 			scope:winner = {
@@ -4260,22 +4006,6 @@ on_location_changed_owner = {
 				trigger_event_silently = {
 					id = fate_of_the_phoenix.4
 					days = { 1 90 }
-				}
-			}
-		}
-		if = {
-			limit = {
-				scope:winner ?= c:BYZ
-				c:BYZ = { has_country_modifier = BYZ_lacking_jewels }
-				work_of_art:byzantine_crown_jewels.location ?= root
-			}
-			work_of_art:byzantine_crown_jewels = {
-				save_scope_as = target_woa
-			}
-			save_scope_as = target
-			c:BYZ = {
-				trigger_event_non_silently = {
-					id = flavor_byz_ven.6
 				}
 			}
 		}
@@ -4413,6 +4143,15 @@ on_location_changed_owner = {
 			limit = {
 				is_situation_active = situation:italian_wars
 				region = region:italy_region
+				OR = {
+					is_owned_by_international_organization = international_organization:foreign_league_france
+					is_owned_by_international_organization = international_organization:foreign_league_balkan
+					is_owned_by_international_organization = international_organization:foreign_league_iberia
+					is_owned_by_international_organization = international_organization:foreign_league_hre
+					is_owned_by_international_organization = international_organization:italian_league_1
+					is_owned_by_international_organization = international_organization:italian_league_2
+					is_owned_by_international_organization = international_organization:italian_league_3
+				}
 			}
 			if = {
 				limit = {
@@ -4429,6 +4168,21 @@ on_location_changed_owner = {
 								}
 							}
 							
+						}
+					}
+					any_international_organization_owner = {
+						OR = {
+							is_target_in_global_variable_list = {
+								name = iw_italian_leagues_list
+								target = this
+							}
+							is_target_in_global_variable_list = {
+								name = iw_foreign_leagues_list
+								target = this
+							}
+						}
+						scope:winner ?= { 
+							NOT = { is_member_of_international_organization = prev }
 						}
 					}
 				}
@@ -4704,7 +4458,6 @@ on_released_country = {
 #root = new_ruler. target = org. scope:old_ruler = previous leader
 on_international_organization_changed_leader = {
 	effect = {
-		save_scope_as = new_ruler
 		#HRE effects:
 		if = {
 			limit = {
@@ -4811,19 +4564,20 @@ on_international_organization_changed_leader = {
 									type = special_status:free_city
 									international_organization = scope:target
 								}
-								NOT = { this = scope:new_ruler }
 							}
-							if = {
-								limit = { scope:target = { hre_has_direct_free_city_subjects = yes } }
-								make_subject_of = {
-									target = scope:new_ruler
-									type = subject_type:direct_imperial_free_city
+							scope:new_ruler = {
+								if = {
+									limit = { scope:target = { hre_has_direct_free_city_subjects = yes } }
+									make_subject_of = {
+										target = prev
+										type = subject_type:direct_imperial_free_city
+									}
 								}
-							}
-							else = {
-								make_subject_of = {
-									target = scope:new_ruler
-									type = subject_type:imperial_free_city
+								else = {
+									make_subject_of = {
+										target = prev
+										type = subject_type:direct_imperial_free_city
+									}
 								}
 							}
 						}
@@ -4862,14 +4616,6 @@ on_international_organization_changed_leader = {
 					}
 				}
 				trigger_event_non_silently = flavor_hab.37
-			}
-			# Imperial Circles: new Emperor was a circle leader -> relinquish leadership
-			if = {
-				limit = {
-					scope:target = { circles_are_active = yes }
-					is_imperial_circle_leader = yes
-				}
-				trigger_event_non_silently = imperial_circles.80
 			}
 		}
 		#Religious League effects:
@@ -5351,7 +5097,6 @@ on_embrace_revolution = {
 				PREV = { remove_reform = PREV }
 			}
 		}
-		remove_current_major_government_reform = yes
 		add_reform = government_reform:revolutionary_republic
 		if = {
 			limit = { NOT = { succession_law = heir_selection:republic_4_year_terms } }
@@ -5502,9 +5247,7 @@ on_heir_selection_changed = {
 					}
 				}
 			}
-			union = {
-				apply_same_inheritance_policy_effect = yes
-			}
+			apply_same_inheritance_policy_effect = yes
 		}
 	}
 }

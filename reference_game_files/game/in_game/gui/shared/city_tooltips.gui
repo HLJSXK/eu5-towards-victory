@@ -153,11 +153,12 @@ template City_tooltip {
 						size = { 22 22 }
 						texture = "gfx/interface/buttons/flats/button_simple_right.dds"
 						mirror = horizontal
-						action_tooltip = {
-							title = "PREVIOUS_CITY_GRAPHICS_LINK"
-							on_action = "[CityGraphicsWrap.GoPrev]"
+						onclick = "[CityGraphicsWrap.GoPrev]"				
+						tooltipwidget = {
+							LeftClickButtonTooltip = {
+								blockoverride "onclick_text" { text = "PREVIOUS_CITY_GRAPHICS_LINK" } 
+							}
 						}
-						tooltipwidget = { BasicFunctionalTooltip = {} }
 						
 						using = color_gold
 						using = overlay_window
@@ -174,11 +175,12 @@ template City_tooltip {
 						size = { 22 22 }
 						texture = "gfx/interface/buttons/flats/button_simple_right.dds"
 
-						action_tooltip = {
-							title = "NEXT_CITY_GRAPHICS_LINK"
-							on_action = "[CityGraphicsWrap.GoNext]"
+						onclick = "[CityGraphicsWrap.GoNext]"				
+						tooltipwidget = {
+							LeftClickButtonTooltip = {
+								blockoverride "onclick_text" { text = "NEXT_CITY_GRAPHICS_LINK" } 
+							}
 						}
-						tooltipwidget = { BasicFunctionalTooltip = {} }
 						
 						using = color_gold
 						using = overlay_window

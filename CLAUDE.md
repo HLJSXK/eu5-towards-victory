@@ -130,7 +130,9 @@ TV IOs enforce these rules with no exceptions:
 
 5. **Visible IO typed variables keep their monthly source logic in `monthly_change`.** If an IO variable's UI, progress bar, or monthly tooltip breakdown is supposed to show automatic monthly contributions, the real monthly arithmetic belongs in that variable's `monthly_change`. Do NOT move that contribution into `monthly_country_pulse`, country scripted effects, or IO `monthly_effect` as a bug fix. If progress does not advance, fix the `monthly_change` scope/conditions or its cached country inputs while preserving the `monthly_change` source. Country pulses may compute/mirror helper variables and run completion/event side effects, but must not become the source of truth for visible IO variable monthly gain.
 
-6. **IO header uses `blockoverride` to display the appointed character variable** — not the vanilla `GetRuler` or `GetLeaderCountry.GetGovernment.GetRulerOrRegent` accessor.
+6. **IO `monthly_effect` blocks are banned.** TV IO types must not define `monthly_effect`; it has severe performance costs even when hidden. Keep visible variable arithmetic in IO variable `monthly_change`, and route maintenance/completion side effects through registered country pulses or explicit lifecycle hooks.
+
+7. **IO header uses `blockoverride` to display the appointed character variable** — not the vanilla `GetRuler` or `GetLeaderCountry.GetGovernment.GetRulerOrRegent` accessor.
 
 ## Milestone Trigger Tooltip Pattern
 

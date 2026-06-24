@@ -24,24 +24,18 @@ basic_priority_dialog = {
 		button_regular = {
 			size = { 120 30 }
 			text = "[DialogConfig.GetDeclineText]"
-			action_tooltip = {
-				title = "[DialogConfig.GetDeclineText]"
-				on_action = "[DialogConfig.OnDecline]"
-			}
-			tooltipwidget = { BasicFunctionalTooltip = {} }
+			onclick = "[DialogConfig.OnDecline]"
 			input_action = "close_window"
 			use_global_input_instance = yes
+			tooltip_enabled = no
 		}
 		button_regular = {
 			size = { 120 30 }
 			text = "[DialogConfig.GetAcceptText]"
-			action_tooltip = {
-				title = "[DialogConfig.GetAcceptText]"
-				on_action = "[DialogConfig.OnAccept]"
-			}
-			tooltipwidget = { BasicFunctionalTooltip = {} }
+			onclick = "[DialogConfig.OnAccept]"
 			input_action = "confirm"
 			use_global_input_instance = yes
+			tooltip_enabled = no
 		}
 	}
 }

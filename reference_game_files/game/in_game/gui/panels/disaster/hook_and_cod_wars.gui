@@ -260,6 +260,10 @@ disaster_panel = {
 							item = {
 								country_flag_small_plus = {
 									datacontext = "[Scope.GetCountry]"
+									blockoverride "click"
+									{
+										onclick = "[OpenDiplomacy(Country.Self)]"
+									}
 									tooltipwidget = {
 										using = CountryTooltip
 									}
@@ -357,6 +361,10 @@ disaster_panel = {
 							item = {
 								country_flag_small_plus = {
 									datacontext = "[Scope.GetCountry]"
+									blockoverride "click"
+									{
+										onclick = "[OpenDiplomacy(Country.Self)]"
+									}
 									tooltipwidget = {
 										using = CountryTooltip
 									}

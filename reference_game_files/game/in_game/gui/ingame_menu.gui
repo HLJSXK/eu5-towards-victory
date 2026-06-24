@@ -116,14 +116,6 @@ window = {
 			using = frontend_menu_bottom_layout_template
 		}
 	}
-
-	# VERSION INFO BOX (debug only)
-	widget = {
-		visible = "[IsBuildDebug]"
-		parentanchor = bottom|right
-		position = { -10 -10 }
-		using = custom_version_label
-	}
 }
 
 load_menu = {
@@ -176,12 +168,9 @@ template frontend_menu_middle_template {
 		name = "resume_button"
 		text = "RESUME"
 		use_global_input_instance = yes
-		action_tooltip = {
-			title = "PAUSE_MENU_RESUME_TOOLTIP"
-			on_action = "[PauseMenu.Resume]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
+		onclick = "[PauseMenu.Resume]"
 		enabled = yes
+		tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "PAUSE_MENU_RESUME_TOOLTIP" } } }				
 		input_action = "close_window"
 	}
 
@@ -244,11 +233,8 @@ template frontend_menu_middle_template {
 		text = "GAME_RULES"
 		enabled = "[Not(IsShowingDialog)]"
 		onclick = "[PauseMenu.CloseAllViews]"
-		action_tooltip = {
-			title = "PAUSE_MENU_GAME_RULES_TOOLTIP"
-			on_action = "[OpenGameRules]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
+		onclick = "[OpenGameRules]"
+		tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "PAUSE_MENU_GAME_RULES_TOOLTIP" } } }
 	}
 
 	button_wax = {
@@ -281,11 +267,8 @@ template frontend_menu_middle_template {
 		enabled = "[Not(IsShowingDialog)]"
 		visible_at_creation = no
 		visible = "[PauseMenu.IsAchievementsAvailable]"
-		action_tooltip = {
-			title = "PAUSE_MENU_ACHIEVEMENTS_TOOLTIP"
-			on_action = "[PauseMenu.OpenAchievements]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
+		onclick = "[PauseMenu.OpenAchievements]"
+		tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "PAUSE_MENU_ACHIEVEMENTS_TOOLTIP" } } }
 	}
 
 	button_wax = {
@@ -296,11 +279,8 @@ template frontend_menu_middle_template {
 		using = FrontEndMiddleSectionButton
 		text = "SETTINGS_HEADER"
 		# enabled = "[Not(IsShowingDialog)]"
-		action_tooltip = {
-			title = "PAUSE_MENU_SETTINGS_TOOLTIP"
-			on_action = "[PauseMenu.OpenSettings]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
+		onclick = "[PauseMenu.OpenSettings]"
+		tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "PAUSE_MENU_SETTINGS_TOOLTIP" } } }
 	}
 
 	button_wax = {
@@ -311,11 +291,8 @@ template frontend_menu_middle_template {
 		using = FrontEndMiddleSectionButton
 		text = "MESSAGE_SETTINGS"
 		enabled = "[Not(IsShowingDialog)]"
-		action_tooltip = {
-			title = "PAUSE_MENU_MESSAGE_SETTINGS"
-			on_action = "[PauseMenu.OpenMessageSettings('(bool)yes')]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
+		onclick = "[PauseMenu.OpenMessageSettings('(bool)yes')]"
+		tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "PAUSE_MENU_MESSAGE_SETTINGS" } } }
 	}
 
 	button_wax = {
@@ -325,14 +302,10 @@ template frontend_menu_middle_template {
 		block "small_button_size" { size = { -1 45 } }
 		using = FrontEndMiddleSectionButton
 		text = "REPORT_ISSUE"
-		visible = "[Not(IsBuildDebug)]"
-		enabled = "[And(Not(IsShowingDialog), PauseMenu.IsReportIssueAvailable)]"
-		action_tooltip = {
-			title = "REPORT_ISSUE_TOOLTIP"
-			on_action = "[PauseMenu.OpenReportIssue]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
-		input_action = "report_issue"
+		visible = "[IsBuildDebug]"
+		enabled = "[Not(IsShowingDialog)]"
+		onclick = "[PauseMenu.OpenReportIssue]"
+		tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "REPORT_ISSUE_TOOLTIP" } } }
 	}
 
 	button_wax = {
@@ -344,11 +317,8 @@ template frontend_menu_middle_template {
 		using = FrontEndMiddleSectionButton
 		text = "AI_SETTINGS"
 		enabled = "[Not(IsShowingDialog)]"
-		action_tooltip = {
-			title = "PAUSE_MENU_AI_SETTINGS_TOOLTIP"
-			on_action = "[PauseMenu.OpenAiSettings]"
-		}
-		tooltipwidget = { BasicFunctionalTooltip = {} }
+		onclick = "[PauseMenu.OpenAiSettings]"
+		tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "PAUSE_MENU_AI_SETTINGS_TOOLTIP" } } }
 	}
 
 	expand = {}
@@ -405,11 +375,8 @@ template frontend_menu_bottom_layout_template {
 					using = FrontEndMiddleSectionButton
 
 					text = "EXIT"
-					action_tooltip = {
-						title = "PAUSE_MENU_EXIT_TOOLTIP"
-						on_action = "[PauseMenu.Quit]"
-					}
-					tooltipwidget = { BasicFunctionalTooltip = {} }
+					onclick = "[PauseMenu.Quit]"
+					tooltipwidget = { LeftClickButtonTooltip = { blockoverride "onclick_text" { text = "PAUSE_MENU_EXIT_TOOLTIP" } } }
 				}
 
 				button = {

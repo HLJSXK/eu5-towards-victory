@@ -1,7 +1,6 @@
 ﻿#Nobles
 
 toll_castle = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = nobles
@@ -40,7 +39,6 @@ toll_castle = {
 }
 
 nobility_fortifications = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = nobles
@@ -55,22 +53,22 @@ nobility_fortifications = {
 	megalopolis = no
 	
 	country_potential = {
-		modifier:allow_nobility_fortifications = yes
+		has_estate_privilege = estate_privilege:noble_fortification_licenses 
 	}
-
+	
 	estate = nobles_estate
-
+	
 	build_time = estate_build_time
 
 
-
-
+	
+	
 	possible_production_methods = {
 		estate_building_input
 	}
 
 	construction_demand = estate_construct_building
-
+	
 
 	modifier = {
 		local_nobles_estate_power = 0.5
@@ -78,11 +76,10 @@ nobility_fortifications = {
 		local_defensive = 0.25
 	}
 	graphical_tags = { small_military }
-
+	
 }
 
 rotten_borough = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = nobles
@@ -137,7 +134,6 @@ rotten_borough = {
 }
 
 noble_villa = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_stackable_level
 	pop_type = nobles
@@ -151,7 +147,7 @@ noble_villa = {
 	city = no
 	
 	country_potential = {
-		modifier:allow_noble_villa = yes
+		has_estate_privilege = estate_privilege:nobles_land_rights
 	}
 	
 	estate = nobles_estate
@@ -173,7 +169,6 @@ noble_villa = {
 }
 
 local_noble_delegation = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = nobles
@@ -188,7 +183,10 @@ local_noble_delegation = {
 	megalopolis = yes
 	
 	country_potential = {
-		modifier:allow_local_noble_delegation = yes
+		OR = {
+			has_estate_privilege = estate_privilege:nobility_council
+			has_estate_privilege = estate_privilege:elaborate_court_ceremonies
+		}
 	}
 	
 	estate = nobles_estate
@@ -209,7 +207,6 @@ local_noble_delegation = {
 }
 
 nobles_recruitment_center = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = nobles
@@ -224,7 +221,7 @@ nobles_recruitment_center = {
 	megalopolis = no
 	
 	country_potential = {
-		modifier:allow_nobles_recruitment_center = yes
+		has_estate_privilege = estate_privilege:auxilium_et_consilium
 	}
 	
 	estate = nobles_estate
@@ -248,7 +245,6 @@ nobles_recruitment_center = {
 
 
 local_estates = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_stackable_level
 	
@@ -284,7 +280,6 @@ local_estates = {
 
 
 noble_courts = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = nobles
@@ -317,7 +312,6 @@ noble_courts = {
 }
 
 nobles_mansion = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = nobles
@@ -353,7 +347,6 @@ nobles_mansion = {
 
 
 nobled_sponsored_temple = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = clergy
@@ -398,7 +391,6 @@ nobled_sponsored_temple = {
 #Clergy
 
 cathedral = {
-	audio_tier = 4
 	is_foreign = no
 	max_levels = 1
 	pop_type = clergy
@@ -455,7 +447,6 @@ cathedral = {
 }
 
 parish_church = {
-	audio_tier = 1
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = clergy
@@ -497,7 +488,6 @@ parish_church = {
 }
 
 local_shrine = {
-	audio_tier = 1
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = clergy
@@ -533,7 +523,6 @@ local_shrine = {
 }
 
 clerical_archives = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = clergy
@@ -561,7 +550,7 @@ clerical_archives = {
 	construction_demand = estate_construct_building
 		
 	country_potential = {
-		modifier:allow_clerical_archives = yes
+		has_estate_privilege = estate_privilege:clergy_literacy_rights
 	}
 	
 	modifier = {
@@ -571,7 +560,6 @@ clerical_archives = {
 }
 
 spiritual_retreat = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = clergy
@@ -617,7 +605,6 @@ spiritual_retreat = {
 }
 
 warrior_monks_training_grounds = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = soldiers
@@ -645,10 +632,10 @@ warrior_monks_training_grounds = {
 		
 	country_potential = {
 		OR = {
-			religion ?= religion:mahayana
-			religion ?= religion:sanjiao
-			religion ?= religion:shinto
-			modifier:allow_warrior_monks_training_grounds = yes
+			religion = religion:mahayana
+			religion = religion:sanjiao
+			religion = religion:shinto
+			has_estate_privilege = estate_privilege:clergy_military_orders
 		}
 	}
 
@@ -665,7 +652,6 @@ warrior_monks_training_grounds = {
 #Burghers
 
 guild_hall = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = burghers
@@ -683,7 +669,7 @@ guild_hall = {
 	estate = burghers_estate
 
 	country_potential = {
-		modifier:allow_guild_hall = yes
+		has_estate_privilege = estate_privilege:formal_guilds
 	}
 	
 
@@ -704,7 +690,6 @@ guild_hall = {
 }
 
 merchants_guild = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = burghers
@@ -744,7 +729,6 @@ merchants_guild = {
 }
 
 local_markets = {
-	audio_tier = 1
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = burghers
@@ -778,7 +762,6 @@ local_markets = {
 }
 
 burgher_mansion = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = burghers
@@ -811,7 +794,6 @@ burgher_mansion = {
 }
 
 artisan_guilds = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_stackable_level
 	pop_type = burghers
@@ -848,7 +830,6 @@ artisan_guilds = {
 #Peasants
 
 local_assembly = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = peasants
@@ -882,7 +863,6 @@ local_assembly = {
 }
 
 pirate_haven = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = peasants
@@ -937,7 +917,6 @@ pirate_haven = {
 }
 
 peasants_training_grounds = {
-	audio_tier = 1
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = peasants
@@ -959,7 +938,7 @@ peasants_training_grounds = {
 	}
 
 	country_potential = {
-		modifier:allow_peasants_training_grounds = yes
+		has_estate_privilege = estate_privilege:peasants_allowed_weapons_privilege
 	}
 
 	construction_demand = estate_construct_building
@@ -971,7 +950,6 @@ peasants_training_grounds = {
 }
 
 festival_grounds = {
-	audio_tier = 1
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = peasants
@@ -1006,7 +984,6 @@ festival_grounds = {
 }
 
 peasants_hunting_grounds = {
-	audio_tier = 1
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = peasants
@@ -1028,7 +1005,7 @@ peasants_hunting_grounds = {
 	}
 
 	country_potential = {
-		modifier:allow_peasants_hunting_grounds = yes
+		has_estate_privilege = estate_privilege:allow_hunting
 	}
 
 	location_potential = {
@@ -1050,7 +1027,6 @@ peasants_hunting_grounds = {
 }
 
 local_schools = {
-	audio_tier = 1
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = peasants
@@ -1087,7 +1063,6 @@ local_schools = {
 }
 
 local_newspaper = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_single_level
 	pop_type = burghers
@@ -1124,7 +1099,6 @@ local_newspaper = {
 }
 
 free_village = {
-	audio_tier = 2
 	is_foreign = no
 	max_levels = estate_building_stackable_level
 	pop_type = peasants

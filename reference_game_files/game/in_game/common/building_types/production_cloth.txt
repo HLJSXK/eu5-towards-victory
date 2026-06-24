@@ -2,7 +2,6 @@
 	is_foreign = no
 	pop_type = burghers
 	max_levels = cloth_guild_max_level
-	startup_ramp_target = guild_startup_ramp_target
 	
 	category = consumer_goods_category
 	
@@ -19,32 +18,29 @@
 	
 	unique_production_methods = {
 		cotton_cloth_guild_maintenance = {
-			cotton = 0.8333
-
+			cotton = 0.8
+			
 			produced = cloth
 			output = 1
-
-			debug_max_profit = guild_profit_margin
+			
 			category = guild_input
 		}
-
+		
 		wool_cloth_guild_maintenance = {
 			wool = 1.0
-
+			
 			produced = cloth
 			output = 1
-
-			debug_max_profit = guild_profit_margin
+			
 			category = guild_input
 		}
 
 		fiber_crops_cloth_guild_maintenance = {
 			fiber_crops = 1.0
-
+			
 			produced = cloth
 			output = 0.8
-
-			debug_max_profit = guild_profit_margin
+			
 			category = guild_input
 		}
 		
@@ -58,11 +54,9 @@
 }
 
 cloth_workshop = {
-	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers
 	max_levels = workshop_max_level
-	startup_ramp_target = workshop_startup_ramp_target
 	
 	category = consumer_goods_category
 	
@@ -80,34 +74,34 @@ cloth_workshop = {
 	
 	unique_production_methods = {
 		cotton_cloth_workshop_maintenance = {
-			cotton = 0.88
+			cotton = 0.8
 			
 			produced = cloth
 			output = 1.1
 			
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 			
 			category = workshop_input
 		}
 		
 		wool_cloth_workshop_maintenance = {
-			wool = 1.056
+			wool = 1.0
 			
 			produced = cloth
 			output = 1.1
 			
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 			category = workshop_input
 		}
 
 		fiber_crops_cloth_workshop_maintenance = {
-			fiber_crops = 1.08
+			fiber_crops = 1.0
 			
 			produced = cloth
 			output = 0.9
 			
 			category = workshop_input
-			debug_max_profit = workshop_profit_margin
+			debug_max_profit = 0.6
 		}
 		
 	}
@@ -120,11 +114,9 @@ cloth_workshop = {
 }
 
 cloth_manufactory = {
-	audio_tier = 3
 	is_foreign = no
 	pop_type = burghers
 	max_levels = manufactory_max_level
-	startup_ramp_target = manufactory_startup_ramp_target
 	
 	category = consumer_goods_category
 	
@@ -143,33 +135,33 @@ cloth_manufactory = {
 	
 	unique_production_methods = {
 		wool_cloth_manufactory_maintenance = {
-			wool = 1.6093
-			dyes = 0.148
+			wool = 1.2
+			dyes = 0.11
 			produced = cloth
 			output = 2
 			
 			category = guild_input
-			debug_max_profit = manufactory_profit_margin
+			debug_max_profit = 0.75
 		}
 
 		cotton_cloth_manufactory_maintenance = {
 			produced = cloth
 			output = 2
-			cotton = 1.3412
-			dyes = 0.148
+			cotton = 1.0
+			dyes = 0.11
 			
 			category = guild_input
-			debug_max_profit = manufactory_profit_margin
+			debug_max_profit = 0.75
 		}
 
 		fiber_crops_cloth_manufactory_maintenance = {
 			produced = cloth
-			fiber_crops = 2.1865
-			dyes = 0.0606
+			fiber_crops = 1.8
+			dyes = 0.05
 			output = 2
 
 			category = guild_input
-			debug_max_profit = manufactory_profit_margin
+			debug_max_profit = 0.75
 		}
 
 	}
@@ -179,12 +171,9 @@ cloth_manufactory = {
 }
 
 textile_mill = {
-	audio_tier = 5
 	is_foreign = no
 	pop_type = laborers
-	is_mill = yes
 	max_levels = mills_max_level
-	startup_ramp_target = mills_startup_ramp_target
 	
 	category = consumer_goods_category
 	employment_size = mills_employment
@@ -202,33 +191,33 @@ textile_mill = {
 	
 	unique_production_methods = {
 		cotton_mill_maintenance = {
-			cotton = 1.8866
-			dyes = 0.2517
+			cotton = 1.5
+			dyes = 0.2
 			produced = cloth
 			output = 3
 			
-			debug_max_profit = mills_profit_margin
+			debug_max_profit = 1.0
 			
 			category = mills_input
 		}
 
 		wool_mill_maintenance = {
-			wool = 1.8311
-			dyes = 0.2444
+			wool = 1.5
+			dyes = 0.2
 			produced = cloth
 			output = 2.5
 			
-			debug_max_profit = mills_profit_margin
+			debug_max_profit = 1.0
 			
 			category = mills_input
 		}
 
 		fiber_crops_mill_maintenance = {
-			fiber_crops = 2.3153
-			dyes = 0.2312
+			fiber_crops = 2.0
+			dyes = 0.2
 			produced = cloth
 			output = 2.5
-			debug_max_profit = mills_profit_margin
+			debug_max_profit = 1.0
 			
 			category = mills_input
 		}
@@ -237,8 +226,4 @@ textile_mill = {
 
 	custom_tags = { lategame_manufactory }
 	construction_demand = mill_construction
-
-	raw_modifier = {
-		local_burghers_desired_pop = 0.05
-	}
 }
