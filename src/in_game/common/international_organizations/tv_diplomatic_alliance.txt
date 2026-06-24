@@ -104,8 +104,14 @@
 	}
 
 	on_joined = {
-		scope:recipient = {
-			tv_diplomatic_alliance_sync_parliament_special_statuses_effect = yes
+		if = {
+			limit = { exists = scope:recipient }
+			scope:recipient = {
+				international_organization_add_special_status = {
+					type = special_status:tv_alliance_member_status
+					country = root
+				}
+			}
 		}
 		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
 		if = {

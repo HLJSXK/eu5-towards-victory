@@ -1635,6 +1635,16 @@
   source: "reference_game_files/game/in_game/common/resolutions/policy_vote.txt:620; reference_game_files/game/in_game/common/international_organization_special_statuses/readme.txt:12; reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:14570"
   notes: "The policy_vote resolution requires country_combined_special_status_power(scope:recipient) > 0 when uses_parliament_for_law_votes_trigger is active. Without a participating special status, the law debate can open but the IO parliament page has no voter group to show."
 
+- id: io_special_status_auto_bestow_without_lifecycle_sync
+  pattern: ''
+  detectability: advisory
+  bad: "A custom IO parliament special status relies only on auto_bestowal_trigger or same-tick on_joined state to appear"
+  correction: "For custom IO statuses that drive parliament voting or UI power, grant/remove the status directly in the action or lifecycle effect that creates, invites, promotes, demotes, or removes the country. Do not add recurring monthly refreshes for special-status repair."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/country_interactions/hre.txt:502-560; reference_game_files/game/in_game/common/international_organization_special_statuses/hre.txt:187-274; reference_game_files/game/in_game/common/resolutions/policy_vote.txt:620; runtime playtest of tv_diplomatic_alliance 2026-06-25"
+  notes: "HRE free city actions explicitly call international_organization_add_special_status from the HRE scope; free_city has an empty auto_bestowal_trigger and does not need a monthly repair pass. Diplomatic Alliance members could wait through monthly pulses without showing tv_alliance_* special statuses, but starting a law vote refreshed visible status/power state. The minimal TV pattern is to grant the leader's advocator status at creation and grant each joining country member status in on_joined, without recurring special-status maintenance or extra parliament-seat repair."
+
 - id: io_law_vote_without_parliament_location
   pattern: ''
   bad: "IO law votes routed through parliament for an organization that has neither a parliament_seat nor an owned location"
