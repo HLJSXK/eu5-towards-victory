@@ -2970,8 +2970,7 @@ tv_governor_apply_modifiers_effect = {
 }
 
 # Refreshes all governor modifiers; cleans up dead governors.
-# Scope: country. Called monthly from the IO monthly_effect.
-# root may be the IO when called via monthly_effect — use save_scope_as to pin the country.
+# Scope: country. Called monthly from tv_govhouse_governor_bonuses_monthly_pulse.
 tv_apply_governor_bonuses_effect = {
 	save_scope_as = tv_governing_country
 	tv_govhouse_refresh_region_list_effect = yes

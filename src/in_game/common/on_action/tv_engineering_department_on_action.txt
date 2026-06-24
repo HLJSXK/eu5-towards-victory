@@ -162,6 +162,49 @@ tv_engineering_department_debate_monthly_pulse = {
 	}
 }
 
+tv_engineering_department_support_resolution_monthly_pulse = {
+	trigger = {
+		has_variable = tv_engineering_department_member
+		tv_wonder_debate_complete_trigger = yes
+		tv_wonder_has_locked_wonder_trigger = yes
+		NOT = { has_variable = tv_wonder_finalized }
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_engineering_department
+			leader_country ?= root
+			var:tv_wonder_domestic_support <= 0
+		}
+	}
+	effect = {
+		hidden_effect = {
+			save_scope_as = tv_engineering_department_pulse_country
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_engineering_department
+					leader_country ?= scope:tv_engineering_department_pulse_country
+					var:tv_wonder_domestic_support <= 0
+				}
+				if = {
+					limit = {
+						scope:tv_engineering_department_pulse_country = {
+							var:tv_wonder_level ?= { this >= 1 }
+							tv_wonder_can_finish_construction_trigger = yes
+						}
+					}
+					scope:tv_engineering_department_pulse_country = {
+						tv_wonder_finish_construction_effect = yes
+					}
+				}
+				else = {
+					scope:tv_engineering_department_pulse_country = {
+						trigger_event_non_silently = { id = tv_engineering_department.20 days = 1 }
+					}
+				}
+			}
+			clear_saved_scope = tv_engineering_department_pulse_country
+		}
+	}
+}
+
 tv_engineering_department_construction_monthly_pulse = {
 	trigger = {
 		has_variable = tv_engineering_department_member

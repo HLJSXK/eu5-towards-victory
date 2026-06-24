@@ -1,5 +1,24 @@
 ﻿# Towards Victory — Governor's House on_action hooks
 
+# Monthly maintenance for governor modifiers and display variables.
+tv_govhouse_governor_bonuses_monthly_pulse = {
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_GOVHOUSE_MEMBER_TT
+			has_variable = tv_govhouse_member
+		}
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_govhouse
+			leader_country ?= root
+		}
+	}
+	effect = {
+		hidden_effect = {
+			tv_apply_governor_bonuses_effect = yes
+		}
+	}
+}
+
 # Monthly tick: advance Grand General training and resolve it after 12 months.
 tv_govhouse_training_monthly_pulse = {
 	effect = {

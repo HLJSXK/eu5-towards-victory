@@ -1,9 +1,115 @@
 ﻿# Towards Victory — Research Mechanism Monthly On-Action Hooks
-# C and D accumulation are handled by IO variables (monthly_change) and monthly_effect.
-# This file handles: B passive check, A random events, and D random events.
+# C, D, and philosophy accumulation are handled by Academy IO variables
+# (monthly_change). This file handles country-pulse side effects and events.
 
-# monthly_country_pulse logic is owned by towards_victory_leaderboard.txt to avoid
-# EU5 singleton on_action overrides for duplicate effect blocks.
+# Parent monthly_country_pulse registration is owned by data/pulse_registry.yaml
+# and generated into tv_pulse_bridges.txt.
+
+tv_academy_of_sciences_monthly_pulse = {
+	trigger = {
+		custom_tooltip = {
+			text = TV_HAS_ACADEMY_IO_MEMBER_TT
+			has_variable = tv_academy_io_member
+		}
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_academy_of_sciences
+			leader_country ?= root
+		}
+	}
+	effect = {
+		hidden_effect = {
+			save_scope_as = tv_academy_monthly_pulse_country
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_academy_of_sciences
+					leader_country ?= scope:tv_academy_monthly_pulse_country
+				}
+				if = {
+					limit = {
+						var:tv_research_c_progress > 0
+						scope:tv_academy_monthly_pulse_country = {
+							NOT = { var:tv_rm_subprocess_c ?= { this >= 1 } }
+						}
+					}
+					scope:tv_academy_monthly_pulse_country = {
+						set_variable = { name = tv_rm_subprocess_c value = 1 }
+					}
+				}
+				if = {
+					limit = {
+						var:tv_research_c_progress >= 100
+						scope:tv_academy_monthly_pulse_country = {
+							NOT = { var:tv_rm_subprocess_c ?= { this >= 2 } }
+						}
+					}
+					scope:tv_academy_monthly_pulse_country = {
+						tv_research_complete_c_effect = yes
+					}
+				}
+				if = {
+					limit = {
+						var:tv_research_d_progress >= 100
+						scope:tv_academy_monthly_pulse_country = {
+							var:tv_research_phase ?= 2
+							tv_chief_scientist_effective_adm_at_least_20_trigger = yes
+						}
+					}
+					scope:tv_academy_monthly_pulse_country = {
+						tv_research_concentrated_complete_effect = yes
+					}
+				}
+				if = {
+					limit = {
+						scope:tv_academy_monthly_pulse_country = {
+							NOT = { has_variable = tv_academy_philosophy_current }
+						}
+					}
+					scope:tv_academy_monthly_pulse_country = {
+						set_variable = { name = tv_academy_philosophy_current value = 1 }
+					}
+				}
+				if = {
+					limit = {
+						var:tv_academy_philosophy_inspiration >= 100
+						scope:tv_academy_monthly_pulse_country = {
+							NOT = { var:tv_academy_philosophy_phase ?= 1 }
+							NOT = { has_variable = tv_academy_philosophy_concept_pending }
+						}
+					}
+					scope:tv_academy_monthly_pulse_country = {
+						set_variable = { name = tv_academy_philosophy_concept_pending value = 1 }
+						trigger_event_non_silently = { id = tv_research.40 days = 1 }
+					}
+				}
+				if = {
+					limit = {
+						var:tv_academy_philosophy_inspiration >= 100
+						scope:tv_academy_monthly_pulse_country = {
+							var:tv_academy_philosophy_phase ?= 1
+							NOT = { has_variable = tv_academy_philosophy_round_pending }
+						}
+					}
+					set_variable = { name = tv_academy_philosophy_inspiration value = 0 }
+					scope:tv_academy_monthly_pulse_country = {
+						tv_academy_philosophy_refresh_action_cards_effect = yes
+					}
+				}
+				if = {
+					limit = {
+						scope:tv_academy_monthly_pulse_country = {
+							var:tv_academy_philosophy_phase ?= 1
+							NOT = { has_variable = tv_academy_philosophy_round_pending }
+						}
+					}
+					scope:tv_academy_monthly_pulse_country = {
+						tv_academy_philosophy_monthly_debate_decay_effect = yes
+					}
+				}
+			}
+			clear_saved_scope = tv_academy_monthly_pulse_country
+		}
+	}
+}
 
 # ── tv_research_target_completed_pulse ─────────────────────────────────────────
 # Cancels an active target if the country finishes that advance through the normal

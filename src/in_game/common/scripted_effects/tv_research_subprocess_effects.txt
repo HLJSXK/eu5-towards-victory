@@ -181,7 +181,7 @@ tv_research_complete_b_effect = {
 	tv_research_check_d_ready_effect = yes
 }
 
-# ── Sub-process C complete (called from IO monthly_effect) ────────────────────
+# ── Sub-process C complete (called from the Academy monthly pulse) ────────────
 tv_research_complete_c_effect = {
 	set_variable = { name = tv_rm_subprocess_c value = 2 }
 	tv_research_check_d_ready_effect = yes
@@ -224,7 +224,7 @@ tv_research_pause_d_effect = {
 }
 
 # ── Concentrated Research complete ────────────────────────────────────────────
-# Called from IO monthly_effect when tv_research_d_progress >= 100.
+# Called when tv_research_d_progress reaches 100.
 # Fires the notification event. The event option applies the selected advance unlock
 # and Great Scientist trait reward visibly, then resets the cycle for the next round.
 tv_research_concentrated_complete_effect = {
@@ -233,7 +233,7 @@ tv_research_concentrated_complete_effect = {
 	hidden_effect = {
 		remove_country_modifier = tv_concentrated_research_penalty
 	}
-	trigger_event_non_silently = { id = tv_research.30 }
+	trigger_event_non_silently = { id = tv_research.30 days = 1 }
 }
 
 # ── Propose research target ────────────────────────────────────────────────────
@@ -568,7 +568,7 @@ tv_academy_philosophy_monthly_debate_decay_effect = {
 		if = {
 			limit = { var:tv_academy_philosophy_debate_position <= 0 }
 			set_variable = { name = tv_academy_philosophy_round_pending value = 2 }
-			trigger_event_non_silently = { id = tv_research.42 }
+			trigger_event_non_silently = { id = tv_research.42 days = 1 }
 		}
 	}
 }

@@ -41,7 +41,8 @@ tv_academy_of_sciences = {
 	}
 
 	# ── IO Variables: C and D research progress, Philosophy inspiration ───────
-	# These are auto-accumulated via monthly_change; completion is detected in monthly_effect.
+	# These are auto-accumulated via monthly_change; completion is detected by
+	# tv_academy_of_sciences_monthly_pulse.
 	# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.
 	# Calibration D: effective ADM * 0.05 /month.
 	# D only advances and completes when the Chief Scientist has at least 20 effective ADM.
@@ -202,84 +203,6 @@ tv_academy_of_sciences = {
 	can_initiate_policy_votes = {
 		is_leader_of_international_organization = scope:recipient
 		tv_chief_scientist_available_for_law_change_trigger = yes
-	}
-
-	# ── Monthly effect: completion detection and display state updates ──
-	monthly_effect = {
-		# C: update in-progress display (0→1) when C has begun accumulating
-		if = {
-			limit = {
-				var:tv_research_c_progress > 0
-				leader_country ?= { NOT = { var:tv_rm_subprocess_c >= 1 } }
-			}
-			leader_country ?= { set_variable = { name = tv_rm_subprocess_c value = 1 } }
-		}
-		# C: completion (1→2) when C reaches 100
-		if = {
-			limit = {
-				var:tv_research_c_progress >= 100
-				leader_country ?= { NOT = { var:tv_rm_subprocess_c >= 2 } }
-			}
-			leader_country ?= { tv_research_complete_c_effect = yes }
-		}
-		# D: completion when D reaches 100
-		if = {
-			limit = {
-				var:tv_research_d_progress >= 100
-				leader_country ?= {
-					custom_tooltip = {
-						text = TV_HAS_RESEARCH_PHASE_TT
-						has_variable = tv_research_phase
-					}
-					var:tv_research_phase ?= 2
-					tv_chief_scientist_effective_adm_at_least_20_trigger = yes
-				}
-			}
-			leader_country ?= { tv_research_concentrated_complete_effect = yes }
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					leader_country ?= {
-						NOT = { has_variable = tv_academy_philosophy_current }
-					}
-				}
-				leader_country ?= { set_variable = { name = tv_academy_philosophy_current value = 1 } }
-			}
-			if = {
-				limit = {
-					var:tv_academy_philosophy_inspiration >= 100
-					leader_country ?= {
-						NOT = { var:tv_academy_philosophy_phase ?= 1 }
-						NOT = { has_variable = tv_academy_philosophy_concept_pending }
-					}
-				}
-				leader_country ?= {
-					set_variable = { name = tv_academy_philosophy_concept_pending value = 1 }
-					trigger_event_non_silently = { id = tv_research.40 }
-				}
-			}
-			if = {
-				limit = {
-					var:tv_academy_philosophy_inspiration >= 100
-					leader_country ?= {
-						var:tv_academy_philosophy_phase ?= 1
-						NOT = { has_variable = tv_academy_philosophy_round_pending }
-					}
-				}
-				set_variable = { name = tv_academy_philosophy_inspiration value = 0 }
-				leader_country ?= { tv_academy_philosophy_refresh_action_cards_effect = yes }
-			}
-			if = {
-				limit = {
-					leader_country ?= {
-						var:tv_academy_philosophy_phase ?= 1
-						NOT = { has_variable = tv_academy_philosophy_round_pending }
-					}
-				}
-				leader_country ?= { tv_academy_philosophy_monthly_debate_decay_effect = yes }
-			}
-		}
 	}
 
 	on_creation = {

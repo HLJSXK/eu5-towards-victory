@@ -181,34 +181,6 @@ tv_engineering_department = {
 		is_leader_of_international_organization = scope:recipient
 	}
 
-	monthly_effect = {
-		hidden_effect = {
-			if = {
-				limit = {
-					var:tv_wonder_domestic_support <= 0
-					leader_country ?= {
-						has_variable = tv_engineering_department_member
-						tv_wonder_debate_complete_trigger = yes
-						tv_wonder_has_locked_wonder_trigger = yes
-						NOT = { has_variable = tv_wonder_finalized }
-					}
-				}
-				if = {
-					limit = {
-						leader_country ?= {
-							var:tv_wonder_level ?= { this >= 1 }
-							tv_wonder_can_finish_construction_trigger = yes
-						}
-					}
-					leader_country ?= { tv_wonder_finish_construction_effect = yes }
-				}
-				else = {
-					leader_country ?= { trigger_event_non_silently = { id = tv_engineering_department.20 } }
-				}
-			}
-		}
-	}
-
 	on_creation = {
 		if = {
 			limit = { exists = scope:actor }

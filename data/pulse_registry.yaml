@@ -27,14 +27,17 @@ pulses:
     - tv_med_minor_accident_pulse     # medicine minor accident events
     - tv_med_major_accident_pulse     # medicine major accident events
     - tv_meditation_monthly_pulse     # medicine meditation events
+    - tv_academy_of_sciences_monthly_pulse # Academy IO progress completion and philosophy upkeep
     - tv_govhouse_training_monthly_pulse # Grand General training timer
     - tv_govhouse_loyalty_monthly_pulse # Grand General loyalty random events
     - tv_govhouse_negative_monthly_pulse # Governor's House balance-of-power backlash events
+    - tv_govhouse_governor_bonuses_monthly_pulse # Regional governor modifier/display refresh
     - tv_govhouse_governor_events_monthly_pulse # Regional governor random events
     - tv_govhouse_war_tent_monthly_pulse # War Tent plans and tactic refresh
     - tv_arts_exchange_monthly_pulse     # Arts Exchange timer, auto-invites, and monthly events
     - tv_engineering_department_concept_monthly_pulse # Wonder concept completion checks
     - tv_engineering_department_debate_monthly_pulse # Wonder debate estate support swings
+    - tv_engineering_department_support_resolution_monthly_pulse # Wonder support-collapse completion/abort checks
     - tv_engineering_department_survey_monthly_pulse # Wonder survey completion checks and survey events
     - tv_engineering_department_construction_monthly_pulse # Wonder labor/material/construction monthly tick
     - tv_engineering_department_construction_random_events_monthly_pulse # Wonder construction monthly random events

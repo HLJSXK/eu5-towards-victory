@@ -279,22 +279,6 @@ tv_govhouse = {
 		is_leader_of_international_organization = scope:recipient
 	}
 
-	monthly_effect = {
-		hidden_effect = {
-			leader_country ?= {
-				if = {
-					limit = {
-						custom_tooltip = {
-							text = TV_HAS_GOVHOUSE_MEMBER_TT
-							has_variable = tv_govhouse_member
-						}
-					}
-					tv_apply_governor_bonuses_effect = yes
-				}
-			}
-		}
-	}
-
 	on_creation = {
 		if = {
 			limit = { exists = scope:actor }
