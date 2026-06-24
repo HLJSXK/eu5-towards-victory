@@ -38,7 +38,7 @@ generic_rituals:
   ancient_city_ruins:
     style_1:
       country_modifier:
-        court_spending_cost_modifier: -0.2
+        court_spending_efficiency: 0.2
     style_2:
       local_modifier:
         local_cultural_tradition: 1
@@ -122,7 +122,7 @@ generic_rituals:
   hydraulic_workshop:
     style_1:
       country_modifier:
-        global_rural_build_buildings_cost: -0.2
+        global_rural_build_buildings_efficiency: 0.2
     style_2:
       local_modifier:
         local_monthly_prosperity: 0.002
@@ -242,7 +242,7 @@ generic_rituals:
   great_wall:
     style_1:
       country_modifier:
-        stability_cost: -0.2
+        stability_cost_efficiency: 0.2
     style_2:
       local_modifier:
         fort_level: 2
@@ -533,7 +533,7 @@ generic_rituals:
   city_expansion_project:
     style_1:
       country_modifier:
-        global_urban_build_buildings_cost: -0.05
+        global_urban_build_buildings_efficiency: 0.05
     style_2:
       local_modifier:
         local_monthly_development_modifier: 0.1
@@ -560,7 +560,7 @@ generic_rituals:
   grand_cathedral:
     style_1:
       country_modifier:
-        court_spending_cost_modifier: -0.05
+        court_spending_efficiency: 0.05
     style_2:
       local_modifier:
         local_monthly_prosperity: 0.002

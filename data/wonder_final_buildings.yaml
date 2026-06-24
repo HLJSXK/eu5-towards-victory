@@ -38,7 +38,7 @@ buildings:
       tv_wonder_steppe_field_fort: tv_wonder_axis_monument_maintenance
   ancient_city_ruins:
     final_local:
-      local_build_buildings_cost: -0.1
+      local_build_buildings_efficiency: 0.1
     final_maintenance:
       tv_wonder_restored_citadel_ruins: tv_wonder_sacred_monument_maintenance
       tv_wonder_antiquarian_quarter_ruins: tv_wonder_sacred_monument_maintenance
@@ -282,14 +282,14 @@ buildings:
       local_port_cost_distance_impact: -0.5
   knightly_fortress_order:
     final_local:
-      local_fort_maintenance_cost: -0.1
+      local_fort_maintenance_efficiency: 0.1
       local_defensive: 0.25
       local_hostile_attrition: 0.05
   war_college_system:
     final_local: {}
   great_clock_bell_system:
     final_local:
-      local_build_buildings_cost: -0.1
+      local_build_buildings_efficiency: 0.1
   royal_art_district:
     final_local:
       local_unrest: -0.1

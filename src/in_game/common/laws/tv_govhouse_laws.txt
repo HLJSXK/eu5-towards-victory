@@ -60,7 +60,7 @@ tv_govhouse_expedition_goal_law = {
 			}
 		}
 		country_modifier = {
-			global_foreign_build_buildings_cost = -0.10
+			global_foreign_build_buildings_efficiency = 0.10
 			trade_sea_efficiency = 0.10
 			global_trade_center_power = 0.10
 			naval_range_modifier = 0.10
@@ -526,7 +526,7 @@ tv_govhouse_local_autonomy_law = {
 		}
 		country_modifier = {
 			colonial_migration_size_modifier = 0.25
-			global_foreign_build_buildings_cost = -0.10
+			global_foreign_build_buildings_efficiency = 0.10
 			global_burghers_estate_power = 0.50
 		}
 	}
