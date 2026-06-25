@@ -42,7 +42,7 @@ def perform_entries(action: str) -> list[tuple[str, str]]:
 def fixed_action_entries() -> list[tuple[str, str]]:
     entries: list[tuple[str, str]] = [
         ("tv_trade_select_monopoly_slot_desc", "显示此垄断槽商品的详情。"),
-        ("TV_TRADE_LEAGUE_EMPTY_MONOPOLY_SLOT", "没有商品在该槽位达到25%垄断潜力。"),
+        ("TV_TRADE_LEAGUE_EMPTY_MONOPOLY_SLOT", "进一步发展贸易以开始垄断追踪"),
         ("TV_TRADE_LEAGUE_MONOPOLY_POTENTIAL", "有垄断潜力"),
         ("TV_TRADE_LEAGUE_LOW_MONOPOLY", "低垄断"),
         ("TV_TRADE_LEAGUE_HIGH_MONOPOLY", "高垄断"),
