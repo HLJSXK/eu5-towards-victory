@@ -1917,6 +1917,17 @@
   source: "runtime error.log from tv_diplomatic_alliance.gui action_button, 2026-06-25"
   notes: "A direct enabled = [UIAction.IsEnabled] produced 'No function for call' / empty FetchData errors in this custom panel. Later apparent errors from normal action-button templates were traced to stale GUI hot reload state, not the template itself."
 
+- id: gui_country_action_parameter_uses_self
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Passing an IO member-row country action parameter as [Country.Self]"
+  correction: "Pass country targets that generic actions read as scope:target through [Country.MakeScope], and place the parameter on the action button so both tooltip/allow evaluation and the click action receive the same scope. Reserve Country.Self for GUI object comparisons such as ObjectsEqual."
+  category: gui
+  scope: generic_actions
+  source: "reference_game_files/game/in_game/gui/context_menu.gui:317-322; fixed in src/in_game/gui/panels/organization/tv_diplomatic_alliance.gui, 2026-06-25"
+  notes: "The Diplomatic Alliance row button passed [Country.Self] inside left_action, leaving scope:target absent for the generic action. The guarded effect then no-oped silently: no cohesion was spent and no subject was created."
+
 - id: character_modifier_country_cabinet_efficiency
   pattern: ''
   detectability: advisory

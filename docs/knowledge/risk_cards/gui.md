@@ -160,6 +160,13 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     persists after reverting the expression, restart the game or fully reload the
     panel before treating the current source as the culprit.
 
+26. Pass country action targets as script scopes.
+    For custom row buttons that feed a generic action's `scope:target`, use a
+    button-level `parameter = { parameter_value = "[Country.MakeScope]" }`.
+    `Country.Self` is a GUI object shape for comparisons such as `ObjectsEqual`,
+    not a reliable script scope for action effects. If `scope:target` is absent,
+    guarded effects can no-op silently with no cost and no error.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

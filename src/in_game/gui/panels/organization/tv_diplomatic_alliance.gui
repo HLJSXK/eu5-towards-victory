@@ -507,12 +507,12 @@ organization_panel = {
 															title = "tv_alliance_sublime_empire_subjugate_member"
 															description = "tv_alliance_sublime_empire_subjugate_member_desc"
 															actor = "[InternationalOrganizationsView.GetPlayer]"
+															parameter = {
+																parameter_name = "target"
+																parameter_value = "[Country.MakeScope]"
+															}
 															left_action = {
 																action_name = "tv_alliance_sublime_empire_subjugate_member"
-																parameter = {
-																	parameter_name = "target"
-																	parameter_value = "[Country.Self]"
-																}
 															}
 														}
 													}
