@@ -136,6 +136,37 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     `hbox`/`vbox`, put a fixed-size `widget` in the layout and anchor the
     `progressbar` inside that wrapper.
 
+22. Keep IO member-list filters on real item predicates.
+    In `InternationalOrganizationsView.GetMemberItems`, the outer
+    `MemberTypeItem` rows should use predicates such as `MemberTypeItem.IsAllMembers`.
+    Do not compare `MemberTypeItem.GetName` to a special-status localization helper
+    to find members; that can hide every item.
+
+23. Compare row countries to IO leader countries with matching object shape.
+    In an IO member country row, prefer `ObjectsEqual(Country.Self,
+    InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self)`.
+    Do not call `IsIOLeaderCountry(Country.Self)` from this GUI context; it has
+    produced `FetchData failed` runtime errors.
+
+24. Do not assume `UIAction` exists inside custom action buttons.
+    Do not write direct `enabled = "[UIAction.IsEnabled]"` in a custom-panel
+    button unless the surrounding datacontext is verified to expose `UIAction`.
+    Conventional `action_button` / `action_button_diamond` widgets may still use
+    their normal action templates when they define a real `left_action`.
+
+25. Be wary of GUI hot reload after changing action widgets.
+    A hot-reloaded panel can keep stale widget/action bindings and continue to
+    report the old line's `FetchData failed` error. If an action-button error
+    persists after reverting the expression, restart the game or fully reload the
+    panel before treating the current source as the culprit.
+
+26. Pass country action targets as script scopes.
+    For custom row buttons that feed a generic action's `scope:target`, use a
+    button-level `parameter = { parameter_value = "[Country.MakeScope]" }`.
+    `Country.Self` is a GUI object shape for comparisons such as `ObjectsEqual`,
+    not a reliable script scope for action effects. If `scope:target` is absent,
+    guarded effects can no-op silently with no cost and no error.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

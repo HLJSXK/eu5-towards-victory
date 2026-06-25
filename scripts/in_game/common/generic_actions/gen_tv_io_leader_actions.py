@@ -145,12 +145,15 @@ def _ai_headquarters_requirement_block(est: dict, indent: str) -> str:
     requirement = est.get("ai_headquarters_requirement_body", "").strip()
     if not requirement:
         return ""
+    requirement_lines = [line.rstrip() for line in requirement.splitlines() if line.strip()]
     lines = [f"{indent}OR = {{", f"{indent}\tis_ai = no"]
-    for line in requirement.splitlines():
-        if line.strip():
-            lines.append(f"{indent}\t{line.rstrip()}")
-        else:
-            lines.append("")
+    if len(requirement_lines) == 1:
+        lines.append(f"{indent}\t{requirement_lines[0]}")
+    else:
+        lines.append(f"{indent}\tAND = {{")
+        for line in requirement_lines:
+            lines.append(f"{indent}\t\t{line}")
+        lines.append(f"{indent}\t}}")
     lines.append(f"{indent}}}")
     return "\n".join(lines) + "\n"
 

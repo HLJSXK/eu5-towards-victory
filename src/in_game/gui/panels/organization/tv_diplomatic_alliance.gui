@@ -480,7 +480,7 @@ organization_panel = {
 										datamodel = "[MemberTypeItem.GetCountries]"
 										item = {
 											widget = {
-												visible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.IsIOLeaderCountry(Country.Self))]"
+												visible = "[Not(ObjectsEqual(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self))]"
 												size = { 470 34 }
 												paper_simple_card = {
 													size = { 470 34 }
@@ -507,12 +507,12 @@ organization_panel = {
 															title = "tv_alliance_sublime_empire_subjugate_member"
 															description = "tv_alliance_sublime_empire_subjugate_member_desc"
 															actor = "[InternationalOrganizationsView.GetPlayer]"
+															parameter = {
+																parameter_name = "target"
+																parameter_value = "[Country.MakeScope]"
+															}
 															left_action = {
 																action_name = "tv_alliance_sublime_empire_subjugate_member"
-																parameter = {
-																	parameter_name = "target"
-																	parameter_value = "[Country.Self]"
-																}
 															}
 														}
 													}

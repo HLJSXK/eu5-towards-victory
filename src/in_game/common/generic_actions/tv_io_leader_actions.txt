@@ -422,7 +422,15 @@ tv_build_diplomatic_headquarters = {
 			NOT = { tv_diplomatic_establishment_headquarters_done = yes }
 			OR = {
 				is_ai = no
-				modifier:diplomatic_reputation >= 15
+				AND = {
+					modifier:diplomatic_reputation >= 15
+					NOT = {
+					  any_international_organization = {
+					    international_organization_type = international_organization_type:tv_diplomatic_alliance
+					    count >= 10
+					  }
+					}
+				}
 			}
 		}
 	}
@@ -451,7 +459,15 @@ tv_build_diplomatic_headquarters = {
 				NOT = { has_variable = tv_diplomatic_victory_enabled }
 				OR = {
 					is_ai = no
-					modifier:diplomatic_reputation >= 15
+					AND = {
+						modifier:diplomatic_reputation >= 15
+						NOT = {
+						  any_international_organization = {
+						    international_organization_type = international_organization_type:tv_diplomatic_alliance
+						    count >= 10
+						  }
+						}
+					}
 				}
 			}
 			tv_diplomatic_headquarters_can_build_in_location = yes
@@ -467,7 +483,15 @@ tv_build_diplomatic_headquarters = {
 					NOT = { has_variable = tv_diplomatic_victory_enabled }
 					OR = {
 						is_ai = no
-						modifier:diplomatic_reputation >= 15
+						AND = {
+							modifier:diplomatic_reputation >= 15
+							NOT = {
+							  any_international_organization = {
+							    international_organization_type = international_organization_type:tv_diplomatic_alliance
+							    count >= 10
+							  }
+							}
+						}
 					}
 				}
 				scope:target = { tv_diplomatic_headquarters_can_build_in_location = yes }

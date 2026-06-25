@@ -82,18 +82,13 @@ tv_alliance_sublime_empire_subjugate_member = {
 		}
 	}
 	allow = {
-		custom_tooltip = {
-			text = TV_ALLIANCE_SUBJUGATION_TARGET_SELECTED_TT
-			exists = scope:target
-		}
 		scope:actor = {
 			custom_tooltip = {
 				text = TV_ALLIANCE_COHESION_100_TT
 				any_international_organizations_member_of = {
 					international_organization_type = international_organization_type:tv_diplomatic_alliance
 					leader_country ?= scope:actor
-					has_variable = tv_alliance_cohesion
-					var:tv_alliance_cohesion >= 100
+					var:tv_alliance_cohesion ?= { this >= 100 }
 				}
 			}
 		}
@@ -119,8 +114,7 @@ tv_alliance_sublime_empire_subjugate_member = {
 					limit = {
 						international_organization_type = international_organization_type:tv_diplomatic_alliance
 						leader_country ?= scope:actor
-						has_variable = tv_alliance_cohesion
-						var:tv_alliance_cohesion >= 100
+						var:tv_alliance_cohesion ?= { this >= 100 }
 						scope:target = {
 							NOT = { this = scope:actor }
 							any_international_organizations_member_of = {
