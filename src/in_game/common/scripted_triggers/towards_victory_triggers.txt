@@ -629,6 +629,13 @@ tv_trade_establishment_ready_to_appoint = {
 	tv_trade_establishment_basic_done = yes
 	tv_trade_establishment_headquarters_done = yes
 	NOT = { has_variable = tv_trade_victory_enabled }
+	OR = {
+		is_ai = no
+		any_country = {
+			count < 10
+			is_leader_of_international_organization_of_type = { type = tv_trade_league }
+		}
+	}
 }
 
 tv_diplomatic_establishment_basic_requirement = {

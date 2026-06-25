@@ -121,6 +121,11 @@ paths:
       }
     ai_headquarters_requirement_body: |
       monthly_trade_income >= 100
+    ai_creation_requirement_body: |
+      any_country = {
+      	count < 10
+      	is_leader_of_international_organization_of_type = { type = tv_trade_league }
+      }
     headquarters:
       building: tv_trade_headquarters
       name:

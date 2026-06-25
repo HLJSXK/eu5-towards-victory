@@ -126,6 +126,20 @@ def _snippet_lines(text: str, level: int = 0) -> list[str]:
     return [prefix + line.rstrip() if line.strip() else "" for line in text.rstrip().splitlines()]
 
 
+def _ai_creation_requirement_lines(est: dict, level: int) -> list[str]:
+    requirement = est.get("ai_creation_requirement_body", "").strip()
+    if not requirement:
+        return []
+    prefix = "\t" * level
+    lines = [
+        f"{prefix}OR = {{",
+        f"{prefix}\tis_ai = no",
+    ]
+    lines.extend(_snippet_lines(requirement, level + 1))
+    lines.append(f"{prefix}}}")
+    return lines
+
+
 def _leader_extra_effect_lines(leader: dict, key: str, level: int) -> list[str]:
     effect = leader.get(key, "").rstrip()
     if not effect:
@@ -271,6 +285,7 @@ def gen_triggers(data: dict) -> str:
             lines.append(f"\ttv_{pid}_establishment_basic_done = yes")
             lines.append(f"\ttv_{pid}_establishment_headquarters_done = yes")
             lines.append(f"\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}")
+            lines.extend(_ai_creation_requirement_lines(est, 1))
             lines.append("}")
             lines.append("")
     return "\n".join(lines)
