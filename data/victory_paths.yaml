@@ -934,40 +934,40 @@ paths:
       	# Seg 1: 0-1 → 0-20
       	set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
       	change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-      	# Seg 2: 1-50 → 20-40
+      	# Seg 2: 1-100 → 20-40
       	if = {
       		limit = { var:tv_diplomatic_victory_points >= 1 }
       		set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
       		change_variable = { name = tv_diplomatic_progress_pct subtract = 1 }
       		change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-      		change_variable = { name = tv_diplomatic_progress_pct divide = 49 }
+      		change_variable = { name = tv_diplomatic_progress_pct divide = 99 }
       		change_variable = { name = tv_diplomatic_progress_pct add = 20 }
       	}
-      	# Seg 3: 50-500 → 40-60
+      	# Seg 3: 100-1000 → 40-60
       	if = {
-      		limit = { var:tv_diplomatic_victory_points >= 50 }
+      		limit = { var:tv_diplomatic_victory_points >= 100 }
       		set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-      		change_variable = { name = tv_diplomatic_progress_pct subtract = 50 }
+      		change_variable = { name = tv_diplomatic_progress_pct subtract = 100 }
       		change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-      		change_variable = { name = tv_diplomatic_progress_pct divide = 450 }
+      		change_variable = { name = tv_diplomatic_progress_pct divide = 900 }
       		change_variable = { name = tv_diplomatic_progress_pct add = 40 }
       	}
-      	# Seg 4: 500-2500 → 60-80
+      	# Seg 4: 1000-5000 → 60-80
       	if = {
-      		limit = { var:tv_diplomatic_victory_points >= 500 }
+      		limit = { var:tv_diplomatic_victory_points >= 1000 }
       		set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-      		change_variable = { name = tv_diplomatic_progress_pct subtract = 500 }
+      		change_variable = { name = tv_diplomatic_progress_pct subtract = 1000 }
       		change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-      		change_variable = { name = tv_diplomatic_progress_pct divide = 2000 }
+      		change_variable = { name = tv_diplomatic_progress_pct divide = 4000 }
       		change_variable = { name = tv_diplomatic_progress_pct add = 60 }
       	}
-      	# Seg 5: 2500-15000 → 80-100
+      	# Seg 5: 5000-20000 → 80-100
       	if = {
-      		limit = { var:tv_diplomatic_victory_points >= 2500 }
+      		limit = { var:tv_diplomatic_victory_points >= 5000 }
       		set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-      		change_variable = { name = tv_diplomatic_progress_pct subtract = 2500 }
+      		change_variable = { name = tv_diplomatic_progress_pct subtract = 5000 }
       		change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-      		change_variable = { name = tv_diplomatic_progress_pct divide = 12500 }
+      		change_variable = { name = tv_diplomatic_progress_pct divide = 15000 }
       		change_variable = { name = tv_diplomatic_progress_pct add = 80 }
       	}
       	if = { limit = { var:tv_diplomatic_progress_pct > 100 } set_variable = { name = tv_diplomatic_progress_pct value = 100 } }
@@ -996,8 +996,8 @@ paths:
           en: "Progress formula: [tv_diplomatic_victory_points|e] comes from monthly [tv_alliance_tier|e] output after [tv_diplomatic_alliance|e] membership: the alliance leader gains the full current tier, while non-leader members gain half; victory progress is the current milestone segment's linear share, capped at 100%."
           zh: "进程公式：[tv_diplomatic_victory_points|e]来自加入[tv_diplomatic_alliance|e]后每月的[tv_alliance_tier|e]产出：联盟领袖获得完整当前等级，非领袖成员获得一半；胜利进度按当前里程碑段线性折算，上限100%。"
       progress_display:
-        en: "[tv_diplomatic_victory_points|e]: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
-        zh: "[tv_diplomatic_victory_points|e]：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 15000"
+        en: "[tv_diplomatic_victory_points|e]: [Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 20000"
+        zh: "[tv_diplomatic_victory_points|e]：[Country.MakeScope.GetVariable('tv_diplomatic_victory_points').GetValue|0] / 20000"
 
     milestones:
       - n: 1
@@ -1035,7 +1035,7 @@ paths:
       - n: 2
         is_short_term: false
         is_long_term: false
-        threshold: 50
+        threshold: 100
         extra_trigger_block: null
         reward_options:
           - modifier:
@@ -1049,11 +1049,11 @@ paths:
             en: "Diplomatic Victory — Milestone 2"
             zh: "外交胜利 — 里程碑二"
           meaning:
-            en: "50 [tv_diplomatic_victory_points|e]. A reliable ally — princes seek your [guarantee|e] before they seek your sword."
-            zh: "50 [tv_diplomatic_victory_points|e]。可靠的盟友——王公们在索求你的刀剑之前，先寻求你的[guarantee|e]。"
+            en: "100 [tv_diplomatic_victory_points|e]. A reliable ally — princes seek your [guarantee|e] before they seek your sword."
+            zh: "100 [tv_diplomatic_victory_points|e]。可靠的盟友——王公们在索求你的刀剑之前，先寻求你的[guarantee|e]。"
           trigger_desc:
-            en: "[tv_diplomatic_victory_points|e] ≥ 50"
-            zh: "[tv_diplomatic_victory_points|e] ≥ 50"
+            en: "[tv_diplomatic_victory_points|e] ≥ 100"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 100"
           event_title:
             en: "[tv_diplomatic_victory|E]：A Reliable Ally"
             zh: "[tv_diplomatic_victory|E]：可靠的盟友"
@@ -1067,7 +1067,7 @@ paths:
       - n: 3
         is_short_term: true
         is_long_term: false
-        threshold: 500
+        threshold: 1000
         extra_trigger_block: null
         reward_options:
           - modifier:
@@ -1081,11 +1081,11 @@ paths:
             en: "Diplomatic Victory — Short-term Victory"
             zh: "外交胜利 — 短期胜利"
           meaning:
-            en: "500 [tv_diplomatic_victory_points|e]. A power of the first diplomatic rank — [treaty|e]s bear your seal. Short-term Victory."
-            zh: "500 [tv_diplomatic_victory_points|e]。一流外交大国——[treaty|e]上盖有你的印签。短期胜利。"
+            en: "1,000 [tv_diplomatic_victory_points|e]. A power of the first diplomatic rank — [treaty|e]s bear your seal. Short-term Victory."
+            zh: "1,000 [tv_diplomatic_victory_points|e]。一流外交大国——[treaty|e]上盖有你的印签。短期胜利。"
           trigger_desc:
-            en: "[tv_diplomatic_victory_points|e] ≥ 500"
-            zh: "[tv_diplomatic_victory_points|e] ≥ 500"
+            en: "[tv_diplomatic_victory_points|e] ≥ 1,000"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 1,000"
           event_title:
             en: "[tv_diplomatic_victory|E]：A Power of the First Rank — Short-term Victory"
             zh: "[tv_diplomatic_victory|E]：一流外交大国 — 短期胜利"
@@ -1099,7 +1099,7 @@ paths:
       - n: 4
         is_short_term: false
         is_long_term: false
-        threshold: 2500
+        threshold: 5000
         extra_trigger_block: null
         reward_options:
           - modifier:
@@ -1113,11 +1113,11 @@ paths:
             en: "Diplomatic Victory — Milestone 4"
             zh: "外交胜利 — 里程碑四"
           meaning:
-            en: "2,500 [tv_diplomatic_victory_points|e]. The arbiter of international order — no quarrel is settled without your consent."
-            zh: "2,500 [tv_diplomatic_victory_points|e]。国际秩序的仲裁人——没有任何争端能绕开你的同意而得到解决。"
+            en: "5,000 [tv_diplomatic_victory_points|e]. The arbiter of international order — no quarrel is settled without your consent."
+            zh: "5,000 [tv_diplomatic_victory_points|e]。国际秩序的仲裁人——没有任何争端能绕开你的同意而得到解决。"
           trigger_desc:
-            en: "[tv_diplomatic_victory_points|e] ≥ 2,500"
-            zh: "[tv_diplomatic_victory_points|e] ≥ 2,500"
+            en: "[tv_diplomatic_victory_points|e] ≥ 5,000"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 5,000"
           event_title:
             en: "[tv_diplomatic_victory|E]：Arbiter of Nations"
             zh: "[tv_diplomatic_victory|E]：万国仲裁人"
@@ -1131,7 +1131,7 @@ paths:
       - n: 5
         is_short_term: false
         is_long_term: true
-        threshold: 15000
+        threshold: 20000
         extra_trigger_block: null
         reward_options:
           - modifier:
@@ -1145,17 +1145,17 @@ paths:
             en: "Diplomatic Victory — Long-term Victory"
             zh: "外交胜利 — 长期胜利"
           meaning:
-            en: "15,000 [tv_diplomatic_victory_points|e]. Undisputed diplomatic hegemon — the web of [alliance|e]s and [royal_marriage|e]s is yours alone. Long-term Victory."
-            zh: "15,000 [tv_diplomatic_victory_points|e]。无可争议的外交霸主——[alliance|e]与[royal_marriage|e]交织的大网唯你独有。长期胜利。"
+            en: "20,000 [tv_diplomatic_victory_points|e]. Undisputed diplomatic hegemon — the web of [alliance|e]s and [royal_marriage|e]s is yours alone. Long-term Victory."
+            zh: "20,000 [tv_diplomatic_victory_points|e]。无可争议的外交霸主——[alliance|e]与[royal_marriage|e]交织的大网唯你独有。长期胜利。"
           trigger_desc:
-            en: "[tv_diplomatic_victory_points|e] ≥ 15,000"
-            zh: "[tv_diplomatic_victory_points|e] ≥ 15,000"
+            en: "[tv_diplomatic_victory_points|e] ≥ 20,000"
+            zh: "[tv_diplomatic_victory_points|e] ≥ 20,000"
           event_title:
             en: "[tv_diplomatic_victory|E]：Long-term Victory — Diplomatic Hegemon"
             zh: "[tv_diplomatic_victory|E]：长期胜利 — 外交霸主"
           event_desc:
-            en: "Fifteen thousand [tv_dvp|E] now stand behind our name like witnesses in a grand hall. No nation in history has woven so vast a web of [alliance|e]s, [royal_marriage|e]s, mutual [guarantee|e]s, shared procedures, and useful obligations. Some empires make silence by burning cities; we have made silence by convincing cities that speaking through us is safer. The [tv_diplomatic_alliance|E] no longer looks like a project, but like an international habit. Rivals may resent it, but they schedule their resentment around our congresses, marriages, and letters. This is [tv_diplomatic_victory|E] fulfilled: not the absence of conflict, but the presence of our hand on every conflict that matters."
-            zh: "一万五千点[tv_dvp|E]如今像大厅中的见证人一样站在我们的名字背后。史上从未有任何国家编织过如此广大的[alliance|e]、[royal_marriage|e]、互保[guarantee|e]、共同程序与有用义务之网。有些帝国通过焚烧城市制造沉默；我们则让城市相信，经由我们发声更为安全，于是制造了沉默。[tv_diplomatic_alliance|E]不再像一个计划，而像一种国际习惯。竞争者也许憎恨它，却会围绕我们的会议、婚姻与书信安排自己的憎恨。这就是[tv_diplomatic_victory|E]的完成：并非冲突消失，而是每一场重要冲突上都有我们的手。"
+            en: "Twenty thousand [tv_dvp|E] now stand behind our name like witnesses in a grand hall. No nation in history has woven so vast a web of [alliance|e]s, [royal_marriage|e]s, mutual [guarantee|e]s, shared procedures, and useful obligations. Some empires make silence by burning cities; we have made silence by convincing cities that speaking through us is safer. The [tv_diplomatic_alliance|E] no longer looks like a project, but like an international habit. Rivals may resent it, but they schedule their resentment around our congresses, marriages, and letters. This is [tv_diplomatic_victory|E] fulfilled: not the absence of conflict, but the presence of our hand on every conflict that matters."
+            zh: "两万点[tv_dvp|E]如今像大厅中的见证人一样站在我们的名字背后。史上从未有任何国家编织过如此广大的[alliance|e]、[royal_marriage|e]、互保[guarantee|e]、共同程序与有用义务之网。有些帝国通过焚烧城市制造沉默；我们则让城市相信，经由我们发声更为安全，于是制造了沉默。[tv_diplomatic_alliance|E]不再像一个计划，而像一种国际习惯。竞争者也许憎恨它，却会围绕我们的会议、婚姻与书信安排自己的憎恨。这就是[tv_diplomatic_victory|E]的完成：并非冲突消失，而是每一场重要冲突上都有我们的手。"
           event_option:
             en: "Let the chancelleries write around us."
             zh: "让各国文书厅围绕我们落笔。"
