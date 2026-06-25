@@ -1028,40 +1028,40 @@ tv_update_all_progress_pct_effect = {
 			# Seg 1: 0-1 → 0-20
 			set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
 			change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-			# Seg 2: 1-50 → 20-40
+			# Seg 2: 1-100 → 20-40
 			if = {
 				limit = { var:tv_diplomatic_victory_points >= 1 }
 				set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
 				change_variable = { name = tv_diplomatic_progress_pct subtract = 1 }
 				change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-				change_variable = { name = tv_diplomatic_progress_pct divide = 49 }
+				change_variable = { name = tv_diplomatic_progress_pct divide = 99 }
 				change_variable = { name = tv_diplomatic_progress_pct add = 20 }
 			}
-			# Seg 3: 50-500 → 40-60
+			# Seg 3: 100-1000 → 40-60
 			if = {
-				limit = { var:tv_diplomatic_victory_points >= 50 }
+				limit = { var:tv_diplomatic_victory_points >= 100 }
 				set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-				change_variable = { name = tv_diplomatic_progress_pct subtract = 50 }
+				change_variable = { name = tv_diplomatic_progress_pct subtract = 100 }
 				change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-				change_variable = { name = tv_diplomatic_progress_pct divide = 450 }
+				change_variable = { name = tv_diplomatic_progress_pct divide = 900 }
 				change_variable = { name = tv_diplomatic_progress_pct add = 40 }
 			}
-			# Seg 4: 500-2500 → 60-80
+			# Seg 4: 1000-5000 → 60-80
 			if = {
-				limit = { var:tv_diplomatic_victory_points >= 500 }
+				limit = { var:tv_diplomatic_victory_points >= 1000 }
 				set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-				change_variable = { name = tv_diplomatic_progress_pct subtract = 500 }
+				change_variable = { name = tv_diplomatic_progress_pct subtract = 1000 }
 				change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-				change_variable = { name = tv_diplomatic_progress_pct divide = 2000 }
+				change_variable = { name = tv_diplomatic_progress_pct divide = 4000 }
 				change_variable = { name = tv_diplomatic_progress_pct add = 60 }
 			}
-			# Seg 5: 2500-15000 → 80-100
+			# Seg 5: 5000-20000 → 80-100
 			if = {
-				limit = { var:tv_diplomatic_victory_points >= 2500 }
+				limit = { var:tv_diplomatic_victory_points >= 5000 }
 				set_variable = { name = tv_diplomatic_progress_pct value = var:tv_diplomatic_victory_points }
-				change_variable = { name = tv_diplomatic_progress_pct subtract = 2500 }
+				change_variable = { name = tv_diplomatic_progress_pct subtract = 5000 }
 				change_variable = { name = tv_diplomatic_progress_pct multiply = 20 }
-				change_variable = { name = tv_diplomatic_progress_pct divide = 12500 }
+				change_variable = { name = tv_diplomatic_progress_pct divide = 15000 }
 				change_variable = { name = tv_diplomatic_progress_pct add = 80 }
 			}
 			if = { limit = { var:tv_diplomatic_progress_pct > 100 } set_variable = { name = tv_diplomatic_progress_pct value = 100 } }
