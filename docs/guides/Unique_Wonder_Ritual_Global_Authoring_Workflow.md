@@ -12,7 +12,7 @@ turns entries into `data/unique_wonder_ritual_specs.yaml` records.
 
 ## Current Phase Freeze
 
-The full-corpus Harness design承载阶段 is complete. All 123 unique-wonder ritual designs
+The full-corpus Harness design-carrying phase is complete. All 123 unique-wonder ritual designs
 are represented in the Harness intermediate layer with `compiler_mapped=117`,
 `source_codegen_ready=4`, `implemented_parity=2`, `stub=0`, `harness_generated=0`, and
 registry/codegen `may_write_src=0`.
@@ -25,6 +25,18 @@ Markdown fragments, and all template/capability/archetype registry contracts mus
 The 17 rows marked as future Harness/EU5 gaps are the next source compiler / EU5
 verification backlog. Preserve those rows and their feasibility labels instead of removing
 or simplifying them to silence the warning.
+
+## Next Phase Boundary
+
+The matrix has finished its design-allocation job for the current corpus. Future passes
+should use it as a source-compiler backlog map: identify which feasibility labels require
+EU5 syntax proof, new listener ownership, or new Harness capability contracts, then verify
+those interfaces against local code and references before changing statuses.
+
+Do not reopen the matrix to make designs safer, simpler, or more template-shaped unless an
+EU5 impossibility is proven. A failed or missing source backend should produce a documented
+compiler gap, fallback, or new contract proposal; it should not erase the wonder-specific
+loop already carried in `design_ir`.
 
 ## Required Sequence
 

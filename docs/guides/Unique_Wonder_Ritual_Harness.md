@@ -8,7 +8,7 @@ first, then map only the verified projection into the current Harness graph or g
 
 ## Current Phase Freeze
 
-The Harness design承载阶段 is complete: all 123 unique-wonder ritual designs are carried
+The Harness design-carrying phase is complete: all 123 unique-wonder ritual designs are carried
 by the Harness intermediate layer. Current counts are `compiler_mapped=117`,
 `source_codegen_ready=4`, `implemented_parity=2`, `stub=0`, `harness_generated=0`, and
 registry/codegen `may_write_src=0`.
@@ -22,6 +22,25 @@ Every template, capability, and archetype contract must keep `may_write_src: fal
 The 17 design-matrix future gaps are the next source compiler / EU5 verification backlog.
 Keep them in the matrix and explain them; do not delete or flatten them just to clear the
 matrix warning.
+
+## Next Phase Boundary
+
+The next phase is source-compiler planning and EU5 interface verification, not another
+full-corpus design or semantic-projection pass. Treat the existing 123 specs as the design
+corpus to preserve. Work should start from `compiler_gap_ledger.search_questions`, the
+17 matrix future-gap rows, and the four intermediate-fragment pilots, then prove concrete
+source interfaces before any readiness promotion.
+
+Do not promote additional specs to `source_codegen_ready`, legacy `implementation_ready`,
+or `harness_generated` merely because their `node_graph` validates. Do not set any
+template, capability, archetype, or generator path to `may_write_src: true` until a later
+source-writer contract has exact EU5 syntax evidence, generator ownership, source-target
+boundaries, validation coverage, and rollback-free lifecycle semantics.
+
+For each next-phase audit, report whether the current work preserves the high-fidelity
+`design_ir` or has flattened it. Any proposed source compiler primitive must name the
+required EU5 files/interfaces, evidence paths, owned generator/data contracts, validation
+gate, and the specs it would unlock.
 
 ## Full-Corpus Authoring Workflow
 
