@@ -624,7 +624,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Tenochtitlan Causeways at Tenochtitlan: Causeways, canals, aqueducts, and island districts bind the lake city to markets, temples, and war. Most other wonders lack this exact River Extension role and the named Temple Expansion Sacrifice proof, so copying the loop would lose the site-specific claim.'
   similarity_group: auxiliary_annex_completion
   authoring_status: drafted
@@ -1656,7 +1656,7 @@ unique_wonders:
   - pre_winning_war
   non_monthly_validation_point: A supported war listener such as pre_winning_war fires while the builder still controls the relevant site or can prove recovery before peace.
   risk_or_failure_branch: 'A damaged river gate or occupation scare needs siege or occupation-hook support later; until then the design stays blocked on listener expansion rather than pretending a generic war result is enough.'
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'The loop belongs to a fortress commanding a river confluence; ordinary inland forts do not make water gates and river approaches the decisive failure surface.'
   similarity_group: river_confluence_siege_repair
   authoring_status: drafted
@@ -1687,7 +1687,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Meteora Monasteries at Trikala: Cliff pillars, suspended chapels, rope hoists, icons, and narrow stairs make Meteora a monastery above ordinary reach. Most other wonders lack this exact Great Monastery role and the named Suspended Liturgy proof, so copying the loop would lose the site-specific claim.'
   similarity_group: auxiliary_annex_completion
   authoring_status: drafted
@@ -1719,7 +1719,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Belém Tower at Lisbon: A limestone tower stands at the Tagus mouth, watching ships leave Lisbon for oceans wider than old maps. Most other wonders lack this exact City Great Tower role and the named Tagus Watch Rite proof, so copying the loop would lose the site-specific claim.'
   similarity_group: structural_opening_inspection
   authoring_status: drafted
@@ -1787,7 +1787,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Santa Maria del Fiore at Florence: Brunelleschi''s great dome gathers marble, guild pride, and city faith over Florence. Most other wonders lack this exact Grand Cathedral role and the named Florentine Dome Consecration proof, so copying the loop would lose the site-specific claim.'
   similarity_group: structural_opening_inspection
   authoring_status: drafted
@@ -1819,7 +1819,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Leaning Tower of Pisa at Pisa: A white marble bell tower leans over Pisa''s cathedral square, making imperfection famous. Most other wonders lack this exact City Great Tower role and the named Campanile Stabilization proof, so copying the loop would lose the site-specific claim.'
   similarity_group: structural_opening_inspection
   authoring_status: drafted
@@ -1850,7 +1850,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Milan Cathedral at Milano: A forest of marble spires rises over Milan, turning the city into a roofline of devotion. Most other wonders lack this exact Grand Cathedral role and the named Marble Spire Consecration proof, so copying the loop would lose the site-specific claim.'
   similarity_group: structural_opening_inspection
   authoring_status: drafted
@@ -2662,7 +2662,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Zamość Ideal City at Krasnystaw: A planned Renaissance grid, bastions, market square, academy, and merchant houses make urban order visible from above. Most other wonders lack this exact City Expansion Project role and the named Zamosc Ideal City Rite proof, so copying the loop would lose the site-specific claim.'
   similarity_group: urban_restoration_completion
   authoring_status: drafted
@@ -2923,7 +2923,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Khiva Old City at Khiva: Mud-brick walls, minarets, madrasas, gates, and caravan streets preserve a desert city inside its own memory. Most other wonders lack this exact Ancient City Ruins role and the named Khiva Old City Rite proof, so copying the loop would lose the site-specific claim.'
   similarity_group: urban_restoration_completion
   authoring_status: drafted
