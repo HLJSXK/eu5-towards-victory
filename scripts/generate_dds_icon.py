@@ -12,8 +12,8 @@ Usage:
 The script expands a short asset idea into a production prompt for one selected
 target, uploads that target's style-reference images, writes the generated PNG,
 and converts it into one DDS target with enforced dimensions and byte limits.
-It can also run the victory reward icon batch: one route template plus fifteen
-reward-option icons for each of the six victory paths.
+It can also run the victory path icon batch, plus the victory reward icon batch:
+one route template plus fifteen reward-option icons for each of the six victory paths.
 """
 
 from __future__ import annotations
@@ -59,6 +59,7 @@ DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_icons"
 DEFAULT_REF_DIR = DEFAULT_PNG_DIR / "_style_refs"
 DEFAULT_STYLE_UPLOAD_FIELD = "image"
 VICTORY_REWARD_BATCH = "victory_reward_icons"
+VICTORY_PATH_BATCH = "victory_path_icons"
 
 TARGET_PRESETS: dict[str, dict[str, Any]] = {
     "trade_good_icon": {
@@ -135,6 +136,46 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
             "no letters, no logo, no UI frame, and no complex scene."
         ),
     },
+    "victory_situation_icon": {
+        "label": "victory situation Icon",
+        "path": "src/main_menu/gfx/interface/icons/situations/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": True,
+        "mipmap_min_dimension": 2,
+        "circle_crop": True,
+        "circle_crop_feather_px": 8,
+        "max_file_size_bytes": 100_000,
+        "image_size": "1024x1024",
+        "prompt_requirements": (
+            "This is the main Towards Victory situation icon. Use an extreme minimalist "
+            "emblem design: one centered victory-road symbol, up to six tiny route accents, "
+            "a strong readable silhouette at 128px, restrained EU5-style painterly texture, "
+            "no text, no letters, no logo, no UI frame, and no complex scene."
+        ),
+    },
+    "victory_path_icon": {
+        "label": "victory path Icon",
+        "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": True,
+        "mipmap_min_dimension": 2,
+        "circle_crop": True,
+        "circle_crop_feather_px": 8,
+        "max_file_size_bytes": 100_000,
+        "image_size": "1024x1024",
+        "prompt_requirements": (
+            "This is a compact victory path icon. Use an extreme minimalist icon design: "
+            "one centered symbolic subject, one small route accent at most, a distinct "
+            "silhouette for this path, readable at 128px, restrained EU5-style painterly "
+            "texture, no text, no letters, no logo, no UI frame, and no complex scene."
+        ),
+    },
 }
 
 TARGET_ALIASES = {
@@ -155,9 +196,15 @@ TARGET_ALIASES = {
     "victory_reward_icons": VICTORY_REWARD_BATCH,
     "victory_reward_batch": VICTORY_REWARD_BATCH,
     "victory_rewards": VICTORY_REWARD_BATCH,
+    "victory_situation": "victory_situation_icon",
+    "victory_situation_icons": "victory_situation_icon",
+    "victory_route_icon": "victory_path_icon",
+    "victory_route_icons": VICTORY_PATH_BATCH,
+    "victory_path_icons": VICTORY_PATH_BATCH,
+    "victory_paths": VICTORY_PATH_BATCH,
 }
 
-BATCH_TARGETS = {VICTORY_REWARD_BATCH}
+BATCH_TARGETS = {VICTORY_REWARD_BATCH, VICTORY_PATH_BATCH}
 
 
 @dataclass(frozen=True)
@@ -658,6 +705,65 @@ def default_victory_reward_paths() -> list[dict[str, str]]:
     ]
 
 
+def default_victory_path_icon_paths() -> list[dict[str, Any]]:
+    return [
+        {
+            "id": "conquest",
+            "label": "Conquest Victory",
+            "theme_color": "crimson red",
+            "icon_prompt": "a crowned sword crossing a compact fortress banner",
+            "style_reference_paths": [
+                "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_conquest_template.dds"
+            ],
+        },
+        {
+            "id": "prosperity",
+            "label": "Prosperity Victory",
+            "theme_color": "leaf green",
+            "icon_prompt": "a golden granary arch with a sprouting coin at its base",
+            "style_reference_paths": [
+                "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_prosperity_template.dds"
+            ],
+        },
+        {
+            "id": "trade",
+            "label": "Trade Victory",
+            "theme_color": "gold yellow",
+            "icon_prompt": "a merchant sail forming a balanced scale over a small coin trail",
+            "style_reference_paths": [
+                "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_trade_template.dds"
+            ],
+        },
+        {
+            "id": "diplomatic",
+            "label": "Diplomatic Victory",
+            "theme_color": "ivory white",
+            "icon_prompt": "a sealed treaty scroll clasped by two small interlocking rings",
+            "style_reference_paths": [
+                "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_diplomatic_template.dds"
+            ],
+        },
+        {
+            "id": "cultural",
+            "label": "Cultural Victory",
+            "theme_color": "royal purple",
+            "icon_prompt": "a theatre mask beside a tiny lyre and single star",
+            "style_reference_paths": [
+                "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_cultural_template.dds"
+            ],
+        },
+        {
+            "id": "science",
+            "label": "Scientific Victory",
+            "theme_color": "azure blue",
+            "icon_prompt": "an astrolabe ring with a lens spark and small compass point",
+            "style_reference_paths": [
+                "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_science_template.dds"
+            ],
+        },
+    ]
+
+
 def format_task_template(template: str, values: dict[str, Any]) -> str:
     result = template
     for key, value in values.items():
@@ -685,6 +791,13 @@ def victory_batch_config(config: dict[str, Any]) -> dict[str, Any]:
     return value
 
 
+def victory_path_batch_config(config: dict[str, Any]) -> dict[str, Any]:
+    value = config.get(VICTORY_PATH_BATCH, {})
+    if not isinstance(value, dict):
+        raise ValueError(f"{VICTORY_PATH_BATCH} must be a JSON object")
+    return value
+
+
 def load_victory_path_configs(batch_config: dict[str, Any]) -> list[dict[str, Any]]:
     raw_paths = batch_config.get("paths", default_victory_reward_paths())
     if not isinstance(raw_paths, list) or not raw_paths:
@@ -696,6 +809,24 @@ def load_victory_path_configs(batch_config: dict[str, Any]) -> list[dict[str, An
         path_id = safe_slug(str(raw_path.get("id") or ""))
         if not path_id:
             raise ValueError(f"{VICTORY_REWARD_BATCH}.paths[{index}].id must be set")
+        path_config = dict(raw_path)
+        path_config["id"] = path_id
+        path_config["label"] = str(path_config.get("label") or path_id.replace("_", " ").title())
+        paths.append(path_config)
+    return paths
+
+
+def load_victory_path_icon_configs(batch_config: dict[str, Any]) -> list[dict[str, Any]]:
+    raw_paths = batch_config.get("paths", default_victory_path_icon_paths())
+    if not isinstance(raw_paths, list) or not raw_paths:
+        raise ValueError(f"{VICTORY_PATH_BATCH}.paths must be a non-empty list")
+    paths: list[dict[str, Any]] = []
+    for index, raw_path in enumerate(raw_paths, start=1):
+        if not isinstance(raw_path, dict):
+            raise ValueError(f"{VICTORY_PATH_BATCH}.paths[{index}] must be a JSON object")
+        path_id = safe_slug(str(raw_path.get("id") or ""))
+        if not path_id:
+            raise ValueError(f"{VICTORY_PATH_BATCH}.paths[{index}].id must be set")
         path_config = dict(raw_path)
         path_config["id"] = path_id
         path_config["label"] = str(path_config.get("label") or path_id.replace("_", " ").title())
@@ -850,6 +981,174 @@ def build_victory_batch_tasks(
                         allow_missing_style_reference_dry_run=True,
                     )
                 )
+    return tasks
+
+
+def build_victory_path_icon_batch_tasks(
+    config: dict[str, Any],
+    output_config: dict[str, Any],
+    style_config: dict[str, Any],
+    image_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+) -> list[BatchIconTask]:
+    batch_config = victory_path_batch_config(config)
+    situation_target_name = "victory_situation_icon"
+    path_target_name = "victory_path_icon"
+    situation_defaults = target_override(output_config, situation_target_name)
+    path_defaults = target_override(output_config, path_target_name)
+    situation_base_config = deep_merge(TARGET_PRESETS[situation_target_name], situation_defaults)
+    situation_base_config = deep_merge(situation_base_config, require_object(batch_config, "situation_target"))
+    path_base_config = deep_merge(TARGET_PRESETS[path_target_name], path_defaults)
+    path_base_config = deep_merge(path_base_config, require_object(batch_config, "path_target"))
+
+    paths = load_victory_path_icon_configs(batch_config)
+    situation_config = require_object(batch_config, "situation")
+    situation_output_dir = str(
+        batch_config.get("situation_output_dir")
+        or situation_base_config.get("path", TARGET_PRESETS[situation_target_name]["path"]).rsplit("/", 1)[0]
+    )
+    path_output_dir = str(
+        batch_config.get("path_output_dir")
+        or path_base_config.get("path", TARGET_PRESETS[path_target_name]["path"]).rsplit("/", 1)[0]
+    )
+    situation_name_template = str(batch_config.get("situation_name_template") or "tv_victory_situation")
+    path_name_template = str(batch_config.get("path_name_template") or "tv_victory_{path}")
+    artifact_stem_template = str(batch_config.get("artifact_stem") or "{name}")
+    icon_rules = str(
+        batch_config.get("icon_rules")
+        or (
+            "Extreme minimalist EU5 icon: one central symbolic subject, at most 1-2 tiny supporting shapes, "
+            "strong silhouette, readable at 128px, no text, no letters, no logo, no UI frame, no complex scene."
+        )
+    )
+    situation_prompt_prefix = str(
+        batch_config.get("situation_prompt_prefix")
+        or "Create the main situation icon for the Towards Victory system:"
+    )
+    path_prompt_prefix = str(batch_config.get("path_prompt_prefix") or "Create a route identity icon for:")
+    default_theme_colors = [
+        "crimson red",
+        "leaf green",
+        "gold yellow",
+        "ivory white",
+        "royal purple",
+        "azure blue",
+    ]
+    theme_colors = [
+        str(path_config.get("theme_color") or path_config.get("accent_color") or default_theme_colors[index % len(default_theme_colors)])
+        for index, path_config in enumerate(paths)
+    ]
+
+    batch_output_config = dict(output_config)
+    batch_output_config["artifact_stem"] = artifact_stem_template
+    tasks: list[BatchIconTask] = []
+
+    situation_name = safe_slug(
+        str(situation_config.get("asset_name") or situation_config.get("name") or situation_name_template)
+    )
+    situation_subject = str(
+        situation_config.get("icon_prompt")
+        or situation_config.get("prompt")
+        or "a six-road victory emblem with a small laurel crown and six tiny route marks"
+    )
+    situation_refs = parse_path_list(
+        situation_config.get(
+            "style_reference_paths",
+            ["data/generated_icons/_style_refs/construction_center.dds"],
+        ),
+        f"{VICTORY_PATH_BATCH}.situation.style_reference_paths",
+    )
+    situation_target_config = deep_merge(
+        situation_base_config,
+        {
+            "asset_name": situation_name,
+            "path": f"{situation_output_dir}/{{name}}.dds",
+            "style_reference_paths": situation_refs,
+            "prompt_requirements": icon_rules,
+            "image": {
+                "natural_prompt": (
+                    f"{situation_prompt_prefix} {situation_subject}. "
+                    f"Use six small route accents in the path theme colors: {', '.join(theme_colors)}. "
+                    f"{icon_rules}"
+                ),
+                "negative_prompt": (
+                    "busy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, "
+                    "text, letters, numbers, logo, watermark, realistic photo"
+                ),
+            },
+        },
+    )
+    situation_target = build_target_spec(
+        situation_target_name,
+        situation_target_config,
+        batch_output_config,
+        style_config,
+    )
+    tasks.append(
+        BatchIconTask(
+            kind="situation",
+            path_id="situation",
+            path_label="Towards Victory",
+            milestone=None,
+            choice=None,
+            target=situation_target,
+            image_config=apply_target_image_settings(image_config, situation_target),
+            prompt_config=prompt_config,
+            output_config=batch_output_config,
+        )
+    )
+
+    for path_config in paths:
+        path_id = str(path_config["id"])
+        path_label = str(path_config["label"])
+        values = {"path": path_id}
+        asset_name = safe_slug(format_task_template(path_name_template, values))
+        icon_subject = str(
+            path_config.get("icon_prompt")
+            or path_config.get("prompt")
+            or path_config.get("template_prompt")
+            or path_label
+        )
+        theme_color = str(path_config.get("theme_color") or path_config.get("accent_color") or "distinct route color")
+        path_refs = parse_path_list(
+            path_config.get("icon_style_reference_paths", path_config.get("style_reference_paths", [])),
+            f"{VICTORY_PATH_BATCH}.paths.{path_id}.style_reference_paths",
+        )
+        path_target_config = deep_merge(
+            path_base_config,
+            {
+                "asset_name": asset_name,
+                "path": f"{path_output_dir}/{{name}}.dds",
+                "style_reference_paths": path_refs,
+                "prompt_requirements": icon_rules,
+                "image": {
+                    "natural_prompt": (
+                        f"{path_prompt_prefix} {path_label}: {icon_subject}. "
+                        f"Theme color: {theme_color}. "
+                        f"Use that color as the dominant accent, with marble and bronze as support. "
+                        f"Make the silhouette unmistakably different from the other victory route icons. {icon_rules}"
+                    ),
+                    "negative_prompt": (
+                        "busy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, "
+                        "text, letters, numbers, logo, watermark, realistic photo"
+                    ),
+                },
+            },
+        )
+        path_target = build_target_spec(path_target_name, path_target_config, batch_output_config, style_config)
+        tasks.append(
+            BatchIconTask(
+                kind="path",
+                path_id=path_id,
+                path_label=path_label,
+                milestone=None,
+                choice=None,
+                target=path_target,
+                image_config=apply_target_image_settings(image_config, path_target),
+                prompt_config=prompt_config,
+                output_config=batch_output_config,
+            )
+        )
     return tasks
 
 
@@ -1768,6 +2067,39 @@ def run_victory_reward_batch(
     return 0
 
 
+def run_victory_path_icon_batch(
+    args: argparse.Namespace,
+    config: dict[str, Any],
+    api_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+    image_config: dict[str, Any],
+    style_config: dict[str, Any],
+    output_config: dict[str, Any],
+) -> int:
+    if args.convert_existing_png:
+        raise ValueError("--convert-existing-png is only supported for a single selected target")
+    tasks = build_victory_path_icon_batch_tasks(config, output_config, style_config, image_config, prompt_config)
+    situation_count = sum(1 for task in tasks if task.kind == "situation")
+    path_count = sum(1 for task in tasks if task.kind == "path")
+    print(f"[batch] {VICTORY_PATH_BATCH}: situation={situation_count}, paths={path_count}, total={len(tasks)}")
+    for index, task in enumerate(tasks, start=1):
+        if task.kind == "situation":
+            print(f"[batch] {index}/{len(tasks)} situation icon")
+        else:
+            print(f"[batch] {index}/{len(tasks)} path icon path={task.path_id}")
+        run_target_generation(
+            args,
+            api_config,
+            task.prompt_config,
+            task.image_config,
+            style_config,
+            task.output_config,
+            task.target,
+            allow_missing_style_reference_dry_run=task.allow_missing_style_reference_dry_run,
+        )
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
     if args.list_targets:
@@ -1787,6 +2119,16 @@ def main(argv: list[str] | None = None) -> int:
     style_config = require_object(config, "style_reference")
     output_config = require_object(config, "output")
     selected_target = select_target_name(config, output_config, args.target)
+    if selected_target == VICTORY_PATH_BATCH:
+        return run_victory_path_icon_batch(
+            args,
+            config,
+            api_config,
+            prompt_config,
+            image_config,
+            style_config,
+            output_config,
+        )
     if selected_target == VICTORY_REWARD_BATCH:
         return run_victory_reward_batch(
             args,

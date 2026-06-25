@@ -15,15 +15,15 @@
     "retry_max_delay_seconds": 30,
     "retry_backoff_multiplier": 2
   },
-  "generation_target": "victory_reward_icons",
+  "generation_target": "victory_path_icons",
   "prompt_refinement": {
     "enabled": true,
-    "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the user's request, not the reference subject.",
+    "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the selected batch entry, not the reference subject.",
     "composition_rules": "Use the reference only as a style guide. Keep the result in the same visual family, but make it visibly distinct at a glance by changing the silhouette, crop, object arrangement, and ornament placement. Do not mirror the reference composition or reuse its exact outline."
   },
   "image": {
     "model": "gpt-image-2",
-    "natural_prompt": "Luxurious white marble wonder materials with subtle gray veining, bronze-gold trim, and a premium carved-stone look.",
+    "natural_prompt": "Minimalist victory iconography with marble, bronze, and path-specific theme-color accents.",
     "quality": "high",
     "output_format": "png",
     "response_format": "url",
@@ -40,7 +40,7 @@
     "temporary_png_dir": "data/generated_icons/_style_refs"
   },
   "output": {
-    "name": "icon_goods_tv_wonder_materials",
+    "name": "tv_victory_path_icons",
     "artifact_stem": "{name}_{target}",
     "overwrite": false,
     "keep_png": true,
@@ -116,8 +116,121 @@
         "max_file_size_bytes": 100000,
         "image_size": "1024x1024",
         "prompt_requirements": "This is a compact victory reward icon. Use an extreme minimalist icon design: one centered symbolic subject, at most 1-2 small supporting shapes, a simple readable silhouette at 128px, restrained EU5-style painterly texture, no text, no letters, no logo, no UI frame, and no complex scene."
+      },
+      "victory_situation_icon": {
+        "path": "src/main_menu/gfx/interface/icons/situations/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": true,
+        "mipmap_min_dimension": 2,
+        "circle_crop": true,
+        "circle_crop_feather_px": 8,
+        "max_file_size_bytes": 100000,
+        "image_size": "1024x1024",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds"
+        ],
+        "image": {
+          "natural_prompt": "Create the main Towards Victory situation icon: a minimalist victory-road emblem with a central crown or laurel mark and six tiny route accents in the six route theme colors.",
+          "negative_prompt": "busy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, text, letters, numbers, logo, watermark, realistic photo"
+        }
+      },
+      "victory_path_icon": {
+        "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": true,
+        "mipmap_min_dimension": 2,
+        "circle_crop": true,
+        "circle_crop_feather_px": 8,
+        "max_file_size_bytes": 100000,
+        "image_size": "1024x1024",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_conquest_template.dds"
+        ],
+        "image": {
+          "natural_prompt": "Create a distinct victory path icon with a clear path-specific silhouette, one strong symbolic subject, and the route's own theme color as the dominant accent.",
+          "negative_prompt": "busy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, text, letters, numbers, logo, watermark, realistic photo"
+        }
       }
     }
+  },
+  "victory_path_icons": {
+    "output_dir": "src/main_menu/gfx/interface/icons/towards_victory/victory_paths",
+    "artifact_stem": "{name}",
+    "situation_output_dir": "src/main_menu/gfx/interface/icons/situations",
+    "situation_name_template": "tv_victory_situation",
+    "path_name_template": "tv_victory_{path}",
+    "icon_rules": "Extreme minimalist victory icon: one central symbolic subject, at most 1-2 tiny supporting shapes, strong silhouette, readable at 128px, no text, no letters, no logo, no UI frame, no complex scene.",
+    "situation_prompt_prefix": "Create the main Towards Victory situation icon:",
+    "path_prompt_prefix": "Create a distinct victory path icon for:",
+    "situation": {
+      "asset_name": "tv_victory_situation",
+      "icon_prompt": "a six-road victory emblem with a central crown or laurel and six tiny route marks",
+      "style_reference_paths": [
+        "data/generated_icons/_style_refs/construction_center.dds"
+      ]
+    },
+    "paths": [
+      {
+        "id": "conquest",
+        "label": "Conquest Victory",
+        "theme_color": "crimson red",
+        "icon_prompt": "a crowned sword over a compact fortress banner",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_conquest_template.dds"
+        ]
+      },
+      {
+        "id": "prosperity",
+        "label": "Prosperity Victory",
+        "theme_color": "leaf green",
+        "icon_prompt": "a golden granary arch with a sprouting coin",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_prosperity_template.dds"
+        ]
+      },
+      {
+        "id": "trade",
+        "label": "Trade Victory",
+        "theme_color": "gold yellow",
+        "icon_prompt": "a merchant sail forming a balanced scale and coin trail",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_trade_template.dds"
+        ]
+      },
+      {
+        "id": "diplomatic",
+        "label": "Diplomatic Victory",
+        "theme_color": "ivory white",
+        "icon_prompt": "a sealed treaty scroll with two interlocking rings",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_diplomatic_template.dds"
+        ]
+      },
+      {
+        "id": "cultural",
+        "label": "Cultural Victory",
+        "theme_color": "royal purple",
+        "icon_prompt": "a theatre mask beside a tiny lyre and single star",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_cultural_template.dds"
+        ]
+      },
+      {
+        "id": "science",
+        "label": "Scientific Victory",
+        "theme_color": "azure blue",
+        "icon_prompt": "an astrolabe ring with a lens spark and compass point",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/tv_victory_science_template.dds"
+        ]
+      }
+    ]
   },
   "victory_reward_icons": {
     "output_dir": "src/main_menu/gfx/interface/icons/towards_victory/victory_rewards",
