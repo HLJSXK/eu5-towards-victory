@@ -271,6 +271,13 @@ tv_build_trade_headquarters = {
 				is_ai = no
 				monthly_trade_income >= 100
 			}
+			OR = {
+				is_ai = no
+				any_country = {
+					count < 10
+					is_leader_of_international_organization_of_type = { type = tv_trade_league }
+				}
+			}
 		}
 	}
 
@@ -300,6 +307,13 @@ tv_build_trade_headquarters = {
 					is_ai = no
 					monthly_trade_income >= 100
 				}
+				OR = {
+					is_ai = no
+					any_country = {
+						count < 10
+						is_leader_of_international_organization_of_type = { type = tv_trade_league }
+					}
+				}
 			}
 			tv_trade_headquarters_can_build_in_location = yes
 		}
@@ -315,6 +329,13 @@ tv_build_trade_headquarters = {
 					OR = {
 						is_ai = no
 						monthly_trade_income >= 100
+					}
+					OR = {
+						is_ai = no
+						any_country = {
+							count < 10
+							is_leader_of_international_organization_of_type = { type = tv_trade_league }
+						}
 					}
 				}
 				scope:target = { tv_trade_headquarters_can_build_in_location = yes }
