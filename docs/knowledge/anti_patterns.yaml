@@ -1884,6 +1884,39 @@
   source: "reference_game_files/game/in_game/common/cabinet_actions/promote_religion.txt:73-76"
   notes: "Vanilla promote_religion can still work on minority non-state-religion pops when local_religious_unity is below 100%. The Governor's House design intentionally ignores that cleanup case so regional governors only prioritize locations where the non-state religion is still dominant."
 
+- id: gui_io_membertype_name_filter_empty
+  pattern: 'EqualTo_string\(MemberTypeItem\.GetName,\s*ShowSpecialStatusName'
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Filtering InternationalOrganizationsView.GetMemberItems by comparing MemberTypeItem.GetName to a special-status display helper"
+  correction: "Use real MemberTypeItem predicates such as MemberTypeItem.IsAllMembers for the outer group, then apply country-row filters inside MemberTypeItem.GetCountries."
+  category: gui
+  scope: international_organization
+  source: "runtime UI observation in src/in_game/gui/panels/organization/tv_diplomatic_alliance.gui, 2026-06-25"
+  notes: "The display-name comparison against ShowSpecialStatusName('tv_alliance_member_status') hid every Diplomatic Alliance member row. MemberTypeItem.GetName is not a reliable selector for custom special-status groups in this panel."
+
+- id: gui_io_member_row_leader_check_wrong_shape
+  pattern: 'IsIOLeaderCountry\(Country\.Self\)|ObjectsEqual\(Country\.Self,\s*InternationalOrganizationsView\.GetInternationalOrganization\.GetLeaderCountry\)'
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Checking an IO member-row country with IsIOLeaderCountry(Country.Self), or comparing Country.Self directly to GetLeaderCountry without .Self"
+  correction: "Compare matching GUI objects, e.g. Not(ObjectsEqual(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self))."
+  category: gui
+  scope: international_organization
+  source: "runtime error.log from tv_diplomatic_alliance.gui, 2026-06-25; verified vanilla shape in reference_game_files/game/in_game/gui/panels/organization/union.gui:401"
+  notes: "IsIOLeaderCountry(Country.Self) produced FetchData failed in the IO member row context. The original ObjectsEqual without .Self did not hide the leader because it compared different object shapes."
+
+- id: gui_action_button_ui_action_enabled_out_of_context
+  pattern: 'enabled\s*=\s*"\[UIAction\.IsEnabled\]"'
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Using enabled = \"[UIAction.IsEnabled]\" directly inside a custom-panel button without a verified UIAction datacontext"
+  correction: "Use an explicit GUI predicate, or keep the conventional action_button/action_button_diamond template only when the widget defines a real left_action and has been verified after a full panel/game reload."
+  category: gui
+  scope: generic_actions
+  source: "runtime error.log from tv_diplomatic_alliance.gui action_button, 2026-06-25"
+  notes: "A direct enabled = [UIAction.IsEnabled] produced 'No function for call' / empty FetchData errors in this custom panel. Later apparent errors from normal action-button templates were traced to stale GUI hot reload state, not the template itself."
+
 - id: character_modifier_country_cabinet_efficiency
   pattern: ''
   detectability: advisory
