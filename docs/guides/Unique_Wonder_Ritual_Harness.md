@@ -6,6 +6,23 @@ not to compress every design into a few fixed mechanism shapes. Design fidelity 
 before current codegen convenience. Each batch should preserve the full playable design
 first, then map only the verified projection into the current Harness graph or generator.
 
+## Current Phase Freeze
+
+The Harness design承载阶段 is complete: all 123 unique-wonder ritual designs are carried
+by the Harness intermediate layer. Current counts are `compiler_mapped=117`,
+`source_codegen_ready=4`, `implemented_parity=2`, `stub=0`, `harness_generated=0`, and
+registry/codegen `may_write_src=0`.
+
+`compiler_mapped` is not source-ready. It only means the design has a current semantic
+`node_graph` projection. The source generation stage has not started, `source_codegen_ready`
+remains limited to the four intermediate-fragment pilots, and v1 codegen may only emit
+intermediate Markdown fragments under `data/generated_fragments/unique_wonder_rituals/`.
+Every template, capability, and archetype contract must keep `may_write_src: false`.
+
+The 17 design-matrix future gaps are the next source compiler / EU5 verification backlog.
+Keep them in the matrix and explain them; do not delete or flatten them just to clear the
+matrix warning.
+
 ## Full-Corpus Authoring Workflow
 
 For any full-corpus pass across all unique wonders, start with
