@@ -171,6 +171,12 @@ paths:
       }
     ai_headquarters_requirement_body: |
       modifier:diplomatic_reputation >= 15
+      NOT = {
+        any_international_organization = {
+          international_organization_type = international_organization_type:tv_diplomatic_alliance
+          count >= 10
+        }
+      }
     headquarters:
       building: tv_diplomatic_headquarters
       name:
