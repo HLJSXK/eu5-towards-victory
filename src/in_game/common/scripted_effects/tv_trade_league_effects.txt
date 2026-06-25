@@ -7776,7 +7776,7 @@ tv_trade_league_refresh_selected_good_projection_effect = {
 		}
 		if = {
 			limit = { NOT = { has_variable = tv_trade_selected_good } }
-			set_variable = { name = tv_trade_selected_good value = 1 }
+			set_variable = { name = tv_trade_selected_good value = 0 }
 		}
 		remove_variable = tv_trade_selected_good_scope
 		set_variable = { name = tv_trade_selected_good_index value = 0 }
@@ -63384,7 +63384,10 @@ tv_trade_league_refresh_monopoly_display_effect = {
 			}
 			leader_country ?= { save_scope_as = tv_trade_monopoly_display_source }
 		}
-		set_variable = { name = tv_trade_selected_good value = 0 }
+		if = {
+			limit = { NOT = { has_variable = tv_trade_selected_good } }
+			set_variable = { name = tv_trade_selected_good value = 0 }
+		}
 		remove_variable = tv_trade_monopoly_slot_1_good
 		set_variable = { name = tv_trade_monopoly_slot_1_unlocked value = 0 }
 		set_variable = { name = tv_trade_monopoly_slot_1_good_index value = 0 }
@@ -63565,10 +63568,26 @@ tv_trade_league_refresh_monopoly_display_effect = {
 			}
 			set_variable = { name = tv_trade_monopoly_slot_2_good value = scope:tv_trade_monopoly_display_source.var:tv_trade_monopoly_slot_2_good }
 		}
+		set_variable = { name = tv_trade_selected_slot_valid value = 0 }
 		if = {
-			limit = { var:tv_trade_monopoly_slot_1_good_index ?= { this > 0 } }
-			set_variable = { name = tv_trade_selected_good value = var:tv_trade_monopoly_slot_1_good_index }
+			limit = {
+				var:tv_trade_selected_good ?= var:tv_trade_monopoly_slot_1_good_index
+				var:tv_trade_monopoly_slot_1_good_index ?= { this > 0 }
+			}
+			set_variable = { name = tv_trade_selected_slot_valid value = 1 }
 		}
+		if = {
+			limit = {
+				var:tv_trade_selected_good ?= var:tv_trade_monopoly_slot_2_good_index
+				var:tv_trade_monopoly_slot_2_good_index ?= { this > 0 }
+			}
+			set_variable = { name = tv_trade_selected_slot_valid value = 1 }
+		}
+		if = {
+			limit = { var:tv_trade_selected_slot_valid ?= { this < 1 } }
+			set_variable = { name = tv_trade_selected_good value = 0 }
+		}
+		remove_variable = tv_trade_selected_slot_valid
 		tv_trade_league_refresh_selected_good_projection_effect = yes
 	}
 }

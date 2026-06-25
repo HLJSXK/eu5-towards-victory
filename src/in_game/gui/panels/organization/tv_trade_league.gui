@@ -1873,7 +1873,7 @@ organization_panel = {
 					}
 
 					card_common = {
-						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').IsSet]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').IsSet, GreaterThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_trade_selected_good').GetValue, '(CFixedPoint)0.0'))]"
 						maximumsize = { 500 -1 }
 						blockoverride "common_header_icon_texture" {
 							texture = "gfx/interface/icons/flat_icons/trade.dds"

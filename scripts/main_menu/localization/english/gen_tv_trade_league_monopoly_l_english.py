@@ -42,7 +42,7 @@ def perform_entries(action: str) -> list[tuple[str, str]]:
 def fixed_action_entries() -> list[tuple[str, str]]:
     entries: list[tuple[str, str]] = [
         ("tv_trade_select_monopoly_slot_desc", "Show monopoly details for this commodity slot."),
-        ("TV_TRADE_LEAGUE_EMPTY_MONOPOLY_SLOT", "No commodity has at least 25% monopoly potential for this slot."),
+        ("TV_TRADE_LEAGUE_EMPTY_MONOPOLY_SLOT", "Develop trade further to begin monopoly tracking."),
         ("TV_TRADE_LEAGUE_MONOPOLY_POTENTIAL", "Monopoly Potential"),
         ("TV_TRADE_LEAGUE_LOW_MONOPOLY", "Low Monopoly"),
         ("TV_TRADE_LEAGUE_HIGH_MONOPOLY", "High Monopoly"),

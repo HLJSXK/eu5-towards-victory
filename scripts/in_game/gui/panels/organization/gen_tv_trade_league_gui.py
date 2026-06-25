@@ -1495,6 +1495,7 @@ def projected_detail_name_entries(goods: list[str]) -> str:
 
 def projected_detail_card(goods: list[str]) -> str:
     selected = projected_var("tv_trade_selected_good")
+    selected_visible = f"[And({selected}.IsSet, GreaterThan_CFixedPoint({selected}.GetValue, '(CFixedPoint)0.0'))]"
     monopoly = projected_var("tv_trade_selected_monopoly")
     monopoly_pct = projected_var("tv_trade_selected_monopoly_level_pct")
     used_pct = projected_var("tv_trade_selected_used_monopoly_level_pct")
@@ -1504,7 +1505,7 @@ def projected_detail_card(goods: list[str]) -> str:
     embargo_active = projected_var("tv_trade_selected_embargo_active")
     return f"""\
 \t\t\t\t\tcard_common = {{
-\t\t\t\t\t\tvisible = "[{selected}.IsSet]"
+\t\t\t\t\t\tvisible = "{selected_visible}"
 \t\t\t\t\t\tmaximumsize = {{ 500 -1 }}
 \t\t\t\t\t\tblockoverride "common_header_icon_texture" {{
 \t\t\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"

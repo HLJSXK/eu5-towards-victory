@@ -587,13 +587,37 @@ tv_trade_league_refresh_selected_good_projection_effect = {{
 {save_matching_trade_league_leader_effect("tv_trade_monopoly_display_source", INDENT_2)}
 \t\tif = {{
 \t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_selected_good }} }}
-\t\t\tset_variable = {{ name = tv_trade_selected_good value = 1 }}
+\t\t\tset_variable = {{ name = tv_trade_selected_good value = 0 }}
 \t\t}}
 {clear_selected_projection_block(goods, INDENT_2)}
 {chr(10).join(branches)}
 \t}}
 }}
 """
+
+
+def selected_slot_validity_block(indent: str = "\t\t") -> str:
+    lines = [
+        f"{indent}set_variable = {{ name = tv_trade_selected_slot_valid value = 0 }}",
+    ]
+    for slot in range(1, MONOPOLY_SLOT_COUNT + 1):
+        lines.append(
+            f"""{indent}if = {{
+{indent}\tlimit = {{
+{indent}\t\tvar:tv_trade_selected_good ?= var:tv_trade_monopoly_slot_{slot}_good_index
+{indent}\t\tvar:tv_trade_monopoly_slot_{slot}_good_index ?= {{ this > 0 }}
+{indent}\t}}
+{indent}\tset_variable = {{ name = tv_trade_selected_slot_valid value = 1 }}
+{indent}}}"""
+        )
+    lines.append(
+        f"""{indent}if = {{
+{indent}\tlimit = {{ var:tv_trade_selected_slot_valid ?= {{ this < 1 }} }}
+{indent}\tset_variable = {{ name = tv_trade_selected_good value = 0 }}
+{indent}}}"""
+    )
+    lines.append(f"{indent}remove_variable = tv_trade_selected_slot_valid")
+    return "\n".join(lines)
 
 
 def display_projection_effect(data: dict) -> str:
@@ -609,13 +633,13 @@ def display_projection_effect(data: dict) -> str:
 tv_trade_league_refresh_monopoly_display_effect = {{
 \thidden_effect = {{
 {save_matching_trade_league_leader_effect("tv_trade_monopoly_display_source", INDENT_2)}
-\t\tset_variable = {{ name = tv_trade_selected_good value = 0 }}
+\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ has_variable = tv_trade_selected_good }} }}
+\t\t\tset_variable = {{ name = tv_trade_selected_good value = 0 }}
+\t\t}}
 {clear_slots}
 {copy_slots}
-\t\tif = {{
-\t\t\tlimit = {{ var:tv_trade_monopoly_slot_1_good_index ?= {{ this > 0 }} }}
-\t\t\tset_variable = {{ name = tv_trade_selected_good value = var:tv_trade_monopoly_slot_1_good_index }}
-\t\t}}
+{selected_slot_validity_block(INDENT_2)}
 \t\ttv_trade_league_refresh_selected_good_projection_effect = yes
 \t}}
 }}
