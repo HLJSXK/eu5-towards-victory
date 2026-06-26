@@ -3000,6 +3000,372 @@ def node_kind_summary_for_payload(payload: dict[str, Any]) -> dict[str, int]:
     return dict(sorted(summary.items()))
 
 
+REPEATED_ENTITY_ROW_BACKEND = "repeated_entity_row_checklist_incident_log_backend"
+REPEATED_ENTITY_ROW_UI_COMPONENTS = {
+    "actor_slots",
+    "checklist",
+    "incident_log",
+    "material_stockpile",
+    "route_map",
+}
+REPEATED_ENTITY_ROW_BLOCKERS = {
+    "missing_cleanup",
+    "missing_effect_writer",
+    "missing_event_ownership",
+    "missing_gui_rows",
+    "missing_listener_integration",
+    "missing_loc_rows",
+    "missing_row_variables",
+    "missing_trigger_check",
+}
+_ROW_TOKEN_STOPWORDS = {
+    "and",
+    "binding",
+    "checklist",
+    "entity",
+    "entities",
+    "group",
+    "incident",
+    "log",
+    "one",
+    "pattern",
+    "per",
+    "row",
+    "rows",
+    "should",
+    "state",
+    "states",
+    "status",
+    "the",
+    "tv",
+    "ui",
+    "variable",
+    "variables",
+    "wonder",
+}
+
+
+def _identifier_tokens(value: Any) -> set[str]:
+    text = str(value or "").lower()
+    raw_tokens = re.split(r"[^a-z0-9]+", text)
+    tokens: set[str] = set()
+    for token in raw_tokens:
+        if not token or token in _ROW_TOKEN_STOPWORDS:
+            continue
+        tokens.add(token)
+        if token.endswith("ies") and len(token) > 4:
+            tokens.add(token[:-3] + "y")
+        elif token.endswith("s") and len(token) > 3:
+            tokens.add(token[:-1])
+    return tokens
+
+
+def _per_entity_variable_patterns(row_set: dict[str, Any]) -> list[str]:
+    per_entity_state = row_set.get("per_entity_state")
+    if not isinstance(per_entity_state, dict):
+        return []
+    patterns: list[str] = []
+    for key, value in per_entity_state.items():
+        value_text = str(value or "").strip()
+        if key.endswith("_variable_pattern") or "<" in value_text:
+            patterns.append(value_text)
+    return [pattern for pattern in patterns if pattern]
+
+
+def _variable_matches_row_pattern(variable_name: str, pattern: str) -> bool:
+    if "<" not in pattern:
+        return variable_name == pattern
+    regex = re.escape(pattern)
+    regex = re.sub(r"<[^>]+>", r"[^_]+(?:_[^_]+)*", regex)
+    return re.fullmatch(regex, variable_name) is not None
+
+
+def _row_set_match_tokens(row_set: dict[str, Any]) -> set[str]:
+    tokens: set[str] = set()
+    for field in ("key", "entity_type", "ui_binding"):
+        tokens.update(_identifier_tokens(row_set.get(field)))
+    per_entity_state = row_set.get("per_entity_state")
+    if isinstance(per_entity_state, dict):
+        for key in per_entity_state:
+            tokens.update(_identifier_tokens(key))
+    return tokens
+
+
+def _related_variables_for_row_set(
+    row_set: dict[str, Any],
+    variables: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    patterns = _per_entity_variable_patterns(row_set)
+    row_tokens = _row_set_match_tokens(row_set)
+    related: list[dict[str, Any]] = []
+    for variable in variables:
+        if not isinstance(variable, dict):
+            continue
+        name = str(variable.get("name", ""))
+        if not name:
+            continue
+        pattern_match = any(_variable_matches_row_pattern(name, pattern) for pattern in patterns)
+        token_match = bool(row_tokens & _identifier_tokens(name))
+        if pattern_match or token_match:
+            related.append(variable)
+    return related
+
+
+def _row_set_ui_type(row_set: dict[str, Any]) -> str:
+    ui_binding = str(row_set.get("ui_binding", "") or "")
+    if ":" in ui_binding:
+        candidate = ui_binding.split(":", 1)[0].strip()
+        if candidate:
+            return candidate
+    return ""
+
+
+def _ui_bindings_for_variables(
+    bindings: list[dict[str, Any]],
+    variable_names: set[str],
+) -> list[dict[str, Any]]:
+    if not variable_names:
+        return []
+    matched: list[dict[str, Any]] = []
+    for binding in bindings:
+        if not isinstance(binding, dict):
+            continue
+        refs = set(_string_refs(binding.get("variable_refs")))
+        if refs & variable_names:
+            matched.append(binding)
+    return matched
+
+
+def _nodes_for_variables(
+    nodes: list[dict[str, Any]],
+    variable_names: set[str],
+) -> list[dict[str, Any]]:
+    if not variable_names:
+        return []
+    matched: list[dict[str, Any]] = []
+    for node in nodes:
+        if not isinstance(node, dict):
+            continue
+        refs = set(_string_refs(node.get("reads"))) | set(_string_refs(node.get("writes")))
+        ui_state = node.get("ui_state") if isinstance(node.get("ui_state"), dict) else {}
+        refs.update(_string_refs(ui_state.get("variable_refs")))
+        if refs & variable_names:
+            matched.append(node)
+    return matched
+
+
+def _node_io_summary(nodes: list[dict[str, Any]], variable_names: set[str]) -> list[dict[str, Any]]:
+    summary: list[dict[str, Any]] = []
+    for node in _nodes_for_variables(nodes, variable_names):
+        reads = sorted(set(_string_refs(node.get("reads"))) & variable_names)
+        writes = sorted(set(_string_refs(node.get("writes"))) & variable_names)
+        ui_state = node.get("ui_state") if isinstance(node.get("ui_state"), dict) else {}
+        ui_refs = sorted(set(_string_refs(ui_state.get("variable_refs"))) & variable_names)
+        summary.append(
+            {
+                "key": str(node.get("key", "")),
+                "kind": str(node.get("kind", "")),
+                "capabilities": _string_refs(node.get("capabilities")),
+                "reads": reads,
+                "writes": writes,
+                "ui_state_refs": ui_refs,
+            }
+        )
+    return summary
+
+
+def _row_set_source_blockers(
+    *,
+    has_row_variable_patterns: bool,
+    has_ui_component: bool,
+    cleanup_expectations: list[str],
+    listener_backed: bool,
+) -> list[str]:
+    blockers = {
+        "missing_effect_writer",
+        "missing_event_ownership",
+        "missing_gui_rows",
+        "missing_loc_rows",
+        "missing_trigger_check",
+    }
+    if not has_row_variable_patterns:
+        blockers.add("missing_row_variables")
+    if not has_ui_component:
+        blockers.add("missing_gui_rows")
+    if not cleanup_expectations:
+        blockers.add("missing_cleanup")
+    else:
+        # Existing Harness cleanup metadata is not a verified loadable EU5 cleanup effect.
+        blockers.add("missing_cleanup")
+    if listener_backed:
+        blockers.add("missing_listener_integration")
+    return sorted(blockers)
+
+
+def repeated_entity_row_preflight_for_entry(entry: dict[str, Any]) -> dict[str, Any]:
+    """Summarize repeated-row source-compiler readiness without writing source."""
+
+    identity = entry.get("identity") if isinstance(entry.get("identity"), dict) else {}
+    key = str(identity.get("key", entry.get("key", "")))
+    status = str(identity.get("status", ""))
+    design_ir = entry.get("design_ir") if isinstance(entry.get("design_ir"), dict) else {}
+    node_graph = entry.get("node_graph") if isinstance(entry.get("node_graph"), dict) else {}
+    ui_model = entry.get("ui_model") if isinstance(entry.get("ui_model"), dict) else {}
+    nodes = [node for node in node_graph.get("nodes", []) or [] if isinstance(node, dict)]
+    variables = [variable for variable in node_graph.get("variables", []) or [] if isinstance(variable, dict)]
+    components = [component for component in ui_model.get("components", []) or [] if isinstance(component, dict)]
+    bindings = [binding for binding in ui_model.get("bindings", []) or [] if isinstance(binding, dict)]
+    repeated_nodes = [
+        str(node.get("key", ""))
+        for node in nodes
+        if REPEATED_ENTITY_ROW_BACKEND in set(_string_refs(node.get("capabilities")))
+    ]
+    tracked_sets = [
+        row_set
+        for row_set in design_ir.get("tracked_entity_sets", []) or []
+        if isinstance(row_set, dict)
+    ]
+    component_types = sorted(
+        {
+            str(component.get("type"))
+            for component in components
+            if str(component.get("type")) in REPEATED_ENTITY_ROW_UI_COMPONENTS
+        }
+    )
+    row_reports: list[dict[str, Any]] = []
+    blocker_summary = {blocker: 0 for blocker in sorted(REPEATED_ENTITY_ROW_BLOCKERS)}
+    aggregate_projection_variables: set[str] = set()
+    listener_integration_required = False
+
+    for row_set in tracked_sets:
+        patterns = _per_entity_variable_patterns(row_set)
+        related_variables = _related_variables_for_row_set(row_set, variables)
+        related_names = {str(variable.get("name")) for variable in related_variables if variable.get("name")}
+        aggregate_projection_variables.update(related_names)
+        row_nodes = _nodes_for_variables(nodes, related_names)
+        listener_backed = any(str(node.get("kind")) == "listener_gate" for node in row_nodes)
+        listener_integration_required = listener_integration_required or listener_backed
+        cleanup_expectations = sorted(
+            {
+                str(variable.get("cleanup"))
+                for variable in related_variables
+                if str(variable.get("cleanup", "")).strip()
+            }
+        )
+        expected_ui_type = _row_set_ui_type(row_set)
+        has_ui_component = bool(expected_ui_type and expected_ui_type in component_types)
+        related_bindings = _ui_bindings_for_variables(bindings, related_names)
+        blockers = _row_set_source_blockers(
+            has_row_variable_patterns=bool(patterns),
+            has_ui_component=has_ui_component,
+            cleanup_expectations=cleanup_expectations,
+            listener_backed=listener_backed,
+        )
+        for blocker in blockers:
+            blocker_summary[blocker] += 1
+        entities = row_set.get("entities") if isinstance(row_set.get("entities"), list) else []
+        row_reports.append(
+            {
+                "key": str(row_set.get("key", "")),
+                "entity_type": str(row_set.get("entity_type", "")),
+                "entity_keys": [
+                    str(entity.get("key", ""))
+                    for entity in entities
+                    if isinstance(entity, dict) and entity.get("key")
+                ],
+                "state_values": _string_refs(row_set.get("state_values")),
+                "per_row_variable_patterns": patterns,
+                "selector": str(row_set.get("selector", "") or ""),
+                "ui_binding": str(row_set.get("ui_binding", "") or ""),
+                "expected_ui_component_type": expected_ui_type,
+                "ui_component_present": has_ui_component,
+                "cleanup_expectations": cleanup_expectations,
+                "aggregate_projection_variables": sorted(related_names),
+                "node_read_write_coverage": _node_io_summary(nodes, related_names),
+                "node_reads_writes_cover_row_state": any(
+                    set(item["reads"]) or set(item["writes"])
+                    for item in _node_io_summary(nodes, related_names)
+                ),
+                "ui_bindings": [
+                    {
+                        "key": str(binding.get("key", "")),
+                        "component_key": str(binding.get("component_key", "")),
+                        "variable_refs": _string_refs(binding.get("variable_refs")),
+                        "node_refs": _string_refs(binding.get("node_refs")),
+                    }
+                    for binding in related_bindings
+                ],
+                "blockers": blockers,
+            }
+        )
+
+    entity_row_count = sum(len(row_set["entity_keys"]) for row_set in row_reports)
+    all_blockers = sorted({blocker for row_set in row_reports for blocker in row_set["blockers"]})
+    return {
+        "key": key,
+        "status": status,
+        "uses_repeated_entity_row_backend": bool(repeated_nodes),
+        "repeated_backend_nodes": repeated_nodes,
+        "row_set_count": len(row_reports),
+        "entity_row_count": entity_row_count,
+        "row_sets": row_reports,
+        "ui_component_types": component_types,
+        "ui_bindings_present": [
+            str(binding.get("key", ""))
+            for binding in bindings
+            if set(_string_refs(binding.get("variable_refs"))) & aggregate_projection_variables
+        ],
+        "aggregate_projection_variables": sorted(aggregate_projection_variables),
+        "compression_summary": (
+            "design_ir.tracked_entity_sets owns per-row semantics; node_graph.variables currently "
+            "summarize those rows through aggregate projection variables and are not a substitute "
+            "for source-level per-row state."
+        ),
+        "aggregate_projection_is_not_row_state": True,
+        "listener_integration_required": listener_integration_required,
+        "blockers": all_blockers,
+        "blocker_summary": {key: count for key, count in blocker_summary.items() if count},
+        "source_writer_allowed": False,
+    }
+
+
+def repeated_entity_row_preflight_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    statuses = statuses or {"source_codegen_ready"}
+    entries = payload.get("unique_wonders", []) or []
+    reports: list[dict[str, Any]] = []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        identity = entry.get("identity") if isinstance(entry.get("identity"), dict) else {}
+        if str(identity.get("status", "")) not in statuses:
+            continue
+        report = repeated_entity_row_preflight_for_entry(entry)
+        if report["uses_repeated_entity_row_backend"] or report["row_set_count"]:
+            reports.append(report)
+
+    blocker_summary: dict[str, int] = {}
+    for report in reports:
+        for blocker, count in report.get("blocker_summary", {}).items():
+            blocker_summary[blocker] = blocker_summary.get(blocker, 0) + int(count)
+    return {
+        "statuses": sorted(statuses),
+        "candidate_count": len(reports),
+        "row_set_count": sum(int(report["row_set_count"]) for report in reports),
+        "entity_row_count": sum(int(report["entity_row_count"]) for report in reports),
+        "blocker_summary": dict(sorted(blocker_summary.items())),
+        "entries": reports,
+        "source_writer_allowed": False,
+        "notes": [
+            "This is a Harness source-compiler preflight only.",
+            "backend_ready repeated-row evidence is intermediate-only and does not permit src writes.",
+        ],
+    }
+
+
 def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
     entries = matrix.get("unique_wonders", []) if isinstance(matrix, dict) else []
     return {
@@ -3475,6 +3841,7 @@ def audit_summary() -> dict[str, Any]:
     capability_coverage_summary = capability_coverage_summary_for_payload(specs)
     archetype_coverage_summary = archetype_coverage_summary_for_payload(specs)
     node_kind_summary = node_kind_summary_for_payload(specs)
+    repeated_entity_row_preflight = repeated_entity_row_preflight_for_payload(specs)
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -3573,6 +3940,7 @@ def audit_summary() -> dict[str, Any]:
         "capability_coverage_summary": capability_coverage_summary,
         "archetype_coverage_summary": archetype_coverage_summary,
         "node_kind_summary": node_kind_summary,
+        "repeated_entity_row_preflight": repeated_entity_row_preflight,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
         "capability_registry_errors": capability_registry_errors,

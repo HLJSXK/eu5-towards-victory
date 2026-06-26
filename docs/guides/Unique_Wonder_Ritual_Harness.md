@@ -65,6 +65,12 @@ semantics as intermediate summaries. Neither one proves that the Harness can wri
 loadable EU5 GUI, event, effect, trigger, localization, or cleanup source for arbitrary
 ritual row sets.
 
+The Harness repeated-row preflight is a source-compiler pre-check, not a source writer.
+It inventories `design_ir.tracked_entity_sets`, current lossy `node_graph` projection
+variables, UI bindings, and source-writer blockers so the contract is machine-checkable.
+It must not write `src/`, set `may_write_src: true`, promote specs, or treat aggregate
+`node_graph.variables` as a replacement for per-row design semantics.
+
 A future row-set compiler interface must assign ownership before any source-writing claim:
 
 - data ownership: `design_ir.tracked_entity_sets` owns row keys, labels, states, variable

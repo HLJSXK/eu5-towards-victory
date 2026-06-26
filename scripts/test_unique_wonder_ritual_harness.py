@@ -26,6 +26,8 @@ from wonder_unique_ritual_harness import (  # noqa: E402
 )
 from wonder_unique_ritual_harness import load_archetype_registry  # noqa: E402
 from wonder_unique_ritual_harness import anti_flattening_warnings_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_entry  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_payload  # noqa: E402
 
 
 WONDER = {
@@ -63,6 +65,57 @@ BACKEND_CAPABILITIES = [
     "auxiliary_building_completion_listener_backend",
     "water_management_restoration_completion_backend",
 ]
+REPEATED_ROW_PILOTS = {
+    "unique_dome_of_the_rock": {
+        "row_sets": {"sanctuary_access_groups", "custody_duties"},
+        "ui": {"checklist", "incident_log"},
+        "blockers": {
+            "missing_cleanup",
+            "missing_effect_writer",
+            "missing_event_ownership",
+            "missing_gui_rows",
+            "missing_loc_rows",
+            "missing_trigger_check",
+        },
+    },
+    "unique_alhambra": {
+        "row_sets": {"treaty_clause_register", "palace_risk_points"},
+        "ui": {"checklist", "incident_log"},
+        "blockers": {
+            "missing_cleanup",
+            "missing_effect_writer",
+            "missing_event_ownership",
+            "missing_gui_rows",
+            "missing_listener_integration",
+            "missing_loc_rows",
+            "missing_trigger_check",
+        },
+    },
+    "unique_st_peters_basilica": {
+        "row_sets": {"sacred_official_candidates", "apostolic_service_duties"},
+        "ui": {"actor_slots", "checklist", "incident_log"},
+        "blockers": {
+            "missing_cleanup",
+            "missing_effect_writer",
+            "missing_event_ownership",
+            "missing_gui_rows",
+            "missing_loc_rows",
+            "missing_trigger_check",
+        },
+    },
+    "unique_bank_of_saint_george": {
+        "row_sets": {"charter_options", "public_credit_pledges"},
+        "ui": {"checklist", "incident_log"},
+        "blockers": {
+            "missing_cleanup",
+            "missing_effect_writer",
+            "missing_event_ownership",
+            "missing_gui_rows",
+            "missing_loc_rows",
+            "missing_trigger_check",
+        },
+    },
+}
 PILGRIMAGE_ROUTE_BACKEND_OUTPUTS = {
     "markdown_fragment",
     "trigger_stub",
@@ -1303,6 +1356,27 @@ def high_fidelity_design_entry(
     return entry
 
 
+def repeated_row_preflight_negative_entry() -> dict:
+    entry = high_fidelity_design_entry(status="source_codegen_ready", verification_status="backend_ready")
+    row_set = entry["design_ir"]["tracked_entity_sets"][0]
+    row_set["per_entity_state"] = {}
+    row_set["ui_binding"] = ""
+    entry["ui_model"]["components"] = [
+        component
+        for component in entry["ui_model"]["components"]
+        if component.get("type") not in {"route_map", "checklist", "incident_log"}
+    ]
+    entry["ui_model"]["bindings"] = []
+    entry["node_graph"]["variables"][0]["cleanup"] = ""
+    entry["node_graph"]["variables"][0]["roles"] = ["stage_state", "checklist_state", "incident_state"]
+    retry_choice = entry["node_graph"]["nodes"][3]
+    retry_choice["capabilities"].append("repeated_entity_row_checklist_incident_log_backend")
+    retry_choice["reads"] = ["tv_wonder_test_stage"]
+    retry_choice["writes"] = ["tv_wonder_test_stage"]
+    retry_choice["ui_state"] = {"variable_refs": ["tv_wonder_test_stage"]}
+    return entry
+
+
 def loc() -> dict[str, str]:
     long_text = "This event description is intentionally long enough to satisfy the ritual text density gate. " * 2
     data: dict[str, str] = {}
@@ -1667,6 +1741,49 @@ def main() -> None:
     )
     if source_ready_errors:
         raise AssertionError(f"source_codegen_ready fixture unexpectedly failed: {source_ready_errors}")
+
+    repeated_row_preflight = repeated_entity_row_preflight_for_payload(load_spec_data())
+    if repeated_row_preflight["candidate_count"] != 4:
+        raise AssertionError(f"expected four repeated-row pilots, got {repeated_row_preflight['candidate_count']}")
+    if repeated_row_preflight["row_set_count"] != 8:
+        raise AssertionError(f"expected eight repeated-row row sets, got {repeated_row_preflight['row_set_count']}")
+    if repeated_row_preflight["entity_row_count"] != 40:
+        raise AssertionError(f"expected forty repeated entity rows, got {repeated_row_preflight['entity_row_count']}")
+    preflight_by_key = {entry["key"]: entry for entry in repeated_row_preflight["entries"]}
+    for pilot_key, expected in REPEATED_ROW_PILOTS.items():
+        entry_report = preflight_by_key.get(pilot_key)
+        if entry_report is None:
+            raise AssertionError(f"missing repeated-row preflight report for {pilot_key}")
+        row_keys = {row_set["key"] for row_set in entry_report["row_sets"]}
+        if row_keys != expected["row_sets"]:
+            raise AssertionError(f"{pilot_key} row sets mismatch: expected {expected['row_sets']}, got {row_keys}")
+        ui_types = set(entry_report["ui_component_types"])
+        if not expected["ui"] <= ui_types:
+            raise AssertionError(f"{pilot_key} UI component types missing {expected['ui'] - ui_types}")
+        blockers = set(entry_report["blockers"])
+        if blockers != expected["blockers"]:
+            raise AssertionError(f"{pilot_key} blockers mismatch: expected {expected['blockers']}, got {blockers}")
+        if "missing_row_variables" in blockers:
+            raise AssertionError(f"{pilot_key} should preserve design_ir per-row variable patterns")
+        if not entry_report["aggregate_projection_is_not_row_state"]:
+            raise AssertionError(f"{pilot_key} aggregate projection variables must not replace design_ir row state")
+        for row_set in entry_report["row_sets"]:
+            if not row_set["entity_keys"]:
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} did not expose entity rows")
+            if not row_set["per_row_variable_patterns"]:
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} did not expose per-row variable patterns")
+            if not row_set["aggregate_projection_variables"]:
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} did not expose aggregate projection variables")
+
+    negative_preflight = repeated_entity_row_preflight_for_entry(repeated_row_preflight_negative_entry())
+    negative_blockers = set(negative_preflight["blockers"])
+    for expected_blocker in ("missing_row_variables", "missing_gui_rows", "missing_cleanup"):
+        if expected_blocker not in negative_blockers:
+            raise AssertionError(f"negative repeated-row preflight missing blocker {expected_blocker}: {negative_preflight}")
+    if not negative_preflight["aggregate_projection_variables"]:
+        raise AssertionError("negative repeated-row fixture should still report aggregate projection variables")
+    if not negative_preflight["aggregate_projection_is_not_row_state"]:
+        raise AssertionError("negative repeated-row fixture must not treat aggregate variables as row-state replacement")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},

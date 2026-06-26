@@ -25,6 +25,23 @@ def _print_list(label: str, values: list[str], *, limit: int = 20) -> None:
         print(f"  ... +{len(values) - limit} more")
 
 
+def _print_repeated_entity_row_preflight(preflight: dict) -> None:
+    print("Repeated-row preflight:")
+    print(f"  Candidates: {preflight['candidate_count']}")
+    print(f"  Row sets: {preflight['row_set_count']}")
+    print(f"  Entity rows: {preflight['entity_row_count']}")
+    print(f"  Blocker summary: {preflight['blocker_summary']}")
+    for entry in preflight.get("entries", []):
+        row_sets = ", ".join(row_set["key"] for row_set in entry.get("row_sets", []))
+        ui_types = ", ".join(entry.get("ui_component_types", [])) or "none"
+        aggregate_variables = ", ".join(entry.get("aggregate_projection_variables", [])) or "none"
+        blockers = ", ".join(entry.get("blockers", [])) or "none"
+        print(
+            f"  - {entry['key']}: rows=[{row_sets}] "
+            f"ui=[{ui_types}] aggregates=[{aggregate_variables}] blockers=[{blockers}]"
+        )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON.")
@@ -69,6 +86,7 @@ def main() -> None:
         print(f"Capability coverage summary: {summary['capability_coverage_summary']}")
         print(f"Archetype coverage summary: {summary['archetype_coverage_summary']}")
         print(f"Node kind summary: {summary['node_kind_summary']}")
+        _print_repeated_entity_row_preflight(summary["repeated_entity_row_preflight"])
         print(f"Graph reachable nodes: {summary['graph_reachable_count']}")
         print(f"Graph unreachable nodes: {summary['graph_unreachable_count']}")
         print(f"Lifecycle error count: {summary['lifecycle_error_count']}")
