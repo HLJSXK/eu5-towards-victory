@@ -28,6 +28,8 @@ from wonder_unique_ritual_harness import load_archetype_registry  # noqa: E402
 from wonder_unique_ritual_harness import anti_flattening_warnings_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_entry  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_source_plan_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 
 
 WONDER = {
@@ -1784,6 +1786,69 @@ def main() -> None:
         raise AssertionError("negative repeated-row fixture should still report aggregate projection variables")
     if not negative_preflight["aggregate_projection_is_not_row_state"]:
         raise AssertionError("negative repeated-row fixture must not treat aggregate variables as row-state replacement")
+
+    source_plan = repeated_entity_row_source_plan_for_payload(load_spec_data())
+    if source_plan["candidate_count"] != 4:
+        raise AssertionError(f"expected four repeated-row source-plan pilots, got {source_plan['candidate_count']}")
+    if source_plan["validation_errors"]:
+        raise AssertionError(f"repeated-row source-plan unexpectedly failed validation: {source_plan['validation_errors']}")
+    source_plan_by_key = {entry["key"]: entry for entry in source_plan["entries"]}
+    for pilot_key, expected in REPEATED_ROW_PILOTS.items():
+        entry_plan = source_plan_by_key.get(pilot_key)
+        if entry_plan is None:
+            raise AssertionError(f"missing repeated-row source-plan report for {pilot_key}")
+        row_keys = {row_set["key"] for row_set in entry_plan["row_sets"]}
+        if row_keys != expected["row_sets"]:
+            raise AssertionError(f"{pilot_key} source-plan row sets mismatch: expected {expected['row_sets']}, got {row_keys}")
+        for artifact in entry_plan["artifacts"]:
+            if artifact.get("may_write_src") is not False:
+                raise AssertionError(f"{pilot_key} source-plan artifact may_write_src was not false: {artifact}")
+            if artifact.get("blocks_source_writer") is not True:
+                raise AssertionError(f"{pilot_key} source-plan artifact does not block source writer: {artifact}")
+        for row_set in entry_plan["row_sets"]:
+            kinds = set(row_set["artifact_kinds"])
+            if not any(kind.startswith("scripted_effect_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing effect artifact")
+            if not any(kind.startswith("scripted_trigger_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing trigger artifact")
+            if not any(kind.startswith("gui_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing GUI artifact")
+            if not any(kind.startswith("localization_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing localization artifact")
+            if not any(kind.startswith("cleanup_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing cleanup artifact")
+        listener_kinds = {
+            artifact["artifact_kind"]
+            for artifact in entry_plan["artifacts"]
+            if artifact["artifact_kind"].startswith("listener_")
+        }
+        if pilot_key == "unique_alhambra":
+            if "listener_war_integration" not in listener_kinds:
+                raise AssertionError("Alhambra source-plan must include listener_war_integration")
+        elif listener_kinds:
+            raise AssertionError(f"{pilot_key} should not receive generic listener artifacts: {listener_kinds}")
+
+    missing_row_set_plan = deepcopy(source_plan)
+    missing_row_set_plan["entries"][0]["artifacts"] = [
+        artifact
+        for artifact in missing_row_set_plan["entries"][0]["artifacts"]
+        if artifact["row_set_key"] != missing_row_set_plan["entries"][0]["row_sets"][0]["key"]
+    ]
+    missing_row_set_errors = validate_repeated_entity_row_source_plan(missing_row_set_plan)
+    if not any("has no source-plan artifacts" in error for error in missing_row_set_errors):
+        raise AssertionError(f"missing row-set source-plan negative was not caught: {missing_row_set_errors}")
+
+    missing_owner_plan = deepcopy(source_plan)
+    missing_owner_plan["entries"][0]["artifacts"][0]["owner_generator"] = ""
+    missing_owner_errors = validate_repeated_entity_row_source_plan(missing_owner_plan)
+    if not any("must declare owner_generator" in error for error in missing_owner_errors):
+        raise AssertionError(f"missing owner_generator source-plan negative was not caught: {missing_owner_errors}")
+
+    writable_plan = deepcopy(source_plan)
+    writable_plan["entries"][0]["artifacts"][0]["may_write_src"] = True
+    writable_plan_errors = validate_repeated_entity_row_source_plan(writable_plan)
+    if not any("must declare may_write_src: false" in error for error in writable_plan_errors):
+        raise AssertionError(f"may_write_src source-plan negative was not caught: {writable_plan_errors}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},

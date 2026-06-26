@@ -71,6 +71,14 @@ variables, UI bindings, and source-writer blockers so the contract is machine-ch
 It must not write `src/`, set `may_write_src: true`, promote specs, or treat aggregate
 `node_graph.variables` as a replacement for per-row design semantics.
 
+The repeated-row source-plan contract is the next pre-source-writer layer. It converts
+preflight blockers into planned event, scripted-effect, scripted-trigger, GUI,
+localization, cleanup, and Alhambra-only listener artifacts with owner-generator names,
+EU5 interface candidates, source-target boundaries, row-set keys, entity keys, and
+aggregate projection variables. These artifacts are planning data only: every artifact
+must keep `may_write_src: false`, block the future source writer, and name missing
+generator ownership or EU5 evidence instead of claiming generated source readiness.
+
 A future row-set compiler interface must assign ownership before any source-writing claim:
 
 - data ownership: `design_ir.tracked_entity_sets` owns row keys, labels, states, variable

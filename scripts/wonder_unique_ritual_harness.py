@@ -3018,6 +3018,108 @@ REPEATED_ENTITY_ROW_BLOCKERS = {
     "missing_row_variables",
     "missing_trigger_check",
 }
+REPEATED_ENTITY_ROW_SOURCE_PLAN_EVIDENCE_STATUSES = {
+    "missing_eu5_evidence",
+    "interface_candidate",
+    "verified_existing",
+    "backend_ready_intermediate",
+}
+REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_REQUIRED_FIELDS = {
+    "artifact_kind",
+    "owner_generator",
+    "source_target_boundary",
+    "required_eu5_interfaces",
+    "evidence_status",
+    "may_write_src",
+    "blocks_source_writer",
+    "pilot_key",
+    "row_set_key",
+    "entity_keys",
+    "aggregate_projection_variables",
+}
+REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS = {
+    "event": "unique_wonder_ritual_event_source_generator",
+    "effect": "unique_wonder_ritual_scripted_effect_source_generator",
+    "trigger": "unique_wonder_ritual_scripted_trigger_source_generator",
+    "gui": "unique_wonder_ritual_gui_row_source_generator",
+    "localization": "unique_wonder_ritual_localization_source_generator",
+    "listener": "unique_wonder_ritual_listener_integration_source_generator",
+}
+REPEATED_ENTITY_ROW_SOURCE_PLAN_EXISTING_GENERATORS: set[str] = set()
+REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS = {
+    "event": [
+        "event_opening_skeleton",
+        "event_update_skeleton",
+        "event_retry_skeleton",
+        "event_resolve_skeleton",
+    ],
+    "effect": [
+        "scripted_effect_row_init",
+        "scripted_effect_row_state_write",
+        "scripted_effect_aggregate_refresh",
+        "scripted_effect_branch_write",
+        "scripted_effect_cleanup_write",
+    ],
+    "trigger": [
+        "scripted_trigger_row_completion",
+        "scripted_trigger_eligibility",
+        "scripted_trigger_tooltip_safe_condition_group",
+    ],
+    "localization": [
+        "localization_row_labels",
+        "localization_status_text",
+        "localization_incident_text",
+        "localization_tooltips",
+        "localization_summary_text",
+    ],
+    "cleanup": [
+        "cleanup_completion",
+        "cleanup_failure",
+        "cleanup_ownership_loss",
+        "cleanup_ritual_reset",
+    ],
+}
+REPEATED_ENTITY_ROW_SOURCE_PLAN_BLOCKER_ARTIFACTS = {
+    "missing_cleanup": [
+        "scripted_effect_cleanup_write",
+        "cleanup_completion",
+        "cleanup_failure",
+        "cleanup_ownership_loss",
+        "cleanup_ritual_reset",
+    ],
+    "missing_effect_writer": [
+        "scripted_effect_row_init",
+        "scripted_effect_row_state_write",
+        "scripted_effect_aggregate_refresh",
+        "scripted_effect_branch_write",
+        "scripted_effect_cleanup_write",
+    ],
+    "missing_event_ownership": [
+        "event_opening_skeleton",
+        "event_update_skeleton",
+        "event_retry_skeleton",
+        "event_resolve_skeleton",
+    ],
+    "missing_gui_rows": ["gui_repeated_row"],
+    "missing_listener_integration": ["listener_war_integration"],
+    "missing_loc_rows": [
+        "localization_row_labels",
+        "localization_status_text",
+        "localization_incident_text",
+        "localization_tooltips",
+        "localization_summary_text",
+    ],
+    "missing_row_variables": [
+        "scripted_effect_row_init",
+        "scripted_effect_row_state_write",
+        "scripted_trigger_row_completion",
+    ],
+    "missing_trigger_check": [
+        "scripted_trigger_row_completion",
+        "scripted_trigger_eligibility",
+        "scripted_trigger_tooltip_safe_condition_group",
+    ],
+}
 _ROW_TOKEN_STOPWORDS = {
     "and",
     "binding",
@@ -3364,6 +3466,398 @@ def repeated_entity_row_preflight_for_payload(
             "backend_ready repeated-row evidence is intermediate-only and does not permit src writes.",
         ],
     }
+
+
+def _repeated_row_source_plan_artifact(
+    *,
+    artifact_kind: str,
+    owner_generator: str,
+    source_target_boundary: str,
+    required_eu5_interfaces: list[str],
+    evidence_status: str,
+    pilot_key: str,
+    row_set_key: str,
+    entity_keys: list[str],
+    aggregate_projection_variables: list[str],
+) -> dict[str, Any]:
+    return {
+        "artifact_kind": artifact_kind,
+        "owner_generator": owner_generator,
+        "source_target_boundary": source_target_boundary,
+        "required_eu5_interfaces": required_eu5_interfaces,
+        "evidence_status": evidence_status,
+        "may_write_src": False,
+        "blocks_source_writer": True,
+        "pilot_key": pilot_key,
+        "row_set_key": row_set_key,
+        "entity_keys": entity_keys,
+        "aggregate_projection_variables": aggregate_projection_variables,
+    }
+
+
+def _repeated_row_gui_artifact_kind(row_set: dict[str, Any]) -> str:
+    expected_ui_type = str(row_set.get("expected_ui_component_type", "") or "").strip()
+    if expected_ui_type:
+        return f"gui_{expected_ui_type}_row"
+    return "gui_repeated_row"
+
+
+def _repeated_row_source_plan_artifacts_for_row_set(
+    *,
+    pilot_key: str,
+    row_set: dict[str, Any],
+) -> list[dict[str, Any]]:
+    row_set_key = str(row_set.get("key", ""))
+    entity_keys = _string_refs(row_set.get("entity_keys"))
+    aggregate_projection_variables = _string_refs(row_set.get("aggregate_projection_variables"))
+    artifacts: list[dict[str, Any]] = []
+
+    for artifact_kind in REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["event"]:
+        artifacts.append(
+            _repeated_row_source_plan_artifact(
+                artifact_kind=artifact_kind,
+                owner_generator=REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS["event"],
+                source_target_boundary="contract_only_no_event_file_or_event_id_allocation",
+                required_eu5_interfaces=["country_event", "event_option", "hidden_effect"],
+                evidence_status="missing_eu5_evidence",
+                pilot_key=pilot_key,
+                row_set_key=row_set_key,
+                entity_keys=entity_keys,
+                aggregate_projection_variables=aggregate_projection_variables,
+            )
+        )
+
+    for artifact_kind in REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["effect"]:
+        artifacts.append(
+            _repeated_row_source_plan_artifact(
+                artifact_kind=artifact_kind,
+                owner_generator=REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS["effect"],
+                source_target_boundary="contract_only_no_scripted_effect_file",
+                required_eu5_interfaces=["scripted_effect", "set_variable", "remove_variable", "hidden_effect"],
+                evidence_status="interface_candidate",
+                pilot_key=pilot_key,
+                row_set_key=row_set_key,
+                entity_keys=entity_keys,
+                aggregate_projection_variables=aggregate_projection_variables,
+            )
+        )
+
+    for artifact_kind in REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["trigger"]:
+        artifacts.append(
+            _repeated_row_source_plan_artifact(
+                artifact_kind=artifact_kind,
+                owner_generator=REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS["trigger"],
+                source_target_boundary="contract_only_no_scripted_trigger_file",
+                required_eu5_interfaces=["scripted_trigger", "tooltip_safe_trigger", "variable_check"],
+                evidence_status="interface_candidate",
+                pilot_key=pilot_key,
+                row_set_key=row_set_key,
+                entity_keys=entity_keys,
+                aggregate_projection_variables=aggregate_projection_variables,
+            )
+        )
+
+    artifacts.append(
+        _repeated_row_source_plan_artifact(
+            artifact_kind=_repeated_row_gui_artifact_kind(row_set),
+            owner_generator=REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS["gui"],
+            source_target_boundary="contract_only_no_gui_file",
+            required_eu5_interfaces=["gui_repeated_row", "gui_variable_binding", "tooltip"],
+            evidence_status="verified_existing" if row_set.get("ui_component_present") else "interface_candidate",
+            pilot_key=pilot_key,
+            row_set_key=row_set_key,
+            entity_keys=entity_keys,
+            aggregate_projection_variables=aggregate_projection_variables,
+        )
+    )
+
+    for artifact_kind in REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["localization"]:
+        artifacts.append(
+            _repeated_row_source_plan_artifact(
+                artifact_kind=artifact_kind,
+                owner_generator=REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS["localization"],
+                source_target_boundary="contract_only_no_localization_file",
+                required_eu5_interfaces=["localization_key", "event_text", "gui_tooltip"],
+                evidence_status="missing_eu5_evidence",
+                pilot_key=pilot_key,
+                row_set_key=row_set_key,
+                entity_keys=entity_keys,
+                aggregate_projection_variables=aggregate_projection_variables,
+            )
+        )
+
+    for artifact_kind in REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"]:
+        artifacts.append(
+            _repeated_row_source_plan_artifact(
+                artifact_kind=artifact_kind,
+                owner_generator=REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS["effect"],
+                source_target_boundary="contract_only_no_cleanup_effect_file",
+                required_eu5_interfaces=["scripted_effect", "on_completion", "on_failure", "ownership_loss", "reset"],
+                evidence_status="missing_eu5_evidence",
+                pilot_key=pilot_key,
+                row_set_key=row_set_key,
+                entity_keys=entity_keys,
+                aggregate_projection_variables=aggregate_projection_variables,
+            )
+        )
+
+    return artifacts
+
+
+def _repeated_row_source_plan_blocker_contracts(
+    blockers: list[str],
+    *,
+    artifact_kinds: set[str] | None = None,
+) -> dict[str, list[str]]:
+    artifact_kinds = artifact_kinds or set()
+    contracts: dict[str, list[str]] = {}
+    for blocker in sorted(set(blockers)):
+        planned = list(REPEATED_ENTITY_ROW_SOURCE_PLAN_BLOCKER_ARTIFACTS.get(blocker, []))
+        if blocker == "missing_gui_rows":
+            planned = sorted(kind for kind in artifact_kinds if kind.startswith("gui_")) or planned
+        elif blocker == "missing_listener_integration":
+            planned = sorted(kind for kind in artifact_kinds if kind.startswith("listener_")) or planned
+        contracts[blocker] = planned
+    return contracts
+
+
+def _repeated_row_source_plan_summary(entries: list[dict[str, Any]]) -> dict[str, Any]:
+    artifact_kind_summary: dict[str, int] = {}
+    owner_generator_summary: dict[str, int] = {}
+    evidence_status_summary: dict[str, int] = {}
+    artifact_count_by_pilot: dict[str, int] = {}
+    missing_owner_generators: set[str] = set()
+    blocker_contracts: dict[str, set[str]] = {}
+
+    for entry in entries:
+        pilot_key = str(entry.get("key", ""))
+        artifacts = [artifact for artifact in entry.get("artifacts", []) if isinstance(artifact, dict)]
+        artifact_count_by_pilot[pilot_key] = len(artifacts)
+        for artifact in artifacts:
+            artifact_kind = str(artifact.get("artifact_kind", ""))
+            owner_generator = str(artifact.get("owner_generator", ""))
+            evidence_status = str(artifact.get("evidence_status", ""))
+            artifact_kind_summary[artifact_kind] = artifact_kind_summary.get(artifact_kind, 0) + 1
+            owner_generator_summary[owner_generator] = owner_generator_summary.get(owner_generator, 0) + 1
+            evidence_status_summary[evidence_status] = evidence_status_summary.get(evidence_status, 0) + 1
+            if owner_generator not in REPEATED_ENTITY_ROW_SOURCE_PLAN_EXISTING_GENERATORS:
+                missing_owner_generators.add(owner_generator)
+        for blocker, artifact_kinds in entry.get("blocker_contracts", {}).items():
+            blocker_contracts.setdefault(str(blocker), set()).update(_string_refs(artifact_kinds))
+
+    most_missing_artifact_kinds = [
+        key
+        for key, _count in sorted(
+            artifact_kind_summary.items(),
+            key=lambda item: (-item[1], item[0]),
+        )[:10]
+    ]
+    return {
+        "artifact_count_by_pilot": dict(sorted(artifact_count_by_pilot.items())),
+        "artifact_kind_summary": dict(sorted(artifact_kind_summary.items())),
+        "most_missing_artifact_kinds": most_missing_artifact_kinds,
+        "owner_generator_summary": dict(sorted(owner_generator_summary.items())),
+        "missing_owner_generators": sorted(missing_owner_generators),
+        "evidence_status_summary": dict(sorted(evidence_status_summary.items())),
+        "blocker_contracts": {
+            blocker: sorted(artifact_kinds)
+            for blocker, artifact_kinds in sorted(blocker_contracts.items())
+        },
+    }
+
+
+def repeated_entity_row_source_plan_for_entry(entry: dict[str, Any]) -> dict[str, Any]:
+    """Produce a repeated-row source-plan contract without assigning source outputs."""
+
+    preflight = repeated_entity_row_preflight_for_entry(entry)
+    artifacts: list[dict[str, Any]] = []
+    row_set_reports: list[dict[str, Any]] = []
+    listener_artifacts: list[dict[str, Any]] = []
+    for row_set in preflight.get("row_sets", []):
+        if not isinstance(row_set, dict):
+            continue
+        row_artifacts = _repeated_row_source_plan_artifacts_for_row_set(
+            pilot_key=str(preflight.get("key", "")),
+            row_set=row_set,
+        )
+        if (
+            preflight.get("key") == "unique_alhambra"
+            and "missing_listener_integration" in set(_string_refs(row_set.get("blockers")))
+        ):
+            listener_artifact = _repeated_row_source_plan_artifact(
+                artifact_kind="listener_war_integration",
+                owner_generator=REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS["listener"],
+                source_target_boundary="contract_only_no_on_action_or_listener_file",
+                required_eu5_interfaces=["on_action", "war_listener", "listener_scope_bridge"],
+                evidence_status="interface_candidate",
+                pilot_key=str(preflight.get("key", "")),
+                row_set_key=str(row_set.get("key", "")),
+                entity_keys=_string_refs(row_set.get("entity_keys")),
+                aggregate_projection_variables=_string_refs(row_set.get("aggregate_projection_variables")),
+            )
+            row_artifacts.append(listener_artifact)
+            listener_artifacts.append(listener_artifact)
+        artifacts.extend(row_artifacts)
+        row_set_reports.append(
+            {
+                "key": str(row_set.get("key", "")),
+                "entity_keys": _string_refs(row_set.get("entity_keys")),
+                "aggregate_projection_variables": _string_refs(row_set.get("aggregate_projection_variables")),
+                "artifact_count": len(row_artifacts),
+                "artifact_kinds": [str(artifact["artifact_kind"]) for artifact in row_artifacts],
+                "artifacts": row_artifacts,
+            }
+        )
+
+    blocker_contracts = _repeated_row_source_plan_blocker_contracts(
+        _string_refs(preflight.get("blockers")),
+        artifact_kinds={str(artifact.get("artifact_kind", "")) for artifact in artifacts},
+    )
+    return {
+        "key": str(preflight.get("key", "")),
+        "status": str(preflight.get("status", "")),
+        "row_set_count": int(preflight.get("row_set_count", 0)),
+        "entity_row_count": int(preflight.get("entity_row_count", 0)),
+        "artifact_count": len(artifacts),
+        "row_sets": row_set_reports,
+        "listener_artifacts": listener_artifacts,
+        "artifacts": artifacts,
+        "artifact_kind_summary": _count_by_key(artifacts, "artifact_kind"),
+        "owner_generator_summary": _count_by_key(artifacts, "owner_generator"),
+        "missing_owner_generators": sorted(
+            {
+                str(artifact.get("owner_generator", ""))
+                for artifact in artifacts
+                if str(artifact.get("owner_generator", "")) not in REPEATED_ENTITY_ROW_SOURCE_PLAN_EXISTING_GENERATORS
+            }
+        ),
+        "blockers": _string_refs(preflight.get("blockers")),
+        "blocker_contracts": blocker_contracts,
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "notes": [
+            "This is a source-plan contract only; it assigns no loadable EU5 source targets.",
+            "Every artifact blocks the future source writer until exact EU5 interfaces and generator ownership are verified.",
+            "Aggregate node_graph variables remain lossy projections and do not replace design_ir row state.",
+        ],
+    }
+
+
+def _count_by_key(items: list[dict[str, Any]], key: str) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for item in items:
+        value = str(item.get(key, ""))
+        counts[value] = counts.get(value, 0) + 1
+    return dict(sorted(counts.items()))
+
+
+def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
+    """Validate the repeated-row source-plan schema and safety contract."""
+
+    errors: list[str] = []
+    entries = plan.get("entries") if isinstance(plan.get("entries"), list) else [plan]
+    for entry in entries:
+        if not isinstance(entry, dict):
+            errors.append("source-plan entry must be a mapping")
+            continue
+        pilot_key = str(entry.get("key", "<unknown>"))
+        if entry.get("source_writer_allowed") is not False:
+            errors.append(f"{pilot_key}: source_writer_allowed must be false")
+        row_sets = [row_set for row_set in entry.get("row_sets", []) or [] if isinstance(row_set, dict)]
+        artifacts = [artifact for artifact in entry.get("artifacts", []) or [] if isinstance(artifact, dict)]
+        row_set_keys = {str(row_set.get("key", "")) for row_set in row_sets if row_set.get("key")}
+        artifact_row_set_keys = {
+            str(artifact.get("row_set_key", ""))
+            for artifact in artifacts
+            if str(artifact.get("row_set_key", "")) != "__pilot_listener__"
+        }
+        missing_row_sets = sorted(row_set_keys - artifact_row_set_keys)
+        for row_set_key in missing_row_sets:
+            errors.append(f"{pilot_key}: row set {row_set_key} has no source-plan artifacts")
+
+        for row_set in row_sets:
+            row_set_key = str(row_set.get("key", ""))
+            row_artifacts = [
+                artifact
+                for artifact in artifacts
+                if str(artifact.get("row_set_key", "")) == row_set_key
+            ]
+            row_artifact_kinds = {str(artifact.get("artifact_kind", "")) for artifact in row_artifacts}
+            if not any(kind.startswith("scripted_effect_") for kind in row_artifact_kinds):
+                errors.append(f"{pilot_key}: row set {row_set_key} missing effect artifact")
+            if not any(kind.startswith("scripted_trigger_") for kind in row_artifact_kinds):
+                errors.append(f"{pilot_key}: row set {row_set_key} missing trigger artifact")
+            if not any(kind.startswith("gui_") for kind in row_artifact_kinds):
+                errors.append(f"{pilot_key}: row set {row_set_key} missing GUI artifact")
+            if not any(kind.startswith("localization_") for kind in row_artifact_kinds):
+                errors.append(f"{pilot_key}: row set {row_set_key} missing localization artifact")
+            if not any(kind.startswith("cleanup_") for kind in row_artifact_kinds):
+                errors.append(f"{pilot_key}: row set {row_set_key} missing cleanup artifact")
+
+        for artifact in artifacts:
+            missing = _missing_required(artifact, REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_REQUIRED_FIELDS)
+            artifact_kind = str(artifact.get("artifact_kind", "<unknown>"))
+            if missing:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} missing field(s): {', '.join(missing)}")
+                continue
+            extra = sorted(set(artifact) - REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_REQUIRED_FIELDS)
+            if extra:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} has unsupported field(s): {', '.join(extra)}")
+            if not str(artifact.get("owner_generator", "")).strip():
+                errors.append(f"{pilot_key}: artifact {artifact_kind} must declare owner_generator")
+            if artifact.get("may_write_src") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} must declare may_write_src: false")
+            if artifact.get("blocks_source_writer") is not True:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} must declare blocks_source_writer: true")
+            if str(artifact.get("evidence_status", "")) not in REPEATED_ENTITY_ROW_SOURCE_PLAN_EVIDENCE_STATUSES:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} has invalid evidence_status")
+            if not isinstance(artifact.get("required_eu5_interfaces"), list) or not artifact.get("required_eu5_interfaces"):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} must declare required_eu5_interfaces")
+            if not isinstance(artifact.get("entity_keys"), list):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} entity_keys must be a list")
+            if not isinstance(artifact.get("aggregate_projection_variables"), list):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} aggregate_projection_variables must be a list")
+    return errors
+
+
+def repeated_entity_row_source_plan_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    statuses = statuses or {"source_codegen_ready"}
+    entries = payload.get("unique_wonders", []) or []
+    reports: list[dict[str, Any]] = []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        identity = entry.get("identity") if isinstance(entry.get("identity"), dict) else {}
+        if str(identity.get("status", "")) not in statuses:
+            continue
+        report = repeated_entity_row_source_plan_for_entry(entry)
+        if report["row_set_count"]:
+            reports.append(report)
+
+    summary = _repeated_row_source_plan_summary(reports)
+    plan = {
+        "statuses": sorted(statuses),
+        "candidate_count": len(reports),
+        "row_set_count": sum(int(report["row_set_count"]) for report in reports),
+        "entity_row_count": sum(int(report["entity_row_count"]) for report in reports),
+        "artifact_count": sum(int(report["artifact_count"]) for report in reports),
+        **summary,
+        "entries": reports,
+        "validation_errors": [],
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "notes": [
+            "Repeated-row source-plan is a source-writer prerequisite contract, not generated EU5 source.",
+            "All planned source generators are currently missing and must stay may_write_src=false.",
+            "Exact EU5 event/effect/trigger/GUI/localization/listener syntax evidence is still required.",
+        ],
+    }
+    plan["validation_errors"] = validate_repeated_entity_row_source_plan(plan)
+    return plan
 
 
 def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -3842,6 +4336,7 @@ def audit_summary() -> dict[str, Any]:
     archetype_coverage_summary = archetype_coverage_summary_for_payload(specs)
     node_kind_summary = node_kind_summary_for_payload(specs)
     repeated_entity_row_preflight = repeated_entity_row_preflight_for_payload(specs)
+    repeated_entity_row_source_plan = repeated_entity_row_source_plan_for_payload(specs)
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -3941,6 +4436,7 @@ def audit_summary() -> dict[str, Any]:
         "archetype_coverage_summary": archetype_coverage_summary,
         "node_kind_summary": node_kind_summary,
         "repeated_entity_row_preflight": repeated_entity_row_preflight,
+        "repeated_entity_row_source_plan": repeated_entity_row_source_plan,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
         "capability_registry_errors": capability_registry_errors,
