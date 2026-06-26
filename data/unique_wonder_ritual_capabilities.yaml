@@ -287,7 +287,7 @@ capabilities:
       - player_facing_tooltip
     verified_interface: "harness_v1_intermediate_backend_contract"
     may_write_src: false
-    notes: "Intermediate backend contract for preserving design_ir repeated entity rows and projecting them into checklist, material-stockpile, or incident-log summaries. It does not expand rows into loadable GUI/source files."
+    notes: "Intermediate backend contract for preserving design_ir repeated entity rows and projecting them into checklist, material-stockpile, route, actor-slot, or incident-log summaries. Backend-ready evidence for this capability means the row-set semantics are preserved for Harness fragments only; it does not expand rows into loadable GUI, event, effect, trigger, localization, cleanup, or other source files."
 
   - key: listener_gate
     supported_node_kinds:

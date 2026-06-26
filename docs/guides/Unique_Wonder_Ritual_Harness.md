@@ -42,6 +42,53 @@ For each next-phase audit, report whether the current work preserves the high-fi
 required EU5 files/interfaces, evidence paths, owned generator/data contracts, validation
 gate, and the specs it would unlock.
 
+## Source Compiler Vertical Slice: Repeated Entity Rows
+
+The first source-compiler contract slice is the repeated entity row family:
+checklist rows, incident-log rows, and closely related material/route/actor row summaries.
+It is shared by all four intermediate-fragment pilots:
+
+- `unique_dome_of_the_rock`: sanctuary access group incident rows and custody-duty checklist rows.
+- `unique_alhambra`: treaty-clause checklist rows and palace-risk incident rows.
+- `unique_st_peters_basilica`: sacred-official actor state plus apostolic service-duty incident rows.
+- `unique_bank_of_saint_george`: charter-option checklist rows and public-credit pledge/default-risk incident rows.
+
+For this slice, `design_ir.tracked_entity_sets` is the canonical source for row keys,
+state values, per-row variables, selectors, UI bindings, and cleanup expectations. The
+current `node_graph` may summarize those rows through aggregate variables, but that
+projection is intentionally lossy and must not replace the high-fidelity row design.
+
+Current evidence supports only contract preparation. Pharos proves that bespoke generated
+source can write per-entity variables and render repeated GUI rows, and
+`repeated_entity_row_checklist_incident_log_backend` proves the Harness can preserve these
+semantics as intermediate summaries. Neither one proves that the Harness can write
+loadable EU5 GUI, event, effect, trigger, localization, or cleanup source for arbitrary
+ritual row sets.
+
+A future row-set compiler interface must assign ownership before any source-writing claim:
+
+- data ownership: `design_ir.tracked_entity_sets` owns row keys, labels, states, variable
+  patterns, UI binding, and cleanup point;
+- events generator: owns row-state initialization/update event skeletons only after event
+  IDs are allocated;
+- scripted effects generator: owns row variable writes, aggregate refreshes, branch-state
+  writes, and cleanup effects;
+- scripted triggers generator: owns row completion/eligibility checks and tooltip-safe
+  condition groups;
+- GUI fragment generator: owns fixed repeated checklist/incident rows, starting from the
+  verified Pharos-style expansion pattern;
+- localization generator: owns row labels, status text, incident text, tooltips, and
+  summary text;
+- on_action/listener registry integration: participates only for listener-backed row sets,
+  such as Alhambra's war listener contract;
+- validation: rejects missing row variables, missing writers/readers, missing GUI rows,
+  missing localization, unsafe tooltip paths, missing cleanup, and row/UI mismatches.
+
+Until that interface exists and is verified against exact EU5 syntax, the Harness may only
+emit intermediate row-set summaries, trigger/effect stubs, GUI summaries, and tooltip notes.
+Do not set `may_write_src: true` for this slice, do not write `src/`, and do not treat
+`backend_ready` repeated-row gaps as loadable-source readiness.
+
 ## Full-Corpus Authoring Workflow
 
 For any full-corpus pass across all unique wonders, start with
