@@ -179,6 +179,21 @@ REPEATED_ROW_EVIDENCE_MAPPING_FIELDS = {
     "source_target_boundary",
     "blocks_source_writer",
 }
+REPEATED_ROW_EVENT_CONTRACT_ALLOWED_STATUSES = {"no-write", "candidate", "blocked"}
+REPEATED_ROW_EVENT_CONTRACT_REQUIRED_VALIDATIONS = {
+    "event_id_uniqueness_collision",
+    "localization_key_linkage",
+    "node_event_id_linkage",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_EVENT_CONTRACT_BLOCKER_REASONS = {
+    "missing real event source generator",
+    "missing effect writer",
+    "missing trigger writer",
+    "missing GUI writer",
+    "missing localization writer",
+    "no verified source write contract",
+}
 PILGRIMAGE_ROUTE_BACKEND_OUTPUTS = {
     "markdown_fragment",
     "trigger_stub",
@@ -1467,6 +1482,120 @@ def loc() -> dict[str, str]:
     return data
 
 
+def _repeated_row_event_contract_wonder_key(pilot_key: str) -> str:
+    if pilot_key.startswith("unique_"):
+        return pilot_key[len("unique_") :]
+    return pilot_key
+
+
+def _first_event_artifact(plan: dict) -> dict:
+    for entry in plan.get("entries", []) or []:
+        for artifact in entry.get("artifacts", []) or []:
+            if artifact.get("artifact_kind") in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+                return artifact
+    raise AssertionError("source-plan has no repeated-row event artifact")
+
+
+def assert_repeated_row_event_source_target_contracts(source_plan: dict) -> None:
+    if source_plan.get("candidate_count") != 4:
+        raise AssertionError(f"expected four repeated-row source-plan pilots, got {source_plan.get('candidate_count')}")
+    if source_plan.get("validation_errors"):
+        raise AssertionError(f"repeated-row source-plan unexpectedly failed validation: {source_plan['validation_errors']}")
+    if source_plan.get("source_writer_allowed") is not False:
+        raise AssertionError(f"repeated-row source-plan source_writer_allowed changed: {source_plan}")
+    if source_plan.get("may_write_src_allowed") is not False:
+        raise AssertionError(f"repeated-row source-plan may_write_src_allowed changed: {source_plan}")
+
+    event_artifacts: list[dict] = []
+    for entry_plan in source_plan.get("entries", []) or []:
+        pilot_key = entry_plan.get("key", "")
+        if entry_plan.get("source_writer_allowed") is not False:
+            raise AssertionError(f"{pilot_key} source_writer_allowed changed: {entry_plan}")
+        if entry_plan.get("may_write_src_allowed") is not False:
+            raise AssertionError(f"{pilot_key} may_write_src_allowed changed: {entry_plan}")
+        expected_path = (
+            "src/in_game/events/"
+            f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_events.txt"
+        )
+        for artifact in entry_plan.get("artifacts", []) or []:
+            artifact_kind = artifact.get("artifact_kind")
+            contract = artifact.get("source_target_contract")
+            if artifact_kind not in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+                if contract is not None:
+                    raise AssertionError(f"{pilot_key} non-event artifact should not have event contract: {artifact}")
+                continue
+
+            event_artifacts.append(artifact)
+            if artifact.get("may_write_src") is not False:
+                raise AssertionError(f"{pilot_key} event artifact may_write_src changed: {artifact}")
+            if artifact.get("blocks_source_writer") is not True:
+                raise AssertionError(f"{pilot_key} event artifact must block source writer: {artifact}")
+            if artifact.get("evidence_status") != "interface_candidate":
+                raise AssertionError(f"{pilot_key} event artifact must stay interface_candidate: {artifact}")
+            if not isinstance(contract, dict):
+                raise AssertionError(f"{pilot_key} event artifact missing source_target_contract: {artifact}")
+            if contract.get("status") == "source-ready":
+                raise AssertionError(f"{pilot_key} event contract became source-ready: {contract}")
+            if contract.get("status") not in REPEATED_ROW_EVENT_CONTRACT_ALLOWED_STATUSES:
+                raise AssertionError(f"{pilot_key} event contract has invalid status: {contract}")
+            if set(contract.get("allowed_statuses", [])) != REPEATED_ROW_EVENT_CONTRACT_ALLOWED_STATUSES:
+                raise AssertionError(f"{pilot_key} event contract allowed_statuses changed: {contract}")
+            if contract.get("namespace_policy") != "tv_engineering_department":
+                raise AssertionError(f"{pilot_key} event contract namespace changed: {contract}")
+            if contract.get("event_id_sources") != ["spec.event_ids", "node_graph.nodes[].event_id"]:
+                raise AssertionError(f"{pilot_key} event contract event-id sources changed: {contract}")
+            if contract.get("localization_key_policy") != "tv_engineering_department.<event_id>.t/d/a(/b)":
+                raise AssertionError(f"{pilot_key} event contract loc key policy changed: {contract}")
+            if contract.get("candidate_future_source_target_path") != expected_path:
+                raise AssertionError(f"{pilot_key} event contract future target path changed: {contract}")
+            if contract.get("future_target_only") is not True:
+                raise AssertionError(f"{pilot_key} event contract must stay future-target-only: {contract}")
+            if contract.get("source_writer_allowed") is not False:
+                raise AssertionError(f"{pilot_key} event contract source_writer_allowed changed: {contract}")
+            if contract.get("may_write_src") is not False:
+                raise AssertionError(f"{pilot_key} event contract may_write_src changed: {contract}")
+            if contract.get("row_state_writes_allowed") is not False:
+                raise AssertionError(f"{pilot_key} event contract allowed row-state writes: {contract}")
+            handoff_rule = str(contract.get("option_effect_handoff_rule", "")).lower()
+            if "future option/effect handoff only" not in handoff_rule or "cannot inline row-state writes" not in handoff_rule:
+                raise AssertionError(f"{pilot_key} event contract handoff rule changed: {contract}")
+            missing_validations = REPEATED_ROW_EVENT_CONTRACT_REQUIRED_VALIDATIONS - set(
+                contract.get("required_validations", [])
+            )
+            if missing_validations:
+                raise AssertionError(f"{pilot_key} event contract missing validations: {contract}")
+            missing_blockers = REPEATED_ROW_EVENT_CONTRACT_BLOCKER_REASONS - set(contract.get("blocker_reasons", []))
+            if missing_blockers:
+                raise AssertionError(f"{pilot_key} event contract missing blocker reasons: {contract}")
+
+    if len(event_artifacts) != 32:
+        raise AssertionError(f"expected 32 repeated-row event artifacts with contracts, got {len(event_artifacts)}")
+
+    missing_contract_plan = deepcopy(source_plan)
+    del _first_event_artifact(missing_contract_plan)["source_target_contract"]
+    missing_contract_errors = validate_repeated_entity_row_source_plan(missing_contract_plan)
+    if not any("must declare source_target_contract" in error for error in missing_contract_errors):
+        raise AssertionError(f"missing event contract source-plan negative was not caught: {missing_contract_errors}")
+
+    source_ready_plan = deepcopy(source_plan)
+    _first_event_artifact(source_ready_plan)["source_target_contract"]["status"] = "source-ready"
+    source_ready_errors = validate_repeated_entity_row_source_plan(source_ready_plan)
+    if not any("status must not be source-ready" in error for error in source_ready_errors):
+        raise AssertionError(f"source-ready event contract negative was not caught: {source_ready_errors}")
+
+    writable_target_plan = deepcopy(source_plan)
+    _first_event_artifact(writable_target_plan)["source_target_contract"]["future_target_only"] = False
+    writable_target_errors = validate_repeated_entity_row_source_plan(writable_target_plan)
+    if not any("future_target_only: true" in error for error in writable_target_errors):
+        raise AssertionError(f"writable event target contract negative was not caught: {writable_target_errors}")
+
+    writable_contract_plan = deepcopy(source_plan)
+    _first_event_artifact(writable_contract_plan)["source_target_contract"]["may_write_src"] = True
+    writable_contract_errors = validate_repeated_entity_row_source_plan(writable_contract_plan)
+    if not any("source_target_contract may_write_src must be false" in error for error in writable_contract_errors):
+        raise AssertionError(f"may_write_src event contract negative was not caught: {writable_contract_errors}")
+
+
 def assert_has_error(
     name: str,
     entry: dict,
@@ -1859,6 +1988,7 @@ def main() -> None:
         raise AssertionError(f"repeated-row source-plan source_writer_allowed changed: {source_plan}")
     if source_plan.get("may_write_src_allowed") is not False:
         raise AssertionError(f"repeated-row source-plan may_write_src_allowed changed: {source_plan}")
+    assert_repeated_row_event_source_target_contracts(source_plan)
     source_plan_by_key = {entry["key"]: entry for entry in source_plan["entries"]}
     seen_event_artifact_kinds: set[str] = set()
     seen_effect_cleanup_artifact_kinds: set[str] = set()
@@ -1884,10 +2014,8 @@ def main() -> None:
             artifact_kind = artifact["artifact_kind"]
             if artifact_kind in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
                 seen_event_artifact_kinds.add(artifact_kind)
-                if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
-                    raise AssertionError(
-                        f"{pilot_key} event artifact should stay interface_candidate or missing evidence: {artifact}"
-                    )
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} event artifact should stay interface_candidate: {artifact}")
             if artifact_kind in REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
                 seen_effect_cleanup_artifact_kinds.add(artifact_kind)
                 if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:

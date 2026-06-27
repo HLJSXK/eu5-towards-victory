@@ -99,6 +99,14 @@ Event mappings prove only interface candidates for country-event skeletons, even
 allocation patterns, title/desc/option localization linkage, option-effect handoff, and
 hidden-executor/tooltip safety boundaries; those mappings are still source-writer blockers
 and do not authorize `src/` writes.
+Repeated-row event source-target contracts are the machine-checkable preflight layer for
+that boundary. They name the `tv_engineering_department` namespace, spec `event_ids`,
+`node_graph.nodes[].event_id`, `tv_engineering_department.<event_id>.t/d/a(/b)`
+localization policy, and future event file pattern
+`src/in_game/events/tv_wonder_unique_<wonder_key>_ritual_events.txt`, but those are
+boundary validations only. The future target path is not a source generator, event options
+may only declare future effect handoff, and no event contract may inline row-state writes,
+set `may_write_src: true`, unblock `source_writer_allowed`, or write `src/`.
 
 A future row-set compiler interface must assign ownership before any source-writing claim:
 

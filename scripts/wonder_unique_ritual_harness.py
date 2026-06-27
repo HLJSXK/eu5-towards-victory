@@ -3038,6 +3038,9 @@ REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_REQUIRED_FIELDS = {
     "entity_keys",
     "aggregate_projection_variables",
 }
+REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_OPTIONAL_FIELDS = {
+    "source_target_contract",
+}
 REPEATED_ENTITY_ROW_SOURCE_PLAN_EVIDENCE_MAPPING_REQUIRED_FIELDS = {
     "artifact_kind",
     "eu5_source_syntax_pattern",
@@ -3093,6 +3096,42 @@ REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOUR
     REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"]
 )
 REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["event"])
+REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES = (
+    "no-write",
+    "candidate",
+    "blocked",
+)
+REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS = {
+    "status",
+    "allowed_statuses",
+    "namespace_policy",
+    "event_id_sources",
+    "localization_key_policy",
+    "future_source_target_path_pattern",
+    "candidate_future_source_target_path",
+    "future_target_only",
+    "source_writer_allowed",
+    "may_write_src",
+    "row_state_writes_allowed",
+    "option_effect_handoff_rule",
+    "required_validations",
+    "blocker_reasons",
+    "source_target_boundary",
+}
+REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS = (
+    "event_id_uniqueness_collision",
+    "localization_key_linkage",
+    "node_event_id_linkage",
+    "source_target_boundary_still_blocked",
+)
+REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS = (
+    "missing real event source generator",
+    "missing effect writer",
+    "missing trigger writer",
+    "missing GUI writer",
+    "missing localization writer",
+    "no verified source write contract",
+)
 REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
     "event_opening_skeleton": {
         "eu5_source_syntax_pattern": (
@@ -4016,6 +4055,41 @@ def _repeated_row_source_plan_evidence_status(artifact_kind: str, default: str) 
     return str(evidence.get("evidence_status", default))
 
 
+def _repeated_row_event_contract_wonder_key(pilot_key: str) -> str:
+    if pilot_key.startswith("unique_"):
+        return pilot_key[len("unique_") :]
+    return pilot_key
+
+
+def _repeated_row_event_source_target_contract(
+    *,
+    pilot_key: str,
+    source_target_boundary: str,
+) -> dict[str, Any]:
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    target_path_pattern = "src/in_game/events/tv_wonder_unique_<wonder_key>_ritual_events.txt"
+    return {
+        "status": "blocked",
+        "allowed_statuses": list(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES),
+        "namespace_policy": "tv_engineering_department",
+        "event_id_sources": ["spec.event_ids", "node_graph.nodes[].event_id"],
+        "localization_key_policy": "tv_engineering_department.<event_id>.t/d/a(/b)",
+        "future_source_target_path_pattern": target_path_pattern,
+        "candidate_future_source_target_path": target_path_pattern.replace("<wonder_key>", wonder_key),
+        "future_target_only": True,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "row_state_writes_allowed": False,
+        "option_effect_handoff_rule": (
+            "event artifacts may declare future option/effect handoff only; they cannot inline "
+            "row-state writes, effect bodies, trigger bodies, GUI rows, or localization writes"
+        ),
+        "required_validations": list(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS),
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_target_boundary": source_target_boundary,
+    }
+
+
 def _repeated_row_source_plan_artifact(
     *,
     artifact_kind: str,
@@ -4030,7 +4104,7 @@ def _repeated_row_source_plan_artifact(
 ) -> dict[str, Any]:
     evidence_status = _repeated_row_source_plan_evidence_status(artifact_kind, evidence_status)
     blocks_source_writer = True
-    return {
+    artifact = {
         "artifact_kind": artifact_kind,
         "owner_generator": owner_generator,
         "source_target_boundary": source_target_boundary,
@@ -4048,6 +4122,12 @@ def _repeated_row_source_plan_artifact(
         "entity_keys": entity_keys,
         "aggregate_projection_variables": aggregate_projection_variables,
     }
+    if artifact_kind in REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS:
+        artifact["source_target_contract"] = _repeated_row_event_source_target_contract(
+            pilot_key=pilot_key,
+            source_target_boundary=source_target_boundary,
+        )
+    return artifact
 
 
 def _repeated_row_gui_artifact_kind(row_set: dict[str, Any]) -> str:
@@ -4306,6 +4386,92 @@ def _count_by_key(items: list[dict[str, Any]], key: str) -> dict[str, int]:
     return dict(sorted(counts.items()))
 
 
+def _validate_repeated_row_event_source_target_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    contract: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    missing = _missing_required(contract, REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS)
+    if missing:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing field(s): {', '.join(missing)}"
+        )
+        return errors
+    extra = sorted(set(contract) - REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS)
+    if extra:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract has unsupported field(s): "
+            f"{', '.join(extra)}"
+        )
+
+    allowed_statuses = set(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES)
+    declared_allowed_statuses = set(_string_refs(contract.get("allowed_statuses")))
+    if declared_allowed_statuses != allowed_statuses or "source-ready" in declared_allowed_statuses:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract allowed_statuses must be "
+            "no-write, candidate, blocked"
+        )
+    status = str(contract.get("status", ""))
+    if status == "source-ready":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract status must not be source-ready")
+    elif status not in allowed_statuses:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract status must be "
+            "no-write, candidate, or blocked"
+        )
+
+    expected_path_pattern = "src/in_game/events/tv_wonder_unique_<wonder_key>_ritual_events.txt"
+    expected_path = expected_path_pattern.replace("<wonder_key>", _repeated_row_event_contract_wonder_key(pilot_key))
+    if contract.get("namespace_policy") != "tv_engineering_department":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract namespace_policy changed")
+    if _string_refs(contract.get("event_id_sources")) != ["spec.event_ids", "node_graph.nodes[].event_id"]:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract event_id_sources changed")
+    if contract.get("localization_key_policy") != "tv_engineering_department.<event_id>.t/d/a(/b)":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract localization_key_policy changed")
+    if contract.get("future_source_target_path_pattern") != expected_path_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract future path pattern changed")
+    if contract.get("candidate_future_source_target_path") != expected_path:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract candidate future path changed")
+    if contract.get("future_target_only") is not True:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract must declare future_target_only: true")
+    if contract.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract source_writer_allowed must be false")
+    if contract.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract may_write_src must be false")
+    if contract.get("row_state_writes_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract row_state_writes_allowed must be false"
+        )
+    if str(contract.get("source_target_boundary", "")) != str(artifact.get("source_target_boundary", "")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract boundary mismatch")
+
+    handoff_rule = str(contract.get("option_effect_handoff_rule", "")).lower()
+    if "future option/effect handoff only" not in handoff_rule or "cannot inline row-state writes" not in handoff_rule:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract handoff rule is incomplete")
+    required_validations = set(_string_refs(contract.get("required_validations")))
+    missing_validations = sorted(
+        set(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS) - required_validations
+    )
+    if missing_validations:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing validation(s): "
+            f"{', '.join(missing_validations)}"
+        )
+    blocker_reasons = set(_string_refs(contract.get("blocker_reasons")))
+    missing_blockers = sorted(
+        set(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS) - blocker_reasons
+    )
+    if missing_blockers:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing blocker reason(s): "
+            f"{', '.join(missing_blockers)}"
+        )
+    return errors
+
+
 def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
     """Validate the repeated-row source-plan schema and safety contract."""
 
@@ -4355,7 +4521,11 @@ def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
             if missing:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} missing field(s): {', '.join(missing)}")
                 continue
-            extra = sorted(set(artifact) - REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_REQUIRED_FIELDS)
+            allowed_artifact_fields = (
+                REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_REQUIRED_FIELDS
+                | REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_OPTIONAL_FIELDS
+            )
+            extra = sorted(set(artifact) - allowed_artifact_fields)
             if extra:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} has unsupported field(s): {', '.join(extra)}")
             if not str(artifact.get("owner_generator", "")).strip():
@@ -4372,6 +4542,27 @@ def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} entity_keys must be a list")
             if not isinstance(artifact.get("aggregate_projection_variables"), list):
                 errors.append(f"{pilot_key}: artifact {artifact_kind} aggregate_projection_variables must be a list")
+
+            source_target_contract = artifact.get("source_target_contract")
+            if artifact_kind in REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS:
+                if str(artifact.get("evidence_status", "")) != "interface_candidate":
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} event evidence_status must stay interface_candidate"
+                    )
+                if not isinstance(source_target_contract, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must declare source_target_contract")
+                else:
+                    errors.extend(
+                        _validate_repeated_row_event_source_target_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            contract=source_target_contract,
+                        )
+                    )
+            elif "source_target_contract" in artifact:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} must not declare source_target_contract")
+
             evidence_mapping = artifact.get("evidence_mapping")
             if not isinstance(evidence_mapping, dict):
                 errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping must be a mapping")
@@ -4402,12 +4593,13 @@ def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping blocks_source_writer mismatch")
             if not isinstance(evidence_mapping.get("evidence_source_paths"), list):
                 errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping evidence_source_paths must be a list")
-            if artifact_kind in REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS | REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+            if artifact_kind in REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
                 if str(artifact.get("evidence_status", "")) not in {"interface_candidate", "missing_eu5_evidence"}:
                     errors.append(
-                        f"{pilot_key}: artifact {artifact_kind} event/effect/cleanup evidence_status must stay "
+                        f"{pilot_key}: artifact {artifact_kind} effect/cleanup evidence_status must stay "
                         "interface_candidate or missing_eu5_evidence"
                     )
+            if artifact_kind in REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS | REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
                 if not str(evidence_mapping.get("eu5_source_syntax_pattern", "")).strip():
                     errors.append(
                         f"{pilot_key}: artifact {artifact_kind} evidence_mapping must declare EU5 syntax pattern or gap"
