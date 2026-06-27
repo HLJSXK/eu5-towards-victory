@@ -93,8 +93,8 @@ tv_alliance_sublime_empire_subjugate_member = {
 						var:tv_alliance_cohesion ?= {
 							this >= {
 								value = "scope:target.relative_strength(scope:actor)"
-								multiply = 50
-								add = 10
+								multiply = 60
+								add = 40
 							}
 						}
 					}
@@ -138,8 +138,8 @@ tv_alliance_sublime_empire_subjugate_member = {
 						name = tv_alliance_subjugation_cost
 						value = {
 							value = "scope:target.relative_strength(scope:actor)"
-							multiply = 50
-							add = 10
+							multiply = 60
+							add = 40
 						}
 					}
 					if = {
