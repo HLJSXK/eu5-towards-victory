@@ -57,7 +57,45 @@
 					add = {
 						desc = "TV_COHESION_DIPLOMATIC_REP"
 						value = leader_country.modifier:diplomatic_reputation
-						multiply = 0.01
+						multiply = 0.02
+					}
+				}
+				add = {
+					desc = "TV_COHESION_MEMBER_OPINION"
+					value = 0
+					if = {
+						limit = {
+							international_organization_has_leader = yes
+							total_members > 1
+						}
+						every_international_organization_member = {
+							limit = {
+								NOT = { is_leader_of_international_organization = root }
+							}
+							add = {
+								value = "opinion(root.leader_country)"
+								divide = {
+									value = root.total_members
+									subtract = 1
+									min = 1
+								}
+								divide = 500
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_diplomatic_alliance_leader_char
+							var:tv_diplomatic_alliance_leader_char ?= { is_alive = yes }
+						}
+					}
+					add = {
+						desc = "TV_COHESION_LEADER_DIPLOMACY"
+						value = leader_country.var:tv_diplomatic_alliance_leader_char.dip
+						multiply = 0.002
 					}
 				}
 				if = {
@@ -70,7 +108,7 @@
 					}
 					add = {
 						desc = "TV_COHESION_INTERNAL_PEACE"
-						value = 0.05
+						value = 0.2
 					}
 				}
 			}

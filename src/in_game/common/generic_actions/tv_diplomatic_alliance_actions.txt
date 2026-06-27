@@ -84,11 +84,23 @@ tv_alliance_sublime_empire_subjugate_member = {
 	allow = {
 		scope:actor = {
 			custom_tooltip = {
-				text = TV_ALLIANCE_COHESION_100_TT
+				text = TV_ALLIANCE_SUBJUGATION_COHESION_COST_TT
 				any_international_organizations_member_of = {
 					international_organization_type = international_organization_type:tv_diplomatic_alliance
 					leader_country ?= scope:actor
-					var:tv_alliance_cohesion ?= { this >= 100 }
+					trigger_if = {
+						limit = { exists = scope:target }
+						var:tv_alliance_cohesion ?= {
+							this >= {
+								value = "scope:target.relative_strength(scope:actor)"
+								multiply = 50
+								add = 10
+							}
+						}
+					}
+					trigger_else = {
+						var:tv_alliance_cohesion ?= { this >= 10 }
+					}
 				}
 			}
 		}
@@ -114,7 +126,6 @@ tv_alliance_sublime_empire_subjugate_member = {
 					limit = {
 						international_organization_type = international_organization_type:tv_diplomatic_alliance
 						leader_country ?= scope:actor
-						var:tv_alliance_cohesion ?= { this >= 100 }
 						scope:target = {
 							NOT = { this = scope:actor }
 							any_international_organizations_member_of = {
@@ -123,12 +134,25 @@ tv_alliance_sublime_empire_subjugate_member = {
 							}
 						}
 					}
-					change_variable = { name = tv_alliance_cohesion add = -100 }
-					clamp_variable = { name = tv_alliance_cohesion min = 0 max = 100 }
-					scope:target = {
-						make_subject_of = {
-							target = scope:actor
-							type = subject_type:vassal
+					set_local_variable = {
+						name = tv_alliance_subjugation_cost
+						value = {
+							value = "scope:target.relative_strength(scope:actor)"
+							multiply = 50
+							add = 10
+						}
+					}
+					if = {
+						limit = {
+							var:tv_alliance_cohesion ?= { this >= local_var:tv_alliance_subjugation_cost }
+						}
+						change_variable = { name = tv_alliance_cohesion subtract = local_var:tv_alliance_subjugation_cost }
+						clamp_variable = { name = tv_alliance_cohesion min = 0 max = 100 }
+						scope:target = {
+							make_subject_of = {
+								target = scope:actor
+								type = subject_type:vassal
+							}
 						}
 					}
 				}

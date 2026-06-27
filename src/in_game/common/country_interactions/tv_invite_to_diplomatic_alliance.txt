@@ -89,7 +89,7 @@
 			add = {
 				desc = "TV_ALLIANCE_SIZE"
 				value = scope:actor.var:tv_diplomatic_alliance_member_count
-				multiply = -10
+				multiply = -5
 			}
 		}
 		if = {
@@ -103,6 +103,17 @@
 				desc = "TV_PREFERS_OWN_ALLIANCE"
 				value = scope:recipient.modifier:diplomatic_reputation
 				multiply = -5
+			}
+			if = {
+				limit = {
+					scope:actor = {
+						is_allied_with = { target = scope:recipient }
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_ALLY"
+					value = 10
+				}
 			}
 			if = {
 				limit = {
