@@ -78,10 +78,12 @@ EU5 interface candidates, source-target boundaries, row-set keys, entity keys, a
 aggregate projection variables. These artifacts are planning data only: every artifact
 must keep `may_write_src: false`, block the future source writer, and name missing
 generator ownership or EU5 evidence instead of claiming generated source readiness.
-For the scripted-effect, cleanup, and scripted-trigger artifact families, structured
-evidence mappings record EU5 syntax candidates, source paths, and generator candidates;
-those mappings are still interface candidates/source-writer blockers and do not authorize
-`src/` writes.
+For the event, scripted-effect, cleanup, and scripted-trigger artifact families, structured
+evidence mappings record EU5 syntax candidates, source paths, and generator candidates.
+Event mappings prove only interface candidates for country-event skeletons, event ID
+allocation patterns, title/desc/option localization linkage, option-effect handoff, and
+hidden-executor/tooltip safety boundaries; those mappings are still source-writer blockers
+and do not authorize `src/` writes.
 
 A future row-set compiler interface must assign ownership before any source-writing claim:
 

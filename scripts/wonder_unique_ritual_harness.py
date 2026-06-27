@@ -3092,7 +3092,92 @@ REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS = {
 REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["effect"]) | set(
     REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"]
 )
+REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["event"])
 REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
+    "event_opening_skeleton": {
+        "eu5_source_syntax_pattern": (
+            "country_event skeleton declares namespace-owned event id, type, title, desc, image/outcome, "
+            "and opening option localization; option effects must hand row initialization to scripted effects."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:8",
+            "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:27",
+            "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py:112",
+            "scripts/allocate_unique_wonder_ritual_event_ids.py:33",
+        ],
+        "generator_candidate": "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py",
+        "generator_missing_reason": (
+            "Candidate only: existing generated Pharos opening-style events and the allocator prove event id, "
+            "title/desc/option localization, and option-effect syntax, but repeated-row event ID ownership and "
+            "event source file target ownership are still unassigned. Opening events must hand row-state writes "
+            "to scripted effects/triggers and cannot carry unsafe hidden executor or tooltip behavior."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "event_update_skeleton": {
+        "eu5_source_syntax_pattern": (
+            "country_event update skeleton uses localized title/desc/option keys, optional immediate scope refresh, "
+            "and option effect calls that update row state through scripted-effect handoff."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:35",
+            "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:41",
+            "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:52",
+            "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py:72",
+            "scripts/in_game/events/gen_tv_wonder_construction_events.py:154",
+        ],
+        "generator_candidate": "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py",
+        "generator_missing_reason": (
+            "Candidate only: Pharos and construction event generators prove update-event syntax, localization "
+            "linkage, and option effect handoff, but no generic repeated-row event generator owns per-row update "
+            "event IDs or target files. Update events must delegate row-state effects/triggers and keep tooltip "
+            "and hidden executor safety outside player-facing option text."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "event_retry_skeleton": {
+        "eu5_source_syntax_pattern": (
+            "country_event retry skeleton uses primary and retry option blocks with localized option keys; retry "
+            "option effects call dedicated scripted effects instead of embedding row-state reset logic."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt:8",
+            "src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt:16",
+            "src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt:21",
+            "scripts/in_game/events/gen_tv_wonder_unique_hagia_sophia_ritual_events.py:38",
+            "scripts/in_game/events/gen_tv_wonder_construction_events.py:129",
+        ],
+        "generator_candidate": "scripts/in_game/events/gen_tv_wonder_unique_hagia_sophia_ritual_events.py",
+        "generator_missing_reason": (
+            "Candidate only: generated Hagia retry options prove retry option localization and effect-call syntax, "
+            "but repeated-row retry event ownership, event ID allocation, and event file targets remain contract-only. "
+            "Retry events must hand failure/reset state to scripted effects/triggers and avoid unsafe tooltip or "
+            "hidden executor work in option bodies."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "event_resolve_skeleton": {
+        "eu5_source_syntax_pattern": (
+            "country_event resolve/finalization skeleton uses localized title/desc/option keys, visible option "
+            "effects, and hidden_effect dispatch for non-tooltip-safe final executor handoff."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/events/tv_wonder_finalization_events.txt:8",
+            "src/in_game/events/tv_wonder_finalization_events.txt:25",
+            "src/in_game/events/tv_wonder_finalization_events.txt:42",
+            "scripts/in_game/events/gen_tv_wonder_finalization_events.py:99",
+            "scripts/in_game/events/gen_tv_wonder_finalization_events.py:119",
+            "scripts/in_game/events/gen_tv_wonder_finalization_events.py:164",
+        ],
+        "generator_candidate": "scripts/in_game/events/gen_tv_wonder_finalization_events.py",
+        "generator_missing_reason": (
+            "Candidate only: finalization events prove resolve-event localization, option effects, and hidden "
+            "executor dispatch boundaries, but repeated-row resolve event IDs and source targets are not owned. "
+            "Resolve events must hand completion row-state effects/triggers to their source families and keep "
+            "hidden executor work out of tooltip/player-facing pre-evaluation paths."
+        ),
+        "evidence_status": "interface_candidate",
+    },
     "scripted_trigger_row_completion": {
         "eu5_source_syntax_pattern": (
             "scripted_trigger row-completion checks use has_variable/NOT has_variable and var comparisons, "
@@ -4109,10 +4194,10 @@ def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping blocks_source_writer mismatch")
             if not isinstance(evidence_mapping.get("evidence_source_paths"), list):
                 errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping evidence_source_paths must be a list")
-            if artifact_kind in REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+            if artifact_kind in REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS | REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
                 if str(artifact.get("evidence_status", "")) not in {"interface_candidate", "missing_eu5_evidence"}:
                     errors.append(
-                        f"{pilot_key}: artifact {artifact_kind} effect/cleanup evidence_status must stay "
+                        f"{pilot_key}: artifact {artifact_kind} event/effect/cleanup evidence_status must stay "
                         "interface_candidate or missing_eu5_evidence"
                     )
                 if not str(evidence_mapping.get("eu5_source_syntax_pattern", "")).strip():

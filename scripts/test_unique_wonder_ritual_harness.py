@@ -134,8 +134,16 @@ REPEATED_ROW_TRIGGER_ARTIFACT_KINDS = {
     "scripted_trigger_row_completion",
     "scripted_trigger_tooltip_safe_condition_group",
 }
+REPEATED_ROW_EVENT_ARTIFACT_KINDS = {
+    "event_opening_skeleton",
+    "event_update_skeleton",
+    "event_retry_skeleton",
+    "event_resolve_skeleton",
+}
 REPEATED_ROW_STRUCTURED_EVIDENCE_ARTIFACT_KINDS = (
-    REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+    REPEATED_ROW_EVENT_ARTIFACT_KINDS
+    | REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
+    | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
 )
 REPEATED_ROW_EVIDENCE_MAPPING_FIELDS = {
     "artifact_kind",
@@ -1825,6 +1833,7 @@ def main() -> None:
     if source_plan.get("may_write_src_allowed") is not False:
         raise AssertionError(f"repeated-row source-plan may_write_src_allowed changed: {source_plan}")
     source_plan_by_key = {entry["key"]: entry for entry in source_plan["entries"]}
+    seen_event_artifact_kinds: set[str] = set()
     seen_effect_cleanup_artifact_kinds: set[str] = set()
     seen_trigger_artifact_kinds: set[str] = set()
     for pilot_key, expected in REPEATED_ROW_PILOTS.items():
@@ -1844,6 +1853,12 @@ def main() -> None:
             if artifact.get("blocks_source_writer") is not True:
                 raise AssertionError(f"{pilot_key} source-plan artifact does not block source writer: {artifact}")
             artifact_kind = artifact["artifact_kind"]
+            if artifact_kind in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+                seen_event_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
+                    raise AssertionError(
+                        f"{pilot_key} event artifact should stay interface_candidate or missing evidence: {artifact}"
+                    )
             if artifact_kind in REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
                 seen_effect_cleanup_artifact_kinds.add(artifact_kind)
                 if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
@@ -1884,6 +1899,12 @@ def main() -> None:
                     raise AssertionError(f"{pilot_key} artifact {artifact_kind} missing generator evidence rationale")
         for row_set in entry_plan["row_sets"]:
             kinds = set(row_set["artifact_kinds"])
+            missing_event_kinds = REPEATED_ROW_EVENT_ARTIFACT_KINDS - kinds
+            if missing_event_kinds:
+                raise AssertionError(
+                    f"{pilot_key} row set {row_set['key']} missing event artifact kinds: "
+                    f"{sorted(missing_event_kinds)}"
+                )
             missing_effect_cleanup_kinds = REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS - kinds
             if missing_effect_cleanup_kinds:
                 raise AssertionError(
@@ -1910,6 +1931,11 @@ def main() -> None:
                 raise AssertionError("Alhambra source-plan must include listener_war_integration")
         elif listener_kinds:
             raise AssertionError(f"{pilot_key} should not receive generic listener artifacts: {listener_kinds}")
+    if seen_event_artifact_kinds != REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every event evidence kind: "
+            f"{sorted(REPEATED_ROW_EVENT_ARTIFACT_KINDS - seen_event_artifact_kinds)}"
+        )
     if seen_effect_cleanup_artifact_kinds != REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
         raise AssertionError(
             "repeated-row source-plan did not cover every effect/cleanup evidence kind: "
