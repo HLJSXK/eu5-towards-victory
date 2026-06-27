@@ -118,6 +118,26 @@ REPEATED_ROW_PILOTS = {
         },
     },
 }
+REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS = {
+    "scripted_effect_row_init",
+    "scripted_effect_row_state_write",
+    "scripted_effect_aggregate_refresh",
+    "scripted_effect_branch_write",
+    "scripted_effect_cleanup_write",
+    "cleanup_completion",
+    "cleanup_failure",
+    "cleanup_ownership_loss",
+    "cleanup_ritual_reset",
+}
+REPEATED_ROW_EVIDENCE_MAPPING_FIELDS = {
+    "artifact_kind",
+    "eu5_source_syntax_pattern",
+    "evidence_source_paths",
+    "generator_candidate",
+    "generator_missing_reason",
+    "source_target_boundary",
+    "blocks_source_writer",
+}
 PILGRIMAGE_ROUTE_BACKEND_OUTPUTS = {
     "markdown_fragment",
     "trigger_stub",
@@ -1793,6 +1813,7 @@ def main() -> None:
     if source_plan["validation_errors"]:
         raise AssertionError(f"repeated-row source-plan unexpectedly failed validation: {source_plan['validation_errors']}")
     source_plan_by_key = {entry["key"]: entry for entry in source_plan["entries"]}
+    seen_effect_cleanup_artifact_kinds: set[str] = set()
     for pilot_key, expected in REPEATED_ROW_PILOTS.items():
         entry_plan = source_plan_by_key.get(pilot_key)
         if entry_plan is None:
@@ -1805,8 +1826,40 @@ def main() -> None:
                 raise AssertionError(f"{pilot_key} source-plan artifact may_write_src was not false: {artifact}")
             if artifact.get("blocks_source_writer") is not True:
                 raise AssertionError(f"{pilot_key} source-plan artifact does not block source writer: {artifact}")
+            artifact_kind = artifact["artifact_kind"]
+            if artifact_kind in REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+                seen_effect_cleanup_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
+                    raise AssertionError(
+                        f"{pilot_key} effect/cleanup artifact should not claim verified_existing: {artifact}"
+                    )
+                evidence_mapping = artifact.get("evidence_mapping")
+                if not isinstance(evidence_mapping, dict):
+                    raise AssertionError(f"{pilot_key} effect/cleanup artifact missing evidence_mapping: {artifact}")
+                missing_mapping_fields = REPEATED_ROW_EVIDENCE_MAPPING_FIELDS - set(evidence_mapping)
+                if missing_mapping_fields:
+                    raise AssertionError(
+                        f"{pilot_key} artifact {artifact_kind} evidence_mapping missing fields: "
+                        f"{sorted(missing_mapping_fields)}"
+                    )
+                if evidence_mapping["artifact_kind"] != artifact_kind:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence kind mismatch")
+                if evidence_mapping["source_target_boundary"] != artifact["source_target_boundary"]:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence boundary mismatch")
+                if evidence_mapping["blocks_source_writer"] is not True:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence should block source writer")
+                if not isinstance(evidence_mapping["evidence_source_paths"], list):
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence paths must be a list")
+                if not evidence_mapping["eu5_source_syntax_pattern"]:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} missing EU5 syntax evidence or gap")
         for row_set in entry_plan["row_sets"]:
             kinds = set(row_set["artifact_kinds"])
+            missing_effect_cleanup_kinds = REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS - kinds
+            if missing_effect_cleanup_kinds:
+                raise AssertionError(
+                    f"{pilot_key} row set {row_set['key']} missing effect/cleanup artifact kinds: "
+                    f"{sorted(missing_effect_cleanup_kinds)}"
+                )
             if not any(kind.startswith("scripted_effect_") for kind in kinds):
                 raise AssertionError(f"{pilot_key} row set {row_set['key']} missing effect artifact")
             if not any(kind.startswith("scripted_trigger_") for kind in kinds):
@@ -1827,6 +1880,11 @@ def main() -> None:
                 raise AssertionError("Alhambra source-plan must include listener_war_integration")
         elif listener_kinds:
             raise AssertionError(f"{pilot_key} should not receive generic listener artifacts: {listener_kinds}")
+    if seen_effect_cleanup_artifact_kinds != REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every effect/cleanup evidence kind: "
+            f"{sorted(REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS - seen_effect_cleanup_artifact_kinds)}"
+        )
 
     missing_row_set_plan = deepcopy(source_plan)
     missing_row_set_plan["entries"][0]["artifacts"] = [
@@ -1849,6 +1907,30 @@ def main() -> None:
     writable_plan_errors = validate_repeated_entity_row_source_plan(writable_plan)
     if not any("must declare may_write_src: false" in error for error in writable_plan_errors):
         raise AssertionError(f"may_write_src source-plan negative was not caught: {writable_plan_errors}")
+
+    missing_evidence_mapping_plan = deepcopy(source_plan)
+    del missing_evidence_mapping_plan["entries"][0]["artifacts"][0]["evidence_mapping"]
+    missing_evidence_mapping_errors = validate_repeated_entity_row_source_plan(missing_evidence_mapping_plan)
+    if not any("missing field(s): evidence_mapping" in error for error in missing_evidence_mapping_errors):
+        raise AssertionError(
+            f"missing evidence_mapping source-plan negative was not caught: {missing_evidence_mapping_errors}"
+        )
+
+    mismatched_evidence_kind_plan = deepcopy(source_plan)
+    mismatched_evidence_kind_plan["entries"][0]["artifacts"][0]["evidence_mapping"]["artifact_kind"] = "wrong_kind"
+    mismatched_evidence_kind_errors = validate_repeated_entity_row_source_plan(mismatched_evidence_kind_plan)
+    if not any("evidence_mapping artifact_kind mismatch" in error for error in mismatched_evidence_kind_errors):
+        raise AssertionError(
+            f"mismatched evidence kind source-plan negative was not caught: {mismatched_evidence_kind_errors}"
+        )
+
+    mismatched_evidence_block_plan = deepcopy(source_plan)
+    mismatched_evidence_block_plan["entries"][0]["artifacts"][0]["evidence_mapping"]["blocks_source_writer"] = False
+    mismatched_evidence_block_errors = validate_repeated_entity_row_source_plan(mismatched_evidence_block_plan)
+    if not any("evidence_mapping blocks_source_writer mismatch" in error for error in mismatched_evidence_block_errors):
+        raise AssertionError(
+            f"mismatched evidence block source-plan negative was not caught: {mismatched_evidence_block_errors}"
+        )
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},

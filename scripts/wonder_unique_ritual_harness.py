@@ -3030,12 +3030,22 @@ REPEATED_ENTITY_ROW_SOURCE_PLAN_ARTIFACT_REQUIRED_FIELDS = {
     "source_target_boundary",
     "required_eu5_interfaces",
     "evidence_status",
+    "evidence_mapping",
     "may_write_src",
     "blocks_source_writer",
     "pilot_key",
     "row_set_key",
     "entity_keys",
     "aggregate_projection_variables",
+}
+REPEATED_ENTITY_ROW_SOURCE_PLAN_EVIDENCE_MAPPING_REQUIRED_FIELDS = {
+    "artifact_kind",
+    "eu5_source_syntax_pattern",
+    "evidence_source_paths",
+    "generator_candidate",
+    "generator_missing_reason",
+    "source_target_boundary",
+    "blocks_source_writer",
 }
 REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS = {
     "event": "unique_wonder_ritual_event_source_generator",
@@ -3078,6 +3088,151 @@ REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS = {
         "cleanup_ownership_loss",
         "cleanup_ritual_reset",
     ],
+}
+REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["effect"]) | set(
+    REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"]
+)
+REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
+    "scripted_effect_row_init": {
+        "eu5_source_syntax_pattern": (
+            "scripted_effect body guarded by selected ritual id, followed by set_variable row-state initialization."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:8008",
+            "scripts/wonder_unique_rituals/pharos.py:141",
+            "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1677",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+        "generator_missing_reason": (
+            "Candidate only: existing ritual generator proves bespoke row initialization patterns, "
+            "but no repeated-row source-writer contract maps arbitrary design_ir row sets to loadable effects."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "scripted_effect_row_state_write": {
+        "eu5_source_syntax_pattern": (
+            "scripted_effect branch writes per-row variables with set_variable after row-specific limits."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:408",
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:494",
+            "scripts/wonder_unique_rituals/pharos.py:111",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+        "generator_missing_reason": (
+            "Candidate only: Pharos row-state writes are generated for one bespoke ritual, not for the "
+            "four repeated-row pilot schemas or their cleanup lifecycle."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "scripted_effect_aggregate_refresh": {
+        "eu5_source_syntax_pattern": (
+            "scripted_effect recomputes display/aggregate variables from per-row state and is called after row writes."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:63",
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:384",
+            "scripts/wonder_unique_rituals/pharos.py:134",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+        "generator_missing_reason": (
+            "Candidate only: existing aggregate refresh is ritual-specific and does not prove a generic "
+            "aggregate refresh interface for tracked_entity_sets."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "scripted_effect_branch_write": {
+        "eu5_source_syntax_pattern": (
+            "scripted_effect uses if/else_if/random_list branches to write row progress and schedule branch events."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:8019",
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:8043",
+            "scripts/wonder_unique_rituals/pharos.py:227",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+        "generator_missing_reason": (
+            "Candidate only: branch writes exist for bespoke ritual events, but source-target boundaries "
+            "and validation for arbitrary row-set branches are not assigned."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "scripted_effect_cleanup_write": {
+        "eu5_source_syntax_pattern": (
+            "scripted_effect cleanup removes row variables with remove_variable and resets runtime state."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:7913",
+            "src/in_game/common/scripted_effects/tv_engineering_department_wonder_mechanics_effects.txt:6",
+            "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1591",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+        "generator_missing_reason": (
+            "Candidate only: existing cleanup proves syntax for generated ritual runtime variables, "
+            "but not complete cleanup ownership for each repeated-row pilot row set."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "cleanup_completion": {
+        "eu5_source_syntax_pattern": (
+            "completion flow applies ritual completion effects, clears runtime variables, and enters finalization cleanup."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:11028",
+            "src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt:17",
+            "scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py:245",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+        "generator_missing_reason": (
+            "Candidate only: completion cleanup exists for current ritual/finalization flow, but the "
+            "source writer has no verified row-set completion contract."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "cleanup_failure": {
+        "eu5_source_syntax_pattern": (
+            "missing explicit EU5 source pattern for repeated-row ritual failure or abort cleanup."
+        ),
+        "evidence_source_paths": [],
+        "generator_candidate": "",
+        "generator_missing_reason": (
+            "No targeted source evidence found for an explicit repeated-row ritual failure/abort cleanup path."
+        ),
+        "evidence_status": "missing_eu5_evidence",
+    },
+    "cleanup_ownership_loss": {
+        "eu5_source_syntax_pattern": (
+            "ownership-loss event/effect probes retained same-wonder ownership, removes unique ritual map entries when lost."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ownership_effects.txt:11",
+            "src/in_game/common/scripted_effects/tv_wonder_ownership_effects.txt:1506",
+            "src/in_game/events/tv_wonder_ownership_events.txt:2145",
+            "scripts/in_game/common/scripted_effects/gen_tv_wonder_ownership_effects.py:178",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ownership_effects.py",
+        "generator_missing_reason": (
+            "Candidate only: completed-wonder ownership cleanup is generated, but repeated-row ritual row "
+            "ownership-loss cleanup has no assigned source target or tests."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "cleanup_ritual_reset": {
+        "eu5_source_syntax_pattern": (
+            "ritual reset clears selected ritual runtime variables and finalization hidden effects clear project state."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:7913",
+            "src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt:2452",
+            "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1905",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+        "generator_missing_reason": (
+            "Candidate only: reset cleanup exists for ritual/project runtime state, but not as a verified "
+            "generic row-set reset contract."
+        ),
+        "evidence_status": "interface_candidate",
+    },
 }
 REPEATED_ENTITY_ROW_SOURCE_PLAN_BLOCKER_ARTIFACTS = {
     "missing_cleanup": [
@@ -3468,6 +3623,44 @@ def repeated_entity_row_preflight_for_payload(
     }
 
 
+def _repeated_row_source_evidence_mapping(
+    *,
+    artifact_kind: str,
+    source_target_boundary: str,
+    blocks_source_writer: bool,
+) -> dict[str, Any]:
+    evidence = REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND.get(artifact_kind)
+    if evidence is None:
+        return {
+            "artifact_kind": artifact_kind,
+            "eu5_source_syntax_pattern": "not evaluated in this effect/cleanup evidence slice",
+            "evidence_source_paths": [],
+            "generator_candidate": "",
+            "generator_missing_reason": (
+                "Evidence mapping is required by the source-plan schema, but this artifact kind is "
+                "outside the current scripted effect and cleanup family."
+            ),
+            "source_target_boundary": source_target_boundary,
+            "blocks_source_writer": blocks_source_writer,
+        }
+    return {
+        "artifact_kind": artifact_kind,
+        "eu5_source_syntax_pattern": str(evidence["eu5_source_syntax_pattern"]),
+        "evidence_source_paths": _string_refs(evidence.get("evidence_source_paths")),
+        "generator_candidate": str(evidence.get("generator_candidate", "")),
+        "generator_missing_reason": str(evidence["generator_missing_reason"]),
+        "source_target_boundary": source_target_boundary,
+        "blocks_source_writer": blocks_source_writer,
+    }
+
+
+def _repeated_row_source_plan_evidence_status(artifact_kind: str, default: str) -> str:
+    evidence = REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND.get(artifact_kind)
+    if evidence is None:
+        return default
+    return str(evidence.get("evidence_status", default))
+
+
 def _repeated_row_source_plan_artifact(
     *,
     artifact_kind: str,
@@ -3480,14 +3673,21 @@ def _repeated_row_source_plan_artifact(
     entity_keys: list[str],
     aggregate_projection_variables: list[str],
 ) -> dict[str, Any]:
+    evidence_status = _repeated_row_source_plan_evidence_status(artifact_kind, evidence_status)
+    blocks_source_writer = True
     return {
         "artifact_kind": artifact_kind,
         "owner_generator": owner_generator,
         "source_target_boundary": source_target_boundary,
         "required_eu5_interfaces": required_eu5_interfaces,
         "evidence_status": evidence_status,
+        "evidence_mapping": _repeated_row_source_evidence_mapping(
+            artifact_kind=artifact_kind,
+            source_target_boundary=source_target_boundary,
+            blocks_source_writer=blocks_source_writer,
+        ),
         "may_write_src": False,
-        "blocks_source_writer": True,
+        "blocks_source_writer": blocks_source_writer,
         "pilot_key": pilot_key,
         "row_set_key": row_set_key,
         "entity_keys": entity_keys,
@@ -3817,6 +4017,52 @@ def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} entity_keys must be a list")
             if not isinstance(artifact.get("aggregate_projection_variables"), list):
                 errors.append(f"{pilot_key}: artifact {artifact_kind} aggregate_projection_variables must be a list")
+            evidence_mapping = artifact.get("evidence_mapping")
+            if not isinstance(evidence_mapping, dict):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping must be a mapping")
+                continue
+            mapping_missing = _missing_required(
+                evidence_mapping,
+                REPEATED_ENTITY_ROW_SOURCE_PLAN_EVIDENCE_MAPPING_REQUIRED_FIELDS,
+            )
+            if mapping_missing:
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} evidence_mapping missing field(s): "
+                    f"{', '.join(mapping_missing)}"
+                )
+                continue
+            mapping_extra = sorted(
+                set(evidence_mapping) - REPEATED_ENTITY_ROW_SOURCE_PLAN_EVIDENCE_MAPPING_REQUIRED_FIELDS
+            )
+            if mapping_extra:
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} evidence_mapping has unsupported field(s): "
+                    f"{', '.join(mapping_extra)}"
+                )
+            if str(evidence_mapping.get("artifact_kind", "")) != artifact_kind:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping artifact_kind mismatch")
+            if str(evidence_mapping.get("source_target_boundary", "")) != str(artifact.get("source_target_boundary", "")):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping source_target_boundary mismatch")
+            if evidence_mapping.get("blocks_source_writer") is not artifact.get("blocks_source_writer"):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping blocks_source_writer mismatch")
+            if not isinstance(evidence_mapping.get("evidence_source_paths"), list):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} evidence_mapping evidence_source_paths must be a list")
+            if artifact_kind in REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+                if str(artifact.get("evidence_status", "")) not in {"interface_candidate", "missing_eu5_evidence"}:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} effect/cleanup evidence_status must stay "
+                        "interface_candidate or missing_eu5_evidence"
+                    )
+                if not str(evidence_mapping.get("eu5_source_syntax_pattern", "")).strip():
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} evidence_mapping must declare EU5 syntax pattern or gap"
+                    )
+                if not str(evidence_mapping.get("generator_candidate", "")).strip() and not str(
+                    evidence_mapping.get("generator_missing_reason", "")
+                ).strip():
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} evidence_mapping must declare generator candidate or missing reason"
+                    )
     return errors
 
 
