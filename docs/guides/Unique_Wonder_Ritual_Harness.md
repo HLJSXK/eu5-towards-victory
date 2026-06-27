@@ -89,6 +89,12 @@ candidates for row labels, status text, incident text, tooltips, and summary tex
 the existing bilingual generators prove English/Simplified Chinese source boundaries,
 `loc_line()` quote/newline escaping, and UTF-8 BOM output, but do not assign repeated-row
 loc keys or authorize a localization source writer.
+Listener mappings are Alhambra-only war listener interface candidates: the existing
+`on_pre_winning_war` / `on_ending_war` registry bridge, selected-ritual scripted triggers,
+and completion handoff prove a possible listener interface for the Alhambra war-validation
+branch, not loadable Alhambra source generation. They still lack source writer ownership,
+source-target boundary validation, and an Alhambra row-state write contract, so they must
+remain `may_write_src: false` and must not write `src/`.
 Event mappings prove only interface candidates for country-event skeletons, event ID
 allocation patterns, title/desc/option localization linkage, option-effect handoff, and
 hidden-executor/tooltip safety boundaries; those mappings are still source-writer blockers

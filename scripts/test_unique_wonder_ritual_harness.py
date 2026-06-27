@@ -152,12 +152,23 @@ REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS = {
     "localization_tooltips",
     "localization_summary_text",
 }
+REPEATED_ROW_LISTENER_ARTIFACT_KINDS = {"listener_war_integration"}
+REPEATED_ROW_LISTENER_EVIDENCE_PATHS = {
+    "data/pulse_registry.yaml:112-117",
+    "scripts/in_game/common/on_action/gen_tv_pulse_registry.py:47-48",
+    "src/in_game/common/on_action/tv_pulse_bridges.txt:170-181",
+    "src/in_game/common/on_action/tv_engineering_department_on_action.txt:270-293",
+    "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30311",
+    "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30317",
+    "data/unique_wonder_ritual_specs.yaml:3231-3243",
+}
 REPEATED_ROW_STRUCTURED_EVIDENCE_ARTIFACT_KINDS = (
     REPEATED_ROW_EVENT_ARTIFACT_KINDS
     | REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
     | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
     | REPEATED_ROW_GUI_ARTIFACT_KINDS
     | REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS
+    | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
 )
 REPEATED_ROW_EVIDENCE_MAPPING_FIELDS = {
     "artifact_kind",
@@ -1958,14 +1969,74 @@ def main() -> None:
                 raise AssertionError(f"{pilot_key} row set {row_set['key']} missing localization artifact")
             if not any(kind.startswith("cleanup_") for kind in kinds):
                 raise AssertionError(f"{pilot_key} row set {row_set['key']} missing cleanup artifact")
-        listener_kinds = {
-            artifact["artifact_kind"]
+        listener_artifacts = [
+            artifact
             for artifact in entry_plan["artifacts"]
             if artifact["artifact_kind"].startswith("listener_")
-        }
+        ]
+        listener_kinds = {artifact["artifact_kind"] for artifact in listener_artifacts}
         if pilot_key == "unique_alhambra":
-            if "listener_war_integration" not in listener_kinds:
-                raise AssertionError("Alhambra source-plan must include listener_war_integration")
+            if listener_kinds != REPEATED_ROW_LISTENER_ARTIFACT_KINDS or len(listener_artifacts) != 1:
+                raise AssertionError(
+                    "Alhambra source-plan must include exactly listener_war_integration: "
+                    f"{listener_artifacts}"
+                )
+            listener_artifact = listener_artifacts[0]
+            if listener_artifact.get("evidence_status") != "interface_candidate":
+                raise AssertionError(
+                    f"Alhambra listener evidence must stay interface_candidate: {listener_artifact}"
+                )
+            if listener_artifact.get("may_write_src") is not False:
+                raise AssertionError(f"Alhambra listener may_write_src changed: {listener_artifact}")
+            if listener_artifact.get("blocks_source_writer") is not True:
+                raise AssertionError(f"Alhambra listener must block source writer: {listener_artifact}")
+            listener_mapping = listener_artifact.get("evidence_mapping")
+            if not isinstance(listener_mapping, dict):
+                raise AssertionError(f"Alhambra listener missing structured evidence mapping: {listener_artifact}")
+            missing_listener_fields = REPEATED_ROW_EVIDENCE_MAPPING_FIELDS - set(listener_mapping)
+            if missing_listener_fields:
+                raise AssertionError(
+                    "Alhambra listener evidence_mapping missing fields: "
+                    f"{sorted(missing_listener_fields)}"
+                )
+            empty_listener_fields = [
+                field
+                for field in (
+                    "artifact_kind",
+                    "eu5_source_syntax_pattern",
+                    "generator_candidate",
+                    "generator_missing_reason",
+                    "source_target_boundary",
+                )
+                if not str(listener_mapping.get(field, "")).strip()
+            ]
+            if empty_listener_fields:
+                raise AssertionError(
+                    "Alhambra listener evidence_mapping has empty fields: "
+                    f"{empty_listener_fields}"
+                )
+            if listener_mapping.get("blocks_source_writer") is not True:
+                raise AssertionError(
+                    f"Alhambra listener evidence_mapping must block source writer: {listener_mapping}"
+                )
+            listener_paths = set(listener_mapping.get("evidence_source_paths", []))
+            missing_listener_paths = REPEATED_ROW_LISTENER_EVIDENCE_PATHS - listener_paths
+            if missing_listener_paths:
+                raise AssertionError(
+                    "Alhambra listener evidence paths changed or went missing: "
+                    f"{sorted(missing_listener_paths)}"
+                )
+            listener_reason = str(listener_mapping.get("generator_missing_reason", ""))
+            for expected_phrase in (
+                "source writer ownership",
+                "source-target boundary",
+                "Alhambra row-state write contract",
+            ):
+                if expected_phrase not in listener_reason:
+                    raise AssertionError(
+                        "Alhambra listener missing source-writer blocker phrase "
+                        f"{expected_phrase!r}: {listener_mapping}"
+                    )
         elif listener_kinds:
             raise AssertionError(f"{pilot_key} should not receive generic listener artifacts: {listener_kinds}")
     if seen_event_artifact_kinds != REPEATED_ROW_EVENT_ARTIFACT_KINDS:

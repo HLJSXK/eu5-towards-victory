@@ -3561,6 +3561,33 @@ REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
         ),
         "evidence_status": "interface_candidate",
     },
+    "listener_war_integration": {
+        "eu5_source_syntax_pattern": (
+            "Hardcoded war on_actions are bridged through the pulse registry into TV-owned Engineering "
+            "Department ritual on_actions; those on_actions call selected-ritual scripted triggers for "
+            "pre_winning_war/ending_war and dispatch completion through hidden_effect. This proves only an "
+            "Alhambra war-listener interface candidate, not generator-owned Alhambra source code or row-state "
+            "writes."
+        ),
+        "evidence_source_paths": [
+            "data/pulse_registry.yaml:112-117",
+            "scripts/in_game/common/on_action/gen_tv_pulse_registry.py:47-48",
+            "src/in_game/common/on_action/tv_pulse_bridges.txt:170-181",
+            "src/in_game/common/on_action/tv_engineering_department_on_action.txt:270-293",
+            "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30311",
+            "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30317",
+            "data/unique_wonder_ritual_specs.yaml:3231-3243",
+        ],
+        "generator_candidate": "scripts/in_game/common/on_action/gen_tv_pulse_registry.py",
+        "generator_missing_reason": (
+            "Candidate only: the existing pulse registry, on_action bridge, scripted listener triggers, and "
+            "completion hidden_effect prove that a war-listener interface exists for Alhambra semantics, but "
+            "they do not assign source writer ownership, validate the source-target boundary for an Alhambra "
+            "listener artifact, or define the Alhambra row-state write contract for treaty clauses, palace "
+            "risk rows, failure routing, and reward-branch state."
+        ),
+        "evidence_status": "interface_candidate",
+    },
 }
 REPEATED_ENTITY_ROW_SOURCE_PLAN_BLOCKER_ARTIFACTS = {
     "missing_cleanup": [
