@@ -3093,6 +3093,60 @@ REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOUR
     REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"]
 )
 REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
+    "scripted_trigger_row_completion": {
+        "eu5_source_syntax_pattern": (
+            "scripted_trigger row-completion checks use has_variable/NOT has_variable and var comparisons, "
+            "with OR aggregation for pending rows and selected ritual completion dispatch."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:29786",
+            "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:29984",
+            "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30323",
+            "scripts/wonder_unique_rituals/pharos.py:352",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py",
+        "generator_missing_reason": (
+            "Candidate only: generated Pharos and selected-ritual completion triggers prove syntax, "
+            "but no generic repeated-row trigger writer maps arbitrary design_ir row completion states."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "scripted_trigger_eligibility": {
+        "eu5_source_syntax_pattern": (
+            "scripted_trigger eligibility blocks combine reusable activation triggers with variable comparisons "
+            "and scope checks before event or row selection."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_triggers/tv_wonder_construction_event_triggers.txt:8",
+            "src/in_game/common/scripted_triggers/tv_wonder_construction_event_triggers.txt:13",
+            "scripts/in_game/common/scripted_triggers/gen_tv_wonder_construction_event_triggers.py:123",
+            "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py:523",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_triggers/gen_tv_wonder_construction_event_triggers.py",
+        "generator_missing_reason": (
+            "Candidate only: construction-event eligibility generation proves trigger syntax, "
+            "but not ownership or validation for repeated-row ritual eligibility."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "scripted_trigger_tooltip_safe_condition_group": {
+        "eu5_source_syntax_pattern": (
+            "scripted_trigger condition groups can wrap player-facing requirements in custom_tooltip blocks "
+            "while preserving scope-safe variable and nested condition checks."
+        ),
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_triggers/towards_victory_triggers.txt:12",
+            "src/in_game/common/scripted_triggers/towards_victory_triggers.txt:16",
+            "src/in_game/common/scripted_triggers/towards_victory_triggers.txt:462",
+            "src/in_game/common/scripted_triggers/towards_victory_triggers.txt:478",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py",
+        "generator_missing_reason": (
+            "Candidate only: existing tooltip-safe trigger syntax is reusable evidence, "
+            "but no repeated-row trigger generator emits validated tooltip-safe condition groups."
+        ),
+        "evidence_status": "interface_candidate",
+    },
     "scripted_effect_row_init": {
         "eu5_source_syntax_pattern": (
             "scripted_effect body guarded by selected ritual id, followed by set_variable row-state initialization."
@@ -3191,14 +3245,22 @@ REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
     },
     "cleanup_failure": {
         "eu5_source_syntax_pattern": (
-            "missing explicit EU5 source pattern for repeated-row ritual failure or abort cleanup."
+            "failure or retry-failure paths reset progress/runtime variables with set_variable/remove_variable, "
+            "and selected ritual runtime cleanup clears row variables before restart or finalization."
         ),
-        "evidence_source_paths": [],
-        "generator_candidate": "",
+        "evidence_source_paths": [
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:1097",
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:1184",
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:767",
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:7913",
+            "scripts/wonder_unique_rituals/pharos.py:258",
+        ],
+        "generator_candidate": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
         "generator_missing_reason": (
-            "No targeted source evidence found for an explicit repeated-row ritual failure/abort cleanup path."
+            "Candidate only: existing Hagia retry and Pharos re-roll/runtime cleanup prove adjacent failure "
+            "cleanup syntax, but no generic repeated-row abort/failure cleanup writer or lifecycle tests exist."
         ),
-        "evidence_status": "missing_eu5_evidence",
+        "evidence_status": "interface_candidate",
     },
     "cleanup_ownership_loss": {
         "eu5_source_syntax_pattern": (

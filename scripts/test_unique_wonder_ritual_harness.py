@@ -129,6 +129,14 @@ REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS = {
     "cleanup_ownership_loss",
     "cleanup_ritual_reset",
 }
+REPEATED_ROW_TRIGGER_ARTIFACT_KINDS = {
+    "scripted_trigger_eligibility",
+    "scripted_trigger_row_completion",
+    "scripted_trigger_tooltip_safe_condition_group",
+}
+REPEATED_ROW_STRUCTURED_EVIDENCE_ARTIFACT_KINDS = (
+    REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+)
 REPEATED_ROW_EVIDENCE_MAPPING_FIELDS = {
     "artifact_kind",
     "eu5_source_syntax_pattern",
@@ -1812,12 +1820,21 @@ def main() -> None:
         raise AssertionError(f"expected four repeated-row source-plan pilots, got {source_plan['candidate_count']}")
     if source_plan["validation_errors"]:
         raise AssertionError(f"repeated-row source-plan unexpectedly failed validation: {source_plan['validation_errors']}")
+    if source_plan.get("source_writer_allowed") is not False:
+        raise AssertionError(f"repeated-row source-plan source_writer_allowed changed: {source_plan}")
+    if source_plan.get("may_write_src_allowed") is not False:
+        raise AssertionError(f"repeated-row source-plan may_write_src_allowed changed: {source_plan}")
     source_plan_by_key = {entry["key"]: entry for entry in source_plan["entries"]}
     seen_effect_cleanup_artifact_kinds: set[str] = set()
+    seen_trigger_artifact_kinds: set[str] = set()
     for pilot_key, expected in REPEATED_ROW_PILOTS.items():
         entry_plan = source_plan_by_key.get(pilot_key)
         if entry_plan is None:
             raise AssertionError(f"missing repeated-row source-plan report for {pilot_key}")
+        if entry_plan.get("source_writer_allowed") is not False:
+            raise AssertionError(f"{pilot_key} source_writer_allowed changed: {entry_plan}")
+        if entry_plan.get("may_write_src_allowed") is not False:
+            raise AssertionError(f"{pilot_key} may_write_src_allowed changed: {entry_plan}")
         row_keys = {row_set["key"] for row_set in entry_plan["row_sets"]}
         if row_keys != expected["row_sets"]:
             raise AssertionError(f"{pilot_key} source-plan row sets mismatch: expected {expected['row_sets']}, got {row_keys}")
@@ -1833,9 +1850,16 @@ def main() -> None:
                     raise AssertionError(
                         f"{pilot_key} effect/cleanup artifact should not claim verified_existing: {artifact}"
                     )
+                if artifact_kind == "cleanup_failure" and artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} cleanup_failure should be interface_candidate: {artifact}")
+            if artifact_kind in REPEATED_ROW_TRIGGER_ARTIFACT_KINDS:
+                seen_trigger_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} trigger artifact should be interface_candidate: {artifact}")
+            if artifact_kind in REPEATED_ROW_STRUCTURED_EVIDENCE_ARTIFACT_KINDS:
                 evidence_mapping = artifact.get("evidence_mapping")
                 if not isinstance(evidence_mapping, dict):
-                    raise AssertionError(f"{pilot_key} effect/cleanup artifact missing evidence_mapping: {artifact}")
+                    raise AssertionError(f"{pilot_key} structured-evidence artifact missing evidence_mapping: {artifact}")
                 missing_mapping_fields = REPEATED_ROW_EVIDENCE_MAPPING_FIELDS - set(evidence_mapping)
                 if missing_mapping_fields:
                     raise AssertionError(
@@ -1852,6 +1876,12 @@ def main() -> None:
                     raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence paths must be a list")
                 if not evidence_mapping["eu5_source_syntax_pattern"]:
                     raise AssertionError(f"{pilot_key} artifact {artifact_kind} missing EU5 syntax evidence or gap")
+                if not evidence_mapping["evidence_source_paths"]:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} missing EU5/source evidence paths")
+                if not (
+                    evidence_mapping["generator_candidate"] or evidence_mapping["generator_missing_reason"]
+                ):
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} missing generator evidence rationale")
         for row_set in entry_plan["row_sets"]:
             kinds = set(row_set["artifact_kinds"])
             missing_effect_cleanup_kinds = REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS - kinds
@@ -1884,6 +1914,11 @@ def main() -> None:
         raise AssertionError(
             "repeated-row source-plan did not cover every effect/cleanup evidence kind: "
             f"{sorted(REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS - seen_effect_cleanup_artifact_kinds)}"
+        )
+    if seen_trigger_artifact_kinds != REPEATED_ROW_TRIGGER_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every trigger evidence kind: "
+            f"{sorted(REPEATED_ROW_TRIGGER_ARTIFACT_KINDS - seen_trigger_artifact_kinds)}"
         )
 
     missing_row_set_plan = deepcopy(source_plan)
