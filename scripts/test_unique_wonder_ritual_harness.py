@@ -140,10 +140,24 @@ REPEATED_ROW_EVENT_ARTIFACT_KINDS = {
     "event_retry_skeleton",
     "event_resolve_skeleton",
 }
+REPEATED_ROW_GUI_ARTIFACT_KINDS = {
+    "gui_actor_slots_row",
+    "gui_checklist_row",
+    "gui_incident_log_row",
+}
+REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS = {
+    "localization_row_labels",
+    "localization_status_text",
+    "localization_incident_text",
+    "localization_tooltips",
+    "localization_summary_text",
+}
 REPEATED_ROW_STRUCTURED_EVIDENCE_ARTIFACT_KINDS = (
     REPEATED_ROW_EVENT_ARTIFACT_KINDS
     | REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
     | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+    | REPEATED_ROW_GUI_ARTIFACT_KINDS
+    | REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS
 )
 REPEATED_ROW_EVIDENCE_MAPPING_FIELDS = {
     "artifact_kind",
@@ -1826,6 +1840,8 @@ def main() -> None:
     source_plan = repeated_entity_row_source_plan_for_payload(load_spec_data())
     if source_plan["candidate_count"] != 4:
         raise AssertionError(f"expected four repeated-row source-plan pilots, got {source_plan['candidate_count']}")
+    if source_plan["artifact_count"] != 177:
+        raise AssertionError(f"expected 177 repeated-row source-plan artifacts, got {source_plan['artifact_count']}")
     if source_plan["validation_errors"]:
         raise AssertionError(f"repeated-row source-plan unexpectedly failed validation: {source_plan['validation_errors']}")
     if source_plan.get("source_writer_allowed") is not False:
@@ -1836,6 +1852,8 @@ def main() -> None:
     seen_event_artifact_kinds: set[str] = set()
     seen_effect_cleanup_artifact_kinds: set[str] = set()
     seen_trigger_artifact_kinds: set[str] = set()
+    seen_gui_artifact_kinds: set[str] = set()
+    seen_localization_artifact_kinds: set[str] = set()
     for pilot_key, expected in REPEATED_ROW_PILOTS.items():
         entry_plan = source_plan_by_key.get(pilot_key)
         if entry_plan is None:
@@ -1871,6 +1889,25 @@ def main() -> None:
                 seen_trigger_artifact_kinds.add(artifact_kind)
                 if artifact.get("evidence_status") != "interface_candidate":
                     raise AssertionError(f"{pilot_key} trigger artifact should be interface_candidate: {artifact}")
+            if artifact_kind in REPEATED_ROW_GUI_ARTIFACT_KINDS:
+                seen_gui_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
+                    raise AssertionError(
+                        f"{pilot_key} GUI artifact should stay interface_candidate or missing evidence: {artifact}"
+                    )
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} GUI artifact should be interface_candidate: {artifact}")
+            if artifact_kind in REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
+                seen_localization_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
+                    raise AssertionError(
+                        f"{pilot_key} localization artifact should stay interface_candidate or missing evidence: "
+                        f"{artifact}"
+                    )
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(
+                        f"{pilot_key} localization artifact should be interface_candidate: {artifact}"
+                    )
             if artifact_kind in REPEATED_ROW_STRUCTURED_EVIDENCE_ARTIFACT_KINDS:
                 evidence_mapping = artifact.get("evidence_mapping")
                 if not isinstance(evidence_mapping, dict):
@@ -1945,6 +1982,16 @@ def main() -> None:
         raise AssertionError(
             "repeated-row source-plan did not cover every trigger evidence kind: "
             f"{sorted(REPEATED_ROW_TRIGGER_ARTIFACT_KINDS - seen_trigger_artifact_kinds)}"
+        )
+    if seen_gui_artifact_kinds != REPEATED_ROW_GUI_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every GUI evidence kind: "
+            f"{sorted(REPEATED_ROW_GUI_ARTIFACT_KINDS - seen_gui_artifact_kinds)}"
+        )
+    if seen_localization_artifact_kinds != REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every localization evidence kind: "
+            f"{sorted(REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS - seen_localization_artifact_kinds)}"
         )
 
     missing_row_set_plan = deepcopy(source_plan)

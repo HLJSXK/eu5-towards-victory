@@ -78,8 +78,17 @@ EU5 interface candidates, source-target boundaries, row-set keys, entity keys, a
 aggregate projection variables. These artifacts are planning data only: every artifact
 must keep `may_write_src: false`, block the future source writer, and name missing
 generator ownership or EU5 evidence instead of claiming generated source readiness.
-For the event, scripted-effect, cleanup, and scripted-trigger artifact families, structured
-evidence mappings record EU5 syntax candidates, source paths, and generator candidates.
+For the event, scripted-effect, cleanup, scripted-trigger, GUI, and localization artifact
+families, structured evidence mappings record EU5 syntax candidates, source paths, and
+generator candidates. GUI mappings are interface candidates for repeated checklist,
+incident-log, and actor-slot rows only: they prove fixed generated row widgets,
+visibility expressions, per-row variable reads, localized text keys, and actor/action
+slot patterns, but still require `design_ir.tracked_entity_sets` per-row semantics and
+cannot read only aggregate projection variables. Localization mappings are interface
+candidates for row labels, status text, incident text, tooltips, and summary text only:
+the existing bilingual generators prove English/Simplified Chinese source boundaries,
+`loc_line()` quote/newline escaping, and UTF-8 BOM output, but do not assign repeated-row
+loc keys or authorize a localization source writer.
 Event mappings prove only interface candidates for country-event skeletons, event ID
 allocation patterns, title/desc/option localization linkage, option-effect handoff, and
 hidden-executor/tooltip safety boundaries; those mappings are still source-writer blockers

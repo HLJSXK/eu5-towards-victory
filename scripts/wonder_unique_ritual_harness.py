@@ -3380,6 +3380,187 @@ REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
         ),
         "evidence_status": "interface_candidate",
     },
+    "gui_checklist_row": {
+        "eu5_source_syntax_pattern": (
+            "GUI checklist rows use fixed generated widget/hbox rows, visibility expressions over player-scope "
+            "variables, localized status text keys, and per-row state styling. Aggregate projection variables are "
+            "display summaries only; a repeated-row GUI source interface must preserve design_ir.tracked_entity_sets "
+            "row keys, entity labels, and per-row variable semantics."
+        ),
+        "evidence_source_paths": [
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6265",
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6281",
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6340",
+            "scripts/wonder_unique_rituals/pharos.py:486",
+            "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py:681",
+            "scripts/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py:10",
+        ],
+        "generator_candidate": "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
+        "generator_missing_reason": (
+            "Candidate only: Pharos proves generated repeated-row widget syntax, localized status labels, and "
+            "per-row variable reads for one bespoke route checklist/status display, but no generic GUI fragment "
+            "generator maps arbitrary design_ir.tracked_entity_sets checklist rows to loadable GUI source. The "
+            "future generator must keep per-row semantics instead of reading only aggregate projection variables."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "gui_incident_log_row": {
+        "eu5_source_syntax_pattern": (
+            "GUI incident-log rows use fixed generated row widgets with per-row visible/hidden state, localized "
+            "incident/status text, and variable-driven success/failure coloring. Existing evidence is pattern-level "
+            "only; incident rows must retain design_ir.tracked_entity_sets row identities and cannot be collapsed "
+            "to aggregate projection variables."
+        ),
+        "evidence_source_paths": [
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6335",
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6340",
+            "src/in_game/gui/panels/organization/tv_engineering_department.gui:8493",
+            "src/in_game/gui/panels/organization/tv_engineering_department.gui:8498",
+            "scripts/wonder_unique_rituals/pharos.py:486",
+            "scripts/wonder_unique_rituals/pharos.py:543",
+        ],
+        "generator_candidate": "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
+        "generator_missing_reason": (
+            "Candidate only: generated Pharos rows prove incident/status row rendering patterns, but they do not "
+            "assign a generic source target, loc-key contract, or validation layer for arbitrary repeated-row "
+            "incident logs. The future GUI fragment generator must bind each design_ir row and its failure/retry "
+            "branch semantics, not only an aggregate status projection."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "gui_actor_slots_row": {
+        "eu5_source_syntax_pattern": (
+            "GUI actor-slot rows use generated widgets with portrait_standard_head_button, action_button_diamond, "
+            "actor/action metadata, visibility expressions, and localized waiting/active/done text keys. Actor-slot "
+            "source generation must preserve per-row actor candidate semantics from design_ir.tracked_entity_sets."
+        ),
+        "evidence_source_paths": [
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6755",
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6758",
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6764",
+            "data/generated_fragments/tv_engineering_department_wonder_mechanics.gui:6787",
+            "src/in_game/gui/panels/organization/tv_engineering_department.gui:8913",
+            "scripts/wonder_unique_rituals/hagia.py:363",
+        ],
+        "generator_candidate": "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
+        "generator_missing_reason": (
+            "Candidate only: Hagia proves actor portrait/action slot syntax for a bespoke ritual, but no generic "
+            "GUI fragment generator owns repeated actor-slot rows, per-candidate role/quality/risk bindings, or "
+            "row validation for future repeated-row pilots. Aggregate projection variables cannot replace the "
+            "design_ir.tracked_entity_sets actor candidate rows."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "localization_row_labels": {
+        "eu5_source_syntax_pattern": (
+            "Localization row labels use key:0 quoted strings in English and Simplified Chinese YAML files, with "
+            "source text originating from canonical localization data or design_ir row labels. Current evidence "
+            "proves bilingual loc syntax and row-label inputs, not a repeated-row loc source writer."
+        ),
+        "evidence_source_paths": [
+            "data/unique_wonder_ritual_specs.yaml:1317",
+            "data/unique_wonder_ritual_specs.yaml:3416",
+            "data/unique_wonder_ritual_specs.yaml:7553",
+            "data/unique_wonder_ritual_specs.yaml:14969",
+            "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py:30",
+            "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py:30",
+        ],
+        "generator_candidate": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
+        "generator_missing_reason": (
+            "Candidate only: design_ir exposes repeated-row display names and the current bilingual localization "
+            "generators prove output syntax, but no repeated-row localization generator owns stable row-label key "
+            "naming, English/Simplified Chinese source boundaries, or coverage validation for arbitrary row sets."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "localization_status_text": {
+        "eu5_source_syntax_pattern": (
+            "Status localization uses generated YAML loc lines with language headers, key:0 quoted values, and "
+            "English/Simplified Chinese canonical data. Existing status keys prove source syntax and bilingual "
+            "boundaries, but repeated-row status text remains contract-only."
+        ),
+        "evidence_source_paths": [
+            "data/wonder_localization.yaml:5077",
+            "data/wonder_localization.yaml:5094",
+            "data/wonder_localization.yaml:5110",
+            "data/wonder_localization.yaml:5127",
+            "data/wonder_localization.yaml:11126",
+            "scripts/wonder_mechanics/_core.py:1688",
+        ],
+        "generator_candidate": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
+        "generator_missing_reason": (
+            "Candidate only: canonical English and Simplified Chinese status strings plus loc_line generation "
+            "prove YAML/BOM/quote-safe output boundaries, but no repeated-row source writer maps every "
+            "design_ir state value to loadable status localization keys."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "localization_incident_text": {
+        "eu5_source_syntax_pattern": (
+            "Incident localization uses event title/description/option and GUI incident status keys emitted as "
+            "quoted YAML loc lines for English and Simplified Chinese. Existing text proves bilingual syntax, not "
+            "row-set incident-log source readiness."
+        ),
+        "evidence_source_paths": [
+            "data/wonder_localization.yaml:5078",
+            "data/wonder_localization.yaml:5102",
+            "data/wonder_localization.yaml:5120",
+            "data/wonder_localization.yaml:5128",
+            "data/wonder_localization.yaml:11127",
+            "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py:42",
+        ],
+        "generator_candidate": "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
+        "generator_missing_reason": (
+            "Candidate only: existing bilingual incident and branch text proves localization source syntax and "
+            "encoding boundaries, but the source-plan still lacks a generator contract for one incident text set "
+            "per design_ir row, retry/failure branch, and row-set summary."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "localization_tooltips": {
+        "eu5_source_syntax_pattern": (
+            "Tooltip localization uses generated key:0 quoted values referenced by GUI title/description fields "
+            "and tooltip/action loc keys. Current loc_line escaping handles quotes and newlines, while generators "
+            "write UTF-8 with BOM; repeated-row tooltip key ownership is still unassigned."
+        ),
+        "evidence_source_paths": [
+            "data/wonder_localization.yaml:1930",
+            "data/wonder_localization.yaml:1996",
+            "data/wonder_localization.yaml:2128",
+            "data/wonder_localization.yaml:2384",
+            "scripts/wonder_mechanics/_core.py:1672",
+            "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py:42",
+        ],
+        "generator_candidate": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
+        "generator_missing_reason": (
+            "Candidate only: existing tooltip/action localization and generator escaping prove YAML quoting, "
+            "newline escaping, and BOM output behavior, but no repeated-row localization generator owns tooltip "
+            "keys for row labels, row states, failure reasons, or GUI action descriptions."
+        ),
+        "evidence_status": "interface_candidate",
+    },
+    "localization_summary_text": {
+        "eu5_source_syntax_pattern": (
+            "Summary localization uses generated event/GUI summary loc keys in English and Simplified Chinese "
+            "YAML, with canonical data expanded by the localization library. Existing summary text proves source "
+            "syntax and bilingual boundaries, not repeated-row source writer readiness."
+        ),
+        "evidence_source_paths": [
+            "data/wonder_localization.yaml:5057",
+            "data/wonder_localization.yaml:5107",
+            "data/wonder_localization.yaml:5124",
+            "data/wonder_localization.yaml:5315",
+            "src/main_menu/localization/english/tv_engineering_department_wonder_mechanics_l_english.yml:4651",
+            "scripts/wonder_localization_lib.py:578",
+        ],
+        "generator_candidate": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
+        "generator_missing_reason": (
+            "Candidate only: generated summary/news localization proves the English and Simplified Chinese source "
+            "boundary, but repeated-row summary loc still needs row-set key ownership, coverage tests, and source "
+            "target assignment before any source writer can be allowed."
+        ),
+        "evidence_status": "interface_candidate",
+    },
 }
 REPEATED_ENTITY_ROW_SOURCE_PLAN_BLOCKER_ARTIFACTS = {
     "missing_cleanup": [
@@ -3402,7 +3583,7 @@ REPEATED_ENTITY_ROW_SOURCE_PLAN_BLOCKER_ARTIFACTS = {
         "event_retry_skeleton",
         "event_resolve_skeleton",
     ],
-    "missing_gui_rows": ["gui_repeated_row"],
+    "missing_gui_rows": ["gui_actor_slots_row", "gui_checklist_row", "gui_incident_log_row"],
     "missing_listener_integration": ["listener_war_integration"],
     "missing_loc_rows": [
         "localization_row_labels",
@@ -3910,7 +4091,7 @@ def _repeated_row_source_plan_artifacts_for_row_set(
             owner_generator=REPEATED_ENTITY_ROW_SOURCE_PLAN_OWNER_GENERATORS["gui"],
             source_target_boundary="contract_only_no_gui_file",
             required_eu5_interfaces=["gui_repeated_row", "gui_variable_binding", "tooltip"],
-            evidence_status="verified_existing" if row_set.get("ui_component_present") else "interface_candidate",
+            evidence_status="interface_candidate",
             pilot_key=pilot_key,
             row_set_key=row_set_key,
             entity_keys=entity_keys,
