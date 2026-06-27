@@ -40,7 +40,9 @@ REVERSE_BUILDING_MAP_SCAN_MAX = 2000
 PRIORITY_CANDIDATE_SITE_BY_ID_MAP = "tv_wonder_priority_candidate_site_by_id"
 PRIORITY_CANDIDATE_WONDER_BY_ID_MAP = "tv_wonder_priority_candidate_wonder_by_id"
 PRIORITY_CANDIDATE_MODE_BY_ID_MAP = "tv_wonder_priority_candidate_mode_by_id"
+PRIORITY_VALID_CANDIDATE_DECK_MAP = "tv_wonder_priority_valid_candidate_deck"
 PRIORITY_NEXT_CANDIDATE_ID_VAR = "tv_wonder_priority_next_candidate_id"
+PRIORITY_RANDOM_CANDIDATE_ID_VAR = "tv_wonder_priority_random_candidate_id"
 PRIORITY_CANDIDATE_ID_LOCAL = "tv_wonder_priority_candidate_id"
 PRIORITY_CANDIDATE_WONDER_ID_LOCAL = "tv_wonder_priority_saved_candidate_wonder_id"
 PRIORITY_TARGET_WONDER_ID_LOCAL = "tv_wonder_priority_target_candidate_wonder_id"
@@ -441,6 +443,8 @@ def append_priority_candidate_storage_effects(lines: list[str]) -> None:
     lines.append(f"{T}remove_variable = tv_wonder_priority_found")
     lines.append(f"{T}remove_variable = tv_wonder_proposal_site")
     lines.append(f"{T}remove_variable = tv_wonder_proposal_mode")
+    lines.append(f"{T}remove_variable = {PRIORITY_RANDOM_CANDIDATE_ID_VAR}")
+    lines.append(f"{T}clear_variable_map = {PRIORITY_VALID_CANDIDATE_DECK_MAP}")
     lines.append(f"{T}save_scope_as = tv_wonder_priority_owner")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
@@ -451,9 +455,6 @@ def append_priority_candidate_storage_effects(lines: list[str]) -> None:
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}every_key_in_variable_map = {{")
     lines.append(f"{T}{T}{T}variable = {PRIORITY_CANDIDATE_SITE_BY_ID_MAP}")
-    lines.append(f"{T}{T}{T}limit = {{")
-    lines.append(f"{T}{T}{T}{T}NOT = {{ scope:tv_wonder_priority_owner = {{ has_variable = tv_wonder_priority_found }} }}")
-    lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}set_local_variable = {{ name = {PRIORITY_CANDIDATE_ID_LOCAL} value = this }}")
     lines.append(f"{T}{T}{T}if = {{")
     lines.append(f"{T}{T}{T}{T}limit = {{")
@@ -483,11 +484,7 @@ def append_priority_candidate_storage_effects(lines: list[str]) -> None:
     lines.append(f"{T}{T}{T}{T}{T}scope:tv_wonder_priority_owner = {{")
     lines.append(f"{T}{T}{T}{T}{T}{T}remove_from_variable_map = {{ name = {PRIORITY_CANDIDATE_MODE_BY_ID_MAP} key = local_var:{PRIORITY_CANDIDATE_ID_LOCAL} }}")
     lines.append(f"{T}{T}{T}{T}{T}{T}add_to_variable_map = {{ name = {PRIORITY_CANDIDATE_MODE_BY_ID_MAP} key = local_var:{PRIORITY_CANDIDATE_ID_LOCAL} value = var:{PRIORITY_CANDIDATE_CURRENT_MODE_VAR} }}")
-    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = local_var:{PRIORITY_CANDIDATE_WONDER_ID_LOCAL} }}")
-    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_mode value = var:{PRIORITY_CANDIDATE_CURRENT_MODE_VAR} }}")
-    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_priority_found value = 1 }}")
-    lines.append(f"{T}{T}{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }}")
-    lines.append(f"{T}{T}{T}{T}{T}{T}tv_wonder_set_proposal_on_great_engineer_effect = yes")
+    lines.append(f"{T}{T}{T}{T}{T}{T}add_to_variable_map = {{ name = {PRIORITY_VALID_CANDIDATE_DECK_MAP} key = local_var:{PRIORITY_CANDIDATE_ID_LOCAL} value = 1 }}")
     lines.append(f"{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}else = {{")
@@ -503,6 +500,51 @@ def append_priority_candidate_storage_effects(lines: list[str]) -> None:
     lines.append(f"{T}{T}{T}remove_local_variable = {PRIORITY_CANDIDATE_ID_LOCAL}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ has_variable_map = {PRIORITY_VALID_CANDIDATE_DECK_MAP} }}")
+    lines.append(f"{T}{T}random_key_in_variable_map = {{")
+    lines.append(f"{T}{T}{T}variable = {PRIORITY_VALID_CANDIDATE_DECK_MAP}")
+    lines.append(f"{T}{T}{T}scope:tv_wonder_priority_owner = {{")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = {PRIORITY_RANDOM_CANDIDATE_ID_VAR} value = prev }}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ has_variable = {PRIORITY_RANDOM_CANDIDATE_ID_VAR} }}")
+    lines.append(f"{T}{T}set_local_variable = {{ name = {PRIORITY_CANDIDATE_ID_LOCAL} value = var:{PRIORITY_RANDOM_CANDIDATE_ID_VAR} }}")
+    lines.append(f"{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}limit = {{")
+    append_priority_candidate_common_key_guards(lines, f"local_var:{PRIORITY_CANDIDATE_ID_LOCAL}", 4)
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}scope:tv_wonder_priority_owner = {{")
+    lines.extend(capture_variable_map_value(
+        PRIORITY_CANDIDATE_WONDER_ID_LOCAL,
+        PRIORITY_CANDIDATE_WONDER_BY_ID_MAP,
+        f"local_var:{PRIORITY_CANDIDATE_ID_LOCAL}",
+        4,
+    ))
+    lines.extend(capture_variable_map_value(
+        PRIORITY_CANDIDATE_MODE_LOCAL,
+        PRIORITY_CANDIDATE_MODE_BY_ID_MAP,
+        f"local_var:{PRIORITY_CANDIDATE_ID_LOCAL}",
+        4,
+    ))
+    lines.append(f"{T}{T}{T}{T}{variable_map_expr(PRIORITY_CANDIDATE_SITE_BY_ID_MAP, f'local_var:{PRIORITY_CANDIDATE_ID_LOCAL}')} = {{")
+    lines.append(f"{T}{T}{T}{T}{T}save_scope_as = tv_wonder_priority_site")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal value = local_var:{PRIORITY_CANDIDATE_WONDER_ID_LOCAL} }}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_mode value = local_var:{PRIORITY_CANDIDATE_MODE_LOCAL} }}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_priority_found value = 1 }}")
+    lines.append(f"{T}{T}{T}{T}set_variable = {{ name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }}")
+    lines.append(f"{T}{T}{T}{T}tv_wonder_set_proposal_on_great_engineer_effect = yes")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}remove_local_variable = {PRIORITY_CANDIDATE_MODE_LOCAL}")
+    lines.append(f"{T}{T}remove_local_variable = {PRIORITY_CANDIDATE_WONDER_ID_LOCAL}")
+    lines.append(f"{T}{T}remove_local_variable = {PRIORITY_CANDIDATE_ID_LOCAL}")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}remove_variable = {PRIORITY_RANDOM_CANDIDATE_ID_VAR}")
+    lines.append(f"{T}clear_variable_map = {PRIORITY_VALID_CANDIDATE_DECK_MAP}")
     lines.append("}")
     lines.append("")
 

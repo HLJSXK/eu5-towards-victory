@@ -3839,6 +3839,8 @@ tv_wonder_select_saved_priority_proposal_effect = {
 	remove_variable = tv_wonder_priority_found
 	remove_variable = tv_wonder_proposal_site
 	remove_variable = tv_wonder_proposal_mode
+	remove_variable = tv_wonder_priority_random_candidate_id
+	clear_variable_map = tv_wonder_priority_valid_candidate_deck
 	save_scope_as = tv_wonder_priority_owner
 	if = {
 		limit = {
@@ -3849,9 +3851,6 @@ tv_wonder_select_saved_priority_proposal_effect = {
 		}
 		every_key_in_variable_map = {
 			variable = tv_wonder_priority_candidate_site_by_id
-			limit = {
-				NOT = { scope:tv_wonder_priority_owner = { has_variable = tv_wonder_priority_found } }
-			}
 			set_local_variable = { name = tv_wonder_priority_candidate_id value = this }
 			if = {
 				limit = {
@@ -3882,11 +3881,7 @@ tv_wonder_select_saved_priority_proposal_effect = {
 					scope:tv_wonder_priority_owner = {
 						remove_from_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id }
 						add_to_variable_map = { name = tv_wonder_priority_candidate_mode_by_id key = local_var:tv_wonder_priority_candidate_id value = var:tv_wonder_priority_candidate_current_mode }
-						set_variable = { name = tv_wonder_proposal value = local_var:tv_wonder_priority_saved_candidate_wonder_id }
-						set_variable = { name = tv_wonder_proposal_mode value = var:tv_wonder_priority_candidate_current_mode }
-						set_variable = { name = tv_wonder_priority_found value = 1 }
-						set_variable = { name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }
-						tv_wonder_set_proposal_on_great_engineer_effect = yes
+						add_to_variable_map = { name = tv_wonder_priority_valid_candidate_deck key = local_var:tv_wonder_priority_candidate_id value = 1 }
 					}
 				}
 				else = {
@@ -3902,6 +3897,50 @@ tv_wonder_select_saved_priority_proposal_effect = {
 			remove_local_variable = tv_wonder_priority_candidate_id
 		}
 	}
+	if = {
+		limit = { has_variable_map = tv_wonder_priority_valid_candidate_deck }
+		random_key_in_variable_map = {
+			variable = tv_wonder_priority_valid_candidate_deck
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_random_candidate_id value = prev }
+			}
+		}
+	}
+	if = {
+		limit = { has_variable = tv_wonder_priority_random_candidate_id }
+		set_local_variable = { name = tv_wonder_priority_candidate_id value = var:tv_wonder_priority_random_candidate_id }
+		if = {
+			limit = {
+				scope:tv_wonder_priority_owner = {
+					is_key_in_variable_map = { name = tv_wonder_priority_candidate_wonder_by_id target = local_var:tv_wonder_priority_candidate_id }
+					is_key_in_variable_map = { name = tv_wonder_priority_candidate_mode_by_id target = local_var:tv_wonder_priority_candidate_id }
+				}
+			}
+			scope:tv_wonder_priority_owner = {
+				set_local_variable = {
+					name = tv_wonder_priority_saved_candidate_wonder_id
+					value = "variable_map(tv_wonder_priority_candidate_wonder_by_id|local_var:tv_wonder_priority_candidate_id)"
+				}
+				set_local_variable = {
+					name = tv_wonder_priority_candidate_mode
+					value = "variable_map(tv_wonder_priority_candidate_mode_by_id|local_var:tv_wonder_priority_candidate_id)"
+				}
+				"variable_map(tv_wonder_priority_candidate_site_by_id|local_var:tv_wonder_priority_candidate_id)" = {
+					save_scope_as = tv_wonder_priority_site
+				}
+				set_variable = { name = tv_wonder_proposal value = local_var:tv_wonder_priority_saved_candidate_wonder_id }
+				set_variable = { name = tv_wonder_proposal_mode value = local_var:tv_wonder_priority_candidate_mode }
+				set_variable = { name = tv_wonder_priority_found value = 1 }
+				set_variable = { name = tv_wonder_proposal_site value = scope:tv_wonder_priority_site }
+				tv_wonder_set_proposal_on_great_engineer_effect = yes
+			}
+		}
+		remove_local_variable = tv_wonder_priority_candidate_mode
+		remove_local_variable = tv_wonder_priority_saved_candidate_wonder_id
+		remove_local_variable = tv_wonder_priority_candidate_id
+	}
+	remove_variable = tv_wonder_priority_random_candidate_id
+	clear_variable_map = tv_wonder_priority_valid_candidate_deck
 }
 
 tv_wonder_construct_module_for_last_completed_part_effect = {
