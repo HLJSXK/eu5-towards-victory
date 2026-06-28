@@ -6,6 +6,188 @@ not to compress every design into a few fixed mechanism shapes. Design fidelity 
 before current codegen convenience. Each batch should preserve the full playable design
 first, then map only the verified projection into the current Harness graph or generator.
 
+## Current Phase Freeze
+
+The Harness design-carrying phase is complete: all 123 unique-wonder ritual designs are carried
+by the Harness intermediate layer. Current counts are `compiler_mapped=117`,
+`source_codegen_ready=4`, `implemented_parity=2`, `stub=0`, `harness_generated=0`, and
+registry/codegen `may_write_src=0`.
+
+`compiler_mapped` is not source-ready. It only means the design has a current semantic
+`node_graph` projection. The source generation stage has not started, `source_codegen_ready`
+remains limited to the four intermediate-fragment pilots, and v1 codegen may only emit
+intermediate Markdown fragments under `data/generated_fragments/unique_wonder_rituals/`.
+Every template, capability, and archetype contract must keep `may_write_src: false`.
+
+The 17 design-matrix future gaps are the next source compiler / EU5 verification backlog.
+Keep them in the matrix and explain them; do not delete or flatten them just to clear the
+matrix warning.
+
+## Next Phase Boundary
+
+The next phase is source-compiler planning and EU5 interface verification, not another
+full-corpus design or semantic-projection pass. Treat the existing 123 specs as the design
+corpus to preserve. Work should start from `compiler_gap_ledger.search_questions`, the
+17 matrix future-gap rows, and the four intermediate-fragment pilots, then prove concrete
+source interfaces before any readiness promotion.
+
+Do not promote additional specs to `source_codegen_ready`, legacy `implementation_ready`,
+or `harness_generated` merely because their `node_graph` validates. Do not set any
+template, capability, archetype, or generator path to `may_write_src: true` until a later
+source-writer contract has exact EU5 syntax evidence, generator ownership, source-target
+boundaries, validation coverage, and rollback-free lifecycle semantics.
+
+For each next-phase audit, report whether the current work preserves the high-fidelity
+`design_ir` or has flattened it. Any proposed source compiler primitive must name the
+required EU5 files/interfaces, evidence paths, owned generator/data contracts, validation
+gate, and the specs it would unlock.
+
+## Source Compiler Vertical Slice: Repeated Entity Rows
+
+The first source-compiler contract slice is the repeated entity row family:
+checklist rows, incident-log rows, and closely related material/route/actor row summaries.
+It is shared by all four intermediate-fragment pilots:
+
+- `unique_dome_of_the_rock`: sanctuary access group incident rows and custody-duty checklist rows.
+- `unique_alhambra`: treaty-clause checklist rows and palace-risk incident rows.
+- `unique_st_peters_basilica`: sacred-official actor state plus apostolic service-duty incident rows.
+- `unique_bank_of_saint_george`: charter-option checklist rows and public-credit pledge/default-risk incident rows.
+
+For this slice, `design_ir.tracked_entity_sets` is the canonical source for row keys,
+state values, per-row variables, selectors, UI bindings, and cleanup expectations. The
+current `node_graph` may summarize those rows through aggregate variables, but that
+projection is intentionally lossy and must not replace the high-fidelity row design.
+
+Current evidence supports only contract preparation. Pharos proves that bespoke generated
+source can write per-entity variables and render repeated GUI rows, and
+`repeated_entity_row_checklist_incident_log_backend` proves the Harness can preserve these
+semantics as intermediate summaries. Neither one proves that the Harness can write
+loadable EU5 GUI, event, effect, trigger, localization, or cleanup source for arbitrary
+ritual row sets.
+
+The Harness repeated-row preflight is a source-compiler pre-check, not a source writer.
+It inventories `design_ir.tracked_entity_sets`, current lossy `node_graph` projection
+variables, UI bindings, and source-writer blockers so the contract is machine-checkable.
+It must not write `src/`, set `may_write_src: true`, promote specs, or treat aggregate
+`node_graph.variables` as a replacement for per-row design semantics.
+
+The repeated-row source-plan contract is the next pre-source-writer layer. It converts
+preflight blockers into planned event, scripted-effect, scripted-trigger, GUI,
+localization, cleanup, and Alhambra-only listener artifacts with owner-generator names,
+EU5 interface candidates, source-target boundaries, row-set keys, entity keys, and
+aggregate projection variables. These artifacts are planning data only: every artifact
+must keep `may_write_src: false`, block the future source writer, and name missing
+generator ownership or EU5 evidence instead of claiming generated source readiness.
+For the event, scripted-effect, cleanup, scripted-trigger, GUI, and localization artifact
+families, structured evidence mappings record EU5 syntax candidates, source paths, and
+generator candidates. GUI mappings are interface candidates for repeated checklist,
+incident-log, and actor-slot rows only: they prove fixed generated row widgets,
+visibility expressions, per-row variable reads, localized text keys, and actor/action
+slot patterns, but still require `design_ir.tracked_entity_sets` per-row semantics and
+cannot read only aggregate projection variables. Localization mappings are interface
+candidates for row labels, status text, incident text, tooltips, and summary text only:
+the existing bilingual generators prove English/Simplified Chinese source boundaries,
+`loc_line()` quote/newline escaping, and UTF-8 BOM output, but do not assign repeated-row
+loc keys or authorize a localization source writer.
+Listener mappings are Alhambra-only war listener interface candidates: the existing
+`on_pre_winning_war` / `on_ending_war` registry bridge, selected-ritual scripted triggers,
+and completion handoff prove a possible listener interface for the Alhambra war-validation
+branch, not loadable Alhambra source generation. They still lack source writer ownership,
+source-target boundary validation, and an Alhambra row-state write contract, so they must
+remain `may_write_src: false` and must not write `src/`.
+Event mappings prove only interface candidates for country-event skeletons, event ID
+allocation patterns, title/desc/option localization linkage, option-effect handoff, and
+hidden-executor/tooltip safety boundaries; those mappings are still source-writer blockers
+and do not authorize `src/` writes.
+Repeated-row event source-target contracts are the machine-checkable preflight layer for
+that boundary. They name the `tv_engineering_department` namespace, spec `event_ids`,
+`node_graph.nodes[].event_id`, `tv_engineering_department.<event_id>.t/d/a(/b)`
+localization policy, and future event file pattern
+`src/in_game/events/tv_wonder_unique_<wonder_key>_ritual_events.txt`, but those are
+boundary validations only. The future target path is not a source generator, event options
+may only declare future effect handoff, and no event contract may inline row-state writes,
+set `may_write_src: true`, unblock `source_writer_allowed`, or write `src/`.
+The repeated-row event/localization source preview compiler is an additive dry-run layer
+on top of the source-plan. It may render structured event skeleton previews and
+localization key-plan previews for review, using only existing spec event IDs,
+`node_graph.nodes[].event_id`, row-set keys, entity keys, and future target path
+contracts. It never writes `src/`, never assigns new IDs, never authorizes row-state
+writes, and never upgrades contracts or specs to source-ready.
+Repeated-row scripted-effect and cleanup source-target contracts are the matching
+source-writer preflight layer for `common/scripted_effects`. They name the future
+scripted-effect file pattern
+`src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt`
+and keep separate `effect` and `cleanup` contract families, including distinct cleanup
+scopes for completion, failure, ownership loss, and ritual reset. These contracts verify
+only future boundaries, row-state writer/reader responsibility, aggregate projection
+boundaries, cleanup coverage, and blocker reasons. They are not scripted-effect source
+generators, do not emit effect bodies, do not authorize row-state write schemas, and do
+not write `src/`.
+Repeated-row scripted-trigger source-target contracts are the preflight layer for
+`common/scripted_triggers`, not scripted-trigger source generators. They name only the
+future trigger file pattern
+`src/in_game/common/scripted_triggers/tv_wonder_unique_<wonder_key>_ritual_triggers.txt`
+and verify trigger-name uniqueness, row-completion linkage, eligibility input coverage,
+tooltip-safe scope boundaries, aggregate projection responsibility, and blocker reasons.
+They do not generate trigger bodies, do not allow tooltip-safe groups to call unsafe
+effect/write paths, do not replace `design_ir.tracked_entity_sets` row/entity semantics,
+and do not write `src/`.
+Repeated-row GUI source-target contracts are source-writer prerequisites for
+`in_game/gui/panels/organization`, not GUI source generators. They name only the future
+GUI file pattern
+`src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui` and
+validate fixed row widget boundaries, per-row variable bindings, actor/checklist/incident
+row policies, tooltip/key linkage, and aggregate projection boundaries. They do not emit
+GUI widgets, do not authorize GUI source writes, do not allow row-state writes, cannot
+replace `design_ir.tracked_entity_sets`, and cannot flatten repeated rows into
+aggregate-only displays.
+Repeated-row localization source-target contracts are source-writer prerequisites for
+`main_menu/localization`, not localization source generators. They name only the future
+localization file pattern
+`src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml`
+and validate English plus Simplified Chinese coverage, loc key namespaces,
+`loc_line()` quote/newline escaping, UTF-8 BOM output, row/status/incident/tooltip/summary
+coverage, and GUI/event key linkage. They do not write localization files, do not
+authorize missing bilingual coverage or unsafe quote/newline handling, and do not write
+`src/`.
+Preview localization entries are likewise contract previews only: they list bilingual row
+label, status, incident, tooltip, and summary keys under the repeated-row namespace and
+mirror the existing `loc_line()` escaping/BOM policy without claiming file output. Effect,
+trigger, cleanup, GUI, and listener families remain source-writer blockers and do not get
+source body previews from this layer.
+The Alhambra-only listener source-target contract is the same kind of source-writer
+prerequisite for `common/on_action`. It names only the future on_action file pattern
+`src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt` and
+validates the future hook linkage, listener scope availability, selected-ritual trigger
+linkage, row-state handoff boundary, war-listener scope responsibility, and blocker
+reasons. The on_action bridge remains an interface candidate only; the contract does not
+generate listener bodies, does not authorize listener or war scope writes, and does not
+write `src/`.
+
+A future row-set compiler interface must assign ownership before any source-writing claim:
+
+- data ownership: `design_ir.tracked_entity_sets` owns row keys, labels, states, variable
+  patterns, UI binding, and cleanup point;
+- events generator: owns row-state initialization/update event skeletons only after event
+  IDs are allocated;
+- scripted effects generator: owns row variable writes, aggregate refreshes, branch-state
+  writes, and cleanup effects;
+- scripted triggers generator: owns row completion/eligibility checks and tooltip-safe
+  condition groups;
+- GUI fragment generator: owns fixed repeated checklist/incident rows, starting from the
+  verified Pharos-style expansion pattern;
+- localization generator: owns row labels, status text, incident text, tooltips, and
+  summary text;
+- on_action/listener registry integration: participates only for listener-backed row sets,
+  such as Alhambra's war listener contract;
+- validation: rejects missing row variables, missing writers/readers, missing GUI rows,
+  missing localization, unsafe tooltip paths, missing cleanup, and row/UI mismatches.
+
+Until that interface exists and is verified against exact EU5 syntax, the Harness may only
+emit intermediate row-set summaries, trigger/effect stubs, GUI summaries, and tooltip notes.
+Do not set `may_write_src: true` for this slice, do not write `src/`, and do not treat
+`backend_ready` repeated-row gaps as loadable-source readiness.
+
 ## Full-Corpus Authoring Workflow
 
 For any full-corpus pass across all unique wonders, start with

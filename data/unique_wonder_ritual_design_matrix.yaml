@@ -256,10 +256,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - retry_branch
+  - overland_relay_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work is now carried by intermediate-only Harness backend contracts; loadable EU5 source generation remains a future source-writer gap.
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Machu Picchu at Picchu: Stone terraces and temples cling to the cloud forest ridge, a royal retreat balanced between mountain and sky. Most other wonders lack this exact Sacred Mountain role and the named Inti Raymi proof, so copying the loop would lose the site-specific claim.'
   similarity_group: route_certification_proof
   authoring_status: drafted
@@ -624,7 +625,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Tenochtitlan Causeways at Tenochtitlan: Causeways, canals, aqueducts, and island districts bind the lake city to markets, temples, and war. Most other wonders lack this exact River Extension role and the named Temple Expansion Sacrifice proof, so copying the loop would lose the site-specific claim.'
   similarity_group: auxiliary_annex_completion
   authoring_status: drafted
@@ -659,10 +660,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the final route, resource, actor, war, or incident branch that closes the composite proof.
   risk_or_failure_branch: One stage can expose a route, supply, actor, or legitimacy problem, forcing a changed-state retry rather than a generic checklist clear. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Amsterdam Canal Ring at Amsterdam: Concentric canals, quays, warehouses, and counting houses turn a marsh city into a financial engine. Most other wonders lack this exact Canal Hub City role and the named Three Canal Opening proof, so copying the loop would lose the site-specific claim.'
   similarity_group: composite_hydraulic_route_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 120
   wonder_key: unique_mecca_haram_expansion
   wonder_name: Great Mosque of Mecca Expansion
@@ -689,10 +690,11 @@ unique_wonders:
   - event_chain
   - route_gate
   - final_reward_handoff
+  - pilgrimage_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: 'Pilgrim congestion or failed stewardship can force a domestic capacity rite, preserving piety but delaying full route recognition until new route semantics exist.'
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'The proof needs a world-scale sacred crowd focused on the Kaaba; most temples cannot make crowd capacity and route legitimacy the central mechanic.'
   similarity_group: haram_crowd_route_capacity
   authoring_status: drafted
@@ -824,10 +826,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
   risk_or_failure_branch: 'A missing gold flow, cattle substitution, or overtaxed merchant route can trigger a weaker tribute settlement until market/export checks are verified.'
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'Great Zimbabwe needs cattle wealth, gold routes, and dry-stone royal enclosure in one delivery proof; most markets do not turn tribute economy into monumental legitimacy.'
   similarity_group: gold_cattle_tribute_delivery
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 125
   wonder_key: unique_isfahan_square
   wonder_name: Royal Square of Isfahan
@@ -895,10 +897,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: 'The non-monthly proof is the first named grain convoy reaching the court route after a visible canal incident.'
   risk_or_failure_branch: 'A broken lock, missing granary load, or barge unrest can force rerouting or reduced cargo; real goods and route checks still need EU5 verification.'
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This mechanism needs a canal that exists to move southern harvests to a northern court; most canals or roads cannot make tax grain, locks, and imperial food logistics the same proof.'
   similarity_group: composite_hydraulic_route_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 127
   wonder_key: unique_inca_royal_road
   wonder_name: Inca Royal Road Network
@@ -961,10 +963,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
   risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Roman Aqueducts at Rome: Arches march across valleys to feed baths, fountains, mills, and the confidence of an urban empire. Most other wonders lack this exact Hydraulic Workshop role and the named Aqueduct Opening proof, so copying the loop would lose the site-specific claim.'
   similarity_group: hydraulic_resource_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 129
   wonder_key: unique_suez_ancient_canal
   wonder_name: Ancient Suez Canal Attempts
@@ -991,10 +993,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - resource_gate
+  - maritime_trade_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work is now carried by intermediate-only Harness backend contracts; loadable EU5 source generation remains a future source-writer gap.
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Ancient Suez Canal Attempts at Suez: Survey lines, desert cuts, Nile branches, and Red Sea harbors preserve the old dream of joining waters. Most other wonders lack this exact Large Canal System role and the named Canal Opening proof, so copying the loop would lose the site-specific claim.'
   similarity_group: maritime_route_validation
   authoring_status: drafted
@@ -1093,10 +1096,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: The non-monthly validation is the final route, resource, actor, war, or incident branch that closes the composite proof.
   risk_or_failure_branch: One stage can expose a route, supply, actor, or legitimacy problem, forcing a changed-state retry rather than a generic checklist clear. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Angkor Waterworks at Angkor: Barays, canals, embankments, and rice fields make Angkor''s sacred city depend on engineered water. Most other wonders lack this exact Hydraulic Workshop role and the named West Baray Water proof, so copying the loop would lose the site-specific claim.'
   similarity_group: composite_hydraulic_route_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 133
   wonder_key: unique_dutch_polders
   wonder_name: Dutch Polder Works
@@ -1164,10 +1167,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
   risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Machu Picchu Terraces at Picchu: Retaining walls, drainage, soil layers, and ritual fields make steep mountains feed a royal estate. Most other wonders lack this exact Mountain Terrace Network role and the named First Sowing proof, so copying the loop would lose the site-specific claim.'
   similarity_group: resource_delivery_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 135
   wonder_key: unique_british_navy_dockyards
   wonder_name: British Navy Dockyards
@@ -1227,10 +1230,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - retry_branch
+  - maritime_trade_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work is now carried by intermediate-only Harness backend contracts; loadable EU5 source generation remains a future source-writer gap.
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Spanish Silver Fleet at Sevilla: Convoys, ledgers, fortified ports, and royal warehouses make Atlantic silver move under guard and seal. Most other wonders lack this exact Maritime Trade Station Network role and the named Silver Return proof, so copying the loop would lose the site-specific claim.'
   similarity_group: maritime_route_validation
   authoring_status: drafted
@@ -1261,10 +1265,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - resource_gate
+  - overland_relay_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: 'A missing well, unsafe fort, or failed subsidy can force a shorter domestic caravan branch until route-travel support is available.'
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This mechanism needs state logistics for pilgrimage across roads and wells; most pilgrimage wonders do not make imperial subsidy and caravan security the proof.'
   similarity_group: subsidized_hajj_caravan_route
   authoring_status: drafted
@@ -1296,10 +1301,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
   risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Persian Qanat Network at Isfahan: Underground channels, mother wells, shaft lines, gardens, and water shares make desert settlement possible. Most other wonders lack this exact Hydraulic Workshop role and the named Water Rights proof, so copying the loop would lose the site-specific claim.'
   similarity_group: hydraulic_resource_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 139
   wonder_key: unique_longjiang_shipyard
   wonder_name: Ming Longjiang Shipyard
@@ -1326,10 +1331,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - retry_branch
+  - maritime_trade_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work is now carried by intermediate-only Harness backend contracts; loadable EU5 source generation remains a future source-writer gap.
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Ming Longjiang Shipyard at Shangyuan: Slipways, timber basins, workshops, and treasure ships make river shipbuilding serve oceanic ambition. Most other wonders lack this exact National Shipyard role and the named Zheng He Departure proof, so copying the loop would lose the site-specific claim.'
   similarity_group: route_certification_proof
   authoring_status: drafted
@@ -1656,7 +1662,7 @@ unique_wonders:
   - pre_winning_war
   non_monthly_validation_point: A supported war listener such as pre_winning_war fires while the builder still controls the relevant site or can prove recovery before peace.
   risk_or_failure_branch: 'A damaged river gate or occupation scare needs siege or occupation-hook support later; until then the design stays blocked on listener expansion rather than pretending a generic war result is enough.'
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'The loop belongs to a fortress commanding a river confluence; ordinary inland forts do not make water gates and river approaches the decisive failure surface.'
   similarity_group: river_confluence_siege_repair
   authoring_status: drafted
@@ -1687,7 +1693,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Meteora Monasteries at Trikala: Cliff pillars, suspended chapels, rope hoists, icons, and narrow stairs make Meteora a monastery above ordinary reach. Most other wonders lack this exact Great Monastery role and the named Suspended Liturgy proof, so copying the loop would lose the site-specific claim.'
   similarity_group: auxiliary_annex_completion
   authoring_status: drafted
@@ -1719,7 +1725,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Belém Tower at Lisbon: A limestone tower stands at the Tagus mouth, watching ships leave Lisbon for oceans wider than old maps. Most other wonders lack this exact City Great Tower role and the named Tagus Watch Rite proof, so copying the loop would lose the site-specific claim.'
   similarity_group: structural_opening_inspection
   authoring_status: drafted
@@ -1787,7 +1793,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Santa Maria del Fiore at Florence: Brunelleschi''s great dome gathers marble, guild pride, and city faith over Florence. Most other wonders lack this exact Grand Cathedral role and the named Florentine Dome Consecration proof, so copying the loop would lose the site-specific claim.'
   similarity_group: structural_opening_inspection
   authoring_status: drafted
@@ -1819,7 +1825,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Leaning Tower of Pisa at Pisa: A white marble bell tower leans over Pisa''s cathedral square, making imperfection famous. Most other wonders lack this exact City Great Tower role and the named Campanile Stabilization proof, so copying the loop would lose the site-specific claim.'
   similarity_group: structural_opening_inspection
   authoring_status: drafted
@@ -1850,7 +1856,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Milan Cathedral at Milano: A forest of marble spires rises over Milan, turning the city into a roofline of devotion. Most other wonders lack this exact Grand Cathedral role and the named Marble Spire Consecration proof, so copying the loop would lose the site-specific claim.'
   similarity_group: structural_opening_inspection
   authoring_status: drafted
@@ -1946,10 +1952,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
   risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Dujiangyan at Chengdu: Levees, channels, and the Fish Mouth divide the Min River without strangling it. Most other wonders lack this exact Giant Dam Project role and the named Fish Mouth Water Division proof, so copying the loop would lose the site-specific claim.'
   similarity_group: hydraulic_resource_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 159
   wonder_key: unique_porcelain_tower_of_nanjing
   wonder_name: Porcelain Tower of Nanjing
@@ -1979,10 +1985,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
   risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Porcelain Tower of Nanjing at Shangyuan: Glazed tiles and temple lights make the Nanjing tower shine like a vertical reliquary. Most other wonders lack this exact Giant Tower Temple role and the named Glazed Lantern Rite proof, so copying the loop would lose the site-specific claim.'
   similarity_group: material_authenticity_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 160
   wonder_key: unique_jingdezhen_imperial_kilns
   wonder_name: Jingdezhen Imperial Kilns
@@ -2012,10 +2018,10 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A named stockpile, shipment, market good, or offering is selected and consumed or certified before completion.
   risk_or_failure_branch: A failed substitution or missing supply causes an estate, market, or local incident instead of a clean reward handoff. Formal spec work must verify the selector, goods, market/export, religious, culture, or route trigger syntax before codegen.
-  implementation_feasibility: needs_eu5_verification
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Jingdezhen Imperial Kilns at Fuliang: Kilns, clay yards, painters, and inspectors turn porcelain into imperial industry. Most other wonders lack this exact Giant Workshop Complex role and the named Imperial Kiln Seal proof, so copying the loop would lose the site-specific claim.'
   similarity_group: material_authenticity_trial
-  authoring_status: drafted
+  authoring_status: reviewed
 - wonder_id: 161
   wonder_key: unique_mogao_caves
   wonder_name: Mogao Caves
@@ -2204,10 +2210,11 @@ unique_wonders:
   - event_chain
   - route_gate
   - final_reward_handoff
+  - pilgrimage_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: 'A broken bridge, unsafe hostel, or overcrowded shrine forces a reroute or a lower-prestige local blessing until route capability support exists.'
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'The mechanism needs a network of waystations and symbols that make movement itself the shrine; most sacred wonders are destinations, not route systems.'
   similarity_group: scallop_waystation_pilgrim_network
   authoring_status: drafted
@@ -2662,7 +2669,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Zamość Ideal City at Krasnystaw: A planned Renaissance grid, bastions, market square, academy, and merchant houses make urban order visible from above. Most other wonders lack this exact City Expansion Project role and the named Zamosc Ideal City Rite proof, so copying the loop would lose the site-specific claim.'
   similarity_group: urban_restoration_completion
   authoring_status: drafted
@@ -2692,10 +2699,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - retry_branch
+  - maritime_trade_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work is now carried by intermediate-only Harness backend contracts; loadable EU5 source generation remains a future source-writer gap.
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Gdańsk Port at Gdansk: Granaries, cranes, river quays, Hanseatic merchants, and Baltic ships make the Vistula mouth a treasury. Most other wonders lack this exact Great Port role and the named Gdansk Port Rite proof, so copying the loop would lose the site-specific claim.'
   similarity_group: maritime_route_validation
   authoring_status: drafted
@@ -2923,7 +2931,7 @@ unique_wonders:
   expected_listeners: []
   non_monthly_validation_point: A construction-completion, annex-ready, or restoration-inspection point triggers the non-monthly validation event.
   risk_or_failure_branch: If the inspection exposes a flaw, the player pays for repair, accepts a temporary burden, or retries with a lower-cost doctrine. Formal spec work must not declare construction, siege, occupation, or completion listeners until Harness support exists.
-  implementation_feasibility: needs_new_listener
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Khiva Old City at Khiva: Mud-brick walls, minarets, madrasas, gates, and caravan streets preserve a desert city inside its own memory. Most other wonders lack this exact Ancient City Ruins role and the named Khiva Old City Rite proof, so copying the loop would lose the site-specific claim.'
   similarity_group: urban_restoration_completion
   authoring_status: drafted
@@ -3145,10 +3153,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - resource_gate
+  - maritime_trade_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
-  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work will need real route-travel, waypoint, or cargo-transfer semantics beyond the current semantic route gate.
-  implementation_feasibility: needs_new_capability
+  risk_or_failure_branch: The route may be blocked, unaffordable, or diplomatically awkward, forcing a reroute or lower-prestige domestic certification. Formal spec work is now carried by intermediate-only Harness backend contracts; loadable EU5 source generation remains a future source-writer gap.
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This draft depends on Marseille Old Port at Marseille: Stone quays, harbor forts, galleys, fish markets, warehouses, and Mediterranean convoys make Marseille''s Old Port a commercial and naval hinge. Most other wonders lack this exact Great Port role and the named Mediterranean Convoy Blessing proof, so copying the loop would lose the site-specific claim.'
   similarity_group: maritime_route_validation
   authoring_status: drafted
@@ -3209,10 +3218,11 @@ unique_wonders:
   - route_gate
   - final_reward_handoff
   - retry_branch
+  - pilgrimage_route_certification_backend
   expected_listeners: []
   non_monthly_validation_point: The route endpoint, waypoint, or first-arrival check is confirmed in an event branch with the chosen route visible in the UI.
   risk_or_failure_branch: 'A mistimed tide or failed crossing can force rescue spending, delayed certification, or a safer but lower-prestige inland approach.'
-  implementation_feasibility: needs_new_capability
+  implementation_feasibility: current_harness_ready
   uniqueness_notes: 'This loop needs a sacred mountain rising from tidal water; most pilgrimage routes cannot make the physical crossing hazard the central proof.'
   similarity_group: tidal_crossing_pilgrimage
   authoring_status: drafted

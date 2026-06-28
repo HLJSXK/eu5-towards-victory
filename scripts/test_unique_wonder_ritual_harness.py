@@ -26,6 +26,12 @@ from wonder_unique_ritual_harness import (  # noqa: E402
 )
 from wonder_unique_ritual_harness import load_archetype_registry  # noqa: E402
 from wonder_unique_ritual_harness import anti_flattening_warnings_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_entry  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_source_plan_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_source_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 
 
 WONDER = {
@@ -63,6 +69,225 @@ BACKEND_CAPABILITIES = [
     "auxiliary_building_completion_listener_backend",
     "water_management_restoration_completion_backend",
 ]
+REPEATED_ROW_PILOTS = {
+    "unique_dome_of_the_rock": {
+        "row_sets": {"sanctuary_access_groups", "custody_duties"},
+        "ui": {"checklist", "incident_log"},
+        "blockers": {
+            "missing_cleanup",
+            "missing_effect_writer",
+            "missing_event_ownership",
+            "missing_gui_rows",
+            "missing_loc_rows",
+            "missing_trigger_check",
+        },
+    },
+    "unique_alhambra": {
+        "row_sets": {"treaty_clause_register", "palace_risk_points"},
+        "ui": {"checklist", "incident_log"},
+        "blockers": {
+            "missing_cleanup",
+            "missing_effect_writer",
+            "missing_event_ownership",
+            "missing_gui_rows",
+            "missing_listener_integration",
+            "missing_loc_rows",
+            "missing_trigger_check",
+        },
+    },
+    "unique_st_peters_basilica": {
+        "row_sets": {"sacred_official_candidates", "apostolic_service_duties"},
+        "ui": {"actor_slots", "checklist", "incident_log"},
+        "blockers": {
+            "missing_cleanup",
+            "missing_effect_writer",
+            "missing_event_ownership",
+            "missing_gui_rows",
+            "missing_loc_rows",
+            "missing_trigger_check",
+        },
+    },
+    "unique_bank_of_saint_george": {
+        "row_sets": {"charter_options", "public_credit_pledges"},
+        "ui": {"checklist", "incident_log"},
+        "blockers": {
+            "missing_cleanup",
+            "missing_effect_writer",
+            "missing_event_ownership",
+            "missing_gui_rows",
+            "missing_loc_rows",
+            "missing_trigger_check",
+        },
+    },
+}
+REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS = {
+    "scripted_effect_row_init",
+    "scripted_effect_row_state_write",
+    "scripted_effect_aggregate_refresh",
+    "scripted_effect_branch_write",
+    "scripted_effect_cleanup_write",
+    "cleanup_completion",
+    "cleanup_failure",
+    "cleanup_ownership_loss",
+    "cleanup_ritual_reset",
+}
+REPEATED_ROW_EFFECT_ARTIFACT_KINDS = {
+    "scripted_effect_row_init",
+    "scripted_effect_row_state_write",
+    "scripted_effect_aggregate_refresh",
+    "scripted_effect_branch_write",
+    "scripted_effect_cleanup_write",
+}
+REPEATED_ROW_CLEANUP_ARTIFACT_KINDS = {
+    "cleanup_completion",
+    "cleanup_failure",
+    "cleanup_ownership_loss",
+    "cleanup_ritual_reset",
+}
+REPEATED_ROW_TRIGGER_ARTIFACT_KINDS = {
+    "scripted_trigger_eligibility",
+    "scripted_trigger_row_completion",
+    "scripted_trigger_tooltip_safe_condition_group",
+}
+REPEATED_ROW_EVENT_ARTIFACT_KINDS = {
+    "event_opening_skeleton",
+    "event_update_skeleton",
+    "event_retry_skeleton",
+    "event_resolve_skeleton",
+}
+REPEATED_ROW_GUI_ARTIFACT_KINDS = {
+    "gui_actor_slots_row",
+    "gui_checklist_row",
+    "gui_incident_log_row",
+}
+REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS = {
+    "localization_row_labels",
+    "localization_status_text",
+    "localization_incident_text",
+    "localization_tooltips",
+    "localization_summary_text",
+}
+REPEATED_ROW_LISTENER_ARTIFACT_KINDS = {"listener_war_integration"}
+REPEATED_ROW_LISTENER_EVIDENCE_PATHS = {
+    "data/pulse_registry.yaml:112-117",
+    "scripts/in_game/common/on_action/gen_tv_pulse_registry.py:47-48",
+    "src/in_game/common/on_action/tv_pulse_bridges.txt:170-181",
+    "src/in_game/common/on_action/tv_engineering_department_on_action.txt:270-293",
+    "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30311",
+    "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30317",
+    "data/unique_wonder_ritual_specs.yaml:3231-3243",
+}
+REPEATED_ROW_STRUCTURED_EVIDENCE_ARTIFACT_KINDS = (
+    REPEATED_ROW_EVENT_ARTIFACT_KINDS
+    | REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
+    | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+    | REPEATED_ROW_GUI_ARTIFACT_KINDS
+    | REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS
+    | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
+)
+REPEATED_ROW_EVIDENCE_MAPPING_FIELDS = {
+    "artifact_kind",
+    "eu5_source_syntax_pattern",
+    "evidence_source_paths",
+    "generator_candidate",
+    "generator_missing_reason",
+    "source_target_boundary",
+    "blocks_source_writer",
+}
+REPEATED_ROW_EVENT_CONTRACT_ALLOWED_STATUSES = {"no-write", "candidate", "blocked"}
+REPEATED_ROW_EVENT_CONTRACT_REQUIRED_VALIDATIONS = {
+    "event_id_uniqueness_collision",
+    "localization_key_linkage",
+    "node_event_id_linkage",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_EVENT_CONTRACT_BLOCKER_REASONS = {
+    "missing real event source generator",
+    "missing effect writer",
+    "missing trigger writer",
+    "missing GUI writer",
+    "missing localization writer",
+    "no verified source write contract",
+}
+REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_REQUIRED_VALIDATIONS = {
+    "effect_name_uniqueness",
+    "variable_writer_reader_linkage",
+    "row_set_entity_coverage",
+    "aggregate_projection_boundary",
+    "cleanup_coverage",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_BLOCKER_REASONS = {
+    "missing real scripted-effect source generator",
+    "missing row-state write schema",
+    "missing trigger validation",
+    "missing GUI/localization writers",
+    "no verified source write contract",
+}
+REPEATED_ROW_TRIGGER_CONTRACT_REQUIRED_VALIDATIONS = {
+    "trigger_name_uniqueness",
+    "row_completion_variable_linkage",
+    "eligibility_input_coverage",
+    "tooltip_safe_scope_boundary",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_TRIGGER_CONTRACT_BLOCKER_REASONS = {
+    "missing real scripted-trigger source generator",
+    "missing trigger predicate schema",
+    "missing effect writer validation",
+    "missing GUI/localization coverage",
+    "no verified source write contract",
+}
+REPEATED_ROW_GUI_CONTRACT_REQUIRED_VALIDATIONS = {
+    "fixed_row_widget_boundary",
+    "per_row_variable_binding",
+    "actor_checklist_incident_row_policy",
+    "tooltip_key_linkage",
+    "aggregate_projection_boundary",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_GUI_CONTRACT_BLOCKER_REASONS = {
+    "missing real GUI source generator",
+    "missing EU5 GUI exact syntax/source writer contract",
+    "missing source-target boundary validation",
+}
+REPEATED_ROW_LOCALIZATION_CONTRACT_REQUIRED_VALIDATIONS = {
+    "english_simplified_chinese_coverage",
+    "loc_key_namespace",
+    "loc_line_escaping_bom",
+    "row_status_incident_tooltip_summary_coverage",
+    "gui_event_key_linkage",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_LOCALIZATION_CONTRACT_BLOCKER_REASONS = {
+    "missing real localization source generator",
+    "missing EU5 localization exact syntax/source writer contract",
+    "missing source-target boundary validation",
+}
+REPEATED_ROW_LISTENER_CONTRACT_REQUIRED_VALIDATIONS = {
+    "on_action_hook_linkage",
+    "listener_scope_availability",
+    "selected_ritual_trigger_linkage",
+    "row_state_handoff_boundary",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_LISTENER_CONTRACT_BLOCKER_REASONS = {
+    "missing real listener integration source generator",
+    "missing war scope persistence contract",
+    "missing Alhambra row-state write contract",
+    "no verified source write contract",
+}
+REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_CLEANUP_SCOPES = {
+    "scripted_effect_row_init": "non_cleanup_effect",
+    "scripted_effect_row_state_write": "non_cleanup_effect",
+    "scripted_effect_aggregate_refresh": "non_cleanup_effect",
+    "scripted_effect_branch_write": "non_cleanup_effect",
+    "scripted_effect_cleanup_write": "effect_cleanup_write",
+    "cleanup_completion": "completion",
+    "cleanup_failure": "failure",
+    "cleanup_ownership_loss": "ownership_loss",
+    "cleanup_ritual_reset": "reset",
+}
 PILGRIMAGE_ROUTE_BACKEND_OUTPUTS = {
     "markdown_fragment",
     "trigger_stub",
@@ -1303,6 +1528,27 @@ def high_fidelity_design_entry(
     return entry
 
 
+def repeated_row_preflight_negative_entry() -> dict:
+    entry = high_fidelity_design_entry(status="source_codegen_ready", verification_status="backend_ready")
+    row_set = entry["design_ir"]["tracked_entity_sets"][0]
+    row_set["per_entity_state"] = {}
+    row_set["ui_binding"] = ""
+    entry["ui_model"]["components"] = [
+        component
+        for component in entry["ui_model"]["components"]
+        if component.get("type") not in {"route_map", "checklist", "incident_log"}
+    ]
+    entry["ui_model"]["bindings"] = []
+    entry["node_graph"]["variables"][0]["cleanup"] = ""
+    entry["node_graph"]["variables"][0]["roles"] = ["stage_state", "checklist_state", "incident_state"]
+    retry_choice = entry["node_graph"]["nodes"][3]
+    retry_choice["capabilities"].append("repeated_entity_row_checklist_incident_log_backend")
+    retry_choice["reads"] = ["tv_wonder_test_stage"]
+    retry_choice["writes"] = ["tv_wonder_test_stage"]
+    retry_choice["ui_state"] = {"variable_refs": ["tv_wonder_test_stage"]}
+    return entry
+
+
 def loc() -> dict[str, str]:
     long_text = "This event description is intentionally long enough to satisfy the ritual text density gate. " * 2
     data: dict[str, str] = {}
@@ -1328,6 +1574,613 @@ def loc() -> dict[str, str]:
     ):
         data[key] = key
     return data
+
+
+def _repeated_row_event_contract_wonder_key(pilot_key: str) -> str:
+    if pilot_key.startswith("unique_"):
+        return pilot_key[len("unique_") :]
+    return pilot_key
+
+
+def _first_artifact(plan: dict, artifact_kinds: set[str]) -> dict:
+    for entry in plan.get("entries", []) or []:
+        for artifact in entry.get("artifacts", []) or []:
+            if artifact.get("artifact_kind") in artifact_kinds:
+                return artifact
+    raise AssertionError(f"source-plan has no artifact in {sorted(artifact_kinds)}")
+
+
+def _first_source_preview(report: dict, family: str) -> dict:
+    for entry in report.get("entries", []) or []:
+        for preview in entry.get("previews", []) or []:
+            if preview.get("preview_family") == family:
+                return preview
+    raise AssertionError(f"source preview has no {family} preview")
+
+
+def _repeated_row_event_contract_path(pilot_key: str) -> str:
+    return (
+        "src/in_game/events/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_events.txt"
+    )
+
+
+def _repeated_row_effect_contract_path(pilot_key: str) -> str:
+    return (
+        "src/in_game/common/scripted_effects/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_effects.txt"
+    )
+
+
+def _repeated_row_trigger_contract_path(pilot_key: str) -> str:
+    return (
+        "src/in_game/common/scripted_triggers/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_triggers.txt"
+    )
+
+
+def _repeated_row_gui_contract_path(pilot_key: str) -> str:
+    return (
+        "src/in_game/gui/panels/organization/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual.gui"
+    )
+
+
+def _repeated_row_localization_contract_path(pilot_key: str) -> str:
+    return (
+        "src/main_menu/localization/<lang>/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_l_<lang>.yml"
+    )
+
+
+def _repeated_row_listener_contract_path(pilot_key: str) -> str:
+    return (
+        "src/in_game/common/on_action/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_on_actions.txt"
+    )
+
+
+def _assert_source_target_contract_negative(
+    source_plan: dict,
+    name: str,
+    artifact_kinds: set[str],
+    mutator,
+    expected_error: str,
+) -> None:
+    negative_plan = deepcopy(source_plan)
+    contract = _first_artifact(negative_plan, artifact_kinds)["source_target_contract"]
+    mutator(contract)
+    errors = validate_repeated_entity_row_source_plan(negative_plan)
+    if not any(expected_error in error for error in errors):
+        raise AssertionError(f"{name} source-plan negative was not caught: {errors}")
+
+
+def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
+    if source_plan.get("candidate_count") != 4:
+        raise AssertionError(f"expected four repeated-row source-plan pilots, got {source_plan.get('candidate_count')}")
+    if source_plan.get("validation_errors"):
+        raise AssertionError(f"repeated-row source-plan unexpectedly failed validation: {source_plan['validation_errors']}")
+    if source_plan.get("source_writer_allowed") is not False:
+        raise AssertionError(f"repeated-row source-plan source_writer_allowed changed: {source_plan}")
+    if source_plan.get("may_write_src_allowed") is not False:
+        raise AssertionError(f"repeated-row source-plan may_write_src_allowed changed: {source_plan}")
+
+    event_artifacts: list[dict] = []
+    effect_artifacts: list[dict] = []
+    cleanup_artifacts: list[dict] = []
+    trigger_artifacts: list[dict] = []
+    gui_artifacts: list[dict] = []
+    localization_artifacts: list[dict] = []
+    listener_artifacts_with_contracts: list[dict] = []
+    non_contract_kinds: set[str] = set()
+    for entry_plan in source_plan.get("entries", []) or []:
+        pilot_key = entry_plan.get("key", "")
+        if entry_plan.get("source_writer_allowed") is not False:
+            raise AssertionError(f"{pilot_key} source_writer_allowed changed: {entry_plan}")
+        if entry_plan.get("may_write_src_allowed") is not False:
+            raise AssertionError(f"{pilot_key} may_write_src_allowed changed: {entry_plan}")
+        expected_event_path = _repeated_row_event_contract_path(str(pilot_key))
+        expected_effect_path = _repeated_row_effect_contract_path(str(pilot_key))
+        expected_trigger_path = _repeated_row_trigger_contract_path(str(pilot_key))
+        expected_gui_path = _repeated_row_gui_contract_path(str(pilot_key))
+        expected_localization_path = _repeated_row_localization_contract_path(str(pilot_key))
+        expected_listener_path = _repeated_row_listener_contract_path(str(pilot_key))
+        for artifact in entry_plan.get("artifacts", []) or []:
+            artifact_kind = artifact.get("artifact_kind")
+            contract = artifact.get("source_target_contract")
+            if artifact_kind not in (
+                REPEATED_ROW_EVENT_ARTIFACT_KINDS
+                | REPEATED_ROW_EFFECT_ARTIFACT_KINDS
+                | REPEATED_ROW_CLEANUP_ARTIFACT_KINDS
+                | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+                | REPEATED_ROW_GUI_ARTIFACT_KINDS
+                | REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS
+                | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
+            ):
+                non_contract_kinds.add(str(artifact_kind))
+                if contract is not None:
+                    raise AssertionError(
+                        f"{pilot_key} non source-target artifact should not have contract: {artifact}"
+                    )
+                continue
+
+            if not isinstance(contract, dict):
+                raise AssertionError(f"{pilot_key} artifact missing source_target_contract: {artifact}")
+            if contract.get("status") == "source-ready":
+                raise AssertionError(f"{pilot_key} source-target contract became source-ready: {contract}")
+            if contract.get("status") != "blocked":
+                raise AssertionError(f"{pilot_key} source-target contract should stay blocked: {contract}")
+            if contract.get("status") not in REPEATED_ROW_EVENT_CONTRACT_ALLOWED_STATUSES:
+                raise AssertionError(f"{pilot_key} source-target contract has invalid status: {contract}")
+            if set(contract.get("allowed_statuses", [])) != REPEATED_ROW_EVENT_CONTRACT_ALLOWED_STATUSES:
+                raise AssertionError(f"{pilot_key} source-target contract allowed_statuses changed: {contract}")
+            if contract.get("future_target_only") is not True:
+                raise AssertionError(f"{pilot_key} source-target contract must stay future-target-only: {contract}")
+            if contract.get("source_writer_allowed") is not False:
+                raise AssertionError(f"{pilot_key} source-target contract source_writer_allowed changed: {contract}")
+            if contract.get("may_write_src") is not False:
+                raise AssertionError(f"{pilot_key} source-target contract may_write_src changed: {contract}")
+
+            if artifact_kind in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+                event_artifacts.append(artifact)
+                if contract.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} event contract allowed row-state writes: {contract}")
+                if artifact.get("may_write_src") is not False:
+                    raise AssertionError(f"{pilot_key} event artifact may_write_src changed: {artifact}")
+                if artifact.get("blocks_source_writer") is not True:
+                    raise AssertionError(f"{pilot_key} event artifact must block source writer: {artifact}")
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} event artifact must stay interface_candidate: {artifact}")
+                if contract.get("contract_family") != "event":
+                    raise AssertionError(f"{pilot_key} event contract family changed: {contract}")
+                if contract.get("namespace_policy") != "tv_engineering_department":
+                    raise AssertionError(f"{pilot_key} event contract namespace changed: {contract}")
+                if contract.get("event_id_sources") != ["spec.event_ids", "node_graph.nodes[].event_id"]:
+                    raise AssertionError(f"{pilot_key} event contract event-id sources changed: {contract}")
+                if contract.get("localization_key_policy") != "tv_engineering_department.<event_id>.t/d/a(/b)":
+                    raise AssertionError(f"{pilot_key} event contract loc key policy changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_event_path:
+                    raise AssertionError(f"{pilot_key} event contract future target path changed: {contract}")
+                handoff_rule = str(contract.get("option_effect_handoff_rule", "")).lower()
+                if (
+                    "future option/effect handoff only" not in handoff_rule
+                    or "cannot inline row-state writes" not in handoff_rule
+                ):
+                    raise AssertionError(f"{pilot_key} event contract handoff rule changed: {contract}")
+                missing_validations = REPEATED_ROW_EVENT_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} event contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_EVENT_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} event contract missing blocker reasons: {contract}")
+            elif artifact_kind in REPEATED_ROW_EFFECT_ARTIFACT_KINDS:
+                effect_artifacts.append(artifact)
+                if contract.get("contract_family") != "effect":
+                    raise AssertionError(f"{pilot_key} effect contract family changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_effect_path:
+                    raise AssertionError(f"{pilot_key} effect contract future target path changed: {contract}")
+                if contract.get("source_type") != "common/scripted_effects":
+                    raise AssertionError(f"{pilot_key} effect contract source_type changed: {contract}")
+                if contract.get("effect_body_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} effect contract allowed effect body writes: {contract}")
+                if contract.get("row_state_write_schema_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} effect contract allowed row-state write schema: {contract}")
+                if (
+                    contract.get("cleanup_lifecycle_scope")
+                    != REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_CLEANUP_SCOPES[artifact_kind]
+                ):
+                    raise AssertionError(f"{pilot_key} effect contract cleanup scope changed: {contract}")
+            elif artifact_kind in REPEATED_ROW_CLEANUP_ARTIFACT_KINDS:
+                cleanup_artifacts.append(artifact)
+                if contract.get("contract_family") != "cleanup":
+                    raise AssertionError(f"{pilot_key} cleanup contract family changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_effect_path:
+                    raise AssertionError(f"{pilot_key} cleanup contract future target path changed: {contract}")
+                if contract.get("source_type") != "common/scripted_effects":
+                    raise AssertionError(f"{pilot_key} cleanup contract source_type changed: {contract}")
+                if contract.get("effect_body_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} cleanup contract allowed effect body writes: {contract}")
+                if contract.get("row_state_write_schema_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} cleanup contract allowed row-state write schema: {contract}")
+                if (
+                    contract.get("cleanup_lifecycle_scope")
+                    != REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_CLEANUP_SCOPES[artifact_kind]
+                ):
+                    raise AssertionError(f"{pilot_key} cleanup contract lifecycle scope changed: {contract}")
+            elif artifact_kind in REPEATED_ROW_TRIGGER_ARTIFACT_KINDS:
+                trigger_artifacts.append(artifact)
+                if contract.get("contract_family") != "trigger":
+                    raise AssertionError(f"{pilot_key} trigger contract family changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_trigger_path:
+                    raise AssertionError(f"{pilot_key} trigger contract future target path changed: {contract}")
+                if contract.get("source_type") != "common/scripted_triggers":
+                    raise AssertionError(f"{pilot_key} trigger contract source_type changed: {contract}")
+                if contract.get("trigger_body_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} trigger contract allowed trigger body writes: {contract}")
+                if contract.get("tooltip_safe_unsafe_write_paths_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} trigger contract allowed unsafe tooltip write paths: {contract}")
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/in_game/common/scripted_triggers/tv_wonder_unique_<wonder_key>_ritual_triggers.txt"
+                ):
+                    raise AssertionError(f"{pilot_key} trigger contract future path pattern changed: {contract}")
+                source_generation_policy = str(contract.get("source_generation_policy", "")).lower()
+                if (
+                    "future target only" not in source_generation_policy
+                    or "not an actual scripted-trigger generator" not in source_generation_policy
+                ):
+                    raise AssertionError(f"{pilot_key} trigger contract generation policy changed: {contract}")
+                tooltip_policy = str(contract.get("tooltip_safe_condition_group_policy", "")).lower()
+                if "tooltip-safe condition groups" not in tooltip_policy or "must not call unsafe" not in tooltip_policy:
+                    raise AssertionError(f"{pilot_key} trigger tooltip-safe policy changed: {contract}")
+                aggregate_boundary = str(contract.get("aggregate_projection_boundary", "")).lower()
+                if (
+                    "aggregate_projection_variables" not in aggregate_boundary
+                    or "cannot replace" not in aggregate_boundary
+                    or "design_ir.tracked_entity_sets" not in aggregate_boundary
+                ):
+                    raise AssertionError(f"{pilot_key} trigger aggregate boundary changed: {contract}")
+                missing_validations = REPEATED_ROW_TRIGGER_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} trigger contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_TRIGGER_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} trigger contract missing blocker reasons: {contract}")
+            elif artifact_kind in REPEATED_ROW_GUI_ARTIFACT_KINDS:
+                gui_artifacts.append(artifact)
+                if contract.get("contract_family") != "gui":
+                    raise AssertionError(f"{pilot_key} GUI contract family changed: {contract}")
+                if contract.get("source_type") != "in_game/gui/panels/organization":
+                    raise AssertionError(f"{pilot_key} GUI contract source_type changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_gui_path:
+                    raise AssertionError(f"{pilot_key} GUI contract future target path changed: {contract}")
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui"
+                ):
+                    raise AssertionError(f"{pilot_key} GUI contract future path pattern changed: {contract}")
+                if contract.get("blocks_source_writer") is not True:
+                    raise AssertionError(f"{pilot_key} GUI contract must block source writer: {contract}")
+                if contract.get("gui_source_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} GUI contract allowed GUI source writes: {contract}")
+                if contract.get("aggregate_only_row_reads_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} GUI contract allowed aggregate-only row reads: {contract}")
+                if contract.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} GUI contract allowed row-state writes: {contract}")
+                fixed_boundary = str(contract.get("fixed_row_widget_boundary", "")).lower()
+                if "fixed row widgets" not in fixed_boundary or "actor slots" not in fixed_boundary:
+                    raise AssertionError(f"{pilot_key} GUI fixed row widget boundary changed: {contract}")
+                per_row_policy = str(contract.get("per_row_variable_binding_policy", "")).lower()
+                if (
+                    "design_ir.tracked_entity_sets" not in per_row_policy
+                    or "per-row variables" not in per_row_policy
+                    or "aggregate-only row reads are forbidden" not in per_row_policy
+                ):
+                    raise AssertionError(f"{pilot_key} GUI per-row binding policy changed: {contract}")
+                row_policy = str(contract.get("actor_checklist_incident_row_policy", "")).lower()
+                if "actor" not in row_policy or "checklist" not in row_policy or "incident" not in row_policy:
+                    raise AssertionError(f"{pilot_key} GUI row policy changed: {contract}")
+                tooltip_policy = str(contract.get("tooltip_key_linkage_policy", "")).lower()
+                if "tooltip" not in tooltip_policy or "localization" not in tooltip_policy or "event keys" not in tooltip_policy:
+                    raise AssertionError(f"{pilot_key} GUI tooltip/key linkage changed: {contract}")
+                aggregate_boundary = str(contract.get("aggregate_projection_boundary", "")).lower()
+                if (
+                    "aggregate_projection_variables" not in aggregate_boundary
+                    or "cannot replace" not in aggregate_boundary
+                    or "design_ir.tracked_entity_sets" not in aggregate_boundary
+                ):
+                    raise AssertionError(f"{pilot_key} GUI aggregate boundary changed: {contract}")
+                missing_validations = REPEATED_ROW_GUI_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} GUI contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_GUI_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} GUI contract missing blocker reasons: {contract}")
+            elif artifact_kind in REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
+                localization_artifacts.append(artifact)
+                if contract.get("contract_family") != "localization":
+                    raise AssertionError(f"{pilot_key} localization contract family changed: {contract}")
+                if contract.get("source_type") != "main_menu/localization":
+                    raise AssertionError(f"{pilot_key} localization contract source_type changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_localization_path:
+                    raise AssertionError(f"{pilot_key} localization contract future target path changed: {contract}")
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
+                ):
+                    raise AssertionError(f"{pilot_key} localization contract future path pattern changed: {contract}")
+                if contract.get("blocks_source_writer") is not True:
+                    raise AssertionError(f"{pilot_key} localization contract must block source writer: {contract}")
+                if contract.get("localization_source_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} localization contract allowed source writes: {contract}")
+                if set(contract.get("required_languages", [])) != {"english", "simp_chinese"}:
+                    raise AssertionError(f"{pilot_key} localization bilingual coverage changed: {contract}")
+                if contract.get("missing_bilingual_coverage_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} localization contract allowed missing bilingual coverage: {contract}")
+                if contract.get("unsafe_quote_newline_handling_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} localization contract allowed unsafe escaping: {contract}")
+                namespace_policy = str(contract.get("loc_key_namespace_policy", "")).lower()
+                if (
+                    "tv_wonder_unique_<wonder_key>_ritual" not in namespace_policy
+                    or "<row_set_key>" not in namespace_policy
+                    or "<entity_key>" not in namespace_policy
+                ):
+                    raise AssertionError(f"{pilot_key} localization namespace policy changed: {contract}")
+                escaping_policy = str(contract.get("loc_line_escaping_bom_policy", "")).lower()
+                if (
+                    "loc_line()" not in escaping_policy
+                    or "quote/newline escaping" not in escaping_policy
+                    or "utf-8 bom" not in escaping_policy
+                ):
+                    raise AssertionError(f"{pilot_key} localization escaping/BOM policy changed: {contract}")
+                coverage_policy = str(contract.get("localization_coverage_policy", "")).lower()
+                for phrase in ("row labels", "status text", "incident text", "tooltips", "summary text"):
+                    if phrase not in coverage_policy:
+                        raise AssertionError(f"{pilot_key} localization coverage policy changed: {contract}")
+                linkage_policy = str(contract.get("gui_event_key_linkage_policy", "")).lower()
+                if "gui" not in linkage_policy or "event" not in linkage_policy or "without authorizing" not in linkage_policy:
+                    raise AssertionError(f"{pilot_key} localization GUI/event key linkage changed: {contract}")
+                missing_validations = REPEATED_ROW_LOCALIZATION_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} localization contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_LOCALIZATION_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} localization contract missing blocker reasons: {contract}")
+            elif artifact_kind in REPEATED_ROW_LISTENER_ARTIFACT_KINDS:
+                listener_artifacts_with_contracts.append(artifact)
+                if pilot_key != "unique_alhambra" or artifact_kind != "listener_war_integration":
+                    raise AssertionError(f"{pilot_key} non-Alhambra listener contract appeared: {artifact}")
+                if contract.get("contract_family") != "listener":
+                    raise AssertionError(f"{pilot_key} listener contract family changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_listener_path:
+                    raise AssertionError(f"{pilot_key} listener contract future target path changed: {contract}")
+                if contract.get("source_type") != "common/on_action":
+                    raise AssertionError(f"{pilot_key} listener contract source_type changed: {contract}")
+                if contract.get("listener_artifact_scope") != "unique_alhambra-only listener_war_integration":
+                    raise AssertionError(f"{pilot_key} listener artifact scope changed: {contract}")
+                if contract.get("listener_scope_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} listener contract allowed listener scope writes: {contract}")
+                if contract.get("war_scope_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} listener contract allowed war scope writes: {contract}")
+                if contract.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} listener contract allowed row-state writes: {contract}")
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt"
+                ):
+                    raise AssertionError(f"{pilot_key} listener contract future path pattern changed: {contract}")
+                source_generation_policy = str(contract.get("source_generation_policy", "")).lower()
+                if (
+                    "future target only" not in source_generation_policy
+                    or "not an actual listener integration generator" not in source_generation_policy
+                ):
+                    raise AssertionError(f"{pilot_key} listener contract generation policy changed: {contract}")
+                bridge_policy = str(contract.get("on_action_bridge_policy", "")).lower()
+                if "interface candidate only" not in bridge_policy or "no listener source writer" not in bridge_policy:
+                    raise AssertionError(f"{pilot_key} listener bridge policy changed: {contract}")
+                missing_validations = REPEATED_ROW_LISTENER_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} listener contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_LISTENER_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} listener contract missing blocker reasons: {contract}")
+
+            if artifact_kind in REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt"
+                ):
+                    raise AssertionError(f"{pilot_key} effect/cleanup contract future path pattern changed: {contract}")
+                source_generation_policy = str(contract.get("source_generation_policy", "")).lower()
+                if (
+                    "future target only" not in source_generation_policy
+                    or "not an actual scripted-effect generator" not in source_generation_policy
+                ):
+                    raise AssertionError(f"{pilot_key} effect/cleanup contract generation policy changed: {contract}")
+                aggregate_boundary = str(contract.get("aggregate_projection_boundary", "")).lower()
+                if (
+                    "aggregate_projection_variables" not in aggregate_boundary
+                    or "cannot replace" not in aggregate_boundary
+                    or "design_ir.tracked_entity_sets" not in aggregate_boundary
+                ):
+                    raise AssertionError(f"{pilot_key} effect/cleanup aggregate boundary changed: {contract}")
+                missing_validations = REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} effect/cleanup contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} effect/cleanup contract missing blocker reasons: {contract}")
+
+    if len(event_artifacts) != 32:
+        raise AssertionError(f"expected 32 repeated-row event artifacts with contracts, got {len(event_artifacts)}")
+    if len(effect_artifacts) != 40:
+        raise AssertionError(
+            f"expected 40 repeated-row scripted-effect artifacts with contracts, got {len(effect_artifacts)}"
+        )
+    if len(cleanup_artifacts) != 32:
+        raise AssertionError(f"expected 32 repeated-row cleanup artifacts with contracts, got {len(cleanup_artifacts)}")
+    if len(trigger_artifacts) != 24:
+        raise AssertionError(f"expected 24 repeated-row trigger artifacts with contracts, got {len(trigger_artifacts)}")
+    if len(gui_artifacts) != 8:
+        raise AssertionError(f"expected 8 repeated-row GUI artifacts with contracts, got {len(gui_artifacts)}")
+    if len(localization_artifacts) != 40:
+        raise AssertionError(
+            f"expected 40 repeated-row localization artifacts with contracts, got {len(localization_artifacts)}"
+        )
+    if len(listener_artifacts_with_contracts) != 1:
+        raise AssertionError(
+            "expected 1 repeated-row listener artifact with a contract, got "
+            f"{len(listener_artifacts_with_contracts)}"
+        )
+    total_contracts = (
+        len(event_artifacts)
+        + len(effect_artifacts)
+        + len(cleanup_artifacts)
+        + len(trigger_artifacts)
+        + len(gui_artifacts)
+        + len(localization_artifacts)
+        + len(listener_artifacts_with_contracts)
+    )
+    if total_contracts != 177:
+        raise AssertionError(f"expected 177 repeated-row artifacts with contracts, got {total_contracts}")
+    if non_contract_kinds:
+        raise AssertionError(f"expected no repeated-row non-contract artifact kinds, got {sorted(non_contract_kinds)}")
+
+    contract_families = (
+        ("event", REPEATED_ROW_EVENT_ARTIFACT_KINDS),
+        ("effect", REPEATED_ROW_EFFECT_ARTIFACT_KINDS),
+        ("cleanup", REPEATED_ROW_CLEANUP_ARTIFACT_KINDS),
+        ("trigger", REPEATED_ROW_TRIGGER_ARTIFACT_KINDS),
+        ("gui", REPEATED_ROW_GUI_ARTIFACT_KINDS),
+        ("localization", REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS),
+        ("listener", REPEATED_ROW_LISTENER_ARTIFACT_KINDS),
+    )
+    for family_name, artifact_kinds in contract_families:
+        missing_contract_plan = deepcopy(source_plan)
+        del _first_artifact(missing_contract_plan, artifact_kinds)["source_target_contract"]
+        missing_contract_errors = validate_repeated_entity_row_source_plan(missing_contract_plan)
+        if not any("must declare source_target_contract" in error for error in missing_contract_errors):
+            raise AssertionError(
+                f"missing {family_name} contract source-plan negative was not caught: {missing_contract_errors}"
+            )
+        _assert_source_target_contract_negative(
+            source_plan,
+            f"source-ready {family_name} contract",
+            artifact_kinds,
+            lambda contract: contract.__setitem__("status", "source-ready"),
+            "status must not be source-ready",
+        )
+        _assert_source_target_contract_negative(
+            source_plan,
+            f"writable {family_name} future target contract",
+            artifact_kinds,
+            lambda contract: contract.__setitem__("future_target_only", False),
+            "future_target_only: true",
+        )
+        _assert_source_target_contract_negative(
+            source_plan,
+            f"may_write_src {family_name} contract",
+            artifact_kinds,
+            lambda contract: contract.__setitem__("may_write_src", True),
+            "source_target_contract may_write_src must be false",
+        )
+        _assert_source_target_contract_negative(
+            source_plan,
+            f"source_writer_allowed {family_name} contract",
+            artifact_kinds,
+            lambda contract: contract.__setitem__("source_writer_allowed", True),
+            "source_writer_allowed must be false",
+        )
+
+    for family_name, artifact_kinds in (
+        ("event", REPEATED_ROW_EVENT_ARTIFACT_KINDS),
+        ("effect", REPEATED_ROW_EFFECT_ARTIFACT_KINDS),
+        ("cleanup", REPEATED_ROW_CLEANUP_ARTIFACT_KINDS),
+        ("gui", REPEATED_ROW_GUI_ARTIFACT_KINDS),
+        ("listener", REPEATED_ROW_LISTENER_ARTIFACT_KINDS),
+    ):
+        _assert_source_target_contract_negative(
+            source_plan,
+            f"row-state write {family_name} contract",
+            artifact_kinds,
+            lambda contract: contract.__setitem__("row_state_writes_allowed", True),
+            "row_state_writes_allowed must be false",
+        )
+
+    for family_name, artifact_kinds in (
+        ("effect", REPEATED_ROW_EFFECT_ARTIFACT_KINDS),
+        ("cleanup", REPEATED_ROW_CLEANUP_ARTIFACT_KINDS),
+    ):
+        _assert_source_target_contract_negative(
+            source_plan,
+            f"row-state schema {family_name} contract",
+            artifact_kinds,
+            lambda contract: contract.__setitem__("row_state_write_schema_allowed", True),
+            "row_state_write_schema_allowed must be false",
+        )
+        _assert_source_target_contract_negative(
+            source_plan,
+            f"effect body write {family_name} contract",
+            artifact_kinds,
+            lambda contract: contract.__setitem__("effect_body_writes_allowed", True),
+            "effect_body_writes_allowed must be false",
+        )
+
+    _assert_source_target_contract_negative(
+        source_plan,
+        "trigger body write trigger contract",
+        REPEATED_ROW_TRIGGER_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("trigger_body_writes_allowed", True),
+        "trigger_body_writes_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "tooltip unsafe write trigger contract",
+        REPEATED_ROW_TRIGGER_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("tooltip_safe_unsafe_write_paths_allowed", True),
+        "tooltip_safe_unsafe_write_paths_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "listener scope write listener contract",
+        REPEATED_ROW_LISTENER_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("listener_scope_writes_allowed", True),
+        "listener_scope_writes_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "war scope write listener contract",
+        REPEATED_ROW_LISTENER_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("war_scope_writes_allowed", True),
+        "war_scope_writes_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "aggregate-only read GUI contract",
+        REPEATED_ROW_GUI_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("aggregate_only_row_reads_allowed", True),
+        "aggregate_only_row_reads_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "missing bilingual localization contract",
+        REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("required_languages", ["english"]),
+        "English and Simplified Chinese coverage",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "missing bilingual coverage allowed localization contract",
+        REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("missing_bilingual_coverage_allowed", True),
+        "missing_bilingual_coverage_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "unsafe escaping localization contract",
+        REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("unsafe_quote_newline_handling_allowed", True),
+        "unsafe_quote_newline_handling_allowed must be false",
+    )
 
 
 def assert_has_error(
@@ -1667,6 +2520,457 @@ def main() -> None:
     )
     if source_ready_errors:
         raise AssertionError(f"source_codegen_ready fixture unexpectedly failed: {source_ready_errors}")
+
+    repeated_row_preflight = repeated_entity_row_preflight_for_payload(load_spec_data())
+    if repeated_row_preflight["candidate_count"] != 4:
+        raise AssertionError(f"expected four repeated-row pilots, got {repeated_row_preflight['candidate_count']}")
+    if repeated_row_preflight["row_set_count"] != 8:
+        raise AssertionError(f"expected eight repeated-row row sets, got {repeated_row_preflight['row_set_count']}")
+    if repeated_row_preflight["entity_row_count"] != 40:
+        raise AssertionError(f"expected forty repeated entity rows, got {repeated_row_preflight['entity_row_count']}")
+    preflight_by_key = {entry["key"]: entry for entry in repeated_row_preflight["entries"]}
+    for pilot_key, expected in REPEATED_ROW_PILOTS.items():
+        entry_report = preflight_by_key.get(pilot_key)
+        if entry_report is None:
+            raise AssertionError(f"missing repeated-row preflight report for {pilot_key}")
+        row_keys = {row_set["key"] for row_set in entry_report["row_sets"]}
+        if row_keys != expected["row_sets"]:
+            raise AssertionError(f"{pilot_key} row sets mismatch: expected {expected['row_sets']}, got {row_keys}")
+        ui_types = set(entry_report["ui_component_types"])
+        if not expected["ui"] <= ui_types:
+            raise AssertionError(f"{pilot_key} UI component types missing {expected['ui'] - ui_types}")
+        blockers = set(entry_report["blockers"])
+        if blockers != expected["blockers"]:
+            raise AssertionError(f"{pilot_key} blockers mismatch: expected {expected['blockers']}, got {blockers}")
+        if "missing_row_variables" in blockers:
+            raise AssertionError(f"{pilot_key} should preserve design_ir per-row variable patterns")
+        if not entry_report["aggregate_projection_is_not_row_state"]:
+            raise AssertionError(f"{pilot_key} aggregate projection variables must not replace design_ir row state")
+        for row_set in entry_report["row_sets"]:
+            if not row_set["entity_keys"]:
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} did not expose entity rows")
+            if not row_set["per_row_variable_patterns"]:
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} did not expose per-row variable patterns")
+            if not row_set["aggregate_projection_variables"]:
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} did not expose aggregate projection variables")
+
+    negative_preflight = repeated_entity_row_preflight_for_entry(repeated_row_preflight_negative_entry())
+    negative_blockers = set(negative_preflight["blockers"])
+    for expected_blocker in ("missing_row_variables", "missing_gui_rows", "missing_cleanup"):
+        if expected_blocker not in negative_blockers:
+            raise AssertionError(f"negative repeated-row preflight missing blocker {expected_blocker}: {negative_preflight}")
+    if not negative_preflight["aggregate_projection_variables"]:
+        raise AssertionError("negative repeated-row fixture should still report aggregate projection variables")
+    if not negative_preflight["aggregate_projection_is_not_row_state"]:
+        raise AssertionError("negative repeated-row fixture must not treat aggregate variables as row-state replacement")
+
+    source_plan = repeated_entity_row_source_plan_for_payload(load_spec_data())
+    if source_plan["candidate_count"] != 4:
+        raise AssertionError(f"expected four repeated-row source-plan pilots, got {source_plan['candidate_count']}")
+    if source_plan["artifact_count"] != 177:
+        raise AssertionError(f"expected 177 repeated-row source-plan artifacts, got {source_plan['artifact_count']}")
+    if source_plan["validation_errors"]:
+        raise AssertionError(f"repeated-row source-plan unexpectedly failed validation: {source_plan['validation_errors']}")
+    if source_plan.get("source_writer_allowed") is not False:
+        raise AssertionError(f"repeated-row source-plan source_writer_allowed changed: {source_plan}")
+    if source_plan.get("may_write_src_allowed") is not False:
+        raise AssertionError(f"repeated-row source-plan may_write_src_allowed changed: {source_plan}")
+    assert_repeated_row_source_target_contracts(source_plan)
+    source_plan_by_key = {entry["key"]: entry for entry in source_plan["entries"]}
+    seen_event_artifact_kinds: set[str] = set()
+    seen_effect_cleanup_artifact_kinds: set[str] = set()
+    seen_trigger_artifact_kinds: set[str] = set()
+    seen_gui_artifact_kinds: set[str] = set()
+    seen_localization_artifact_kinds: set[str] = set()
+    for pilot_key, expected in REPEATED_ROW_PILOTS.items():
+        entry_plan = source_plan_by_key.get(pilot_key)
+        if entry_plan is None:
+            raise AssertionError(f"missing repeated-row source-plan report for {pilot_key}")
+        if entry_plan.get("source_writer_allowed") is not False:
+            raise AssertionError(f"{pilot_key} source_writer_allowed changed: {entry_plan}")
+        if entry_plan.get("may_write_src_allowed") is not False:
+            raise AssertionError(f"{pilot_key} may_write_src_allowed changed: {entry_plan}")
+        row_keys = {row_set["key"] for row_set in entry_plan["row_sets"]}
+        if row_keys != expected["row_sets"]:
+            raise AssertionError(f"{pilot_key} source-plan row sets mismatch: expected {expected['row_sets']}, got {row_keys}")
+        for artifact in entry_plan["artifacts"]:
+            if artifact.get("may_write_src") is not False:
+                raise AssertionError(f"{pilot_key} source-plan artifact may_write_src was not false: {artifact}")
+            if artifact.get("blocks_source_writer") is not True:
+                raise AssertionError(f"{pilot_key} source-plan artifact does not block source writer: {artifact}")
+            artifact_kind = artifact["artifact_kind"]
+            if artifact_kind in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+                seen_event_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} event artifact should stay interface_candidate: {artifact}")
+            if artifact_kind in REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+                seen_effect_cleanup_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
+                    raise AssertionError(
+                        f"{pilot_key} effect/cleanup artifact should not claim verified_existing: {artifact}"
+                    )
+                if artifact_kind == "cleanup_failure" and artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} cleanup_failure should be interface_candidate: {artifact}")
+            if artifact_kind in REPEATED_ROW_TRIGGER_ARTIFACT_KINDS:
+                seen_trigger_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} trigger artifact should be interface_candidate: {artifact}")
+            if artifact_kind in REPEATED_ROW_GUI_ARTIFACT_KINDS:
+                seen_gui_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
+                    raise AssertionError(
+                        f"{pilot_key} GUI artifact should stay interface_candidate or missing evidence: {artifact}"
+                    )
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(f"{pilot_key} GUI artifact should be interface_candidate: {artifact}")
+            if artifact_kind in REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
+                seen_localization_artifact_kinds.add(artifact_kind)
+                if artifact.get("evidence_status") not in {"interface_candidate", "missing_eu5_evidence"}:
+                    raise AssertionError(
+                        f"{pilot_key} localization artifact should stay interface_candidate or missing evidence: "
+                        f"{artifact}"
+                    )
+                if artifact.get("evidence_status") != "interface_candidate":
+                    raise AssertionError(
+                        f"{pilot_key} localization artifact should be interface_candidate: {artifact}"
+                    )
+            if artifact_kind in REPEATED_ROW_STRUCTURED_EVIDENCE_ARTIFACT_KINDS:
+                evidence_mapping = artifact.get("evidence_mapping")
+                if not isinstance(evidence_mapping, dict):
+                    raise AssertionError(f"{pilot_key} structured-evidence artifact missing evidence_mapping: {artifact}")
+                missing_mapping_fields = REPEATED_ROW_EVIDENCE_MAPPING_FIELDS - set(evidence_mapping)
+                if missing_mapping_fields:
+                    raise AssertionError(
+                        f"{pilot_key} artifact {artifact_kind} evidence_mapping missing fields: "
+                        f"{sorted(missing_mapping_fields)}"
+                    )
+                if evidence_mapping["artifact_kind"] != artifact_kind:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence kind mismatch")
+                if evidence_mapping["source_target_boundary"] != artifact["source_target_boundary"]:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence boundary mismatch")
+                if evidence_mapping["blocks_source_writer"] is not True:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence should block source writer")
+                if not isinstance(evidence_mapping["evidence_source_paths"], list):
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} evidence paths must be a list")
+                if not evidence_mapping["eu5_source_syntax_pattern"]:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} missing EU5 syntax evidence or gap")
+                if not evidence_mapping["evidence_source_paths"]:
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} missing EU5/source evidence paths")
+                if not (
+                    evidence_mapping["generator_candidate"] or evidence_mapping["generator_missing_reason"]
+                ):
+                    raise AssertionError(f"{pilot_key} artifact {artifact_kind} missing generator evidence rationale")
+        for row_set in entry_plan["row_sets"]:
+            kinds = set(row_set["artifact_kinds"])
+            missing_event_kinds = REPEATED_ROW_EVENT_ARTIFACT_KINDS - kinds
+            if missing_event_kinds:
+                raise AssertionError(
+                    f"{pilot_key} row set {row_set['key']} missing event artifact kinds: "
+                    f"{sorted(missing_event_kinds)}"
+                )
+            missing_effect_cleanup_kinds = REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS - kinds
+            if missing_effect_cleanup_kinds:
+                raise AssertionError(
+                    f"{pilot_key} row set {row_set['key']} missing effect/cleanup artifact kinds: "
+                    f"{sorted(missing_effect_cleanup_kinds)}"
+                )
+            if not any(kind.startswith("scripted_effect_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing effect artifact")
+            if not any(kind.startswith("scripted_trigger_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing trigger artifact")
+            if not any(kind.startswith("gui_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing GUI artifact")
+            if not any(kind.startswith("localization_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing localization artifact")
+            if not any(kind.startswith("cleanup_") for kind in kinds):
+                raise AssertionError(f"{pilot_key} row set {row_set['key']} missing cleanup artifact")
+        listener_artifacts = [
+            artifact
+            for artifact in entry_plan["artifacts"]
+            if artifact["artifact_kind"].startswith("listener_")
+        ]
+        listener_kinds = {artifact["artifact_kind"] for artifact in listener_artifacts}
+        if pilot_key == "unique_alhambra":
+            if listener_kinds != REPEATED_ROW_LISTENER_ARTIFACT_KINDS or len(listener_artifacts) != 1:
+                raise AssertionError(
+                    "Alhambra source-plan must include exactly listener_war_integration: "
+                    f"{listener_artifacts}"
+                )
+            listener_artifact = listener_artifacts[0]
+            if listener_artifact.get("evidence_status") != "interface_candidate":
+                raise AssertionError(
+                    f"Alhambra listener evidence must stay interface_candidate: {listener_artifact}"
+                )
+            if listener_artifact.get("may_write_src") is not False:
+                raise AssertionError(f"Alhambra listener may_write_src changed: {listener_artifact}")
+            if listener_artifact.get("blocks_source_writer") is not True:
+                raise AssertionError(f"Alhambra listener must block source writer: {listener_artifact}")
+            listener_contract = listener_artifact.get("source_target_contract")
+            if not isinstance(listener_contract, dict):
+                raise AssertionError(f"Alhambra listener missing source_target_contract: {listener_artifact}")
+            if listener_contract.get("contract_family") != "listener":
+                raise AssertionError(f"Alhambra listener contract family changed: {listener_contract}")
+            if listener_contract.get("listener_scope_writes_allowed") is not False:
+                raise AssertionError(f"Alhambra listener contract allowed listener scope writes: {listener_contract}")
+            if listener_contract.get("war_scope_writes_allowed") is not False:
+                raise AssertionError(f"Alhambra listener contract allowed war scope writes: {listener_contract}")
+            listener_mapping = listener_artifact.get("evidence_mapping")
+            if not isinstance(listener_mapping, dict):
+                raise AssertionError(f"Alhambra listener missing structured evidence mapping: {listener_artifact}")
+            missing_listener_fields = REPEATED_ROW_EVIDENCE_MAPPING_FIELDS - set(listener_mapping)
+            if missing_listener_fields:
+                raise AssertionError(
+                    "Alhambra listener evidence_mapping missing fields: "
+                    f"{sorted(missing_listener_fields)}"
+                )
+            empty_listener_fields = [
+                field
+                for field in (
+                    "artifact_kind",
+                    "eu5_source_syntax_pattern",
+                    "generator_candidate",
+                    "generator_missing_reason",
+                    "source_target_boundary",
+                )
+                if not str(listener_mapping.get(field, "")).strip()
+            ]
+            if empty_listener_fields:
+                raise AssertionError(
+                    "Alhambra listener evidence_mapping has empty fields: "
+                    f"{empty_listener_fields}"
+                )
+            if listener_mapping.get("blocks_source_writer") is not True:
+                raise AssertionError(
+                    f"Alhambra listener evidence_mapping must block source writer: {listener_mapping}"
+                )
+            listener_paths = set(listener_mapping.get("evidence_source_paths", []))
+            missing_listener_paths = REPEATED_ROW_LISTENER_EVIDENCE_PATHS - listener_paths
+            if missing_listener_paths:
+                raise AssertionError(
+                    "Alhambra listener evidence paths changed or went missing: "
+                    f"{sorted(missing_listener_paths)}"
+                )
+            listener_reason = str(listener_mapping.get("generator_missing_reason", ""))
+            for expected_phrase in (
+                "source writer ownership",
+                "source-target boundary",
+                "Alhambra row-state write contract",
+            ):
+                if expected_phrase not in listener_reason:
+                    raise AssertionError(
+                        "Alhambra listener missing source-writer blocker phrase "
+                        f"{expected_phrase!r}: {listener_mapping}"
+                    )
+        elif listener_kinds:
+            raise AssertionError(f"{pilot_key} should not receive generic listener artifacts: {listener_kinds}")
+    if seen_event_artifact_kinds != REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every event evidence kind: "
+            f"{sorted(REPEATED_ROW_EVENT_ARTIFACT_KINDS - seen_event_artifact_kinds)}"
+        )
+    if seen_effect_cleanup_artifact_kinds != REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every effect/cleanup evidence kind: "
+            f"{sorted(REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS - seen_effect_cleanup_artifact_kinds)}"
+        )
+    if seen_trigger_artifact_kinds != REPEATED_ROW_TRIGGER_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every trigger evidence kind: "
+            f"{sorted(REPEATED_ROW_TRIGGER_ARTIFACT_KINDS - seen_trigger_artifact_kinds)}"
+        )
+    if seen_gui_artifact_kinds != REPEATED_ROW_GUI_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every GUI evidence kind: "
+            f"{sorted(REPEATED_ROW_GUI_ARTIFACT_KINDS - seen_gui_artifact_kinds)}"
+        )
+    if seen_localization_artifact_kinds != REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
+        raise AssertionError(
+            "repeated-row source-plan did not cover every localization evidence kind: "
+            f"{sorted(REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS - seen_localization_artifact_kinds)}"
+        )
+
+    missing_row_set_plan = deepcopy(source_plan)
+    missing_row_set_plan["entries"][0]["artifacts"] = [
+        artifact
+        for artifact in missing_row_set_plan["entries"][0]["artifacts"]
+        if artifact["row_set_key"] != missing_row_set_plan["entries"][0]["row_sets"][0]["key"]
+    ]
+    missing_row_set_errors = validate_repeated_entity_row_source_plan(missing_row_set_plan)
+    if not any("has no source-plan artifacts" in error for error in missing_row_set_errors):
+        raise AssertionError(f"missing row-set source-plan negative was not caught: {missing_row_set_errors}")
+
+    missing_owner_plan = deepcopy(source_plan)
+    missing_owner_plan["entries"][0]["artifacts"][0]["owner_generator"] = ""
+    missing_owner_errors = validate_repeated_entity_row_source_plan(missing_owner_plan)
+    if not any("must declare owner_generator" in error for error in missing_owner_errors):
+        raise AssertionError(f"missing owner_generator source-plan negative was not caught: {missing_owner_errors}")
+
+    writable_plan = deepcopy(source_plan)
+    writable_plan["entries"][0]["artifacts"][0]["may_write_src"] = True
+    writable_plan_errors = validate_repeated_entity_row_source_plan(writable_plan)
+    if not any("must declare may_write_src: false" in error for error in writable_plan_errors):
+        raise AssertionError(f"may_write_src source-plan negative was not caught: {writable_plan_errors}")
+
+    missing_evidence_mapping_plan = deepcopy(source_plan)
+    del missing_evidence_mapping_plan["entries"][0]["artifacts"][0]["evidence_mapping"]
+    missing_evidence_mapping_errors = validate_repeated_entity_row_source_plan(missing_evidence_mapping_plan)
+    if not any("missing field(s): evidence_mapping" in error for error in missing_evidence_mapping_errors):
+        raise AssertionError(
+            f"missing evidence_mapping source-plan negative was not caught: {missing_evidence_mapping_errors}"
+        )
+
+    mismatched_evidence_kind_plan = deepcopy(source_plan)
+    mismatched_evidence_kind_plan["entries"][0]["artifacts"][0]["evidence_mapping"]["artifact_kind"] = "wrong_kind"
+    mismatched_evidence_kind_errors = validate_repeated_entity_row_source_plan(mismatched_evidence_kind_plan)
+    if not any("evidence_mapping artifact_kind mismatch" in error for error in mismatched_evidence_kind_errors):
+        raise AssertionError(
+            f"mismatched evidence kind source-plan negative was not caught: {mismatched_evidence_kind_errors}"
+        )
+
+    mismatched_evidence_block_plan = deepcopy(source_plan)
+    mismatched_evidence_block_plan["entries"][0]["artifacts"][0]["evidence_mapping"]["blocks_source_writer"] = False
+    mismatched_evidence_block_errors = validate_repeated_entity_row_source_plan(mismatched_evidence_block_plan)
+    if not any("evidence_mapping blocks_source_writer mismatch" in error for error in mismatched_evidence_block_errors):
+        raise AssertionError(
+            f"mismatched evidence block source-plan negative was not caught: {mismatched_evidence_block_errors}"
+        )
+
+    source_preview = repeated_entity_row_source_preview_for_payload(load_spec_data())
+    if source_preview["validation_errors"]:
+        raise AssertionError(f"repeated-row source preview unexpectedly failed validation: {source_preview['validation_errors']}")
+    if source_preview.get("preview_count") != 72:
+        raise AssertionError(f"expected 72 repeated-row source previews, got {source_preview.get('preview_count')}")
+    if source_preview.get("preview_family_summary", {}).get("event") != 32:
+        raise AssertionError(f"expected 32 repeated-row event previews, got {source_preview.get('preview_family_summary')}")
+    if source_preview.get("preview_family_summary", {}).get("localization") != 40:
+        raise AssertionError(f"expected 40 repeated-row localization previews, got {source_preview.get('preview_family_summary')}")
+    if source_preview.get("source_writer_allowed") is not False:
+        raise AssertionError(f"source preview source_writer_allowed changed: {source_preview}")
+    if source_preview.get("may_write_src_allowed") is not False:
+        raise AssertionError(f"source preview may_write_src_allowed changed: {source_preview}")
+    if source_preview.get("writes_src") is not False:
+        raise AssertionError(f"source preview writes_src changed: {source_preview}")
+    if source_preview.get("source_plan_artifact_count") != 177:
+        raise AssertionError(f"source preview should preserve 177-artifact source-plan: {source_preview}")
+    skipped_preview_kinds: set[str] = set()
+    event_preview_count = 0
+    localization_preview_count = 0
+    for entry_preview in source_preview.get("entries", []) or []:
+        if entry_preview.get("preview_only") is not True:
+            raise AssertionError(f"entry source preview must be preview-only: {entry_preview}")
+        skipped_preview_kinds.update(entry_preview.get("skipped_artifact_kinds", []))
+        for preview in entry_preview.get("previews", []) or []:
+            family = preview.get("preview_family")
+            artifact_kind = preview.get("artifact_kind")
+            if preview.get("preview_only") is not True:
+                raise AssertionError(f"{artifact_kind} preview_only changed: {preview}")
+            if preview.get("may_write_src") is not False:
+                raise AssertionError(f"{artifact_kind} may_write_src changed: {preview}")
+            if preview.get("source_writer_allowed") is not False:
+                raise AssertionError(f"{artifact_kind} source_writer_allowed changed: {preview}")
+            if preview.get("writes_src") is not False:
+                raise AssertionError(f"{artifact_kind} writes_src changed: {preview}")
+            if preview.get("blocks_source_writer") is not True:
+                raise AssertionError(f"{artifact_kind} blocks_source_writer changed: {preview}")
+            if preview.get("source_ready") is not False:
+                raise AssertionError(f"{artifact_kind} preview became source-ready: {preview}")
+            if family == "event":
+                event_preview_count += 1
+                if artifact_kind not in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-event artifact received event preview: {preview}")
+                if preview.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"event preview allowed row-state writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_tooltip_heavy_finalization") is not True:
+                    raise AssertionError(f"event preview lost tooltip-heavy finalization blocker: {preview}")
+                if body.get("no_row_state_write") is not True:
+                    raise AssertionError(f"event preview lost row-state write blocker: {preview}")
+                if body.get("no_source_ready") is not True:
+                    raise AssertionError(f"event preview lost source-ready blocker: {preview}")
+            elif family == "localization":
+                localization_preview_count += 1
+                if artifact_kind not in REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-localization artifact received localization preview: {preview}")
+                if set(preview.get("required_languages", [])) != {"english", "simp_chinese"}:
+                    raise AssertionError(f"localization preview bilingual coverage changed: {preview}")
+            else:
+                raise AssertionError(f"unsupported source body preview family {family}: {preview}")
+    if event_preview_count != 32:
+        raise AssertionError(f"expected 32 event previews, got {event_preview_count}")
+    if localization_preview_count != 40:
+        raise AssertionError(f"expected 40 localization previews, got {localization_preview_count}")
+    forbidden_preview_kinds = (
+        REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
+        | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+        | REPEATED_ROW_GUI_ARTIFACT_KINDS
+        | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
+    )
+    if not forbidden_preview_kinds <= skipped_preview_kinds:
+        raise AssertionError(
+            "effect/trigger/cleanup/GUI/listener artifacts should remain skipped preview blockers: "
+            f"{sorted(forbidden_preview_kinds - skipped_preview_kinds)}"
+        )
+
+    row_state_preview = deepcopy(source_preview)
+    _first_source_preview(row_state_preview, "event")["row_state_writes_allowed"] = True
+    row_state_preview_errors = validate_repeated_entity_row_source_preview(row_state_preview)
+    if not any("row-state writes must be false" in error for error in row_state_preview_errors):
+        raise AssertionError(f"event row-state write preview negative was not caught: {row_state_preview_errors}")
+
+    missing_event_id_preview = deepcopy(source_preview)
+    _first_source_preview(missing_event_id_preview, "event")["event_id_evidence"] = []
+    missing_event_id_errors = validate_repeated_entity_row_source_preview(missing_event_id_preview)
+    if not any("missing spec event IDs" in error for error in missing_event_id_errors):
+        raise AssertionError(f"missing event ID preview negative was not caught: {missing_event_id_errors}")
+
+    duplicate_event_id_preview = deepcopy(source_preview)
+    duplicate_event_preview = _first_source_preview(duplicate_event_id_preview, "event")
+    duplicate_event_preview["event_id_evidence"][1]["event_id"] = duplicate_event_preview["event_id_evidence"][0]["event_id"]
+    duplicate_event_id_errors = validate_repeated_entity_row_source_preview(duplicate_event_id_preview)
+    if not any("duplicate spec event IDs" in error for error in duplicate_event_id_errors):
+        raise AssertionError(f"duplicate event ID preview negative was not caught: {duplicate_event_id_errors}")
+
+    too_large_event_id_preview = deepcopy(source_preview)
+    too_large_event_preview = _first_source_preview(too_large_event_id_preview, "event")
+    too_large_event_preview["event_id_evidence"][0]["event_id"] = 10000
+    too_large_event_preview["preview_event_id"] = 10000
+    too_large_event_id_errors = validate_repeated_entity_row_source_preview(too_large_event_id_preview)
+    if not any("event IDs must be <10000" in error for error in too_large_event_id_errors):
+        raise AssertionError(f"large event ID preview negative was not caught: {too_large_event_id_errors}")
+
+    missing_language_preview = deepcopy(source_preview)
+    localization_preview = _first_source_preview(missing_language_preview, "localization")
+    localization_preview["required_languages"] = ["english"]
+    missing_language_errors = validate_repeated_entity_row_source_preview(missing_language_preview)
+    if not any("missing English or Simplified Chinese" in error for error in missing_language_errors):
+        raise AssertionError(f"missing localization language preview negative was not caught: {missing_language_errors}")
+
+    duplicate_loc_key_preview = deepcopy(source_preview)
+    first_localization_preview = _first_source_preview(duplicate_loc_key_preview, "localization")
+    first_plan = first_localization_preview["loc_key_plan"]
+    first_plan[1]["keys"] = deepcopy(first_plan[0]["keys"])
+    duplicate_loc_key_errors = validate_repeated_entity_row_source_preview(duplicate_loc_key_preview)
+    if not any("duplicate loc key" in error for error in duplicate_loc_key_errors):
+        raise AssertionError(f"duplicate loc key preview negative was not caught: {duplicate_loc_key_errors}")
+
+    unsafe_policy_preview = deepcopy(source_preview)
+    unsafe_localization_preview = _first_source_preview(unsafe_policy_preview, "localization")
+    unsafe_localization_preview["unsafe_quote_newline_handling_allowed"] = True
+    unsafe_policy_errors = validate_repeated_entity_row_source_preview(unsafe_policy_preview)
+    if not any("unsafe quote/newline policy must be false" in error for error in unsafe_policy_errors):
+        raise AssertionError(f"unsafe quote/newline preview negative was not caught: {unsafe_policy_errors}")
+
+    writable_preview = deepcopy(source_preview)
+    _first_source_preview(writable_preview, "event")["may_write_src"] = True
+    writable_preview_errors = validate_repeated_entity_row_source_preview(writable_preview)
+    if not any("may_write_src must be false" in error for error in writable_preview_errors):
+        raise AssertionError(f"may_write_src preview negative was not caught: {writable_preview_errors}")
+
+    writes_src_preview = deepcopy(source_preview)
+    _first_source_preview(writes_src_preview, "event")["writes_src"] = True
+    writes_src_preview_errors = validate_repeated_entity_row_source_preview(writes_src_preview)
+    if not any("writes_src must be false" in error for error in writes_src_preview_errors):
+        raise AssertionError(f"writes_src preview negative was not caught: {writes_src_preview_errors}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},

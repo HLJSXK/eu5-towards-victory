@@ -25,6 +25,52 @@ def _print_list(label: str, values: list[str], *, limit: int = 20) -> None:
         print(f"  ... +{len(values) - limit} more")
 
 
+def _print_repeated_entity_row_preflight(preflight: dict) -> None:
+    print("Repeated-row preflight:")
+    print(f"  Candidates: {preflight['candidate_count']}")
+    print(f"  Row sets: {preflight['row_set_count']}")
+    print(f"  Entity rows: {preflight['entity_row_count']}")
+    print(f"  Blocker summary: {preflight['blocker_summary']}")
+    for entry in preflight.get("entries", []):
+        row_sets = ", ".join(row_set["key"] for row_set in entry.get("row_sets", []))
+        ui_types = ", ".join(entry.get("ui_component_types", [])) or "none"
+        aggregate_variables = ", ".join(entry.get("aggregate_projection_variables", [])) or "none"
+        blockers = ", ".join(entry.get("blockers", [])) or "none"
+        print(
+            f"  - {entry['key']}: rows=[{row_sets}] "
+            f"ui=[{ui_types}] aggregates=[{aggregate_variables}] blockers=[{blockers}]"
+        )
+
+
+def _print_repeated_entity_row_source_plan(source_plan: dict) -> None:
+    print("Repeated-row source-plan contract:")
+    print(f"  Candidates: {source_plan['candidate_count']}")
+    print(f"  Row sets: {source_plan['row_set_count']}")
+    print(f"  Entity rows: {source_plan['entity_row_count']}")
+    print(f"  Planned artifacts: {source_plan['artifact_count']}")
+    print(f"  Artifacts by pilot: {source_plan['artifact_count_by_pilot']}")
+    print(f"  Artifact kind summary: {source_plan['artifact_kind_summary']}")
+    print(f"  Most missing artifact kinds: {source_plan['most_missing_artifact_kinds']}")
+    print(f"  Missing owner generators: {source_plan['missing_owner_generators']}")
+    print(f"  Blocker contract mapping: {source_plan['blocker_contracts']}")
+    print(f"  Source writer allowed: {source_plan['source_writer_allowed']}")
+    print(f"  May write src allowed: {source_plan['may_write_src_allowed']}")
+    print(f"  Validation errors: {source_plan['validation_errors']}")
+    for note in source_plan.get("notes", []):
+        print(f"  Note: {note}")
+    for entry in source_plan.get("entries", []):
+        listener_count = len(entry.get("listener_artifacts", []))
+        row_sets = ", ".join(
+            f"{row_set['key']}={row_set['artifact_count']}"
+            for row_set in entry.get("row_sets", [])
+        )
+        blockers = ", ".join(entry.get("blockers", [])) or "none"
+        print(
+            f"  - {entry['key']}: artifacts={entry['artifact_count']} "
+            f"row_sets=[{row_sets}] listener_artifacts={listener_count} blockers=[{blockers}]"
+        )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON.")
@@ -69,6 +115,8 @@ def main() -> None:
         print(f"Capability coverage summary: {summary['capability_coverage_summary']}")
         print(f"Archetype coverage summary: {summary['archetype_coverage_summary']}")
         print(f"Node kind summary: {summary['node_kind_summary']}")
+        _print_repeated_entity_row_preflight(summary["repeated_entity_row_preflight"])
+        _print_repeated_entity_row_source_plan(summary["repeated_entity_row_source_plan"])
         print(f"Graph reachable nodes: {summary['graph_reachable_count']}")
         print(f"Graph unreachable nodes: {summary['graph_unreachable_count']}")
         print(f"Lifecycle error count: {summary['lifecycle_error_count']}")

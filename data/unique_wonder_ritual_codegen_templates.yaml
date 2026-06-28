@@ -118,4 +118,4 @@ templates:
       - effect_stub
     verified_interface: "harness_v1_intermediate_fragment"
     may_write_src: false
-    notes: "Documents semantic capability/scope/listener contracts for current Harness projection nodes without emitting loadable EU5 script; unsupported high-fidelity primitives belong in design_ir plus compiler_gap_ledger."
+    notes: "Documents semantic capability/scope/listener contracts for current Harness projection nodes, including repeated-row checklist/incident-log summaries, without emitting loadable EU5 script. Row-set expansion, GUI source, event/effect/trigger source, localization generation, and cleanup remain outside this template; unsupported high-fidelity primitives belong in design_ir plus compiler_gap_ledger."
