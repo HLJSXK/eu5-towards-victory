@@ -163,6 +163,64 @@ organization_panel = {
 \t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
 \t}
 
+\tblockoverride "ios_information_header_visible" {
+\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_grand_merchant_char').IsSet]"
+\t}
+
+\tblockoverride "ios_information_header_content_extra_2" {
+\t\tusing = ios_header_content_extra_template
+\t\tblockoverride "ios_header_content_extra" {
+\t\t\tvisible = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_grand_merchant_char').IsSet]"
+\t\t\twidget = {
+\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\tsize = { 230 42 }
+\t\t\t\tbackground = { using = bg_paper_card }
+\t\t\t\tbackground = { using = bg_cabinet_card_frame }
+\t\t\t\tvbox = {
+\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\tlayoutpolicy_vertical = fixed
+\t\t\t\t\tsize = { 230 42 }
+\t\t\t\t\tmargin = { 8 3 }
+\t\t\t\t\tignoreinvisible = yes
+\t\t\t\t\tspacing = 1
+
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\tvisible = "[And3(InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsLawDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.HasOngoingParliamentDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsParliamentActive)]"
+\t\t\t\t\t\tsize = { 214 18 }
+\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_ACTION_LAW_CHANGE"
+\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\tvisible = "[And(Not(And3(InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsLawDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.HasOngoingParliamentDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsParliamentActive)), InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet)]"
+\t\t\t\t\t\tsize = { 214 18 }
+\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_ACTION_TRADE_CHAIN"
+\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\tvisible = "[And3(Not(And3(InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsLawDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.HasOngoingParliamentDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsParliamentActive)), Not(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet), InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_commercial_intelligence_active').IsSet)]"
+\t\t\t\t\t\tsize = { 214 18 }
+\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_ACTION_INTELLIGENCE"
+\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\tvisible = "[And3(Not(And3(InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsLawDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.HasOngoingParliamentDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsParliamentActive)), Not(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet), Not(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_commercial_intelligence_active').IsSet))]"
+\t\t\t\t\t\tsize = { 214 18 }
+\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_ACTION_ASSIST_CARAVANS"
+\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t}
+\t\t\t\t\ttext_single = {
+\t\t\t\t\t\tvisible = "[And3(Not(And3(InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsLawDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.HasOngoingParliamentDebate, InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsParliamentActive)), Not(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_chain_active').IsSet), Not(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('tv_trade_commercial_intelligence_active').IsSet))]"
+\t\t\t\t\t\tsize = { 214 16 }
+\t\t\t\t\t\tfontsize = 12
+\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_ACTION_ASSIST_CARAVANS_EFFECT"
+\t\t\t\t\t\talign = nobaseline|right
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t}
+\t\t}
+\t}
+
 \tblockoverride "organization_main_actions_extra_visible" {
 \t\tvisible = yes
 \t}
@@ -178,57 +236,6 @@ organization_panel = {
 """
 
 OVERVIEW_CARDS_SUFFIX = """\
-\t\t\tcard_common = {
-\t\t\t\tmaximumsize = { 500 -1 }
-
-\t\t\t\tblockoverride "common_header_icon_texture" {
-\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
-\t\t\t\t}
-\t\t\t\tblockoverride "common_header_text" {
-\t\t\t\t\ttext = "TV_TRADE_LEAGUE_GRAND_MERCHANT_CARD_TITLE"
-\t\t\t\t}
-\t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\tvbox = {
-\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\tspacing = 6
-\t\t\t\t\t\tmargin = { 4 6 }
-\t\t\t\t\t\tio_character_card = {
-\t\t\t\t\t\t\tvisible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').IsSet]"
-\t\t\t\t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').GetCharacter]"
-\t\t\t\t\t\t\tusing = layoutpolicy_expanding
-\t\t\t\t\t\t\tblockoverride "name_highlight" {}
-\t\t\t\t\t\t\tblockoverride "character_entry_name_sort_by_highlight" {}
-\t\t\t\t\t\t}
-\t\t\t\t\t\ttext_multi = {
-\t\t\t\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').IsSet)]"
-\t\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\t\tautoresize = yes
-\t\t\t\t\t\t\tmax_width = 462
-\t\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_NO_GRAND_MERCHANT"
-\t\t\t\t\t\t}
-\t\t\t\t\t}
-\t\t\t\t}
-\t\t\t}
-
-\t\t\tcard_common = {
-\t\t\t\tmaximumsize = { 500 -1 }
-\t\t\t\tblockoverride "common_header_icon_texture" {
-\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
-\t\t\t\t}
-\t\t\t\tblockoverride "common_header_text" {
-\t\t\t\t\ttext = "TV_TRADE_LEAGUE_MEMBER_MANAGEMENT_CARD_TITLE"
-\t\t\t\t}
-\t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\ttext_multi = {
-\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\tautoresize = yes
-\t\t\t\t\t\tmax_width = 462
-\t\t\t\t\t\ttext = "TV_TRADE_LEAGUE_MEMBER_MANAGEMENT_DESC"
-\t\t\t\t\t\tmargin = { 4 6 }
-\t\t\t\t\t}
-\t\t\t\t}
-\t\t\t}
-
 \t\t\tcard_common = {
 \t\t\t\tmaximumsize = { 500 -1 }
 \t\t\t\tblockoverride "common_header_icon_texture" {

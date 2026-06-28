@@ -1,0 +1,15 @@
+﻿tv_trade_league_assist_caravans_modifier = {
+	category = country
+	potential_trigger = {
+		has_variable = tv_grand_merchant_char
+		var:tv_grand_merchant_char ?= { is_alive = yes }
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_trade_league
+			leader_country ?= root
+		}
+		NOT = { tv_grand_merchant_busy_with_law_change_trigger = yes }
+		NOT = { tv_grand_merchant_busy_with_trade_chain_trigger = yes }
+		NOT = { tv_grand_merchant_busy_with_commercial_intelligence_trigger = yes }
+	}
+	merchant_maintenance_efficiency = 0.10
+}
