@@ -120,5 +120,8 @@ bridges:
     - tv_govhouse_location_changed_owner
     - tv_wonder_ownership_location_changed_owner
 
+  on_institution_embraced:
+    - tv_academy_philosophy_on_institution_embraced
+
   cmf_on_callback:
     - tv_io_chief_alert_on_cmf_callback

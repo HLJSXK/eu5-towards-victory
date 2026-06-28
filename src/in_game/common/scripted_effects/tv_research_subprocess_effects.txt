@@ -425,6 +425,125 @@ tv_academy_philosophy_reset_inspiration_effect = {
 	}
 }
 
+tv_academy_philosophy_enter_recess_effect = {
+	set_variable = { name = tv_academy_philosophy_phase value = 0 }
+	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+	remove_variable = tv_academy_philosophy_concept_pending
+	tv_academy_philosophy_refresh_timeline_effect = yes
+	tv_academy_philosophy_reset_inspiration_effect = yes
+}
+
+tv_academy_philosophy_remember_current_issue_notice_effect = {
+	set_variable = { name = tv_academy_philosophy_recess_notice_issue value = var:tv_academy_philosophy_current }
+	set_variable = { name = tv_academy_philosophy_recess_notice_pending value = 1 }
+}
+
+tv_academy_philosophy_advance_current_issue_effect = {
+	if = {
+		limit = { var:tv_academy_philosophy_current ?= 1 }
+		set_variable = { name = tv_academy_philosophy_current value = 2 }
+	}
+	else_if = {
+		limit = { var:tv_academy_philosophy_current ?= 2 }
+		set_variable = { name = tv_academy_philosophy_current value = 3 }
+	}
+	else_if = {
+		limit = { var:tv_academy_philosophy_current ?= 3 }
+		set_variable = { name = tv_academy_philosophy_current value = 4 }
+	}
+	else_if = {
+		limit = { var:tv_academy_philosophy_current ?= 4 }
+		set_variable = { name = tv_academy_philosophy_current value = 5 }
+	}
+	else_if = {
+		limit = { var:tv_academy_philosophy_current ?= 5 }
+		set_variable = { name = tv_academy_philosophy_current value = 6 }
+	}
+	else_if = {
+		limit = { var:tv_academy_philosophy_current ?= 6 }
+		set_variable = { name = tv_academy_philosophy_current value = 7 }
+	}
+	else_if = {
+		limit = { var:tv_academy_philosophy_current ?= 7 }
+		set_variable = { name = tv_academy_philosophy_current value = 8 }
+	}
+	else_if = {
+		limit = { var:tv_academy_philosophy_current ?= 8 }
+		set_variable = { name = tv_academy_philosophy_current value = 9 }
+	}
+	else_if = {
+		limit = { var:tv_academy_philosophy_current ?= 9 }
+		set_variable = { name = tv_academy_philosophy_current value = 10 }
+	}
+}
+
+tv_academy_philosophy_complete_embraced_issue_without_reward_effect = {
+	if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 1
+			var:tv_academy_philosophy_current ?= 1
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 2
+			var:tv_academy_philosophy_current ?= 2
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 3
+			var:tv_academy_philosophy_current ?= 3
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 4
+			var:tv_academy_philosophy_current ?= 4
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 5
+			var:tv_academy_philosophy_current ?= 5
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 6
+			var:tv_academy_philosophy_current ?= 6
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 7
+			var:tv_academy_philosophy_current ?= 7
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 8
+			var:tv_academy_philosophy_current ?= 8
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:tv_academy_philosophy_recess_notice_issue ?= 9
+			var:tv_academy_philosophy_current ?= 9
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+	}
+	tv_academy_philosophy_enter_recess_effect = yes
+}
+
 tv_academy_philosophy_set_current_debate_node_effect = {
 	if = {
 		limit = { current_date < 1343.6.1 }
@@ -788,6 +907,7 @@ tv_academy_philosophy_refresh_timeline_effect = {
 tv_academy_philosophy_initialize_timeline_effect = {
 	tv_academy_philosophy_refresh_timeline_effect = yes
 	set_variable = { name = tv_academy_debate_established_node value = var:tv_academy_debate_current_node }
+	set_variable = { name = tv_academy_debate_last_notified_node value = var:tv_academy_debate_current_node }
 	tv_academy_philosophy_refresh_timeline_effect = yes
 }
 
@@ -799,18 +919,26 @@ tv_academy_philosophy_reset_panel_effect = {
 	set_variable = { name = tv_academy_philosophy_phase value = 0 }
 	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
 	remove_variable = tv_academy_philosophy_concept_pending
+	remove_variable = tv_academy_philosophy_recess_notice_pending
 	tv_academy_philosophy_refresh_timeline_effect = yes
 	tv_academy_philosophy_reset_inspiration_effect = yes
 }
 
 tv_academy_philosophy_start_debate_effect = {
 	if = {
-		limit = { NOT = { has_variable = tv_academy_philosophy_current } }
-		set_variable = { name = tv_academy_philosophy_current value = 1 }
+		limit = {
+			has_variable = tv_academy_philosophy_concept_pending
+			var:tv_academy_debate_current_node_type ?= 1
+			tv_academy_philosophy_has_current_issue_trigger = yes
+			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
+		}
+		set_variable = { name = tv_academy_philosophy_phase value = 1 }
+		set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+		remove_variable = tv_academy_philosophy_concept_pending
+		tv_academy_philosophy_refresh_timeline_effect = yes
+		tv_academy_philosophy_reset_inspiration_effect = yes
 	}
-	set_variable = { name = tv_academy_philosophy_phase value = 1 }
-	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
-	remove_variable = tv_academy_philosophy_concept_pending
-	tv_academy_philosophy_refresh_timeline_effect = yes
-	tv_academy_philosophy_reset_inspiration_effect = yes
+	else = {
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
 }

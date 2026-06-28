@@ -532,6 +532,102 @@ tv_chief_scientist_busy_with_philosophy_debate_trigger = {
 	var:tv_academy_philosophy_phase ?= 1
 }
 
+tv_academy_philosophy_has_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_philosophy_current_issue_embraced_trigger = {
+	OR = {
+		AND = {
+			var:tv_academy_philosophy_current ?= 1
+			has_embraced_institution = institution:meritocracy
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 2
+			has_embraced_institution = institution:renaissance
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 3
+			has_embraced_institution = institution:banking
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 4
+			has_embraced_institution = institution:new_world
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 5
+			has_embraced_institution = institution:printing_press
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 6
+			has_embraced_institution = institution:confessionalism
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 7
+			has_embraced_institution = institution:global_trade
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 8
+			has_embraced_institution = institution:manufactories
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 9
+			has_embraced_institution = institution:scientific_revolution
+		}
+	}
+}
+
+tv_academy_philosophy_current_issue_matches_embraced_institution_trigger = {
+	OR = {
+		AND = {
+			var:tv_academy_philosophy_current ?= 1
+			scope:target = institution:meritocracy
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 2
+			scope:target = institution:renaissance
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 3
+			scope:target = institution:banking
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 4
+			scope:target = institution:new_world
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 5
+			scope:target = institution:printing_press
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 6
+			scope:target = institution:confessionalism
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 7
+			scope:target = institution:global_trade
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 8
+			scope:target = institution:manufactories
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 9
+			scope:target = institution:scientific_revolution
+		}
+	}
+}
+
 tv_chief_scientist_available_for_concentrated_research_trigger = {
 	trigger_if = {
 		limit = { tv_chief_scientist_busy_with_law_change_trigger = yes }
