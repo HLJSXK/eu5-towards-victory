@@ -82,42 +82,39 @@
 	}
 
 	diplo_chance = {
-		base = -200
+		base = -100
 		opinion = 0.5
 	}
 
 	accept = {
 		if = {
-			limit = {
-				scope:recipient = {
-					government_type = government_type:republic
+			limit = { exists = scope:recipient }
+			if = {
+				limit = {
+					scope:recipient = {
+						government_type = government_type:republic
+					}
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_REPUBLIC"
+					value = 20
+				}
+			}
+			if = {
+				limit = {
+					scope:recipient = {
+						has_reform = government_reform:merchant_republic
+					}
+				}
+				add = {
+					desc = "TV_TRADE_LEAGUE_MERCHANT_REPUBLIC"
+					value = 30
 				}
 			}
 			add = {
-				desc = "TV_TRADE_LEAGUE_REPUBLIC"
-				value = 20
-			}
-		}
-		if = {
-			limit = {
-				scope:recipient = {
-					has_reform = government_reform:merchant_republic
-				}
-			}
-			add = {
-				desc = "TV_TRADE_LEAGUE_MERCHANT_REPUBLIC"
-				value = 30
-			}
-		}
-		if = {
-			limit = {
-				scope:recipient = {
-					num_locations <= 5
-				}
-			}
-			add = {
-				desc = "TV_TRADE_LEAGUE_SMALL_COUNTRY"
-				value = 20
+				desc = "TV_RECIPIENT_OWNED_LOCATIONS"
+				value = scope:recipient.num_locations
+				multiply = -1
 			}
 		}
 		add = {
