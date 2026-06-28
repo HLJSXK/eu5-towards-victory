@@ -3410,6 +3410,38 @@ REPEATED_ENTITY_ROW_TRIGGER_SOURCE_PREVIEW_REQUIRED_FIELDS = (
         "source_ready_allowed",
     }
 )
+REPEATED_ENTITY_ROW_GUI_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "fixed_row_widget_plan",
+        "per_row_variable_binding_plan",
+        "row_entity_refs",
+        "tooltip_localization_linkage",
+        "gui_event_key_linkage",
+        "aggregate_projection_refs",
+        "aggregate_projection_boundary",
+        "aggregate_only_display_allowed",
+        "gui_source_body_allowed",
+        "gui_source_writes_allowed",
+        "row_state_writes_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_LISTENER_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "on_action_target_path_plan",
+        "on_action_hook_linkage_plan",
+        "selected_ritual_trigger_linkage",
+        "war_scope_availability_persistence_plan",
+        "row_state_handoff_boundary",
+        "listener_body_allowed",
+        "listener_scope_writes_allowed",
+        "war_scope_writes_allowed",
+        "source_writes_allowed",
+        "source_ready_allowed",
+    }
+)
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS = ("english", "simp_chinese")
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_row_labels": "row_labels",
@@ -6239,6 +6271,154 @@ def _repeated_row_trigger_source_preview_for_artifact(artifact: dict[str, Any]) 
     }
 
 
+def _repeated_row_gui_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(artifact.get("aggregate_projection_variables"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    widget_kind = artifact_kind.removeprefix("gui_").removesuffix("_row")
+    loc_namespace = f"tv_wonder_unique_{wonder_key}_ritual.{row_set_key}"
+    event_key_prefix = "tv_engineering_department.<event_id>"
+    return {
+        "preview_only": True,
+        "preview_family": "gui",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "gui_row_contract_preview",
+            "widget_kind": widget_kind,
+            "body_emitted": False,
+            "no_gui_source_body": True,
+            "no_gui_source_write": True,
+            "no_row_state_write": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "fixed_row_widget_plan": {
+            "widget_kind": widget_kind,
+            "row_widget_fixed": True,
+            "row_widget_boundary": str(contract.get("fixed_row_widget_boundary", "")),
+            "body_emitted": False,
+        },
+        "per_row_variable_binding_plan": {
+            "binds_design_ir_tracked_entity_sets": True,
+            "entity_keys": entity_refs,
+            "aggregate_only_row_reads_allowed": False,
+            "policy": str(contract.get("per_row_variable_binding_policy", "")),
+        },
+        "row_entity_refs": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+        },
+        "tooltip_localization_linkage": {
+            "loc_key_namespace": loc_namespace,
+            "row_label_keys": [f"{loc_namespace}.{entity_key}.row_labels" for entity_key in entity_refs],
+            "status_text_keys": [f"{loc_namespace}.{entity_key}.status_text" for entity_key in entity_refs],
+            "incident_text_keys": [f"{loc_namespace}.{entity_key}.incident_text" for entity_key in entity_refs],
+            "tooltip_keys": [f"{loc_namespace}.{entity_key}.tooltips" for entity_key in entity_refs],
+            "policy": str(contract.get("tooltip_key_linkage_policy", "")),
+        },
+        "gui_event_key_linkage": {
+            "event_key_prefix": event_key_prefix,
+            "event_title_key_pattern": f"{event_key_prefix}.t",
+            "event_desc_key_pattern": f"{event_key_prefix}.d",
+            "event_option_key_pattern": f"{event_key_prefix}.a",
+            "linkage_only": True,
+            "source_body_emitted": False,
+        },
+        "aggregate_projection_refs": aggregate_projection_refs,
+        "aggregate_projection_boundary": str(contract.get("aggregate_projection_boundary", "")),
+        "aggregate_only_display_allowed": False,
+        "gui_source_body_allowed": False,
+        "gui_source_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
+def _repeated_row_listener_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    target_path = str(contract.get("candidate_future_source_target_path", ""))
+    selected_trigger = "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+    return {
+        "preview_only": True,
+        "preview_family": "listener",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": target_path,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_LISTENER_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "listener_on_action_contract_preview",
+            "body_emitted": False,
+            "no_listener_body": True,
+            "no_listener_scope_write": True,
+            "no_war_scope_write": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "on_action_target_path_plan": {
+            "target_path": target_path,
+            "target_only": True,
+            "body_emitted": False,
+        },
+        "on_action_hook_linkage_plan": {
+            "hooks": ["on_pre_winning_war", "on_ending_war"],
+            "bridge_policy": str(contract.get("on_action_bridge_policy", "")),
+            "linkage_only": True,
+            "body_emitted": False,
+        },
+        "selected_ritual_trigger_linkage": {
+            "trigger_name": selected_trigger,
+            "selected_ritual_only": True,
+            "linkage_only": True,
+        },
+        "war_scope_availability_persistence_plan": {
+            "war_scope_available_from_hooks": ["on_pre_winning_war", "on_ending_war"],
+            "persistence_contract_only": True,
+            "listener_scope_writes_allowed": False,
+            "war_scope_writes_allowed": False,
+        },
+        "row_state_handoff_boundary": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+            "handoff_only": True,
+            "row_state_writes_allowed": False,
+            "source_target_boundary": str(artifact.get("source_target_boundary", "")),
+        },
+        "listener_body_allowed": False,
+        "listener_scope_writes_allowed": False,
+        "war_scope_writes_allowed": False,
+        "source_writes_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
 def repeated_entity_row_source_preview_for_entry(
     entry_plan: dict[str, Any],
     *,
@@ -6265,6 +6445,10 @@ def repeated_entity_row_source_preview_for_entry(
             previews.append(_repeated_row_cleanup_source_preview_for_artifact(artifact))
         elif artifact_kind in REPEATED_ENTITY_ROW_TRIGGER_ARTIFACT_KINDS:
             previews.append(_repeated_row_trigger_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS:
+            previews.append(_repeated_row_gui_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_LISTENER_ARTIFACT_KINDS:
+            previews.append(_repeated_row_listener_source_preview_for_artifact(artifact))
         else:
             skipped_artifact_kinds.append(artifact_kind)
 
@@ -6280,7 +6464,7 @@ def repeated_entity_row_source_preview_for_entry(
         "previews": previews,
         "notes": [
             "Dry-run source preview only; no src files are written.",
-            "GUI and listener artifacts remain source-writer blockers without source body previews.",
+            "GUI and listener artifacts now receive no-body dry-run previews and remain source-writer blockers.",
         ],
     }
 
@@ -6311,12 +6495,20 @@ def repeated_entity_row_source_preview_for_payload(
         for preview in entry.get("previews", []) or []
         if isinstance(preview, dict)
     ]
+    skipped_artifact_kinds = sorted(
+        {
+            str(artifact_kind)
+            for entry in entries
+            for artifact_kind in entry.get("skipped_artifact_kinds", []) or []
+        }
+    )
     report = {
         "statuses": sorted(statuses or {"source_codegen_ready"}),
         "preview_only": True,
         "candidate_count": len(entries),
         "preview_count": len(previews),
         "preview_family_summary": _count_by_key(previews, "preview_family"),
+        "skipped_artifact_kinds": skipped_artifact_kinds,
         "source_writer_allowed": False,
         "may_write_src_allowed": False,
         "writes_src": False,
@@ -6326,7 +6518,7 @@ def repeated_entity_row_source_preview_for_payload(
         "validation_errors": [],
         "notes": [
             "Repeated-row source preview is a no-write dry-run compiler layer.",
-            "It emits event/localization/effect/cleanup/trigger preview fragments only and does not authorize src writes.",
+            "It emits event/localization/effect/cleanup/trigger/GUI/listener preview fragments only and does not authorize src writes.",
             "It does not make any source-plan contract source-ready.",
         ],
     }
@@ -6355,8 +6547,16 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
         "effect": 0,
         "cleanup": 0,
         "trigger": 0,
+        "gui": 0,
+        "listener": 0,
     }
     all_loc_keys: dict[str, str] = {}
+    skipped_artifact_kinds = _string_refs(report.get("skipped_artifact_kinds"))
+    if skipped_artifact_kinds:
+        errors.append(
+            "source preview report skipped_artifact_kinds must be empty: "
+            f"{', '.join(sorted(set(skipped_artifact_kinds)))}"
+        )
     entries = report.get("entries") if isinstance(report.get("entries"), list) else []
     for entry in entries:
         if not isinstance(entry, dict):
@@ -6371,6 +6571,12 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
             errors.append(f"{pilot_key}: source preview entry may_write_src_allowed must be false")
         if entry.get("writes_src") is not False:
             errors.append(f"{pilot_key}: source preview entry writes_src must be false")
+        entry_skipped_artifact_kinds = _string_refs(entry.get("skipped_artifact_kinds"))
+        if entry_skipped_artifact_kinds:
+            errors.append(
+                f"{pilot_key}: source preview entry skipped_artifact_kinds must be empty: "
+                f"{', '.join(sorted(set(entry_skipped_artifact_kinds)))}"
+            )
 
         for preview in entry.get("previews", []) or []:
             if not isinstance(preview, dict):
@@ -6393,6 +6599,12 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
             elif family == "trigger":
                 required_fields = REPEATED_ENTITY_ROW_TRIGGER_SOURCE_PREVIEW_REQUIRED_FIELDS
                 preview_family_counts["trigger"] += 1
+            elif family == "gui":
+                required_fields = REPEATED_ENTITY_ROW_GUI_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["gui"] += 1
+            elif family == "listener":
+                required_fields = REPEATED_ENTITY_ROW_LISTENER_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["listener"] += 1
             else:
                 errors.append(
                     f"{pilot_key}: artifact {artifact_kind} unsupported source body preview family {family!r}"
@@ -6689,12 +6901,169 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
                 if not str(preview.get("aggregate_boundary", "")).strip():
                     errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing aggregate boundary")
 
+            if family == "gui":
+                if artifact_kind not in REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive a GUI source body preview")
+                if preview.get("aggregate_only_display_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview aggregate-only display must be false")
+                if preview.get("gui_source_body_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview GUI body writes must be false")
+                if preview.get("gui_source_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview GUI source writes must be false")
+                if preview.get("row_state_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview row-state writes must be false")
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_gui_source_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must declare no GUI source body")
+                    if source_body_preview.get("no_gui_source_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must declare no GUI source write")
+                    if source_body_preview.get("no_row_state_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must declare no row-state write")
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must declare no source-ready")
+                    if source_body_preview.get("body_emitted") is not False:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must not emit GUI source body")
+                fixed_plan = preview.get("fixed_row_widget_plan")
+                if (
+                    not isinstance(fixed_plan, dict)
+                    or fixed_plan.get("row_widget_fixed") is not True
+                    or fixed_plan.get("body_emitted") is not False
+                    or not str(fixed_plan.get("row_widget_boundary", "")).strip()
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing fixed row widget plan")
+                binding_plan = preview.get("per_row_variable_binding_plan")
+                if (
+                    not isinstance(binding_plan, dict)
+                    or binding_plan.get("binds_design_ir_tracked_entity_sets") is not True
+                    or binding_plan.get("aggregate_only_row_reads_allowed") is not False
+                    or not binding_plan.get("entity_keys")
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing per-row binding plan")
+                if not isinstance(preview.get("row_entity_refs"), dict) or not preview.get("row_entity_refs", {}).get("entity_keys"):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing row/entity refs")
+                tooltip_linkage = preview.get("tooltip_localization_linkage")
+                if not isinstance(tooltip_linkage, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing tooltip/localization linkage")
+                else:
+                    required_linkage_keys = {"loc_key_namespace", "row_label_keys", "status_text_keys", "tooltip_keys"}
+                    if not required_linkage_keys <= set(tooltip_linkage):
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} GUI preview missing tooltip/localization linkage"
+                        )
+                    if not str(tooltip_linkage.get("loc_key_namespace", "")).startswith("tv_wonder_unique_"):
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} GUI preview missing tooltip/localization linkage"
+                        )
+                gui_event_linkage = preview.get("gui_event_key_linkage")
+                if (
+                    not isinstance(gui_event_linkage, dict)
+                    or gui_event_linkage.get("linkage_only") is not True
+                    or gui_event_linkage.get("source_body_emitted") is not False
+                    or not str(gui_event_linkage.get("event_key_prefix", "")).strip()
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing GUI/event key linkage")
+                if not isinstance(preview.get("aggregate_projection_refs"), list):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing aggregate projection refs")
+                if not str(preview.get("aggregate_projection_boundary", "")).strip():
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing aggregate projection boundary")
+
+            if family == "listener":
+                preview_pilot_key = str(preview.get("pilot_key", ""))
+                if (
+                    pilot_key != "unique_alhambra"
+                    or preview_pilot_key != "unique_alhambra"
+                    or artifact_kind != "listener_war_integration"
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must be Alhambra-only")
+                if preview.get("listener_body_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview listener body writes must be false")
+                if preview.get("listener_scope_writes_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} listener preview listener scope writes must be false"
+                    )
+                if preview.get("war_scope_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview war scope writes must be false")
+                if preview.get("source_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview source writes must be false")
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_listener_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must declare no listener body")
+                    if source_body_preview.get("no_listener_scope_write") is not True:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} listener preview must declare no listener scope write"
+                        )
+                    if source_body_preview.get("no_war_scope_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must declare no war scope write")
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must declare no source-ready")
+                    if source_body_preview.get("body_emitted") is not False:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must not emit listener body")
+                target_plan = preview.get("on_action_target_path_plan")
+                if (
+                    not isinstance(target_plan, dict)
+                    or target_plan.get("target_only") is not True
+                    or target_plan.get("body_emitted") is not False
+                    or not str(target_plan.get("target_path", "")).startswith("src/in_game/common/on_action/")
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview missing on_action target path plan")
+                hook_plan = preview.get("on_action_hook_linkage_plan")
+                if (
+                    not isinstance(hook_plan, dict)
+                    or hook_plan.get("linkage_only") is not True
+                    or hook_plan.get("body_emitted") is not False
+                    or not {"on_pre_winning_war", "on_ending_war"} <= set(_string_refs(hook_plan.get("hooks")))
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview missing hook linkage plan")
+                trigger_linkage = preview.get("selected_ritual_trigger_linkage")
+                if (
+                    not isinstance(trigger_linkage, dict)
+                    or trigger_linkage.get("selected_ritual_only") is not True
+                    or trigger_linkage.get("linkage_only") is not True
+                    or not str(trigger_linkage.get("trigger_name", "")).strip()
+                ):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} listener preview missing selected ritual trigger linkage"
+                    )
+                war_scope_plan = preview.get("war_scope_availability_persistence_plan")
+                if (
+                    not isinstance(war_scope_plan, dict)
+                    or war_scope_plan.get("persistence_contract_only") is not True
+                    or war_scope_plan.get("listener_scope_writes_allowed") is not False
+                    or war_scope_plan.get("war_scope_writes_allowed") is not False
+                    or not {"on_pre_winning_war", "on_ending_war"} <= set(
+                        _string_refs(war_scope_plan.get("war_scope_available_from_hooks"))
+                    )
+                ):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} listener preview missing war scope availability plan"
+                    )
+                handoff_boundary = preview.get("row_state_handoff_boundary")
+                if (
+                    not isinstance(handoff_boundary, dict)
+                    or handoff_boundary.get("handoff_only") is not True
+                    or handoff_boundary.get("row_state_writes_allowed") is not False
+                    or not handoff_boundary.get("entity_keys")
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview missing row-state handoff boundary")
+
     expected_preview_family_counts = {
         "event": 32,
         "localization": 40,
         "effect": 40,
         "cleanup": 32,
         "trigger": 24,
+        "gui": 8,
+        "listener": 1,
     }
     for family, expected_count in expected_preview_family_counts.items():
         actual_count = preview_family_counts[family]
@@ -6703,8 +7072,8 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
     total_preview_count = sum(preview_family_counts.values())
     if int(report.get("preview_count", -1)) != total_preview_count:
         errors.append("source preview report preview_count mismatch")
-    if int(report.get("preview_count", -1)) != 168:
-        errors.append(f"expected 168 repeated-row source previews, got {report.get('preview_count')}")
+    if int(report.get("preview_count", -1)) != 177:
+        errors.append(f"expected 177 repeated-row source previews, got {report.get('preview_count')}")
     return errors
 
 

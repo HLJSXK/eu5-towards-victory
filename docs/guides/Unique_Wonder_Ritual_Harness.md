@@ -107,15 +107,16 @@ localization policy, and future event file pattern
 boundary validations only. The future target path is not a source generator, event options
 may only declare future effect handoff, and no event contract may inline row-state writes,
 set `may_write_src: true`, unblock `source_writer_allowed`, or write `src/`.
-The repeated-row event/localization/script-side source preview compiler is an additive
-dry-run layer on top of the source-plan. It may render structured event skeleton
-previews, localization key-plan previews, scripted-effect name/target plans, cleanup
-scope/coverage plans, and scripted-trigger condition-group plans for review, using only
-existing spec event IDs, `node_graph.nodes[].event_id`, row-set keys, entity keys,
-aggregate projection refs, and future target path contracts. It never writes `src/`,
-never assigns new IDs, never emits loadable EU5 effect/cleanup/trigger bodies, never
-authorizes row-state writes or unsafe tooltip write paths, and never upgrades contracts
-or specs to source-ready.
+The repeated-row source preview compiler is an additive dry-run layer on top of the
+source-plan. It may render structured event skeleton previews, localization key-plan
+previews, scripted-effect name/target plans, cleanup scope/coverage plans,
+scripted-trigger condition-group plans, GUI row contract previews, and the Alhambra-only
+listener hook contract preview for review, using only existing spec event IDs,
+`node_graph.nodes[].event_id`, row-set keys, entity keys, aggregate projection refs, and
+future target path contracts. It never writes `src/`, never assigns new IDs, never emits
+loadable EU5 effect/cleanup/trigger, GUI, or on_action/listener bodies, never authorizes
+row-state writes or unsafe tooltip write paths, and never upgrades contracts or specs to
+source-ready.
 Repeated-row scripted-effect and cleanup source-target contracts are the matching
 source-writer preflight layer for `common/scripted_effects`. They name the future
 scripted-effect file pattern
@@ -156,14 +157,15 @@ authorize missing bilingual coverage or unsafe quote/newline handling, and do no
 Preview localization entries are likewise contract previews only: they list bilingual row
 label, status, incident, tooltip, and summary keys under the repeated-row namespace and
 mirror the existing `loc_line()` escaping/BOM policy without claiming file output.
-Scripted-effect, cleanup, and scripted-trigger previews are also dry-run/no-write review
-artifacts: they list future target paths, future names or scopes, row/entity refs,
-aggregate boundaries, handoff responsibility, lifecycle coverage, tooltip-safe predicate
-plans, and blocker reasons, but do not generate source bodies, do not authorize `src/`
-writes, do not produce loadable EU5 source, and do not raise `source_codegen_ready`,
-`implementation_ready`, `harness_generated`, or any other spec readiness. GUI and
-listener families remain source-writer blockers and do not get source body previews from
-this layer.
+Scripted-effect, cleanup, scripted-trigger, GUI, and listener previews are also
+dry-run/no-write review artifacts: they list future target paths, future names or scopes,
+row/entity refs, aggregate boundaries, handoff responsibility, lifecycle coverage,
+tooltip-safe predicate plans, fixed GUI row widget and per-row binding plans,
+tooltip/localization and GUI/event linkages, Alhambra war hook linkage, selected-ritual
+trigger linkage, war-scope availability, and blocker reasons. They do not generate source
+bodies, do not authorize `src/` writes, do not produce loadable EU5 GUI/on_action source,
+and do not raise `source_codegen_ready`, `implementation_ready`, `harness_generated`, or
+any other spec readiness.
 The Alhambra-only listener source-target contract is the same kind of source-writer
 prerequisite for `common/on_action`. It names only the future on_action file pattern
 `src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt` and

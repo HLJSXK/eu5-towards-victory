@@ -2844,9 +2844,11 @@ def main() -> None:
         "effect": 40,
         "cleanup": 32,
         "trigger": 24,
+        "gui": 8,
+        "listener": 1,
     }
-    if source_preview.get("preview_count") != 168:
-        raise AssertionError(f"expected 168 repeated-row source previews, got {source_preview.get('preview_count')}")
+    if source_preview.get("preview_count") != 177:
+        raise AssertionError(f"expected 177 repeated-row source previews, got {source_preview.get('preview_count')}")
     for family, expected_count in expected_preview_family_counts.items():
         if source_preview.get("preview_family_summary", {}).get(family) != expected_count:
             raise AssertionError(
@@ -2946,26 +2948,61 @@ def main() -> None:
                     raise AssertionError(f"trigger preview emitted trigger body: {preview}")
                 if body.get("no_unsafe_tooltip_write_path") is not True:
                     raise AssertionError(f"trigger preview lost tooltip write-path blocker: {preview}")
+            elif family == "gui":
+                preview_family_counts["gui"] += 1
+                if artifact_kind not in REPEATED_ROW_GUI_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-GUI artifact received GUI preview: {preview}")
+                if preview.get("aggregate_only_display_allowed") is not False:
+                    raise AssertionError(f"GUI preview allowed aggregate-only display: {preview}")
+                if preview.get("gui_source_body_allowed") is not False:
+                    raise AssertionError(f"GUI preview allowed GUI body writes: {preview}")
+                if preview.get("gui_source_writes_allowed") is not False:
+                    raise AssertionError(f"GUI preview allowed GUI source writes: {preview}")
+                if preview.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"GUI preview allowed row-state writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_gui_source_body") is not True:
+                    raise AssertionError(f"GUI preview lost source body blocker: {preview}")
+                if not isinstance(preview.get("fixed_row_widget_plan"), dict):
+                    raise AssertionError(f"GUI preview lost fixed row widget plan: {preview}")
+                if not isinstance(preview.get("per_row_variable_binding_plan"), dict):
+                    raise AssertionError(f"GUI preview lost per-row binding plan: {preview}")
+                if not isinstance(preview.get("tooltip_localization_linkage"), dict):
+                    raise AssertionError(f"GUI preview lost tooltip/localization linkage: {preview}")
+                if not isinstance(preview.get("gui_event_key_linkage"), dict):
+                    raise AssertionError(f"GUI preview lost GUI/event linkage: {preview}")
+            elif family == "listener":
+                preview_family_counts["listener"] += 1
+                if artifact_kind not in REPEATED_ROW_LISTENER_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-listener artifact received listener preview: {preview}")
+                if preview.get("pilot_key") != "unique_alhambra":
+                    raise AssertionError(f"listener preview should be Alhambra-only: {preview}")
+                if preview.get("listener_body_allowed") is not False:
+                    raise AssertionError(f"listener preview allowed listener body writes: {preview}")
+                if preview.get("listener_scope_writes_allowed") is not False:
+                    raise AssertionError(f"listener preview allowed listener scope writes: {preview}")
+                if preview.get("war_scope_writes_allowed") is not False:
+                    raise AssertionError(f"listener preview allowed war scope writes: {preview}")
+                if preview.get("source_writes_allowed") is not False:
+                    raise AssertionError(f"listener preview allowed source writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_listener_body") is not True:
+                    raise AssertionError(f"listener preview emitted listener body: {preview}")
+                if not isinstance(preview.get("on_action_hook_linkage_plan"), dict):
+                    raise AssertionError(f"listener preview lost hook linkage plan: {preview}")
+                if not isinstance(preview.get("selected_ritual_trigger_linkage"), dict):
+                    raise AssertionError(f"listener preview lost selected ritual trigger linkage: {preview}")
+                if not isinstance(preview.get("row_state_handoff_boundary"), dict):
+                    raise AssertionError(f"listener preview lost row-state handoff boundary: {preview}")
             else:
                 raise AssertionError(f"unsupported source body preview family {family}: {preview}")
     for family, expected_count in expected_preview_family_counts.items():
         if preview_family_counts[family] != expected_count:
             raise AssertionError(f"expected {expected_count} {family} previews, got {preview_family_counts[family]}")
-    previewed_script_kinds = (
-        REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
-        | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
-    )
-    if skipped_preview_kinds & previewed_script_kinds:
-        raise AssertionError(
-            "effect/trigger/cleanup artifacts should receive dry-run previews, not skipped blockers: "
-            f"{sorted(skipped_preview_kinds & previewed_script_kinds)}"
-        )
-    forbidden_preview_kinds = REPEATED_ROW_GUI_ARTIFACT_KINDS | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
-    if not forbidden_preview_kinds <= skipped_preview_kinds:
-        raise AssertionError(
-            "GUI/listener artifacts should remain skipped preview blockers: "
-            f"{sorted(forbidden_preview_kinds - skipped_preview_kinds)}"
-        )
+    if skipped_preview_kinds:
+        raise AssertionError(f"source preview should not skip artifact kinds: {sorted(skipped_preview_kinds)}")
+    if source_preview.get("skipped_artifact_kinds") != []:
+        raise AssertionError(f"source preview report skipped kinds should be empty: {source_preview}")
 
     row_state_preview = deepcopy(source_preview)
     _first_source_preview(row_state_preview, "event")["row_state_writes_allowed"] = True
@@ -3069,6 +3106,86 @@ def main() -> None:
     cleanup_may_write_src_errors = validate_repeated_entity_row_source_preview(cleanup_may_write_src_preview)
     if not any("may_write_src must be false" in error for error in cleanup_may_write_src_errors):
         raise AssertionError(f"cleanup may_write_src preview negative was not caught: {cleanup_may_write_src_errors}")
+
+    gui_aggregate_only_preview = deepcopy(source_preview)
+    _first_source_preview(gui_aggregate_only_preview, "gui")["aggregate_only_display_allowed"] = True
+    gui_aggregate_only_errors = validate_repeated_entity_row_source_preview(gui_aggregate_only_preview)
+    if not any("GUI preview aggregate-only display must be false" in error for error in gui_aggregate_only_errors):
+        raise AssertionError(f"GUI aggregate-only preview negative was not caught: {gui_aggregate_only_errors}")
+
+    gui_body_preview = deepcopy(source_preview)
+    _first_source_preview(gui_body_preview, "gui")["gui_source_body_allowed"] = True
+    gui_body_errors = validate_repeated_entity_row_source_preview(gui_body_preview)
+    if not any("GUI preview GUI body writes must be false" in error for error in gui_body_errors):
+        raise AssertionError(f"GUI body write preview negative was not caught: {gui_body_errors}")
+
+    gui_source_write_preview = deepcopy(source_preview)
+    _first_source_preview(gui_source_write_preview, "gui")["gui_source_writes_allowed"] = True
+    gui_source_write_errors = validate_repeated_entity_row_source_preview(gui_source_write_preview)
+    if not any("GUI preview GUI source writes must be false" in error for error in gui_source_write_errors):
+        raise AssertionError(f"GUI source write preview negative was not caught: {gui_source_write_errors}")
+
+    missing_gui_widget_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_gui_widget_preview, "gui")["fixed_row_widget_plan"]
+    missing_gui_widget_errors = validate_repeated_entity_row_source_preview(missing_gui_widget_preview)
+    if not any("source preview missing field(s)" in error for error in missing_gui_widget_errors):
+        raise AssertionError(f"missing GUI row widget preview negative was not caught: {missing_gui_widget_errors}")
+
+    missing_gui_binding_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_gui_binding_preview, "gui")["per_row_variable_binding_plan"]
+    missing_gui_binding_errors = validate_repeated_entity_row_source_preview(missing_gui_binding_preview)
+    if not any("source preview missing field(s)" in error for error in missing_gui_binding_errors):
+        raise AssertionError(f"missing GUI per-row binding preview negative was not caught: {missing_gui_binding_errors}")
+
+    missing_gui_tooltip_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_gui_tooltip_preview, "gui")["tooltip_localization_linkage"]
+    missing_gui_tooltip_errors = validate_repeated_entity_row_source_preview(missing_gui_tooltip_preview)
+    if not any("source preview missing field(s)" in error for error in missing_gui_tooltip_errors):
+        raise AssertionError(f"missing GUI tooltip/localization preview negative was not caught: {missing_gui_tooltip_errors}")
+
+    gui_may_write_src_preview = deepcopy(source_preview)
+    _first_source_preview(gui_may_write_src_preview, "gui")["may_write_src"] = True
+    gui_may_write_src_errors = validate_repeated_entity_row_source_preview(gui_may_write_src_preview)
+    if not any("may_write_src must be false" in error for error in gui_may_write_src_errors):
+        raise AssertionError(f"GUI may_write_src preview negative was not caught: {gui_may_write_src_errors}")
+
+    listener_non_alhambra_preview = deepcopy(source_preview)
+    _first_source_preview(listener_non_alhambra_preview, "listener")["pilot_key"] = "unique_dome_of_the_rock"
+    listener_non_alhambra_errors = validate_repeated_entity_row_source_preview(listener_non_alhambra_preview)
+    if not any("listener preview must be Alhambra-only" in error for error in listener_non_alhambra_errors):
+        raise AssertionError(f"non-Alhambra listener preview negative was not caught: {listener_non_alhambra_errors}")
+
+    listener_body_preview = deepcopy(source_preview)
+    _first_source_preview(listener_body_preview, "listener")["listener_body_allowed"] = True
+    listener_body_errors = validate_repeated_entity_row_source_preview(listener_body_preview)
+    if not any("listener preview listener body writes must be false" in error for error in listener_body_errors):
+        raise AssertionError(f"listener body write preview negative was not caught: {listener_body_errors}")
+
+    listener_war_scope_preview = deepcopy(source_preview)
+    _first_source_preview(listener_war_scope_preview, "listener")["war_scope_writes_allowed"] = True
+    listener_war_scope_errors = validate_repeated_entity_row_source_preview(listener_war_scope_preview)
+    if not any("listener preview war scope writes must be false" in error for error in listener_war_scope_errors):
+        raise AssertionError(f"listener war scope write preview negative was not caught: {listener_war_scope_errors}")
+
+    missing_listener_hook_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_listener_hook_preview, "listener")["on_action_hook_linkage_plan"]
+    missing_listener_hook_errors = validate_repeated_entity_row_source_preview(missing_listener_hook_preview)
+    if not any("source preview missing field(s)" in error for error in missing_listener_hook_errors):
+        raise AssertionError(f"missing listener hook linkage preview negative was not caught: {missing_listener_hook_errors}")
+
+    missing_listener_trigger_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_listener_trigger_preview, "listener")["selected_ritual_trigger_linkage"]
+    missing_listener_trigger_errors = validate_repeated_entity_row_source_preview(missing_listener_trigger_preview)
+    if not any("source preview missing field(s)" in error for error in missing_listener_trigger_errors):
+        raise AssertionError(
+            f"missing listener selected ritual trigger preview negative was not caught: {missing_listener_trigger_errors}"
+        )
+
+    listener_writes_src_preview = deepcopy(source_preview)
+    _first_source_preview(listener_writes_src_preview, "listener")["writes_src"] = True
+    listener_writes_src_errors = validate_repeated_entity_row_source_preview(listener_writes_src_preview)
+    if not any("writes_src must be false" in error for error in listener_writes_src_errors):
+        raise AssertionError(f"listener writes_src preview negative was not caught: {listener_writes_src_errors}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
