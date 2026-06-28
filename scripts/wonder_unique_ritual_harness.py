@@ -3442,6 +3442,34 @@ REPEATED_ENTITY_ROW_LISTENER_SOURCE_PREVIEW_REQUIRED_FIELDS = (
         "source_ready_allowed",
     }
 )
+REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_EVIDENCE_FIELDS = {
+    "status",
+    "evidence_type",
+    "summary",
+    "paths",
+    "anchors",
+    "blockers",
+}
+REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS = {
+    "eu5_syntax_evidence",
+    "generator_ownership_evidence",
+    "source_target_boundary_evidence",
+    "validation_coverage_evidence",
+    "lifecycle_semantics_evidence",
+}
+REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_FIELDS = {
+    "artifact_kind",
+    "contract_family",
+    "pilot_key",
+    "row_set_key",
+    "current_contract_status",
+    "preview_exists",
+    "readiness_status",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+    "unresolved_writer_blockers",
+} | REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS = ("english", "simp_chinese")
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_row_labels": "row_labels",
@@ -7077,6 +7105,432 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
     return errors
 
 
+def _repeated_row_artifact_identity(item: dict[str, Any]) -> tuple[str, str, str]:
+    return (
+        str(item.get("pilot_key", "")),
+        str(item.get("row_set_key", "")),
+        str(item.get("artifact_kind", "")),
+    )
+
+
+def _repeated_row_source_writer_evidence_block(
+    *,
+    status: str,
+    evidence_type: str,
+    summary: str,
+    paths: list[str] | None = None,
+    anchors: dict[str, Any] | None = None,
+    blockers: list[str] | None = None,
+) -> dict[str, Any]:
+    return {
+        "status": status,
+        "evidence_type": evidence_type,
+        "summary": summary,
+        "paths": paths or [],
+        "anchors": anchors or {},
+        "blockers": blockers or [],
+    }
+
+
+def _repeated_row_source_writer_readiness_artifact(
+    *,
+    artifact: dict[str, Any],
+    preview: dict[str, Any] | None,
+) -> dict[str, Any]:
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    pilot_key = str(artifact.get("pilot_key", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    evidence_mapping = artifact.get("evidence_mapping") if isinstance(artifact.get("evidence_mapping"), dict) else {}
+    preview_exists = isinstance(preview, dict)
+    preview_data = preview if isinstance(preview, dict) else {}
+    contract_family = str(contract.get("contract_family", preview_data.get("preview_family", "")))
+    current_contract_status = str(contract.get("status", preview_data.get("contract_status", "")))
+    blocker_sources = (
+        _string_refs(contract.get("blocker_reasons"))
+        + _string_refs(preview_data.get("blocker_reasons"))
+        + _string_refs(evidence_mapping.get("generator_missing_reason"))
+    )
+    unresolved_writer_blockers = sorted(set(blocker for blocker in blocker_sources if blocker.strip()))
+    if not preview_exists:
+        unresolved_writer_blockers.append("missing source preview")
+    if not unresolved_writer_blockers:
+        unresolved_writer_blockers.append("missing verified source-writer evidence chain")
+
+    validation_anchors: dict[str, Any] = {
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "preview_family": str(preview_data.get("preview_family", "")),
+        "source_preview_closed": bool(preview_exists and preview_data.get("source_ready") is False),
+    }
+    for key in (
+        "event_id_evidence_sources",
+        "event_id_evidence",
+        "node_event_id_evidence",
+        "loc_line_policy_probe",
+        "cleanup_coverage",
+        "fixed_row_widget_plan",
+        "per_row_variable_binding_plan",
+        "on_action_hook_linkage_plan",
+    ):
+        if key in preview_data:
+            validation_anchors[key] = preview_data[key]
+
+    lifecycle_anchors: dict[str, Any] = {
+        "row_set_key": row_set_key,
+        "entity_refs": _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys")),
+        "aggregate_projection_variables": _string_refs(artifact.get("aggregate_projection_variables")),
+        "aggregate_projection_boundary": str(
+            contract.get(
+                "aggregate_projection_boundary",
+                preview_data.get("aggregate_projection_boundary", preview_data.get("aggregate_boundary", "")),
+            )
+        ),
+    }
+    for key in (
+        "cleanup_scope_plan",
+        "cleanup_coverage",
+        "row_entity_refs",
+        "handoff_responsibility",
+        "option_effect_handoff",
+        "tooltip_safe_condition_group_plan",
+        "war_scope_availability_persistence_plan",
+        "row_state_handoff_boundary",
+    ):
+        if key in preview_data:
+            lifecycle_anchors[key] = preview_data[key]
+
+    boundary_paths = _string_refs(evidence_mapping.get("evidence_source_paths"))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    if future_target:
+        boundary_paths = sorted(set(boundary_paths + [future_target]))
+
+    return {
+        "artifact_kind": artifact_kind,
+        "contract_family": contract_family,
+        "pilot_key": pilot_key,
+        "row_set_key": row_set_key,
+        "current_contract_status": current_contract_status,
+        "preview_exists": preview_exists,
+        "readiness_status": "blocked",
+        "eu5_syntax_evidence": _repeated_row_source_writer_evidence_block(
+            status=str(artifact.get("evidence_status", "interface_candidate")),
+            evidence_type="interface_candidate",
+            summary=str(evidence_mapping.get("eu5_source_syntax_pattern", "")),
+            paths=_string_refs(evidence_mapping.get("evidence_source_paths")),
+            anchors={
+                "source_body_preview": preview_data.get("source_body_preview", {}),
+                "required_eu5_interfaces": _string_refs(artifact.get("required_eu5_interfaces")),
+            },
+            blockers=unresolved_writer_blockers,
+        ),
+        "generator_ownership_evidence": _repeated_row_source_writer_evidence_block(
+            status="interface_candidate",
+            evidence_type="interface_candidate",
+            summary=str(evidence_mapping.get("generator_missing_reason", "")),
+            paths=[path for path in [str(evidence_mapping.get("generator_candidate", ""))] if path],
+            anchors={
+                "owner_generator": str(artifact.get("owner_generator", "")),
+                "planned_owner_exists": str(artifact.get("owner_generator", ""))
+                in REPEATED_ENTITY_ROW_SOURCE_PLAN_EXISTING_GENERATORS,
+            },
+            blockers=[
+                "planned owner generator is not registered as an existing source writer",
+                *unresolved_writer_blockers,
+            ],
+        ),
+        "source_target_boundary_evidence": _repeated_row_source_writer_evidence_block(
+            status="blocked",
+            evidence_type="source_target_boundary",
+            summary=str(artifact.get("source_target_boundary", "")),
+            paths=boundary_paths,
+            anchors={
+                "contract_family": contract_family,
+                "future_target_only": contract.get("future_target_only"),
+                "future_source_target_path_pattern": str(contract.get("future_source_target_path_pattern", "")),
+                "candidate_future_source_target_path": future_target,
+                "preview_future_source_target_path": str(preview_data.get("future_source_target_path", "")),
+            },
+            blockers=unresolved_writer_blockers,
+        ),
+        "validation_coverage_evidence": _repeated_row_source_writer_evidence_block(
+            status="interface_candidate",
+            evidence_type="validation_coverage",
+            summary=(
+                "Validation requirements and preview probes are present as contract data only; "
+                "they do not prove source-writer readiness."
+            ),
+            paths=[],
+            anchors=validation_anchors,
+            blockers=unresolved_writer_blockers,
+        ),
+        "lifecycle_semantics_evidence": _repeated_row_source_writer_evidence_block(
+            status="interface_candidate",
+            evidence_type="lifecycle_semantics",
+            summary=(
+                "Row/entity lifecycle semantics are preserved from source-plan and source-preview data, "
+                "but remain blocked until a writer owns row-state effects, triggers, GUI, localization, and cleanup."
+            ),
+            paths=[],
+            anchors=lifecycle_anchors,
+            blockers=unresolved_writer_blockers,
+        ),
+        "unresolved_writer_blockers": unresolved_writer_blockers,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
+def _repeated_row_source_writer_readiness_entry(
+    *,
+    entry_plan: dict[str, Any],
+    entry_preview: dict[str, Any] | None,
+) -> dict[str, Any]:
+    previews = [
+        preview
+        for preview in (entry_preview or {}).get("previews", []) or []
+        if isinstance(preview, dict)
+    ]
+    preview_by_identity = {
+        _repeated_row_artifact_identity(preview): preview
+        for preview in previews
+    }
+    artifacts = [
+        _repeated_row_source_writer_readiness_artifact(
+            artifact=artifact,
+            preview=preview_by_identity.get(_repeated_row_artifact_identity(artifact)),
+        )
+        for artifact in entry_plan.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    return {
+        "key": str(entry_plan.get("key", "")),
+        "artifact_count": len(artifacts),
+        "ready_artifact_count": sum(1 for artifact in artifacts if artifact.get("readiness_status") == "ready"),
+        "blocked_artifact_count": sum(1 for artifact in artifacts if artifact.get("readiness_status") == "blocked"),
+        "contract_family_summary": _count_by_key(artifacts, "contract_family"),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "artifacts": artifacts,
+    }
+
+
+def repeated_entity_row_source_writer_readiness_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_plan = repeated_entity_row_source_plan_for_payload(payload, statuses=statuses)
+    source_preview = repeated_entity_row_source_preview_for_payload(payload, statuses=statuses)
+    preview_by_key = {
+        str(entry.get("key", "")): entry
+        for entry in source_preview.get("entries", []) or []
+        if isinstance(entry, dict)
+    }
+    entries = [
+        _repeated_row_source_writer_readiness_entry(
+            entry_plan=entry_plan,
+            entry_preview=preview_by_key.get(str(entry_plan.get("key", ""))),
+        )
+        for entry_plan in source_plan.get("entries", []) or []
+        if isinstance(entry_plan, dict)
+    ]
+    artifacts = [
+        artifact
+        for entry in entries
+        for artifact in entry.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    report = {
+        "statuses": sorted(statuses or {"source_codegen_ready"}),
+        "artifact_count": len(artifacts),
+        "ready_artifact_count": sum(1 for artifact in artifacts if artifact.get("readiness_status") == "ready"),
+        "blocked_artifact_count": sum(1 for artifact in artifacts if artifact.get("readiness_status") == "blocked"),
+        "contract_family_summary": _count_by_key(artifacts, "contract_family"),
+        "source_plan_artifact_count": int(source_plan.get("artifact_count", 0)),
+        "source_preview_count": int(source_preview.get("preview_count", 0)),
+        "source_preview_validation_errors": list(source_preview.get("validation_errors", [])),
+        "source_plan_validation_errors": list(source_plan.get("validation_errors", [])),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "entries": entries,
+        "validation_errors": [],
+        "notes": [
+            "Repeated-row source-writer readiness is a no-write evidence ledger.",
+            "It records remaining source-writer blockers after the 177/177 source preview closure.",
+            "It does not promote source_codegen_ready or authorize src writes.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_source_writer_readiness(report)
+    return report
+
+
+def _readiness_status_is_forbidden_ready(value: Any) -> bool:
+    return str(value or "").strip().lower().replace("-", "_") in {
+        "source_ready",
+        "ready",
+        "verified",
+        "source_codegen_ready",
+        "implementation_ready",
+        "harness_generated",
+    }
+
+
+def _readiness_evidence_claims_verified(evidence: dict[str, Any]) -> bool:
+    status = str(evidence.get("status", "")).strip().lower().replace("-", "_")
+    evidence_type = str(evidence.get("evidence_type", "")).strip().lower().replace("-", "_")
+    return status in {"verified", "source_ready"} or evidence_type in {"verified", "source_ready"}
+
+
+def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if int(report.get("source_plan_artifact_count", -1)) != 177:
+        errors.append("source-writer readiness must be based on the 177-artifact source-plan")
+    if int(report.get("source_preview_count", -1)) != 177:
+        errors.append("source-writer readiness must be based on 177 source previews")
+    if int(report.get("artifact_count", -1)) != 177:
+        errors.append(f"expected 177 repeated-row source-writer readiness artifacts, got {report.get('artifact_count')}")
+    if int(report.get("ready_artifact_count", -1)) != 0:
+        errors.append("source-writer readiness ready_artifact_count must be 0")
+    if int(report.get("blocked_artifact_count", -1)) != 177:
+        errors.append("source-writer readiness blocked_artifact_count must be 177")
+    if report.get("source_writer_allowed") is not False:
+        errors.append("source-writer readiness report source_writer_allowed must be false")
+    if report.get("may_write_src_allowed") is not False:
+        errors.append("source-writer readiness report may_write_src_allowed must be false")
+    if report.get("writes_src") is not False:
+        errors.append("source-writer readiness report writes_src must be false")
+    if report.get("source_plan_validation_errors"):
+        errors.append("source-writer readiness source-plan validation must be clean")
+    if report.get("source_preview_validation_errors"):
+        errors.append("source-writer readiness source-preview validation must be clean")
+
+    family_counts = {
+        "event": 0,
+        "localization": 0,
+        "effect": 0,
+        "cleanup": 0,
+        "trigger": 0,
+        "gui": 0,
+        "listener": 0,
+    }
+    artifact_identities: set[tuple[str, str, str]] = set()
+    entries = report.get("entries") if isinstance(report.get("entries"), list) else []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            errors.append("source-writer readiness entry must be a mapping")
+            continue
+        pilot_key = str(entry.get("key", "<unknown>"))
+        if entry.get("source_writer_allowed") is not False:
+            errors.append(f"{pilot_key}: source-writer readiness entry source_writer_allowed must be false")
+        if entry.get("may_write_src_allowed") is not False:
+            errors.append(f"{pilot_key}: source-writer readiness entry may_write_src_allowed must be false")
+        if entry.get("writes_src") is not False:
+            errors.append(f"{pilot_key}: source-writer readiness entry writes_src must be false")
+        entry_artifacts = entry.get("artifacts") if isinstance(entry.get("artifacts"), list) else []
+        if int(entry.get("artifact_count", -1)) != len(entry_artifacts):
+            errors.append(f"{pilot_key}: source-writer readiness entry artifact_count mismatch")
+        if int(entry.get("ready_artifact_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source-writer readiness entry ready_artifact_count must be 0")
+        if int(entry.get("blocked_artifact_count", -1)) != len(entry_artifacts):
+            errors.append(f"{pilot_key}: source-writer readiness entry blocked_artifact_count mismatch")
+
+        for artifact in entry_artifacts:
+            if not isinstance(artifact, dict):
+                errors.append(f"{pilot_key}: source-writer readiness artifact must be a mapping")
+                continue
+            artifact_kind = str(artifact.get("artifact_kind", "<unknown>"))
+            missing = _missing_required(artifact, REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_FIELDS)
+            if missing:
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing field(s): "
+                    f"{', '.join(missing)}"
+                )
+                continue
+            identity = _repeated_row_artifact_identity(artifact)
+            if identity in artifact_identities:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} duplicate source-writer readiness artifact")
+            artifact_identities.add(identity)
+            contract_family = str(artifact.get("contract_family", ""))
+            if contract_family in family_counts:
+                family_counts[contract_family] += 1
+            else:
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} unsupported source-writer readiness family {contract_family!r}"
+                )
+            if artifact.get("preview_exists") is not True:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing preview")
+            if artifact.get("source_writer_allowed") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source_writer_allowed must be false")
+            if artifact.get("may_write_src") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} may_write_src must be false")
+            if artifact.get("writes_src") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} writes_src must be false")
+            if _readiness_status_is_forbidden_ready(artifact.get("current_contract_status")):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness must not be source-ready")
+            if _readiness_status_is_forbidden_ready(artifact.get("readiness_status")):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness status must stay blocked")
+            if str(artifact.get("readiness_status", "")) != "blocked":
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness status must be blocked")
+            unresolved = _string_refs(artifact.get("unresolved_writer_blockers"))
+            if not unresolved:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing blockers")
+
+            for evidence_key in REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS:
+                evidence = artifact.get(evidence_key)
+                if not isinstance(evidence, dict):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing evidence block "
+                        f"{evidence_key}"
+                    )
+                    continue
+                evidence_missing = _missing_required(
+                    evidence,
+                    REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_EVIDENCE_FIELDS,
+                )
+                if evidence_missing:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} {evidence_key} missing field(s): "
+                        f"{', '.join(evidence_missing)}"
+                    )
+                    continue
+                if _readiness_evidence_claims_verified(evidence) and (
+                    not str(evidence.get("summary", "")).strip()
+                    or (not evidence.get("paths") and not evidence.get("anchors"))
+                    or not _string_refs(evidence.get("blockers"))
+                ):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} {evidence_key} cannot claim verified/source-ready "
+                        "with empty evidence or blockers"
+                    )
+                if _readiness_evidence_claims_verified(evidence):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} {evidence_key} must not claim verified/source-ready"
+                    )
+
+    expected_family_counts = {
+        "event": 32,
+        "localization": 40,
+        "effect": 40,
+        "cleanup": 32,
+        "trigger": 24,
+        "gui": 8,
+        "listener": 1,
+    }
+    for family, expected_count in expected_family_counts.items():
+        if family_counts[family] != expected_count:
+            errors.append(
+                f"expected {expected_count} repeated-row {family} readiness artifacts, got {family_counts[family]}"
+            )
+    if int(report.get("artifact_count", -1)) != len(artifact_identities):
+        errors.append("source-writer readiness artifact_count mismatch")
+    if report.get("contract_family_summary") != dict(sorted(family_counts.items())):
+        errors.append("source-writer readiness contract_family_summary mismatch")
+    return errors
+
+
 def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
     entries = matrix.get("unique_wonders", []) if isinstance(matrix, dict) else []
     return {
@@ -7555,6 +8009,7 @@ def audit_summary() -> dict[str, Any]:
     repeated_entity_row_preflight = repeated_entity_row_preflight_for_payload(specs)
     repeated_entity_row_source_plan = repeated_entity_row_source_plan_for_payload(specs)
     repeated_entity_row_source_preview = repeated_entity_row_source_preview_for_payload(specs)
+    repeated_entity_row_source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(specs)
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -7656,6 +8111,7 @@ def audit_summary() -> dict[str, Any]:
         "repeated_entity_row_preflight": repeated_entity_row_preflight,
         "repeated_entity_row_source_plan": repeated_entity_row_source_plan,
         "repeated_entity_row_source_preview": repeated_entity_row_source_preview,
+        "repeated_entity_row_source_writer_readiness": repeated_entity_row_source_writer_readiness,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
         "capability_registry_errors": capability_registry_errors,

@@ -116,7 +116,20 @@ listener hook contract preview for review, using only existing spec event IDs,
 future target path contracts. It never writes `src/`, never assigns new IDs, never emits
 loadable EU5 effect/cleanup/trigger, GUI, or on_action/listener bodies, never authorizes
 row-state writes or unsafe tooltip write paths, and never upgrades contracts or specs to
-source-ready.
+source-ready. The current repeated-row source preview coverage is closed at 177/177:
+event=32, localization=40, scripted-effect=40, cleanup=32, scripted-trigger=24, GUI=8,
+and listener=1, with no skipped artifact kinds.
+The repeated-row source-writer readiness evidence ledger is the next no-write layer after
+that closed preview. It matches every source-plan artifact to its source-preview artifact
+and records the remaining evidence chain for EU5 syntax, generator ownership,
+source-target boundaries, validation coverage, and lifecycle semantics. The ledger is a
+machine-checkable blocker report, not a promotion gate: it keeps all 177 artifacts
+blocked, keeps `ready_artifact_count=0`, records unresolved writer blockers, and treats
+local paths/generator references as `interface_candidate` evidence unless a later task
+adds a complete verified source-writer contract. It does not generate `src/`, does not set
+`may_write_src: true`, does not enable `source_writer_allowed`, and does not promote
+`source_codegen_ready`, `implementation_ready`, `harness_generated`, or any equivalent
+source-ready status.
 Repeated-row scripted-effect and cleanup source-target contracts are the matching
 source-writer preflight layer for `common/scripted_effects`. They name the future
 scripted-effect file pattern

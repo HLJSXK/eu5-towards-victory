@@ -30,8 +30,10 @@ from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_entry
 from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_plan_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_source_writer_readiness_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_source_writer_readiness  # noqa: E402
 
 
 WONDER = {
@@ -1596,6 +1598,14 @@ def _first_source_preview(report: dict, family: str) -> dict:
             if preview.get("preview_family") == family:
                 return preview
     raise AssertionError(f"source preview has no {family} preview")
+
+
+def _first_readiness_artifact(report: dict, family: str | None = None) -> dict:
+    for entry in report.get("entries", []) or []:
+        for artifact in entry.get("artifacts", []) or []:
+            if family is None or artifact.get("contract_family") == family:
+                return artifact
+    raise AssertionError(f"source-writer readiness has no {family or 'any'} artifact")
 
 
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
@@ -3186,6 +3196,153 @@ def main() -> None:
     listener_writes_src_errors = validate_repeated_entity_row_source_preview(listener_writes_src_preview)
     if not any("writes_src must be false" in error for error in listener_writes_src_errors):
         raise AssertionError(f"listener writes_src preview negative was not caught: {listener_writes_src_errors}")
+
+    source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(load_spec_data())
+    if source_writer_readiness["validation_errors"]:
+        raise AssertionError(
+            "repeated-row source-writer readiness unexpectedly failed validation: "
+            f"{source_writer_readiness['validation_errors']}"
+        )
+    if source_writer_readiness.get("artifact_count") != 177:
+        raise AssertionError(
+            "expected 177 repeated-row source-writer readiness artifacts, got "
+            f"{source_writer_readiness.get('artifact_count')}"
+        )
+    if source_writer_readiness.get("source_plan_artifact_count") != 177:
+        raise AssertionError(f"source-writer readiness should preserve 177-artifact source-plan: {source_writer_readiness}")
+    if source_writer_readiness.get("source_preview_count") != 177:
+        raise AssertionError(f"source-writer readiness should preserve 177 source previews: {source_writer_readiness}")
+    if source_writer_readiness.get("ready_artifact_count") != 0:
+        raise AssertionError(f"source-writer readiness must not mark artifacts ready: {source_writer_readiness}")
+    if source_writer_readiness.get("blocked_artifact_count") != 177:
+        raise AssertionError(f"source-writer readiness must keep every artifact blocked: {source_writer_readiness}")
+    if source_writer_readiness.get("source_writer_allowed") is not False:
+        raise AssertionError(f"source-writer readiness source_writer_allowed changed: {source_writer_readiness}")
+    if source_writer_readiness.get("may_write_src_allowed") is not False:
+        raise AssertionError(f"source-writer readiness may_write_src_allowed changed: {source_writer_readiness}")
+    if source_writer_readiness.get("writes_src") is not False:
+        raise AssertionError(f"source-writer readiness writes_src changed: {source_writer_readiness}")
+    if source_writer_readiness.get("contract_family_summary") != expected_preview_family_counts:
+        raise AssertionError(
+            "source-writer readiness family summary changed: "
+            f"{source_writer_readiness.get('contract_family_summary')}"
+        )
+    readiness_evidence_fields = {
+        "eu5_syntax_evidence",
+        "generator_ownership_evidence",
+        "source_target_boundary_evidence",
+        "validation_coverage_evidence",
+        "lifecycle_semantics_evidence",
+    }
+    readiness_family_counts = {family: 0 for family in expected_preview_family_counts}
+    readiness_identities: set[tuple[str, str, str]] = set()
+    for entry_readiness in source_writer_readiness.get("entries", []) or []:
+        if entry_readiness.get("source_writer_allowed") is not False:
+            raise AssertionError(f"entry source-writer readiness source_writer_allowed changed: {entry_readiness}")
+        if entry_readiness.get("may_write_src_allowed") is not False:
+            raise AssertionError(f"entry source-writer readiness may_write_src_allowed changed: {entry_readiness}")
+        if entry_readiness.get("writes_src") is not False:
+            raise AssertionError(f"entry source-writer readiness writes_src changed: {entry_readiness}")
+        if entry_readiness.get("ready_artifact_count") != 0:
+            raise AssertionError(f"entry source-writer readiness should keep ready count at zero: {entry_readiness}")
+        artifacts = entry_readiness.get("artifacts", []) or []
+        if entry_readiness.get("blocked_artifact_count") != len(artifacts):
+            raise AssertionError(f"entry source-writer readiness blocked count mismatch: {entry_readiness}")
+        for artifact in artifacts:
+            identity = (artifact.get("pilot_key"), artifact.get("row_set_key"), artifact.get("artifact_kind"))
+            if identity in readiness_identities:
+                raise AssertionError(f"duplicate source-writer readiness artifact identity: {identity}")
+            readiness_identities.add(identity)
+            family = artifact.get("contract_family")
+            if family not in readiness_family_counts:
+                raise AssertionError(f"unsupported source-writer readiness family: {artifact}")
+            readiness_family_counts[family] += 1
+            if artifact.get("preview_exists") is not True:
+                raise AssertionError(f"source-writer readiness lost preview match: {artifact}")
+            if artifact.get("current_contract_status") != "blocked":
+                raise AssertionError(f"source-writer readiness contract status changed: {artifact}")
+            if artifact.get("readiness_status") != "blocked":
+                raise AssertionError(f"source-writer readiness promoted an artifact: {artifact}")
+            if artifact.get("source_writer_allowed") is not False:
+                raise AssertionError(f"source-writer readiness source_writer_allowed changed: {artifact}")
+            if artifact.get("may_write_src") is not False:
+                raise AssertionError(f"source-writer readiness may_write_src changed: {artifact}")
+            if artifact.get("writes_src") is not False:
+                raise AssertionError(f"source-writer readiness writes_src changed: {artifact}")
+            if not artifact.get("unresolved_writer_blockers"):
+                raise AssertionError(f"source-writer readiness lost blockers: {artifact}")
+            for evidence_field in readiness_evidence_fields:
+                evidence = artifact.get(evidence_field)
+                if not isinstance(evidence, dict):
+                    raise AssertionError(f"{evidence_field} missing readiness evidence block: {artifact}")
+                if evidence.get("status") in {"verified", "source_ready", "source-ready"}:
+                    raise AssertionError(f"{evidence_field} claimed verified/source-ready: {evidence}")
+                if evidence.get("evidence_type") in {"verified", "source_ready", "source-ready"}:
+                    raise AssertionError(f"{evidence_field} claimed verified/source-ready evidence type: {evidence}")
+                if not isinstance(evidence.get("paths"), list):
+                    raise AssertionError(f"{evidence_field} paths must be a list: {evidence}")
+                if not isinstance(evidence.get("anchors"), dict):
+                    raise AssertionError(f"{evidence_field} anchors must be a mapping: {evidence}")
+                if not evidence.get("blockers"):
+                    raise AssertionError(f"{evidence_field} must retain blockers: {evidence}")
+    if len(readiness_identities) != 177:
+        raise AssertionError(f"source-writer readiness identity coverage changed: {len(readiness_identities)}")
+    for family, expected_count in expected_preview_family_counts.items():
+        if readiness_family_counts[family] != expected_count:
+            raise AssertionError(f"expected {expected_count} {family} readiness artifacts, got {readiness_family_counts[family]}")
+
+    missing_preview_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_preview_readiness, "event")["preview_exists"] = False
+    missing_preview_errors = validate_repeated_entity_row_source_writer_readiness(missing_preview_readiness)
+    if not any("missing preview" in error for error in missing_preview_errors):
+        raise AssertionError(f"missing preview readiness negative was not caught: {missing_preview_errors}")
+
+    missing_source_plan_readiness = deepcopy(source_writer_readiness)
+    missing_source_plan_readiness["source_plan_artifact_count"] = 176
+    missing_source_plan_errors = validate_repeated_entity_row_source_writer_readiness(missing_source_plan_readiness)
+    if not any("177-artifact source-plan" in error for error in missing_source_plan_errors):
+        raise AssertionError(f"missing source-plan readiness negative was not caught: {missing_source_plan_errors}")
+
+    missing_evidence_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_evidence_readiness, "localization")["eu5_syntax_evidence"]
+    missing_evidence_errors = validate_repeated_entity_row_source_writer_readiness(missing_evidence_readiness)
+    if not any("missing field(s)" in error for error in missing_evidence_errors):
+        raise AssertionError(f"missing evidence block readiness negative was not caught: {missing_evidence_errors}")
+
+    writable_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(writable_readiness, "effect")["may_write_src"] = True
+    writable_readiness_errors = validate_repeated_entity_row_source_writer_readiness(writable_readiness)
+    if not any("may_write_src must be false" in error for error in writable_readiness_errors):
+        raise AssertionError(f"may_write_src readiness negative was not caught: {writable_readiness_errors}")
+
+    writes_src_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(writes_src_readiness, "trigger")["writes_src"] = True
+    writes_src_readiness_errors = validate_repeated_entity_row_source_writer_readiness(writes_src_readiness)
+    if not any("writes_src must be false" in error for error in writes_src_readiness_errors):
+        raise AssertionError(f"writes_src readiness negative was not caught: {writes_src_readiness_errors}")
+
+    source_writer_allowed_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(source_writer_allowed_readiness, "gui")["source_writer_allowed"] = True
+    source_writer_allowed_errors = validate_repeated_entity_row_source_writer_readiness(
+        source_writer_allowed_readiness
+    )
+    if not any("source_writer_allowed must be false" in error for error in source_writer_allowed_errors):
+        raise AssertionError(f"source_writer_allowed readiness negative was not caught: {source_writer_allowed_errors}")
+
+    source_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(source_ready_readiness, "cleanup")["current_contract_status"] = "source_ready"
+    source_ready_errors = validate_repeated_entity_row_source_writer_readiness(source_ready_readiness)
+    if not any("must not be source-ready" in error for error in source_ready_errors):
+        raise AssertionError(f"source_ready readiness negative was not caught: {source_ready_errors}")
+
+    no_blockers_readiness = deepcopy(source_writer_readiness)
+    no_blockers_artifact = _first_readiness_artifact(no_blockers_readiness, "listener")
+    no_blockers_artifact["unresolved_writer_blockers"] = []
+    for evidence_field in readiness_evidence_fields:
+        no_blockers_artifact[evidence_field]["blockers"] = []
+    no_blockers_errors = validate_repeated_entity_row_source_writer_readiness(no_blockers_readiness)
+    if not any("missing blockers" in error for error in no_blockers_errors):
+        raise AssertionError(f"no blockers readiness negative was not caught: {no_blockers_errors}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
