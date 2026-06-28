@@ -152,6 +152,18 @@ false`, `may_write_src: false`, `writes_src: false`, and `source_writer_allowed:
 The listener candidate remains Alhambra-only and must carry the on_action hook linkage,
 selected-ritual trigger linkage, and war-scope persistence plan. This vertical slice is
 not source-ready evidence, not loadable EU5 source, and not permission to write `src/`.
+The Alhambra source file preview is the target-file-level no-write layer above that body
+candidate. It must derive only from
+`repeated_entity_row_alhambra_source_body_candidate_for_payload(...)` and groups the same
+45 Alhambra body candidates into seven future target-file previews: events,
+scripted-effects/cleanup, scripted-triggers, GUI, on_action listener, English
+localization, and Simplified Chinese localization. Localization must expand the existing
+`<lang>` contract into separate English and Simplified Chinese target paths with an
+explicit language boundary. Every file preview keeps `candidate_only: true`,
+`contract_only: true`, `body_emitted: false`, `source_ready: false`, `may_write_src:
+false`, `writes_src: false`, and `source_writer_allowed: false`, and preserves unresolved
+blockers plus validation refs from the body candidates. The preview is still contract
+evidence only; it does not emit file bodies, authorize a source writer, or write `src/`.
 The event and localization vertical slices in that ledger are closure contracts only.
 They add machine-checkable event body preview and localization key-contract evidence for
 the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,

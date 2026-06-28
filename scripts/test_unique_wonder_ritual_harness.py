@@ -33,11 +33,13 @@ from wonder_unique_ritual_harness import repeated_entity_row_source_preview_for_
 from wonder_unique_ritual_harness import repeated_entity_row_source_bundle_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_writer_readiness_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_body_candidate_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_file_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_writer_readiness  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_body_candidate  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_file_preview  # noqa: E402
 
 
 WONDER = {
@@ -1634,6 +1636,13 @@ def _first_alhambra_source_body_candidate(report: dict, family: str) -> dict:
     for candidate in section.get("structured_body_candidates", []) or []:
         return candidate
     raise AssertionError(f"Alhambra source body candidate has no {family} candidate")
+
+
+def _alhambra_source_file_preview(report: dict, target_path: str) -> dict:
+    for preview in report.get("file_previews", []) or []:
+        if preview.get("target_path") == target_path:
+            return preview
+    raise AssertionError(f"Alhambra source file preview has no target {target_path}")
 
 
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
@@ -4735,6 +4744,311 @@ def main() -> None:
                 f"{family} placeholder flag Alhambra candidate negative was not caught: "
                 f"{missing_placeholder_candidate_errors}"
             )
+
+    alhambra_source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(load_spec_data())
+    if alhambra_source_file_preview["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source file preview unexpectedly failed validation: "
+            f"{alhambra_source_file_preview['validation_errors']}"
+        )
+    alhambra_file_targets = {
+        "event": _repeated_row_event_contract_path("unique_alhambra"),
+        "effect_cleanup": _repeated_row_effect_contract_path("unique_alhambra"),
+        "trigger": _repeated_row_trigger_contract_path("unique_alhambra"),
+        "gui": _repeated_row_gui_contract_path("unique_alhambra"),
+        "listener": _repeated_row_listener_contract_path("unique_alhambra"),
+        "english": "src/main_menu/localization/english/tv_wonder_unique_alhambra_ritual_l_english.yml",
+        "simp_chinese": "src/main_menu/localization/simp_chinese/tv_wonder_unique_alhambra_ritual_l_simp_chinese.yml",
+    }
+    alhambra_file_summary = alhambra_source_file_preview.get("summary", {})
+    if alhambra_source_file_preview.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source file preview pilot changed: {alhambra_source_file_preview}")
+    if alhambra_file_summary.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source file preview summary pilot changed: {alhambra_file_summary}")
+    if alhambra_file_summary.get("file_preview_count") != 7:
+        raise AssertionError(f"Alhambra source file preview count changed: {alhambra_file_summary}")
+    if alhambra_file_summary.get("artifact_count") != 45:
+        raise AssertionError(f"Alhambra source file preview artifact_count changed: {alhambra_file_summary}")
+    if alhambra_file_summary.get("family_count") != 7:
+        raise AssertionError(f"Alhambra source file preview family_count changed: {alhambra_file_summary}")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if alhambra_file_summary.get(count_key) != 0:
+            raise AssertionError(f"Alhambra source file preview {count_key} changed: {alhambra_file_summary}")
+    if set(alhambra_source_file_preview.get("required_target_paths", [])) != set(alhambra_file_targets.values()):
+        raise AssertionError(
+            "Alhambra source file preview required target paths changed: "
+            f"{alhambra_source_file_preview.get('required_target_paths')}"
+        )
+    if {
+        preview.get("target_path")
+        for preview in alhambra_source_file_preview.get("file_previews", []) or []
+    } != set(alhambra_file_targets.values()):
+        raise AssertionError(
+            "Alhambra source file preview did not expose exact target paths: "
+            f"{alhambra_source_file_preview.get('file_previews')}"
+        )
+
+    expected_alhambra_file_counts = {
+        alhambra_file_targets["event"]: alhambra_body_candidate["family_summary"]["event"],
+        alhambra_file_targets["effect_cleanup"]: (
+            alhambra_body_candidate["family_summary"]["effect"]
+            + alhambra_body_candidate["family_summary"]["cleanup"]
+        ),
+        alhambra_file_targets["trigger"]: alhambra_body_candidate["family_summary"]["trigger"],
+        alhambra_file_targets["gui"]: alhambra_body_candidate["family_summary"]["gui"],
+        alhambra_file_targets["listener"]: alhambra_body_candidate["family_summary"]["listener"],
+        alhambra_file_targets["english"]: alhambra_body_candidate["family_summary"]["localization"],
+        alhambra_file_targets["simp_chinese"]: alhambra_body_candidate["family_summary"]["localization"],
+    }
+    expected_alhambra_file_families = {
+        alhambra_file_targets["event"]: ["event"],
+        alhambra_file_targets["effect_cleanup"]: ["cleanup", "effect"],
+        alhambra_file_targets["trigger"]: ["trigger"],
+        alhambra_file_targets["gui"]: ["gui"],
+        alhambra_file_targets["listener"]: ["listener"],
+        alhambra_file_targets["english"]: ["localization"],
+        alhambra_file_targets["simp_chinese"]: ["localization"],
+    }
+    alhambra_file_flags = {
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed": False,
+    }
+    unique_source_refs: set[tuple[str, str, str, str]] = set()
+    seen_file_families: set[str] = set()
+    for target_path, expected_count in expected_alhambra_file_counts.items():
+        file_preview = _alhambra_source_file_preview(alhambra_source_file_preview, target_path)
+        if file_preview.get("artifact_count") != expected_count:
+            raise AssertionError(f"{target_path} Alhambra file artifact count changed: {file_preview}")
+        if file_preview.get("families") != expected_alhambra_file_families[target_path]:
+            raise AssertionError(f"{target_path} Alhambra file families changed: {file_preview}")
+        if not file_preview.get("validation_refs"):
+            raise AssertionError(f"{target_path} Alhambra file preview lost validation refs: {file_preview}")
+        if not file_preview.get("unresolved_blockers"):
+            raise AssertionError(f"{target_path} Alhambra file preview lost blockers: {file_preview}")
+        for flag, expected in alhambra_file_flags.items():
+            if file_preview.get(flag) is not expected:
+                raise AssertionError(f"{target_path} Alhambra file preview lost {flag}: {file_preview}")
+        sections = file_preview.get("structured_body_sections")
+        if not isinstance(sections, list) or len(sections) != expected_count:
+            raise AssertionError(f"{target_path} Alhambra file preview sections changed: {file_preview}")
+        for section in sections:
+            family = section.get("family")
+            seen_file_families.add(str(family))
+            copied_candidate = section.get("source_body_candidate")
+            if not isinstance(copied_candidate, dict):
+                raise AssertionError(f"{target_path} Alhambra file preview lost copied body candidate: {section}")
+            if section.get("structured_body_candidate") != copied_candidate.get("structured_body_candidate"):
+                raise AssertionError(f"{target_path} Alhambra file preview did not copy structured body: {section}")
+            for flag, expected in alhambra_file_flags.items():
+                if section.get(flag) is not expected:
+                    raise AssertionError(f"{target_path} Alhambra file section lost {flag}: {section}")
+                body = section.get("structured_body_candidate", {})
+                if body.get(flag) is not expected:
+                    raise AssertionError(f"{target_path} Alhambra file section body lost {flag}: {body}")
+            ref = section.get("source_body_candidate_ref")
+            if not isinstance(ref, dict):
+                raise AssertionError(f"{target_path} Alhambra file section missing source ref: {section}")
+            unique_source_refs.add(
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+            )
+            if section.get("validation_refs") != copied_candidate.get("validation_refs"):
+                raise AssertionError(f"{target_path} Alhambra file section validation refs changed: {section}")
+            if section.get("unresolved_blockers") != copied_candidate.get("unresolved_blockers"):
+                raise AssertionError(f"{target_path} Alhambra file section blockers changed: {section}")
+    if len(unique_source_refs) != 45:
+        raise AssertionError(f"Alhambra source file preview unique source refs changed: {len(unique_source_refs)}")
+    if seen_file_families != set(expected_preview_family_counts):
+        raise AssertionError(f"Alhambra source file preview families changed: {seen_file_families}")
+
+    english_file = _alhambra_source_file_preview(alhambra_source_file_preview, alhambra_file_targets["english"])
+    simp_chinese_file = _alhambra_source_file_preview(
+        alhambra_source_file_preview,
+        alhambra_file_targets["simp_chinese"],
+    )
+    if english_file.get("localization_language") != "english":
+        raise AssertionError(f"English localization file preview language changed: {english_file}")
+    if simp_chinese_file.get("localization_language") != "simp_chinese":
+        raise AssertionError(f"Simplified Chinese localization file preview language changed: {simp_chinese_file}")
+    for localization_file, language in ((english_file, "english"), (simp_chinese_file, "simp_chinese")):
+        boundary = localization_file.get("localization_language_boundary")
+        if (
+            not isinstance(boundary, dict)
+            or boundary.get("language") != language
+            or set(boundary.get("required_languages", [])) != {"english", "simp_chinese"}
+            or boundary.get("language_target_paths") != {
+                "english": alhambra_file_targets["english"],
+                "simp_chinese": alhambra_file_targets["simp_chinese"],
+            }
+            or boundary.get("separate_language_target") is not True
+            or boundary.get("may_write_src") is not False
+            or boundary.get("writes_src") is not False
+            or boundary.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"{language} localization file preview lost split boundary: {localization_file}")
+        for section in localization_file.get("structured_body_sections", []) or []:
+            if section.get("localization_language") != language:
+                raise AssertionError(f"{language} localization section language changed: {section}")
+
+    listener_file = _alhambra_source_file_preview(alhambra_source_file_preview, alhambra_file_targets["listener"])
+    if listener_file.get("families") != ["listener"] or listener_file.get("artifact_count") != 1:
+        raise AssertionError(f"Alhambra listener file preview changed: {listener_file}")
+    listener_file_body = listener_file["structured_body_sections"][0]["structured_body_candidate"]
+    if not isinstance(listener_file_body.get("on_action_hook_linkage_plan"), dict):
+        raise AssertionError(f"Alhambra listener file preview lost hook linkage: {listener_file}")
+    if not isinstance(listener_file_body.get("selected_ritual_trigger_linkage"), dict):
+        raise AssertionError(f"Alhambra listener file preview lost selected trigger linkage: {listener_file}")
+    if not isinstance(listener_file_body.get("war_scope_availability_persistence_plan"), dict):
+        raise AssertionError(f"Alhambra listener file preview lost war-scope plan: {listener_file}")
+
+    def assert_alhambra_file_preview_error(name: str, report: dict, needle: str) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_file_preview(report)
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source file preview negative was not caught: {errors}")
+
+    wrong_pilot_file_preview = deepcopy(alhambra_source_file_preview)
+    wrong_pilot_file_preview["pilot_key"] = "unique_dome_of_the_rock"
+    assert_alhambra_file_preview_error(
+        "wrong pilot",
+        wrong_pilot_file_preview,
+        "pilot_key must be unique_alhambra",
+    )
+
+    missing_target_file_preview = deepcopy(alhambra_source_file_preview)
+    missing_target_file_preview["file_previews"] = [
+        preview
+        for preview in missing_target_file_preview["file_previews"]
+        if preview.get("target_path") != alhambra_file_targets["english"]
+    ]
+    assert_alhambra_file_preview_error(
+        "missing target",
+        missing_target_file_preview,
+        "missing required target path",
+    )
+
+    wrong_count_file_preview = deepcopy(alhambra_source_file_preview)
+    wrong_count_file_preview["artifact_count"] = 44
+    wrong_count_file_preview["summary"]["artifact_count"] = 44
+    assert_alhambra_file_preview_error(
+        "wrong artifact count",
+        wrong_count_file_preview,
+        "artifact_count must be 45",
+    )
+
+    source_ready_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(source_ready_file_preview, alhambra_file_targets["effect_cleanup"])[
+        "structured_body_sections"
+    ][0]["source_ready"] = True
+    assert_alhambra_file_preview_error(
+        "source_ready",
+        source_ready_file_preview,
+        "source_ready/verified/backend_ready",
+    )
+
+    backend_ready_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(backend_ready_file_preview, alhambra_file_targets["listener"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["backend_ready"] = True
+    assert_alhambra_file_preview_error(
+        "backend_ready",
+        backend_ready_file_preview,
+        "source_ready/verified/backend_ready",
+    )
+
+    verified_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(verified_file_preview, alhambra_file_targets["event"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["verified"] = True
+    assert_alhambra_file_preview_error(
+        "verified",
+        verified_file_preview,
+        "source_ready/verified/backend_ready",
+    )
+
+    writable_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(writable_file_preview, alhambra_file_targets["effect_cleanup"])[
+        "may_write_src"
+    ] = True
+    assert_alhambra_file_preview_error(
+        "may_write_src",
+        writable_file_preview,
+        "may_write_src must be false",
+    )
+
+    writes_src_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(writes_src_file_preview, alhambra_file_targets["trigger"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["writes_src"] = True
+    assert_alhambra_file_preview_error(
+        "writes_src",
+        writes_src_file_preview,
+        "writes_src must be false",
+    )
+
+    source_writer_allowed_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(source_writer_allowed_file_preview, alhambra_file_targets["gui"])[
+        "source_writer_allowed"
+    ] = True
+    assert_alhambra_file_preview_error(
+        "source_writer_allowed",
+        source_writer_allowed_file_preview,
+        "source_writer_allowed must be false",
+    )
+
+    collapsed_localization_file_preview = deepcopy(alhambra_source_file_preview)
+    del _alhambra_source_file_preview(
+        collapsed_localization_file_preview,
+        alhambra_file_targets["english"],
+    )["localization_language_boundary"]
+    assert_alhambra_file_preview_error(
+        "missing localization boundary",
+        collapsed_localization_file_preview,
+        "localization language boundary",
+    )
+
+    missing_hook_file_preview = deepcopy(alhambra_source_file_preview)
+    del _alhambra_source_file_preview(missing_hook_file_preview, alhambra_file_targets["listener"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["on_action_hook_linkage_plan"]
+    assert_alhambra_file_preview_error(
+        "missing listener hook",
+        missing_hook_file_preview,
+        "on_action hook linkage",
+    )
+
+    missing_trigger_file_preview = deepcopy(alhambra_source_file_preview)
+    del _alhambra_source_file_preview(missing_trigger_file_preview, alhambra_file_targets["listener"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["selected_ritual_trigger_linkage"]
+    assert_alhambra_file_preview_error(
+        "missing selected trigger",
+        missing_trigger_file_preview,
+        "selected ritual trigger linkage",
+    )
+
+    missing_war_scope_file_preview = deepcopy(alhambra_source_file_preview)
+    del _alhambra_source_file_preview(missing_war_scope_file_preview, alhambra_file_targets["listener"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["war_scope_availability_persistence_plan"]
+    assert_alhambra_file_preview_error(
+        "missing war scope",
+        missing_war_scope_file_preview,
+        "war-scope persistence plan",
+    )
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},

@@ -3502,6 +3502,19 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS = {
     "candidate_only": True,
     **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS = {
+    "english": "src/main_menu/localization/english/tv_wonder_unique_alhambra_ritual_l_english.yml",
+    "simp_chinese": "src/main_menu/localization/simp_chinese/tv_wonder_unique_alhambra_ritual_l_simp_chinese.yml",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS = (
+    "src/in_game/events/tv_wonder_unique_alhambra_ritual_events.txt",
+    "src/in_game/common/scripted_effects/tv_wonder_unique_alhambra_ritual_effects.txt",
+    "src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt",
+    "src/in_game/gui/panels/organization/tv_wonder_unique_alhambra_ritual.gui",
+    "src/in_game/common/on_action/tv_wonder_unique_alhambra_ritual_on_actions.txt",
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["english"],
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["simp_chinese"],
+)
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS = ("english", "simp_chinese")
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_row_labels": "row_labels",
@@ -10368,6 +10381,661 @@ def validate_repeated_entity_row_alhambra_source_body_candidate(report: dict[str
             errors.append("Alhambra source body candidate summary family_summary mismatch")
         if summary.get("blocker_summary") != expected_blocker_summary:
             errors.append("Alhambra source body candidate summary blocker_summary mismatch")
+    return errors
+
+
+def _alhambra_source_file_preview_candidate_ref(candidate: dict[str, Any]) -> dict[str, str]:
+    return {
+        "pilot_key": str(candidate.get("pilot_key", "")),
+        "family": str(candidate.get("family", "")),
+        "row_set_key": str(candidate.get("row_set_key", "")),
+        "artifact_kind": str(candidate.get("artifact_kind", "")),
+        "future_source_target_path": str(candidate.get("future_source_target_path", "")),
+    }
+
+
+def _alhambra_source_file_preview_ref_key(ref: dict[str, Any]) -> tuple[str, str, str, str]:
+    return (
+        str(ref.get("family", "")),
+        str(ref.get("row_set_key", "")),
+        str(ref.get("artifact_kind", "")),
+        str(ref.get("future_source_target_path", "")),
+    )
+
+
+def _alhambra_source_file_preview_localization_boundary(
+    *,
+    language: str,
+    target_path: str,
+) -> dict[str, Any]:
+    return {
+        "language": language,
+        "target_path": target_path,
+        "required_languages": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS),
+        "language_target_paths": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        ),
+        "english_target_path": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["english"],
+        "simp_chinese_target_path": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS[
+            "simp_chinese"
+        ],
+        "language_owner": f"src/main_menu/localization/{language}",
+        "separate_language_target": True,
+        "missing_bilingual_coverage_allowed": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
+def _alhambra_source_file_preview_target_specs(candidate: dict[str, Any]) -> list[dict[str, str | bool]]:
+    if str(candidate.get("family", "")) == "localization":
+        return [
+            {
+                "target_path": target_path,
+                "localization_language": language,
+                "source_candidate_future_target_path": str(candidate.get("future_source_target_path", "")),
+                "expanded_localization_target": True,
+            }
+            for language, target_path in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS.items()
+        ]
+    return [
+        {
+            "target_path": str(candidate.get("future_source_target_path", "")),
+            "localization_language": "",
+            "source_candidate_future_target_path": str(candidate.get("future_source_target_path", "")),
+            "expanded_localization_target": False,
+        }
+    ]
+
+
+def _alhambra_source_file_preview_section(
+    *,
+    candidate: dict[str, Any],
+    target_path: str,
+    localization_language: str = "",
+) -> dict[str, Any]:
+    flags = _alhambra_source_body_candidate_flags()
+    ref = _alhambra_source_file_preview_candidate_ref(candidate)
+    section = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": str(candidate.get("family", "")),
+        "artifact_kind": str(candidate.get("artifact_kind", "")),
+        "row_set_key": str(candidate.get("row_set_key", "")),
+        "target_path": target_path,
+        "source_candidate_future_target_path": str(candidate.get("future_source_target_path", "")),
+        "source_body_candidate_ref": ref,
+        "closure_contract_ref": deepcopy(candidate.get("closure_contract_ref", {}) or {}),
+        "validation_refs": _string_refs(candidate.get("validation_refs")),
+        "required_validations": _string_refs(candidate.get("validation_refs")),
+        "unresolved_blockers": _string_refs(candidate.get("unresolved_blockers")),
+        "unresolved_writer_blockers": _string_refs(candidate.get("unresolved_blockers")),
+        "structured_body_candidate": deepcopy(candidate.get("structured_body_candidate", {}) or {}),
+        "source_body_candidate": deepcopy(candidate),
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": flags,
+        **flags,
+    }
+    if localization_language:
+        section["localization_language"] = localization_language
+        section["localization_language_boundary"] = _alhambra_source_file_preview_localization_boundary(
+            language=localization_language,
+            target_path=target_path,
+        )
+    return section
+
+
+def _alhambra_source_file_preview_blocker_summary(sections: list[dict[str, Any]]) -> dict[str, int]:
+    summary: dict[str, int] = {}
+    for section in sections:
+        for blocker in _string_refs(section.get("unresolved_blockers")):
+            summary[blocker] = summary.get(blocker, 0) + 1
+    return dict(sorted(summary.items()))
+
+
+def _alhambra_source_file_preview_for_target(
+    *,
+    target_path: str,
+    sections: list[dict[str, Any]],
+) -> dict[str, Any]:
+    families = sorted({str(section.get("family", "")) for section in sections if str(section.get("family", ""))})
+    validation_refs = sorted(
+        {
+            validation
+            for section in sections
+            for validation in _string_refs(section.get("validation_refs"))
+        }
+    )
+    unresolved_blockers = sorted(
+        {
+            blocker
+            for section in sections
+            for blocker in _string_refs(section.get("unresolved_blockers"))
+        }
+    )
+    preview = {
+        "target_path": target_path,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_file_preview_only": True,
+        "source_body_candidate_input_only": True,
+        "families": families,
+        "family_summary": _count_by_key(sections, "family"),
+        "artifact_count": len(sections),
+        "source_body_candidate_refs": [
+            section.get("source_body_candidate_ref", {})
+            for section in sections
+            if isinstance(section, dict)
+        ],
+        "structured_body_sections": sections,
+        "validation_refs": validation_refs,
+        "required_validations": validation_refs,
+        "unresolved_blockers": unresolved_blockers,
+        "unresolved_writer_blockers": unresolved_blockers,
+        "blocker_summary": _alhambra_source_file_preview_blocker_summary(sections),
+        "source_ready_count": sum(1 for section in sections if section.get("source_ready") is True),
+        "source_writer_allowed_count": sum(1 for section in sections if section.get("source_writer_allowed") is True),
+        "may_write_src_count": sum(1 for section in sections if section.get("may_write_src") is True),
+        "writes_src_count": sum(1 for section in sections if section.get("writes_src") is True),
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+    }
+    localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+    language = next((key for key, path in localization_targets.items() if path == target_path), "")
+    if language:
+        preview["localization_language"] = language
+        preview["localization_language_boundary"] = _alhambra_source_file_preview_localization_boundary(
+            language=language,
+            target_path=target_path,
+        )
+    return preview
+
+
+def _alhambra_source_file_preview_from_body_candidate(source_body_candidate: dict[str, Any]) -> dict[str, Any]:
+    sections = source_body_candidate.get("sections") if isinstance(source_body_candidate.get("sections"), dict) else {}
+    candidates = [
+        candidate
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+        for candidate in (
+            (sections.get(family, {}) or {}).get("structured_body_candidates", [])
+            if isinstance(sections.get(family, {}), dict)
+            else []
+        )
+        if isinstance(candidate, dict)
+    ]
+    source_candidate_refs: list[dict[str, Any]] = []
+    seen_ref_keys: set[tuple[str, str, str, str]] = set()
+    sections_by_target: dict[str, list[dict[str, Any]]] = {}
+    for candidate in candidates:
+        ref = _alhambra_source_file_preview_candidate_ref(candidate)
+        ref_key = _alhambra_source_file_preview_ref_key(ref)
+        if ref_key not in seen_ref_keys:
+            source_candidate_refs.append(ref)
+            seen_ref_keys.add(ref_key)
+        for target_spec in _alhambra_source_file_preview_target_specs(candidate):
+            target_path = str(target_spec.get("target_path", ""))
+            if not target_path:
+                continue
+            sections_by_target.setdefault(target_path, []).append(
+                _alhambra_source_file_preview_section(
+                    candidate=candidate,
+                    target_path=target_path,
+                    localization_language=str(target_spec.get("localization_language", "")),
+                )
+            )
+
+    ordered_target_paths = [
+        target_path
+        for target_path in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS
+        if target_path in sections_by_target
+    ]
+    ordered_target_paths.extend(
+        sorted(
+            target_path
+            for target_path in sections_by_target
+            if target_path not in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS
+        )
+    )
+    file_previews = [
+        _alhambra_source_file_preview_for_target(
+            target_path=target_path,
+            sections=sections_by_target[target_path],
+        )
+        for target_path in ordered_target_paths
+    ]
+    family_summary = dict(source_body_candidate.get("family_summary", {}) or {})
+    source_ready_count = sum(1 for candidate in candidates if candidate.get("source_ready") is True)
+    source_writer_allowed_count = sum(1 for candidate in candidates if candidate.get("source_writer_allowed") is True)
+    may_write_src_count = sum(1 for candidate in candidates if candidate.get("may_write_src") is True)
+    writes_src_count = sum(1 for candidate in candidates if candidate.get("writes_src") is True)
+    all_file_sections = [
+        section
+        for preview in file_previews
+        for section in preview.get("structured_body_sections", []) or []
+        if isinstance(section, dict)
+    ]
+    summary = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "file_preview_count": len(file_previews),
+        "artifact_count": len(source_candidate_refs),
+        "family_count": len(family_summary),
+        "family_summary": family_summary,
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+    }
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_file_preview_only": True,
+        "source_body_candidate_input_only": True,
+        "source_body_candidate_input_ref": {
+            "pilot_key": str(source_body_candidate.get("pilot_key", "")),
+            "artifact_count": int(source_body_candidate.get("artifact_count", 0)),
+            "family_count": int(source_body_candidate.get("family_count", 0)),
+            "validation_errors": list(source_body_candidate.get("validation_errors", []) or []),
+        },
+        "source_body_candidate_validation_errors": list(source_body_candidate.get("validation_errors", []) or []),
+        "summary": summary,
+        "file_preview_count": len(file_previews),
+        "required_target_paths": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS),
+        "localization_target_paths": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        ),
+        "artifact_count": len(source_candidate_refs),
+        "source_body_candidate_ref_count": len(source_candidate_refs),
+        "source_body_candidate_refs": source_candidate_refs,
+        "file_section_count": len(all_file_sections),
+        "family_count": len(family_summary),
+        "family_summary": family_summary,
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+        "file_previews": file_previews,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra source file preview groups existing source body candidates by future target path.",
+            "It expands localization into separate English and Simplified Chinese future targets.",
+            "It is no-write contract evidence only and does not authorize src/ writes.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_file_preview(report)
+    return report
+
+
+def repeated_entity_row_alhambra_source_file_preview_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(
+        payload,
+        statuses=statuses,
+    )
+    return _alhambra_source_file_preview_from_body_candidate(source_body_candidate)
+
+
+def _validate_alhambra_source_file_preview_localization_boundary(
+    *,
+    context: str,
+    boundary: Any,
+    language: str,
+    target_path: str,
+    errors: list[str],
+) -> None:
+    if not isinstance(boundary, dict):
+        errors.append(f"{context} missing localization language boundary")
+        return
+    expected_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+    if boundary.get("language") != language:
+        errors.append(f"{context} localization language boundary language mismatch")
+    if boundary.get("target_path") != target_path:
+        errors.append(f"{context} localization language boundary target path mismatch")
+    if set(_string_refs(boundary.get("required_languages"))) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+        errors.append(f"{context} localization language boundary missing English/Simplified Chinese split")
+    if boundary.get("language_target_paths") != expected_targets:
+        errors.append(f"{context} localization language boundary target paths must stay split")
+    if boundary.get("english_target_path") != expected_targets["english"]:
+        errors.append(f"{context} localization language boundary missing English target")
+    if boundary.get("simp_chinese_target_path") != expected_targets["simp_chinese"]:
+        errors.append(f"{context} localization language boundary missing Simplified Chinese target")
+    if boundary.get("separate_language_target") is not True:
+        errors.append(f"{context} localization language boundary must be separated by language")
+    if boundary.get("missing_bilingual_coverage_allowed") is not False:
+        errors.append(f"{context} localization language boundary must forbid missing bilingual coverage")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        if boundary.get(flag) is not False:
+            errors.append(f"{context} localization language boundary {flag} must be false")
+
+
+def _validate_alhambra_source_file_preview_listener_section(
+    *,
+    context: str,
+    body: dict[str, Any],
+    errors: list[str],
+) -> None:
+    hook_plan = body.get("on_action_hook_linkage_plan")
+    if (
+        not isinstance(hook_plan, dict)
+        or hook_plan.get("linkage_only") is not True
+        or {"on_pre_winning_war", "on_ending_war"} - set(_string_refs(hook_plan.get("hooks")))
+    ):
+        errors.append(f"{context} listener file preview missing on_action hook linkage")
+    trigger_linkage = body.get("selected_ritual_trigger_linkage")
+    if (
+        not isinstance(trigger_linkage, dict)
+        or trigger_linkage.get("selected_ritual_only") is not True
+        or trigger_linkage.get("linkage_only") is not True
+        or trigger_linkage.get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+    ):
+        errors.append(f"{context} listener file preview missing selected ritual trigger linkage")
+    war_scope_plan = body.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(war_scope_plan, dict)
+        or war_scope_plan.get("persistence_contract_only") is not True
+        or war_scope_plan.get("listener_scope_writes_allowed") is not False
+        or war_scope_plan.get("war_scope_writes_allowed") is not False
+        or {"on_pre_winning_war", "on_ending_war"}
+        - set(_string_refs(war_scope_plan.get("war_scope_available_from_hooks")))
+    ):
+        errors.append(f"{context} listener file preview missing war-scope persistence plan")
+
+
+def validate_repeated_entity_row_alhambra_source_file_preview(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source file preview pilot_key must be unique_alhambra")
+    if report.get("source_file_preview_only") is not True:
+        errors.append("Alhambra source file preview must declare source_file_preview_only: true")
+    if report.get("source_body_candidate_input_only") is not True:
+        errors.append("Alhambra source file preview must derive from source body candidate input")
+    if report.get("source_body_candidate_validation_errors"):
+        errors.append("Alhambra source file preview source body candidate validation must be clean")
+    input_ref = report.get("source_body_candidate_input_ref") if isinstance(report.get("source_body_candidate_input_ref"), dict) else {}
+    if not input_ref:
+        errors.append("Alhambra source file preview missing source body candidate input ref")
+    else:
+        if input_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source file preview input ref pilot_key must be unique_alhambra")
+        if int(input_ref.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source file preview input ref artifact_count must be 45")
+        if int(input_ref.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+            errors.append("Alhambra source file preview input ref family_count must be 7")
+        if input_ref.get("validation_errors"):
+            errors.append("Alhambra source file preview input ref validation must be clean")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"Alhambra source file preview must not claim source_ready/verified/backend_ready at {path}")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source file preview {flag} must be false at {path}")
+
+    _validate_alhambra_source_body_candidate_flags(
+        context="Alhambra source file preview report",
+        value=report,
+        errors=errors,
+    )
+    if int(report.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append("Alhambra source file preview artifact_count must be 45")
+    if int(report.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+        errors.append("Alhambra source file preview family_count must be 7")
+
+    expected_target_paths = set(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS)
+    file_previews = report.get("file_previews") if isinstance(report.get("file_previews"), list) else []
+    if int(report.get("file_preview_count", -1)) != len(file_previews):
+        errors.append("Alhambra source file preview file_preview_count mismatch")
+    if int(report.get("file_preview_count", -1)) != len(expected_target_paths):
+        errors.append("Alhambra source file preview file_preview_count must be 7")
+
+    target_counts: dict[str, int] = {}
+    for preview in file_previews:
+        if isinstance(preview, dict):
+            target_path = str(preview.get("target_path", ""))
+            target_counts[target_path] = target_counts.get(target_path, 0) + 1
+    duplicate_targets = sorted(target for target, count in target_counts.items() if count > 1)
+    if duplicate_targets:
+        errors.append(f"Alhambra source file preview duplicate target path(s): {', '.join(duplicate_targets)}")
+    actual_target_paths = set(target_counts)
+    missing_targets = sorted(expected_target_paths - actual_target_paths)
+    extra_targets = sorted(actual_target_paths - expected_target_paths)
+    if missing_targets:
+        errors.append(f"Alhambra source file preview missing required target path(s): {', '.join(missing_targets)}")
+    if extra_targets:
+        errors.append(f"Alhambra source file preview has unexpected target path(s): {', '.join(extra_targets)}")
+
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    if not summary:
+        errors.append("Alhambra source file preview summary missing")
+    else:
+        if summary.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source file preview summary pilot_key must be unique_alhambra")
+        if int(summary.get("file_preview_count", -1)) != len(expected_target_paths):
+            errors.append("Alhambra source file preview summary file_preview_count must be 7")
+        if int(summary.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source file preview summary artifact_count must be 45")
+        if int(summary.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+            errors.append("Alhambra source file preview summary family_count must be 7")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(summary.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source file preview summary {count_key} must be 0")
+
+    localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+    localization_languages: set[str] = set()
+    all_sections: list[dict[str, Any]] = []
+    source_candidate_ref_keys: set[tuple[str, str, str, str]] = set()
+    family_summary: dict[str, int] = {}
+    for preview in file_previews:
+        if not isinstance(preview, dict):
+            errors.append("Alhambra source file preview file_previews item must be a mapping")
+            continue
+        target_path = str(preview.get("target_path", ""))
+        context = f"Alhambra source file preview {target_path or '<missing-target>'}"
+        _validate_alhambra_source_body_candidate_flags(context=context, value=preview, errors=errors)
+        if preview.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append(f"{context} pilot_key must be unique_alhambra")
+        if not target_path.startswith("src/"):
+            errors.append(f"{context} target_path must be a future src/ path")
+        sections = preview.get("structured_body_sections")
+        if not isinstance(sections, list):
+            errors.append(f"{context} missing structured body sections")
+            continue
+        sections = [section for section in sections if isinstance(section, dict)]
+        all_sections.extend(sections)
+        if int(preview.get("artifact_count", -1)) != len(sections):
+            errors.append(f"{context} artifact_count mismatch")
+        actual_families = sorted(
+            {str(section.get("family", "")) for section in sections if str(section.get("family", ""))}
+        )
+        if preview.get("families") != actual_families:
+            errors.append(f"{context} families mismatch")
+        expected_validation_refs = sorted(
+            {
+                validation
+                for section in sections
+                for validation in _string_refs(section.get("validation_refs"))
+            }
+        )
+        expected_blockers = sorted(
+            {
+                blocker
+                for section in sections
+                for blocker in _string_refs(section.get("unresolved_blockers"))
+            }
+        )
+        if preview.get("validation_refs") != expected_validation_refs:
+            errors.append(f"{context} validation refs mismatch")
+        if preview.get("required_validations") != expected_validation_refs:
+            errors.append(f"{context} required validations mismatch")
+        if not expected_validation_refs:
+            errors.append(f"{context} missing validation refs")
+        if preview.get("unresolved_blockers") != expected_blockers:
+            errors.append(f"{context} unresolved blockers mismatch")
+        if preview.get("unresolved_writer_blockers") != expected_blockers:
+            errors.append(f"{context} unresolved writer blockers mismatch")
+        if not expected_blockers:
+            errors.append(f"{context} missing unresolved blockers")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(preview.get(count_key, -1)) != 0:
+                errors.append(f"{context} {count_key} must be 0")
+
+        if target_path in localization_targets.values():
+            language = str(preview.get("localization_language", ""))
+            expected_target = localization_targets.get(language)
+            localization_languages.add(language)
+            if expected_target != target_path:
+                errors.append(f"{context} localization target path does not match language")
+            if actual_families != ["localization"]:
+                errors.append(f"{context} localization file preview must contain only localization sections")
+            _validate_alhambra_source_file_preview_localization_boundary(
+                context=context,
+                boundary=preview.get("localization_language_boundary"),
+                language=language,
+                target_path=target_path,
+                errors=errors,
+            )
+        elif "localization" in actual_families:
+            errors.append(f"{context} localization sections must use separated language target files")
+
+        for section in sections:
+            family = str(section.get("family", ""))
+            artifact_kind = str(section.get("artifact_kind", "<unknown>"))
+            section_context = f"{context} {family} artifact {artifact_kind}"
+            _validate_alhambra_source_body_candidate_flags(
+                context=section_context,
+                value=section,
+                errors=errors,
+            )
+            if section.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{section_context} pilot_key must be unique_alhambra")
+            if section.get("target_path") != target_path:
+                errors.append(f"{section_context} target path mismatch")
+            if not _string_refs(section.get("validation_refs")):
+                errors.append(f"{section_context} missing validation refs")
+            if not _string_refs(section.get("unresolved_blockers")):
+                errors.append(f"{section_context} missing unresolved blockers")
+            ref = section.get("source_body_candidate_ref")
+            if not isinstance(ref, dict):
+                errors.append(f"{section_context} missing source body candidate ref")
+            else:
+                if ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                    errors.append(f"{section_context} ref pilot must be unique_alhambra")
+                if ref.get("family") != family:
+                    errors.append(f"{section_context} ref family mismatch")
+                if ref.get("artifact_kind") != artifact_kind:
+                    errors.append(f"{section_context} ref artifact mismatch")
+                source_candidate_ref_keys.add(_alhambra_source_file_preview_ref_key(ref))
+            source_candidate = section.get("source_body_candidate")
+            if not isinstance(source_candidate, dict):
+                errors.append(f"{section_context} missing copied source body candidate")
+            else:
+                if source_candidate.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                    errors.append(f"{section_context} copied source body candidate pilot must be unique_alhambra")
+                if source_candidate.get("family") != family:
+                    errors.append(f"{section_context} copied source body candidate family mismatch")
+            body = section.get("structured_body_candidate")
+            if not isinstance(body, dict):
+                errors.append(f"{section_context} missing structured body candidate")
+                continue
+            _validate_alhambra_source_body_candidate_flags(
+                context=f"{section_context} body",
+                value=body,
+                errors=errors,
+            )
+            if body.get("body_emitted") is not False:
+                errors.append(f"{section_context} body_emitted must be false")
+            if family == "localization":
+                language = str(section.get("localization_language", ""))
+                if localization_targets.get(language) != target_path:
+                    errors.append(f"{section_context} localization language target mismatch")
+                _validate_alhambra_source_file_preview_localization_boundary(
+                    context=section_context,
+                    boundary=section.get("localization_language_boundary"),
+                    language=language,
+                    target_path=target_path,
+                    errors=errors,
+                )
+                body_boundary = body.get("language_ownership_boundary")
+                if (
+                    not isinstance(body_boundary, dict)
+                    or set(_string_refs(body_boundary.get("required_languages")))
+                    != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS)
+                    or not body_boundary.get("english_owner")
+                    or not body_boundary.get("simp_chinese_owner")
+                ):
+                    errors.append(f"{section_context} localization body missing language ownership boundary")
+            if family == "listener":
+                _validate_alhambra_source_file_preview_listener_section(
+                    context=section_context,
+                    body=body,
+                    errors=errors,
+                )
+
+    if localization_languages != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+        errors.append("Alhambra source file preview localization must split English and Simplified Chinese files")
+    declared_refs = report.get("source_body_candidate_refs") if isinstance(report.get("source_body_candidate_refs"), list) else []
+    for ref in declared_refs:
+        if isinstance(ref, dict) and ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source file preview declared source ref pilot_key must be unique_alhambra")
+    declared_ref_keys = {
+        _alhambra_source_file_preview_ref_key(ref)
+        for ref in declared_refs
+        if isinstance(ref, dict)
+    }
+    if declared_ref_keys != source_candidate_ref_keys:
+        errors.append("Alhambra source file preview source body candidate refs mismatch")
+    if int(report.get("source_body_candidate_ref_count", -1)) != len(source_candidate_ref_keys):
+        errors.append("Alhambra source file preview source_body_candidate_ref_count mismatch")
+    if len(source_candidate_ref_keys) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append(
+            f"Alhambra source file preview expected 45 unique source body artifacts, got {len(source_candidate_ref_keys)}"
+        )
+    for family, count in _count_by_key(
+        [
+            {"family": ref_key[0]}
+            for ref_key in source_candidate_ref_keys
+        ],
+        "family",
+    ).items():
+        family_summary[family] = count
+    if report.get("family_summary") != family_summary:
+        errors.append("Alhambra source file preview family_summary mismatch")
+    if summary and summary.get("family_summary") != family_summary:
+        errors.append("Alhambra source file preview summary family_summary mismatch")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if int(report.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source file preview {count_key} must be 0")
     return errors
 
 
