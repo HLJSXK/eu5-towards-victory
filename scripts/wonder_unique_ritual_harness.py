@@ -3099,6 +3099,14 @@ REPEATED_ENTITY_ROW_EFFECT_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_
 REPEATED_ENTITY_ROW_CLEANUP_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"])
 REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["event"])
 REPEATED_ENTITY_ROW_TRIGGER_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["trigger"])
+REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS = {
+    "gui_actor_slots_row",
+    "gui_checklist_row",
+    "gui_incident_log_row",
+}
+REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS = set(
+    REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["localization"]
+)
 REPEATED_ENTITY_ROW_LISTENER_ARTIFACT_KINDS = {"listener_war_integration"}
 REPEATED_ENTITY_ROW_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES = (
     "no-write",
@@ -3209,6 +3217,80 @@ REPEATED_ENTITY_ROW_TRIGGER_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS = (
     "missing effect writer validation",
     "missing GUI/localization coverage",
     "no verified source write contract",
+)
+REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS = {
+    "status",
+    "allowed_statuses",
+    "contract_family",
+    "source_type",
+    "future_source_target_path_pattern",
+    "candidate_future_source_target_path",
+    "future_target_only",
+    "source_generation_policy",
+    "source_writer_allowed",
+    "may_write_src",
+    "blocks_source_writer",
+    "gui_source_writes_allowed",
+    "aggregate_only_row_reads_allowed",
+    "row_state_writes_allowed",
+    "fixed_row_widget_boundary",
+    "per_row_variable_binding_policy",
+    "actor_checklist_incident_row_policy",
+    "tooltip_key_linkage_policy",
+    "aggregate_projection_boundary",
+    "required_validations",
+    "blocker_reasons",
+    "source_target_boundary",
+}
+REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS = (
+    "fixed_row_widget_boundary",
+    "per_row_variable_binding",
+    "actor_checklist_incident_row_policy",
+    "tooltip_key_linkage",
+    "aggregate_projection_boundary",
+    "source_target_boundary_still_blocked",
+)
+REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS = (
+    "missing real GUI source generator",
+    "missing EU5 GUI exact syntax/source writer contract",
+    "missing source-target boundary validation",
+)
+REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS = {
+    "status",
+    "allowed_statuses",
+    "contract_family",
+    "source_type",
+    "future_source_target_path_pattern",
+    "candidate_future_source_target_path",
+    "future_target_only",
+    "source_generation_policy",
+    "source_writer_allowed",
+    "may_write_src",
+    "blocks_source_writer",
+    "localization_source_writes_allowed",
+    "required_languages",
+    "missing_bilingual_coverage_allowed",
+    "loc_key_namespace_policy",
+    "loc_line_escaping_bom_policy",
+    "unsafe_quote_newline_handling_allowed",
+    "localization_coverage_policy",
+    "gui_event_key_linkage_policy",
+    "required_validations",
+    "blocker_reasons",
+    "source_target_boundary",
+}
+REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS = (
+    "english_simplified_chinese_coverage",
+    "loc_key_namespace",
+    "loc_line_escaping_bom",
+    "row_status_incident_tooltip_summary_coverage",
+    "gui_event_key_linkage",
+    "source_target_boundary_still_blocked",
+)
+REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS = (
+    "missing real localization source generator",
+    "missing EU5 localization exact syntax/source writer contract",
+    "missing source-target boundary validation",
 )
 REPEATED_ENTITY_ROW_LISTENER_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS = {
     "status",
@@ -4291,6 +4373,101 @@ def _repeated_row_trigger_source_target_contract(
     }
 
 
+def _repeated_row_gui_source_target_contract(
+    *,
+    pilot_key: str,
+    source_target_boundary: str,
+) -> dict[str, Any]:
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    target_path_pattern = "src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui"
+    return {
+        "status": "blocked",
+        "allowed_statuses": list(REPEATED_ENTITY_ROW_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES),
+        "contract_family": "gui",
+        "source_type": "in_game/gui/panels/organization",
+        "future_source_target_path_pattern": target_path_pattern,
+        "candidate_future_source_target_path": target_path_pattern.replace("<wonder_key>", wonder_key),
+        "future_target_only": True,
+        "source_generation_policy": (
+            "future target only; not an actual GUI source generator and cannot write GUI source files"
+        ),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "blocks_source_writer": True,
+        "gui_source_writes_allowed": False,
+        "aggregate_only_row_reads_allowed": False,
+        "row_state_writes_allowed": False,
+        "fixed_row_widget_boundary": (
+            "future GUI rows must use fixed row widgets for actor slots, checklist rows, and incident rows; "
+            "this contract is only a boundary and emits no widgets"
+        ),
+        "per_row_variable_binding_policy": (
+            "each GUI row must bind design_ir.tracked_entity_sets entity keys and per-row variables; "
+            "aggregate-only row reads are forbidden"
+        ),
+        "actor_checklist_incident_row_policy": (
+            "actor, checklist, and incident rows remain distinct row policies and cannot be collapsed into "
+            "one aggregate-only display"
+        ),
+        "tooltip_key_linkage_policy": (
+            "tooltips and text keys must link to localization row/status/incident/summary keys and event keys"
+        ),
+        "aggregate_projection_boundary": (
+            "aggregate_projection_variables are summary display variables only and cannot replace "
+            "design_ir.tracked_entity_sets row/entity semantics"
+        ),
+        "required_validations": list(REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS),
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_target_boundary": source_target_boundary,
+    }
+
+
+def _repeated_row_localization_source_target_contract(
+    *,
+    pilot_key: str,
+    source_target_boundary: str,
+) -> dict[str, Any]:
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    target_path_pattern = "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
+    return {
+        "status": "blocked",
+        "allowed_statuses": list(REPEATED_ENTITY_ROW_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES),
+        "contract_family": "localization",
+        "source_type": "main_menu/localization",
+        "future_source_target_path_pattern": target_path_pattern,
+        "candidate_future_source_target_path": target_path_pattern.replace("<wonder_key>", wonder_key),
+        "future_target_only": True,
+        "source_generation_policy": (
+            "future target only; not an actual localization source generator and cannot write localization files"
+        ),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "blocks_source_writer": True,
+        "localization_source_writes_allowed": False,
+        "required_languages": ["english", "simp_chinese"],
+        "missing_bilingual_coverage_allowed": False,
+        "loc_key_namespace_policy": "tv_wonder_unique_<wonder_key>_ritual.<row_set_key>.<artifact_kind>.<entity_key>",
+        "loc_line_escaping_bom_policy": (
+            "future localization must use loc_line() quote/newline escaping and UTF-8 BOM output for English "
+            "and Simplified Chinese files"
+        ),
+        "unsafe_quote_newline_handling_allowed": False,
+        "localization_coverage_policy": (
+            "row labels, status text, incident text, tooltips, and summary text require English and "
+            "Simplified Chinese coverage"
+        ),
+        "gui_event_key_linkage_policy": (
+            "localization keys must link GUI row/tooltips and event title/description/option text without "
+            "authorizing a localization writer"
+        ),
+        "required_validations": list(
+            REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS
+        ),
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_target_boundary": source_target_boundary,
+    }
+
+
 def _repeated_row_listener_source_target_contract(
     *,
     pilot_key: str,
@@ -4372,6 +4549,16 @@ def _repeated_row_source_plan_artifact(
         )
     elif artifact_kind in REPEATED_ENTITY_ROW_TRIGGER_ARTIFACT_KINDS:
         artifact["source_target_contract"] = _repeated_row_trigger_source_target_contract(
+            pilot_key=pilot_key,
+            source_target_boundary=source_target_boundary,
+        )
+    elif artifact_kind in REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS:
+        artifact["source_target_contract"] = _repeated_row_gui_source_target_contract(
+            pilot_key=pilot_key,
+            source_target_boundary=source_target_boundary,
+        )
+    elif artifact_kind in REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS:
+        artifact["source_target_contract"] = _repeated_row_localization_source_target_contract(
             pilot_key=pilot_key,
             source_target_boundary=source_target_boundary,
         )
@@ -4945,6 +5132,265 @@ def _validate_repeated_row_trigger_source_target_contract(
     return errors
 
 
+def _validate_repeated_row_gui_source_target_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    contract: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    missing = _missing_required(contract, REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS)
+    if missing:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing field(s): {', '.join(missing)}"
+        )
+        return errors
+    extra = sorted(set(contract) - REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS)
+    if extra:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract has unsupported field(s): "
+            f"{', '.join(extra)}"
+        )
+
+    allowed_statuses = set(REPEATED_ENTITY_ROW_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES)
+    declared_allowed_statuses = set(_string_refs(contract.get("allowed_statuses")))
+    if declared_allowed_statuses != allowed_statuses or "source-ready" in declared_allowed_statuses:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract allowed_statuses must be "
+            "no-write, candidate, blocked"
+        )
+    status = str(contract.get("status", ""))
+    if status == "source-ready":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract status must not be source-ready")
+    elif status not in allowed_statuses:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract status must be "
+            "no-write, candidate, or blocked"
+        )
+
+    expected_path_pattern = "src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui"
+    expected_path = expected_path_pattern.replace("<wonder_key>", _repeated_row_event_contract_wonder_key(pilot_key))
+    if contract.get("contract_family") != "gui":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract contract_family must be gui")
+    if contract.get("source_type") != "in_game/gui/panels/organization":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract source_type changed")
+    if contract.get("future_source_target_path_pattern") != expected_path_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract future path pattern changed")
+    if contract.get("candidate_future_source_target_path") != expected_path:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract candidate future path changed")
+    if contract.get("future_target_only") is not True:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract must declare future_target_only: true")
+    source_generation_policy = str(contract.get("source_generation_policy", "")).lower()
+    if "future target only" not in source_generation_policy or "not an actual gui source generator" not in source_generation_policy:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract source_generation_policy is incomplete"
+        )
+    if contract.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract source_writer_allowed must be false")
+    if contract.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract may_write_src must be false")
+    if contract.get("blocks_source_writer") is not True:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract blocks_source_writer must be true")
+    if contract.get("gui_source_writes_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract gui_source_writes_allowed must be false"
+        )
+    if contract.get("aggregate_only_row_reads_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract "
+            "aggregate_only_row_reads_allowed must be false"
+        )
+    if contract.get("row_state_writes_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract row_state_writes_allowed must be false"
+        )
+    fixed_boundary = str(contract.get("fixed_row_widget_boundary", "")).lower()
+    if "fixed row widgets" not in fixed_boundary or "actor slots" not in fixed_boundary or "checklist" not in fixed_boundary or "incident" not in fixed_boundary:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract fixed row widget boundary is incomplete")
+    per_row_policy = str(contract.get("per_row_variable_binding_policy", "")).lower()
+    if (
+        "design_ir.tracked_entity_sets" not in per_row_policy
+        or "per-row variables" not in per_row_policy
+        or "aggregate-only row reads are forbidden" not in per_row_policy
+    ):
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract per-row variable binding policy is incomplete"
+        )
+    row_policy = str(contract.get("actor_checklist_incident_row_policy", "")).lower()
+    if "actor" not in row_policy or "checklist" not in row_policy or "incident" not in row_policy or "aggregate-only" not in row_policy:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract actor/checklist/incident row policy is incomplete"
+        )
+    tooltip_policy = str(contract.get("tooltip_key_linkage_policy", "")).lower()
+    if "tooltip" not in tooltip_policy or "localization" not in tooltip_policy or "event keys" not in tooltip_policy:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract tooltip/key linkage policy is incomplete")
+    aggregate_boundary = str(contract.get("aggregate_projection_boundary", "")).lower()
+    if (
+        "aggregate_projection_variables" not in aggregate_boundary
+        or "cannot replace" not in aggregate_boundary
+        or "design_ir.tracked_entity_sets" not in aggregate_boundary
+    ):
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract aggregate projection boundary is incomplete"
+        )
+    if str(contract.get("source_target_boundary", "")) != str(artifact.get("source_target_boundary", "")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract boundary mismatch")
+
+    required_validations = set(_string_refs(contract.get("required_validations")))
+    missing_validations = sorted(
+        set(REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS) - required_validations
+    )
+    if missing_validations:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing validation(s): "
+            f"{', '.join(missing_validations)}"
+        )
+    blocker_reasons = set(_string_refs(contract.get("blocker_reasons")))
+    missing_blockers = sorted(
+        set(REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS) - blocker_reasons
+    )
+    if missing_blockers:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing blocker reason(s): "
+            f"{', '.join(missing_blockers)}"
+        )
+    return errors
+
+
+def _validate_repeated_row_localization_source_target_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    contract: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    missing = _missing_required(contract, REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS)
+    if missing:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing field(s): {', '.join(missing)}"
+        )
+        return errors
+    extra = sorted(set(contract) - REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS)
+    if extra:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract has unsupported field(s): "
+            f"{', '.join(extra)}"
+        )
+
+    allowed_statuses = set(REPEATED_ENTITY_ROW_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES)
+    declared_allowed_statuses = set(_string_refs(contract.get("allowed_statuses")))
+    if declared_allowed_statuses != allowed_statuses or "source-ready" in declared_allowed_statuses:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract allowed_statuses must be "
+            "no-write, candidate, blocked"
+        )
+    status = str(contract.get("status", ""))
+    if status == "source-ready":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract status must not be source-ready")
+    elif status not in allowed_statuses:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract status must be "
+            "no-write, candidate, or blocked"
+        )
+
+    expected_path_pattern = "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
+    expected_path = expected_path_pattern.replace("<wonder_key>", _repeated_row_event_contract_wonder_key(pilot_key))
+    if contract.get("contract_family") != "localization":
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract contract_family must be localization"
+        )
+    if contract.get("source_type") != "main_menu/localization":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract source_type changed")
+    if contract.get("future_source_target_path_pattern") != expected_path_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract future path pattern changed")
+    if contract.get("candidate_future_source_target_path") != expected_path:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract candidate future path changed")
+    if contract.get("future_target_only") is not True:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract must declare future_target_only: true")
+    source_generation_policy = str(contract.get("source_generation_policy", "")).lower()
+    if (
+        "future target only" not in source_generation_policy
+        or "not an actual localization source generator" not in source_generation_policy
+    ):
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract source_generation_policy is incomplete"
+        )
+    if contract.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract source_writer_allowed must be false")
+    if contract.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract may_write_src must be false")
+    if contract.get("blocks_source_writer") is not True:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract blocks_source_writer must be true")
+    if contract.get("localization_source_writes_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract "
+            "localization_source_writes_allowed must be false"
+        )
+    if set(_string_refs(contract.get("required_languages"))) != {"english", "simp_chinese"}:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract must declare English and Simplified Chinese coverage"
+        )
+    if contract.get("missing_bilingual_coverage_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing_bilingual_coverage_allowed must be false"
+        )
+    namespace_policy = str(contract.get("loc_key_namespace_policy", "")).lower()
+    if (
+        "tv_wonder_unique_<wonder_key>_ritual" not in namespace_policy
+        or "<row_set_key>" not in namespace_policy
+        or "<entity_key>" not in namespace_policy
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract loc key namespace policy is incomplete")
+    escaping_policy = str(contract.get("loc_line_escaping_bom_policy", "")).lower()
+    if (
+        "loc_line()" not in escaping_policy
+        or "quote/newline escaping" not in escaping_policy
+        or "utf-8 bom" not in escaping_policy
+    ):
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract loc_line escaping/BOM policy is incomplete"
+        )
+    if contract.get("unsafe_quote_newline_handling_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract "
+            "unsafe_quote_newline_handling_allowed must be false"
+        )
+    coverage_policy = str(contract.get("localization_coverage_policy", "")).lower()
+    for coverage_phrase in ("row labels", "status text", "incident text", "tooltips", "summary text"):
+        if coverage_phrase not in coverage_policy:
+            errors.append(
+                f"{pilot_key}: artifact {artifact_kind} source_target_contract localization coverage policy is incomplete"
+            )
+            break
+    linkage_policy = str(contract.get("gui_event_key_linkage_policy", "")).lower()
+    if "gui" not in linkage_policy or "event" not in linkage_policy or "without authorizing" not in linkage_policy:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract GUI/event key linkage policy is incomplete")
+    if str(contract.get("source_target_boundary", "")) != str(artifact.get("source_target_boundary", "")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract boundary mismatch")
+
+    required_validations = set(_string_refs(contract.get("required_validations")))
+    missing_validations = sorted(
+        set(REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS) - required_validations
+    )
+    if missing_validations:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing validation(s): "
+            f"{', '.join(missing_validations)}"
+        )
+    blocker_reasons = set(_string_refs(contract.get("blocker_reasons")))
+    missing_blockers = sorted(
+        set(REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS) - blocker_reasons
+    )
+    if missing_blockers:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing blocker reason(s): "
+            f"{', '.join(missing_blockers)}"
+        )
+    return errors
+
+
 def _validate_repeated_row_listener_source_target_contract(
     *,
     pilot_key: str,
@@ -5165,6 +5611,38 @@ def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
                             contract=source_target_contract,
                         )
                     )
+            elif artifact_kind in REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS:
+                if str(artifact.get("evidence_status", "")) != "interface_candidate":
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} GUI evidence_status must stay interface_candidate"
+                    )
+                if not isinstance(source_target_contract, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must declare source_target_contract")
+                else:
+                    errors.extend(
+                        _validate_repeated_row_gui_source_target_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            contract=source_target_contract,
+                        )
+                    )
+            elif artifact_kind in REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS:
+                if str(artifact.get("evidence_status", "")) != "interface_candidate":
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} localization evidence_status must stay interface_candidate"
+                    )
+                if not isinstance(source_target_contract, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must declare source_target_contract")
+                else:
+                    errors.extend(
+                        _validate_repeated_row_localization_source_target_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            contract=source_target_contract,
+                        )
+                    )
             elif artifact_kind in REPEATED_ENTITY_ROW_LISTENER_ARTIFACT_KINDS:
                 if not isinstance(source_target_contract, dict):
                     errors.append(f"{pilot_key}: artifact {artifact_kind} must declare source_target_contract")
@@ -5220,6 +5698,8 @@ def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
                 REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS
                 | REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
                 | REPEATED_ENTITY_ROW_TRIGGER_ARTIFACT_KINDS
+                | REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS
+                | REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS
                 | REPEATED_ENTITY_ROW_LISTENER_ARTIFACT_KINDS
             ):
                 if not str(evidence_mapping.get("eu5_source_syntax_pattern", "")).strip():

@@ -236,6 +236,32 @@ REPEATED_ROW_TRIGGER_CONTRACT_BLOCKER_REASONS = {
     "missing GUI/localization coverage",
     "no verified source write contract",
 }
+REPEATED_ROW_GUI_CONTRACT_REQUIRED_VALIDATIONS = {
+    "fixed_row_widget_boundary",
+    "per_row_variable_binding",
+    "actor_checklist_incident_row_policy",
+    "tooltip_key_linkage",
+    "aggregate_projection_boundary",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_GUI_CONTRACT_BLOCKER_REASONS = {
+    "missing real GUI source generator",
+    "missing EU5 GUI exact syntax/source writer contract",
+    "missing source-target boundary validation",
+}
+REPEATED_ROW_LOCALIZATION_CONTRACT_REQUIRED_VALIDATIONS = {
+    "english_simplified_chinese_coverage",
+    "loc_key_namespace",
+    "loc_line_escaping_bom",
+    "row_status_incident_tooltip_summary_coverage",
+    "gui_event_key_linkage",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_LOCALIZATION_CONTRACT_BLOCKER_REASONS = {
+    "missing real localization source generator",
+    "missing EU5 localization exact syntax/source writer contract",
+    "missing source-target boundary validation",
+}
 REPEATED_ROW_LISTENER_CONTRACT_REQUIRED_VALIDATIONS = {
     "on_action_hook_linkage",
     "listener_scope_availability",
@@ -1583,6 +1609,20 @@ def _repeated_row_trigger_contract_path(pilot_key: str) -> str:
     )
 
 
+def _repeated_row_gui_contract_path(pilot_key: str) -> str:
+    return (
+        "src/in_game/gui/panels/organization/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual.gui"
+    )
+
+
+def _repeated_row_localization_contract_path(pilot_key: str) -> str:
+    return (
+        "src/main_menu/localization/<lang>/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_l_<lang>.yml"
+    )
+
+
 def _repeated_row_listener_contract_path(pilot_key: str) -> str:
     return (
         "src/in_game/common/on_action/"
@@ -1619,7 +1659,10 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
     effect_artifacts: list[dict] = []
     cleanup_artifacts: list[dict] = []
     trigger_artifacts: list[dict] = []
+    gui_artifacts: list[dict] = []
+    localization_artifacts: list[dict] = []
     listener_artifacts_with_contracts: list[dict] = []
+    non_contract_kinds: set[str] = set()
     for entry_plan in source_plan.get("entries", []) or []:
         pilot_key = entry_plan.get("key", "")
         if entry_plan.get("source_writer_allowed") is not False:
@@ -1629,6 +1672,8 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
         expected_event_path = _repeated_row_event_contract_path(str(pilot_key))
         expected_effect_path = _repeated_row_effect_contract_path(str(pilot_key))
         expected_trigger_path = _repeated_row_trigger_contract_path(str(pilot_key))
+        expected_gui_path = _repeated_row_gui_contract_path(str(pilot_key))
+        expected_localization_path = _repeated_row_localization_contract_path(str(pilot_key))
         expected_listener_path = _repeated_row_listener_contract_path(str(pilot_key))
         for artifact in entry_plan.get("artifacts", []) or []:
             artifact_kind = artifact.get("artifact_kind")
@@ -1638,8 +1683,11 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
                 | REPEATED_ROW_EFFECT_ARTIFACT_KINDS
                 | REPEATED_ROW_CLEANUP_ARTIFACT_KINDS
                 | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+                | REPEATED_ROW_GUI_ARTIFACT_KINDS
+                | REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS
                 | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
             ):
+                non_contract_kinds.add(str(artifact_kind))
                 if contract is not None:
                     raise AssertionError(
                         f"{pilot_key} non source-target artifact should not have contract: {artifact}"
@@ -1775,6 +1823,112 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
                 )
                 if missing_blockers:
                     raise AssertionError(f"{pilot_key} trigger contract missing blocker reasons: {contract}")
+            elif artifact_kind in REPEATED_ROW_GUI_ARTIFACT_KINDS:
+                gui_artifacts.append(artifact)
+                if contract.get("contract_family") != "gui":
+                    raise AssertionError(f"{pilot_key} GUI contract family changed: {contract}")
+                if contract.get("source_type") != "in_game/gui/panels/organization":
+                    raise AssertionError(f"{pilot_key} GUI contract source_type changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_gui_path:
+                    raise AssertionError(f"{pilot_key} GUI contract future target path changed: {contract}")
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui"
+                ):
+                    raise AssertionError(f"{pilot_key} GUI contract future path pattern changed: {contract}")
+                if contract.get("blocks_source_writer") is not True:
+                    raise AssertionError(f"{pilot_key} GUI contract must block source writer: {contract}")
+                if contract.get("gui_source_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} GUI contract allowed GUI source writes: {contract}")
+                if contract.get("aggregate_only_row_reads_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} GUI contract allowed aggregate-only row reads: {contract}")
+                if contract.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} GUI contract allowed row-state writes: {contract}")
+                fixed_boundary = str(contract.get("fixed_row_widget_boundary", "")).lower()
+                if "fixed row widgets" not in fixed_boundary or "actor slots" not in fixed_boundary:
+                    raise AssertionError(f"{pilot_key} GUI fixed row widget boundary changed: {contract}")
+                per_row_policy = str(contract.get("per_row_variable_binding_policy", "")).lower()
+                if (
+                    "design_ir.tracked_entity_sets" not in per_row_policy
+                    or "per-row variables" not in per_row_policy
+                    or "aggregate-only row reads are forbidden" not in per_row_policy
+                ):
+                    raise AssertionError(f"{pilot_key} GUI per-row binding policy changed: {contract}")
+                row_policy = str(contract.get("actor_checklist_incident_row_policy", "")).lower()
+                if "actor" not in row_policy or "checklist" not in row_policy or "incident" not in row_policy:
+                    raise AssertionError(f"{pilot_key} GUI row policy changed: {contract}")
+                tooltip_policy = str(contract.get("tooltip_key_linkage_policy", "")).lower()
+                if "tooltip" not in tooltip_policy or "localization" not in tooltip_policy or "event keys" not in tooltip_policy:
+                    raise AssertionError(f"{pilot_key} GUI tooltip/key linkage changed: {contract}")
+                aggregate_boundary = str(contract.get("aggregate_projection_boundary", "")).lower()
+                if (
+                    "aggregate_projection_variables" not in aggregate_boundary
+                    or "cannot replace" not in aggregate_boundary
+                    or "design_ir.tracked_entity_sets" not in aggregate_boundary
+                ):
+                    raise AssertionError(f"{pilot_key} GUI aggregate boundary changed: {contract}")
+                missing_validations = REPEATED_ROW_GUI_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} GUI contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_GUI_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} GUI contract missing blocker reasons: {contract}")
+            elif artifact_kind in REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
+                localization_artifacts.append(artifact)
+                if contract.get("contract_family") != "localization":
+                    raise AssertionError(f"{pilot_key} localization contract family changed: {contract}")
+                if contract.get("source_type") != "main_menu/localization":
+                    raise AssertionError(f"{pilot_key} localization contract source_type changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_localization_path:
+                    raise AssertionError(f"{pilot_key} localization contract future target path changed: {contract}")
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
+                ):
+                    raise AssertionError(f"{pilot_key} localization contract future path pattern changed: {contract}")
+                if contract.get("blocks_source_writer") is not True:
+                    raise AssertionError(f"{pilot_key} localization contract must block source writer: {contract}")
+                if contract.get("localization_source_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} localization contract allowed source writes: {contract}")
+                if set(contract.get("required_languages", [])) != {"english", "simp_chinese"}:
+                    raise AssertionError(f"{pilot_key} localization bilingual coverage changed: {contract}")
+                if contract.get("missing_bilingual_coverage_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} localization contract allowed missing bilingual coverage: {contract}")
+                if contract.get("unsafe_quote_newline_handling_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} localization contract allowed unsafe escaping: {contract}")
+                namespace_policy = str(contract.get("loc_key_namespace_policy", "")).lower()
+                if (
+                    "tv_wonder_unique_<wonder_key>_ritual" not in namespace_policy
+                    or "<row_set_key>" not in namespace_policy
+                    or "<entity_key>" not in namespace_policy
+                ):
+                    raise AssertionError(f"{pilot_key} localization namespace policy changed: {contract}")
+                escaping_policy = str(contract.get("loc_line_escaping_bom_policy", "")).lower()
+                if (
+                    "loc_line()" not in escaping_policy
+                    or "quote/newline escaping" not in escaping_policy
+                    or "utf-8 bom" not in escaping_policy
+                ):
+                    raise AssertionError(f"{pilot_key} localization escaping/BOM policy changed: {contract}")
+                coverage_policy = str(contract.get("localization_coverage_policy", "")).lower()
+                for phrase in ("row labels", "status text", "incident text", "tooltips", "summary text"):
+                    if phrase not in coverage_policy:
+                        raise AssertionError(f"{pilot_key} localization coverage policy changed: {contract}")
+                linkage_policy = str(contract.get("gui_event_key_linkage_policy", "")).lower()
+                if "gui" not in linkage_policy or "event" not in linkage_policy or "without authorizing" not in linkage_policy:
+                    raise AssertionError(f"{pilot_key} localization GUI/event key linkage changed: {contract}")
+                missing_validations = REPEATED_ROW_LOCALIZATION_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} localization contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_LOCALIZATION_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} localization contract missing blocker reasons: {contract}")
             elif artifact_kind in REPEATED_ROW_LISTENER_ARTIFACT_KINDS:
                 listener_artifacts_with_contracts.append(artifact)
                 if pilot_key != "unique_alhambra" or artifact_kind != "listener_war_integration":
@@ -1856,17 +2010,38 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
         raise AssertionError(f"expected 32 repeated-row cleanup artifacts with contracts, got {len(cleanup_artifacts)}")
     if len(trigger_artifacts) != 24:
         raise AssertionError(f"expected 24 repeated-row trigger artifacts with contracts, got {len(trigger_artifacts)}")
+    if len(gui_artifacts) != 8:
+        raise AssertionError(f"expected 8 repeated-row GUI artifacts with contracts, got {len(gui_artifacts)}")
+    if len(localization_artifacts) != 40:
+        raise AssertionError(
+            f"expected 40 repeated-row localization artifacts with contracts, got {len(localization_artifacts)}"
+        )
     if len(listener_artifacts_with_contracts) != 1:
         raise AssertionError(
             "expected 1 repeated-row listener artifact with a contract, got "
             f"{len(listener_artifacts_with_contracts)}"
         )
+    total_contracts = (
+        len(event_artifacts)
+        + len(effect_artifacts)
+        + len(cleanup_artifacts)
+        + len(trigger_artifacts)
+        + len(gui_artifacts)
+        + len(localization_artifacts)
+        + len(listener_artifacts_with_contracts)
+    )
+    if total_contracts != 177:
+        raise AssertionError(f"expected 177 repeated-row artifacts with contracts, got {total_contracts}")
+    if non_contract_kinds:
+        raise AssertionError(f"expected no repeated-row non-contract artifact kinds, got {sorted(non_contract_kinds)}")
 
     contract_families = (
         ("event", REPEATED_ROW_EVENT_ARTIFACT_KINDS),
         ("effect", REPEATED_ROW_EFFECT_ARTIFACT_KINDS),
         ("cleanup", REPEATED_ROW_CLEANUP_ARTIFACT_KINDS),
         ("trigger", REPEATED_ROW_TRIGGER_ARTIFACT_KINDS),
+        ("gui", REPEATED_ROW_GUI_ARTIFACT_KINDS),
+        ("localization", REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS),
         ("listener", REPEATED_ROW_LISTENER_ARTIFACT_KINDS),
     )
     for family_name, artifact_kinds in contract_families:
@@ -1898,11 +2073,19 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
             lambda contract: contract.__setitem__("may_write_src", True),
             "source_target_contract may_write_src must be false",
         )
+        _assert_source_target_contract_negative(
+            source_plan,
+            f"source_writer_allowed {family_name} contract",
+            artifact_kinds,
+            lambda contract: contract.__setitem__("source_writer_allowed", True),
+            "source_writer_allowed must be false",
+        )
 
     for family_name, artifact_kinds in (
         ("event", REPEATED_ROW_EVENT_ARTIFACT_KINDS),
         ("effect", REPEATED_ROW_EFFECT_ARTIFACT_KINDS),
         ("cleanup", REPEATED_ROW_CLEANUP_ARTIFACT_KINDS),
+        ("gui", REPEATED_ROW_GUI_ARTIFACT_KINDS),
         ("listener", REPEATED_ROW_LISTENER_ARTIFACT_KINDS),
     ):
         _assert_source_target_contract_negative(
@@ -1960,15 +2143,34 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
         lambda contract: contract.__setitem__("war_scope_writes_allowed", True),
         "war_scope_writes_allowed must be false",
     )
-
-    stray_contract_plan = deepcopy(source_plan)
-    _first_artifact(
-        stray_contract_plan,
-        REPEATED_ROW_GUI_ARTIFACT_KINDS | REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS,
-    )["source_target_contract"] = {"contract_family": "gui"}
-    stray_contract_errors = validate_repeated_entity_row_source_plan(stray_contract_plan)
-    if not any("must not declare source_target_contract" in error for error in stray_contract_errors):
-        raise AssertionError(f"stray source-target contract negative was not caught: {stray_contract_errors}")
+    _assert_source_target_contract_negative(
+        source_plan,
+        "aggregate-only read GUI contract",
+        REPEATED_ROW_GUI_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("aggregate_only_row_reads_allowed", True),
+        "aggregate_only_row_reads_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "missing bilingual localization contract",
+        REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("required_languages", ["english"]),
+        "English and Simplified Chinese coverage",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "missing bilingual coverage allowed localization contract",
+        REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("missing_bilingual_coverage_allowed", True),
+        "missing_bilingual_coverage_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "unsafe escaping localization contract",
+        REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("unsafe_quote_newline_handling_allowed", True),
+        "unsafe_quote_newline_handling_allowed must be false",
+    )
 
 
 def assert_has_error(

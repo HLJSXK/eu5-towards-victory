@@ -126,6 +126,24 @@ tooltip-safe scope boundaries, aggregate projection responsibility, and blocker 
 They do not generate trigger bodies, do not allow tooltip-safe groups to call unsafe
 effect/write paths, do not replace `design_ir.tracked_entity_sets` row/entity semantics,
 and do not write `src/`.
+Repeated-row GUI source-target contracts are source-writer prerequisites for
+`in_game/gui/panels/organization`, not GUI source generators. They name only the future
+GUI file pattern
+`src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui` and
+validate fixed row widget boundaries, per-row variable bindings, actor/checklist/incident
+row policies, tooltip/key linkage, and aggregate projection boundaries. They do not emit
+GUI widgets, do not authorize GUI source writes, do not allow row-state writes, cannot
+replace `design_ir.tracked_entity_sets`, and cannot flatten repeated rows into
+aggregate-only displays.
+Repeated-row localization source-target contracts are source-writer prerequisites for
+`main_menu/localization`, not localization source generators. They name only the future
+localization file pattern
+`src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml`
+and validate English plus Simplified Chinese coverage, loc key namespaces,
+`loc_line()` quote/newline escaping, UTF-8 BOM output, row/status/incident/tooltip/summary
+coverage, and GUI/event key linkage. They do not write localization files, do not
+authorize missing bilingual coverage or unsafe quote/newline handling, and do not write
+`src/`.
 The Alhambra-only listener source-target contract is the same kind of source-writer
 prerequisite for `common/on_action`. It names only the future on_action file pattern
 `src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt` and
