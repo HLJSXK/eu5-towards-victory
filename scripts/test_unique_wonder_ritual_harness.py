@@ -2838,12 +2838,21 @@ def main() -> None:
     source_preview = repeated_entity_row_source_preview_for_payload(load_spec_data())
     if source_preview["validation_errors"]:
         raise AssertionError(f"repeated-row source preview unexpectedly failed validation: {source_preview['validation_errors']}")
-    if source_preview.get("preview_count") != 72:
-        raise AssertionError(f"expected 72 repeated-row source previews, got {source_preview.get('preview_count')}")
-    if source_preview.get("preview_family_summary", {}).get("event") != 32:
-        raise AssertionError(f"expected 32 repeated-row event previews, got {source_preview.get('preview_family_summary')}")
-    if source_preview.get("preview_family_summary", {}).get("localization") != 40:
-        raise AssertionError(f"expected 40 repeated-row localization previews, got {source_preview.get('preview_family_summary')}")
+    expected_preview_family_counts = {
+        "event": 32,
+        "localization": 40,
+        "effect": 40,
+        "cleanup": 32,
+        "trigger": 24,
+    }
+    if source_preview.get("preview_count") != 168:
+        raise AssertionError(f"expected 168 repeated-row source previews, got {source_preview.get('preview_count')}")
+    for family, expected_count in expected_preview_family_counts.items():
+        if source_preview.get("preview_family_summary", {}).get(family) != expected_count:
+            raise AssertionError(
+                f"expected {expected_count} repeated-row {family} previews, got "
+                f"{source_preview.get('preview_family_summary')}"
+            )
     if source_preview.get("source_writer_allowed") is not False:
         raise AssertionError(f"source preview source_writer_allowed changed: {source_preview}")
     if source_preview.get("may_write_src_allowed") is not False:
@@ -2853,8 +2862,7 @@ def main() -> None:
     if source_preview.get("source_plan_artifact_count") != 177:
         raise AssertionError(f"source preview should preserve 177-artifact source-plan: {source_preview}")
     skipped_preview_kinds: set[str] = set()
-    event_preview_count = 0
-    localization_preview_count = 0
+    preview_family_counts = {family: 0 for family in expected_preview_family_counts}
     for entry_preview in source_preview.get("entries", []) or []:
         if entry_preview.get("preview_only") is not True:
             raise AssertionError(f"entry source preview must be preview-only: {entry_preview}")
@@ -2875,7 +2883,7 @@ def main() -> None:
             if preview.get("source_ready") is not False:
                 raise AssertionError(f"{artifact_kind} preview became source-ready: {preview}")
             if family == "event":
-                event_preview_count += 1
+                preview_family_counts["event"] += 1
                 if artifact_kind not in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
                     raise AssertionError(f"non-event artifact received event preview: {preview}")
                 if preview.get("row_state_writes_allowed") is not False:
@@ -2888,26 +2896,74 @@ def main() -> None:
                 if body.get("no_source_ready") is not True:
                     raise AssertionError(f"event preview lost source-ready blocker: {preview}")
             elif family == "localization":
-                localization_preview_count += 1
+                preview_family_counts["localization"] += 1
                 if artifact_kind not in REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
                     raise AssertionError(f"non-localization artifact received localization preview: {preview}")
                 if set(preview.get("required_languages", [])) != {"english", "simp_chinese"}:
                     raise AssertionError(f"localization preview bilingual coverage changed: {preview}")
+            elif family == "effect":
+                preview_family_counts["effect"] += 1
+                if artifact_kind not in REPEATED_ROW_EFFECT_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-effect artifact received effect preview: {preview}")
+                if preview.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"effect preview allowed row-state writes: {preview}")
+                if preview.get("effect_body_writes_allowed") is not False:
+                    raise AssertionError(f"effect preview allowed effect body writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_effect_body") is not True:
+                    raise AssertionError(f"effect preview emitted effect body: {preview}")
+                if body.get("no_row_state_write") is not True:
+                    raise AssertionError(f"effect preview lost row-state write blocker: {preview}")
+            elif family == "cleanup":
+                preview_family_counts["cleanup"] += 1
+                if artifact_kind not in REPEATED_ROW_CLEANUP_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-cleanup artifact received cleanup preview: {preview}")
+                if preview.get("effect_body_writes_allowed") is not False:
+                    raise AssertionError(f"cleanup preview allowed effect body writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_cleanup_body") is not True:
+                    raise AssertionError(f"cleanup preview emitted cleanup body: {preview}")
+                if not isinstance(preview.get("cleanup_scope_plan"), dict):
+                    raise AssertionError(f"cleanup preview lost cleanup scope plan: {preview}")
+                coverage = preview.get("cleanup_coverage")
+                if not isinstance(coverage, dict) or not {
+                    "completion",
+                    "failure",
+                    "ownership_loss",
+                    "ritual_reset",
+                } <= set(coverage):
+                    raise AssertionError(f"cleanup preview lost lifecycle coverage: {preview}")
+            elif family == "trigger":
+                preview_family_counts["trigger"] += 1
+                if artifact_kind not in REPEATED_ROW_TRIGGER_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-trigger artifact received trigger preview: {preview}")
+                if preview.get("trigger_body_writes_allowed") is not False:
+                    raise AssertionError(f"trigger preview allowed trigger body writes: {preview}")
+                if preview.get("tooltip_safe_unsafe_write_paths_allowed") is not False:
+                    raise AssertionError(f"trigger preview allowed unsafe tooltip write paths: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_trigger_body") is not True:
+                    raise AssertionError(f"trigger preview emitted trigger body: {preview}")
+                if body.get("no_unsafe_tooltip_write_path") is not True:
+                    raise AssertionError(f"trigger preview lost tooltip write-path blocker: {preview}")
             else:
                 raise AssertionError(f"unsupported source body preview family {family}: {preview}")
-    if event_preview_count != 32:
-        raise AssertionError(f"expected 32 event previews, got {event_preview_count}")
-    if localization_preview_count != 40:
-        raise AssertionError(f"expected 40 localization previews, got {localization_preview_count}")
-    forbidden_preview_kinds = (
+    for family, expected_count in expected_preview_family_counts.items():
+        if preview_family_counts[family] != expected_count:
+            raise AssertionError(f"expected {expected_count} {family} previews, got {preview_family_counts[family]}")
+    previewed_script_kinds = (
         REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
         | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
-        | REPEATED_ROW_GUI_ARTIFACT_KINDS
-        | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
     )
+    if skipped_preview_kinds & previewed_script_kinds:
+        raise AssertionError(
+            "effect/trigger/cleanup artifacts should receive dry-run previews, not skipped blockers: "
+            f"{sorted(skipped_preview_kinds & previewed_script_kinds)}"
+        )
+    forbidden_preview_kinds = REPEATED_ROW_GUI_ARTIFACT_KINDS | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
     if not forbidden_preview_kinds <= skipped_preview_kinds:
         raise AssertionError(
-            "effect/trigger/cleanup/GUI/listener artifacts should remain skipped preview blockers: "
+            "GUI/listener artifacts should remain skipped preview blockers: "
             f"{sorted(forbidden_preview_kinds - skipped_preview_kinds)}"
         )
 
@@ -2916,6 +2972,42 @@ def main() -> None:
     row_state_preview_errors = validate_repeated_entity_row_source_preview(row_state_preview)
     if not any("row-state writes must be false" in error for error in row_state_preview_errors):
         raise AssertionError(f"event row-state write preview negative was not caught: {row_state_preview_errors}")
+
+    effect_row_state_preview = deepcopy(source_preview)
+    _first_source_preview(effect_row_state_preview, "effect")["row_state_writes_allowed"] = True
+    effect_row_state_errors = validate_repeated_entity_row_source_preview(effect_row_state_preview)
+    if not any("effect preview row-state writes must be false" in error for error in effect_row_state_errors):
+        raise AssertionError(f"effect row-state write preview negative was not caught: {effect_row_state_errors}")
+
+    effect_body_preview = deepcopy(source_preview)
+    _first_source_preview(effect_body_preview, "effect")["effect_body_writes_allowed"] = True
+    effect_body_errors = validate_repeated_entity_row_source_preview(effect_body_preview)
+    if not any("effect preview effect body writes must be false" in error for error in effect_body_errors):
+        raise AssertionError(f"effect body write preview negative was not caught: {effect_body_errors}")
+
+    missing_cleanup_scope_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_cleanup_scope_preview, "cleanup")["cleanup_scope_plan"]
+    missing_cleanup_scope_errors = validate_repeated_entity_row_source_preview(missing_cleanup_scope_preview)
+    if not any("source preview missing field(s)" in error for error in missing_cleanup_scope_errors):
+        raise AssertionError(f"missing cleanup scope preview negative was not caught: {missing_cleanup_scope_errors}")
+
+    missing_cleanup_coverage_preview = deepcopy(source_preview)
+    _first_source_preview(missing_cleanup_coverage_preview, "cleanup")["cleanup_coverage"] = {}
+    missing_cleanup_coverage_errors = validate_repeated_entity_row_source_preview(missing_cleanup_coverage_preview)
+    if not any("cleanup preview missing cleanup coverage" in error for error in missing_cleanup_coverage_errors):
+        raise AssertionError(f"missing cleanup coverage preview negative was not caught: {missing_cleanup_coverage_errors}")
+
+    trigger_body_preview = deepcopy(source_preview)
+    _first_source_preview(trigger_body_preview, "trigger")["trigger_body_writes_allowed"] = True
+    trigger_body_errors = validate_repeated_entity_row_source_preview(trigger_body_preview)
+    if not any("trigger preview trigger body writes must be false" in error for error in trigger_body_errors):
+        raise AssertionError(f"trigger body write preview negative was not caught: {trigger_body_errors}")
+
+    trigger_tooltip_preview = deepcopy(source_preview)
+    _first_source_preview(trigger_tooltip_preview, "trigger")["tooltip_safe_unsafe_write_paths_allowed"] = True
+    trigger_tooltip_errors = validate_repeated_entity_row_source_preview(trigger_tooltip_preview)
+    if not any("trigger preview tooltip-safe unsafe write paths must be false" in error for error in trigger_tooltip_errors):
+        raise AssertionError(f"trigger tooltip unsafe write path preview negative was not caught: {trigger_tooltip_errors}")
 
     missing_event_id_preview = deepcopy(source_preview)
     _first_source_preview(missing_event_id_preview, "event")["event_id_evidence"] = []
@@ -2961,16 +3053,22 @@ def main() -> None:
         raise AssertionError(f"unsafe quote/newline preview negative was not caught: {unsafe_policy_errors}")
 
     writable_preview = deepcopy(source_preview)
-    _first_source_preview(writable_preview, "event")["may_write_src"] = True
+    _first_source_preview(writable_preview, "effect")["may_write_src"] = True
     writable_preview_errors = validate_repeated_entity_row_source_preview(writable_preview)
     if not any("may_write_src must be false" in error for error in writable_preview_errors):
         raise AssertionError(f"may_write_src preview negative was not caught: {writable_preview_errors}")
 
     writes_src_preview = deepcopy(source_preview)
-    _first_source_preview(writes_src_preview, "event")["writes_src"] = True
+    _first_source_preview(writes_src_preview, "trigger")["writes_src"] = True
     writes_src_preview_errors = validate_repeated_entity_row_source_preview(writes_src_preview)
     if not any("writes_src must be false" in error for error in writes_src_preview_errors):
         raise AssertionError(f"writes_src preview negative was not caught: {writes_src_preview_errors}")
+
+    cleanup_may_write_src_preview = deepcopy(source_preview)
+    _first_source_preview(cleanup_may_write_src_preview, "cleanup")["may_write_src"] = True
+    cleanup_may_write_src_errors = validate_repeated_entity_row_source_preview(cleanup_may_write_src_preview)
+    if not any("may_write_src must be false" in error for error in cleanup_may_write_src_errors):
+        raise AssertionError(f"cleanup may_write_src preview negative was not caught: {cleanup_may_write_src_errors}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},

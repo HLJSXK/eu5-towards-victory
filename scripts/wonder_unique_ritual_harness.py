@@ -3371,6 +3371,45 @@ REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_PREVIEW_REQUIRED_FIELDS = (
         "unsafe_quote_newline_handling_allowed",
     }
 )
+REPEATED_ENTITY_ROW_EFFECT_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "future_effect_name_plan",
+        "row_entity_refs",
+        "aggregate_projection_refs",
+        "aggregate_projection_boundary",
+        "handoff_responsibility",
+        "row_state_writes_allowed",
+        "effect_body_writes_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_CLEANUP_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "cleanup_scope_plan",
+        "cleanup_coverage",
+        "row_entity_refs",
+        "aggregate_projection_refs",
+        "aggregate_projection_boundary",
+        "effect_body_writes_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_TRIGGER_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "future_trigger_name_plan",
+        "eligibility_condition_group_plan",
+        "row_completion_condition_group_plan",
+        "tooltip_safe_condition_group_plan",
+        "aggregate_projection_refs",
+        "aggregate_boundary",
+        "trigger_body_writes_allowed",
+        "tooltip_safe_unsafe_write_paths_allowed",
+        "source_ready_allowed",
+    }
+)
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS = ("english", "simp_chinese")
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_row_labels": "row_labels",
@@ -3396,6 +3435,12 @@ REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES = {
     "cleanup_ownership_loss": "ownership_loss",
     "cleanup_ritual_reset": "reset",
 }
+REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES = (
+    "completion",
+    "failure",
+    "ownership_loss",
+    "ritual_reset",
+)
 REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
     "event_opening_skeleton": {
         "eu5_source_syntax_pattern": (
@@ -6005,6 +6050,195 @@ def _repeated_row_localization_source_preview_for_artifact(artifact: dict[str, A
     }
 
 
+def _repeated_row_future_script_name(
+    *,
+    wonder_key: str,
+    row_set_key: str,
+    artifact_kind: str,
+    suffix: str,
+) -> str:
+    return f"tv_wonder_unique_{wonder_key}_ritual_{row_set_key}_{artifact_kind}_{suffix}"
+
+
+def _repeated_row_effect_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(artifact.get("aggregate_projection_variables"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    future_effect_name = _repeated_row_future_script_name(
+        wonder_key=wonder_key,
+        row_set_key=row_set_key,
+        artifact_kind=artifact_kind,
+        suffix="effect",
+    )
+    return {
+        "preview_only": True,
+        "preview_family": "effect",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "scripted_effect_plan_preview",
+            "no_effect_body": True,
+            "no_row_state_write": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "future_effect_name_plan": {
+            "name": future_effect_name,
+            "name_only": True,
+            "body_emitted": False,
+        },
+        "row_entity_refs": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+        },
+        "aggregate_projection_refs": aggregate_projection_refs,
+        "aggregate_projection_boundary": str(contract.get("aggregate_projection_boundary", "")),
+        "handoff_responsibility": {
+            "handoff_only": True,
+            "owner_generator": str(artifact.get("owner_generator", "")),
+            "source_target_boundary": str(artifact.get("source_target_boundary", "")),
+            "no_inline_row_state_write": True,
+        },
+        "row_state_writes_allowed": False,
+        "effect_body_writes_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
+def _repeated_row_cleanup_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(artifact.get("aggregate_projection_variables"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    cleanup_scope = str(contract.get("cleanup_lifecycle_scope", ""))
+    return {
+        "preview_only": True,
+        "preview_family": "cleanup",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "cleanup_scope_plan_preview",
+            "no_cleanup_body": True,
+            "no_effect_body": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "cleanup_scope_plan": {
+            "scope": cleanup_scope,
+            "target_path": str(contract.get("candidate_future_source_target_path", "")),
+            "scope_only": True,
+            "body_emitted": False,
+        },
+        "cleanup_coverage": {
+            "completion": artifact_kind == "cleanup_completion",
+            "failure": artifact_kind == "cleanup_failure",
+            "ownership_loss": artifact_kind == "cleanup_ownership_loss",
+            "ritual_reset": artifact_kind == "cleanup_ritual_reset",
+            "coverage_group": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES),
+        },
+        "row_entity_refs": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+        },
+        "aggregate_projection_refs": aggregate_projection_refs,
+        "aggregate_projection_boundary": str(contract.get("aggregate_projection_boundary", "")),
+        "effect_body_writes_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
+def _repeated_row_trigger_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(artifact.get("aggregate_projection_variables"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    future_trigger_name = _repeated_row_future_script_name(
+        wonder_key=wonder_key,
+        row_set_key=row_set_key,
+        artifact_kind=artifact_kind,
+        suffix="trigger",
+    )
+    return {
+        "preview_only": True,
+        "preview_family": "trigger",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_TRIGGER_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "scripted_trigger_plan_preview",
+            "no_trigger_body": True,
+            "no_unsafe_tooltip_write_path": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "future_trigger_name_plan": {
+            "name": future_trigger_name,
+            "name_only": True,
+            "body_emitted": False,
+        },
+        "eligibility_condition_group_plan": {
+            "planned": artifact_kind == "scripted_trigger_eligibility",
+            "predicate_group_only": True,
+            "entity_keys": entity_refs,
+        },
+        "row_completion_condition_group_plan": {
+            "planned": artifact_kind == "scripted_trigger_row_completion",
+            "predicate_group_only": True,
+            "entity_keys": entity_refs,
+        },
+        "tooltip_safe_condition_group_plan": {
+            "planned": artifact_kind == "scripted_trigger_tooltip_safe_condition_group",
+            "predicate_group_only": True,
+            "unsafe_write_paths_allowed": False,
+            "policy": str(contract.get("tooltip_safe_condition_group_policy", "")),
+        },
+        "aggregate_projection_refs": aggregate_projection_refs,
+        "aggregate_boundary": str(contract.get("aggregate_projection_boundary", "")),
+        "trigger_body_writes_allowed": False,
+        "tooltip_safe_unsafe_write_paths_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
 def repeated_entity_row_source_preview_for_entry(
     entry_plan: dict[str, Any],
     *,
@@ -6025,6 +6259,12 @@ def repeated_entity_row_source_preview_for_entry(
             )
         elif artifact_kind in REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS:
             previews.append(_repeated_row_localization_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_EFFECT_ARTIFACT_KINDS:
+            previews.append(_repeated_row_effect_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_CLEANUP_ARTIFACT_KINDS:
+            previews.append(_repeated_row_cleanup_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_TRIGGER_ARTIFACT_KINDS:
+            previews.append(_repeated_row_trigger_source_preview_for_artifact(artifact))
         else:
             skipped_artifact_kinds.append(artifact_kind)
 
@@ -6040,7 +6280,7 @@ def repeated_entity_row_source_preview_for_entry(
         "previews": previews,
         "notes": [
             "Dry-run source preview only; no src files are written.",
-            "Effect, trigger, cleanup, GUI, and listener artifacts remain source-writer blockers.",
+            "GUI and listener artifacts remain source-writer blockers without source body previews.",
         ],
     }
 
@@ -6086,7 +6326,7 @@ def repeated_entity_row_source_preview_for_payload(
         "validation_errors": [],
         "notes": [
             "Repeated-row source preview is a no-write dry-run compiler layer.",
-            "It emits event/localization preview fragments only and does not authorize src writes.",
+            "It emits event/localization/effect/cleanup/trigger preview fragments only and does not authorize src writes.",
             "It does not make any source-plan contract source-ready.",
         ],
     }
@@ -6109,8 +6349,13 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
     if report.get("source_plan_contract_validation_errors"):
         errors.append("source preview report source-plan contract validation must be clean")
 
-    event_preview_count = 0
-    localization_preview_count = 0
+    preview_family_counts = {
+        "event": 0,
+        "localization": 0,
+        "effect": 0,
+        "cleanup": 0,
+        "trigger": 0,
+    }
     all_loc_keys: dict[str, str] = {}
     entries = report.get("entries") if isinstance(report.get("entries"), list) else []
     for entry in entries:
@@ -6135,10 +6380,19 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
             family = str(preview.get("preview_family", ""))
             if family == "event":
                 required_fields = REPEATED_ENTITY_ROW_EVENT_SOURCE_PREVIEW_REQUIRED_FIELDS
-                event_preview_count += 1
+                preview_family_counts["event"] += 1
             elif family == "localization":
                 required_fields = REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_PREVIEW_REQUIRED_FIELDS
-                localization_preview_count += 1
+                preview_family_counts["localization"] += 1
+            elif family == "effect":
+                required_fields = REPEATED_ENTITY_ROW_EFFECT_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["effect"] += 1
+            elif family == "cleanup":
+                required_fields = REPEATED_ENTITY_ROW_CLEANUP_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["cleanup"] += 1
+            elif family == "trigger":
+                required_fields = REPEATED_ENTITY_ROW_TRIGGER_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["trigger"] += 1
             else:
                 errors.append(
                     f"{pilot_key}: artifact {artifact_kind} unsupported source body preview family {family!r}"
@@ -6166,6 +6420,8 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
                 errors.append(f"{pilot_key}: artifact {artifact_kind} blocks_source_writer must be true")
             if preview.get("source_ready") is not False or preview.get("contract_status") == "source-ready":
                 errors.append(f"{pilot_key}: artifact {artifact_kind} source preview must not be source-ready")
+            if preview.get("contract_status") != "blocked":
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source preview contract_status must be blocked")
             if not str(preview.get("future_source_target_path", "")).startswith("src/"):
                 errors.append(f"{pilot_key}: artifact {artifact_kind} future source target path is missing")
             if not isinstance(preview.get("blocker_reasons"), list) or not preview.get("blocker_reasons"):
@@ -6290,12 +6546,165 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
                             )
                         all_loc_keys[duplicate_key] = owner
 
-    if event_preview_count != 32:
-        errors.append(f"expected 32 repeated-row event previews, got {event_preview_count}")
-    if localization_preview_count != 40:
-        errors.append(f"expected 40 repeated-row localization previews, got {localization_preview_count}")
-    if int(report.get("preview_count", -1)) != event_preview_count + localization_preview_count:
+            if family == "effect":
+                if artifact_kind not in REPEATED_ENTITY_ROW_EFFECT_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive an effect source body preview")
+                if preview.get("row_state_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview row-state writes must be false")
+                if preview.get("effect_body_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview effect body writes must be false")
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_effect_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview must declare no effect body")
+                    if source_body_preview.get("no_row_state_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview must declare no row-state write")
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview must declare no source-ready")
+                name_plan = preview.get("future_effect_name_plan")
+                if (
+                    not isinstance(name_plan, dict)
+                    or not str(name_plan.get("name", "")).startswith(f"tv_wonder_unique_{preview.get('wonder_key')}_ritual_")
+                    or name_plan.get("body_emitted") is not False
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing future effect name plan")
+                handoff = preview.get("handoff_responsibility")
+                if not isinstance(handoff, dict) or handoff.get("handoff_only") is not True:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing handoff responsibility")
+                elif handoff.get("no_inline_row_state_write") is not True:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview must forbid inline row-state writes")
+                if not isinstance(preview.get("row_entity_refs"), dict) or not preview.get("row_entity_refs", {}).get("entity_keys"):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing row/entity refs")
+                if not isinstance(preview.get("aggregate_projection_refs"), list):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing aggregate projection refs")
+                if not str(preview.get("aggregate_projection_boundary", "")).strip():
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing aggregate projection boundary")
+
+            if family == "cleanup":
+                if artifact_kind not in REPEATED_ENTITY_ROW_CLEANUP_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive a cleanup source body preview")
+                if preview.get("effect_body_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview effect body writes must be false")
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_cleanup_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview must declare no cleanup body")
+                    if source_body_preview.get("no_effect_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview must declare no effect body")
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview must declare no source-ready")
+                scope_plan = preview.get("cleanup_scope_plan")
+                expected_scope = REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES.get(
+                    artifact_kind
+                )
+                if not isinstance(scope_plan, dict) or scope_plan.get("scope") != expected_scope:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing cleanup scope")
+                elif scope_plan.get("body_emitted") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview must not emit cleanup body")
+                coverage = preview.get("cleanup_coverage")
+                if not isinstance(coverage, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing cleanup coverage")
+                else:
+                    missing_coverage = [
+                        scope
+                        for scope in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES
+                        if scope not in coverage
+                    ]
+                    if missing_coverage:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} cleanup preview missing cleanup coverage"
+                        )
+                    expected_coverage_key = "ritual_reset" if artifact_kind == "cleanup_ritual_reset" else str(expected_scope)
+                    if coverage.get(expected_coverage_key) is not True:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} cleanup preview missing cleanup coverage"
+                        )
+                if not isinstance(preview.get("row_entity_refs"), dict) or not preview.get("row_entity_refs", {}).get("entity_keys"):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing row/entity refs")
+                if not isinstance(preview.get("aggregate_projection_refs"), list):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing aggregate projection refs")
+                if not str(preview.get("aggregate_projection_boundary", "")).strip():
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing aggregate projection boundary")
+
+            if family == "trigger":
+                if artifact_kind not in REPEATED_ENTITY_ROW_TRIGGER_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive a trigger source body preview")
+                if preview.get("trigger_body_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview trigger body writes must be false")
+                if preview.get("tooltip_safe_unsafe_write_paths_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} trigger preview tooltip-safe unsafe write paths must be false"
+                    )
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_trigger_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview must declare no trigger body")
+                    if source_body_preview.get("no_unsafe_tooltip_write_path") is not True:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} trigger preview must forbid unsafe tooltip write path"
+                        )
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview must declare no source-ready")
+                name_plan = preview.get("future_trigger_name_plan")
+                if (
+                    not isinstance(name_plan, dict)
+                    or not str(name_plan.get("name", "")).startswith(f"tv_wonder_unique_{preview.get('wonder_key')}_ritual_")
+                    or name_plan.get("body_emitted") is not False
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing future trigger name plan")
+                condition_plan_by_kind = {
+                    "scripted_trigger_eligibility": "eligibility_condition_group_plan",
+                    "scripted_trigger_row_completion": "row_completion_condition_group_plan",
+                    "scripted_trigger_tooltip_safe_condition_group": "tooltip_safe_condition_group_plan",
+                }
+                expected_plan_key = condition_plan_by_kind.get(artifact_kind, "")
+                for plan_key in condition_plan_by_kind.values():
+                    condition_plan = preview.get(plan_key)
+                    if not isinstance(condition_plan, dict):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing {plan_key}")
+                        continue
+                    if plan_key == expected_plan_key and condition_plan.get("planned") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing condition group plan")
+                    if condition_plan.get("predicate_group_only") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview must stay predicate-group only")
+                tooltip_plan = preview.get("tooltip_safe_condition_group_plan")
+                if isinstance(tooltip_plan, dict) and tooltip_plan.get("unsafe_write_paths_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} trigger preview tooltip-safe unsafe write paths must be false"
+                    )
+                if not isinstance(preview.get("aggregate_projection_refs"), list):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing aggregate projection refs")
+                if not str(preview.get("aggregate_boundary", "")).strip():
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing aggregate boundary")
+
+    expected_preview_family_counts = {
+        "event": 32,
+        "localization": 40,
+        "effect": 40,
+        "cleanup": 32,
+        "trigger": 24,
+    }
+    for family, expected_count in expected_preview_family_counts.items():
+        actual_count = preview_family_counts[family]
+        if actual_count != expected_count:
+            errors.append(f"expected {expected_count} repeated-row {family} previews, got {actual_count}")
+    total_preview_count = sum(preview_family_counts.values())
+    if int(report.get("preview_count", -1)) != total_preview_count:
         errors.append("source preview report preview_count mismatch")
+    if int(report.get("preview_count", -1)) != 168:
+        errors.append(f"expected 168 repeated-row source previews, got {report.get('preview_count')}")
     return errors
 
 
