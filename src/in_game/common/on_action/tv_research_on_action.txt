@@ -68,10 +68,14 @@ tv_academy_of_sciences_monthly_pulse = {
 						set_variable = { name = tv_academy_philosophy_current value = 1 }
 					}
 				}
+				scope:tv_academy_monthly_pulse_country = {
+					tv_academy_philosophy_refresh_timeline_effect = yes
+				}
 				if = {
 					limit = {
 						var:tv_academy_philosophy_inspiration >= 100
 						scope:tv_academy_monthly_pulse_country = {
+							var:tv_academy_debate_current_node_type ?= 1
 							NOT = { var:tv_academy_philosophy_phase ?= 1 }
 							NOT = { has_variable = tv_academy_philosophy_concept_pending }
 						}
@@ -79,30 +83,6 @@ tv_academy_of_sciences_monthly_pulse = {
 					scope:tv_academy_monthly_pulse_country = {
 						set_variable = { name = tv_academy_philosophy_concept_pending value = 1 }
 						trigger_event_non_silently = { id = tv_research.40 days = 1 }
-					}
-				}
-				if = {
-					limit = {
-						var:tv_academy_philosophy_inspiration >= 100
-						scope:tv_academy_monthly_pulse_country = {
-							var:tv_academy_philosophy_phase ?= 1
-							NOT = { has_variable = tv_academy_philosophy_round_pending }
-						}
-					}
-					set_variable = { name = tv_academy_philosophy_inspiration value = 0 }
-					scope:tv_academy_monthly_pulse_country = {
-						tv_academy_philosophy_refresh_action_cards_effect = yes
-					}
-				}
-				if = {
-					limit = {
-						scope:tv_academy_monthly_pulse_country = {
-							var:tv_academy_philosophy_phase ?= 1
-							NOT = { has_variable = tv_academy_philosophy_round_pending }
-						}
-					}
-					scope:tv_academy_monthly_pulse_country = {
-						tv_academy_philosophy_monthly_debate_decay_effect = yes
 					}
 				}
 			}

@@ -41,12 +41,6 @@ TRADE_MONOPOLY_ACTIONS = [
     "tv_trade_cancel_selected_embargo",
 ]
 
-PHILOSOPHY_SELECT_ACTIONS = [
-    f"tv_philosophy_select_slot_{slot}_action_{action}"
-    for slot in range(1, 4)
-    for action in range(1, 7)
-]
-
 HAGIA_ASSIGNMENT_ACTIONS = [
     f"tv_wonder_hagia_assign_step_{step}"
     for step in range(1, 9)
@@ -1043,36 +1037,6 @@ def trade_monopoly_message_entries() -> str:
     return "\n".join(blocks)
 
 
-def philosophy_message_entries() -> str:
-    blocks = ["\n# ---- Generated Academy philosophy controls ----\n"]
-    for action in PHILOSOPHY_SELECT_ACTIONS:
-        blocks.append(
-            f"""PERFORM_{action}_ACTION={{
-\tlog=no
-\tonmap=no
-\tpopup=no
-\tidle=no
-\toption=no
-\tpausepopup=no
-\tmessage_category = society
-}}
-"""
-        )
-    blocks.append(
-        """PERFORM_tv_philosophy_execute_selected_action_ACTION={
-\tlog=yes
-\tonmap=no
-\tpopup=no
-\tidle=no
-\toption=yes
-\tpausepopup=no
-\tmessage_category = society
-}
-"""
-    )
-    return "\n".join(blocks)
-
-
 def hagia_assignment_message_entries() -> str:
     blocks = ["\n# ---- Generated Hagia Sophia ritual assignment controls ----\n"]
     for action in HAGIA_ASSIGNMENT_ACTIONS:
@@ -1135,7 +1099,6 @@ combined_entries = (
     TV_ENTRIES
     + hagia_assignment_message_entries()
     + trade_monopoly_message_entries()
-    + philosophy_message_entries()
     + victory_reward_message_entries()
     + io_establishment_message_entries()
 )

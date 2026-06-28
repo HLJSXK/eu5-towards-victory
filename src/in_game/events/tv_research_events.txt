@@ -1489,7 +1489,27 @@ tv_research.40 = {
 			}
 			triggered_desc = {
 				trigger = { var:tv_academy_philosophy_current ?= 4 }
+				desc = tv_research.40.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_current ?= 5 }
+				desc = tv_research.40.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_current ?= 6 }
 				desc = tv_research.40.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_current ?= 7 }
+				desc = tv_research.40.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_current ?= 8 }
+				desc = tv_research.40.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_current ?= 9 }
+				desc = tv_research.40.d_scientific_revolution
 			}
 			triggered_desc = {
 				trigger = { always = yes }
@@ -1502,99 +1522,5 @@ tv_research.40 = {
 	option = {
 		name = tv_research.40.a
 		tv_academy_philosophy_start_debate_effect = yes
-	}
-}
-
-tv_research.41 = {
-	type = country_event
-	title = tv_research.41.t
-	desc = tv_research.41.d
-	outcome = positive
-
-	option = {
-		name = tv_research.41.a
-		tv_academy_philosophy_record_round_win_effect = yes
-	}
-}
-
-tv_research.42 = {
-	type = country_event
-	title = tv_research.42.t
-	desc = tv_research.42.d
-	outcome = negative
-
-	option = {
-		name = tv_research.42.a
-		tv_academy_philosophy_record_round_loss_effect = yes
-	}
-}
-
-tv_research.43 = {
-	type = country_event
-	title = tv_research.43.t
-	desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = { var:tv_academy_philosophy_current ?= 1 }
-				desc = tv_research.43.d_meritocracy
-			}
-			triggered_desc = {
-				trigger = { var:tv_academy_philosophy_current ?= 2 }
-				desc = tv_research.43.d_renaissance
-			}
-			triggered_desc = {
-				trigger = { var:tv_academy_philosophy_current ?= 3 }
-				desc = tv_research.43.d_new_world
-			}
-			triggered_desc = {
-				trigger = { var:tv_academy_philosophy_current ?= 4 }
-				desc = tv_research.43.d_confessionalism
-			}
-			triggered_desc = {
-				trigger = { always = yes }
-				desc = tv_research.43.d
-			}
-		}
-	}
-	outcome = positive
-
-	option = {
-		name = tv_research.43.a
-		tv_academy_philosophy_reward_and_rotate_effect = yes
-	}
-}
-
-tv_research.44 = {
-	type = country_event
-	title = tv_research.44.t
-	desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = { var:tv_academy_philosophy_current ?= 1 }
-				desc = tv_research.44.d_meritocracy
-			}
-			triggered_desc = {
-				trigger = { var:tv_academy_philosophy_current ?= 2 }
-				desc = tv_research.44.d_renaissance
-			}
-			triggered_desc = {
-				trigger = { var:tv_academy_philosophy_current ?= 3 }
-				desc = tv_research.44.d_new_world
-			}
-			triggered_desc = {
-				trigger = { var:tv_academy_philosophy_current ?= 4 }
-				desc = tv_research.44.d_confessionalism
-			}
-			triggered_desc = {
-				trigger = { always = yes }
-				desc = tv_research.44.d
-			}
-		}
-	}
-	outcome = negative
-
-	option = {
-		name = tv_research.44.a
-		tv_academy_philosophy_reset_panel_effect = yes
 	}
 }

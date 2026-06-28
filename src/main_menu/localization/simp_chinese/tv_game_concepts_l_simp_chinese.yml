@@ -262,6 +262,15 @@
  game_concept_tv_concentrated_research: "集中研究"
  game_concept_tv_concentrated_research_desc: "[tv_research_mechanism|e]的最终子流程。它需要一位已任命且[tv_effective_administrative_skill|e]至少20的[tv_chief_scientist|e]，每月根据其等效能力获得进度，生效期间施加临时研究速度惩罚，并在进度达到100时完成。"
 
+ game_concept_tv_debate_history: "历史"
+ game_concept_tv_debate_history_desc: "已经过去的哲学辩论节点。对新建立的[tv_academy_of_sciences|e]而言，建立节点及其之前的辩论都会显示为历史，玩家不会参与。"
+
+ game_concept_tv_local_debate: "本地"
+ game_concept_tv_local_debate_desc: "由[tv_academy_of_sciences|e]主持的国内哲学辩论节点。本轮实现中，本地辩论机制只以固定50%进度展示。"
+
+ game_concept_tv_world_debate: "世界"
+ game_concept_tv_world_debate_desc: "国际哲学辩论节点。本轮实现中，世界辩论席位只显示占位席位，真实国家、旗帜、立场与结果将在后续接入。"
+
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "总督府"
  game_concept_tv_govhouse_desc: "通过[tv_conquest_victory|e]IO建立流程创立的国际组织。创始国可任命[tv_grand_general|e]，并向领土内各地区派遣[tv_local_governor|e]。每位总督可降低其管辖地区内的建造费用与动乱，并提升最大控制力，效果与其军事属性成正比。"

@@ -1,5 +1,9 @@
 """
 Generate philosophy debate generic actions for the Academy of Sciences panel.
+
+The current Academy philosophy debate UI has no player action cards. The generated
+file is intentionally kept as an empty action file so the registered generated
+output remains stable while the old action-slot system is removed.
 """
 
 import sys
@@ -23,78 +27,8 @@ HEADER = """\
 """
 
 
-def _potential_block() -> str:
-    return """\
-\tpotential = {
-\t\tcustom_tooltip = {
-\t\t\ttext = TV_HAS_ACADEMY_IO_MEMBER_TT
-\t\t\tscope:actor = { has_variable = tv_academy_io_member }
-\t\t}
-\t}"""
-
-
-def gen_select_action(slot: int, action: int) -> str:
-    return f"""\
-tv_philosophy_select_slot_{slot}_action_{action} = {{
-\ttype = owncountry
-\tsound = UI_action_religion_generic
-\tshow_message = no
-\tai_tick = never
-\tautomation_tick = never
-{_potential_block()}
-\tallow = {{
-\t\tscope:actor = {{
-\t\t\tvar:tv_academy_philosophy_phase ?= 1
-\t\t\tNOT = {{ has_variable = tv_academy_philosophy_round_pending }}
-\t\t\tvar:tv_academy_philosophy_slot_{slot}_allow ?= 1
-\t\t\tvar:tv_academy_philosophy_slot_{slot}_action ?= {action}
-\t\t}}
-\t}}
-\teffect = {{
-\t\tscope:actor = {{
-\t\t\ttv_academy_philosophy_select_action_effect = {{ slot = {slot} action = {action} }}
-\t\t}}
-\t}}
-\tai_will_do = {{ add = -100 }}
-}}
-"""
-
-
-def gen_execute_action() -> str:
-    return f"""\
-tv_philosophy_execute_selected_action = {{
-\ttype = owncountry
-\tsound = UI_action_religion_generic
-\tshow_message = yes
-\tai_tick = never
-\tautomation_tick = never
-{_potential_block()}
-\tallow = {{
-\t\tscope:actor = {{
-\t\t\ttv_academy_philosophy_can_execute_selected_action_trigger = yes
-\t\t}}
-\t}}
-\teffect = {{
-\t\tscope:actor = {{
-\t\t\ttv_academy_philosophy_execute_selected_action_effect = yes
-\t\t}}
-\t}}
-\tai_will_do = {{ add = -100 }}
-}}
-"""
-
-
 def generate(data: dict) -> str:
-    action_ids = [int(action["id"]) for action in data["actions"]]
-    if action_ids != [1, 2, 3, 4, 5, 6]:
-        raise ValueError("Philosophy debate actions must be ids 1..6 in order")
-
-    parts = [HEADER]
-    for slot in range(1, 4):
-        for action in action_ids:
-            parts.append(gen_select_action(slot, action))
-    parts.append(gen_execute_action())
-    return "\n".join(parts)
+    return HEADER + "\n# Philosophy debate action cards are disabled in the current Academy debate UI.\n"
 
 
 def main() -> None:

@@ -161,6 +161,10 @@ tv_academy_of_sciences_create_effect = {
 		set_variable = { name = tv_med_disp_adm value = 0 }
 		set_variable = { name = tv_med_disp_dip value = 0 }
 		set_variable = { name = tv_med_disp_mil value = 0 }
+		set_variable = { name = tv_academy_philosophy_current value = 1 }
+		set_variable = { name = tv_academy_philosophy_phase value = 0 }
+		set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+		tv_academy_philosophy_initialize_timeline_effect = yes
 	}
 	if = {
 		limit = {
