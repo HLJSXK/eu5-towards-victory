@@ -117,6 +117,23 @@ only future boundaries, row-state writer/reader responsibility, aggregate projec
 boundaries, cleanup coverage, and blocker reasons. They are not scripted-effect source
 generators, do not emit effect bodies, do not authorize row-state write schemas, and do
 not write `src/`.
+Repeated-row scripted-trigger source-target contracts are the preflight layer for
+`common/scripted_triggers`, not scripted-trigger source generators. They name only the
+future trigger file pattern
+`src/in_game/common/scripted_triggers/tv_wonder_unique_<wonder_key>_ritual_triggers.txt`
+and verify trigger-name uniqueness, row-completion linkage, eligibility input coverage,
+tooltip-safe scope boundaries, aggregate projection responsibility, and blocker reasons.
+They do not generate trigger bodies, do not allow tooltip-safe groups to call unsafe
+effect/write paths, do not replace `design_ir.tracked_entity_sets` row/entity semantics,
+and do not write `src/`.
+The Alhambra-only listener source-target contract is the same kind of source-writer
+prerequisite for `common/on_action`. It names only the future on_action file pattern
+`src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt` and
+validates the future hook linkage, listener scope availability, selected-ritual trigger
+linkage, row-state handoff boundary, war-listener scope responsibility, and blocker
+reasons. The on_action bridge remains an interface candidate only; the contract does not
+generate listener bodies, does not authorize listener or war scope writes, and does not
+write `src/`.
 
 A future row-set compiler interface must assign ownership before any source-writing claim:
 

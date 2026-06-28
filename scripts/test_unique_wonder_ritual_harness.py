@@ -222,6 +222,33 @@ REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_BLOCKER_REASONS = {
     "missing GUI/localization writers",
     "no verified source write contract",
 }
+REPEATED_ROW_TRIGGER_CONTRACT_REQUIRED_VALIDATIONS = {
+    "trigger_name_uniqueness",
+    "row_completion_variable_linkage",
+    "eligibility_input_coverage",
+    "tooltip_safe_scope_boundary",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_TRIGGER_CONTRACT_BLOCKER_REASONS = {
+    "missing real scripted-trigger source generator",
+    "missing trigger predicate schema",
+    "missing effect writer validation",
+    "missing GUI/localization coverage",
+    "no verified source write contract",
+}
+REPEATED_ROW_LISTENER_CONTRACT_REQUIRED_VALIDATIONS = {
+    "on_action_hook_linkage",
+    "listener_scope_availability",
+    "selected_ritual_trigger_linkage",
+    "row_state_handoff_boundary",
+    "source_target_boundary_still_blocked",
+}
+REPEATED_ROW_LISTENER_CONTRACT_BLOCKER_REASONS = {
+    "missing real listener integration source generator",
+    "missing war scope persistence contract",
+    "missing Alhambra row-state write contract",
+    "no verified source write contract",
+}
 REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_CLEANUP_SCOPES = {
     "scripted_effect_row_init": "non_cleanup_effect",
     "scripted_effect_row_state_write": "non_cleanup_effect",
@@ -1549,6 +1576,20 @@ def _repeated_row_effect_contract_path(pilot_key: str) -> str:
     )
 
 
+def _repeated_row_trigger_contract_path(pilot_key: str) -> str:
+    return (
+        "src/in_game/common/scripted_triggers/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_triggers.txt"
+    )
+
+
+def _repeated_row_listener_contract_path(pilot_key: str) -> str:
+    return (
+        "src/in_game/common/on_action/"
+        f"tv_wonder_unique_{_repeated_row_event_contract_wonder_key(str(pilot_key))}_ritual_on_actions.txt"
+    )
+
+
 def _assert_source_target_contract_negative(
     source_plan: dict,
     name: str,
@@ -1577,6 +1618,8 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
     event_artifacts: list[dict] = []
     effect_artifacts: list[dict] = []
     cleanup_artifacts: list[dict] = []
+    trigger_artifacts: list[dict] = []
+    listener_artifacts_with_contracts: list[dict] = []
     for entry_plan in source_plan.get("entries", []) or []:
         pilot_key = entry_plan.get("key", "")
         if entry_plan.get("source_writer_allowed") is not False:
@@ -1585,6 +1628,8 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
             raise AssertionError(f"{pilot_key} may_write_src_allowed changed: {entry_plan}")
         expected_event_path = _repeated_row_event_contract_path(str(pilot_key))
         expected_effect_path = _repeated_row_effect_contract_path(str(pilot_key))
+        expected_trigger_path = _repeated_row_trigger_contract_path(str(pilot_key))
+        expected_listener_path = _repeated_row_listener_contract_path(str(pilot_key))
         for artifact in entry_plan.get("artifacts", []) or []:
             artifact_kind = artifact.get("artifact_kind")
             contract = artifact.get("source_target_contract")
@@ -1592,6 +1637,8 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
                 REPEATED_ROW_EVENT_ARTIFACT_KINDS
                 | REPEATED_ROW_EFFECT_ARTIFACT_KINDS
                 | REPEATED_ROW_CLEANUP_ARTIFACT_KINDS
+                | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+                | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
             ):
                 if contract is not None:
                     raise AssertionError(
@@ -1603,6 +1650,8 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
                 raise AssertionError(f"{pilot_key} artifact missing source_target_contract: {artifact}")
             if contract.get("status") == "source-ready":
                 raise AssertionError(f"{pilot_key} source-target contract became source-ready: {contract}")
+            if contract.get("status") != "blocked":
+                raise AssertionError(f"{pilot_key} source-target contract should stay blocked: {contract}")
             if contract.get("status") not in REPEATED_ROW_EVENT_CONTRACT_ALLOWED_STATUSES:
                 raise AssertionError(f"{pilot_key} source-target contract has invalid status: {contract}")
             if set(contract.get("allowed_statuses", [])) != REPEATED_ROW_EVENT_CONTRACT_ALLOWED_STATUSES:
@@ -1613,11 +1662,11 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
                 raise AssertionError(f"{pilot_key} source-target contract source_writer_allowed changed: {contract}")
             if contract.get("may_write_src") is not False:
                 raise AssertionError(f"{pilot_key} source-target contract may_write_src changed: {contract}")
-            if contract.get("row_state_writes_allowed") is not False:
-                raise AssertionError(f"{pilot_key} source-target contract allowed row-state writes: {contract}")
 
             if artifact_kind in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
                 event_artifacts.append(artifact)
+                if contract.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} event contract allowed row-state writes: {contract}")
                 if artifact.get("may_write_src") is not False:
                     raise AssertionError(f"{pilot_key} event artifact may_write_src changed: {artifact}")
                 if artifact.get("blocks_source_writer") is not True:
@@ -1684,6 +1733,89 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
                     != REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_CLEANUP_SCOPES[artifact_kind]
                 ):
                     raise AssertionError(f"{pilot_key} cleanup contract lifecycle scope changed: {contract}")
+            elif artifact_kind in REPEATED_ROW_TRIGGER_ARTIFACT_KINDS:
+                trigger_artifacts.append(artifact)
+                if contract.get("contract_family") != "trigger":
+                    raise AssertionError(f"{pilot_key} trigger contract family changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_trigger_path:
+                    raise AssertionError(f"{pilot_key} trigger contract future target path changed: {contract}")
+                if contract.get("source_type") != "common/scripted_triggers":
+                    raise AssertionError(f"{pilot_key} trigger contract source_type changed: {contract}")
+                if contract.get("trigger_body_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} trigger contract allowed trigger body writes: {contract}")
+                if contract.get("tooltip_safe_unsafe_write_paths_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} trigger contract allowed unsafe tooltip write paths: {contract}")
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/in_game/common/scripted_triggers/tv_wonder_unique_<wonder_key>_ritual_triggers.txt"
+                ):
+                    raise AssertionError(f"{pilot_key} trigger contract future path pattern changed: {contract}")
+                source_generation_policy = str(contract.get("source_generation_policy", "")).lower()
+                if (
+                    "future target only" not in source_generation_policy
+                    or "not an actual scripted-trigger generator" not in source_generation_policy
+                ):
+                    raise AssertionError(f"{pilot_key} trigger contract generation policy changed: {contract}")
+                tooltip_policy = str(contract.get("tooltip_safe_condition_group_policy", "")).lower()
+                if "tooltip-safe condition groups" not in tooltip_policy or "must not call unsafe" not in tooltip_policy:
+                    raise AssertionError(f"{pilot_key} trigger tooltip-safe policy changed: {contract}")
+                aggregate_boundary = str(contract.get("aggregate_projection_boundary", "")).lower()
+                if (
+                    "aggregate_projection_variables" not in aggregate_boundary
+                    or "cannot replace" not in aggregate_boundary
+                    or "design_ir.tracked_entity_sets" not in aggregate_boundary
+                ):
+                    raise AssertionError(f"{pilot_key} trigger aggregate boundary changed: {contract}")
+                missing_validations = REPEATED_ROW_TRIGGER_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} trigger contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_TRIGGER_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} trigger contract missing blocker reasons: {contract}")
+            elif artifact_kind in REPEATED_ROW_LISTENER_ARTIFACT_KINDS:
+                listener_artifacts_with_contracts.append(artifact)
+                if pilot_key != "unique_alhambra" or artifact_kind != "listener_war_integration":
+                    raise AssertionError(f"{pilot_key} non-Alhambra listener contract appeared: {artifact}")
+                if contract.get("contract_family") != "listener":
+                    raise AssertionError(f"{pilot_key} listener contract family changed: {contract}")
+                if contract.get("candidate_future_source_target_path") != expected_listener_path:
+                    raise AssertionError(f"{pilot_key} listener contract future target path changed: {contract}")
+                if contract.get("source_type") != "common/on_action":
+                    raise AssertionError(f"{pilot_key} listener contract source_type changed: {contract}")
+                if contract.get("listener_artifact_scope") != "unique_alhambra-only listener_war_integration":
+                    raise AssertionError(f"{pilot_key} listener artifact scope changed: {contract}")
+                if contract.get("listener_scope_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} listener contract allowed listener scope writes: {contract}")
+                if contract.get("war_scope_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} listener contract allowed war scope writes: {contract}")
+                if contract.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"{pilot_key} listener contract allowed row-state writes: {contract}")
+                if contract.get("future_source_target_path_pattern") != (
+                    "src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt"
+                ):
+                    raise AssertionError(f"{pilot_key} listener contract future path pattern changed: {contract}")
+                source_generation_policy = str(contract.get("source_generation_policy", "")).lower()
+                if (
+                    "future target only" not in source_generation_policy
+                    or "not an actual listener integration generator" not in source_generation_policy
+                ):
+                    raise AssertionError(f"{pilot_key} listener contract generation policy changed: {contract}")
+                bridge_policy = str(contract.get("on_action_bridge_policy", "")).lower()
+                if "interface candidate only" not in bridge_policy or "no listener source writer" not in bridge_policy:
+                    raise AssertionError(f"{pilot_key} listener bridge policy changed: {contract}")
+                missing_validations = REPEATED_ROW_LISTENER_CONTRACT_REQUIRED_VALIDATIONS - set(
+                    contract.get("required_validations", [])
+                )
+                if missing_validations:
+                    raise AssertionError(f"{pilot_key} listener contract missing validations: {contract}")
+                missing_blockers = REPEATED_ROW_LISTENER_CONTRACT_BLOCKER_REASONS - set(
+                    contract.get("blocker_reasons", [])
+                )
+                if missing_blockers:
+                    raise AssertionError(f"{pilot_key} listener contract missing blocker reasons: {contract}")
 
             if artifact_kind in REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
                 if contract.get("future_source_target_path_pattern") != (
@@ -1722,11 +1854,20 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
         )
     if len(cleanup_artifacts) != 32:
         raise AssertionError(f"expected 32 repeated-row cleanup artifacts with contracts, got {len(cleanup_artifacts)}")
+    if len(trigger_artifacts) != 24:
+        raise AssertionError(f"expected 24 repeated-row trigger artifacts with contracts, got {len(trigger_artifacts)}")
+    if len(listener_artifacts_with_contracts) != 1:
+        raise AssertionError(
+            "expected 1 repeated-row listener artifact with a contract, got "
+            f"{len(listener_artifacts_with_contracts)}"
+        )
 
     contract_families = (
         ("event", REPEATED_ROW_EVENT_ARTIFACT_KINDS),
         ("effect", REPEATED_ROW_EFFECT_ARTIFACT_KINDS),
         ("cleanup", REPEATED_ROW_CLEANUP_ARTIFACT_KINDS),
+        ("trigger", REPEATED_ROW_TRIGGER_ARTIFACT_KINDS),
+        ("listener", REPEATED_ROW_LISTENER_ARTIFACT_KINDS),
     )
     for family_name, artifact_kinds in contract_families:
         missing_contract_plan = deepcopy(source_plan)
@@ -1757,6 +1898,13 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
             lambda contract: contract.__setitem__("may_write_src", True),
             "source_target_contract may_write_src must be false",
         )
+
+    for family_name, artifact_kinds in (
+        ("event", REPEATED_ROW_EVENT_ARTIFACT_KINDS),
+        ("effect", REPEATED_ROW_EFFECT_ARTIFACT_KINDS),
+        ("cleanup", REPEATED_ROW_CLEANUP_ARTIFACT_KINDS),
+        ("listener", REPEATED_ROW_LISTENER_ARTIFACT_KINDS),
+    ):
         _assert_source_target_contract_negative(
             source_plan,
             f"row-state write {family_name} contract",
@@ -1784,14 +1932,40 @@ def assert_repeated_row_source_target_contracts(source_plan: dict) -> None:
             "effect_body_writes_allowed must be false",
         )
 
+    _assert_source_target_contract_negative(
+        source_plan,
+        "trigger body write trigger contract",
+        REPEATED_ROW_TRIGGER_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("trigger_body_writes_allowed", True),
+        "trigger_body_writes_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "tooltip unsafe write trigger contract",
+        REPEATED_ROW_TRIGGER_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("tooltip_safe_unsafe_write_paths_allowed", True),
+        "tooltip_safe_unsafe_write_paths_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "listener scope write listener contract",
+        REPEATED_ROW_LISTENER_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("listener_scope_writes_allowed", True),
+        "listener_scope_writes_allowed must be false",
+    )
+    _assert_source_target_contract_negative(
+        source_plan,
+        "war scope write listener contract",
+        REPEATED_ROW_LISTENER_ARTIFACT_KINDS,
+        lambda contract: contract.__setitem__("war_scope_writes_allowed", True),
+        "war_scope_writes_allowed must be false",
+    )
+
     stray_contract_plan = deepcopy(source_plan)
     _first_artifact(
         stray_contract_plan,
-        REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
-        | REPEATED_ROW_GUI_ARTIFACT_KINDS
-        | REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS
-        | REPEATED_ROW_LISTENER_ARTIFACT_KINDS,
-    )["source_target_contract"] = {"contract_family": "trigger"}
+        REPEATED_ROW_GUI_ARTIFACT_KINDS | REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS,
+    )["source_target_contract"] = {"contract_family": "gui"}
     stray_contract_errors = validate_repeated_entity_row_source_plan(stray_contract_plan)
     if not any("must not declare source_target_contract" in error for error in stray_contract_errors):
         raise AssertionError(f"stray source-target contract negative was not caught: {stray_contract_errors}")
@@ -2319,6 +2493,15 @@ def main() -> None:
                 raise AssertionError(f"Alhambra listener may_write_src changed: {listener_artifact}")
             if listener_artifact.get("blocks_source_writer") is not True:
                 raise AssertionError(f"Alhambra listener must block source writer: {listener_artifact}")
+            listener_contract = listener_artifact.get("source_target_contract")
+            if not isinstance(listener_contract, dict):
+                raise AssertionError(f"Alhambra listener missing source_target_contract: {listener_artifact}")
+            if listener_contract.get("contract_family") != "listener":
+                raise AssertionError(f"Alhambra listener contract family changed: {listener_contract}")
+            if listener_contract.get("listener_scope_writes_allowed") is not False:
+                raise AssertionError(f"Alhambra listener contract allowed listener scope writes: {listener_contract}")
+            if listener_contract.get("war_scope_writes_allowed") is not False:
+                raise AssertionError(f"Alhambra listener contract allowed war scope writes: {listener_contract}")
             listener_mapping = listener_artifact.get("evidence_mapping")
             if not isinstance(listener_mapping, dict):
                 raise AssertionError(f"Alhambra listener missing structured evidence mapping: {listener_artifact}")
