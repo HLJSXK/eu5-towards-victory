@@ -1,17 +1,17 @@
 """
 Generate src/in_game/common/scripted_effects/tv_trade_league_effects.txt.
 
-The Trade League monopoly system has two generated refresh layers:
+The Trade League monopoly system has three generated refresh layers:
 
-- a global 365-day marker refresh that stores per-good world production,
-  consumption, and representative origin/node/consumer markets in
-  global_variable_map entries keyed by the generated goods index;
-- a country monthly pulse wrapper that checks whether the country leads a Trade
-  League IO, updates the leader-country trade income chart history, then calls
-  the IO-scoped monthly refresh;
-- a monthly per-IO refresh that enters the IO leader country, scans all world
-  markets for each good, fills the leader's monopoly slots, and stores the
-  monopoly/action variables on the leader country.
+- an annual global market refresh that stores per-good world production,
+  consumption, representative markets, threshold-filtered effective market
+  lists, and effective-market denominators in global_variable_map/list state;
+- a yearly per-IO full refresh that recomputes every tracked good when the
+  global market cache advances, then refills the leader country's monopoly
+  slots;
+- a monthly per-IO slot refresh that recomputes only goods already occupying
+  unlocked monopoly slots and stores monopoly/action variables on the leader
+  country.
 """
 
 import sys
@@ -62,7 +62,6 @@ tv_trade_league_create_effect = {
 \t\t\t\t}
 \t\t\t}
 \t\t}
-\t\ttv_trade_league_clear_trade_income_chart_effect = yes
 \t\thidden_effect = {
 \t\t\tset_variable = { name = tv_trade_league_self_establishing value = 1 }
 \t\t\tcreate_international_organization = {
@@ -70,6 +69,21 @@ tv_trade_league_create_effect = {
 \t\t\t\thidden_effect = {
 \t\t\t\t\tadd_country_to_international_organization = prev
 \t\t\t\t\tset_leader_country = prev
+\t\t\t\t}
+\t\t\t}
+\t\t\tevery_international_organizations_member_of = {
+\t\t\t\tlimit = {
+\t\t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
+\t\t\t\t\tleader_country ?= scope:tv_trade_league_founder
+\t\t\t\t}
+\t\t\t\tsave_scope_as = tv_trade_monopoly_io
+\t\t\t\tleader_country ?= {
+\t\t\t\t\tsave_scope_as = tv_trade_monopoly_leader
+\t\t\t\t\ttv_trade_league_refresh_monopoly_markets_if_needed_effect = yes
+\t\t\t\t}
+\t\t\t\ttv_trade_league_update_all_monopolies_if_new_global_markets_effect = yes
+\t\t\t\tleader_country ?= {
+\t\t\t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
 \t\t\t\t}
 \t\t\t}
 \t\t\tremove_variable = tv_trade_league_self_establishing
@@ -87,7 +101,36 @@ tv_trade_league_refresh_monopoly_markets_if_needed_effect = {
 \t\t\t\tNOT = { has_global_variable = tv_trade_monopoly_markets_refresh_cooldown }
 \t\t\t}
 \t\t\ttv_trade_league_refresh_monopoly_markets_effect = yes
-\t\t\tset_global_variable = { name = tv_trade_monopoly_markets_refresh_cooldown value = yes days = 365 }
+\t\t}
+\t}
+}
+
+"""
+
+UPDATE_ALL_IF_NEW_GLOBAL_MARKETS_EFFECT = """\
+tv_trade_league_update_all_monopolies_if_new_global_markets_effect = {
+\thidden_effect = {
+\t\tsave_scope_as = tv_trade_monopoly_io
+\t\tleader_country ?= {
+\t\t\tsave_scope_as = tv_trade_monopoly_leader
+\t\t\tset_variable = { name = tv_trade_monopoly_markets_global_version_cache value = 0 }
+\t\t\tif = {
+\t\t\t\tlimit = { has_global_variable = tv_trade_monopoly_markets_refresh_version }
+\t\t\t\tset_variable = { name = tv_trade_monopoly_markets_global_version_cache value = global_var:tv_trade_monopoly_markets_refresh_version }
+\t\t\t}
+\t\t\tif = {
+\t\t\t\tlimit = {
+\t\t\t\t\tOR = {
+\t\t\t\t\t\tNOT = { has_variable = tv_trade_monopoly_markets_seen_version }
+\t\t\t\t\t\tvar:tv_trade_monopoly_markets_seen_version < var:tv_trade_monopoly_markets_global_version_cache
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t\tscope:tv_trade_monopoly_io = {
+\t\t\t\t\ttv_trade_league_update_all_monopolies_effect = yes
+\t\t\t\t}
+\t\t\t\tset_variable = { name = tv_trade_monopoly_markets_seen_version value = var:tv_trade_monopoly_markets_global_version_cache }
+\t\t\t}
+\t\t\tremove_variable = tv_trade_monopoly_markets_global_version_cache
 \t\t}
 \t}
 }
@@ -102,9 +145,6 @@ tv_trade_league_country_monthly_pulse_effect = {
 \t\t\tlimit = {
 \t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
 \t\t\t\tleader_country ?= scope:tv_trade_league_pulse_country
-\t\t\t}
-\t\t\tleader_country ?= {
-\t\t\t\ttv_trade_league_update_trade_income_chart_effect = yes
 \t\t\t}
 \t\t\tif = {
 \t\t\t\tlimit = {
@@ -160,6 +200,43 @@ tv_trade_league_country_monthly_pulse_effect = {
 
 """
 
+COUNTRY_YEARLY_PULSE_EFFECT = """\
+tv_trade_league_country_yearly_pulse_effect = {
+\thidden_effect = {
+\t\tsave_scope_as = tv_trade_league_pulse_country
+\t\tevery_international_organizations_member_of = {
+\t\t\tlimit = {
+\t\t\t\tinternational_organization_type = international_organization_type:tv_trade_league
+\t\t\t\tleader_country ?= scope:tv_trade_league_pulse_country
+\t\t\t}
+\t\t\tif = {
+\t\t\t\tlimit = {
+\t\t\t\t\tinternational_organization_has_leader = yes
+\t\t\t\t\tleader_country ?= {
+\t\t\t\t\t\tcustom_tooltip = {
+\t\t\t\t\t\t\ttext = TV_HAS_GRAND_MERCHANT_CHAR_TT
+\t\t\t\t\t\t\thas_variable = tv_grand_merchant_char
+\t\t\t\t\t\t}
+\t\t\t\t\t\tvar:tv_grand_merchant_char ?= { is_alive = yes }
+\t\t\t\t\t\ttv_grand_merchant_available_for_monopoly_trigger = yes
+\t\t\t\t\t}
+\t\t\t\t}
+\t\t\t\tsave_scope_as = tv_trade_monopoly_io
+\t\t\t\tleader_country ?= {
+\t\t\t\t\tsave_scope_as = tv_trade_monopoly_leader
+\t\t\t\t\ttv_trade_league_refresh_monopoly_markets_if_needed_effect = yes
+\t\t\t\t}
+\t\t\t\ttv_trade_league_update_all_monopolies_if_new_global_markets_effect = yes
+\t\t\t\tleader_country ?= {
+\t\t\t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
+\t\t\t\t}
+\t\t\t}
+\t\t}
+\t}
+}
+
+"""
+
 GLOBAL_REFRESH_PREFIX = """\
 tv_trade_league_refresh_monopoly_markets_effect = {
 \thidden_effect = {
@@ -167,21 +244,51 @@ tv_trade_league_refresh_monopoly_markets_effect = {
 """
 
 GLOBAL_REFRESH_SUFFIX = """\
+\t\tset_local_variable = { name = tv_trade_monopoly_markets_next_version value = 0 }
+\t\tif = {
+\t\t\tlimit = { has_global_variable = tv_trade_monopoly_markets_refresh_version }
+\t\t\tset_local_variable = { name = tv_trade_monopoly_markets_next_version value = global_var:tv_trade_monopoly_markets_refresh_version }
+\t\t}
+\t\tchange_local_variable = { name = tv_trade_monopoly_markets_next_version add = 1 }
+\t\tset_global_variable = { name = tv_trade_monopoly_markets_refresh_version value = local_var:tv_trade_monopoly_markets_next_version }
+\t\tset_global_variable = { name = tv_trade_monopoly_markets_refresh_cooldown value = yes days = 365 }
+\t\tremove_local_variable = tv_trade_monopoly_markets_next_version
 \t}
 }
 
 """
 
-UPDATE_PREFIX = """\
-tv_trade_league_update_monopolies_effect = {
+UPDATE_ALL_PREFIX = """\
+tv_trade_league_update_all_monopolies_effect = {
 \thidden_effect = {
 \t\tsave_scope_as = tv_trade_monopoly_io
 \t\tleader_country ?= {
 \t\t\tsave_scope_as = tv_trade_monopoly_leader
-\t\t\ttv_trade_league_refresh_monopoly_markets_if_needed_effect = yes
 """
 
-UPDATE_SUFFIX = """\
+UPDATE_ALL_SUFFIX = """\
+\t\t}
+\t}
+}
+"""
+
+UPDATE_SLOT_PREFIX = """\
+tv_trade_league_update_slot_monopolies_effect = {
+\thidden_effect = {
+\t\tsave_scope_as = tv_trade_monopoly_io
+\t\tleader_country ?= {
+\t\t\tsave_scope_as = tv_trade_monopoly_leader
+"""
+
+UPDATE_SLOT_SUFFIX = """\
+\t\t}
+\t}
+}
+
+tv_trade_league_update_monopolies_effect = {
+\thidden_effect = {
+\t\ttv_trade_league_update_slot_monopolies_effect = yes
+\t\tleader_country ?= {
 \t\t\ttv_trade_league_refresh_monopoly_members_display_effect = yes
 \t\t}
 \t}
@@ -194,11 +301,11 @@ MONOPOLY_THRESHOLD_PCT = 50
 MONOPOLY_HIGH_PCT = 75
 MONOPOLY_COMPLETE_PCT = 100
 MONOPOLY_SLOT_COUNT = 2
+EFFECTIVE_MARKET_THRESHOLD_DIVISOR = 5
 EMBARGO_COST_PCT = 30
 VIRTUAL_ACTION_COST_PCT = 5
 TRADE_CHAIN_DISTANCE_SQ_THRESHOLD = 150000
 INTELLIGENCE_ROW_COUNT = 10
-CHART_SLOT_COUNT = 12
 INTELLIGENCE_MAX_MARKETS = 300
 INTELLIGENCE_MAX_STRENGTH_PCT = 100
 INTELLIGENCE_PAGE_COUNT = (INTELLIGENCE_MAX_MARKETS + INTELLIGENCE_ROW_COUNT - 1) // INTELLIGENCE_ROW_COUNT
@@ -222,6 +329,9 @@ CANDIDATE_FIELDS = STATIC_MARKET_FIELDS
 GLOBAL_GOOD_MAPS = (
     "tv_trade_good_global_production",
     "tv_trade_good_global_consumption",
+    "tv_trade_good_origin_effective_total_export",
+    "tv_trade_good_node_effective_total_export",
+    "tv_trade_good_consumer_effective_total_import",
     "tv_trade_good_origin_market",
     "tv_trade_good_node_market",
     "tv_trade_good_consumer_market",
@@ -606,6 +716,7 @@ def selected_slot_validity_block(indent: str = "\t\t") -> str:
 {indent}\tlimit = {{
 {indent}\t\tvar:tv_trade_selected_good ?= var:tv_trade_monopoly_slot_{slot}_good_index
 {indent}\t\tvar:tv_trade_monopoly_slot_{slot}_good_index ?= {{ this > 0 }}
+{indent}\t\tvar:tv_trade_monopoly_slot_{slot}_unlocked >= 1
 {indent}\t}}
 {indent}\tset_variable = {{ name = tv_trade_selected_slot_valid value = 1 }}
 {indent}}}"""
@@ -663,95 +774,6 @@ tv_trade_league_refresh_monopoly_members_display_effect = {
 \t\t}
 \t}
 }
-"""
-
-
-def rolling_chart_shift_block(prefix: str, slots: int, indent: str) -> str:
-    lines: list[str] = []
-    for slot in range(1, slots):
-        next_slot = slot + 1
-        lines.extend(
-            [
-                f"{indent}set_variable = {{ name = {prefix}_{slot} value = 0 }}",
-                f"{indent}if = {{",
-                f"{indent}\tlimit = {{ has_variable = {prefix}_{next_slot} }}",
-                f"{indent}\tset_variable = {{ name = {prefix}_{slot} value = var:{prefix}_{next_slot} }}",
-                f"{indent}}}",
-            ]
-        )
-    return "\n".join(lines)
-
-
-def rolling_chart_max_block(prefix: str, slots: int, max_variable: str, indent: str) -> str:
-    lines: list[str] = [
-        f"{indent}set_variable = {{ name = {max_variable} value = 1 }}",
-    ]
-    for slot in range(1, slots + 1):
-        lines.extend(
-            [
-                f"{indent}if = {{",
-                f"{indent}\tlimit = {{ var:{prefix}_{slot} > var:{max_variable} }}",
-                f"{indent}\tset_variable = {{ name = {max_variable} value = var:{prefix}_{slot} }}",
-                f"{indent}}}",
-            ]
-        )
-    return "\n".join(lines)
-
-
-def rolling_chart_percent_block(
-    prefix: str, slots: int, max_variable: str, display_prefix: str, indent: str
-) -> str:
-    lines: list[str] = []
-    for slot in range(1, slots + 1):
-        raw_variable = f"{prefix}_{slot}"
-        display_variable = f"{display_prefix}_{slot}"
-        lines.extend(
-            [
-                f"{indent}set_variable = {{ name = {display_variable} value = 0 }}",
-                f"{indent}if = {{",
-                f"{indent}\tlimit = {{ has_variable = {raw_variable} }}",
-                f"{indent}\tset_variable = {{ name = {display_variable} value = var:{raw_variable} }}",
-                f"{indent}\tif = {{",
-                f"{indent}\t\tlimit = {{ var:{max_variable} > 0 }}",
-                f"{indent}\t\tchange_variable = {{ name = {display_variable} divide = var:{max_variable} }}",
-                f"{indent}\t\tchange_variable = {{ name = {display_variable} multiply = 100 }}",
-                f"{indent}\t}}",
-                f"{indent}}}",
-            ]
-        )
-    return "\n".join(lines)
-
-
-def trade_income_chart_effect() -> str:
-    prefix = "tv_trade_income_chart"
-    max_variable = "tv_trade_income_chart_max"
-    display_prefix = "tv_trade_income_chart_pct"
-    return f"""\
-tv_trade_league_update_trade_income_chart_effect = {{
-\thidden_effect = {{
-{rolling_chart_shift_block(prefix, CHART_SLOT_COUNT, INDENT_2)}
-\t\tset_variable = {{ name = {prefix}_{CHART_SLOT_COUNT} value = monthly_trade_income }}
-{rolling_chart_max_block(prefix, CHART_SLOT_COUNT, max_variable, INDENT_2)}
-{rolling_chart_percent_block(prefix, CHART_SLOT_COUNT, max_variable, display_prefix, INDENT_2)}
-\t}}
-}}
-"""
-
-
-def trade_income_chart_clear_effect() -> str:
-    lines: list[str] = [
-        "\t\tset_variable = { name = tv_trade_income_chart_max value = 0 }",
-    ]
-    for slot in range(1, CHART_SLOT_COUNT + 1):
-        lines.append(f"\t\tset_variable = {{ name = tv_trade_income_chart_{slot} value = 0 }}")
-    for slot in range(1, CHART_SLOT_COUNT + 1):
-        lines.append(f"\t\tset_variable = {{ name = tv_trade_income_chart_pct_{slot} value = 0 }}")
-    return f"""\
-tv_trade_league_clear_trade_income_chart_effect = {{
-\thidden_effect = {{
-{chr(10).join(lines)}
-\t}}
-}}
 """
 
 
@@ -1471,6 +1493,18 @@ def representative_field_map(prefix: str, field: str) -> str:
     return f"tv_trade_good_{prefix}_{field}"
 
 
+def effective_market_list(prefix: str, good: str) -> str:
+    return f"tv_trade_{prefix}_effective_markets_{good}"
+
+
+def effective_denominator_map(prefix: str) -> str:
+    if prefix == "consumer":
+        return "tv_trade_good_consumer_effective_total_import"
+    if prefix == "node":
+        return "tv_trade_good_node_effective_total_export"
+    return "tv_trade_good_origin_effective_total_export"
+
+
 def copy_io_markers_to_global_maps_block(good: str, index: int, indent: str = "\t") -> str:
     lines: list[str] = []
     for prefix in MARKET_PREFIXES:
@@ -1498,17 +1532,37 @@ def copy_io_markers_to_global_maps_block(good: str, index: int, indent: str = "\
 
 def annual_good_refresh_block(good: str, index: int) -> str:
     return f"""\
-\t# Annual global maps and representative markets for {good}
+\t# Annual global maps and effective markets for {good}
 {clear_io_markets_block(good)}
 \tset_variable = {{ name = tv_trade_good_global_production_calc value = {{ value = "produced_in_world:{good}" }} }}
 \tset_local_variable = {{ name = tv_trade_good_global_consumption_calc value = 0 }}
+\tset_variable = {{ name = tv_trade_origin_max_score_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_node_max_score_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_consumer_max_score_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_origin_effective_total_export_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_node_effective_total_export_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_consumer_effective_total_import_{good} value = 0 }}
+	clear_global_variable_list = {effective_market_list("origin", good)}
+	clear_global_variable_list = {effective_market_list("node", good)}
+	clear_global_variable_list = {effective_market_list("consumer", good)}
 {clear_global_good_maps_block(index)}
 \tevery_market_in_world = {{
 \t\tsave_scope_as = tv_trade_candidate_market
-\t\tlocation = {{ save_scope_as = tv_trade_candidate_market_location }}
 {candidate_static_stats_block(good)}
 \t\tchange_local_variable = {{ name = tv_trade_good_global_consumption_calc add = scope:tv_trade_monopoly_leader.var:tv_trade_market_candidate_local_demand }}
 \t\tscope:tv_trade_monopoly_leader = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:tv_trade_market_candidate_local_production > var:tv_trade_origin_max_score_{good} }}
+\t\t\t\tset_variable = {{ name = tv_trade_origin_max_score_{good} value = var:tv_trade_market_candidate_local_production }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:tv_trade_market_candidate_total_export > var:tv_trade_node_max_score_{good} }}
+\t\t\t\tset_variable = {{ name = tv_trade_node_max_score_{good} value = var:tv_trade_market_candidate_total_export }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:tv_trade_market_candidate_local_demand > var:tv_trade_consumer_max_score_{good} }}
+\t\t\t\tset_variable = {{ name = tv_trade_consumer_max_score_{good} value = var:tv_trade_market_candidate_local_demand }}
+\t\t\t}}
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_local_production }}
 {insert_candidate_io_block("origin", good, INDENT_3)}
 \t\t\tset_variable = {{ name = tv_trade_market_candidate_score value = var:tv_trade_market_candidate_total_export }}
@@ -1519,10 +1573,60 @@ def annual_good_refresh_block(good: str, index: int) -> str:
 \t\tremove_local_variable = tv_trade_candidate_total_export
 \t\tremove_local_variable = tv_trade_candidate_total_import
 \t}}
+\tset_variable = {{ name = tv_trade_origin_threshold_{good} value = var:tv_trade_origin_max_score_{good} }}
+\tchange_variable = {{ name = tv_trade_origin_threshold_{good} divide = {EFFECTIVE_MARKET_THRESHOLD_DIVISOR} }}
+\tset_variable = {{ name = tv_trade_node_threshold_{good} value = var:tv_trade_node_max_score_{good} }}
+\tchange_variable = {{ name = tv_trade_node_threshold_{good} divide = {EFFECTIVE_MARKET_THRESHOLD_DIVISOR} }}
+\tset_variable = {{ name = tv_trade_consumer_threshold_{good} value = var:tv_trade_consumer_max_score_{good} }}
+\tchange_variable = {{ name = tv_trade_consumer_threshold_{good} divide = {EFFECTIVE_MARKET_THRESHOLD_DIVISOR} }}
+\tevery_market_in_world = {{
+\t\tsave_scope_as = tv_trade_candidate_market
+{candidate_static_stats_block(good)}
+\t\tscope:tv_trade_monopoly_leader = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tvar:tv_trade_market_candidate_local_production > 0
+\t\t\t\t\tvar:tv_trade_market_candidate_local_production >= var:tv_trade_origin_threshold_{good}
+\t\t\t\t}}
+\t\t\t\tscope:tv_trade_candidate_market = {{ add_to_global_variable_list = {{ name = {effective_market_list("origin", good)} target = this }} }}
+\t\t\t\tchange_variable = {{ name = tv_trade_origin_effective_total_export_{good} add = var:tv_trade_market_candidate_total_export }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tvar:tv_trade_market_candidate_total_export > 0
+\t\t\t\t\tvar:tv_trade_market_candidate_total_export >= var:tv_trade_node_threshold_{good}
+\t\t\t\t}}
+\t\t\t\tscope:tv_trade_candidate_market = {{ add_to_global_variable_list = {{ name = {effective_market_list("node", good)} target = this }} }}
+\t\t\t\tchange_variable = {{ name = tv_trade_node_effective_total_export_{good} add = var:tv_trade_market_candidate_total_export }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tvar:tv_trade_market_candidate_local_demand > 0
+\t\t\t\t\tvar:tv_trade_market_candidate_local_demand >= var:tv_trade_consumer_threshold_{good}
+\t\t\t\t}}
+\t\t\t\tscope:tv_trade_candidate_market = {{ add_to_global_variable_list = {{ name = {effective_market_list("consumer", good)} target = this }} }}
+\t\t\t\tchange_variable = {{ name = tv_trade_consumer_effective_total_import_{good} add = var:tv_trade_market_candidate_total_import }}
+\t\t\t}}
+\t\t}}
+\t\tremove_local_variable = tv_trade_candidate_total_export
+\t\tremove_local_variable = tv_trade_candidate_total_import
+\t}}
 {add_global_good_map_value("tv_trade_good_global_production", index, "var:tv_trade_good_global_production_calc")}
 {add_global_good_map_value("tv_trade_good_global_consumption", index, "local_var:tv_trade_good_global_consumption_calc")}
+{add_global_good_map_value(effective_denominator_map("origin"), index, f"var:tv_trade_origin_effective_total_export_{good}")}
+{add_global_good_map_value(effective_denominator_map("node"), index, f"var:tv_trade_node_effective_total_export_{good}")}
+{add_global_good_map_value(effective_denominator_map("consumer"), index, f"var:tv_trade_consumer_effective_total_import_{good}")}
 {copy_io_markers_to_global_maps_block(good, index)}
 \tremove_variable = tv_trade_good_global_production_calc
+\tremove_variable = tv_trade_origin_max_score_{good}
+\tremove_variable = tv_trade_node_max_score_{good}
+\tremove_variable = tv_trade_consumer_max_score_{good}
+\tremove_variable = tv_trade_origin_threshold_{good}
+\tremove_variable = tv_trade_node_threshold_{good}
+\tremove_variable = tv_trade_consumer_threshold_{good}
+\tremove_variable = tv_trade_origin_effective_total_export_{good}
+\tremove_variable = tv_trade_node_effective_total_export_{good}
+\tremove_variable = tv_trade_consumer_effective_total_import_{good}
 \tremove_local_variable = tv_trade_good_global_consumption_calc
 """
 
@@ -1814,111 +1918,71 @@ def representative_control_block(good: str, prefix: str, rank: int = 1) -> str:
 \t}}"""
 
 
-def full_market_control_block(good: str) -> str:
-    return f"""\tset_variable = {{ name = tv_trade_full_origin_weighted_sum value = 0 }}
-\tset_variable = {{ name = tv_trade_full_origin_weight value = 0 }}
-\tset_variable = {{ name = tv_trade_full_node_pct_sum value = 0 }}
-\tset_variable = {{ name = tv_trade_full_node_count value = 0 }}
-\tset_variable = {{ name = tv_trade_full_consumer_weighted_sum value = 0 }}
-\tset_variable = {{ name = tv_trade_full_consumer_weight value = 0 }}
-\tevery_market_in_world = {{
-\t\tsave_scope_as = tv_trade_full_market
-\t\tset_local_variable = {{ name = tv_trade_full_total_export value = 0 }}
-\t\tset_local_variable = {{ name = tv_trade_full_io_export value = 0 }}
-\t\tset_local_variable = {{ name = tv_trade_full_total_import value = 0 }}
-\t\tset_local_variable = {{ name = tv_trade_full_io_import value = 0 }}
-\t\tevery_export = {{
-\t\t\tlimit = {{ goods = goods:{good} }}
-\t\t\tchange_local_variable = {{ name = tv_trade_full_total_export add = trade_volume }}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ owner ?= {{ is_member_of_international_organization = scope:tv_trade_monopoly_io }} }}
-\t\t\t\tchange_local_variable = {{ name = tv_trade_full_io_export add = trade_volume }}
-\t\t\t}}
-\t\t}}
-\t\tevery_import = {{
-\t\t\tlimit = {{ goods = goods:{good} }}
-\t\t\tchange_local_variable = {{ name = tv_trade_full_total_import add = trade_volume }}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ owner ?= {{ is_member_of_international_organization = scope:tv_trade_monopoly_io }} }}
-\t\t\t\tchange_local_variable = {{ name = tv_trade_full_io_import add = trade_volume }}
-\t\t\t}}
-\t\t}}
-\t\tscope:tv_trade_monopoly_leader = {{
-\t\t\tset_variable = {{ name = tv_trade_full_local_production value = {{ value = scope:tv_trade_full_market.produced_in_market:{good} }} }}
-\t\t\tset_variable = {{ name = tv_trade_full_local_demand value = {{ value = "scope:tv_trade_full_market.goods_demand_in_market(goods:{good})" }} }}
-\t\t\tset_variable = {{ name = tv_trade_full_export_pct value = 0 }}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ local_var:tv_trade_full_total_export > 0 }}
-\t\t\t\tset_variable = {{ name = tv_trade_full_export_pct value = local_var:tv_trade_full_io_export }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_export_pct multiply = 100 }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_export_pct divide = local_var:tv_trade_full_total_export }}
+def effective_denominator_to_variable_block(good: str, index: int, prefix: str, target: str) -> str:
+    return copy_global_map_to_variable(effective_denominator_map(prefix), "tv_trade_good_map_key", target, "\t")
+
+
+def effective_market_io_total_block(good: str, prefix: str) -> str:
+    if prefix == "consumer":
+        iterator = "every_import"
+        io_total_var = f"tv_trade_consumer_effective_io_import_{good}"
+        denominator_var = f"tv_trade_consumer_effective_total_import_{good}"
+        control_var = f"tv_trade_consumer_control_pct_{good}"
+    else:
+        iterator = "every_export"
+        io_total_var = f"tv_trade_{prefix}_effective_io_export_{good}"
+        denominator_var = f"tv_trade_{prefix}_effective_total_export_{good}"
+        control_var = f"tv_trade_{prefix}_control_pct_{good}"
+
+    return f"""\tset_variable = {{ name = {io_total_var} value = 0 }}
+\tif = {{
+\t\tlimit = {{ has_global_variable_list = {effective_market_list(prefix, good)} }}
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {effective_market_list(prefix, good)}
+\t\t\tset_local_variable = {{ name = tv_trade_effective_market_io_total value = 0 }}
+\t\t\t{iterator} = {{
+\t\t\t\tlimit = {{ goods = goods:{good} }}
 \t\t\t\tif = {{
-\t\t\t\t\tlimit = {{ var:tv_trade_full_export_pct > 100 }}
-\t\t\t\t\tset_variable = {{ name = tv_trade_full_export_pct value = 100 }}
-\t\t\t\t}}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_node_pct_sum add = var:tv_trade_full_export_pct }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_node_count add = 1 }}
-\t\t\t}}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ var:tv_trade_full_local_production > 0 }}
-\t\t\t\tset_variable = {{ name = tv_trade_full_weighted_piece value = var:tv_trade_full_export_pct }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_weighted_piece multiply = var:tv_trade_full_local_production }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_origin_weighted_sum add = var:tv_trade_full_weighted_piece }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_origin_weight add = var:tv_trade_full_local_production }}
-\t\t\t}}
-\t\t\tset_variable = {{ name = tv_trade_full_import_pct value = 0 }}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ local_var:tv_trade_full_total_import > 0 }}
-\t\t\t\tset_variable = {{ name = tv_trade_full_import_pct value = local_var:tv_trade_full_io_import }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_import_pct multiply = 100 }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_import_pct divide = local_var:tv_trade_full_total_import }}
-\t\t\t\tif = {{
-\t\t\t\t\tlimit = {{ var:tv_trade_full_import_pct > 100 }}
-\t\t\t\t\tset_variable = {{ name = tv_trade_full_import_pct value = 100 }}
+\t\t\t\t\tlimit = {{ owner ?= {{ is_member_of_international_organization = scope:tv_trade_monopoly_io }} }}
+\t\t\t\t\tchange_local_variable = {{ name = tv_trade_effective_market_io_total add = trade_volume }}
 \t\t\t\t}}
 \t\t\t}}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ var:tv_trade_full_local_demand > 0 }}
-\t\t\t\tset_variable = {{ name = tv_trade_full_weighted_piece value = var:tv_trade_full_import_pct }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_weighted_piece multiply = var:tv_trade_full_local_demand }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_consumer_weighted_sum add = var:tv_trade_full_weighted_piece }}
-\t\t\t\tchange_variable = {{ name = tv_trade_full_consumer_weight add = var:tv_trade_full_local_demand }}
+\t\t\tscope:tv_trade_monopoly_leader = {{
+\t\t\t\tchange_variable = {{ name = {io_total_var} add = local_var:tv_trade_effective_market_io_total }}
 \t\t\t}}
+\t\t\tremove_local_variable = tv_trade_effective_market_io_total
 \t\t}}
-\t\tremove_local_variable = tv_trade_full_total_export
-\t\tremove_local_variable = tv_trade_full_io_export
-\t\tremove_local_variable = tv_trade_full_total_import
-\t\tremove_local_variable = tv_trade_full_io_import
 \t}}
-\tset_variable = {{ name = tv_trade_origin_control_pct_{good} value = 0 }}
+\tset_variable = {{ name = {control_var} value = 0 }}
 \tif = {{
-\t\tlimit = {{ var:tv_trade_full_origin_weight > 0 }}
-\t\tset_variable = {{ name = tv_trade_origin_control_pct_{good} value = var:tv_trade_full_origin_weighted_sum }}
-\t\tchange_variable = {{ name = tv_trade_origin_control_pct_{good} divide = var:tv_trade_full_origin_weight }}
+\t\tlimit = {{ var:{denominator_var} > 0 }}
+\t\tset_variable = {{ name = {control_var} value = var:{io_total_var} }}
+\t\tchange_variable = {{ name = {control_var} multiply = 100 }}
+\t\tchange_variable = {{ name = {control_var} divide = var:{denominator_var} }}
+\t\tif = {{
+\t\t\tlimit = {{ var:{control_var} > 100 }}
+\t\t\tset_variable = {{ name = {control_var} value = 100 }}
+\t\t}}
 \t}}
-\tset_variable = {{ name = tv_trade_node_control_pct_{good} value = 0 }}
-\tif = {{
-\t\tlimit = {{ var:tv_trade_full_node_count > 0 }}
-\t\tset_variable = {{ name = tv_trade_node_control_pct_{good} value = var:tv_trade_full_node_pct_sum }}
-\t\tchange_variable = {{ name = tv_trade_node_control_pct_{good} divide = var:tv_trade_full_node_count }}
-\t}}
-\tset_variable = {{ name = tv_trade_consumer_control_pct_{good} value = 0 }}
-\tif = {{
-\t\tlimit = {{ var:tv_trade_full_consumer_weight > 0 }}
-\t\tset_variable = {{ name = tv_trade_consumer_control_pct_{good} value = var:tv_trade_full_consumer_weighted_sum }}
-\t\tchange_variable = {{ name = tv_trade_consumer_control_pct_{good} divide = var:tv_trade_full_consumer_weight }}
-\t}}
-\tremove_variable = tv_trade_full_origin_weighted_sum
-\tremove_variable = tv_trade_full_origin_weight
-\tremove_variable = tv_trade_full_node_pct_sum
-\tremove_variable = tv_trade_full_node_count
-\tremove_variable = tv_trade_full_consumer_weighted_sum
-\tremove_variable = tv_trade_full_consumer_weight
-\tremove_variable = tv_trade_full_local_production
-\tremove_variable = tv_trade_full_local_demand
-\tremove_variable = tv_trade_full_export_pct
-\tremove_variable = tv_trade_full_import_pct
-\tremove_variable = tv_trade_full_weighted_piece
+\tremove_variable = {io_total_var}
+"""
+
+
+def effective_market_control_block(good: str, index: int) -> str:
+    return f"""\tset_local_variable = {{ name = tv_trade_good_map_key value = {index} }}
+\tset_variable = {{ name = tv_trade_origin_effective_total_export_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_node_effective_total_export_{good} value = 0 }}
+\tset_variable = {{ name = tv_trade_consumer_effective_total_import_{good} value = 0 }}
+{effective_denominator_to_variable_block(good, index, "origin", f"tv_trade_origin_effective_total_export_{good}")}
+{effective_denominator_to_variable_block(good, index, "node", f"tv_trade_node_effective_total_export_{good}")}
+{effective_denominator_to_variable_block(good, index, "consumer", f"tv_trade_consumer_effective_total_import_{good}")}
+{effective_market_io_total_block(good, "origin")}
+{effective_market_io_total_block(good, "node")}
+{effective_market_io_total_block(good, "consumer")}
+\tremove_variable = tv_trade_origin_effective_total_export_{good}
+\tremove_variable = tv_trade_node_effective_total_export_{good}
+\tremove_variable = tv_trade_consumer_effective_total_import_{good}
+\tremove_local_variable = tv_trade_good_map_key
 """
 
 
@@ -1974,7 +2038,7 @@ def monthly_good_update_block(good: str, index: int) -> str:
 \tset_variable = {{ name = tv_trade_monopoly_level_pct_{good} value = 0 }}
 {copy_representative_maps_to_io_block(good, index)}
 {representative_controls}
-{full_market_control_block(good)}
+{effective_market_control_block(good, index)}
 {monopoly_level_type_stage_block(good)}
 """
 
@@ -1993,6 +2057,17 @@ def update_slot_count_block() -> str:
 \tif = {
 \t\tlimit = { var:tv_trade_league_member_count >= 10 }
 \t\tset_variable = { name = tv_trade_monopoly_slot_count value = 2 }
+\t}
+"""
+
+
+def update_slot_unlock_flags_block() -> str:
+    return """\
+\tset_variable = { name = tv_trade_monopoly_slot_1_unlocked value = 1 }
+\tset_variable = { name = tv_trade_monopoly_slot_2_unlocked value = 0 }
+\tif = {
+\t\tlimit = { var:tv_trade_monopoly_slot_count >= 2 }
+\t\tset_variable = { name = tv_trade_monopoly_slot_2_unlocked value = 1 }
 \t}
 """
 
@@ -2148,6 +2223,52 @@ def monthly_action_upkeep_block(good: str) -> str:
 """
 
 
+def sync_good_to_slot_block(good: str, index: int, slot: int, indent: str = "\t") -> str:
+    return f"""{indent}if = {{
+{indent}\tlimit = {{ var:tv_trade_monopoly_slot_{slot}_good_index ?= {index} }}
+{indent}\tset_variable = {{ name = tv_trade_monopoly_slot_{slot}_origin_pct value = var:tv_trade_origin_control_pct_{good} }}
+{indent}\tset_variable = {{ name = tv_trade_monopoly_slot_{slot}_node_pct value = var:tv_trade_node_control_pct_{good} }}
+{indent}\tset_variable = {{ name = tv_trade_monopoly_slot_{slot}_consumer_pct value = var:tv_trade_consumer_control_pct_{good} }}
+{indent}\tset_variable = {{ name = tv_trade_monopoly_slot_{slot}_monopoly value = 0 }}
+{indent}\tset_variable = {{ name = tv_trade_monopoly_slot_{slot}_monopoly_level_pct value = var:tv_trade_monopoly_level_pct_{good} }}
+{indent}\tset_variable = {{ name = tv_trade_monopoly_slot_{slot}_monopoly_type value = var:tv_trade_monopoly_type_{good} }}
+{indent}\tset_variable = {{ name = tv_trade_monopoly_slot_{slot}_monopoly_stage value = var:tv_trade_monopoly_stage_{good} }}
+{indent}\tif = {{
+{indent}\t\tlimit = {{
+{indent}\t\t\tvar:tv_trade_monopoly_slot_{slot}_unlocked >= 1
+{indent}\t\t\tvar:tv_trade_monopoly_level_pct_{good} >= {MONOPOLY_THRESHOLD_PCT}
+{indent}\t\t}}
+{indent}\t\tset_variable = {{ name = tv_trade_monopoly_slot_{slot}_monopoly value = 1 }}
+{indent}\t\tset_variable = {{ name = tv_trade_monopoly_{good} value = 1 }}
+{indent}\t}}
+{indent}}}"""
+
+
+def sync_good_to_slots_block(good: str, index: int) -> str:
+    return "\n".join(
+        sync_good_to_slot_block(good, index, slot)
+        for slot in range(1, MONOPOLY_SLOT_COUNT + 1)
+    )
+
+
+def slot_good_update_block(good: str, index: int) -> str:
+    return f"""\tif = {{
+\t\tlimit = {{
+\t\t\tOR = {{
+\t\t\t\tvar:tv_trade_monopoly_slot_1_good_index ?= {index}
+\t\t\t\tvar:tv_trade_monopoly_slot_2_good_index ?= {index}
+\t\t\t}}
+\t\t}}
+{monthly_good_update_block(good, index)}
+{sync_good_to_slots_block(good, index)}
+{monthly_action_upkeep_block(good)}
+\t}}"""
+
+
+def slot_good_updates_block(goods: list[str], indexes: dict[str, int]) -> str:
+    return "\n".join(slot_good_update_block(good, indexes[good]) for good in goods)
+
+
 def generate(data: dict) -> str:
     goods = data["goods"]
     indexes = good_index_map(goods)
@@ -2173,6 +2294,7 @@ def generate(data: dict) -> str:
     )
     annual_updates = "\n".join(annual_good_refresh_block(good, indexes[good]) for good in goods)
     monthly_updates = "\n".join(monthly_good_update_block(good, indexes[good]) for good in goods)
+    slot_updates = slot_good_updates_block(goods, indexes)
     action_upkeep = "\n".join(monthly_action_upkeep_block(good) for good in goods)
     return (
         HEADER
@@ -2181,10 +2303,6 @@ def generate(data: dict) -> str:
         + "\n"
         + accounting_effects
         + "\n"
-        + trade_income_chart_clear_effect()
-        + "\n"
-        + trade_income_chart_effect()
-        + "\n"
         + trade_chain_effects()
         + "\n"
         + projection_effects
@@ -2192,16 +2310,23 @@ def generate(data: dict) -> str:
         + suspend_demands_effect(goods)
         + suspend_supplies_effect(goods)
         + REFRESH_IF_NEEDED_EFFECT
+        + UPDATE_ALL_IF_NEW_GLOBAL_MARKETS_EFFECT
         + COUNTRY_MONTHLY_PULSE_EFFECT
+        + COUNTRY_YEARLY_PULSE_EFFECT
         + GLOBAL_REFRESH_PREFIX
         + annual_updates
         + GLOBAL_REFRESH_SUFFIX
-        + UPDATE_PREFIX
+        + UPDATE_ALL_PREFIX
         + update_slot_count_block()
         + monthly_updates
         + auto_fill_monopoly_slots_block(goods, indexes)
         + action_upkeep
-        + UPDATE_SUFFIX
+        + UPDATE_ALL_SUFFIX
+        + UPDATE_SLOT_PREFIX
+        + update_slot_count_block()
+        + update_slot_unlock_flags_block()
+        + slot_updates
+        + UPDATE_SLOT_SUFFIX
     )
 
 

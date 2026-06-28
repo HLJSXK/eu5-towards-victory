@@ -44,12 +44,12 @@ pulses:
     - tv_engineering_department_ritual_monthly_pulse # Wonder timed ceremony completion checks
     - tv_engineering_department_wonder_auto_cache_monthly_pulse # Wonder owned-level country auto modifier cache
     - tv_diplomatic_alliance_monthly_pulse # Diplomatic Alliance victory-point maintenance
-    # Temporarily disabled for performance: Trade League leader-country monopoly maintenance.
-    # - tv_trade_league_monthly_pulse
+    - tv_trade_league_monthly_pulse # Trade League leader-country slot monopoly maintenance
 
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
     - tv_govhouse_governor_tasks_yearly_pulse # autonomous regional governor task reassessment
+    - tv_trade_league_yearly_pulse # Trade League global market cache and full monopoly rebuild
 
   on_character_death:
     - tv_govhouse_char_death           # Grand General death cleanup

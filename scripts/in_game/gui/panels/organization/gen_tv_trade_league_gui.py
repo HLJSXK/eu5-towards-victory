@@ -4,8 +4,6 @@ Generate src/in_game/gui/panels/organization/tv_trade_league.gui.
 The monopoly tab reads per-player projected display variables. The scripted
 effects copy leader-owned monopoly state into those variables so every member
 can browse independently while only the leader can manage monopoly actions.
-The overview now includes a reusable rolling trade-income chart driven by the
-leader country's monthly trade income history.
 """
 
 import sys
@@ -40,10 +38,6 @@ MONOPOLY_DISPLAY_MAX_PCT = 100
 EMBARGO_COST_PCT = 30
 MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
-CHART_SLOT_COUNT = 12
-CHART_MAX_HEIGHT = 56
-CHART_BAR_WIDTH = 22
-CHART_BAR_GAP = 4
 
 PREFIX = """\
 organization_panel = {
@@ -181,26 +175,9 @@ organization_panel = {
 \t\t\tignoreinvisible = yes
 \t\t\tspacing = 8
 
-\t\t\tcard_common = {
-\t\t\t\tmaximumsize = { 500 -1 }
-\t\t\t\tblockoverride "common_header_icon_texture" {
-\t\t\t\t\ttexture = "gfx/interface/icons/flat_icons/trade.dds"
-\t\t\t\t}
-\t\t\t\tblockoverride "common_header_text" {
-\t\t\t\t\ttext = "TV_TRADE_LEAGUE_LEADER_TRADE_INCOME"
-\t\t\t\t}
-\t\t\t\tblockoverride "common_bottom_content" {
-\t\t\t\t\tvbox = {
-\t\t\t\t\t\tlayoutpolicy_horizontal = expanding
-\t\t\t\t\t\tspacing = 6
-\t\t\t\t\t\tmargin = { 4 6 }
 """
 
-OVERVIEW_CHART_SUFFIX = """\
-\t\t\t\t\t}
-\t\t\t\t}
-\t\t\t}
-
+OVERVIEW_CARDS_SUFFIX = """\
 \t\t\tcard_common = {
 \t\t\t\tmaximumsize = { 500 -1 }
 
@@ -816,41 +793,6 @@ def action_card(good: str, index: int) -> str:
 
 def projected_var(variable: str) -> str:
     return f"InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{variable}')"
-
-
-def trade_income_chart_bar(slot: int) -> str:
-    value_var = f"tv_trade_income_chart_pct_{slot}"
-    return f"""\
-\t\t\t\t\t\t\t\t\twidget = {{
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
-\t\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\t\t\t\t\t\tsize = {{ {CHART_BAR_WIDTH} {CHART_MAX_HEIGHT} }}
-\t\t\t\t\t\t\t\t\t\tbackground = {{
-\t\t\t\t\t\t\t\t\t\t\tusing = tooltip_table_field_texture
-\t\t\t\t\t\t\t\t\t\t\talpha = 0.16
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t\tprogressbar = {{
-\t\t\t\t\t\t\t\t\t\t\tparentanchor = bottom|hcenter
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 8 {CHART_MAX_HEIGHT - 4} }}
-\t\t\t\t\t\t\t\t\t\t\tusing = progress_bar_green_alt
-\t\t\t\t\t\t\t\t\t\t\tmin = 0
-\t\t\t\t\t\t\t\t\t\t\tmax = 100
-\t\t\t\t\t\t\t\t\t\t\tvalue = "[FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetVariable('{value_var}').GetValue)]"
-\t\t\t\t\t\t\t\t\t\t\tdirection = vertical
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t}}
-"""
-
-
-def trade_income_chart() -> str:
-    bars = "".join(trade_income_chart_bar(slot) for slot in range(1, CHART_SLOT_COUNT + 1))
-    return f"""\
-\t\t\t\t\t\thbox = {{
-\t\t\t\t\t\t\tsize = {{ 462 {CHART_MAX_HEIGHT} }}
-\t\t\t\t\t\t\tspacing = {CHART_BAR_GAP}
-\t\t\t\t\t\t\tmargin = {{ 2 0 }}
-{bars}\t\t\t\t\t\t}}
-"""
 
 
 def projected_selected_good_visible(index: int) -> str:
@@ -1630,8 +1572,7 @@ def projected_generate(data: dict) -> str:
     return (
         HEADER
         + PREFIX
-        + trade_income_chart()
-        + OVERVIEW_CHART_SUFFIX
+        + OVERVIEW_CARDS_SUFFIX
         + intelligence_content()
         + MONOPOLY_PREFIX
         + slots
