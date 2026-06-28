@@ -29,7 +29,9 @@ from wonder_unique_ritual_harness import anti_flattening_warnings_for_payload  #
 from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_entry  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_plan_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_source_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 
 
 WONDER = {
@@ -1588,6 +1590,14 @@ def _first_artifact(plan: dict, artifact_kinds: set[str]) -> dict:
     raise AssertionError(f"source-plan has no artifact in {sorted(artifact_kinds)}")
 
 
+def _first_source_preview(report: dict, family: str) -> dict:
+    for entry in report.get("entries", []) or []:
+        for preview in entry.get("previews", []) or []:
+            if preview.get("preview_family") == family:
+                return preview
+    raise AssertionError(f"source preview has no {family} preview")
+
+
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
     return (
         "src/in_game/events/"
@@ -2824,6 +2834,143 @@ def main() -> None:
         raise AssertionError(
             f"mismatched evidence block source-plan negative was not caught: {mismatched_evidence_block_errors}"
         )
+
+    source_preview = repeated_entity_row_source_preview_for_payload(load_spec_data())
+    if source_preview["validation_errors"]:
+        raise AssertionError(f"repeated-row source preview unexpectedly failed validation: {source_preview['validation_errors']}")
+    if source_preview.get("preview_count") != 72:
+        raise AssertionError(f"expected 72 repeated-row source previews, got {source_preview.get('preview_count')}")
+    if source_preview.get("preview_family_summary", {}).get("event") != 32:
+        raise AssertionError(f"expected 32 repeated-row event previews, got {source_preview.get('preview_family_summary')}")
+    if source_preview.get("preview_family_summary", {}).get("localization") != 40:
+        raise AssertionError(f"expected 40 repeated-row localization previews, got {source_preview.get('preview_family_summary')}")
+    if source_preview.get("source_writer_allowed") is not False:
+        raise AssertionError(f"source preview source_writer_allowed changed: {source_preview}")
+    if source_preview.get("may_write_src_allowed") is not False:
+        raise AssertionError(f"source preview may_write_src_allowed changed: {source_preview}")
+    if source_preview.get("writes_src") is not False:
+        raise AssertionError(f"source preview writes_src changed: {source_preview}")
+    if source_preview.get("source_plan_artifact_count") != 177:
+        raise AssertionError(f"source preview should preserve 177-artifact source-plan: {source_preview}")
+    skipped_preview_kinds: set[str] = set()
+    event_preview_count = 0
+    localization_preview_count = 0
+    for entry_preview in source_preview.get("entries", []) or []:
+        if entry_preview.get("preview_only") is not True:
+            raise AssertionError(f"entry source preview must be preview-only: {entry_preview}")
+        skipped_preview_kinds.update(entry_preview.get("skipped_artifact_kinds", []))
+        for preview in entry_preview.get("previews", []) or []:
+            family = preview.get("preview_family")
+            artifact_kind = preview.get("artifact_kind")
+            if preview.get("preview_only") is not True:
+                raise AssertionError(f"{artifact_kind} preview_only changed: {preview}")
+            if preview.get("may_write_src") is not False:
+                raise AssertionError(f"{artifact_kind} may_write_src changed: {preview}")
+            if preview.get("source_writer_allowed") is not False:
+                raise AssertionError(f"{artifact_kind} source_writer_allowed changed: {preview}")
+            if preview.get("writes_src") is not False:
+                raise AssertionError(f"{artifact_kind} writes_src changed: {preview}")
+            if preview.get("blocks_source_writer") is not True:
+                raise AssertionError(f"{artifact_kind} blocks_source_writer changed: {preview}")
+            if preview.get("source_ready") is not False:
+                raise AssertionError(f"{artifact_kind} preview became source-ready: {preview}")
+            if family == "event":
+                event_preview_count += 1
+                if artifact_kind not in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-event artifact received event preview: {preview}")
+                if preview.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"event preview allowed row-state writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_tooltip_heavy_finalization") is not True:
+                    raise AssertionError(f"event preview lost tooltip-heavy finalization blocker: {preview}")
+                if body.get("no_row_state_write") is not True:
+                    raise AssertionError(f"event preview lost row-state write blocker: {preview}")
+                if body.get("no_source_ready") is not True:
+                    raise AssertionError(f"event preview lost source-ready blocker: {preview}")
+            elif family == "localization":
+                localization_preview_count += 1
+                if artifact_kind not in REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-localization artifact received localization preview: {preview}")
+                if set(preview.get("required_languages", [])) != {"english", "simp_chinese"}:
+                    raise AssertionError(f"localization preview bilingual coverage changed: {preview}")
+            else:
+                raise AssertionError(f"unsupported source body preview family {family}: {preview}")
+    if event_preview_count != 32:
+        raise AssertionError(f"expected 32 event previews, got {event_preview_count}")
+    if localization_preview_count != 40:
+        raise AssertionError(f"expected 40 localization previews, got {localization_preview_count}")
+    forbidden_preview_kinds = (
+        REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
+        | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
+        | REPEATED_ROW_GUI_ARTIFACT_KINDS
+        | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
+    )
+    if not forbidden_preview_kinds <= skipped_preview_kinds:
+        raise AssertionError(
+            "effect/trigger/cleanup/GUI/listener artifacts should remain skipped preview blockers: "
+            f"{sorted(forbidden_preview_kinds - skipped_preview_kinds)}"
+        )
+
+    row_state_preview = deepcopy(source_preview)
+    _first_source_preview(row_state_preview, "event")["row_state_writes_allowed"] = True
+    row_state_preview_errors = validate_repeated_entity_row_source_preview(row_state_preview)
+    if not any("row-state writes must be false" in error for error in row_state_preview_errors):
+        raise AssertionError(f"event row-state write preview negative was not caught: {row_state_preview_errors}")
+
+    missing_event_id_preview = deepcopy(source_preview)
+    _first_source_preview(missing_event_id_preview, "event")["event_id_evidence"] = []
+    missing_event_id_errors = validate_repeated_entity_row_source_preview(missing_event_id_preview)
+    if not any("missing spec event IDs" in error for error in missing_event_id_errors):
+        raise AssertionError(f"missing event ID preview negative was not caught: {missing_event_id_errors}")
+
+    duplicate_event_id_preview = deepcopy(source_preview)
+    duplicate_event_preview = _first_source_preview(duplicate_event_id_preview, "event")
+    duplicate_event_preview["event_id_evidence"][1]["event_id"] = duplicate_event_preview["event_id_evidence"][0]["event_id"]
+    duplicate_event_id_errors = validate_repeated_entity_row_source_preview(duplicate_event_id_preview)
+    if not any("duplicate spec event IDs" in error for error in duplicate_event_id_errors):
+        raise AssertionError(f"duplicate event ID preview negative was not caught: {duplicate_event_id_errors}")
+
+    too_large_event_id_preview = deepcopy(source_preview)
+    too_large_event_preview = _first_source_preview(too_large_event_id_preview, "event")
+    too_large_event_preview["event_id_evidence"][0]["event_id"] = 10000
+    too_large_event_preview["preview_event_id"] = 10000
+    too_large_event_id_errors = validate_repeated_entity_row_source_preview(too_large_event_id_preview)
+    if not any("event IDs must be <10000" in error for error in too_large_event_id_errors):
+        raise AssertionError(f"large event ID preview negative was not caught: {too_large_event_id_errors}")
+
+    missing_language_preview = deepcopy(source_preview)
+    localization_preview = _first_source_preview(missing_language_preview, "localization")
+    localization_preview["required_languages"] = ["english"]
+    missing_language_errors = validate_repeated_entity_row_source_preview(missing_language_preview)
+    if not any("missing English or Simplified Chinese" in error for error in missing_language_errors):
+        raise AssertionError(f"missing localization language preview negative was not caught: {missing_language_errors}")
+
+    duplicate_loc_key_preview = deepcopy(source_preview)
+    first_localization_preview = _first_source_preview(duplicate_loc_key_preview, "localization")
+    first_plan = first_localization_preview["loc_key_plan"]
+    first_plan[1]["keys"] = deepcopy(first_plan[0]["keys"])
+    duplicate_loc_key_errors = validate_repeated_entity_row_source_preview(duplicate_loc_key_preview)
+    if not any("duplicate loc key" in error for error in duplicate_loc_key_errors):
+        raise AssertionError(f"duplicate loc key preview negative was not caught: {duplicate_loc_key_errors}")
+
+    unsafe_policy_preview = deepcopy(source_preview)
+    unsafe_localization_preview = _first_source_preview(unsafe_policy_preview, "localization")
+    unsafe_localization_preview["unsafe_quote_newline_handling_allowed"] = True
+    unsafe_policy_errors = validate_repeated_entity_row_source_preview(unsafe_policy_preview)
+    if not any("unsafe quote/newline policy must be false" in error for error in unsafe_policy_errors):
+        raise AssertionError(f"unsafe quote/newline preview negative was not caught: {unsafe_policy_errors}")
+
+    writable_preview = deepcopy(source_preview)
+    _first_source_preview(writable_preview, "event")["may_write_src"] = True
+    writable_preview_errors = validate_repeated_entity_row_source_preview(writable_preview)
+    if not any("may_write_src must be false" in error for error in writable_preview_errors):
+        raise AssertionError(f"may_write_src preview negative was not caught: {writable_preview_errors}")
+
+    writes_src_preview = deepcopy(source_preview)
+    _first_source_preview(writes_src_preview, "event")["writes_src"] = True
+    writes_src_preview_errors = validate_repeated_entity_row_source_preview(writes_src_preview)
+    if not any("writes_src must be false" in error for error in writes_src_preview_errors):
+        raise AssertionError(f"writes_src preview negative was not caught: {writes_src_preview_errors}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},

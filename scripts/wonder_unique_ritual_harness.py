@@ -15,6 +15,7 @@ from wonder_mechanics.io import (  # noqa: E402
     load_unique_wonders_source_data,
     load_yaml,
 )
+from wonder_mechanics._core import loc_line  # noqa: E402
 
 SPEC_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_specs.yaml"
 TEMPLATE_REGISTRY_FILE = REPO_ROOT / "data" / "unique_wonder_ritual_codegen_templates.yaml"
@@ -3325,6 +3326,65 @@ REPEATED_ENTITY_ROW_LISTENER_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS = (
     "missing Alhambra row-state write contract",
     "no verified source write contract",
 )
+REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS = {
+    "preview_only",
+    "preview_family",
+    "artifact_kind",
+    "pilot_key",
+    "wonder_key",
+    "row_set_key",
+    "entity_refs",
+    "future_source_target_path",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+    "blocks_source_writer",
+    "blocker_reasons",
+    "source_ready",
+    "source_body_preview",
+    "contract_status",
+}
+REPEATED_ENTITY_ROW_EVENT_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "event_id_evidence_sources",
+        "event_id_evidence",
+        "node_event_id_evidence",
+        "preview_event_id",
+        "preview_node_key",
+        "preview_node_kind",
+        "option_effect_handoff",
+        "row_state_writes_allowed",
+        "tooltip_heavy_finalization_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "required_languages",
+        "missing_bilingual_coverage_allowed",
+        "loc_key_namespace",
+        "loc_key_plan",
+        "loc_line_policy",
+        "loc_line_policy_probe",
+        "unsafe_quote_newline_handling_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS = ("english", "simp_chinese")
+REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
+    "localization_row_labels": "row_labels",
+    "localization_status_text": "status_text",
+    "localization_incident_text": "incident_text",
+    "localization_tooltips": "tooltips",
+    "localization_summary_text": "summary_text",
+}
+REPEATED_ENTITY_ROW_EVENT_PREVIEW_NODE_INDEX = {
+    "event_opening_skeleton": 0,
+    "event_update_skeleton": 1,
+    "event_retry_skeleton": 2,
+    "event_resolve_skeleton": 3,
+}
 REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES = {
     "scripted_effect_row_init": "non_cleanup_effect",
     "scripted_effect_row_state_write": "non_cleanup_effect",
@@ -5755,6 +5815,490 @@ def repeated_entity_row_source_plan_for_payload(
     return plan
 
 
+def _repeated_row_source_preview_spec_index(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        str((entry.get("identity") or {}).get("key", "")): entry
+        for entry in payload.get("unique_wonders", []) or []
+        if isinstance(entry, dict) and isinstance(entry.get("identity"), dict)
+    }
+
+
+def _repeated_row_node_event_id_evidence(entry: dict[str, Any]) -> list[dict[str, Any]]:
+    node_graph = entry.get("node_graph") if isinstance(entry.get("node_graph"), dict) else {}
+    evidence: list[dict[str, Any]] = []
+    for node in node_graph.get("nodes", []) or []:
+        if not isinstance(node, dict):
+            continue
+        if "event_id" not in node:
+            continue
+        evidence.append(
+            {
+                "node_key": str(node.get("key", "")),
+                "node_kind": str(node.get("kind", "")),
+                "event_id": int(node.get("event_id")),
+            }
+        )
+    return evidence
+
+
+def _repeated_row_event_id_evidence(entry: dict[str, Any]) -> list[dict[str, Any]]:
+    evidence: list[dict[str, Any]] = []
+    for raw in entry.get("event_ids", []) or []:
+        if isinstance(raw, dict) and "id" in raw:
+            evidence.append({"event_id": int(raw["id"]), "key": str(raw.get("key", ""))})
+        elif isinstance(raw, int):
+            evidence.append({"event_id": raw, "key": ""})
+    return evidence
+
+
+def _repeated_row_preview_event_node(
+    *,
+    artifact_kind: str,
+    node_evidence: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    if not node_evidence:
+        return None
+    index = REPEATED_ENTITY_ROW_EVENT_PREVIEW_NODE_INDEX.get(artifact_kind, 0)
+    return node_evidence[min(index, len(node_evidence) - 1)]
+
+
+def _repeated_row_event_source_preview_for_artifact(
+    *,
+    artifact: dict[str, Any],
+    spec_entry: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    event_id_evidence = _repeated_row_event_id_evidence(spec_entry)
+    node_event_id_evidence = _repeated_row_node_event_id_evidence(spec_entry)
+    preview_node = _repeated_row_preview_event_node(
+        artifact_kind=artifact_kind,
+        node_evidence=node_event_id_evidence,
+    )
+    preview_event_id = preview_node.get("event_id") if preview_node else None
+    handoff_name = (
+        f"tv_wonder_unique_{wonder_key}_ritual_{artifact.get('row_set_key')}_{artifact_kind}_future_effect"
+    )
+    return {
+        "preview_only": True,
+        "preview_family": "event",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "entity_refs": _string_refs(artifact.get("entity_keys")),
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "country_event_preview",
+            "namespace": str(contract.get("namespace_policy", "tv_engineering_department")),
+            "event_id": preview_event_id,
+            "title_key": f"tv_engineering_department.{preview_event_id}.t" if preview_event_id else "",
+            "desc_key": f"tv_engineering_department.{preview_event_id}.d" if preview_event_id else "",
+            "option_keys": [f"tv_engineering_department.{preview_event_id}.a"] if preview_event_id else [],
+            "option_effect_handoff": handoff_name,
+            "no_tooltip_heavy_finalization": True,
+            "no_row_state_write": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "event_id_evidence_sources": ["spec.event_ids", "node_graph.nodes[].event_id"],
+        "event_id_evidence": event_id_evidence,
+        "node_event_id_evidence": node_event_id_evidence,
+        "preview_event_id": preview_event_id,
+        "preview_node_key": str(preview_node.get("node_key", "")) if preview_node else "",
+        "preview_node_kind": str(preview_node.get("node_kind", "")) if preview_node else "",
+        "option_effect_handoff": {
+            "handoff_only": True,
+            "future_scripted_effect_name": handoff_name,
+            "placeholder_contract": "future_scripted_effect_contract_only_no_inline_row_state_write",
+        },
+        "row_state_writes_allowed": False,
+        "tooltip_heavy_finalization_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
+def _repeated_row_loc_line_policy_probe() -> dict[str, Any]:
+    sample = loc_line("tv_preview_probe", 'Quote "and"\nnewline')
+    return {
+        "function": "wonder_mechanics._core.loc_line",
+        "quote_escaped": '\\"' in sample,
+        "newline_escaped": "\\n" in sample,
+        "bom_encoding": "utf-8-sig",
+        "writes_file": False,
+        "sample": sample,
+    }
+
+
+def _repeated_row_localization_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    loc_group = REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND.get(artifact_kind, artifact_kind)
+    namespace = f"tv_wonder_unique_{wonder_key}_ritual.{row_set_key}"
+    loc_key_plan: list[dict[str, Any]] = []
+
+    loc_scopes = entity_refs if loc_group != "summary_text" else ["summary"]
+    for entity_key in loc_scopes:
+        base_key = f"{namespace}.{entity_key}.{loc_group}"
+        loc_key_plan.append(
+            {
+                "loc_group": loc_group,
+                "entity_key": entity_key,
+                "keys": {
+                    language: base_key
+                    for language in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS
+                },
+                "preview_lines": {
+                    language: loc_line(
+                        base_key,
+                        f"{wonder_key} {row_set_key} {entity_key} {loc_group} preview",
+                    )
+                    for language in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS
+                },
+            }
+        )
+
+    return {
+        "preview_only": True,
+        "preview_family": "localization",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "localization_key_plan_preview",
+            "loc_group": loc_group,
+            "no_source_file": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "required_languages": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS),
+        "missing_bilingual_coverage_allowed": False,
+        "loc_key_namespace": namespace,
+        "loc_key_plan": loc_key_plan,
+        "loc_line_policy": (
+            "dry-run only; preview mirrors wonder_mechanics._core.loc_line() quote/newline escaping "
+            "and records utf-8-sig BOM output policy without writing files"
+        ),
+        "loc_line_policy_probe": _repeated_row_loc_line_policy_probe(),
+        "unsafe_quote_newline_handling_allowed": False,
+    }
+
+
+def repeated_entity_row_source_preview_for_entry(
+    entry_plan: dict[str, Any],
+    *,
+    spec_entry: dict[str, Any],
+) -> dict[str, Any]:
+    previews: list[dict[str, Any]] = []
+    skipped_artifact_kinds: list[str] = []
+    for artifact in entry_plan.get("artifacts", []) or []:
+        if not isinstance(artifact, dict):
+            continue
+        artifact_kind = str(artifact.get("artifact_kind", ""))
+        if artifact_kind in REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS:
+            previews.append(
+                _repeated_row_event_source_preview_for_artifact(
+                    artifact=artifact,
+                    spec_entry=spec_entry,
+                )
+            )
+        elif artifact_kind in REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS:
+            previews.append(_repeated_row_localization_source_preview_for_artifact(artifact))
+        else:
+            skipped_artifact_kinds.append(artifact_kind)
+
+    return {
+        "key": str(entry_plan.get("key", "")),
+        "preview_only": True,
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "preview_count": len(previews),
+        "preview_family_summary": _count_by_key(previews, "preview_family"),
+        "skipped_artifact_kinds": sorted(set(skipped_artifact_kinds)),
+        "previews": previews,
+        "notes": [
+            "Dry-run source preview only; no src files are written.",
+            "Effect, trigger, cleanup, GUI, and listener artifacts remain source-writer blockers.",
+        ],
+    }
+
+
+def repeated_entity_row_source_preview_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_plan = repeated_entity_row_source_plan_for_payload(payload, statuses=statuses)
+    spec_index = _repeated_row_source_preview_spec_index(payload)
+    entries: list[dict[str, Any]] = []
+    for entry_plan in source_plan.get("entries", []) or []:
+        if not isinstance(entry_plan, dict):
+            continue
+        pilot_key = str(entry_plan.get("key", ""))
+        spec_entry = spec_index.get(pilot_key, {})
+        entries.append(
+            repeated_entity_row_source_preview_for_entry(
+                entry_plan,
+                spec_entry=spec_entry,
+            )
+        )
+
+    previews = [
+        preview
+        for entry in entries
+        for preview in entry.get("previews", []) or []
+        if isinstance(preview, dict)
+    ]
+    report = {
+        "statuses": sorted(statuses or {"source_codegen_ready"}),
+        "preview_only": True,
+        "candidate_count": len(entries),
+        "preview_count": len(previews),
+        "preview_family_summary": _count_by_key(previews, "preview_family"),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "source_plan_artifact_count": int(source_plan.get("artifact_count", 0)),
+        "source_plan_contract_validation_errors": list(source_plan.get("validation_errors", [])),
+        "entries": entries,
+        "validation_errors": [],
+        "notes": [
+            "Repeated-row source preview is a no-write dry-run compiler layer.",
+            "It emits event/localization preview fragments only and does not authorize src writes.",
+            "It does not make any source-plan contract source-ready.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_source_preview(report)
+    return report
+
+
+def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("preview_only") is not True:
+        errors.append("source preview report must declare preview_only: true")
+    if report.get("source_writer_allowed") is not False:
+        errors.append("source preview report source_writer_allowed must be false")
+    if report.get("may_write_src_allowed") is not False:
+        errors.append("source preview report may_write_src_allowed must be false")
+    if report.get("writes_src") is not False:
+        errors.append("source preview report writes_src must be false")
+    if report.get("source_plan_artifact_count") != 177:
+        errors.append("source preview report must be based on the 177-artifact source-plan")
+    if report.get("source_plan_contract_validation_errors"):
+        errors.append("source preview report source-plan contract validation must be clean")
+
+    event_preview_count = 0
+    localization_preview_count = 0
+    all_loc_keys: dict[str, str] = {}
+    entries = report.get("entries") if isinstance(report.get("entries"), list) else []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            errors.append("source preview entry must be a mapping")
+            continue
+        pilot_key = str(entry.get("key", "<unknown>"))
+        if entry.get("preview_only") is not True:
+            errors.append(f"{pilot_key}: source preview entry must declare preview_only: true")
+        if entry.get("source_writer_allowed") is not False:
+            errors.append(f"{pilot_key}: source preview entry source_writer_allowed must be false")
+        if entry.get("may_write_src_allowed") is not False:
+            errors.append(f"{pilot_key}: source preview entry may_write_src_allowed must be false")
+        if entry.get("writes_src") is not False:
+            errors.append(f"{pilot_key}: source preview entry writes_src must be false")
+
+        for preview in entry.get("previews", []) or []:
+            if not isinstance(preview, dict):
+                errors.append(f"{pilot_key}: source preview must be a mapping")
+                continue
+            artifact_kind = str(preview.get("artifact_kind", "<unknown>"))
+            family = str(preview.get("preview_family", ""))
+            if family == "event":
+                required_fields = REPEATED_ENTITY_ROW_EVENT_SOURCE_PREVIEW_REQUIRED_FIELDS
+                event_preview_count += 1
+            elif family == "localization":
+                required_fields = REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_PREVIEW_REQUIRED_FIELDS
+                localization_preview_count += 1
+            else:
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} unsupported source body preview family {family!r}"
+                )
+                continue
+            missing = _missing_required(preview, required_fields)
+            if missing:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source preview missing field(s): {', '.join(missing)}")
+                continue
+            extra = sorted(set(preview) - required_fields)
+            if extra:
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} source preview has unsupported field(s): "
+                    f"{', '.join(extra)}"
+                )
+            if preview.get("preview_only") is not True:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} preview_only must be true")
+            if preview.get("source_writer_allowed") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source_writer_allowed must be false")
+            if preview.get("may_write_src") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} may_write_src must be false")
+            if preview.get("writes_src") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} writes_src must be false")
+            if preview.get("blocks_source_writer") is not True:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} blocks_source_writer must be true")
+            if preview.get("source_ready") is not False or preview.get("contract_status") == "source-ready":
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source preview must not be source-ready")
+            if not str(preview.get("future_source_target_path", "")).startswith("src/"):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} future source target path is missing")
+            if not isinstance(preview.get("blocker_reasons"), list) or not preview.get("blocker_reasons"):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source preview missing blocker reasons")
+
+            if family == "event":
+                if artifact_kind not in REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive an event source body preview")
+                if preview.get("row_state_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} event preview row-state writes must be false")
+                if preview.get("tooltip_heavy_finalization_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} event preview tooltip-heavy finalization must be false"
+                    )
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} event preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} event source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_row_state_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} event preview must declare no row-state write")
+                    if source_body_preview.get("no_tooltip_heavy_finalization") is not True:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} event preview must declare no tooltip-heavy finalization"
+                        )
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} event preview must declare no source-ready")
+                event_ids = [int(item["event_id"]) for item in preview.get("event_id_evidence", []) or [] if isinstance(item, dict) and "event_id" in item]
+                node_event_ids = [
+                    int(item["event_id"])
+                    for item in preview.get("node_event_id_evidence", []) or []
+                    if isinstance(item, dict) and "event_id" in item
+                ]
+                if not event_ids:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} event preview missing spec event IDs")
+                if not node_event_ids:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} event preview missing node event IDs")
+                if len(event_ids) != len(set(event_ids)):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} event preview duplicate spec event IDs")
+                if len(node_event_ids) != len(set(node_event_ids)):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} event preview duplicate node event IDs")
+                too_large = sorted({event_id for event_id in event_ids + node_event_ids if event_id >= 10000})
+                if too_large:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} event preview event IDs must be <10000: {too_large}"
+                    )
+                preview_event_id = preview.get("preview_event_id")
+                if preview_event_id not in event_ids or preview_event_id not in node_event_ids:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} event preview must use existing spec/node event ID"
+                    )
+                handoff = preview.get("option_effect_handoff")
+                if not isinstance(handoff, dict) or handoff.get("handoff_only") is not True:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} event preview must hand off to future effect only")
+                else:
+                    if "row_state" in str(handoff.get("inline_body", "")).lower():
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} event preview must not inline row-state writes")
+
+            if family == "localization":
+                if artifact_kind not in REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive a localization source body preview")
+                if set(_string_refs(preview.get("required_languages"))) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} localization preview missing English or Simplified Chinese"
+                    )
+                if preview.get("missing_bilingual_coverage_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} localization preview missing bilingual coverage must be false"
+                    )
+                if preview.get("unsafe_quote_newline_handling_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} localization preview unsafe quote/newline policy must be false"
+                    )
+                policy_probe = preview.get("loc_line_policy_probe")
+                if not isinstance(policy_probe, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} localization preview missing loc_line policy probe")
+                elif (
+                    policy_probe.get("quote_escaped") is not True
+                    or policy_probe.get("newline_escaped") is not True
+                    or policy_probe.get("bom_encoding") != "utf-8-sig"
+                    or policy_probe.get("writes_file") is not False
+                ):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} localization preview unsafe quote/newline policy allowed"
+                    )
+                namespace = str(preview.get("loc_key_namespace", ""))
+                wonder_key = str(preview.get("wonder_key", ""))
+                row_set_key = str(preview.get("row_set_key", ""))
+                if (
+                    f"tv_wonder_unique_{wonder_key}_ritual" not in namespace
+                    or row_set_key not in namespace
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} localization preview namespace is incomplete")
+                loc_key_plan = preview.get("loc_key_plan")
+                if not isinstance(loc_key_plan, list) or not loc_key_plan:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} localization preview missing loc key plan")
+                    continue
+                for item in loc_key_plan:
+                    if not isinstance(item, dict):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} localization loc key plan item must be mapping")
+                        continue
+                    keys = item.get("keys")
+                    if not isinstance(keys, dict):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} localization loc key plan keys must be mapping")
+                        continue
+                    if set(keys) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} localization loc key plan missing language coverage"
+                        )
+                    for language, loc_key in keys.items():
+                        loc_key_text = str(loc_key)
+                        if f"tv_wonder_unique_{wonder_key}_ritual" not in loc_key_text or row_set_key not in loc_key_text:
+                            errors.append(
+                                f"{pilot_key}: artifact {artifact_kind} localization loc key namespace is incomplete"
+                            )
+                        duplicate_key = f"{language}:{loc_key_text}"
+                        owner = f"{pilot_key}:{artifact_kind}:{row_set_key}"
+                        if duplicate_key in all_loc_keys:
+                            errors.append(
+                                f"{pilot_key}: artifact {artifact_kind} localization duplicate loc key {duplicate_key}"
+                            )
+                        all_loc_keys[duplicate_key] = owner
+
+    if event_preview_count != 32:
+        errors.append(f"expected 32 repeated-row event previews, got {event_preview_count}")
+    if localization_preview_count != 40:
+        errors.append(f"expected 40 repeated-row localization previews, got {localization_preview_count}")
+    if int(report.get("preview_count", -1)) != event_preview_count + localization_preview_count:
+        errors.append("source preview report preview_count mismatch")
+    return errors
+
+
 def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
     entries = matrix.get("unique_wonders", []) if isinstance(matrix, dict) else []
     return {
@@ -6232,6 +6776,7 @@ def audit_summary() -> dict[str, Any]:
     node_kind_summary = node_kind_summary_for_payload(specs)
     repeated_entity_row_preflight = repeated_entity_row_preflight_for_payload(specs)
     repeated_entity_row_source_plan = repeated_entity_row_source_plan_for_payload(specs)
+    repeated_entity_row_source_preview = repeated_entity_row_source_preview_for_payload(specs)
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -6332,6 +6877,7 @@ def audit_summary() -> dict[str, Any]:
         "node_kind_summary": node_kind_summary,
         "repeated_entity_row_preflight": repeated_entity_row_preflight,
         "repeated_entity_row_source_plan": repeated_entity_row_source_plan,
+        "repeated_entity_row_source_preview": repeated_entity_row_source_preview,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
         "capability_registry_errors": capability_registry_errors,

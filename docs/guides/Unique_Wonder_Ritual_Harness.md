@@ -107,6 +107,12 @@ localization policy, and future event file pattern
 boundary validations only. The future target path is not a source generator, event options
 may only declare future effect handoff, and no event contract may inline row-state writes,
 set `may_write_src: true`, unblock `source_writer_allowed`, or write `src/`.
+The repeated-row event/localization source preview compiler is an additive dry-run layer
+on top of the source-plan. It may render structured event skeleton previews and
+localization key-plan previews for review, using only existing spec event IDs,
+`node_graph.nodes[].event_id`, row-set keys, entity keys, and future target path
+contracts. It never writes `src/`, never assigns new IDs, never authorizes row-state
+writes, and never upgrades contracts or specs to source-ready.
 Repeated-row scripted-effect and cleanup source-target contracts are the matching
 source-writer preflight layer for `common/scripted_effects`. They name the future
 scripted-effect file pattern
@@ -144,6 +150,11 @@ and validate English plus Simplified Chinese coverage, loc key namespaces,
 coverage, and GUI/event key linkage. They do not write localization files, do not
 authorize missing bilingual coverage or unsafe quote/newline handling, and do not write
 `src/`.
+Preview localization entries are likewise contract previews only: they list bilingual row
+label, status, incident, tooltip, and summary keys under the repeated-row namespace and
+mirror the existing `loc_line()` escaping/BOM policy without claiming file output. Effect,
+trigger, cleanup, GUI, and listener families remain source-writer blockers and do not get
+source body previews from this layer.
 The Alhambra-only listener source-target contract is the same kind of source-writer
 prerequisite for `common/on_action`. It names only the future on_action file pattern
 `src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt` and
