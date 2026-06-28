@@ -30,9 +30,11 @@ from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_entry
 from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_plan_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_source_bundle_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_writer_readiness_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_writer_readiness  # noqa: E402
 
 
@@ -1606,6 +1608,23 @@ def _first_readiness_artifact(report: dict, family: str | None = None) -> dict:
             if family is None or artifact.get("contract_family") == family:
                 return artifact
     raise AssertionError(f"source-writer readiness has no {family or 'any'} artifact")
+
+
+def _source_bundle(report: dict, pilot_key: str) -> dict:
+    for bundle in report.get("bundles", []) or []:
+        if bundle.get("key") == pilot_key:
+            return bundle
+    raise AssertionError(f"source bundle preview has no pilot bundle {pilot_key}")
+
+
+def _first_source_bundle_artifact(report: dict, family: str, pilot_key: str | None = None) -> dict:
+    for bundle in report.get("bundles", []) or []:
+        if pilot_key is not None and bundle.get("key") != pilot_key:
+            continue
+        section = (bundle.get("sections") or {}).get(family, {})
+        for artifact in section.get("artifacts", []) or []:
+            return artifact
+    raise AssertionError(f"source bundle preview has no {family} artifact")
 
 
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
@@ -4238,6 +4257,231 @@ def main() -> None:
     if not any("missing blockers" in error for error in no_blockers_errors):
         raise AssertionError(f"no blockers readiness negative was not caught: {no_blockers_errors}")
 
+    source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(load_spec_data())
+    if source_bundle_preview["validation_errors"]:
+        raise AssertionError(
+            "repeated-row source bundle preview unexpectedly failed validation: "
+            f"{source_bundle_preview['validation_errors']}"
+        )
+    expected_bundle_counts = {
+        "unique_dome_of_the_rock": 44,
+        "unique_alhambra": 45,
+        "unique_st_peters_basilica": 44,
+        "unique_bank_of_saint_george": 44,
+    }
+    if source_bundle_preview.get("bundle_count") != 4:
+        raise AssertionError(f"expected 4 source bundle previews, got {source_bundle_preview.get('bundle_count')}")
+    if source_bundle_preview.get("artifact_count") != 177:
+        raise AssertionError(
+            f"expected 177 source bundle preview artifacts, got {source_bundle_preview.get('artifact_count')}"
+        )
+    if source_bundle_preview.get("closure_contract_count") != 177:
+        raise AssertionError(
+            "expected 177 source bundle closure contracts, got "
+            f"{source_bundle_preview.get('closure_contract_count')}"
+        )
+    if source_bundle_preview.get("source_ready_count") != 0:
+        raise AssertionError(f"source bundle preview became source-ready: {source_bundle_preview}")
+    if source_bundle_preview.get("source_writer_allowed_count") != 0:
+        raise AssertionError(f"source bundle preview allowed source writer: {source_bundle_preview}")
+    if source_bundle_preview.get("may_write_src_count") != 0:
+        raise AssertionError(f"source bundle preview may_write_src changed: {source_bundle_preview}")
+    if source_bundle_preview.get("writes_src_count") != 0:
+        raise AssertionError(f"source bundle preview writes_src changed: {source_bundle_preview}")
+    if source_bundle_preview.get("family_summary") != expected_preview_family_counts:
+        raise AssertionError(f"source bundle family summary changed: {source_bundle_preview.get('family_summary')}")
+    if not source_bundle_preview.get("blocker_summary"):
+        raise AssertionError("source bundle preview must retain blocker summary")
+
+    for pilot_key, expected_count in expected_bundle_counts.items():
+        bundle = _source_bundle(source_bundle_preview, pilot_key)
+        if bundle.get("artifact_count") != expected_count:
+            raise AssertionError(f"{pilot_key} bundle artifact count changed: {bundle.get('artifact_count')}")
+        if bundle.get("closure_contract_count") != expected_count:
+            raise AssertionError(f"{pilot_key} bundle closure count changed: {bundle.get('closure_contract_count')}")
+        if bundle.get("source_ready_count") != 0:
+            raise AssertionError(f"{pilot_key} bundle became source-ready: {bundle}")
+        if bundle.get("may_write_src_count") != 0 or bundle.get("writes_src_count") != 0:
+            raise AssertionError(f"{pilot_key} bundle no-write count changed: {bundle}")
+        if bundle.get("source_writer_allowed_count") != 0:
+            raise AssertionError(f"{pilot_key} bundle source writer allowed count changed: {bundle}")
+        sections = bundle.get("sections")
+        if not isinstance(sections, dict):
+            raise AssertionError(f"{pilot_key} bundle sections must be a mapping: {bundle}")
+        missing_sections = set(expected_preview_family_counts) - set(sections)
+        if missing_sections:
+            raise AssertionError(f"{pilot_key} bundle missing sections: {missing_sections}")
+        for family, section in sections.items():
+            if section.get("family") != family:
+                raise AssertionError(f"{pilot_key} section {family} family mismatch: {section}")
+            if section.get("source_ready_count") != 0:
+                raise AssertionError(f"{pilot_key} section {family} became source-ready: {section}")
+            if section.get("may_write_src_count") != 0 or section.get("writes_src_count") != 0:
+                raise AssertionError(f"{pilot_key} section {family} no-write count changed: {section}")
+            if section.get("source_writer_allowed_count") != 0:
+                raise AssertionError(f"{pilot_key} section {family} source writer count changed: {section}")
+            if section.get("artifact_count") != len(section.get("artifacts", []) or []):
+                raise AssertionError(f"{pilot_key} section {family} artifact count mismatch: {section}")
+            if section.get("closure_contract_count") != len(section.get("closure_contract_refs", []) or []):
+                raise AssertionError(f"{pilot_key} section {family} closure count mismatch: {section}")
+            if family != "listener" and not section.get("required_validations"):
+                raise AssertionError(f"{pilot_key} section {family} lost required validations: {section}")
+            if family != "listener" and not section.get("unresolved_writer_blockers"):
+                raise AssertionError(f"{pilot_key} section {family} lost unresolved blockers: {section}")
+
+        listener_section = sections["listener"]
+        if pilot_key == "unique_alhambra":
+            if listener_section.get("artifact_count") != 1:
+                raise AssertionError(f"Alhambra must carry one listener artifact: {listener_section}")
+            listener_artifact = listener_section["artifacts"][0]
+            if listener_artifact.get("artifact_kind") != "listener_war_integration":
+                raise AssertionError(f"Alhambra listener artifact kind changed: {listener_artifact}")
+        else:
+            if listener_section.get("artifact_count") != 0:
+                raise AssertionError(f"{pilot_key} must not forge listener artifacts: {listener_section}")
+            absence = listener_section.get("listener_artifact_absence")
+            if (
+                not isinstance(absence, dict)
+                or absence.get("explicit") is not True
+                or absence.get("forged_artifact") is not False
+                or absence.get("may_write_src") is not False
+                or absence.get("writes_src") is not False
+                or absence.get("source_writer_allowed") is not False
+            ):
+                raise AssertionError(f"{pilot_key} listener absence marker is incomplete: {listener_section}")
+
+    event_bundle_artifact = _first_source_bundle_artifact(source_bundle_preview, "event")
+    event_body = event_bundle_artifact.get("source_body_preview")
+    if (
+        not isinstance(event_body, dict)
+        or event_body.get("kind") != "country_event_preview"
+        or event_body.get("no_row_state_write") is not True
+        or event_body.get("no_source_ready") is not True
+    ):
+        raise AssertionError(f"event bundle did not reuse event body preview: {event_bundle_artifact}")
+    localization_bundle_artifact = _first_source_bundle_artifact(source_bundle_preview, "localization")
+    localization_body = localization_bundle_artifact.get("source_body_preview")
+    if (
+        not isinstance(localization_body, dict)
+        or localization_body.get("kind") != "localization_key_plan_preview"
+        or not localization_body.get("loc_key_plan")
+        or localization_body.get("contract_only") is not True
+        or localization_body.get("body_emitted") is not False
+    ):
+        raise AssertionError(f"localization bundle lost loc key plan preview: {localization_bundle_artifact}")
+    for family in ("effect", "cleanup", "trigger", "gui", "listener"):
+        artifact = _first_source_bundle_artifact(source_bundle_preview, family)
+        placeholder = artifact.get("source_body_placeholder")
+        if not isinstance(placeholder, dict):
+            raise AssertionError(f"{family} bundle missing source body placeholder: {artifact}")
+        for flag, expected in {
+            "contract_only": True,
+            "body_emitted": False,
+            "source_ready": False,
+            "may_write_src": False,
+            "writes_src": False,
+            "source_writer_allowed": False,
+        }.items():
+            if placeholder.get(flag) is not expected:
+                raise AssertionError(f"{family} source body placeholder lost {flag}: {placeholder}")
+
+    missing_pilot_bundle = deepcopy(source_bundle_preview)
+    missing_pilot_bundle["bundles"] = [
+        bundle
+        for bundle in missing_pilot_bundle["bundles"]
+        if bundle.get("key") != "unique_bank_of_saint_george"
+    ]
+    missing_pilot_errors = validate_repeated_entity_row_source_bundle_preview(missing_pilot_bundle)
+    if not any("missing pilot bundle" in error for error in missing_pilot_errors):
+        raise AssertionError(f"missing pilot bundle negative was not caught: {missing_pilot_errors}")
+
+    wrong_artifact_count_bundle = deepcopy(source_bundle_preview)
+    wrong_artifact_count_bundle["artifact_count"] = 176
+    wrong_artifact_count_errors = validate_repeated_entity_row_source_bundle_preview(wrong_artifact_count_bundle)
+    if not any("expected 177 repeated-row source bundle artifacts" in error for error in wrong_artifact_count_errors):
+        raise AssertionError(f"wrong artifact count bundle negative was not caught: {wrong_artifact_count_errors}")
+
+    wrong_closure_count_bundle = deepcopy(source_bundle_preview)
+    wrong_closure_count_bundle["closure_contract_count"] = 176
+    wrong_closure_count_errors = validate_repeated_entity_row_source_bundle_preview(wrong_closure_count_bundle)
+    if not any("expected 177 repeated-row source bundle closure contracts" in error for error in wrong_closure_count_errors):
+        raise AssertionError(f"wrong closure count bundle negative was not caught: {wrong_closure_count_errors}")
+
+    source_ready_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(source_ready_bundle, "cleanup")["source_ready"] = True
+    source_ready_bundle_errors = validate_repeated_entity_row_source_bundle_preview(source_ready_bundle)
+    if not any("source_ready/verified/backend_ready" in error for error in source_ready_bundle_errors):
+        raise AssertionError(f"source_ready bundle negative was not caught: {source_ready_bundle_errors}")
+
+    backend_ready_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(backend_ready_bundle, "listener")["source_body_placeholder"]["backend_ready"] = True
+    backend_ready_bundle_errors = validate_repeated_entity_row_source_bundle_preview(backend_ready_bundle)
+    if not any("source_ready/verified/backend_ready" in error for error in backend_ready_bundle_errors):
+        raise AssertionError(f"backend_ready bundle negative was not caught: {backend_ready_bundle_errors}")
+
+    verified_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(verified_bundle, "event")["source_body_preview"]["verified"] = True
+    verified_bundle_errors = validate_repeated_entity_row_source_bundle_preview(verified_bundle)
+    if not any("source_ready/verified/backend_ready" in error for error in verified_bundle_errors):
+        raise AssertionError(f"verified bundle negative was not caught: {verified_bundle_errors}")
+
+    writable_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(writable_bundle, "effect")["may_write_src"] = True
+    writable_bundle_errors = validate_repeated_entity_row_source_bundle_preview(writable_bundle)
+    if not any("may_write_src must be false" in error for error in writable_bundle_errors):
+        raise AssertionError(f"may_write_src bundle negative was not caught: {writable_bundle_errors}")
+
+    writes_src_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(writes_src_bundle, "trigger")["source_body_placeholder"]["writes_src"] = True
+    writes_src_bundle_errors = validate_repeated_entity_row_source_bundle_preview(writes_src_bundle)
+    if not any("writes_src must be false" in error for error in writes_src_bundle_errors):
+        raise AssertionError(f"writes_src bundle negative was not caught: {writes_src_bundle_errors}")
+
+    source_writer_allowed_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(source_writer_allowed_bundle, "gui")["source_writer_allowed"] = True
+    source_writer_allowed_bundle_errors = validate_repeated_entity_row_source_bundle_preview(
+        source_writer_allowed_bundle
+    )
+    if not any("source_writer_allowed must be false" in error for error in source_writer_allowed_bundle_errors):
+        raise AssertionError(
+            f"source_writer_allowed bundle negative was not caught: {source_writer_allowed_bundle_errors}"
+        )
+
+    forged_listener_bundle = deepcopy(source_bundle_preview)
+    forged_listener_section = _source_bundle(forged_listener_bundle, "unique_dome_of_the_rock")["sections"]["listener"]
+    forged_listener_section["artifacts"] = [
+        deepcopy(_first_source_bundle_artifact(source_bundle_preview, "listener", "unique_alhambra"))
+    ]
+    forged_listener_section["artifacts"][0]["pilot_key"] = "unique_dome_of_the_rock"
+    forged_listener_section["artifact_count"] = 1
+    forged_listener_section["closure_contract_count"] = 1
+    forged_listener_errors = validate_repeated_entity_row_source_bundle_preview(forged_listener_bundle)
+    if not any("non-Alhambra pilot must not include listener artifact" in error for error in forged_listener_errors):
+        raise AssertionError(f"forged listener bundle negative was not caught: {forged_listener_errors}")
+
+    missing_alhambra_listener_bundle = deepcopy(source_bundle_preview)
+    alhambra_listener_section = _source_bundle(missing_alhambra_listener_bundle, "unique_alhambra")["sections"]["listener"]
+    alhambra_listener_section["artifacts"] = []
+    alhambra_listener_section["artifact_count"] = 0
+    alhambra_listener_section["closure_contract_count"] = 0
+    missing_alhambra_listener_errors = validate_repeated_entity_row_source_bundle_preview(
+        missing_alhambra_listener_bundle
+    )
+    if not any("missing listener_war_integration" in error for error in missing_alhambra_listener_errors):
+        raise AssertionError(
+            f"missing Alhambra listener bundle negative was not caught: {missing_alhambra_listener_errors}"
+        )
+
+    missing_placeholder_flag_bundle = deepcopy(source_bundle_preview)
+    del _first_source_bundle_artifact(missing_placeholder_flag_bundle, "effect")["source_body_placeholder"]["contract_only"]
+    missing_placeholder_flag_errors = validate_repeated_entity_row_source_bundle_preview(
+        missing_placeholder_flag_bundle
+    )
+    if not any("source body placeholder missing no-write flag contract_only" in error for error in missing_placeholder_flag_errors):
+        raise AssertionError(
+            f"missing placeholder flag bundle negative was not caught: {missing_placeholder_flag_errors}"
+        )
+
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
         wonders=[WONDER],
@@ -5574,6 +5818,29 @@ def main() -> None:
             "codegen tier may_write_src count should remain 0, got "
             f"{summary['codegen_tier_summary']['may_write_src']}"
         )
+    readiness_summary = summary["repeated_entity_row_source_writer_readiness"]
+    if readiness_summary["ready_artifact_count"] != 0:
+        raise AssertionError(
+            "source-writer readiness ready_artifact_count should remain 0, got "
+            f"{readiness_summary['ready_artifact_count']}"
+        )
+    if readiness_summary["blocked_artifact_count"] != 177:
+        raise AssertionError(
+            "source-writer readiness blocked_artifact_count should remain 177, got "
+            f"{readiness_summary['blocked_artifact_count']}"
+        )
+    bundle_summary = summary["repeated_entity_row_source_bundle_preview"]
+    if bundle_summary["bundle_count"] != 4:
+        raise AssertionError(f"source bundle preview count should remain 4, got {bundle_summary['bundle_count']}")
+    if bundle_summary["artifact_count"] != 177 or bundle_summary["closure_contract_count"] != 177:
+        raise AssertionError(f"source bundle preview should preserve 177 closure artifacts: {bundle_summary}")
+    if (
+        bundle_summary["source_ready_count"] != 0
+        or bundle_summary["source_writer_allowed_count"] != 0
+        or bundle_summary["may_write_src_count"] != 0
+        or bundle_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(f"source bundle preview no-write/readiness counts changed: {bundle_summary}")
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")
 

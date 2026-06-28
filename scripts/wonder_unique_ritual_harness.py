@@ -3479,6 +3479,23 @@ REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS = {
     "gui": 8,
     "listener": 1,
 }
+REPEATED_ENTITY_ROW_SOURCE_BUNDLE_EXPECTED_PILOTS = (
+    "unique_dome_of_the_rock",
+    "unique_alhambra",
+    "unique_st_peters_basilica",
+    "unique_bank_of_saint_george",
+)
+REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES = tuple(
+    REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS
+)
+REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS = {
+    "contract_only": True,
+    "body_emitted": False,
+    "source_ready": False,
+    "may_write_src": False,
+    "writes_src": False,
+    "source_writer_allowed": False,
+}
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS = ("english", "simp_chinese")
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_row_labels": "row_labels",
@@ -9065,6 +9082,693 @@ def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any])
     return errors
 
 
+def _repeated_row_source_bundle_no_write_boundary() -> dict[str, Any]:
+    return {
+        "contract_only": True,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed_count": 0,
+        "may_write_src_count": 0,
+        "writes_src_count": 0,
+    }
+
+
+def _repeated_row_source_bundle_blocker_summary(artifacts: list[dict[str, Any]]) -> dict[str, int]:
+    summary: dict[str, int] = {}
+    for artifact in artifacts:
+        for blocker in _string_refs(artifact.get("unresolved_writer_blockers")):
+            summary[blocker] = summary.get(blocker, 0) + 1
+    return dict(sorted(summary.items()))
+
+
+def _repeated_row_source_bundle_validation_refs(
+    *,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    validations = _string_refs(closure.get("required_validations"))
+    evidence = artifact.get("validation_coverage_evidence")
+    if isinstance(evidence, dict):
+        anchors = evidence.get("anchors")
+        if isinstance(anchors, dict):
+            validations.extend(_string_refs(anchors.get("required_validations")))
+    return sorted(set(validations))
+
+
+def _repeated_row_source_bundle_closure_ref(
+    *,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "pilot_key": str(artifact.get("pilot_key", "")),
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "artifact_kind": str(artifact.get("artifact_kind", "")),
+        "contract_family": str(closure.get("contract_family", artifact.get("contract_family", ""))),
+        "readiness_status": str(closure.get("readiness_status", "")),
+        "future_source_target_path": str(closure.get("future_source_target_path", "")),
+        "future_source_target_path_pattern": str(closure.get("future_source_target_path_pattern", "")),
+    }
+
+
+def _repeated_row_source_bundle_placeholder(
+    *,
+    family: str,
+    artifact_kind: str,
+    closure_ref: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "kind": f"{family}_source_body_placeholder",
+        "placeholder_family": family,
+        "artifact_kind": artifact_kind,
+        "future_source_target_path": str(closure_ref.get("future_source_target_path", "")),
+        "reason": "Closure contract only; no loadable EU5 source body is emitted by this preview.",
+        **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
+    }
+
+
+def _repeated_row_source_bundle_localization_preview(closure: dict[str, Any]) -> dict[str, Any]:
+    key_allocation = closure.get("key_allocation") if isinstance(closure.get("key_allocation"), dict) else {}
+    return {
+        "kind": "localization_key_plan_preview",
+        "loc_key_namespace": str(key_allocation.get("loc_key_namespace", "")),
+        "required_groups": _string_refs(key_allocation.get("required_groups")),
+        "loc_key_plan": list(key_allocation.get("loc_key_plan", []) or []),
+        "row_key_groups": dict(key_allocation.get("row_key_groups", {}) or {}),
+        "event_key_handoff": dict(closure.get("event_key_handoff", {}) or {}),
+        "language_ownership_boundary": dict(closure.get("language_ownership_boundary", {}) or {}),
+        **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
+    }
+
+
+def _repeated_row_source_bundle_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    closure = artifact.get("closure_contract") if isinstance(artifact.get("closure_contract"), dict) else {}
+    family = str(closure.get("contract_family", artifact.get("contract_family", "")))
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    blockers = sorted(set(_string_refs(artifact.get("unresolved_writer_blockers"))))
+    closure_ref = _repeated_row_source_bundle_closure_ref(artifact=artifact, closure=closure)
+    future_target = str(closure_ref.get("future_source_target_path", ""))
+    bundled = {
+        "artifact_kind": artifact_kind,
+        "contract_family": family,
+        "pilot_key": str(artifact.get("pilot_key", "")),
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "readiness_status": str(artifact.get("readiness_status", "")),
+        "current_contract_status": str(artifact.get("current_contract_status", "")),
+        "closure_readiness_status": str(closure.get("readiness_status", "")),
+        "closure_contract_ref": closure_ref,
+        "future_source_target_path": future_target,
+        "future_source_target_path_pattern": str(closure_ref.get("future_source_target_path_pattern", "")),
+        "future_target_paths": [future_target] if future_target else [],
+        "required_validations": _repeated_row_source_bundle_validation_refs(
+            artifact=artifact,
+            closure=closure,
+        ),
+        "unresolved_writer_blockers": blockers,
+        "blocker_summary": dict(sorted((blocker, blockers.count(blocker)) for blocker in set(blockers))),
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+    if family == "event":
+        bundled["source_body_preview"] = dict(closure.get("source_body_preview", {}) or {})
+    elif family == "localization":
+        bundled["source_body_preview"] = _repeated_row_source_bundle_localization_preview(closure)
+    else:
+        bundled["source_body_placeholder"] = _repeated_row_source_bundle_placeholder(
+            family=family,
+            artifact_kind=artifact_kind,
+            closure_ref=closure_ref,
+        )
+    return bundled
+
+
+def _repeated_row_source_bundle_listener_absence(pilot_key: str) -> dict[str, Any]:
+    return {
+        "explicit": True,
+        "pilot_key": pilot_key,
+        "artifact_kind": "",
+        "reason": "No listener closure_contract exists for this pilot; listener_war_integration is Alhambra-only.",
+        "forged_artifact": False,
+        **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
+    }
+
+
+def _repeated_row_source_bundle_section(
+    *,
+    pilot_key: str,
+    family: str,
+    readiness_artifacts: list[dict[str, Any]],
+) -> dict[str, Any]:
+    artifacts = [_repeated_row_source_bundle_artifact(artifact) for artifact in readiness_artifacts]
+    closure_refs = [artifact["closure_contract_ref"] for artifact in artifacts]
+    future_target_paths = sorted(
+        {
+            str(path)
+            for artifact in artifacts
+            for path in artifact.get("future_target_paths", []) or []
+            if str(path).strip()
+        }
+    )
+    required_validations = sorted(
+        {
+            validation
+            for artifact in artifacts
+            for validation in _string_refs(artifact.get("required_validations"))
+        }
+    )
+    unresolved_writer_blockers = sorted(
+        {
+            blocker
+            for artifact in artifacts
+            for blocker in _string_refs(artifact.get("unresolved_writer_blockers"))
+        }
+    )
+    section = {
+        "family": family,
+        "artifact_count": len(artifacts),
+        "closure_contract_count": len(closure_refs),
+        "closure_contract_refs": closure_refs,
+        "future_target_paths": future_target_paths,
+        "source_body_previews": [
+            artifact["source_body_preview"]
+            for artifact in artifacts
+            if isinstance(artifact.get("source_body_preview"), dict)
+        ],
+        "source_body_placeholders": [
+            artifact["source_body_placeholder"]
+            for artifact in artifacts
+            if isinstance(artifact.get("source_body_placeholder"), dict)
+        ],
+        "required_validations": required_validations,
+        "unresolved_writer_blockers": unresolved_writer_blockers,
+        "blocker_summary": _repeated_row_source_bundle_blocker_summary(artifacts),
+        "source_ready_count": sum(1 for artifact in artifacts if artifact.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for artifact in artifacts if artifact.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for artifact in artifacts if artifact.get("may_write_src") is True),
+        "writes_src_count": sum(1 for artifact in artifacts if artifact.get("writes_src") is True),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_ready": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "artifacts": artifacts,
+    }
+    if family == "listener" and pilot_key != "unique_alhambra" and not artifacts:
+        section["listener_artifact_absence"] = _repeated_row_source_bundle_listener_absence(pilot_key)
+    return section
+
+
+def _repeated_row_source_bundle_entry(entry: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(entry.get("key", ""))
+    artifacts = [
+        artifact
+        for artifact in entry.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    artifacts_by_family: dict[str, list[dict[str, Any]]] = {
+        family: []
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+    }
+    for artifact in artifacts:
+        family = str(artifact.get("contract_family", ""))
+        if family in artifacts_by_family:
+            artifacts_by_family[family].append(artifact)
+
+    sections = {
+        family: _repeated_row_source_bundle_section(
+            pilot_key=pilot_key,
+            family=family,
+            readiness_artifacts=artifacts_by_family[family],
+        )
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+    }
+    bundled_artifacts = [
+        artifact
+        for section in sections.values()
+        for artifact in section.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    return {
+        "key": pilot_key,
+        "bundle_preview_only": True,
+        "artifact_count": len(bundled_artifacts),
+        "closure_contract_count": sum(
+            int(section.get("closure_contract_count", 0))
+            for section in sections.values()
+            if isinstance(section, dict)
+        ),
+        "family_summary": {
+            family: int(section.get("artifact_count", 0))
+            for family, section in sections.items()
+        },
+        "source_ready_count": sum(1 for artifact in bundled_artifacts if artifact.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for artifact in bundled_artifacts if artifact.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for artifact in bundled_artifacts if artifact.get("may_write_src") is True),
+        "writes_src_count": sum(1 for artifact in bundled_artifacts if artifact.get("writes_src") is True),
+        "blocker_summary": _repeated_row_source_bundle_blocker_summary(bundled_artifacts),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "sections": sections,
+    }
+
+
+def repeated_entity_row_source_bundle_preview_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    readiness = repeated_entity_row_source_writer_readiness_for_payload(payload, statuses=statuses)
+    bundles = [
+        _repeated_row_source_bundle_entry(entry)
+        for entry in readiness.get("entries", []) or []
+        if isinstance(entry, dict)
+    ]
+    artifacts = [
+        artifact
+        for bundle in bundles
+        for section in (bundle.get("sections") or {}).values()
+        if isinstance(section, dict)
+        for artifact in section.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    report = {
+        "statuses": sorted(statuses or {"source_codegen_ready"}),
+        "bundle_preview_only": True,
+        "bundle_count": len(bundles),
+        "artifact_count": len(artifacts),
+        "closure_contract_count": sum(
+            int(bundle.get("closure_contract_count", 0))
+            for bundle in bundles
+            if isinstance(bundle, dict)
+        ),
+        "family_summary": _count_by_key(artifacts, "contract_family"),
+        "source_ready_count": sum(1 for artifact in artifacts if artifact.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for artifact in artifacts if artifact.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for artifact in artifacts if artifact.get("may_write_src") is True),
+        "writes_src_count": sum(1 for artifact in artifacts if artifact.get("writes_src") is True),
+        "blocker_count": sum(
+            len(_string_refs(artifact.get("unresolved_writer_blockers")))
+            for artifact in artifacts
+        ),
+        "blocker_summary": _repeated_row_source_bundle_blocker_summary(artifacts),
+        "source_writer_readiness_artifact_count": int(readiness.get("artifact_count", 0)),
+        "source_writer_readiness_closure_contract_count": int(readiness.get("closure_contract_count", 0)),
+        "source_writer_readiness_validation_errors": list(readiness.get("validation_errors", [])),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "bundles": bundles,
+        "validation_errors": [],
+        "notes": [
+            "Repeated-row source bundle preview is a no-write source compiler prototype.",
+            "It groups readiness closure_contract evidence for dry-run review only.",
+            "It does not emit loadable EU5 source and does not authorize AI-generated src writes.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_source_bundle_preview(report)
+    return report
+
+
+def _source_bundle_forbidden_ready_paths(value: Any, path: str = "") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            key_text = str(key)
+            normalized_key = key_text.strip().lower().replace("-", "_")
+            child_path = f"{path}.{key_text}" if path else key_text
+            if normalized_key in {"source_ready", "source_ready_allowed", "verified", "backend_ready"} and child is True:
+                paths.append(child_path)
+            if normalized_key.endswith("status") and _readiness_status_is_forbidden_ready(child):
+                paths.append(child_path)
+            paths.extend(_source_bundle_forbidden_ready_paths(child, child_path))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            paths.extend(_source_bundle_forbidden_ready_paths(child, f"{path}[{index}]"))
+    return paths
+
+
+def _source_bundle_true_flag_paths(value: Any, flag: str, path: str = "") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            key_text = str(key)
+            child_path = f"{path}.{key_text}" if path else key_text
+            if key_text == flag and child is True:
+                paths.append(child_path)
+            paths.extend(_source_bundle_true_flag_paths(child, flag, child_path))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            paths.extend(_source_bundle_true_flag_paths(child, flag, f"{path}[{index}]"))
+    return paths
+
+
+def _validate_source_bundle_placeholder(
+    *,
+    pilot_key: str,
+    family: str,
+    artifact_kind: str,
+    placeholder: Any,
+) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(placeholder, dict):
+        return [f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder missing"]
+    for flag, expected in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS.items():
+        if placeholder.get(flag) is not expected:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder missing no-write flag {flag}")
+    if str(placeholder.get("placeholder_family", "")) != family:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder family mismatch")
+    if str(placeholder.get("artifact_kind", "")) != artifact_kind:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder artifact mismatch")
+    if not str(placeholder.get("future_source_target_path", "")).startswith("src/"):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder missing future target path")
+    return errors
+
+
+def _validate_source_bundle_no_write_boundary(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    if value.get("source_ready") is not False:
+        errors.append(f"{context} source_ready must be false")
+    if value.get("source_writer_allowed") is not False:
+        errors.append(f"{context} source_writer_allowed must be false")
+    if value.get("may_write_src") is not False:
+        errors.append(f"{context} may_write_src must be false")
+    if value.get("writes_src") is not False:
+        errors.append(f"{context} writes_src must be false")
+
+
+def validate_repeated_entity_row_source_bundle_preview(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("bundle_preview_only") is not True:
+        errors.append("source bundle preview report must declare bundle_preview_only: true")
+    if int(report.get("source_writer_readiness_artifact_count", -1)) != 177:
+        errors.append("source bundle preview must be based on the 177-artifact readiness ledger")
+    if int(report.get("source_writer_readiness_closure_contract_count", -1)) != 177:
+        errors.append("source bundle preview must be based on 177 closure contracts")
+    if report.get("source_writer_readiness_validation_errors"):
+        errors.append("source bundle preview source-writer readiness validation must be clean")
+    if report.get("source_writer_allowed") is not False:
+        errors.append("source bundle preview report source_writer_allowed must be false")
+    if report.get("may_write_src_allowed") is not False:
+        errors.append("source bundle preview report may_write_src_allowed must be false")
+    if report.get("writes_src") is not False:
+        errors.append("source bundle preview report writes_src must be false")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"source bundle preview must not claim source_ready/verified/backend_ready at {path}")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"source bundle preview {flag} must be false at {path}")
+
+    bundles = report.get("bundles") if isinstance(report.get("bundles"), list) else []
+    bundle_by_key = {
+        str(bundle.get("key", "")): bundle
+        for bundle in bundles
+        if isinstance(bundle, dict)
+    }
+    expected_pilots = set(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_EXPECTED_PILOTS)
+    actual_pilots = set(bundle_by_key)
+    missing_pilots = sorted(expected_pilots - actual_pilots)
+    extra_pilots = sorted(actual_pilots - expected_pilots)
+    if missing_pilots:
+        errors.append(f"source bundle preview missing pilot bundle(s): {', '.join(missing_pilots)}")
+    if extra_pilots:
+        errors.append(f"source bundle preview has unexpected pilot bundle(s): {', '.join(extra_pilots)}")
+    if int(report.get("bundle_count", -1)) != len(bundles):
+        errors.append("source bundle preview bundle_count mismatch")
+    if int(report.get("bundle_count", -1)) != 4:
+        errors.append(f"expected 4 repeated-row source bundles, got {report.get('bundle_count')}")
+
+    global_artifacts: list[dict[str, Any]] = []
+    global_family_counts = {family: 0 for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES}
+    for bundle in bundles:
+        if not isinstance(bundle, dict):
+            errors.append("source bundle preview bundle must be a mapping")
+            continue
+        pilot_key = str(bundle.get("key", "<unknown>"))
+        if bundle.get("bundle_preview_only") is not True:
+            errors.append(f"{pilot_key}: source bundle must declare bundle_preview_only: true")
+        if bundle.get("source_writer_allowed") is not False:
+            errors.append(f"{pilot_key}: source bundle source_writer_allowed must be false")
+        if bundle.get("may_write_src_allowed") is not False:
+            errors.append(f"{pilot_key}: source bundle may_write_src_allowed must be false")
+        if bundle.get("writes_src") is not False:
+            errors.append(f"{pilot_key}: source bundle writes_src must be false")
+
+        sections = bundle.get("sections") if isinstance(bundle.get("sections"), dict) else {}
+        missing_sections = [
+            family
+            for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+            if family not in sections
+        ]
+        if missing_sections:
+            errors.append(f"{pilot_key}: source bundle missing section(s): {', '.join(missing_sections)}")
+
+        bundle_artifacts: list[dict[str, Any]] = []
+        bundle_blocker_summary: dict[str, int] = {}
+        bundle_family_counts: dict[str, int] = {}
+        bundle_closure_count = 0
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES:
+            section = sections.get(family)
+            if not isinstance(section, dict):
+                continue
+            if section.get("family") != family:
+                errors.append(f"{pilot_key}: source bundle section {family} family mismatch")
+            _validate_source_bundle_no_write_boundary(
+                context=f"{pilot_key}: section {family}",
+                value=section,
+                errors=errors,
+            )
+            section_artifacts = section.get("artifacts") if isinstance(section.get("artifacts"), list) else []
+            section_artifacts = [
+                artifact
+                for artifact in section_artifacts
+                if isinstance(artifact, dict)
+            ]
+            if family == "listener" and pilot_key != "unique_alhambra":
+                if section_artifacts:
+                    errors.append(f"{pilot_key}: non-Alhambra pilot must not include listener artifact")
+                absence = section.get("listener_artifact_absence")
+                if not isinstance(absence, dict):
+                    errors.append(f"{pilot_key}: listener section missing explicit listener artifact absence")
+                else:
+                    if absence.get("explicit") is not True or absence.get("forged_artifact") is not False:
+                        errors.append(f"{pilot_key}: listener section must explicitly record no forged listener artifact")
+                    for flag, expected in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS.items():
+                        if absence.get(flag) is not expected:
+                            errors.append(f"{pilot_key}: listener absence missing no-write flag {flag}")
+            if family == "listener" and pilot_key == "unique_alhambra":
+                if len(section_artifacts) != 1 or section_artifacts[0].get("artifact_kind") != "listener_war_integration":
+                    errors.append("unique_alhambra: source bundle missing listener_war_integration artifact")
+
+            closure_refs = [artifact.get("closure_contract_ref") for artifact in section_artifacts]
+            expected_refs = [
+                ref
+                for ref in closure_refs
+                if isinstance(ref, dict)
+            ]
+            expected_target_paths = sorted(
+                {
+                    str(artifact.get("future_source_target_path", ""))
+                    for artifact in section_artifacts
+                    if str(artifact.get("future_source_target_path", "")).strip()
+                }
+            )
+            expected_validations = sorted(
+                {
+                    validation
+                    for artifact in section_artifacts
+                    for validation in _string_refs(artifact.get("required_validations"))
+                }
+            )
+            expected_blockers = sorted(
+                {
+                    blocker
+                    for artifact in section_artifacts
+                    for blocker in _string_refs(artifact.get("unresolved_writer_blockers"))
+                }
+            )
+            expected_blocker_summary = _repeated_row_source_bundle_blocker_summary(section_artifacts)
+            if int(section.get("artifact_count", -1)) != len(section_artifacts):
+                errors.append(f"{pilot_key}: section {family} artifact_count mismatch")
+            if int(section.get("closure_contract_count", -1)) != len(section_artifacts):
+                errors.append(f"{pilot_key}: section {family} closure_contract_count mismatch")
+            if section.get("closure_contract_refs") != expected_refs:
+                errors.append(f"{pilot_key}: section {family} closure_contract_refs mismatch")
+            if section.get("future_target_paths") != expected_target_paths:
+                errors.append(f"{pilot_key}: section {family} future target paths mismatch")
+            if section.get("required_validations") != expected_validations:
+                errors.append(f"{pilot_key}: section {family} required validations mismatch")
+            if section.get("unresolved_writer_blockers") != expected_blockers:
+                errors.append(f"{pilot_key}: section {family} unresolved writer blockers mismatch")
+            if section.get("blocker_summary") != expected_blocker_summary:
+                errors.append(f"{pilot_key}: section {family} blocker summary mismatch")
+            if int(section.get("source_ready_count", -1)) != 0:
+                errors.append(f"{pilot_key}: section {family} source_ready_count must be 0")
+            if int(section.get("source_writer_allowed_count", -1)) != 0:
+                errors.append(f"{pilot_key}: section {family} source_writer_allowed_count must be 0")
+            if int(section.get("may_write_src_count", -1)) != 0:
+                errors.append(f"{pilot_key}: section {family} may_write_src_count must be 0")
+            if int(section.get("writes_src_count", -1)) != 0:
+                errors.append(f"{pilot_key}: section {family} writes_src_count must be 0")
+
+            expected_previews = [
+                artifact.get("source_body_preview")
+                for artifact in section_artifacts
+                if isinstance(artifact.get("source_body_preview"), dict)
+            ]
+            expected_placeholders = [
+                artifact.get("source_body_placeholder")
+                for artifact in section_artifacts
+                if isinstance(artifact.get("source_body_placeholder"), dict)
+            ]
+            if section.get("source_body_previews") != expected_previews:
+                errors.append(f"{pilot_key}: section {family} source body previews mismatch")
+            if section.get("source_body_placeholders") != expected_placeholders:
+                errors.append(f"{pilot_key}: section {family} source body placeholders mismatch")
+
+            for artifact in section_artifacts:
+                artifact_kind = str(artifact.get("artifact_kind", "<unknown>"))
+                _validate_source_bundle_no_write_boundary(
+                    context=f"{pilot_key}: artifact {artifact_kind}",
+                    value=artifact,
+                    errors=errors,
+                )
+                if artifact.get("pilot_key") != pilot_key:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} pilot_key mismatch")
+                if artifact.get("contract_family") != family:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} contract_family mismatch")
+                if _readiness_status_is_forbidden_ready(artifact.get("readiness_status")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle readiness must stay blocked")
+                if str(artifact.get("readiness_status", "")) != "blocked":
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle readiness_status must be blocked")
+                if _readiness_status_is_forbidden_ready(artifact.get("current_contract_status")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle must not be source-ready")
+                if _readiness_status_is_forbidden_ready(artifact.get("closure_readiness_status")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} closure readiness must stay blocked")
+                if not _string_refs(artifact.get("required_validations")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle missing required validations")
+                if not _string_refs(artifact.get("unresolved_writer_blockers")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle missing unresolved writer blockers")
+                ref = artifact.get("closure_contract_ref")
+                if not isinstance(ref, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle missing closure_contract_ref")
+                else:
+                    if ref.get("pilot_key") != pilot_key or ref.get("artifact_kind") != artifact_kind:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} closure_contract_ref mismatch")
+                    if ref.get("contract_family") != family:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} closure_contract_ref family mismatch")
+                    if ref.get("future_source_target_path") != artifact.get("future_source_target_path"):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} future target path mismatch")
+                    if not str(ref.get("future_source_target_path", "")).startswith("src/"):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} closure_contract_ref missing future target path")
+                if family == "event":
+                    body = artifact.get("source_body_preview")
+                    if not isinstance(body, dict) or body.get("kind") != "country_event_preview":
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} event source body preview missing")
+                    elif body.get("no_row_state_write") is not True or body.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} event source body preview lost no-write flags")
+                elif family == "localization":
+                    body = artifact.get("source_body_preview")
+                    if not isinstance(body, dict) or body.get("kind") != "localization_key_plan_preview":
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} localization source body preview missing")
+                    elif not isinstance(body.get("loc_key_plan"), list) or not body.get("loc_key_plan"):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} localization source body preview missing loc key plan")
+                    else:
+                        for flag, expected in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS.items():
+                            if body.get(flag) is not expected:
+                                errors.append(
+                                    f"{pilot_key}: artifact {artifact_kind} localization source body preview missing no-write flag {flag}"
+                                )
+                else:
+                    errors.extend(
+                        _validate_source_bundle_placeholder(
+                            pilot_key=pilot_key,
+                            family=family,
+                            artifact_kind=artifact_kind,
+                            placeholder=artifact.get("source_body_placeholder"),
+                        )
+                    )
+
+            section_blocker_summary = expected_blocker_summary
+            for blocker, count in section_blocker_summary.items():
+                bundle_blocker_summary[blocker] = bundle_blocker_summary.get(blocker, 0) + count
+            bundle_artifacts.extend(section_artifacts)
+            bundle_family_counts[family] = len(section_artifacts)
+            bundle_closure_count += len(section_artifacts)
+
+        if int(bundle.get("artifact_count", -1)) != len(bundle_artifacts):
+            errors.append(f"{pilot_key}: source bundle artifact_count mismatch")
+        if int(bundle.get("closure_contract_count", -1)) != bundle_closure_count:
+            errors.append(f"{pilot_key}: source bundle closure_contract_count mismatch")
+        expected_family_summary = {
+            family: bundle_family_counts.get(family, 0)
+            for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+        }
+        if bundle.get("family_summary") != expected_family_summary:
+            errors.append(f"{pilot_key}: source bundle family_summary mismatch")
+        if bundle.get("blocker_summary") != dict(sorted(bundle_blocker_summary.items())):
+            errors.append(f"{pilot_key}: source bundle blocker_summary mismatch")
+        if int(bundle.get("source_ready_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source bundle source_ready_count must be 0")
+        if int(bundle.get("source_writer_allowed_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source bundle source_writer_allowed_count must be 0")
+        if int(bundle.get("may_write_src_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source bundle may_write_src_count must be 0")
+        if int(bundle.get("writes_src_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source bundle writes_src_count must be 0")
+        global_artifacts.extend(bundle_artifacts)
+        for family, count in expected_family_summary.items():
+            global_family_counts[family] += count
+
+    if int(report.get("artifact_count", -1)) != len(global_artifacts):
+        errors.append("source bundle preview artifact_count mismatch")
+    if int(report.get("artifact_count", -1)) != 177:
+        errors.append(f"expected 177 repeated-row source bundle artifacts, got {report.get('artifact_count')}")
+    if int(report.get("closure_contract_count", -1)) != len(global_artifacts):
+        errors.append("source bundle preview closure_contract_count mismatch")
+    if int(report.get("closure_contract_count", -1)) != 177:
+        errors.append(f"expected 177 repeated-row source bundle closure contracts, got {report.get('closure_contract_count')}")
+    if report.get("family_summary") != dict(sorted(global_family_counts.items())):
+        errors.append("source bundle preview family_summary mismatch")
+    for family, expected_count in REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS.items():
+        if global_family_counts[family] != expected_count:
+            errors.append(f"expected {expected_count} repeated-row {family} source bundle artifacts, got {global_family_counts[family]}")
+    if int(report.get("source_ready_count", -1)) != 0:
+        errors.append("source bundle preview source_ready_count must be 0")
+    if int(report.get("source_writer_allowed_count", -1)) != 0:
+        errors.append("source bundle preview source_writer_allowed_count must be 0")
+    if int(report.get("may_write_src_count", -1)) != 0:
+        errors.append("source bundle preview may_write_src_count must be 0")
+    if int(report.get("writes_src_count", -1)) != 0:
+        errors.append("source bundle preview writes_src_count must be 0")
+    expected_blocker_summary = _repeated_row_source_bundle_blocker_summary(global_artifacts)
+    if report.get("blocker_summary") != expected_blocker_summary:
+        errors.append("source bundle preview blocker_summary mismatch")
+    expected_blocker_count = sum(
+        len(_string_refs(artifact.get("unresolved_writer_blockers")))
+        for artifact in global_artifacts
+    )
+    if int(report.get("blocker_count", -1)) != expected_blocker_count:
+        errors.append("source bundle preview blocker_count mismatch")
+    return errors
+
+
 def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
     entries = matrix.get("unique_wonders", []) if isinstance(matrix, dict) else []
     return {
@@ -9544,6 +10248,7 @@ def audit_summary() -> dict[str, Any]:
     repeated_entity_row_source_plan = repeated_entity_row_source_plan_for_payload(specs)
     repeated_entity_row_source_preview = repeated_entity_row_source_preview_for_payload(specs)
     repeated_entity_row_source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(specs)
+    repeated_entity_row_source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(specs)
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -9646,6 +10351,7 @@ def audit_summary() -> dict[str, Any]:
         "repeated_entity_row_source_plan": repeated_entity_row_source_plan,
         "repeated_entity_row_source_preview": repeated_entity_row_source_preview,
         "repeated_entity_row_source_writer_readiness": repeated_entity_row_source_writer_readiness,
+        "repeated_entity_row_source_bundle_preview": repeated_entity_row_source_bundle_preview,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
         "capability_registry_errors": capability_registry_errors,

@@ -130,6 +130,17 @@ adds a complete verified source-writer contract. It does not generate `src/`, do
 `may_write_src: true`, does not enable `source_writer_allowed`, and does not promote
 `source_codegen_ready`, `implementation_ready`, `harness_generated`, or any equivalent
 source-ready status.
+The repeated-row source bundle preview is an additional no-write source compiler
+prototype on top of that readiness ledger. It groups the 177 closure contracts into the
+four repeated-row pilot bundles and their event, localization, scripted-effect, cleanup,
+scripted-trigger, GUI, and listener sections so future source-writer evidence can be
+reviewed as machine-readable dry-run data. It is not a source writer, not loadable EU5
+source, and not permission for AI-generated source code: event/localization sections may
+reuse existing body/key-plan previews, while scripted-effect, cleanup, scripted-trigger,
+GUI, and Alhambra listener sections must remain source-body placeholders with
+`contract_only: true`, `body_emitted: false`, `source_ready: false`, `may_write_src:
+false`, `writes_src: false`, and `source_writer_allowed: false`. Non-Alhambra pilots must
+record explicit listener-artifact absence instead of inventing listener artifacts.
 The event and localization vertical slices in that ledger are closure contracts only.
 They add machine-checkable event body preview and localization key-contract evidence for
 the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,
