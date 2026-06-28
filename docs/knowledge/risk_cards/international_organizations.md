@@ -100,6 +100,14 @@ that create, find, or mutate TV IOs.
     Missing the bias logs a startup warning that the organization needs an opinion of
     other members.
 
+17. Filter IO policy member modifiers to their intended recipients.
+    Vanilla `policy_vote` adds `scope:vote.modifier_utility(scope:actor)` to each
+    voting country's AI support as `POLICY_MODIFIER_UTILITY`. If a policy's
+    `country_modifier` is meant for the leader country only, add a modifier
+    `potential_trigger = { is_leader_of_international_organization = scope:recipient }`.
+    Otherwise subject or non-target members can strongly favor a policy because they
+    evaluate the unfiltered modifier package as their own direct benefit.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then inspect shared IO tooltips in game. Tooltip
