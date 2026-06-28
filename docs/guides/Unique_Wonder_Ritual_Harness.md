@@ -164,6 +164,17 @@ explicit language boundary. Every file preview keeps `candidate_only: true`,
 false`, `writes_src: false`, and `source_writer_allowed: false`, and preserves unresolved
 blockers plus validation refs from the body candidates. The preview is still contract
 evidence only; it does not emit file bodies, authorize a source writer, or write `src/`.
+The Alhambra source-file validation evidence pack is the no-write validation layer above
+those seven previews. It must derive only from
+`repeated_entity_row_alhambra_source_file_preview_for_payload(...)` and emits one
+evidence pack per future target file, preserving the same 45 unique Alhambra source-body
+artifacts. Each pack records repo-local syntax/reference paths, candidate generator
+ownership, a blocked source-target boundary, validation requirements, and unresolved
+blockers. Evidence statuses may only be `interface_candidate` or `blocked`; the pack may
+not claim `verified`, `backend_ready`, `source_ready`, `source_writer_allowed`, or any
+`may_write_src`/`writes_src` permission. Localization evidence must keep English and
+Simplified Chinese target files separate, and the Alhambra listener evidence must retain
+hook linkage, selected-ritual trigger linkage, and war-scope boundary evidence.
 The event and localization vertical slices in that ledger are closure contracts only.
 They add machine-checkable event body preview and localization key-contract evidence for
 the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,

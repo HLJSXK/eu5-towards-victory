@@ -34,12 +34,14 @@ from wonder_unique_ritual_harness import repeated_entity_row_source_bundle_previ
 from wonder_unique_ritual_harness import repeated_entity_row_source_writer_readiness_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_body_candidate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_file_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_file_validation_evidence_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_writer_readiness  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_body_candidate  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_file_preview  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_file_validation_evidence  # noqa: E402
 
 
 WONDER = {
@@ -1643,6 +1645,13 @@ def _alhambra_source_file_preview(report: dict, target_path: str) -> dict:
         if preview.get("target_path") == target_path:
             return preview
     raise AssertionError(f"Alhambra source file preview has no target {target_path}")
+
+
+def _alhambra_source_file_validation_pack(report: dict, target_path: str) -> dict:
+    for pack in report.get("evidence_packs", []) or []:
+        if pack.get("target_path") == target_path:
+            return pack
+    raise AssertionError(f"Alhambra source file validation evidence has no target {target_path}")
 
 
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
@@ -5048,6 +5057,373 @@ def main() -> None:
         "missing war scope",
         missing_war_scope_file_preview,
         "war-scope persistence plan",
+    )
+
+    alhambra_source_file_validation_evidence = (
+        repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(load_spec_data())
+    )
+    if alhambra_source_file_validation_evidence["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source file validation evidence unexpectedly failed validation: "
+            f"{alhambra_source_file_validation_evidence['validation_errors']}"
+        )
+    validation_summary = alhambra_source_file_validation_evidence.get("summary", {})
+    if alhambra_source_file_validation_evidence.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(
+            f"Alhambra source file validation evidence pilot changed: {alhambra_source_file_validation_evidence}"
+        )
+    if validation_summary.get("evidence_pack_count") != 7:
+        raise AssertionError(f"Alhambra source file validation evidence pack count changed: {validation_summary}")
+    if validation_summary.get("artifact_count") != 45:
+        raise AssertionError(f"Alhambra source file validation evidence artifact count changed: {validation_summary}")
+    if alhambra_source_file_validation_evidence.get("file_section_count") != 55:
+        raise AssertionError(
+            "Alhambra source file validation evidence expanded file-section count changed: "
+            f"{alhambra_source_file_validation_evidence}"
+        )
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if validation_summary.get(count_key) != 0:
+            raise AssertionError(f"Alhambra source file validation evidence {count_key} changed: {validation_summary}")
+        if alhambra_source_file_validation_evidence.get(count_key) != 0:
+            raise AssertionError(
+                f"Alhambra source file validation evidence report {count_key} changed: "
+                f"{alhambra_source_file_validation_evidence}"
+            )
+    if {
+        pack.get("target_path")
+        for pack in alhambra_source_file_validation_evidence.get("evidence_packs", []) or []
+    } != set(alhambra_file_targets.values()):
+        raise AssertionError(
+            "Alhambra source file validation evidence did not expose exact target paths: "
+            f"{alhambra_source_file_validation_evidence.get('evidence_packs')}"
+        )
+
+    allowed_evidence_statuses = {"interface_candidate", "blocked"}
+    validation_source_refs: set[tuple[str, str, str, str]] = set()
+    for target_path, expected_count in expected_alhambra_file_counts.items():
+        pack = _alhambra_source_file_validation_pack(alhambra_source_file_validation_evidence, target_path)
+        preview = _alhambra_source_file_preview(alhambra_source_file_preview, target_path)
+        if pack.get("artifact_count") != expected_count:
+            raise AssertionError(f"{target_path} validation evidence artifact count changed: {pack}")
+        if pack.get("families") != expected_alhambra_file_families[target_path]:
+            raise AssertionError(f"{target_path} validation evidence families changed: {pack}")
+        if pack.get("source_file_preview_ref", {}).get("artifact_count") != preview.get("artifact_count"):
+            raise AssertionError(f"{target_path} validation evidence lost preview artifact count: {pack}")
+        if pack.get("source_file_preview_ref", {}).get("families") != preview.get("families"):
+            raise AssertionError(f"{target_path} validation evidence lost preview families: {pack}")
+        if pack.get("evidence_status") not in allowed_evidence_statuses:
+            raise AssertionError(f"{target_path} validation evidence status changed: {pack}")
+        if not pack.get("syntax_reference_paths"):
+            raise AssertionError(f"{target_path} validation evidence lost syntax refs: {pack}")
+        for syntax_path in pack.get("syntax_reference_paths", []) or []:
+            if not (REPO_ROOT / syntax_path).exists():
+                raise AssertionError(f"{target_path} syntax reference does not exist: {syntax_path}")
+        generator_candidate = pack.get("generator_ownership_candidate")
+        if (
+            not isinstance(generator_candidate, dict)
+            or generator_candidate.get("status") not in allowed_evidence_statuses
+            or generator_candidate.get("planned_source_writer_exists") is not False
+            or generator_candidate.get("source_writer_allowed") is not False
+            or generator_candidate.get("may_write_src") is not False
+            or generator_candidate.get("writes_src") is not False
+        ):
+            raise AssertionError(f"{target_path} validation evidence lost generator ownership boundary: {pack}")
+        source_boundary = pack.get("source_target_boundary")
+        if (
+            not isinstance(source_boundary, dict)
+            or source_boundary.get("status") not in allowed_evidence_statuses
+            or source_boundary.get("target_path") != target_path
+            or source_boundary.get("future_target_only") is not True
+            or source_boundary.get("source_writer_allowed") is not False
+            or source_boundary.get("may_write_src") is not False
+            or source_boundary.get("writes_src") is not False
+            or source_boundary.get("source_ready") is not False
+            or source_boundary.get("body_emitted") is not False
+        ):
+            raise AssertionError(f"{target_path} validation evidence lost source-target boundary: {pack}")
+        validation_requirements = pack.get("validation_requirements")
+        if (
+            not isinstance(validation_requirements, dict)
+            or validation_requirements.get("status") not in allowed_evidence_statuses
+            or sorted(validation_requirements.get("required_validations", []) or [])
+            != sorted(preview.get("validation_refs", []) or [])
+            or validation_requirements.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"{target_path} validation evidence lost validation requirements: {pack}")
+        if not pack.get("unresolved_blockers"):
+            raise AssertionError(f"{target_path} validation evidence lost blockers: {pack}")
+        for flag, expected in alhambra_file_flags.items():
+            if pack.get(flag) is not expected:
+                raise AssertionError(f"{target_path} validation evidence lost {flag}: {pack}")
+        for ref in pack.get("source_body_candidate_refs", []) or []:
+            validation_source_refs.add(
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+            )
+    if len(validation_source_refs) != 45:
+        raise AssertionError(f"Alhambra validation evidence unique source refs changed: {len(validation_source_refs)}")
+
+    english_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        alhambra_file_targets["english"],
+    )
+    simp_chinese_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        alhambra_file_targets["simp_chinese"],
+    )
+    for localization_pack, language in (
+        (english_validation_pack, "english"),
+        (simp_chinese_validation_pack, "simp_chinese"),
+    ):
+        boundary = localization_pack.get("localization_language_boundary")
+        if (
+            localization_pack.get("localization_language") != language
+            or not isinstance(boundary, dict)
+            or boundary.get("language") != language
+            or set(boundary.get("required_languages", [])) != {"english", "simp_chinese"}
+            or boundary.get("language_target_paths") != {
+                "english": alhambra_file_targets["english"],
+                "simp_chinese": alhambra_file_targets["simp_chinese"],
+            }
+            or boundary.get("separate_language_target") is not True
+            or boundary.get("may_write_src") is not False
+            or boundary.get("writes_src") is not False
+            or boundary.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"{language} validation evidence lost localization split boundary: {localization_pack}")
+
+    listener_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        alhambra_file_targets["listener"],
+    )
+    listener_linkage = listener_validation_pack.get("listener_linkage_evidence")
+    if not isinstance(listener_linkage, dict):
+        raise AssertionError(f"Alhambra listener validation evidence lost linkage block: {listener_validation_pack}")
+    hook_plan = listener_linkage.get("on_action_hook_linkage_plan")
+    if not isinstance(hook_plan, dict) or not {"on_pre_winning_war", "on_ending_war"} <= set(
+        hook_plan.get("hooks", []) or []
+    ):
+        raise AssertionError(f"Alhambra listener validation evidence lost hooks: {listener_validation_pack}")
+    if not isinstance(listener_linkage.get("selected_ritual_trigger_linkage"), dict):
+        raise AssertionError(f"Alhambra listener validation evidence lost selected trigger: {listener_validation_pack}")
+    war_scope = listener_linkage.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(war_scope, dict)
+        or war_scope.get("persistence_contract_only") is not True
+        or war_scope.get("war_scope_writes_allowed") is not False
+    ):
+        raise AssertionError(f"Alhambra listener validation evidence lost war-scope boundary: {listener_validation_pack}")
+
+    def assert_alhambra_file_validation_error(name: str, report: dict, needle: str) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_file_validation_evidence(report)
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source file validation evidence negative was not caught: {errors}")
+
+    missing_target_validation = deepcopy(alhambra_source_file_validation_evidence)
+    missing_target_validation["evidence_packs"] = [
+        pack
+        for pack in missing_target_validation["evidence_packs"]
+        if pack.get("target_path") != alhambra_file_targets["english"]
+    ]
+    assert_alhambra_file_validation_error(
+        "missing target",
+        missing_target_validation,
+        "missing required target path",
+    )
+
+    wrong_artifact_count_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        wrong_artifact_count_validation,
+        alhambra_file_targets["event"],
+    )["artifact_count"] = 9
+    assert_alhambra_file_validation_error(
+        "wrong artifact count",
+        wrong_artifact_count_validation,
+        "artifact_count mismatch",
+    )
+
+    missing_syntax_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        missing_syntax_validation,
+        alhambra_file_targets["trigger"],
+    )["syntax_reference_paths"] = []
+    assert_alhambra_file_validation_error(
+        "missing syntax refs",
+        missing_syntax_validation,
+        "missing syntax_reference_paths",
+    )
+
+    missing_generator_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_generator_validation,
+        alhambra_file_targets["effect_cleanup"],
+    )["generator_ownership_candidate"]
+    assert_alhambra_file_validation_error(
+        "missing generator ownership",
+        missing_generator_validation,
+        "missing generator ownership candidate",
+    )
+
+    missing_boundary_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_boundary_validation,
+        alhambra_file_targets["gui"],
+    )["source_target_boundary"]
+    assert_alhambra_file_validation_error(
+        "missing source target boundary",
+        missing_boundary_validation,
+        "missing source target boundary",
+    )
+
+    missing_requirements_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_requirements_validation,
+        alhambra_file_targets["event"],
+    )["validation_requirements"]
+    assert_alhambra_file_validation_error(
+        "missing validation requirements",
+        missing_requirements_validation,
+        "missing validation requirements",
+    )
+
+    no_blockers_validation = deepcopy(alhambra_source_file_validation_evidence)
+    no_blockers_pack = _alhambra_source_file_validation_pack(no_blockers_validation, alhambra_file_targets["listener"])
+    no_blockers_pack["unresolved_blockers"] = []
+    no_blockers_pack["unresolved_writer_blockers"] = []
+    assert_alhambra_file_validation_error(
+        "cleared blockers",
+        no_blockers_validation,
+        "unresolved blockers must not be empty",
+    )
+
+    writable_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        writable_validation,
+        alhambra_file_targets["effect_cleanup"],
+    )["may_write_src"] = True
+    assert_alhambra_file_validation_error(
+        "may_write_src",
+        writable_validation,
+        "may_write_src must be false",
+    )
+
+    writes_src_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        writes_src_validation,
+        alhambra_file_targets["trigger"],
+    )["validation_requirements"]["writes_src"] = True
+    assert_alhambra_file_validation_error(
+        "writes_src",
+        writes_src_validation,
+        "writes_src must be false",
+    )
+
+    source_writer_allowed_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        source_writer_allowed_validation,
+        alhambra_file_targets["gui"],
+    )["source_target_boundary"]["source_writer_allowed"] = True
+    assert_alhambra_file_validation_error(
+        "source_writer_allowed",
+        source_writer_allowed_validation,
+        "source_writer_allowed must be false",
+    )
+
+    source_ready_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        source_ready_validation,
+        alhambra_file_targets["event"],
+    )["source_ready"] = True
+    assert_alhambra_file_validation_error(
+        "source_ready",
+        source_ready_validation,
+        "source_ready/verified/backend_ready",
+    )
+
+    verified_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        verified_validation,
+        alhambra_file_targets["event"],
+    )["verified"] = True
+    assert_alhambra_file_validation_error(
+        "verified",
+        verified_validation,
+        "source_ready/verified/backend_ready",
+    )
+
+    backend_ready_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        backend_ready_validation,
+        alhambra_file_targets["listener"],
+    )["generator_ownership_candidate"]["backend_ready"] = True
+    assert_alhambra_file_validation_error(
+        "backend_ready",
+        backend_ready_validation,
+        "source_ready/verified/backend_ready",
+    )
+
+    verified_status_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        verified_status_validation,
+        alhambra_file_targets["trigger"],
+    )["evidence_status"] = "verified"
+    assert_alhambra_file_validation_error(
+        "verified status",
+        verified_status_validation,
+        "status must be interface_candidate or blocked",
+    )
+
+    collapsed_localization_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        collapsed_localization_validation,
+        alhambra_file_targets["english"],
+    )["localization_language_boundary"]["language_target_paths"]["simp_chinese"] = alhambra_file_targets["english"]
+    assert_alhambra_file_validation_error(
+        "merged localization boundary",
+        collapsed_localization_validation,
+        "target paths must stay split",
+    )
+
+    missing_listener_hook_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_listener_hook_validation,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_evidence"]["on_action_hook_linkage_plan"]
+    assert_alhambra_file_validation_error(
+        "missing listener hook",
+        missing_listener_hook_validation,
+        "hook linkage",
+    )
+
+    missing_listener_trigger_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_listener_trigger_validation,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_evidence"]["selected_ritual_trigger_linkage"]
+    assert_alhambra_file_validation_error(
+        "missing listener trigger",
+        missing_listener_trigger_validation,
+        "selected ritual trigger linkage",
+    )
+
+    missing_listener_war_scope_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_listener_war_scope_validation,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_evidence"]["war_scope_availability_persistence_plan"]
+    assert_alhambra_file_validation_error(
+        "missing listener war scope",
+        missing_listener_war_scope_validation,
+        "war-scope boundary",
     )
 
     non_monthly_errors = validate_spec_payload(
