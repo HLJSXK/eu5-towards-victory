@@ -3236,8 +3236,14 @@ def main() -> None:
     }
     readiness_family_counts = {family: 0 for family in expected_preview_family_counts}
     readiness_identities: set[tuple[str, str, str]] = set()
-    event_closure_pilots: set[str] = set()
-    localization_closure_pilots: set[str] = set()
+    closure_family_counts = {
+        "event": 0,
+        "localization": 0,
+        "effect": 0,
+        "cleanup": 0,
+        "trigger": 0,
+    }
+    closure_pilots_by_family = {family: set() for family in closure_family_counts}
     for entry_readiness in source_writer_readiness.get("entries", []) or []:
         if entry_readiness.get("source_writer_allowed") is not False:
             raise AssertionError(f"entry source-writer readiness source_writer_allowed changed: {entry_readiness}")
@@ -3274,7 +3280,8 @@ def main() -> None:
             if not artifact.get("unresolved_writer_blockers"):
                 raise AssertionError(f"source-writer readiness lost blockers: {artifact}")
             if family == "event":
-                event_closure_pilots.add(str(artifact.get("pilot_key", "")))
+                closure_family_counts["event"] += 1
+                closure_pilots_by_family["event"].add(str(artifact.get("pilot_key", "")))
                 closure = artifact.get("closure_contract")
                 if not isinstance(closure, dict):
                     raise AssertionError(f"event readiness lost closure contract: {artifact}")
@@ -3310,7 +3317,8 @@ def main() -> None:
                 ):
                     raise AssertionError(f"event closure lost hidden-executor/tooltip safety: {closure}")
             elif family == "localization":
-                localization_closure_pilots.add(str(artifact.get("pilot_key", "")))
+                closure_family_counts["localization"] += 1
+                closure_pilots_by_family["localization"].add(str(artifact.get("pilot_key", "")))
                 closure = artifact.get("closure_contract")
                 if not isinstance(closure, dict):
                     raise AssertionError(f"localization readiness lost closure contract: {artifact}")
@@ -3356,9 +3364,158 @@ def main() -> None:
                     or escaping.get("writes_file") is not False
                 ):
                     raise AssertionError(f"localization closure lost escaping/BOM boundary: {closure}")
+            elif family == "effect":
+                closure_family_counts["effect"] += 1
+                closure_pilots_by_family["effect"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"effect readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_effect_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"effect closure future target changed: {closure}")
+                if closure.get("source_type") != "common/scripted_effects":
+                    raise AssertionError(f"effect closure source type changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"effect closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"effect closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("effect_body_writes_allowed") is not False
+                    or closure.get("row_state_writes_allowed") is not False
+                    or closure.get("row_state_write_schema_allowed") is not False
+                ):
+                    raise AssertionError(f"effect closure allowed scripted-effect writes: {closure}")
+                operation_coverage = closure.get("effect_operation_coverage")
+                required_operations = {
+                    "row_init",
+                    "row_state_write",
+                    "branch_write",
+                    "aggregate_refresh",
+                    "cleanup_write_handoff",
+                }
+                if (
+                    not isinstance(operation_coverage, dict)
+                    or not required_operations <= set(operation_coverage.get("required_operations", []))
+                    or operation_coverage.get("effect_body_emitted") is not False
+                ):
+                    raise AssertionError(f"effect closure lost operation coverage: {closure}")
+                schema_boundary = closure.get("row_state_schema_boundary")
+                if (
+                    not isinstance(schema_boundary, dict)
+                    or schema_boundary.get("schema_contract_only") is not True
+                    or schema_boundary.get("row_state_write_schema_allowed") is not False
+                    or not schema_boundary.get("entity_keys")
+                ):
+                    raise AssertionError(f"effect closure lost row-state schema boundary: {closure}")
+                aggregate_boundary = closure.get("aggregate_refresh_boundary")
+                if (
+                    not isinstance(aggregate_boundary, dict)
+                    or not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+                    or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+                    or aggregate_boundary.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"effect closure lost aggregate refresh boundary: {closure}")
+                cleanup_handoff = closure.get("cleanup_write_handoff")
+                if (
+                    not isinstance(cleanup_handoff, dict)
+                    or cleanup_handoff.get("handoff_only") is not True
+                    or cleanup_handoff.get("cleanup_source_writer_allowed") is not False
+                    or cleanup_handoff.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"effect closure lost cleanup write handoff: {closure}")
+            elif family == "cleanup":
+                closure_family_counts["cleanup"] += 1
+                closure_pilots_by_family["cleanup"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"cleanup readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_effect_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"cleanup closure future target changed: {closure}")
+                if closure.get("source_type") != "common/scripted_effects":
+                    raise AssertionError(f"cleanup closure source type changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"cleanup closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"cleanup closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("effect_body_writes_allowed") is not False
+                    or closure.get("row_state_write_schema_allowed") is not False
+                ):
+                    raise AssertionError(f"cleanup closure allowed scripted-effect writes: {closure}")
+                if (
+                    closure.get("cleanup_lifecycle_scope")
+                    != REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_CLEANUP_SCOPES[artifact["artifact_kind"]]
+                ):
+                    raise AssertionError(f"cleanup closure lost lifecycle scope: {closure}")
+                coverage = closure.get("cleanup_coverage")
+                if (
+                    not isinstance(coverage, dict)
+                    or not {"completion", "failure", "ownership_loss", "ritual_reset"} <= set(coverage)
+                ):
+                    raise AssertionError(f"cleanup closure lost cleanup coverage: {closure}")
+                ownership_reset = closure.get("ownership_reset_branch_boundary")
+                if (
+                    not isinstance(ownership_reset, dict)
+                    or not {"ownership_loss", "ritual_reset"} <= set(ownership_reset.get("required_branches", []))
+                    or ownership_reset.get("ownership_loss_planned") is not True
+                    or ownership_reset.get("ritual_reset_planned") is not True
+                ):
+                    raise AssertionError(f"cleanup closure lost ownership/reset branch: {closure}")
+                lifecycle = closure.get("row_entity_lifecycle_coverage")
+                if (
+                    not isinstance(lifecycle, dict)
+                    or not lifecycle.get("entity_keys")
+                    or lifecycle.get("row_state_write_schema_allowed") is not False
+                ):
+                    raise AssertionError(f"cleanup closure lost row/entity lifecycle coverage: {closure}")
+                aggregate_boundary = closure.get("aggregate_projection_boundary")
+                if (
+                    not isinstance(aggregate_boundary, dict)
+                    or not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+                    or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+                    or aggregate_boundary.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"cleanup closure lost aggregate projection boundary: {closure}")
+            elif family == "trigger":
+                closure_family_counts["trigger"] += 1
+                closure_pilots_by_family["trigger"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"trigger readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_trigger_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"trigger closure future target changed: {closure}")
+                if closure.get("source_type") != "common/scripted_triggers":
+                    raise AssertionError(f"trigger closure source type changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"trigger closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"trigger closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("trigger_body_writes_allowed") is not False
+                    or closure.get("tooltip_safe_unsafe_write_paths_allowed") is not False
+                ):
+                    raise AssertionError(f"trigger closure allowed scripted-trigger writes: {closure}")
+                condition_coverage = closure.get("condition_group_coverage")
+                if (
+                    not isinstance(condition_coverage, dict)
+                    or not {"eligibility", "row_completion", "tooltip_safe"}
+                    <= set(condition_coverage.get("required_groups", []))
+                    or not isinstance(condition_coverage.get("eligibility"), dict)
+                    or not isinstance(condition_coverage.get("row_completion"), dict)
+                    or not isinstance(condition_coverage.get("tooltip_safe"), dict)
+                ):
+                    raise AssertionError(f"trigger closure lost condition group coverage: {closure}")
+                forbidden_paths = closure.get("forbidden_write_paths")
+                if (
+                    not isinstance(forbidden_paths, dict)
+                    or not {"tooltip", "pre_evaluation"} <= set(forbidden_paths.get("forbidden_contexts", []))
+                    or forbidden_paths.get("unsafe_effect_calls_allowed") is not False
+                    or forbidden_paths.get("row_state_writes_allowed") is not False
+                    or forbidden_paths.get("source_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"trigger closure lost forbidden write paths: {closure}")
             else:
                 if "closure_contract" in artifact:
-                    raise AssertionError(f"non-event/localization artifact received closure contract: {artifact}")
+                    raise AssertionError(f"non-closure readiness artifact received closure contract: {artifact}")
             for evidence_field in readiness_evidence_fields:
                 evidence = artifact.get(evidence_field)
                 if not isinstance(evidence, dict):
@@ -3378,10 +3535,18 @@ def main() -> None:
     for family, expected_count in expected_preview_family_counts.items():
         if readiness_family_counts[family] != expected_count:
             raise AssertionError(f"expected {expected_count} {family} readiness artifacts, got {readiness_family_counts[family]}")
-    if event_closure_pilots != set(REPEATED_ROW_PILOTS):
-        raise AssertionError(f"event closure pilot coverage changed: {event_closure_pilots}")
-    if localization_closure_pilots != set(REPEATED_ROW_PILOTS):
-        raise AssertionError(f"localization closure pilot coverage changed: {localization_closure_pilots}")
+    expected_closure_family_counts = {
+        "event": 32,
+        "localization": 40,
+        "effect": 40,
+        "cleanup": 32,
+        "trigger": 24,
+    }
+    for family, expected_count in expected_closure_family_counts.items():
+        if closure_family_counts[family] != expected_count:
+            raise AssertionError(f"expected {expected_count} {family} closure artifacts, got {closure_family_counts[family]}")
+        if closure_pilots_by_family[family] != set(REPEATED_ROW_PILOTS):
+            raise AssertionError(f"{family} closure pilot coverage changed: {closure_pilots_by_family[family]}")
 
     missing_preview_readiness = deepcopy(source_writer_readiness)
     _first_readiness_artifact(missing_preview_readiness, "event")["preview_exists"] = False
@@ -3552,6 +3717,166 @@ def main() -> None:
     event_closure_ready_errors = validate_repeated_entity_row_source_writer_readiness(event_closure_ready_readiness)
     if not any("event closure must stay blocked" in error for error in event_closure_ready_errors):
         raise AssertionError(f"event closure verified negative was not caught: {event_closure_ready_errors}")
+
+    missing_effect_schema_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_effect_schema_readiness, "effect")["closure_contract"][
+        "row_state_schema_boundary"
+    ]
+    missing_effect_schema_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_effect_schema_readiness
+    )
+    if not any("effect closure missing row-state schema boundary" in error for error in missing_effect_schema_errors):
+        raise AssertionError(
+            f"missing effect row-state schema closure negative was not caught: {missing_effect_schema_errors}"
+        )
+
+    missing_effect_aggregate_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_effect_aggregate_readiness, "effect")["closure_contract"][
+        "aggregate_refresh_boundary"
+    ] = {}
+    missing_effect_aggregate_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_effect_aggregate_readiness
+    )
+    if not any("effect closure missing aggregate refresh boundary" in error for error in missing_effect_aggregate_errors):
+        raise AssertionError(
+            f"missing effect aggregate refresh closure negative was not caught: {missing_effect_aggregate_errors}"
+        )
+
+    missing_effect_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_effect_path_readiness, "effect")["closure_contract"][
+        "future_source_target_path"
+    ] = ""
+    missing_effect_path_errors = validate_repeated_entity_row_source_writer_readiness(missing_effect_path_readiness)
+    if not any("effect closure missing future target path" in error for error in missing_effect_path_errors):
+        raise AssertionError(f"missing effect target closure negative was not caught: {missing_effect_path_errors}")
+
+    missing_cleanup_lifecycle_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_cleanup_lifecycle_readiness, "cleanup")["closure_contract"][
+        "cleanup_lifecycle_scope"
+    ] = ""
+    missing_cleanup_lifecycle_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_cleanup_lifecycle_readiness
+    )
+    if not any("cleanup closure missing lifecycle scope" in error for error in missing_cleanup_lifecycle_errors):
+        raise AssertionError(
+            f"missing cleanup lifecycle closure negative was not caught: {missing_cleanup_lifecycle_errors}"
+        )
+
+    missing_cleanup_coverage_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_cleanup_coverage_readiness, "cleanup")["closure_contract"][
+        "cleanup_coverage"
+    ] = {}
+    missing_cleanup_coverage_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_cleanup_coverage_readiness
+    )
+    if not any("cleanup closure missing cleanup coverage" in error for error in missing_cleanup_coverage_errors):
+        raise AssertionError(
+            f"missing cleanup coverage closure negative was not caught: {missing_cleanup_coverage_errors}"
+        )
+
+    missing_cleanup_ownership_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_cleanup_ownership_readiness, "cleanup")["closure_contract"][
+        "ownership_reset_branch_boundary"
+    ] = {}
+    missing_cleanup_ownership_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_cleanup_ownership_readiness
+    )
+    if not any("cleanup closure missing ownership/reset branch" in error for error in missing_cleanup_ownership_errors):
+        raise AssertionError(
+            f"missing cleanup ownership/reset closure negative was not caught: {missing_cleanup_ownership_errors}"
+        )
+
+    missing_trigger_eligibility_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_trigger_eligibility_readiness, "trigger")["closure_contract"][
+        "condition_group_coverage"
+    ]["eligibility"] = {}
+    missing_trigger_eligibility_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_trigger_eligibility_readiness
+    )
+    if not any("trigger closure missing eligibility plan" in error for error in missing_trigger_eligibility_errors):
+        raise AssertionError(
+            f"missing trigger eligibility closure negative was not caught: {missing_trigger_eligibility_errors}"
+        )
+
+    missing_trigger_row_completion_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_trigger_row_completion_readiness, "trigger")["closure_contract"][
+        "condition_group_coverage"
+    ]["row_completion"] = {}
+    missing_trigger_row_completion_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_trigger_row_completion_readiness
+    )
+    if not any("trigger closure missing row_completion plan" in error for error in missing_trigger_row_completion_errors):
+        raise AssertionError(
+            "missing trigger row-completion closure negative was not caught: "
+            f"{missing_trigger_row_completion_errors}"
+        )
+
+    missing_trigger_tooltip_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_trigger_tooltip_readiness, "trigger")["closure_contract"][
+        "condition_group_coverage"
+    ]["tooltip_safe"] = {}
+    missing_trigger_tooltip_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_trigger_tooltip_readiness
+    )
+    if not any("trigger closure missing tooltip_safe plan" in error for error in missing_trigger_tooltip_errors):
+        raise AssertionError(
+            f"missing trigger tooltip-safe closure negative was not caught: {missing_trigger_tooltip_errors}"
+        )
+
+    missing_trigger_forbidden_paths_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_trigger_forbidden_paths_readiness, "trigger")["closure_contract"][
+        "forbidden_write_paths"
+    ] = {}
+    missing_trigger_forbidden_paths_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_trigger_forbidden_paths_readiness
+    )
+    if not any("trigger closure missing forbidden write paths" in error for error in missing_trigger_forbidden_paths_errors):
+        raise AssertionError(
+            f"missing trigger forbidden write paths negative was not caught: {missing_trigger_forbidden_paths_errors}"
+        )
+
+    effect_closure_writable_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(effect_closure_writable_readiness, "effect")["closure_contract"]["may_write_src"] = True
+    effect_closure_writable_errors = validate_repeated_entity_row_source_writer_readiness(
+        effect_closure_writable_readiness
+    )
+    if not any("effect closure may_write_src must be false" in error for error in effect_closure_writable_errors):
+        raise AssertionError(f"effect closure may_write_src negative was not caught: {effect_closure_writable_errors}")
+
+    cleanup_closure_writes_src_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(cleanup_closure_writes_src_readiness, "cleanup")["closure_contract"]["writes_src"] = True
+    cleanup_closure_writes_src_errors = validate_repeated_entity_row_source_writer_readiness(
+        cleanup_closure_writes_src_readiness
+    )
+    if not any("cleanup closure writes_src must be false" in error for error in cleanup_closure_writes_src_errors):
+        raise AssertionError(
+            f"cleanup closure writes_src negative was not caught: {cleanup_closure_writes_src_errors}"
+        )
+
+    trigger_closure_source_writer_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(trigger_closure_source_writer_readiness, "trigger")["closure_contract"][
+        "source_writer_allowed"
+    ] = True
+    trigger_closure_source_writer_errors = validate_repeated_entity_row_source_writer_readiness(
+        trigger_closure_source_writer_readiness
+    )
+    if not any("trigger closure source_writer_allowed must be false" in error for error in trigger_closure_source_writer_errors):
+        raise AssertionError(
+            "trigger closure source_writer_allowed negative was not caught: "
+            f"{trigger_closure_source_writer_errors}"
+        )
+
+    trigger_closure_backend_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(trigger_closure_backend_ready_readiness, "trigger")["closure_contract"][
+        "readiness_status"
+    ] = "backend_ready"
+    trigger_closure_backend_ready_errors = validate_repeated_entity_row_source_writer_readiness(
+        trigger_closure_backend_ready_readiness
+    )
+    if not any("trigger closure must stay blocked" in error for error in trigger_closure_backend_ready_errors):
+        raise AssertionError(
+            f"trigger closure backend_ready negative was not caught: {trigger_closure_backend_ready_errors}"
+        )
 
     writable_readiness = deepcopy(source_writer_readiness)
     _first_readiness_artifact(writable_readiness, "effect")["may_write_src"] = True

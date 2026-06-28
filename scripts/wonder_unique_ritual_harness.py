@@ -7277,6 +7277,246 @@ def _repeated_row_localization_source_writer_closure_contract(
     }
 
 
+def _repeated_row_effect_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(
+        preview_data.get("aggregate_projection_refs") or artifact.get("aggregate_projection_variables")
+    )
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    operation_by_artifact = {
+        "scripted_effect_row_init": "row_init",
+        "scripted_effect_row_state_write": "row_state_write",
+        "scripted_effect_branch_write": "branch_write",
+        "scripted_effect_aggregate_refresh": "aggregate_refresh",
+        "scripted_effect_cleanup_write": "cleanup_write_handoff",
+    }
+    active_operation = operation_by_artifact.get(artifact_kind, "")
+    required_operations = [
+        "row_init",
+        "row_state_write",
+        "branch_write",
+        "aggregate_refresh",
+        "cleanup_write_handoff",
+    ]
+    return {
+        "contract_family": "effect",
+        "pilot_key": pilot_key,
+        "artifact_kind": artifact_kind,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_type": "common/scripted_effects",
+        "effect_body_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "row_state_write_schema_allowed": False,
+        "source_body_preview": dict(preview_data.get("source_body_preview", {})),
+        "future_effect_name_plan": dict(preview_data.get("future_effect_name_plan", {})),
+        "effect_operation_coverage": {
+            "required_operations": required_operations,
+            "active_operation": active_operation,
+            "row_init": artifact_kind == "scripted_effect_row_init",
+            "row_state_write": artifact_kind == "scripted_effect_row_state_write",
+            "branch_write": artifact_kind == "scripted_effect_branch_write",
+            "aggregate_refresh": artifact_kind == "scripted_effect_aggregate_refresh",
+            "cleanup_write_handoff": artifact_kind == "scripted_effect_cleanup_write",
+            "coverage_only": True,
+            "effect_body_emitted": False,
+        },
+        "row_state_schema_boundary": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+            "row_entity_refs": dict(preview_data.get("row_entity_refs", {})),
+            "schema_contract_only": True,
+            "row_state_writes_allowed": False,
+            "row_state_write_schema_allowed": False,
+            "source_target_boundary": str(artifact.get("source_target_boundary", "")),
+        },
+        "aggregate_refresh_boundary": {
+            "aggregate_projection_refs": aggregate_projection_refs,
+            "aggregate_projection_boundary": str(
+                contract.get(
+                    "aggregate_projection_boundary",
+                    preview_data.get("aggregate_projection_boundary", ""),
+                )
+            ),
+            "aggregate_refresh_operation": artifact_kind == "scripted_effect_aggregate_refresh",
+            "projection_only": True,
+            "body_emitted": False,
+        },
+        "cleanup_write_handoff": {
+            "handoff_only": True,
+            "cleanup_lifecycle_scope": str(contract.get("cleanup_lifecycle_scope", "")),
+            "effect_cleanup_artifact": artifact_kind == "scripted_effect_cleanup_write",
+            "handoff_responsibility": dict(preview_data.get("handoff_responsibility", {})),
+            "cleanup_source_writer_allowed": False,
+            "row_state_writes_allowed": False,
+            "body_emitted": False,
+        },
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "blocker_reasons": _string_refs(contract.get("blocker_reasons")),
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": future_target,
+    }
+
+
+def _repeated_row_cleanup_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(
+        preview_data.get("aggregate_projection_refs") or artifact.get("aggregate_projection_variables")
+    )
+    cleanup_coverage = dict(preview_data.get("cleanup_coverage", {}))
+    cleanup_coverage.setdefault("coverage_group", list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES))
+    cleanup_scope = str(contract.get("cleanup_lifecycle_scope", ""))
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    return {
+        "contract_family": "cleanup",
+        "pilot_key": pilot_key,
+        "artifact_kind": artifact_kind,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_type": "common/scripted_effects",
+        "effect_body_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "row_state_write_schema_allowed": False,
+        "source_body_preview": dict(preview_data.get("source_body_preview", {})),
+        "cleanup_lifecycle_scope": cleanup_scope,
+        "cleanup_coverage": cleanup_coverage,
+        "cleanup_scope_plan": dict(preview_data.get("cleanup_scope_plan", {})),
+        "ownership_reset_branch_boundary": {
+            "required_branches": ["ownership_loss", "ritual_reset"],
+            "ownership_loss_cleanup_artifact_kind": "cleanup_ownership_loss",
+            "ritual_reset_cleanup_artifact_kind": "cleanup_ritual_reset",
+            "ownership_loss_planned": "ownership_loss" in _string_refs(cleanup_coverage.get("coverage_group")),
+            "ritual_reset_planned": "ritual_reset" in _string_refs(cleanup_coverage.get("coverage_group")),
+            "unsafe_pre_eval_writes_allowed": False,
+            "effect_body_writes_allowed": False,
+            "body_emitted": False,
+        },
+        "row_entity_lifecycle_coverage": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+            "row_entity_refs": dict(preview_data.get("row_entity_refs", {})),
+            "cleanup_lifecycle_scope": cleanup_scope,
+            "lifecycle_scopes": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES),
+            "schema_contract_only": True,
+            "row_state_write_schema_allowed": False,
+        },
+        "aggregate_projection_boundary": {
+            "aggregate_projection_refs": aggregate_projection_refs,
+            "aggregate_projection_boundary": str(
+                contract.get(
+                    "aggregate_projection_boundary",
+                    preview_data.get("aggregate_projection_boundary", ""),
+                )
+            ),
+            "projection_only": True,
+            "body_emitted": False,
+        },
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "blocker_reasons": _string_refs(contract.get("blocker_reasons")),
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": future_target,
+    }
+
+
+def _repeated_row_trigger_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    aggregate_projection_refs = _string_refs(
+        preview_data.get("aggregate_projection_refs") or artifact.get("aggregate_projection_variables")
+    )
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    eligibility_plan = dict(preview_data.get("eligibility_condition_group_plan", {}))
+    row_completion_plan = dict(preview_data.get("row_completion_condition_group_plan", {}))
+    tooltip_safe_plan = dict(preview_data.get("tooltip_safe_condition_group_plan", {}))
+    return {
+        "contract_family": "trigger",
+        "pilot_key": pilot_key,
+        "artifact_kind": artifact_kind,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_type": "common/scripted_triggers",
+        "trigger_body_writes_allowed": False,
+        "tooltip_safe_unsafe_write_paths_allowed": False,
+        "source_body_preview": dict(preview_data.get("source_body_preview", {})),
+        "future_trigger_name_plan": dict(preview_data.get("future_trigger_name_plan", {})),
+        "condition_group_coverage": {
+            "required_groups": ["eligibility", "row_completion", "tooltip_safe"],
+            "active_group": {
+                "scripted_trigger_eligibility": "eligibility",
+                "scripted_trigger_row_completion": "row_completion",
+                "scripted_trigger_tooltip_safe_condition_group": "tooltip_safe",
+            }.get(artifact_kind, ""),
+            "eligibility": eligibility_plan,
+            "row_completion": row_completion_plan,
+            "tooltip_safe": tooltip_safe_plan,
+            "predicate_group_only": True,
+        },
+        "forbidden_write_paths": {
+            "forbidden_contexts": ["tooltip", "pre_evaluation"],
+            "tooltip_context_write_paths_allowed": False,
+            "pre_evaluation_write_paths_allowed": False,
+            "unsafe_effect_calls_allowed": False,
+            "row_state_writes_allowed": False,
+            "source_writes_allowed": False,
+            "tooltip_safe_unsafe_write_paths_allowed": False,
+        },
+        "aggregate_projection_boundary": {
+            "aggregate_projection_refs": aggregate_projection_refs,
+            "aggregate_projection_boundary": str(
+                contract.get(
+                    "aggregate_projection_boundary",
+                    preview_data.get("aggregate_boundary", ""),
+                )
+            ),
+            "projection_only": True,
+        },
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "blocker_reasons": _string_refs(contract.get("blocker_reasons")),
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": future_target,
+    }
+
+
 def _repeated_row_source_writer_closure_contract(
     *,
     artifact: dict[str, Any],
@@ -7292,6 +7532,24 @@ def _repeated_row_source_writer_closure_contract(
         )
     if contract_family == "localization":
         return _repeated_row_localization_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "effect":
+        return _repeated_row_effect_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "cleanup":
+        return _repeated_row_cleanup_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "trigger":
+        return _repeated_row_trigger_source_writer_closure_contract(
             artifact=artifact,
             preview_data=preview_data,
             contract=contract,
@@ -7548,6 +7806,7 @@ def _readiness_status_is_forbidden_ready(value: Any) -> bool:
         "source_ready",
         "ready",
         "verified",
+        "backend_ready",
         "source_codegen_ready",
         "implementation_ready",
         "harness_generated",
@@ -7557,7 +7816,53 @@ def _readiness_status_is_forbidden_ready(value: Any) -> bool:
 def _readiness_evidence_claims_verified(evidence: dict[str, Any]) -> bool:
     status = str(evidence.get("status", "")).strip().lower().replace("-", "_")
     evidence_type = str(evidence.get("evidence_type", "")).strip().lower().replace("-", "_")
-    return status in {"verified", "source_ready"} or evidence_type in {"verified", "source_ready"}
+    return status in {"verified", "source_ready", "backend_ready"} or evidence_type in {
+        "verified",
+        "source_ready",
+        "backend_ready",
+    }
+
+
+def _validate_repeated_row_no_write_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    contract_family: str,
+    closure: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    if closure.get("contract_family") != contract_family:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure contract_family changed")
+    if closure.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure source_writer_allowed must be false")
+    if closure.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure may_write_src must be false")
+    if closure.get("writes_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure writes_src must be false")
+    if _readiness_status_is_forbidden_ready(closure.get("readiness_status")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure must stay blocked")
+    if str(closure.get("readiness_status", "")) != "blocked":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure readiness_status must be blocked")
+    for forbidden_field in (
+        "verified",
+        "source_ready",
+        "backend_ready",
+        "source_codegen_ready",
+        "implementation_ready",
+        "harness_generated",
+    ):
+        if forbidden_field in closure:
+            errors.append(
+                f"{pilot_key}: artifact {artifact_kind} {contract_family} closure must not declare {forbidden_field}"
+            )
+    for field, value in closure.items():
+        if field == "readiness_status":
+            continue
+        if field.endswith("status") and _readiness_status_is_forbidden_ready(value):
+            errors.append(
+                f"{pilot_key}: artifact {artifact_kind} {contract_family} closure must not claim source-ready status"
+            )
+    return errors
 
 
 def _validate_repeated_row_event_source_writer_closure_contract(
@@ -7567,7 +7872,12 @@ def _validate_repeated_row_event_source_writer_closure_contract(
     artifact: dict[str, Any],
     closure: dict[str, Any],
 ) -> list[str]:
-    errors: list[str] = []
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="event",
+        closure=closure,
+    )
     wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
     expected_target = f"src/in_game/events/tv_wonder_unique_{wonder_key}_ritual_events.txt"
     if closure.get("source_writer_allowed") is not False:
@@ -7662,7 +7972,12 @@ def _validate_repeated_row_localization_source_writer_closure_contract(
     artifact: dict[str, Any],
     closure: dict[str, Any],
 ) -> list[str]:
-    errors: list[str] = []
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="localization",
+        closure=closure,
+    )
     wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
     expected_pattern = "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
     expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
@@ -7762,6 +8077,265 @@ def _validate_repeated_row_localization_source_writer_closure_contract(
     return errors
 
 
+def _validate_repeated_row_effect_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="effect",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if closure.get("source_type") != "common/scripted_effects":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure source_type changed")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing future target path")
+    if closure.get("effect_body_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure effect_body_writes_allowed must be false")
+    if closure.get("row_state_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure row_state_writes_allowed must be false")
+    if closure.get("row_state_write_schema_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure row_state_write_schema_allowed must be false")
+
+    operation_coverage = closure.get("effect_operation_coverage")
+    operation_by_artifact = {
+        "scripted_effect_row_init": "row_init",
+        "scripted_effect_row_state_write": "row_state_write",
+        "scripted_effect_branch_write": "branch_write",
+        "scripted_effect_aggregate_refresh": "aggregate_refresh",
+        "scripted_effect_cleanup_write": "cleanup_write_handoff",
+    }
+    required_operations = {
+        "row_init",
+        "row_state_write",
+        "branch_write",
+        "aggregate_refresh",
+        "cleanup_write_handoff",
+    }
+    if not isinstance(operation_coverage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing operation coverage")
+    else:
+        if not required_operations <= set(_string_refs(operation_coverage.get("required_operations"))):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing operation coverage")
+        expected_operation = operation_by_artifact.get(artifact_kind, "")
+        if expected_operation and operation_coverage.get(expected_operation) is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing operation coverage")
+        if operation_coverage.get("effect_body_emitted") is not False:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure must not emit effect body")
+
+    schema_boundary = closure.get("row_state_schema_boundary")
+    if not isinstance(schema_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing row-state schema boundary")
+    elif (
+        schema_boundary.get("schema_contract_only") is not True
+        or schema_boundary.get("row_state_writes_allowed") is not False
+        or schema_boundary.get("row_state_write_schema_allowed") is not False
+        or not _string_refs(schema_boundary.get("entity_keys"))
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing row-state schema boundary")
+
+    aggregate_boundary = closure.get("aggregate_refresh_boundary")
+    if not isinstance(aggregate_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing aggregate refresh boundary")
+    elif (
+        not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+        or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+        or aggregate_boundary.get("projection_only") is not True
+        or aggregate_boundary.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing aggregate refresh boundary")
+
+    cleanup_handoff = closure.get("cleanup_write_handoff")
+    if not isinstance(cleanup_handoff, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing cleanup write handoff")
+    elif (
+        cleanup_handoff.get("handoff_only") is not True
+        or cleanup_handoff.get("cleanup_source_writer_allowed") is not False
+        or cleanup_handoff.get("row_state_writes_allowed") is not False
+        or cleanup_handoff.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing cleanup write handoff")
+
+    return errors
+
+
+def _validate_repeated_row_cleanup_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="cleanup",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if closure.get("source_type") != "common/scripted_effects":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure source_type changed")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing future target path")
+    if closure.get("effect_body_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure effect_body_writes_allowed must be false")
+    if closure.get("row_state_write_schema_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure row_state_write_schema_allowed must be false")
+
+    expected_scope = REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES.get(artifact_kind)
+    if closure.get("cleanup_lifecycle_scope") != expected_scope:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing lifecycle scope")
+
+    coverage = closure.get("cleanup_coverage")
+    if not isinstance(coverage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing cleanup coverage")
+    else:
+        missing_coverage = [
+            scope
+            for scope in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES
+            if scope not in coverage
+        ]
+        if missing_coverage:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing cleanup coverage")
+        expected_coverage_key = "ritual_reset" if artifact_kind == "cleanup_ritual_reset" else str(expected_scope)
+        if expected_coverage_key and coverage.get(expected_coverage_key) is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing cleanup coverage")
+
+    ownership_reset = closure.get("ownership_reset_branch_boundary")
+    if not isinstance(ownership_reset, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing ownership/reset branch")
+    else:
+        required_branches = set(_string_refs(ownership_reset.get("required_branches")))
+        if {"ownership_loss", "ritual_reset"} - required_branches:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing ownership/reset branch")
+        if ownership_reset.get("ownership_loss_planned") is not True or ownership_reset.get("ritual_reset_planned") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing ownership/reset branch")
+        if ownership_reset.get("unsafe_pre_eval_writes_allowed") is not False:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing ownership/reset branch")
+
+    lifecycle = closure.get("row_entity_lifecycle_coverage")
+    if not isinstance(lifecycle, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing row/entity lifecycle coverage")
+    elif (
+        not _string_refs(lifecycle.get("entity_keys"))
+        or set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES)
+        - set(_string_refs(lifecycle.get("lifecycle_scopes")))
+        or lifecycle.get("row_state_write_schema_allowed") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing row/entity lifecycle coverage")
+
+    aggregate_boundary = closure.get("aggregate_projection_boundary")
+    if not isinstance(aggregate_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing aggregate projection boundary")
+    elif (
+        not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+        or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+        or aggregate_boundary.get("projection_only") is not True
+        or aggregate_boundary.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing aggregate projection boundary")
+
+    return errors
+
+
+def _validate_repeated_row_trigger_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="trigger",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/in_game/common/scripted_triggers/tv_wonder_unique_<wonder_key>_ritual_triggers.txt"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if closure.get("source_type") != "common/scripted_triggers":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure source_type changed")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing future target path")
+    if closure.get("trigger_body_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure trigger_body_writes_allowed must be false")
+    if closure.get("tooltip_safe_unsafe_write_paths_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} trigger closure tooltip_safe_unsafe_write_paths_allowed must be false"
+        )
+
+    condition_coverage = closure.get("condition_group_coverage")
+    expected_group_by_artifact = {
+        "scripted_trigger_eligibility": "eligibility",
+        "scripted_trigger_row_completion": "row_completion",
+        "scripted_trigger_tooltip_safe_condition_group": "tooltip_safe",
+    }
+    if not isinstance(condition_coverage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing condition group coverage")
+    else:
+        required_groups = {"eligibility", "row_completion", "tooltip_safe"}
+        if required_groups - set(_string_refs(condition_coverage.get("required_groups"))):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing condition group coverage")
+        for group in sorted(required_groups):
+            plan = condition_coverage.get(group)
+            if not isinstance(plan, dict) or not plan:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing {group} plan")
+                continue
+            if plan.get("predicate_group_only") is not True:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure {group} plan must be predicate-only")
+        expected_group = expected_group_by_artifact.get(artifact_kind, "")
+        expected_plan = condition_coverage.get(expected_group) if expected_group else None
+        if not isinstance(expected_plan, dict) or expected_plan.get("planned") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing condition group coverage")
+
+    forbidden_write_paths = closure.get("forbidden_write_paths")
+    if not isinstance(forbidden_write_paths, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing forbidden write paths")
+    else:
+        contexts = set(_string_refs(forbidden_write_paths.get("forbidden_contexts")))
+        if {"tooltip", "pre_evaluation"} - contexts:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing forbidden write paths")
+        for key in (
+            "tooltip_context_write_paths_allowed",
+            "pre_evaluation_write_paths_allowed",
+            "unsafe_effect_calls_allowed",
+            "row_state_writes_allowed",
+            "source_writes_allowed",
+            "tooltip_safe_unsafe_write_paths_allowed",
+        ):
+            if forbidden_write_paths.get(key) is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing forbidden write paths")
+                break
+
+    aggregate_boundary = closure.get("aggregate_projection_boundary")
+    if not isinstance(aggregate_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing aggregate projection boundary")
+    elif (
+        not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+        or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+        or aggregate_boundary.get("projection_only") is not True
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing aggregate projection boundary")
+
+    return errors
+
+
 def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if int(report.get("source_plan_artifact_count", -1)) != 177:
@@ -7856,7 +8430,7 @@ def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any])
             if not unresolved:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing blockers")
 
-            if contract_family in {"event", "localization"}:
+            if contract_family in {"event", "localization", "effect", "cleanup", "trigger"}:
                 closure = artifact.get("closure_contract")
                 if not isinstance(closure, dict):
                     errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure missing closure_contract")
@@ -7869,7 +8443,7 @@ def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any])
                             closure=closure,
                         )
                     )
-                else:
+                elif contract_family == "localization":
                     errors.extend(
                         _validate_repeated_row_localization_source_writer_closure_contract(
                             pilot_key=pilot_key,
@@ -7878,8 +8452,38 @@ def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any])
                             closure=closure,
                         )
                     )
+                elif contract_family == "effect":
+                    errors.extend(
+                        _validate_repeated_row_effect_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                elif contract_family == "cleanup":
+                    errors.extend(
+                        _validate_repeated_row_cleanup_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                elif contract_family == "trigger":
+                    errors.extend(
+                        _validate_repeated_row_trigger_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
             elif "closure_contract" in artifact:
-                errors.append(f"{pilot_key}: artifact {artifact_kind} closure_contract is only supported for event/localization")
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} closure_contract is only supported for "
+                    "event/localization/effect/cleanup/trigger"
+                )
 
             for evidence_key in REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS:
                 evidence = artifact.get(evidence_key)

@@ -136,6 +136,14 @@ the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src
 `source_writer_allowed: false`, and `readiness_status: blocked`. They do not grant source
 generation permission, do not assign new event IDs or localization files, do not write
 `src/`, and do not promote any spec or artifact to source-ready.
+The scripted-effect, cleanup, and scripted-trigger vertical slices are also closure
+contracts in the readiness ledger. They close state and condition semantics for row
+initialization, row-state write boundaries, branch writes, aggregate refreshes, cleanup
+handoffs, completion/failure/ownership-loss/reset cleanup, eligibility checks,
+row-completion checks, and tooltip-safe condition groups. They still only describe
+future target paths and forbidden write contexts; they do not enable a source writer, do
+not emit scripted effect or scripted trigger bodies, and do not authorize tooltip or
+pre-evaluation contexts to call unsafe write paths.
 Repeated-row scripted-effect and cleanup source-target contracts are the matching
 source-writer preflight layer for `common/scripted_effects`. They name the future
 scripted-effect file pattern
