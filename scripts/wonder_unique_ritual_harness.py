@@ -3478,6 +3478,13 @@ REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_tooltips": "tooltips",
     "localization_summary_text": "summary_text",
 }
+REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS = (
+    "row_labels",
+    "status_text",
+    "incident_text",
+    "tooltips",
+    "summary_text",
+)
 REPEATED_ENTITY_ROW_EVENT_PREVIEW_NODE_INDEX = {
     "event_opening_skeleton": 0,
     "event_update_skeleton": 1,
@@ -7132,6 +7139,166 @@ def _repeated_row_source_writer_evidence_block(
     }
 
 
+def _repeated_row_event_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    preview_event_id = preview_data.get("preview_event_id")
+    source_body_preview = dict(preview_data.get("source_body_preview", {}))
+    namespace = str(
+        source_body_preview.get("namespace")
+        or contract.get("namespace_policy")
+        or "tv_engineering_department"
+    )
+    title_key = str(source_body_preview.get("title_key", ""))
+    desc_key = str(source_body_preview.get("desc_key", ""))
+    option_keys = _string_refs(source_body_preview.get("option_keys"))
+    future_target = str(
+        contract.get(
+            "candidate_future_source_target_path",
+            preview_data.get("future_source_target_path", ""),
+        )
+    )
+    return {
+        "contract_family": "event",
+        "pilot_key": pilot_key,
+        "artifact_kind": str(artifact.get("artifact_kind", "")),
+        "wonder_key": wonder_key,
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "namespace": namespace,
+        "event_id_evidence_sources": ["spec.event_ids", "node_graph.nodes[].event_id"],
+        "event_id_evidence": list(preview_data.get("event_id_evidence", []) or []),
+        "node_event_id_evidence": list(preview_data.get("node_event_id_evidence", []) or []),
+        "preview_event_id": preview_event_id,
+        "source_body_preview": source_body_preview,
+        "localization_key_handoff": {
+            "title_key": title_key,
+            "desc_key": desc_key,
+            "option_keys": option_keys,
+            "key_policy": str(contract.get("localization_key_policy", "")),
+            "handoff_only": True,
+            "localization_source_writer_allowed": False,
+        },
+        "option_effect_handoff": dict(preview_data.get("option_effect_handoff", {})),
+        "safety_notes": {
+            "hidden_executor_handoff_only": True,
+            "tooltip_heavy_finalization_allowed": False,
+            "row_state_writes_allowed": False,
+            "source_ready_allowed": False,
+        },
+        "future_source_target_path": future_target,
+        "future_source_target_path_pattern": str(contract.get("future_source_target_path_pattern", "")),
+    }
+
+
+def _repeated_row_localization_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    preview_event_id = preview_data.get("preview_event_id", "<event_id>")
+    event_key_prefix = f"tv_engineering_department.{preview_event_id}"
+    loc_key_plan = list(preview_data.get("loc_key_plan", []) or [])
+    loc_group = str((preview_data.get("source_body_preview") or {}).get("loc_group", ""))
+    namespace = str(preview_data.get("loc_key_namespace", ""))
+    entity_refs = _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys"))
+    row_key_groups: dict[str, list[dict[str, Any]]] = {}
+    for group in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS:
+        loc_scopes = entity_refs if group != "summary_text" else ["summary"]
+        row_key_groups[group] = [
+            {
+                "loc_group": group,
+                "entity_key": entity_key,
+                "keys": {
+                    language: f"{namespace}.{entity_key}.{group}"
+                    for language in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS
+                },
+                "contract_only": True,
+            }
+            for entity_key in loc_scopes
+        ]
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    return {
+        "contract_family": "localization",
+        "pilot_key": pilot_key,
+        "artifact_kind": str(artifact.get("artifact_kind", "")),
+        "wonder_key": wonder_key,
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "language_ownership_boundary": {
+            "required_languages": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS),
+            "english_owner": "src/main_menu/localization/english",
+            "simp_chinese_owner": "src/main_menu/localization/simp_chinese",
+            "missing_bilingual_coverage_allowed": False,
+        },
+        "event_key_handoff": {
+            "title_key": f"{event_key_prefix}.t",
+            "desc_key": f"{event_key_prefix}.d",
+            "option_key_pattern": f"{event_key_prefix}.a",
+            "handoff_only": True,
+            "event_source_writer_allowed": False,
+        },
+        "key_allocation": {
+            "loc_key_namespace": namespace,
+            "loc_group": loc_group,
+            "required_groups": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS),
+            "row_key_groups": row_key_groups,
+            "loc_key_plan": loc_key_plan,
+        },
+        "escaping_bom_boundary": {
+            "loc_line_function": "wonder_mechanics._core.loc_line",
+            "quote_escaped": (preview_data.get("loc_line_policy_probe") or {}).get("quote_escaped"),
+            "newline_escaped": (preview_data.get("loc_line_policy_probe") or {}).get("newline_escaped"),
+            "bom_encoding": (preview_data.get("loc_line_policy_probe") or {}).get("bom_encoding"),
+            "writes_file": False,
+            "unsafe_quote_newline_handling_allowed": False,
+        },
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": str(
+            contract.get(
+                "candidate_future_source_target_path",
+                preview_data.get("future_source_target_path", ""),
+            )
+        ),
+    }
+
+
+def _repeated_row_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+    contract_family: str,
+) -> dict[str, Any] | None:
+    if contract_family == "event":
+        return _repeated_row_event_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "localization":
+        return _repeated_row_localization_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    return None
+
+
 def _repeated_row_source_writer_readiness_artifact(
     *,
     artifact: dict[str, Any],
@@ -7204,7 +7371,7 @@ def _repeated_row_source_writer_readiness_artifact(
     if future_target:
         boundary_paths = sorted(set(boundary_paths + [future_target]))
 
-    return {
+    readiness_artifact = {
         "artifact_kind": artifact_kind,
         "contract_family": contract_family,
         "pilot_key": pilot_key,
@@ -7279,6 +7446,15 @@ def _repeated_row_source_writer_readiness_artifact(
         "may_write_src": False,
         "writes_src": False,
     }
+    closure_contract = _repeated_row_source_writer_closure_contract(
+        artifact=artifact,
+        preview_data=preview_data,
+        contract=contract,
+        contract_family=contract_family,
+    )
+    if closure_contract is not None:
+        readiness_artifact["closure_contract"] = closure_contract
+    return readiness_artifact
 
 
 def _repeated_row_source_writer_readiness_entry(
@@ -7384,6 +7560,208 @@ def _readiness_evidence_claims_verified(evidence: dict[str, Any]) -> bool:
     return status in {"verified", "source_ready"} or evidence_type in {"verified", "source_ready"}
 
 
+def _validate_repeated_row_event_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_target = f"src/in_game/events/tv_wonder_unique_{wonder_key}_ritual_events.txt"
+    if closure.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure source_writer_allowed must be false")
+    if closure.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure may_write_src must be false")
+    if closure.get("writes_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure writes_src must be false")
+    if _readiness_status_is_forbidden_ready(closure.get("readiness_status")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure must stay blocked")
+    if str(closure.get("readiness_status", "")) != "blocked":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure readiness_status must be blocked")
+    if closure.get("namespace") != "tv_engineering_department":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing namespace")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing future target path")
+
+    event_ids = [
+        int(item["event_id"])
+        for item in closure.get("event_id_evidence", []) or []
+        if isinstance(item, dict) and "event_id" in item
+    ]
+    node_event_ids = [
+        int(item["event_id"])
+        for item in closure.get("node_event_id_evidence", []) or []
+        if isinstance(item, dict) and "event_id" in item
+    ]
+    if not event_ids:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing spec event IDs")
+    if not node_event_ids:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing node event IDs")
+    preview_event_id = closure.get("preview_event_id")
+    if preview_event_id not in event_ids or preview_event_id not in node_event_ids:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure must use existing spec/node event ID")
+
+    source_body_preview = closure.get("source_body_preview")
+    if not isinstance(source_body_preview, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing source body preview")
+    else:
+        if source_body_preview.get("namespace") != "tv_engineering_department":
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event body preview missing namespace")
+        if source_body_preview.get("event_id") != preview_event_id:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event body preview missing event id")
+        if source_body_preview.get("no_row_state_write") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure must forbid row-state writes")
+        if source_body_preview.get("no_tooltip_heavy_finalization") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing tooltip safety")
+        if source_body_preview.get("no_source_ready") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure must not be source-ready")
+
+    loc_handoff = closure.get("localization_key_handoff")
+    if not isinstance(loc_handoff, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing localization handoff")
+    else:
+        expected_prefix = f"tv_engineering_department.{preview_event_id}"
+        if loc_handoff.get("handoff_only") is not True or loc_handoff.get("localization_source_writer_allowed") is not False:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure localization handoff must be no-write")
+        if loc_handoff.get("title_key") != f"{expected_prefix}.t":
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing title localization handoff")
+        if loc_handoff.get("desc_key") != f"{expected_prefix}.d":
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing desc localization handoff")
+        option_keys = _string_refs(loc_handoff.get("option_keys"))
+        if f"{expected_prefix}.a" not in option_keys:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing option localization handoff")
+
+    option_handoff = closure.get("option_effect_handoff")
+    if not isinstance(option_handoff, dict) or option_handoff.get("handoff_only") is not True:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing option-effect handoff")
+    elif not str(option_handoff.get("future_scripted_effect_name", "")).startswith(
+        f"tv_wonder_unique_{wonder_key}_ritual_"
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure option-effect handoff is incomplete")
+
+    safety_notes = closure.get("safety_notes")
+    if not isinstance(safety_notes, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing safety notes")
+    elif (
+        safety_notes.get("hidden_executor_handoff_only") is not True
+        or safety_notes.get("tooltip_heavy_finalization_allowed") is not False
+        or safety_notes.get("row_state_writes_allowed") is not False
+        or safety_notes.get("source_ready_allowed") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure safety notes are incomplete")
+
+    return errors
+
+
+def _validate_repeated_row_localization_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if closure.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure source_writer_allowed must be false")
+    if closure.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure may_write_src must be false")
+    if closure.get("writes_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure writes_src must be false")
+    if _readiness_status_is_forbidden_ready(closure.get("readiness_status")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure must stay blocked")
+    if str(closure.get("readiness_status", "")) != "blocked":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure readiness_status must be blocked")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing future target path")
+
+    language_boundary = closure.get("language_ownership_boundary")
+    if not isinstance(language_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing language boundary")
+    else:
+        if set(_string_refs(language_boundary.get("required_languages"))) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing language boundary")
+        if not str(language_boundary.get("english_owner", "")).endswith("english"):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing English boundary")
+        if not str(language_boundary.get("simp_chinese_owner", "")).endswith("simp_chinese"):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing Simplified Chinese boundary")
+        if language_boundary.get("missing_bilingual_coverage_allowed") is not False:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure must forbid missing bilingual coverage")
+
+    event_handoff = closure.get("event_key_handoff")
+    if not isinstance(event_handoff, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing event key handoff")
+    elif (
+        not str(event_handoff.get("title_key", "")).endswith(".t")
+        or not str(event_handoff.get("desc_key", "")).endswith(".d")
+        or not str(event_handoff.get("option_key_pattern", "")).endswith(".a")
+        or event_handoff.get("handoff_only") is not True
+        or event_handoff.get("event_source_writer_allowed") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure event key handoff is incomplete")
+
+    key_allocation = closure.get("key_allocation")
+    if not isinstance(key_allocation, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing key allocation")
+    else:
+        namespace = str(key_allocation.get("loc_key_namespace", ""))
+        if f"tv_wonder_unique_{wonder_key}_ritual" not in namespace:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure key namespace is incomplete")
+        required_groups = set(_string_refs(key_allocation.get("required_groups")))
+        if set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS) - required_groups:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing key allocation groups")
+        row_key_groups = key_allocation.get("row_key_groups")
+        if not isinstance(row_key_groups, dict):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing row key groups")
+        else:
+            missing_groups = [
+                group
+                for group in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS
+                if group not in row_key_groups
+            ]
+            if missing_groups:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing row key groups")
+            loc_group = str(key_allocation.get("loc_group", ""))
+            if loc_group not in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure loc group is invalid")
+            elif not row_key_groups.get(loc_group):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing active loc group keys")
+        loc_key_plan = key_allocation.get("loc_key_plan")
+        if not isinstance(loc_key_plan, list) or not loc_key_plan:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing key allocation")
+        else:
+            for item in loc_key_plan:
+                if not isinstance(item, dict) or not isinstance(item.get("keys"), dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure key allocation item is incomplete")
+                    continue
+                if set(item["keys"]) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing bilingual key allocation")
+                for loc_key in item["keys"].values():
+                    loc_key_text = str(loc_key)
+                    if f"tv_wonder_unique_{wonder_key}_ritual" not in loc_key_text:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure key namespace is incomplete")
+
+    escaping = closure.get("escaping_bom_boundary")
+    if not isinstance(escaping, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing escaping/BOM boundary")
+    elif (
+        escaping.get("quote_escaped") is not True
+        or escaping.get("newline_escaped") is not True
+        or escaping.get("bom_encoding") != "utf-8-sig"
+        or escaping.get("writes_file") is not False
+        or escaping.get("unsafe_quote_newline_handling_allowed") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing escaping/BOM boundary")
+
+    return errors
+
+
 def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if int(report.get("source_plan_artifact_count", -1)) != 177:
@@ -7477,6 +7855,31 @@ def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any])
             unresolved = _string_refs(artifact.get("unresolved_writer_blockers"))
             if not unresolved:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing blockers")
+
+            if contract_family in {"event", "localization"}:
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure missing closure_contract")
+                elif contract_family == "event":
+                    errors.extend(
+                        _validate_repeated_row_event_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                else:
+                    errors.extend(
+                        _validate_repeated_row_localization_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+            elif "closure_contract" in artifact:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} closure_contract is only supported for event/localization")
 
             for evidence_key in REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS:
                 evidence = artifact.get(evidence_key)

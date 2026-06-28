@@ -3236,6 +3236,8 @@ def main() -> None:
     }
     readiness_family_counts = {family: 0 for family in expected_preview_family_counts}
     readiness_identities: set[tuple[str, str, str]] = set()
+    event_closure_pilots: set[str] = set()
+    localization_closure_pilots: set[str] = set()
     for entry_readiness in source_writer_readiness.get("entries", []) or []:
         if entry_readiness.get("source_writer_allowed") is not False:
             raise AssertionError(f"entry source-writer readiness source_writer_allowed changed: {entry_readiness}")
@@ -3271,6 +3273,92 @@ def main() -> None:
                 raise AssertionError(f"source-writer readiness writes_src changed: {artifact}")
             if not artifact.get("unresolved_writer_blockers"):
                 raise AssertionError(f"source-writer readiness lost blockers: {artifact}")
+            if family == "event":
+                event_closure_pilots.add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"event readiness lost closure contract: {artifact}")
+                if closure.get("namespace") != "tv_engineering_department":
+                    raise AssertionError(f"event closure namespace changed: {closure}")
+                if closure.get("future_source_target_path") != _repeated_row_event_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"event closure future target changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"event closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"event closure source-writer boundary changed: {closure}")
+                if not closure.get("event_id_evidence") or not closure.get("node_event_id_evidence"):
+                    raise AssertionError(f"event closure lost event id evidence: {closure}")
+                body = closure.get("source_body_preview")
+                if not isinstance(body, dict) or body.get("namespace") != "tv_engineering_department":
+                    raise AssertionError(f"event closure lost source body preview: {closure}")
+                loc_handoff = closure.get("localization_key_handoff")
+                if not isinstance(loc_handoff, dict) or not {
+                    "title_key",
+                    "desc_key",
+                    "option_keys",
+                } <= set(loc_handoff):
+                    raise AssertionError(f"event closure lost localization handoff: {closure}")
+                option_handoff = closure.get("option_effect_handoff")
+                if not isinstance(option_handoff, dict) or option_handoff.get("handoff_only") is not True:
+                    raise AssertionError(f"event closure lost option-effect handoff: {closure}")
+                safety = closure.get("safety_notes")
+                if (
+                    not isinstance(safety, dict)
+                    or safety.get("hidden_executor_handoff_only") is not True
+                    or safety.get("tooltip_heavy_finalization_allowed") is not False
+                    or safety.get("row_state_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"event closure lost hidden-executor/tooltip safety: {closure}")
+            elif family == "localization":
+                localization_closure_pilots.add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"localization readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path_pattern") != (
+                    "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
+                ):
+                    raise AssertionError(f"localization closure future target pattern changed: {closure}")
+                if closure.get("future_source_target_path") != _repeated_row_localization_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"localization closure future target changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"localization closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"localization closure source-writer boundary changed: {closure}")
+                language_boundary = closure.get("language_ownership_boundary")
+                if (
+                    not isinstance(language_boundary, dict)
+                    or set(language_boundary.get("required_languages", [])) != {"english", "simp_chinese"}
+                    or language_boundary.get("missing_bilingual_coverage_allowed") is not False
+                ):
+                    raise AssertionError(f"localization closure lost bilingual boundary: {closure}")
+                event_handoff = closure.get("event_key_handoff")
+                if not isinstance(event_handoff, dict) or not {
+                    "title_key",
+                    "desc_key",
+                    "option_key_pattern",
+                } <= set(event_handoff):
+                    raise AssertionError(f"localization closure lost event key handoff: {closure}")
+                key_allocation = closure.get("key_allocation")
+                required_groups = {"row_labels", "status_text", "incident_text", "tooltips", "summary_text"}
+                if (
+                    not isinstance(key_allocation, dict)
+                    or not required_groups <= set(key_allocation.get("required_groups", []))
+                    or not required_groups <= set((key_allocation.get("row_key_groups") or {}).keys())
+                    or not key_allocation.get("loc_key_plan")
+                ):
+                    raise AssertionError(f"localization closure lost key allocation: {closure}")
+                escaping = closure.get("escaping_bom_boundary")
+                if (
+                    not isinstance(escaping, dict)
+                    or escaping.get("quote_escaped") is not True
+                    or escaping.get("newline_escaped") is not True
+                    or escaping.get("bom_encoding") != "utf-8-sig"
+                    or escaping.get("writes_file") is not False
+                ):
+                    raise AssertionError(f"localization closure lost escaping/BOM boundary: {closure}")
+            else:
+                if "closure_contract" in artifact:
+                    raise AssertionError(f"non-event/localization artifact received closure contract: {artifact}")
             for evidence_field in readiness_evidence_fields:
                 evidence = artifact.get(evidence_field)
                 if not isinstance(evidence, dict):
@@ -3290,6 +3378,10 @@ def main() -> None:
     for family, expected_count in expected_preview_family_counts.items():
         if readiness_family_counts[family] != expected_count:
             raise AssertionError(f"expected {expected_count} {family} readiness artifacts, got {readiness_family_counts[family]}")
+    if event_closure_pilots != set(REPEATED_ROW_PILOTS):
+        raise AssertionError(f"event closure pilot coverage changed: {event_closure_pilots}")
+    if localization_closure_pilots != set(REPEATED_ROW_PILOTS):
+        raise AssertionError(f"localization closure pilot coverage changed: {localization_closure_pilots}")
 
     missing_preview_readiness = deepcopy(source_writer_readiness)
     _first_readiness_artifact(missing_preview_readiness, "event")["preview_exists"] = False
@@ -3308,6 +3400,158 @@ def main() -> None:
     missing_evidence_errors = validate_repeated_entity_row_source_writer_readiness(missing_evidence_readiness)
     if not any("missing field(s)" in error for error in missing_evidence_errors):
         raise AssertionError(f"missing evidence block readiness negative was not caught: {missing_evidence_errors}")
+
+    missing_event_namespace_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_event_namespace_readiness, "event")["closure_contract"]["namespace"] = ""
+    missing_event_namespace_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_event_namespace_readiness
+    )
+    if not any("event closure missing namespace" in error for error in missing_event_namespace_errors):
+        raise AssertionError(f"missing event namespace closure negative was not caught: {missing_event_namespace_errors}")
+
+    missing_event_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_event_path_readiness, "event")["closure_contract"]["future_source_target_path"] = ""
+    missing_event_path_errors = validate_repeated_entity_row_source_writer_readiness(missing_event_path_readiness)
+    if not any("event closure missing future target path" in error for error in missing_event_path_errors):
+        raise AssertionError(f"missing event target closure negative was not caught: {missing_event_path_errors}")
+
+    missing_event_loc_handoff_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_event_loc_handoff_readiness, "event")["closure_contract"][
+        "localization_key_handoff"
+    ]
+    missing_event_loc_handoff_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_event_loc_handoff_readiness
+    )
+    if not any("event closure missing localization handoff" in error for error in missing_event_loc_handoff_errors):
+        raise AssertionError(
+            f"missing event loc handoff closure negative was not caught: {missing_event_loc_handoff_errors}"
+        )
+
+    missing_event_option_handoff_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_event_option_handoff_readiness, "event")["closure_contract"][
+        "option_effect_handoff"
+    ] = {}
+    missing_event_option_handoff_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_event_option_handoff_readiness
+    )
+    if not any("event closure missing option-effect handoff" in error for error in missing_event_option_handoff_errors):
+        raise AssertionError(
+            f"missing event option handoff closure negative was not caught: {missing_event_option_handoff_errors}"
+        )
+
+    missing_event_safety_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_event_safety_readiness, "event")["closure_contract"]["safety_notes"]
+    missing_event_safety_errors = validate_repeated_entity_row_source_writer_readiness(missing_event_safety_readiness)
+    if not any("event closure missing safety notes" in error for error in missing_event_safety_errors):
+        raise AssertionError(f"missing event safety closure negative was not caught: {missing_event_safety_errors}")
+
+    missing_localization_language_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_localization_language_readiness, "localization")["closure_contract"][
+        "language_ownership_boundary"
+    ]["required_languages"] = ["english"]
+    missing_localization_language_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_language_readiness
+    )
+    if not any("localization closure missing language boundary" in error for error in missing_localization_language_errors):
+        raise AssertionError(
+            f"missing localization language closure negative was not caught: {missing_localization_language_errors}"
+        )
+
+    missing_localization_keys_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_localization_keys_readiness, "localization")["closure_contract"][
+        "key_allocation"
+    ]["loc_key_plan"] = []
+    missing_localization_keys_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_keys_readiness
+    )
+    if not any("localization closure missing key allocation" in error for error in missing_localization_keys_errors):
+        raise AssertionError(
+            f"missing localization key allocation closure negative was not caught: {missing_localization_keys_errors}"
+        )
+
+    missing_localization_event_handoff_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_localization_event_handoff_readiness, "localization")["closure_contract"][
+        "event_key_handoff"
+    ]
+    missing_localization_event_handoff_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_event_handoff_readiness
+    )
+    if not any("localization closure missing event key handoff" in error for error in missing_localization_event_handoff_errors):
+        raise AssertionError(
+            "missing localization event handoff closure negative was not caught: "
+            f"{missing_localization_event_handoff_errors}"
+        )
+
+    missing_localization_bom_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_localization_bom_readiness, "localization")["closure_contract"][
+        "escaping_bom_boundary"
+    ]["bom_encoding"] = "utf-8"
+    missing_localization_bom_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_bom_readiness
+    )
+    if not any("localization closure missing escaping/BOM boundary" in error for error in missing_localization_bom_errors):
+        raise AssertionError(
+            f"missing localization BOM closure negative was not caught: {missing_localization_bom_errors}"
+        )
+
+    missing_localization_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_localization_path_readiness, "localization")["closure_contract"][
+        "future_source_target_path_pattern"
+    ] = ""
+    missing_localization_path_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_path_readiness
+    )
+    if not any("localization closure missing future target path pattern" in error for error in missing_localization_path_errors):
+        raise AssertionError(
+            f"missing localization path closure negative was not caught: {missing_localization_path_errors}"
+        )
+
+    event_closure_writable_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(event_closure_writable_readiness, "event")["closure_contract"]["may_write_src"] = True
+    event_closure_writable_errors = validate_repeated_entity_row_source_writer_readiness(
+        event_closure_writable_readiness
+    )
+    if not any("event closure may_write_src must be false" in error for error in event_closure_writable_errors):
+        raise AssertionError(f"event closure may_write_src negative was not caught: {event_closure_writable_errors}")
+
+    localization_closure_writes_src_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(localization_closure_writes_src_readiness, "localization")["closure_contract"][
+        "writes_src"
+    ] = True
+    localization_closure_writes_src_errors = validate_repeated_entity_row_source_writer_readiness(
+        localization_closure_writes_src_readiness
+    )
+    if not any(
+        "localization closure writes_src must be false" in error
+        for error in localization_closure_writes_src_errors
+    ):
+        raise AssertionError(
+            f"localization closure writes_src negative was not caught: {localization_closure_writes_src_errors}"
+        )
+
+    localization_closure_source_writer_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(localization_closure_source_writer_readiness, "localization")["closure_contract"][
+        "source_writer_allowed"
+    ] = True
+    localization_closure_source_writer_errors = validate_repeated_entity_row_source_writer_readiness(
+        localization_closure_source_writer_readiness
+    )
+    if not any(
+        "localization closure source_writer_allowed must be false" in error
+        for error in localization_closure_source_writer_errors
+    ):
+        raise AssertionError(
+            "localization closure source_writer_allowed negative was not caught: "
+            f"{localization_closure_source_writer_errors}"
+        )
+
+    event_closure_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(event_closure_ready_readiness, "event")["closure_contract"][
+        "readiness_status"
+    ] = "verified"
+    event_closure_ready_errors = validate_repeated_entity_row_source_writer_readiness(event_closure_ready_readiness)
+    if not any("event closure must stay blocked" in error for error in event_closure_ready_errors):
+        raise AssertionError(f"event closure verified negative was not caught: {event_closure_ready_errors}")
 
     writable_readiness = deepcopy(source_writer_readiness)
     _first_readiness_artifact(writable_readiness, "effect")["may_write_src"] = True
@@ -4669,6 +4913,10 @@ def main() -> None:
     summary = audit_summary()
     if summary["source_codegen_ready_count"] != 4:
         raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
+    if summary["implementation_ready_count"] != 0:
+        raise AssertionError(
+            f"implementation_ready count should remain 0, got {summary['implementation_ready_count']}"
+        )
     if summary["harness_generated_count"] != 0:
         raise AssertionError(f"harness_generated count should remain 0, got {summary['harness_generated_count']}")
     if summary["codegen_tier_summary"]["may_write_src"] != 0:

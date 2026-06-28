@@ -130,6 +130,12 @@ adds a complete verified source-writer contract. It does not generate `src/`, do
 `may_write_src: true`, does not enable `source_writer_allowed`, and does not promote
 `source_codegen_ready`, `implementation_ready`, `harness_generated`, or any equivalent
 source-ready status.
+The event and localization vertical slices in that ledger are closure contracts only.
+They add machine-checkable event body preview and localization key-contract evidence for
+the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,
+`source_writer_allowed: false`, and `readiness_status: blocked`. They do not grant source
+generation permission, do not assign new event IDs or localization files, do not write
+`src/`, and do not promote any spec or artifact to source-ready.
 Repeated-row scripted-effect and cleanup source-target contracts are the matching
 source-writer preflight layer for `common/scripted_effects`. They name the future
 scripted-effect file pattern
