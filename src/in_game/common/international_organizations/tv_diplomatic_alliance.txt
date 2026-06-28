@@ -32,6 +32,9 @@
 		tv_commerce_consensus = tv_non_piracy_policy
 		tv_faith_harmony = tv_cuius_regio_policy
 		tv_colonization_sphere = tv_free_colonization_policy
+		tv_common_defense_obligation = tv_no_common_defense_policy
+		tv_common_offense_obligation = tv_no_common_offense_policy
+		tv_leader_war_obligation = tv_no_leader_war_obligation_policy
 	}
 
 	variables = {
@@ -39,7 +42,7 @@
 		tv_alliance_tier = {
 			format = "TV_TIER_DISPLAY"
 			min = 0
-			max = 15
+			max = 21
 		}
 		tv_alliance_cohesion = {
 			format = "TV_COHESION_DISPLAY"

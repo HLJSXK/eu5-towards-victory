@@ -5,10 +5,11 @@
 #
 # ══════════════════════════════════════════════════════════════════════════════
 # TOWARDS VICTORY — DIPLOMATIC ALLIANCE LAWS
-# 5 law categories × 4 policy levels each
+# 5 legacy law categories plus 1 war-law category
 # Law changes require Alliance Assembly parliament voting
-# Cohesion thresholds: L1=0, L2=25, L3=50, L4=75
-# tv_alliance_tier is the sum of all current policy levels above 1
+# Legacy cohesion thresholds: L1=0, L2=25, L3=50, L4=75
+# War-law cohesion thresholds: L1=0, L2=25, L3=50
+# tv_alliance_tier is the sum of all current policy tier contributions
 # ══════════════════════════════════════════════════════════════════════════════
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -1544,6 +1545,718 @@ tv_colonization_sphere = {
 					desc = "IO_LEADER_DIP_REP"
 					value = scope:recipient.leader_country.modifier:diplomatic_reputation
 					multiply = 15
+				}
+			}
+		}
+	}
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LAW 6: Common Defense Obligation
+# ──────────────────────────────────────────────────────────────────────────────
+tv_common_defense_obligation = {
+	type = international_organization
+	law_category = tv_alliance_war_laws
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		uses_parliament_for_law_votes_trigger = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 - No Common Defense Obligation (initial)
+	tv_no_common_defense_policy = {
+		level = 1
+		allow = {
+			OR = {
+				NOT = { international_organization_has_law = law:tv_common_defense_obligation }
+				international_organization_has_policy = policy:tv_conditional_common_defense_policy
+			}
+		}
+		wants_propose_policy = {
+			subtract = {
+				desc = "TV_ALREADY_HAVE_BETTER"
+				value = 100
+			}
+		}
+		wants_this_policy_bias = {
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_alliance_strongest_member
+						}
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country.var:tv_alliance_strongest_member)"
+						multiply = 100
+					}
+				}
+			}
+		}
+	}
+
+	# Level 2 - Conditional Common Defense (cohesion >= 25)
+	tv_conditional_common_defense_policy = {
+		level = 2
+		allow = {
+			OR = {
+				international_organization_has_policy = policy:tv_no_common_defense_policy
+				international_organization_has_policy = policy:tv_unconditional_common_defense_policy
+			}
+			custom_tooltip = {
+				text = TV_ALLIANCE_HAS_CONDITIONAL_WAR_REASON_TT
+				OR = {
+					international_organization_has_policy = policy:tv_joint_denunciation_policy
+					international_organization_has_policy = policy:tv_universal_council_policy
+				}
+			}
+			custom_tooltip = {
+				text = TV_HAS_ALLIANCE_COHESION_TT
+				has_variable = tv_alliance_cohesion
+			}
+			var:tv_alliance_cohesion >= 25
+		}
+		on_activate = {
+			change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_tier add = 1 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = 1 }
+			}
+		}
+		on_deactivate = {
+			change_variable = { name = tv_alliance_tier add = -1 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = -1 }
+			}
+		}
+		join_defensive_wars_auto_call = {
+			custom_tooltip = {
+				text = TV_ALLIANCE_CONDITIONAL_WAR_REASON_TT
+				exists = scope:actor
+				exists = scope:target
+				OR = {
+					AND = {
+						international_organization_has_policy = policy:tv_joint_denunciation_policy
+						scope:target = {
+							religion.group = scope:actor.religion.group
+							NOT = { religion = scope:actor.religion }
+						}
+					}
+					AND = {
+						international_organization_has_policy = policy:tv_universal_council_policy
+						scope:target = {
+							NOT = { religion.group = scope:actor.religion.group }
+						}
+					}
+				}
+			}
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						OR = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
+							var:tv_alliance_cohesion < 25
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_ALLIANCE_WAR_OBLIGATION_BASE"
+				value = 21
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_alliance_strongest_member
+						}
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country.var:tv_alliance_strongest_member)"
+						multiply = 70
+					}
+				}
+			}
+		}
+	}
+
+	# Level 3 - Unconditional Common Defense (cohesion >= 50)
+	tv_unconditional_common_defense_policy = {
+		level = 3
+		allow = {
+			OR = {
+				international_organization_has_policy = policy:tv_conditional_common_defense_policy
+			}
+			custom_tooltip = {
+				text = TV_HAS_ALLIANCE_COHESION_TT
+				has_variable = tv_alliance_cohesion
+			}
+			var:tv_alliance_cohesion >= 50
+		}
+		on_activate = {
+			change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_tier add = 2 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = 2 }
+			}
+		}
+		on_deactivate = {
+			change_variable = { name = tv_alliance_tier add = -2 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = -2 }
+			}
+		}
+		join_defensive_wars_always = {
+			custom_tooltip = {
+				text = TV_ALLIANCE_JOIN_WARS_DEFAULT_REASON
+				always = yes
+			}
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						OR = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
+							var:tv_alliance_cohesion < 50
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_ALLIANCE_WAR_OBLIGATION_BASE"
+				value = 21
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_alliance_strongest_member
+						}
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country.var:tv_alliance_strongest_member)"
+						multiply = 30
+					}
+				}
+			}
+		}
+	}
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LAW 7: Common Offense Obligation
+# ──────────────────────────────────────────────────────────────────────────────
+tv_common_offense_obligation = {
+	type = international_organization
+	law_category = tv_alliance_war_laws
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		uses_parliament_for_law_votes_trigger = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 - No Common Offense Obligation (initial)
+	tv_no_common_offense_policy = {
+		level = 1
+		allow = {
+			OR = {
+				NOT = { international_organization_has_law = law:tv_common_offense_obligation }
+				international_organization_has_policy = policy:tv_conditional_common_offense_policy
+			}
+		}
+		wants_propose_policy = {
+			subtract = {
+				desc = "TV_ALREADY_HAVE_BETTER"
+				value = 100
+			}
+		}
+		wants_this_policy_bias = {
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_alliance_strongest_member
+						}
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country.var:tv_alliance_strongest_member)"
+						multiply = 100
+					}
+				}
+			}
+		}
+	}
+
+	# Level 2 - Conditional Common Offense (cohesion >= 25)
+	tv_conditional_common_offense_policy = {
+		level = 2
+		allow = {
+			OR = {
+				international_organization_has_policy = policy:tv_no_common_offense_policy
+				international_organization_has_policy = policy:tv_unconditional_common_offense_policy
+			}
+			custom_tooltip = {
+				text = TV_ALLIANCE_HAS_CONDITIONAL_WAR_REASON_TT
+				OR = {
+					international_organization_has_policy = policy:tv_joint_denunciation_policy
+					international_organization_has_policy = policy:tv_universal_council_policy
+				}
+			}
+			custom_tooltip = {
+				text = TV_HAS_ALLIANCE_COHESION_TT
+				has_variable = tv_alliance_cohesion
+			}
+			var:tv_alliance_cohesion >= 25
+		}
+		on_activate = {
+			change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_tier add = 1 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = 1 }
+			}
+		}
+		on_deactivate = {
+			change_variable = { name = tv_alliance_tier add = -1 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = -1 }
+			}
+		}
+		join_offensive_wars_auto_call = {
+			custom_tooltip = {
+				text = TV_ALLIANCE_CONDITIONAL_WAR_REASON_TT
+				exists = scope:actor
+				exists = scope:target
+				OR = {
+					AND = {
+						international_organization_has_policy = policy:tv_joint_denunciation_policy
+						scope:target = {
+							religion.group = scope:actor.religion.group
+							NOT = { religion = scope:actor.religion }
+						}
+					}
+					AND = {
+						international_organization_has_policy = policy:tv_universal_council_policy
+						scope:target = {
+							NOT = { religion.group = scope:actor.religion.group }
+						}
+					}
+				}
+			}
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						OR = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
+							var:tv_alliance_cohesion < 25
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_ALLIANCE_WAR_OBLIGATION_BASE"
+				value = 16
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_alliance_strongest_member
+						}
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country.var:tv_alliance_strongest_member)"
+						multiply = 80
+					}
+				}
+			}
+		}
+	}
+
+	# Level 3 - Unconditional Common Offense (cohesion >= 50)
+	tv_unconditional_common_offense_policy = {
+		level = 3
+		allow = {
+			OR = {
+				international_organization_has_policy = policy:tv_conditional_common_offense_policy
+			}
+			custom_tooltip = {
+				text = TV_HAS_ALLIANCE_COHESION_TT
+				has_variable = tv_alliance_cohesion
+			}
+			var:tv_alliance_cohesion >= 50
+		}
+		on_activate = {
+			change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_tier add = 2 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = 2 }
+			}
+		}
+		on_deactivate = {
+			change_variable = { name = tv_alliance_tier add = -2 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = -2 }
+			}
+		}
+		join_offensive_wars_always = {
+			custom_tooltip = {
+				text = TV_ALLIANCE_JOIN_WARS_DEFAULT_REASON
+				always = yes
+			}
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						OR = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
+							var:tv_alliance_cohesion < 50
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_ALLIANCE_WAR_OBLIGATION_BASE"
+				value = 25
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_alliance_strongest_member
+						}
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country.var:tv_alliance_strongest_member)"
+						multiply = 50
+					}
+				}
+			}
+		}
+	}
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LAW 8: Leader War Obligation
+# ──────────────────────────────────────────────────────────────────────────────
+tv_leader_war_obligation = {
+	type = international_organization
+	law_category = tv_alliance_war_laws
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		uses_parliament_for_law_votes_trigger = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	requires_vote = yes
+	custom_tags = { forbids_no_policy }
+
+	# Level 1 - No Leader War Obligation (initial)
+	tv_no_leader_war_obligation_policy = {
+		level = 1
+		allow = {
+			OR = {
+				NOT = { international_organization_has_law = law:tv_leader_war_obligation }
+				international_organization_has_policy = policy:tv_leader_defensive_war_policy
+			}
+		}
+		wants_propose_policy = {
+			subtract = {
+				desc = "TV_ALREADY_HAVE_BETTER"
+				value = 100
+			}
+		}
+		wants_this_policy_bias = {
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_LEADER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country)"
+						multiply = 100
+					}
+				}
+			}
+		}
+	}
+
+	# Level 2 - Leader Joins Defensive Wars (cohesion >= 25)
+	tv_leader_defensive_war_policy = {
+		level = 2
+		allow = {
+			OR = {
+				international_organization_has_policy = policy:tv_no_leader_war_obligation_policy
+				international_organization_has_policy = policy:tv_leader_any_war_policy
+			}
+			custom_tooltip = {
+				text = TV_HAS_ALLIANCE_COHESION_TT
+				has_variable = tv_alliance_cohesion
+			}
+			var:tv_alliance_cohesion >= 25
+		}
+		on_activate = {
+			change_variable = { name = tv_alliance_cohesion add = -25 }
+			change_variable = { name = tv_alliance_tier add = 1 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = 1 }
+			}
+		}
+		on_deactivate = {
+			change_variable = { name = tv_alliance_tier add = -1 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = -1 }
+			}
+		}
+		join_defensive_wars_always = {
+			custom_tooltip = {
+				text = TV_ALLIANCE_LEADER_WAR_OBLIGATION_TT
+				international_organization_has_leader = yes
+				leader_country ?= scope:recipient
+				NOT = { leader_country ?= scope:actor }
+			}
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						OR = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
+							var:tv_alliance_cohesion < 25
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_ALLIANCE_WAR_OBLIGATION_BASE"
+				value = 21
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_LEADER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country)"
+						multiply = 70
+					}
+				}
+			}
+		}
+	}
+
+	# Level 3 - Leader Joins Any War (cohesion >= 50)
+	tv_leader_any_war_policy = {
+		level = 3
+		allow = {
+			OR = {
+				international_organization_has_policy = policy:tv_leader_defensive_war_policy
+			}
+			custom_tooltip = {
+				text = TV_HAS_ALLIANCE_COHESION_TT
+				has_variable = tv_alliance_cohesion
+			}
+			var:tv_alliance_cohesion >= 50
+		}
+		on_activate = {
+			change_variable = { name = tv_alliance_cohesion add = -50 }
+			change_variable = { name = tv_alliance_tier add = 2 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = 2 }
+			}
+		}
+		on_deactivate = {
+			change_variable = { name = tv_alliance_tier add = -2 }
+			leader_country ?= {
+				change_variable = { name = tv_alliance_tier add = -2 }
+			}
+		}
+		join_defensive_wars_always = {
+			custom_tooltip = {
+				text = TV_ALLIANCE_LEADER_WAR_OBLIGATION_TT
+				international_organization_has_leader = yes
+				leader_country ?= scope:recipient
+				NOT = { leader_country ?= scope:actor }
+			}
+		}
+		join_offensive_wars_always = {
+			custom_tooltip = {
+				text = TV_ALLIANCE_LEADER_WAR_OBLIGATION_TT
+				international_organization_has_leader = yes
+				leader_country ?= scope:recipient
+				NOT = { leader_country ?= scope:actor }
+			}
+		}
+		wants_propose_policy = {
+			add = {
+				desc = "TV_COHESION_REQUIREMENT"
+				value = 20
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						OR = {
+							custom_tooltip = {
+								text = TV_HAS_VARIABLE_NOT_SET_TT
+								NOT = { has_variable = tv_alliance_cohesion }
+							}
+							var:tv_alliance_cohesion < 50
+						}
+					}
+				}
+				subtract = {
+					desc = "TV_INSUFFICIENT_COHESION"
+					value = 1000
+				}
+			}
+		}
+		wants_this_policy_bias = {
+			add = {
+				desc = "TV_ALLIANCE_WAR_OBLIGATION_BASE"
+				value = 21
+			}
+			if = {
+				limit = {
+					exists = scope:recipient
+					scope:recipient = {
+						international_organization_has_leader = yes
+					}
+				}
+				add = {
+					desc = "TV_ALLIANCE_RELATIVE_STRENGTH_LEADER"
+					value = {
+						value = "root.relative_strength(scope:recipient.leader_country)"
+						multiply = 30
+					}
 				}
 			}
 		}

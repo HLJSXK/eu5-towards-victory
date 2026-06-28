@@ -34,7 +34,7 @@
  tv_alliance_sublime_empire_subjugate_member_desc: "Spend [tv_alliance_cohesion|E] equal to 10 plus 50 times the target's relative military strength to make the selected ordinary alliance member a vassal of the [tv_alliance_advocator|E]."
  tv_select_diplomatic_alliance_member: "Select Alliance Member"
  tv_no_diplomatic_alliance_member_available: "@trigger_no! No removable alliance members are available."
- TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC: "Accumulate [tv_alliance_cohesion|E] to reform alliance laws. Level 2/3/4 laws cost 25/50/75 Cohesion and each provide +1 [tv_alliance_tier|E]. Each Alliance Tier grants the leader +1 Diplomatic Victory Point per month. Cohesion grows from the Advocator's [diplomatic_reputation|E] and diplomacy, member opinion of the leader, and internal peace."
+ TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC: "Accumulate [tv_alliance_cohesion|E] to reform alliance laws. Legacy level 2/3/4 laws cost 25/50/75 Cohesion, while War Laws cost 25/50 for levels 2/3. Upgraded laws raise [tv_alliance_tier|E], up to 21. Each Alliance Tier grants the leader +1 Diplomatic Victory Point per month."
  TV_DIPLOMATIC_ALLIANCE_MEMBER_MANAGEMENT_DESC: "Invite new countries into the alliance or expel existing members. Invitations require diplomatic acceptance; expulsions are the founder's prerogative."
  TV_ALLIANCE_COHESION_100_TT: "Alliance Cohesion is at least 100"
  TV_ALLIANCE_SUBJUGATION_COHESION_COST_TT: "Alliance Cohesion is at least 10 plus 50 times the target's relative military strength"
@@ -54,6 +54,8 @@
  tv_commerce_consensus: "Commercial & Navigational Consensus"
  tv_faith_harmony: "Faith & Ideological Harmony"
  tv_colonization_sphere: "Colonization & Sphere of Influence"
+ tv_alliance_war_laws: "War Laws"
+ TV_ALLIANCE_WAR_LAWS_LAW_CATEGORY: "War Laws"
 
  # ── Law 1: Court Protocol — Policies ──────────────────────────────────
  tv_adhoc_envoys_policy: "Ad-hoc Envoys"
@@ -105,6 +107,33 @@
  tv_joint_ventures_policy: "Condominium & Joint Ventures"
  tv_joint_ventures_policy_desc: "The highest trust. Members share colonial dividends in undeveloped territories and jointly invest in great overseas enterprises."
 
+ # ── Law 6: Common Defense — Policies ─────────────────────────────────
+ tv_common_defense_obligation: "Common Defense Obligation"
+ tv_no_common_defense_policy: "No Common Defense Obligation"
+ tv_no_common_defense_policy_desc: "Members keep their defensive wars separate. The alliance creates no common call to arms."
+ tv_conditional_common_defense_policy: "Conditional Common Defense"
+ tv_conditional_common_defense_policy_desc: "Members automatically call fellow members into qualifying defensive wars. Religious war conditions come from the alliance's faith laws."
+ tv_unconditional_common_defense_policy: "Unconditional Common Defense"
+ tv_unconditional_common_defense_policy_desc: "Members always call fellow members into defensive wars."
+
+ # ── Law 7: Common Offense — Policies ─────────────────────────────────
+ tv_common_offense_obligation: "Common Offense Obligation"
+ tv_no_common_offense_policy: "No Common Offense Obligation"
+ tv_no_common_offense_policy_desc: "Members keep their offensive wars separate. The alliance creates no common call to arms."
+ tv_conditional_common_offense_policy: "Conditional Common Offense"
+ tv_conditional_common_offense_policy_desc: "Members automatically call fellow members into qualifying offensive wars. Religious war conditions come from the alliance's faith laws."
+ tv_unconditional_common_offense_policy: "Unconditional Common Offense"
+ tv_unconditional_common_offense_policy_desc: "Members always call fellow members into offensive wars."
+
+ # ── Law 8: Leader War Obligation — Policies ──────────────────────────
+ tv_leader_war_obligation: "Leader War Obligation"
+ tv_no_leader_war_obligation_policy: "No Leader War Obligation"
+ tv_no_leader_war_obligation_policy_desc: "The Advocator is not obliged to join other members' wars."
+ tv_leader_defensive_war_policy: "Leader Joins Defensive Wars"
+ tv_leader_defensive_war_policy_desc: "The Advocator directly joins other members' defensive wars."
+ tv_leader_any_war_policy: "Leader Joins Any War"
+ tv_leader_any_war_policy_desc: "The Advocator directly joins other members' defensive and offensive wars."
+
  # ── AI Voting Reasons ──────────────────────────────────────────────────
  TV_ALREADY_HAVE_BETTER: "Already at a higher level"
  TV_DEFAULT_POLICY: "Default starting policy"
@@ -113,6 +142,13 @@
  TV_INSUFFICIENT_COHESION: "Insufficient alliance cohesion"
  TV_UPGRADE_DESIRE: "Desire for stronger alliance"
  TV_ALLIANCE_REFORM_BASE_BIAS: "Alliance reform tier"
+ TV_ALLIANCE_WAR_OBLIGATION_BASE: "War obligation base"
+ TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER: "Relative military strength to the alliance's strongest member"
+ TV_ALLIANCE_RELATIVE_STRENGTH_LEADER: "Relative military strength to the Advocator"
+ TV_ALLIANCE_HAS_CONDITIONAL_WAR_REASON_TT: "The alliance has enacted Joint Denunciation or Universal Spiritual Council"
+ TV_ALLIANCE_CONDITIONAL_WAR_REASON_TT: "The war target qualifies as heretic under Joint Denunciation or heathen under Universal Spiritual Council"
+ TV_ALLIANCE_LEADER_WAR_OBLIGATION_TT: "The called country is the Advocator and the caller is another alliance member"
+ TV_ALLIANCE_JOIN_WARS_DEFAULT_REASON: "Alliance war law applies"
 
  # ── Special Status ─────────────────────────────────────────────────────
  TV_ALLIANCE_ADVOCATOR_MALE: "Advocator"
@@ -161,6 +197,9 @@
  tv_commerce_consensus_desc: "Sets the rules of maritime commerce, trade agreements, and navigational rights for Alliance members."
  tv_faith_harmony_desc: "Determines the Alliance's stance on religious tolerance and ideological cohesion."
  tv_colonization_sphere_desc: "Defines how Alliance members divide and respect each other's colonial spheres of influence."
+ tv_common_defense_obligation_desc: "Defines whether members call the Alliance into defensive wars."
+ tv_common_offense_obligation_desc: "Defines whether members call the Alliance into offensive wars."
+ tv_leader_war_obligation_desc: "Defines when the Advocator personally joins other members' wars."
 
  # ── Country Interaction — Alliance Membership ──────────────────────────
  dip_tv_invite_to_diplomatic_alliance_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"
