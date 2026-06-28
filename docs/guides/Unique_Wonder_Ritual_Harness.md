@@ -144,6 +144,20 @@ row-completion checks, and tooltip-safe condition groups. They still only descri
 future target paths and forbidden write contexts; they do not enable a source writer, do
 not emit scripted effect or scripted trigger bodies, and do not authorize tooltip or
 pre-evaluation contexts to call unsafe write paths.
+The GUI and listener vertical slices are now closure contracts in the same readiness
+ledger, not source-generation permission. GUI closures close only the repeated-row UI
+source-writer boundary: fixed row widget plans, per-row variable binding plans,
+checklist/incident-log/actor-slot row policies, tooltip localization linkage,
+GUI/event/localization key linkage, aggregate projection boundaries, and the future
+`src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui` target
+path. They explicitly forbid aggregate-only UI, GUI source body emission, GUI source
+writes, row-state writes, and any ready/source-ready claim. The Alhambra listener closure
+closes only the listener source-writer boundary: the Alhambra-only scope, future
+`src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt`
+target path, `on_pre_winning_war`/`on_ending_war` hook linkage, selected ritual trigger
+linkage, war-scope availability/persistence planning, and row-state handoff boundary.
+It does not emit listener bodies, authorize listener or war-scope writes, or permit
+source generation.
 Repeated-row scripted-effect and cleanup source-target contracts are the matching
 source-writer preflight layer for `common/scripted_effects`. They name the future
 scripted-effect file pattern

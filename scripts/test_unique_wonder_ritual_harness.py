@@ -3236,14 +3236,28 @@ def main() -> None:
     }
     readiness_family_counts = {family: 0 for family in expected_preview_family_counts}
     readiness_identities: set[tuple[str, str, str]] = set()
-    closure_family_counts = {
-        "event": 0,
-        "localization": 0,
-        "effect": 0,
-        "cleanup": 0,
-        "trigger": 0,
-    }
+    closure_family_counts = {family: 0 for family in expected_preview_family_counts}
     closure_pilots_by_family = {family: set() for family in closure_family_counts}
+    if source_writer_readiness.get("closure_contract_count") != 177:
+        raise AssertionError(
+            "source-writer readiness should expose 177 closure contracts, got "
+            f"{source_writer_readiness.get('closure_contract_count')}"
+        )
+    if source_writer_readiness.get("closure_family_summary") != expected_preview_family_counts:
+        raise AssertionError(
+            "source-writer readiness closure family summary changed: "
+            f"{source_writer_readiness.get('closure_family_summary')}"
+        )
+    if source_writer_readiness.get("closure_missing_families") != []:
+        raise AssertionError(
+            "source-writer readiness closure missing families changed: "
+            f"{source_writer_readiness.get('closure_missing_families')}"
+        )
+    if source_writer_readiness.get("closure_no_write_violation_count") != 0:
+        raise AssertionError(
+            "source-writer readiness closure no-write violation count changed: "
+            f"{source_writer_readiness.get('closure_no_write_violation_count')}"
+        )
     for entry_readiness in source_writer_readiness.get("entries", []) or []:
         if entry_readiness.get("source_writer_allowed") is not False:
             raise AssertionError(f"entry source-writer readiness source_writer_allowed changed: {entry_readiness}")
@@ -3513,9 +3527,131 @@ def main() -> None:
                     or forbidden_paths.get("source_writes_allowed") is not False
                 ):
                     raise AssertionError(f"trigger closure lost forbidden write paths: {closure}")
-            else:
-                if "closure_contract" in artifact:
-                    raise AssertionError(f"non-closure readiness artifact received closure contract: {artifact}")
+            elif family == "gui":
+                closure_family_counts["gui"] += 1
+                closure_pilots_by_family["gui"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"GUI readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_gui_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"GUI closure future target changed: {closure}")
+                if closure.get("source_type") != "in_game/gui/panels/organization":
+                    raise AssertionError(f"GUI closure source type changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"GUI closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"GUI closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("aggregate_only_display_allowed") is not False
+                    or closure.get("gui_source_body_allowed") is not False
+                    or closure.get("gui_source_writes_allowed") is not False
+                    or closure.get("row_state_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"GUI closure allowed forbidden UI/source writes: {closure}")
+                body = closure.get("source_body_preview")
+                if not isinstance(body, dict) or body.get("no_gui_source_body") is not True:
+                    raise AssertionError(f"GUI closure lost source body blocker: {closure}")
+                fixed_plan = closure.get("fixed_row_widget_plan")
+                if (
+                    not isinstance(fixed_plan, dict)
+                    or fixed_plan.get("row_widget_fixed") is not True
+                    or fixed_plan.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"GUI closure lost fixed row widget plan: {closure}")
+                binding_plan = closure.get("per_row_variable_binding_plan")
+                if (
+                    not isinstance(binding_plan, dict)
+                    or binding_plan.get("binds_design_ir_tracked_entity_sets") is not True
+                    or binding_plan.get("aggregate_only_row_reads_allowed") is not False
+                    or not binding_plan.get("entity_keys")
+                ):
+                    raise AssertionError(f"GUI closure lost per-row binding plan: {closure}")
+                row_policy = closure.get("actor_checklist_incident_row_policy")
+                if (
+                    not isinstance(row_policy, dict)
+                    or row_policy.get("distinct_row_policies_required") is not True
+                    or row_policy.get("aggregate_only_display_allowed") is not False
+                ):
+                    raise AssertionError(f"GUI closure lost actor/checklist/incident row policy: {closure}")
+                tooltip_linkage = closure.get("tooltip_localization_linkage")
+                if (
+                    not isinstance(tooltip_linkage, dict)
+                    or not tooltip_linkage.get("row_label_keys")
+                    or not tooltip_linkage.get("tooltip_keys")
+                ):
+                    raise AssertionError(f"GUI closure lost tooltip/localization linkage: {closure}")
+                key_linkage = closure.get("gui_event_localization_key_linkage")
+                if (
+                    not isinstance(key_linkage, dict)
+                    or key_linkage.get("localization_linkage_only") is not True
+                    or key_linkage.get("source_body_emitted") is not False
+                    or key_linkage.get("gui_source_writer_allowed") is not False
+                ):
+                    raise AssertionError(f"GUI closure lost GUI/event/localization key linkage: {closure}")
+                aggregate_boundary = closure.get("aggregate_projection_boundary")
+                if (
+                    not isinstance(aggregate_boundary, dict)
+                    or not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+                    or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+                    or aggregate_boundary.get("aggregate_only_display_allowed") is not False
+                ):
+                    raise AssertionError(f"GUI closure lost aggregate projection boundary: {closure}")
+            elif family == "listener":
+                closure_family_counts["listener"] += 1
+                closure_pilots_by_family["listener"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"listener readiness lost closure contract: {artifact}")
+                if artifact.get("pilot_key") != "unique_alhambra" or artifact.get("artifact_kind") != "listener_war_integration":
+                    raise AssertionError(f"listener closure should be Alhambra-only: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_listener_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"listener closure future target changed: {closure}")
+                if closure.get("listener_artifact_scope") != "unique_alhambra-only listener_war_integration":
+                    raise AssertionError(f"listener closure scope changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"listener closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"listener closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("listener_body_allowed") is not False
+                    or closure.get("listener_scope_writes_allowed") is not False
+                    or closure.get("war_scope_writes_allowed") is not False
+                    or closure.get("source_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"listener closure allowed forbidden writes: {closure}")
+                body = closure.get("source_body_preview")
+                if not isinstance(body, dict) or body.get("no_listener_body") is not True:
+                    raise AssertionError(f"listener closure emitted listener body: {closure}")
+                hook_plan = closure.get("on_action_hook_linkage_plan")
+                if (
+                    not isinstance(hook_plan, dict)
+                    or not {"on_pre_winning_war", "on_ending_war"} <= set(hook_plan.get("hooks", []))
+                    or hook_plan.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"listener closure lost hook linkage plan: {closure}")
+                trigger_linkage = closure.get("selected_ritual_trigger_linkage")
+                if (
+                    not isinstance(trigger_linkage, dict)
+                    or trigger_linkage.get("trigger_name")
+                    != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+                    or trigger_linkage.get("linkage_only") is not True
+                ):
+                    raise AssertionError(f"listener closure lost selected ritual trigger linkage: {closure}")
+                war_scope_plan = closure.get("war_scope_availability_persistence_plan")
+                if (
+                    not isinstance(war_scope_plan, dict)
+                    or war_scope_plan.get("persistence_contract_only") is not True
+                    or war_scope_plan.get("war_scope_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"listener closure lost war scope availability plan: {closure}")
+                handoff_boundary = closure.get("row_state_handoff_boundary")
+                if (
+                    not isinstance(handoff_boundary, dict)
+                    or handoff_boundary.get("handoff_only") is not True
+                    or handoff_boundary.get("row_state_writes_allowed") is not False
+                    or not handoff_boundary.get("entity_keys")
+                ):
+                    raise AssertionError(f"listener closure lost row-state handoff boundary: {closure}")
             for evidence_field in readiness_evidence_fields:
                 evidence = artifact.get(evidence_field)
                 if not isinstance(evidence, dict):
@@ -3535,17 +3671,12 @@ def main() -> None:
     for family, expected_count in expected_preview_family_counts.items():
         if readiness_family_counts[family] != expected_count:
             raise AssertionError(f"expected {expected_count} {family} readiness artifacts, got {readiness_family_counts[family]}")
-    expected_closure_family_counts = {
-        "event": 32,
-        "localization": 40,
-        "effect": 40,
-        "cleanup": 32,
-        "trigger": 24,
-    }
+    expected_closure_family_counts = dict(expected_preview_family_counts)
     for family, expected_count in expected_closure_family_counts.items():
         if closure_family_counts[family] != expected_count:
             raise AssertionError(f"expected {expected_count} {family} closure artifacts, got {closure_family_counts[family]}")
-        if closure_pilots_by_family[family] != set(REPEATED_ROW_PILOTS):
+        expected_pilots = {"unique_alhambra"} if family == "listener" else set(REPEATED_ROW_PILOTS)
+        if closure_pilots_by_family[family] != expected_pilots:
             raise AssertionError(f"{family} closure pilot coverage changed: {closure_pilots_by_family[family]}")
 
     missing_preview_readiness = deepcopy(source_writer_readiness)
@@ -3876,6 +4007,200 @@ def main() -> None:
     if not any("trigger closure must stay blocked" in error for error in trigger_closure_backend_ready_errors):
         raise AssertionError(
             f"trigger closure backend_ready negative was not caught: {trigger_closure_backend_ready_errors}"
+        )
+
+    missing_gui_widget_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_gui_widget_readiness, "gui")["closure_contract"]["fixed_row_widget_plan"]
+    missing_gui_widget_errors = validate_repeated_entity_row_source_writer_readiness(missing_gui_widget_readiness)
+    if not any("GUI closure missing fixed row widget plan" in error for error in missing_gui_widget_errors):
+        raise AssertionError(f"missing GUI widget closure negative was not caught: {missing_gui_widget_errors}")
+
+    missing_gui_binding_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_gui_binding_readiness, "gui")["closure_contract"][
+        "per_row_variable_binding_plan"
+    ]
+    missing_gui_binding_errors = validate_repeated_entity_row_source_writer_readiness(missing_gui_binding_readiness)
+    if not any("GUI closure missing per-row binding plan" in error for error in missing_gui_binding_errors):
+        raise AssertionError(f"missing GUI binding closure negative was not caught: {missing_gui_binding_errors}")
+
+    missing_gui_tooltip_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_gui_tooltip_readiness, "gui")["closure_contract"][
+        "tooltip_localization_linkage"
+    ]
+    missing_gui_tooltip_errors = validate_repeated_entity_row_source_writer_readiness(missing_gui_tooltip_readiness)
+    if not any("GUI closure missing tooltip localization linkage" in error for error in missing_gui_tooltip_errors):
+        raise AssertionError(f"missing GUI tooltip closure negative was not caught: {missing_gui_tooltip_errors}")
+
+    missing_gui_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_gui_path_readiness, "gui")["closure_contract"]["future_source_target_path"] = ""
+    missing_gui_path_errors = validate_repeated_entity_row_source_writer_readiness(missing_gui_path_readiness)
+    if not any("GUI closure missing future target path" in error for error in missing_gui_path_errors):
+        raise AssertionError(f"missing GUI path closure negative was not caught: {missing_gui_path_errors}")
+
+    gui_aggregate_only_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_aggregate_only_readiness, "gui")["closure_contract"][
+        "aggregate_only_display_allowed"
+    ] = True
+    gui_aggregate_only_errors = validate_repeated_entity_row_source_writer_readiness(gui_aggregate_only_readiness)
+    if not any("GUI closure aggregate-only UI must be false" in error for error in gui_aggregate_only_errors):
+        raise AssertionError(f"GUI aggregate-only closure negative was not caught: {gui_aggregate_only_errors}")
+
+    gui_source_body_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_source_body_readiness, "gui")["closure_contract"]["gui_source_body_allowed"] = True
+    gui_source_body_errors = validate_repeated_entity_row_source_writer_readiness(gui_source_body_readiness)
+    if not any("GUI closure GUI source body emission must be false" in error for error in gui_source_body_errors):
+        raise AssertionError(f"GUI source body closure negative was not caught: {gui_source_body_errors}")
+
+    gui_source_write_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_source_write_readiness, "gui")["closure_contract"]["gui_source_writes_allowed"] = True
+    gui_source_write_errors = validate_repeated_entity_row_source_writer_readiness(gui_source_write_readiness)
+    if not any("GUI closure GUI source writes must be false" in error for error in gui_source_write_errors):
+        raise AssertionError(f"GUI source write closure negative was not caught: {gui_source_write_errors}")
+
+    listener_non_alhambra_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_non_alhambra_readiness, "listener")["closure_contract"][
+        "pilot_key"
+    ] = "unique_dome_of_the_rock"
+    listener_non_alhambra_errors = validate_repeated_entity_row_source_writer_readiness(
+        listener_non_alhambra_readiness
+    )
+    if not any("listener closure must be Alhambra-only" in error for error in listener_non_alhambra_errors):
+        raise AssertionError(f"non-Alhambra listener closure negative was not caught: {listener_non_alhambra_errors}")
+
+    missing_listener_hook_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_listener_hook_readiness, "listener")["closure_contract"][
+        "on_action_hook_linkage_plan"
+    ]
+    missing_listener_hook_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_hook_readiness
+    )
+    if not any("listener closure missing hook linkage plan" in error for error in missing_listener_hook_errors):
+        raise AssertionError(f"missing listener hook closure negative was not caught: {missing_listener_hook_errors}")
+
+    missing_listener_trigger_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_listener_trigger_readiness, "listener")["closure_contract"][
+        "selected_ritual_trigger_linkage"
+    ]
+    missing_listener_trigger_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_trigger_readiness
+    )
+    if not any(
+        "listener closure missing selected ritual trigger linkage" in error
+        for error in missing_listener_trigger_errors
+    ):
+        raise AssertionError(
+            f"missing listener selected trigger closure negative was not caught: {missing_listener_trigger_errors}"
+        )
+
+    missing_listener_war_scope_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_listener_war_scope_readiness, "listener")["closure_contract"][
+        "war_scope_availability_persistence_plan"
+    ] = {}
+    missing_listener_war_scope_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_war_scope_readiness
+    )
+    if not any(
+        "listener closure missing war scope availability plan" in error
+        for error in missing_listener_war_scope_errors
+    ):
+        raise AssertionError(
+            f"missing listener war-scope closure negative was not caught: {missing_listener_war_scope_errors}"
+        )
+
+    missing_listener_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_listener_path_readiness, "listener")["closure_contract"][
+        "future_source_target_path"
+    ] = ""
+    missing_listener_path_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_path_readiness
+    )
+    if not any("listener closure missing future target path" in error for error in missing_listener_path_errors):
+        raise AssertionError(f"missing listener path closure negative was not caught: {missing_listener_path_errors}")
+
+    listener_body_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_body_readiness, "listener")["closure_contract"]["listener_body_allowed"] = True
+    listener_body_errors = validate_repeated_entity_row_source_writer_readiness(listener_body_readiness)
+    if not any("listener closure listener body writes must be false" in error for error in listener_body_errors):
+        raise AssertionError(f"listener body closure negative was not caught: {listener_body_errors}")
+
+    listener_war_write_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_war_write_readiness, "listener")["closure_contract"][
+        "war_scope_writes_allowed"
+    ] = True
+    listener_war_write_errors = validate_repeated_entity_row_source_writer_readiness(listener_war_write_readiness)
+    if not any("listener closure war scope writes must be false" in error for error in listener_war_write_errors):
+        raise AssertionError(f"listener war-scope write closure negative was not caught: {listener_war_write_errors}")
+
+    gui_closure_source_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_closure_source_ready_readiness, "gui")["closure_contract"][
+        "readiness_status"
+    ] = "source_ready"
+    gui_closure_source_ready_errors = validate_repeated_entity_row_source_writer_readiness(
+        gui_closure_source_ready_readiness
+    )
+    if not any("gui closure must stay blocked" in error for error in gui_closure_source_ready_errors):
+        raise AssertionError(
+            f"GUI source_ready closure negative was not caught: {gui_closure_source_ready_errors}"
+        )
+
+    listener_closure_backend_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_closure_backend_ready_readiness, "listener")["closure_contract"][
+        "backend_ready"
+    ] = True
+    listener_closure_backend_ready_errors = validate_repeated_entity_row_source_writer_readiness(
+        listener_closure_backend_ready_readiness
+    )
+    if not any("listener closure must not declare backend_ready" in error for error in listener_closure_backend_ready_errors):
+        raise AssertionError(
+            "listener backend_ready closure negative was not caught: "
+            f"{listener_closure_backend_ready_errors}"
+        )
+
+    gui_closure_source_writer_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_closure_source_writer_readiness, "gui")["closure_contract"][
+        "source_writer_allowed"
+    ] = True
+    gui_closure_source_writer_errors = validate_repeated_entity_row_source_writer_readiness(
+        gui_closure_source_writer_readiness
+    )
+    if not any("gui closure source_writer_allowed must be false" in error for error in gui_closure_source_writer_errors):
+        raise AssertionError(
+            f"GUI closure source_writer_allowed negative was not caught: {gui_closure_source_writer_errors}"
+        )
+
+    listener_closure_writes_src_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_closure_writes_src_readiness, "listener")["closure_contract"][
+        "writes_src"
+    ] = True
+    listener_closure_writes_src_errors = validate_repeated_entity_row_source_writer_readiness(
+        listener_closure_writes_src_readiness
+    )
+    if not any("listener closure writes_src must be false" in error for error in listener_closure_writes_src_errors):
+        raise AssertionError(
+            f"listener closure writes_src negative was not caught: {listener_closure_writes_src_errors}"
+        )
+
+    missing_gui_closure_count_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_gui_closure_count_readiness, "gui")["closure_contract"]
+    missing_gui_closure_count_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_gui_closure_count_readiness
+    )
+    if not any("expected 8 repeated-row gui closure artifacts" in error for error in missing_gui_closure_count_errors):
+        raise AssertionError(
+            f"GUI closure count negative was not caught: {missing_gui_closure_count_errors}"
+        )
+
+    missing_listener_closure_count_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_listener_closure_count_readiness, "listener")["closure_contract"]
+    missing_listener_closure_count_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_closure_count_readiness
+    )
+    if not any(
+        "expected 1 repeated-row listener closure artifacts" in error
+        for error in missing_listener_closure_count_errors
+    ):
+        raise AssertionError(
+            f"listener closure count negative was not caught: {missing_listener_closure_count_errors}"
         )
 
     writable_readiness = deepcopy(source_writer_readiness)
