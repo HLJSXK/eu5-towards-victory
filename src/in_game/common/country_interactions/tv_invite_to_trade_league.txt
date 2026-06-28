@@ -65,6 +65,15 @@
 					add_country_to_international_organization = scope:recipient
 				}
 			}
+			scope:recipient = {
+				set_variable = { name = tv_trade_league_member value = 1 }
+				if = {
+					limit = { NOT = { has_variable = tv_trade_victory_enabled } }
+					set_variable = { name = tv_trade_victory_enabled value = 1 }
+					tv_update_all_progress_pct_effect = yes
+					tv_check_trade_milestones_effect = yes
+				}
+			}
 		}
 	}
 
