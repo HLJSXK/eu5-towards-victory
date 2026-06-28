@@ -496,9 +496,15 @@ organization_panel = {
 															align = nobaseline|left
 														}
 														expand = {}
+														text_single = {
+															size = { 74 24 }
+															raw_text = "[Multiply_CFixedPoint(GetMilitaryStrengthRatio(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self), '(CFixedPoint)100.0')|0]%"
+															tooltip = "TV_ALLIANCE_SUBJUGATION_RELATIVE_STRENGTH_TOOLTIP"
+															align = nobaseline|right
+														}
 														action_button = {
 															size = { 62 24 }
-															enabled = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue, '(CFixedPoint)100.0')]"
+															enabled = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue, Add_CFixedPoint(Multiply_CFixedPoint(GetMilitaryStrengthRatio(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self), '(CFixedPoint)50.0'), '(CFixedPoint)10.0'))]"
 															using = button_regular_texture_alt_red
 															using = action_button_common_template
 															using = button_common_textobj_template

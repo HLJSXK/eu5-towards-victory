@@ -175,7 +175,7 @@ paths:
       	modifier:diplomatic_reputation >= 10
       }
     ai_headquarters_requirement_body: |
-      modifier:diplomatic_reputation >= 15
+      modifier:diplomatic_reputation >= 20
       NOT = {
         any_international_organization = {
           international_organization_type = international_organization_type:tv_diplomatic_alliance
