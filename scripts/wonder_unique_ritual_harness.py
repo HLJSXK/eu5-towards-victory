@@ -3095,7 +3095,14 @@ REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS = {
 REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["effect"]) | set(
     REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"]
 )
+REPEATED_ENTITY_ROW_EFFECT_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["effect"])
+REPEATED_ENTITY_ROW_CLEANUP_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"])
 REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS = set(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["event"])
+REPEATED_ENTITY_ROW_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES = (
+    "no-write",
+    "candidate",
+    "blocked",
+)
 REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES = (
     "no-write",
     "candidate",
@@ -3104,6 +3111,7 @@ REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES = (
 REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS = {
     "status",
     "allowed_statuses",
+    "contract_family",
     "namespace_policy",
     "event_id_sources",
     "localization_key_policy",
@@ -3132,6 +3140,52 @@ REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS = (
     "missing localization writer",
     "no verified source write contract",
 )
+REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS = {
+    "status",
+    "allowed_statuses",
+    "contract_family",
+    "source_type",
+    "future_source_target_path_pattern",
+    "candidate_future_source_target_path",
+    "future_target_only",
+    "source_generation_policy",
+    "source_writer_allowed",
+    "may_write_src",
+    "effect_body_writes_allowed",
+    "row_state_writes_allowed",
+    "row_state_write_schema_allowed",
+    "cleanup_lifecycle_scope",
+    "aggregate_projection_boundary",
+    "required_validations",
+    "blocker_reasons",
+    "source_target_boundary",
+}
+REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS = (
+    "effect_name_uniqueness",
+    "variable_writer_reader_linkage",
+    "row_set_entity_coverage",
+    "aggregate_projection_boundary",
+    "cleanup_coverage",
+    "source_target_boundary_still_blocked",
+)
+REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS = (
+    "missing real scripted-effect source generator",
+    "missing row-state write schema",
+    "missing trigger validation",
+    "missing GUI/localization writers",
+    "no verified source write contract",
+)
+REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES = {
+    "scripted_effect_row_init": "non_cleanup_effect",
+    "scripted_effect_row_state_write": "non_cleanup_effect",
+    "scripted_effect_aggregate_refresh": "non_cleanup_effect",
+    "scripted_effect_branch_write": "non_cleanup_effect",
+    "scripted_effect_cleanup_write": "effect_cleanup_write",
+    "cleanup_completion": "completion",
+    "cleanup_failure": "failure",
+    "cleanup_ownership_loss": "ownership_loss",
+    "cleanup_ritual_reset": "reset",
+}
 REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
     "event_opening_skeleton": {
         "eu5_source_syntax_pattern": (
@@ -4071,6 +4125,7 @@ def _repeated_row_event_source_target_contract(
     return {
         "status": "blocked",
         "allowed_statuses": list(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES),
+        "contract_family": "event",
         "namespace_policy": "tv_engineering_department",
         "event_id_sources": ["spec.event_ids", "node_graph.nodes[].event_id"],
         "localization_key_policy": "tv_engineering_department.<event_id>.t/d/a(/b)",
@@ -4086,6 +4141,46 @@ def _repeated_row_event_source_target_contract(
         ),
         "required_validations": list(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS),
         "blocker_reasons": list(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_target_boundary": source_target_boundary,
+    }
+
+
+def _repeated_row_effect_cleanup_source_target_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    source_target_boundary: str,
+) -> dict[str, Any]:
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    target_path_pattern = "src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt"
+    contract_family = "cleanup" if artifact_kind in REPEATED_ENTITY_ROW_CLEANUP_ARTIFACT_KINDS else "effect"
+    return {
+        "status": "blocked",
+        "allowed_statuses": list(REPEATED_ENTITY_ROW_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES),
+        "contract_family": contract_family,
+        "source_type": "common/scripted_effects",
+        "future_source_target_path_pattern": target_path_pattern,
+        "candidate_future_source_target_path": target_path_pattern.replace("<wonder_key>", wonder_key),
+        "future_target_only": True,
+        "source_generation_policy": (
+            "future target only; not an actual scripted-effect generator and cannot write effect bodies"
+        ),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "effect_body_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "row_state_write_schema_allowed": False,
+        "cleanup_lifecycle_scope": REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES[
+            artifact_kind
+        ],
+        "aggregate_projection_boundary": (
+            "aggregate_projection_variables are projection/display variables only and cannot replace "
+            "design_ir.tracked_entity_sets row/entity semantics"
+        ),
+        "required_validations": list(
+            REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS
+        ),
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
         "source_target_boundary": source_target_boundary,
     }
 
@@ -4125,6 +4220,12 @@ def _repeated_row_source_plan_artifact(
     if artifact_kind in REPEATED_ENTITY_ROW_EVENT_ARTIFACT_KINDS:
         artifact["source_target_contract"] = _repeated_row_event_source_target_contract(
             pilot_key=pilot_key,
+            source_target_boundary=source_target_boundary,
+        )
+    elif artifact_kind in REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+        artifact["source_target_contract"] = _repeated_row_effect_cleanup_source_target_contract(
+            pilot_key=pilot_key,
+            artifact_kind=artifact_kind,
             source_target_boundary=source_target_boundary,
         )
     return artifact
@@ -4425,6 +4526,8 @@ def _validate_repeated_row_event_source_target_contract(
 
     expected_path_pattern = "src/in_game/events/tv_wonder_unique_<wonder_key>_ritual_events.txt"
     expected_path = expected_path_pattern.replace("<wonder_key>", _repeated_row_event_contract_wonder_key(pilot_key))
+    if contract.get("contract_family") != "event":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract contract_family must be event")
     if contract.get("namespace_policy") != "tv_engineering_department":
         errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract namespace_policy changed")
     if _string_refs(contract.get("event_id_sources")) != ["spec.event_ids", "node_graph.nodes[].event_id"]:
@@ -4463,6 +4566,115 @@ def _validate_repeated_row_event_source_target_contract(
     blocker_reasons = set(_string_refs(contract.get("blocker_reasons")))
     missing_blockers = sorted(
         set(REPEATED_ENTITY_ROW_EVENT_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS) - blocker_reasons
+    )
+    if missing_blockers:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing blocker reason(s): "
+            f"{', '.join(missing_blockers)}"
+        )
+    return errors
+
+
+def _validate_repeated_row_effect_cleanup_source_target_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    contract: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    missing = _missing_required(contract, REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS)
+    if missing:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing field(s): {', '.join(missing)}"
+        )
+        return errors
+    extra = sorted(set(contract) - REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_REQUIRED_FIELDS)
+    if extra:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract has unsupported field(s): "
+            f"{', '.join(extra)}"
+        )
+
+    allowed_statuses = set(REPEATED_ENTITY_ROW_SOURCE_TARGET_CONTRACT_ALLOWED_STATUSES)
+    declared_allowed_statuses = set(_string_refs(contract.get("allowed_statuses")))
+    if declared_allowed_statuses != allowed_statuses or "source-ready" in declared_allowed_statuses:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract allowed_statuses must be "
+            "no-write, candidate, blocked"
+        )
+    status = str(contract.get("status", ""))
+    if status == "source-ready":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract status must not be source-ready")
+    elif status not in allowed_statuses:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract status must be "
+            "no-write, candidate, or blocked"
+        )
+
+    expected_family = "cleanup" if artifact_kind in REPEATED_ENTITY_ROW_CLEANUP_ARTIFACT_KINDS else "effect"
+    expected_path_pattern = "src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt"
+    expected_path = expected_path_pattern.replace("<wonder_key>", _repeated_row_event_contract_wonder_key(pilot_key))
+    if contract.get("contract_family") != expected_family:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract contract_family must be {expected_family}"
+        )
+    if contract.get("source_type") != "common/scripted_effects":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract source_type changed")
+    if contract.get("future_source_target_path_pattern") != expected_path_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract future path pattern changed")
+    if contract.get("candidate_future_source_target_path") != expected_path:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract candidate future path changed")
+    if contract.get("future_target_only") is not True:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract must declare future_target_only: true")
+    source_generation_policy = str(contract.get("source_generation_policy", "")).lower()
+    if "future target only" not in source_generation_policy or "not an actual scripted-effect generator" not in source_generation_policy:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract source_generation_policy is incomplete"
+        )
+    if contract.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract source_writer_allowed must be false")
+    if contract.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract may_write_src must be false")
+    if contract.get("effect_body_writes_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract effect_body_writes_allowed must be false"
+        )
+    if contract.get("row_state_writes_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract row_state_writes_allowed must be false"
+        )
+    if contract.get("row_state_write_schema_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract row_state_write_schema_allowed must be false"
+        )
+    expected_cleanup_scope = REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES[artifact_kind]
+    if contract.get("cleanup_lifecycle_scope") != expected_cleanup_scope:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract cleanup lifecycle scope changed")
+    aggregate_boundary = str(contract.get("aggregate_projection_boundary", "")).lower()
+    if (
+        "aggregate_projection_variables" not in aggregate_boundary
+        or "cannot replace" not in aggregate_boundary
+        or "design_ir.tracked_entity_sets" not in aggregate_boundary
+    ):
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract aggregate projection boundary is incomplete"
+        )
+    if str(contract.get("source_target_boundary", "")) != str(artifact.get("source_target_boundary", "")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} source_target_contract boundary mismatch")
+
+    required_validations = set(_string_refs(contract.get("required_validations")))
+    missing_validations = sorted(
+        set(REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_REQUIRED_VALIDATIONS) - required_validations
+    )
+    if missing_validations:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} source_target_contract missing validation(s): "
+            f"{', '.join(missing_validations)}"
+        )
+    blocker_reasons = set(_string_refs(contract.get("blocker_reasons")))
+    missing_blockers = sorted(
+        set(REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS) - blocker_reasons
     )
     if missing_blockers:
         errors.append(
@@ -4554,6 +4766,18 @@ def validate_repeated_entity_row_source_plan(plan: dict[str, Any]) -> list[str]:
                 else:
                     errors.extend(
                         _validate_repeated_row_event_source_target_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            contract=source_target_contract,
+                        )
+                    )
+            elif artifact_kind in REPEATED_ENTITY_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS:
+                if not isinstance(source_target_contract, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must declare source_target_contract")
+                else:
+                    errors.extend(
+                        _validate_repeated_row_effect_cleanup_source_target_contract(
                             pilot_key=pilot_key,
                             artifact_kind=artifact_kind,
                             artifact=artifact,

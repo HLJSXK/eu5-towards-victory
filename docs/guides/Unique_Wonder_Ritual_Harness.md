@@ -107,6 +107,16 @@ localization policy, and future event file pattern
 boundary validations only. The future target path is not a source generator, event options
 may only declare future effect handoff, and no event contract may inline row-state writes,
 set `may_write_src: true`, unblock `source_writer_allowed`, or write `src/`.
+Repeated-row scripted-effect and cleanup source-target contracts are the matching
+source-writer preflight layer for `common/scripted_effects`. They name the future
+scripted-effect file pattern
+`src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt`
+and keep separate `effect` and `cleanup` contract families, including distinct cleanup
+scopes for completion, failure, ownership loss, and ritual reset. These contracts verify
+only future boundaries, row-state writer/reader responsibility, aggregate projection
+boundaries, cleanup coverage, and blocker reasons. They are not scripted-effect source
+generators, do not emit effect bodies, do not authorize row-state write schemas, and do
+not write `src/`.
 
 A future row-set compiler interface must assign ownership before any source-writing claim:
 
