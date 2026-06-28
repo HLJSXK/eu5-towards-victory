@@ -35,6 +35,7 @@ from wonder_unique_ritual_harness import repeated_entity_row_source_writer_readi
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_body_candidate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_file_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_file_validation_evidence_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_contract_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -42,6 +43,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_source_wri
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_body_candidate  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_file_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_file_validation_evidence  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_contract  # noqa: E402
 
 
 WONDER = {
@@ -1652,6 +1654,13 @@ def _alhambra_source_file_validation_pack(report: dict, target_path: str) -> dic
         if pack.get("target_path") == target_path:
             return pack
     raise AssertionError(f"Alhambra source file validation evidence has no target {target_path}")
+
+
+def _alhambra_source_generator_contract(report: dict, target_path: str) -> dict:
+    for contract in report.get("generator_contracts", []) or []:
+        if contract.get("target_path") == target_path:
+            return contract
+    raise AssertionError(f"Alhambra source generator contract has no target {target_path}")
 
 
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
@@ -5426,6 +5435,366 @@ def main() -> None:
         "war-scope boundary",
     )
 
+    alhambra_source_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
+        load_spec_data()
+    )
+    if alhambra_source_generator_contract["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source generator contract unexpectedly failed validation: "
+            f"{alhambra_source_generator_contract['validation_errors']}"
+        )
+    generator_contract_summary = alhambra_source_generator_contract.get("summary", {})
+    if alhambra_source_generator_contract.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source generator contract pilot changed: {alhambra_source_generator_contract}")
+    if generator_contract_summary.get("generator_contract_count") != 7:
+        raise AssertionError(f"Alhambra source generator contract count changed: {generator_contract_summary}")
+    if generator_contract_summary.get("artifact_count") != 45:
+        raise AssertionError(f"Alhambra source generator contract artifact count changed: {generator_contract_summary}")
+    if generator_contract_summary.get("generator_interface_status_summary") != {"contract_drafted": 7}:
+        raise AssertionError(f"Alhambra source generator contract statuses changed: {generator_contract_summary}")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if generator_contract_summary.get(count_key) != 0:
+            raise AssertionError(f"Alhambra source generator contract {count_key} changed: {generator_contract_summary}")
+        if alhambra_source_generator_contract.get(count_key) != 0:
+            raise AssertionError(
+                f"Alhambra source generator contract report {count_key} changed: "
+                f"{alhambra_source_generator_contract}"
+            )
+    if {
+        contract.get("target_path")
+        for contract in alhambra_source_generator_contract.get("generator_contracts", []) or []
+    } != set(alhambra_file_targets.values()):
+        raise AssertionError(
+            "Alhambra source generator contract did not expose exact target paths: "
+            f"{alhambra_source_generator_contract.get('generator_contracts')}"
+        )
+
+    allowed_generator_interface_statuses = {"contract_drafted", "blocked"}
+    expected_alhambra_owner_generators = {
+        alhambra_file_targets["event"]: "unique_wonder_ritual_event_source_generator",
+        alhambra_file_targets["effect_cleanup"]: "unique_wonder_ritual_scripted_effect_source_generator",
+        alhambra_file_targets["trigger"]: "unique_wonder_ritual_scripted_trigger_source_generator",
+        alhambra_file_targets["gui"]: "unique_wonder_ritual_gui_row_source_generator",
+        alhambra_file_targets["listener"]: "unique_wonder_ritual_listener_integration_source_generator",
+        alhambra_file_targets["english"]: "unique_wonder_ritual_localization_source_generator",
+        alhambra_file_targets["simp_chinese"]: "unique_wonder_ritual_localization_source_generator",
+    }
+    generator_contract_source_refs: set[tuple[str, str, str, str]] = set()
+    for target_path, expected_count in expected_alhambra_file_counts.items():
+        contract = _alhambra_source_generator_contract(alhambra_source_generator_contract, target_path)
+        validation_pack = _alhambra_source_file_validation_pack(alhambra_source_file_validation_evidence, target_path)
+        if contract.get("artifact_count") != expected_count:
+            raise AssertionError(f"{target_path} generator contract artifact count changed: {contract}")
+        if contract.get("families") != expected_alhambra_file_families[target_path]:
+            raise AssertionError(f"{target_path} generator contract families changed: {contract}")
+        if contract.get("evidence_pack_ref", {}).get("artifact_count") != validation_pack.get("artifact_count"):
+            raise AssertionError(f"{target_path} generator contract lost evidence pack artifact count: {contract}")
+        if contract.get("evidence_pack_ref", {}).get("families") != validation_pack.get("families"):
+            raise AssertionError(f"{target_path} generator contract lost evidence pack families: {contract}")
+        if contract.get("owner_generator") != expected_alhambra_owner_generators[target_path]:
+            raise AssertionError(f"{target_path} generator contract owner changed: {contract}")
+        if contract.get("generator_interface_status") not in allowed_generator_interface_statuses:
+            raise AssertionError(f"{target_path} generator contract status changed: {contract}")
+        if contract.get("planned_source_writer_exists") != "interface_contract_exists":
+            raise AssertionError(f"{target_path} generator contract did not draft interface contract: {contract}")
+        if not contract.get("required_validations"):
+            raise AssertionError(f"{target_path} generator contract lost required validations: {contract}")
+        if not contract.get("remaining_blockers"):
+            raise AssertionError(f"{target_path} generator contract lost remaining blockers: {contract}")
+        source_boundary = contract.get("source_target_boundary")
+        if (
+            not isinstance(source_boundary, dict)
+            or source_boundary.get("status") != "blocked"
+            or source_boundary.get("target_path") != target_path
+            or source_boundary.get("source_writer_allowed") is not False
+            or source_boundary.get("may_write_src") is not False
+            or source_boundary.get("writes_src") is not False
+            or source_boundary.get("source_ready") is not False
+            or source_boundary.get("body_emitted") is not False
+        ):
+            raise AssertionError(f"{target_path} generator contract lost blocked source-target boundary: {contract}")
+        for flag, expected in {
+            **alhambra_file_flags,
+            "verified": False,
+            "backend_ready": False,
+        }.items():
+            if contract.get(flag) is not expected:
+                raise AssertionError(f"{target_path} generator contract lost {flag}: {contract}")
+        for ref in contract.get("source_body_candidate_refs", []) or []:
+            generator_contract_source_refs.add(
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+            )
+    if len(generator_contract_source_refs) != 45:
+        raise AssertionError(
+            f"Alhambra generator contract unique source refs changed: {len(generator_contract_source_refs)}"
+        )
+
+    english_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        alhambra_file_targets["english"],
+    )
+    simp_chinese_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        alhambra_file_targets["simp_chinese"],
+    )
+    for localization_contract, language in (
+        (english_generator_contract, "english"),
+        (simp_chinese_generator_contract, "simp_chinese"),
+    ):
+        boundary = localization_contract.get("localization_language_boundary")
+        if (
+            localization_contract.get("localization_language") != language
+            or not isinstance(boundary, dict)
+            or boundary.get("language") != language
+            or boundary.get("language_target_paths") != {
+                "english": alhambra_file_targets["english"],
+                "simp_chinese": alhambra_file_targets["simp_chinese"],
+            }
+            or boundary.get("separate_language_target") is not True
+            or boundary.get("may_write_src") is not False
+            or boundary.get("writes_src") is not False
+            or boundary.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"{language} generator contract lost localization split boundary: {localization_contract}")
+
+    listener_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        alhambra_file_targets["listener"],
+    )
+    listener_contract = listener_generator_contract.get("listener_linkage_contract")
+    if not isinstance(listener_contract, dict):
+        raise AssertionError(f"Alhambra listener generator contract lost linkage block: {listener_generator_contract}")
+    listener_hook_plan = listener_contract.get("on_action_hook_linkage_plan")
+    if not isinstance(listener_hook_plan, dict) or not {"on_pre_winning_war", "on_ending_war"} <= set(
+        listener_hook_plan.get("hooks", []) or []
+    ):
+        raise AssertionError(f"Alhambra listener generator contract lost hooks: {listener_generator_contract}")
+    if not isinstance(listener_contract.get("selected_ritual_trigger_linkage"), dict):
+        raise AssertionError(f"Alhambra listener generator contract lost selected trigger: {listener_generator_contract}")
+    listener_war_scope = listener_contract.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(listener_war_scope, dict)
+        or listener_war_scope.get("persistence_contract_only") is not True
+        or listener_war_scope.get("war_scope_writes_allowed") is not False
+    ):
+        raise AssertionError(f"Alhambra listener generator contract lost war-scope boundary: {listener_generator_contract}")
+
+    def assert_alhambra_generator_contract_error(name: str, report: dict, needle: str) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_generator_contract(report)
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source generator contract negative was not caught: {errors}")
+
+    missing_target_generator_contract = deepcopy(alhambra_source_generator_contract)
+    missing_target_generator_contract["generator_contracts"] = [
+        contract
+        for contract in missing_target_generator_contract["generator_contracts"]
+        if contract.get("target_path") != alhambra_file_targets["english"]
+    ]
+    assert_alhambra_generator_contract_error(
+        "missing target",
+        missing_target_generator_contract,
+        "missing required target path",
+    )
+
+    wrong_artifact_count_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        wrong_artifact_count_generator_contract,
+        alhambra_file_targets["event"],
+    )["artifact_count"] = 9
+    assert_alhambra_generator_contract_error(
+        "wrong artifact count",
+        wrong_artifact_count_generator_contract,
+        "artifact_count mismatch",
+    )
+
+    missing_evidence_ref_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_evidence_ref_generator_contract,
+        alhambra_file_targets["trigger"],
+    )["evidence_pack_ref"]
+    assert_alhambra_generator_contract_error(
+        "missing evidence pack ref",
+        missing_evidence_ref_generator_contract,
+        "missing evidence_pack_ref",
+    )
+
+    missing_owner_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_owner_generator_contract,
+        alhambra_file_targets["effect_cleanup"],
+    )["owner_generator"]
+    assert_alhambra_generator_contract_error(
+        "missing owner generator",
+        missing_owner_generator_contract,
+        "missing field(s): owner_generator",
+    )
+
+    mismatched_family_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        mismatched_family_generator_contract,
+        alhambra_file_targets["gui"],
+    )["families"] = ["event"]
+    assert_alhambra_generator_contract_error(
+        "family target mismatch",
+        mismatched_family_generator_contract,
+        "families mismatch",
+    )
+
+    unblocked_boundary_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        unblocked_boundary_generator_contract,
+        alhambra_file_targets["listener"],
+    )["source_target_boundary"]["status"] = "contract_drafted"
+    assert_alhambra_generator_contract_error(
+        "unblocked boundary",
+        unblocked_boundary_generator_contract,
+        "source target boundary must stay blocked",
+    )
+
+    missing_validations_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        missing_validations_generator_contract,
+        alhambra_file_targets["event"],
+    )["required_validations"] = []
+    assert_alhambra_generator_contract_error(
+        "missing required validations",
+        missing_validations_generator_contract,
+        "required_validations must not be empty",
+    )
+
+    cleared_blockers_generator_contract = deepcopy(alhambra_source_generator_contract)
+    cleared_blockers_contract = _alhambra_source_generator_contract(
+        cleared_blockers_generator_contract,
+        alhambra_file_targets["listener"],
+    )
+    cleared_blockers_contract["remaining_blockers"] = []
+    cleared_blockers_contract["unresolved_writer_blockers"] = []
+    assert_alhambra_generator_contract_error(
+        "cleared blockers",
+        cleared_blockers_generator_contract,
+        "remaining_blockers must not be empty",
+    )
+
+    source_ready_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        source_ready_generator_contract,
+        alhambra_file_targets["event"],
+    )["source_ready"] = True
+    assert_alhambra_generator_contract_error(
+        "source_ready",
+        source_ready_generator_contract,
+        "source_ready/verified/backend_ready",
+    )
+
+    verified_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        verified_generator_contract,
+        alhambra_file_targets["event"],
+    )["verified"] = True
+    assert_alhambra_generator_contract_error(
+        "verified",
+        verified_generator_contract,
+        "source_ready/verified/backend_ready",
+    )
+
+    backend_ready_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        backend_ready_generator_contract,
+        alhambra_file_targets["listener"],
+    )["backend_ready"] = True
+    assert_alhambra_generator_contract_error(
+        "backend_ready",
+        backend_ready_generator_contract,
+        "source_ready/verified/backend_ready",
+    )
+
+    source_writer_allowed_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        source_writer_allowed_generator_contract,
+        alhambra_file_targets["gui"],
+    )["source_writer_allowed"] = True
+    assert_alhambra_generator_contract_error(
+        "source_writer_allowed",
+        source_writer_allowed_generator_contract,
+        "source_writer_allowed must be false",
+    )
+
+    may_write_src_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        may_write_src_generator_contract,
+        alhambra_file_targets["effect_cleanup"],
+    )["may_write_src"] = True
+    assert_alhambra_generator_contract_error(
+        "may_write_src",
+        may_write_src_generator_contract,
+        "may_write_src must be false",
+    )
+
+    writes_src_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        writes_src_generator_contract,
+        alhambra_file_targets["trigger"],
+    )["writes_src"] = True
+    assert_alhambra_generator_contract_error(
+        "writes_src",
+        writes_src_generator_contract,
+        "writes_src must be false",
+    )
+
+    collapsed_localization_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        collapsed_localization_generator_contract,
+        alhambra_file_targets["english"],
+    )["localization_language_boundary"]["language_target_paths"]["simp_chinese"] = alhambra_file_targets["english"]
+    assert_alhambra_generator_contract_error(
+        "merged localization boundary",
+        collapsed_localization_generator_contract,
+        "target paths must stay split",
+    )
+
+    missing_listener_hook_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_listener_hook_generator_contract,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_contract"]["on_action_hook_linkage_plan"]
+    assert_alhambra_generator_contract_error(
+        "missing listener hook",
+        missing_listener_hook_generator_contract,
+        "hook linkage",
+    )
+
+    missing_listener_trigger_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_listener_trigger_generator_contract,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_contract"]["selected_ritual_trigger_linkage"]
+    assert_alhambra_generator_contract_error(
+        "missing listener trigger",
+        missing_listener_trigger_generator_contract,
+        "selected ritual trigger linkage",
+    )
+
+    missing_listener_war_scope_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_listener_war_scope_generator_contract,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_contract"]["war_scope_availability_persistence_plan"]
+    assert_alhambra_generator_contract_error(
+        "missing listener war scope",
+        missing_listener_war_scope_generator_contract,
+        "war-scope boundary",
+    )
+
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
         wonders=[WONDER],
@@ -6785,6 +7154,26 @@ def main() -> None:
         or bundle_summary["writes_src_count"] != 0
     ):
         raise AssertionError(f"source bundle preview no-write/readiness counts changed: {bundle_summary}")
+    alhambra_generator_summary = summary["repeated_entity_row_alhambra_source_generator_contract"]["summary"]
+    if alhambra_generator_summary["generator_contract_count"] != 7:
+        raise AssertionError(
+            "Alhambra source generator contract count should remain 7, got "
+            f"{alhambra_generator_summary['generator_contract_count']}"
+        )
+    if alhambra_generator_summary["artifact_count"] != 45:
+        raise AssertionError(
+            "Alhambra source generator contract artifact_count should remain 45, got "
+            f"{alhambra_generator_summary['artifact_count']}"
+        )
+    if (
+        alhambra_generator_summary["source_writer_allowed_count"] != 0
+        or alhambra_generator_summary["may_write_src_count"] != 0
+        or alhambra_generator_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra source generator contract no-write counts changed: "
+            f"{alhambra_generator_summary}"
+        )
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")
 

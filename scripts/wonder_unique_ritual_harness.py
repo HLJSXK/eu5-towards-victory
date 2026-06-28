@@ -3519,6 +3519,10 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_ALLOWED_STATUSES = {
     "blocked",
     "interface_candidate",
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_ALLOWED_STATUSES = {
+    "blocked",
+    "contract_drafted",
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_REQUIRED_FIELDS = {
     "target_path",
     "families",
@@ -3536,6 +3540,24 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_REQUIRED_FIELDS = {
     "may_write_src",
     "writes_src",
     "source_writer_allowed",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_REQUIRED_FIELDS = {
+    "target_path",
+    "families",
+    "artifact_count",
+    "evidence_pack_ref",
+    "owner_generator",
+    "generator_interface_status",
+    "planned_source_writer_exists",
+    "source_target_boundary",
+    "required_validations",
+    "remaining_blockers",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
 }
 REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA = {
     "src/in_game/events/tv_wonder_unique_alhambra_ritual_events.txt": {
@@ -11783,6 +11805,403 @@ def validate_repeated_entity_row_alhambra_source_file_validation_evidence(report
     return errors
 
 
+def _alhambra_source_generator_contract_allowed_status(value: Any) -> bool:
+    return (
+        str(value or "").strip().lower().replace("-", "_")
+        in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_ALLOWED_STATUSES
+    )
+
+
+def _alhambra_source_generator_contract_pack_ref(pack: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "pilot_key": str(pack.get("pilot_key", "")),
+        "target_path": str(pack.get("target_path", "")),
+        "families": list(pack.get("families", []) or []),
+        "artifact_count": int(pack.get("artifact_count", 0)),
+        "evidence_status": str(pack.get("evidence_status", "")),
+        "source_file_validation_evidence_only": pack.get("source_file_validation_evidence_only") is True,
+        "source_body_candidate_ref_count": int(pack.get("source_body_candidate_ref_count", 0)),
+    }
+
+
+def _alhambra_source_generator_contract_for_pack(pack: dict[str, Any]) -> dict[str, Any]:
+    target_path = str(pack.get("target_path", ""))
+    metadata = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.get(target_path, {})
+    families = list(pack.get("families", []) or [])
+    contract = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "target_path": target_path,
+        "families": families,
+        "artifact_count": int(pack.get("artifact_count", 0)),
+        "evidence_pack_ref": _alhambra_source_generator_contract_pack_ref(pack),
+        "owner_generator": str(metadata.get("owner_candidate", "")),
+        "generator_interface_status": "contract_drafted",
+        "planned_source_writer_exists": "interface_contract_exists",
+        "source_target_boundary": deepcopy(pack.get("source_target_boundary", {}) or {}),
+        "required_validations": sorted(_string_refs(pack.get("required_validations"))),
+        "remaining_blockers": sorted(_string_refs(pack.get("unresolved_blockers"))),
+        "unresolved_writer_blockers": sorted(_string_refs(pack.get("unresolved_writer_blockers"))),
+        "source_body_candidate_ref_count": int(pack.get("source_body_candidate_ref_count", 0)),
+        "source_body_candidate_refs": deepcopy(pack.get("source_body_candidate_refs", []) or []),
+        "source_ready_count": 0,
+        "source_writer_allowed_count": 0,
+        "may_write_src_count": 0,
+        "writes_src_count": 0,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+    }
+    if "localization_language" in pack:
+        contract["localization_language"] = str(pack.get("localization_language", ""))
+        contract["localization_language_boundary"] = deepcopy(pack.get("localization_language_boundary", {}) or {})
+    if families == ["listener"]:
+        contract["listener_linkage_contract"] = deepcopy(pack.get("listener_linkage_evidence", {}) or {})
+    return contract
+
+
+def repeated_entity_row_alhambra_source_generator_contract_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+        payload,
+        statuses=statuses,
+    )
+    generator_contracts = [
+        _alhambra_source_generator_contract_for_pack(pack)
+        for pack in source_file_validation_evidence.get("evidence_packs", []) or []
+        if isinstance(pack, dict)
+    ]
+    source_body_candidate_refs = [
+        ref
+        for contract in generator_contracts
+        for ref in contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    ]
+    unique_ref_keys = {
+        _alhambra_source_file_preview_ref_key(ref)
+        for ref in source_body_candidate_refs
+    }
+    source_ready_count = sum(1 for contract in generator_contracts if contract.get("source_ready") is True)
+    source_writer_allowed_count = sum(1 for contract in generator_contracts if contract.get("source_writer_allowed") is True)
+    may_write_src_count = sum(1 for contract in generator_contracts if contract.get("may_write_src") is True)
+    writes_src_count = sum(1 for contract in generator_contracts if contract.get("writes_src") is True)
+    summary = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "generator_contract_count": len(generator_contracts),
+        "artifact_count": len(unique_ref_keys),
+        "generator_interface_status_summary": _count_by_key(generator_contracts, "generator_interface_status"),
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+    }
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_generator_contract_only": True,
+        "source_file_validation_evidence_input_only": True,
+        "source_file_validation_evidence_input_ref": {
+            "pilot_key": str(source_file_validation_evidence.get("pilot_key", "")),
+            "evidence_pack_count": int(source_file_validation_evidence.get("evidence_pack_count", 0)),
+            "artifact_count": int(source_file_validation_evidence.get("artifact_count", 0)),
+            "source_body_candidate_ref_count": int(
+                source_file_validation_evidence.get("source_body_candidate_ref_count", 0)
+            ),
+            "validation_errors": list(source_file_validation_evidence.get("validation_errors", []) or []),
+        },
+        "source_file_validation_evidence_validation_errors": list(
+            source_file_validation_evidence.get("validation_errors", []) or []
+        ),
+        "summary": summary,
+        "generator_contract_count": len(generator_contracts),
+        "required_target_paths": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS),
+        "localization_target_paths": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        ),
+        "artifact_count": len(unique_ref_keys),
+        "source_body_candidate_ref_count": len(unique_ref_keys),
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+        "generator_contracts": generator_contracts,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra source generator contracts derive from source-file validation evidence only.",
+            "They draft generator ownership and emitter interfaces without authorizing src writes.",
+            "Source-target boundaries remain blocked until a later source writer is verified.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_generator_contract(report)
+    return report
+
+
+def _validate_alhambra_source_generator_contract_boundary(
+    *,
+    context: str,
+    boundary: Any,
+    target_path: str,
+    families: list[str],
+    errors: list[str],
+) -> None:
+    if not isinstance(boundary, dict) or not boundary:
+        errors.append(f"{context} missing source target boundary")
+        return
+    if boundary.get("status") != "blocked":
+        errors.append(f"{context} source target boundary must stay blocked")
+    if boundary.get("target_path") != target_path:
+        errors.append(f"{context} source target boundary target path mismatch")
+    if boundary.get("families") != families:
+        errors.append(f"{context} source target boundary families mismatch")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src", "source_ready", "body_emitted"):
+        if boundary.get(flag) is not False:
+            errors.append(f"{context} source target boundary {flag} must be false")
+
+
+def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source generator contract pilot_key must be unique_alhambra")
+    if report.get("source_generator_contract_only") is not True:
+        errors.append("Alhambra source generator contract must declare source_generator_contract_only: true")
+    if report.get("source_file_validation_evidence_input_only") is not True:
+        errors.append("Alhambra source generator contract must derive from source-file validation evidence input")
+    if report.get("source_file_validation_evidence_validation_errors"):
+        errors.append("Alhambra source generator contract source-file validation evidence must be clean")
+    input_ref = (
+        report.get("source_file_validation_evidence_input_ref")
+        if isinstance(report.get("source_file_validation_evidence_input_ref"), dict)
+        else {}
+    )
+    if not input_ref:
+        errors.append("Alhambra source generator contract missing source-file validation evidence input ref")
+    else:
+        if input_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source generator contract input ref pilot_key must be unique_alhambra")
+        if int(input_ref.get("evidence_pack_count", -1)) != len(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS
+        ):
+            errors.append("Alhambra source generator contract input ref evidence_pack_count must be 7")
+        if int(input_ref.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source generator contract input ref artifact_count must be 45")
+        if input_ref.get("validation_errors"):
+            errors.append("Alhambra source generator contract input ref validation must be clean")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"Alhambra source generator contract must not claim source_ready/verified/backend_ready at {path}")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source generator contract {flag} must be false at {path}")
+
+    _validate_alhambra_source_body_candidate_flags(
+        context="Alhambra source generator contract report",
+        value=report,
+        errors=errors,
+    )
+
+    expected_target_paths = set(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS)
+    generator_contracts = (
+        report.get("generator_contracts") if isinstance(report.get("generator_contracts"), list) else []
+    )
+    if int(report.get("generator_contract_count", -1)) != len(generator_contracts):
+        errors.append("Alhambra source generator contract generator_contract_count mismatch")
+    if int(report.get("generator_contract_count", -1)) != len(expected_target_paths):
+        errors.append("Alhambra source generator contract generator_contract_count must be 7")
+    if int(report.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append("Alhambra source generator contract artifact_count must be 45")
+
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    if not summary:
+        errors.append("Alhambra source generator contract summary missing")
+    else:
+        if summary.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source generator contract summary pilot_key must be unique_alhambra")
+        if int(summary.get("generator_contract_count", -1)) != len(expected_target_paths):
+            errors.append("Alhambra source generator contract summary generator_contract_count must be 7")
+        if int(summary.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source generator contract summary artifact_count must be 45")
+        expected_status_summary = _count_by_key(
+            [
+                contract
+                for contract in generator_contracts
+                if isinstance(contract, dict)
+            ],
+            "generator_interface_status",
+        )
+        if summary.get("generator_interface_status_summary") != expected_status_summary:
+            errors.append("Alhambra source generator contract summary status mismatch")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(summary.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source generator contract summary {count_key} must be 0")
+
+    target_counts: dict[str, int] = {}
+    source_ref_keys: set[tuple[str, str, str, str]] = set()
+    localization_languages: set[str] = set()
+    for contract in generator_contracts:
+        if not isinstance(contract, dict):
+            errors.append("Alhambra source generator contract entry must be a mapping")
+            continue
+        missing_fields = _missing_required(
+            contract,
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_REQUIRED_FIELDS,
+        )
+        target_path = str(contract.get("target_path", ""))
+        context = f"Alhambra source generator contract {target_path or '<missing-target>'}"
+        if missing_fields:
+            errors.append(f"{context} missing field(s): {', '.join(missing_fields)}")
+        metadata = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.get(target_path)
+        if metadata is None:
+            errors.append(f"{context} has unexpected target path")
+            continue
+        target_counts[target_path] = target_counts.get(target_path, 0) + 1
+        expected_families = list(metadata["families"])
+        families = list(contract.get("families", []) or [])
+        if families != expected_families:
+            errors.append(f"{context} families mismatch")
+        expected_artifact_count = int(metadata["artifact_count"])
+        if int(contract.get("artifact_count", -1)) != expected_artifact_count:
+            errors.append(f"{context} artifact_count mismatch")
+        if not _alhambra_source_generator_contract_allowed_status(contract.get("generator_interface_status")):
+            errors.append(f"{context} generator_interface_status must be contract_drafted or blocked")
+        expected_owner = str(metadata.get("owner_candidate", ""))
+        if contract.get("owner_generator") != expected_owner:
+            errors.append(f"{context} owner_generator mismatch")
+        if contract.get("planned_source_writer_exists") != "interface_contract_exists":
+            errors.append(f"{context} planned_source_writer_exists must be interface_contract_exists")
+        _validate_alhambra_source_body_candidate_flags(context=context, value=contract, errors=errors)
+        for flag in ("source_ready", "verified", "backend_ready", "source_writer_allowed", "may_write_src", "writes_src"):
+            if contract.get(flag) is not False:
+                errors.append(f"{context} {flag} must be false")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(contract.get(count_key, -1)) != 0:
+                errors.append(f"{context} {count_key} must be 0")
+
+        evidence_ref = contract.get("evidence_pack_ref")
+        if not isinstance(evidence_ref, dict) or not evidence_ref:
+            errors.append(f"{context} missing evidence_pack_ref")
+        else:
+            if evidence_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{context} evidence_pack_ref pilot_key must be unique_alhambra")
+            if evidence_ref.get("target_path") != target_path:
+                errors.append(f"{context} evidence_pack_ref target mismatch")
+            if evidence_ref.get("families") != expected_families:
+                errors.append(f"{context} evidence_pack_ref families mismatch")
+            if int(evidence_ref.get("artifact_count", -1)) != expected_artifact_count:
+                errors.append(f"{context} evidence_pack_ref artifact_count mismatch")
+            if evidence_ref.get("source_file_validation_evidence_only") is not True:
+                errors.append(f"{context} evidence_pack_ref must derive from validation evidence")
+
+        _validate_alhambra_source_generator_contract_boundary(
+            context=context,
+            boundary=contract.get("source_target_boundary"),
+            target_path=target_path,
+            families=expected_families,
+            errors=errors,
+        )
+
+        required_validations = sorted(_string_refs(contract.get("required_validations")))
+        if not required_validations:
+            errors.append(f"{context} required_validations must not be empty")
+        remaining_blockers = sorted(_string_refs(contract.get("remaining_blockers")))
+        if not remaining_blockers:
+            errors.append(f"{context} remaining_blockers must not be empty while source target boundary is blocked")
+        if sorted(_string_refs(contract.get("unresolved_writer_blockers"))) != remaining_blockers:
+            errors.append(f"{context} unresolved writer blockers mismatch")
+
+        refs = contract.get("source_body_candidate_refs") if isinstance(contract.get("source_body_candidate_refs"), list) else []
+        if int(contract.get("source_body_candidate_ref_count", -1)) != len([ref for ref in refs if isinstance(ref, dict)]):
+            errors.append(f"{context} source_body_candidate_ref_count mismatch")
+        for ref in refs:
+            if not isinstance(ref, dict):
+                continue
+            if ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{context} source body candidate ref pilot_key must be unique_alhambra")
+            source_ref_keys.add(_alhambra_source_file_preview_ref_key(ref))
+
+        localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        if target_path in localization_targets.values():
+            language = str(contract.get("localization_language", ""))
+            localization_languages.add(language)
+            if localization_targets.get(language) != target_path:
+                errors.append(f"{context} localization target path does not match language")
+            if families != ["localization"]:
+                errors.append(f"{context} localization generator contract must contain only localization")
+            _validate_alhambra_source_file_preview_localization_boundary(
+                context=context,
+                boundary=contract.get("localization_language_boundary"),
+                language=language,
+                target_path=target_path,
+                errors=errors,
+            )
+        elif "localization" in families:
+            errors.append(f"{context} localization generator contract must use separated language target files")
+
+        if families == ["listener"]:
+            if int(contract.get("artifact_count", -1)) != 1:
+                errors.append(f"{context} listener target artifact_count must be 1")
+            _validate_alhambra_source_file_validation_listener_linkage(
+                context=context,
+                linkage=contract.get("listener_linkage_contract"),
+                errors=errors,
+            )
+
+    duplicate_targets = sorted(target for target, count in target_counts.items() if count > 1)
+    if duplicate_targets:
+        errors.append(f"Alhambra source generator contract duplicate target path(s): {', '.join(duplicate_targets)}")
+    actual_targets = set(target_counts)
+    missing_targets = sorted(expected_target_paths - actual_targets)
+    extra_targets = sorted(actual_targets - expected_target_paths)
+    if missing_targets:
+        errors.append(f"Alhambra source generator contract missing required target path(s): {', '.join(missing_targets)}")
+    if extra_targets:
+        errors.append(f"Alhambra source generator contract has unexpected target path(s): {', '.join(extra_targets)}")
+    if localization_languages != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+        errors.append("Alhambra source generator contract localization must split English and Simplified Chinese files")
+    if len(source_ref_keys) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append(f"Alhambra source generator contract expected 45 unique source body artifacts, got {len(source_ref_keys)}")
+    if int(report.get("source_body_candidate_ref_count", -1)) != len(source_ref_keys):
+        errors.append("Alhambra source generator contract source_body_candidate_ref_count mismatch")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if int(report.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source generator contract {count_key} must be 0")
+    return errors
+
+
 def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
     entries = matrix.get("unique_wonders", []) if isinstance(matrix, dict) else []
     return {
@@ -12263,6 +12682,9 @@ def audit_summary() -> dict[str, Any]:
     repeated_entity_row_source_preview = repeated_entity_row_source_preview_for_payload(specs)
     repeated_entity_row_source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(specs)
     repeated_entity_row_source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(specs)
+    repeated_entity_row_alhambra_source_generator_contract = (
+        repeated_entity_row_alhambra_source_generator_contract_for_payload(specs)
+    )
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -12366,6 +12788,7 @@ def audit_summary() -> dict[str, Any]:
         "repeated_entity_row_source_preview": repeated_entity_row_source_preview,
         "repeated_entity_row_source_writer_readiness": repeated_entity_row_source_writer_readiness,
         "repeated_entity_row_source_bundle_preview": repeated_entity_row_source_bundle_preview,
+        "repeated_entity_row_alhambra_source_generator_contract": repeated_entity_row_alhambra_source_generator_contract,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
         "capability_registry_errors": capability_registry_errors,

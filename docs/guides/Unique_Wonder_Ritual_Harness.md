@@ -175,6 +175,21 @@ not claim `verified`, `backend_ready`, `source_ready`, `source_writer_allowed`, 
 `may_write_src`/`writes_src` permission. Localization evidence must keep English and
 Simplified Chinese target files separate, and the Alhambra listener evidence must retain
 hook linkage, selected-ritual trigger linkage, and war-scope boundary evidence.
+The Alhambra source generator contract is the no-write ownership/emitter interface layer
+above that validation evidence. It must derive only from
+`repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(...)` and emits
+one contract for each of the seven Alhambra target files. Each contract records the
+target path, families, artifact count, evidence pack reference, owner generator,
+`generator_interface_status`, required validations, remaining blockers, and the same
+blocked source-target boundary. `planned_source_writer_exists` may advance only to the
+string `interface_contract_exists`; it must not become source-writer permission. The only
+generator interface statuses are `contract_drafted` and `blocked`, while
+`source_target_boundary.status` remains `blocked`. The contract must keep
+`source_ready: false`, `verified: false`, `backend_ready: false`,
+`source_writer_allowed: false`, `may_write_src: false`, and `writes_src: false`.
+Localization contracts must keep English and Simplified Chinese target files separate,
+and the listener contract must retain hook linkage, selected-trigger linkage, and
+war-scope linkage.
 The event and localization vertical slices in that ledger are closure contracts only.
 They add machine-checkable event body preview and localization key-contract evidence for
 the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,
