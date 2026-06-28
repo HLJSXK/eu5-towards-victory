@@ -3496,6 +3496,12 @@ REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS = {
     "writes_src": False,
     "source_writer_allowed": False,
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT = "unique_alhambra"
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT = 45
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS = {
+    "candidate_only": True,
+    **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
+}
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS = ("english", "simp_chinese")
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_row_labels": "row_labels",
@@ -9163,6 +9169,10 @@ def _repeated_row_source_bundle_localization_preview(closure: dict[str, Any]) ->
     }
 
 
+def _repeated_row_source_bundle_candidate_context(closure: dict[str, Any]) -> dict[str, Any]:
+    return deepcopy(closure)
+
+
 def _repeated_row_source_bundle_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
     closure = artifact.get("closure_contract") if isinstance(artifact.get("closure_contract"), dict) else {}
     family = str(closure.get("contract_family", artifact.get("contract_family", "")))
@@ -9186,6 +9196,7 @@ def _repeated_row_source_bundle_artifact(artifact: dict[str, Any]) -> dict[str, 
             artifact=artifact,
             closure=closure,
         ),
+        "closure_candidate_context": _repeated_row_source_bundle_candidate_context(closure),
         "unresolved_writer_blockers": blockers,
         "blocker_summary": dict(sorted((blocker, blockers.count(blocker)) for blocker in set(blockers))),
         "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
@@ -9766,6 +9777,597 @@ def validate_repeated_entity_row_source_bundle_preview(report: dict[str, Any]) -
     )
     if int(report.get("blocker_count", -1)) != expected_blocker_count:
         errors.append("source bundle preview blocker_count mismatch")
+    return errors
+
+
+def _alhambra_source_body_candidate_flags() -> dict[str, bool]:
+    return dict(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS)
+
+
+def _alhambra_source_body_candidate_blocker_summary(candidates: list[dict[str, Any]]) -> dict[str, int]:
+    summary: dict[str, int] = {}
+    for candidate in candidates:
+        for blocker in _string_refs(candidate.get("unresolved_blockers")):
+            summary[blocker] = summary.get(blocker, 0) + 1
+    return dict(sorted(summary.items()))
+
+
+def _alhambra_source_body_candidate_draft(
+    *,
+    family: str,
+    artifact: dict[str, Any],
+) -> dict[str, Any]:
+    context = artifact.get("closure_candidate_context") if isinstance(artifact.get("closure_candidate_context"), dict) else {}
+    flags = _alhambra_source_body_candidate_flags()
+    future_target = str(artifact.get("future_source_target_path", ""))
+    common = {
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed": False,
+        "future_source_target_path": future_target,
+        "future_source_target_path_pattern": str(artifact.get("future_source_target_path_pattern", "")),
+        "source_type": str(context.get("source_type", "")),
+        "no_write_placeholder_flags": flags,
+    }
+    if family == "event":
+        preview = deepcopy(artifact.get("source_body_preview", {}) or {})
+        return {
+            "kind": "country_event_structured_body_candidate",
+            "source_body_preview": preview,
+            "namespace": str(preview.get("namespace", context.get("namespace", ""))),
+            "event_id": preview.get("event_id", context.get("preview_event_id")),
+            "localization_key_handoff": deepcopy(context.get("localization_key_handoff", {}) or {}),
+            "option_effect_handoff": deepcopy(context.get("option_effect_handoff", {}) or {}),
+            "safety_notes": deepcopy(context.get("safety_notes", {}) or {}),
+            **common,
+        }
+    if family == "localization":
+        preview = deepcopy(artifact.get("source_body_preview", {}) or {})
+        return {
+            "kind": "localization_structured_body_candidate",
+            "source_body_preview": preview,
+            "loc_key_namespace": str(preview.get("loc_key_namespace", "")),
+            "loc_key_plan": deepcopy(preview.get("loc_key_plan", []) or []),
+            "event_key_handoff": deepcopy(preview.get("event_key_handoff", {}) or {}),
+            "language_ownership_boundary": deepcopy(preview.get("language_ownership_boundary", {}) or {}),
+            **common,
+        }
+
+    placeholder = deepcopy(artifact.get("source_body_placeholder", {}) or {})
+    if family == "effect":
+        draft = {
+            "kind": "scripted_effect_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "future_effect_name_plan": deepcopy(context.get("future_effect_name_plan", {}) or {}),
+            "effect_operation_coverage": deepcopy(context.get("effect_operation_coverage", {}) or {}),
+            "row_state_schema_boundary": deepcopy(context.get("row_state_schema_boundary", {}) or {}),
+            "aggregate_refresh_boundary": deepcopy(context.get("aggregate_refresh_boundary", {}) or {}),
+            "cleanup_write_handoff": deepcopy(context.get("cleanup_write_handoff", {}) or {}),
+        }
+    elif family == "cleanup":
+        draft = {
+            "kind": "cleanup_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "cleanup_lifecycle_scope": str(context.get("cleanup_lifecycle_scope", "")),
+            "cleanup_scope_plan": deepcopy(context.get("cleanup_scope_plan", {}) or {}),
+            "cleanup_coverage": deepcopy(context.get("cleanup_coverage", {}) or {}),
+            "ownership_reset_branch_boundary": deepcopy(context.get("ownership_reset_branch_boundary", {}) or {}),
+            "row_entity_lifecycle_coverage": deepcopy(context.get("row_entity_lifecycle_coverage", {}) or {}),
+            "aggregate_projection_boundary": deepcopy(context.get("aggregate_projection_boundary", {}) or {}),
+        }
+    elif family == "trigger":
+        draft = {
+            "kind": "scripted_trigger_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "future_trigger_name_plan": deepcopy(context.get("future_trigger_name_plan", {}) or {}),
+            "condition_group_coverage": deepcopy(context.get("condition_group_coverage", {}) or {}),
+            "forbidden_write_paths": deepcopy(context.get("forbidden_write_paths", {}) or {}),
+            "aggregate_projection_boundary": deepcopy(context.get("aggregate_projection_boundary", {}) or {}),
+        }
+    elif family == "gui":
+        draft = {
+            "kind": "gui_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "fixed_row_widget_plan": deepcopy(context.get("fixed_row_widget_plan", {}) or {}),
+            "per_row_variable_binding_plan": deepcopy(context.get("per_row_variable_binding_plan", {}) or {}),
+            "actor_checklist_incident_row_policy": deepcopy(
+                context.get("actor_checklist_incident_row_policy", {}) or {}
+            ),
+            "tooltip_localization_linkage": deepcopy(context.get("tooltip_localization_linkage", {}) or {}),
+            "gui_event_localization_key_linkage": deepcopy(
+                context.get("gui_event_localization_key_linkage", {}) or {}
+            ),
+            "aggregate_projection_boundary": deepcopy(context.get("aggregate_projection_boundary", {}) or {}),
+            "row_entity_refs": deepcopy(context.get("row_entity_refs", {}) or {}),
+        }
+    elif family == "listener":
+        draft = {
+            "kind": "listener_on_action_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "on_action_target_path_plan": deepcopy(context.get("on_action_target_path_plan", {}) or {}),
+            "on_action_hook_linkage_plan": deepcopy(context.get("on_action_hook_linkage_plan", {}) or {}),
+            "selected_ritual_trigger_linkage": deepcopy(context.get("selected_ritual_trigger_linkage", {}) or {}),
+            "war_scope_availability_persistence_plan": deepcopy(
+                context.get("war_scope_availability_persistence_plan", {}) or {}
+            ),
+            "row_state_handoff_boundary": deepcopy(context.get("row_state_handoff_boundary", {}) or {}),
+            "listener_artifact_scope": str(context.get("listener_artifact_scope", "")),
+        }
+    else:
+        draft = {
+            "kind": f"{family}_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+        }
+    return {
+        **draft,
+        **common,
+    }
+
+
+def _alhambra_source_body_candidate_for_artifact(
+    *,
+    family: str,
+    artifact: dict[str, Any],
+) -> dict[str, Any]:
+    flags = _alhambra_source_body_candidate_flags()
+    closure_ref = deepcopy(artifact.get("closure_contract_ref", {}) or {})
+    candidate = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": family,
+        "artifact_kind": str(artifact.get("artifact_kind", "")),
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "closure_contract_ref": closure_ref,
+        "future_source_target_path": str(artifact.get("future_source_target_path", "")),
+        "future_source_target_path_pattern": str(artifact.get("future_source_target_path_pattern", "")),
+        "validation_refs": _string_refs(artifact.get("required_validations")),
+        "unresolved_blockers": sorted(set(_string_refs(artifact.get("unresolved_writer_blockers")))),
+        "blocker_summary": dict(artifact.get("blocker_summary", {}) or {}),
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": flags,
+        "structured_body_candidate": _alhambra_source_body_candidate_draft(
+            family=family,
+            artifact=artifact,
+        ),
+        **flags,
+    }
+    if family == "event" and isinstance(artifact.get("source_body_preview"), dict):
+        candidate["source_body_preview"] = deepcopy(artifact.get("source_body_preview", {}) or {})
+    if family == "localization" and isinstance(artifact.get("source_body_preview"), dict):
+        candidate["source_body_preview"] = deepcopy(artifact.get("source_body_preview", {}) or {})
+    return candidate
+
+
+def _alhambra_source_body_candidate_section(
+    *,
+    family: str,
+    source_bundle_section: dict[str, Any],
+) -> dict[str, Any]:
+    artifacts = [
+        artifact
+        for artifact in source_bundle_section.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    candidates = [
+        _alhambra_source_body_candidate_for_artifact(family=family, artifact=artifact)
+        for artifact in artifacts
+    ]
+    closure_refs = [candidate["closure_contract_ref"] for candidate in candidates]
+    future_target_paths = sorted(
+        {
+            str(candidate.get("future_source_target_path", ""))
+            for candidate in candidates
+            if str(candidate.get("future_source_target_path", "")).strip()
+        }
+    )
+    validation_refs = sorted(
+        {
+            validation
+            for candidate in candidates
+            for validation in _string_refs(candidate.get("validation_refs"))
+        }
+    )
+    unresolved_blockers = sorted(
+        {
+            blocker
+            for candidate in candidates
+            for blocker in _string_refs(candidate.get("unresolved_blockers"))
+        }
+    )
+    return {
+        "family": family,
+        "source_body_candidate_only": True,
+        "bundle_preview_input_only": True,
+        "artifact_count": len(candidates),
+        "closure_contract_count": len(closure_refs),
+        "closure_contract_refs": closure_refs,
+        "future_target_paths": future_target_paths,
+        "validation_refs": validation_refs,
+        "required_validations": validation_refs,
+        "unresolved_blockers": unresolved_blockers,
+        "unresolved_writer_blockers": unresolved_blockers,
+        "blocker_summary": _alhambra_source_body_candidate_blocker_summary(candidates),
+        "structured_body_candidates": candidates,
+        "source_ready_count": sum(1 for candidate in candidates if candidate.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for candidate in candidates if candidate.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for candidate in candidates if candidate.get("may_write_src") is True),
+        "writes_src_count": sum(1 for candidate in candidates if candidate.get("writes_src") is True),
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+    }
+
+
+def _alhambra_source_body_candidate_from_bundle_preview(source_bundle_preview: dict[str, Any]) -> dict[str, Any]:
+    bundle = next(
+        (
+            entry
+            for entry in source_bundle_preview.get("bundles", []) or []
+            if isinstance(entry, dict)
+            and entry.get("key") == REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT
+        ),
+        {},
+    )
+    bundle_sections = bundle.get("sections") if isinstance(bundle.get("sections"), dict) else {}
+    sections = {
+        family: _alhambra_source_body_candidate_section(
+            family=family,
+            source_bundle_section=bundle_sections.get(family, {}) if isinstance(bundle_sections, dict) else {},
+        )
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+    }
+    candidates = [
+        candidate
+        for section in sections.values()
+        for candidate in section.get("structured_body_candidates", []) or []
+        if isinstance(candidate, dict)
+    ]
+    family_summary = {
+        family: int(section.get("artifact_count", 0))
+        for family, section in sections.items()
+    }
+    source_ready_count = sum(1 for candidate in candidates if candidate.get("source_ready") is True)
+    source_writer_allowed_count = sum(1 for candidate in candidates if candidate.get("source_writer_allowed") is True)
+    may_write_src_count = sum(1 for candidate in candidates if candidate.get("may_write_src") is True)
+    writes_src_count = sum(1 for candidate in candidates if candidate.get("writes_src") is True)
+    blocker_summary = _alhambra_source_body_candidate_blocker_summary(candidates)
+    summary = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family_count": len(sections),
+        "artifact_count": len(candidates),
+        "closure_contract_count": sum(int(section.get("closure_contract_count", 0)) for section in sections.values()),
+        "family_summary": family_summary,
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "blocker_summary": blocker_summary,
+    }
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_body_candidate_only": True,
+        "bundle_preview_input_only": True,
+        "source_bundle_preview_ref": {
+            "bundle_count": int(source_bundle_preview.get("bundle_count", 0)),
+            "artifact_count": int(source_bundle_preview.get("artifact_count", 0)),
+            "closure_contract_count": int(source_bundle_preview.get("closure_contract_count", 0)),
+        },
+        "source_bundle_preview_validation_errors": list(source_bundle_preview.get("validation_errors", []) or []),
+        "summary": summary,
+        "family_count": len(sections),
+        "artifact_count": len(candidates),
+        "closure_contract_count": summary["closure_contract_count"],
+        "family_summary": family_summary,
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "blocker_summary": blocker_summary,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+        "sections": sections,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra source body candidate is a no-write vertical slice over the source bundle preview.",
+            "It is not source-ready, not loadable EU5 source, and not permission to write src/.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_body_candidate(report)
+    return report
+
+
+def repeated_entity_row_alhambra_source_body_candidate_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(payload, statuses=statuses)
+    return _alhambra_source_body_candidate_from_bundle_preview(source_bundle_preview)
+
+
+def _validate_alhambra_source_body_candidate_flags(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} missing no-write candidate flag {flag}")
+    placeholder_flags = value.get("no_write_placeholder_flags")
+    if not isinstance(placeholder_flags, dict):
+        errors.append(f"{context} missing no-write placeholder flags")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS.items():
+        if placeholder_flags.get(flag) is not expected:
+            errors.append(f"{context} no-write placeholder flag {flag} mismatch")
+
+
+def _validate_alhambra_source_body_placeholder_flags(
+    *,
+    context: str,
+    value: Any,
+    errors: list[str],
+) -> None:
+    if not isinstance(value, dict):
+        errors.append(f"{context} missing source body placeholder")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} source body placeholder missing no-write flag {flag}")
+
+
+def validate_repeated_entity_row_alhambra_source_body_candidate(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source body candidate pilot_key must be unique_alhambra")
+    if report.get("source_body_candidate_only") is not True:
+        errors.append("Alhambra source body candidate must declare source_body_candidate_only: true")
+    if report.get("bundle_preview_input_only") is not True:
+        errors.append("Alhambra source body candidate must declare bundle_preview_input_only: true")
+    if report.get("source_bundle_preview_validation_errors"):
+        errors.append("Alhambra source body candidate source bundle preview validation must be clean")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"Alhambra source body candidate must not claim source_ready/verified/backend_ready at {path}")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source body candidate {flag} must be false at {path}")
+
+    if int(report.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+        errors.append("Alhambra source body candidate family_count must be 7")
+    if int(report.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append("Alhambra source body candidate artifact_count must be 45")
+    _validate_alhambra_source_body_candidate_flags(context="Alhambra source body candidate report", value=report, errors=errors)
+
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    if not summary:
+        errors.append("Alhambra source body candidate summary missing")
+    else:
+        if summary.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source body candidate summary pilot_key must be unique_alhambra")
+        if int(summary.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+            errors.append("Alhambra source body candidate summary family_count must be 7")
+        if int(summary.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source body candidate summary artifact_count must be 45")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(summary.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source body candidate summary {count_key} must be 0")
+
+    sections = report.get("sections") if isinstance(report.get("sections"), dict) else {}
+    missing_sections = [
+        family
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+        if family not in sections
+    ]
+    if missing_sections:
+        errors.append(f"Alhambra source body candidate missing family section(s): {', '.join(missing_sections)}")
+
+    all_candidates: list[dict[str, Any]] = []
+    family_summary: dict[str, int] = {}
+    for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES:
+        section = sections.get(family)
+        if not isinstance(section, dict):
+            continue
+        if section.get("family") != family:
+            errors.append(f"Alhambra source body candidate section {family} family mismatch")
+        if section.get("source_body_candidate_only") is not True:
+            errors.append(f"Alhambra source body candidate section {family} must be candidate-only")
+        if section.get("bundle_preview_input_only") is not True:
+            errors.append(f"Alhambra source body candidate section {family} must be bundle-preview input only")
+        _validate_alhambra_source_body_candidate_flags(
+            context=f"Alhambra source body candidate section {family}",
+            value=section,
+            errors=errors,
+        )
+
+        candidates = section.get("structured_body_candidates") if isinstance(section.get("structured_body_candidates"), list) else []
+        candidates = [candidate for candidate in candidates if isinstance(candidate, dict)]
+        family_summary[family] = len(candidates)
+        if int(section.get("artifact_count", -1)) != len(candidates):
+            errors.append(f"Alhambra source body candidate section {family} artifact_count mismatch")
+        if int(section.get("closure_contract_count", -1)) != len(candidates):
+            errors.append(f"Alhambra source body candidate section {family} closure_contract_count mismatch")
+
+        expected_refs = [candidate.get("closure_contract_ref") for candidate in candidates]
+        expected_target_paths = sorted(
+            {
+                str(candidate.get("future_source_target_path", ""))
+                for candidate in candidates
+                if str(candidate.get("future_source_target_path", "")).strip()
+            }
+        )
+        expected_validation_refs = sorted(
+            {
+                validation
+                for candidate in candidates
+                for validation in _string_refs(candidate.get("validation_refs"))
+            }
+        )
+        expected_blockers = sorted(
+            {
+                blocker
+                for candidate in candidates
+                for blocker in _string_refs(candidate.get("unresolved_blockers"))
+            }
+        )
+        expected_blocker_summary = _alhambra_source_body_candidate_blocker_summary(candidates)
+        if section.get("closure_contract_refs") != expected_refs:
+            errors.append(f"Alhambra source body candidate section {family} closure refs mismatch")
+        if section.get("future_target_paths") != expected_target_paths:
+            errors.append(f"Alhambra source body candidate section {family} future target paths mismatch")
+        if section.get("validation_refs") != expected_validation_refs:
+            errors.append(f"Alhambra source body candidate section {family} validation refs mismatch")
+        if section.get("unresolved_blockers") != expected_blockers:
+            errors.append(f"Alhambra source body candidate section {family} unresolved blockers mismatch")
+        if section.get("blocker_summary") != expected_blocker_summary:
+            errors.append(f"Alhambra source body candidate section {family} blocker summary mismatch")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(section.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source body candidate section {family} {count_key} must be 0")
+
+        for candidate in candidates:
+            artifact_kind = str(candidate.get("artifact_kind", "<unknown>"))
+            context = f"Alhambra source body candidate {family} artifact {artifact_kind}"
+            _validate_alhambra_source_body_candidate_flags(context=context, value=candidate, errors=errors)
+            if candidate.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{context} pilot_key must be unique_alhambra")
+            if candidate.get("family") != family:
+                errors.append(f"{context} family mismatch")
+            if not str(candidate.get("future_source_target_path", "")).startswith("src/"):
+                errors.append(f"{context} missing future target path")
+            if not _string_refs(candidate.get("validation_refs")):
+                errors.append(f"{context} missing validation refs")
+            if not _string_refs(candidate.get("unresolved_blockers")):
+                errors.append(f"{context} missing unresolved blockers")
+            ref = candidate.get("closure_contract_ref")
+            if not isinstance(ref, dict):
+                errors.append(f"{context} missing closure contract ref")
+            else:
+                if ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                    errors.append(f"{context} closure ref pilot must be unique_alhambra")
+                if ref.get("contract_family") != family:
+                    errors.append(f"{context} closure ref family mismatch")
+                if ref.get("artifact_kind") != artifact_kind:
+                    errors.append(f"{context} closure ref artifact mismatch")
+                if ref.get("future_source_target_path") != candidate.get("future_source_target_path"):
+                    errors.append(f"{context} closure ref future target path mismatch")
+
+            body = candidate.get("structured_body_candidate")
+            if not isinstance(body, dict):
+                errors.append(f"{context} missing structured body candidate")
+                continue
+            _validate_alhambra_source_body_candidate_flags(context=f"{context} body", value=body, errors=errors)
+            if body.get("body_emitted") is not False:
+                errors.append(f"{context} body_emitted must be false")
+
+            if family == "event":
+                preview = body.get("source_body_preview")
+                if not isinstance(preview, dict) or preview.get("kind") != "country_event_preview":
+                    errors.append(f"{context} must reuse event source_body_preview")
+            elif family == "localization":
+                preview = body.get("source_body_preview")
+                if not isinstance(preview, dict) or preview.get("kind") != "localization_key_plan_preview":
+                    errors.append(f"{context} must reuse localization source_body_preview")
+                elif not isinstance(preview.get("loc_key_plan"), list) or not preview.get("loc_key_plan"):
+                    errors.append(f"{context} localization candidate missing loc key plan")
+            elif family in {"effect", "cleanup", "trigger", "gui"}:
+                _validate_alhambra_source_body_placeholder_flags(
+                    context=f"{context} body",
+                    value=body.get("source_body_placeholder"),
+                    errors=errors,
+                )
+            elif family == "listener":
+                _validate_alhambra_source_body_placeholder_flags(
+                    context=f"{context} body",
+                    value=body.get("source_body_placeholder"),
+                    errors=errors,
+                )
+                hook_plan = body.get("on_action_hook_linkage_plan")
+                if (
+                    not isinstance(hook_plan, dict)
+                    or hook_plan.get("linkage_only") is not True
+                    or {"on_pre_winning_war", "on_ending_war"} - set(_string_refs(hook_plan.get("hooks")))
+                ):
+                    errors.append(f"{context} listener missing on_action hook linkage")
+                trigger_linkage = body.get("selected_ritual_trigger_linkage")
+                if (
+                    not isinstance(trigger_linkage, dict)
+                    or trigger_linkage.get("selected_ritual_only") is not True
+                    or trigger_linkage.get("linkage_only") is not True
+                    or trigger_linkage.get("trigger_name")
+                    != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+                ):
+                    errors.append(f"{context} listener missing selected ritual trigger linkage")
+                war_scope_plan = body.get("war_scope_availability_persistence_plan")
+                if (
+                    not isinstance(war_scope_plan, dict)
+                    or war_scope_plan.get("persistence_contract_only") is not True
+                    or war_scope_plan.get("listener_scope_writes_allowed") is not False
+                    or war_scope_plan.get("war_scope_writes_allowed") is not False
+                    or {"on_pre_winning_war", "on_ending_war"}
+                    - set(_string_refs(war_scope_plan.get("war_scope_available_from_hooks")))
+                ):
+                    errors.append(f"{context} listener missing war-scope plan")
+        all_candidates.extend(candidates)
+
+    if int(report.get("artifact_count", -1)) != len(all_candidates):
+        errors.append("Alhambra source body candidate artifact_count mismatch")
+    if len(all_candidates) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append(
+            f"Alhambra source body candidate expected 45 artifacts, got {len(all_candidates)}"
+        )
+    if report.get("family_summary") != family_summary:
+        errors.append("Alhambra source body candidate family_summary mismatch")
+    expected_blocker_summary = _alhambra_source_body_candidate_blocker_summary(all_candidates)
+    if report.get("blocker_summary") != expected_blocker_summary:
+        errors.append("Alhambra source body candidate blocker_summary mismatch")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if int(report.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source body candidate {count_key} must be 0")
+    if summary:
+        if summary.get("family_summary") != family_summary:
+            errors.append("Alhambra source body candidate summary family_summary mismatch")
+        if summary.get("blocker_summary") != expected_blocker_summary:
+            errors.append("Alhambra source body candidate summary blocker_summary mismatch")
     return errors
 
 

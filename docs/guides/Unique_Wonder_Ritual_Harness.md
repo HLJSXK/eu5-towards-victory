@@ -141,6 +141,17 @@ GUI, and Alhambra listener sections must remain source-body placeholders with
 `contract_only: true`, `body_emitted: false`, `source_ready: false`, `may_write_src:
 false`, `writes_src: false`, and `source_writer_allowed: false`. Non-Alhambra pilots must
 record explicit listener-artifact absence instead of inventing listener artifacts.
+The Alhambra source body candidate is the first no-write source-body vertical slice on top
+of that bundle preview. It selects only the `unique_alhambra` bundle, keeps the full
+seven-family shape, and presents 45 event, localization, scripted-effect, cleanup,
+scripted-trigger, GUI, and listener body candidates for review. Event and localization
+reuse the existing body/key-plan previews; scripted-effect, cleanup, scripted-trigger,
+GUI, and listener entries are EU5-shaped structured drafts only. Every candidate must keep
+`candidate_only: true`, `contract_only: true`, `source_ready: false`, `body_emitted:
+false`, `may_write_src: false`, `writes_src: false`, and `source_writer_allowed: false`.
+The listener candidate remains Alhambra-only and must carry the on_action hook linkage,
+selected-ritual trigger linkage, and war-scope persistence plan. This vertical slice is
+not source-ready evidence, not loadable EU5 source, and not permission to write `src/`.
 The event and localization vertical slices in that ledger are closure contracts only.
 They add machine-checkable event body preview and localization key-contract evidence for
 the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,

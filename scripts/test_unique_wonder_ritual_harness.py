@@ -32,10 +32,12 @@ from wonder_unique_ritual_harness import repeated_entity_row_source_plan_for_pay
 from wonder_unique_ritual_harness import repeated_entity_row_source_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_bundle_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_writer_readiness_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_body_candidate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_writer_readiness  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_body_candidate  # noqa: E402
 
 
 WONDER = {
@@ -1625,6 +1627,13 @@ def _first_source_bundle_artifact(report: dict, family: str, pilot_key: str | No
         for artifact in section.get("artifacts", []) or []:
             return artifact
     raise AssertionError(f"source bundle preview has no {family} artifact")
+
+
+def _first_alhambra_source_body_candidate(report: dict, family: str) -> dict:
+    section = (report.get("sections") or {}).get(family, {})
+    for candidate in section.get("structured_body_candidates", []) or []:
+        return candidate
+    raise AssertionError(f"Alhambra source body candidate has no {family} candidate")
 
 
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
@@ -4481,6 +4490,251 @@ def main() -> None:
         raise AssertionError(
             f"missing placeholder flag bundle negative was not caught: {missing_placeholder_flag_errors}"
         )
+
+    alhambra_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(load_spec_data())
+    if alhambra_body_candidate["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source body candidate unexpectedly failed validation: "
+            f"{alhambra_body_candidate['validation_errors']}"
+        )
+    alhambra_summary = alhambra_body_candidate.get("summary", {})
+    if alhambra_body_candidate.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source body candidate pilot changed: {alhambra_body_candidate}")
+    if alhambra_summary.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source body candidate summary pilot changed: {alhambra_summary}")
+    if alhambra_summary.get("family_count") != 7:
+        raise AssertionError(f"Alhambra source body candidate family_count changed: {alhambra_summary}")
+    if alhambra_summary.get("artifact_count") != 45:
+        raise AssertionError(f"Alhambra source body candidate artifact_count changed: {alhambra_summary}")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if alhambra_summary.get(count_key) != 0:
+            raise AssertionError(f"Alhambra source body candidate {count_key} changed: {alhambra_summary}")
+    if not alhambra_summary.get("blocker_summary"):
+        raise AssertionError("Alhambra source body candidate must retain blocker summary")
+
+    alhambra_bundle = _source_bundle(source_bundle_preview, "unique_alhambra")
+    alhambra_sections = alhambra_body_candidate.get("sections")
+    if set(alhambra_sections) != set(expected_preview_family_counts):
+        raise AssertionError(f"Alhambra source body candidate sections changed: {alhambra_sections}")
+    required_candidate_flags = {
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed": False,
+    }
+    for family, section in alhambra_sections.items():
+        bundle_section = alhambra_bundle["sections"][family]
+        if section.get("artifact_count") != bundle_section.get("artifact_count"):
+            raise AssertionError(f"{family} Alhambra candidate count does not match bundle: {section}")
+        if section.get("closure_contract_refs") != [
+            artifact.get("closure_contract_ref")
+            for artifact in bundle_section.get("artifacts", []) or []
+        ]:
+            raise AssertionError(f"{family} Alhambra candidate closure refs do not match bundle: {section}")
+        if not section.get("validation_refs") and family != "listener":
+            raise AssertionError(f"{family} Alhambra candidate lost validation refs: {section}")
+        if not section.get("unresolved_blockers"):
+            raise AssertionError(f"{family} Alhambra candidate lost blockers: {section}")
+        for flag, expected in required_candidate_flags.items():
+            if section.get(flag) is not expected:
+                raise AssertionError(f"{family} Alhambra candidate section lost {flag}: {section}")
+        for candidate in section.get("structured_body_candidates", []) or []:
+            body = candidate.get("structured_body_candidate")
+            if not isinstance(body, dict):
+                raise AssertionError(f"{family} Alhambra candidate missing structured body: {candidate}")
+            for flag, expected in required_candidate_flags.items():
+                if candidate.get(flag) is not expected:
+                    raise AssertionError(f"{family} Alhambra candidate lost {flag}: {candidate}")
+                if body.get(flag) is not expected:
+                    raise AssertionError(f"{family} Alhambra candidate body lost {flag}: {body}")
+            if family in {"effect", "cleanup", "trigger", "gui", "listener"}:
+                placeholder = body.get("source_body_placeholder")
+                if not isinstance(placeholder, dict):
+                    raise AssertionError(f"{family} Alhambra candidate body lost placeholder: {body}")
+                for flag, expected in {
+                    "contract_only": True,
+                    "body_emitted": False,
+                    "source_ready": False,
+                    "may_write_src": False,
+                    "writes_src": False,
+                    "source_writer_allowed": False,
+                }.items():
+                    if placeholder.get(flag) is not expected:
+                        raise AssertionError(f"{family} Alhambra candidate placeholder lost {flag}: {placeholder}")
+
+    event_candidate = _first_alhambra_source_body_candidate(alhambra_body_candidate, "event")
+    event_bundle_artifact = _first_source_bundle_artifact(source_bundle_preview, "event", "unique_alhambra")
+    if event_candidate.get("source_body_preview") != event_bundle_artifact.get("source_body_preview"):
+        raise AssertionError(f"Alhambra event candidate did not reuse bundle preview: {event_candidate}")
+    localization_candidate = _first_alhambra_source_body_candidate(alhambra_body_candidate, "localization")
+    localization_bundle_artifact = _first_source_bundle_artifact(
+        source_bundle_preview,
+        "localization",
+        "unique_alhambra",
+    )
+    if localization_candidate.get("source_body_preview") != localization_bundle_artifact.get("source_body_preview"):
+        raise AssertionError(f"Alhambra localization candidate did not reuse loc plan: {localization_candidate}")
+
+    listener_candidate = _first_alhambra_source_body_candidate(alhambra_body_candidate, "listener")
+    listener_body = listener_candidate.get("structured_body_candidate", {})
+    hook_plan = listener_body.get("on_action_hook_linkage_plan")
+    if not isinstance(hook_plan, dict) or not {"on_pre_winning_war", "on_ending_war"} <= set(
+        hook_plan.get("hooks", []) or []
+    ):
+        raise AssertionError(f"Alhambra listener candidate lost hook linkage: {listener_body}")
+    trigger_linkage = listener_body.get("selected_ritual_trigger_linkage")
+    if (
+        not isinstance(trigger_linkage, dict)
+        or trigger_linkage.get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+    ):
+        raise AssertionError(f"Alhambra listener candidate lost selected trigger linkage: {listener_body}")
+    war_scope_plan = listener_body.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(war_scope_plan, dict)
+        or war_scope_plan.get("listener_scope_writes_allowed") is not False
+        or war_scope_plan.get("war_scope_writes_allowed") is not False
+    ):
+        raise AssertionError(f"Alhambra listener candidate lost war-scope plan: {listener_body}")
+
+    wrong_pilot_candidate = deepcopy(alhambra_body_candidate)
+    wrong_pilot_candidate["pilot_key"] = "unique_dome_of_the_rock"
+    wrong_pilot_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(wrong_pilot_candidate)
+    if not any("pilot_key must be unique_alhambra" in error for error in wrong_pilot_candidate_errors):
+        raise AssertionError(f"wrong pilot Alhambra candidate negative was not caught: {wrong_pilot_candidate_errors}")
+
+    missing_family_candidate = deepcopy(alhambra_body_candidate)
+    del missing_family_candidate["sections"]["trigger"]
+    missing_family_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        missing_family_candidate
+    )
+    if not any("missing family section" in error for error in missing_family_candidate_errors):
+        raise AssertionError(
+            f"missing family Alhambra candidate negative was not caught: {missing_family_candidate_errors}"
+        )
+
+    wrong_count_candidate = deepcopy(alhambra_body_candidate)
+    wrong_count_candidate["artifact_count"] = 44
+    wrong_count_candidate["summary"]["artifact_count"] = 44
+    wrong_count_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(wrong_count_candidate)
+    if not any("artifact_count must be 45" in error for error in wrong_count_candidate_errors):
+        raise AssertionError(f"wrong count Alhambra candidate negative was not caught: {wrong_count_candidate_errors}")
+
+    source_ready_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(source_ready_candidate, "cleanup")["source_ready"] = True
+    source_ready_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(source_ready_candidate)
+    if not any("source_ready/verified/backend_ready" in error for error in source_ready_candidate_errors):
+        raise AssertionError(
+            f"source_ready Alhambra candidate negative was not caught: {source_ready_candidate_errors}"
+        )
+
+    backend_ready_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(backend_ready_candidate, "listener")["structured_body_candidate"][
+        "backend_ready"
+    ] = True
+    backend_ready_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        backend_ready_candidate
+    )
+    if not any("source_ready/verified/backend_ready" in error for error in backend_ready_candidate_errors):
+        raise AssertionError(
+            f"backend_ready Alhambra candidate negative was not caught: {backend_ready_candidate_errors}"
+        )
+
+    verified_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(verified_candidate, "event")["structured_body_candidate"][
+        "verified"
+    ] = True
+    verified_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(verified_candidate)
+    if not any("source_ready/verified/backend_ready" in error for error in verified_candidate_errors):
+        raise AssertionError(f"verified Alhambra candidate negative was not caught: {verified_candidate_errors}")
+
+    writable_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(writable_candidate, "effect")["may_write_src"] = True
+    writable_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(writable_candidate)
+    if not any("may_write_src must be false" in error for error in writable_candidate_errors):
+        raise AssertionError(f"may_write_src Alhambra candidate negative was not caught: {writable_candidate_errors}")
+
+    writes_src_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(writes_src_candidate, "trigger")["structured_body_candidate"][
+        "writes_src"
+    ] = True
+    writes_src_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(writes_src_candidate)
+    if not any("writes_src must be false" in error for error in writes_src_candidate_errors):
+        raise AssertionError(f"writes_src Alhambra candidate negative was not caught: {writes_src_candidate_errors}")
+
+    source_writer_allowed_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(source_writer_allowed_candidate, "gui")[
+        "source_writer_allowed"
+    ] = True
+    source_writer_allowed_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        source_writer_allowed_candidate
+    )
+    if not any("source_writer_allowed must be false" in error for error in source_writer_allowed_candidate_errors):
+        raise AssertionError(
+            "source_writer_allowed Alhambra candidate negative was not caught: "
+            f"{source_writer_allowed_candidate_errors}"
+        )
+
+    missing_hook_candidate = deepcopy(alhambra_body_candidate)
+    del _first_alhambra_source_body_candidate(missing_hook_candidate, "listener")["structured_body_candidate"][
+        "on_action_hook_linkage_plan"
+    ]
+    missing_hook_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        missing_hook_candidate
+    )
+    if not any("on_action hook linkage" in error for error in missing_hook_candidate_errors):
+        raise AssertionError(f"missing hook Alhambra candidate negative was not caught: {missing_hook_candidate_errors}")
+
+    missing_trigger_link_candidate = deepcopy(alhambra_body_candidate)
+    del _first_alhambra_source_body_candidate(missing_trigger_link_candidate, "listener")[
+        "structured_body_candidate"
+    ]["selected_ritual_trigger_linkage"]
+    missing_trigger_link_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        missing_trigger_link_candidate
+    )
+    if not any("selected ritual trigger linkage" in error for error in missing_trigger_link_candidate_errors):
+        raise AssertionError(
+            f"missing trigger linkage Alhambra candidate negative was not caught: "
+            f"{missing_trigger_link_candidate_errors}"
+        )
+
+    missing_war_scope_candidate = deepcopy(alhambra_body_candidate)
+    del _first_alhambra_source_body_candidate(missing_war_scope_candidate, "listener")["structured_body_candidate"][
+        "war_scope_availability_persistence_plan"
+    ]
+    missing_war_scope_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        missing_war_scope_candidate
+    )
+    if not any("war-scope plan" in error for error in missing_war_scope_candidate_errors):
+        raise AssertionError(
+            f"missing war scope Alhambra candidate negative was not caught: {missing_war_scope_candidate_errors}"
+        )
+
+    for family in ("effect", "cleanup", "trigger", "gui"):
+        missing_placeholder_candidate = deepcopy(alhambra_body_candidate)
+        placeholder = _first_alhambra_source_body_candidate(missing_placeholder_candidate, family)[
+            "structured_body_candidate"
+        ]["source_body_placeholder"]
+        del placeholder["contract_only"]
+        missing_placeholder_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+            missing_placeholder_candidate
+        )
+        if not any(
+            "source body placeholder missing no-write flag contract_only" in error
+            for error in missing_placeholder_candidate_errors
+        ):
+            raise AssertionError(
+                f"{family} placeholder flag Alhambra candidate negative was not caught: "
+                f"{missing_placeholder_candidate_errors}"
+            )
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
