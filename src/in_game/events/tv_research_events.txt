@@ -1631,6 +1631,154 @@ tv_research.42 = {
 		hidden_effect = {
 			remove_variable = tv_academy_philosophy_recess_notice_pending
 			remove_variable = tv_academy_philosophy_recess_notice_issue
+			remove_variable = tv_academy_philosophy_result_pending
+			remove_variable = tv_academy_philosophy_result_issue
+			remove_variable = tv_academy_philosophy_result_kind
 		}
+	}
+}
+
+# ── tv_research.43 — Philosophy Debate Accepted ──────────────────────────────
+tv_research.43 = {
+	type = country_event
+	title = tv_research.43.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 1 }
+				desc = tv_research.43.d_meritocracy
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 2 }
+				desc = tv_research.43.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 3 }
+				desc = tv_research.43.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 4 }
+				desc = tv_research.43.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 5 }
+				desc = tv_research.43.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 6 }
+				desc = tv_research.43.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 7 }
+				desc = tv_research.43.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 8 }
+				desc = tv_research.43.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 9 }
+				desc = tv_research.43.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.43.d
+			}
+		}
+	}
+	outcome = good
+
+	trigger = {
+		var:tv_academy_philosophy_result_pending ?= 1
+		var:tv_academy_philosophy_result_kind ?= 1
+	}
+
+	option = {
+		name = tv_research.43.a
+		hidden_effect = {
+			trigger_event_silently = { id = tv_research.45 days = 1 }
+		}
+	}
+}
+
+# ── tv_research.44 — Philosophy Debate Rejected ──────────────────────────────
+tv_research.44 = {
+	type = country_event
+	title = tv_research.44.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 1 }
+				desc = tv_research.44.d_meritocracy
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 2 }
+				desc = tv_research.44.d_renaissance
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 3 }
+				desc = tv_research.44.d_banking
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 4 }
+				desc = tv_research.44.d_new_world
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 5 }
+				desc = tv_research.44.d_printing_press
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 6 }
+				desc = tv_research.44.d_confessionalism
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 7 }
+				desc = tv_research.44.d_global_trade
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 8 }
+				desc = tv_research.44.d_manufactories
+			}
+			triggered_desc = {
+				trigger = { var:tv_academy_philosophy_result_issue ?= 9 }
+				desc = tv_research.44.d_scientific_revolution
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = tv_research.44.d
+			}
+		}
+	}
+	outcome = bad
+
+	trigger = {
+		var:tv_academy_philosophy_result_pending ?= 1
+		var:tv_academy_philosophy_result_kind ?= 2
+	}
+
+	option = {
+		name = tv_research.44.a
+		hidden_effect = {
+			trigger_event_silently = { id = tv_research.46 days = 1 }
+		}
+	}
+}
+
+# ── tv_research.45/46 — Hidden Philosophy Result Executors ───────────────────
+tv_research.45 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		tv_academy_philosophy_resolve_pending_acceptance_effect = yes
+	}
+}
+
+tv_research.46 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		tv_academy_philosophy_resolve_pending_rejection_effect = yes
 	}
 }

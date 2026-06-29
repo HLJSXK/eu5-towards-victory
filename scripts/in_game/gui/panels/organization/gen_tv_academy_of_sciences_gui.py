@@ -1084,8 +1084,7 @@ def append_node_year(lines: list[str], level: int, slot: int) -> None:
     emit(lines, level, "}")
 
 
-def append_debate_progress_footer(lines: list[str], level: int, tooltip: str) -> None:
-    debate_position = player_var("tv_academy_philosophy_debate_position")
+def append_debate_progress_footer(lines: list[str], level: int, tooltip: str, value_expr: str, label_expr: str) -> None:
     emit(lines, level, "hbox = {")
     emit(lines, level + 1, "layoutpolicy_horizontal = fixed")
     emit(lines, level + 1, "size = { 462 24 }")
@@ -1099,13 +1098,13 @@ def append_debate_progress_footer(lines: list[str], level: int, tooltip: str) ->
     emit(lines, level + 3, "using = progress_bar_blue_alt")
     emit(lines, level + 3, "min = 0")
     emit(lines, level + 3, "max = 100")
-    emit(lines, level + 3, f'value = "[{debate_position}.GetValue]"')
+    emit(lines, level + 3, f'value = "{value_expr}"')
     emit(lines, level + 3, f'tooltip = "{tooltip}"')
     emit(lines, level + 2, "}")
     emit(lines, level + 1, "}")
     emit(lines, level + 1, "text_single = {")
     emit(lines, level + 2, "size = { 74 22 }")
-    emit(lines, level + 2, 'text = "TV_ACADEMY_DEBATE_FIXED_PROGRESS_VALUE"')
+    emit(lines, level + 2, f'raw_text = "{label_expr}"')
     emit(lines, level + 2, "fontsize = 13")
     emit(lines, level + 2, f'tooltip = "{tooltip}"')
     emit(lines, level + 2, "align = right|nobaseline")
@@ -1174,7 +1173,14 @@ def append_round_table(lines: list[str], level: int, visible_expr: str, table_te
         emit(lines, level + 1, "vbox = {")
         emit(lines, level + 2, "position = { 4 292 }")
         emit(lines, level + 2, "size = { 462 28 }")
-        append_debate_progress_footer(lines, level + 2, "TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT")
+        debate_position = player_var("tv_academy_philosophy_debate_position")
+        append_debate_progress_footer(
+            lines,
+            level + 2,
+            "TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT",
+            f"[{debate_position}.GetValue]",
+            f"[{debate_position}.GetValue|0]%",
+        )
         emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
@@ -1213,7 +1219,7 @@ def append_world_table(lines: list[str], level: int) -> None:
             append_world_seat(lines, level + 3)
         emit(lines, level + 2, "}")
     emit(lines, level + 2, "expand = {}")
-    append_debate_progress_footer(lines, level + 2, "TV_ACADEMY_DEBATE_WORLD_PROGRESS_TT")
+    append_debate_progress_footer(lines, level + 2, "TV_ACADEMY_DEBATE_WORLD_PROGRESS_TT", "50", "50%")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 

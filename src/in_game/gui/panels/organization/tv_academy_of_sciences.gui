@@ -777,7 +777,7 @@ organization_panel = {
 											}
 											text_single = {
 												size = { 74 22 }
-												text = "TV_ACADEMY_DEBATE_FIXED_PROGRESS_VALUE"
+												raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue|0]%"
 												fontsize = 13
 												tooltip = "TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"
 												align = right|nobaseline
@@ -1437,13 +1437,13 @@ organization_panel = {
 													using = progress_bar_blue_alt
 													min = 0
 													max = 100
-													value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue]"
+													value = "50"
 													tooltip = "TV_ACADEMY_DEBATE_WORLD_PROGRESS_TT"
 												}
 											}
 											text_single = {
 												size = { 74 22 }
-												text = "TV_ACADEMY_DEBATE_FIXED_PROGRESS_VALUE"
+												raw_text = "50%"
 												fontsize = 13
 												tooltip = "TV_ACADEMY_DEBATE_WORLD_PROGRESS_TT"
 												align = right|nobaseline

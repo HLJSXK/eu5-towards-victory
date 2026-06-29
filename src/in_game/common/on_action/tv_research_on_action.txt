@@ -70,6 +70,7 @@ tv_academy_of_sciences_monthly_pulse = {
 				}
 				scope:tv_academy_monthly_pulse_country = {
 					tv_academy_philosophy_refresh_timeline_effect = yes
+					tv_academy_philosophy_apply_monthly_debate_drift_effect = yes
 				}
 				if = {
 					limit = {
@@ -115,6 +116,7 @@ tv_academy_of_sciences_monthly_pulse = {
 							NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 							NOT = { var:tv_academy_philosophy_phase ?= 1 }
 							NOT = { has_variable = tv_academy_philosophy_concept_pending }
+							NOT = { has_variable = tv_academy_philosophy_result_pending }
 							NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 						}
 					}

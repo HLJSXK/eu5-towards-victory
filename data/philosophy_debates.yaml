@@ -1,0 +1,143 @@
+settings:
+  base_monthly_delta: 0.01500
+  literacy_multiplier: 0.00020
+  weights:
+    high:
+      positive: 0.00005
+      negative: 0.00025
+    medium:
+      positive: 0.00004
+      negative: 0.00020
+    low:
+      positive: 0.00002
+      negative: 0.00010
+
+directions:
+  innov:
+    source: traditionalist_vs_innovative
+    sign: 1
+  traditionalist:
+    source: traditionalist_vs_innovative
+    sign: -1
+  humanist:
+    source: spiritualist_vs_humanist
+    sign: 1
+  spiritualist:
+    source: spiritualist_vs_humanist
+    sign: -1
+  plutocracy:
+    source: aristocracy_vs_plutocracy
+    sign: 1
+  capital:
+    source: capital_economy_vs_traditional_economy
+    sign: -1
+  centralized:
+    source: centralization_vs_decentralization
+    sign: -1
+  free_subjects:
+    source: serfdom_vs_free_subjects
+    sign: 1
+  free_trade:
+    source: mercantilism_vs_free_trade
+    sign: 1
+  outward:
+    source: outward_vs_inward
+    sign: -1
+  inward:
+    source: outward_vs_inward
+    sign: 1
+  naval:
+    source: land_vs_naval
+    sign: 1
+
+issues:
+  - id: 1
+    key: meritocracy
+    institution: meritocracy
+    advance: meritocracy_advance
+    formula:
+      high: centralized
+      medium:
+        - innov
+        - free_subjects
+      low: plutocracy
+  - id: 2
+    key: renaissance
+    institution: renaissance
+    advance: renaissance_advance
+    formula:
+      high: innov
+      medium:
+        - humanist
+        - plutocracy
+      low: free_subjects
+  - id: 3
+    key: banking
+    institution: banking
+    advance: banking_advance
+    formula:
+      high: capital
+      medium:
+        - plutocracy
+        - free_trade
+      low: centralized
+  - id: 4
+    key: new_world
+    institution: new_world
+    advance: new_world_advance
+    formula:
+      high: outward
+      medium:
+        - naval
+        - plutocracy
+      low: innov
+  - id: 5
+    key: printing_press
+    institution: printing_press
+    advance: printing_press_advance
+    formula:
+      high: innov
+      medium:
+        - plutocracy
+        - humanist
+      low: free_subjects
+  - id: 6
+    key: confessionalism
+    institution: confessionalism
+    advance: confessionalism_advance
+    formula:
+      high: spiritualist
+      medium:
+        - traditionalist
+        - centralized
+      low: inward
+  - id: 7
+    key: global_trade
+    institution: global_trade
+    advance: global_trade_advance
+    formula:
+      high: free_trade
+      medium:
+        - outward
+        - naval
+      low: plutocracy
+  - id: 8
+    key: manufactories
+    institution: manufactories
+    advance: manufactories_advance
+    formula:
+      high: capital
+      medium:
+        - plutocracy
+        - innov
+      low: free_trade
+  - id: 9
+    key: scientific_revolution
+    institution: scientific_revolution
+    advance: scientific_revolution_advance
+    formula:
+      high: innov
+      medium:
+        - humanist
+        - free_subjects
+      low: plutocracy

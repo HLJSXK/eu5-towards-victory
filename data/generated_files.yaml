@@ -97,6 +97,10 @@ generated:
     data:   data/philosophy_debate_actions.yaml
     output: src/in_game/common/generic_actions/tv_philosophy_actions.txt
 
+  - script: scripts/in_game/common/scripted_effects/gen_tv_academy_philosophy_debate_effects.py
+    data:   data/philosophy_debates.yaml
+    output: src/in_game/common/scripted_effects/tv_academy_philosophy_debate_effects.txt
+
   - script: scripts/in_game/common/building_types/gen_towards_victory_buildings.py
     data:   data/academy_buildings.yaml + data/io_establishment.yaml
     output: src/in_game/common/building_types/towards_victory_buildings.txt

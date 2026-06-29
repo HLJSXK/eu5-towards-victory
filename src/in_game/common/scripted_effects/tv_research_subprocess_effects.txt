@@ -429,6 +429,9 @@ tv_academy_philosophy_enter_recess_effect = {
 	set_variable = { name = tv_academy_philosophy_phase value = 0 }
 	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
 	remove_variable = tv_academy_philosophy_concept_pending
+	remove_variable = tv_academy_philosophy_result_pending
+	remove_variable = tv_academy_philosophy_result_issue
+	remove_variable = tv_academy_philosophy_result_kind
 	tv_academy_philosophy_refresh_timeline_effect = yes
 	tv_academy_philosophy_reset_inspiration_effect = yes
 }
@@ -760,7 +763,6 @@ tv_academy_philosophy_refresh_timeline_effect = {
 		limit = { NOT = { has_variable = tv_academy_philosophy_current } }
 		set_variable = { name = tv_academy_philosophy_current value = 1 }
 	}
-	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
 	set_variable = { name = tv_academy_world_debate_seat_count value = 50 }
 	set_variable = { name = tv_academy_debate_node_1_index value = var:tv_academy_debate_current_node }
 	change_variable = { name = tv_academy_debate_node_1_index add = -2 }
@@ -920,6 +922,9 @@ tv_academy_philosophy_reset_panel_effect = {
 	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
 	remove_variable = tv_academy_philosophy_concept_pending
 	remove_variable = tv_academy_philosophy_recess_notice_pending
+	remove_variable = tv_academy_philosophy_result_pending
+	remove_variable = tv_academy_philosophy_result_issue
+	remove_variable = tv_academy_philosophy_result_kind
 	tv_academy_philosophy_refresh_timeline_effect = yes
 	tv_academy_philosophy_reset_inspiration_effect = yes
 }
