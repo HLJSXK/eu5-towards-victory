@@ -67,6 +67,95 @@ tv_govhouse.4 = {
 	}
 }
 
+tv_govhouse.5 = {
+	type = country_event
+	title = tv_govhouse.5.t
+	desc = tv_govhouse.5.d
+	outcome = neutral
+
+	trigger = {
+		hidden_trigger = {
+			is_ai = no
+			has_variable = tv_govhouse_pending_governor_char
+			has_variable = tv_govhouse_pending_governor_region
+			has_variable = tv_govhouse_pending_local_admin_location
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			save_scope_as = tv_govhouse_pending_country
+			var:tv_govhouse_pending_governor_char ?= {
+				save_scope_as = tv_govhouse_pending_governor_scope
+			}
+			var:tv_govhouse_pending_governor_region ?= {
+				save_scope_as = tv_govhouse_pending_region_scope
+			}
+			var:tv_govhouse_pending_local_admin_location ?= {
+				save_scope_as = tv_govhouse_pending_local_admin_scope
+			}
+		}
+	}
+
+	option = {
+		name = tv_govhouse.5.a
+		trigger = {
+			exists = scope:tv_govhouse_pending_governor_scope
+			exists = scope:tv_govhouse_pending_region_scope
+			exists = scope:tv_govhouse_pending_local_admin_scope
+			scope:tv_govhouse_pending_governor_scope = {
+				is_alive = yes
+				is_adult = yes
+				is_female = no
+				is_artist = no
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_loyal = yes
+				NOT = { has_variable = tv_is_governor }
+			}
+			scope:tv_govhouse_pending_region_scope = {
+				any_location_in_region = {
+					owner ?= scope:tv_govhouse_pending_country
+				}
+			}
+			scope:tv_govhouse_pending_local_admin_scope = {
+				owner ?= scope:tv_govhouse_pending_country
+			}
+		}
+		hidden_effect = {
+			trigger_event_silently = { id = tv_govhouse.6 }
+		}
+	}
+
+	option = {
+		name = tv_govhouse.5.b
+		hidden_effect = {
+			tv_govhouse_clear_pending_local_administration_effect = yes
+		}
+	}
+}
+
+tv_govhouse.6 = {
+	type = country_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	trigger = {
+		hidden_trigger = {
+			has_variable = tv_govhouse_pending_governor_char
+			has_variable = tv_govhouse_pending_governor_region
+			has_variable = tv_govhouse_pending_local_admin_location
+		}
+	}
+
+	immediate = {
+		tv_govhouse_confirm_local_administration_effect = yes
+	}
+}
+
 tv_govhouse.10 = {
 	type = country_event
 	title = tv_govhouse.10.t
