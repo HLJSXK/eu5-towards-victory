@@ -134,7 +134,6 @@ SELECTED_MARKET_FIELDS = (
 )
 
 TRADE_EXTRA_VARIABLES = (
-    "tv_trade_chain_active",
     "tv_trade_full_consumer_weight",
     "tv_trade_full_consumer_weighted_sum",
     "tv_trade_full_export_pct",

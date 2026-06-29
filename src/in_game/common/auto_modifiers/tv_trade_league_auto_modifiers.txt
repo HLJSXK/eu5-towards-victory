@@ -8,7 +8,6 @@
 			leader_country ?= root
 		}
 		NOT = { tv_grand_merchant_busy_with_law_change_trigger = yes }
-		NOT = { tv_grand_merchant_busy_with_trade_chain_trigger = yes }
 		NOT = { tv_grand_merchant_busy_with_commercial_intelligence_trigger = yes }
 	}
 	merchant_maintenance_efficiency = 0.10

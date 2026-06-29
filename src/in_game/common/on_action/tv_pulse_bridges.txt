@@ -192,6 +192,13 @@ on_location_changed_owner = {
 	}
 }
 
+on_capital_moved = {
+	on_actions = {
+		# Towards Victory additions
+		tv_trade_league_capital_moved
+	}
+}
+
 cmf_on_callback = {
 	on_actions = {
 		# Towards Victory additions

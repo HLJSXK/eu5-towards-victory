@@ -120,5 +120,8 @@ bridges:
     - tv_govhouse_location_changed_owner
     - tv_wonder_ownership_location_changed_owner
 
+  on_capital_moved:
+    - tv_trade_league_capital_moved # reset Trade Chain if the capital market changes
+
   cmf_on_callback:
     - tv_io_chief_alert_on_cmf_callback

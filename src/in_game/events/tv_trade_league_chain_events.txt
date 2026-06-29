@@ -1,0 +1,17 @@
+﻿namespace = tv_trade_league_chain
+
+tv_trade_league_chain.1 = {
+	type = country_event
+	title = tv_trade_league_chain.1.t
+	desc = tv_trade_league_chain.1.d
+	image = "gfx/interface/icons/flat_icons/trade.dds"
+	outcome = neutral
+
+	trigger = {
+		hidden_trigger = { is_ai = no }
+	}
+
+	option = {
+		name = tv_trade_league_chain.1.a
+	}
+}
