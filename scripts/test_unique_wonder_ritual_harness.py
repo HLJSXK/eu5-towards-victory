@@ -18,9 +18,11 @@ from gen_unique_wonder_ritual_code import (  # noqa: E402
 from wonder_unique_ritual_harness import (  # noqa: E402
     audit_summary,
     list_index,
+    load_unique_wonders,
     load_capability_registry,
     load_spec_data,
     load_template_registry,
+    loc_english,
     validate_capability_registry,
     validate_spec_payload,
 )
@@ -1588,6 +1590,64 @@ def loc() -> dict[str, str]:
     return data
 
 
+_REPO_SPEC_DATA: dict | None = None
+_REPO_SPEC_INDEX: dict | None = None
+_REPO_WONDERS: list[dict] | None = None
+_REPO_LOCALIZATION: dict[str, str] | None = None
+_REPO_TEMPLATE_REGISTRY: dict | None = None
+_REPO_CAPABILITY_REGISTRY: dict | None = None
+_REPO_ARCHETYPE_REGISTRY: dict | None = None
+
+
+def repo_spec_data() -> dict:
+    global _REPO_SPEC_DATA
+    if _REPO_SPEC_DATA is None:
+        _REPO_SPEC_DATA = load_spec_data()
+    return _REPO_SPEC_DATA
+
+
+def repo_spec_index() -> dict:
+    global _REPO_SPEC_INDEX
+    if _REPO_SPEC_INDEX is None:
+        _REPO_SPEC_INDEX = list_index(repo_spec_data())
+    return _REPO_SPEC_INDEX
+
+
+def repo_wonders() -> list[dict]:
+    global _REPO_WONDERS
+    if _REPO_WONDERS is None:
+        _REPO_WONDERS = load_unique_wonders()
+    return _REPO_WONDERS
+
+
+def repo_localization() -> dict[str, str]:
+    global _REPO_LOCALIZATION
+    if _REPO_LOCALIZATION is None:
+        _REPO_LOCALIZATION = loc_english()
+    return _REPO_LOCALIZATION
+
+
+def repo_template_registry() -> dict:
+    global _REPO_TEMPLATE_REGISTRY
+    if _REPO_TEMPLATE_REGISTRY is None:
+        _REPO_TEMPLATE_REGISTRY = load_template_registry()
+    return _REPO_TEMPLATE_REGISTRY
+
+
+def repo_capability_registry() -> dict:
+    global _REPO_CAPABILITY_REGISTRY
+    if _REPO_CAPABILITY_REGISTRY is None:
+        _REPO_CAPABILITY_REGISTRY = load_capability_registry()
+    return _REPO_CAPABILITY_REGISTRY
+
+
+def repo_archetype_registry() -> dict:
+    global _REPO_ARCHETYPE_REGISTRY
+    if _REPO_ARCHETYPE_REGISTRY is None:
+        _REPO_ARCHETYPE_REGISTRY = load_archetype_registry()
+    return _REPO_ARCHETYPE_REGISTRY
+
+
 def _repeated_row_event_contract_wonder_key(pilot_key: str) -> str:
     if pilot_key.startswith("unique_"):
         return pilot_key[len("unique_") :]
@@ -2262,12 +2322,12 @@ def assert_has_error(
     errors = validate_spec_payload(
         {"unique_wonders": [entry]},
         wonders=[WONDER],
-        localization=localization or loc(),
+        localization=localization if localization is not None else loc(),
         occupied_event_ids=occupied_event_ids,
         require_all_wonders=True,
-        template_registry=template_registry,
-        capability_registry=capability_registry,
-        archetype_registry=archetype_registry,
+        template_registry=template_registry if template_registry is not None else repo_template_registry(),
+        capability_registry=capability_registry if capability_registry is not None else repo_capability_registry(),
+        archetype_registry=archetype_registry if archetype_registry is not None else repo_archetype_registry(),
     )
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
@@ -2279,14 +2339,16 @@ def assert_codegen_error(
     needle: str,
     *,
     template_registry: dict | None = None,
+    capability_registry: dict | None = None,
     archetype_registry: dict | None = None,
 ) -> None:
     try:
         generate_fragments_for_payload(
             {"unique_wonders": [entry]},
             wonder_keys={"unique_test_wonder"},
-            template_registry=template_registry,
-            archetype_registry=archetype_registry,
+            template_registry=template_registry if template_registry is not None else repo_template_registry(),
+            capability_registry=capability_registry if capability_registry is not None else repo_capability_registry(),
+            archetype_registry=archetype_registry if archetype_registry is not None else repo_archetype_registry(),
         )
     except CodegenError as exc:
         if needle not in str(exc):
@@ -2498,35 +2560,59 @@ def polder_archetype_contract_errors(archetype_registry: dict) -> list[str]:
 
 
 def lalibela_repo_entry() -> dict:
-    return deepcopy(list_index(load_spec_data())["unique_lalibela_churches"])
+    return deepcopy(repo_spec_index()["unique_lalibela_churches"])
 
 
 def inca_royal_road_repo_entry() -> dict:
-    return deepcopy(list_index(load_spec_data())["unique_inca_royal_road"])
+    return deepcopy(repo_spec_index()["unique_inca_royal_road"])
 
 
 def malacca_repo_entry() -> dict:
-    return deepcopy(list_index(load_spec_data())["unique_malacca_port"])
+    return deepcopy(repo_spec_index()["unique_malacca_port"])
 
 
 def dutch_polders_repo_entry() -> dict:
-    return deepcopy(list_index(load_spec_data())["unique_dutch_polders"])
+    return deepcopy(repo_spec_index()["unique_dutch_polders"])
 
 
 def assert_lalibela_error(name: str, entry: dict, needle: str) -> None:
-    errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
+    errors = validate_spec_payload(
+        {"unique_wonders": [entry]},
+        wonders=repo_wonders(),
+        localization=repo_localization(),
+        require_all_wonders=False,
+        template_registry=repo_template_registry(),
+        capability_registry=repo_capability_registry(),
+        archetype_registry=repo_archetype_registry(),
+    )
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
 
 
 def assert_inca_royal_road_error(name: str, entry: dict, needle: str) -> None:
-    errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
+    errors = validate_spec_payload(
+        {"unique_wonders": [entry]},
+        wonders=repo_wonders(),
+        localization=repo_localization(),
+        require_all_wonders=False,
+        template_registry=repo_template_registry(),
+        capability_registry=repo_capability_registry(),
+        archetype_registry=repo_archetype_registry(),
+    )
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
 
 
 def assert_malacca_error(name: str, entry: dict, needle: str) -> None:
-    errors = validate_spec_payload({"unique_wonders": [entry]}, require_all_wonders=False)
+    errors = validate_spec_payload(
+        {"unique_wonders": [entry]},
+        wonders=repo_wonders(),
+        localization=repo_localization(),
+        require_all_wonders=False,
+        template_registry=repo_template_registry(),
+        capability_registry=repo_capability_registry(),
+        archetype_registry=repo_archetype_registry(),
+    )
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
 
@@ -2541,20 +2627,32 @@ def assert_dutch_polders_error(
 ) -> None:
     errors = validate_spec_payload(
         {"unique_wonders": [entry]},
+        wonders=repo_wonders(),
+        localization=repo_localization(),
         require_all_wonders=False,
-        capability_registry=capability_registry,
-        archetype_registry=archetype_registry,
+        template_registry=repo_template_registry(),
+        capability_registry=capability_registry if capability_registry is not None else repo_capability_registry(),
+        archetype_registry=archetype_registry if archetype_registry is not None else repo_archetype_registry(),
     )
     if not any(needle in error for error in errors):
         raise AssertionError(f"{name}: expected error containing {needle!r}, got {errors}")
 
 
 def main() -> None:
+    spec_data = repo_spec_data()
+    test_loc = loc()
+    template_registry = repo_template_registry()
+    capability_registry = repo_capability_registry()
+    archetype_registry = repo_archetype_registry()
+
     good_errors = validate_spec_payload(
         {"unique_wonders": [valid_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if good_errors:
         raise AssertionError(f"valid entry unexpectedly failed: {good_errors}")
@@ -2562,8 +2660,11 @@ def main() -> None:
     design_complete_errors = validate_spec_payload(
         {"unique_wonders": [high_fidelity_design_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if design_complete_errors:
         raise AssertionError(f"design_complete fixture with compiler gaps unexpectedly failed: {design_complete_errors}")
@@ -2571,8 +2672,11 @@ def main() -> None:
     compiler_mapped_errors = validate_spec_payload(
         {"unique_wonders": [high_fidelity_design_entry(status="compiler_mapped")]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if compiler_mapped_errors:
         raise AssertionError(f"compiler_mapped fixture unexpectedly failed: {compiler_mapped_errors}")
@@ -2580,13 +2684,16 @@ def main() -> None:
     source_ready_errors = validate_spec_payload(
         {"unique_wonders": [high_fidelity_design_entry(status="source_codegen_ready", verification_status="backend_ready")]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if source_ready_errors:
         raise AssertionError(f"source_codegen_ready fixture unexpectedly failed: {source_ready_errors}")
 
-    repeated_row_preflight = repeated_entity_row_preflight_for_payload(load_spec_data())
+    repeated_row_preflight = repeated_entity_row_preflight_for_payload(spec_data)
     if repeated_row_preflight["candidate_count"] != 4:
         raise AssertionError(f"expected four repeated-row pilots, got {repeated_row_preflight['candidate_count']}")
     if repeated_row_preflight["row_set_count"] != 8:
@@ -2629,7 +2736,7 @@ def main() -> None:
     if not negative_preflight["aggregate_projection_is_not_row_state"]:
         raise AssertionError("negative repeated-row fixture must not treat aggregate variables as row-state replacement")
 
-    source_plan = repeated_entity_row_source_plan_for_payload(load_spec_data())
+    source_plan = repeated_entity_row_source_plan_for_payload(spec_data)
     if source_plan["candidate_count"] != 4:
         raise AssertionError(f"expected four repeated-row source-plan pilots, got {source_plan['candidate_count']}")
     if source_plan["artifact_count"] != 177:
@@ -2900,7 +3007,7 @@ def main() -> None:
             f"mismatched evidence block source-plan negative was not caught: {mismatched_evidence_block_errors}"
         )
 
-    source_preview = repeated_entity_row_source_preview_for_payload(load_spec_data())
+    source_preview = repeated_entity_row_source_preview_for_payload(spec_data, source_plan=source_plan)
     if source_preview["validation_errors"]:
         raise AssertionError(f"repeated-row source preview unexpectedly failed validation: {source_preview['validation_errors']}")
     expected_preview_family_counts = {
@@ -3252,7 +3359,11 @@ def main() -> None:
     if not any("writes_src must be false" in error for error in listener_writes_src_errors):
         raise AssertionError(f"listener writes_src preview negative was not caught: {listener_writes_src_errors}")
 
-    source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(load_spec_data())
+    source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(
+        spec_data,
+        source_plan=source_plan,
+        source_preview=source_preview,
+    )
     if source_writer_readiness["validation_errors"]:
         raise AssertionError(
             "repeated-row source-writer readiness unexpectedly failed validation: "
@@ -4293,7 +4404,10 @@ def main() -> None:
     if not any("missing blockers" in error for error in no_blockers_errors):
         raise AssertionError(f"no blockers readiness negative was not caught: {no_blockers_errors}")
 
-    source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(load_spec_data())
+    source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(
+        spec_data,
+        source_writer_readiness=source_writer_readiness,
+    )
     if source_bundle_preview["validation_errors"]:
         raise AssertionError(
             "repeated-row source bundle preview unexpectedly failed validation: "
@@ -4518,7 +4632,10 @@ def main() -> None:
             f"missing placeholder flag bundle negative was not caught: {missing_placeholder_flag_errors}"
         )
 
-    alhambra_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(load_spec_data())
+    alhambra_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(
+        spec_data,
+        source_bundle_preview=source_bundle_preview,
+    )
     if alhambra_body_candidate["validation_errors"]:
         raise AssertionError(
             "Alhambra source body candidate unexpectedly failed validation: "
@@ -4763,7 +4880,10 @@ def main() -> None:
                 f"{missing_placeholder_candidate_errors}"
             )
 
-    alhambra_source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(load_spec_data())
+    alhambra_source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(
+        spec_data,
+        source_body_candidate=alhambra_body_candidate,
+    )
     if alhambra_source_file_preview["validation_errors"]:
         raise AssertionError(
             "Alhambra source file preview unexpectedly failed validation: "
@@ -5069,7 +5189,10 @@ def main() -> None:
     )
 
     alhambra_source_file_validation_evidence = (
-        repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(load_spec_data())
+        repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+            spec_data,
+            source_file_preview=alhambra_source_file_preview,
+        )
     )
     if alhambra_source_file_validation_evidence["validation_errors"]:
         raise AssertionError(
@@ -5436,7 +5559,8 @@ def main() -> None:
     )
 
     alhambra_source_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
-        load_spec_data()
+        spec_data,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
     )
     if alhambra_source_generator_contract["validation_errors"]:
         raise AssertionError(
@@ -5798,8 +5922,11 @@ def main() -> None:
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if non_monthly_errors:
         raise AssertionError(f"pure non-monthly cadence fixture unexpectedly failed: {non_monthly_errors}")
@@ -5807,8 +5934,11 @@ def main() -> None:
     hybrid_monthly_errors = validate_spec_payload(
         {"unique_wonders": [valid_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if hybrid_monthly_errors:
         raise AssertionError(f"hybrid monthly cadence fixture unexpectedly failed: {hybrid_monthly_errors}")
@@ -5818,8 +5948,11 @@ def main() -> None:
     no_archetype_errors = validate_spec_payload(
         {"unique_wonders": [no_archetype]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if no_archetype_errors:
         raise AssertionError(f"no-archetype fixture unexpectedly failed: {no_archetype_errors}")
@@ -5833,8 +5966,11 @@ def main() -> None:
     custom_archetype_errors = validate_spec_payload(
         {"unique_wonders": [custom_archetype]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if custom_archetype_errors:
         raise AssertionError(f"custom archetype fixture unexpectedly failed: {custom_archetype_errors}")
@@ -5842,8 +5978,11 @@ def main() -> None:
     actor_errors = validate_spec_payload(
         {"unique_wonders": [actor_assignment_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if actor_errors:
         raise AssertionError(f"actor assignment fixture unexpectedly failed: {actor_errors}")
@@ -5853,8 +5992,11 @@ def main() -> None:
     mixed_shape_errors = validate_spec_payload(
         {"unique_wonders": [mixed_shape]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if mixed_shape_errors:
         raise AssertionError(f"mixed archetype/capability fixture unexpectedly failed: {mixed_shape_errors}")
@@ -5862,8 +6004,11 @@ def main() -> None:
     route_errors = validate_spec_payload(
         {"unique_wonders": [route_incident_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if route_errors:
         raise AssertionError(f"route/incident fixture unexpectedly failed: {route_errors}")
@@ -5871,8 +6016,11 @@ def main() -> None:
     pilgrimage_route_errors = validate_spec_payload(
         {"unique_wonders": [pilgrimage_route_certification_backend_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if pilgrimage_route_errors:
         raise AssertionError(f"pilgrimage route certification fixture unexpectedly failed: {pilgrimage_route_errors}")
@@ -5880,8 +6028,11 @@ def main() -> None:
     maritime_route_errors = validate_spec_payload(
         {"unique_wonders": [maritime_trade_route_certification_backend_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if maritime_route_errors:
         raise AssertionError(f"maritime trade route certification fixture unexpectedly failed: {maritime_route_errors}")
@@ -5891,7 +6042,15 @@ def main() -> None:
         raise AssertionError(f"Lalibela status should be compiler_mapped, got {lalibela['identity']['status']!r}")
     if lalibela["node_graph"]["model"] != "state_machine_dsl_v1":
         raise AssertionError(f"Lalibela node_graph should be state_machine_dsl_v1, got {lalibela['node_graph']['model']!r}")
-    lalibela_errors = validate_spec_payload({"unique_wonders": [lalibela]}, require_all_wonders=False)
+    lalibela_errors = validate_spec_payload(
+        {"unique_wonders": [lalibela]},
+        wonders=repo_wonders(),
+        localization=repo_localization(),
+        require_all_wonders=False,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
+    )
     if lalibela_errors:
         raise AssertionError(f"Lalibela compiler_mapped fixture unexpectedly failed: {lalibela_errors}")
 
@@ -5929,7 +6088,15 @@ def main() -> None:
         raise AssertionError(f"Inca Royal Road status should be compiler_mapped, got {inca['identity']['status']!r}")
     if inca["node_graph"]["model"] != "state_machine_dsl_v1":
         raise AssertionError(f"Inca Royal Road node_graph should be state_machine_dsl_v1, got {inca['node_graph']['model']!r}")
-    inca_errors = validate_spec_payload({"unique_wonders": [inca]}, require_all_wonders=False)
+    inca_errors = validate_spec_payload(
+        {"unique_wonders": [inca]},
+        wonders=repo_wonders(),
+        localization=repo_localization(),
+        require_all_wonders=False,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
+    )
     if inca_errors:
         raise AssertionError(f"Inca Royal Road compiler_mapped fixture unexpectedly failed: {inca_errors}")
 
@@ -5959,7 +6126,15 @@ def main() -> None:
         raise AssertionError(f"Malacca status should be compiler_mapped, got {malacca['identity']['status']!r}")
     if malacca["node_graph"]["model"] != "state_machine_dsl_v1":
         raise AssertionError(f"Malacca node_graph should be state_machine_dsl_v1, got {malacca['node_graph']['model']!r}")
-    malacca_errors = validate_spec_payload({"unique_wonders": [malacca]}, require_all_wonders=False)
+    malacca_errors = validate_spec_payload(
+        {"unique_wonders": [malacca]},
+        wonders=repo_wonders(),
+        localization=repo_localization(),
+        require_all_wonders=False,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
+    )
     if malacca_errors:
         raise AssertionError(f"Malacca compiler_mapped fixture unexpectedly failed: {malacca_errors}")
 
@@ -5997,7 +6172,15 @@ def main() -> None:
         raise AssertionError(f"Dutch Polders status should be compiler_mapped, got {dutch['identity']['status']!r}")
     if dutch["node_graph"]["model"] != "state_machine_dsl_v1":
         raise AssertionError(f"Dutch Polders node_graph should be state_machine_dsl_v1, got {dutch['node_graph']['model']!r}")
-    dutch_errors = validate_spec_payload({"unique_wonders": [dutch]}, require_all_wonders=False)
+    dutch_errors = validate_spec_payload(
+        {"unique_wonders": [dutch]},
+        wonders=repo_wonders(),
+        localization=repo_localization(),
+        require_all_wonders=False,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
+    )
     if dutch_errors:
         raise AssertionError(f"Dutch Polders compiler_mapped fixture unexpectedly failed: {dutch_errors}")
 
@@ -6045,8 +6228,11 @@ def main() -> None:
     incident_errors = validate_spec_payload(
         {"unique_wonders": [incident_retry_entry()]},
         wonders=[WONDER],
-        localization=loc(),
+        localization=test_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if incident_errors:
         raise AssertionError(f"incident retry fixture unexpectedly failed: {incident_errors}")
@@ -6057,6 +6243,9 @@ def main() -> None:
         wonders=[WONDER],
         localization=route_hidden_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if route_hidden_errors:
         raise AssertionError(f"route/hidden fixture unexpectedly failed: {route_hidden_errors}")
@@ -6067,11 +6256,13 @@ def main() -> None:
         wonders=[WONDER],
         localization=listener_loc,
         require_all_wonders=True,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     if listener_errors:
         raise AssertionError(f"resource/listener/hidden fixture unexpectedly failed: {listener_errors}")
 
-    capability_registry = load_capability_registry()
     capability_errors = validate_capability_registry(capability_registry)
     if capability_errors:
         raise AssertionError(f"capability registry unexpectedly failed: {capability_errors}")
@@ -6087,7 +6278,6 @@ def main() -> None:
     water_management_contract_errors = water_management_backend_contract_errors(capability_registry)
     if water_management_contract_errors:
         raise AssertionError(f"water management backend contract unexpectedly failed: {water_management_contract_errors}")
-    archetype_registry = load_archetype_registry()
     archetype_contract_errors = new_jerusalem_archetype_contract_errors(archetype_registry)
     if archetype_contract_errors:
         raise AssertionError(f"new Jerusalem archetype contract unexpectedly failed: {archetype_contract_errors}")
@@ -6128,8 +6318,11 @@ def main() -> None:
         backend_errors = validate_spec_payload(
             {"unique_wonders": [entry]},
             wonders=[WONDER],
-            localization=loc(),
+            localization=test_loc,
             require_all_wonders=True,
+            template_registry=template_registry,
+            capability_registry=capability_registry,
+            archetype_registry=archetype_registry,
         )
         if backend_errors:
             raise AssertionError(f"{name} fixture unexpectedly failed: {backend_errors}")
@@ -6254,8 +6447,11 @@ def main() -> None:
         backend_gap_errors = validate_spec_payload(
             {"unique_wonders": [backend_gap]},
             wonders=[WONDER],
-            localization=loc(),
+            localization=test_loc,
             require_all_wonders=True,
+            template_registry=template_registry,
+            capability_registry=capability_registry,
+            archetype_registry=archetype_registry,
         )
         if backend_gap_errors:
             raise AssertionError(f"backend_ready gap for {capability_key} unexpectedly failed: {backend_gap_errors}")
@@ -6263,6 +6459,9 @@ def main() -> None:
     result = generate_fragments_for_payload(
         {"unique_wonders": [valid_entry()]},
         wonder_keys={"unique_test_wonder"},
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     generated_text = result["generated"][0]["text"]
     for expected in (
@@ -6286,6 +6485,9 @@ def main() -> None:
     high_fidelity_result = generate_fragments_for_payload(
         {"unique_wonders": [high_fidelity_design_entry(status="source_codegen_ready", verification_status="backend_ready")]},
         wonder_keys={"unique_test_wonder"},
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
     )
     high_fidelity_text = high_fidelity_result["generated"][0]["text"]
     for expected in (
@@ -6310,7 +6512,12 @@ def main() -> None:
     if "may_write_src | true" in high_fidelity_text:
         raise AssertionError("high-fidelity codegen dry-run implies source-writing support")
 
-    full_repo_codegen = generate_fragments_for_payload(load_spec_data())
+    full_repo_codegen = generate_fragments_for_payload(
+        spec_data,
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
+    )
     full_repo_generated_keys = {row["key"] for row in full_repo_codegen["generated"]}
     if len(full_repo_generated_keys) != 4:
         raise AssertionError(f"full repo codegen should generate 4 fragments, got {sorted(full_repo_generated_keys)}")
@@ -6379,7 +6586,7 @@ def main() -> None:
         "backend_ready requires valid capability:<key> or template:<key>",
     )
 
-    writable_capability_registry = deepcopy(load_capability_registry())
+    writable_capability_registry = deepcopy(capability_registry)
     writable_capability_registry["capabilities"][0]["may_write_src"] = True
     assert_has_error(
         "capability may_write_src",
@@ -6388,7 +6595,7 @@ def main() -> None:
         capability_registry=writable_capability_registry,
     )
 
-    finance_writable_registry = deepcopy(load_capability_registry())
+    finance_writable_registry = deepcopy(capability_registry)
     for capability in finance_writable_registry["capabilities"]:
         if capability.get("key") == "finance_public_credit_interface_backend":
             capability["may_write_src"] = True
@@ -6400,7 +6607,7 @@ def main() -> None:
         capability_registry=finance_writable_registry,
     )
 
-    finance_source_output_registry = deepcopy(load_capability_registry())
+    finance_source_output_registry = deepcopy(capability_registry)
     for capability in finance_source_output_registry["capabilities"]:
         if capability.get("key") == "finance_public_credit_interface_backend":
             capability["output_kinds"].append("loadable_src")
@@ -6412,7 +6619,7 @@ def main() -> None:
         capability_registry=finance_source_output_registry,
     )
 
-    pilgrimage_writable_registry = deepcopy(load_capability_registry())
+    pilgrimage_writable_registry = deepcopy(capability_registry)
     for capability in pilgrimage_writable_registry["capabilities"]:
         if capability.get("key") == "pilgrimage_route_certification_backend":
             capability["may_write_src"] = True
@@ -6424,7 +6631,7 @@ def main() -> None:
         capability_registry=pilgrimage_writable_registry,
     )
 
-    pilgrimage_source_output_registry = deepcopy(load_capability_registry())
+    pilgrimage_source_output_registry = deepcopy(capability_registry)
     for capability in pilgrimage_source_output_registry["capabilities"]:
         if capability.get("key") == "pilgrimage_route_certification_backend":
             capability["output_kinds"].append("loadable_src")
@@ -6436,7 +6643,7 @@ def main() -> None:
         capability_registry=pilgrimage_source_output_registry,
     )
 
-    pilgrimage_missing_output_registry = deepcopy(load_capability_registry())
+    pilgrimage_missing_output_registry = deepcopy(capability_registry)
     for capability in pilgrimage_missing_output_registry["capabilities"]:
         if capability.get("key") == "pilgrimage_route_certification_backend":
             capability["output_kinds"] = [
@@ -6449,7 +6656,7 @@ def main() -> None:
     if not any("missing output kind(s): effect_stub" in error for error in missing_output_errors):
         raise AssertionError(f"pilgrimage backend missing output fixture did not fail: {missing_output_errors}")
 
-    overland_writable_registry = deepcopy(load_capability_registry())
+    overland_writable_registry = deepcopy(capability_registry)
     for capability in overland_writable_registry["capabilities"]:
         if capability.get("key") == "overland_relay_route_certification_backend":
             capability["may_write_src"] = True
@@ -6461,7 +6668,7 @@ def main() -> None:
         capability_registry=overland_writable_registry,
     )
 
-    overland_source_output_registry = deepcopy(load_capability_registry())
+    overland_source_output_registry = deepcopy(capability_registry)
     for capability in overland_source_output_registry["capabilities"]:
         if capability.get("key") == "overland_relay_route_certification_backend":
             capability["output_kinds"].append("loadable_src")
@@ -6473,7 +6680,7 @@ def main() -> None:
         capability_registry=overland_source_output_registry,
     )
 
-    overland_missing_output_registry = deepcopy(load_capability_registry())
+    overland_missing_output_registry = deepcopy(capability_registry)
     for capability in overland_missing_output_registry["capabilities"]:
         if capability.get("key") == "overland_relay_route_certification_backend":
             capability["output_kinds"] = [
@@ -6488,7 +6695,7 @@ def main() -> None:
             f"overland relay backend missing output fixture did not fail: {overland_missing_output_errors}"
         )
 
-    maritime_writable_registry = deepcopy(load_capability_registry())
+    maritime_writable_registry = deepcopy(capability_registry)
     for capability in maritime_writable_registry["capabilities"]:
         if capability.get("key") == "maritime_trade_route_certification_backend":
             capability["may_write_src"] = True
@@ -6500,7 +6707,7 @@ def main() -> None:
         capability_registry=maritime_writable_registry,
     )
 
-    maritime_source_output_registry = deepcopy(load_capability_registry())
+    maritime_source_output_registry = deepcopy(capability_registry)
     for capability in maritime_source_output_registry["capabilities"]:
         if capability.get("key") == "maritime_trade_route_certification_backend":
             capability["output_kinds"].append("loadable_src")
@@ -6512,7 +6719,7 @@ def main() -> None:
         capability_registry=maritime_source_output_registry,
     )
 
-    maritime_missing_output_registry = deepcopy(load_capability_registry())
+    maritime_missing_output_registry = deepcopy(capability_registry)
     for capability in maritime_missing_output_registry["capabilities"]:
         if capability.get("key") == "maritime_trade_route_certification_backend":
             capability["output_kinds"] = [
@@ -6527,7 +6734,7 @@ def main() -> None:
             f"maritime trade backend missing output fixture did not fail: {maritime_missing_output_errors}"
         )
 
-    water_management_writable_registry = deepcopy(load_capability_registry())
+    water_management_writable_registry = deepcopy(capability_registry)
     for capability in water_management_writable_registry["capabilities"]:
         if capability.get("key") == "water_management_restoration_completion_backend":
             capability["may_write_src"] = True
@@ -6539,7 +6746,7 @@ def main() -> None:
         capability_registry=water_management_writable_registry,
     )
 
-    water_management_source_output_registry = deepcopy(load_capability_registry())
+    water_management_source_output_registry = deepcopy(capability_registry)
     for capability in water_management_source_output_registry["capabilities"]:
         if capability.get("key") == "water_management_restoration_completion_backend":
             capability["output_kinds"].append("loadable_src")
@@ -6551,7 +6758,7 @@ def main() -> None:
         capability_registry=water_management_source_output_registry,
     )
 
-    water_management_missing_output_registry = deepcopy(load_capability_registry())
+    water_management_missing_output_registry = deepcopy(capability_registry)
     for capability in water_management_missing_output_registry["capabilities"]:
         if capability.get("key") == "water_management_restoration_completion_backend":
             capability["output_kinds"] = [
@@ -6569,7 +6776,7 @@ def main() -> None:
             f"{water_management_missing_output_errors}"
         )
 
-    auxiliary_writable_registry = deepcopy(load_capability_registry())
+    auxiliary_writable_registry = deepcopy(capability_registry)
     for capability in auxiliary_writable_registry["capabilities"]:
         if capability.get("key") == "auxiliary_building_completion_listener_backend":
             capability["may_write_src"] = True
@@ -6581,7 +6788,7 @@ def main() -> None:
         capability_registry=auxiliary_writable_registry,
     )
 
-    auxiliary_source_output_registry = deepcopy(load_capability_registry())
+    auxiliary_source_output_registry = deepcopy(capability_registry)
     for capability in auxiliary_source_output_registry["capabilities"]:
         if capability.get("key") == "auxiliary_building_completion_listener_backend":
             capability["output_kinds"].append("loadable_src")
@@ -6889,7 +7096,7 @@ def main() -> None:
         archetype_registry=bad_archetype_registry,
     )
 
-    registry_may_write_src = deepcopy(load_archetype_registry())
+    registry_may_write_src = deepcopy(archetype_registry)
     registry_may_write_src["archetypes"][0]["may_write_src"] = True
     assert_has_error(
         "archetype registry may write src",
@@ -6898,7 +7105,7 @@ def main() -> None:
         archetype_registry=registry_may_write_src,
     )
 
-    public_credit_writable_archetype_registry = deepcopy(load_archetype_registry())
+    public_credit_writable_archetype_registry = deepcopy(archetype_registry)
     for archetype in public_credit_writable_archetype_registry["archetypes"]:
         if archetype.get("key") == "public_credit_charter_retry":
             archetype["may_write_src"] = True
@@ -6910,7 +7117,7 @@ def main() -> None:
         archetype_registry=public_credit_writable_archetype_registry,
     )
 
-    maritime_writable_archetype_registry = deepcopy(load_archetype_registry())
+    maritime_writable_archetype_registry = deepcopy(archetype_registry)
     for archetype in maritime_writable_archetype_registry["archetypes"]:
         if archetype.get("key") == "maritime_trade_route_covenant":
             archetype["may_write_src"] = True
@@ -6922,7 +7129,7 @@ def main() -> None:
         archetype_registry=maritime_writable_archetype_registry,
     )
 
-    polder_writable_archetype_registry = deepcopy(load_archetype_registry())
+    polder_writable_archetype_registry = deepcopy(archetype_registry)
     for archetype in polder_writable_archetype_registry["archetypes"]:
         if archetype.get("key") == "polder_water_board_closure_inspection":
             archetype["may_write_src"] = True
@@ -6968,7 +7175,7 @@ def main() -> None:
         "archetype 'monthly_pressure_countdown' missing listener(s): monthly",
     )
 
-    registry_min_nodes = deepcopy(load_archetype_registry())
+    registry_min_nodes = deepcopy(archetype_registry)
     for archetype in registry_min_nodes["archetypes"]:
         if archetype["key"] == "monthly_pressure_countdown":
             archetype["min_nodes"] = 7
@@ -6979,7 +7186,7 @@ def main() -> None:
         archetype_registry=registry_min_nodes,
     )
 
-    registry_max_nodes = deepcopy(load_archetype_registry())
+    registry_max_nodes = deepcopy(archetype_registry)
     for archetype in registry_max_nodes["archetypes"]:
         if archetype["key"] == "monthly_pressure_countdown":
             archetype["max_nodes"] = 5
@@ -7075,7 +7282,7 @@ def main() -> None:
     unsupported_check_kind["node_graph"]["checks"][0]["kind"] = "unsupported_check"
     assert_has_error("unsupported check kind", unsupported_check_kind, "unsupported kind 'unsupported_check'")
 
-    registry_missing_template = deepcopy(load_template_registry())
+    registry_missing_template = deepcopy(template_registry)
     registry_missing_template["templates"] = [
         template
         for template in registry_missing_template["templates"]
@@ -7094,7 +7301,7 @@ def main() -> None:
         template_registry=registry_missing_template,
     )
 
-    registry_unsupported_kind = deepcopy(load_template_registry())
+    registry_unsupported_kind = deepcopy(template_registry)
     for template in registry_unsupported_kind["templates"]:
         if template["key"] == "sequential_event_chain":
             template["supported_action_kinds"] = []
@@ -7117,7 +7324,20 @@ def main() -> None:
     explicit_stub["identity"]["status"] = "stub"
     assert_codegen_error("explicit stub codegen", explicit_stub, "cannot be generated by Harness codegen")
 
-    summary = audit_summary()
+    summary = audit_summary(
+        wonders=repo_wonders(),
+        specs=spec_data,
+        localization=repo_localization(),
+        template_registry=template_registry,
+        capability_registry=capability_registry,
+        archetype_registry=archetype_registry,
+        repeated_entity_row_preflight=repeated_row_preflight,
+        repeated_entity_row_source_plan=source_plan,
+        repeated_entity_row_source_preview=source_preview,
+        repeated_entity_row_source_writer_readiness=source_writer_readiness,
+        repeated_entity_row_source_bundle_preview=source_bundle_preview,
+        repeated_entity_row_alhambra_source_generator_contract=alhambra_source_generator_contract,
+    )
     if summary["source_codegen_ready_count"] != 4:
         raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
     if summary["implementation_ready_count"] != 0:

@@ -337,6 +337,7 @@ CADENCE_HYBRID_MONTHLY_LOCAL_ROLE_TOKENS = {
     "supporting",
 }
 EVENT_ID_PATTERN = re.compile(r"\btv_engineering_department\.([0-9]+)\b")
+_LOCALIZATION_INDEX_KEYS_CACHE: set[str] | None = None
 
 
 def load_unique_wonders() -> list[dict[str, Any]]:
@@ -1646,12 +1647,16 @@ def _cadence_signature_errors(entry: dict[str, Any], node_graph: dict[str, Any])
 
 def loc_key_inventory(localization: dict[str, str] | None = None) -> set[str]:
     keys = set((localization if localization is not None else loc_english()).keys())
-    if LOCALIZATION_INDEX_FILE.exists():
-        keys.update(
-            line.strip()
-            for line in LOCALIZATION_INDEX_FILE.read_text(encoding="utf-8", errors="replace").splitlines()
-            if line.strip()
-        )
+    global _LOCALIZATION_INDEX_KEYS_CACHE
+    if _LOCALIZATION_INDEX_KEYS_CACHE is None:
+        _LOCALIZATION_INDEX_KEYS_CACHE = set()
+        if LOCALIZATION_INDEX_FILE.exists():
+            _LOCALIZATION_INDEX_KEYS_CACHE.update(
+                line.strip()
+                for line in LOCALIZATION_INDEX_FILE.read_text(encoding="utf-8", errors="replace").splitlines()
+                if line.strip()
+            )
+    keys.update(_LOCALIZATION_INDEX_KEYS_CACHE)
     return keys
 
 
@@ -6674,8 +6679,10 @@ def repeated_entity_row_source_preview_for_payload(
     payload: dict[str, Any],
     *,
     statuses: set[str] | None = None,
+    source_plan: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    source_plan = repeated_entity_row_source_plan_for_payload(payload, statuses=statuses)
+    if source_plan is None:
+        source_plan = repeated_entity_row_source_plan_for_payload(payload, statuses=statuses)
     spec_index = _repeated_row_source_preview_spec_index(payload)
     entries: list[dict[str, Any]] = []
     for entry_plan in source_plan.get("entries", []) or []:
@@ -8106,9 +8113,17 @@ def repeated_entity_row_source_writer_readiness_for_payload(
     payload: dict[str, Any],
     *,
     statuses: set[str] | None = None,
+    source_plan: dict[str, Any] | None = None,
+    source_preview: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    source_plan = repeated_entity_row_source_plan_for_payload(payload, statuses=statuses)
-    source_preview = repeated_entity_row_source_preview_for_payload(payload, statuses=statuses)
+    if source_plan is None:
+        source_plan = repeated_entity_row_source_plan_for_payload(payload, statuses=statuses)
+    if source_preview is None:
+        source_preview = repeated_entity_row_source_preview_for_payload(
+            payload,
+            statuses=statuses,
+            source_plan=source_plan,
+        )
     preview_by_key = {
         str(entry.get("key", "")): entry
         for entry in source_preview.get("entries", []) or []
@@ -9491,8 +9506,11 @@ def repeated_entity_row_source_bundle_preview_for_payload(
     payload: dict[str, Any],
     *,
     statuses: set[str] | None = None,
+    source_writer_readiness: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    readiness = repeated_entity_row_source_writer_readiness_for_payload(payload, statuses=statuses)
+    readiness = source_writer_readiness
+    if readiness is None:
+        readiness = repeated_entity_row_source_writer_readiness_for_payload(payload, statuses=statuses)
     bundles = [
         _repeated_row_source_bundle_entry(entry)
         for entry in readiness.get("entries", []) or []
@@ -10237,8 +10255,10 @@ def repeated_entity_row_alhambra_source_body_candidate_for_payload(
     payload: dict[str, Any],
     *,
     statuses: set[str] | None = None,
+    source_bundle_preview: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(payload, statuses=statuses)
+    if source_bundle_preview is None:
+        source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(payload, statuses=statuses)
     return _alhambra_source_body_candidate_from_bundle_preview(source_bundle_preview)
 
 
@@ -10804,11 +10824,13 @@ def repeated_entity_row_alhambra_source_file_preview_for_payload(
     payload: dict[str, Any],
     *,
     statuses: set[str] | None = None,
+    source_body_candidate: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    source_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(
-        payload,
-        statuses=statuses,
-    )
+    if source_body_candidate is None:
+        source_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(
+            payload,
+            statuses=statuses,
+        )
     return _alhambra_source_file_preview_from_body_candidate(source_body_candidate)
 
 
@@ -11379,11 +11401,13 @@ def repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
     payload: dict[str, Any],
     *,
     statuses: set[str] | None = None,
+    source_file_preview: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(
-        payload,
-        statuses=statuses,
-    )
+    if source_file_preview is None:
+        source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(
+            payload,
+            statuses=statuses,
+        )
     evidence_packs = [
         _alhambra_source_file_validation_pack(preview)
         for preview in source_file_preview.get("file_previews", []) or []
@@ -11871,11 +11895,13 @@ def repeated_entity_row_alhambra_source_generator_contract_for_payload(
     payload: dict[str, Any],
     *,
     statuses: set[str] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
-        payload,
-        statuses=statuses,
-    )
+    if source_file_validation_evidence is None:
+        source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+            payload,
+            statuses=statuses,
+        )
     generator_contracts = [
         _alhambra_source_generator_contract_for_pack(pack)
         for pack in source_file_validation_evidence.get("evidence_packs", []) or []
@@ -12636,17 +12662,34 @@ def validate_unique_ritual_specs_for_repo() -> list[str]:
         return [f"{SPEC_FILE.relative_to(REPO_ROOT)} could not be validated: {exc}"]
 
 
-def audit_summary() -> dict[str, Any]:
-    wonders = load_unique_wonders()
+def audit_summary(
+    *,
+    wonders: list[dict[str, Any]] | None = None,
+    designs: dict[str, Any] | None = None,
+    design_matrix: dict[str, Any] | None = None,
+    prompts: dict[str, Any] | None = None,
+    specs: dict[str, Any] | None = None,
+    localization: dict[str, str] | None = None,
+    template_registry: dict[str, Any] | None = None,
+    capability_registry: dict[str, Any] | None = None,
+    archetype_registry: dict[str, Any] | None = None,
+    repeated_entity_row_preflight: dict[str, Any] | None = None,
+    repeated_entity_row_source_plan: dict[str, Any] | None = None,
+    repeated_entity_row_source_preview: dict[str, Any] | None = None,
+    repeated_entity_row_source_writer_readiness: dict[str, Any] | None = None,
+    repeated_entity_row_source_bundle_preview: dict[str, Any] | None = None,
+    repeated_entity_row_alhambra_source_generator_contract: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    wonders = wonders if wonders is not None else load_unique_wonders()
     wonder_keys = {str(wonder["key"]) for wonder in wonders}
-    designs = load_optional_yaml(DESIGN_FILE)
-    design_matrix = load_optional_yaml(DESIGN_MATRIX_FILE)
-    prompts = load_optional_yaml(PROMPTS_FILE)
-    specs = load_spec_data()
-    loc = loc_english()
-    template_registry = load_template_registry()
-    capability_registry = load_capability_registry()
-    archetype_registry = load_archetype_registry()
+    designs = designs if designs is not None else load_optional_yaml(DESIGN_FILE)
+    design_matrix = design_matrix if design_matrix is not None else load_optional_yaml(DESIGN_MATRIX_FILE)
+    prompts = prompts if prompts is not None else load_optional_yaml(PROMPTS_FILE)
+    specs = specs if specs is not None else load_spec_data()
+    loc = localization if localization is not None else loc_english()
+    template_registry = template_registry if template_registry is not None else load_template_registry()
+    capability_registry = capability_registry if capability_registry is not None else load_capability_registry()
+    archetype_registry = archetype_registry if archetype_registry is not None else load_archetype_registry()
     template_registry_errors = validate_template_registry(template_registry)
     capability_registry_errors = validate_capability_registry(capability_registry)
     archetype_registry_errors = validate_archetype_registry(
@@ -12677,14 +12720,47 @@ def audit_summary() -> dict[str, Any]:
     capability_coverage_summary = capability_coverage_summary_for_payload(specs)
     archetype_coverage_summary = archetype_coverage_summary_for_payload(specs)
     node_kind_summary = node_kind_summary_for_payload(specs)
-    repeated_entity_row_preflight = repeated_entity_row_preflight_for_payload(specs)
-    repeated_entity_row_source_plan = repeated_entity_row_source_plan_for_payload(specs)
-    repeated_entity_row_source_preview = repeated_entity_row_source_preview_for_payload(specs)
-    repeated_entity_row_source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(specs)
-    repeated_entity_row_source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(specs)
-    repeated_entity_row_alhambra_source_generator_contract = (
-        repeated_entity_row_alhambra_source_generator_contract_for_payload(specs)
-    )
+    if repeated_entity_row_preflight is None:
+        repeated_entity_row_preflight = repeated_entity_row_preflight_for_payload(specs)
+    if repeated_entity_row_source_plan is None:
+        repeated_entity_row_source_plan = repeated_entity_row_source_plan_for_payload(specs)
+    if repeated_entity_row_source_preview is None:
+        repeated_entity_row_source_preview = repeated_entity_row_source_preview_for_payload(
+            specs,
+            source_plan=repeated_entity_row_source_plan,
+        )
+    if repeated_entity_row_source_writer_readiness is None:
+        repeated_entity_row_source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(
+            specs,
+            source_plan=repeated_entity_row_source_plan,
+            source_preview=repeated_entity_row_source_preview,
+        )
+    if repeated_entity_row_source_bundle_preview is None:
+        repeated_entity_row_source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(
+            specs,
+            source_writer_readiness=repeated_entity_row_source_writer_readiness,
+        )
+    if repeated_entity_row_alhambra_source_generator_contract is None:
+        alhambra_source_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(
+            specs,
+            source_bundle_preview=repeated_entity_row_source_bundle_preview,
+        )
+        alhambra_source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(
+            specs,
+            source_body_candidate=alhambra_source_body_candidate,
+        )
+        alhambra_source_file_validation_evidence = (
+            repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+                specs,
+                source_file_preview=alhambra_source_file_preview,
+            )
+        )
+        repeated_entity_row_alhambra_source_generator_contract = (
+            repeated_entity_row_alhambra_source_generator_contract_for_payload(
+                specs,
+                source_file_validation_evidence=alhambra_source_file_validation_evidence,
+            )
+        )
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
