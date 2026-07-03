@@ -2000,6 +2000,17 @@
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:3115,4025,4057,4065,4073,6600,6616,6864,6872,15389"
   notes: "The current reference files define 1.2 cost-style keys and do not define the migrated 1.3 efficiency keys. EU5 1.3 replaced several of these with good-colored percent efficiency variants; changing direction without sign inversion reverses the intended gameplay effect."
 
+- id: subject_loyalty_modifier_is_points
+  pattern: '(?m)^\s*subject_loyalty\s*[:=]\s*0\.\d+'
+  detectability: lint
+  only_in_paths: ['victory_paths.yaml', 'static_modifiers', 'advances']
+  bad: "Writing subject_loyalty as a fractional percent-like value such as 0.10"
+  correction: "Write subject_loyalty as loyalty points, e.g. 10 for +10 loyalty. Vanilla advances use values such as subject_loyalty = 5 even though the modifier type displays decimals."
+  category: modifier
+  scope: country
+  source: "reference_game_files/game/in_game/common/advances/0_age_of_renaissance.txt:356; reference_game_files/game/in_game/common/advances/0_age_of_traditions.txt:583; reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:5944-5948"
+  notes: "The modifier definition has decimals=2 but no percent=yes, and vanilla advances grant whole loyalty points. A 0.x value is effectively a tiny fraction of a loyalty point, not a 10% or +10 loyalty bonus."
+
 - id: trade_route_all_goods_per_good_expansion
   pattern: ''
   detectability: advisory
