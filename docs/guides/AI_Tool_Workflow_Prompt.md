@@ -14,6 +14,24 @@ When proposing code edits or generating new scripts, you must evaluate your know
 2. **Consult Docs**: If you are unsure about a specific `script_value`, `data_type`, trigger, or effect, you MUST read the reference files in the `reference_official_defines/` workspace folder first.
 3. **Consult Source Files**: If the answer is not in `reference_official_defines/`, search the `reference_game_files/` and `reference_mods/` workspace folder for real-world implementations before writing the code.
 
+### Python Runner Policy
+
+All project Python scripts must run inside the `eu5` environment. In a normal user terminal,
+use `conda run --no-capture-output -n eu5 python scripts/<script>.py ...`.
+
+In Codex or another managed sandbox, `conda run` may hang when the Anaconda base
+environment is read-only, especially when `C:\Users\Hades\anaconda3\conda-meta\history`
+is not writable. In that case, use the `eu5` interpreter directly:
+
+`C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\<script>.py ...`
+
+or activate through `cmd`:
+
+`cmd /c "call C:\Users\Hades\anaconda3\Scripts\activate.bat eu5 && python scripts\<script>.py ..."`
+
+This is the approved exception to the `conda run` examples. It still uses `eu5`; do not
+use bare `python`.
+
 ### Mandatory Reference Categories (Step 1 is FORBIDDEN)
 
 For the following syntax categories, you are **never** allowed to rely on memory or inference alone.
@@ -102,6 +120,10 @@ or, when the target files are already known:
 conda run --no-capture-output -n eu5 python scripts/ai_context.py --files src/in_game/common/generic_actions/tv_govhouse_actions.txt
 ```
 
+Apply the Python Runner Policy above to these examples. In Codex/managed sandboxes where
+`conda run` hangs, replace the prefix with
+`C:\Users\Hades\anaconda3\envs\eu5\python.exe`.
+
 The output tells the AI whether a file is generated, which risk cards apply, and which anti-pattern records are relevant. For `generic_actions`, the required card is `docs/knowledge/risk_cards/generic_actions.md`; for event files, `docs/knowledge/risk_cards/events.md` is required because option hover can pre-evaluate option effect chains, including `hidden_effect`; for IO definitions, IO laws, and country interactions that find or mutate TV IOs, `docs/knowledge/risk_cards/international_organizations.md` is required. Files containing `variable_map`, `global_variable_map`, or `local_variable_map` content are routed to the local Variable maps documentation and the `variable_map_scope_link_used_direct_rhs` anti-pattern.
 
 ## Resume / Handoff Discipline
@@ -126,10 +148,10 @@ When a new EU5 behavior or recurring AI failure is discovered:
 - Update the relevant `docs/knowledge/risk_cards/*.md` file when the issue belongs to an existing high-risk task domain.
 - If a new high-risk domain needs a card, create it and register it in `scripts/ai_context.py` `DOMAIN_RULES`.
 - If a `needs_parser` rule becomes reliably checkable, add the checker to `scripts/validate.py` and update the anti-pattern's `detectability`.
-- If a `detectability: lint` regex is added or changed, add or update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `conda run --no-capture-output -n eu5 python scripts/test_lint_rules.py`.
+- If a `detectability: lint` regex is added or changed, add or update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `scripts/test_lint_rules.py` through the Python Runner Policy.
 - If validation reports a new warning, fix it unless the warning is intentionally accepted. Accepted warnings must be recorded in `data/validation_baseline.yaml` with a rationale.
 - Update `PROJECT_OVERVIEW.md` when a workflow script or AI domain routing changes.
-- Run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py` after changing knowledge files.
+- Run `scripts/gen_brief.py` through the Python Runner Policy after changing knowledge files.
 
 ## Required Behavior For Bug Fixing
 

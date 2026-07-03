@@ -16,6 +16,35 @@ or, when target files are known:
 conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <path> [<path> ...]
 ```
 
+### Python Runner Policy
+
+All project Python scripts must run inside the `eu5` environment. In a normal user
+terminal, the canonical form remains:
+
+```
+conda run --no-capture-output -n eu5 python scripts/<script>.py ...
+```
+
+In Codex or other managed sandbox sessions, do **not** use `conda run` if the
+Anaconda base environment is read-only or `conda run` hangs. The sandbox user can
+have read-only access to `C:\Users\Hades\anaconda3\conda-meta\history`, which makes
+`conda run` stall while direct environment execution works. Use the `eu5` interpreter
+directly instead:
+
+```
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\<script>.py ...
+```
+
+or activate the environment through `cmd`:
+
+```
+cmd /c "call C:\Users\Hades\anaconda3\Scripts\activate.bat eu5 && python scripts\<script>.py ..."
+```
+
+This is the approved exception to the `conda run` examples below. It is still using
+the `eu5` environment and is preferred over bare `python`. If `conda run` times out,
+switch to one of these forms instead of retrying the hanging command.
+
 Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate option effect chains, including `hidden_effect`, before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
 `src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps.
 
@@ -236,7 +265,11 @@ if hasattr(sys.stdout, "reconfigure"):
 
 `import sys` must also be present (add it if not already there).
 
-Also, always run scripts via `conda run --no-capture-output -n eu5 python scripts/...` — never bare `python`.
+Also, always run scripts inside the `eu5` environment. Use
+`conda run --no-capture-output -n eu5 python scripts/...` in a normal terminal, but
+use `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\...` or the `activate.bat`
+form from the Python Runner Policy in Codex/managed sandboxes where `conda run`
+hangs. Never use bare `python`.
 
 ## Script System
 
