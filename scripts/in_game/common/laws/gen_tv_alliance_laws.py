@@ -1,13 +1,15 @@
 """
 Generate src/in_game/common/laws/tv_alliance_laws.txt from data/alliance_laws.yaml.
 
-Pattern: 5 law categories × 4 policy levels each.
+Pattern: Diplomatic Alliance law data can mix 3-level and 4-level laws.
 - L1 is a minimal stub (no on_activate, no country_modifier).
-- L2-L4 share identical boilerplate; only cohesion_cost, country_modifier, and policy IDs differ.
+- Upgraded levels share boilerplate; data controls cohesion_cost, tier contribution,
+  country modifiers, war-call blocks, and AI vote bias.
 - Policy changes are adjacent-only: no policy counts as level 0, so level N can
   be selected only from level N-1 or N+1.
 - Law changes require the Diplomatic Alliance's parliament law-vote path.
-- AI voting uses reform tier base bias, opinion toward the leader, and leader diplomatic reputation.
+- Legacy laws use reform tier, leader opinion, and leader diplomatic reputation.
+- War laws use relative military strength formulas from the data file.
 """
 
 import sys
@@ -33,10 +35,11 @@ FILE_HEADER = (
     "#\n"
     "# ══════════════════════════════════════════════════════════════════════════════\n"
     "# TOWARDS VICTORY — DIPLOMATIC ALLIANCE LAWS\n"
-    "# 5 law categories × 4 policy levels each\n"
+    "# 5 legacy law categories plus 1 war-law category\n"
     "# Law changes require Alliance Assembly parliament voting\n"
-    "# Cohesion thresholds: L1=0, L2=25, L3=50, L4=75\n"
-    "# tv_alliance_tier is the sum of all current policy levels above 1\n"
+    "# Legacy cohesion thresholds: L1=0, L2=25, L3=50, L4=75\n"
+    "# War-law cohesion thresholds: L1=0, L2=25, L3=50\n"
+    "# tv_alliance_tier is the sum of all current policy tier contributions\n"
     "# ══════════════════════════════════════════════════════════════════════════════\n"
 )
 
@@ -48,7 +51,7 @@ def _indent_block(text: str, depth: int) -> str:
     return "\n".join(prefix + line if line.strip() else "" for line in text.rstrip().splitlines())
 
 
-def gen_ai_vote_bias(level: int) -> list[str]:
+def gen_legacy_ai_vote_bias(level: int) -> list[str]:
     base_by_tier = {
         1: 0,
         2: -100,
@@ -98,6 +101,59 @@ def gen_ai_vote_bias(level: int) -> list[str]:
     return lines
 
 
+def gen_relative_strength_ai_vote_bias(policy: dict) -> list[str]:
+    ai = policy["ai_vote_bias"]
+    base = ai.get("base", 0)
+    multiplier = ai["multiplier"]
+    mode = ai["mode"]
+    if mode == "relative_strength_strongest_member":
+        desc = "TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER"
+        target_expr = "scope:recipient.leader_country.var:tv_alliance_strongest_member"
+        target_guard = [
+            T*6 + "leader_country ?= {",
+            T*7 + "has_variable = tv_alliance_strongest_member",
+            T*6 + "}",
+        ]
+    elif mode == "relative_strength_leader":
+        desc = "TV_ALLIANCE_RELATIVE_STRENGTH_LEADER"
+        target_expr = "scope:recipient.leader_country"
+        target_guard = []
+    else:
+        raise ValueError(f"Unsupported ai_vote_bias mode: {mode}")
+
+    lines = []
+    lines.append(T*2 + "wants_this_policy_bias = {")
+    if base:
+        lines.append(T*3 + "add = {")
+        lines.append(T*4 + 'desc = "TV_ALLIANCE_WAR_OBLIGATION_BASE"')
+        lines.append(T*4 + f"value = {base}")
+        lines.append(T*3 + "}")
+    lines.append(T*3 + "if = {")
+    lines.append(T*4 + "limit = {")
+    lines.append(T*5 + "exists = scope:recipient")
+    lines.append(T*5 + "scope:recipient = {")
+    lines.append(T*6 + "international_organization_has_leader = yes")
+    lines.extend(target_guard)
+    lines.append(T*5 + "}")
+    lines.append(T*4 + "}")
+    lines.append(T*4 + "add = {")
+    lines.append(T*5 + f'desc = "{desc}"')
+    lines.append(T*5 + "value = {")
+    lines.append(T*6 + f'value = "root.relative_strength({target_expr})"')
+    lines.append(T*6 + f"multiply = {multiplier}")
+    lines.append(T*5 + "}")
+    lines.append(T*4 + "}")
+    lines.append(T*3 + "}")
+    lines.append(T*2 + "}")
+    return lines
+
+
+def gen_ai_vote_bias(policy: dict) -> list[str]:
+    if "ai_vote_bias" in policy:
+        return gen_relative_strength_ai_vote_bias(policy)
+    return gen_legacy_ai_vote_bias(policy["level"])
+
+
 def gen_adjacent_policy_allow_body(law_id: str, policies: list[dict], index: int) -> list[str]:
     level = policies[index]["level"]
     lines = []
@@ -112,6 +168,94 @@ def gen_adjacent_policy_allow_body(law_id: str, policies: list[dict], index: int
     return lines
 
 
+def gen_extra_allow(policy: dict) -> list[str]:
+    allow = policy.get("extra_allow")
+    if not allow:
+        return []
+    if allow != "conditional_war_reason_available":
+        raise ValueError(f"Unsupported extra_allow: {allow}")
+
+    lines = []
+    lines.append(T*3 + "custom_tooltip = {")
+    lines.append(T*4 + "text = TV_ALLIANCE_HAS_CONDITIONAL_WAR_REASON_TT")
+    lines.append(T*4 + "OR = {")
+    lines.append(T*5 + "international_organization_has_policy = policy:tv_joint_denunciation_policy")
+    lines.append(T*5 + "international_organization_has_policy = policy:tv_universal_council_policy")
+    lines.append(T*4 + "}")
+    lines.append(T*3 + "}")
+    return lines
+
+
+def gen_conditional_war_reason_trigger(depth: int) -> list[str]:
+    p = T * depth
+    lines = []
+    lines.append(p + "custom_tooltip = {")
+    lines.append(p + T + "text = TV_ALLIANCE_CONDITIONAL_WAR_REASON_TT")
+    lines.append(p + T + "exists = scope:actor")
+    lines.append(p + T + "exists = scope:target")
+    lines.append(p + T + "OR = {")
+    lines.append(p + T*2 + "AND = {")
+    lines.append(p + T*3 + "international_organization_has_policy = policy:tv_joint_denunciation_policy")
+    lines.append(p + T*3 + "scope:target = {")
+    lines.append(p + T*4 + "religion.group = scope:actor.religion.group")
+    lines.append(p + T*4 + "NOT = { religion = scope:actor.religion }")
+    lines.append(p + T*3 + "}")
+    lines.append(p + T*2 + "}")
+    lines.append(p + T*2 + "AND = {")
+    lines.append(p + T*3 + "international_organization_has_policy = policy:tv_universal_council_policy")
+    lines.append(p + T*3 + "scope:target = {")
+    lines.append(p + T*4 + "NOT = { religion.group = scope:actor.religion.group }")
+    lines.append(p + T*3 + "}")
+    lines.append(p + T*2 + "}")
+    lines.append(p + T + "}")
+    lines.append(p + "}")
+    return lines
+
+
+def gen_leader_recipient_trigger(depth: int) -> list[str]:
+    p = T * depth
+    lines = []
+    lines.append(p + "custom_tooltip = {")
+    lines.append(p + T + "text = TV_ALLIANCE_LEADER_WAR_OBLIGATION_TT")
+    lines.append(p + T + "international_organization_has_leader = yes")
+    lines.append(p + T + "leader_country ?= scope:recipient")
+    lines.append(p + T + "NOT = { leader_country ?= scope:actor }")
+    lines.append(p + "}")
+    return lines
+
+
+def gen_unconditional_war_reason_trigger(depth: int) -> list[str]:
+    p = T * depth
+    lines = []
+    lines.append(p + "custom_tooltip = {")
+    lines.append(p + T + "text = TV_ALLIANCE_JOIN_WARS_DEFAULT_REASON")
+    lines.append(p + T + "always = yes")
+    lines.append(p + "}")
+    return lines
+
+
+def gen_war_call_blocks(policy: dict) -> list[str]:
+    blocks = policy.get("war_call_blocks") or []
+    lines = []
+    for block in blocks:
+        block_type = block["type"]
+        lines.append(T*2 + f"{block_type} = {{")
+        has_trigger = False
+        if block.get("leader_only"):
+            lines.extend(gen_leader_recipient_trigger(3))
+            has_trigger = True
+        condition = block.get("condition")
+        if condition == "conditional_religious_war":
+            lines.extend(gen_conditional_war_reason_trigger(3))
+            has_trigger = True
+        elif condition:
+            raise ValueError(f"Unsupported war-call condition: {condition}")
+        if not has_trigger:
+            lines.extend(gen_unconditional_war_reason_trigger(3))
+        lines.append(T*2 + "}")
+    return lines
+
+
 def gen_l1(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     pid = policy["id"]
     comment = policy.get("display_comment", "")
@@ -122,14 +266,16 @@ def gen_l1(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     lines.append(T*2 + "level = 1")
     lines.append(T*2 + "allow = {")
     lines.extend(gen_adjacent_policy_allow_body(law_id, policies, index))
+    lines.extend(gen_extra_allow(policy))
     lines.append(T*2 + "}")
+    lines.extend(gen_war_call_blocks(policy))
     lines.append(T*2 + "wants_propose_policy = {")
     lines.append(T*3 + "subtract = {")
     lines.append(T*4 + 'desc = "TV_ALREADY_HAVE_BETTER"')
     lines.append(T*4 + "value = 100")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
-    lines.extend(gen_ai_vote_bias(1))
+    lines.extend(gen_ai_vote_bias(policy))
     lines.append(T + "}")
     return "\n".join(lines)
 
@@ -138,9 +284,9 @@ def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     pid = policy["id"]
     level = policy["level"]
     cost = policy["cohesion_cost"]
-    tier_contribution = level - 1
+    tier_contribution = policy.get("tier_contribution", level - 1)
     comment = policy.get("display_comment", "")
-    modifier_lines = policy["country_modifier"].rstrip()
+    modifier_lines = (policy.get("country_modifier") or "").rstrip()
     on_activate_note = (policy.get("on_activate_note") or "").strip()
 
     lines = []
@@ -150,6 +296,7 @@ def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     lines.append(T*2 + f"level = {level}")
     lines.append(T*2 + "allow = {")
     lines.extend(gen_adjacent_policy_allow_body(law_id, policies, index))
+    lines.extend(gen_extra_allow(policy))
     lines.append(T*3 + "custom_tooltip = {")
     lines.append(T*4 + "text = TV_HAS_ALLIANCE_COHESION_TT")
     lines.append(T*4 + "has_variable = tv_alliance_cohesion")
@@ -171,9 +318,11 @@ def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     lines.append(T*4 + f"change_variable = {{ name = tv_alliance_tier add = -{tier_contribution} }}")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
-    lines.append(T*2 + "country_modifier = {")
-    lines.append(_indent_block(modifier_lines, 3))
-    lines.append(T*2 + "}")
+    if modifier_lines:
+        lines.append(T*2 + "country_modifier = {")
+        lines.append(_indent_block(modifier_lines, 3))
+        lines.append(T*2 + "}")
+    lines.extend(gen_war_call_blocks(policy))
     lines.append(T*2 + "wants_propose_policy = {")
     lines.append(T*3 + "add = {")
     lines.append(T*4 + 'desc = "TV_COHESION_REQUIREMENT"')
@@ -198,7 +347,7 @@ def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     lines.append(T*4 + "}")
     lines.append(T*3 + "}")
     lines.append(T*2 + "}")
-    lines.extend(gen_ai_vote_bias(level))
+    lines.extend(gen_ai_vote_bias(policy))
     lines.append(T + "}")
     return "\n".join(lines)
 

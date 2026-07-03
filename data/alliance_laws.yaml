@@ -1,6 +1,7 @@
 # Diplomatic Alliance law categories for tv_alliance_laws.txt
 # Structure: 5 law categories × 4 policy levels each
 # Cohesion thresholds are fixed: L2=25, L3=50, L4=75 (all laws share these)
+# War Laws are 3-level laws using L2=25 and L3=50.
 # Policy changes are adjacent-only. No current policy counts as level 0, so
 # level N requires current level N-1 or N+1.
 # Law changes require the Diplomatic Alliance's Alliance Assembly parliament
@@ -17,6 +18,11 @@
 #   cohesion_cost:    cohesion spent on activation (25/50/75 for L2/L3/L4)
 #   country_modifier: verbatim modifier lines inside country_modifier = { ... }
 #   on_activate_note: optional extra comment inside on_activate scope:recipient (rare)
+# Additional optional fields:
+#   tier_contribution: policy contribution to tv_alliance_tier (defaults to level-1)
+#   extra_allow:       named generated allow gate, e.g. conditional_war_reason_available
+#   war_call_blocks:   generated join_*_wars_* policy blocks
+#   ai_vote_bias:      generated relative-strength AI vote formula for war laws
 #
 # DO NOT hand-edit generated output files. Run:
 #   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_alliance_laws.py
@@ -170,3 +176,113 @@ laws:
         cohesion_cost: 75
         country_modifier: |
           colonial_migration_size_modifier = 0.15
+
+  - id: tv_common_defense_obligation
+    law_category: tv_alliance_war_laws
+    display_comment: "LAW 6: Common Defense Obligation"
+    policies:
+      - level: 1
+        id: tv_no_common_defense_policy
+        display_comment: "Level 1 - No Common Defense Obligation (initial)"
+        ai_vote_bias:
+          mode: relative_strength_strongest_member
+          base: 0
+          multiplier: 100
+
+      - level: 2
+        id: tv_conditional_common_defense_policy
+        display_comment: "Level 2 - Conditional Common Defense (cohesion >= 25)"
+        cohesion_cost: 25
+        extra_allow: conditional_war_reason_available
+        war_call_blocks:
+          - type: join_defensive_wars_auto_call
+            condition: conditional_religious_war
+        ai_vote_bias:
+          mode: relative_strength_strongest_member
+          base: 21
+          multiplier: 70
+
+      - level: 3
+        id: tv_unconditional_common_defense_policy
+        display_comment: "Level 3 - Unconditional Common Defense (cohesion >= 50)"
+        cohesion_cost: 50
+        war_call_blocks:
+          - type: join_defensive_wars_always
+        ai_vote_bias:
+          mode: relative_strength_strongest_member
+          base: 21
+          multiplier: 30
+
+  - id: tv_common_offense_obligation
+    law_category: tv_alliance_war_laws
+    display_comment: "LAW 7: Common Offense Obligation"
+    policies:
+      - level: 1
+        id: tv_no_common_offense_policy
+        display_comment: "Level 1 - No Common Offense Obligation (initial)"
+        ai_vote_bias:
+          mode: relative_strength_strongest_member
+          base: 0
+          multiplier: 100
+
+      - level: 2
+        id: tv_conditional_common_offense_policy
+        display_comment: "Level 2 - Conditional Common Offense (cohesion >= 25)"
+        cohesion_cost: 25
+        extra_allow: conditional_war_reason_available
+        war_call_blocks:
+          - type: join_offensive_wars_auto_call
+            condition: conditional_religious_war
+        ai_vote_bias:
+          mode: relative_strength_strongest_member
+          base: 16
+          multiplier: 80
+
+      - level: 3
+        id: tv_unconditional_common_offense_policy
+        display_comment: "Level 3 - Unconditional Common Offense (cohesion >= 50)"
+        cohesion_cost: 50
+        war_call_blocks:
+          - type: join_offensive_wars_always
+        ai_vote_bias:
+          mode: relative_strength_strongest_member
+          base: 25
+          multiplier: 50
+
+  - id: tv_leader_war_obligation
+    law_category: tv_alliance_war_laws
+    display_comment: "LAW 8: Leader War Obligation"
+    policies:
+      - level: 1
+        id: tv_no_leader_war_obligation_policy
+        display_comment: "Level 1 - No Leader War Obligation (initial)"
+        ai_vote_bias:
+          mode: relative_strength_leader
+          base: 0
+          multiplier: 100
+
+      - level: 2
+        id: tv_leader_defensive_war_policy
+        display_comment: "Level 2 - Leader Joins Defensive Wars (cohesion >= 25)"
+        cohesion_cost: 25
+        war_call_blocks:
+          - type: join_defensive_wars_always
+            leader_only: true
+        ai_vote_bias:
+          mode: relative_strength_leader
+          base: 21
+          multiplier: 70
+
+      - level: 3
+        id: tv_leader_any_war_policy
+        display_comment: "Level 3 - Leader Joins Any War (cohesion >= 50)"
+        cohesion_cost: 50
+        war_call_blocks:
+          - type: join_defensive_wars_always
+            leader_only: true
+          - type: join_offensive_wars_always
+            leader_only: true
+        ai_vote_bias:
+          mode: relative_strength_leader
+          base: 21
+          multiplier: 30
