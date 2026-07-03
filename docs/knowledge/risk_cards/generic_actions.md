@@ -141,7 +141,7 @@ tv_example_action = {
 Run:
 
 ```powershell
-conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix --ai-report
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --fix --ai-report
 ```
 
 Warnings tagged `generic_action_pre_eval` are not always hard failures, but new warnings fail

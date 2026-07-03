@@ -21,7 +21,7 @@
 #   notes     : one-line explanation of why the bad form fails
 #
 # To add a new entry: append a YAML dict with all fields, then run:
-#   python scripts/gen_brief.py
+#   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 
 - id: unreleased_project_compatibility_layer
   pattern: ''
@@ -32,6 +32,16 @@
   scope: any
   source: "Project owner directive, 2026-06-07"
   notes: "There are no shipped saves or public APIs to protect. Compatibility code creates hot-path cost, hides call-order bugs, and teaches future agents to preserve obsolete structures."
+
+- id: managed_sandbox_conda_run_hang
+  pattern: ''
+  detectability: advisory
+  bad: "Running or retrying `conda run -n eu5` from Codex, Claude subagents, or another managed sandbox"
+  correction: 'Run project scripts with the direct environment interpreter: `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\<script>.py ...`. Reserve `conda run --no-capture-output -n eu5 python ...` for normal user terminals only.'
+  category: workflow
+  scope: any
+  source: "Project owner report, 2026-07-04"
+  notes: 'Managed sandboxes can have read-only access to `C:\Users\Hades\anaconda3\conda-meta\history`, causing `conda run` to hang before the agent reaches validation or context output.'
 
 - id: location_auto_modifier_nonfunctional
   pattern: 'category\s*=\s*location'

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""
+r"""
 Build a compact task context for AI coding tools.
 
 Usage:
-  python scripts/ai_context.py --changed
-  python scripts/ai_context.py --files src/in_game/common/generic_actions/foo.txt
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --changed
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files src/in_game/common/generic_actions/foo.txt
 """
 
 import argparse
@@ -25,6 +25,7 @@ REPO_ROOT = Path(__file__).parent.parent
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 RISK_CARDS_DIR = KNOWLEDGE_DIR / "risk_cards"
 GENERATED_REGISTRY = REPO_ROOT / "data" / "generated_files.yaml"
+MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 
 DOMAIN_RULES = [
     ("generic_actions", "src/in_game/common/generic_actions/", "generic_actions.md"),
@@ -146,7 +147,7 @@ def maintenance_notes(files: list[str]) -> list[str]:
     )
     if touches_knowledge:
         notes.append(
-            "After changing knowledge/workflow docs, run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py`."
+            f"After changing knowledge/workflow docs in a managed sandbox, run `{MANAGED_SANDBOX_PYTHON} scripts\\gen_brief.py`."
         )
     if "docs/knowledge/anti_patterns.yaml" in file_set:
         notes.append(
@@ -268,8 +269,9 @@ def main() -> None:
 
     print("## Suggested Validation")
     print("```powershell")
-    print("conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix --ai-report")
-    print("conda run --no-capture-output -n eu5 python scripts/test_lint_rules.py")
+    print("# Managed sandbox default; do not use conda run here.")
+    print(f"{MANAGED_SANDBOX_PYTHON} scripts\\validate.py --changed --fix --ai-report")
+    print(f"{MANAGED_SANDBOX_PYTHON} scripts\\test_lint_rules.py")
     print("```")
 
 

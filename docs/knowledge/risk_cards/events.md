@@ -72,5 +72,5 @@ called directly from event options.
 Run:
 
 ```powershell
-conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix --ai-report
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --fix --ai-report
 ```

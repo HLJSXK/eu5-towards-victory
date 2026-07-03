@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate all Towards Victory game files from data/victory_paths.yaml.
+r"""Generate all Towards Victory game files from data/victory_paths.yaml.
 
 Usage:
-    conda run --no-capture-output -n eu5 python scripts/gen_victory.py        # write files
-    conda run --no-capture-output -n eu5 python scripts/gen_victory.py --dry  # preview only
+    C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_victory.py        # write files
+    C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_victory.py --dry  # preview only
 
 1对1原则: Each YAML field maps to one piece of output. Complex EU5 script bodies
 are stored verbatim in the YAML; this generator inserts them unchanged. It is a
@@ -33,6 +33,7 @@ except ImportError:
     sys.exit(1)
 
 ROOT = Path(__file__).parent.parent
+MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 SRC = ROOT / "src"
 DATA_YAML = ROOT / "data" / "victory_paths.yaml"
 ESTABLISHMENT_YAML = ROOT / "data" / "io_establishment.yaml"
@@ -1237,7 +1238,7 @@ def main() -> None:
     )
 
     if not dry:
-        print("Done. Run: conda run --no-capture-output -n eu5 python scripts/validate.py")
+        print(f"Done. Run: {MANAGED_SANDBOX_PYTHON} scripts\\validate.py")
 
 
 if __name__ == "__main__":

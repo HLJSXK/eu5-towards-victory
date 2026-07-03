@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""
+r"""
 Generate docs/knowledge/BRIEF.md from docs/knowledge/*.yaml, risk cards,
 and PROJECT_OVERVIEW.md. Run after editing AI knowledge files.
 
 Usage:
-  python scripts/gen_brief.py
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 """
 
 from datetime import date
@@ -27,6 +27,7 @@ OUTPUT = KNOWLEDGE_DIR / "BRIEF.md"
 OVERVIEW = KNOWLEDGE_DIR / "PROJECT_OVERVIEW.md"
 INDEX_DIR = REPO_ROOT / "data" / "index"
 RISK_CARDS_DIR = KNOWLEDGE_DIR / "risk_cards"
+MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 
 CODEGEN_SCRIPTS = [
     ("gen_brief.py",   "anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md + risk_cards/", "docs/knowledge/BRIEF.md",    "After editing any AI knowledge file"),
@@ -104,7 +105,7 @@ def main():
     )
     lines.append(
         "> Edit `docs/knowledge/anti_patterns.yaml`, `valid_enums.yaml`, or `PROJECT_OVERVIEW.md`, "
-        "then run `python scripts/gen_brief.py`.  "
+        f"then run `{MANAGED_SANDBOX_PYTHON} scripts\\gen_brief.py` in managed sandboxes.  "
     )
     lines.append(f"> Last updated: {date.today()}")
     lines.append("")
@@ -167,7 +168,8 @@ def main():
     lines.append("- **Mandatory Step 2/3** for: `blockoverride` names, `custom_tooltip` keys, `situation_card_common` structure, `location_rank:*`, modifier names, scripted triggers/effects, localization YAML encoding, GUI expressions")
     lines.append("- **Verification format**: output `**Verification** — Step [2/3], Reference: file:line, Quote: \"exact text\"` before any code")
     lines.append("- **Bug fix rule**: Replace syntax with verified form; do NOT remove the feature")
-    lines.append("- **Pre-test**: Run `python scripts/validate.py --changed` before launching game")
+    lines.append(f"- **Python runner**: In Codex, Claude subagents, or managed sandboxes, run scripts with `{MANAGED_SANDBOX_PYTHON}`; do not run `conda run -n eu5` there")
+    lines.append(f"- **Pre-test**: Run `{MANAGED_SANDBOX_PYTHON} scripts\\validate.py --changed` before launching game in managed sandboxes")
     lines.append("- **Float precision**: EU5 truncates all floats at 5 decimal places; never emit 6+ dp in mod files")
     lines.append("")
 

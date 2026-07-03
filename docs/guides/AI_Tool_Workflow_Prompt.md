@@ -8,29 +8,33 @@ You are an expert Europa Universalis 5 (EU5) modder. EU5 uses an updated Jomini 
 ### Workflow: The 3-Step Resolution Rule
 When proposing code edits or generating new scripts, you must evaluate your knowledge and follow this exact sequence:
 
-0. **Build task context**: before editing, run `conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed` or
-   `conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <paths>` and read every listed risk card.
+0. **Build task context**: before editing in Codex, Claude subagents, or any managed sandbox, run
+   `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --changed` or
+   `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files <paths>` and read every listed risk card.
 1. **Direct Edit**: If you are 100% certain about the EU5 syntax (e.g., standard Jomini logic), write the script directly.
 2. **Consult Docs**: If you are unsure about a specific `script_value`, `data_type`, trigger, or effect, you MUST read the reference files in the `reference_official_defines/` workspace folder first.
 3. **Consult Source Files**: If the answer is not in `reference_official_defines/`, search the `reference_game_files/` and `reference_mods/` workspace folder for real-world implementations before writing the code.
 
 ### Python Runner Policy
 
-All project Python scripts must run inside the `eu5` environment. In a normal user terminal,
-use `conda run --no-capture-output -n eu5 python scripts/<script>.py ...`.
-
-In Codex or another managed sandbox, `conda run` may hang when the Anaconda base
-environment is read-only, especially when `C:\Users\Hades\anaconda3\conda-meta\history`
-is not writable. In that case, use the `eu5` interpreter directly:
+All project Python scripts must run inside the `eu5` environment. In Codex, Claude
+subagents, or any managed sandbox, do **not** run or retry `conda run -n eu5`.
+Use the `eu5` interpreter directly:
 
 `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\<script>.py ...`
 
-or activate through `cmd`:
+In a normal user terminal, the canonical form remains
+`conda run --no-capture-output -n eu5 python scripts/<script>.py ...`.
+
+`conda run` may hang in managed sandboxes when the Anaconda base environment is
+read-only, especially when `C:\Users\Hades\anaconda3\conda-meta\history` is not
+writable. If the direct interpreter path is unavailable, activate through `cmd`:
 
 `cmd /c "call C:\Users\Hades\anaconda3\Scripts\activate.bat eu5 && python scripts\<script>.py ..."`
 
-This is the approved exception to the `conda run` examples. It still uses `eu5`; do not
-use bare `python`.
+This still uses `eu5`; do not use bare `python`. Treat any later `conda run`
+example as normal-terminal documentation and translate it before executing in a
+managed sandbox.
 
 ### Mandatory Reference Categories (Step 1 is FORBIDDEN)
 
@@ -111,18 +115,17 @@ Do NOT resolve ambiguity by picking the "most reasonable" interpretation and pro
 Before any non-trivial edit, generate a compact task context:
 
 ```powershell
-conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --changed
 ```
 
 or, when the target files are already known:
 
 ```powershell
-conda run --no-capture-output -n eu5 python scripts/ai_context.py --files src/in_game/common/generic_actions/tv_govhouse_actions.txt
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files src/in_game/common/generic_actions/tv_govhouse_actions.txt
 ```
 
-Apply the Python Runner Policy above to these examples. In Codex/managed sandboxes where
-`conda run` hangs, replace the prefix with
-`C:\Users\Hades\anaconda3\envs\eu5\python.exe`.
+Normal user terminals may use the `conda run --no-capture-output -n eu5 python`
+prefix instead. Managed sandboxes must keep the direct interpreter form.
 
 The output tells the AI whether a file is generated, which risk cards apply, and which anti-pattern records are relevant. For `generic_actions`, the required card is `docs/knowledge/risk_cards/generic_actions.md`; for event files, `docs/knowledge/risk_cards/events.md` is required because option hover can pre-evaluate option effect chains, including `hidden_effect`; for IO definitions, IO laws, and country interactions that find or mutate TV IOs, `docs/knowledge/risk_cards/international_organizations.md` is required. Files containing `variable_map`, `global_variable_map`, or `local_variable_map` content are routed to the local Variable maps documentation and the `variable_map_scope_link_used_direct_rhs` anti-pattern.
 
@@ -187,6 +190,7 @@ The following violations occurred and informed the Mandatory Reference Categorie
 
 | Date | Violation | Root cause | Correct behavior |
 |---|---|---|---|
+| 2026-07 | Claude/Codex subagents kept running `conda run -n eu5` and hanging before reaching validation or context output | The runner policy was added as an exception while earlier and later examples still began with `conda run`, and `.claude/settings.local.json` explicitly allowed that command family | Managed sandboxes must default to `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\...`; reserve `conda run --no-capture-output -n eu5 python ...` for normal user terminals only, and do not whitelist `Bash(conda run *)` for subagents. |
 | 2026-06 | Diplomatic Alliance row Subjugate button passed the member as `parameter_value = "[Country.Self]"` inside `left_action`; clicking silently spent no cohesion and created no subject | Confused the GUI object shape used for row comparisons with the script scope shape expected by a generic action's `scope:target` | For custom row action buttons that feed a generic action target, put the parameter on the button and pass `parameter_value = "[Country.MakeScope]"`. Keep `Country.Self` for GUI object comparisons such as `ObjectsEqual`. |
 | 2026-06 | Diplomatic Alliance custom member list went blank and its subjugate button emitted GUI `FetchData failed` errors during fixes | The fix filtered `MemberTypeItem` by a localized special-status name, called `IsIOLeaderCountry(Country.Self)` from an IO member row, and then misread stale hot-reload action-button errors as a source problem | Keep the outer member group on `MemberTypeItem.IsAllMembers`; filter the country row by comparing `Country.Self` to `GetLeaderCountry.Self` with `ObjectsEqual`; avoid direct `enabled = "[UIAction.IsEnabled]"` in unverified contexts; after changing action widgets, restart or fully reload before drawing new conclusions from line-stable FetchData errors. |
 | 2026-06 | Browsing Diplomatic Alliance laws logged `Event target link 'leader_country' returned an invalid object` from generated policy `on_activate` / `on_deactivate` lines | The law browser/policy tooltip evaluator walked activation/deactivation effect chains before a leader country was available, and the generator used direct `leader_country = { ... }` for mirrored country tier writes | Keep IO-root state changes direct, but enter mirrored leader-country side effects with `leader_country ?= { ... }` in IO policy activation/deactivation blocks. |
