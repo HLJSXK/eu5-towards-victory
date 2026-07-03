@@ -3459,6 +3459,53 @@ def main() -> None:
                 raise AssertionError(f"source-writer readiness writes_src changed: {artifact}")
             if not artifact.get("unresolved_writer_blockers"):
                 raise AssertionError(f"source-writer readiness lost blockers: {artifact}")
+            contract_evidence = artifact.get("no_write_source_writer_contract_evidence")
+            if not isinstance(contract_evidence, dict):
+                raise AssertionError(f"source-writer readiness lost no-write contract evidence: {artifact}")
+            if contract_evidence.get("artifact_kind") != artifact.get("artifact_kind"):
+                raise AssertionError(f"no-write contract evidence artifact kind changed: {contract_evidence}")
+            if contract_evidence.get("contract_family") != family:
+                raise AssertionError(f"no-write contract evidence family changed: {contract_evidence}")
+            target_paths = contract_evidence.get("target_paths")
+            if not isinstance(target_paths, list) or not target_paths:
+                raise AssertionError(f"no-write contract evidence lost target path: {contract_evidence}")
+            if contract_evidence.get("target_path") not in target_paths:
+                raise AssertionError(f"no-write contract evidence target_path is not explicit: {contract_evidence}")
+            if any(not str(path).startswith("src/") or "<" in str(path) for path in target_paths):
+                raise AssertionError(f"no-write contract evidence target paths must be explicit src paths: {contract_evidence}")
+            if family == "localization" and len(target_paths) != 2:
+                raise AssertionError(f"localization no-write evidence must expose split target paths: {contract_evidence}")
+            if family != "localization" and len(target_paths) != 1:
+                raise AssertionError(f"{family} no-write evidence should expose one target path: {contract_evidence}")
+            if not contract_evidence.get("owner_generator") or not contract_evidence.get("owner_generator_candidate"):
+                raise AssertionError(f"no-write contract evidence lost owner generator candidate: {contract_evidence}")
+            syntax_evidence = contract_evidence.get("eu5_syntax_evidence")
+            if (
+                not isinstance(syntax_evidence, dict)
+                or not syntax_evidence.get("summary")
+                or not syntax_evidence.get("paths")
+            ):
+                raise AssertionError(f"no-write contract evidence lost EU5 syntax evidence: {contract_evidence}")
+            commands = contract_evidence.get("verification_commands")
+            if (
+                not isinstance(commands, list)
+                or not any("scripts\\test_unique_wonder_ritual_harness.py" in command for command in commands)
+                or not any("scripts\\validate.py --changed --fix --ai-report" in command for command in commands)
+            ):
+                raise AssertionError(f"no-write contract evidence lost validation commands: {contract_evidence}")
+            if not contract_evidence.get("validation_refs"):
+                raise AssertionError(f"no-write contract evidence lost validation refs: {contract_evidence}")
+            if (
+                not contract_evidence.get("source_writer_blocker_reasons")
+                or not contract_evidence.get("source_writer_still_blocked_reason")
+            ):
+                raise AssertionError(f"no-write contract evidence lost blocker reason: {contract_evidence}")
+            if (
+                contract_evidence.get("source_writer_allowed") is not False
+                or contract_evidence.get("may_write_src") is not False
+                or contract_evidence.get("writes_src") is not False
+            ):
+                raise AssertionError(f"no-write contract evidence allowed source writing: {contract_evidence}")
             if family == "event":
                 closure_family_counts["event"] += 1
                 closure_pilots_by_family["event"].add(str(artifact.get("pilot_key", "")))
@@ -3862,6 +3909,73 @@ def main() -> None:
     missing_evidence_errors = validate_repeated_entity_row_source_writer_readiness(missing_evidence_readiness)
     if not any("missing field(s)" in error for error in missing_evidence_errors):
         raise AssertionError(f"missing evidence block readiness negative was not caught: {missing_evidence_errors}")
+
+    missing_no_write_contract_evidence_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_no_write_contract_evidence_readiness, "event")[
+        "no_write_source_writer_contract_evidence"
+    ]
+    missing_no_write_contract_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_no_write_contract_evidence_readiness
+    )
+    if not any("no_write_source_writer_contract_evidence" in error for error in missing_no_write_contract_errors):
+        raise AssertionError(
+            "missing no-write source-writer contract evidence negative was not caught: "
+            f"{missing_no_write_contract_errors}"
+        )
+
+    missing_contract_target_readiness = deepcopy(source_writer_readiness)
+    missing_contract_target = _first_readiness_artifact(missing_contract_target_readiness, "cleanup")[
+        "no_write_source_writer_contract_evidence"
+    ]
+    missing_contract_target["target_path"] = ""
+    missing_contract_target["target_paths"] = []
+    missing_contract_target_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_contract_target_readiness
+    )
+    if not any("missing target path" in error for error in missing_contract_target_errors):
+        raise AssertionError(f"missing contract target negative was not caught: {missing_contract_target_errors}")
+
+    missing_contract_owner_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_contract_owner_readiness, "effect")["no_write_source_writer_contract_evidence"][
+        "owner_generator_candidate"
+    ] = ""
+    missing_contract_owner_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_contract_owner_readiness
+    )
+    if not any("missing owner generator candidate" in error for error in missing_contract_owner_errors):
+        raise AssertionError(f"missing contract owner negative was not caught: {missing_contract_owner_errors}")
+
+    missing_contract_syntax_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_contract_syntax_readiness, "trigger")["no_write_source_writer_contract_evidence"][
+        "eu5_syntax_evidence"
+    ]["paths"] = []
+    missing_contract_syntax_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_contract_syntax_readiness
+    )
+    if not any("missing EU5 syntax evidence paths" in error for error in missing_contract_syntax_errors):
+        raise AssertionError(f"missing contract syntax negative was not caught: {missing_contract_syntax_errors}")
+
+    missing_contract_command_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_contract_command_readiness, "gui")["no_write_source_writer_contract_evidence"][
+        "verification_commands"
+    ] = []
+    missing_contract_command_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_contract_command_readiness
+    )
+    if not any("verification commands mismatch" in error for error in missing_contract_command_errors):
+        raise AssertionError(f"missing contract command negative was not caught: {missing_contract_command_errors}")
+
+    missing_contract_blocker_readiness = deepcopy(source_writer_readiness)
+    missing_contract_blocker = _first_readiness_artifact(missing_contract_blocker_readiness, "listener")[
+        "no_write_source_writer_contract_evidence"
+    ]
+    missing_contract_blocker["source_writer_blocker_reasons"] = []
+    missing_contract_blocker["source_writer_still_blocked_reason"] = ""
+    missing_contract_blocker_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_contract_blocker_readiness
+    )
+    if not any("missing source-writer blocker reasons" in error for error in missing_contract_blocker_errors):
+        raise AssertionError(f"missing contract blocker negative was not caught: {missing_contract_blocker_errors}")
 
     missing_event_namespace_readiness = deepcopy(source_writer_readiness)
     _first_readiness_artifact(missing_event_namespace_readiness, "event")["closure_contract"]["namespace"] = ""

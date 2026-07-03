@@ -130,6 +130,13 @@ adds a complete verified source-writer contract. It does not generate `src/`, do
 `may_write_src: true`, does not enable `source_writer_allowed`, and does not promote
 `source_codegen_ready`, `implementation_ready`, `harness_generated`, or any equivalent
 source-ready status.
+Each readiness artifact also carries a `no_write_source_writer_contract_evidence` block
+for review. That block must name explicit future `src/` target path(s), the planned owner
+generator and generator candidate evidence, EU5 syntax evidence paths, the exact
+validation commands for this no-write layer, validation refs, and the still-blocking
+source-writer reasons. It is evidence only: `source_writer_allowed`, `may_write_src`, and
+`writes_src` must remain `false` for event, localization, scripted-effect, cleanup,
+scripted-trigger, GUI, and Alhambra-only listener families.
 The repeated-row source bundle preview is an additional no-write source compiler
 prototype on top of that readiness ledger. It groups the 177 closure contracts into the
 four repeated-row pilot bundles and their event, localization, scripted-effect, cleanup,

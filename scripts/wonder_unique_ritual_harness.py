@@ -3462,6 +3462,29 @@ REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS = {
     "validation_coverage_evidence",
     "lifecycle_semantics_evidence",
 }
+REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_CONTRACT_EVIDENCE_REQUIRED_FIELDS = {
+    "contract_evidence_only",
+    "artifact_kind",
+    "contract_family",
+    "target_path",
+    "target_paths",
+    "owner_generator",
+    "owner_generator_candidate",
+    "eu5_syntax_evidence",
+    "validation_refs",
+    "validation_command",
+    "verification_commands",
+    "source_writer_blocker_reasons",
+    "source_writer_still_blocked_reason",
+    "source_target_boundary",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+}
+REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS = (
+    r"C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\test_unique_wonder_ritual_harness.py",
+    r"C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --fix --ai-report",
+)
 REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_FIELDS = {
     "artifact_kind",
     "contract_family",
@@ -3474,6 +3497,7 @@ REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_FIELDS = {
     "may_write_src",
     "writes_src",
     "unresolved_writer_blockers",
+    "no_write_source_writer_contract_evidence",
 } | REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS
 REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS = {
     "event": 32,
@@ -7881,6 +7905,65 @@ def _repeated_row_source_writer_closure_contract(
     return None
 
 
+def _repeated_row_no_write_source_writer_target_paths(
+    *,
+    contract_family: str,
+    pilot_key: str,
+    candidate_path: str,
+    path_pattern: str,
+) -> list[str]:
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    if contract_family == "localization":
+        localization_pattern = path_pattern or candidate_path
+        return [
+            localization_pattern.replace("<wonder_key>", wonder_key).replace("<lang>", language)
+            for language in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS
+        ]
+    target_path = candidate_path or path_pattern.replace("<wonder_key>", wonder_key)
+    if target_path:
+        target_path = target_path.replace("<wonder_key>", wonder_key)
+    return [target_path] if target_path else []
+
+
+def _repeated_row_no_write_source_writer_contract_evidence(
+    *,
+    artifact_kind: str,
+    contract_family: str,
+    target_paths: list[str],
+    owner_generator: str,
+    owner_generator_candidate: str,
+    syntax_summary: str,
+    syntax_paths: list[str],
+    validation_refs: list[str],
+    blocker_reasons: list[str],
+    source_target_boundary: Any,
+) -> dict[str, Any]:
+    normalized_target_paths = sorted({path for path in _string_refs(target_paths) if path})
+    normalized_blockers = sorted({blocker for blocker in _string_refs(blocker_reasons) if blocker})
+    return {
+        "contract_evidence_only": True,
+        "artifact_kind": artifact_kind,
+        "contract_family": contract_family,
+        "target_path": normalized_target_paths[0] if normalized_target_paths else "",
+        "target_paths": normalized_target_paths,
+        "owner_generator": owner_generator,
+        "owner_generator_candidate": owner_generator_candidate,
+        "eu5_syntax_evidence": {
+            "summary": syntax_summary,
+            "paths": _string_refs(syntax_paths),
+        },
+        "validation_refs": sorted({validation for validation in _string_refs(validation_refs) if validation}),
+        "validation_command": REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS[0],
+        "verification_commands": list(REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS),
+        "source_writer_blocker_reasons": normalized_blockers,
+        "source_writer_still_blocked_reason": "; ".join(normalized_blockers),
+        "source_target_boundary": source_target_boundary,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
 def _repeated_row_source_writer_readiness_artifact(
     *,
     artifact: dict[str, Any],
@@ -7950,6 +8033,12 @@ def _repeated_row_source_writer_readiness_artifact(
 
     boundary_paths = _string_refs(evidence_mapping.get("evidence_source_paths"))
     future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    target_paths = _repeated_row_no_write_source_writer_target_paths(
+        contract_family=contract_family,
+        pilot_key=pilot_key,
+        candidate_path=future_target,
+        path_pattern=str(contract.get("future_source_target_path_pattern", "")),
+    )
     if future_target:
         boundary_paths = sorted(set(boundary_paths + [future_target]))
 
@@ -8024,6 +8113,18 @@ def _repeated_row_source_writer_readiness_artifact(
             blockers=unresolved_writer_blockers,
         ),
         "unresolved_writer_blockers": unresolved_writer_blockers,
+        "no_write_source_writer_contract_evidence": _repeated_row_no_write_source_writer_contract_evidence(
+            artifact_kind=artifact_kind,
+            contract_family=contract_family,
+            target_paths=target_paths,
+            owner_generator=str(artifact.get("owner_generator", "")),
+            owner_generator_candidate=str(evidence_mapping.get("generator_candidate", "")),
+            syntax_summary=str(evidence_mapping.get("eu5_source_syntax_pattern", "")),
+            syntax_paths=_string_refs(evidence_mapping.get("evidence_source_paths")),
+            validation_refs=_string_refs(contract.get("required_validations")),
+            blocker_reasons=unresolved_writer_blockers,
+            source_target_boundary=artifact.get("source_target_boundary", ""),
+        ),
         "source_writer_allowed": False,
         "may_write_src": False,
         "writes_src": False,
@@ -8190,6 +8291,82 @@ def _readiness_evidence_claims_verified(evidence: dict[str, Any]) -> bool:
         "source_ready",
         "backend_ready",
     }
+
+
+def _validate_repeated_row_no_write_source_writer_contract_evidence(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    contract_family: str,
+    evidence: Any,
+    expected_target_paths: list[str],
+    expected_blockers: list[str],
+) -> list[str]:
+    errors: list[str] = []
+    context = f"{pilot_key}: artifact {artifact_kind} no-write source-writer contract evidence"
+    if not isinstance(evidence, dict) or not evidence:
+        return [f"{context} missing"]
+    missing = _missing_required(
+        evidence,
+        REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_CONTRACT_EVIDENCE_REQUIRED_FIELDS,
+    )
+    if missing:
+        errors.append(f"{context} missing field(s): {', '.join(missing)}")
+        return errors
+    if evidence.get("contract_evidence_only") is not True:
+        errors.append(f"{context} must be contract evidence only")
+    if evidence.get("artifact_kind") != artifact_kind:
+        errors.append(f"{context} artifact_kind mismatch")
+    if evidence.get("contract_family") != contract_family:
+        errors.append(f"{context} contract_family mismatch")
+
+    target_paths = _string_refs(evidence.get("target_paths"))
+    target_path = str(evidence.get("target_path", ""))
+    if not target_path or target_path not in target_paths:
+        errors.append(f"{context} missing target path")
+    if sorted(target_paths) != sorted(_string_refs(expected_target_paths)):
+        errors.append(f"{context} target paths mismatch")
+    for path in target_paths:
+        if not path.startswith("src/") or "<" in path or ">" in path:
+            errors.append(f"{context} target path must be an explicit future src/ path: {path}")
+
+    if not str(evidence.get("owner_generator", "")).strip():
+        errors.append(f"{context} missing owner generator")
+    if not str(evidence.get("owner_generator_candidate", "")).strip():
+        errors.append(f"{context} missing owner generator candidate")
+
+    syntax_evidence = evidence.get("eu5_syntax_evidence")
+    if not isinstance(syntax_evidence, dict):
+        errors.append(f"{context} missing EU5 syntax evidence")
+    else:
+        if not str(syntax_evidence.get("summary", "")).strip():
+            errors.append(f"{context} missing EU5 syntax evidence summary")
+        if not _string_refs(syntax_evidence.get("paths")):
+            errors.append(f"{context} missing EU5 syntax evidence paths")
+
+    validation_refs = _string_refs(evidence.get("validation_refs"))
+    if not validation_refs:
+        errors.append(f"{context} missing validation refs")
+    verification_commands = _string_refs(evidence.get("verification_commands"))
+    if tuple(verification_commands) != REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS:
+        errors.append(f"{context} verification commands mismatch")
+    if evidence.get("validation_command") != REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS[0]:
+        errors.append(f"{context} validation command mismatch")
+
+    blockers = sorted({blocker for blocker in _string_refs(evidence.get("source_writer_blocker_reasons")) if blocker})
+    expected_blocker_set = sorted({blocker for blocker in _string_refs(expected_blockers) if blocker})
+    if not blockers:
+        errors.append(f"{context} missing source-writer blocker reasons")
+    if blockers != expected_blocker_set:
+        errors.append(f"{context} source-writer blocker reasons mismatch")
+    if not str(evidence.get("source_writer_still_blocked_reason", "")).strip():
+        errors.append(f"{context} missing still-blocked reason")
+    if not evidence.get("source_target_boundary"):
+        errors.append(f"{context} missing source-target boundary")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src"):
+        if evidence.get(flag) is not False:
+            errors.append(f"{context} {flag} must be false")
+    return errors
 
 
 def _validate_repeated_row_no_write_source_writer_closure_contract(
@@ -9088,6 +9265,26 @@ def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any])
             unresolved = _string_refs(artifact.get("unresolved_writer_blockers"))
             if not unresolved:
                 errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing blockers")
+
+            closure_for_target = (
+                artifact.get("closure_contract") if isinstance(artifact.get("closure_contract"), dict) else {}
+            )
+            expected_target_paths = _repeated_row_no_write_source_writer_target_paths(
+                contract_family=contract_family,
+                pilot_key=pilot_key,
+                candidate_path=str(closure_for_target.get("future_source_target_path", "")),
+                path_pattern=str(closure_for_target.get("future_source_target_path_pattern", "")),
+            )
+            errors.extend(
+                _validate_repeated_row_no_write_source_writer_contract_evidence(
+                    pilot_key=pilot_key,
+                    artifact_kind=artifact_kind,
+                    contract_family=contract_family,
+                    evidence=artifact.get("no_write_source_writer_contract_evidence"),
+                    expected_target_paths=expected_target_paths,
+                    expected_blockers=unresolved,
+                )
+            )
 
             closure = artifact.get("closure_contract")
             if not isinstance(closure, dict):
