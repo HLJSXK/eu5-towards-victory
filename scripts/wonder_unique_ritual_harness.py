@@ -3371,6 +3371,271 @@ REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_PREVIEW_REQUIRED_FIELDS = (
         "unsafe_quote_newline_handling_allowed",
     }
 )
+REPEATED_ENTITY_ROW_EFFECT_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "future_effect_name_plan",
+        "row_entity_refs",
+        "aggregate_projection_refs",
+        "aggregate_projection_boundary",
+        "handoff_responsibility",
+        "row_state_writes_allowed",
+        "effect_body_writes_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_CLEANUP_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "cleanup_scope_plan",
+        "cleanup_coverage",
+        "row_entity_refs",
+        "aggregate_projection_refs",
+        "aggregate_projection_boundary",
+        "effect_body_writes_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_TRIGGER_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "future_trigger_name_plan",
+        "eligibility_condition_group_plan",
+        "row_completion_condition_group_plan",
+        "tooltip_safe_condition_group_plan",
+        "aggregate_projection_refs",
+        "aggregate_boundary",
+        "trigger_body_writes_allowed",
+        "tooltip_safe_unsafe_write_paths_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_GUI_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "fixed_row_widget_plan",
+        "per_row_variable_binding_plan",
+        "row_entity_refs",
+        "tooltip_localization_linkage",
+        "gui_event_key_linkage",
+        "aggregate_projection_refs",
+        "aggregate_projection_boundary",
+        "aggregate_only_display_allowed",
+        "gui_source_body_allowed",
+        "gui_source_writes_allowed",
+        "row_state_writes_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_LISTENER_SOURCE_PREVIEW_REQUIRED_FIELDS = (
+    REPEATED_ENTITY_ROW_SOURCE_PREVIEW_REQUIRED_FIELDS
+    | {
+        "on_action_target_path_plan",
+        "on_action_hook_linkage_plan",
+        "selected_ritual_trigger_linkage",
+        "war_scope_availability_persistence_plan",
+        "row_state_handoff_boundary",
+        "listener_body_allowed",
+        "listener_scope_writes_allowed",
+        "war_scope_writes_allowed",
+        "source_writes_allowed",
+        "source_ready_allowed",
+    }
+)
+REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_EVIDENCE_FIELDS = {
+    "status",
+    "evidence_type",
+    "summary",
+    "paths",
+    "anchors",
+    "blockers",
+}
+REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS = {
+    "eu5_syntax_evidence",
+    "generator_ownership_evidence",
+    "source_target_boundary_evidence",
+    "validation_coverage_evidence",
+    "lifecycle_semantics_evidence",
+}
+REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_FIELDS = {
+    "artifact_kind",
+    "contract_family",
+    "pilot_key",
+    "row_set_key",
+    "current_contract_status",
+    "preview_exists",
+    "readiness_status",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+    "unresolved_writer_blockers",
+} | REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS
+REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS = {
+    "event": 32,
+    "localization": 40,
+    "effect": 40,
+    "cleanup": 32,
+    "trigger": 24,
+    "gui": 8,
+    "listener": 1,
+}
+REPEATED_ENTITY_ROW_SOURCE_BUNDLE_EXPECTED_PILOTS = (
+    "unique_dome_of_the_rock",
+    "unique_alhambra",
+    "unique_st_peters_basilica",
+    "unique_bank_of_saint_george",
+)
+REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES = tuple(
+    REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS
+)
+REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS = {
+    "contract_only": True,
+    "body_emitted": False,
+    "source_ready": False,
+    "may_write_src": False,
+    "writes_src": False,
+    "source_writer_allowed": False,
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT = "unique_alhambra"
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT = 45
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS = {
+    "candidate_only": True,
+    **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS = {
+    "english": "src/main_menu/localization/english/tv_wonder_unique_alhambra_ritual_l_english.yml",
+    "simp_chinese": "src/main_menu/localization/simp_chinese/tv_wonder_unique_alhambra_ritual_l_simp_chinese.yml",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS = (
+    "src/in_game/events/tv_wonder_unique_alhambra_ritual_events.txt",
+    "src/in_game/common/scripted_effects/tv_wonder_unique_alhambra_ritual_effects.txt",
+    "src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt",
+    "src/in_game/gui/panels/organization/tv_wonder_unique_alhambra_ritual.gui",
+    "src/in_game/common/on_action/tv_wonder_unique_alhambra_ritual_on_actions.txt",
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["english"],
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["simp_chinese"],
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_ALLOWED_STATUSES = {
+    "blocked",
+    "interface_candidate",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_ALLOWED_STATUSES = {
+    "blocked",
+    "contract_drafted",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_REQUIRED_FIELDS = {
+    "target_path",
+    "families",
+    "artifact_count",
+    "source_file_preview_ref",
+    "syntax_reference_paths",
+    "generator_ownership_candidate",
+    "source_target_boundary",
+    "validation_requirements",
+    "unresolved_blockers",
+    "candidate_only",
+    "contract_only",
+    "source_ready",
+    "body_emitted",
+    "may_write_src",
+    "writes_src",
+    "source_writer_allowed",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_REQUIRED_FIELDS = {
+    "target_path",
+    "families",
+    "artifact_count",
+    "evidence_pack_ref",
+    "owner_generator",
+    "generator_interface_status",
+    "planned_source_writer_exists",
+    "source_target_boundary",
+    "required_validations",
+    "remaining_blockers",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA = {
+    "src/in_game/events/tv_wonder_unique_alhambra_ritual_events.txt": {
+        "families": ("event",),
+        "artifact_count": 8,
+        "owner_candidate": "unique_wonder_ritual_event_source_generator",
+        "syntax_reference_paths": (
+            "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt",
+            "src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt",
+            "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py",
+            "scripts/in_game/events/gen_tv_wonder_unique_hagia_sophia_ritual_events.py",
+        ),
+    },
+    "src/in_game/common/scripted_effects/tv_wonder_unique_alhambra_ritual_effects.txt": {
+        "families": ("cleanup", "effect"),
+        "artifact_count": 18,
+        "owner_candidate": "unique_wonder_ritual_scripted_effect_source_generator",
+        "syntax_reference_paths": (
+            "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt",
+            "src/in_game/common/scripted_effects/tv_wonder_index_effects.txt",
+            "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+            "scripts/in_game/common/scripted_effects/gen_tv_wonder_index_effects.py",
+        ),
+    },
+    "src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt": {
+        "families": ("trigger",),
+        "artifact_count": 6,
+        "owner_candidate": "unique_wonder_ritual_scripted_trigger_source_generator",
+        "syntax_reference_paths": (
+            "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt",
+            "src/in_game/common/scripted_triggers/tv_wonder_construction_event_triggers.txt",
+            "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py",
+            "scripts/in_game/common/scripted_triggers/gen_tv_wonder_construction_event_triggers.py",
+        ),
+    },
+    "src/in_game/gui/panels/organization/tv_wonder_unique_alhambra_ritual.gui": {
+        "families": ("gui",),
+        "artifact_count": 2,
+        "owner_candidate": "unique_wonder_ritual_gui_row_source_generator",
+        "syntax_reference_paths": (
+            "src/in_game/gui/panels/organization/tv_engineering_department.gui",
+            "src/in_game/gui/panels/organization/tv_trade_league.gui",
+            "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
+            "scripts/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py",
+        ),
+    },
+    "src/in_game/common/on_action/tv_wonder_unique_alhambra_ritual_on_actions.txt": {
+        "families": ("listener",),
+        "artifact_count": 1,
+        "owner_candidate": "unique_wonder_ritual_listener_integration_source_generator",
+        "syntax_reference_paths": (
+            "src/in_game/common/on_action/tv_engineering_department_on_action.txt",
+            "src/in_game/common/on_action/tv_pulse_bridges.txt",
+            "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt",
+            "scripts/in_game/common/on_action/gen_tv_pulse_registry.py",
+        ),
+    },
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["english"]: {
+        "families": ("localization",),
+        "artifact_count": 10,
+        "owner_candidate": "unique_wonder_ritual_localization_source_generator",
+        "syntax_reference_paths": (
+            "src/main_menu/localization/english/tv_engineering_department_wonder_mechanics_l_english.yml",
+            "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
+            "scripts/wonder_localization_lib.py",
+        ),
+    },
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["simp_chinese"]: {
+        "families": ("localization",),
+        "artifact_count": 10,
+        "owner_candidate": "unique_wonder_ritual_localization_source_generator",
+        "syntax_reference_paths": (
+            "src/main_menu/localization/simp_chinese/tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
+            "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
+            "scripts/wonder_localization_lib.py",
+        ),
+    },
+}
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS = ("english", "simp_chinese")
 REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_row_labels": "row_labels",
@@ -3379,6 +3644,13 @@ REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND = {
     "localization_tooltips": "tooltips",
     "localization_summary_text": "summary_text",
 }
+REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS = (
+    "row_labels",
+    "status_text",
+    "incident_text",
+    "tooltips",
+    "summary_text",
+)
 REPEATED_ENTITY_ROW_EVENT_PREVIEW_NODE_INDEX = {
     "event_opening_skeleton": 0,
     "event_update_skeleton": 1,
@@ -3396,6 +3668,12 @@ REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES = {
     "cleanup_ownership_loss": "ownership_loss",
     "cleanup_ritual_reset": "reset",
 }
+REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES = (
+    "completion",
+    "failure",
+    "ownership_loss",
+    "ritual_reset",
+)
 REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
     "event_opening_skeleton": {
         "eu5_source_syntax_pattern": (
@@ -6005,6 +6283,343 @@ def _repeated_row_localization_source_preview_for_artifact(artifact: dict[str, A
     }
 
 
+def _repeated_row_future_script_name(
+    *,
+    wonder_key: str,
+    row_set_key: str,
+    artifact_kind: str,
+    suffix: str,
+) -> str:
+    return f"tv_wonder_unique_{wonder_key}_ritual_{row_set_key}_{artifact_kind}_{suffix}"
+
+
+def _repeated_row_effect_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(artifact.get("aggregate_projection_variables"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    future_effect_name = _repeated_row_future_script_name(
+        wonder_key=wonder_key,
+        row_set_key=row_set_key,
+        artifact_kind=artifact_kind,
+        suffix="effect",
+    )
+    return {
+        "preview_only": True,
+        "preview_family": "effect",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "scripted_effect_plan_preview",
+            "no_effect_body": True,
+            "no_row_state_write": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "future_effect_name_plan": {
+            "name": future_effect_name,
+            "name_only": True,
+            "body_emitted": False,
+        },
+        "row_entity_refs": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+        },
+        "aggregate_projection_refs": aggregate_projection_refs,
+        "aggregate_projection_boundary": str(contract.get("aggregate_projection_boundary", "")),
+        "handoff_responsibility": {
+            "handoff_only": True,
+            "owner_generator": str(artifact.get("owner_generator", "")),
+            "source_target_boundary": str(artifact.get("source_target_boundary", "")),
+            "no_inline_row_state_write": True,
+        },
+        "row_state_writes_allowed": False,
+        "effect_body_writes_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
+def _repeated_row_cleanup_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(artifact.get("aggregate_projection_variables"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    cleanup_scope = str(contract.get("cleanup_lifecycle_scope", ""))
+    return {
+        "preview_only": True,
+        "preview_family": "cleanup",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "cleanup_scope_plan_preview",
+            "no_cleanup_body": True,
+            "no_effect_body": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "cleanup_scope_plan": {
+            "scope": cleanup_scope,
+            "target_path": str(contract.get("candidate_future_source_target_path", "")),
+            "scope_only": True,
+            "body_emitted": False,
+        },
+        "cleanup_coverage": {
+            "completion": artifact_kind == "cleanup_completion",
+            "failure": artifact_kind == "cleanup_failure",
+            "ownership_loss": artifact_kind == "cleanup_ownership_loss",
+            "ritual_reset": artifact_kind == "cleanup_ritual_reset",
+            "coverage_group": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES),
+        },
+        "row_entity_refs": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+        },
+        "aggregate_projection_refs": aggregate_projection_refs,
+        "aggregate_projection_boundary": str(contract.get("aggregate_projection_boundary", "")),
+        "effect_body_writes_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
+def _repeated_row_trigger_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(artifact.get("aggregate_projection_variables"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    future_trigger_name = _repeated_row_future_script_name(
+        wonder_key=wonder_key,
+        row_set_key=row_set_key,
+        artifact_kind=artifact_kind,
+        suffix="trigger",
+    )
+    return {
+        "preview_only": True,
+        "preview_family": "trigger",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_TRIGGER_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "scripted_trigger_plan_preview",
+            "no_trigger_body": True,
+            "no_unsafe_tooltip_write_path": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "future_trigger_name_plan": {
+            "name": future_trigger_name,
+            "name_only": True,
+            "body_emitted": False,
+        },
+        "eligibility_condition_group_plan": {
+            "planned": artifact_kind == "scripted_trigger_eligibility",
+            "predicate_group_only": True,
+            "entity_keys": entity_refs,
+        },
+        "row_completion_condition_group_plan": {
+            "planned": artifact_kind == "scripted_trigger_row_completion",
+            "predicate_group_only": True,
+            "entity_keys": entity_refs,
+        },
+        "tooltip_safe_condition_group_plan": {
+            "planned": artifact_kind == "scripted_trigger_tooltip_safe_condition_group",
+            "predicate_group_only": True,
+            "unsafe_write_paths_allowed": False,
+            "policy": str(contract.get("tooltip_safe_condition_group_policy", "")),
+        },
+        "aggregate_projection_refs": aggregate_projection_refs,
+        "aggregate_boundary": str(contract.get("aggregate_projection_boundary", "")),
+        "trigger_body_writes_allowed": False,
+        "tooltip_safe_unsafe_write_paths_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
+def _repeated_row_gui_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(artifact.get("aggregate_projection_variables"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    widget_kind = artifact_kind.removeprefix("gui_").removesuffix("_row")
+    loc_namespace = f"tv_wonder_unique_{wonder_key}_ritual.{row_set_key}"
+    event_key_prefix = "tv_engineering_department.<event_id>"
+    return {
+        "preview_only": True,
+        "preview_family": "gui",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": str(contract.get("candidate_future_source_target_path", "")),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_GUI_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "gui_row_contract_preview",
+            "widget_kind": widget_kind,
+            "body_emitted": False,
+            "no_gui_source_body": True,
+            "no_gui_source_write": True,
+            "no_row_state_write": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "fixed_row_widget_plan": {
+            "widget_kind": widget_kind,
+            "row_widget_fixed": True,
+            "row_widget_boundary": str(contract.get("fixed_row_widget_boundary", "")),
+            "body_emitted": False,
+        },
+        "per_row_variable_binding_plan": {
+            "binds_design_ir_tracked_entity_sets": True,
+            "entity_keys": entity_refs,
+            "aggregate_only_row_reads_allowed": False,
+            "policy": str(contract.get("per_row_variable_binding_policy", "")),
+        },
+        "row_entity_refs": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+        },
+        "tooltip_localization_linkage": {
+            "loc_key_namespace": loc_namespace,
+            "row_label_keys": [f"{loc_namespace}.{entity_key}.row_labels" for entity_key in entity_refs],
+            "status_text_keys": [f"{loc_namespace}.{entity_key}.status_text" for entity_key in entity_refs],
+            "incident_text_keys": [f"{loc_namespace}.{entity_key}.incident_text" for entity_key in entity_refs],
+            "tooltip_keys": [f"{loc_namespace}.{entity_key}.tooltips" for entity_key in entity_refs],
+            "policy": str(contract.get("tooltip_key_linkage_policy", "")),
+        },
+        "gui_event_key_linkage": {
+            "event_key_prefix": event_key_prefix,
+            "event_title_key_pattern": f"{event_key_prefix}.t",
+            "event_desc_key_pattern": f"{event_key_prefix}.d",
+            "event_option_key_pattern": f"{event_key_prefix}.a",
+            "linkage_only": True,
+            "source_body_emitted": False,
+        },
+        "aggregate_projection_refs": aggregate_projection_refs,
+        "aggregate_projection_boundary": str(contract.get("aggregate_projection_boundary", "")),
+        "aggregate_only_display_allowed": False,
+        "gui_source_body_allowed": False,
+        "gui_source_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
+def _repeated_row_listener_source_preview_for_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(artifact.get("entity_keys"))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    target_path = str(contract.get("candidate_future_source_target_path", ""))
+    selected_trigger = "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+    return {
+        "preview_only": True,
+        "preview_family": "listener",
+        "artifact_kind": artifact_kind,
+        "pilot_key": pilot_key,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "entity_refs": entity_refs,
+        "future_source_target_path": target_path,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "blocks_source_writer": True,
+        "blocker_reasons": list(REPEATED_ENTITY_ROW_LISTENER_SOURCE_TARGET_CONTRACT_BLOCKER_REASONS),
+        "source_ready": False,
+        "source_body_preview": {
+            "kind": "listener_on_action_contract_preview",
+            "body_emitted": False,
+            "no_listener_body": True,
+            "no_listener_scope_write": True,
+            "no_war_scope_write": True,
+            "no_source_ready": True,
+        },
+        "contract_status": str(contract.get("status", "")),
+        "on_action_target_path_plan": {
+            "target_path": target_path,
+            "target_only": True,
+            "body_emitted": False,
+        },
+        "on_action_hook_linkage_plan": {
+            "hooks": ["on_pre_winning_war", "on_ending_war"],
+            "bridge_policy": str(contract.get("on_action_bridge_policy", "")),
+            "linkage_only": True,
+            "body_emitted": False,
+        },
+        "selected_ritual_trigger_linkage": {
+            "trigger_name": selected_trigger,
+            "selected_ritual_only": True,
+            "linkage_only": True,
+        },
+        "war_scope_availability_persistence_plan": {
+            "war_scope_available_from_hooks": ["on_pre_winning_war", "on_ending_war"],
+            "persistence_contract_only": True,
+            "listener_scope_writes_allowed": False,
+            "war_scope_writes_allowed": False,
+        },
+        "row_state_handoff_boundary": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+            "handoff_only": True,
+            "row_state_writes_allowed": False,
+            "source_target_boundary": str(artifact.get("source_target_boundary", "")),
+        },
+        "listener_body_allowed": False,
+        "listener_scope_writes_allowed": False,
+        "war_scope_writes_allowed": False,
+        "source_writes_allowed": False,
+        "source_ready_allowed": False,
+    }
+
+
 def repeated_entity_row_source_preview_for_entry(
     entry_plan: dict[str, Any],
     *,
@@ -6025,6 +6640,16 @@ def repeated_entity_row_source_preview_for_entry(
             )
         elif artifact_kind in REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS:
             previews.append(_repeated_row_localization_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_EFFECT_ARTIFACT_KINDS:
+            previews.append(_repeated_row_effect_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_CLEANUP_ARTIFACT_KINDS:
+            previews.append(_repeated_row_cleanup_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_TRIGGER_ARTIFACT_KINDS:
+            previews.append(_repeated_row_trigger_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS:
+            previews.append(_repeated_row_gui_source_preview_for_artifact(artifact))
+        elif artifact_kind in REPEATED_ENTITY_ROW_LISTENER_ARTIFACT_KINDS:
+            previews.append(_repeated_row_listener_source_preview_for_artifact(artifact))
         else:
             skipped_artifact_kinds.append(artifact_kind)
 
@@ -6040,7 +6665,7 @@ def repeated_entity_row_source_preview_for_entry(
         "previews": previews,
         "notes": [
             "Dry-run source preview only; no src files are written.",
-            "Effect, trigger, cleanup, GUI, and listener artifacts remain source-writer blockers.",
+            "GUI and listener artifacts now receive no-body dry-run previews and remain source-writer blockers.",
         ],
     }
 
@@ -6071,12 +6696,20 @@ def repeated_entity_row_source_preview_for_payload(
         for preview in entry.get("previews", []) or []
         if isinstance(preview, dict)
     ]
+    skipped_artifact_kinds = sorted(
+        {
+            str(artifact_kind)
+            for entry in entries
+            for artifact_kind in entry.get("skipped_artifact_kinds", []) or []
+        }
+    )
     report = {
         "statuses": sorted(statuses or {"source_codegen_ready"}),
         "preview_only": True,
         "candidate_count": len(entries),
         "preview_count": len(previews),
         "preview_family_summary": _count_by_key(previews, "preview_family"),
+        "skipped_artifact_kinds": skipped_artifact_kinds,
         "source_writer_allowed": False,
         "may_write_src_allowed": False,
         "writes_src": False,
@@ -6086,7 +6719,7 @@ def repeated_entity_row_source_preview_for_payload(
         "validation_errors": [],
         "notes": [
             "Repeated-row source preview is a no-write dry-run compiler layer.",
-            "It emits event/localization preview fragments only and does not authorize src writes.",
+            "It emits event/localization/effect/cleanup/trigger/GUI/listener preview fragments only and does not authorize src writes.",
             "It does not make any source-plan contract source-ready.",
         ],
     }
@@ -6109,9 +6742,22 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
     if report.get("source_plan_contract_validation_errors"):
         errors.append("source preview report source-plan contract validation must be clean")
 
-    event_preview_count = 0
-    localization_preview_count = 0
+    preview_family_counts = {
+        "event": 0,
+        "localization": 0,
+        "effect": 0,
+        "cleanup": 0,
+        "trigger": 0,
+        "gui": 0,
+        "listener": 0,
+    }
     all_loc_keys: dict[str, str] = {}
+    skipped_artifact_kinds = _string_refs(report.get("skipped_artifact_kinds"))
+    if skipped_artifact_kinds:
+        errors.append(
+            "source preview report skipped_artifact_kinds must be empty: "
+            f"{', '.join(sorted(set(skipped_artifact_kinds)))}"
+        )
     entries = report.get("entries") if isinstance(report.get("entries"), list) else []
     for entry in entries:
         if not isinstance(entry, dict):
@@ -6126,6 +6772,12 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
             errors.append(f"{pilot_key}: source preview entry may_write_src_allowed must be false")
         if entry.get("writes_src") is not False:
             errors.append(f"{pilot_key}: source preview entry writes_src must be false")
+        entry_skipped_artifact_kinds = _string_refs(entry.get("skipped_artifact_kinds"))
+        if entry_skipped_artifact_kinds:
+            errors.append(
+                f"{pilot_key}: source preview entry skipped_artifact_kinds must be empty: "
+                f"{', '.join(sorted(set(entry_skipped_artifact_kinds)))}"
+            )
 
         for preview in entry.get("previews", []) or []:
             if not isinstance(preview, dict):
@@ -6135,10 +6787,25 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
             family = str(preview.get("preview_family", ""))
             if family == "event":
                 required_fields = REPEATED_ENTITY_ROW_EVENT_SOURCE_PREVIEW_REQUIRED_FIELDS
-                event_preview_count += 1
+                preview_family_counts["event"] += 1
             elif family == "localization":
                 required_fields = REPEATED_ENTITY_ROW_LOCALIZATION_SOURCE_PREVIEW_REQUIRED_FIELDS
-                localization_preview_count += 1
+                preview_family_counts["localization"] += 1
+            elif family == "effect":
+                required_fields = REPEATED_ENTITY_ROW_EFFECT_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["effect"] += 1
+            elif family == "cleanup":
+                required_fields = REPEATED_ENTITY_ROW_CLEANUP_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["cleanup"] += 1
+            elif family == "trigger":
+                required_fields = REPEATED_ENTITY_ROW_TRIGGER_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["trigger"] += 1
+            elif family == "gui":
+                required_fields = REPEATED_ENTITY_ROW_GUI_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["gui"] += 1
+            elif family == "listener":
+                required_fields = REPEATED_ENTITY_ROW_LISTENER_SOURCE_PREVIEW_REQUIRED_FIELDS
+                preview_family_counts["listener"] += 1
             else:
                 errors.append(
                     f"{pilot_key}: artifact {artifact_kind} unsupported source body preview family {family!r}"
@@ -6166,6 +6833,8 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
                 errors.append(f"{pilot_key}: artifact {artifact_kind} blocks_source_writer must be true")
             if preview.get("source_ready") is not False or preview.get("contract_status") == "source-ready":
                 errors.append(f"{pilot_key}: artifact {artifact_kind} source preview must not be source-ready")
+            if preview.get("contract_status") != "blocked":
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source preview contract_status must be blocked")
             if not str(preview.get("future_source_target_path", "")).startswith("src/"):
                 errors.append(f"{pilot_key}: artifact {artifact_kind} future source target path is missing")
             if not isinstance(preview.get("blocker_reasons"), list) or not preview.get("blocker_reasons"):
@@ -6290,12 +6959,5246 @@ def validate_repeated_entity_row_source_preview(report: dict[str, Any]) -> list[
                             )
                         all_loc_keys[duplicate_key] = owner
 
-    if event_preview_count != 32:
-        errors.append(f"expected 32 repeated-row event previews, got {event_preview_count}")
-    if localization_preview_count != 40:
-        errors.append(f"expected 40 repeated-row localization previews, got {localization_preview_count}")
-    if int(report.get("preview_count", -1)) != event_preview_count + localization_preview_count:
+            if family == "effect":
+                if artifact_kind not in REPEATED_ENTITY_ROW_EFFECT_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive an effect source body preview")
+                if preview.get("row_state_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview row-state writes must be false")
+                if preview.get("effect_body_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview effect body writes must be false")
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_effect_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview must declare no effect body")
+                    if source_body_preview.get("no_row_state_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview must declare no row-state write")
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview must declare no source-ready")
+                name_plan = preview.get("future_effect_name_plan")
+                if (
+                    not isinstance(name_plan, dict)
+                    or not str(name_plan.get("name", "")).startswith(f"tv_wonder_unique_{preview.get('wonder_key')}_ritual_")
+                    or name_plan.get("body_emitted") is not False
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing future effect name plan")
+                handoff = preview.get("handoff_responsibility")
+                if not isinstance(handoff, dict) or handoff.get("handoff_only") is not True:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing handoff responsibility")
+                elif handoff.get("no_inline_row_state_write") is not True:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview must forbid inline row-state writes")
+                if not isinstance(preview.get("row_entity_refs"), dict) or not preview.get("row_entity_refs", {}).get("entity_keys"):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing row/entity refs")
+                if not isinstance(preview.get("aggregate_projection_refs"), list):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing aggregate projection refs")
+                if not str(preview.get("aggregate_projection_boundary", "")).strip():
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} effect preview missing aggregate projection boundary")
+
+            if family == "cleanup":
+                if artifact_kind not in REPEATED_ENTITY_ROW_CLEANUP_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive a cleanup source body preview")
+                if preview.get("effect_body_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview effect body writes must be false")
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_cleanup_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview must declare no cleanup body")
+                    if source_body_preview.get("no_effect_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview must declare no effect body")
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview must declare no source-ready")
+                scope_plan = preview.get("cleanup_scope_plan")
+                expected_scope = REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES.get(
+                    artifact_kind
+                )
+                if not isinstance(scope_plan, dict) or scope_plan.get("scope") != expected_scope:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing cleanup scope")
+                elif scope_plan.get("body_emitted") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview must not emit cleanup body")
+                coverage = preview.get("cleanup_coverage")
+                if not isinstance(coverage, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing cleanup coverage")
+                else:
+                    missing_coverage = [
+                        scope
+                        for scope in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES
+                        if scope not in coverage
+                    ]
+                    if missing_coverage:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} cleanup preview missing cleanup coverage"
+                        )
+                    expected_coverage_key = "ritual_reset" if artifact_kind == "cleanup_ritual_reset" else str(expected_scope)
+                    if coverage.get(expected_coverage_key) is not True:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} cleanup preview missing cleanup coverage"
+                        )
+                if not isinstance(preview.get("row_entity_refs"), dict) or not preview.get("row_entity_refs", {}).get("entity_keys"):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing row/entity refs")
+                if not isinstance(preview.get("aggregate_projection_refs"), list):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing aggregate projection refs")
+                if not str(preview.get("aggregate_projection_boundary", "")).strip():
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup preview missing aggregate projection boundary")
+
+            if family == "trigger":
+                if artifact_kind not in REPEATED_ENTITY_ROW_TRIGGER_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive a trigger source body preview")
+                if preview.get("trigger_body_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview trigger body writes must be false")
+                if preview.get("tooltip_safe_unsafe_write_paths_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} trigger preview tooltip-safe unsafe write paths must be false"
+                    )
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_trigger_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview must declare no trigger body")
+                    if source_body_preview.get("no_unsafe_tooltip_write_path") is not True:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} trigger preview must forbid unsafe tooltip write path"
+                        )
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview must declare no source-ready")
+                name_plan = preview.get("future_trigger_name_plan")
+                if (
+                    not isinstance(name_plan, dict)
+                    or not str(name_plan.get("name", "")).startswith(f"tv_wonder_unique_{preview.get('wonder_key')}_ritual_")
+                    or name_plan.get("body_emitted") is not False
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing future trigger name plan")
+                condition_plan_by_kind = {
+                    "scripted_trigger_eligibility": "eligibility_condition_group_plan",
+                    "scripted_trigger_row_completion": "row_completion_condition_group_plan",
+                    "scripted_trigger_tooltip_safe_condition_group": "tooltip_safe_condition_group_plan",
+                }
+                expected_plan_key = condition_plan_by_kind.get(artifact_kind, "")
+                for plan_key in condition_plan_by_kind.values():
+                    condition_plan = preview.get(plan_key)
+                    if not isinstance(condition_plan, dict):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing {plan_key}")
+                        continue
+                    if plan_key == expected_plan_key and condition_plan.get("planned") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing condition group plan")
+                    if condition_plan.get("predicate_group_only") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview must stay predicate-group only")
+                tooltip_plan = preview.get("tooltip_safe_condition_group_plan")
+                if isinstance(tooltip_plan, dict) and tooltip_plan.get("unsafe_write_paths_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} trigger preview tooltip-safe unsafe write paths must be false"
+                    )
+                if not isinstance(preview.get("aggregate_projection_refs"), list):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing aggregate projection refs")
+                if not str(preview.get("aggregate_boundary", "")).strip():
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} trigger preview missing aggregate boundary")
+
+            if family == "gui":
+                if artifact_kind not in REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} must not receive a GUI source body preview")
+                if preview.get("aggregate_only_display_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview aggregate-only display must be false")
+                if preview.get("gui_source_body_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview GUI body writes must be false")
+                if preview.get("gui_source_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview GUI source writes must be false")
+                if preview.get("row_state_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview row-state writes must be false")
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_gui_source_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must declare no GUI source body")
+                    if source_body_preview.get("no_gui_source_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must declare no GUI source write")
+                    if source_body_preview.get("no_row_state_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must declare no row-state write")
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must declare no source-ready")
+                    if source_body_preview.get("body_emitted") is not False:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview must not emit GUI source body")
+                fixed_plan = preview.get("fixed_row_widget_plan")
+                if (
+                    not isinstance(fixed_plan, dict)
+                    or fixed_plan.get("row_widget_fixed") is not True
+                    or fixed_plan.get("body_emitted") is not False
+                    or not str(fixed_plan.get("row_widget_boundary", "")).strip()
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing fixed row widget plan")
+                binding_plan = preview.get("per_row_variable_binding_plan")
+                if (
+                    not isinstance(binding_plan, dict)
+                    or binding_plan.get("binds_design_ir_tracked_entity_sets") is not True
+                    or binding_plan.get("aggregate_only_row_reads_allowed") is not False
+                    or not binding_plan.get("entity_keys")
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing per-row binding plan")
+                if not isinstance(preview.get("row_entity_refs"), dict) or not preview.get("row_entity_refs", {}).get("entity_keys"):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing row/entity refs")
+                tooltip_linkage = preview.get("tooltip_localization_linkage")
+                if not isinstance(tooltip_linkage, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing tooltip/localization linkage")
+                else:
+                    required_linkage_keys = {"loc_key_namespace", "row_label_keys", "status_text_keys", "tooltip_keys"}
+                    if not required_linkage_keys <= set(tooltip_linkage):
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} GUI preview missing tooltip/localization linkage"
+                        )
+                    if not str(tooltip_linkage.get("loc_key_namespace", "")).startswith("tv_wonder_unique_"):
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} GUI preview missing tooltip/localization linkage"
+                        )
+                gui_event_linkage = preview.get("gui_event_key_linkage")
+                if (
+                    not isinstance(gui_event_linkage, dict)
+                    or gui_event_linkage.get("linkage_only") is not True
+                    or gui_event_linkage.get("source_body_emitted") is not False
+                    or not str(gui_event_linkage.get("event_key_prefix", "")).strip()
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing GUI/event key linkage")
+                if not isinstance(preview.get("aggregate_projection_refs"), list):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing aggregate projection refs")
+                if not str(preview.get("aggregate_projection_boundary", "")).strip():
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} GUI preview missing aggregate projection boundary")
+
+            if family == "listener":
+                preview_pilot_key = str(preview.get("pilot_key", ""))
+                if (
+                    pilot_key != "unique_alhambra"
+                    or preview_pilot_key != "unique_alhambra"
+                    or artifact_kind != "listener_war_integration"
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must be Alhambra-only")
+                if preview.get("listener_body_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview listener body writes must be false")
+                if preview.get("listener_scope_writes_allowed") is not False:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} listener preview listener scope writes must be false"
+                    )
+                if preview.get("war_scope_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview war scope writes must be false")
+                if preview.get("source_writes_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview source writes must be false")
+                if preview.get("source_ready_allowed") is not False:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview source-ready must be false")
+                source_body_preview = preview.get("source_body_preview")
+                if not isinstance(source_body_preview, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener source_body_preview must be a mapping")
+                else:
+                    if source_body_preview.get("no_listener_body") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must declare no listener body")
+                    if source_body_preview.get("no_listener_scope_write") is not True:
+                        errors.append(
+                            f"{pilot_key}: artifact {artifact_kind} listener preview must declare no listener scope write"
+                        )
+                    if source_body_preview.get("no_war_scope_write") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must declare no war scope write")
+                    if source_body_preview.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must declare no source-ready")
+                    if source_body_preview.get("body_emitted") is not False:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview must not emit listener body")
+                target_plan = preview.get("on_action_target_path_plan")
+                if (
+                    not isinstance(target_plan, dict)
+                    or target_plan.get("target_only") is not True
+                    or target_plan.get("body_emitted") is not False
+                    or not str(target_plan.get("target_path", "")).startswith("src/in_game/common/on_action/")
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview missing on_action target path plan")
+                hook_plan = preview.get("on_action_hook_linkage_plan")
+                if (
+                    not isinstance(hook_plan, dict)
+                    or hook_plan.get("linkage_only") is not True
+                    or hook_plan.get("body_emitted") is not False
+                    or not {"on_pre_winning_war", "on_ending_war"} <= set(_string_refs(hook_plan.get("hooks")))
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview missing hook linkage plan")
+                trigger_linkage = preview.get("selected_ritual_trigger_linkage")
+                if (
+                    not isinstance(trigger_linkage, dict)
+                    or trigger_linkage.get("selected_ritual_only") is not True
+                    or trigger_linkage.get("linkage_only") is not True
+                    or not str(trigger_linkage.get("trigger_name", "")).strip()
+                ):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} listener preview missing selected ritual trigger linkage"
+                    )
+                war_scope_plan = preview.get("war_scope_availability_persistence_plan")
+                if (
+                    not isinstance(war_scope_plan, dict)
+                    or war_scope_plan.get("persistence_contract_only") is not True
+                    or war_scope_plan.get("listener_scope_writes_allowed") is not False
+                    or war_scope_plan.get("war_scope_writes_allowed") is not False
+                    or not {"on_pre_winning_war", "on_ending_war"} <= set(
+                        _string_refs(war_scope_plan.get("war_scope_available_from_hooks"))
+                    )
+                ):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} listener preview missing war scope availability plan"
+                    )
+                handoff_boundary = preview.get("row_state_handoff_boundary")
+                if (
+                    not isinstance(handoff_boundary, dict)
+                    or handoff_boundary.get("handoff_only") is not True
+                    or handoff_boundary.get("row_state_writes_allowed") is not False
+                    or not handoff_boundary.get("entity_keys")
+                ):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} listener preview missing row-state handoff boundary")
+
+    expected_preview_family_counts = {
+        "event": 32,
+        "localization": 40,
+        "effect": 40,
+        "cleanup": 32,
+        "trigger": 24,
+        "gui": 8,
+        "listener": 1,
+    }
+    for family, expected_count in expected_preview_family_counts.items():
+        actual_count = preview_family_counts[family]
+        if actual_count != expected_count:
+            errors.append(f"expected {expected_count} repeated-row {family} previews, got {actual_count}")
+    total_preview_count = sum(preview_family_counts.values())
+    if int(report.get("preview_count", -1)) != total_preview_count:
         errors.append("source preview report preview_count mismatch")
+    if int(report.get("preview_count", -1)) != 177:
+        errors.append(f"expected 177 repeated-row source previews, got {report.get('preview_count')}")
+    return errors
+
+
+def _repeated_row_artifact_identity(item: dict[str, Any]) -> tuple[str, str, str]:
+    return (
+        str(item.get("pilot_key", "")),
+        str(item.get("row_set_key", "")),
+        str(item.get("artifact_kind", "")),
+    )
+
+
+def _repeated_row_source_writer_evidence_block(
+    *,
+    status: str,
+    evidence_type: str,
+    summary: str,
+    paths: list[str] | None = None,
+    anchors: dict[str, Any] | None = None,
+    blockers: list[str] | None = None,
+) -> dict[str, Any]:
+    return {
+        "status": status,
+        "evidence_type": evidence_type,
+        "summary": summary,
+        "paths": paths or [],
+        "anchors": anchors or {},
+        "blockers": blockers or [],
+    }
+
+
+def _repeated_row_event_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    preview_event_id = preview_data.get("preview_event_id")
+    source_body_preview = dict(preview_data.get("source_body_preview", {}))
+    namespace = str(
+        source_body_preview.get("namespace")
+        or contract.get("namespace_policy")
+        or "tv_engineering_department"
+    )
+    title_key = str(source_body_preview.get("title_key", ""))
+    desc_key = str(source_body_preview.get("desc_key", ""))
+    option_keys = _string_refs(source_body_preview.get("option_keys"))
+    future_target = str(
+        contract.get(
+            "candidate_future_source_target_path",
+            preview_data.get("future_source_target_path", ""),
+        )
+    )
+    return {
+        "contract_family": "event",
+        "pilot_key": pilot_key,
+        "artifact_kind": str(artifact.get("artifact_kind", "")),
+        "wonder_key": wonder_key,
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "namespace": namespace,
+        "event_id_evidence_sources": ["spec.event_ids", "node_graph.nodes[].event_id"],
+        "event_id_evidence": list(preview_data.get("event_id_evidence", []) or []),
+        "node_event_id_evidence": list(preview_data.get("node_event_id_evidence", []) or []),
+        "preview_event_id": preview_event_id,
+        "source_body_preview": source_body_preview,
+        "localization_key_handoff": {
+            "title_key": title_key,
+            "desc_key": desc_key,
+            "option_keys": option_keys,
+            "key_policy": str(contract.get("localization_key_policy", "")),
+            "handoff_only": True,
+            "localization_source_writer_allowed": False,
+        },
+        "option_effect_handoff": dict(preview_data.get("option_effect_handoff", {})),
+        "safety_notes": {
+            "hidden_executor_handoff_only": True,
+            "tooltip_heavy_finalization_allowed": False,
+            "row_state_writes_allowed": False,
+            "source_ready_allowed": False,
+        },
+        "future_source_target_path": future_target,
+        "future_source_target_path_pattern": str(contract.get("future_source_target_path_pattern", "")),
+    }
+
+
+def _repeated_row_localization_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    preview_event_id = preview_data.get("preview_event_id", "<event_id>")
+    event_key_prefix = f"tv_engineering_department.{preview_event_id}"
+    loc_key_plan = list(preview_data.get("loc_key_plan", []) or [])
+    loc_group = str((preview_data.get("source_body_preview") or {}).get("loc_group", ""))
+    namespace = str(preview_data.get("loc_key_namespace", ""))
+    entity_refs = _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys"))
+    row_key_groups: dict[str, list[dict[str, Any]]] = {}
+    for group in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS:
+        loc_scopes = entity_refs if group != "summary_text" else ["summary"]
+        row_key_groups[group] = [
+            {
+                "loc_group": group,
+                "entity_key": entity_key,
+                "keys": {
+                    language: f"{namespace}.{entity_key}.{group}"
+                    for language in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS
+                },
+                "contract_only": True,
+            }
+            for entity_key in loc_scopes
+        ]
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    return {
+        "contract_family": "localization",
+        "pilot_key": pilot_key,
+        "artifact_kind": str(artifact.get("artifact_kind", "")),
+        "wonder_key": wonder_key,
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "language_ownership_boundary": {
+            "required_languages": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS),
+            "english_owner": "src/main_menu/localization/english",
+            "simp_chinese_owner": "src/main_menu/localization/simp_chinese",
+            "missing_bilingual_coverage_allowed": False,
+        },
+        "event_key_handoff": {
+            "title_key": f"{event_key_prefix}.t",
+            "desc_key": f"{event_key_prefix}.d",
+            "option_key_pattern": f"{event_key_prefix}.a",
+            "handoff_only": True,
+            "event_source_writer_allowed": False,
+        },
+        "key_allocation": {
+            "loc_key_namespace": namespace,
+            "loc_group": loc_group,
+            "required_groups": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS),
+            "row_key_groups": row_key_groups,
+            "loc_key_plan": loc_key_plan,
+        },
+        "escaping_bom_boundary": {
+            "loc_line_function": "wonder_mechanics._core.loc_line",
+            "quote_escaped": (preview_data.get("loc_line_policy_probe") or {}).get("quote_escaped"),
+            "newline_escaped": (preview_data.get("loc_line_policy_probe") or {}).get("newline_escaped"),
+            "bom_encoding": (preview_data.get("loc_line_policy_probe") or {}).get("bom_encoding"),
+            "writes_file": False,
+            "unsafe_quote_newline_handling_allowed": False,
+        },
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": str(
+            contract.get(
+                "candidate_future_source_target_path",
+                preview_data.get("future_source_target_path", ""),
+            )
+        ),
+    }
+
+
+def _repeated_row_effect_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(
+        preview_data.get("aggregate_projection_refs") or artifact.get("aggregate_projection_variables")
+    )
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    operation_by_artifact = {
+        "scripted_effect_row_init": "row_init",
+        "scripted_effect_row_state_write": "row_state_write",
+        "scripted_effect_branch_write": "branch_write",
+        "scripted_effect_aggregate_refresh": "aggregate_refresh",
+        "scripted_effect_cleanup_write": "cleanup_write_handoff",
+    }
+    active_operation = operation_by_artifact.get(artifact_kind, "")
+    required_operations = [
+        "row_init",
+        "row_state_write",
+        "branch_write",
+        "aggregate_refresh",
+        "cleanup_write_handoff",
+    ]
+    return {
+        "contract_family": "effect",
+        "pilot_key": pilot_key,
+        "artifact_kind": artifact_kind,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_type": "common/scripted_effects",
+        "effect_body_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "row_state_write_schema_allowed": False,
+        "source_body_preview": dict(preview_data.get("source_body_preview", {})),
+        "future_effect_name_plan": dict(preview_data.get("future_effect_name_plan", {})),
+        "effect_operation_coverage": {
+            "required_operations": required_operations,
+            "active_operation": active_operation,
+            "row_init": artifact_kind == "scripted_effect_row_init",
+            "row_state_write": artifact_kind == "scripted_effect_row_state_write",
+            "branch_write": artifact_kind == "scripted_effect_branch_write",
+            "aggregate_refresh": artifact_kind == "scripted_effect_aggregate_refresh",
+            "cleanup_write_handoff": artifact_kind == "scripted_effect_cleanup_write",
+            "coverage_only": True,
+            "effect_body_emitted": False,
+        },
+        "row_state_schema_boundary": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+            "row_entity_refs": dict(preview_data.get("row_entity_refs", {})),
+            "schema_contract_only": True,
+            "row_state_writes_allowed": False,
+            "row_state_write_schema_allowed": False,
+            "source_target_boundary": str(artifact.get("source_target_boundary", "")),
+        },
+        "aggregate_refresh_boundary": {
+            "aggregate_projection_refs": aggregate_projection_refs,
+            "aggregate_projection_boundary": str(
+                contract.get(
+                    "aggregate_projection_boundary",
+                    preview_data.get("aggregate_projection_boundary", ""),
+                )
+            ),
+            "aggregate_refresh_operation": artifact_kind == "scripted_effect_aggregate_refresh",
+            "projection_only": True,
+            "body_emitted": False,
+        },
+        "cleanup_write_handoff": {
+            "handoff_only": True,
+            "cleanup_lifecycle_scope": str(contract.get("cleanup_lifecycle_scope", "")),
+            "effect_cleanup_artifact": artifact_kind == "scripted_effect_cleanup_write",
+            "handoff_responsibility": dict(preview_data.get("handoff_responsibility", {})),
+            "cleanup_source_writer_allowed": False,
+            "row_state_writes_allowed": False,
+            "body_emitted": False,
+        },
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "blocker_reasons": _string_refs(contract.get("blocker_reasons")),
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": future_target,
+    }
+
+
+def _repeated_row_cleanup_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(
+        preview_data.get("aggregate_projection_refs") or artifact.get("aggregate_projection_variables")
+    )
+    cleanup_coverage = dict(preview_data.get("cleanup_coverage", {}))
+    cleanup_coverage.setdefault("coverage_group", list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES))
+    cleanup_scope = str(contract.get("cleanup_lifecycle_scope", ""))
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    return {
+        "contract_family": "cleanup",
+        "pilot_key": pilot_key,
+        "artifact_kind": artifact_kind,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_type": "common/scripted_effects",
+        "effect_body_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "row_state_write_schema_allowed": False,
+        "source_body_preview": dict(preview_data.get("source_body_preview", {})),
+        "cleanup_lifecycle_scope": cleanup_scope,
+        "cleanup_coverage": cleanup_coverage,
+        "cleanup_scope_plan": dict(preview_data.get("cleanup_scope_plan", {})),
+        "ownership_reset_branch_boundary": {
+            "required_branches": ["ownership_loss", "ritual_reset"],
+            "ownership_loss_cleanup_artifact_kind": "cleanup_ownership_loss",
+            "ritual_reset_cleanup_artifact_kind": "cleanup_ritual_reset",
+            "ownership_loss_planned": "ownership_loss" in _string_refs(cleanup_coverage.get("coverage_group")),
+            "ritual_reset_planned": "ritual_reset" in _string_refs(cleanup_coverage.get("coverage_group")),
+            "unsafe_pre_eval_writes_allowed": False,
+            "effect_body_writes_allowed": False,
+            "body_emitted": False,
+        },
+        "row_entity_lifecycle_coverage": {
+            "row_set_key": row_set_key,
+            "entity_keys": entity_refs,
+            "row_entity_refs": dict(preview_data.get("row_entity_refs", {})),
+            "cleanup_lifecycle_scope": cleanup_scope,
+            "lifecycle_scopes": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES),
+            "schema_contract_only": True,
+            "row_state_write_schema_allowed": False,
+        },
+        "aggregate_projection_boundary": {
+            "aggregate_projection_refs": aggregate_projection_refs,
+            "aggregate_projection_boundary": str(
+                contract.get(
+                    "aggregate_projection_boundary",
+                    preview_data.get("aggregate_projection_boundary", ""),
+                )
+            ),
+            "projection_only": True,
+            "body_emitted": False,
+        },
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "blocker_reasons": _string_refs(contract.get("blocker_reasons")),
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": future_target,
+    }
+
+
+def _repeated_row_trigger_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    aggregate_projection_refs = _string_refs(
+        preview_data.get("aggregate_projection_refs") or artifact.get("aggregate_projection_variables")
+    )
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    eligibility_plan = dict(preview_data.get("eligibility_condition_group_plan", {}))
+    row_completion_plan = dict(preview_data.get("row_completion_condition_group_plan", {}))
+    tooltip_safe_plan = dict(preview_data.get("tooltip_safe_condition_group_plan", {}))
+    return {
+        "contract_family": "trigger",
+        "pilot_key": pilot_key,
+        "artifact_kind": artifact_kind,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_type": "common/scripted_triggers",
+        "trigger_body_writes_allowed": False,
+        "tooltip_safe_unsafe_write_paths_allowed": False,
+        "source_body_preview": dict(preview_data.get("source_body_preview", {})),
+        "future_trigger_name_plan": dict(preview_data.get("future_trigger_name_plan", {})),
+        "condition_group_coverage": {
+            "required_groups": ["eligibility", "row_completion", "tooltip_safe"],
+            "active_group": {
+                "scripted_trigger_eligibility": "eligibility",
+                "scripted_trigger_row_completion": "row_completion",
+                "scripted_trigger_tooltip_safe_condition_group": "tooltip_safe",
+            }.get(artifact_kind, ""),
+            "eligibility": eligibility_plan,
+            "row_completion": row_completion_plan,
+            "tooltip_safe": tooltip_safe_plan,
+            "predicate_group_only": True,
+        },
+        "forbidden_write_paths": {
+            "forbidden_contexts": ["tooltip", "pre_evaluation"],
+            "tooltip_context_write_paths_allowed": False,
+            "pre_evaluation_write_paths_allowed": False,
+            "unsafe_effect_calls_allowed": False,
+            "row_state_writes_allowed": False,
+            "source_writes_allowed": False,
+            "tooltip_safe_unsafe_write_paths_allowed": False,
+        },
+        "aggregate_projection_boundary": {
+            "aggregate_projection_refs": aggregate_projection_refs,
+            "aggregate_projection_boundary": str(
+                contract.get(
+                    "aggregate_projection_boundary",
+                    preview_data.get("aggregate_boundary", ""),
+                )
+            ),
+            "projection_only": True,
+        },
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "blocker_reasons": _string_refs(contract.get("blocker_reasons")),
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": future_target,
+    }
+
+
+def _repeated_row_gui_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys"))
+    aggregate_projection_refs = _string_refs(
+        preview_data.get("aggregate_projection_refs") or artifact.get("aggregate_projection_variables")
+    )
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    return {
+        "contract_family": "gui",
+        "pilot_key": pilot_key,
+        "artifact_kind": artifact_kind,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_type": "in_game/gui/panels/organization",
+        "source_body_preview": dict(preview_data.get("source_body_preview", {})),
+        "fixed_row_widget_plan": dict(preview_data.get("fixed_row_widget_plan", {})),
+        "per_row_variable_binding_plan": dict(preview_data.get("per_row_variable_binding_plan", {})),
+        "actor_checklist_incident_row_policy": {
+            "artifact_kind": artifact_kind,
+            "row_policy": str(contract.get("actor_checklist_incident_row_policy", "")),
+            "actor_slots_policy_applies": artifact_kind == "gui_actor_slots_row",
+            "checklist_policy_applies": artifact_kind == "gui_checklist_row",
+            "incident_log_policy_applies": artifact_kind == "gui_incident_log_row",
+            "distinct_row_policies_required": True,
+            "aggregate_only_display_allowed": False,
+            "gui_body_emitted": False,
+        },
+        "tooltip_localization_linkage": dict(preview_data.get("tooltip_localization_linkage", {})),
+        "gui_event_localization_key_linkage": {
+            "gui_event_key_linkage": dict(preview_data.get("gui_event_key_linkage", {})),
+            "tooltip_localization_linkage": dict(preview_data.get("tooltip_localization_linkage", {})),
+            "localization_linkage_only": True,
+            "gui_source_writer_allowed": False,
+            "localization_source_writer_allowed": False,
+            "event_source_writer_allowed": False,
+            "source_body_emitted": False,
+        },
+        "aggregate_projection_boundary": {
+            "aggregate_projection_refs": aggregate_projection_refs,
+            "aggregate_projection_boundary": str(
+                contract.get(
+                    "aggregate_projection_boundary",
+                    preview_data.get("aggregate_projection_boundary", ""),
+                )
+            ),
+            "projection_only": True,
+            "aggregate_only_display_allowed": False,
+            "body_emitted": False,
+        },
+        "row_entity_refs": dict(
+            preview_data.get(
+                "row_entity_refs",
+                {
+                    "row_set_key": row_set_key,
+                    "entity_keys": entity_refs,
+                },
+            )
+        ),
+        "aggregate_only_display_allowed": False,
+        "gui_source_body_allowed": False,
+        "gui_source_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "source_ready_allowed": False,
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "blocker_reasons": _string_refs(contract.get("blocker_reasons")),
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": future_target,
+    }
+
+
+def _repeated_row_listener_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    pilot_key = str(artifact.get("pilot_key", ""))
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    entity_refs = _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys"))
+    future_target_pattern = str(contract.get("future_source_target_path_pattern", ""))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    return {
+        "contract_family": "listener",
+        "pilot_key": pilot_key,
+        "artifact_kind": artifact_kind,
+        "wonder_key": wonder_key,
+        "row_set_key": row_set_key,
+        "readiness_status": "blocked",
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_type": "common/on_action",
+        "listener_artifact_scope": str(contract.get("listener_artifact_scope", "")),
+        "source_body_preview": dict(preview_data.get("source_body_preview", {})),
+        "on_action_target_path_plan": dict(preview_data.get("on_action_target_path_plan", {})),
+        "on_action_hook_linkage_plan": dict(preview_data.get("on_action_hook_linkage_plan", {})),
+        "selected_ritual_trigger_linkage": dict(preview_data.get("selected_ritual_trigger_linkage", {})),
+        "war_scope_availability_persistence_plan": dict(
+            preview_data.get("war_scope_availability_persistence_plan", {})
+        ),
+        "row_state_handoff_boundary": dict(
+            preview_data.get(
+                "row_state_handoff_boundary",
+                {
+                    "row_set_key": row_set_key,
+                    "entity_keys": entity_refs,
+                    "handoff_only": True,
+                    "row_state_writes_allowed": False,
+                },
+            )
+        ),
+        "listener_body_allowed": False,
+        "listener_scope_writes_allowed": False,
+        "war_scope_writes_allowed": False,
+        "row_state_writes_allowed": False,
+        "source_writes_allowed": False,
+        "source_ready_allowed": False,
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "blocker_reasons": _string_refs(contract.get("blocker_reasons")),
+        "future_source_target_path_pattern": future_target_pattern,
+        "future_source_target_path": future_target,
+    }
+
+
+def _repeated_row_source_writer_closure_contract(
+    *,
+    artifact: dict[str, Any],
+    preview_data: dict[str, Any],
+    contract: dict[str, Any],
+    contract_family: str,
+) -> dict[str, Any] | None:
+    if contract_family == "event":
+        return _repeated_row_event_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "localization":
+        return _repeated_row_localization_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "effect":
+        return _repeated_row_effect_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "cleanup":
+        return _repeated_row_cleanup_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "trigger":
+        return _repeated_row_trigger_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "gui":
+        return _repeated_row_gui_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    if contract_family == "listener":
+        return _repeated_row_listener_source_writer_closure_contract(
+            artifact=artifact,
+            preview_data=preview_data,
+            contract=contract,
+        )
+    return None
+
+
+def _repeated_row_source_writer_readiness_artifact(
+    *,
+    artifact: dict[str, Any],
+    preview: dict[str, Any] | None,
+) -> dict[str, Any]:
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    pilot_key = str(artifact.get("pilot_key", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    contract = artifact.get("source_target_contract") if isinstance(artifact.get("source_target_contract"), dict) else {}
+    evidence_mapping = artifact.get("evidence_mapping") if isinstance(artifact.get("evidence_mapping"), dict) else {}
+    preview_exists = isinstance(preview, dict)
+    preview_data = preview if isinstance(preview, dict) else {}
+    contract_family = str(contract.get("contract_family", preview_data.get("preview_family", "")))
+    current_contract_status = str(contract.get("status", preview_data.get("contract_status", "")))
+    blocker_sources = (
+        _string_refs(contract.get("blocker_reasons"))
+        + _string_refs(preview_data.get("blocker_reasons"))
+        + _string_refs(evidence_mapping.get("generator_missing_reason"))
+    )
+    unresolved_writer_blockers = sorted(set(blocker for blocker in blocker_sources if blocker.strip()))
+    if not preview_exists:
+        unresolved_writer_blockers.append("missing source preview")
+    if not unresolved_writer_blockers:
+        unresolved_writer_blockers.append("missing verified source-writer evidence chain")
+
+    validation_anchors: dict[str, Any] = {
+        "required_validations": _string_refs(contract.get("required_validations")),
+        "preview_family": str(preview_data.get("preview_family", "")),
+        "source_preview_closed": bool(preview_exists and preview_data.get("source_ready") is False),
+    }
+    for key in (
+        "event_id_evidence_sources",
+        "event_id_evidence",
+        "node_event_id_evidence",
+        "loc_line_policy_probe",
+        "cleanup_coverage",
+        "fixed_row_widget_plan",
+        "per_row_variable_binding_plan",
+        "on_action_hook_linkage_plan",
+    ):
+        if key in preview_data:
+            validation_anchors[key] = preview_data[key]
+
+    lifecycle_anchors: dict[str, Any] = {
+        "row_set_key": row_set_key,
+        "entity_refs": _string_refs(preview_data.get("entity_refs") or artifact.get("entity_keys")),
+        "aggregate_projection_variables": _string_refs(artifact.get("aggregate_projection_variables")),
+        "aggregate_projection_boundary": str(
+            contract.get(
+                "aggregate_projection_boundary",
+                preview_data.get("aggregate_projection_boundary", preview_data.get("aggregate_boundary", "")),
+            )
+        ),
+    }
+    for key in (
+        "cleanup_scope_plan",
+        "cleanup_coverage",
+        "row_entity_refs",
+        "handoff_responsibility",
+        "option_effect_handoff",
+        "tooltip_safe_condition_group_plan",
+        "war_scope_availability_persistence_plan",
+        "row_state_handoff_boundary",
+    ):
+        if key in preview_data:
+            lifecycle_anchors[key] = preview_data[key]
+
+    boundary_paths = _string_refs(evidence_mapping.get("evidence_source_paths"))
+    future_target = str(contract.get("candidate_future_source_target_path", preview_data.get("future_source_target_path", "")))
+    if future_target:
+        boundary_paths = sorted(set(boundary_paths + [future_target]))
+
+    readiness_artifact = {
+        "artifact_kind": artifact_kind,
+        "contract_family": contract_family,
+        "pilot_key": pilot_key,
+        "row_set_key": row_set_key,
+        "current_contract_status": current_contract_status,
+        "preview_exists": preview_exists,
+        "readiness_status": "blocked",
+        "eu5_syntax_evidence": _repeated_row_source_writer_evidence_block(
+            status=str(artifact.get("evidence_status", "interface_candidate")),
+            evidence_type="interface_candidate",
+            summary=str(evidence_mapping.get("eu5_source_syntax_pattern", "")),
+            paths=_string_refs(evidence_mapping.get("evidence_source_paths")),
+            anchors={
+                "source_body_preview": preview_data.get("source_body_preview", {}),
+                "required_eu5_interfaces": _string_refs(artifact.get("required_eu5_interfaces")),
+            },
+            blockers=unresolved_writer_blockers,
+        ),
+        "generator_ownership_evidence": _repeated_row_source_writer_evidence_block(
+            status="interface_candidate",
+            evidence_type="interface_candidate",
+            summary=str(evidence_mapping.get("generator_missing_reason", "")),
+            paths=[path for path in [str(evidence_mapping.get("generator_candidate", ""))] if path],
+            anchors={
+                "owner_generator": str(artifact.get("owner_generator", "")),
+                "planned_owner_exists": str(artifact.get("owner_generator", ""))
+                in REPEATED_ENTITY_ROW_SOURCE_PLAN_EXISTING_GENERATORS,
+            },
+            blockers=[
+                "planned owner generator is not registered as an existing source writer",
+                *unresolved_writer_blockers,
+            ],
+        ),
+        "source_target_boundary_evidence": _repeated_row_source_writer_evidence_block(
+            status="blocked",
+            evidence_type="source_target_boundary",
+            summary=str(artifact.get("source_target_boundary", "")),
+            paths=boundary_paths,
+            anchors={
+                "contract_family": contract_family,
+                "future_target_only": contract.get("future_target_only"),
+                "future_source_target_path_pattern": str(contract.get("future_source_target_path_pattern", "")),
+                "candidate_future_source_target_path": future_target,
+                "preview_future_source_target_path": str(preview_data.get("future_source_target_path", "")),
+            },
+            blockers=unresolved_writer_blockers,
+        ),
+        "validation_coverage_evidence": _repeated_row_source_writer_evidence_block(
+            status="interface_candidate",
+            evidence_type="validation_coverage",
+            summary=(
+                "Validation requirements and preview probes are present as contract data only; "
+                "they do not prove source-writer readiness."
+            ),
+            paths=[],
+            anchors=validation_anchors,
+            blockers=unresolved_writer_blockers,
+        ),
+        "lifecycle_semantics_evidence": _repeated_row_source_writer_evidence_block(
+            status="interface_candidate",
+            evidence_type="lifecycle_semantics",
+            summary=(
+                "Row/entity lifecycle semantics are preserved from source-plan and source-preview data, "
+                "but remain blocked until a writer owns row-state effects, triggers, GUI, localization, and cleanup."
+            ),
+            paths=[],
+            anchors=lifecycle_anchors,
+            blockers=unresolved_writer_blockers,
+        ),
+        "unresolved_writer_blockers": unresolved_writer_blockers,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+    closure_contract = _repeated_row_source_writer_closure_contract(
+        artifact=artifact,
+        preview_data=preview_data,
+        contract=contract,
+        contract_family=contract_family,
+    )
+    if closure_contract is not None:
+        readiness_artifact["closure_contract"] = closure_contract
+    return readiness_artifact
+
+
+def _repeated_row_source_writer_readiness_entry(
+    *,
+    entry_plan: dict[str, Any],
+    entry_preview: dict[str, Any] | None,
+) -> dict[str, Any]:
+    previews = [
+        preview
+        for preview in (entry_preview or {}).get("previews", []) or []
+        if isinstance(preview, dict)
+    ]
+    preview_by_identity = {
+        _repeated_row_artifact_identity(preview): preview
+        for preview in previews
+    }
+    artifacts = [
+        _repeated_row_source_writer_readiness_artifact(
+            artifact=artifact,
+            preview=preview_by_identity.get(_repeated_row_artifact_identity(artifact)),
+        )
+        for artifact in entry_plan.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    return {
+        "key": str(entry_plan.get("key", "")),
+        "artifact_count": len(artifacts),
+        "ready_artifact_count": sum(1 for artifact in artifacts if artifact.get("readiness_status") == "ready"),
+        "blocked_artifact_count": sum(1 for artifact in artifacts if artifact.get("readiness_status") == "blocked"),
+        "contract_family_summary": _count_by_key(artifacts, "contract_family"),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "artifacts": artifacts,
+    }
+
+
+def _repeated_row_source_writer_closure_summary(artifacts: list[dict[str, Any]]) -> dict[str, Any]:
+    closure_family_counts = {family: 0 for family in REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS}
+    no_write_violation_count = 0
+    for artifact in artifacts:
+        if artifact.get("may_write_src") is True:
+            no_write_violation_count += 1
+        if artifact.get("writes_src") is True:
+            no_write_violation_count += 1
+        if artifact.get("source_writer_allowed") is True:
+            no_write_violation_count += 1
+        closure = artifact.get("closure_contract")
+        if not isinstance(closure, dict):
+            continue
+        family = str(closure.get("contract_family", artifact.get("contract_family", "")))
+        if family in closure_family_counts:
+            closure_family_counts[family] += 1
+        if closure.get("may_write_src") is True:
+            no_write_violation_count += 1
+        if closure.get("writes_src") is True:
+            no_write_violation_count += 1
+        if closure.get("source_writer_allowed") is True:
+            no_write_violation_count += 1
+    missing_families = [
+        family
+        for family, expected_count in REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS.items()
+        if closure_family_counts[family] != expected_count
+    ]
+    return {
+        "closure_contract_count": sum(closure_family_counts.values()),
+        "closure_family_summary": dict(sorted(closure_family_counts.items())),
+        "closure_missing_families": missing_families,
+        "closure_no_write_violation_count": no_write_violation_count,
+    }
+
+
+def repeated_entity_row_source_writer_readiness_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_plan = repeated_entity_row_source_plan_for_payload(payload, statuses=statuses)
+    source_preview = repeated_entity_row_source_preview_for_payload(payload, statuses=statuses)
+    preview_by_key = {
+        str(entry.get("key", "")): entry
+        for entry in source_preview.get("entries", []) or []
+        if isinstance(entry, dict)
+    }
+    entries = [
+        _repeated_row_source_writer_readiness_entry(
+            entry_plan=entry_plan,
+            entry_preview=preview_by_key.get(str(entry_plan.get("key", ""))),
+        )
+        for entry_plan in source_plan.get("entries", []) or []
+        if isinstance(entry_plan, dict)
+    ]
+    artifacts = [
+        artifact
+        for entry in entries
+        for artifact in entry.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    closure_summary = _repeated_row_source_writer_closure_summary(artifacts)
+    report = {
+        "statuses": sorted(statuses or {"source_codegen_ready"}),
+        "artifact_count": len(artifacts),
+        "ready_artifact_count": sum(1 for artifact in artifacts if artifact.get("readiness_status") == "ready"),
+        "blocked_artifact_count": sum(1 for artifact in artifacts if artifact.get("readiness_status") == "blocked"),
+        "contract_family_summary": _count_by_key(artifacts, "contract_family"),
+        **closure_summary,
+        "source_plan_artifact_count": int(source_plan.get("artifact_count", 0)),
+        "source_preview_count": int(source_preview.get("preview_count", 0)),
+        "source_preview_validation_errors": list(source_preview.get("validation_errors", [])),
+        "source_plan_validation_errors": list(source_plan.get("validation_errors", [])),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "entries": entries,
+        "validation_errors": [],
+        "notes": [
+            "Repeated-row source-writer readiness is a no-write evidence ledger.",
+            "It records remaining source-writer blockers after the 177/177 source preview closure.",
+            "It does not promote source_codegen_ready or authorize src writes.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_source_writer_readiness(report)
+    return report
+
+
+def _readiness_status_is_forbidden_ready(value: Any) -> bool:
+    return str(value or "").strip().lower().replace("-", "_") in {
+        "source_ready",
+        "ready",
+        "verified",
+        "backend_ready",
+        "source_codegen_ready",
+        "implementation_ready",
+        "harness_generated",
+    }
+
+
+def _readiness_evidence_claims_verified(evidence: dict[str, Any]) -> bool:
+    status = str(evidence.get("status", "")).strip().lower().replace("-", "_")
+    evidence_type = str(evidence.get("evidence_type", "")).strip().lower().replace("-", "_")
+    return status in {"verified", "source_ready", "backend_ready"} or evidence_type in {
+        "verified",
+        "source_ready",
+        "backend_ready",
+    }
+
+
+def _validate_repeated_row_no_write_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    contract_family: str,
+    closure: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    if closure.get("contract_family") != contract_family:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure contract_family changed")
+    if closure.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure source_writer_allowed must be false")
+    if closure.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure may_write_src must be false")
+    if closure.get("writes_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure writes_src must be false")
+    if _readiness_status_is_forbidden_ready(closure.get("readiness_status")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure must stay blocked")
+    if str(closure.get("readiness_status", "")) != "blocked":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure readiness_status must be blocked")
+    for forbidden_field in (
+        "verified",
+        "source_ready",
+        "backend_ready",
+        "source_codegen_ready",
+        "implementation_ready",
+        "harness_generated",
+    ):
+        if forbidden_field in closure:
+            errors.append(
+                f"{pilot_key}: artifact {artifact_kind} {contract_family} closure must not declare {forbidden_field}"
+            )
+    for field, value in closure.items():
+        if field == "readiness_status":
+            continue
+        if field.endswith("status") and _readiness_status_is_forbidden_ready(value):
+            errors.append(
+                f"{pilot_key}: artifact {artifact_kind} {contract_family} closure must not claim source-ready status"
+            )
+    nested_source_ready_fields = [
+        field
+        for field in _closure_source_ready_field_names(closure)
+        if field not in {
+            "readiness_status",
+            "source_ready_allowed",
+        }
+        and not field.endswith(".source_ready_allowed")
+    ]
+    for field in nested_source_ready_fields:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} {contract_family} closure must not declare source-ready field {field}"
+        )
+    return errors
+
+
+def _closure_source_ready_field_names(closure: dict[str, Any]) -> list[str]:
+    forbidden_names = {
+        "verified",
+        "source_ready",
+        "backend_ready",
+        "source_codegen_ready",
+        "implementation_ready",
+        "harness_generated",
+    }
+    found: list[str] = []
+
+    def visit(value: Any, path: str) -> None:
+        if isinstance(value, dict):
+            for key, child in value.items():
+                key_text = str(key)
+                child_path = f"{path}.{key_text}" if path else key_text
+                if key_text in forbidden_names:
+                    found.append(child_path)
+                if key_text.endswith("status") and _readiness_status_is_forbidden_ready(child):
+                    found.append(child_path)
+                visit(child, child_path)
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                visit(child, f"{path}[{index}]")
+
+    visit(closure, "")
+    return found
+
+
+def _validate_repeated_row_event_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="event",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_target = f"src/in_game/events/tv_wonder_unique_{wonder_key}_ritual_events.txt"
+    if closure.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure source_writer_allowed must be false")
+    if closure.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure may_write_src must be false")
+    if closure.get("writes_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure writes_src must be false")
+    if _readiness_status_is_forbidden_ready(closure.get("readiness_status")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure must stay blocked")
+    if str(closure.get("readiness_status", "")) != "blocked":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure readiness_status must be blocked")
+    if closure.get("namespace") != "tv_engineering_department":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing namespace")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing future target path")
+
+    event_ids = [
+        int(item["event_id"])
+        for item in closure.get("event_id_evidence", []) or []
+        if isinstance(item, dict) and "event_id" in item
+    ]
+    node_event_ids = [
+        int(item["event_id"])
+        for item in closure.get("node_event_id_evidence", []) or []
+        if isinstance(item, dict) and "event_id" in item
+    ]
+    if not event_ids:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing spec event IDs")
+    if not node_event_ids:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing node event IDs")
+    preview_event_id = closure.get("preview_event_id")
+    if preview_event_id not in event_ids or preview_event_id not in node_event_ids:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure must use existing spec/node event ID")
+
+    source_body_preview = closure.get("source_body_preview")
+    if not isinstance(source_body_preview, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing source body preview")
+    else:
+        if source_body_preview.get("namespace") != "tv_engineering_department":
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event body preview missing namespace")
+        if source_body_preview.get("event_id") != preview_event_id:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event body preview missing event id")
+        if source_body_preview.get("no_row_state_write") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure must forbid row-state writes")
+        if source_body_preview.get("no_tooltip_heavy_finalization") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing tooltip safety")
+        if source_body_preview.get("no_source_ready") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure must not be source-ready")
+
+    loc_handoff = closure.get("localization_key_handoff")
+    if not isinstance(loc_handoff, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing localization handoff")
+    else:
+        expected_prefix = f"tv_engineering_department.{preview_event_id}"
+        if loc_handoff.get("handoff_only") is not True or loc_handoff.get("localization_source_writer_allowed") is not False:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure localization handoff must be no-write")
+        if loc_handoff.get("title_key") != f"{expected_prefix}.t":
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing title localization handoff")
+        if loc_handoff.get("desc_key") != f"{expected_prefix}.d":
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing desc localization handoff")
+        option_keys = _string_refs(loc_handoff.get("option_keys"))
+        if f"{expected_prefix}.a" not in option_keys:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing option localization handoff")
+
+    option_handoff = closure.get("option_effect_handoff")
+    if not isinstance(option_handoff, dict) or option_handoff.get("handoff_only") is not True:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing option-effect handoff")
+    elif not str(option_handoff.get("future_scripted_effect_name", "")).startswith(
+        f"tv_wonder_unique_{wonder_key}_ritual_"
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure option-effect handoff is incomplete")
+
+    safety_notes = closure.get("safety_notes")
+    if not isinstance(safety_notes, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure missing safety notes")
+    elif (
+        safety_notes.get("hidden_executor_handoff_only") is not True
+        or safety_notes.get("tooltip_heavy_finalization_allowed") is not False
+        or safety_notes.get("row_state_writes_allowed") is not False
+        or safety_notes.get("source_ready_allowed") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} event closure safety notes are incomplete")
+
+    return errors
+
+
+def _validate_repeated_row_localization_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="localization",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if closure.get("source_writer_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure source_writer_allowed must be false")
+    if closure.get("may_write_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure may_write_src must be false")
+    if closure.get("writes_src") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure writes_src must be false")
+    if _readiness_status_is_forbidden_ready(closure.get("readiness_status")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure must stay blocked")
+    if str(closure.get("readiness_status", "")) != "blocked":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure readiness_status must be blocked")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing future target path")
+
+    language_boundary = closure.get("language_ownership_boundary")
+    if not isinstance(language_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing language boundary")
+    else:
+        if set(_string_refs(language_boundary.get("required_languages"))) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing language boundary")
+        if not str(language_boundary.get("english_owner", "")).endswith("english"):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing English boundary")
+        if not str(language_boundary.get("simp_chinese_owner", "")).endswith("simp_chinese"):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing Simplified Chinese boundary")
+        if language_boundary.get("missing_bilingual_coverage_allowed") is not False:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure must forbid missing bilingual coverage")
+
+    event_handoff = closure.get("event_key_handoff")
+    if not isinstance(event_handoff, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing event key handoff")
+    elif (
+        not str(event_handoff.get("title_key", "")).endswith(".t")
+        or not str(event_handoff.get("desc_key", "")).endswith(".d")
+        or not str(event_handoff.get("option_key_pattern", "")).endswith(".a")
+        or event_handoff.get("handoff_only") is not True
+        or event_handoff.get("event_source_writer_allowed") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure event key handoff is incomplete")
+
+    key_allocation = closure.get("key_allocation")
+    if not isinstance(key_allocation, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing key allocation")
+    else:
+        namespace = str(key_allocation.get("loc_key_namespace", ""))
+        if f"tv_wonder_unique_{wonder_key}_ritual" not in namespace:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure key namespace is incomplete")
+        required_groups = set(_string_refs(key_allocation.get("required_groups")))
+        if set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS) - required_groups:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing key allocation groups")
+        row_key_groups = key_allocation.get("row_key_groups")
+        if not isinstance(row_key_groups, dict):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing row key groups")
+        else:
+            missing_groups = [
+                group
+                for group in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS
+                if group not in row_key_groups
+            ]
+            if missing_groups:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing row key groups")
+            loc_group = str(key_allocation.get("loc_group", ""))
+            if loc_group not in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure loc group is invalid")
+            elif not row_key_groups.get(loc_group):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing active loc group keys")
+        loc_key_plan = key_allocation.get("loc_key_plan")
+        if not isinstance(loc_key_plan, list) or not loc_key_plan:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing key allocation")
+        else:
+            for item in loc_key_plan:
+                if not isinstance(item, dict) or not isinstance(item.get("keys"), dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure key allocation item is incomplete")
+                    continue
+                if set(item["keys"]) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing bilingual key allocation")
+                for loc_key in item["keys"].values():
+                    loc_key_text = str(loc_key)
+                    if f"tv_wonder_unique_{wonder_key}_ritual" not in loc_key_text:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure key namespace is incomplete")
+
+    escaping = closure.get("escaping_bom_boundary")
+    if not isinstance(escaping, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing escaping/BOM boundary")
+    elif (
+        escaping.get("quote_escaped") is not True
+        or escaping.get("newline_escaped") is not True
+        or escaping.get("bom_encoding") != "utf-8-sig"
+        or escaping.get("writes_file") is not False
+        or escaping.get("unsafe_quote_newline_handling_allowed") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} localization closure missing escaping/BOM boundary")
+
+    return errors
+
+
+def _validate_repeated_row_effect_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="effect",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if closure.get("source_type") != "common/scripted_effects":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure source_type changed")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing future target path")
+    if closure.get("effect_body_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure effect_body_writes_allowed must be false")
+    if closure.get("row_state_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure row_state_writes_allowed must be false")
+    if closure.get("row_state_write_schema_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure row_state_write_schema_allowed must be false")
+
+    operation_coverage = closure.get("effect_operation_coverage")
+    operation_by_artifact = {
+        "scripted_effect_row_init": "row_init",
+        "scripted_effect_row_state_write": "row_state_write",
+        "scripted_effect_branch_write": "branch_write",
+        "scripted_effect_aggregate_refresh": "aggregate_refresh",
+        "scripted_effect_cleanup_write": "cleanup_write_handoff",
+    }
+    required_operations = {
+        "row_init",
+        "row_state_write",
+        "branch_write",
+        "aggregate_refresh",
+        "cleanup_write_handoff",
+    }
+    if not isinstance(operation_coverage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing operation coverage")
+    else:
+        if not required_operations <= set(_string_refs(operation_coverage.get("required_operations"))):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing operation coverage")
+        expected_operation = operation_by_artifact.get(artifact_kind, "")
+        if expected_operation and operation_coverage.get(expected_operation) is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing operation coverage")
+        if operation_coverage.get("effect_body_emitted") is not False:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure must not emit effect body")
+
+    schema_boundary = closure.get("row_state_schema_boundary")
+    if not isinstance(schema_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing row-state schema boundary")
+    elif (
+        schema_boundary.get("schema_contract_only") is not True
+        or schema_boundary.get("row_state_writes_allowed") is not False
+        or schema_boundary.get("row_state_write_schema_allowed") is not False
+        or not _string_refs(schema_boundary.get("entity_keys"))
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing row-state schema boundary")
+
+    aggregate_boundary = closure.get("aggregate_refresh_boundary")
+    if not isinstance(aggregate_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing aggregate refresh boundary")
+    elif (
+        not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+        or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+        or aggregate_boundary.get("projection_only") is not True
+        or aggregate_boundary.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing aggregate refresh boundary")
+
+    cleanup_handoff = closure.get("cleanup_write_handoff")
+    if not isinstance(cleanup_handoff, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing cleanup write handoff")
+    elif (
+        cleanup_handoff.get("handoff_only") is not True
+        or cleanup_handoff.get("cleanup_source_writer_allowed") is not False
+        or cleanup_handoff.get("row_state_writes_allowed") is not False
+        or cleanup_handoff.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} effect closure missing cleanup write handoff")
+
+    return errors
+
+
+def _validate_repeated_row_cleanup_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="cleanup",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if closure.get("source_type") != "common/scripted_effects":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure source_type changed")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing future target path")
+    if closure.get("effect_body_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure effect_body_writes_allowed must be false")
+    if closure.get("row_state_write_schema_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure row_state_write_schema_allowed must be false")
+
+    expected_scope = REPEATED_ENTITY_ROW_EFFECT_CLEANUP_SOURCE_TARGET_CONTRACT_CLEANUP_SCOPES.get(artifact_kind)
+    if closure.get("cleanup_lifecycle_scope") != expected_scope:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing lifecycle scope")
+
+    coverage = closure.get("cleanup_coverage")
+    if not isinstance(coverage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing cleanup coverage")
+    else:
+        missing_coverage = [
+            scope
+            for scope in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES
+            if scope not in coverage
+        ]
+        if missing_coverage:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing cleanup coverage")
+        expected_coverage_key = "ritual_reset" if artifact_kind == "cleanup_ritual_reset" else str(expected_scope)
+        if expected_coverage_key and coverage.get(expected_coverage_key) is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing cleanup coverage")
+
+    ownership_reset = closure.get("ownership_reset_branch_boundary")
+    if not isinstance(ownership_reset, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing ownership/reset branch")
+    else:
+        required_branches = set(_string_refs(ownership_reset.get("required_branches")))
+        if {"ownership_loss", "ritual_reset"} - required_branches:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing ownership/reset branch")
+        if ownership_reset.get("ownership_loss_planned") is not True or ownership_reset.get("ritual_reset_planned") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing ownership/reset branch")
+        if ownership_reset.get("unsafe_pre_eval_writes_allowed") is not False:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing ownership/reset branch")
+
+    lifecycle = closure.get("row_entity_lifecycle_coverage")
+    if not isinstance(lifecycle, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing row/entity lifecycle coverage")
+    elif (
+        not _string_refs(lifecycle.get("entity_keys"))
+        or set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES)
+        - set(_string_refs(lifecycle.get("lifecycle_scopes")))
+        or lifecycle.get("row_state_write_schema_allowed") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing row/entity lifecycle coverage")
+
+    aggregate_boundary = closure.get("aggregate_projection_boundary")
+    if not isinstance(aggregate_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing aggregate projection boundary")
+    elif (
+        not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+        or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+        or aggregate_boundary.get("projection_only") is not True
+        or aggregate_boundary.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} cleanup closure missing aggregate projection boundary")
+
+    return errors
+
+
+def _validate_repeated_row_trigger_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="trigger",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/in_game/common/scripted_triggers/tv_wonder_unique_<wonder_key>_ritual_triggers.txt"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if closure.get("source_type") != "common/scripted_triggers":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure source_type changed")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing future target path")
+    if closure.get("trigger_body_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure trigger_body_writes_allowed must be false")
+    if closure.get("tooltip_safe_unsafe_write_paths_allowed") is not False:
+        errors.append(
+            f"{pilot_key}: artifact {artifact_kind} trigger closure tooltip_safe_unsafe_write_paths_allowed must be false"
+        )
+
+    condition_coverage = closure.get("condition_group_coverage")
+    expected_group_by_artifact = {
+        "scripted_trigger_eligibility": "eligibility",
+        "scripted_trigger_row_completion": "row_completion",
+        "scripted_trigger_tooltip_safe_condition_group": "tooltip_safe",
+    }
+    if not isinstance(condition_coverage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing condition group coverage")
+    else:
+        required_groups = {"eligibility", "row_completion", "tooltip_safe"}
+        if required_groups - set(_string_refs(condition_coverage.get("required_groups"))):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing condition group coverage")
+        for group in sorted(required_groups):
+            plan = condition_coverage.get(group)
+            if not isinstance(plan, dict) or not plan:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing {group} plan")
+                continue
+            if plan.get("predicate_group_only") is not True:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure {group} plan must be predicate-only")
+        expected_group = expected_group_by_artifact.get(artifact_kind, "")
+        expected_plan = condition_coverage.get(expected_group) if expected_group else None
+        if not isinstance(expected_plan, dict) or expected_plan.get("planned") is not True:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing condition group coverage")
+
+    forbidden_write_paths = closure.get("forbidden_write_paths")
+    if not isinstance(forbidden_write_paths, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing forbidden write paths")
+    else:
+        contexts = set(_string_refs(forbidden_write_paths.get("forbidden_contexts")))
+        if {"tooltip", "pre_evaluation"} - contexts:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing forbidden write paths")
+        for key in (
+            "tooltip_context_write_paths_allowed",
+            "pre_evaluation_write_paths_allowed",
+            "unsafe_effect_calls_allowed",
+            "row_state_writes_allowed",
+            "source_writes_allowed",
+            "tooltip_safe_unsafe_write_paths_allowed",
+        ):
+            if forbidden_write_paths.get(key) is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing forbidden write paths")
+                break
+
+    aggregate_boundary = closure.get("aggregate_projection_boundary")
+    if not isinstance(aggregate_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing aggregate projection boundary")
+    elif (
+        not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+        or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+        or aggregate_boundary.get("projection_only") is not True
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} trigger closure missing aggregate projection boundary")
+
+    return errors
+
+
+def _validate_repeated_row_gui_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="gui",
+        closure=closure,
+    )
+    wonder_key = _repeated_row_event_contract_wonder_key(pilot_key)
+    expected_pattern = "src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui"
+    expected_target = expected_pattern.replace("<wonder_key>", wonder_key)
+    if artifact_kind not in REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure artifact kind changed")
+    if closure.get("source_type") != "in_game/gui/panels/organization":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure source_type changed")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing future target path")
+    if closure.get("aggregate_only_display_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure aggregate-only UI must be false")
+    if closure.get("gui_source_body_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure GUI source body emission must be false")
+    if closure.get("gui_source_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure GUI source writes must be false")
+    if closure.get("row_state_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure row-state writes must be false")
+    if closure.get("source_ready_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure source-ready must be false")
+
+    source_body_preview = closure.get("source_body_preview")
+    if not isinstance(source_body_preview, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing source body preview")
+    elif (
+        source_body_preview.get("no_gui_source_body") is not True
+        or source_body_preview.get("no_gui_source_write") is not True
+        or source_body_preview.get("no_row_state_write") is not True
+        or source_body_preview.get("no_source_ready") is not True
+        or source_body_preview.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure must not emit GUI source body")
+
+    fixed_plan = closure.get("fixed_row_widget_plan")
+    if not isinstance(fixed_plan, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing fixed row widget plan")
+    elif (
+        fixed_plan.get("row_widget_fixed") is not True
+        or fixed_plan.get("body_emitted") is not False
+        or not str(fixed_plan.get("row_widget_boundary", "")).strip()
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing fixed row widget plan")
+
+    binding_plan = closure.get("per_row_variable_binding_plan")
+    if not isinstance(binding_plan, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing per-row binding plan")
+    elif (
+        binding_plan.get("binds_design_ir_tracked_entity_sets") is not True
+        or binding_plan.get("aggregate_only_row_reads_allowed") is not False
+        or not _string_refs(binding_plan.get("entity_keys"))
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing per-row binding plan")
+
+    row_policy = closure.get("actor_checklist_incident_row_policy")
+    expected_policy_flag = {
+        "gui_actor_slots_row": "actor_slots_policy_applies",
+        "gui_checklist_row": "checklist_policy_applies",
+        "gui_incident_log_row": "incident_log_policy_applies",
+    }.get(artifact_kind, "")
+    if not isinstance(row_policy, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing row policy")
+    elif (
+        row_policy.get("distinct_row_policies_required") is not True
+        or row_policy.get("aggregate_only_display_allowed") is not False
+        or row_policy.get("gui_body_emitted") is not False
+        or (expected_policy_flag and row_policy.get(expected_policy_flag) is not True)
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing row policy")
+
+    tooltip_linkage = closure.get("tooltip_localization_linkage")
+    if not isinstance(tooltip_linkage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing tooltip localization linkage")
+    else:
+        required_linkage_keys = {
+            "loc_key_namespace",
+            "row_label_keys",
+            "status_text_keys",
+            "tooltip_keys",
+        }
+        if not required_linkage_keys <= set(tooltip_linkage):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing tooltip localization linkage")
+        if not str(tooltip_linkage.get("loc_key_namespace", "")).startswith("tv_wonder_unique_"):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing tooltip localization linkage")
+        for key in ("row_label_keys", "status_text_keys", "tooltip_keys"):
+            if not _string_refs(tooltip_linkage.get(key)):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing tooltip localization linkage")
+                break
+
+    key_linkage = closure.get("gui_event_localization_key_linkage")
+    if not isinstance(key_linkage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing GUI/event/localization key linkage")
+    else:
+        gui_event_linkage = key_linkage.get("gui_event_key_linkage")
+        tooltip_key_linkage = key_linkage.get("tooltip_localization_linkage")
+        if (
+            not isinstance(gui_event_linkage, dict)
+            or gui_event_linkage.get("linkage_only") is not True
+            or gui_event_linkage.get("source_body_emitted") is not False
+            or not str(gui_event_linkage.get("event_key_prefix", "")).strip()
+            or not isinstance(tooltip_key_linkage, dict)
+            or key_linkage.get("localization_linkage_only") is not True
+            or key_linkage.get("gui_source_writer_allowed") is not False
+            or key_linkage.get("localization_source_writer_allowed") is not False
+            or key_linkage.get("event_source_writer_allowed") is not False
+            or key_linkage.get("source_body_emitted") is not False
+        ):
+            errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing GUI/event/localization key linkage")
+
+    aggregate_boundary = closure.get("aggregate_projection_boundary")
+    if not isinstance(aggregate_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing aggregate projection boundary")
+    elif (
+        not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+        or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+        or aggregate_boundary.get("projection_only") is not True
+        or aggregate_boundary.get("aggregate_only_display_allowed") is not False
+        or aggregate_boundary.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing aggregate projection boundary")
+
+    row_entity_refs = closure.get("row_entity_refs")
+    if not isinstance(row_entity_refs, dict) or not _string_refs(row_entity_refs.get("entity_keys")):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} GUI closure missing row/entity refs")
+
+    return errors
+
+
+def _validate_repeated_row_listener_source_writer_closure_contract(
+    *,
+    pilot_key: str,
+    artifact_kind: str,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    errors = _validate_repeated_row_no_write_source_writer_closure_contract(
+        pilot_key=pilot_key,
+        artifact_kind=artifact_kind,
+        contract_family="listener",
+        closure=closure,
+    )
+    expected_pattern = "src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt"
+    expected_target = expected_pattern.replace("<wonder_key>", _repeated_row_event_contract_wonder_key(pilot_key))
+    if pilot_key != "unique_alhambra" or artifact_kind != "listener_war_integration":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure must be Alhambra-only")
+    if closure.get("pilot_key") != "unique_alhambra" or closure.get("artifact_kind") != "listener_war_integration":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure must be Alhambra-only")
+    if closure.get("listener_artifact_scope") != "unique_alhambra-only listener_war_integration":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure must be Alhambra-only")
+    if closure.get("source_type") != "common/on_action":
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure source_type changed")
+    if closure.get("future_source_target_path_pattern") != expected_pattern:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing future target path pattern")
+    if closure.get("future_source_target_path") != expected_target:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing future target path")
+    if closure.get("listener_body_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure listener body writes must be false")
+    if closure.get("listener_scope_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure listener scope writes must be false")
+    if closure.get("war_scope_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure war scope writes must be false")
+    if closure.get("row_state_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure row-state writes must be false")
+    if closure.get("source_writes_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure source writes must be false")
+    if closure.get("source_ready_allowed") is not False:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure source-ready must be false")
+
+    source_body_preview = closure.get("source_body_preview")
+    if not isinstance(source_body_preview, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing source body preview")
+    elif (
+        source_body_preview.get("no_listener_body") is not True
+        or source_body_preview.get("no_listener_scope_write") is not True
+        or source_body_preview.get("no_war_scope_write") is not True
+        or source_body_preview.get("no_source_ready") is not True
+        or source_body_preview.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure must not emit listener body")
+
+    target_plan = closure.get("on_action_target_path_plan")
+    if not isinstance(target_plan, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing on_action target path plan")
+    elif (
+        target_plan.get("target_path") != expected_target
+        or target_plan.get("target_only") is not True
+        or target_plan.get("body_emitted") is not False
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing on_action target path plan")
+
+    hook_plan = closure.get("on_action_hook_linkage_plan")
+    if not isinstance(hook_plan, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing hook linkage plan")
+    elif (
+        hook_plan.get("linkage_only") is not True
+        or hook_plan.get("body_emitted") is not False
+        or {"on_pre_winning_war", "on_ending_war"} - set(_string_refs(hook_plan.get("hooks")))
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing hook linkage plan")
+
+    trigger_linkage = closure.get("selected_ritual_trigger_linkage")
+    if not isinstance(trigger_linkage, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing selected ritual trigger linkage")
+    elif (
+        trigger_linkage.get("selected_ritual_only") is not True
+        or trigger_linkage.get("linkage_only") is not True
+        or trigger_linkage.get("trigger_name") != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing selected ritual trigger linkage")
+
+    war_scope_plan = closure.get("war_scope_availability_persistence_plan")
+    if not isinstance(war_scope_plan, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing war scope availability plan")
+    elif (
+        war_scope_plan.get("persistence_contract_only") is not True
+        or war_scope_plan.get("listener_scope_writes_allowed") is not False
+        or war_scope_plan.get("war_scope_writes_allowed") is not False
+        or {"on_pre_winning_war", "on_ending_war"}
+        - set(_string_refs(war_scope_plan.get("war_scope_available_from_hooks")))
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing war scope availability plan")
+
+    handoff_boundary = closure.get("row_state_handoff_boundary")
+    if not isinstance(handoff_boundary, dict):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing row-state handoff boundary")
+    elif (
+        handoff_boundary.get("handoff_only") is not True
+        or handoff_boundary.get("row_state_writes_allowed") is not False
+        or not _string_refs(handoff_boundary.get("entity_keys"))
+    ):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} listener closure missing row-state handoff boundary")
+
+    return errors
+
+
+def validate_repeated_entity_row_source_writer_readiness(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if int(report.get("source_plan_artifact_count", -1)) != 177:
+        errors.append("source-writer readiness must be based on the 177-artifact source-plan")
+    if int(report.get("source_preview_count", -1)) != 177:
+        errors.append("source-writer readiness must be based on 177 source previews")
+    if int(report.get("artifact_count", -1)) != 177:
+        errors.append(f"expected 177 repeated-row source-writer readiness artifacts, got {report.get('artifact_count')}")
+    if int(report.get("ready_artifact_count", -1)) != 0:
+        errors.append("source-writer readiness ready_artifact_count must be 0")
+    if int(report.get("blocked_artifact_count", -1)) != 177:
+        errors.append("source-writer readiness blocked_artifact_count must be 177")
+    if report.get("source_writer_allowed") is not False:
+        errors.append("source-writer readiness report source_writer_allowed must be false")
+    if report.get("may_write_src_allowed") is not False:
+        errors.append("source-writer readiness report may_write_src_allowed must be false")
+    if report.get("writes_src") is not False:
+        errors.append("source-writer readiness report writes_src must be false")
+    if report.get("source_plan_validation_errors"):
+        errors.append("source-writer readiness source-plan validation must be clean")
+    if report.get("source_preview_validation_errors"):
+        errors.append("source-writer readiness source-preview validation must be clean")
+
+    family_counts = {family: 0 for family in REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS}
+    closure_family_counts = {family: 0 for family in REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS}
+    closure_no_write_violation_count = 0
+    artifact_identities: set[tuple[str, str, str]] = set()
+    entries = report.get("entries") if isinstance(report.get("entries"), list) else []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            errors.append("source-writer readiness entry must be a mapping")
+            continue
+        pilot_key = str(entry.get("key", "<unknown>"))
+        if entry.get("source_writer_allowed") is not False:
+            errors.append(f"{pilot_key}: source-writer readiness entry source_writer_allowed must be false")
+        if entry.get("may_write_src_allowed") is not False:
+            errors.append(f"{pilot_key}: source-writer readiness entry may_write_src_allowed must be false")
+        if entry.get("writes_src") is not False:
+            errors.append(f"{pilot_key}: source-writer readiness entry writes_src must be false")
+        entry_artifacts = entry.get("artifacts") if isinstance(entry.get("artifacts"), list) else []
+        if int(entry.get("artifact_count", -1)) != len(entry_artifacts):
+            errors.append(f"{pilot_key}: source-writer readiness entry artifact_count mismatch")
+        if int(entry.get("ready_artifact_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source-writer readiness entry ready_artifact_count must be 0")
+        if int(entry.get("blocked_artifact_count", -1)) != len(entry_artifacts):
+            errors.append(f"{pilot_key}: source-writer readiness entry blocked_artifact_count mismatch")
+
+        for artifact in entry_artifacts:
+            if not isinstance(artifact, dict):
+                errors.append(f"{pilot_key}: source-writer readiness artifact must be a mapping")
+                continue
+            artifact_kind = str(artifact.get("artifact_kind", "<unknown>"))
+            missing = _missing_required(artifact, REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_FIELDS)
+            if missing:
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing field(s): "
+                    f"{', '.join(missing)}"
+                )
+                continue
+            identity = _repeated_row_artifact_identity(artifact)
+            if identity in artifact_identities:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} duplicate source-writer readiness artifact")
+            artifact_identities.add(identity)
+            contract_family = str(artifact.get("contract_family", ""))
+            if contract_family in family_counts:
+                family_counts[contract_family] += 1
+            else:
+                errors.append(
+                    f"{pilot_key}: artifact {artifact_kind} unsupported source-writer readiness family {contract_family!r}"
+                )
+            if artifact.get("preview_exists") is not True:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing preview")
+            if artifact.get("source_writer_allowed") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source_writer_allowed must be false")
+                if artifact.get("source_writer_allowed") is True:
+                    closure_no_write_violation_count += 1
+            if artifact.get("may_write_src") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} may_write_src must be false")
+                if artifact.get("may_write_src") is True:
+                    closure_no_write_violation_count += 1
+            if artifact.get("writes_src") is not False:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} writes_src must be false")
+                if artifact.get("writes_src") is True:
+                    closure_no_write_violation_count += 1
+            if _readiness_status_is_forbidden_ready(artifact.get("current_contract_status")):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness must not be source-ready")
+            if _readiness_status_is_forbidden_ready(artifact.get("readiness_status")):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness status must stay blocked")
+            if str(artifact.get("readiness_status", "")) != "blocked":
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness status must be blocked")
+            unresolved = _string_refs(artifact.get("unresolved_writer_blockers"))
+            if not unresolved:
+                errors.append(f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing blockers")
+
+            closure = artifact.get("closure_contract")
+            if not isinstance(closure, dict):
+                errors.append(f"{pilot_key}: artifact {artifact_kind} {contract_family} closure missing closure_contract")
+            else:
+                closure_family = str(closure.get("contract_family", ""))
+                if closure_family in closure_family_counts:
+                    closure_family_counts[closure_family] += 1
+                if closure.get("source_writer_allowed") is True:
+                    closure_no_write_violation_count += 1
+                if closure.get("may_write_src") is True:
+                    closure_no_write_violation_count += 1
+                if closure.get("writes_src") is True:
+                    closure_no_write_violation_count += 1
+                if contract_family == "event":
+                    errors.extend(
+                        _validate_repeated_row_event_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                elif contract_family == "localization":
+                    errors.extend(
+                        _validate_repeated_row_localization_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                elif contract_family == "effect":
+                    errors.extend(
+                        _validate_repeated_row_effect_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                elif contract_family == "cleanup":
+                    errors.extend(
+                        _validate_repeated_row_cleanup_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                elif contract_family == "trigger":
+                    errors.extend(
+                        _validate_repeated_row_trigger_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                elif contract_family == "gui":
+                    errors.extend(
+                        _validate_repeated_row_gui_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+                elif contract_family == "listener":
+                    errors.extend(
+                        _validate_repeated_row_listener_source_writer_closure_contract(
+                            pilot_key=pilot_key,
+                            artifact_kind=artifact_kind,
+                            artifact=artifact,
+                            closure=closure,
+                        )
+                    )
+
+            for evidence_key in REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_EVIDENCE_FIELDS:
+                evidence = artifact.get(evidence_key)
+                if not isinstance(evidence, dict):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} source-writer readiness missing evidence block "
+                        f"{evidence_key}"
+                    )
+                    continue
+                evidence_missing = _missing_required(
+                    evidence,
+                    REPEATED_ENTITY_ROW_SOURCE_WRITER_READINESS_REQUIRED_EVIDENCE_FIELDS,
+                )
+                if evidence_missing:
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} {evidence_key} missing field(s): "
+                        f"{', '.join(evidence_missing)}"
+                    )
+                    continue
+                if _readiness_evidence_claims_verified(evidence) and (
+                    not str(evidence.get("summary", "")).strip()
+                    or (not evidence.get("paths") and not evidence.get("anchors"))
+                    or not _string_refs(evidence.get("blockers"))
+                ):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} {evidence_key} cannot claim verified/source-ready "
+                        "with empty evidence or blockers"
+                    )
+                if _readiness_evidence_claims_verified(evidence):
+                    errors.append(
+                        f"{pilot_key}: artifact {artifact_kind} {evidence_key} must not claim verified/source-ready"
+                    )
+
+    for family, expected_count in REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS.items():
+        if family_counts[family] != expected_count:
+            errors.append(
+                f"expected {expected_count} repeated-row {family} readiness artifacts, got {family_counts[family]}"
+            )
+        if closure_family_counts[family] != expected_count:
+            errors.append(
+                f"expected {expected_count} repeated-row {family} closure artifacts, got {closure_family_counts[family]}"
+            )
+    if int(report.get("artifact_count", -1)) != len(artifact_identities):
+        errors.append("source-writer readiness artifact_count mismatch")
+    if report.get("contract_family_summary") != dict(sorted(family_counts.items())):
+        errors.append("source-writer readiness contract_family_summary mismatch")
+    actual_closure_count = sum(closure_family_counts.values())
+    actual_closure_summary = dict(sorted(closure_family_counts.items()))
+    actual_missing_families = [
+        family
+        for family, expected_count in REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS.items()
+        if closure_family_counts[family] != expected_count
+    ]
+    if int(report.get("closure_contract_count", -1)) != actual_closure_count:
+        errors.append("source-writer readiness closure_contract_count mismatch")
+    if report.get("closure_family_summary") != actual_closure_summary:
+        errors.append("source-writer readiness closure_family_summary mismatch")
+    if report.get("closure_missing_families") != actual_missing_families:
+        errors.append("source-writer readiness closure_missing_families mismatch")
+    if int(report.get("closure_no_write_violation_count", -1)) != closure_no_write_violation_count:
+        errors.append("source-writer readiness closure_no_write_violation_count mismatch")
+    if actual_closure_count != 177:
+        errors.append(f"expected 177 repeated-row closure contracts, got {actual_closure_count}")
+    if actual_missing_families:
+        errors.append(f"source-writer readiness closure missing families: {', '.join(actual_missing_families)}")
+    if closure_no_write_violation_count:
+        errors.append(
+            f"source-writer readiness closure no-write violation count must be 0, got {closure_no_write_violation_count}"
+        )
+    return errors
+
+
+def _repeated_row_source_bundle_no_write_boundary() -> dict[str, Any]:
+    return {
+        "contract_only": True,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed_count": 0,
+        "may_write_src_count": 0,
+        "writes_src_count": 0,
+    }
+
+
+def _repeated_row_source_bundle_blocker_summary(artifacts: list[dict[str, Any]]) -> dict[str, int]:
+    summary: dict[str, int] = {}
+    for artifact in artifacts:
+        for blocker in _string_refs(artifact.get("unresolved_writer_blockers")):
+            summary[blocker] = summary.get(blocker, 0) + 1
+    return dict(sorted(summary.items()))
+
+
+def _repeated_row_source_bundle_validation_refs(
+    *,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> list[str]:
+    validations = _string_refs(closure.get("required_validations"))
+    evidence = artifact.get("validation_coverage_evidence")
+    if isinstance(evidence, dict):
+        anchors = evidence.get("anchors")
+        if isinstance(anchors, dict):
+            validations.extend(_string_refs(anchors.get("required_validations")))
+    return sorted(set(validations))
+
+
+def _repeated_row_source_bundle_closure_ref(
+    *,
+    artifact: dict[str, Any],
+    closure: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "pilot_key": str(artifact.get("pilot_key", "")),
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "artifact_kind": str(artifact.get("artifact_kind", "")),
+        "contract_family": str(closure.get("contract_family", artifact.get("contract_family", ""))),
+        "readiness_status": str(closure.get("readiness_status", "")),
+        "future_source_target_path": str(closure.get("future_source_target_path", "")),
+        "future_source_target_path_pattern": str(closure.get("future_source_target_path_pattern", "")),
+    }
+
+
+def _repeated_row_source_bundle_placeholder(
+    *,
+    family: str,
+    artifact_kind: str,
+    closure_ref: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "kind": f"{family}_source_body_placeholder",
+        "placeholder_family": family,
+        "artifact_kind": artifact_kind,
+        "future_source_target_path": str(closure_ref.get("future_source_target_path", "")),
+        "reason": "Closure contract only; no loadable EU5 source body is emitted by this preview.",
+        **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
+    }
+
+
+def _repeated_row_source_bundle_localization_preview(closure: dict[str, Any]) -> dict[str, Any]:
+    key_allocation = closure.get("key_allocation") if isinstance(closure.get("key_allocation"), dict) else {}
+    return {
+        "kind": "localization_key_plan_preview",
+        "loc_key_namespace": str(key_allocation.get("loc_key_namespace", "")),
+        "required_groups": _string_refs(key_allocation.get("required_groups")),
+        "loc_key_plan": list(key_allocation.get("loc_key_plan", []) or []),
+        "row_key_groups": dict(key_allocation.get("row_key_groups", {}) or {}),
+        "event_key_handoff": dict(closure.get("event_key_handoff", {}) or {}),
+        "language_ownership_boundary": dict(closure.get("language_ownership_boundary", {}) or {}),
+        **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
+    }
+
+
+def _repeated_row_source_bundle_candidate_context(closure: dict[str, Any]) -> dict[str, Any]:
+    return deepcopy(closure)
+
+
+def _repeated_row_source_bundle_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
+    closure = artifact.get("closure_contract") if isinstance(artifact.get("closure_contract"), dict) else {}
+    family = str(closure.get("contract_family", artifact.get("contract_family", "")))
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    blockers = sorted(set(_string_refs(artifact.get("unresolved_writer_blockers"))))
+    closure_ref = _repeated_row_source_bundle_closure_ref(artifact=artifact, closure=closure)
+    future_target = str(closure_ref.get("future_source_target_path", ""))
+    bundled = {
+        "artifact_kind": artifact_kind,
+        "contract_family": family,
+        "pilot_key": str(artifact.get("pilot_key", "")),
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "readiness_status": str(artifact.get("readiness_status", "")),
+        "current_contract_status": str(artifact.get("current_contract_status", "")),
+        "closure_readiness_status": str(closure.get("readiness_status", "")),
+        "closure_contract_ref": closure_ref,
+        "future_source_target_path": future_target,
+        "future_source_target_path_pattern": str(closure_ref.get("future_source_target_path_pattern", "")),
+        "future_target_paths": [future_target] if future_target else [],
+        "required_validations": _repeated_row_source_bundle_validation_refs(
+            artifact=artifact,
+            closure=closure,
+        ),
+        "closure_candidate_context": _repeated_row_source_bundle_candidate_context(closure),
+        "unresolved_writer_blockers": blockers,
+        "blocker_summary": dict(sorted((blocker, blockers.count(blocker)) for blocker in set(blockers))),
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+    if family == "event":
+        bundled["source_body_preview"] = dict(closure.get("source_body_preview", {}) or {})
+    elif family == "localization":
+        bundled["source_body_preview"] = _repeated_row_source_bundle_localization_preview(closure)
+    else:
+        bundled["source_body_placeholder"] = _repeated_row_source_bundle_placeholder(
+            family=family,
+            artifact_kind=artifact_kind,
+            closure_ref=closure_ref,
+        )
+    return bundled
+
+
+def _repeated_row_source_bundle_listener_absence(pilot_key: str) -> dict[str, Any]:
+    return {
+        "explicit": True,
+        "pilot_key": pilot_key,
+        "artifact_kind": "",
+        "reason": "No listener closure_contract exists for this pilot; listener_war_integration is Alhambra-only.",
+        "forged_artifact": False,
+        **REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS,
+    }
+
+
+def _repeated_row_source_bundle_section(
+    *,
+    pilot_key: str,
+    family: str,
+    readiness_artifacts: list[dict[str, Any]],
+) -> dict[str, Any]:
+    artifacts = [_repeated_row_source_bundle_artifact(artifact) for artifact in readiness_artifacts]
+    closure_refs = [artifact["closure_contract_ref"] for artifact in artifacts]
+    future_target_paths = sorted(
+        {
+            str(path)
+            for artifact in artifacts
+            for path in artifact.get("future_target_paths", []) or []
+            if str(path).strip()
+        }
+    )
+    required_validations = sorted(
+        {
+            validation
+            for artifact in artifacts
+            for validation in _string_refs(artifact.get("required_validations"))
+        }
+    )
+    unresolved_writer_blockers = sorted(
+        {
+            blocker
+            for artifact in artifacts
+            for blocker in _string_refs(artifact.get("unresolved_writer_blockers"))
+        }
+    )
+    section = {
+        "family": family,
+        "artifact_count": len(artifacts),
+        "closure_contract_count": len(closure_refs),
+        "closure_contract_refs": closure_refs,
+        "future_target_paths": future_target_paths,
+        "source_body_previews": [
+            artifact["source_body_preview"]
+            for artifact in artifacts
+            if isinstance(artifact.get("source_body_preview"), dict)
+        ],
+        "source_body_placeholders": [
+            artifact["source_body_placeholder"]
+            for artifact in artifacts
+            if isinstance(artifact.get("source_body_placeholder"), dict)
+        ],
+        "required_validations": required_validations,
+        "unresolved_writer_blockers": unresolved_writer_blockers,
+        "blocker_summary": _repeated_row_source_bundle_blocker_summary(artifacts),
+        "source_ready_count": sum(1 for artifact in artifacts if artifact.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for artifact in artifacts if artifact.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for artifact in artifacts if artifact.get("may_write_src") is True),
+        "writes_src_count": sum(1 for artifact in artifacts if artifact.get("writes_src") is True),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_ready": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "artifacts": artifacts,
+    }
+    if family == "listener" and pilot_key != "unique_alhambra" and not artifacts:
+        section["listener_artifact_absence"] = _repeated_row_source_bundle_listener_absence(pilot_key)
+    return section
+
+
+def _repeated_row_source_bundle_entry(entry: dict[str, Any]) -> dict[str, Any]:
+    pilot_key = str(entry.get("key", ""))
+    artifacts = [
+        artifact
+        for artifact in entry.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    artifacts_by_family: dict[str, list[dict[str, Any]]] = {
+        family: []
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+    }
+    for artifact in artifacts:
+        family = str(artifact.get("contract_family", ""))
+        if family in artifacts_by_family:
+            artifacts_by_family[family].append(artifact)
+
+    sections = {
+        family: _repeated_row_source_bundle_section(
+            pilot_key=pilot_key,
+            family=family,
+            readiness_artifacts=artifacts_by_family[family],
+        )
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+    }
+    bundled_artifacts = [
+        artifact
+        for section in sections.values()
+        for artifact in section.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    return {
+        "key": pilot_key,
+        "bundle_preview_only": True,
+        "artifact_count": len(bundled_artifacts),
+        "closure_contract_count": sum(
+            int(section.get("closure_contract_count", 0))
+            for section in sections.values()
+            if isinstance(section, dict)
+        ),
+        "family_summary": {
+            family: int(section.get("artifact_count", 0))
+            for family, section in sections.items()
+        },
+        "source_ready_count": sum(1 for artifact in bundled_artifacts if artifact.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for artifact in bundled_artifacts if artifact.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for artifact in bundled_artifacts if artifact.get("may_write_src") is True),
+        "writes_src_count": sum(1 for artifact in bundled_artifacts if artifact.get("writes_src") is True),
+        "blocker_summary": _repeated_row_source_bundle_blocker_summary(bundled_artifacts),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "sections": sections,
+    }
+
+
+def repeated_entity_row_source_bundle_preview_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    readiness = repeated_entity_row_source_writer_readiness_for_payload(payload, statuses=statuses)
+    bundles = [
+        _repeated_row_source_bundle_entry(entry)
+        for entry in readiness.get("entries", []) or []
+        if isinstance(entry, dict)
+    ]
+    artifacts = [
+        artifact
+        for bundle in bundles
+        for section in (bundle.get("sections") or {}).values()
+        if isinstance(section, dict)
+        for artifact in section.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    report = {
+        "statuses": sorted(statuses or {"source_codegen_ready"}),
+        "bundle_preview_only": True,
+        "bundle_count": len(bundles),
+        "artifact_count": len(artifacts),
+        "closure_contract_count": sum(
+            int(bundle.get("closure_contract_count", 0))
+            for bundle in bundles
+            if isinstance(bundle, dict)
+        ),
+        "family_summary": _count_by_key(artifacts, "contract_family"),
+        "source_ready_count": sum(1 for artifact in artifacts if artifact.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for artifact in artifacts if artifact.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for artifact in artifacts if artifact.get("may_write_src") is True),
+        "writes_src_count": sum(1 for artifact in artifacts if artifact.get("writes_src") is True),
+        "blocker_count": sum(
+            len(_string_refs(artifact.get("unresolved_writer_blockers")))
+            for artifact in artifacts
+        ),
+        "blocker_summary": _repeated_row_source_bundle_blocker_summary(artifacts),
+        "source_writer_readiness_artifact_count": int(readiness.get("artifact_count", 0)),
+        "source_writer_readiness_closure_contract_count": int(readiness.get("closure_contract_count", 0)),
+        "source_writer_readiness_validation_errors": list(readiness.get("validation_errors", [])),
+        "source_writer_allowed": False,
+        "may_write_src_allowed": False,
+        "writes_src": False,
+        "bundles": bundles,
+        "validation_errors": [],
+        "notes": [
+            "Repeated-row source bundle preview is a no-write source compiler prototype.",
+            "It groups readiness closure_contract evidence for dry-run review only.",
+            "It does not emit loadable EU5 source and does not authorize AI-generated src writes.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_source_bundle_preview(report)
+    return report
+
+
+def _source_bundle_forbidden_ready_paths(value: Any, path: str = "") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            key_text = str(key)
+            normalized_key = key_text.strip().lower().replace("-", "_")
+            child_path = f"{path}.{key_text}" if path else key_text
+            if normalized_key in {"source_ready", "source_ready_allowed", "verified", "backend_ready"} and child is True:
+                paths.append(child_path)
+            if normalized_key.endswith("status") and _readiness_status_is_forbidden_ready(child):
+                paths.append(child_path)
+            paths.extend(_source_bundle_forbidden_ready_paths(child, child_path))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            paths.extend(_source_bundle_forbidden_ready_paths(child, f"{path}[{index}]"))
+    return paths
+
+
+def _source_bundle_true_flag_paths(value: Any, flag: str, path: str = "") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            key_text = str(key)
+            child_path = f"{path}.{key_text}" if path else key_text
+            if key_text == flag and child is True:
+                paths.append(child_path)
+            paths.extend(_source_bundle_true_flag_paths(child, flag, child_path))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            paths.extend(_source_bundle_true_flag_paths(child, flag, f"{path}[{index}]"))
+    return paths
+
+
+def _validate_source_bundle_placeholder(
+    *,
+    pilot_key: str,
+    family: str,
+    artifact_kind: str,
+    placeholder: Any,
+) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(placeholder, dict):
+        return [f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder missing"]
+    for flag, expected in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS.items():
+        if placeholder.get(flag) is not expected:
+            errors.append(f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder missing no-write flag {flag}")
+    if str(placeholder.get("placeholder_family", "")) != family:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder family mismatch")
+    if str(placeholder.get("artifact_kind", "")) != artifact_kind:
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder artifact mismatch")
+    if not str(placeholder.get("future_source_target_path", "")).startswith("src/"):
+        errors.append(f"{pilot_key}: artifact {artifact_kind} {family} source body placeholder missing future target path")
+    return errors
+
+
+def _validate_source_bundle_no_write_boundary(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    if value.get("source_ready") is not False:
+        errors.append(f"{context} source_ready must be false")
+    if value.get("source_writer_allowed") is not False:
+        errors.append(f"{context} source_writer_allowed must be false")
+    if value.get("may_write_src") is not False:
+        errors.append(f"{context} may_write_src must be false")
+    if value.get("writes_src") is not False:
+        errors.append(f"{context} writes_src must be false")
+
+
+def validate_repeated_entity_row_source_bundle_preview(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("bundle_preview_only") is not True:
+        errors.append("source bundle preview report must declare bundle_preview_only: true")
+    if int(report.get("source_writer_readiness_artifact_count", -1)) != 177:
+        errors.append("source bundle preview must be based on the 177-artifact readiness ledger")
+    if int(report.get("source_writer_readiness_closure_contract_count", -1)) != 177:
+        errors.append("source bundle preview must be based on 177 closure contracts")
+    if report.get("source_writer_readiness_validation_errors"):
+        errors.append("source bundle preview source-writer readiness validation must be clean")
+    if report.get("source_writer_allowed") is not False:
+        errors.append("source bundle preview report source_writer_allowed must be false")
+    if report.get("may_write_src_allowed") is not False:
+        errors.append("source bundle preview report may_write_src_allowed must be false")
+    if report.get("writes_src") is not False:
+        errors.append("source bundle preview report writes_src must be false")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"source bundle preview must not claim source_ready/verified/backend_ready at {path}")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"source bundle preview {flag} must be false at {path}")
+
+    bundles = report.get("bundles") if isinstance(report.get("bundles"), list) else []
+    bundle_by_key = {
+        str(bundle.get("key", "")): bundle
+        for bundle in bundles
+        if isinstance(bundle, dict)
+    }
+    expected_pilots = set(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_EXPECTED_PILOTS)
+    actual_pilots = set(bundle_by_key)
+    missing_pilots = sorted(expected_pilots - actual_pilots)
+    extra_pilots = sorted(actual_pilots - expected_pilots)
+    if missing_pilots:
+        errors.append(f"source bundle preview missing pilot bundle(s): {', '.join(missing_pilots)}")
+    if extra_pilots:
+        errors.append(f"source bundle preview has unexpected pilot bundle(s): {', '.join(extra_pilots)}")
+    if int(report.get("bundle_count", -1)) != len(bundles):
+        errors.append("source bundle preview bundle_count mismatch")
+    if int(report.get("bundle_count", -1)) != 4:
+        errors.append(f"expected 4 repeated-row source bundles, got {report.get('bundle_count')}")
+
+    global_artifacts: list[dict[str, Any]] = []
+    global_family_counts = {family: 0 for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES}
+    for bundle in bundles:
+        if not isinstance(bundle, dict):
+            errors.append("source bundle preview bundle must be a mapping")
+            continue
+        pilot_key = str(bundle.get("key", "<unknown>"))
+        if bundle.get("bundle_preview_only") is not True:
+            errors.append(f"{pilot_key}: source bundle must declare bundle_preview_only: true")
+        if bundle.get("source_writer_allowed") is not False:
+            errors.append(f"{pilot_key}: source bundle source_writer_allowed must be false")
+        if bundle.get("may_write_src_allowed") is not False:
+            errors.append(f"{pilot_key}: source bundle may_write_src_allowed must be false")
+        if bundle.get("writes_src") is not False:
+            errors.append(f"{pilot_key}: source bundle writes_src must be false")
+
+        sections = bundle.get("sections") if isinstance(bundle.get("sections"), dict) else {}
+        missing_sections = [
+            family
+            for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+            if family not in sections
+        ]
+        if missing_sections:
+            errors.append(f"{pilot_key}: source bundle missing section(s): {', '.join(missing_sections)}")
+
+        bundle_artifacts: list[dict[str, Any]] = []
+        bundle_blocker_summary: dict[str, int] = {}
+        bundle_family_counts: dict[str, int] = {}
+        bundle_closure_count = 0
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES:
+            section = sections.get(family)
+            if not isinstance(section, dict):
+                continue
+            if section.get("family") != family:
+                errors.append(f"{pilot_key}: source bundle section {family} family mismatch")
+            _validate_source_bundle_no_write_boundary(
+                context=f"{pilot_key}: section {family}",
+                value=section,
+                errors=errors,
+            )
+            section_artifacts = section.get("artifacts") if isinstance(section.get("artifacts"), list) else []
+            section_artifacts = [
+                artifact
+                for artifact in section_artifacts
+                if isinstance(artifact, dict)
+            ]
+            if family == "listener" and pilot_key != "unique_alhambra":
+                if section_artifacts:
+                    errors.append(f"{pilot_key}: non-Alhambra pilot must not include listener artifact")
+                absence = section.get("listener_artifact_absence")
+                if not isinstance(absence, dict):
+                    errors.append(f"{pilot_key}: listener section missing explicit listener artifact absence")
+                else:
+                    if absence.get("explicit") is not True or absence.get("forged_artifact") is not False:
+                        errors.append(f"{pilot_key}: listener section must explicitly record no forged listener artifact")
+                    for flag, expected in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS.items():
+                        if absence.get(flag) is not expected:
+                            errors.append(f"{pilot_key}: listener absence missing no-write flag {flag}")
+            if family == "listener" and pilot_key == "unique_alhambra":
+                if len(section_artifacts) != 1 or section_artifacts[0].get("artifact_kind") != "listener_war_integration":
+                    errors.append("unique_alhambra: source bundle missing listener_war_integration artifact")
+
+            closure_refs = [artifact.get("closure_contract_ref") for artifact in section_artifacts]
+            expected_refs = [
+                ref
+                for ref in closure_refs
+                if isinstance(ref, dict)
+            ]
+            expected_target_paths = sorted(
+                {
+                    str(artifact.get("future_source_target_path", ""))
+                    for artifact in section_artifacts
+                    if str(artifact.get("future_source_target_path", "")).strip()
+                }
+            )
+            expected_validations = sorted(
+                {
+                    validation
+                    for artifact in section_artifacts
+                    for validation in _string_refs(artifact.get("required_validations"))
+                }
+            )
+            expected_blockers = sorted(
+                {
+                    blocker
+                    for artifact in section_artifacts
+                    for blocker in _string_refs(artifact.get("unresolved_writer_blockers"))
+                }
+            )
+            expected_blocker_summary = _repeated_row_source_bundle_blocker_summary(section_artifacts)
+            if int(section.get("artifact_count", -1)) != len(section_artifacts):
+                errors.append(f"{pilot_key}: section {family} artifact_count mismatch")
+            if int(section.get("closure_contract_count", -1)) != len(section_artifacts):
+                errors.append(f"{pilot_key}: section {family} closure_contract_count mismatch")
+            if section.get("closure_contract_refs") != expected_refs:
+                errors.append(f"{pilot_key}: section {family} closure_contract_refs mismatch")
+            if section.get("future_target_paths") != expected_target_paths:
+                errors.append(f"{pilot_key}: section {family} future target paths mismatch")
+            if section.get("required_validations") != expected_validations:
+                errors.append(f"{pilot_key}: section {family} required validations mismatch")
+            if section.get("unresolved_writer_blockers") != expected_blockers:
+                errors.append(f"{pilot_key}: section {family} unresolved writer blockers mismatch")
+            if section.get("blocker_summary") != expected_blocker_summary:
+                errors.append(f"{pilot_key}: section {family} blocker summary mismatch")
+            if int(section.get("source_ready_count", -1)) != 0:
+                errors.append(f"{pilot_key}: section {family} source_ready_count must be 0")
+            if int(section.get("source_writer_allowed_count", -1)) != 0:
+                errors.append(f"{pilot_key}: section {family} source_writer_allowed_count must be 0")
+            if int(section.get("may_write_src_count", -1)) != 0:
+                errors.append(f"{pilot_key}: section {family} may_write_src_count must be 0")
+            if int(section.get("writes_src_count", -1)) != 0:
+                errors.append(f"{pilot_key}: section {family} writes_src_count must be 0")
+
+            expected_previews = [
+                artifact.get("source_body_preview")
+                for artifact in section_artifacts
+                if isinstance(artifact.get("source_body_preview"), dict)
+            ]
+            expected_placeholders = [
+                artifact.get("source_body_placeholder")
+                for artifact in section_artifacts
+                if isinstance(artifact.get("source_body_placeholder"), dict)
+            ]
+            if section.get("source_body_previews") != expected_previews:
+                errors.append(f"{pilot_key}: section {family} source body previews mismatch")
+            if section.get("source_body_placeholders") != expected_placeholders:
+                errors.append(f"{pilot_key}: section {family} source body placeholders mismatch")
+
+            for artifact in section_artifacts:
+                artifact_kind = str(artifact.get("artifact_kind", "<unknown>"))
+                _validate_source_bundle_no_write_boundary(
+                    context=f"{pilot_key}: artifact {artifact_kind}",
+                    value=artifact,
+                    errors=errors,
+                )
+                if artifact.get("pilot_key") != pilot_key:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} pilot_key mismatch")
+                if artifact.get("contract_family") != family:
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} contract_family mismatch")
+                if _readiness_status_is_forbidden_ready(artifact.get("readiness_status")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle readiness must stay blocked")
+                if str(artifact.get("readiness_status", "")) != "blocked":
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle readiness_status must be blocked")
+                if _readiness_status_is_forbidden_ready(artifact.get("current_contract_status")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle must not be source-ready")
+                if _readiness_status_is_forbidden_ready(artifact.get("closure_readiness_status")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} closure readiness must stay blocked")
+                if not _string_refs(artifact.get("required_validations")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle missing required validations")
+                if not _string_refs(artifact.get("unresolved_writer_blockers")):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle missing unresolved writer blockers")
+                ref = artifact.get("closure_contract_ref")
+                if not isinstance(ref, dict):
+                    errors.append(f"{pilot_key}: artifact {artifact_kind} source bundle missing closure_contract_ref")
+                else:
+                    if ref.get("pilot_key") != pilot_key or ref.get("artifact_kind") != artifact_kind:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} closure_contract_ref mismatch")
+                    if ref.get("contract_family") != family:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} closure_contract_ref family mismatch")
+                    if ref.get("future_source_target_path") != artifact.get("future_source_target_path"):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} future target path mismatch")
+                    if not str(ref.get("future_source_target_path", "")).startswith("src/"):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} closure_contract_ref missing future target path")
+                if family == "event":
+                    body = artifact.get("source_body_preview")
+                    if not isinstance(body, dict) or body.get("kind") != "country_event_preview":
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} event source body preview missing")
+                    elif body.get("no_row_state_write") is not True or body.get("no_source_ready") is not True:
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} event source body preview lost no-write flags")
+                elif family == "localization":
+                    body = artifact.get("source_body_preview")
+                    if not isinstance(body, dict) or body.get("kind") != "localization_key_plan_preview":
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} localization source body preview missing")
+                    elif not isinstance(body.get("loc_key_plan"), list) or not body.get("loc_key_plan"):
+                        errors.append(f"{pilot_key}: artifact {artifact_kind} localization source body preview missing loc key plan")
+                    else:
+                        for flag, expected in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS.items():
+                            if body.get(flag) is not expected:
+                                errors.append(
+                                    f"{pilot_key}: artifact {artifact_kind} localization source body preview missing no-write flag {flag}"
+                                )
+                else:
+                    errors.extend(
+                        _validate_source_bundle_placeholder(
+                            pilot_key=pilot_key,
+                            family=family,
+                            artifact_kind=artifact_kind,
+                            placeholder=artifact.get("source_body_placeholder"),
+                        )
+                    )
+
+            section_blocker_summary = expected_blocker_summary
+            for blocker, count in section_blocker_summary.items():
+                bundle_blocker_summary[blocker] = bundle_blocker_summary.get(blocker, 0) + count
+            bundle_artifacts.extend(section_artifacts)
+            bundle_family_counts[family] = len(section_artifacts)
+            bundle_closure_count += len(section_artifacts)
+
+        if int(bundle.get("artifact_count", -1)) != len(bundle_artifacts):
+            errors.append(f"{pilot_key}: source bundle artifact_count mismatch")
+        if int(bundle.get("closure_contract_count", -1)) != bundle_closure_count:
+            errors.append(f"{pilot_key}: source bundle closure_contract_count mismatch")
+        expected_family_summary = {
+            family: bundle_family_counts.get(family, 0)
+            for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+        }
+        if bundle.get("family_summary") != expected_family_summary:
+            errors.append(f"{pilot_key}: source bundle family_summary mismatch")
+        if bundle.get("blocker_summary") != dict(sorted(bundle_blocker_summary.items())):
+            errors.append(f"{pilot_key}: source bundle blocker_summary mismatch")
+        if int(bundle.get("source_ready_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source bundle source_ready_count must be 0")
+        if int(bundle.get("source_writer_allowed_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source bundle source_writer_allowed_count must be 0")
+        if int(bundle.get("may_write_src_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source bundle may_write_src_count must be 0")
+        if int(bundle.get("writes_src_count", -1)) != 0:
+            errors.append(f"{pilot_key}: source bundle writes_src_count must be 0")
+        global_artifacts.extend(bundle_artifacts)
+        for family, count in expected_family_summary.items():
+            global_family_counts[family] += count
+
+    if int(report.get("artifact_count", -1)) != len(global_artifacts):
+        errors.append("source bundle preview artifact_count mismatch")
+    if int(report.get("artifact_count", -1)) != 177:
+        errors.append(f"expected 177 repeated-row source bundle artifacts, got {report.get('artifact_count')}")
+    if int(report.get("closure_contract_count", -1)) != len(global_artifacts):
+        errors.append("source bundle preview closure_contract_count mismatch")
+    if int(report.get("closure_contract_count", -1)) != 177:
+        errors.append(f"expected 177 repeated-row source bundle closure contracts, got {report.get('closure_contract_count')}")
+    if report.get("family_summary") != dict(sorted(global_family_counts.items())):
+        errors.append("source bundle preview family_summary mismatch")
+    for family, expected_count in REPEATED_ENTITY_ROW_SOURCE_WRITER_EXPECTED_FAMILY_COUNTS.items():
+        if global_family_counts[family] != expected_count:
+            errors.append(f"expected {expected_count} repeated-row {family} source bundle artifacts, got {global_family_counts[family]}")
+    if int(report.get("source_ready_count", -1)) != 0:
+        errors.append("source bundle preview source_ready_count must be 0")
+    if int(report.get("source_writer_allowed_count", -1)) != 0:
+        errors.append("source bundle preview source_writer_allowed_count must be 0")
+    if int(report.get("may_write_src_count", -1)) != 0:
+        errors.append("source bundle preview may_write_src_count must be 0")
+    if int(report.get("writes_src_count", -1)) != 0:
+        errors.append("source bundle preview writes_src_count must be 0")
+    expected_blocker_summary = _repeated_row_source_bundle_blocker_summary(global_artifacts)
+    if report.get("blocker_summary") != expected_blocker_summary:
+        errors.append("source bundle preview blocker_summary mismatch")
+    expected_blocker_count = sum(
+        len(_string_refs(artifact.get("unresolved_writer_blockers")))
+        for artifact in global_artifacts
+    )
+    if int(report.get("blocker_count", -1)) != expected_blocker_count:
+        errors.append("source bundle preview blocker_count mismatch")
+    return errors
+
+
+def _alhambra_source_body_candidate_flags() -> dict[str, bool]:
+    return dict(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS)
+
+
+def _alhambra_source_body_candidate_blocker_summary(candidates: list[dict[str, Any]]) -> dict[str, int]:
+    summary: dict[str, int] = {}
+    for candidate in candidates:
+        for blocker in _string_refs(candidate.get("unresolved_blockers")):
+            summary[blocker] = summary.get(blocker, 0) + 1
+    return dict(sorted(summary.items()))
+
+
+def _alhambra_source_body_candidate_draft(
+    *,
+    family: str,
+    artifact: dict[str, Any],
+) -> dict[str, Any]:
+    context = artifact.get("closure_candidate_context") if isinstance(artifact.get("closure_candidate_context"), dict) else {}
+    flags = _alhambra_source_body_candidate_flags()
+    future_target = str(artifact.get("future_source_target_path", ""))
+    common = {
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed": False,
+        "future_source_target_path": future_target,
+        "future_source_target_path_pattern": str(artifact.get("future_source_target_path_pattern", "")),
+        "source_type": str(context.get("source_type", "")),
+        "no_write_placeholder_flags": flags,
+    }
+    if family == "event":
+        preview = deepcopy(artifact.get("source_body_preview", {}) or {})
+        return {
+            "kind": "country_event_structured_body_candidate",
+            "source_body_preview": preview,
+            "namespace": str(preview.get("namespace", context.get("namespace", ""))),
+            "event_id": preview.get("event_id", context.get("preview_event_id")),
+            "localization_key_handoff": deepcopy(context.get("localization_key_handoff", {}) or {}),
+            "option_effect_handoff": deepcopy(context.get("option_effect_handoff", {}) or {}),
+            "safety_notes": deepcopy(context.get("safety_notes", {}) or {}),
+            **common,
+        }
+    if family == "localization":
+        preview = deepcopy(artifact.get("source_body_preview", {}) or {})
+        return {
+            "kind": "localization_structured_body_candidate",
+            "source_body_preview": preview,
+            "loc_key_namespace": str(preview.get("loc_key_namespace", "")),
+            "loc_key_plan": deepcopy(preview.get("loc_key_plan", []) or []),
+            "event_key_handoff": deepcopy(preview.get("event_key_handoff", {}) or {}),
+            "language_ownership_boundary": deepcopy(preview.get("language_ownership_boundary", {}) or {}),
+            **common,
+        }
+
+    placeholder = deepcopy(artifact.get("source_body_placeholder", {}) or {})
+    if family == "effect":
+        draft = {
+            "kind": "scripted_effect_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "future_effect_name_plan": deepcopy(context.get("future_effect_name_plan", {}) or {}),
+            "effect_operation_coverage": deepcopy(context.get("effect_operation_coverage", {}) or {}),
+            "row_state_schema_boundary": deepcopy(context.get("row_state_schema_boundary", {}) or {}),
+            "aggregate_refresh_boundary": deepcopy(context.get("aggregate_refresh_boundary", {}) or {}),
+            "cleanup_write_handoff": deepcopy(context.get("cleanup_write_handoff", {}) or {}),
+        }
+    elif family == "cleanup":
+        draft = {
+            "kind": "cleanup_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "cleanup_lifecycle_scope": str(context.get("cleanup_lifecycle_scope", "")),
+            "cleanup_scope_plan": deepcopy(context.get("cleanup_scope_plan", {}) or {}),
+            "cleanup_coverage": deepcopy(context.get("cleanup_coverage", {}) or {}),
+            "ownership_reset_branch_boundary": deepcopy(context.get("ownership_reset_branch_boundary", {}) or {}),
+            "row_entity_lifecycle_coverage": deepcopy(context.get("row_entity_lifecycle_coverage", {}) or {}),
+            "aggregate_projection_boundary": deepcopy(context.get("aggregate_projection_boundary", {}) or {}),
+        }
+    elif family == "trigger":
+        draft = {
+            "kind": "scripted_trigger_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "future_trigger_name_plan": deepcopy(context.get("future_trigger_name_plan", {}) or {}),
+            "condition_group_coverage": deepcopy(context.get("condition_group_coverage", {}) or {}),
+            "forbidden_write_paths": deepcopy(context.get("forbidden_write_paths", {}) or {}),
+            "aggregate_projection_boundary": deepcopy(context.get("aggregate_projection_boundary", {}) or {}),
+        }
+    elif family == "gui":
+        draft = {
+            "kind": "gui_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "fixed_row_widget_plan": deepcopy(context.get("fixed_row_widget_plan", {}) or {}),
+            "per_row_variable_binding_plan": deepcopy(context.get("per_row_variable_binding_plan", {}) or {}),
+            "actor_checklist_incident_row_policy": deepcopy(
+                context.get("actor_checklist_incident_row_policy", {}) or {}
+            ),
+            "tooltip_localization_linkage": deepcopy(context.get("tooltip_localization_linkage", {}) or {}),
+            "gui_event_localization_key_linkage": deepcopy(
+                context.get("gui_event_localization_key_linkage", {}) or {}
+            ),
+            "aggregate_projection_boundary": deepcopy(context.get("aggregate_projection_boundary", {}) or {}),
+            "row_entity_refs": deepcopy(context.get("row_entity_refs", {}) or {}),
+        }
+    elif family == "listener":
+        draft = {
+            "kind": "listener_on_action_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+            "source_body_preview": deepcopy(context.get("source_body_preview", {}) or {}),
+            "on_action_target_path_plan": deepcopy(context.get("on_action_target_path_plan", {}) or {}),
+            "on_action_hook_linkage_plan": deepcopy(context.get("on_action_hook_linkage_plan", {}) or {}),
+            "selected_ritual_trigger_linkage": deepcopy(context.get("selected_ritual_trigger_linkage", {}) or {}),
+            "war_scope_availability_persistence_plan": deepcopy(
+                context.get("war_scope_availability_persistence_plan", {}) or {}
+            ),
+            "row_state_handoff_boundary": deepcopy(context.get("row_state_handoff_boundary", {}) or {}),
+            "listener_artifact_scope": str(context.get("listener_artifact_scope", "")),
+        }
+    else:
+        draft = {
+            "kind": f"{family}_structured_body_candidate",
+            "source_body_placeholder": placeholder,
+        }
+    return {
+        **draft,
+        **common,
+    }
+
+
+def _alhambra_source_body_candidate_for_artifact(
+    *,
+    family: str,
+    artifact: dict[str, Any],
+) -> dict[str, Any]:
+    flags = _alhambra_source_body_candidate_flags()
+    closure_ref = deepcopy(artifact.get("closure_contract_ref", {}) or {})
+    candidate = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": family,
+        "artifact_kind": str(artifact.get("artifact_kind", "")),
+        "row_set_key": str(artifact.get("row_set_key", "")),
+        "closure_contract_ref": closure_ref,
+        "future_source_target_path": str(artifact.get("future_source_target_path", "")),
+        "future_source_target_path_pattern": str(artifact.get("future_source_target_path_pattern", "")),
+        "validation_refs": _string_refs(artifact.get("required_validations")),
+        "unresolved_blockers": sorted(set(_string_refs(artifact.get("unresolved_writer_blockers")))),
+        "blocker_summary": dict(artifact.get("blocker_summary", {}) or {}),
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": flags,
+        "structured_body_candidate": _alhambra_source_body_candidate_draft(
+            family=family,
+            artifact=artifact,
+        ),
+        **flags,
+    }
+    if family == "event" and isinstance(artifact.get("source_body_preview"), dict):
+        candidate["source_body_preview"] = deepcopy(artifact.get("source_body_preview", {}) or {})
+    if family == "localization" and isinstance(artifact.get("source_body_preview"), dict):
+        candidate["source_body_preview"] = deepcopy(artifact.get("source_body_preview", {}) or {})
+    return candidate
+
+
+def _alhambra_source_body_candidate_section(
+    *,
+    family: str,
+    source_bundle_section: dict[str, Any],
+) -> dict[str, Any]:
+    artifacts = [
+        artifact
+        for artifact in source_bundle_section.get("artifacts", []) or []
+        if isinstance(artifact, dict)
+    ]
+    candidates = [
+        _alhambra_source_body_candidate_for_artifact(family=family, artifact=artifact)
+        for artifact in artifacts
+    ]
+    closure_refs = [candidate["closure_contract_ref"] for candidate in candidates]
+    future_target_paths = sorted(
+        {
+            str(candidate.get("future_source_target_path", ""))
+            for candidate in candidates
+            if str(candidate.get("future_source_target_path", "")).strip()
+        }
+    )
+    validation_refs = sorted(
+        {
+            validation
+            for candidate in candidates
+            for validation in _string_refs(candidate.get("validation_refs"))
+        }
+    )
+    unresolved_blockers = sorted(
+        {
+            blocker
+            for candidate in candidates
+            for blocker in _string_refs(candidate.get("unresolved_blockers"))
+        }
+    )
+    return {
+        "family": family,
+        "source_body_candidate_only": True,
+        "bundle_preview_input_only": True,
+        "artifact_count": len(candidates),
+        "closure_contract_count": len(closure_refs),
+        "closure_contract_refs": closure_refs,
+        "future_target_paths": future_target_paths,
+        "validation_refs": validation_refs,
+        "required_validations": validation_refs,
+        "unresolved_blockers": unresolved_blockers,
+        "unresolved_writer_blockers": unresolved_blockers,
+        "blocker_summary": _alhambra_source_body_candidate_blocker_summary(candidates),
+        "structured_body_candidates": candidates,
+        "source_ready_count": sum(1 for candidate in candidates if candidate.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for candidate in candidates if candidate.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for candidate in candidates if candidate.get("may_write_src") is True),
+        "writes_src_count": sum(1 for candidate in candidates if candidate.get("writes_src") is True),
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+    }
+
+
+def _alhambra_source_body_candidate_from_bundle_preview(source_bundle_preview: dict[str, Any]) -> dict[str, Any]:
+    bundle = next(
+        (
+            entry
+            for entry in source_bundle_preview.get("bundles", []) or []
+            if isinstance(entry, dict)
+            and entry.get("key") == REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT
+        ),
+        {},
+    )
+    bundle_sections = bundle.get("sections") if isinstance(bundle.get("sections"), dict) else {}
+    sections = {
+        family: _alhambra_source_body_candidate_section(
+            family=family,
+            source_bundle_section=bundle_sections.get(family, {}) if isinstance(bundle_sections, dict) else {},
+        )
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+    }
+    candidates = [
+        candidate
+        for section in sections.values()
+        for candidate in section.get("structured_body_candidates", []) or []
+        if isinstance(candidate, dict)
+    ]
+    family_summary = {
+        family: int(section.get("artifact_count", 0))
+        for family, section in sections.items()
+    }
+    source_ready_count = sum(1 for candidate in candidates if candidate.get("source_ready") is True)
+    source_writer_allowed_count = sum(1 for candidate in candidates if candidate.get("source_writer_allowed") is True)
+    may_write_src_count = sum(1 for candidate in candidates if candidate.get("may_write_src") is True)
+    writes_src_count = sum(1 for candidate in candidates if candidate.get("writes_src") is True)
+    blocker_summary = _alhambra_source_body_candidate_blocker_summary(candidates)
+    summary = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family_count": len(sections),
+        "artifact_count": len(candidates),
+        "closure_contract_count": sum(int(section.get("closure_contract_count", 0)) for section in sections.values()),
+        "family_summary": family_summary,
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "blocker_summary": blocker_summary,
+    }
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_body_candidate_only": True,
+        "bundle_preview_input_only": True,
+        "source_bundle_preview_ref": {
+            "bundle_count": int(source_bundle_preview.get("bundle_count", 0)),
+            "artifact_count": int(source_bundle_preview.get("artifact_count", 0)),
+            "closure_contract_count": int(source_bundle_preview.get("closure_contract_count", 0)),
+        },
+        "source_bundle_preview_validation_errors": list(source_bundle_preview.get("validation_errors", []) or []),
+        "summary": summary,
+        "family_count": len(sections),
+        "artifact_count": len(candidates),
+        "closure_contract_count": summary["closure_contract_count"],
+        "family_summary": family_summary,
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "blocker_summary": blocker_summary,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+        "sections": sections,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra source body candidate is a no-write vertical slice over the source bundle preview.",
+            "It is not source-ready, not loadable EU5 source, and not permission to write src/.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_body_candidate(report)
+    return report
+
+
+def repeated_entity_row_alhambra_source_body_candidate_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(payload, statuses=statuses)
+    return _alhambra_source_body_candidate_from_bundle_preview(source_bundle_preview)
+
+
+def _validate_alhambra_source_body_candidate_flags(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} missing no-write candidate flag {flag}")
+    placeholder_flags = value.get("no_write_placeholder_flags")
+    if not isinstance(placeholder_flags, dict):
+        errors.append(f"{context} missing no-write placeholder flags")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_FLAGS.items():
+        if placeholder_flags.get(flag) is not expected:
+            errors.append(f"{context} no-write placeholder flag {flag} mismatch")
+
+
+def _validate_alhambra_source_body_placeholder_flags(
+    *,
+    context: str,
+    value: Any,
+    errors: list[str],
+) -> None:
+    if not isinstance(value, dict):
+        errors.append(f"{context} missing source body placeholder")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_PLACEHOLDER_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} source body placeholder missing no-write flag {flag}")
+
+
+def validate_repeated_entity_row_alhambra_source_body_candidate(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source body candidate pilot_key must be unique_alhambra")
+    if report.get("source_body_candidate_only") is not True:
+        errors.append("Alhambra source body candidate must declare source_body_candidate_only: true")
+    if report.get("bundle_preview_input_only") is not True:
+        errors.append("Alhambra source body candidate must declare bundle_preview_input_only: true")
+    if report.get("source_bundle_preview_validation_errors"):
+        errors.append("Alhambra source body candidate source bundle preview validation must be clean")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"Alhambra source body candidate must not claim source_ready/verified/backend_ready at {path}")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source body candidate {flag} must be false at {path}")
+
+    if int(report.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+        errors.append("Alhambra source body candidate family_count must be 7")
+    if int(report.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append("Alhambra source body candidate artifact_count must be 45")
+    _validate_alhambra_source_body_candidate_flags(context="Alhambra source body candidate report", value=report, errors=errors)
+
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    if not summary:
+        errors.append("Alhambra source body candidate summary missing")
+    else:
+        if summary.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source body candidate summary pilot_key must be unique_alhambra")
+        if int(summary.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+            errors.append("Alhambra source body candidate summary family_count must be 7")
+        if int(summary.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source body candidate summary artifact_count must be 45")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(summary.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source body candidate summary {count_key} must be 0")
+
+    sections = report.get("sections") if isinstance(report.get("sections"), dict) else {}
+    missing_sections = [
+        family
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+        if family not in sections
+    ]
+    if missing_sections:
+        errors.append(f"Alhambra source body candidate missing family section(s): {', '.join(missing_sections)}")
+
+    all_candidates: list[dict[str, Any]] = []
+    family_summary: dict[str, int] = {}
+    for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES:
+        section = sections.get(family)
+        if not isinstance(section, dict):
+            continue
+        if section.get("family") != family:
+            errors.append(f"Alhambra source body candidate section {family} family mismatch")
+        if section.get("source_body_candidate_only") is not True:
+            errors.append(f"Alhambra source body candidate section {family} must be candidate-only")
+        if section.get("bundle_preview_input_only") is not True:
+            errors.append(f"Alhambra source body candidate section {family} must be bundle-preview input only")
+        _validate_alhambra_source_body_candidate_flags(
+            context=f"Alhambra source body candidate section {family}",
+            value=section,
+            errors=errors,
+        )
+
+        candidates = section.get("structured_body_candidates") if isinstance(section.get("structured_body_candidates"), list) else []
+        candidates = [candidate for candidate in candidates if isinstance(candidate, dict)]
+        family_summary[family] = len(candidates)
+        if int(section.get("artifact_count", -1)) != len(candidates):
+            errors.append(f"Alhambra source body candidate section {family} artifact_count mismatch")
+        if int(section.get("closure_contract_count", -1)) != len(candidates):
+            errors.append(f"Alhambra source body candidate section {family} closure_contract_count mismatch")
+
+        expected_refs = [candidate.get("closure_contract_ref") for candidate in candidates]
+        expected_target_paths = sorted(
+            {
+                str(candidate.get("future_source_target_path", ""))
+                for candidate in candidates
+                if str(candidate.get("future_source_target_path", "")).strip()
+            }
+        )
+        expected_validation_refs = sorted(
+            {
+                validation
+                for candidate in candidates
+                for validation in _string_refs(candidate.get("validation_refs"))
+            }
+        )
+        expected_blockers = sorted(
+            {
+                blocker
+                for candidate in candidates
+                for blocker in _string_refs(candidate.get("unresolved_blockers"))
+            }
+        )
+        expected_blocker_summary = _alhambra_source_body_candidate_blocker_summary(candidates)
+        if section.get("closure_contract_refs") != expected_refs:
+            errors.append(f"Alhambra source body candidate section {family} closure refs mismatch")
+        if section.get("future_target_paths") != expected_target_paths:
+            errors.append(f"Alhambra source body candidate section {family} future target paths mismatch")
+        if section.get("validation_refs") != expected_validation_refs:
+            errors.append(f"Alhambra source body candidate section {family} validation refs mismatch")
+        if section.get("unresolved_blockers") != expected_blockers:
+            errors.append(f"Alhambra source body candidate section {family} unresolved blockers mismatch")
+        if section.get("blocker_summary") != expected_blocker_summary:
+            errors.append(f"Alhambra source body candidate section {family} blocker summary mismatch")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(section.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source body candidate section {family} {count_key} must be 0")
+
+        for candidate in candidates:
+            artifact_kind = str(candidate.get("artifact_kind", "<unknown>"))
+            context = f"Alhambra source body candidate {family} artifact {artifact_kind}"
+            _validate_alhambra_source_body_candidate_flags(context=context, value=candidate, errors=errors)
+            if candidate.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{context} pilot_key must be unique_alhambra")
+            if candidate.get("family") != family:
+                errors.append(f"{context} family mismatch")
+            if not str(candidate.get("future_source_target_path", "")).startswith("src/"):
+                errors.append(f"{context} missing future target path")
+            if not _string_refs(candidate.get("validation_refs")):
+                errors.append(f"{context} missing validation refs")
+            if not _string_refs(candidate.get("unresolved_blockers")):
+                errors.append(f"{context} missing unresolved blockers")
+            ref = candidate.get("closure_contract_ref")
+            if not isinstance(ref, dict):
+                errors.append(f"{context} missing closure contract ref")
+            else:
+                if ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                    errors.append(f"{context} closure ref pilot must be unique_alhambra")
+                if ref.get("contract_family") != family:
+                    errors.append(f"{context} closure ref family mismatch")
+                if ref.get("artifact_kind") != artifact_kind:
+                    errors.append(f"{context} closure ref artifact mismatch")
+                if ref.get("future_source_target_path") != candidate.get("future_source_target_path"):
+                    errors.append(f"{context} closure ref future target path mismatch")
+
+            body = candidate.get("structured_body_candidate")
+            if not isinstance(body, dict):
+                errors.append(f"{context} missing structured body candidate")
+                continue
+            _validate_alhambra_source_body_candidate_flags(context=f"{context} body", value=body, errors=errors)
+            if body.get("body_emitted") is not False:
+                errors.append(f"{context} body_emitted must be false")
+
+            if family == "event":
+                preview = body.get("source_body_preview")
+                if not isinstance(preview, dict) or preview.get("kind") != "country_event_preview":
+                    errors.append(f"{context} must reuse event source_body_preview")
+            elif family == "localization":
+                preview = body.get("source_body_preview")
+                if not isinstance(preview, dict) or preview.get("kind") != "localization_key_plan_preview":
+                    errors.append(f"{context} must reuse localization source_body_preview")
+                elif not isinstance(preview.get("loc_key_plan"), list) or not preview.get("loc_key_plan"):
+                    errors.append(f"{context} localization candidate missing loc key plan")
+            elif family in {"effect", "cleanup", "trigger", "gui"}:
+                _validate_alhambra_source_body_placeholder_flags(
+                    context=f"{context} body",
+                    value=body.get("source_body_placeholder"),
+                    errors=errors,
+                )
+            elif family == "listener":
+                _validate_alhambra_source_body_placeholder_flags(
+                    context=f"{context} body",
+                    value=body.get("source_body_placeholder"),
+                    errors=errors,
+                )
+                hook_plan = body.get("on_action_hook_linkage_plan")
+                if (
+                    not isinstance(hook_plan, dict)
+                    or hook_plan.get("linkage_only") is not True
+                    or {"on_pre_winning_war", "on_ending_war"} - set(_string_refs(hook_plan.get("hooks")))
+                ):
+                    errors.append(f"{context} listener missing on_action hook linkage")
+                trigger_linkage = body.get("selected_ritual_trigger_linkage")
+                if (
+                    not isinstance(trigger_linkage, dict)
+                    or trigger_linkage.get("selected_ritual_only") is not True
+                    or trigger_linkage.get("linkage_only") is not True
+                    or trigger_linkage.get("trigger_name")
+                    != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+                ):
+                    errors.append(f"{context} listener missing selected ritual trigger linkage")
+                war_scope_plan = body.get("war_scope_availability_persistence_plan")
+                if (
+                    not isinstance(war_scope_plan, dict)
+                    or war_scope_plan.get("persistence_contract_only") is not True
+                    or war_scope_plan.get("listener_scope_writes_allowed") is not False
+                    or war_scope_plan.get("war_scope_writes_allowed") is not False
+                    or {"on_pre_winning_war", "on_ending_war"}
+                    - set(_string_refs(war_scope_plan.get("war_scope_available_from_hooks")))
+                ):
+                    errors.append(f"{context} listener missing war-scope plan")
+        all_candidates.extend(candidates)
+
+    if int(report.get("artifact_count", -1)) != len(all_candidates):
+        errors.append("Alhambra source body candidate artifact_count mismatch")
+    if len(all_candidates) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append(
+            f"Alhambra source body candidate expected 45 artifacts, got {len(all_candidates)}"
+        )
+    if report.get("family_summary") != family_summary:
+        errors.append("Alhambra source body candidate family_summary mismatch")
+    expected_blocker_summary = _alhambra_source_body_candidate_blocker_summary(all_candidates)
+    if report.get("blocker_summary") != expected_blocker_summary:
+        errors.append("Alhambra source body candidate blocker_summary mismatch")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if int(report.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source body candidate {count_key} must be 0")
+    if summary:
+        if summary.get("family_summary") != family_summary:
+            errors.append("Alhambra source body candidate summary family_summary mismatch")
+        if summary.get("blocker_summary") != expected_blocker_summary:
+            errors.append("Alhambra source body candidate summary blocker_summary mismatch")
+    return errors
+
+
+def _alhambra_source_file_preview_candidate_ref(candidate: dict[str, Any]) -> dict[str, str]:
+    return {
+        "pilot_key": str(candidate.get("pilot_key", "")),
+        "family": str(candidate.get("family", "")),
+        "row_set_key": str(candidate.get("row_set_key", "")),
+        "artifact_kind": str(candidate.get("artifact_kind", "")),
+        "future_source_target_path": str(candidate.get("future_source_target_path", "")),
+    }
+
+
+def _alhambra_source_file_preview_ref_key(ref: dict[str, Any]) -> tuple[str, str, str, str]:
+    return (
+        str(ref.get("family", "")),
+        str(ref.get("row_set_key", "")),
+        str(ref.get("artifact_kind", "")),
+        str(ref.get("future_source_target_path", "")),
+    )
+
+
+def _alhambra_source_file_preview_localization_boundary(
+    *,
+    language: str,
+    target_path: str,
+) -> dict[str, Any]:
+    return {
+        "language": language,
+        "target_path": target_path,
+        "required_languages": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS),
+        "language_target_paths": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        ),
+        "english_target_path": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["english"],
+        "simp_chinese_target_path": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS[
+            "simp_chinese"
+        ],
+        "language_owner": f"src/main_menu/localization/{language}",
+        "separate_language_target": True,
+        "missing_bilingual_coverage_allowed": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
+def _alhambra_source_file_preview_target_specs(candidate: dict[str, Any]) -> list[dict[str, str | bool]]:
+    if str(candidate.get("family", "")) == "localization":
+        return [
+            {
+                "target_path": target_path,
+                "localization_language": language,
+                "source_candidate_future_target_path": str(candidate.get("future_source_target_path", "")),
+                "expanded_localization_target": True,
+            }
+            for language, target_path in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS.items()
+        ]
+    return [
+        {
+            "target_path": str(candidate.get("future_source_target_path", "")),
+            "localization_language": "",
+            "source_candidate_future_target_path": str(candidate.get("future_source_target_path", "")),
+            "expanded_localization_target": False,
+        }
+    ]
+
+
+def _alhambra_source_file_preview_section(
+    *,
+    candidate: dict[str, Any],
+    target_path: str,
+    localization_language: str = "",
+) -> dict[str, Any]:
+    flags = _alhambra_source_body_candidate_flags()
+    ref = _alhambra_source_file_preview_candidate_ref(candidate)
+    section = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": str(candidate.get("family", "")),
+        "artifact_kind": str(candidate.get("artifact_kind", "")),
+        "row_set_key": str(candidate.get("row_set_key", "")),
+        "target_path": target_path,
+        "source_candidate_future_target_path": str(candidate.get("future_source_target_path", "")),
+        "source_body_candidate_ref": ref,
+        "closure_contract_ref": deepcopy(candidate.get("closure_contract_ref", {}) or {}),
+        "validation_refs": _string_refs(candidate.get("validation_refs")),
+        "required_validations": _string_refs(candidate.get("validation_refs")),
+        "unresolved_blockers": _string_refs(candidate.get("unresolved_blockers")),
+        "unresolved_writer_blockers": _string_refs(candidate.get("unresolved_blockers")),
+        "structured_body_candidate": deepcopy(candidate.get("structured_body_candidate", {}) or {}),
+        "source_body_candidate": deepcopy(candidate),
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": flags,
+        **flags,
+    }
+    if localization_language:
+        section["localization_language"] = localization_language
+        section["localization_language_boundary"] = _alhambra_source_file_preview_localization_boundary(
+            language=localization_language,
+            target_path=target_path,
+        )
+    return section
+
+
+def _alhambra_source_file_preview_blocker_summary(sections: list[dict[str, Any]]) -> dict[str, int]:
+    summary: dict[str, int] = {}
+    for section in sections:
+        for blocker in _string_refs(section.get("unresolved_blockers")):
+            summary[blocker] = summary.get(blocker, 0) + 1
+    return dict(sorted(summary.items()))
+
+
+def _alhambra_source_file_preview_for_target(
+    *,
+    target_path: str,
+    sections: list[dict[str, Any]],
+) -> dict[str, Any]:
+    families = sorted({str(section.get("family", "")) for section in sections if str(section.get("family", ""))})
+    validation_refs = sorted(
+        {
+            validation
+            for section in sections
+            for validation in _string_refs(section.get("validation_refs"))
+        }
+    )
+    unresolved_blockers = sorted(
+        {
+            blocker
+            for section in sections
+            for blocker in _string_refs(section.get("unresolved_blockers"))
+        }
+    )
+    preview = {
+        "target_path": target_path,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_file_preview_only": True,
+        "source_body_candidate_input_only": True,
+        "families": families,
+        "family_summary": _count_by_key(sections, "family"),
+        "artifact_count": len(sections),
+        "source_body_candidate_refs": [
+            section.get("source_body_candidate_ref", {})
+            for section in sections
+            if isinstance(section, dict)
+        ],
+        "structured_body_sections": sections,
+        "validation_refs": validation_refs,
+        "required_validations": validation_refs,
+        "unresolved_blockers": unresolved_blockers,
+        "unresolved_writer_blockers": unresolved_blockers,
+        "blocker_summary": _alhambra_source_file_preview_blocker_summary(sections),
+        "source_ready_count": sum(1 for section in sections if section.get("source_ready") is True),
+        "source_writer_allowed_count": sum(1 for section in sections if section.get("source_writer_allowed") is True),
+        "may_write_src_count": sum(1 for section in sections if section.get("may_write_src") is True),
+        "writes_src_count": sum(1 for section in sections if section.get("writes_src") is True),
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+    }
+    localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+    language = next((key for key, path in localization_targets.items() if path == target_path), "")
+    if language:
+        preview["localization_language"] = language
+        preview["localization_language_boundary"] = _alhambra_source_file_preview_localization_boundary(
+            language=language,
+            target_path=target_path,
+        )
+    return preview
+
+
+def _alhambra_source_file_preview_from_body_candidate(source_body_candidate: dict[str, Any]) -> dict[str, Any]:
+    sections = source_body_candidate.get("sections") if isinstance(source_body_candidate.get("sections"), dict) else {}
+    candidates = [
+        candidate
+        for family in REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES
+        for candidate in (
+            (sections.get(family, {}) or {}).get("structured_body_candidates", [])
+            if isinstance(sections.get(family, {}), dict)
+            else []
+        )
+        if isinstance(candidate, dict)
+    ]
+    source_candidate_refs: list[dict[str, Any]] = []
+    seen_ref_keys: set[tuple[str, str, str, str]] = set()
+    sections_by_target: dict[str, list[dict[str, Any]]] = {}
+    for candidate in candidates:
+        ref = _alhambra_source_file_preview_candidate_ref(candidate)
+        ref_key = _alhambra_source_file_preview_ref_key(ref)
+        if ref_key not in seen_ref_keys:
+            source_candidate_refs.append(ref)
+            seen_ref_keys.add(ref_key)
+        for target_spec in _alhambra_source_file_preview_target_specs(candidate):
+            target_path = str(target_spec.get("target_path", ""))
+            if not target_path:
+                continue
+            sections_by_target.setdefault(target_path, []).append(
+                _alhambra_source_file_preview_section(
+                    candidate=candidate,
+                    target_path=target_path,
+                    localization_language=str(target_spec.get("localization_language", "")),
+                )
+            )
+
+    ordered_target_paths = [
+        target_path
+        for target_path in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS
+        if target_path in sections_by_target
+    ]
+    ordered_target_paths.extend(
+        sorted(
+            target_path
+            for target_path in sections_by_target
+            if target_path not in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS
+        )
+    )
+    file_previews = [
+        _alhambra_source_file_preview_for_target(
+            target_path=target_path,
+            sections=sections_by_target[target_path],
+        )
+        for target_path in ordered_target_paths
+    ]
+    family_summary = dict(source_body_candidate.get("family_summary", {}) or {})
+    source_ready_count = sum(1 for candidate in candidates if candidate.get("source_ready") is True)
+    source_writer_allowed_count = sum(1 for candidate in candidates if candidate.get("source_writer_allowed") is True)
+    may_write_src_count = sum(1 for candidate in candidates if candidate.get("may_write_src") is True)
+    writes_src_count = sum(1 for candidate in candidates if candidate.get("writes_src") is True)
+    all_file_sections = [
+        section
+        for preview in file_previews
+        for section in preview.get("structured_body_sections", []) or []
+        if isinstance(section, dict)
+    ]
+    summary = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "file_preview_count": len(file_previews),
+        "artifact_count": len(source_candidate_refs),
+        "family_count": len(family_summary),
+        "family_summary": family_summary,
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+    }
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_file_preview_only": True,
+        "source_body_candidate_input_only": True,
+        "source_body_candidate_input_ref": {
+            "pilot_key": str(source_body_candidate.get("pilot_key", "")),
+            "artifact_count": int(source_body_candidate.get("artifact_count", 0)),
+            "family_count": int(source_body_candidate.get("family_count", 0)),
+            "validation_errors": list(source_body_candidate.get("validation_errors", []) or []),
+        },
+        "source_body_candidate_validation_errors": list(source_body_candidate.get("validation_errors", []) or []),
+        "summary": summary,
+        "file_preview_count": len(file_previews),
+        "required_target_paths": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS),
+        "localization_target_paths": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        ),
+        "artifact_count": len(source_candidate_refs),
+        "source_body_candidate_ref_count": len(source_candidate_refs),
+        "source_body_candidate_refs": source_candidate_refs,
+        "file_section_count": len(all_file_sections),
+        "family_count": len(family_summary),
+        "family_summary": family_summary,
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+        "file_previews": file_previews,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra source file preview groups existing source body candidates by future target path.",
+            "It expands localization into separate English and Simplified Chinese future targets.",
+            "It is no-write contract evidence only and does not authorize src/ writes.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_file_preview(report)
+    return report
+
+
+def repeated_entity_row_alhambra_source_file_preview_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(
+        payload,
+        statuses=statuses,
+    )
+    return _alhambra_source_file_preview_from_body_candidate(source_body_candidate)
+
+
+def _validate_alhambra_source_file_preview_localization_boundary(
+    *,
+    context: str,
+    boundary: Any,
+    language: str,
+    target_path: str,
+    errors: list[str],
+) -> None:
+    if not isinstance(boundary, dict):
+        errors.append(f"{context} missing localization language boundary")
+        return
+    expected_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+    if boundary.get("language") != language:
+        errors.append(f"{context} localization language boundary language mismatch")
+    if boundary.get("target_path") != target_path:
+        errors.append(f"{context} localization language boundary target path mismatch")
+    if set(_string_refs(boundary.get("required_languages"))) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+        errors.append(f"{context} localization language boundary missing English/Simplified Chinese split")
+    if boundary.get("language_target_paths") != expected_targets:
+        errors.append(f"{context} localization language boundary target paths must stay split")
+    if boundary.get("english_target_path") != expected_targets["english"]:
+        errors.append(f"{context} localization language boundary missing English target")
+    if boundary.get("simp_chinese_target_path") != expected_targets["simp_chinese"]:
+        errors.append(f"{context} localization language boundary missing Simplified Chinese target")
+    if boundary.get("separate_language_target") is not True:
+        errors.append(f"{context} localization language boundary must be separated by language")
+    if boundary.get("missing_bilingual_coverage_allowed") is not False:
+        errors.append(f"{context} localization language boundary must forbid missing bilingual coverage")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        if boundary.get(flag) is not False:
+            errors.append(f"{context} localization language boundary {flag} must be false")
+
+
+def _validate_alhambra_source_file_preview_listener_section(
+    *,
+    context: str,
+    body: dict[str, Any],
+    errors: list[str],
+) -> None:
+    hook_plan = body.get("on_action_hook_linkage_plan")
+    if (
+        not isinstance(hook_plan, dict)
+        or hook_plan.get("linkage_only") is not True
+        or {"on_pre_winning_war", "on_ending_war"} - set(_string_refs(hook_plan.get("hooks")))
+    ):
+        errors.append(f"{context} listener file preview missing on_action hook linkage")
+    trigger_linkage = body.get("selected_ritual_trigger_linkage")
+    if (
+        not isinstance(trigger_linkage, dict)
+        or trigger_linkage.get("selected_ritual_only") is not True
+        or trigger_linkage.get("linkage_only") is not True
+        or trigger_linkage.get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+    ):
+        errors.append(f"{context} listener file preview missing selected ritual trigger linkage")
+    war_scope_plan = body.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(war_scope_plan, dict)
+        or war_scope_plan.get("persistence_contract_only") is not True
+        or war_scope_plan.get("listener_scope_writes_allowed") is not False
+        or war_scope_plan.get("war_scope_writes_allowed") is not False
+        or {"on_pre_winning_war", "on_ending_war"}
+        - set(_string_refs(war_scope_plan.get("war_scope_available_from_hooks")))
+    ):
+        errors.append(f"{context} listener file preview missing war-scope persistence plan")
+
+
+def validate_repeated_entity_row_alhambra_source_file_preview(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source file preview pilot_key must be unique_alhambra")
+    if report.get("source_file_preview_only") is not True:
+        errors.append("Alhambra source file preview must declare source_file_preview_only: true")
+    if report.get("source_body_candidate_input_only") is not True:
+        errors.append("Alhambra source file preview must derive from source body candidate input")
+    if report.get("source_body_candidate_validation_errors"):
+        errors.append("Alhambra source file preview source body candidate validation must be clean")
+    input_ref = report.get("source_body_candidate_input_ref") if isinstance(report.get("source_body_candidate_input_ref"), dict) else {}
+    if not input_ref:
+        errors.append("Alhambra source file preview missing source body candidate input ref")
+    else:
+        if input_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source file preview input ref pilot_key must be unique_alhambra")
+        if int(input_ref.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source file preview input ref artifact_count must be 45")
+        if int(input_ref.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+            errors.append("Alhambra source file preview input ref family_count must be 7")
+        if input_ref.get("validation_errors"):
+            errors.append("Alhambra source file preview input ref validation must be clean")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"Alhambra source file preview must not claim source_ready/verified/backend_ready at {path}")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source file preview {flag} must be false at {path}")
+
+    _validate_alhambra_source_body_candidate_flags(
+        context="Alhambra source file preview report",
+        value=report,
+        errors=errors,
+    )
+    if int(report.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append("Alhambra source file preview artifact_count must be 45")
+    if int(report.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+        errors.append("Alhambra source file preview family_count must be 7")
+
+    expected_target_paths = set(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS)
+    file_previews = report.get("file_previews") if isinstance(report.get("file_previews"), list) else []
+    if int(report.get("file_preview_count", -1)) != len(file_previews):
+        errors.append("Alhambra source file preview file_preview_count mismatch")
+    if int(report.get("file_preview_count", -1)) != len(expected_target_paths):
+        errors.append("Alhambra source file preview file_preview_count must be 7")
+
+    target_counts: dict[str, int] = {}
+    for preview in file_previews:
+        if isinstance(preview, dict):
+            target_path = str(preview.get("target_path", ""))
+            target_counts[target_path] = target_counts.get(target_path, 0) + 1
+    duplicate_targets = sorted(target for target, count in target_counts.items() if count > 1)
+    if duplicate_targets:
+        errors.append(f"Alhambra source file preview duplicate target path(s): {', '.join(duplicate_targets)}")
+    actual_target_paths = set(target_counts)
+    missing_targets = sorted(expected_target_paths - actual_target_paths)
+    extra_targets = sorted(actual_target_paths - expected_target_paths)
+    if missing_targets:
+        errors.append(f"Alhambra source file preview missing required target path(s): {', '.join(missing_targets)}")
+    if extra_targets:
+        errors.append(f"Alhambra source file preview has unexpected target path(s): {', '.join(extra_targets)}")
+
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    if not summary:
+        errors.append("Alhambra source file preview summary missing")
+    else:
+        if summary.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source file preview summary pilot_key must be unique_alhambra")
+        if int(summary.get("file_preview_count", -1)) != len(expected_target_paths):
+            errors.append("Alhambra source file preview summary file_preview_count must be 7")
+        if int(summary.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source file preview summary artifact_count must be 45")
+        if int(summary.get("family_count", -1)) != len(REPEATED_ENTITY_ROW_SOURCE_BUNDLE_FAMILIES):
+            errors.append("Alhambra source file preview summary family_count must be 7")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(summary.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source file preview summary {count_key} must be 0")
+
+    localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+    localization_languages: set[str] = set()
+    all_sections: list[dict[str, Any]] = []
+    source_candidate_ref_keys: set[tuple[str, str, str, str]] = set()
+    family_summary: dict[str, int] = {}
+    for preview in file_previews:
+        if not isinstance(preview, dict):
+            errors.append("Alhambra source file preview file_previews item must be a mapping")
+            continue
+        target_path = str(preview.get("target_path", ""))
+        context = f"Alhambra source file preview {target_path or '<missing-target>'}"
+        _validate_alhambra_source_body_candidate_flags(context=context, value=preview, errors=errors)
+        if preview.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append(f"{context} pilot_key must be unique_alhambra")
+        if not target_path.startswith("src/"):
+            errors.append(f"{context} target_path must be a future src/ path")
+        sections = preview.get("structured_body_sections")
+        if not isinstance(sections, list):
+            errors.append(f"{context} missing structured body sections")
+            continue
+        sections = [section for section in sections if isinstance(section, dict)]
+        all_sections.extend(sections)
+        if int(preview.get("artifact_count", -1)) != len(sections):
+            errors.append(f"{context} artifact_count mismatch")
+        actual_families = sorted(
+            {str(section.get("family", "")) for section in sections if str(section.get("family", ""))}
+        )
+        if preview.get("families") != actual_families:
+            errors.append(f"{context} families mismatch")
+        expected_validation_refs = sorted(
+            {
+                validation
+                for section in sections
+                for validation in _string_refs(section.get("validation_refs"))
+            }
+        )
+        expected_blockers = sorted(
+            {
+                blocker
+                for section in sections
+                for blocker in _string_refs(section.get("unresolved_blockers"))
+            }
+        )
+        if preview.get("validation_refs") != expected_validation_refs:
+            errors.append(f"{context} validation refs mismatch")
+        if preview.get("required_validations") != expected_validation_refs:
+            errors.append(f"{context} required validations mismatch")
+        if not expected_validation_refs:
+            errors.append(f"{context} missing validation refs")
+        if preview.get("unresolved_blockers") != expected_blockers:
+            errors.append(f"{context} unresolved blockers mismatch")
+        if preview.get("unresolved_writer_blockers") != expected_blockers:
+            errors.append(f"{context} unresolved writer blockers mismatch")
+        if not expected_blockers:
+            errors.append(f"{context} missing unresolved blockers")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(preview.get(count_key, -1)) != 0:
+                errors.append(f"{context} {count_key} must be 0")
+
+        if target_path in localization_targets.values():
+            language = str(preview.get("localization_language", ""))
+            expected_target = localization_targets.get(language)
+            localization_languages.add(language)
+            if expected_target != target_path:
+                errors.append(f"{context} localization target path does not match language")
+            if actual_families != ["localization"]:
+                errors.append(f"{context} localization file preview must contain only localization sections")
+            _validate_alhambra_source_file_preview_localization_boundary(
+                context=context,
+                boundary=preview.get("localization_language_boundary"),
+                language=language,
+                target_path=target_path,
+                errors=errors,
+            )
+        elif "localization" in actual_families:
+            errors.append(f"{context} localization sections must use separated language target files")
+
+        for section in sections:
+            family = str(section.get("family", ""))
+            artifact_kind = str(section.get("artifact_kind", "<unknown>"))
+            section_context = f"{context} {family} artifact {artifact_kind}"
+            _validate_alhambra_source_body_candidate_flags(
+                context=section_context,
+                value=section,
+                errors=errors,
+            )
+            if section.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{section_context} pilot_key must be unique_alhambra")
+            if section.get("target_path") != target_path:
+                errors.append(f"{section_context} target path mismatch")
+            if not _string_refs(section.get("validation_refs")):
+                errors.append(f"{section_context} missing validation refs")
+            if not _string_refs(section.get("unresolved_blockers")):
+                errors.append(f"{section_context} missing unresolved blockers")
+            ref = section.get("source_body_candidate_ref")
+            if not isinstance(ref, dict):
+                errors.append(f"{section_context} missing source body candidate ref")
+            else:
+                if ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                    errors.append(f"{section_context} ref pilot must be unique_alhambra")
+                if ref.get("family") != family:
+                    errors.append(f"{section_context} ref family mismatch")
+                if ref.get("artifact_kind") != artifact_kind:
+                    errors.append(f"{section_context} ref artifact mismatch")
+                source_candidate_ref_keys.add(_alhambra_source_file_preview_ref_key(ref))
+            source_candidate = section.get("source_body_candidate")
+            if not isinstance(source_candidate, dict):
+                errors.append(f"{section_context} missing copied source body candidate")
+            else:
+                if source_candidate.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                    errors.append(f"{section_context} copied source body candidate pilot must be unique_alhambra")
+                if source_candidate.get("family") != family:
+                    errors.append(f"{section_context} copied source body candidate family mismatch")
+            body = section.get("structured_body_candidate")
+            if not isinstance(body, dict):
+                errors.append(f"{section_context} missing structured body candidate")
+                continue
+            _validate_alhambra_source_body_candidate_flags(
+                context=f"{section_context} body",
+                value=body,
+                errors=errors,
+            )
+            if body.get("body_emitted") is not False:
+                errors.append(f"{section_context} body_emitted must be false")
+            if family == "localization":
+                language = str(section.get("localization_language", ""))
+                if localization_targets.get(language) != target_path:
+                    errors.append(f"{section_context} localization language target mismatch")
+                _validate_alhambra_source_file_preview_localization_boundary(
+                    context=section_context,
+                    boundary=section.get("localization_language_boundary"),
+                    language=language,
+                    target_path=target_path,
+                    errors=errors,
+                )
+                body_boundary = body.get("language_ownership_boundary")
+                if (
+                    not isinstance(body_boundary, dict)
+                    or set(_string_refs(body_boundary.get("required_languages")))
+                    != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS)
+                    or not body_boundary.get("english_owner")
+                    or not body_boundary.get("simp_chinese_owner")
+                ):
+                    errors.append(f"{section_context} localization body missing language ownership boundary")
+            if family == "listener":
+                _validate_alhambra_source_file_preview_listener_section(
+                    context=section_context,
+                    body=body,
+                    errors=errors,
+                )
+
+    if localization_languages != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+        errors.append("Alhambra source file preview localization must split English and Simplified Chinese files")
+    declared_refs = report.get("source_body_candidate_refs") if isinstance(report.get("source_body_candidate_refs"), list) else []
+    for ref in declared_refs:
+        if isinstance(ref, dict) and ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source file preview declared source ref pilot_key must be unique_alhambra")
+    declared_ref_keys = {
+        _alhambra_source_file_preview_ref_key(ref)
+        for ref in declared_refs
+        if isinstance(ref, dict)
+    }
+    if declared_ref_keys != source_candidate_ref_keys:
+        errors.append("Alhambra source file preview source body candidate refs mismatch")
+    if int(report.get("source_body_candidate_ref_count", -1)) != len(source_candidate_ref_keys):
+        errors.append("Alhambra source file preview source_body_candidate_ref_count mismatch")
+    if len(source_candidate_ref_keys) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append(
+            f"Alhambra source file preview expected 45 unique source body artifacts, got {len(source_candidate_ref_keys)}"
+        )
+    for family, count in _count_by_key(
+        [
+            {"family": ref_key[0]}
+            for ref_key in source_candidate_ref_keys
+        ],
+        "family",
+    ).items():
+        family_summary[family] = count
+    if report.get("family_summary") != family_summary:
+        errors.append("Alhambra source file preview family_summary mismatch")
+    if summary and summary.get("family_summary") != family_summary:
+        errors.append("Alhambra source file preview summary family_summary mismatch")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if int(report.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source file preview {count_key} must be 0")
+    return errors
+
+
+def _alhambra_source_file_validation_repo_path_exists(path: str) -> bool:
+    normalized = path.replace("\\", "/").strip()
+    if not normalized or normalized.startswith("/") or ":" in normalized:
+        return False
+    relative = Path(normalized)
+    if ".." in relative.parts:
+        return False
+    return (REPO_ROOT / relative).exists()
+
+
+def _alhambra_source_file_validation_allowed_status(value: Any) -> bool:
+    return (
+        str(value or "").strip().lower().replace("-", "_")
+        in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_ALLOWED_STATUSES
+    )
+
+
+def _alhambra_source_file_validation_forbidden_status_paths(value: Any, path: str = "") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            key_text = str(key)
+            normalized_key = key_text.strip().lower().replace("-", "_")
+            child_path = f"{path}.{key_text}" if path else key_text
+            if (
+                normalized_key == "status"
+                or normalized_key.endswith("_status")
+                or normalized_key in {"evidence_status", "readiness_status", "contract_status"}
+            ):
+                if str(child or "").strip() and not _alhambra_source_file_validation_allowed_status(child):
+                    paths.append(child_path)
+            paths.extend(_alhambra_source_file_validation_forbidden_status_paths(child, child_path))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            paths.extend(_alhambra_source_file_validation_forbidden_status_paths(child, f"{path}[{index}]"))
+    return paths
+
+
+def _alhambra_source_file_validation_pack_ref(preview: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "pilot_key": str(preview.get("pilot_key", "")),
+        "target_path": str(preview.get("target_path", "")),
+        "families": list(preview.get("families", []) or []),
+        "artifact_count": int(preview.get("artifact_count", 0)),
+        "validation_refs": _string_refs(preview.get("validation_refs")),
+        "unresolved_blockers": _string_refs(preview.get("unresolved_blockers")),
+        "source_file_preview_only": preview.get("source_file_preview_only") is True,
+        "source_body_candidate_ref_count": len(
+            [
+                ref
+                for ref in preview.get("source_body_candidate_refs", []) or []
+                if isinstance(ref, dict)
+            ]
+        ),
+    }
+
+
+def _alhambra_source_file_validation_generator_candidate(
+    *,
+    target_path: str,
+    families: list[str],
+    metadata: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "status": "interface_candidate",
+        "candidate": str(metadata.get("owner_candidate", "")),
+        "families": list(families),
+        "target_path": target_path,
+        "planned_source_writer_exists": False,
+        "candidate_only": True,
+        "contract_only": True,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_ready": False,
+        "generator_reference_paths": list(metadata.get("syntax_reference_paths", ()) or ()),
+    }
+
+
+def _alhambra_source_file_validation_source_target_boundary(
+    *,
+    preview: dict[str, Any],
+    target_path: str,
+    families: list[str],
+) -> dict[str, Any]:
+    sections = [
+        section
+        for section in preview.get("structured_body_sections", []) or []
+        if isinstance(section, dict)
+    ]
+    return {
+        "status": "blocked",
+        "target_path": target_path,
+        "families": list(families),
+        "future_target_only": True,
+        "source_file_preview_only": True,
+        "source_file_preview_target_path": str(preview.get("target_path", "")),
+        "source_candidate_future_target_paths": sorted(
+            {
+                str(section.get("source_candidate_future_target_path", ""))
+                for section in sections
+                if str(section.get("source_candidate_future_target_path", "")).strip()
+            }
+        ),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_ready": False,
+        "body_emitted": False,
+        "boundary_summary": "preview-derived target-file evidence only; no source writer is allowed",
+    }
+
+
+def _alhambra_source_file_validation_requirements(preview: dict[str, Any]) -> dict[str, Any]:
+    validation_refs = sorted(_string_refs(preview.get("validation_refs")))
+    return {
+        "status": "interface_candidate",
+        "required_validations": validation_refs,
+        "source_file_preview_validation_refs": validation_refs,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_ready": False,
+        "validation_evidence_only": True,
+    }
+
+
+def _alhambra_source_file_validation_listener_linkage(preview: dict[str, Any]) -> dict[str, Any]:
+    listener_section = next(
+        (
+            section
+            for section in preview.get("structured_body_sections", []) or []
+            if isinstance(section, dict) and section.get("family") == "listener"
+        ),
+        {},
+    )
+    body = listener_section.get("structured_body_candidate") if isinstance(listener_section, dict) else {}
+    body = body if isinstance(body, dict) else {}
+    return {
+        "status": "interface_candidate",
+        "on_action_hook_linkage_plan": deepcopy(body.get("on_action_hook_linkage_plan", {}) or {}),
+        "selected_ritual_trigger_linkage": deepcopy(body.get("selected_ritual_trigger_linkage", {}) or {}),
+        "war_scope_availability_persistence_plan": deepcopy(
+            body.get("war_scope_availability_persistence_plan", {}) or {}
+        ),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_ready": False,
+    }
+
+
+def _alhambra_source_file_validation_pack(preview: dict[str, Any]) -> dict[str, Any]:
+    target_path = str(preview.get("target_path", ""))
+    metadata = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.get(target_path, {})
+    families = list(preview.get("families", []) or [])
+    validation_refs = sorted(_string_refs(preview.get("validation_refs")))
+    unresolved_blockers = sorted(_string_refs(preview.get("unresolved_blockers")))
+    pack = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "target_path": target_path,
+        "evidence_status": "blocked",
+        "source_file_validation_evidence_only": True,
+        "source_file_preview_input_only": True,
+        "families": families,
+        "family_summary": dict(preview.get("family_summary", {}) or {}),
+        "artifact_count": int(preview.get("artifact_count", 0)),
+        "source_body_candidate_ref_count": len(
+            [
+                ref
+                for ref in preview.get("source_body_candidate_refs", []) or []
+                if isinstance(ref, dict)
+            ]
+        ),
+        "source_body_candidate_refs": deepcopy(preview.get("source_body_candidate_refs", []) or []),
+        "source_file_preview_ref": _alhambra_source_file_validation_pack_ref(preview),
+        "syntax_reference_paths": list(metadata.get("syntax_reference_paths", ()) or ()),
+        "generator_ownership_candidate": _alhambra_source_file_validation_generator_candidate(
+            target_path=target_path,
+            families=families,
+            metadata=metadata,
+        ),
+        "source_target_boundary": _alhambra_source_file_validation_source_target_boundary(
+            preview=preview,
+            target_path=target_path,
+            families=families,
+        ),
+        "validation_refs": validation_refs,
+        "required_validations": validation_refs,
+        "validation_requirements": _alhambra_source_file_validation_requirements(preview),
+        "unresolved_blockers": unresolved_blockers,
+        "unresolved_writer_blockers": unresolved_blockers,
+        "blocker_summary": dict(preview.get("blocker_summary", {}) or {}),
+        "source_ready_count": int(preview.get("source_ready_count", 0)),
+        "source_writer_allowed_count": int(preview.get("source_writer_allowed_count", 0)),
+        "may_write_src_count": int(preview.get("may_write_src_count", 0)),
+        "writes_src_count": int(preview.get("writes_src_count", 0)),
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+    }
+    if "localization_language" in preview:
+        pack["localization_language"] = str(preview.get("localization_language", ""))
+        pack["localization_language_boundary"] = deepcopy(preview.get("localization_language_boundary", {}) or {})
+    if families == ["listener"]:
+        pack["listener_linkage_evidence"] = _alhambra_source_file_validation_listener_linkage(preview)
+    return pack
+
+
+def repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(
+        payload,
+        statuses=statuses,
+    )
+    evidence_packs = [
+        _alhambra_source_file_validation_pack(preview)
+        for preview in source_file_preview.get("file_previews", []) or []
+        if isinstance(preview, dict)
+    ]
+    source_body_candidate_refs = [
+        ref
+        for pack in evidence_packs
+        for ref in pack.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    ]
+    unique_ref_keys = {
+        _alhambra_source_file_preview_ref_key(ref)
+        for ref in source_body_candidate_refs
+    }
+    source_ready_count = sum(1 for pack in evidence_packs if pack.get("source_ready") is True)
+    source_writer_allowed_count = sum(1 for pack in evidence_packs if pack.get("source_writer_allowed") is True)
+    may_write_src_count = sum(1 for pack in evidence_packs if pack.get("may_write_src") is True)
+    writes_src_count = sum(1 for pack in evidence_packs if pack.get("writes_src") is True)
+    summary = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "evidence_pack_count": len(evidence_packs),
+        "artifact_count": len(unique_ref_keys),
+        "file_section_count": sum(int(pack.get("artifact_count", 0)) for pack in evidence_packs),
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+    }
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_file_validation_evidence_only": True,
+        "source_file_preview_input_only": True,
+        "source_file_preview_input_ref": {
+            "pilot_key": str(source_file_preview.get("pilot_key", "")),
+            "file_preview_count": int(source_file_preview.get("file_preview_count", 0)),
+            "artifact_count": int(source_file_preview.get("artifact_count", 0)),
+            "source_body_candidate_ref_count": int(source_file_preview.get("source_body_candidate_ref_count", 0)),
+            "validation_errors": list(source_file_preview.get("validation_errors", []) or []),
+        },
+        "source_file_preview_validation_errors": list(source_file_preview.get("validation_errors", []) or []),
+        "summary": summary,
+        "evidence_pack_count": len(evidence_packs),
+        "required_target_paths": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS),
+        "localization_target_paths": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        ),
+        "artifact_count": len(unique_ref_keys),
+        "source_body_candidate_ref_count": len(unique_ref_keys),
+        "file_section_count": summary["file_section_count"],
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+        "evidence_packs": evidence_packs,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra source-file validation evidence derives from the no-write source file preview.",
+            "It records local syntax references, candidate generator ownership, target boundaries, validation requirements, and blockers.",
+            "It permits only interface_candidate or blocked evidence and never authorizes src writes.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_file_validation_evidence(report)
+    return report
+
+
+def _validate_alhambra_source_file_validation_generator_candidate(
+    *,
+    context: str,
+    candidate: Any,
+    target_path: str,
+    families: list[str],
+    errors: list[str],
+) -> None:
+    if not isinstance(candidate, dict) or not candidate:
+        errors.append(f"{context} missing generator ownership candidate")
+        return
+    metadata = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.get(target_path, {})
+    expected_candidate = str(metadata.get("owner_candidate", ""))
+    if not _alhambra_source_file_validation_allowed_status(candidate.get("status")):
+        errors.append(f"{context} generator ownership candidate status must be interface_candidate or blocked")
+    if candidate.get("candidate") != expected_candidate:
+        errors.append(f"{context} generator ownership candidate mismatch")
+    if candidate.get("families") != families:
+        errors.append(f"{context} generator ownership candidate families mismatch")
+    if candidate.get("planned_source_writer_exists") is not False:
+        errors.append(f"{context} generator ownership candidate planned_source_writer_exists must be false")
+    if candidate.get("candidate_only") is not True or candidate.get("contract_only") is not True:
+        errors.append(f"{context} generator ownership candidate must be candidate-only")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src", "source_ready"):
+        if candidate.get(flag) is not False:
+            errors.append(f"{context} generator ownership candidate {flag} must be false")
+    for path in _string_refs(candidate.get("generator_reference_paths")):
+        if not _alhambra_source_file_validation_repo_path_exists(path):
+            errors.append(f"{context} generator ownership candidate path does not exist: {path}")
+
+
+def _validate_alhambra_source_file_validation_source_target_boundary(
+    *,
+    context: str,
+    boundary: Any,
+    target_path: str,
+    families: list[str],
+    errors: list[str],
+) -> None:
+    if not isinstance(boundary, dict) or not boundary:
+        errors.append(f"{context} missing source target boundary")
+        return
+    if not _alhambra_source_file_validation_allowed_status(boundary.get("status")):
+        errors.append(f"{context} source target boundary status must be interface_candidate or blocked")
+    if boundary.get("target_path") != target_path:
+        errors.append(f"{context} source target boundary target path mismatch")
+    if boundary.get("families") != families:
+        errors.append(f"{context} source target boundary families mismatch")
+    if boundary.get("future_target_only") is not True or boundary.get("source_file_preview_only") is not True:
+        errors.append(f"{context} source target boundary must stay preview-only")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src", "source_ready", "body_emitted"):
+        if boundary.get(flag) is not False:
+            errors.append(f"{context} source target boundary {flag} must be false")
+
+
+def _validate_alhambra_source_file_validation_requirements(
+    *,
+    context: str,
+    requirements: Any,
+    expected_validations: list[str],
+    errors: list[str],
+) -> None:
+    if not isinstance(requirements, dict) or not requirements:
+        errors.append(f"{context} missing validation requirements")
+        return
+    if not _alhambra_source_file_validation_allowed_status(requirements.get("status")):
+        errors.append(f"{context} validation requirements status must be interface_candidate or blocked")
+    required_validations = sorted(_string_refs(requirements.get("required_validations")))
+    if not required_validations:
+        errors.append(f"{context} missing validation requirements")
+    if required_validations != expected_validations:
+        errors.append(f"{context} validation requirements mismatch")
+    if sorted(_string_refs(requirements.get("source_file_preview_validation_refs"))) != expected_validations:
+        errors.append(f"{context} validation requirements preview refs mismatch")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src", "source_ready"):
+        if requirements.get(flag) is not False:
+            errors.append(f"{context} validation requirements {flag} must be false")
+
+
+def _validate_alhambra_source_file_validation_listener_linkage(
+    *,
+    context: str,
+    linkage: Any,
+    errors: list[str],
+) -> None:
+    if not isinstance(linkage, dict) or not linkage:
+        errors.append(f"{context} listener target missing hook linkage, trigger linkage, or war-scope boundary")
+        return
+    hook_plan = linkage.get("on_action_hook_linkage_plan")
+    if (
+        not isinstance(hook_plan, dict)
+        or hook_plan.get("linkage_only") is not True
+        or {"on_pre_winning_war", "on_ending_war"} - set(_string_refs(hook_plan.get("hooks")))
+    ):
+        errors.append(f"{context} listener target missing hook linkage")
+    trigger_linkage = linkage.get("selected_ritual_trigger_linkage")
+    if (
+        not isinstance(trigger_linkage, dict)
+        or trigger_linkage.get("selected_ritual_only") is not True
+        or trigger_linkage.get("linkage_only") is not True
+        or trigger_linkage.get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+    ):
+        errors.append(f"{context} listener target missing selected ritual trigger linkage")
+    war_scope_plan = linkage.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(war_scope_plan, dict)
+        or war_scope_plan.get("persistence_contract_only") is not True
+        or war_scope_plan.get("listener_scope_writes_allowed") is not False
+        or war_scope_plan.get("war_scope_writes_allowed") is not False
+        or {"on_pre_winning_war", "on_ending_war"}
+        - set(_string_refs(war_scope_plan.get("war_scope_available_from_hooks")))
+    ):
+        errors.append(f"{context} listener target missing war-scope boundary")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src", "source_ready"):
+        if linkage.get(flag) is not False:
+            errors.append(f"{context} listener linkage {flag} must be false")
+
+
+def validate_repeated_entity_row_alhambra_source_file_validation_evidence(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source file validation evidence pilot_key must be unique_alhambra")
+    if report.get("source_file_validation_evidence_only") is not True:
+        errors.append("Alhambra source file validation evidence must declare source_file_validation_evidence_only: true")
+    if report.get("source_file_preview_input_only") is not True:
+        errors.append("Alhambra source file validation evidence must derive from source file preview input")
+    if report.get("source_file_preview_validation_errors"):
+        errors.append("Alhambra source file validation evidence source file preview validation must be clean")
+    input_ref = report.get("source_file_preview_input_ref") if isinstance(report.get("source_file_preview_input_ref"), dict) else {}
+    if not input_ref:
+        errors.append("Alhambra source file validation evidence missing source file preview input ref")
+    else:
+        if input_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source file validation evidence input ref pilot_key must be unique_alhambra")
+        if int(input_ref.get("file_preview_count", -1)) != len(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS):
+            errors.append("Alhambra source file validation evidence input ref file_preview_count must be 7")
+        if int(input_ref.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source file validation evidence input ref artifact_count must be 45")
+        if input_ref.get("validation_errors"):
+            errors.append("Alhambra source file validation evidence input ref validation must be clean")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(
+            f"Alhambra source file validation evidence must not claim source_ready/verified/backend_ready at {path}"
+        )
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source file validation evidence {flag} must be false at {path}")
+    for path in _alhambra_source_file_validation_forbidden_status_paths(report):
+        errors.append(f"Alhambra source file validation evidence status must be interface_candidate or blocked at {path}")
+
+    _validate_alhambra_source_body_candidate_flags(
+        context="Alhambra source file validation evidence report",
+        value=report,
+        errors=errors,
+    )
+    expected_target_paths = set(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS)
+    evidence_packs = report.get("evidence_packs") if isinstance(report.get("evidence_packs"), list) else []
+    if int(report.get("evidence_pack_count", -1)) != len(evidence_packs):
+        errors.append("Alhambra source file validation evidence evidence_pack_count mismatch")
+    if int(report.get("evidence_pack_count", -1)) != len(expected_target_paths):
+        errors.append("Alhambra source file validation evidence evidence_pack_count must be 7")
+    if int(report.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append("Alhambra source file validation evidence artifact_count must be 45")
+
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    if not summary:
+        errors.append("Alhambra source file validation evidence summary missing")
+    else:
+        if summary.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source file validation evidence summary pilot_key must be unique_alhambra")
+        if int(summary.get("evidence_pack_count", -1)) != len(expected_target_paths):
+            errors.append("Alhambra source file validation evidence summary evidence_pack_count must be 7")
+        if int(summary.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source file validation evidence summary artifact_count must be 45")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(summary.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source file validation evidence summary {count_key} must be 0")
+
+    target_counts: dict[str, int] = {}
+    source_ref_keys: set[tuple[str, str, str, str]] = set()
+    localization_languages: set[str] = set()
+    file_section_count = 0
+    for pack in evidence_packs:
+        if not isinstance(pack, dict):
+            errors.append("Alhambra source file validation evidence pack must be a mapping")
+            continue
+        missing_fields = _missing_required(pack, REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_REQUIRED_FIELDS)
+        target_path = str(pack.get("target_path", ""))
+        context = f"Alhambra source file validation evidence {target_path or '<missing-target>'}"
+        if missing_fields:
+            errors.append(f"{context} missing field(s): {', '.join(missing_fields)}")
+        metadata = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.get(target_path)
+        if metadata is None:
+            errors.append(f"{context} has unexpected target path")
+            continue
+        target_counts[target_path] = target_counts.get(target_path, 0) + 1
+        expected_families = list(metadata["families"])
+        families = list(pack.get("families", []) or [])
+        if families != expected_families:
+            errors.append(f"{context} families mismatch")
+        expected_artifact_count = int(metadata["artifact_count"])
+        if int(pack.get("artifact_count", -1)) != expected_artifact_count:
+            errors.append(f"{context} artifact_count mismatch")
+        file_section_count += int(pack.get("artifact_count", 0))
+        if not _alhambra_source_file_validation_allowed_status(pack.get("evidence_status")):
+            errors.append(f"{context} evidence_status must be interface_candidate or blocked")
+        _validate_alhambra_source_body_candidate_flags(context=context, value=pack, errors=errors)
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(pack.get(count_key, -1)) != 0:
+                errors.append(f"{context} {count_key} must be 0")
+
+        preview_ref = pack.get("source_file_preview_ref")
+        if not isinstance(preview_ref, dict) or not preview_ref:
+            errors.append(f"{context} missing source file preview ref")
+        else:
+            if preview_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{context} source file preview ref pilot_key must be unique_alhambra")
+            if preview_ref.get("target_path") != target_path:
+                errors.append(f"{context} source file preview ref target mismatch")
+            if preview_ref.get("families") != expected_families:
+                errors.append(f"{context} source file preview ref families mismatch")
+            if int(preview_ref.get("artifact_count", -1)) != expected_artifact_count:
+                errors.append(f"{context} source file preview ref artifact_count mismatch")
+            if preview_ref.get("source_file_preview_only") is not True:
+                errors.append(f"{context} source file preview ref must stay preview-only")
+
+        syntax_paths = _string_refs(pack.get("syntax_reference_paths"))
+        if not syntax_paths:
+            errors.append(f"{context} missing syntax_reference_paths")
+        for path in syntax_paths:
+            if not _alhambra_source_file_validation_repo_path_exists(path):
+                errors.append(f"{context} syntax_reference_paths must point to existing repo files: {path}")
+
+        _validate_alhambra_source_file_validation_generator_candidate(
+            context=context,
+            candidate=pack.get("generator_ownership_candidate"),
+            target_path=target_path,
+            families=expected_families,
+            errors=errors,
+        )
+        _validate_alhambra_source_file_validation_source_target_boundary(
+            context=context,
+            boundary=pack.get("source_target_boundary"),
+            target_path=target_path,
+            families=expected_families,
+            errors=errors,
+        )
+        expected_validations = sorted(_string_refs(pack.get("validation_refs") or pack.get("required_validations")))
+        _validate_alhambra_source_file_validation_requirements(
+            context=context,
+            requirements=pack.get("validation_requirements"),
+            expected_validations=expected_validations,
+            errors=errors,
+        )
+        if not expected_validations:
+            errors.append(f"{context} missing validation requirements")
+        unresolved_blockers = sorted(_string_refs(pack.get("unresolved_blockers")))
+        if not unresolved_blockers:
+            errors.append(f"{context} unresolved blockers must not be empty while evidence is unverified")
+        if sorted(_string_refs(pack.get("unresolved_writer_blockers"))) != unresolved_blockers:
+            errors.append(f"{context} unresolved writer blockers mismatch")
+
+        refs = pack.get("source_body_candidate_refs") if isinstance(pack.get("source_body_candidate_refs"), list) else []
+        if int(pack.get("source_body_candidate_ref_count", -1)) != len([ref for ref in refs if isinstance(ref, dict)]):
+            errors.append(f"{context} source_body_candidate_ref_count mismatch")
+        for ref in refs:
+            if not isinstance(ref, dict):
+                continue
+            if ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{context} source body candidate ref pilot_key must be unique_alhambra")
+            source_ref_keys.add(_alhambra_source_file_preview_ref_key(ref))
+
+        localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        if target_path in localization_targets.values():
+            language = str(pack.get("localization_language", ""))
+            localization_languages.add(language)
+            if localization_targets.get(language) != target_path:
+                errors.append(f"{context} localization target path does not match language")
+            if families != ["localization"]:
+                errors.append(f"{context} localization validation evidence must contain only localization")
+            _validate_alhambra_source_file_preview_localization_boundary(
+                context=context,
+                boundary=pack.get("localization_language_boundary"),
+                language=language,
+                target_path=target_path,
+                errors=errors,
+            )
+        elif "localization" in families:
+            errors.append(f"{context} localization evidence must use separated language target files")
+
+        if families == ["listener"]:
+            if int(pack.get("artifact_count", -1)) != 1:
+                errors.append(f"{context} listener target artifact_count must be 1")
+            _validate_alhambra_source_file_validation_listener_linkage(
+                context=context,
+                linkage=pack.get("listener_linkage_evidence"),
+                errors=errors,
+            )
+
+    duplicate_targets = sorted(target for target, count in target_counts.items() if count > 1)
+    if duplicate_targets:
+        errors.append(f"Alhambra source file validation evidence duplicate target path(s): {', '.join(duplicate_targets)}")
+    actual_targets = set(target_counts)
+    missing_targets = sorted(expected_target_paths - actual_targets)
+    extra_targets = sorted(actual_targets - expected_target_paths)
+    if missing_targets:
+        errors.append(
+            f"Alhambra source file validation evidence missing required target path(s): {', '.join(missing_targets)}"
+        )
+    if extra_targets:
+        errors.append(f"Alhambra source file validation evidence has unexpected target path(s): {', '.join(extra_targets)}")
+    if localization_languages != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+        errors.append("Alhambra source file validation evidence localization must split English and Simplified Chinese files")
+    if len(source_ref_keys) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append(
+            f"Alhambra source file validation evidence expected 45 unique source body artifacts, got {len(source_ref_keys)}"
+        )
+    if int(report.get("source_body_candidate_ref_count", -1)) != len(source_ref_keys):
+        errors.append("Alhambra source file validation evidence source_body_candidate_ref_count mismatch")
+    if int(report.get("file_section_count", -1)) != file_section_count:
+        errors.append("Alhambra source file validation evidence file_section_count mismatch")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if int(report.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source file validation evidence {count_key} must be 0")
+    if summary and int(summary.get("file_section_count", -1)) != file_section_count:
+        errors.append("Alhambra source file validation evidence summary file_section_count mismatch")
+    return errors
+
+
+def _alhambra_source_generator_contract_allowed_status(value: Any) -> bool:
+    return (
+        str(value or "").strip().lower().replace("-", "_")
+        in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_ALLOWED_STATUSES
+    )
+
+
+def _alhambra_source_generator_contract_pack_ref(pack: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "pilot_key": str(pack.get("pilot_key", "")),
+        "target_path": str(pack.get("target_path", "")),
+        "families": list(pack.get("families", []) or []),
+        "artifact_count": int(pack.get("artifact_count", 0)),
+        "evidence_status": str(pack.get("evidence_status", "")),
+        "source_file_validation_evidence_only": pack.get("source_file_validation_evidence_only") is True,
+        "source_body_candidate_ref_count": int(pack.get("source_body_candidate_ref_count", 0)),
+    }
+
+
+def _alhambra_source_generator_contract_for_pack(pack: dict[str, Any]) -> dict[str, Any]:
+    target_path = str(pack.get("target_path", ""))
+    metadata = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.get(target_path, {})
+    families = list(pack.get("families", []) or [])
+    contract = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "target_path": target_path,
+        "families": families,
+        "artifact_count": int(pack.get("artifact_count", 0)),
+        "evidence_pack_ref": _alhambra_source_generator_contract_pack_ref(pack),
+        "owner_generator": str(metadata.get("owner_candidate", "")),
+        "generator_interface_status": "contract_drafted",
+        "planned_source_writer_exists": "interface_contract_exists",
+        "source_target_boundary": deepcopy(pack.get("source_target_boundary", {}) or {}),
+        "required_validations": sorted(_string_refs(pack.get("required_validations"))),
+        "remaining_blockers": sorted(_string_refs(pack.get("unresolved_blockers"))),
+        "unresolved_writer_blockers": sorted(_string_refs(pack.get("unresolved_writer_blockers"))),
+        "source_body_candidate_ref_count": int(pack.get("source_body_candidate_ref_count", 0)),
+        "source_body_candidate_refs": deepcopy(pack.get("source_body_candidate_refs", []) or []),
+        "source_ready_count": 0,
+        "source_writer_allowed_count": 0,
+        "may_write_src_count": 0,
+        "writes_src_count": 0,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+    }
+    if "localization_language" in pack:
+        contract["localization_language"] = str(pack.get("localization_language", ""))
+        contract["localization_language_boundary"] = deepcopy(pack.get("localization_language_boundary", {}) or {})
+    if families == ["listener"]:
+        contract["listener_linkage_contract"] = deepcopy(pack.get("listener_linkage_evidence", {}) or {})
+    return contract
+
+
+def repeated_entity_row_alhambra_source_generator_contract_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+) -> dict[str, Any]:
+    source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+        payload,
+        statuses=statuses,
+    )
+    generator_contracts = [
+        _alhambra_source_generator_contract_for_pack(pack)
+        for pack in source_file_validation_evidence.get("evidence_packs", []) or []
+        if isinstance(pack, dict)
+    ]
+    source_body_candidate_refs = [
+        ref
+        for contract in generator_contracts
+        for ref in contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    ]
+    unique_ref_keys = {
+        _alhambra_source_file_preview_ref_key(ref)
+        for ref in source_body_candidate_refs
+    }
+    source_ready_count = sum(1 for contract in generator_contracts if contract.get("source_ready") is True)
+    source_writer_allowed_count = sum(1 for contract in generator_contracts if contract.get("source_writer_allowed") is True)
+    may_write_src_count = sum(1 for contract in generator_contracts if contract.get("may_write_src") is True)
+    writes_src_count = sum(1 for contract in generator_contracts if contract.get("writes_src") is True)
+    summary = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "generator_contract_count": len(generator_contracts),
+        "artifact_count": len(unique_ref_keys),
+        "generator_interface_status_summary": _count_by_key(generator_contracts, "generator_interface_status"),
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+    }
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_generator_contract_only": True,
+        "source_file_validation_evidence_input_only": True,
+        "source_file_validation_evidence_input_ref": {
+            "pilot_key": str(source_file_validation_evidence.get("pilot_key", "")),
+            "evidence_pack_count": int(source_file_validation_evidence.get("evidence_pack_count", 0)),
+            "artifact_count": int(source_file_validation_evidence.get("artifact_count", 0)),
+            "source_body_candidate_ref_count": int(
+                source_file_validation_evidence.get("source_body_candidate_ref_count", 0)
+            ),
+            "validation_errors": list(source_file_validation_evidence.get("validation_errors", []) or []),
+        },
+        "source_file_validation_evidence_validation_errors": list(
+            source_file_validation_evidence.get("validation_errors", []) or []
+        ),
+        "summary": summary,
+        "generator_contract_count": len(generator_contracts),
+        "required_target_paths": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS),
+        "localization_target_paths": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        ),
+        "artifact_count": len(unique_ref_keys),
+        "source_body_candidate_ref_count": len(unique_ref_keys),
+        "source_ready_count": source_ready_count,
+        "source_writer_allowed_count": source_writer_allowed_count,
+        "may_write_src_count": may_write_src_count,
+        "writes_src_count": writes_src_count,
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+        "generator_contracts": generator_contracts,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra source generator contracts derive from source-file validation evidence only.",
+            "They draft generator ownership and emitter interfaces without authorizing src writes.",
+            "Source-target boundaries remain blocked until a later source writer is verified.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_generator_contract(report)
+    return report
+
+
+def _validate_alhambra_source_generator_contract_boundary(
+    *,
+    context: str,
+    boundary: Any,
+    target_path: str,
+    families: list[str],
+    errors: list[str],
+) -> None:
+    if not isinstance(boundary, dict) or not boundary:
+        errors.append(f"{context} missing source target boundary")
+        return
+    if boundary.get("status") != "blocked":
+        errors.append(f"{context} source target boundary must stay blocked")
+    if boundary.get("target_path") != target_path:
+        errors.append(f"{context} source target boundary target path mismatch")
+    if boundary.get("families") != families:
+        errors.append(f"{context} source target boundary families mismatch")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src", "source_ready", "body_emitted"):
+        if boundary.get(flag) is not False:
+            errors.append(f"{context} source target boundary {flag} must be false")
+
+
+def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source generator contract pilot_key must be unique_alhambra")
+    if report.get("source_generator_contract_only") is not True:
+        errors.append("Alhambra source generator contract must declare source_generator_contract_only: true")
+    if report.get("source_file_validation_evidence_input_only") is not True:
+        errors.append("Alhambra source generator contract must derive from source-file validation evidence input")
+    if report.get("source_file_validation_evidence_validation_errors"):
+        errors.append("Alhambra source generator contract source-file validation evidence must be clean")
+    input_ref = (
+        report.get("source_file_validation_evidence_input_ref")
+        if isinstance(report.get("source_file_validation_evidence_input_ref"), dict)
+        else {}
+    )
+    if not input_ref:
+        errors.append("Alhambra source generator contract missing source-file validation evidence input ref")
+    else:
+        if input_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source generator contract input ref pilot_key must be unique_alhambra")
+        if int(input_ref.get("evidence_pack_count", -1)) != len(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS
+        ):
+            errors.append("Alhambra source generator contract input ref evidence_pack_count must be 7")
+        if int(input_ref.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source generator contract input ref artifact_count must be 45")
+        if input_ref.get("validation_errors"):
+            errors.append("Alhambra source generator contract input ref validation must be clean")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"Alhambra source generator contract must not claim source_ready/verified/backend_ready at {path}")
+    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source generator contract {flag} must be false at {path}")
+
+    _validate_alhambra_source_body_candidate_flags(
+        context="Alhambra source generator contract report",
+        value=report,
+        errors=errors,
+    )
+
+    expected_target_paths = set(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS)
+    generator_contracts = (
+        report.get("generator_contracts") if isinstance(report.get("generator_contracts"), list) else []
+    )
+    if int(report.get("generator_contract_count", -1)) != len(generator_contracts):
+        errors.append("Alhambra source generator contract generator_contract_count mismatch")
+    if int(report.get("generator_contract_count", -1)) != len(expected_target_paths):
+        errors.append("Alhambra source generator contract generator_contract_count must be 7")
+    if int(report.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append("Alhambra source generator contract artifact_count must be 45")
+
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    if not summary:
+        errors.append("Alhambra source generator contract summary missing")
+    else:
+        if summary.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append("Alhambra source generator contract summary pilot_key must be unique_alhambra")
+        if int(summary.get("generator_contract_count", -1)) != len(expected_target_paths):
+            errors.append("Alhambra source generator contract summary generator_contract_count must be 7")
+        if int(summary.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+            errors.append("Alhambra source generator contract summary artifact_count must be 45")
+        expected_status_summary = _count_by_key(
+            [
+                contract
+                for contract in generator_contracts
+                if isinstance(contract, dict)
+            ],
+            "generator_interface_status",
+        )
+        if summary.get("generator_interface_status_summary") != expected_status_summary:
+            errors.append("Alhambra source generator contract summary status mismatch")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(summary.get(count_key, -1)) != 0:
+                errors.append(f"Alhambra source generator contract summary {count_key} must be 0")
+
+    target_counts: dict[str, int] = {}
+    source_ref_keys: set[tuple[str, str, str, str]] = set()
+    localization_languages: set[str] = set()
+    for contract in generator_contracts:
+        if not isinstance(contract, dict):
+            errors.append("Alhambra source generator contract entry must be a mapping")
+            continue
+        missing_fields = _missing_required(
+            contract,
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_REQUIRED_FIELDS,
+        )
+        target_path = str(contract.get("target_path", ""))
+        context = f"Alhambra source generator contract {target_path or '<missing-target>'}"
+        if missing_fields:
+            errors.append(f"{context} missing field(s): {', '.join(missing_fields)}")
+        metadata = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.get(target_path)
+        if metadata is None:
+            errors.append(f"{context} has unexpected target path")
+            continue
+        target_counts[target_path] = target_counts.get(target_path, 0) + 1
+        expected_families = list(metadata["families"])
+        families = list(contract.get("families", []) or [])
+        if families != expected_families:
+            errors.append(f"{context} families mismatch")
+        expected_artifact_count = int(metadata["artifact_count"])
+        if int(contract.get("artifact_count", -1)) != expected_artifact_count:
+            errors.append(f"{context} artifact_count mismatch")
+        if not _alhambra_source_generator_contract_allowed_status(contract.get("generator_interface_status")):
+            errors.append(f"{context} generator_interface_status must be contract_drafted or blocked")
+        expected_owner = str(metadata.get("owner_candidate", ""))
+        if contract.get("owner_generator") != expected_owner:
+            errors.append(f"{context} owner_generator mismatch")
+        if contract.get("planned_source_writer_exists") != "interface_contract_exists":
+            errors.append(f"{context} planned_source_writer_exists must be interface_contract_exists")
+        _validate_alhambra_source_body_candidate_flags(context=context, value=contract, errors=errors)
+        for flag in ("source_ready", "verified", "backend_ready", "source_writer_allowed", "may_write_src", "writes_src"):
+            if contract.get(flag) is not False:
+                errors.append(f"{context} {flag} must be false")
+        for count_key in (
+            "source_ready_count",
+            "source_writer_allowed_count",
+            "may_write_src_count",
+            "writes_src_count",
+        ):
+            if int(contract.get(count_key, -1)) != 0:
+                errors.append(f"{context} {count_key} must be 0")
+
+        evidence_ref = contract.get("evidence_pack_ref")
+        if not isinstance(evidence_ref, dict) or not evidence_ref:
+            errors.append(f"{context} missing evidence_pack_ref")
+        else:
+            if evidence_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{context} evidence_pack_ref pilot_key must be unique_alhambra")
+            if evidence_ref.get("target_path") != target_path:
+                errors.append(f"{context} evidence_pack_ref target mismatch")
+            if evidence_ref.get("families") != expected_families:
+                errors.append(f"{context} evidence_pack_ref families mismatch")
+            if int(evidence_ref.get("artifact_count", -1)) != expected_artifact_count:
+                errors.append(f"{context} evidence_pack_ref artifact_count mismatch")
+            if evidence_ref.get("source_file_validation_evidence_only") is not True:
+                errors.append(f"{context} evidence_pack_ref must derive from validation evidence")
+
+        _validate_alhambra_source_generator_contract_boundary(
+            context=context,
+            boundary=contract.get("source_target_boundary"),
+            target_path=target_path,
+            families=expected_families,
+            errors=errors,
+        )
+
+        required_validations = sorted(_string_refs(contract.get("required_validations")))
+        if not required_validations:
+            errors.append(f"{context} required_validations must not be empty")
+        remaining_blockers = sorted(_string_refs(contract.get("remaining_blockers")))
+        if not remaining_blockers:
+            errors.append(f"{context} remaining_blockers must not be empty while source target boundary is blocked")
+        if sorted(_string_refs(contract.get("unresolved_writer_blockers"))) != remaining_blockers:
+            errors.append(f"{context} unresolved writer blockers mismatch")
+
+        refs = contract.get("source_body_candidate_refs") if isinstance(contract.get("source_body_candidate_refs"), list) else []
+        if int(contract.get("source_body_candidate_ref_count", -1)) != len([ref for ref in refs if isinstance(ref, dict)]):
+            errors.append(f"{context} source_body_candidate_ref_count mismatch")
+        for ref in refs:
+            if not isinstance(ref, dict):
+                continue
+            if ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+                errors.append(f"{context} source body candidate ref pilot_key must be unique_alhambra")
+            source_ref_keys.add(_alhambra_source_file_preview_ref_key(ref))
+
+        localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        if target_path in localization_targets.values():
+            language = str(contract.get("localization_language", ""))
+            localization_languages.add(language)
+            if localization_targets.get(language) != target_path:
+                errors.append(f"{context} localization target path does not match language")
+            if families != ["localization"]:
+                errors.append(f"{context} localization generator contract must contain only localization")
+            _validate_alhambra_source_file_preview_localization_boundary(
+                context=context,
+                boundary=contract.get("localization_language_boundary"),
+                language=language,
+                target_path=target_path,
+                errors=errors,
+            )
+        elif "localization" in families:
+            errors.append(f"{context} localization generator contract must use separated language target files")
+
+        if families == ["listener"]:
+            if int(contract.get("artifact_count", -1)) != 1:
+                errors.append(f"{context} listener target artifact_count must be 1")
+            _validate_alhambra_source_file_validation_listener_linkage(
+                context=context,
+                linkage=contract.get("listener_linkage_contract"),
+                errors=errors,
+            )
+
+    duplicate_targets = sorted(target for target, count in target_counts.items() if count > 1)
+    if duplicate_targets:
+        errors.append(f"Alhambra source generator contract duplicate target path(s): {', '.join(duplicate_targets)}")
+    actual_targets = set(target_counts)
+    missing_targets = sorted(expected_target_paths - actual_targets)
+    extra_targets = sorted(actual_targets - expected_target_paths)
+    if missing_targets:
+        errors.append(f"Alhambra source generator contract missing required target path(s): {', '.join(missing_targets)}")
+    if extra_targets:
+        errors.append(f"Alhambra source generator contract has unexpected target path(s): {', '.join(extra_targets)}")
+    if localization_languages != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+        errors.append("Alhambra source generator contract localization must split English and Simplified Chinese files")
+    if len(source_ref_keys) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:
+        errors.append(f"Alhambra source generator contract expected 45 unique source body artifacts, got {len(source_ref_keys)}")
+    if int(report.get("source_body_candidate_ref_count", -1)) != len(source_ref_keys):
+        errors.append("Alhambra source generator contract source_body_candidate_ref_count mismatch")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if int(report.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source generator contract {count_key} must be 0")
     return errors
 
 
@@ -6777,6 +12680,11 @@ def audit_summary() -> dict[str, Any]:
     repeated_entity_row_preflight = repeated_entity_row_preflight_for_payload(specs)
     repeated_entity_row_source_plan = repeated_entity_row_source_plan_for_payload(specs)
     repeated_entity_row_source_preview = repeated_entity_row_source_preview_for_payload(specs)
+    repeated_entity_row_source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(specs)
+    repeated_entity_row_source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(specs)
+    repeated_entity_row_alhambra_source_generator_contract = (
+        repeated_entity_row_alhambra_source_generator_contract_for_payload(specs)
+    )
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -6878,6 +12786,9 @@ def audit_summary() -> dict[str, Any]:
         "repeated_entity_row_preflight": repeated_entity_row_preflight,
         "repeated_entity_row_source_plan": repeated_entity_row_source_plan,
         "repeated_entity_row_source_preview": repeated_entity_row_source_preview,
+        "repeated_entity_row_source_writer_readiness": repeated_entity_row_source_writer_readiness,
+        "repeated_entity_row_source_bundle_preview": repeated_entity_row_source_bundle_preview,
+        "repeated_entity_row_alhambra_source_generator_contract": repeated_entity_row_alhambra_source_generator_contract,
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
         "capability_registry_errors": capability_registry_errors,

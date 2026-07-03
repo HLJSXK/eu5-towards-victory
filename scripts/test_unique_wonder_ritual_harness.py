@@ -30,8 +30,20 @@ from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_entry
 from wonder_unique_ritual_harness import repeated_entity_row_preflight_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_plan_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_source_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_source_bundle_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_source_writer_readiness_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_body_candidate_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_file_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_file_validation_evidence_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_contract_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_source_writer_readiness  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_body_candidate  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_file_preview  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_file_validation_evidence  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_contract  # noqa: E402
 
 
 WONDER = {
@@ -1598,6 +1610,59 @@ def _first_source_preview(report: dict, family: str) -> dict:
     raise AssertionError(f"source preview has no {family} preview")
 
 
+def _first_readiness_artifact(report: dict, family: str | None = None) -> dict:
+    for entry in report.get("entries", []) or []:
+        for artifact in entry.get("artifacts", []) or []:
+            if family is None or artifact.get("contract_family") == family:
+                return artifact
+    raise AssertionError(f"source-writer readiness has no {family or 'any'} artifact")
+
+
+def _source_bundle(report: dict, pilot_key: str) -> dict:
+    for bundle in report.get("bundles", []) or []:
+        if bundle.get("key") == pilot_key:
+            return bundle
+    raise AssertionError(f"source bundle preview has no pilot bundle {pilot_key}")
+
+
+def _first_source_bundle_artifact(report: dict, family: str, pilot_key: str | None = None) -> dict:
+    for bundle in report.get("bundles", []) or []:
+        if pilot_key is not None and bundle.get("key") != pilot_key:
+            continue
+        section = (bundle.get("sections") or {}).get(family, {})
+        for artifact in section.get("artifacts", []) or []:
+            return artifact
+    raise AssertionError(f"source bundle preview has no {family} artifact")
+
+
+def _first_alhambra_source_body_candidate(report: dict, family: str) -> dict:
+    section = (report.get("sections") or {}).get(family, {})
+    for candidate in section.get("structured_body_candidates", []) or []:
+        return candidate
+    raise AssertionError(f"Alhambra source body candidate has no {family} candidate")
+
+
+def _alhambra_source_file_preview(report: dict, target_path: str) -> dict:
+    for preview in report.get("file_previews", []) or []:
+        if preview.get("target_path") == target_path:
+            return preview
+    raise AssertionError(f"Alhambra source file preview has no target {target_path}")
+
+
+def _alhambra_source_file_validation_pack(report: dict, target_path: str) -> dict:
+    for pack in report.get("evidence_packs", []) or []:
+        if pack.get("target_path") == target_path:
+            return pack
+    raise AssertionError(f"Alhambra source file validation evidence has no target {target_path}")
+
+
+def _alhambra_source_generator_contract(report: dict, target_path: str) -> dict:
+    for contract in report.get("generator_contracts", []) or []:
+        if contract.get("target_path") == target_path:
+            return contract
+    raise AssertionError(f"Alhambra source generator contract has no target {target_path}")
+
+
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
     return (
         "src/in_game/events/"
@@ -2838,12 +2903,23 @@ def main() -> None:
     source_preview = repeated_entity_row_source_preview_for_payload(load_spec_data())
     if source_preview["validation_errors"]:
         raise AssertionError(f"repeated-row source preview unexpectedly failed validation: {source_preview['validation_errors']}")
-    if source_preview.get("preview_count") != 72:
-        raise AssertionError(f"expected 72 repeated-row source previews, got {source_preview.get('preview_count')}")
-    if source_preview.get("preview_family_summary", {}).get("event") != 32:
-        raise AssertionError(f"expected 32 repeated-row event previews, got {source_preview.get('preview_family_summary')}")
-    if source_preview.get("preview_family_summary", {}).get("localization") != 40:
-        raise AssertionError(f"expected 40 repeated-row localization previews, got {source_preview.get('preview_family_summary')}")
+    expected_preview_family_counts = {
+        "event": 32,
+        "localization": 40,
+        "effect": 40,
+        "cleanup": 32,
+        "trigger": 24,
+        "gui": 8,
+        "listener": 1,
+    }
+    if source_preview.get("preview_count") != 177:
+        raise AssertionError(f"expected 177 repeated-row source previews, got {source_preview.get('preview_count')}")
+    for family, expected_count in expected_preview_family_counts.items():
+        if source_preview.get("preview_family_summary", {}).get(family) != expected_count:
+            raise AssertionError(
+                f"expected {expected_count} repeated-row {family} previews, got "
+                f"{source_preview.get('preview_family_summary')}"
+            )
     if source_preview.get("source_writer_allowed") is not False:
         raise AssertionError(f"source preview source_writer_allowed changed: {source_preview}")
     if source_preview.get("may_write_src_allowed") is not False:
@@ -2853,8 +2929,7 @@ def main() -> None:
     if source_preview.get("source_plan_artifact_count") != 177:
         raise AssertionError(f"source preview should preserve 177-artifact source-plan: {source_preview}")
     skipped_preview_kinds: set[str] = set()
-    event_preview_count = 0
-    localization_preview_count = 0
+    preview_family_counts = {family: 0 for family in expected_preview_family_counts}
     for entry_preview in source_preview.get("entries", []) or []:
         if entry_preview.get("preview_only") is not True:
             raise AssertionError(f"entry source preview must be preview-only: {entry_preview}")
@@ -2875,7 +2950,7 @@ def main() -> None:
             if preview.get("source_ready") is not False:
                 raise AssertionError(f"{artifact_kind} preview became source-ready: {preview}")
             if family == "event":
-                event_preview_count += 1
+                preview_family_counts["event"] += 1
                 if artifact_kind not in REPEATED_ROW_EVENT_ARTIFACT_KINDS:
                     raise AssertionError(f"non-event artifact received event preview: {preview}")
                 if preview.get("row_state_writes_allowed") is not False:
@@ -2888,34 +2963,153 @@ def main() -> None:
                 if body.get("no_source_ready") is not True:
                     raise AssertionError(f"event preview lost source-ready blocker: {preview}")
             elif family == "localization":
-                localization_preview_count += 1
+                preview_family_counts["localization"] += 1
                 if artifact_kind not in REPEATED_ROW_LOCALIZATION_ARTIFACT_KINDS:
                     raise AssertionError(f"non-localization artifact received localization preview: {preview}")
                 if set(preview.get("required_languages", [])) != {"english", "simp_chinese"}:
                     raise AssertionError(f"localization preview bilingual coverage changed: {preview}")
+            elif family == "effect":
+                preview_family_counts["effect"] += 1
+                if artifact_kind not in REPEATED_ROW_EFFECT_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-effect artifact received effect preview: {preview}")
+                if preview.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"effect preview allowed row-state writes: {preview}")
+                if preview.get("effect_body_writes_allowed") is not False:
+                    raise AssertionError(f"effect preview allowed effect body writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_effect_body") is not True:
+                    raise AssertionError(f"effect preview emitted effect body: {preview}")
+                if body.get("no_row_state_write") is not True:
+                    raise AssertionError(f"effect preview lost row-state write blocker: {preview}")
+            elif family == "cleanup":
+                preview_family_counts["cleanup"] += 1
+                if artifact_kind not in REPEATED_ROW_CLEANUP_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-cleanup artifact received cleanup preview: {preview}")
+                if preview.get("effect_body_writes_allowed") is not False:
+                    raise AssertionError(f"cleanup preview allowed effect body writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_cleanup_body") is not True:
+                    raise AssertionError(f"cleanup preview emitted cleanup body: {preview}")
+                if not isinstance(preview.get("cleanup_scope_plan"), dict):
+                    raise AssertionError(f"cleanup preview lost cleanup scope plan: {preview}")
+                coverage = preview.get("cleanup_coverage")
+                if not isinstance(coverage, dict) or not {
+                    "completion",
+                    "failure",
+                    "ownership_loss",
+                    "ritual_reset",
+                } <= set(coverage):
+                    raise AssertionError(f"cleanup preview lost lifecycle coverage: {preview}")
+            elif family == "trigger":
+                preview_family_counts["trigger"] += 1
+                if artifact_kind not in REPEATED_ROW_TRIGGER_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-trigger artifact received trigger preview: {preview}")
+                if preview.get("trigger_body_writes_allowed") is not False:
+                    raise AssertionError(f"trigger preview allowed trigger body writes: {preview}")
+                if preview.get("tooltip_safe_unsafe_write_paths_allowed") is not False:
+                    raise AssertionError(f"trigger preview allowed unsafe tooltip write paths: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_trigger_body") is not True:
+                    raise AssertionError(f"trigger preview emitted trigger body: {preview}")
+                if body.get("no_unsafe_tooltip_write_path") is not True:
+                    raise AssertionError(f"trigger preview lost tooltip write-path blocker: {preview}")
+            elif family == "gui":
+                preview_family_counts["gui"] += 1
+                if artifact_kind not in REPEATED_ROW_GUI_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-GUI artifact received GUI preview: {preview}")
+                if preview.get("aggregate_only_display_allowed") is not False:
+                    raise AssertionError(f"GUI preview allowed aggregate-only display: {preview}")
+                if preview.get("gui_source_body_allowed") is not False:
+                    raise AssertionError(f"GUI preview allowed GUI body writes: {preview}")
+                if preview.get("gui_source_writes_allowed") is not False:
+                    raise AssertionError(f"GUI preview allowed GUI source writes: {preview}")
+                if preview.get("row_state_writes_allowed") is not False:
+                    raise AssertionError(f"GUI preview allowed row-state writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_gui_source_body") is not True:
+                    raise AssertionError(f"GUI preview lost source body blocker: {preview}")
+                if not isinstance(preview.get("fixed_row_widget_plan"), dict):
+                    raise AssertionError(f"GUI preview lost fixed row widget plan: {preview}")
+                if not isinstance(preview.get("per_row_variable_binding_plan"), dict):
+                    raise AssertionError(f"GUI preview lost per-row binding plan: {preview}")
+                if not isinstance(preview.get("tooltip_localization_linkage"), dict):
+                    raise AssertionError(f"GUI preview lost tooltip/localization linkage: {preview}")
+                if not isinstance(preview.get("gui_event_key_linkage"), dict):
+                    raise AssertionError(f"GUI preview lost GUI/event linkage: {preview}")
+            elif family == "listener":
+                preview_family_counts["listener"] += 1
+                if artifact_kind not in REPEATED_ROW_LISTENER_ARTIFACT_KINDS:
+                    raise AssertionError(f"non-listener artifact received listener preview: {preview}")
+                if preview.get("pilot_key") != "unique_alhambra":
+                    raise AssertionError(f"listener preview should be Alhambra-only: {preview}")
+                if preview.get("listener_body_allowed") is not False:
+                    raise AssertionError(f"listener preview allowed listener body writes: {preview}")
+                if preview.get("listener_scope_writes_allowed") is not False:
+                    raise AssertionError(f"listener preview allowed listener scope writes: {preview}")
+                if preview.get("war_scope_writes_allowed") is not False:
+                    raise AssertionError(f"listener preview allowed war scope writes: {preview}")
+                if preview.get("source_writes_allowed") is not False:
+                    raise AssertionError(f"listener preview allowed source writes: {preview}")
+                body = preview.get("source_body_preview", {})
+                if body.get("no_listener_body") is not True:
+                    raise AssertionError(f"listener preview emitted listener body: {preview}")
+                if not isinstance(preview.get("on_action_hook_linkage_plan"), dict):
+                    raise AssertionError(f"listener preview lost hook linkage plan: {preview}")
+                if not isinstance(preview.get("selected_ritual_trigger_linkage"), dict):
+                    raise AssertionError(f"listener preview lost selected ritual trigger linkage: {preview}")
+                if not isinstance(preview.get("row_state_handoff_boundary"), dict):
+                    raise AssertionError(f"listener preview lost row-state handoff boundary: {preview}")
             else:
                 raise AssertionError(f"unsupported source body preview family {family}: {preview}")
-    if event_preview_count != 32:
-        raise AssertionError(f"expected 32 event previews, got {event_preview_count}")
-    if localization_preview_count != 40:
-        raise AssertionError(f"expected 40 localization previews, got {localization_preview_count}")
-    forbidden_preview_kinds = (
-        REPEATED_ROW_EFFECT_CLEANUP_ARTIFACT_KINDS
-        | REPEATED_ROW_TRIGGER_ARTIFACT_KINDS
-        | REPEATED_ROW_GUI_ARTIFACT_KINDS
-        | REPEATED_ROW_LISTENER_ARTIFACT_KINDS
-    )
-    if not forbidden_preview_kinds <= skipped_preview_kinds:
-        raise AssertionError(
-            "effect/trigger/cleanup/GUI/listener artifacts should remain skipped preview blockers: "
-            f"{sorted(forbidden_preview_kinds - skipped_preview_kinds)}"
-        )
+    for family, expected_count in expected_preview_family_counts.items():
+        if preview_family_counts[family] != expected_count:
+            raise AssertionError(f"expected {expected_count} {family} previews, got {preview_family_counts[family]}")
+    if skipped_preview_kinds:
+        raise AssertionError(f"source preview should not skip artifact kinds: {sorted(skipped_preview_kinds)}")
+    if source_preview.get("skipped_artifact_kinds") != []:
+        raise AssertionError(f"source preview report skipped kinds should be empty: {source_preview}")
 
     row_state_preview = deepcopy(source_preview)
     _first_source_preview(row_state_preview, "event")["row_state_writes_allowed"] = True
     row_state_preview_errors = validate_repeated_entity_row_source_preview(row_state_preview)
     if not any("row-state writes must be false" in error for error in row_state_preview_errors):
         raise AssertionError(f"event row-state write preview negative was not caught: {row_state_preview_errors}")
+
+    effect_row_state_preview = deepcopy(source_preview)
+    _first_source_preview(effect_row_state_preview, "effect")["row_state_writes_allowed"] = True
+    effect_row_state_errors = validate_repeated_entity_row_source_preview(effect_row_state_preview)
+    if not any("effect preview row-state writes must be false" in error for error in effect_row_state_errors):
+        raise AssertionError(f"effect row-state write preview negative was not caught: {effect_row_state_errors}")
+
+    effect_body_preview = deepcopy(source_preview)
+    _first_source_preview(effect_body_preview, "effect")["effect_body_writes_allowed"] = True
+    effect_body_errors = validate_repeated_entity_row_source_preview(effect_body_preview)
+    if not any("effect preview effect body writes must be false" in error for error in effect_body_errors):
+        raise AssertionError(f"effect body write preview negative was not caught: {effect_body_errors}")
+
+    missing_cleanup_scope_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_cleanup_scope_preview, "cleanup")["cleanup_scope_plan"]
+    missing_cleanup_scope_errors = validate_repeated_entity_row_source_preview(missing_cleanup_scope_preview)
+    if not any("source preview missing field(s)" in error for error in missing_cleanup_scope_errors):
+        raise AssertionError(f"missing cleanup scope preview negative was not caught: {missing_cleanup_scope_errors}")
+
+    missing_cleanup_coverage_preview = deepcopy(source_preview)
+    _first_source_preview(missing_cleanup_coverage_preview, "cleanup")["cleanup_coverage"] = {}
+    missing_cleanup_coverage_errors = validate_repeated_entity_row_source_preview(missing_cleanup_coverage_preview)
+    if not any("cleanup preview missing cleanup coverage" in error for error in missing_cleanup_coverage_errors):
+        raise AssertionError(f"missing cleanup coverage preview negative was not caught: {missing_cleanup_coverage_errors}")
+
+    trigger_body_preview = deepcopy(source_preview)
+    _first_source_preview(trigger_body_preview, "trigger")["trigger_body_writes_allowed"] = True
+    trigger_body_errors = validate_repeated_entity_row_source_preview(trigger_body_preview)
+    if not any("trigger preview trigger body writes must be false" in error for error in trigger_body_errors):
+        raise AssertionError(f"trigger body write preview negative was not caught: {trigger_body_errors}")
+
+    trigger_tooltip_preview = deepcopy(source_preview)
+    _first_source_preview(trigger_tooltip_preview, "trigger")["tooltip_safe_unsafe_write_paths_allowed"] = True
+    trigger_tooltip_errors = validate_repeated_entity_row_source_preview(trigger_tooltip_preview)
+    if not any("trigger preview tooltip-safe unsafe write paths must be false" in error for error in trigger_tooltip_errors):
+        raise AssertionError(f"trigger tooltip unsafe write path preview negative was not caught: {trigger_tooltip_errors}")
 
     missing_event_id_preview = deepcopy(source_preview)
     _first_source_preview(missing_event_id_preview, "event")["event_id_evidence"] = []
@@ -2961,16 +3155,2645 @@ def main() -> None:
         raise AssertionError(f"unsafe quote/newline preview negative was not caught: {unsafe_policy_errors}")
 
     writable_preview = deepcopy(source_preview)
-    _first_source_preview(writable_preview, "event")["may_write_src"] = True
+    _first_source_preview(writable_preview, "effect")["may_write_src"] = True
     writable_preview_errors = validate_repeated_entity_row_source_preview(writable_preview)
     if not any("may_write_src must be false" in error for error in writable_preview_errors):
         raise AssertionError(f"may_write_src preview negative was not caught: {writable_preview_errors}")
 
     writes_src_preview = deepcopy(source_preview)
-    _first_source_preview(writes_src_preview, "event")["writes_src"] = True
+    _first_source_preview(writes_src_preview, "trigger")["writes_src"] = True
     writes_src_preview_errors = validate_repeated_entity_row_source_preview(writes_src_preview)
     if not any("writes_src must be false" in error for error in writes_src_preview_errors):
         raise AssertionError(f"writes_src preview negative was not caught: {writes_src_preview_errors}")
+
+    cleanup_may_write_src_preview = deepcopy(source_preview)
+    _first_source_preview(cleanup_may_write_src_preview, "cleanup")["may_write_src"] = True
+    cleanup_may_write_src_errors = validate_repeated_entity_row_source_preview(cleanup_may_write_src_preview)
+    if not any("may_write_src must be false" in error for error in cleanup_may_write_src_errors):
+        raise AssertionError(f"cleanup may_write_src preview negative was not caught: {cleanup_may_write_src_errors}")
+
+    gui_aggregate_only_preview = deepcopy(source_preview)
+    _first_source_preview(gui_aggregate_only_preview, "gui")["aggregate_only_display_allowed"] = True
+    gui_aggregate_only_errors = validate_repeated_entity_row_source_preview(gui_aggregate_only_preview)
+    if not any("GUI preview aggregate-only display must be false" in error for error in gui_aggregate_only_errors):
+        raise AssertionError(f"GUI aggregate-only preview negative was not caught: {gui_aggregate_only_errors}")
+
+    gui_body_preview = deepcopy(source_preview)
+    _first_source_preview(gui_body_preview, "gui")["gui_source_body_allowed"] = True
+    gui_body_errors = validate_repeated_entity_row_source_preview(gui_body_preview)
+    if not any("GUI preview GUI body writes must be false" in error for error in gui_body_errors):
+        raise AssertionError(f"GUI body write preview negative was not caught: {gui_body_errors}")
+
+    gui_source_write_preview = deepcopy(source_preview)
+    _first_source_preview(gui_source_write_preview, "gui")["gui_source_writes_allowed"] = True
+    gui_source_write_errors = validate_repeated_entity_row_source_preview(gui_source_write_preview)
+    if not any("GUI preview GUI source writes must be false" in error for error in gui_source_write_errors):
+        raise AssertionError(f"GUI source write preview negative was not caught: {gui_source_write_errors}")
+
+    missing_gui_widget_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_gui_widget_preview, "gui")["fixed_row_widget_plan"]
+    missing_gui_widget_errors = validate_repeated_entity_row_source_preview(missing_gui_widget_preview)
+    if not any("source preview missing field(s)" in error for error in missing_gui_widget_errors):
+        raise AssertionError(f"missing GUI row widget preview negative was not caught: {missing_gui_widget_errors}")
+
+    missing_gui_binding_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_gui_binding_preview, "gui")["per_row_variable_binding_plan"]
+    missing_gui_binding_errors = validate_repeated_entity_row_source_preview(missing_gui_binding_preview)
+    if not any("source preview missing field(s)" in error for error in missing_gui_binding_errors):
+        raise AssertionError(f"missing GUI per-row binding preview negative was not caught: {missing_gui_binding_errors}")
+
+    missing_gui_tooltip_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_gui_tooltip_preview, "gui")["tooltip_localization_linkage"]
+    missing_gui_tooltip_errors = validate_repeated_entity_row_source_preview(missing_gui_tooltip_preview)
+    if not any("source preview missing field(s)" in error for error in missing_gui_tooltip_errors):
+        raise AssertionError(f"missing GUI tooltip/localization preview negative was not caught: {missing_gui_tooltip_errors}")
+
+    gui_may_write_src_preview = deepcopy(source_preview)
+    _first_source_preview(gui_may_write_src_preview, "gui")["may_write_src"] = True
+    gui_may_write_src_errors = validate_repeated_entity_row_source_preview(gui_may_write_src_preview)
+    if not any("may_write_src must be false" in error for error in gui_may_write_src_errors):
+        raise AssertionError(f"GUI may_write_src preview negative was not caught: {gui_may_write_src_errors}")
+
+    listener_non_alhambra_preview = deepcopy(source_preview)
+    _first_source_preview(listener_non_alhambra_preview, "listener")["pilot_key"] = "unique_dome_of_the_rock"
+    listener_non_alhambra_errors = validate_repeated_entity_row_source_preview(listener_non_alhambra_preview)
+    if not any("listener preview must be Alhambra-only" in error for error in listener_non_alhambra_errors):
+        raise AssertionError(f"non-Alhambra listener preview negative was not caught: {listener_non_alhambra_errors}")
+
+    listener_body_preview = deepcopy(source_preview)
+    _first_source_preview(listener_body_preview, "listener")["listener_body_allowed"] = True
+    listener_body_errors = validate_repeated_entity_row_source_preview(listener_body_preview)
+    if not any("listener preview listener body writes must be false" in error for error in listener_body_errors):
+        raise AssertionError(f"listener body write preview negative was not caught: {listener_body_errors}")
+
+    listener_war_scope_preview = deepcopy(source_preview)
+    _first_source_preview(listener_war_scope_preview, "listener")["war_scope_writes_allowed"] = True
+    listener_war_scope_errors = validate_repeated_entity_row_source_preview(listener_war_scope_preview)
+    if not any("listener preview war scope writes must be false" in error for error in listener_war_scope_errors):
+        raise AssertionError(f"listener war scope write preview negative was not caught: {listener_war_scope_errors}")
+
+    missing_listener_hook_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_listener_hook_preview, "listener")["on_action_hook_linkage_plan"]
+    missing_listener_hook_errors = validate_repeated_entity_row_source_preview(missing_listener_hook_preview)
+    if not any("source preview missing field(s)" in error for error in missing_listener_hook_errors):
+        raise AssertionError(f"missing listener hook linkage preview negative was not caught: {missing_listener_hook_errors}")
+
+    missing_listener_trigger_preview = deepcopy(source_preview)
+    del _first_source_preview(missing_listener_trigger_preview, "listener")["selected_ritual_trigger_linkage"]
+    missing_listener_trigger_errors = validate_repeated_entity_row_source_preview(missing_listener_trigger_preview)
+    if not any("source preview missing field(s)" in error for error in missing_listener_trigger_errors):
+        raise AssertionError(
+            f"missing listener selected ritual trigger preview negative was not caught: {missing_listener_trigger_errors}"
+        )
+
+    listener_writes_src_preview = deepcopy(source_preview)
+    _first_source_preview(listener_writes_src_preview, "listener")["writes_src"] = True
+    listener_writes_src_errors = validate_repeated_entity_row_source_preview(listener_writes_src_preview)
+    if not any("writes_src must be false" in error for error in listener_writes_src_errors):
+        raise AssertionError(f"listener writes_src preview negative was not caught: {listener_writes_src_errors}")
+
+    source_writer_readiness = repeated_entity_row_source_writer_readiness_for_payload(load_spec_data())
+    if source_writer_readiness["validation_errors"]:
+        raise AssertionError(
+            "repeated-row source-writer readiness unexpectedly failed validation: "
+            f"{source_writer_readiness['validation_errors']}"
+        )
+    if source_writer_readiness.get("artifact_count") != 177:
+        raise AssertionError(
+            "expected 177 repeated-row source-writer readiness artifacts, got "
+            f"{source_writer_readiness.get('artifact_count')}"
+        )
+    if source_writer_readiness.get("source_plan_artifact_count") != 177:
+        raise AssertionError(f"source-writer readiness should preserve 177-artifact source-plan: {source_writer_readiness}")
+    if source_writer_readiness.get("source_preview_count") != 177:
+        raise AssertionError(f"source-writer readiness should preserve 177 source previews: {source_writer_readiness}")
+    if source_writer_readiness.get("ready_artifact_count") != 0:
+        raise AssertionError(f"source-writer readiness must not mark artifacts ready: {source_writer_readiness}")
+    if source_writer_readiness.get("blocked_artifact_count") != 177:
+        raise AssertionError(f"source-writer readiness must keep every artifact blocked: {source_writer_readiness}")
+    if source_writer_readiness.get("source_writer_allowed") is not False:
+        raise AssertionError(f"source-writer readiness source_writer_allowed changed: {source_writer_readiness}")
+    if source_writer_readiness.get("may_write_src_allowed") is not False:
+        raise AssertionError(f"source-writer readiness may_write_src_allowed changed: {source_writer_readiness}")
+    if source_writer_readiness.get("writes_src") is not False:
+        raise AssertionError(f"source-writer readiness writes_src changed: {source_writer_readiness}")
+    if source_writer_readiness.get("contract_family_summary") != expected_preview_family_counts:
+        raise AssertionError(
+            "source-writer readiness family summary changed: "
+            f"{source_writer_readiness.get('contract_family_summary')}"
+        )
+    readiness_evidence_fields = {
+        "eu5_syntax_evidence",
+        "generator_ownership_evidence",
+        "source_target_boundary_evidence",
+        "validation_coverage_evidence",
+        "lifecycle_semantics_evidence",
+    }
+    readiness_family_counts = {family: 0 for family in expected_preview_family_counts}
+    readiness_identities: set[tuple[str, str, str]] = set()
+    closure_family_counts = {family: 0 for family in expected_preview_family_counts}
+    closure_pilots_by_family = {family: set() for family in closure_family_counts}
+    if source_writer_readiness.get("closure_contract_count") != 177:
+        raise AssertionError(
+            "source-writer readiness should expose 177 closure contracts, got "
+            f"{source_writer_readiness.get('closure_contract_count')}"
+        )
+    if source_writer_readiness.get("closure_family_summary") != expected_preview_family_counts:
+        raise AssertionError(
+            "source-writer readiness closure family summary changed: "
+            f"{source_writer_readiness.get('closure_family_summary')}"
+        )
+    if source_writer_readiness.get("closure_missing_families") != []:
+        raise AssertionError(
+            "source-writer readiness closure missing families changed: "
+            f"{source_writer_readiness.get('closure_missing_families')}"
+        )
+    if source_writer_readiness.get("closure_no_write_violation_count") != 0:
+        raise AssertionError(
+            "source-writer readiness closure no-write violation count changed: "
+            f"{source_writer_readiness.get('closure_no_write_violation_count')}"
+        )
+    for entry_readiness in source_writer_readiness.get("entries", []) or []:
+        if entry_readiness.get("source_writer_allowed") is not False:
+            raise AssertionError(f"entry source-writer readiness source_writer_allowed changed: {entry_readiness}")
+        if entry_readiness.get("may_write_src_allowed") is not False:
+            raise AssertionError(f"entry source-writer readiness may_write_src_allowed changed: {entry_readiness}")
+        if entry_readiness.get("writes_src") is not False:
+            raise AssertionError(f"entry source-writer readiness writes_src changed: {entry_readiness}")
+        if entry_readiness.get("ready_artifact_count") != 0:
+            raise AssertionError(f"entry source-writer readiness should keep ready count at zero: {entry_readiness}")
+        artifacts = entry_readiness.get("artifacts", []) or []
+        if entry_readiness.get("blocked_artifact_count") != len(artifacts):
+            raise AssertionError(f"entry source-writer readiness blocked count mismatch: {entry_readiness}")
+        for artifact in artifacts:
+            identity = (artifact.get("pilot_key"), artifact.get("row_set_key"), artifact.get("artifact_kind"))
+            if identity in readiness_identities:
+                raise AssertionError(f"duplicate source-writer readiness artifact identity: {identity}")
+            readiness_identities.add(identity)
+            family = artifact.get("contract_family")
+            if family not in readiness_family_counts:
+                raise AssertionError(f"unsupported source-writer readiness family: {artifact}")
+            readiness_family_counts[family] += 1
+            if artifact.get("preview_exists") is not True:
+                raise AssertionError(f"source-writer readiness lost preview match: {artifact}")
+            if artifact.get("current_contract_status") != "blocked":
+                raise AssertionError(f"source-writer readiness contract status changed: {artifact}")
+            if artifact.get("readiness_status") != "blocked":
+                raise AssertionError(f"source-writer readiness promoted an artifact: {artifact}")
+            if artifact.get("source_writer_allowed") is not False:
+                raise AssertionError(f"source-writer readiness source_writer_allowed changed: {artifact}")
+            if artifact.get("may_write_src") is not False:
+                raise AssertionError(f"source-writer readiness may_write_src changed: {artifact}")
+            if artifact.get("writes_src") is not False:
+                raise AssertionError(f"source-writer readiness writes_src changed: {artifact}")
+            if not artifact.get("unresolved_writer_blockers"):
+                raise AssertionError(f"source-writer readiness lost blockers: {artifact}")
+            if family == "event":
+                closure_family_counts["event"] += 1
+                closure_pilots_by_family["event"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"event readiness lost closure contract: {artifact}")
+                if closure.get("namespace") != "tv_engineering_department":
+                    raise AssertionError(f"event closure namespace changed: {closure}")
+                if closure.get("future_source_target_path") != _repeated_row_event_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"event closure future target changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"event closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"event closure source-writer boundary changed: {closure}")
+                if not closure.get("event_id_evidence") or not closure.get("node_event_id_evidence"):
+                    raise AssertionError(f"event closure lost event id evidence: {closure}")
+                body = closure.get("source_body_preview")
+                if not isinstance(body, dict) or body.get("namespace") != "tv_engineering_department":
+                    raise AssertionError(f"event closure lost source body preview: {closure}")
+                loc_handoff = closure.get("localization_key_handoff")
+                if not isinstance(loc_handoff, dict) or not {
+                    "title_key",
+                    "desc_key",
+                    "option_keys",
+                } <= set(loc_handoff):
+                    raise AssertionError(f"event closure lost localization handoff: {closure}")
+                option_handoff = closure.get("option_effect_handoff")
+                if not isinstance(option_handoff, dict) or option_handoff.get("handoff_only") is not True:
+                    raise AssertionError(f"event closure lost option-effect handoff: {closure}")
+                safety = closure.get("safety_notes")
+                if (
+                    not isinstance(safety, dict)
+                    or safety.get("hidden_executor_handoff_only") is not True
+                    or safety.get("tooltip_heavy_finalization_allowed") is not False
+                    or safety.get("row_state_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"event closure lost hidden-executor/tooltip safety: {closure}")
+            elif family == "localization":
+                closure_family_counts["localization"] += 1
+                closure_pilots_by_family["localization"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"localization readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path_pattern") != (
+                    "src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml"
+                ):
+                    raise AssertionError(f"localization closure future target pattern changed: {closure}")
+                if closure.get("future_source_target_path") != _repeated_row_localization_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"localization closure future target changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"localization closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"localization closure source-writer boundary changed: {closure}")
+                language_boundary = closure.get("language_ownership_boundary")
+                if (
+                    not isinstance(language_boundary, dict)
+                    or set(language_boundary.get("required_languages", [])) != {"english", "simp_chinese"}
+                    or language_boundary.get("missing_bilingual_coverage_allowed") is not False
+                ):
+                    raise AssertionError(f"localization closure lost bilingual boundary: {closure}")
+                event_handoff = closure.get("event_key_handoff")
+                if not isinstance(event_handoff, dict) or not {
+                    "title_key",
+                    "desc_key",
+                    "option_key_pattern",
+                } <= set(event_handoff):
+                    raise AssertionError(f"localization closure lost event key handoff: {closure}")
+                key_allocation = closure.get("key_allocation")
+                required_groups = {"row_labels", "status_text", "incident_text", "tooltips", "summary_text"}
+                if (
+                    not isinstance(key_allocation, dict)
+                    or not required_groups <= set(key_allocation.get("required_groups", []))
+                    or not required_groups <= set((key_allocation.get("row_key_groups") or {}).keys())
+                    or not key_allocation.get("loc_key_plan")
+                ):
+                    raise AssertionError(f"localization closure lost key allocation: {closure}")
+                escaping = closure.get("escaping_bom_boundary")
+                if (
+                    not isinstance(escaping, dict)
+                    or escaping.get("quote_escaped") is not True
+                    or escaping.get("newline_escaped") is not True
+                    or escaping.get("bom_encoding") != "utf-8-sig"
+                    or escaping.get("writes_file") is not False
+                ):
+                    raise AssertionError(f"localization closure lost escaping/BOM boundary: {closure}")
+            elif family == "effect":
+                closure_family_counts["effect"] += 1
+                closure_pilots_by_family["effect"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"effect readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_effect_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"effect closure future target changed: {closure}")
+                if closure.get("source_type") != "common/scripted_effects":
+                    raise AssertionError(f"effect closure source type changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"effect closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"effect closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("effect_body_writes_allowed") is not False
+                    or closure.get("row_state_writes_allowed") is not False
+                    or closure.get("row_state_write_schema_allowed") is not False
+                ):
+                    raise AssertionError(f"effect closure allowed scripted-effect writes: {closure}")
+                operation_coverage = closure.get("effect_operation_coverage")
+                required_operations = {
+                    "row_init",
+                    "row_state_write",
+                    "branch_write",
+                    "aggregate_refresh",
+                    "cleanup_write_handoff",
+                }
+                if (
+                    not isinstance(operation_coverage, dict)
+                    or not required_operations <= set(operation_coverage.get("required_operations", []))
+                    or operation_coverage.get("effect_body_emitted") is not False
+                ):
+                    raise AssertionError(f"effect closure lost operation coverage: {closure}")
+                schema_boundary = closure.get("row_state_schema_boundary")
+                if (
+                    not isinstance(schema_boundary, dict)
+                    or schema_boundary.get("schema_contract_only") is not True
+                    or schema_boundary.get("row_state_write_schema_allowed") is not False
+                    or not schema_boundary.get("entity_keys")
+                ):
+                    raise AssertionError(f"effect closure lost row-state schema boundary: {closure}")
+                aggregate_boundary = closure.get("aggregate_refresh_boundary")
+                if (
+                    not isinstance(aggregate_boundary, dict)
+                    or not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+                    or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+                    or aggregate_boundary.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"effect closure lost aggregate refresh boundary: {closure}")
+                cleanup_handoff = closure.get("cleanup_write_handoff")
+                if (
+                    not isinstance(cleanup_handoff, dict)
+                    or cleanup_handoff.get("handoff_only") is not True
+                    or cleanup_handoff.get("cleanup_source_writer_allowed") is not False
+                    or cleanup_handoff.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"effect closure lost cleanup write handoff: {closure}")
+            elif family == "cleanup":
+                closure_family_counts["cleanup"] += 1
+                closure_pilots_by_family["cleanup"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"cleanup readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_effect_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"cleanup closure future target changed: {closure}")
+                if closure.get("source_type") != "common/scripted_effects":
+                    raise AssertionError(f"cleanup closure source type changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"cleanup closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"cleanup closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("effect_body_writes_allowed") is not False
+                    or closure.get("row_state_write_schema_allowed") is not False
+                ):
+                    raise AssertionError(f"cleanup closure allowed scripted-effect writes: {closure}")
+                if (
+                    closure.get("cleanup_lifecycle_scope")
+                    != REPEATED_ROW_EFFECT_CLEANUP_CONTRACT_CLEANUP_SCOPES[artifact["artifact_kind"]]
+                ):
+                    raise AssertionError(f"cleanup closure lost lifecycle scope: {closure}")
+                coverage = closure.get("cleanup_coverage")
+                if (
+                    not isinstance(coverage, dict)
+                    or not {"completion", "failure", "ownership_loss", "ritual_reset"} <= set(coverage)
+                ):
+                    raise AssertionError(f"cleanup closure lost cleanup coverage: {closure}")
+                ownership_reset = closure.get("ownership_reset_branch_boundary")
+                if (
+                    not isinstance(ownership_reset, dict)
+                    or not {"ownership_loss", "ritual_reset"} <= set(ownership_reset.get("required_branches", []))
+                    or ownership_reset.get("ownership_loss_planned") is not True
+                    or ownership_reset.get("ritual_reset_planned") is not True
+                ):
+                    raise AssertionError(f"cleanup closure lost ownership/reset branch: {closure}")
+                lifecycle = closure.get("row_entity_lifecycle_coverage")
+                if (
+                    not isinstance(lifecycle, dict)
+                    or not lifecycle.get("entity_keys")
+                    or lifecycle.get("row_state_write_schema_allowed") is not False
+                ):
+                    raise AssertionError(f"cleanup closure lost row/entity lifecycle coverage: {closure}")
+                aggregate_boundary = closure.get("aggregate_projection_boundary")
+                if (
+                    not isinstance(aggregate_boundary, dict)
+                    or not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+                    or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+                    or aggregate_boundary.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"cleanup closure lost aggregate projection boundary: {closure}")
+            elif family == "trigger":
+                closure_family_counts["trigger"] += 1
+                closure_pilots_by_family["trigger"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"trigger readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_trigger_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"trigger closure future target changed: {closure}")
+                if closure.get("source_type") != "common/scripted_triggers":
+                    raise AssertionError(f"trigger closure source type changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"trigger closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"trigger closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("trigger_body_writes_allowed") is not False
+                    or closure.get("tooltip_safe_unsafe_write_paths_allowed") is not False
+                ):
+                    raise AssertionError(f"trigger closure allowed scripted-trigger writes: {closure}")
+                condition_coverage = closure.get("condition_group_coverage")
+                if (
+                    not isinstance(condition_coverage, dict)
+                    or not {"eligibility", "row_completion", "tooltip_safe"}
+                    <= set(condition_coverage.get("required_groups", []))
+                    or not isinstance(condition_coverage.get("eligibility"), dict)
+                    or not isinstance(condition_coverage.get("row_completion"), dict)
+                    or not isinstance(condition_coverage.get("tooltip_safe"), dict)
+                ):
+                    raise AssertionError(f"trigger closure lost condition group coverage: {closure}")
+                forbidden_paths = closure.get("forbidden_write_paths")
+                if (
+                    not isinstance(forbidden_paths, dict)
+                    or not {"tooltip", "pre_evaluation"} <= set(forbidden_paths.get("forbidden_contexts", []))
+                    or forbidden_paths.get("unsafe_effect_calls_allowed") is not False
+                    or forbidden_paths.get("row_state_writes_allowed") is not False
+                    or forbidden_paths.get("source_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"trigger closure lost forbidden write paths: {closure}")
+            elif family == "gui":
+                closure_family_counts["gui"] += 1
+                closure_pilots_by_family["gui"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"GUI readiness lost closure contract: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_gui_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"GUI closure future target changed: {closure}")
+                if closure.get("source_type") != "in_game/gui/panels/organization":
+                    raise AssertionError(f"GUI closure source type changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"GUI closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"GUI closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("aggregate_only_display_allowed") is not False
+                    or closure.get("gui_source_body_allowed") is not False
+                    or closure.get("gui_source_writes_allowed") is not False
+                    or closure.get("row_state_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"GUI closure allowed forbidden UI/source writes: {closure}")
+                body = closure.get("source_body_preview")
+                if not isinstance(body, dict) or body.get("no_gui_source_body") is not True:
+                    raise AssertionError(f"GUI closure lost source body blocker: {closure}")
+                fixed_plan = closure.get("fixed_row_widget_plan")
+                if (
+                    not isinstance(fixed_plan, dict)
+                    or fixed_plan.get("row_widget_fixed") is not True
+                    or fixed_plan.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"GUI closure lost fixed row widget plan: {closure}")
+                binding_plan = closure.get("per_row_variable_binding_plan")
+                if (
+                    not isinstance(binding_plan, dict)
+                    or binding_plan.get("binds_design_ir_tracked_entity_sets") is not True
+                    or binding_plan.get("aggregate_only_row_reads_allowed") is not False
+                    or not binding_plan.get("entity_keys")
+                ):
+                    raise AssertionError(f"GUI closure lost per-row binding plan: {closure}")
+                row_policy = closure.get("actor_checklist_incident_row_policy")
+                if (
+                    not isinstance(row_policy, dict)
+                    or row_policy.get("distinct_row_policies_required") is not True
+                    or row_policy.get("aggregate_only_display_allowed") is not False
+                ):
+                    raise AssertionError(f"GUI closure lost actor/checklist/incident row policy: {closure}")
+                tooltip_linkage = closure.get("tooltip_localization_linkage")
+                if (
+                    not isinstance(tooltip_linkage, dict)
+                    or not tooltip_linkage.get("row_label_keys")
+                    or not tooltip_linkage.get("tooltip_keys")
+                ):
+                    raise AssertionError(f"GUI closure lost tooltip/localization linkage: {closure}")
+                key_linkage = closure.get("gui_event_localization_key_linkage")
+                if (
+                    not isinstance(key_linkage, dict)
+                    or key_linkage.get("localization_linkage_only") is not True
+                    or key_linkage.get("source_body_emitted") is not False
+                    or key_linkage.get("gui_source_writer_allowed") is not False
+                ):
+                    raise AssertionError(f"GUI closure lost GUI/event/localization key linkage: {closure}")
+                aggregate_boundary = closure.get("aggregate_projection_boundary")
+                if (
+                    not isinstance(aggregate_boundary, dict)
+                    or not isinstance(aggregate_boundary.get("aggregate_projection_refs"), list)
+                    or not str(aggregate_boundary.get("aggregate_projection_boundary", "")).strip()
+                    or aggregate_boundary.get("aggregate_only_display_allowed") is not False
+                ):
+                    raise AssertionError(f"GUI closure lost aggregate projection boundary: {closure}")
+            elif family == "listener":
+                closure_family_counts["listener"] += 1
+                closure_pilots_by_family["listener"].add(str(artifact.get("pilot_key", "")))
+                closure = artifact.get("closure_contract")
+                if not isinstance(closure, dict):
+                    raise AssertionError(f"listener readiness lost closure contract: {artifact}")
+                if artifact.get("pilot_key") != "unique_alhambra" or artifact.get("artifact_kind") != "listener_war_integration":
+                    raise AssertionError(f"listener closure should be Alhambra-only: {artifact}")
+                if closure.get("future_source_target_path") != _repeated_row_listener_contract_path(artifact["pilot_key"]):
+                    raise AssertionError(f"listener closure future target changed: {closure}")
+                if closure.get("listener_artifact_scope") != "unique_alhambra-only listener_war_integration":
+                    raise AssertionError(f"listener closure scope changed: {closure}")
+                if closure.get("may_write_src") is not False or closure.get("writes_src") is not False:
+                    raise AssertionError(f"listener closure no-write boundary changed: {closure}")
+                if closure.get("source_writer_allowed") is not False or closure.get("readiness_status") != "blocked":
+                    raise AssertionError(f"listener closure source-writer boundary changed: {closure}")
+                if (
+                    closure.get("listener_body_allowed") is not False
+                    or closure.get("listener_scope_writes_allowed") is not False
+                    or closure.get("war_scope_writes_allowed") is not False
+                    or closure.get("source_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"listener closure allowed forbidden writes: {closure}")
+                body = closure.get("source_body_preview")
+                if not isinstance(body, dict) or body.get("no_listener_body") is not True:
+                    raise AssertionError(f"listener closure emitted listener body: {closure}")
+                hook_plan = closure.get("on_action_hook_linkage_plan")
+                if (
+                    not isinstance(hook_plan, dict)
+                    or not {"on_pre_winning_war", "on_ending_war"} <= set(hook_plan.get("hooks", []))
+                    or hook_plan.get("body_emitted") is not False
+                ):
+                    raise AssertionError(f"listener closure lost hook linkage plan: {closure}")
+                trigger_linkage = closure.get("selected_ritual_trigger_linkage")
+                if (
+                    not isinstance(trigger_linkage, dict)
+                    or trigger_linkage.get("trigger_name")
+                    != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+                    or trigger_linkage.get("linkage_only") is not True
+                ):
+                    raise AssertionError(f"listener closure lost selected ritual trigger linkage: {closure}")
+                war_scope_plan = closure.get("war_scope_availability_persistence_plan")
+                if (
+                    not isinstance(war_scope_plan, dict)
+                    or war_scope_plan.get("persistence_contract_only") is not True
+                    or war_scope_plan.get("war_scope_writes_allowed") is not False
+                ):
+                    raise AssertionError(f"listener closure lost war scope availability plan: {closure}")
+                handoff_boundary = closure.get("row_state_handoff_boundary")
+                if (
+                    not isinstance(handoff_boundary, dict)
+                    or handoff_boundary.get("handoff_only") is not True
+                    or handoff_boundary.get("row_state_writes_allowed") is not False
+                    or not handoff_boundary.get("entity_keys")
+                ):
+                    raise AssertionError(f"listener closure lost row-state handoff boundary: {closure}")
+            for evidence_field in readiness_evidence_fields:
+                evidence = artifact.get(evidence_field)
+                if not isinstance(evidence, dict):
+                    raise AssertionError(f"{evidence_field} missing readiness evidence block: {artifact}")
+                if evidence.get("status") in {"verified", "source_ready", "source-ready"}:
+                    raise AssertionError(f"{evidence_field} claimed verified/source-ready: {evidence}")
+                if evidence.get("evidence_type") in {"verified", "source_ready", "source-ready"}:
+                    raise AssertionError(f"{evidence_field} claimed verified/source-ready evidence type: {evidence}")
+                if not isinstance(evidence.get("paths"), list):
+                    raise AssertionError(f"{evidence_field} paths must be a list: {evidence}")
+                if not isinstance(evidence.get("anchors"), dict):
+                    raise AssertionError(f"{evidence_field} anchors must be a mapping: {evidence}")
+                if not evidence.get("blockers"):
+                    raise AssertionError(f"{evidence_field} must retain blockers: {evidence}")
+    if len(readiness_identities) != 177:
+        raise AssertionError(f"source-writer readiness identity coverage changed: {len(readiness_identities)}")
+    for family, expected_count in expected_preview_family_counts.items():
+        if readiness_family_counts[family] != expected_count:
+            raise AssertionError(f"expected {expected_count} {family} readiness artifacts, got {readiness_family_counts[family]}")
+    expected_closure_family_counts = dict(expected_preview_family_counts)
+    for family, expected_count in expected_closure_family_counts.items():
+        if closure_family_counts[family] != expected_count:
+            raise AssertionError(f"expected {expected_count} {family} closure artifacts, got {closure_family_counts[family]}")
+        expected_pilots = {"unique_alhambra"} if family == "listener" else set(REPEATED_ROW_PILOTS)
+        if closure_pilots_by_family[family] != expected_pilots:
+            raise AssertionError(f"{family} closure pilot coverage changed: {closure_pilots_by_family[family]}")
+
+    missing_preview_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_preview_readiness, "event")["preview_exists"] = False
+    missing_preview_errors = validate_repeated_entity_row_source_writer_readiness(missing_preview_readiness)
+    if not any("missing preview" in error for error in missing_preview_errors):
+        raise AssertionError(f"missing preview readiness negative was not caught: {missing_preview_errors}")
+
+    missing_source_plan_readiness = deepcopy(source_writer_readiness)
+    missing_source_plan_readiness["source_plan_artifact_count"] = 176
+    missing_source_plan_errors = validate_repeated_entity_row_source_writer_readiness(missing_source_plan_readiness)
+    if not any("177-artifact source-plan" in error for error in missing_source_plan_errors):
+        raise AssertionError(f"missing source-plan readiness negative was not caught: {missing_source_plan_errors}")
+
+    missing_evidence_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_evidence_readiness, "localization")["eu5_syntax_evidence"]
+    missing_evidence_errors = validate_repeated_entity_row_source_writer_readiness(missing_evidence_readiness)
+    if not any("missing field(s)" in error for error in missing_evidence_errors):
+        raise AssertionError(f"missing evidence block readiness negative was not caught: {missing_evidence_errors}")
+
+    missing_event_namespace_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_event_namespace_readiness, "event")["closure_contract"]["namespace"] = ""
+    missing_event_namespace_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_event_namespace_readiness
+    )
+    if not any("event closure missing namespace" in error for error in missing_event_namespace_errors):
+        raise AssertionError(f"missing event namespace closure negative was not caught: {missing_event_namespace_errors}")
+
+    missing_event_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_event_path_readiness, "event")["closure_contract"]["future_source_target_path"] = ""
+    missing_event_path_errors = validate_repeated_entity_row_source_writer_readiness(missing_event_path_readiness)
+    if not any("event closure missing future target path" in error for error in missing_event_path_errors):
+        raise AssertionError(f"missing event target closure negative was not caught: {missing_event_path_errors}")
+
+    missing_event_loc_handoff_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_event_loc_handoff_readiness, "event")["closure_contract"][
+        "localization_key_handoff"
+    ]
+    missing_event_loc_handoff_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_event_loc_handoff_readiness
+    )
+    if not any("event closure missing localization handoff" in error for error in missing_event_loc_handoff_errors):
+        raise AssertionError(
+            f"missing event loc handoff closure negative was not caught: {missing_event_loc_handoff_errors}"
+        )
+
+    missing_event_option_handoff_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_event_option_handoff_readiness, "event")["closure_contract"][
+        "option_effect_handoff"
+    ] = {}
+    missing_event_option_handoff_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_event_option_handoff_readiness
+    )
+    if not any("event closure missing option-effect handoff" in error for error in missing_event_option_handoff_errors):
+        raise AssertionError(
+            f"missing event option handoff closure negative was not caught: {missing_event_option_handoff_errors}"
+        )
+
+    missing_event_safety_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_event_safety_readiness, "event")["closure_contract"]["safety_notes"]
+    missing_event_safety_errors = validate_repeated_entity_row_source_writer_readiness(missing_event_safety_readiness)
+    if not any("event closure missing safety notes" in error for error in missing_event_safety_errors):
+        raise AssertionError(f"missing event safety closure negative was not caught: {missing_event_safety_errors}")
+
+    missing_localization_language_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_localization_language_readiness, "localization")["closure_contract"][
+        "language_ownership_boundary"
+    ]["required_languages"] = ["english"]
+    missing_localization_language_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_language_readiness
+    )
+    if not any("localization closure missing language boundary" in error for error in missing_localization_language_errors):
+        raise AssertionError(
+            f"missing localization language closure negative was not caught: {missing_localization_language_errors}"
+        )
+
+    missing_localization_keys_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_localization_keys_readiness, "localization")["closure_contract"][
+        "key_allocation"
+    ]["loc_key_plan"] = []
+    missing_localization_keys_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_keys_readiness
+    )
+    if not any("localization closure missing key allocation" in error for error in missing_localization_keys_errors):
+        raise AssertionError(
+            f"missing localization key allocation closure negative was not caught: {missing_localization_keys_errors}"
+        )
+
+    missing_localization_event_handoff_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_localization_event_handoff_readiness, "localization")["closure_contract"][
+        "event_key_handoff"
+    ]
+    missing_localization_event_handoff_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_event_handoff_readiness
+    )
+    if not any("localization closure missing event key handoff" in error for error in missing_localization_event_handoff_errors):
+        raise AssertionError(
+            "missing localization event handoff closure negative was not caught: "
+            f"{missing_localization_event_handoff_errors}"
+        )
+
+    missing_localization_bom_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_localization_bom_readiness, "localization")["closure_contract"][
+        "escaping_bom_boundary"
+    ]["bom_encoding"] = "utf-8"
+    missing_localization_bom_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_bom_readiness
+    )
+    if not any("localization closure missing escaping/BOM boundary" in error for error in missing_localization_bom_errors):
+        raise AssertionError(
+            f"missing localization BOM closure negative was not caught: {missing_localization_bom_errors}"
+        )
+
+    missing_localization_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_localization_path_readiness, "localization")["closure_contract"][
+        "future_source_target_path_pattern"
+    ] = ""
+    missing_localization_path_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_localization_path_readiness
+    )
+    if not any("localization closure missing future target path pattern" in error for error in missing_localization_path_errors):
+        raise AssertionError(
+            f"missing localization path closure negative was not caught: {missing_localization_path_errors}"
+        )
+
+    event_closure_writable_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(event_closure_writable_readiness, "event")["closure_contract"]["may_write_src"] = True
+    event_closure_writable_errors = validate_repeated_entity_row_source_writer_readiness(
+        event_closure_writable_readiness
+    )
+    if not any("event closure may_write_src must be false" in error for error in event_closure_writable_errors):
+        raise AssertionError(f"event closure may_write_src negative was not caught: {event_closure_writable_errors}")
+
+    localization_closure_writes_src_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(localization_closure_writes_src_readiness, "localization")["closure_contract"][
+        "writes_src"
+    ] = True
+    localization_closure_writes_src_errors = validate_repeated_entity_row_source_writer_readiness(
+        localization_closure_writes_src_readiness
+    )
+    if not any(
+        "localization closure writes_src must be false" in error
+        for error in localization_closure_writes_src_errors
+    ):
+        raise AssertionError(
+            f"localization closure writes_src negative was not caught: {localization_closure_writes_src_errors}"
+        )
+
+    localization_closure_source_writer_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(localization_closure_source_writer_readiness, "localization")["closure_contract"][
+        "source_writer_allowed"
+    ] = True
+    localization_closure_source_writer_errors = validate_repeated_entity_row_source_writer_readiness(
+        localization_closure_source_writer_readiness
+    )
+    if not any(
+        "localization closure source_writer_allowed must be false" in error
+        for error in localization_closure_source_writer_errors
+    ):
+        raise AssertionError(
+            "localization closure source_writer_allowed negative was not caught: "
+            f"{localization_closure_source_writer_errors}"
+        )
+
+    event_closure_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(event_closure_ready_readiness, "event")["closure_contract"][
+        "readiness_status"
+    ] = "verified"
+    event_closure_ready_errors = validate_repeated_entity_row_source_writer_readiness(event_closure_ready_readiness)
+    if not any("event closure must stay blocked" in error for error in event_closure_ready_errors):
+        raise AssertionError(f"event closure verified negative was not caught: {event_closure_ready_errors}")
+
+    missing_effect_schema_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_effect_schema_readiness, "effect")["closure_contract"][
+        "row_state_schema_boundary"
+    ]
+    missing_effect_schema_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_effect_schema_readiness
+    )
+    if not any("effect closure missing row-state schema boundary" in error for error in missing_effect_schema_errors):
+        raise AssertionError(
+            f"missing effect row-state schema closure negative was not caught: {missing_effect_schema_errors}"
+        )
+
+    missing_effect_aggregate_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_effect_aggregate_readiness, "effect")["closure_contract"][
+        "aggregate_refresh_boundary"
+    ] = {}
+    missing_effect_aggregate_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_effect_aggregate_readiness
+    )
+    if not any("effect closure missing aggregate refresh boundary" in error for error in missing_effect_aggregate_errors):
+        raise AssertionError(
+            f"missing effect aggregate refresh closure negative was not caught: {missing_effect_aggregate_errors}"
+        )
+
+    missing_effect_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_effect_path_readiness, "effect")["closure_contract"][
+        "future_source_target_path"
+    ] = ""
+    missing_effect_path_errors = validate_repeated_entity_row_source_writer_readiness(missing_effect_path_readiness)
+    if not any("effect closure missing future target path" in error for error in missing_effect_path_errors):
+        raise AssertionError(f"missing effect target closure negative was not caught: {missing_effect_path_errors}")
+
+    missing_cleanup_lifecycle_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_cleanup_lifecycle_readiness, "cleanup")["closure_contract"][
+        "cleanup_lifecycle_scope"
+    ] = ""
+    missing_cleanup_lifecycle_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_cleanup_lifecycle_readiness
+    )
+    if not any("cleanup closure missing lifecycle scope" in error for error in missing_cleanup_lifecycle_errors):
+        raise AssertionError(
+            f"missing cleanup lifecycle closure negative was not caught: {missing_cleanup_lifecycle_errors}"
+        )
+
+    missing_cleanup_coverage_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_cleanup_coverage_readiness, "cleanup")["closure_contract"][
+        "cleanup_coverage"
+    ] = {}
+    missing_cleanup_coverage_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_cleanup_coverage_readiness
+    )
+    if not any("cleanup closure missing cleanup coverage" in error for error in missing_cleanup_coverage_errors):
+        raise AssertionError(
+            f"missing cleanup coverage closure negative was not caught: {missing_cleanup_coverage_errors}"
+        )
+
+    missing_cleanup_ownership_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_cleanup_ownership_readiness, "cleanup")["closure_contract"][
+        "ownership_reset_branch_boundary"
+    ] = {}
+    missing_cleanup_ownership_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_cleanup_ownership_readiness
+    )
+    if not any("cleanup closure missing ownership/reset branch" in error for error in missing_cleanup_ownership_errors):
+        raise AssertionError(
+            f"missing cleanup ownership/reset closure negative was not caught: {missing_cleanup_ownership_errors}"
+        )
+
+    missing_trigger_eligibility_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_trigger_eligibility_readiness, "trigger")["closure_contract"][
+        "condition_group_coverage"
+    ]["eligibility"] = {}
+    missing_trigger_eligibility_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_trigger_eligibility_readiness
+    )
+    if not any("trigger closure missing eligibility plan" in error for error in missing_trigger_eligibility_errors):
+        raise AssertionError(
+            f"missing trigger eligibility closure negative was not caught: {missing_trigger_eligibility_errors}"
+        )
+
+    missing_trigger_row_completion_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_trigger_row_completion_readiness, "trigger")["closure_contract"][
+        "condition_group_coverage"
+    ]["row_completion"] = {}
+    missing_trigger_row_completion_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_trigger_row_completion_readiness
+    )
+    if not any("trigger closure missing row_completion plan" in error for error in missing_trigger_row_completion_errors):
+        raise AssertionError(
+            "missing trigger row-completion closure negative was not caught: "
+            f"{missing_trigger_row_completion_errors}"
+        )
+
+    missing_trigger_tooltip_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_trigger_tooltip_readiness, "trigger")["closure_contract"][
+        "condition_group_coverage"
+    ]["tooltip_safe"] = {}
+    missing_trigger_tooltip_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_trigger_tooltip_readiness
+    )
+    if not any("trigger closure missing tooltip_safe plan" in error for error in missing_trigger_tooltip_errors):
+        raise AssertionError(
+            f"missing trigger tooltip-safe closure negative was not caught: {missing_trigger_tooltip_errors}"
+        )
+
+    missing_trigger_forbidden_paths_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_trigger_forbidden_paths_readiness, "trigger")["closure_contract"][
+        "forbidden_write_paths"
+    ] = {}
+    missing_trigger_forbidden_paths_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_trigger_forbidden_paths_readiness
+    )
+    if not any("trigger closure missing forbidden write paths" in error for error in missing_trigger_forbidden_paths_errors):
+        raise AssertionError(
+            f"missing trigger forbidden write paths negative was not caught: {missing_trigger_forbidden_paths_errors}"
+        )
+
+    effect_closure_writable_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(effect_closure_writable_readiness, "effect")["closure_contract"]["may_write_src"] = True
+    effect_closure_writable_errors = validate_repeated_entity_row_source_writer_readiness(
+        effect_closure_writable_readiness
+    )
+    if not any("effect closure may_write_src must be false" in error for error in effect_closure_writable_errors):
+        raise AssertionError(f"effect closure may_write_src negative was not caught: {effect_closure_writable_errors}")
+
+    cleanup_closure_writes_src_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(cleanup_closure_writes_src_readiness, "cleanup")["closure_contract"]["writes_src"] = True
+    cleanup_closure_writes_src_errors = validate_repeated_entity_row_source_writer_readiness(
+        cleanup_closure_writes_src_readiness
+    )
+    if not any("cleanup closure writes_src must be false" in error for error in cleanup_closure_writes_src_errors):
+        raise AssertionError(
+            f"cleanup closure writes_src negative was not caught: {cleanup_closure_writes_src_errors}"
+        )
+
+    trigger_closure_source_writer_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(trigger_closure_source_writer_readiness, "trigger")["closure_contract"][
+        "source_writer_allowed"
+    ] = True
+    trigger_closure_source_writer_errors = validate_repeated_entity_row_source_writer_readiness(
+        trigger_closure_source_writer_readiness
+    )
+    if not any("trigger closure source_writer_allowed must be false" in error for error in trigger_closure_source_writer_errors):
+        raise AssertionError(
+            "trigger closure source_writer_allowed negative was not caught: "
+            f"{trigger_closure_source_writer_errors}"
+        )
+
+    trigger_closure_backend_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(trigger_closure_backend_ready_readiness, "trigger")["closure_contract"][
+        "readiness_status"
+    ] = "backend_ready"
+    trigger_closure_backend_ready_errors = validate_repeated_entity_row_source_writer_readiness(
+        trigger_closure_backend_ready_readiness
+    )
+    if not any("trigger closure must stay blocked" in error for error in trigger_closure_backend_ready_errors):
+        raise AssertionError(
+            f"trigger closure backend_ready negative was not caught: {trigger_closure_backend_ready_errors}"
+        )
+
+    missing_gui_widget_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_gui_widget_readiness, "gui")["closure_contract"]["fixed_row_widget_plan"]
+    missing_gui_widget_errors = validate_repeated_entity_row_source_writer_readiness(missing_gui_widget_readiness)
+    if not any("GUI closure missing fixed row widget plan" in error for error in missing_gui_widget_errors):
+        raise AssertionError(f"missing GUI widget closure negative was not caught: {missing_gui_widget_errors}")
+
+    missing_gui_binding_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_gui_binding_readiness, "gui")["closure_contract"][
+        "per_row_variable_binding_plan"
+    ]
+    missing_gui_binding_errors = validate_repeated_entity_row_source_writer_readiness(missing_gui_binding_readiness)
+    if not any("GUI closure missing per-row binding plan" in error for error in missing_gui_binding_errors):
+        raise AssertionError(f"missing GUI binding closure negative was not caught: {missing_gui_binding_errors}")
+
+    missing_gui_tooltip_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_gui_tooltip_readiness, "gui")["closure_contract"][
+        "tooltip_localization_linkage"
+    ]
+    missing_gui_tooltip_errors = validate_repeated_entity_row_source_writer_readiness(missing_gui_tooltip_readiness)
+    if not any("GUI closure missing tooltip localization linkage" in error for error in missing_gui_tooltip_errors):
+        raise AssertionError(f"missing GUI tooltip closure negative was not caught: {missing_gui_tooltip_errors}")
+
+    missing_gui_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_gui_path_readiness, "gui")["closure_contract"]["future_source_target_path"] = ""
+    missing_gui_path_errors = validate_repeated_entity_row_source_writer_readiness(missing_gui_path_readiness)
+    if not any("GUI closure missing future target path" in error for error in missing_gui_path_errors):
+        raise AssertionError(f"missing GUI path closure negative was not caught: {missing_gui_path_errors}")
+
+    gui_aggregate_only_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_aggregate_only_readiness, "gui")["closure_contract"][
+        "aggregate_only_display_allowed"
+    ] = True
+    gui_aggregate_only_errors = validate_repeated_entity_row_source_writer_readiness(gui_aggregate_only_readiness)
+    if not any("GUI closure aggregate-only UI must be false" in error for error in gui_aggregate_only_errors):
+        raise AssertionError(f"GUI aggregate-only closure negative was not caught: {gui_aggregate_only_errors}")
+
+    gui_source_body_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_source_body_readiness, "gui")["closure_contract"]["gui_source_body_allowed"] = True
+    gui_source_body_errors = validate_repeated_entity_row_source_writer_readiness(gui_source_body_readiness)
+    if not any("GUI closure GUI source body emission must be false" in error for error in gui_source_body_errors):
+        raise AssertionError(f"GUI source body closure negative was not caught: {gui_source_body_errors}")
+
+    gui_source_write_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_source_write_readiness, "gui")["closure_contract"]["gui_source_writes_allowed"] = True
+    gui_source_write_errors = validate_repeated_entity_row_source_writer_readiness(gui_source_write_readiness)
+    if not any("GUI closure GUI source writes must be false" in error for error in gui_source_write_errors):
+        raise AssertionError(f"GUI source write closure negative was not caught: {gui_source_write_errors}")
+
+    listener_non_alhambra_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_non_alhambra_readiness, "listener")["closure_contract"][
+        "pilot_key"
+    ] = "unique_dome_of_the_rock"
+    listener_non_alhambra_errors = validate_repeated_entity_row_source_writer_readiness(
+        listener_non_alhambra_readiness
+    )
+    if not any("listener closure must be Alhambra-only" in error for error in listener_non_alhambra_errors):
+        raise AssertionError(f"non-Alhambra listener closure negative was not caught: {listener_non_alhambra_errors}")
+
+    missing_listener_hook_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_listener_hook_readiness, "listener")["closure_contract"][
+        "on_action_hook_linkage_plan"
+    ]
+    missing_listener_hook_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_hook_readiness
+    )
+    if not any("listener closure missing hook linkage plan" in error for error in missing_listener_hook_errors):
+        raise AssertionError(f"missing listener hook closure negative was not caught: {missing_listener_hook_errors}")
+
+    missing_listener_trigger_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_listener_trigger_readiness, "listener")["closure_contract"][
+        "selected_ritual_trigger_linkage"
+    ]
+    missing_listener_trigger_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_trigger_readiness
+    )
+    if not any(
+        "listener closure missing selected ritual trigger linkage" in error
+        for error in missing_listener_trigger_errors
+    ):
+        raise AssertionError(
+            f"missing listener selected trigger closure negative was not caught: {missing_listener_trigger_errors}"
+        )
+
+    missing_listener_war_scope_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_listener_war_scope_readiness, "listener")["closure_contract"][
+        "war_scope_availability_persistence_plan"
+    ] = {}
+    missing_listener_war_scope_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_war_scope_readiness
+    )
+    if not any(
+        "listener closure missing war scope availability plan" in error
+        for error in missing_listener_war_scope_errors
+    ):
+        raise AssertionError(
+            f"missing listener war-scope closure negative was not caught: {missing_listener_war_scope_errors}"
+        )
+
+    missing_listener_path_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(missing_listener_path_readiness, "listener")["closure_contract"][
+        "future_source_target_path"
+    ] = ""
+    missing_listener_path_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_path_readiness
+    )
+    if not any("listener closure missing future target path" in error for error in missing_listener_path_errors):
+        raise AssertionError(f"missing listener path closure negative was not caught: {missing_listener_path_errors}")
+
+    listener_body_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_body_readiness, "listener")["closure_contract"]["listener_body_allowed"] = True
+    listener_body_errors = validate_repeated_entity_row_source_writer_readiness(listener_body_readiness)
+    if not any("listener closure listener body writes must be false" in error for error in listener_body_errors):
+        raise AssertionError(f"listener body closure negative was not caught: {listener_body_errors}")
+
+    listener_war_write_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_war_write_readiness, "listener")["closure_contract"][
+        "war_scope_writes_allowed"
+    ] = True
+    listener_war_write_errors = validate_repeated_entity_row_source_writer_readiness(listener_war_write_readiness)
+    if not any("listener closure war scope writes must be false" in error for error in listener_war_write_errors):
+        raise AssertionError(f"listener war-scope write closure negative was not caught: {listener_war_write_errors}")
+
+    gui_closure_source_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_closure_source_ready_readiness, "gui")["closure_contract"][
+        "readiness_status"
+    ] = "source_ready"
+    gui_closure_source_ready_errors = validate_repeated_entity_row_source_writer_readiness(
+        gui_closure_source_ready_readiness
+    )
+    if not any("gui closure must stay blocked" in error for error in gui_closure_source_ready_errors):
+        raise AssertionError(
+            f"GUI source_ready closure negative was not caught: {gui_closure_source_ready_errors}"
+        )
+
+    listener_closure_backend_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_closure_backend_ready_readiness, "listener")["closure_contract"][
+        "backend_ready"
+    ] = True
+    listener_closure_backend_ready_errors = validate_repeated_entity_row_source_writer_readiness(
+        listener_closure_backend_ready_readiness
+    )
+    if not any("listener closure must not declare backend_ready" in error for error in listener_closure_backend_ready_errors):
+        raise AssertionError(
+            "listener backend_ready closure negative was not caught: "
+            f"{listener_closure_backend_ready_errors}"
+        )
+
+    gui_closure_source_writer_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(gui_closure_source_writer_readiness, "gui")["closure_contract"][
+        "source_writer_allowed"
+    ] = True
+    gui_closure_source_writer_errors = validate_repeated_entity_row_source_writer_readiness(
+        gui_closure_source_writer_readiness
+    )
+    if not any("gui closure source_writer_allowed must be false" in error for error in gui_closure_source_writer_errors):
+        raise AssertionError(
+            f"GUI closure source_writer_allowed negative was not caught: {gui_closure_source_writer_errors}"
+        )
+
+    listener_closure_writes_src_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(listener_closure_writes_src_readiness, "listener")["closure_contract"][
+        "writes_src"
+    ] = True
+    listener_closure_writes_src_errors = validate_repeated_entity_row_source_writer_readiness(
+        listener_closure_writes_src_readiness
+    )
+    if not any("listener closure writes_src must be false" in error for error in listener_closure_writes_src_errors):
+        raise AssertionError(
+            f"listener closure writes_src negative was not caught: {listener_closure_writes_src_errors}"
+        )
+
+    missing_gui_closure_count_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_gui_closure_count_readiness, "gui")["closure_contract"]
+    missing_gui_closure_count_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_gui_closure_count_readiness
+    )
+    if not any("expected 8 repeated-row gui closure artifacts" in error for error in missing_gui_closure_count_errors):
+        raise AssertionError(
+            f"GUI closure count negative was not caught: {missing_gui_closure_count_errors}"
+        )
+
+    missing_listener_closure_count_readiness = deepcopy(source_writer_readiness)
+    del _first_readiness_artifact(missing_listener_closure_count_readiness, "listener")["closure_contract"]
+    missing_listener_closure_count_errors = validate_repeated_entity_row_source_writer_readiness(
+        missing_listener_closure_count_readiness
+    )
+    if not any(
+        "expected 1 repeated-row listener closure artifacts" in error
+        for error in missing_listener_closure_count_errors
+    ):
+        raise AssertionError(
+            f"listener closure count negative was not caught: {missing_listener_closure_count_errors}"
+        )
+
+    writable_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(writable_readiness, "effect")["may_write_src"] = True
+    writable_readiness_errors = validate_repeated_entity_row_source_writer_readiness(writable_readiness)
+    if not any("may_write_src must be false" in error for error in writable_readiness_errors):
+        raise AssertionError(f"may_write_src readiness negative was not caught: {writable_readiness_errors}")
+
+    writes_src_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(writes_src_readiness, "trigger")["writes_src"] = True
+    writes_src_readiness_errors = validate_repeated_entity_row_source_writer_readiness(writes_src_readiness)
+    if not any("writes_src must be false" in error for error in writes_src_readiness_errors):
+        raise AssertionError(f"writes_src readiness negative was not caught: {writes_src_readiness_errors}")
+
+    source_writer_allowed_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(source_writer_allowed_readiness, "gui")["source_writer_allowed"] = True
+    source_writer_allowed_errors = validate_repeated_entity_row_source_writer_readiness(
+        source_writer_allowed_readiness
+    )
+    if not any("source_writer_allowed must be false" in error for error in source_writer_allowed_errors):
+        raise AssertionError(f"source_writer_allowed readiness negative was not caught: {source_writer_allowed_errors}")
+
+    source_ready_readiness = deepcopy(source_writer_readiness)
+    _first_readiness_artifact(source_ready_readiness, "cleanup")["current_contract_status"] = "source_ready"
+    source_ready_errors = validate_repeated_entity_row_source_writer_readiness(source_ready_readiness)
+    if not any("must not be source-ready" in error for error in source_ready_errors):
+        raise AssertionError(f"source_ready readiness negative was not caught: {source_ready_errors}")
+
+    no_blockers_readiness = deepcopy(source_writer_readiness)
+    no_blockers_artifact = _first_readiness_artifact(no_blockers_readiness, "listener")
+    no_blockers_artifact["unresolved_writer_blockers"] = []
+    for evidence_field in readiness_evidence_fields:
+        no_blockers_artifact[evidence_field]["blockers"] = []
+    no_blockers_errors = validate_repeated_entity_row_source_writer_readiness(no_blockers_readiness)
+    if not any("missing blockers" in error for error in no_blockers_errors):
+        raise AssertionError(f"no blockers readiness negative was not caught: {no_blockers_errors}")
+
+    source_bundle_preview = repeated_entity_row_source_bundle_preview_for_payload(load_spec_data())
+    if source_bundle_preview["validation_errors"]:
+        raise AssertionError(
+            "repeated-row source bundle preview unexpectedly failed validation: "
+            f"{source_bundle_preview['validation_errors']}"
+        )
+    expected_bundle_counts = {
+        "unique_dome_of_the_rock": 44,
+        "unique_alhambra": 45,
+        "unique_st_peters_basilica": 44,
+        "unique_bank_of_saint_george": 44,
+    }
+    if source_bundle_preview.get("bundle_count") != 4:
+        raise AssertionError(f"expected 4 source bundle previews, got {source_bundle_preview.get('bundle_count')}")
+    if source_bundle_preview.get("artifact_count") != 177:
+        raise AssertionError(
+            f"expected 177 source bundle preview artifacts, got {source_bundle_preview.get('artifact_count')}"
+        )
+    if source_bundle_preview.get("closure_contract_count") != 177:
+        raise AssertionError(
+            "expected 177 source bundle closure contracts, got "
+            f"{source_bundle_preview.get('closure_contract_count')}"
+        )
+    if source_bundle_preview.get("source_ready_count") != 0:
+        raise AssertionError(f"source bundle preview became source-ready: {source_bundle_preview}")
+    if source_bundle_preview.get("source_writer_allowed_count") != 0:
+        raise AssertionError(f"source bundle preview allowed source writer: {source_bundle_preview}")
+    if source_bundle_preview.get("may_write_src_count") != 0:
+        raise AssertionError(f"source bundle preview may_write_src changed: {source_bundle_preview}")
+    if source_bundle_preview.get("writes_src_count") != 0:
+        raise AssertionError(f"source bundle preview writes_src changed: {source_bundle_preview}")
+    if source_bundle_preview.get("family_summary") != expected_preview_family_counts:
+        raise AssertionError(f"source bundle family summary changed: {source_bundle_preview.get('family_summary')}")
+    if not source_bundle_preview.get("blocker_summary"):
+        raise AssertionError("source bundle preview must retain blocker summary")
+
+    for pilot_key, expected_count in expected_bundle_counts.items():
+        bundle = _source_bundle(source_bundle_preview, pilot_key)
+        if bundle.get("artifact_count") != expected_count:
+            raise AssertionError(f"{pilot_key} bundle artifact count changed: {bundle.get('artifact_count')}")
+        if bundle.get("closure_contract_count") != expected_count:
+            raise AssertionError(f"{pilot_key} bundle closure count changed: {bundle.get('closure_contract_count')}")
+        if bundle.get("source_ready_count") != 0:
+            raise AssertionError(f"{pilot_key} bundle became source-ready: {bundle}")
+        if bundle.get("may_write_src_count") != 0 or bundle.get("writes_src_count") != 0:
+            raise AssertionError(f"{pilot_key} bundle no-write count changed: {bundle}")
+        if bundle.get("source_writer_allowed_count") != 0:
+            raise AssertionError(f"{pilot_key} bundle source writer allowed count changed: {bundle}")
+        sections = bundle.get("sections")
+        if not isinstance(sections, dict):
+            raise AssertionError(f"{pilot_key} bundle sections must be a mapping: {bundle}")
+        missing_sections = set(expected_preview_family_counts) - set(sections)
+        if missing_sections:
+            raise AssertionError(f"{pilot_key} bundle missing sections: {missing_sections}")
+        for family, section in sections.items():
+            if section.get("family") != family:
+                raise AssertionError(f"{pilot_key} section {family} family mismatch: {section}")
+            if section.get("source_ready_count") != 0:
+                raise AssertionError(f"{pilot_key} section {family} became source-ready: {section}")
+            if section.get("may_write_src_count") != 0 or section.get("writes_src_count") != 0:
+                raise AssertionError(f"{pilot_key} section {family} no-write count changed: {section}")
+            if section.get("source_writer_allowed_count") != 0:
+                raise AssertionError(f"{pilot_key} section {family} source writer count changed: {section}")
+            if section.get("artifact_count") != len(section.get("artifacts", []) or []):
+                raise AssertionError(f"{pilot_key} section {family} artifact count mismatch: {section}")
+            if section.get("closure_contract_count") != len(section.get("closure_contract_refs", []) or []):
+                raise AssertionError(f"{pilot_key} section {family} closure count mismatch: {section}")
+            if family != "listener" and not section.get("required_validations"):
+                raise AssertionError(f"{pilot_key} section {family} lost required validations: {section}")
+            if family != "listener" and not section.get("unresolved_writer_blockers"):
+                raise AssertionError(f"{pilot_key} section {family} lost unresolved blockers: {section}")
+
+        listener_section = sections["listener"]
+        if pilot_key == "unique_alhambra":
+            if listener_section.get("artifact_count") != 1:
+                raise AssertionError(f"Alhambra must carry one listener artifact: {listener_section}")
+            listener_artifact = listener_section["artifacts"][0]
+            if listener_artifact.get("artifact_kind") != "listener_war_integration":
+                raise AssertionError(f"Alhambra listener artifact kind changed: {listener_artifact}")
+        else:
+            if listener_section.get("artifact_count") != 0:
+                raise AssertionError(f"{pilot_key} must not forge listener artifacts: {listener_section}")
+            absence = listener_section.get("listener_artifact_absence")
+            if (
+                not isinstance(absence, dict)
+                or absence.get("explicit") is not True
+                or absence.get("forged_artifact") is not False
+                or absence.get("may_write_src") is not False
+                or absence.get("writes_src") is not False
+                or absence.get("source_writer_allowed") is not False
+            ):
+                raise AssertionError(f"{pilot_key} listener absence marker is incomplete: {listener_section}")
+
+    event_bundle_artifact = _first_source_bundle_artifact(source_bundle_preview, "event")
+    event_body = event_bundle_artifact.get("source_body_preview")
+    if (
+        not isinstance(event_body, dict)
+        or event_body.get("kind") != "country_event_preview"
+        or event_body.get("no_row_state_write") is not True
+        or event_body.get("no_source_ready") is not True
+    ):
+        raise AssertionError(f"event bundle did not reuse event body preview: {event_bundle_artifact}")
+    localization_bundle_artifact = _first_source_bundle_artifact(source_bundle_preview, "localization")
+    localization_body = localization_bundle_artifact.get("source_body_preview")
+    if (
+        not isinstance(localization_body, dict)
+        or localization_body.get("kind") != "localization_key_plan_preview"
+        or not localization_body.get("loc_key_plan")
+        or localization_body.get("contract_only") is not True
+        or localization_body.get("body_emitted") is not False
+    ):
+        raise AssertionError(f"localization bundle lost loc key plan preview: {localization_bundle_artifact}")
+    for family in ("effect", "cleanup", "trigger", "gui", "listener"):
+        artifact = _first_source_bundle_artifact(source_bundle_preview, family)
+        placeholder = artifact.get("source_body_placeholder")
+        if not isinstance(placeholder, dict):
+            raise AssertionError(f"{family} bundle missing source body placeholder: {artifact}")
+        for flag, expected in {
+            "contract_only": True,
+            "body_emitted": False,
+            "source_ready": False,
+            "may_write_src": False,
+            "writes_src": False,
+            "source_writer_allowed": False,
+        }.items():
+            if placeholder.get(flag) is not expected:
+                raise AssertionError(f"{family} source body placeholder lost {flag}: {placeholder}")
+
+    missing_pilot_bundle = deepcopy(source_bundle_preview)
+    missing_pilot_bundle["bundles"] = [
+        bundle
+        for bundle in missing_pilot_bundle["bundles"]
+        if bundle.get("key") != "unique_bank_of_saint_george"
+    ]
+    missing_pilot_errors = validate_repeated_entity_row_source_bundle_preview(missing_pilot_bundle)
+    if not any("missing pilot bundle" in error for error in missing_pilot_errors):
+        raise AssertionError(f"missing pilot bundle negative was not caught: {missing_pilot_errors}")
+
+    wrong_artifact_count_bundle = deepcopy(source_bundle_preview)
+    wrong_artifact_count_bundle["artifact_count"] = 176
+    wrong_artifact_count_errors = validate_repeated_entity_row_source_bundle_preview(wrong_artifact_count_bundle)
+    if not any("expected 177 repeated-row source bundle artifacts" in error for error in wrong_artifact_count_errors):
+        raise AssertionError(f"wrong artifact count bundle negative was not caught: {wrong_artifact_count_errors}")
+
+    wrong_closure_count_bundle = deepcopy(source_bundle_preview)
+    wrong_closure_count_bundle["closure_contract_count"] = 176
+    wrong_closure_count_errors = validate_repeated_entity_row_source_bundle_preview(wrong_closure_count_bundle)
+    if not any("expected 177 repeated-row source bundle closure contracts" in error for error in wrong_closure_count_errors):
+        raise AssertionError(f"wrong closure count bundle negative was not caught: {wrong_closure_count_errors}")
+
+    source_ready_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(source_ready_bundle, "cleanup")["source_ready"] = True
+    source_ready_bundle_errors = validate_repeated_entity_row_source_bundle_preview(source_ready_bundle)
+    if not any("source_ready/verified/backend_ready" in error for error in source_ready_bundle_errors):
+        raise AssertionError(f"source_ready bundle negative was not caught: {source_ready_bundle_errors}")
+
+    backend_ready_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(backend_ready_bundle, "listener")["source_body_placeholder"]["backend_ready"] = True
+    backend_ready_bundle_errors = validate_repeated_entity_row_source_bundle_preview(backend_ready_bundle)
+    if not any("source_ready/verified/backend_ready" in error for error in backend_ready_bundle_errors):
+        raise AssertionError(f"backend_ready bundle negative was not caught: {backend_ready_bundle_errors}")
+
+    verified_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(verified_bundle, "event")["source_body_preview"]["verified"] = True
+    verified_bundle_errors = validate_repeated_entity_row_source_bundle_preview(verified_bundle)
+    if not any("source_ready/verified/backend_ready" in error for error in verified_bundle_errors):
+        raise AssertionError(f"verified bundle negative was not caught: {verified_bundle_errors}")
+
+    writable_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(writable_bundle, "effect")["may_write_src"] = True
+    writable_bundle_errors = validate_repeated_entity_row_source_bundle_preview(writable_bundle)
+    if not any("may_write_src must be false" in error for error in writable_bundle_errors):
+        raise AssertionError(f"may_write_src bundle negative was not caught: {writable_bundle_errors}")
+
+    writes_src_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(writes_src_bundle, "trigger")["source_body_placeholder"]["writes_src"] = True
+    writes_src_bundle_errors = validate_repeated_entity_row_source_bundle_preview(writes_src_bundle)
+    if not any("writes_src must be false" in error for error in writes_src_bundle_errors):
+        raise AssertionError(f"writes_src bundle negative was not caught: {writes_src_bundle_errors}")
+
+    source_writer_allowed_bundle = deepcopy(source_bundle_preview)
+    _first_source_bundle_artifact(source_writer_allowed_bundle, "gui")["source_writer_allowed"] = True
+    source_writer_allowed_bundle_errors = validate_repeated_entity_row_source_bundle_preview(
+        source_writer_allowed_bundle
+    )
+    if not any("source_writer_allowed must be false" in error for error in source_writer_allowed_bundle_errors):
+        raise AssertionError(
+            f"source_writer_allowed bundle negative was not caught: {source_writer_allowed_bundle_errors}"
+        )
+
+    forged_listener_bundle = deepcopy(source_bundle_preview)
+    forged_listener_section = _source_bundle(forged_listener_bundle, "unique_dome_of_the_rock")["sections"]["listener"]
+    forged_listener_section["artifacts"] = [
+        deepcopy(_first_source_bundle_artifact(source_bundle_preview, "listener", "unique_alhambra"))
+    ]
+    forged_listener_section["artifacts"][0]["pilot_key"] = "unique_dome_of_the_rock"
+    forged_listener_section["artifact_count"] = 1
+    forged_listener_section["closure_contract_count"] = 1
+    forged_listener_errors = validate_repeated_entity_row_source_bundle_preview(forged_listener_bundle)
+    if not any("non-Alhambra pilot must not include listener artifact" in error for error in forged_listener_errors):
+        raise AssertionError(f"forged listener bundle negative was not caught: {forged_listener_errors}")
+
+    missing_alhambra_listener_bundle = deepcopy(source_bundle_preview)
+    alhambra_listener_section = _source_bundle(missing_alhambra_listener_bundle, "unique_alhambra")["sections"]["listener"]
+    alhambra_listener_section["artifacts"] = []
+    alhambra_listener_section["artifact_count"] = 0
+    alhambra_listener_section["closure_contract_count"] = 0
+    missing_alhambra_listener_errors = validate_repeated_entity_row_source_bundle_preview(
+        missing_alhambra_listener_bundle
+    )
+    if not any("missing listener_war_integration" in error for error in missing_alhambra_listener_errors):
+        raise AssertionError(
+            f"missing Alhambra listener bundle negative was not caught: {missing_alhambra_listener_errors}"
+        )
+
+    missing_placeholder_flag_bundle = deepcopy(source_bundle_preview)
+    del _first_source_bundle_artifact(missing_placeholder_flag_bundle, "effect")["source_body_placeholder"]["contract_only"]
+    missing_placeholder_flag_errors = validate_repeated_entity_row_source_bundle_preview(
+        missing_placeholder_flag_bundle
+    )
+    if not any("source body placeholder missing no-write flag contract_only" in error for error in missing_placeholder_flag_errors):
+        raise AssertionError(
+            f"missing placeholder flag bundle negative was not caught: {missing_placeholder_flag_errors}"
+        )
+
+    alhambra_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(load_spec_data())
+    if alhambra_body_candidate["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source body candidate unexpectedly failed validation: "
+            f"{alhambra_body_candidate['validation_errors']}"
+        )
+    alhambra_summary = alhambra_body_candidate.get("summary", {})
+    if alhambra_body_candidate.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source body candidate pilot changed: {alhambra_body_candidate}")
+    if alhambra_summary.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source body candidate summary pilot changed: {alhambra_summary}")
+    if alhambra_summary.get("family_count") != 7:
+        raise AssertionError(f"Alhambra source body candidate family_count changed: {alhambra_summary}")
+    if alhambra_summary.get("artifact_count") != 45:
+        raise AssertionError(f"Alhambra source body candidate artifact_count changed: {alhambra_summary}")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if alhambra_summary.get(count_key) != 0:
+            raise AssertionError(f"Alhambra source body candidate {count_key} changed: {alhambra_summary}")
+    if not alhambra_summary.get("blocker_summary"):
+        raise AssertionError("Alhambra source body candidate must retain blocker summary")
+
+    alhambra_bundle = _source_bundle(source_bundle_preview, "unique_alhambra")
+    alhambra_sections = alhambra_body_candidate.get("sections")
+    if set(alhambra_sections) != set(expected_preview_family_counts):
+        raise AssertionError(f"Alhambra source body candidate sections changed: {alhambra_sections}")
+    required_candidate_flags = {
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed": False,
+    }
+    for family, section in alhambra_sections.items():
+        bundle_section = alhambra_bundle["sections"][family]
+        if section.get("artifact_count") != bundle_section.get("artifact_count"):
+            raise AssertionError(f"{family} Alhambra candidate count does not match bundle: {section}")
+        if section.get("closure_contract_refs") != [
+            artifact.get("closure_contract_ref")
+            for artifact in bundle_section.get("artifacts", []) or []
+        ]:
+            raise AssertionError(f"{family} Alhambra candidate closure refs do not match bundle: {section}")
+        if not section.get("validation_refs") and family != "listener":
+            raise AssertionError(f"{family} Alhambra candidate lost validation refs: {section}")
+        if not section.get("unresolved_blockers"):
+            raise AssertionError(f"{family} Alhambra candidate lost blockers: {section}")
+        for flag, expected in required_candidate_flags.items():
+            if section.get(flag) is not expected:
+                raise AssertionError(f"{family} Alhambra candidate section lost {flag}: {section}")
+        for candidate in section.get("structured_body_candidates", []) or []:
+            body = candidate.get("structured_body_candidate")
+            if not isinstance(body, dict):
+                raise AssertionError(f"{family} Alhambra candidate missing structured body: {candidate}")
+            for flag, expected in required_candidate_flags.items():
+                if candidate.get(flag) is not expected:
+                    raise AssertionError(f"{family} Alhambra candidate lost {flag}: {candidate}")
+                if body.get(flag) is not expected:
+                    raise AssertionError(f"{family} Alhambra candidate body lost {flag}: {body}")
+            if family in {"effect", "cleanup", "trigger", "gui", "listener"}:
+                placeholder = body.get("source_body_placeholder")
+                if not isinstance(placeholder, dict):
+                    raise AssertionError(f"{family} Alhambra candidate body lost placeholder: {body}")
+                for flag, expected in {
+                    "contract_only": True,
+                    "body_emitted": False,
+                    "source_ready": False,
+                    "may_write_src": False,
+                    "writes_src": False,
+                    "source_writer_allowed": False,
+                }.items():
+                    if placeholder.get(flag) is not expected:
+                        raise AssertionError(f"{family} Alhambra candidate placeholder lost {flag}: {placeholder}")
+
+    event_candidate = _first_alhambra_source_body_candidate(alhambra_body_candidate, "event")
+    event_bundle_artifact = _first_source_bundle_artifact(source_bundle_preview, "event", "unique_alhambra")
+    if event_candidate.get("source_body_preview") != event_bundle_artifact.get("source_body_preview"):
+        raise AssertionError(f"Alhambra event candidate did not reuse bundle preview: {event_candidate}")
+    localization_candidate = _first_alhambra_source_body_candidate(alhambra_body_candidate, "localization")
+    localization_bundle_artifact = _first_source_bundle_artifact(
+        source_bundle_preview,
+        "localization",
+        "unique_alhambra",
+    )
+    if localization_candidate.get("source_body_preview") != localization_bundle_artifact.get("source_body_preview"):
+        raise AssertionError(f"Alhambra localization candidate did not reuse loc plan: {localization_candidate}")
+
+    listener_candidate = _first_alhambra_source_body_candidate(alhambra_body_candidate, "listener")
+    listener_body = listener_candidate.get("structured_body_candidate", {})
+    hook_plan = listener_body.get("on_action_hook_linkage_plan")
+    if not isinstance(hook_plan, dict) or not {"on_pre_winning_war", "on_ending_war"} <= set(
+        hook_plan.get("hooks", []) or []
+    ):
+        raise AssertionError(f"Alhambra listener candidate lost hook linkage: {listener_body}")
+    trigger_linkage = listener_body.get("selected_ritual_trigger_linkage")
+    if (
+        not isinstance(trigger_linkage, dict)
+        or trigger_linkage.get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+    ):
+        raise AssertionError(f"Alhambra listener candidate lost selected trigger linkage: {listener_body}")
+    war_scope_plan = listener_body.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(war_scope_plan, dict)
+        or war_scope_plan.get("listener_scope_writes_allowed") is not False
+        or war_scope_plan.get("war_scope_writes_allowed") is not False
+    ):
+        raise AssertionError(f"Alhambra listener candidate lost war-scope plan: {listener_body}")
+
+    wrong_pilot_candidate = deepcopy(alhambra_body_candidate)
+    wrong_pilot_candidate["pilot_key"] = "unique_dome_of_the_rock"
+    wrong_pilot_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(wrong_pilot_candidate)
+    if not any("pilot_key must be unique_alhambra" in error for error in wrong_pilot_candidate_errors):
+        raise AssertionError(f"wrong pilot Alhambra candidate negative was not caught: {wrong_pilot_candidate_errors}")
+
+    missing_family_candidate = deepcopy(alhambra_body_candidate)
+    del missing_family_candidate["sections"]["trigger"]
+    missing_family_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        missing_family_candidate
+    )
+    if not any("missing family section" in error for error in missing_family_candidate_errors):
+        raise AssertionError(
+            f"missing family Alhambra candidate negative was not caught: {missing_family_candidate_errors}"
+        )
+
+    wrong_count_candidate = deepcopy(alhambra_body_candidate)
+    wrong_count_candidate["artifact_count"] = 44
+    wrong_count_candidate["summary"]["artifact_count"] = 44
+    wrong_count_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(wrong_count_candidate)
+    if not any("artifact_count must be 45" in error for error in wrong_count_candidate_errors):
+        raise AssertionError(f"wrong count Alhambra candidate negative was not caught: {wrong_count_candidate_errors}")
+
+    source_ready_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(source_ready_candidate, "cleanup")["source_ready"] = True
+    source_ready_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(source_ready_candidate)
+    if not any("source_ready/verified/backend_ready" in error for error in source_ready_candidate_errors):
+        raise AssertionError(
+            f"source_ready Alhambra candidate negative was not caught: {source_ready_candidate_errors}"
+        )
+
+    backend_ready_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(backend_ready_candidate, "listener")["structured_body_candidate"][
+        "backend_ready"
+    ] = True
+    backend_ready_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        backend_ready_candidate
+    )
+    if not any("source_ready/verified/backend_ready" in error for error in backend_ready_candidate_errors):
+        raise AssertionError(
+            f"backend_ready Alhambra candidate negative was not caught: {backend_ready_candidate_errors}"
+        )
+
+    verified_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(verified_candidate, "event")["structured_body_candidate"][
+        "verified"
+    ] = True
+    verified_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(verified_candidate)
+    if not any("source_ready/verified/backend_ready" in error for error in verified_candidate_errors):
+        raise AssertionError(f"verified Alhambra candidate negative was not caught: {verified_candidate_errors}")
+
+    writable_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(writable_candidate, "effect")["may_write_src"] = True
+    writable_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(writable_candidate)
+    if not any("may_write_src must be false" in error for error in writable_candidate_errors):
+        raise AssertionError(f"may_write_src Alhambra candidate negative was not caught: {writable_candidate_errors}")
+
+    writes_src_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(writes_src_candidate, "trigger")["structured_body_candidate"][
+        "writes_src"
+    ] = True
+    writes_src_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(writes_src_candidate)
+    if not any("writes_src must be false" in error for error in writes_src_candidate_errors):
+        raise AssertionError(f"writes_src Alhambra candidate negative was not caught: {writes_src_candidate_errors}")
+
+    source_writer_allowed_candidate = deepcopy(alhambra_body_candidate)
+    _first_alhambra_source_body_candidate(source_writer_allowed_candidate, "gui")[
+        "source_writer_allowed"
+    ] = True
+    source_writer_allowed_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        source_writer_allowed_candidate
+    )
+    if not any("source_writer_allowed must be false" in error for error in source_writer_allowed_candidate_errors):
+        raise AssertionError(
+            "source_writer_allowed Alhambra candidate negative was not caught: "
+            f"{source_writer_allowed_candidate_errors}"
+        )
+
+    missing_hook_candidate = deepcopy(alhambra_body_candidate)
+    del _first_alhambra_source_body_candidate(missing_hook_candidate, "listener")["structured_body_candidate"][
+        "on_action_hook_linkage_plan"
+    ]
+    missing_hook_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        missing_hook_candidate
+    )
+    if not any("on_action hook linkage" in error for error in missing_hook_candidate_errors):
+        raise AssertionError(f"missing hook Alhambra candidate negative was not caught: {missing_hook_candidate_errors}")
+
+    missing_trigger_link_candidate = deepcopy(alhambra_body_candidate)
+    del _first_alhambra_source_body_candidate(missing_trigger_link_candidate, "listener")[
+        "structured_body_candidate"
+    ]["selected_ritual_trigger_linkage"]
+    missing_trigger_link_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        missing_trigger_link_candidate
+    )
+    if not any("selected ritual trigger linkage" in error for error in missing_trigger_link_candidate_errors):
+        raise AssertionError(
+            f"missing trigger linkage Alhambra candidate negative was not caught: "
+            f"{missing_trigger_link_candidate_errors}"
+        )
+
+    missing_war_scope_candidate = deepcopy(alhambra_body_candidate)
+    del _first_alhambra_source_body_candidate(missing_war_scope_candidate, "listener")["structured_body_candidate"][
+        "war_scope_availability_persistence_plan"
+    ]
+    missing_war_scope_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+        missing_war_scope_candidate
+    )
+    if not any("war-scope plan" in error for error in missing_war_scope_candidate_errors):
+        raise AssertionError(
+            f"missing war scope Alhambra candidate negative was not caught: {missing_war_scope_candidate_errors}"
+        )
+
+    for family in ("effect", "cleanup", "trigger", "gui"):
+        missing_placeholder_candidate = deepcopy(alhambra_body_candidate)
+        placeholder = _first_alhambra_source_body_candidate(missing_placeholder_candidate, family)[
+            "structured_body_candidate"
+        ]["source_body_placeholder"]
+        del placeholder["contract_only"]
+        missing_placeholder_candidate_errors = validate_repeated_entity_row_alhambra_source_body_candidate(
+            missing_placeholder_candidate
+        )
+        if not any(
+            "source body placeholder missing no-write flag contract_only" in error
+            for error in missing_placeholder_candidate_errors
+        ):
+            raise AssertionError(
+                f"{family} placeholder flag Alhambra candidate negative was not caught: "
+                f"{missing_placeholder_candidate_errors}"
+            )
+
+    alhambra_source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(load_spec_data())
+    if alhambra_source_file_preview["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source file preview unexpectedly failed validation: "
+            f"{alhambra_source_file_preview['validation_errors']}"
+        )
+    alhambra_file_targets = {
+        "event": _repeated_row_event_contract_path("unique_alhambra"),
+        "effect_cleanup": _repeated_row_effect_contract_path("unique_alhambra"),
+        "trigger": _repeated_row_trigger_contract_path("unique_alhambra"),
+        "gui": _repeated_row_gui_contract_path("unique_alhambra"),
+        "listener": _repeated_row_listener_contract_path("unique_alhambra"),
+        "english": "src/main_menu/localization/english/tv_wonder_unique_alhambra_ritual_l_english.yml",
+        "simp_chinese": "src/main_menu/localization/simp_chinese/tv_wonder_unique_alhambra_ritual_l_simp_chinese.yml",
+    }
+    alhambra_file_summary = alhambra_source_file_preview.get("summary", {})
+    if alhambra_source_file_preview.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source file preview pilot changed: {alhambra_source_file_preview}")
+    if alhambra_file_summary.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source file preview summary pilot changed: {alhambra_file_summary}")
+    if alhambra_file_summary.get("file_preview_count") != 7:
+        raise AssertionError(f"Alhambra source file preview count changed: {alhambra_file_summary}")
+    if alhambra_file_summary.get("artifact_count") != 45:
+        raise AssertionError(f"Alhambra source file preview artifact_count changed: {alhambra_file_summary}")
+    if alhambra_file_summary.get("family_count") != 7:
+        raise AssertionError(f"Alhambra source file preview family_count changed: {alhambra_file_summary}")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if alhambra_file_summary.get(count_key) != 0:
+            raise AssertionError(f"Alhambra source file preview {count_key} changed: {alhambra_file_summary}")
+    if set(alhambra_source_file_preview.get("required_target_paths", [])) != set(alhambra_file_targets.values()):
+        raise AssertionError(
+            "Alhambra source file preview required target paths changed: "
+            f"{alhambra_source_file_preview.get('required_target_paths')}"
+        )
+    if {
+        preview.get("target_path")
+        for preview in alhambra_source_file_preview.get("file_previews", []) or []
+    } != set(alhambra_file_targets.values()):
+        raise AssertionError(
+            "Alhambra source file preview did not expose exact target paths: "
+            f"{alhambra_source_file_preview.get('file_previews')}"
+        )
+
+    expected_alhambra_file_counts = {
+        alhambra_file_targets["event"]: alhambra_body_candidate["family_summary"]["event"],
+        alhambra_file_targets["effect_cleanup"]: (
+            alhambra_body_candidate["family_summary"]["effect"]
+            + alhambra_body_candidate["family_summary"]["cleanup"]
+        ),
+        alhambra_file_targets["trigger"]: alhambra_body_candidate["family_summary"]["trigger"],
+        alhambra_file_targets["gui"]: alhambra_body_candidate["family_summary"]["gui"],
+        alhambra_file_targets["listener"]: alhambra_body_candidate["family_summary"]["listener"],
+        alhambra_file_targets["english"]: alhambra_body_candidate["family_summary"]["localization"],
+        alhambra_file_targets["simp_chinese"]: alhambra_body_candidate["family_summary"]["localization"],
+    }
+    expected_alhambra_file_families = {
+        alhambra_file_targets["event"]: ["event"],
+        alhambra_file_targets["effect_cleanup"]: ["cleanup", "effect"],
+        alhambra_file_targets["trigger"]: ["trigger"],
+        alhambra_file_targets["gui"]: ["gui"],
+        alhambra_file_targets["listener"]: ["listener"],
+        alhambra_file_targets["english"]: ["localization"],
+        alhambra_file_targets["simp_chinese"]: ["localization"],
+    }
+    alhambra_file_flags = {
+        "candidate_only": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed": False,
+    }
+    unique_source_refs: set[tuple[str, str, str, str]] = set()
+    seen_file_families: set[str] = set()
+    for target_path, expected_count in expected_alhambra_file_counts.items():
+        file_preview = _alhambra_source_file_preview(alhambra_source_file_preview, target_path)
+        if file_preview.get("artifact_count") != expected_count:
+            raise AssertionError(f"{target_path} Alhambra file artifact count changed: {file_preview}")
+        if file_preview.get("families") != expected_alhambra_file_families[target_path]:
+            raise AssertionError(f"{target_path} Alhambra file families changed: {file_preview}")
+        if not file_preview.get("validation_refs"):
+            raise AssertionError(f"{target_path} Alhambra file preview lost validation refs: {file_preview}")
+        if not file_preview.get("unresolved_blockers"):
+            raise AssertionError(f"{target_path} Alhambra file preview lost blockers: {file_preview}")
+        for flag, expected in alhambra_file_flags.items():
+            if file_preview.get(flag) is not expected:
+                raise AssertionError(f"{target_path} Alhambra file preview lost {flag}: {file_preview}")
+        sections = file_preview.get("structured_body_sections")
+        if not isinstance(sections, list) or len(sections) != expected_count:
+            raise AssertionError(f"{target_path} Alhambra file preview sections changed: {file_preview}")
+        for section in sections:
+            family = section.get("family")
+            seen_file_families.add(str(family))
+            copied_candidate = section.get("source_body_candidate")
+            if not isinstance(copied_candidate, dict):
+                raise AssertionError(f"{target_path} Alhambra file preview lost copied body candidate: {section}")
+            if section.get("structured_body_candidate") != copied_candidate.get("structured_body_candidate"):
+                raise AssertionError(f"{target_path} Alhambra file preview did not copy structured body: {section}")
+            for flag, expected in alhambra_file_flags.items():
+                if section.get(flag) is not expected:
+                    raise AssertionError(f"{target_path} Alhambra file section lost {flag}: {section}")
+                body = section.get("structured_body_candidate", {})
+                if body.get(flag) is not expected:
+                    raise AssertionError(f"{target_path} Alhambra file section body lost {flag}: {body}")
+            ref = section.get("source_body_candidate_ref")
+            if not isinstance(ref, dict):
+                raise AssertionError(f"{target_path} Alhambra file section missing source ref: {section}")
+            unique_source_refs.add(
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+            )
+            if section.get("validation_refs") != copied_candidate.get("validation_refs"):
+                raise AssertionError(f"{target_path} Alhambra file section validation refs changed: {section}")
+            if section.get("unresolved_blockers") != copied_candidate.get("unresolved_blockers"):
+                raise AssertionError(f"{target_path} Alhambra file section blockers changed: {section}")
+    if len(unique_source_refs) != 45:
+        raise AssertionError(f"Alhambra source file preview unique source refs changed: {len(unique_source_refs)}")
+    if seen_file_families != set(expected_preview_family_counts):
+        raise AssertionError(f"Alhambra source file preview families changed: {seen_file_families}")
+
+    english_file = _alhambra_source_file_preview(alhambra_source_file_preview, alhambra_file_targets["english"])
+    simp_chinese_file = _alhambra_source_file_preview(
+        alhambra_source_file_preview,
+        alhambra_file_targets["simp_chinese"],
+    )
+    if english_file.get("localization_language") != "english":
+        raise AssertionError(f"English localization file preview language changed: {english_file}")
+    if simp_chinese_file.get("localization_language") != "simp_chinese":
+        raise AssertionError(f"Simplified Chinese localization file preview language changed: {simp_chinese_file}")
+    for localization_file, language in ((english_file, "english"), (simp_chinese_file, "simp_chinese")):
+        boundary = localization_file.get("localization_language_boundary")
+        if (
+            not isinstance(boundary, dict)
+            or boundary.get("language") != language
+            or set(boundary.get("required_languages", [])) != {"english", "simp_chinese"}
+            or boundary.get("language_target_paths") != {
+                "english": alhambra_file_targets["english"],
+                "simp_chinese": alhambra_file_targets["simp_chinese"],
+            }
+            or boundary.get("separate_language_target") is not True
+            or boundary.get("may_write_src") is not False
+            or boundary.get("writes_src") is not False
+            or boundary.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"{language} localization file preview lost split boundary: {localization_file}")
+        for section in localization_file.get("structured_body_sections", []) or []:
+            if section.get("localization_language") != language:
+                raise AssertionError(f"{language} localization section language changed: {section}")
+
+    listener_file = _alhambra_source_file_preview(alhambra_source_file_preview, alhambra_file_targets["listener"])
+    if listener_file.get("families") != ["listener"] or listener_file.get("artifact_count") != 1:
+        raise AssertionError(f"Alhambra listener file preview changed: {listener_file}")
+    listener_file_body = listener_file["structured_body_sections"][0]["structured_body_candidate"]
+    if not isinstance(listener_file_body.get("on_action_hook_linkage_plan"), dict):
+        raise AssertionError(f"Alhambra listener file preview lost hook linkage: {listener_file}")
+    if not isinstance(listener_file_body.get("selected_ritual_trigger_linkage"), dict):
+        raise AssertionError(f"Alhambra listener file preview lost selected trigger linkage: {listener_file}")
+    if not isinstance(listener_file_body.get("war_scope_availability_persistence_plan"), dict):
+        raise AssertionError(f"Alhambra listener file preview lost war-scope plan: {listener_file}")
+
+    def assert_alhambra_file_preview_error(name: str, report: dict, needle: str) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_file_preview(report)
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source file preview negative was not caught: {errors}")
+
+    wrong_pilot_file_preview = deepcopy(alhambra_source_file_preview)
+    wrong_pilot_file_preview["pilot_key"] = "unique_dome_of_the_rock"
+    assert_alhambra_file_preview_error(
+        "wrong pilot",
+        wrong_pilot_file_preview,
+        "pilot_key must be unique_alhambra",
+    )
+
+    missing_target_file_preview = deepcopy(alhambra_source_file_preview)
+    missing_target_file_preview["file_previews"] = [
+        preview
+        for preview in missing_target_file_preview["file_previews"]
+        if preview.get("target_path") != alhambra_file_targets["english"]
+    ]
+    assert_alhambra_file_preview_error(
+        "missing target",
+        missing_target_file_preview,
+        "missing required target path",
+    )
+
+    wrong_count_file_preview = deepcopy(alhambra_source_file_preview)
+    wrong_count_file_preview["artifact_count"] = 44
+    wrong_count_file_preview["summary"]["artifact_count"] = 44
+    assert_alhambra_file_preview_error(
+        "wrong artifact count",
+        wrong_count_file_preview,
+        "artifact_count must be 45",
+    )
+
+    source_ready_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(source_ready_file_preview, alhambra_file_targets["effect_cleanup"])[
+        "structured_body_sections"
+    ][0]["source_ready"] = True
+    assert_alhambra_file_preview_error(
+        "source_ready",
+        source_ready_file_preview,
+        "source_ready/verified/backend_ready",
+    )
+
+    backend_ready_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(backend_ready_file_preview, alhambra_file_targets["listener"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["backend_ready"] = True
+    assert_alhambra_file_preview_error(
+        "backend_ready",
+        backend_ready_file_preview,
+        "source_ready/verified/backend_ready",
+    )
+
+    verified_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(verified_file_preview, alhambra_file_targets["event"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["verified"] = True
+    assert_alhambra_file_preview_error(
+        "verified",
+        verified_file_preview,
+        "source_ready/verified/backend_ready",
+    )
+
+    writable_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(writable_file_preview, alhambra_file_targets["effect_cleanup"])[
+        "may_write_src"
+    ] = True
+    assert_alhambra_file_preview_error(
+        "may_write_src",
+        writable_file_preview,
+        "may_write_src must be false",
+    )
+
+    writes_src_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(writes_src_file_preview, alhambra_file_targets["trigger"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["writes_src"] = True
+    assert_alhambra_file_preview_error(
+        "writes_src",
+        writes_src_file_preview,
+        "writes_src must be false",
+    )
+
+    source_writer_allowed_file_preview = deepcopy(alhambra_source_file_preview)
+    _alhambra_source_file_preview(source_writer_allowed_file_preview, alhambra_file_targets["gui"])[
+        "source_writer_allowed"
+    ] = True
+    assert_alhambra_file_preview_error(
+        "source_writer_allowed",
+        source_writer_allowed_file_preview,
+        "source_writer_allowed must be false",
+    )
+
+    collapsed_localization_file_preview = deepcopy(alhambra_source_file_preview)
+    del _alhambra_source_file_preview(
+        collapsed_localization_file_preview,
+        alhambra_file_targets["english"],
+    )["localization_language_boundary"]
+    assert_alhambra_file_preview_error(
+        "missing localization boundary",
+        collapsed_localization_file_preview,
+        "localization language boundary",
+    )
+
+    missing_hook_file_preview = deepcopy(alhambra_source_file_preview)
+    del _alhambra_source_file_preview(missing_hook_file_preview, alhambra_file_targets["listener"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["on_action_hook_linkage_plan"]
+    assert_alhambra_file_preview_error(
+        "missing listener hook",
+        missing_hook_file_preview,
+        "on_action hook linkage",
+    )
+
+    missing_trigger_file_preview = deepcopy(alhambra_source_file_preview)
+    del _alhambra_source_file_preview(missing_trigger_file_preview, alhambra_file_targets["listener"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["selected_ritual_trigger_linkage"]
+    assert_alhambra_file_preview_error(
+        "missing selected trigger",
+        missing_trigger_file_preview,
+        "selected ritual trigger linkage",
+    )
+
+    missing_war_scope_file_preview = deepcopy(alhambra_source_file_preview)
+    del _alhambra_source_file_preview(missing_war_scope_file_preview, alhambra_file_targets["listener"])[
+        "structured_body_sections"
+    ][0]["structured_body_candidate"]["war_scope_availability_persistence_plan"]
+    assert_alhambra_file_preview_error(
+        "missing war scope",
+        missing_war_scope_file_preview,
+        "war-scope persistence plan",
+    )
+
+    alhambra_source_file_validation_evidence = (
+        repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(load_spec_data())
+    )
+    if alhambra_source_file_validation_evidence["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source file validation evidence unexpectedly failed validation: "
+            f"{alhambra_source_file_validation_evidence['validation_errors']}"
+        )
+    validation_summary = alhambra_source_file_validation_evidence.get("summary", {})
+    if alhambra_source_file_validation_evidence.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(
+            f"Alhambra source file validation evidence pilot changed: {alhambra_source_file_validation_evidence}"
+        )
+    if validation_summary.get("evidence_pack_count") != 7:
+        raise AssertionError(f"Alhambra source file validation evidence pack count changed: {validation_summary}")
+    if validation_summary.get("artifact_count") != 45:
+        raise AssertionError(f"Alhambra source file validation evidence artifact count changed: {validation_summary}")
+    if alhambra_source_file_validation_evidence.get("file_section_count") != 55:
+        raise AssertionError(
+            "Alhambra source file validation evidence expanded file-section count changed: "
+            f"{alhambra_source_file_validation_evidence}"
+        )
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if validation_summary.get(count_key) != 0:
+            raise AssertionError(f"Alhambra source file validation evidence {count_key} changed: {validation_summary}")
+        if alhambra_source_file_validation_evidence.get(count_key) != 0:
+            raise AssertionError(
+                f"Alhambra source file validation evidence report {count_key} changed: "
+                f"{alhambra_source_file_validation_evidence}"
+            )
+    if {
+        pack.get("target_path")
+        for pack in alhambra_source_file_validation_evidence.get("evidence_packs", []) or []
+    } != set(alhambra_file_targets.values()):
+        raise AssertionError(
+            "Alhambra source file validation evidence did not expose exact target paths: "
+            f"{alhambra_source_file_validation_evidence.get('evidence_packs')}"
+        )
+
+    allowed_evidence_statuses = {"interface_candidate", "blocked"}
+    validation_source_refs: set[tuple[str, str, str, str]] = set()
+    for target_path, expected_count in expected_alhambra_file_counts.items():
+        pack = _alhambra_source_file_validation_pack(alhambra_source_file_validation_evidence, target_path)
+        preview = _alhambra_source_file_preview(alhambra_source_file_preview, target_path)
+        if pack.get("artifact_count") != expected_count:
+            raise AssertionError(f"{target_path} validation evidence artifact count changed: {pack}")
+        if pack.get("families") != expected_alhambra_file_families[target_path]:
+            raise AssertionError(f"{target_path} validation evidence families changed: {pack}")
+        if pack.get("source_file_preview_ref", {}).get("artifact_count") != preview.get("artifact_count"):
+            raise AssertionError(f"{target_path} validation evidence lost preview artifact count: {pack}")
+        if pack.get("source_file_preview_ref", {}).get("families") != preview.get("families"):
+            raise AssertionError(f"{target_path} validation evidence lost preview families: {pack}")
+        if pack.get("evidence_status") not in allowed_evidence_statuses:
+            raise AssertionError(f"{target_path} validation evidence status changed: {pack}")
+        if not pack.get("syntax_reference_paths"):
+            raise AssertionError(f"{target_path} validation evidence lost syntax refs: {pack}")
+        for syntax_path in pack.get("syntax_reference_paths", []) or []:
+            if not (REPO_ROOT / syntax_path).exists():
+                raise AssertionError(f"{target_path} syntax reference does not exist: {syntax_path}")
+        generator_candidate = pack.get("generator_ownership_candidate")
+        if (
+            not isinstance(generator_candidate, dict)
+            or generator_candidate.get("status") not in allowed_evidence_statuses
+            or generator_candidate.get("planned_source_writer_exists") is not False
+            or generator_candidate.get("source_writer_allowed") is not False
+            or generator_candidate.get("may_write_src") is not False
+            or generator_candidate.get("writes_src") is not False
+        ):
+            raise AssertionError(f"{target_path} validation evidence lost generator ownership boundary: {pack}")
+        source_boundary = pack.get("source_target_boundary")
+        if (
+            not isinstance(source_boundary, dict)
+            or source_boundary.get("status") not in allowed_evidence_statuses
+            or source_boundary.get("target_path") != target_path
+            or source_boundary.get("future_target_only") is not True
+            or source_boundary.get("source_writer_allowed") is not False
+            or source_boundary.get("may_write_src") is not False
+            or source_boundary.get("writes_src") is not False
+            or source_boundary.get("source_ready") is not False
+            or source_boundary.get("body_emitted") is not False
+        ):
+            raise AssertionError(f"{target_path} validation evidence lost source-target boundary: {pack}")
+        validation_requirements = pack.get("validation_requirements")
+        if (
+            not isinstance(validation_requirements, dict)
+            or validation_requirements.get("status") not in allowed_evidence_statuses
+            or sorted(validation_requirements.get("required_validations", []) or [])
+            != sorted(preview.get("validation_refs", []) or [])
+            or validation_requirements.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"{target_path} validation evidence lost validation requirements: {pack}")
+        if not pack.get("unresolved_blockers"):
+            raise AssertionError(f"{target_path} validation evidence lost blockers: {pack}")
+        for flag, expected in alhambra_file_flags.items():
+            if pack.get(flag) is not expected:
+                raise AssertionError(f"{target_path} validation evidence lost {flag}: {pack}")
+        for ref in pack.get("source_body_candidate_refs", []) or []:
+            validation_source_refs.add(
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+            )
+    if len(validation_source_refs) != 45:
+        raise AssertionError(f"Alhambra validation evidence unique source refs changed: {len(validation_source_refs)}")
+
+    english_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        alhambra_file_targets["english"],
+    )
+    simp_chinese_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        alhambra_file_targets["simp_chinese"],
+    )
+    for localization_pack, language in (
+        (english_validation_pack, "english"),
+        (simp_chinese_validation_pack, "simp_chinese"),
+    ):
+        boundary = localization_pack.get("localization_language_boundary")
+        if (
+            localization_pack.get("localization_language") != language
+            or not isinstance(boundary, dict)
+            or boundary.get("language") != language
+            or set(boundary.get("required_languages", [])) != {"english", "simp_chinese"}
+            or boundary.get("language_target_paths") != {
+                "english": alhambra_file_targets["english"],
+                "simp_chinese": alhambra_file_targets["simp_chinese"],
+            }
+            or boundary.get("separate_language_target") is not True
+            or boundary.get("may_write_src") is not False
+            or boundary.get("writes_src") is not False
+            or boundary.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"{language} validation evidence lost localization split boundary: {localization_pack}")
+
+    listener_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        alhambra_file_targets["listener"],
+    )
+    listener_linkage = listener_validation_pack.get("listener_linkage_evidence")
+    if not isinstance(listener_linkage, dict):
+        raise AssertionError(f"Alhambra listener validation evidence lost linkage block: {listener_validation_pack}")
+    hook_plan = listener_linkage.get("on_action_hook_linkage_plan")
+    if not isinstance(hook_plan, dict) or not {"on_pre_winning_war", "on_ending_war"} <= set(
+        hook_plan.get("hooks", []) or []
+    ):
+        raise AssertionError(f"Alhambra listener validation evidence lost hooks: {listener_validation_pack}")
+    if not isinstance(listener_linkage.get("selected_ritual_trigger_linkage"), dict):
+        raise AssertionError(f"Alhambra listener validation evidence lost selected trigger: {listener_validation_pack}")
+    war_scope = listener_linkage.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(war_scope, dict)
+        or war_scope.get("persistence_contract_only") is not True
+        or war_scope.get("war_scope_writes_allowed") is not False
+    ):
+        raise AssertionError(f"Alhambra listener validation evidence lost war-scope boundary: {listener_validation_pack}")
+
+    def assert_alhambra_file_validation_error(name: str, report: dict, needle: str) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_file_validation_evidence(report)
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source file validation evidence negative was not caught: {errors}")
+
+    missing_target_validation = deepcopy(alhambra_source_file_validation_evidence)
+    missing_target_validation["evidence_packs"] = [
+        pack
+        for pack in missing_target_validation["evidence_packs"]
+        if pack.get("target_path") != alhambra_file_targets["english"]
+    ]
+    assert_alhambra_file_validation_error(
+        "missing target",
+        missing_target_validation,
+        "missing required target path",
+    )
+
+    wrong_artifact_count_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        wrong_artifact_count_validation,
+        alhambra_file_targets["event"],
+    )["artifact_count"] = 9
+    assert_alhambra_file_validation_error(
+        "wrong artifact count",
+        wrong_artifact_count_validation,
+        "artifact_count mismatch",
+    )
+
+    missing_syntax_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        missing_syntax_validation,
+        alhambra_file_targets["trigger"],
+    )["syntax_reference_paths"] = []
+    assert_alhambra_file_validation_error(
+        "missing syntax refs",
+        missing_syntax_validation,
+        "missing syntax_reference_paths",
+    )
+
+    missing_generator_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_generator_validation,
+        alhambra_file_targets["effect_cleanup"],
+    )["generator_ownership_candidate"]
+    assert_alhambra_file_validation_error(
+        "missing generator ownership",
+        missing_generator_validation,
+        "missing generator ownership candidate",
+    )
+
+    missing_boundary_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_boundary_validation,
+        alhambra_file_targets["gui"],
+    )["source_target_boundary"]
+    assert_alhambra_file_validation_error(
+        "missing source target boundary",
+        missing_boundary_validation,
+        "missing source target boundary",
+    )
+
+    missing_requirements_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_requirements_validation,
+        alhambra_file_targets["event"],
+    )["validation_requirements"]
+    assert_alhambra_file_validation_error(
+        "missing validation requirements",
+        missing_requirements_validation,
+        "missing validation requirements",
+    )
+
+    no_blockers_validation = deepcopy(alhambra_source_file_validation_evidence)
+    no_blockers_pack = _alhambra_source_file_validation_pack(no_blockers_validation, alhambra_file_targets["listener"])
+    no_blockers_pack["unresolved_blockers"] = []
+    no_blockers_pack["unresolved_writer_blockers"] = []
+    assert_alhambra_file_validation_error(
+        "cleared blockers",
+        no_blockers_validation,
+        "unresolved blockers must not be empty",
+    )
+
+    writable_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        writable_validation,
+        alhambra_file_targets["effect_cleanup"],
+    )["may_write_src"] = True
+    assert_alhambra_file_validation_error(
+        "may_write_src",
+        writable_validation,
+        "may_write_src must be false",
+    )
+
+    writes_src_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        writes_src_validation,
+        alhambra_file_targets["trigger"],
+    )["validation_requirements"]["writes_src"] = True
+    assert_alhambra_file_validation_error(
+        "writes_src",
+        writes_src_validation,
+        "writes_src must be false",
+    )
+
+    source_writer_allowed_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        source_writer_allowed_validation,
+        alhambra_file_targets["gui"],
+    )["source_target_boundary"]["source_writer_allowed"] = True
+    assert_alhambra_file_validation_error(
+        "source_writer_allowed",
+        source_writer_allowed_validation,
+        "source_writer_allowed must be false",
+    )
+
+    source_ready_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        source_ready_validation,
+        alhambra_file_targets["event"],
+    )["source_ready"] = True
+    assert_alhambra_file_validation_error(
+        "source_ready",
+        source_ready_validation,
+        "source_ready/verified/backend_ready",
+    )
+
+    verified_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        verified_validation,
+        alhambra_file_targets["event"],
+    )["verified"] = True
+    assert_alhambra_file_validation_error(
+        "verified",
+        verified_validation,
+        "source_ready/verified/backend_ready",
+    )
+
+    backend_ready_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        backend_ready_validation,
+        alhambra_file_targets["listener"],
+    )["generator_ownership_candidate"]["backend_ready"] = True
+    assert_alhambra_file_validation_error(
+        "backend_ready",
+        backend_ready_validation,
+        "source_ready/verified/backend_ready",
+    )
+
+    verified_status_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        verified_status_validation,
+        alhambra_file_targets["trigger"],
+    )["evidence_status"] = "verified"
+    assert_alhambra_file_validation_error(
+        "verified status",
+        verified_status_validation,
+        "status must be interface_candidate or blocked",
+    )
+
+    collapsed_localization_validation = deepcopy(alhambra_source_file_validation_evidence)
+    _alhambra_source_file_validation_pack(
+        collapsed_localization_validation,
+        alhambra_file_targets["english"],
+    )["localization_language_boundary"]["language_target_paths"]["simp_chinese"] = alhambra_file_targets["english"]
+    assert_alhambra_file_validation_error(
+        "merged localization boundary",
+        collapsed_localization_validation,
+        "target paths must stay split",
+    )
+
+    missing_listener_hook_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_listener_hook_validation,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_evidence"]["on_action_hook_linkage_plan"]
+    assert_alhambra_file_validation_error(
+        "missing listener hook",
+        missing_listener_hook_validation,
+        "hook linkage",
+    )
+
+    missing_listener_trigger_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_listener_trigger_validation,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_evidence"]["selected_ritual_trigger_linkage"]
+    assert_alhambra_file_validation_error(
+        "missing listener trigger",
+        missing_listener_trigger_validation,
+        "selected ritual trigger linkage",
+    )
+
+    missing_listener_war_scope_validation = deepcopy(alhambra_source_file_validation_evidence)
+    del _alhambra_source_file_validation_pack(
+        missing_listener_war_scope_validation,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_evidence"]["war_scope_availability_persistence_plan"]
+    assert_alhambra_file_validation_error(
+        "missing listener war scope",
+        missing_listener_war_scope_validation,
+        "war-scope boundary",
+    )
+
+    alhambra_source_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
+        load_spec_data()
+    )
+    if alhambra_source_generator_contract["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source generator contract unexpectedly failed validation: "
+            f"{alhambra_source_generator_contract['validation_errors']}"
+        )
+    generator_contract_summary = alhambra_source_generator_contract.get("summary", {})
+    if alhambra_source_generator_contract.get("pilot_key") != "unique_alhambra":
+        raise AssertionError(f"Alhambra source generator contract pilot changed: {alhambra_source_generator_contract}")
+    if generator_contract_summary.get("generator_contract_count") != 7:
+        raise AssertionError(f"Alhambra source generator contract count changed: {generator_contract_summary}")
+    if generator_contract_summary.get("artifact_count") != 45:
+        raise AssertionError(f"Alhambra source generator contract artifact count changed: {generator_contract_summary}")
+    if generator_contract_summary.get("generator_interface_status_summary") != {"contract_drafted": 7}:
+        raise AssertionError(f"Alhambra source generator contract statuses changed: {generator_contract_summary}")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if generator_contract_summary.get(count_key) != 0:
+            raise AssertionError(f"Alhambra source generator contract {count_key} changed: {generator_contract_summary}")
+        if alhambra_source_generator_contract.get(count_key) != 0:
+            raise AssertionError(
+                f"Alhambra source generator contract report {count_key} changed: "
+                f"{alhambra_source_generator_contract}"
+            )
+    if {
+        contract.get("target_path")
+        for contract in alhambra_source_generator_contract.get("generator_contracts", []) or []
+    } != set(alhambra_file_targets.values()):
+        raise AssertionError(
+            "Alhambra source generator contract did not expose exact target paths: "
+            f"{alhambra_source_generator_contract.get('generator_contracts')}"
+        )
+
+    allowed_generator_interface_statuses = {"contract_drafted", "blocked"}
+    expected_alhambra_owner_generators = {
+        alhambra_file_targets["event"]: "unique_wonder_ritual_event_source_generator",
+        alhambra_file_targets["effect_cleanup"]: "unique_wonder_ritual_scripted_effect_source_generator",
+        alhambra_file_targets["trigger"]: "unique_wonder_ritual_scripted_trigger_source_generator",
+        alhambra_file_targets["gui"]: "unique_wonder_ritual_gui_row_source_generator",
+        alhambra_file_targets["listener"]: "unique_wonder_ritual_listener_integration_source_generator",
+        alhambra_file_targets["english"]: "unique_wonder_ritual_localization_source_generator",
+        alhambra_file_targets["simp_chinese"]: "unique_wonder_ritual_localization_source_generator",
+    }
+    generator_contract_source_refs: set[tuple[str, str, str, str]] = set()
+    for target_path, expected_count in expected_alhambra_file_counts.items():
+        contract = _alhambra_source_generator_contract(alhambra_source_generator_contract, target_path)
+        validation_pack = _alhambra_source_file_validation_pack(alhambra_source_file_validation_evidence, target_path)
+        if contract.get("artifact_count") != expected_count:
+            raise AssertionError(f"{target_path} generator contract artifact count changed: {contract}")
+        if contract.get("families") != expected_alhambra_file_families[target_path]:
+            raise AssertionError(f"{target_path} generator contract families changed: {contract}")
+        if contract.get("evidence_pack_ref", {}).get("artifact_count") != validation_pack.get("artifact_count"):
+            raise AssertionError(f"{target_path} generator contract lost evidence pack artifact count: {contract}")
+        if contract.get("evidence_pack_ref", {}).get("families") != validation_pack.get("families"):
+            raise AssertionError(f"{target_path} generator contract lost evidence pack families: {contract}")
+        if contract.get("owner_generator") != expected_alhambra_owner_generators[target_path]:
+            raise AssertionError(f"{target_path} generator contract owner changed: {contract}")
+        if contract.get("generator_interface_status") not in allowed_generator_interface_statuses:
+            raise AssertionError(f"{target_path} generator contract status changed: {contract}")
+        if contract.get("planned_source_writer_exists") != "interface_contract_exists":
+            raise AssertionError(f"{target_path} generator contract did not draft interface contract: {contract}")
+        if not contract.get("required_validations"):
+            raise AssertionError(f"{target_path} generator contract lost required validations: {contract}")
+        if not contract.get("remaining_blockers"):
+            raise AssertionError(f"{target_path} generator contract lost remaining blockers: {contract}")
+        source_boundary = contract.get("source_target_boundary")
+        if (
+            not isinstance(source_boundary, dict)
+            or source_boundary.get("status") != "blocked"
+            or source_boundary.get("target_path") != target_path
+            or source_boundary.get("source_writer_allowed") is not False
+            or source_boundary.get("may_write_src") is not False
+            or source_boundary.get("writes_src") is not False
+            or source_boundary.get("source_ready") is not False
+            or source_boundary.get("body_emitted") is not False
+        ):
+            raise AssertionError(f"{target_path} generator contract lost blocked source-target boundary: {contract}")
+        for flag, expected in {
+            **alhambra_file_flags,
+            "verified": False,
+            "backend_ready": False,
+        }.items():
+            if contract.get(flag) is not expected:
+                raise AssertionError(f"{target_path} generator contract lost {flag}: {contract}")
+        for ref in contract.get("source_body_candidate_refs", []) or []:
+            generator_contract_source_refs.add(
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+            )
+    if len(generator_contract_source_refs) != 45:
+        raise AssertionError(
+            f"Alhambra generator contract unique source refs changed: {len(generator_contract_source_refs)}"
+        )
+
+    english_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        alhambra_file_targets["english"],
+    )
+    simp_chinese_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        alhambra_file_targets["simp_chinese"],
+    )
+    for localization_contract, language in (
+        (english_generator_contract, "english"),
+        (simp_chinese_generator_contract, "simp_chinese"),
+    ):
+        boundary = localization_contract.get("localization_language_boundary")
+        if (
+            localization_contract.get("localization_language") != language
+            or not isinstance(boundary, dict)
+            or boundary.get("language") != language
+            or boundary.get("language_target_paths") != {
+                "english": alhambra_file_targets["english"],
+                "simp_chinese": alhambra_file_targets["simp_chinese"],
+            }
+            or boundary.get("separate_language_target") is not True
+            or boundary.get("may_write_src") is not False
+            or boundary.get("writes_src") is not False
+            or boundary.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"{language} generator contract lost localization split boundary: {localization_contract}")
+
+    listener_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        alhambra_file_targets["listener"],
+    )
+    listener_contract = listener_generator_contract.get("listener_linkage_contract")
+    if not isinstance(listener_contract, dict):
+        raise AssertionError(f"Alhambra listener generator contract lost linkage block: {listener_generator_contract}")
+    listener_hook_plan = listener_contract.get("on_action_hook_linkage_plan")
+    if not isinstance(listener_hook_plan, dict) or not {"on_pre_winning_war", "on_ending_war"} <= set(
+        listener_hook_plan.get("hooks", []) or []
+    ):
+        raise AssertionError(f"Alhambra listener generator contract lost hooks: {listener_generator_contract}")
+    if not isinstance(listener_contract.get("selected_ritual_trigger_linkage"), dict):
+        raise AssertionError(f"Alhambra listener generator contract lost selected trigger: {listener_generator_contract}")
+    listener_war_scope = listener_contract.get("war_scope_availability_persistence_plan")
+    if (
+        not isinstance(listener_war_scope, dict)
+        or listener_war_scope.get("persistence_contract_only") is not True
+        or listener_war_scope.get("war_scope_writes_allowed") is not False
+    ):
+        raise AssertionError(f"Alhambra listener generator contract lost war-scope boundary: {listener_generator_contract}")
+
+    def assert_alhambra_generator_contract_error(name: str, report: dict, needle: str) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_generator_contract(report)
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source generator contract negative was not caught: {errors}")
+
+    missing_target_generator_contract = deepcopy(alhambra_source_generator_contract)
+    missing_target_generator_contract["generator_contracts"] = [
+        contract
+        for contract in missing_target_generator_contract["generator_contracts"]
+        if contract.get("target_path") != alhambra_file_targets["english"]
+    ]
+    assert_alhambra_generator_contract_error(
+        "missing target",
+        missing_target_generator_contract,
+        "missing required target path",
+    )
+
+    wrong_artifact_count_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        wrong_artifact_count_generator_contract,
+        alhambra_file_targets["event"],
+    )["artifact_count"] = 9
+    assert_alhambra_generator_contract_error(
+        "wrong artifact count",
+        wrong_artifact_count_generator_contract,
+        "artifact_count mismatch",
+    )
+
+    missing_evidence_ref_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_evidence_ref_generator_contract,
+        alhambra_file_targets["trigger"],
+    )["evidence_pack_ref"]
+    assert_alhambra_generator_contract_error(
+        "missing evidence pack ref",
+        missing_evidence_ref_generator_contract,
+        "missing evidence_pack_ref",
+    )
+
+    missing_owner_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_owner_generator_contract,
+        alhambra_file_targets["effect_cleanup"],
+    )["owner_generator"]
+    assert_alhambra_generator_contract_error(
+        "missing owner generator",
+        missing_owner_generator_contract,
+        "missing field(s): owner_generator",
+    )
+
+    mismatched_family_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        mismatched_family_generator_contract,
+        alhambra_file_targets["gui"],
+    )["families"] = ["event"]
+    assert_alhambra_generator_contract_error(
+        "family target mismatch",
+        mismatched_family_generator_contract,
+        "families mismatch",
+    )
+
+    unblocked_boundary_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        unblocked_boundary_generator_contract,
+        alhambra_file_targets["listener"],
+    )["source_target_boundary"]["status"] = "contract_drafted"
+    assert_alhambra_generator_contract_error(
+        "unblocked boundary",
+        unblocked_boundary_generator_contract,
+        "source target boundary must stay blocked",
+    )
+
+    missing_validations_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        missing_validations_generator_contract,
+        alhambra_file_targets["event"],
+    )["required_validations"] = []
+    assert_alhambra_generator_contract_error(
+        "missing required validations",
+        missing_validations_generator_contract,
+        "required_validations must not be empty",
+    )
+
+    cleared_blockers_generator_contract = deepcopy(alhambra_source_generator_contract)
+    cleared_blockers_contract = _alhambra_source_generator_contract(
+        cleared_blockers_generator_contract,
+        alhambra_file_targets["listener"],
+    )
+    cleared_blockers_contract["remaining_blockers"] = []
+    cleared_blockers_contract["unresolved_writer_blockers"] = []
+    assert_alhambra_generator_contract_error(
+        "cleared blockers",
+        cleared_blockers_generator_contract,
+        "remaining_blockers must not be empty",
+    )
+
+    source_ready_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        source_ready_generator_contract,
+        alhambra_file_targets["event"],
+    )["source_ready"] = True
+    assert_alhambra_generator_contract_error(
+        "source_ready",
+        source_ready_generator_contract,
+        "source_ready/verified/backend_ready",
+    )
+
+    verified_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        verified_generator_contract,
+        alhambra_file_targets["event"],
+    )["verified"] = True
+    assert_alhambra_generator_contract_error(
+        "verified",
+        verified_generator_contract,
+        "source_ready/verified/backend_ready",
+    )
+
+    backend_ready_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        backend_ready_generator_contract,
+        alhambra_file_targets["listener"],
+    )["backend_ready"] = True
+    assert_alhambra_generator_contract_error(
+        "backend_ready",
+        backend_ready_generator_contract,
+        "source_ready/verified/backend_ready",
+    )
+
+    source_writer_allowed_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        source_writer_allowed_generator_contract,
+        alhambra_file_targets["gui"],
+    )["source_writer_allowed"] = True
+    assert_alhambra_generator_contract_error(
+        "source_writer_allowed",
+        source_writer_allowed_generator_contract,
+        "source_writer_allowed must be false",
+    )
+
+    may_write_src_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        may_write_src_generator_contract,
+        alhambra_file_targets["effect_cleanup"],
+    )["may_write_src"] = True
+    assert_alhambra_generator_contract_error(
+        "may_write_src",
+        may_write_src_generator_contract,
+        "may_write_src must be false",
+    )
+
+    writes_src_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        writes_src_generator_contract,
+        alhambra_file_targets["trigger"],
+    )["writes_src"] = True
+    assert_alhambra_generator_contract_error(
+        "writes_src",
+        writes_src_generator_contract,
+        "writes_src must be false",
+    )
+
+    collapsed_localization_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        collapsed_localization_generator_contract,
+        alhambra_file_targets["english"],
+    )["localization_language_boundary"]["language_target_paths"]["simp_chinese"] = alhambra_file_targets["english"]
+    assert_alhambra_generator_contract_error(
+        "merged localization boundary",
+        collapsed_localization_generator_contract,
+        "target paths must stay split",
+    )
+
+    missing_listener_hook_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_listener_hook_generator_contract,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_contract"]["on_action_hook_linkage_plan"]
+    assert_alhambra_generator_contract_error(
+        "missing listener hook",
+        missing_listener_hook_generator_contract,
+        "hook linkage",
+    )
+
+    missing_listener_trigger_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_listener_trigger_generator_contract,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_contract"]["selected_ritual_trigger_linkage"]
+    assert_alhambra_generator_contract_error(
+        "missing listener trigger",
+        missing_listener_trigger_generator_contract,
+        "selected ritual trigger linkage",
+    )
+
+    missing_listener_war_scope_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_listener_war_scope_generator_contract,
+        alhambra_file_targets["listener"],
+    )["listener_linkage_contract"]["war_scope_availability_persistence_plan"]
+    assert_alhambra_generator_contract_error(
+        "missing listener war scope",
+        missing_listener_war_scope_generator_contract,
+        "war-scope boundary",
+    )
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
@@ -4297,12 +7120,59 @@ def main() -> None:
     summary = audit_summary()
     if summary["source_codegen_ready_count"] != 4:
         raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
+    if summary["implementation_ready_count"] != 0:
+        raise AssertionError(
+            f"implementation_ready count should remain 0, got {summary['implementation_ready_count']}"
+        )
     if summary["harness_generated_count"] != 0:
         raise AssertionError(f"harness_generated count should remain 0, got {summary['harness_generated_count']}")
     if summary["codegen_tier_summary"]["may_write_src"] != 0:
         raise AssertionError(
             "codegen tier may_write_src count should remain 0, got "
             f"{summary['codegen_tier_summary']['may_write_src']}"
+        )
+    readiness_summary = summary["repeated_entity_row_source_writer_readiness"]
+    if readiness_summary["ready_artifact_count"] != 0:
+        raise AssertionError(
+            "source-writer readiness ready_artifact_count should remain 0, got "
+            f"{readiness_summary['ready_artifact_count']}"
+        )
+    if readiness_summary["blocked_artifact_count"] != 177:
+        raise AssertionError(
+            "source-writer readiness blocked_artifact_count should remain 177, got "
+            f"{readiness_summary['blocked_artifact_count']}"
+        )
+    bundle_summary = summary["repeated_entity_row_source_bundle_preview"]
+    if bundle_summary["bundle_count"] != 4:
+        raise AssertionError(f"source bundle preview count should remain 4, got {bundle_summary['bundle_count']}")
+    if bundle_summary["artifact_count"] != 177 or bundle_summary["closure_contract_count"] != 177:
+        raise AssertionError(f"source bundle preview should preserve 177 closure artifacts: {bundle_summary}")
+    if (
+        bundle_summary["source_ready_count"] != 0
+        or bundle_summary["source_writer_allowed_count"] != 0
+        or bundle_summary["may_write_src_count"] != 0
+        or bundle_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(f"source bundle preview no-write/readiness counts changed: {bundle_summary}")
+    alhambra_generator_summary = summary["repeated_entity_row_alhambra_source_generator_contract"]["summary"]
+    if alhambra_generator_summary["generator_contract_count"] != 7:
+        raise AssertionError(
+            "Alhambra source generator contract count should remain 7, got "
+            f"{alhambra_generator_summary['generator_contract_count']}"
+        )
+    if alhambra_generator_summary["artifact_count"] != 45:
+        raise AssertionError(
+            "Alhambra source generator contract artifact_count should remain 45, got "
+            f"{alhambra_generator_summary['artifact_count']}"
+        )
+    if (
+        alhambra_generator_summary["source_writer_allowed_count"] != 0
+        or alhambra_generator_summary["may_write_src_count"] != 0
+        or alhambra_generator_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra source generator contract no-write counts changed: "
+            f"{alhambra_generator_summary}"
         )
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")
