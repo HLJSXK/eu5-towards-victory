@@ -110,6 +110,7 @@ tv_alliance_sublime_empire_subjugate_member = {
 				text = TV_ALLIANCE_SUBJUGATION_TARGET_MEMBER_TT
 				scope:target = {
 					NOT = { this = scope:actor }
+					is_subject = no
 					any_international_organizations_member_of = {
 						international_organization_type = international_organization_type:tv_diplomatic_alliance
 						leader_country ?= scope:actor
@@ -128,6 +129,7 @@ tv_alliance_sublime_empire_subjugate_member = {
 						leader_country ?= scope:actor
 						scope:target = {
 							NOT = { this = scope:actor }
+							is_subject = no
 							any_international_organizations_member_of = {
 								international_organization_type = international_organization_type:tv_diplomatic_alliance
 								leader_country ?= scope:actor
