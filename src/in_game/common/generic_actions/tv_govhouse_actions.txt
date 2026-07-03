@@ -139,7 +139,7 @@ tv_appoint_governor = {
 	effect = {
 		scope:actor = {
 			hidden_effect = {
-				tv_governor_appoint_effect = yes
+				tv_governor_request_appointment_effect = yes
 			}
 		}
 	}
@@ -187,6 +187,19 @@ tv_auto_assign_governors = {
 					save_temporary_scope_as = tv_govhouse_auto_candidate_region
 					any_location_in_region = {
 						owner ?= scope:actor
+					}
+					OR = {
+						scope:actor = {
+							capital ?= {
+								region = scope:tv_govhouse_auto_candidate_region
+							}
+						}
+						AND = {
+							any_location_in_region = {
+								owner ?= scope:actor
+								has_building_with_at_least_one_level = tv_govhouse_local_administration
+							}
+						}
 					}
 					NOT = {
 						scope:actor = {
@@ -495,7 +508,7 @@ tv_change_governor = {
 	effect = {
 		scope:actor = {
 			hidden_effect = {
-				tv_governor_appoint_effect = yes
+				tv_governor_request_appointment_effect = yes
 			}
 		}
 	}

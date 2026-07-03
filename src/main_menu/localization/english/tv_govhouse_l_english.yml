@@ -11,6 +11,10 @@
  tv_govhouse_supreme_overlord_status_desc: "The leading country of a [tv_govhouse|E]. It commands the Governor's House and extends its administration over the attached subject chain."
  tv_govhouse_subject_status: "Subject"
  tv_govhouse_subject_status_desc: "A subject-chain member attached to a [tv_govhouse|E]."
+ tv_govhouse_local_administration: "Local Administration"
+ tv_govhouse_local_administration_desc: "A regional administrative office that anchors the [tv_govhouse|E]'s authority outside the capital region. It cannot be built or demolished manually."
+ tv_govhouse_local_administration_maintenance: "$tv_govhouse_local_administration$ Maintenance"
+ tv_govhouse_local_administration_construction: "$tv_govhouse_local_administration$ Construction"
  MODIFIER_TYPE_NAME_tv_govhouse_supreme_overlord_status_can_participate_in_parliament: "$tv_govhouse_supreme_overlord_status$ in Parliament"
  MODIFIER_TYPE_DESC_tv_govhouse_supreme_overlord_status_can_participate_in_parliament: "This allows the $tv_govhouse_supreme_overlord_status$ to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_govhouse|E]."
  MODIFIER_TYPE_NAME_tv_govhouse_supreme_overlord_status_agenda_impact: "Agenda Impact for $tv_govhouse_supreme_overlord_status$"
@@ -328,6 +332,11 @@
  tv_govhouse.4.d: "Independence has restored the authority needed to govern conquest in our own name. The old score has not been forgotten: our realm still commands enough lands and subjects to require a [tv_govhouse|E], and its offices are being reopened without repeating the first grant of victory."
  tv_govhouse.4.a: "Raise the seal again."
 
+ tv_govhouse.5.t: "[tv_local_governor|E]: A Local Administration Is Required"
+ tv_govhouse.5.d: "[SCOPE.sCharacter('tv_govhouse_pending_governor_scope').GetShortNameWithNoTooltip] cannot govern this region until the [tv_govhouse|E] establishes a permanent local office at [SCOPE.sLocation('tv_govhouse_pending_local_admin_scope').GetName]. The capital region already answers to the central house, but distant territories require their own clerks, seals, guards, and records before a [tv_local_governor|E] can rule in our name."
+ tv_govhouse.5.a: "Build the local administration for 400 ducats."
+ tv_govhouse.5.b: "Cancel the appointment."
+
  # ── Balance-of-power backlash events ───────────────────────────────────────
  tv_govhouse.10.t: "[tv_govhouse_power_balance|E]：Murmurs in the District"
  tv_govhouse.10.d: "A district under the [tv_govhouse|E] has found its daily petitions rerouted through military clerks and quartermasters. Market disputes now wait beside fodder inventories, marriage complaints beside road watches, and every answer returns with the same clipped hand. The people know exactly whose seal now matters. Local elders still bow to the civil magistrate, but they glance over his shoulder before they speak. The [tv_grand_general|E] has not seized the district, yet the district has begun to behave as if seizure already happened. That is how authority first changes shape: not with trumpets, but with forms.\n\n#R WARNING: This event appeared because your [tv_grand_general|E] controls at least 25% of the [tv_govhouse_power_balance|E].#!"
@@ -485,7 +494,7 @@
  TV_GOVHOUSE_REGION_OWNED_TT: "This region contains at least one owned location."
  TV_GOVHOUSE_REGION_HAS_GOVERNOR_TT: "This region has an assigned [tv_local_governor|E]."
  TV_GOVHOUSE_REGION_HAS_NO_GOVERNOR_TT: "This region does not already have an assigned [tv_local_governor|E]."
- TV_GOVHOUSE_HAS_EMPTY_GOVERNOR_REGION_TT: "At least one owned region does not already have an assigned [tv_local_governor|E]."
+ TV_GOVHOUSE_HAS_EMPTY_GOVERNOR_REGION_TT: "At least one owned capital-region or prepared local-administration region does not already have an assigned [tv_local_governor|E]."
  TV_GOVHOUSE_HAS_ELIGIBLE_GOVERNOR_CHARACTER_TT: "At least one eligible character is available."
  TV_GOVHOUSE_GOVERNOR_AUTOMATION_ENABLED_TT: "[tv_local_governor|E] automation is enabled."
  TV_GOVHOUSE_GOVERNOR_AUTOMATION_DISABLED_TT: "[tv_local_governor|E] automation is disabled."
