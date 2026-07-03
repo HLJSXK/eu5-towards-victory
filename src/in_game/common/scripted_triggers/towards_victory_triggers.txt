@@ -509,6 +509,10 @@ tv_conquest_establishment_ready_to_appoint = {
 	tv_conquest_establishment_basic_done = yes
 	tv_conquest_establishment_headquarters_done = yes
 	NOT = { has_variable = tv_conquest_victory_enabled }
+	custom_tooltip = {
+	  text = TV_CONQUEST_M1_EXTRA_TRIGGER_DESC
+	  is_subject = no
+	}
 }
 
 tv_prosperity_establishment_basic_requirement = {

@@ -140,6 +140,13 @@ def _ai_creation_requirement_lines(est: dict, level: int) -> list[str]:
     return lines
 
 
+def _creation_requirement_lines(est: dict, level: int) -> list[str]:
+    requirement = est.get("creation_requirement_body", "").strip()
+    if not requirement:
+        return []
+    return _snippet_lines(requirement, level)
+
+
 def _leader_extra_effect_lines(leader: dict, key: str, level: int) -> list[str]:
     effect = leader.get(key, "").rstrip()
     if not effect:
@@ -285,6 +292,7 @@ def gen_triggers(data: dict) -> str:
             lines.append(f"\ttv_{pid}_establishment_basic_done = yes")
             lines.append(f"\ttv_{pid}_establishment_headquarters_done = yes")
             lines.append(f"\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}")
+            lines.extend(_creation_requirement_lines(est, 1))
             lines.extend(_ai_creation_requirement_lines(est, 1))
             lines.append("}")
             lines.append("")
