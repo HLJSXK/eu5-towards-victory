@@ -265,7 +265,6 @@ src/
 │   │   │                                  tv_govhouse_laws.txt  [GENERATED — 6 core Governor's House law groups + Grand General Power + 4 Local Governor Function/Duty laws; changes keep IO policy votes]
 │   │   │                                  tv_arts_exhibition_laws.txt  [GENERATED — 8 Arts Exhibition law groups with vote-based policies]
 │   │   │                                  tv_research_actions.txt  [MANUAL — Research Mechanism and Academy Medicine IO panel actions]
-│   │   │                                  tv_philosophy_actions.txt  [GENERATED — empty placeholder while Academy philosophy action cards are disabled]
 │   │   ├── estate_privileges/             tv_engineering_department_privileges.txt  [MANUAL — Hydraulic Artisan Guild Burghers privilege used by the Hydraulic Workshop ceremony]
 │   │   ├── generic_action_ai_lists/       tv_arts_exhibition_list.txt  [MANUAL]
 │   │   │                                  tv_diplomatic_alliance_list.txt  [MANUAL]
@@ -415,7 +414,6 @@ Wonder Construction random events are data-driven from `data/wonder_construction
 | `scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py` | data/victory_paths.yaml + data/io_establishment.yaml | src/in_game/gui/panels/situation/tv_victory_situation.gui | After changing the main victory situation tabs, disabled-route establishment cards, progress/reward card layout, path icons, progress styles, or leaderboard rows |
 | `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` | data/io_leaders.yaml + data/io_establishment.yaml | src/in_game/common/generic_actions/tv_io_leader_actions.txt | After adding/changing an IO, IO establishment/build-HQ action, or leader action |
 | `scripts/in_game/common/generic_action_ai_lists/gen_tv_io_establishment_list.py` | data/io_establishment.yaml | src/in_game/common/generic_action_ai_lists/tv_io_establishment_list.txt | After changing generated IO establishment/build-HQ action ids |
-| `scripts/in_game/common/generic_actions/gen_tv_philosophy_actions.py` | data/philosophy_debate_actions.yaml | src/in_game/common/generic_actions/tv_philosophy_actions.txt | After changing whether Academy philosophy debate action cards are disabled or restored |
 | `scripts/in_game/common/scripted_effects/gen_tv_academy_philosophy_debate_effects.py` | data/philosophy_debates.yaml | src/in_game/common/scripted_effects/tv_academy_philosophy_debate_effects.txt | After changing domestic Philosophy debate monthly drift formulas, issue-to-institution/advance mapping, or acceptance/rejection endpoint generation |
 | `scripts/in_game/common/international_organizations/gen_tv_trade_league.py` | data/trade_league_goods.yaml + data/trade_league_laws.yaml | src/in_game/common/international_organizations/tv_trade_league.txt | After changing the Trade League IO shell, lawless-start contract, or leader-country monopoly storage contract |
 | `scripts/in_game/common/scripted_effects/gen_tv_trade_league_effects.py` | data/trade_league_goods.yaml + data/trade_chain.yaml | src/in_game/common/scripted_effects/tv_trade_league_effects.txt | After changing Trade League creation, Trade Chain maintenance/bargaining demand, or monopoly update generation |
@@ -736,7 +734,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | Scripted Triggers | 3110 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 3699 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2340 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 13532 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 13529 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 
