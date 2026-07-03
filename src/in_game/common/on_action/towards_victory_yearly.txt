@@ -14,6 +14,15 @@ tv_io_establishment_monthly_pulse = {
 	}
 }
 
+# Registered under on_game_load by tv_pulse_bridges.txt.
+tv_io_establishment_save_load_validation = {
+	effect = {
+		hidden_effect = {
+			tv_io_establishment_validate_enabled_routes_on_game_load_effect = yes
+		}
+	}
+}
+
 # Registered under on_work_of_art_created by tv_pulse_bridges.txt.
 tv_on_work_of_art_created_callback = {
 	effect = {

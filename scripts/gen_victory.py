@@ -438,6 +438,35 @@ def gen_establishment_effects(data: dict) -> str:
     lines.append("}")
     lines.append("")
 
+    lines.append("tv_io_establishment_validate_enabled_routes_on_game_load_effect = {")
+    lines.append("\tevery_country = {")
+    lines.append("\t\tlimit = {")
+    lines.append("\t\t\tOR = {")
+    for est in est_paths:
+        pid = est["id"]
+        lines.append(f"\t\t\t\thas_variable = tv_{pid}_victory_enabled")
+    lines.append("\t\t\t}")
+    lines.append("\t\t}")
+    for est in est_paths:
+        pid = est["id"]
+        leader = leaders[est["leader_id"]]
+        io_type = leader["io_type"]
+        lines.append("\t\tif = {")
+        lines.append("\t\t\tlimit = {")
+        lines.append(f"\t\t\t\thas_variable = tv_{pid}_victory_enabled")
+        lines.append("\t\t\t\tNOT = {")
+        lines.append("\t\t\t\t\tany_international_organizations_member_of = {")
+        lines.append(f"\t\t\t\t\t\tinternational_organization_type = international_organization_type:{io_type}")
+        lines.append("\t\t\t\t\t}")
+        lines.append("\t\t\t\t}")
+        lines.append("\t\t\t}")
+        lines.append(f"\t\t\tremove_variable = tv_{pid}_victory_enabled")
+        lines.append("\t\t}")
+    lines.append("\t\ttv_update_all_progress_pct_effect = yes")
+    lines.append("\t}")
+    lines.append("}")
+    lines.append("")
+
     for est in est_paths:
         pid = est["id"]
         leader = leaders[est["leader_id"]]
@@ -732,6 +761,15 @@ def gen_on_actions(data: dict) -> str:
         lines.append("tv_io_establishment_monthly_pulse = {")
         lines.append("\teffect = {")
         lines.append("\t\ttv_io_establishment_monthly_pulse_effect = yes")
+        lines.append("\t}")
+        lines.append("}")
+        lines.append("")
+        lines.append("# Registered under on_game_load by tv_pulse_bridges.txt.")
+        lines.append("tv_io_establishment_save_load_validation = {")
+        lines.append("\teffect = {")
+        lines.append("\t\thidden_effect = {")
+        lines.append("\t\t\ttv_io_establishment_validate_enabled_routes_on_game_load_effect = yes")
+        lines.append("\t\t}")
         lines.append("\t}")
         lines.append("}")
         lines.append("")
