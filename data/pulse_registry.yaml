@@ -123,5 +123,8 @@ bridges:
   on_institution_embraced:
     - tv_academy_philosophy_on_institution_embraced
 
+  on_capital_moved:
+    - tv_trade_league_capital_moved # reset Trade Chain if the capital market changes
+
   cmf_on_callback:
     - tv_io_chief_alert_on_cmf_callback

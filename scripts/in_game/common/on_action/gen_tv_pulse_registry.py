@@ -48,6 +48,7 @@ SOURCE_FILES: dict[str, Path | None] = {
     "on_pre_winning_war":    HARDCODED_ON_ACTIONS,
     "on_location_changed_owner": HARDCODED_ON_ACTIONS,
     "on_institution_embraced": HARDCODED_ON_ACTIONS,
+    "on_capital_moved":      HARDCODED_ON_ACTIONS,
     # CMF scripted GUIs fire this custom callback hook.
     "cmf_on_callback":       None,
 }

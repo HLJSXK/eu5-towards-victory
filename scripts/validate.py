@@ -44,6 +44,14 @@ MODIFIER_TYPES_FILE = (
     / "modifier_type_definitions"
     / "00_modifier_types.txt"
 )
+MODIFIER_TYPE_FILES = [
+    MODIFIER_TYPES_FILE,
+    *(
+        (REPO_ROOT / "src" / "main_menu" / "common" / "modifier_type_definitions").glob("*.txt")
+        if (REPO_ROOT / "src" / "main_menu" / "common" / "modifier_type_definitions").exists()
+        else []
+    ),
+]
 HARD_CODED_ON_ACTIONS_FILE = (
     REPO_ROOT
     / "reference_game_files"
@@ -142,15 +150,16 @@ def load_warning_baseline() -> list[dict]:
 
 
 def load_modifier_whitelist() -> set[str]:
-    if not MODIFIER_TYPES_FILE.exists():
-        return set()
     whitelist = set()
     pattern = re.compile(r"^(\w+)\s*=\s*\{")
-    with MODIFIER_TYPES_FILE.open(encoding="utf-8-sig") as f:
-        for line in f:
-            m = pattern.match(line.strip())
-            if m:
-                whitelist.add(m.group(1))
+    for path in MODIFIER_TYPE_FILES:
+        if not path.exists():
+            continue
+        with path.open(encoding="utf-8-sig") as f:
+            for line in f:
+                m = pattern.match(line.strip())
+                if m:
+                    whitelist.add(m.group(1))
     return whitelist
 
 

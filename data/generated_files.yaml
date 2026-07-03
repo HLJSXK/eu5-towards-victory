@@ -118,32 +118,36 @@ generated:
     output: src/in_game/common/international_organizations/tv_trade_league.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_trade_league_effects.py
-    data:   data/trade_league_goods.yaml
+    data:   data/trade_league_goods.yaml + data/trade_chain.yaml
     output: src/in_game/common/scripted_effects/tv_trade_league_effects.txt
 
   - script: scripts/in_game/common/goods_demand/gen_tv_trade_league_demands.py
-    data:   data/trade_league_goods.yaml
+    data:   data/trade_league_goods.yaml + data/trade_chain.yaml
     output: src/in_game/common/goods_demand/tv_trade_league_demands.txt
 
   - script: scripts/in_game/common/generic_actions/gen_tv_trade_league_actions.py
-    data:   data/trade_league_goods.yaml
+    data:   data/trade_league_goods.yaml + data/trade_chain.yaml
     output: src/in_game/common/generic_actions/tv_trade_league_actions.txt
 
   - script: scripts/in_game/common/generic_action_ai_lists/gen_tv_trade_league_list.py
-    data:   data/trade_league_goods.yaml
+    data:   data/trade_league_goods.yaml + data/trade_chain.yaml
     output: src/in_game/common/generic_action_ai_lists/tv_trade_league_list.txt
 
   - script: scripts/in_game/gui/panels/organization/gen_tv_trade_league_gui.py
-    data:   data/trade_league_goods.yaml
+    data:   data/trade_league_goods.yaml + data/trade_chain.yaml
     output: src/in_game/gui/panels/organization/tv_trade_league.gui
 
   - script: scripts/main_menu/localization/english/gen_tv_trade_league_monopoly_l_english.py
-    data:   data/trade_league_goods.yaml
+    data:   data/trade_league_goods.yaml + data/trade_chain.yaml
     output: src/main_menu/localization/english/tv_trade_league_monopoly_l_english.yml
 
   - script: scripts/main_menu/localization/simp_chinese/gen_tv_trade_league_monopoly_l_simp_chinese.py
-    data:   data/trade_league_goods.yaml
+    data:   data/trade_league_goods.yaml + data/trade_chain.yaml
     output: src/main_menu/localization/simp_chinese/tv_trade_league_monopoly_l_simp_chinese.yml
+
+  - script: scripts/in_game/common/static_modifiers/gen_tv_trade_chain_display_modifiers.py
+    data:   data/trade_chain.yaml
+    output: src/in_game/common/static_modifiers/tv_trade_chain_display_modifiers.txt
 
   - script: scripts/in_game/common/laws/gen_tv_alliance_laws.py
     data:   data/alliance_laws.yaml

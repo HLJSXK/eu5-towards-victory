@@ -71,6 +71,10 @@ that create, find, or mutate TV IOs.
    and market `every_import` entries for consumer import control, reading `trade_volume`.
    Do not substitute `traded_in_market:<good>`, `goods_supply_in_market`, or member-present
    market totals; those are market availability/proxy values, not member-owned route volume.
+   When the design needs all goods from a route, use the route scope's
+   `traded_goods = { save_scope_as = ... }` and put the goods scope into a map/list instead
+   of generating one route iterator per good. Keep static per-good branches only where a
+   target effect requires a static database id, such as `add_temporary_demand type = demand:*`.
 
 12. Keep Trade League bulk monopoly state off IO variables.
    The generated per-good monopoly/action state is intentionally stored on `leader_country`,
