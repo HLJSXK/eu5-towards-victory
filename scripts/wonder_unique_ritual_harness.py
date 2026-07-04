@@ -3579,6 +3579,7 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_REQUIRED_FIELDS = {
     "families",
     "artifact_count",
     "evidence_pack_ref",
+    "source_body_candidate_ref_provenance",
     "owner_generator",
     "generator_interface_status",
     "planned_source_writer_exists",
@@ -3599,6 +3600,12 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_REQUIRED_FIELDS = {
     "may_write_src",
     "writes_src",
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_REF_KEY_FIELDS = (
+    "family",
+    "row_set_key",
+    "artifact_kind",
+    "future_source_target_path",
+)
 REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA = {
     "src/in_game/events/tv_wonder_unique_alhambra_ritual_events.txt": {
         "families": ("event",),
@@ -12066,6 +12073,64 @@ def _alhambra_source_generator_contract_artifact_kinds(pack: dict[str, Any]) -> 
     )
 
 
+def _alhambra_source_generator_ref_key_dict(ref_key: tuple[str, str, str, str]) -> dict[str, str]:
+    return {
+        field: value
+        for field, value in zip(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_REF_KEY_FIELDS,
+            ref_key,
+        )
+    }
+
+
+def _alhambra_source_generator_ref_key_tuples_from_refs(
+    refs: list[dict[str, Any]],
+) -> list[tuple[str, str, str, str]]:
+    return sorted(
+        {
+            _alhambra_source_file_preview_ref_key(ref)
+            for ref in refs
+            if isinstance(ref, dict)
+        }
+    )
+
+
+def _alhambra_source_generator_ref_summary_from_key_tuples(
+    ref_key_tuples: list[tuple[str, str, str, str]],
+) -> dict[str, Any]:
+    ref_key_dicts = [
+        _alhambra_source_generator_ref_key_dict(ref_key)
+        for ref_key in ref_key_tuples
+    ]
+    return {
+        "source_body_candidate_ref_count": len(ref_key_tuples),
+        "artifact_kinds": sorted(
+            {
+                str(ref.get("artifact_kind", ""))
+                for ref in ref_key_dicts
+                if str(ref.get("artifact_kind", "")).strip()
+            }
+        ),
+        "family_artifact_counts": _count_by_key(ref_key_dicts, "family"),
+        "row_set_keys": sorted(
+            {
+                str(ref.get("row_set_key", ""))
+                for ref in ref_key_dicts
+                if str(ref.get("row_set_key", "")).strip()
+            }
+        ),
+        "future_source_target_paths": sorted(
+            {
+                str(ref.get("future_source_target_path", ""))
+                for ref in ref_key_dicts
+                if str(ref.get("future_source_target_path", "")).strip()
+            }
+        ),
+        "canonical_ref_key_tuples": ref_key_tuples,
+        "canonical_ref_key_set": ref_key_dicts,
+    }
+
+
 def _alhambra_source_generator_contract_ref_summary(pack: dict[str, Any]) -> dict[str, Any]:
     refs = [
         ref
@@ -12089,6 +12154,48 @@ def _alhambra_source_generator_contract_ref_summary(pack: dict[str, Any]) -> dic
                 if str(ref.get("future_source_target_path", "")).strip()
             }
         ),
+    }
+
+
+def _alhambra_source_generator_ref_provenance_snapshot(pack: dict[str, Any]) -> dict[str, Any]:
+    refs = [
+        ref
+        for ref in pack.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    ]
+    ref_key_tuples = _alhambra_source_generator_ref_key_tuples_from_refs(refs)
+    ref_summary = _alhambra_source_generator_ref_summary_from_key_tuples(ref_key_tuples)
+    target_path = str(pack.get("target_path", ""))
+    families = list(pack.get("families", []) or [])
+    return {
+        "provenance_snapshot_only": True,
+        "snapshot_source": (
+            "repeated_entity_row_alhambra_source_file_validation_evidence."
+            "evidence_packs[].source_body_candidate_refs"
+        ),
+        "source_file_validation_evidence_only": pack.get("source_file_validation_evidence_only") is True,
+        "target_path": target_path,
+        "families": families,
+        "artifact_count": int(pack.get("artifact_count", 0)),
+        "source_body_candidate_ref_count": len(ref_key_tuples),
+        "canonical_source_body_candidate_ref_key_fields": list(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_REF_KEY_FIELDS
+        ),
+        "canonical_source_body_candidate_ref_key_set": ref_summary["canonical_ref_key_set"],
+        "artifact_kinds": ref_summary["artifact_kinds"],
+        "family_artifact_counts": ref_summary["family_artifact_counts"],
+        "row_set_keys": ref_summary["row_set_keys"],
+        "future_source_target_paths": ref_summary["future_source_target_paths"],
+        "source_file_validation_pack_ref": {
+            "pilot_key": str(pack.get("pilot_key", "")),
+            "target_path": target_path,
+            "artifact_count": int(pack.get("artifact_count", 0)),
+            "source_body_candidate_ref_count": int(pack.get("source_body_candidate_ref_count", 0)),
+        },
+        "contract_only": True,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
     }
 
 
@@ -12199,6 +12306,7 @@ def _alhambra_source_generator_no_write_contract_evidence(
     target_path: str,
     families: list[str],
     owner_generator: str,
+    source_body_candidate_ref_provenance: dict[str, Any],
     pack: dict[str, Any],
     generator_interface_draft: dict[str, Any],
     input_data_shape: dict[str, Any],
@@ -12217,6 +12325,7 @@ def _alhambra_source_generator_no_write_contract_evidence(
         "owner_generator_candidate": str(
             (pack.get("generator_ownership_candidate") or {}).get("candidate", owner_generator)
         ),
+        "source_body_candidate_ref_provenance": deepcopy(source_body_candidate_ref_provenance),
         "generator_interface_draft": deepcopy(generator_interface_draft),
         "input_data_shape": deepcopy(input_data_shape),
         "output_artifact_family": deepcopy(output_artifact_family),
@@ -12240,6 +12349,7 @@ def _alhambra_source_generator_contract_for_pack(pack: dict[str, Any]) -> dict[s
     required_validations = sorted(_string_refs(pack.get("required_validations")))
     remaining_blockers = sorted(_string_refs(pack.get("unresolved_blockers")))
     source_target_boundary = deepcopy(pack.get("source_target_boundary", {}) or {})
+    source_body_candidate_ref_provenance = _alhambra_source_generator_ref_provenance_snapshot(pack)
     generator_interface_draft = _alhambra_source_generator_interface_draft(
         target_path=target_path,
         families=families,
@@ -12261,6 +12371,7 @@ def _alhambra_source_generator_contract_for_pack(pack: dict[str, Any]) -> dict[s
         "families": families,
         "artifact_count": int(pack.get("artifact_count", 0)),
         "evidence_pack_ref": _alhambra_source_generator_contract_pack_ref(pack),
+        "source_body_candidate_ref_provenance": source_body_candidate_ref_provenance,
         "owner_generator": owner_generator,
         "generator_interface_status": "contract_drafted",
         "planned_source_writer_exists": "interface_contract_exists",
@@ -12280,6 +12391,7 @@ def _alhambra_source_generator_contract_for_pack(pack: dict[str, Any]) -> dict[s
             target_path=target_path,
             families=families,
             owner_generator=owner_generator,
+            source_body_candidate_ref_provenance=source_body_candidate_ref_provenance,
             pack=pack,
             generator_interface_draft=generator_interface_draft,
             input_data_shape=input_data_shape,
@@ -12645,6 +12757,100 @@ def _validate_alhambra_source_generator_output_artifact_family(
             errors.append(f"{context} output artifact family {flag} must be false")
 
 
+def _validate_alhambra_source_generator_ref_provenance_snapshot(
+    *,
+    context: str,
+    snapshot: Any,
+    target_path: str,
+    families: list[str],
+    artifact_count: int,
+    errors: list[str],
+) -> dict[str, Any]:
+    empty_summary = _alhambra_source_generator_ref_summary_from_key_tuples([])
+    if not isinstance(snapshot, dict) or not snapshot:
+        errors.append(f"{context} missing source body candidate ref provenance")
+        return empty_summary
+    missing = _missing_required(
+        snapshot,
+        {
+            "provenance_snapshot_only",
+            "snapshot_source",
+            "source_file_validation_evidence_only",
+            "target_path",
+            "families",
+            "artifact_count",
+            "source_body_candidate_ref_count",
+            "canonical_source_body_candidate_ref_key_fields",
+            "canonical_source_body_candidate_ref_key_set",
+            "artifact_kinds",
+            "family_artifact_counts",
+            "row_set_keys",
+            "future_source_target_paths",
+            "source_file_validation_pack_ref",
+            "contract_only",
+            "source_writer_allowed",
+            "may_write_src",
+            "writes_src",
+        },
+    )
+    if missing:
+        errors.append(f"{context} source body candidate ref provenance missing field(s): {', '.join(missing)}")
+        return empty_summary
+    if snapshot.get("provenance_snapshot_only") is not True:
+        errors.append(f"{context} source body candidate ref provenance must be snapshot-only")
+    if snapshot.get("source_file_validation_evidence_only") is not True:
+        errors.append(f"{context} source body candidate ref provenance must derive from validation evidence")
+    if snapshot.get("target_path") != target_path:
+        errors.append(f"{context} source body candidate ref provenance target path mismatch")
+    if snapshot.get("families") != families:
+        errors.append(f"{context} source body candidate ref provenance families mismatch")
+    if int(snapshot.get("artifact_count", -1)) != artifact_count:
+        errors.append(f"{context} source body candidate ref provenance artifact_count mismatch")
+    if snapshot.get("canonical_source_body_candidate_ref_key_fields") != list(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_REF_KEY_FIELDS
+    ):
+        errors.append(f"{context} source body candidate ref provenance key fields mismatch")
+
+    raw_key_set = snapshot.get("canonical_source_body_candidate_ref_key_set")
+    if not isinstance(raw_key_set, list) or not raw_key_set:
+        errors.append(f"{context} source body candidate ref provenance key set missing")
+        return empty_summary
+    ref_key_tuples = _alhambra_source_generator_ref_key_tuples_from_refs(
+        [ref for ref in raw_key_set if isinstance(ref, dict)]
+    )
+    ref_summary = _alhambra_source_generator_ref_summary_from_key_tuples(ref_key_tuples)
+    if int(snapshot.get("source_body_candidate_ref_count", -1)) != ref_summary["source_body_candidate_ref_count"]:
+        errors.append(f"{context} source body candidate ref provenance ref count mismatch")
+    if ref_summary["source_body_candidate_ref_count"] != artifact_count:
+        errors.append(f"{context} source body candidate ref provenance key set must match artifact_count")
+    if sorted(_string_refs(snapshot.get("artifact_kinds"))) != ref_summary["artifact_kinds"]:
+        errors.append(f"{context} source body candidate ref provenance artifact kinds mismatch")
+    if snapshot.get("family_artifact_counts") != ref_summary["family_artifact_counts"]:
+        errors.append(f"{context} source body candidate ref provenance family counts mismatch")
+    if sorted(_string_refs(snapshot.get("row_set_keys"))) != ref_summary["row_set_keys"]:
+        errors.append(f"{context} source body candidate ref provenance row set keys mismatch")
+    if sorted(_string_refs(snapshot.get("future_source_target_paths"))) != ref_summary["future_source_target_paths"]:
+        errors.append(f"{context} source body candidate ref provenance future source target paths mismatch")
+    pack_ref = snapshot.get("source_file_validation_pack_ref")
+    if not isinstance(pack_ref, dict):
+        errors.append(f"{context} source body candidate ref provenance missing validation pack ref")
+    else:
+        if pack_ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append(f"{context} source body candidate ref provenance pack ref pilot mismatch")
+        if pack_ref.get("target_path") != target_path:
+            errors.append(f"{context} source body candidate ref provenance pack ref target mismatch")
+        if int(pack_ref.get("artifact_count", -1)) != artifact_count:
+            errors.append(f"{context} source body candidate ref provenance pack ref artifact_count mismatch")
+        if int(pack_ref.get("source_body_candidate_ref_count", -1)) != artifact_count:
+            errors.append(f"{context} source body candidate ref provenance pack ref source ref count mismatch")
+    if snapshot.get("contract_only") is not True:
+        errors.append(f"{context} source body candidate ref provenance must be contract-only")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src"):
+        if snapshot.get(flag) is not False:
+            errors.append(f"{context} source body candidate ref provenance {flag} must be false")
+    return ref_summary
+
+
 def _validate_alhambra_source_generator_no_write_contract_evidence(
     *,
     context: str,
@@ -12652,6 +12858,7 @@ def _validate_alhambra_source_generator_no_write_contract_evidence(
     target_path: str,
     families: list[str],
     owner_generator: str,
+    source_body_candidate_ref_provenance: dict[str, Any],
     required_validations: list[str],
     remaining_blockers: list[str],
     source_target_boundary: dict[str, Any],
@@ -12672,6 +12879,7 @@ def _validate_alhambra_source_generator_no_write_contract_evidence(
             "families",
             "owner_generator",
             "owner_generator_candidate",
+            "source_body_candidate_ref_provenance",
             "generator_interface_draft",
             "input_data_shape",
             "output_artifact_family",
@@ -12697,6 +12905,8 @@ def _validate_alhambra_source_generator_no_write_contract_evidence(
         errors.append(f"{context} no-write source-writer contract evidence families mismatch")
     if evidence.get("owner_generator") != owner_generator:
         errors.append(f"{context} no-write source-writer contract evidence owner mismatch")
+    if evidence.get("source_body_candidate_ref_provenance") != source_body_candidate_ref_provenance:
+        errors.append(f"{context} no-write source-writer contract evidence provenance mismatch")
     if evidence.get("generator_interface_draft") != generator_interface_draft:
         errors.append(f"{context} no-write source-writer contract evidence interface draft mismatch")
     if evidence.get("input_data_shape") != input_data_shape:
@@ -12842,28 +13052,17 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             for ref in refs
             if isinstance(ref, dict)
         ]
-        artifact_kinds = sorted(
-            {
-                str(ref.get("artifact_kind", ""))
-                for ref in structured_refs
-                if str(ref.get("artifact_kind", "")).strip()
-            }
+        provenance_summary = _validate_alhambra_source_generator_ref_provenance_snapshot(
+            context=context,
+            snapshot=contract.get("source_body_candidate_ref_provenance"),
+            target_path=target_path,
+            families=expected_families,
+            artifact_count=expected_artifact_count,
+            errors=errors,
         )
-        family_artifact_counts = _count_by_key(structured_refs, "family")
-        row_set_keys = sorted(
-            {
-                str(ref.get("row_set_key", ""))
-                for ref in structured_refs
-                if str(ref.get("row_set_key", "")).strip()
-            }
-        )
-        future_source_target_paths = sorted(
-            {
-                str(ref.get("future_source_target_path", ""))
-                for ref in structured_refs
-                if str(ref.get("future_source_target_path", "")).strip()
-            }
-        )
+        contract_ref_key_tuples = _alhambra_source_generator_ref_key_tuples_from_refs(structured_refs)
+        if contract_ref_key_tuples != provenance_summary["canonical_ref_key_tuples"]:
+            errors.append(f"{context} source body candidate refs provenance mismatch")
         required_validations = sorted(_string_refs(contract.get("required_validations")))
         remaining_blockers = sorted(_string_refs(contract.get("remaining_blockers")))
         source_target_boundary = (
@@ -12884,11 +13083,11 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             target_path=target_path,
             families=expected_families,
             artifact_count=expected_artifact_count,
-            source_body_candidate_ref_count=len(structured_refs),
-            artifact_kinds=artifact_kinds,
-            family_artifact_counts=family_artifact_counts,
-            row_set_keys=row_set_keys,
-            future_source_target_paths=future_source_target_paths,
+            source_body_candidate_ref_count=provenance_summary["source_body_candidate_ref_count"],
+            artifact_kinds=provenance_summary["artifact_kinds"],
+            family_artifact_counts=provenance_summary["family_artifact_counts"],
+            row_set_keys=provenance_summary["row_set_keys"],
+            future_source_target_paths=provenance_summary["future_source_target_paths"],
             errors=errors,
         )
         _validate_alhambra_source_generator_output_artifact_family(
@@ -12897,11 +13096,11 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             target_path=target_path,
             families=expected_families,
             artifact_count=expected_artifact_count,
-            source_body_candidate_ref_count=len(structured_refs),
-            artifact_kinds=artifact_kinds,
-            family_artifact_counts=family_artifact_counts,
-            row_set_keys=row_set_keys,
-            future_source_target_paths=future_source_target_paths,
+            source_body_candidate_ref_count=provenance_summary["source_body_candidate_ref_count"],
+            artifact_kinds=provenance_summary["artifact_kinds"],
+            family_artifact_counts=provenance_summary["family_artifact_counts"],
+            row_set_keys=provenance_summary["row_set_keys"],
+            future_source_target_paths=provenance_summary["future_source_target_paths"],
             errors=errors,
         )
         _validate_alhambra_source_body_candidate_flags(context=context, value=contract, errors=errors)
@@ -12958,6 +13157,7 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             target_path=target_path,
             families=expected_families,
             owner_generator=expected_owner,
+            source_body_candidate_ref_provenance=contract.get("source_body_candidate_ref_provenance"),
             required_validations=required_validations,
             remaining_blockers=remaining_blockers,
             source_target_boundary=source_target_boundary,
@@ -12974,7 +13174,7 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
                 continue
             if ref.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
                 errors.append(f"{context} source body candidate ref pilot_key must be unique_alhambra")
-            source_ref_keys.add(_alhambra_source_file_preview_ref_key(ref))
+        source_ref_keys.update(provenance_summary["canonical_ref_key_tuples"])
 
         localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
         if target_path in localization_targets.values():

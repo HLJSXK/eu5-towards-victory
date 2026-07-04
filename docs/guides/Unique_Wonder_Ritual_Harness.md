@@ -189,12 +189,17 @@ one contract for each of the seven Alhambra target files. Each contract records 
 target path, families, artifact count, evidence pack reference, owner generator,
 `generator_interface_status`, a real source-file-level generator interface draft, input
 data shape, output artifact family, verification commands, required validations, remaining
-blockers, and the same blocked source-target boundary. Each file-level contract also
+blockers, and the same blocked source-target boundary. Each file-level contract must also
+carry an independent `source_body_candidate_ref_provenance` snapshot derived from the
+source-file validation evidence's canonical `source_body_candidate_refs` key set. The
+validator must use that snapshot, not the mutable contract refs, to check
+`contract.source_body_candidate_refs`, `input_data_shape`, `output_artifact_family`, and
+the source-file `no_write_source_writer_contract_evidence`. Each file-level contract also
 carries a `no_write_source_writer_contract_evidence` block that repeats the draft
-interface, input shape, output family, validation command list, and still-blocked reasons
-for that exact future target file. `planned_source_writer_exists` may advance only to the
-string `interface_contract_exists`; it must not become source-writer permission. The only
-generator interface statuses are `contract_drafted` and `blocked`, while
+interface, input shape, output family, provenance snapshot, validation command list, and
+still-blocked reasons for that exact future target file. `planned_source_writer_exists`
+may advance only to the string `interface_contract_exists`; it must not become
+source-writer permission. The only generator interface statuses are `contract_drafted` and `blocked`, while
 `source_target_boundary.status` remains `blocked`. The contract must keep
 `source_ready: false`, `verified: false`, `backend_ready: false`,
 `source_writer_allowed: false`, `may_write_src: false`, and `writes_src: false`.

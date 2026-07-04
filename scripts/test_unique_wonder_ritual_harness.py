@@ -1723,6 +1723,70 @@ def _alhambra_source_generator_contract(report: dict, target_path: str) -> dict:
     raise AssertionError(f"Alhambra source generator contract has no target {target_path}")
 
 
+def _sync_alhambra_generator_contract_ref_derivatives(contract: dict) -> None:
+    refs = [ref for ref in contract.get("source_body_candidate_refs", []) or [] if isinstance(ref, dict)]
+    family_counts: dict[str, int] = {}
+    for ref in refs:
+        family = str(ref.get("family", ""))
+        if family.strip():
+            family_counts[family] = family_counts.get(family, 0) + 1
+    derived = {
+        "source_body_candidate_ref_count": len(refs),
+        "artifact_kinds": sorted(
+            {
+                str(ref.get("artifact_kind", ""))
+                for ref in refs
+                if str(ref.get("artifact_kind", "")).strip()
+            }
+        ),
+        "family_artifact_counts": family_counts,
+        "row_set_keys": sorted(
+            {
+                str(ref.get("row_set_key", ""))
+                for ref in refs
+                if str(ref.get("row_set_key", "")).strip()
+            }
+        ),
+        "future_source_target_paths": sorted(
+            {
+                str(ref.get("future_source_target_path", ""))
+                for ref in refs
+                if str(ref.get("future_source_target_path", "")).strip()
+            }
+        ),
+    }
+    contract["source_body_candidate_ref_count"] = derived["source_body_candidate_ref_count"]
+    for field in ("input_data_shape", "output_artifact_family"):
+        if isinstance(contract.get(field), dict):
+            contract[field].update(deepcopy(derived))
+    evidence = contract.get("no_write_source_writer_contract_evidence")
+    if isinstance(evidence, dict):
+        evidence["input_data_shape"] = deepcopy(contract.get("input_data_shape"))
+        evidence["output_artifact_family"] = deepcopy(contract.get("output_artifact_family"))
+        evidence["source_body_candidate_ref_provenance"] = deepcopy(
+            contract.get("source_body_candidate_ref_provenance")
+        )
+
+
+def _sync_alhambra_generator_report_ref_summary(report: dict) -> None:
+    unique_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for contract in report.get("generator_contracts", []) or []
+        if isinstance(contract, dict)
+        for ref in contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    report["artifact_count"] = len(unique_ref_keys)
+    report["source_body_candidate_ref_count"] = len(unique_ref_keys)
+    if isinstance(report.get("summary"), dict):
+        report["summary"]["artifact_count"] = len(unique_ref_keys)
+
+
 def _repeated_row_event_contract_path(pilot_key: str) -> str:
     return (
         "src/in_game/events/"
@@ -6085,6 +6149,36 @@ def main() -> None:
         "synced wrong output future target paths",
         synced_wrong_output_family_generator_contract,
         "output artifact family future source target paths mismatch",
+    )
+
+    synced_forged_ref_row_set_generator_contract = deepcopy(alhambra_source_generator_contract)
+    synced_forged_ref_row_set_contract = _alhambra_source_generator_contract(
+        synced_forged_ref_row_set_generator_contract,
+        alhambra_file_targets["event"],
+    )
+    synced_forged_ref_row_set_contract["source_body_candidate_refs"][0]["row_set_key"] = "forged_row_set"
+    _sync_alhambra_generator_contract_ref_derivatives(synced_forged_ref_row_set_contract)
+    _sync_alhambra_generator_report_ref_summary(synced_forged_ref_row_set_generator_contract)
+    assert_alhambra_generator_contract_error(
+        "synced forged source ref row set",
+        synced_forged_ref_row_set_generator_contract,
+        "source body candidate refs provenance mismatch",
+    )
+
+    synced_forged_ref_future_path_generator_contract = deepcopy(alhambra_source_generator_contract)
+    synced_forged_ref_future_path_contract = _alhambra_source_generator_contract(
+        synced_forged_ref_future_path_generator_contract,
+        alhambra_file_targets["gui"],
+    )
+    synced_forged_ref_future_path_contract["source_body_candidate_refs"][0]["future_source_target_path"] = (
+        "src/in_game/gui/panels/organization/forged_unique_alhambra_ritual.gui"
+    )
+    _sync_alhambra_generator_contract_ref_derivatives(synced_forged_ref_future_path_contract)
+    _sync_alhambra_generator_report_ref_summary(synced_forged_ref_future_path_generator_contract)
+    assert_alhambra_generator_contract_error(
+        "synced forged source ref future target path",
+        synced_forged_ref_future_path_generator_contract,
+        "source body candidate refs provenance mismatch",
     )
 
     missing_verification_command_generator_contract = deepcopy(alhambra_source_generator_contract)
