@@ -63,6 +63,7 @@ pulses:
 
 bridges:
   on_game_start:
+    - tv_academy_debate_initialize_global_maps_on_game_start
     - tv_wonder_initialize_index_on_game_start
     - tv_wonder_sync_final_building_level_maps_on_game_start
     - tv_wonder_initialize_existing_unique_wonders_on_game_start
@@ -71,6 +72,7 @@ bridges:
 
   on_game_load:
     - tv_io_establishment_save_load_validation # remove stale route enable flags when the matching TV IO is absent
+    - tv_academy_debate_initialize_global_maps_on_game_load
     - tv_wonder_initialize_index_on_game_load
     - tv_wonder_sync_final_building_level_maps_on_game_load
     - tv_wonder_initialize_existing_unique_wonders_on_game_load

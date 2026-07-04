@@ -1,5 +1,21 @@
 ﻿# Towards Victory — Academy of Sciences on_action hooks
 
+tv_academy_debate_initialize_global_maps_on_game_start = {
+	effect = {
+		hidden_effect = {
+			tv_academy_debate_initialize_global_maps_effect = yes
+		}
+	}
+}
+
+tv_academy_debate_initialize_global_maps_on_game_load = {
+	effect = {
+		hidden_effect = {
+			tv_academy_debate_initialize_global_maps_effect = yes
+		}
+	}
+}
+
 # Death cleanup: if the Chief Scientist dies, clear country variable and notify.
 # root = country the character belonged to, scope:target = dead character.
 tv_academy_char_death = {

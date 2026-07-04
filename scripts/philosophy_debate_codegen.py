@@ -34,6 +34,10 @@ PENDING_RESULT_VAR = "tv_academy_philosophy_result_pending"
 PENDING_ISSUE_VAR = "tv_academy_philosophy_result_issue"
 PENDING_KIND_VAR = "tv_academy_philosophy_result_kind"
 
+GROUP_ESTATE_MAP = "tv_academy_debate_group_to_estate"
+RESULT_GROUP_LOCAL = "tv_academy_debate_result_group"
+RESULT_ESTATE_LOCAL = "tv_academy_debate_result_estate"
+
 
 def load_data() -> dict:
     with DATA_FILE.open(encoding="utf-8") as file:
@@ -103,27 +107,27 @@ def group_var(key: str, suffix: str) -> str:
     return f"tv_academy_debate_group_{key}_{suffix}"
 
 
-def seat_group(seat: int) -> str:
+def seat_group(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_group"
 
 
-def seat_stance(seat: int) -> str:
+def seat_stance(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_stance"
 
 
-def seat_cooldown(seat: int) -> str:
+def seat_cooldown(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_cooldown"
 
 
-def seat_artist(seat: int) -> str:
+def seat_artist(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_artist"
 
 
-def seat_foreign(seat: int) -> str:
+def seat_foreign(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_foreign_country"
 
 
-def seat_scientist(seat: int) -> str:
+def seat_scientist(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_scientist"
 
 
@@ -476,6 +480,15 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    emit(lines, 0, "tv_academy_debate_initialize_global_maps_effect = {")
+    for group in groups(data):
+        if not is_estate_or_variant(group):
+            continue
+        emit(lines, 1, f"remove_from_global_variable_map = {{ name = {GROUP_ESTATE_MAP} key = {group['id']} }}")
+        emit(lines, 1, f"add_to_global_variable_map = {{ name = {GROUP_ESTATE_MAP} key = {group['id']} value = estate_type:{group['base_estate']} }}")
+    emit(lines, 0, "}")
+    emit(lines)
+
     emit(lines, 0, "tv_academy_debate_initialize_debate_effect = {")
     emit(lines, 1, "tv_academy_debate_clear_all_seats_effect = yes")
     emit(lines, 1, f"set_variable = {{ name = tv_academy_philosophy_debate_position value = {settings['initial_progress']} }}")
@@ -487,14 +500,29 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    emit(lines, 0, "tv_academy_debate_remove_group_seated_by_id_effect = {")
+    gen_remove_group_seated(lines, 1, "$group$", data)
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_mark_selected_group_seated_effect = {")
+    gen_set_group_seated(lines, 1, data)
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_clear_seat_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ has_variable = {seat_group('$seat$')} }}")
+    emit(lines, 2, f"tv_academy_debate_remove_group_seated_by_id_effect = {{ group = var:{seat_group('$seat$')} }}")
+    emit(lines, 1, "}")
+    for var in (seat_group("$seat$"), seat_stance("$seat$"), seat_cooldown("$seat$"), seat_artist("$seat$"), seat_foreign("$seat$"), seat_scientist("$seat$")):
+        emit(lines, 1, f"remove_variable = {var}")
+    emit(lines, 0, "}")
+    emit(lines)
+
     for seat in SEATS:
         emit(lines, 0, f"tv_academy_debate_clear_seat_{seat}_effect = {{")
-        emit(lines, 1, "if = {")
-        emit(lines, 2, f"limit = {{ has_variable = {seat_group(seat)} }}")
-        gen_remove_group_seated(lines, 2, f"var:{seat_group(seat)}", data)
-        emit(lines, 1, "}")
-        for var in (seat_group(seat), seat_stance(seat), seat_cooldown(seat), seat_artist(seat), seat_foreign(seat), seat_scientist(seat)):
-            emit(lines, 1, f"remove_variable = {var}")
+        emit(lines, 1, f"tv_academy_debate_clear_seat_effect = {{ seat = {seat} }}")
         emit(lines, 0, "}")
         emit(lines)
 
@@ -933,36 +961,40 @@ def gen_seat_effects(lines: list[str], data: dict) -> None:
     for seat in SEATS:
         emit(lines, 1, "if = {" if seat == 1 else "else_if = {")
         emit(lines, 2, f"limit = {{ {var_eq(EVENT_SEAT, seat)} NOT = {{ has_variable = {seat_group(seat)} }} }}")
-        emit(lines, 2, f"set_variable = {{ name = {seat_group(seat)} value = var:{EVENT_GROUP} }}")
-        emit(lines, 2, f"set_variable = {{ name = {seat_stance(seat)} value = var:{EVENT_STANCE} }}")
+        emit(lines, 2, f"tv_academy_debate_assign_selected_group_to_specific_seat_effect = {{ seat = {seat} }}")
+        emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_assign_selected_group_to_specific_seat_effect = {")
+    emit(lines, 1, f"set_variable = {{ name = {seat_group('$seat$')} value = var:{EVENT_GROUP} }}")
+    emit(lines, 1, f"set_variable = {{ name = {seat_stance('$seat$')} value = var:{EVENT_STANCE} }}")
+    emit(lines, 1, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
+    emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_ARTIST_SCOPE} }} set_variable = {{ name = {seat_artist('$seat$')} value = scope:{SELECTED_ARTIST_SCOPE} }} }}")
+    emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_FOREIGN_SCOPE} }} set_variable = {{ name = {seat_foreign('$seat$')} value = scope:{SELECTED_FOREIGN_SCOPE} }} }}")
+    emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_SCIENTIST_SCOPE} }} set_variable = {{ name = {seat_scientist('$seat$')} value = scope:{SELECTED_SCIENTIST_SCOPE} }} }}")
+    emit(lines, 1, "tv_academy_debate_mark_selected_group_seated_effect = yes")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_set_selected_neutral_stance_effect = {")
+    emit(lines, 1, f"set_variable = {{ name = {EVENT_STANCE} value = $stance$ }}")
+    for seat in SEATS:
+        emit(lines, 1, ("if" if seat == 1 else "else_if") + " = {")
+        emit(lines, 2, f"limit = {{ {var_eq(EVENT_SEAT, seat)} }}")
+        emit(lines, 2, f"set_variable = {{ name = {seat_stance(seat)} value = $stance$ }}")
         emit(lines, 2, f"set_variable = {{ name = {seat_cooldown(seat)} value = {data['settings']['defection_cooldown_months']} }}")
-        emit(lines, 2, f"if = {{ limit = {{ exists = scope:{SELECTED_ARTIST_SCOPE} }} set_variable = {{ name = {seat_artist(seat)} value = scope:{SELECTED_ARTIST_SCOPE} }} }}")
-        emit(lines, 2, f"if = {{ limit = {{ exists = scope:{SELECTED_FOREIGN_SCOPE} }} set_variable = {{ name = {seat_foreign(seat)} value = scope:{SELECTED_FOREIGN_SCOPE} }} }}")
-        emit(lines, 2, f"if = {{ limit = {{ exists = scope:{SELECTED_SCIENTIST_SCOPE} }} set_variable = {{ name = {seat_scientist(seat)} value = scope:{SELECTED_SCIENTIST_SCOPE} }} }}")
-        gen_set_group_seated(lines, 2, data)
         emit(lines, 1, "}")
     emit(lines, 0, "}")
     emit(lines)
 
     emit(lines, 0, "tv_academy_debate_set_selected_neutral_to_support_effect = {")
-    emit(lines, 1, f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_SUPPORT} }}")
-    for seat in SEATS:
-        emit(lines, 1, ("if" if seat == 1 else "else_if") + " = {")
-        emit(lines, 2, f"limit = {{ {var_eq(EVENT_SEAT, seat)} }}")
-        emit(lines, 2, f"set_variable = {{ name = {seat_stance(seat)} value = {STANCE_SUPPORT} }}")
-        emit(lines, 2, f"set_variable = {{ name = {seat_cooldown(seat)} value = {data['settings']['defection_cooldown_months']} }}")
-        emit(lines, 1, "}")
+    emit(lines, 1, f"tv_academy_debate_set_selected_neutral_stance_effect = {{ stance = {STANCE_SUPPORT} }}")
     emit(lines, 0, "}")
     emit(lines)
 
     emit(lines, 0, "tv_academy_debate_set_selected_neutral_to_oppose_effect = {")
-    emit(lines, 1, f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_OPPOSE} }}")
-    for seat in SEATS:
-        emit(lines, 1, ("if" if seat == 1 else "else_if") + " = {")
-        emit(lines, 2, f"limit = {{ {var_eq(EVENT_SEAT, seat)} }}")
-        emit(lines, 2, f"set_variable = {{ name = {seat_stance(seat)} value = {STANCE_OPPOSE} }}")
-        emit(lines, 2, f"set_variable = {{ name = {seat_cooldown(seat)} value = {data['settings']['defection_cooldown_months']} }}")
-        emit(lines, 1, "}")
+    emit(lines, 1, f"tv_academy_debate_set_selected_neutral_stance_effect = {{ stance = {STANCE_OPPOSE} }}")
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1119,27 +1151,32 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    emit(lines, 0, "tv_academy_debate_apply_seat_monthly_progress_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ has_variable = {seat_group('$seat$')} NOT = {{ {var_eq(seat_stance('$seat$'), STANCE_NEUTRAL)} }} }}")
+    for idx, group in enumerate(groups(data)):
+        emit(lines, 2, ("if" if idx == 0 else "else_if") + " = {")
+        emit(lines, 3, f"limit = {{ {var_eq(seat_group('$seat$'), group['id'])} }}")
+        value_lines = contribution_value(group, settings)
+        emit(lines, 3, "set_variable = {")
+        emit(lines, 4, f"name = {SEAT_CONTRIB}")
+        for raw in value_lines:
+            raw = raw.replace("CURRENT_SEAT_ARTIST", seat_artist("$seat$")).replace("CURRENT_SEAT_FOREIGN", seat_foreign("$seat$"))
+            emit(lines, 4 + raw.count("\t"), raw.lstrip("\t"))
+        emit(lines, 3, "}")
+        emit(lines, 2, "}")
+    emit(lines, 2, "if = {")
+    emit(lines, 3, f"limit = {{ {var_eq(seat_stance('$seat$'), STANCE_OPPOSE)} }}")
+    emit(lines, 3, f"change_variable = {{ name = {SEAT_CONTRIB} multiply = -1 }}")
+    emit(lines, 2, "}")
+    emit(lines, 2, f"change_variable = {{ name = {MONTHLY_DELTA} add = var:{SEAT_CONTRIB} }}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
     for seat in SEATS:
         emit(lines, 0, f"tv_academy_debate_apply_seat_{seat}_monthly_progress_effect = {{")
-        emit(lines, 1, "if = {")
-        emit(lines, 2, f"limit = {{ has_variable = {seat_group(seat)} NOT = {{ {var_eq(seat_stance(seat), STANCE_NEUTRAL)} }} }}")
-        for idx, group in enumerate(groups(data)):
-            emit(lines, 2, ("if" if idx == 0 else "else_if") + " = {")
-            emit(lines, 3, f"limit = {{ {var_eq(seat_group(seat), group['id'])} }}")
-            value_lines = contribution_value(group, settings)
-            emit(lines, 3, "set_variable = {")
-            emit(lines, 4, f"name = {SEAT_CONTRIB}")
-            for raw in value_lines:
-                raw = raw.replace("CURRENT_SEAT_ARTIST", seat_artist(seat)).replace("CURRENT_SEAT_FOREIGN", seat_foreign(seat))
-                emit(lines, 4 + raw.count("\t"), raw.lstrip("\t"))
-            emit(lines, 3, "}")
-            emit(lines, 2, "}")
-        emit(lines, 2, "if = {")
-        emit(lines, 3, f"limit = {{ {var_eq(seat_stance(seat), STANCE_OPPOSE)} }}")
-        emit(lines, 3, f"change_variable = {{ name = {SEAT_CONTRIB} multiply = -1 }}")
-        emit(lines, 2, "}")
-        emit(lines, 2, f"change_variable = {{ name = {MONTHLY_DELTA} add = var:{SEAT_CONTRIB} }}")
-        emit(lines, 1, "}")
+        emit(lines, 1, f"tv_academy_debate_apply_seat_monthly_progress_effect = {{ seat = {seat} }}")
         emit(lines, 0, "}")
         emit(lines)
 
@@ -1197,37 +1234,42 @@ def gen_defection_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    emit(lines, 0, "tv_academy_debate_apply_seat_defection_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ has_variable = {seat_group('$seat$')} var:{seat_cooldown('$seat$')} <= 0 NOT = {{ {var_eq(seat_group('$seat$'), 18)} }} }}")
+    for idx, group in enumerate(groups(data)):
+        if group["key"] == "great_scientist":
+            continue
+        emit(lines, 2, ("if" if idx == 0 else "else_if") + " = {")
+        emit(lines, 3, f"limit = {{ {var_eq(seat_group('$seat$'), group['id'])} }}")
+        if group["key"] == "foreign_power":
+            emit(lines, 3, f"set_variable = {{ name = {EVENT_STANCE} value = var:{seat_stance('$seat$')} }}")
+            emit(lines, 3, f"var:{seat_foreign('$seat$')} ?= {{ save_scope_as = {SELECTED_FOREIGN_SCOPE} }}")
+            emit(lines, 3, "tv_academy_debate_set_selected_foreign_stance_effect = yes")
+            emit(lines, 3, "if = {")
+            emit(lines, 4, f"limit = {{ NOT = {{ var:{EVENT_STANCE} ?= var:{seat_stance('$seat$')} }} }}")
+            emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = var:{EVENT_STANCE} }}")
+            emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
+            emit(lines, 3, "}")
+        else:
+            emit(lines, 3, "if = {")
+            emit(lines, 4, f"limit = {{ {var_eq(seat_stance('$seat$'), STANCE_SUPPORT)} tv_academy_debate_group_{group['key']}_negative_defection_condition_trigger = yes }}")
+            emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = {STANCE_OPPOSE} }}")
+            emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
+            emit(lines, 3, "}")
+            emit(lines, 3, "else_if = {")
+            emit(lines, 4, f"limit = {{ {var_eq(seat_stance('$seat$'), STANCE_OPPOSE)} tv_academy_debate_group_{group['key']}_positive_defection_condition_trigger = yes }}")
+            emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = {STANCE_SUPPORT} }}")
+            emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
+            emit(lines, 3, "}")
+        emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
     for seat in SEATS:
         emit(lines, 0, f"tv_academy_debate_apply_seat_{seat}_defection_effect = {{")
-        emit(lines, 1, "if = {")
-        emit(lines, 2, f"limit = {{ has_variable = {seat_group(seat)} var:{seat_cooldown(seat)} <= 0 NOT = {{ {var_eq(seat_group(seat), 18)} }} }}")
-        for idx, group in enumerate(groups(data)):
-            if group["key"] == "great_scientist":
-                continue
-            emit(lines, 2, ("if" if idx == 0 else "else_if") + " = {")
-            emit(lines, 3, f"limit = {{ {var_eq(seat_group(seat), group['id'])} }}")
-            if group["key"] == "foreign_power":
-                emit(lines, 3, f"set_variable = {{ name = {EVENT_STANCE} value = var:{seat_stance(seat)} }}")
-                emit(lines, 3, f"var:{seat_foreign(seat)} ?= {{ save_scope_as = {SELECTED_FOREIGN_SCOPE} }}")
-                emit(lines, 3, "tv_academy_debate_set_selected_foreign_stance_effect = yes")
-                emit(lines, 3, "if = {")
-                emit(lines, 4, f"limit = {{ NOT = {{ var:{EVENT_STANCE} ?= var:{seat_stance(seat)} }} }}")
-                emit(lines, 4, f"set_variable = {{ name = {seat_stance(seat)} value = var:{EVENT_STANCE} }}")
-                emit(lines, 4, f"set_variable = {{ name = {seat_cooldown(seat)} value = {data['settings']['defection_cooldown_months']} }}")
-                emit(lines, 3, "}")
-            else:
-                emit(lines, 3, "if = {")
-                emit(lines, 4, f"limit = {{ {var_eq(seat_stance(seat), STANCE_SUPPORT)} tv_academy_debate_group_{group['key']}_negative_defection_condition_trigger = yes }}")
-                emit(lines, 4, f"set_variable = {{ name = {seat_stance(seat)} value = {STANCE_OPPOSE} }}")
-                emit(lines, 4, f"set_variable = {{ name = {seat_cooldown(seat)} value = {data['settings']['defection_cooldown_months']} }}")
-                emit(lines, 3, "}")
-                emit(lines, 3, "else_if = {")
-                emit(lines, 4, f"limit = {{ {var_eq(seat_stance(seat), STANCE_OPPOSE)} tv_academy_debate_group_{group['key']}_positive_defection_condition_trigger = yes }}")
-                emit(lines, 4, f"set_variable = {{ name = {seat_stance(seat)} value = {STANCE_SUPPORT} }}")
-                emit(lines, 4, f"set_variable = {{ name = {seat_cooldown(seat)} value = {data['settings']['defection_cooldown_months']} }}")
-                emit(lines, 3, "}")
-            emit(lines, 2, "}")
-        emit(lines, 1, "}")
+        emit(lines, 1, f"tv_academy_debate_apply_seat_defection_effect = {{ seat = {seat} }}")
         emit(lines, 0, "}")
         emit(lines)
 
@@ -1301,22 +1343,40 @@ def gen_result_effects(lines: list[str], data: dict) -> None:
             emit(lines, 1, "}")
             emit(lines, 0, "}")
             emit(lines)
+
+    for win, suffix in ((True, "winner"), (False, "loser")):
+        emit(lines, 0, f"tv_academy_debate_apply_seat_{suffix}_effect = {{")
+        emit(lines, 1, "if = {")
+        emit(lines, 2, f"limit = {{ has_variable = {seat_group('$seat$')} }}")
+        emit(lines, 2, f"set_local_variable = {{ name = {RESULT_GROUP_LOCAL} value = var:{seat_group('$seat$')} }}")
+        emit(lines, 2, "if = {")
+        emit(lines, 3, f"limit = {{ has_global_variable_map = {GROUP_ESTATE_MAP} is_key_in_global_variable_map = {{ name = {GROUP_ESTATE_MAP} target = local_var:{RESULT_GROUP_LOCAL} }} }}")
+        emit(lines, 3, f"set_local_variable = {{ name = {RESULT_ESTATE_LOCAL} value = \"global_variable_map({GROUP_ESTATE_MAP}|local_var:{RESULT_GROUP_LOCAL})\" }}")
+        emit(lines, 3, f"add_estate_satisfaction = {{ type = local_var:{RESULT_ESTATE_LOCAL} value = {0.10 * (1 if win else -1):.2f} }}")
+        emit(lines, 2, "}")
+        for group in groups(data):
+            if is_estate_or_variant(group):
+                continue
+            emit(lines, 2, "else_if = {")
+            emit(lines, 3, f"limit = {{ {var_eq(seat_group('$seat$'), group['id'])} }}")
+            apply_result_for_group(lines, 3, group, "$seat$", win)
+            emit(lines, 2, "}")
+        emit(lines, 1, "}")
+        emit(lines, 0, "}")
+        emit(lines)
+
     for seat in SEATS:
-        for win, suffix in ((True, "winner"), (False, "loser")):
+        for _, suffix in ((True, "winner"), (False, "loser")):
             emit(lines, 0, f"tv_academy_debate_apply_seat_{seat}_{suffix}_effect = {{")
-            for idx, group in enumerate(groups(data)):
-                emit(lines, 1, ("if" if idx == 0 else "else_if") + " = {")
-                emit(lines, 2, f"limit = {{ {var_eq(seat_group(seat), group['id'])} }}")
-                apply_result_for_group(lines, 2, group, seat, win)
-                emit(lines, 1, "}")
+            emit(lines, 1, f"tv_academy_debate_apply_seat_{suffix}_effect = {{ seat = {seat} }}")
             emit(lines, 0, "}")
             emit(lines)
 
 
-def apply_result_for_group(lines: list[str], level: int, group: dict, seat: int, win: bool) -> None:
+def apply_result_for_group(lines: list[str], level: int, group: dict, seat: int | str, win: bool) -> None:
     sign = 1 if win else -1
     if is_estate_or_variant(group):
-        emit(lines, level, f"add_estate_satisfaction = {{ type = estate_type:{group['base_estate']} value = {0.10 * sign:.2f} }}")
+        return
     elif group["type"] == "artists":
         if win:
             emit(lines, level, f"var:{seat_artist(seat)} ?= {{ add_artist_skill = 0.20 }}")
