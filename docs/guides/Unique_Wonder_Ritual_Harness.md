@@ -206,6 +206,17 @@ source-writer permission. The only generator interface statuses are `contract_dr
 Localization contracts must keep English and Simplified Chinese target files separate,
 and the listener contract must retain hook linkage, selected-trigger linkage, and
 war-scope linkage.
+The Alhambra event source generator interface prototype is the first dry-run callable
+interface layer above that contract. It derives from the event target's generator contract
+and external source-file validation evidence, exposes exactly one event-family interface,
+and emits exactly eight in-memory/report-level `source_file_contract_artifacts` for the
+future Alhambra event target. The validator must bind those artifacts back to the external
+source-file validation evidence rather than trusting the report alone. This prototype does
+not cover localization, scripted-effect, cleanup, scripted-trigger, GUI, or listener output
+yet. It must keep `output_is_loadable_source: false`, `body_emitted: false`,
+`source_ready: false`, `verified: false`, `backend_ready: false`,
+`source_writer_allowed: false`, `may_write_src: false`, and `writes_src: false`, and it
+must not write `src/` or promote any spec readiness state.
 The event and localization vertical slices in that ledger are closure contracts only.
 They add machine-checkable event body preview and localization key-contract evidence for
 the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,
