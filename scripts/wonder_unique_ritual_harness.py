@@ -12511,7 +12511,10 @@ def repeated_entity_row_alhambra_source_generator_contract_for_payload(
             "Source-target boundaries remain blocked until a later source writer is verified.",
         ],
     }
-    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_generator_contract(report)
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_generator_contract(
+        report,
+        source_file_validation_evidence=source_file_validation_evidence,
+    )
     return report
 
 
@@ -12930,7 +12933,134 @@ def _validate_alhambra_source_generator_no_write_contract_evidence(
             errors.append(f"{context} no-write source-writer contract evidence {flag} must be false")
 
 
-def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict[str, Any]) -> list[str]:
+def _alhambra_source_generator_external_validation_evidence_pack_index(
+    source_file_validation_evidence: Any,
+    errors: list[str],
+) -> dict[str, dict[str, Any]]:
+    if not isinstance(source_file_validation_evidence, dict):
+        errors.append("Alhambra source generator contract external source-file validation evidence must be a mapping")
+        return {}
+    evidence_errors = validate_repeated_entity_row_alhambra_source_file_validation_evidence(
+        source_file_validation_evidence
+    )
+    if evidence_errors:
+        errors.append("Alhambra source generator contract external source-file validation evidence must be clean")
+    pack_index: dict[str, dict[str, Any]] = {}
+    for pack in source_file_validation_evidence.get("evidence_packs", []) or []:
+        if not isinstance(pack, dict):
+            continue
+        target_path = str(pack.get("target_path", ""))
+        if not target_path:
+            continue
+        if target_path in pack_index:
+            errors.append(
+                "Alhambra source generator contract external source-file validation evidence duplicate target "
+                f"{target_path}"
+            )
+            continue
+        pack_index[target_path] = pack
+    return pack_index
+
+
+def _validate_alhambra_source_generator_external_evidence_binding(
+    *,
+    context: str,
+    contract: dict[str, Any],
+    external_pack: dict[str, Any],
+    target_path: str,
+    families: list[str],
+    owner_generator: str,
+    errors: list[str],
+) -> None:
+    if external_pack.get("target_path") != target_path:
+        errors.append(f"{context} external validation evidence target path mismatch")
+    if list(external_pack.get("families", []) or []) != families:
+        errors.append(f"{context} external validation evidence families mismatch")
+
+    expected_ref_key_tuples = _alhambra_source_generator_ref_key_tuples_from_refs(
+        [
+            ref
+            for ref in external_pack.get("source_body_candidate_refs", []) or []
+            if isinstance(ref, dict)
+        ]
+    )
+    contract_ref_key_tuples = _alhambra_source_generator_ref_key_tuples_from_refs(
+        [
+            ref
+            for ref in contract.get("source_body_candidate_refs", []) or []
+            if isinstance(ref, dict)
+        ]
+    )
+    if contract_ref_key_tuples != expected_ref_key_tuples:
+        errors.append(f"{context} source body candidate refs external validation evidence mismatch")
+
+    expected_provenance = _alhambra_source_generator_ref_provenance_snapshot(external_pack)
+    if contract.get("source_body_candidate_ref_provenance") != expected_provenance:
+        errors.append(f"{context} source body candidate ref provenance external validation evidence mismatch")
+    if contract.get("evidence_pack_ref") != _alhambra_source_generator_contract_pack_ref(external_pack):
+        errors.append(f"{context} evidence_pack_ref external validation evidence mismatch")
+
+    expected_input_shape = _alhambra_source_generator_input_data_shape(
+        pack=external_pack,
+        target_path=target_path,
+        families=families,
+    )
+    if contract.get("input_data_shape") != expected_input_shape:
+        errors.append(f"{context} input data shape external validation evidence mismatch")
+
+    expected_output_family = _alhambra_source_generator_output_artifact_family(
+        pack=external_pack,
+        target_path=target_path,
+        families=families,
+    )
+    if contract.get("output_artifact_family") != expected_output_family:
+        errors.append(f"{context} output artifact family external validation evidence mismatch")
+
+    expected_source_target_boundary = deepcopy(external_pack.get("source_target_boundary", {}) or {})
+    if contract.get("source_target_boundary") != expected_source_target_boundary:
+        errors.append(f"{context} source target boundary external validation evidence mismatch")
+
+    expected_required_validations = sorted(_string_refs(external_pack.get("required_validations")))
+    if sorted(_string_refs(contract.get("required_validations"))) != expected_required_validations:
+        errors.append(f"{context} required validations external validation evidence mismatch")
+
+    expected_remaining_blockers = sorted(_string_refs(external_pack.get("unresolved_blockers")))
+    if sorted(_string_refs(contract.get("remaining_blockers"))) != expected_remaining_blockers:
+        errors.append(f"{context} remaining blockers external validation evidence mismatch")
+    if sorted(_string_refs(contract.get("unresolved_writer_blockers"))) != sorted(
+        _string_refs(external_pack.get("unresolved_writer_blockers"))
+    ):
+        errors.append(f"{context} unresolved writer blockers external validation evidence mismatch")
+    if sorted(_string_refs(contract.get("source_writer_blocker_reasons"))) != expected_remaining_blockers:
+        errors.append(f"{context} source writer blocker reasons external validation evidence mismatch")
+
+    expected_interface_draft = _alhambra_source_generator_interface_draft(
+        target_path=target_path,
+        families=families,
+        owner_generator=owner_generator,
+    )
+    expected_no_write_evidence = _alhambra_source_generator_no_write_contract_evidence(
+        target_path=target_path,
+        families=families,
+        owner_generator=owner_generator,
+        source_body_candidate_ref_provenance=expected_provenance,
+        pack=external_pack,
+        generator_interface_draft=expected_interface_draft,
+        input_data_shape=expected_input_shape,
+        output_artifact_family=expected_output_family,
+        required_validations=expected_required_validations,
+        remaining_blockers=expected_remaining_blockers,
+        source_target_boundary=expected_source_target_boundary,
+    )
+    if contract.get("no_write_source_writer_contract_evidence") != expected_no_write_evidence:
+        errors.append(f"{context} no-write source-writer contract evidence external validation evidence mismatch")
+
+
+def validate_repeated_entity_row_alhambra_source_generator_contract(
+    report: dict[str, Any],
+    *,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> list[str]:
     errors: list[str] = []
     if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
         errors.append("Alhambra source generator contract pilot_key must be unique_alhambra")
@@ -12958,6 +13088,26 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             errors.append("Alhambra source generator contract input ref artifact_count must be 45")
         if input_ref.get("validation_errors"):
             errors.append("Alhambra source generator contract input ref validation must be clean")
+    external_validation_packs_by_target: dict[str, dict[str, Any]] | None = None
+    if source_file_validation_evidence is not None:
+        external_validation_packs_by_target = _alhambra_source_generator_external_validation_evidence_pack_index(
+            source_file_validation_evidence,
+            errors,
+        )
+        if isinstance(source_file_validation_evidence, dict):
+            expected_input_ref = {
+                "pilot_key": str(source_file_validation_evidence.get("pilot_key", "")),
+                "evidence_pack_count": int(source_file_validation_evidence.get("evidence_pack_count", 0)),
+                "artifact_count": int(source_file_validation_evidence.get("artifact_count", 0)),
+                "source_body_candidate_ref_count": int(
+                    source_file_validation_evidence.get("source_body_candidate_ref_count", 0)
+                ),
+                "validation_errors": list(source_file_validation_evidence.get("validation_errors", []) or []),
+            }
+            if input_ref and input_ref != expected_input_ref:
+                errors.append(
+                    "Alhambra source generator contract input ref external validation evidence mismatch"
+                )
 
     for path in _source_bundle_forbidden_ready_paths(report):
         errors.append(f"Alhambra source generator contract must not claim source_ready/verified/backend_ready at {path}")
@@ -13045,6 +13195,13 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             errors.append(f"{context} owner_generator mismatch")
         if contract.get("planned_source_writer_exists") != "interface_contract_exists":
             errors.append(f"{context} planned_source_writer_exists must be interface_contract_exists")
+        external_pack = (
+            external_validation_packs_by_target.get(target_path)
+            if external_validation_packs_by_target is not None
+            else None
+        )
+        if external_validation_packs_by_target is not None and external_pack is None:
+            errors.append(f"{context} missing external source-file validation evidence pack")
 
         refs = contract.get("source_body_candidate_refs") if isinstance(contract.get("source_body_candidate_refs"), list) else []
         structured_refs = [
@@ -13166,6 +13323,16 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             output_artifact_family=contract.get("output_artifact_family"),
             errors=errors,
         )
+        if external_pack is not None:
+            _validate_alhambra_source_generator_external_evidence_binding(
+                context=context,
+                contract=contract,
+                external_pack=external_pack,
+                target_path=target_path,
+                families=expected_families,
+                owner_generator=expected_owner,
+                errors=errors,
+            )
 
         if int(contract.get("source_body_candidate_ref_count", -1)) != len(structured_refs):
             errors.append(f"{context} source_body_candidate_ref_count mismatch")
@@ -13213,6 +13380,8 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
         errors.append(f"Alhambra source generator contract missing required target path(s): {', '.join(missing_targets)}")
     if extra_targets:
         errors.append(f"Alhambra source generator contract has unexpected target path(s): {', '.join(extra_targets)}")
+    if external_validation_packs_by_target is not None and actual_targets != set(external_validation_packs_by_target):
+        errors.append("Alhambra source generator contract target paths external validation evidence mismatch")
     if localization_languages != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
         errors.append("Alhambra source generator contract localization must split English and Simplified Chinese files")
     if len(source_ref_keys) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_ARTIFACT_COUNT:

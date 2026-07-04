@@ -5745,6 +5745,15 @@ def main() -> None:
             "Alhambra source generator contract unexpectedly failed validation: "
             f"{alhambra_source_generator_contract['validation_errors']}"
         )
+    evidence_bound_generator_errors = validate_repeated_entity_row_alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+    if evidence_bound_generator_errors:
+        raise AssertionError(
+            "Alhambra source generator contract unexpectedly failed external evidence-bound validation: "
+            f"{evidence_bound_generator_errors}"
+        )
     generator_contract_summary = alhambra_source_generator_contract.get("summary", {})
     if alhambra_source_generator_contract.get("pilot_key") != "unique_alhambra":
         raise AssertionError(f"Alhambra source generator contract pilot changed: {alhambra_source_generator_contract}")
@@ -6010,8 +6019,17 @@ def main() -> None:
     ):
         raise AssertionError(f"Alhambra listener generator contract lost war-scope boundary: {listener_generator_contract}")
 
-    def assert_alhambra_generator_contract_error(name: str, report: dict, needle: str) -> None:
-        errors = validate_repeated_entity_row_alhambra_source_generator_contract(report)
+    def assert_alhambra_generator_contract_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_file_validation_evidence: dict | None = None,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_generator_contract(
+            report,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
         if not any(needle in error for error in errors):
             raise AssertionError(f"{name} Alhambra source generator contract negative was not caught: {errors}")
 
@@ -6179,6 +6197,29 @@ def main() -> None:
         "synced forged source ref future target path",
         synced_forged_ref_future_path_generator_contract,
         "source body candidate refs provenance mismatch",
+    )
+
+    external_evidence_forged_ref_validation = deepcopy(alhambra_source_file_validation_evidence)
+    external_evidence_forged_ref_pack = _alhambra_source_file_validation_pack(
+        external_evidence_forged_ref_validation,
+        alhambra_file_targets["event"],
+    )
+    external_evidence_forged_ref_pack["source_body_candidate_refs"][0]["row_set_key"] = "forged_row_set"
+    external_evidence_forged_ref_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
+        spec_data,
+        source_file_validation_evidence=external_evidence_forged_ref_validation,
+    )
+    if external_evidence_forged_ref_generator_contract["validation_errors"]:
+        raise AssertionError(
+            "Externally forged Alhambra generator contract should remain internally self-consistent before "
+            "the original validation evidence is applied: "
+            f"{external_evidence_forged_ref_generator_contract['validation_errors']}"
+        )
+    assert_alhambra_generator_contract_error(
+        "external evidence-bound synced forged source refs",
+        external_evidence_forged_ref_generator_contract,
+        "external validation evidence mismatch",
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
     )
 
     missing_verification_command_generator_contract = deepcopy(alhambra_source_generator_contract)
