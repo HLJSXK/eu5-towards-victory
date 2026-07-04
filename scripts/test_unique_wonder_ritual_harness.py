@@ -5740,6 +5740,78 @@ def main() -> None:
             raise AssertionError(f"{target_path} generator contract status changed: {contract}")
         if contract.get("planned_source_writer_exists") != "interface_contract_exists":
             raise AssertionError(f"{target_path} generator contract did not draft interface contract: {contract}")
+        interface_draft = contract.get("generator_interface_draft")
+        if (
+            not isinstance(interface_draft, dict)
+            or interface_draft.get("owner_generator") != expected_alhambra_owner_generators[target_path]
+            or interface_draft.get("target_path") != target_path
+            or interface_draft.get("families") != expected_alhambra_file_families[target_path]
+            or interface_draft.get("generator_interface_status") != "contract_drafted"
+            or interface_draft.get("dry_run_required") is not True
+            or interface_draft.get("source_file_level_contract") is not True
+            or interface_draft.get("body_emitted") is not False
+            or interface_draft.get("source_writer_allowed") is not False
+            or interface_draft.get("may_write_src") is not False
+            or interface_draft.get("writes_src") is not False
+            or "source_file_validation_pack" not in str(interface_draft.get("call_signature_draft", ""))
+        ):
+            raise AssertionError(f"{target_path} generator contract lost source-file interface draft: {contract}")
+        input_shape = contract.get("input_data_shape")
+        if (
+            not isinstance(input_shape, dict)
+            or input_shape.get("target_path") != target_path
+            or input_shape.get("families") != expected_alhambra_file_families[target_path]
+            or input_shape.get("artifact_count") != expected_count
+            or input_shape.get("source_body_candidate_ref_count") != expected_count
+            or not input_shape.get("artifact_kinds")
+            or input_shape.get("source_file_validation_evidence_only") is not True
+            or input_shape.get("source_writer_allowed") is not False
+            or input_shape.get("may_write_src") is not False
+            or input_shape.get("writes_src") is not False
+        ):
+            raise AssertionError(f"{target_path} generator contract lost input data shape: {contract}")
+        output_family = contract.get("output_artifact_family")
+        if (
+            not isinstance(output_family, dict)
+            or output_family.get("target_path") != target_path
+            or output_family.get("families") != expected_alhambra_file_families[target_path]
+            or output_family.get("artifact_count") != expected_count
+            or output_family.get("source_body_candidate_ref_count") != expected_count
+            or not output_family.get("artifact_kinds")
+            or output_family.get("output_kind") != "source_file_contract_artifacts"
+            or output_family.get("output_is_loadable_source") is not False
+            or output_family.get("body_emitted") is not False
+            or output_family.get("source_writer_allowed") is not False
+            or output_family.get("may_write_src") is not False
+            or output_family.get("writes_src") is not False
+        ):
+            raise AssertionError(f"{target_path} generator contract lost output artifact family: {contract}")
+        if (
+            not isinstance(contract.get("verification_commands"), list)
+            or not any("scripts\\test_unique_wonder_ritual_harness.py" in command for command in contract["verification_commands"])
+            or not any("scripts\\validate.py --changed --fix --ai-report" in command for command in contract["verification_commands"])
+        ):
+            raise AssertionError(f"{target_path} generator contract lost verification commands: {contract}")
+        if (
+            contract.get("source_writer_blocker_reasons") != contract.get("remaining_blockers")
+            or not contract.get("source_writer_still_blocked_reason")
+        ):
+            raise AssertionError(f"{target_path} generator contract lost still-blocked source-writer reasons: {contract}")
+        no_write_evidence = contract.get("no_write_source_writer_contract_evidence")
+        if (
+            not isinstance(no_write_evidence, dict)
+            or no_write_evidence.get("target_path") != target_path
+            or no_write_evidence.get("target_paths") != [target_path]
+            or no_write_evidence.get("generator_interface_draft") != interface_draft
+            or no_write_evidence.get("input_data_shape") != input_shape
+            or no_write_evidence.get("output_artifact_family") != output_family
+            or no_write_evidence.get("verification_commands") != contract.get("verification_commands")
+            or no_write_evidence.get("source_writer_blocker_reasons") != contract.get("remaining_blockers")
+            or no_write_evidence.get("source_writer_allowed") is not False
+            or no_write_evidence.get("may_write_src") is not False
+            or no_write_evidence.get("writes_src") is not False
+        ):
+            raise AssertionError(f"{target_path} generator contract lost source-file no-write evidence: {contract}")
         if not contract.get("required_validations"):
             raise AssertionError(f"{target_path} generator contract lost required validations: {contract}")
         if not contract.get("remaining_blockers"):
@@ -5875,6 +5947,61 @@ def main() -> None:
         "missing owner generator",
         missing_owner_generator_contract,
         "missing field(s): owner_generator",
+    )
+
+    missing_interface_draft_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_interface_draft_generator_contract,
+        alhambra_file_targets["event"],
+    )["generator_interface_draft"]
+    assert_alhambra_generator_contract_error(
+        "missing source-file interface draft",
+        missing_interface_draft_generator_contract,
+        "missing field(s): generator_interface_draft",
+    )
+
+    missing_input_shape_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_input_shape_generator_contract,
+        alhambra_file_targets["english"],
+    )["input_data_shape"]
+    assert_alhambra_generator_contract_error(
+        "missing input data shape",
+        missing_input_shape_generator_contract,
+        "missing field(s): input_data_shape",
+    )
+
+    collapsed_output_family_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        collapsed_output_family_generator_contract,
+        alhambra_file_targets["effect_cleanup"],
+    )["output_artifact_family"]["families"] = ["effect"]
+    assert_alhambra_generator_contract_error(
+        "collapsed output artifact family",
+        collapsed_output_family_generator_contract,
+        "output artifact family families mismatch",
+    )
+
+    missing_verification_command_generator_contract = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        missing_verification_command_generator_contract,
+        alhambra_file_targets["trigger"],
+    )["verification_commands"] = []
+    assert_alhambra_generator_contract_error(
+        "missing verification commands",
+        missing_verification_command_generator_contract,
+        "verification commands mismatch",
+    )
+
+    missing_no_write_source_file_evidence_generator_contract = deepcopy(alhambra_source_generator_contract)
+    del _alhambra_source_generator_contract(
+        missing_no_write_source_file_evidence_generator_contract,
+        alhambra_file_targets["simp_chinese"],
+    )["no_write_source_writer_contract_evidence"]
+    assert_alhambra_generator_contract_error(
+        "missing source-file no-write evidence",
+        missing_no_write_source_file_evidence_generator_contract,
+        "missing field(s): no_write_source_writer_contract_evidence",
     )
 
     mismatched_family_generator_contract = deepcopy(alhambra_source_generator_contract)

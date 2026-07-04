@@ -187,8 +187,12 @@ above that validation evidence. It must derive only from
 `repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(...)` and emits
 one contract for each of the seven Alhambra target files. Each contract records the
 target path, families, artifact count, evidence pack reference, owner generator,
-`generator_interface_status`, required validations, remaining blockers, and the same
-blocked source-target boundary. `planned_source_writer_exists` may advance only to the
+`generator_interface_status`, a real source-file-level generator interface draft, input
+data shape, output artifact family, verification commands, required validations, remaining
+blockers, and the same blocked source-target boundary. Each file-level contract also
+carries a `no_write_source_writer_contract_evidence` block that repeats the draft
+interface, input shape, output family, validation command list, and still-blocked reasons
+for that exact future target file. `planned_source_writer_exists` may advance only to the
 string `interface_contract_exists`; it must not become source-writer permission. The only
 generator interface statuses are `contract_drafted` and `blocked`, while
 `source_target_boundary.status` remains `blocked`. The contract must keep

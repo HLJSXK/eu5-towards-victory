@@ -3582,6 +3582,13 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_CONTRACT_REQUIRED_FIELDS = {
     "owner_generator",
     "generator_interface_status",
     "planned_source_writer_exists",
+    "generator_interface_draft",
+    "input_data_shape",
+    "output_artifact_family",
+    "verification_commands",
+    "source_writer_blocker_reasons",
+    "source_writer_still_blocked_reason",
+    "no_write_source_writer_contract_evidence",
     "source_target_boundary",
     "required_validations",
     "remaining_blockers",
@@ -12049,25 +12056,234 @@ def _alhambra_source_generator_contract_pack_ref(pack: dict[str, Any]) -> dict[s
     }
 
 
+def _alhambra_source_generator_contract_artifact_kinds(pack: dict[str, Any]) -> list[str]:
+    return sorted(
+        {
+            str(ref.get("artifact_kind", ""))
+            for ref in pack.get("source_body_candidate_refs", []) or []
+            if isinstance(ref, dict) and str(ref.get("artifact_kind", "")).strip()
+        }
+    )
+
+
+def _alhambra_source_generator_contract_ref_summary(pack: dict[str, Any]) -> dict[str, Any]:
+    refs = [
+        ref
+        for ref in pack.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    ]
+    return {
+        "artifact_kinds": _alhambra_source_generator_contract_artifact_kinds(pack),
+        "family_artifact_counts": _count_by_key(refs, "family"),
+        "row_set_keys": sorted(
+            {
+                str(ref.get("row_set_key", ""))
+                for ref in refs
+                if str(ref.get("row_set_key", "")).strip()
+            }
+        ),
+        "future_source_target_paths": sorted(
+            {
+                str(ref.get("future_source_target_path", ""))
+                for ref in refs
+                if str(ref.get("future_source_target_path", "")).strip()
+            }
+        ),
+    }
+
+
+def _alhambra_source_generator_interface_draft(
+    *,
+    target_path: str,
+    families: list[str],
+    owner_generator: str,
+) -> dict[str, Any]:
+    return {
+        "interface_name": f"{owner_generator}.emit_source_file_contract",
+        "proposed_function_name": "emit_source_file_contract",
+        "owner_generator": owner_generator,
+        "call_signature_draft": (
+            f"{owner_generator}.emit_source_file_contract("
+            "source_file_validation_pack: Mapping[str, Any], *, dry_run: bool = True"
+            ") -> dict[str, Any]"
+        ),
+        "input_parameter": "source_file_validation_pack",
+        "output_contract": "source_file_contract_artifacts",
+        "target_path": target_path,
+        "families": list(families),
+        "generator_interface_status": "contract_drafted",
+        "dry_run_required": True,
+        "source_file_level_contract": True,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
+def _alhambra_source_generator_input_data_shape(
+    *,
+    pack: dict[str, Any],
+    target_path: str,
+    families: list[str],
+) -> dict[str, Any]:
+    ref_summary = _alhambra_source_generator_contract_ref_summary(pack)
+    shape: dict[str, Any] = {
+        "input_source": "repeated_entity_row_alhambra_source_file_validation_evidence.evidence_packs[]",
+        "input_pack_selector": {
+            "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+            "target_path": target_path,
+        },
+        "required_pack_fields": sorted(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_REQUIRED_FIELDS),
+        "required_source_body_ref_fields": [
+            "pilot_key",
+            "family",
+            "row_set_key",
+            "artifact_kind",
+            "future_source_target_path",
+        ],
+        "target_path": target_path,
+        "families": list(families),
+        "artifact_count": int(pack.get("artifact_count", 0)),
+        "source_body_candidate_ref_count": int(pack.get("source_body_candidate_ref_count", 0)),
+        **ref_summary,
+        "source_file_validation_evidence_only": pack.get("source_file_validation_evidence_only") is True,
+        "contract_only": True,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+    if "localization_language" in pack:
+        shape["localization_language"] = str(pack.get("localization_language", ""))
+        shape["required_languages"] = list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS)
+        shape["separate_language_target"] = True
+    if families == ["listener"]:
+        shape["listener_linkage_required_fields"] = [
+            "on_action_hook_linkage_plan",
+            "selected_ritual_trigger_linkage",
+            "war_scope_availability_persistence_plan",
+        ]
+    return shape
+
+
+def _alhambra_source_generator_output_artifact_family(
+    *,
+    pack: dict[str, Any],
+    target_path: str,
+    families: list[str],
+) -> dict[str, Any]:
+    ref_summary = _alhambra_source_generator_contract_ref_summary(pack)
+    return {
+        "target_path": target_path,
+        "families": list(families),
+        "artifact_count": int(pack.get("artifact_count", 0)),
+        "source_body_candidate_ref_count": int(pack.get("source_body_candidate_ref_count", 0)),
+        **ref_summary,
+        "output_kind": "source_file_contract_artifacts",
+        "output_is_loadable_source": False,
+        "contract_only": True,
+        "body_emitted": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
+def _alhambra_source_generator_no_write_contract_evidence(
+    *,
+    target_path: str,
+    families: list[str],
+    owner_generator: str,
+    pack: dict[str, Any],
+    generator_interface_draft: dict[str, Any],
+    input_data_shape: dict[str, Any],
+    output_artifact_family: dict[str, Any],
+    required_validations: list[str],
+    remaining_blockers: list[str],
+    source_target_boundary: dict[str, Any],
+) -> dict[str, Any]:
+    normalized_blockers = sorted({blocker for blocker in _string_refs(remaining_blockers) if blocker})
+    return {
+        "contract_evidence_only": True,
+        "target_path": target_path,
+        "target_paths": [target_path],
+        "families": list(families),
+        "owner_generator": owner_generator,
+        "owner_generator_candidate": str(
+            (pack.get("generator_ownership_candidate") or {}).get("candidate", owner_generator)
+        ),
+        "generator_interface_draft": deepcopy(generator_interface_draft),
+        "input_data_shape": deepcopy(input_data_shape),
+        "output_artifact_family": deepcopy(output_artifact_family),
+        "validation_refs": list(required_validations),
+        "validation_command": REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS[0],
+        "verification_commands": list(REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS),
+        "source_writer_blocker_reasons": normalized_blockers,
+        "source_writer_still_blocked_reason": "; ".join(normalized_blockers),
+        "source_target_boundary": deepcopy(source_target_boundary),
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
 def _alhambra_source_generator_contract_for_pack(pack: dict[str, Any]) -> dict[str, Any]:
     target_path = str(pack.get("target_path", ""))
     metadata = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.get(target_path, {})
     families = list(pack.get("families", []) or [])
+    owner_generator = str(metadata.get("owner_candidate", ""))
+    required_validations = sorted(_string_refs(pack.get("required_validations")))
+    remaining_blockers = sorted(_string_refs(pack.get("unresolved_blockers")))
+    source_target_boundary = deepcopy(pack.get("source_target_boundary", {}) or {})
+    generator_interface_draft = _alhambra_source_generator_interface_draft(
+        target_path=target_path,
+        families=families,
+        owner_generator=owner_generator,
+    )
+    input_data_shape = _alhambra_source_generator_input_data_shape(
+        pack=pack,
+        target_path=target_path,
+        families=families,
+    )
+    output_artifact_family = _alhambra_source_generator_output_artifact_family(
+        pack=pack,
+        target_path=target_path,
+        families=families,
+    )
     contract = {
         "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
         "target_path": target_path,
         "families": families,
         "artifact_count": int(pack.get("artifact_count", 0)),
         "evidence_pack_ref": _alhambra_source_generator_contract_pack_ref(pack),
-        "owner_generator": str(metadata.get("owner_candidate", "")),
+        "owner_generator": owner_generator,
         "generator_interface_status": "contract_drafted",
         "planned_source_writer_exists": "interface_contract_exists",
-        "source_target_boundary": deepcopy(pack.get("source_target_boundary", {}) or {}),
-        "required_validations": sorted(_string_refs(pack.get("required_validations"))),
-        "remaining_blockers": sorted(_string_refs(pack.get("unresolved_blockers"))),
+        "generator_interface_draft": generator_interface_draft,
+        "input_data_shape": input_data_shape,
+        "output_artifact_family": output_artifact_family,
+        "verification_commands": list(REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS),
+        "source_writer_blocker_reasons": remaining_blockers,
+        "source_writer_still_blocked_reason": "; ".join(remaining_blockers),
+        "source_target_boundary": source_target_boundary,
+        "required_validations": required_validations,
+        "remaining_blockers": remaining_blockers,
         "unresolved_writer_blockers": sorted(_string_refs(pack.get("unresolved_writer_blockers"))),
         "source_body_candidate_ref_count": int(pack.get("source_body_candidate_ref_count", 0)),
         "source_body_candidate_refs": deepcopy(pack.get("source_body_candidate_refs", []) or []),
+        "no_write_source_writer_contract_evidence": _alhambra_source_generator_no_write_contract_evidence(
+            target_path=target_path,
+            families=families,
+            owner_generator=owner_generator,
+            pack=pack,
+            generator_interface_draft=generator_interface_draft,
+            input_data_shape=input_data_shape,
+            output_artifact_family=output_artifact_family,
+            required_validations=required_validations,
+            remaining_blockers=remaining_blockers,
+            source_target_boundary=source_target_boundary,
+        ),
         "source_ready_count": 0,
         "source_writer_allowed_count": 0,
         "may_write_src_count": 0,
@@ -12205,6 +12421,277 @@ def _validate_alhambra_source_generator_contract_boundary(
             errors.append(f"{context} source target boundary {flag} must be false")
 
 
+def _validate_alhambra_source_generator_interface_draft(
+    *,
+    context: str,
+    draft: Any,
+    target_path: str,
+    families: list[str],
+    owner_generator: str,
+    errors: list[str],
+) -> None:
+    if not isinstance(draft, dict) or not draft:
+        errors.append(f"{context} missing generator interface draft")
+        return
+    missing = _missing_required(
+        draft,
+        {
+            "interface_name",
+            "proposed_function_name",
+            "owner_generator",
+            "call_signature_draft",
+            "input_parameter",
+            "output_contract",
+            "target_path",
+            "families",
+            "generator_interface_status",
+            "dry_run_required",
+            "source_file_level_contract",
+            "contract_only",
+            "body_emitted",
+            "source_writer_allowed",
+            "may_write_src",
+            "writes_src",
+        },
+    )
+    if missing:
+        errors.append(f"{context} generator interface draft missing field(s): {', '.join(missing)}")
+        return
+    if draft.get("owner_generator") != owner_generator:
+        errors.append(f"{context} generator interface draft owner mismatch")
+    if draft.get("target_path") != target_path:
+        errors.append(f"{context} generator interface draft target path mismatch")
+    if draft.get("families") != families:
+        errors.append(f"{context} generator interface draft families mismatch")
+    if draft.get("generator_interface_status") != "contract_drafted":
+        errors.append(f"{context} generator interface draft status must be contract_drafted")
+    if draft.get("dry_run_required") is not True or draft.get("source_file_level_contract") is not True:
+        errors.append(f"{context} generator interface draft must be source-file-level dry-run")
+    if not str(draft.get("call_signature_draft", "")).strip():
+        errors.append(f"{context} generator interface draft missing call signature")
+    for flag in ("body_emitted", "source_writer_allowed", "may_write_src", "writes_src"):
+        if draft.get(flag) is not False:
+            errors.append(f"{context} generator interface draft {flag} must be false")
+    if draft.get("contract_only") is not True:
+        errors.append(f"{context} generator interface draft must be contract-only")
+
+
+def _validate_alhambra_source_generator_input_data_shape(
+    *,
+    context: str,
+    shape: Any,
+    target_path: str,
+    families: list[str],
+    artifact_count: int,
+    source_body_candidate_ref_count: int,
+    artifact_kinds: list[str],
+    errors: list[str],
+) -> None:
+    if not isinstance(shape, dict) or not shape:
+        errors.append(f"{context} missing input data shape")
+        return
+    missing = _missing_required(
+        shape,
+        {
+            "input_source",
+            "input_pack_selector",
+            "required_pack_fields",
+            "required_source_body_ref_fields",
+            "target_path",
+            "families",
+            "artifact_count",
+            "source_body_candidate_ref_count",
+            "artifact_kinds",
+            "family_artifact_counts",
+            "row_set_keys",
+            "future_source_target_paths",
+            "source_file_validation_evidence_only",
+            "contract_only",
+            "source_writer_allowed",
+            "may_write_src",
+            "writes_src",
+        },
+    )
+    if missing:
+        errors.append(f"{context} input data shape missing field(s): {', '.join(missing)}")
+        return
+    selector = shape.get("input_pack_selector") if isinstance(shape.get("input_pack_selector"), dict) else {}
+    if selector.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append(f"{context} input data shape pilot selector mismatch")
+    if selector.get("target_path") != target_path or shape.get("target_path") != target_path:
+        errors.append(f"{context} input data shape target path mismatch")
+    if shape.get("families") != families:
+        errors.append(f"{context} input data shape families mismatch")
+    if int(shape.get("artifact_count", -1)) != artifact_count:
+        errors.append(f"{context} input data shape artifact_count mismatch")
+    if int(shape.get("source_body_candidate_ref_count", -1)) != source_body_candidate_ref_count:
+        errors.append(f"{context} input data shape source_body_candidate_ref_count mismatch")
+    if sorted(_string_refs(shape.get("artifact_kinds"))) != artifact_kinds:
+        errors.append(f"{context} input data shape artifact kinds mismatch")
+    required_pack_fields = set(_string_refs(shape.get("required_pack_fields")))
+    if not REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_REQUIRED_FIELDS <= required_pack_fields:
+        errors.append(f"{context} input data shape required pack fields mismatch")
+    required_ref_fields = set(_string_refs(shape.get("required_source_body_ref_fields")))
+    if not {"pilot_key", "family", "row_set_key", "artifact_kind", "future_source_target_path"} <= required_ref_fields:
+        errors.append(f"{context} input data shape required source body ref fields mismatch")
+    if shape.get("source_file_validation_evidence_only") is not True or shape.get("contract_only") is not True:
+        errors.append(f"{context} input data shape must stay validation-evidence contract-only")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src"):
+        if shape.get(flag) is not False:
+            errors.append(f"{context} input data shape {flag} must be false")
+    localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+    if target_path in localization_targets.values():
+        language = str(shape.get("localization_language", ""))
+        if localization_targets.get(language) != target_path:
+            errors.append(f"{context} input data shape localization language mismatch")
+        if set(_string_refs(shape.get("required_languages"))) != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS):
+            errors.append(f"{context} input data shape localization languages mismatch")
+        if shape.get("separate_language_target") is not True:
+            errors.append(f"{context} input data shape localization target must stay separate")
+    if families == ["listener"]:
+        required_listener_fields = set(_string_refs(shape.get("listener_linkage_required_fields")))
+        if not {
+            "on_action_hook_linkage_plan",
+            "selected_ritual_trigger_linkage",
+            "war_scope_availability_persistence_plan",
+        } <= required_listener_fields:
+            errors.append(f"{context} input data shape missing listener linkage fields")
+
+
+def _validate_alhambra_source_generator_output_artifact_family(
+    *,
+    context: str,
+    output: Any,
+    target_path: str,
+    families: list[str],
+    artifact_count: int,
+    source_body_candidate_ref_count: int,
+    artifact_kinds: list[str],
+    family_artifact_counts: dict[str, int],
+    errors: list[str],
+) -> None:
+    if not isinstance(output, dict) or not output:
+        errors.append(f"{context} missing output artifact family")
+        return
+    missing = _missing_required(
+        output,
+        {
+            "target_path",
+            "families",
+            "artifact_count",
+            "source_body_candidate_ref_count",
+            "artifact_kinds",
+            "family_artifact_counts",
+            "row_set_keys",
+            "future_source_target_paths",
+            "output_kind",
+            "output_is_loadable_source",
+            "contract_only",
+            "body_emitted",
+            "source_writer_allowed",
+            "may_write_src",
+            "writes_src",
+        },
+    )
+    if missing:
+        errors.append(f"{context} output artifact family missing field(s): {', '.join(missing)}")
+        return
+    if output.get("target_path") != target_path:
+        errors.append(f"{context} output artifact family target path mismatch")
+    if output.get("families") != families:
+        errors.append(f"{context} output artifact family families mismatch")
+    if int(output.get("artifact_count", -1)) != artifact_count:
+        errors.append(f"{context} output artifact family artifact_count mismatch")
+    if int(output.get("source_body_candidate_ref_count", -1)) != source_body_candidate_ref_count:
+        errors.append(f"{context} output artifact family source_body_candidate_ref_count mismatch")
+    if sorted(_string_refs(output.get("artifact_kinds"))) != artifact_kinds:
+        errors.append(f"{context} output artifact family artifact kinds mismatch")
+    if output.get("family_artifact_counts") != family_artifact_counts:
+        errors.append(f"{context} output artifact family counts mismatch")
+    if output.get("output_kind") != "source_file_contract_artifacts":
+        errors.append(f"{context} output artifact family output_kind mismatch")
+    if output.get("output_is_loadable_source") is not False or output.get("contract_only") is not True:
+        errors.append(f"{context} output artifact family must stay contract-only and non-loadable")
+    for flag in ("body_emitted", "source_writer_allowed", "may_write_src", "writes_src"):
+        if output.get(flag) is not False:
+            errors.append(f"{context} output artifact family {flag} must be false")
+
+
+def _validate_alhambra_source_generator_no_write_contract_evidence(
+    *,
+    context: str,
+    evidence: Any,
+    target_path: str,
+    families: list[str],
+    owner_generator: str,
+    required_validations: list[str],
+    remaining_blockers: list[str],
+    source_target_boundary: dict[str, Any],
+    generator_interface_draft: dict[str, Any],
+    input_data_shape: dict[str, Any],
+    output_artifact_family: dict[str, Any],
+    errors: list[str],
+) -> None:
+    if not isinstance(evidence, dict) or not evidence:
+        errors.append(f"{context} missing no-write source-writer contract evidence")
+        return
+    missing = _missing_required(
+        evidence,
+        {
+            "contract_evidence_only",
+            "target_path",
+            "target_paths",
+            "families",
+            "owner_generator",
+            "owner_generator_candidate",
+            "generator_interface_draft",
+            "input_data_shape",
+            "output_artifact_family",
+            "validation_refs",
+            "validation_command",
+            "verification_commands",
+            "source_writer_blocker_reasons",
+            "source_writer_still_blocked_reason",
+            "source_target_boundary",
+            "source_writer_allowed",
+            "may_write_src",
+            "writes_src",
+        },
+    )
+    if missing:
+        errors.append(f"{context} no-write source-writer contract evidence missing field(s): {', '.join(missing)}")
+        return
+    if evidence.get("contract_evidence_only") is not True:
+        errors.append(f"{context} no-write source-writer contract evidence must be contract-only")
+    if evidence.get("target_path") != target_path or evidence.get("target_paths") != [target_path]:
+        errors.append(f"{context} no-write source-writer contract evidence target path mismatch")
+    if evidence.get("families") != families:
+        errors.append(f"{context} no-write source-writer contract evidence families mismatch")
+    if evidence.get("owner_generator") != owner_generator:
+        errors.append(f"{context} no-write source-writer contract evidence owner mismatch")
+    if evidence.get("generator_interface_draft") != generator_interface_draft:
+        errors.append(f"{context} no-write source-writer contract evidence interface draft mismatch")
+    if evidence.get("input_data_shape") != input_data_shape:
+        errors.append(f"{context} no-write source-writer contract evidence input data shape mismatch")
+    if evidence.get("output_artifact_family") != output_artifact_family:
+        errors.append(f"{context} no-write source-writer contract evidence output artifact family mismatch")
+    if sorted(_string_refs(evidence.get("validation_refs"))) != required_validations:
+        errors.append(f"{context} no-write source-writer contract evidence validation refs mismatch")
+    if tuple(_string_refs(evidence.get("verification_commands"))) != REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS:
+        errors.append(f"{context} no-write source-writer contract evidence verification commands mismatch")
+    if evidence.get("validation_command") != REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS[0]:
+        errors.append(f"{context} no-write source-writer contract evidence validation command mismatch")
+    if sorted(_string_refs(evidence.get("source_writer_blocker_reasons"))) != remaining_blockers:
+        errors.append(f"{context} no-write source-writer contract evidence blocker reasons mismatch")
+    if not str(evidence.get("source_writer_still_blocked_reason", "")).strip():
+        errors.append(f"{context} no-write source-writer contract evidence missing still-blocked reason")
+    if evidence.get("source_target_boundary") != source_target_boundary:
+        errors.append(f"{context} no-write source-writer contract evidence source-target boundary mismatch")
+    for flag in ("source_writer_allowed", "may_write_src", "writes_src"):
+        if evidence.get(flag) is not False:
+            errors.append(f"{context} no-write source-writer contract evidence {flag} must be false")
+
+
 def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
@@ -12320,6 +12807,56 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             errors.append(f"{context} owner_generator mismatch")
         if contract.get("planned_source_writer_exists") != "interface_contract_exists":
             errors.append(f"{context} planned_source_writer_exists must be interface_contract_exists")
+
+        refs = contract.get("source_body_candidate_refs") if isinstance(contract.get("source_body_candidate_refs"), list) else []
+        structured_refs = [
+            ref
+            for ref in refs
+            if isinstance(ref, dict)
+        ]
+        artifact_kinds = sorted(
+            {
+                str(ref.get("artifact_kind", ""))
+                for ref in structured_refs
+                if str(ref.get("artifact_kind", "")).strip()
+            }
+        )
+        family_artifact_counts = _count_by_key(structured_refs, "family")
+        required_validations = sorted(_string_refs(contract.get("required_validations")))
+        remaining_blockers = sorted(_string_refs(contract.get("remaining_blockers")))
+        source_target_boundary = (
+            contract.get("source_target_boundary") if isinstance(contract.get("source_target_boundary"), dict) else {}
+        )
+
+        _validate_alhambra_source_generator_interface_draft(
+            context=context,
+            draft=contract.get("generator_interface_draft"),
+            target_path=target_path,
+            families=expected_families,
+            owner_generator=expected_owner,
+            errors=errors,
+        )
+        _validate_alhambra_source_generator_input_data_shape(
+            context=context,
+            shape=contract.get("input_data_shape"),
+            target_path=target_path,
+            families=expected_families,
+            artifact_count=expected_artifact_count,
+            source_body_candidate_ref_count=len(structured_refs),
+            artifact_kinds=artifact_kinds,
+            errors=errors,
+        )
+        _validate_alhambra_source_generator_output_artifact_family(
+            context=context,
+            output=contract.get("output_artifact_family"),
+            target_path=target_path,
+            families=expected_families,
+            artifact_count=expected_artifact_count,
+            source_body_candidate_ref_count=len(structured_refs),
+            artifact_kinds=artifact_kinds,
+            family_artifact_counts=family_artifact_counts,
+            errors=errors,
+        )
         _validate_alhambra_source_body_candidate_flags(context=context, value=contract, errors=errors)
         for flag in ("source_ready", "verified", "backend_ready", "source_writer_allowed", "may_write_src", "writes_src"):
             if contract.get(flag) is not False:
@@ -12350,23 +12887,40 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
 
         _validate_alhambra_source_generator_contract_boundary(
             context=context,
-            boundary=contract.get("source_target_boundary"),
+            boundary=source_target_boundary,
             target_path=target_path,
             families=expected_families,
             errors=errors,
         )
 
-        required_validations = sorted(_string_refs(contract.get("required_validations")))
         if not required_validations:
             errors.append(f"{context} required_validations must not be empty")
-        remaining_blockers = sorted(_string_refs(contract.get("remaining_blockers")))
         if not remaining_blockers:
             errors.append(f"{context} remaining_blockers must not be empty while source target boundary is blocked")
         if sorted(_string_refs(contract.get("unresolved_writer_blockers"))) != remaining_blockers:
             errors.append(f"{context} unresolved writer blockers mismatch")
+        if sorted(_string_refs(contract.get("source_writer_blocker_reasons"))) != remaining_blockers:
+            errors.append(f"{context} source writer blocker reasons mismatch")
+        if not str(contract.get("source_writer_still_blocked_reason", "")).strip():
+            errors.append(f"{context} missing source writer still-blocked reason")
+        if tuple(_string_refs(contract.get("verification_commands"))) != REPEATED_ENTITY_ROW_NO_WRITE_SOURCE_WRITER_VERIFICATION_COMMANDS:
+            errors.append(f"{context} verification commands mismatch")
+        _validate_alhambra_source_generator_no_write_contract_evidence(
+            context=context,
+            evidence=contract.get("no_write_source_writer_contract_evidence"),
+            target_path=target_path,
+            families=expected_families,
+            owner_generator=expected_owner,
+            required_validations=required_validations,
+            remaining_blockers=remaining_blockers,
+            source_target_boundary=source_target_boundary,
+            generator_interface_draft=contract.get("generator_interface_draft"),
+            input_data_shape=contract.get("input_data_shape"),
+            output_artifact_family=contract.get("output_artifact_family"),
+            errors=errors,
+        )
 
-        refs = contract.get("source_body_candidate_refs") if isinstance(contract.get("source_body_candidate_refs"), list) else []
-        if int(contract.get("source_body_candidate_ref_count", -1)) != len([ref for ref in refs if isinstance(ref, dict)]):
+        if int(contract.get("source_body_candidate_ref_count", -1)) != len(structured_refs):
             errors.append(f"{context} source_body_candidate_ref_count mismatch")
         for ref in refs:
             if not isinstance(ref, dict):
