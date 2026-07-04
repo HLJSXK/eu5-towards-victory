@@ -275,7 +275,13 @@
  game_concept_tv_debate_history_desc: "A past philosophy debate node. For a newly founded [tv_academy_of_sciences|e], debates at or before its founding node are shown as history and do not involve the player."
 
  game_concept_tv_local_debate: "Local"
- game_concept_tv_local_debate_desc: "A domestic philosophy debate node hosted by the [tv_academy_of_sciences|e]. Local debate mechanics are displayed at a fixed 50% progress in the current implementation round."
+ game_concept_tv_local_debate_desc: "A domestic philosophy debate node hosted by the [tv_academy_of_sciences|e]. Each debate has a fixed Crown seat and five [tv_debate_seat|e]s that are gradually filled by [tv_debate_group|e]s through monthly debate events."
+
+ game_concept_tv_debate_seat: "Debate Seat"
+ game_concept_tv_debate_seat_desc: "A position in a domestic [tv_local_debate|e]. Seats hold one [tv_debate_group|e], its current stance, defection cooldown, and any linked artist, foreign country, or Great Scientist."
+
+ game_concept_tv_debate_group: "Debate Group"
+ game_concept_tv_debate_group_desc: "A domestic or foreign faction that can occupy a [tv_debate_seat|e]. Groups include estates, conditional estate variants, artists, foreign powers, and the Great Scientist; supporters advance the debate, opponents push it back, and neutral groups wait for later events."
 
  game_concept_tv_world_debate: "World"
  game_concept_tv_world_debate_desc: "An international philosophy debate node. World debate seats are shown as placeholders in the current implementation round, with real countries, flags, stances, and outcomes to be connected later."

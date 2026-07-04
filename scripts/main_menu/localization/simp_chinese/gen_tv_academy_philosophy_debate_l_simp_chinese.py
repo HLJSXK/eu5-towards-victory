@@ -1,4 +1,4 @@
-"""Generate Academy philosophy debate scripted effects."""
+"""Generate Simplified Chinese localization for Academy philosophy debates."""
 
 import argparse
 import sys
@@ -10,15 +10,15 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.philosophy_debate_codegen import generate_effects, load_data, write_output
+from scripts.philosophy_debate_codegen import generate_loc, load_data, write_output
 
 OUT_FILE = (
     REPO_ROOT
     / "src"
-    / "in_game"
-    / "common"
-    / "scripted_effects"
-    / "tv_academy_philosophy_debate_effects.txt"
+    / "main_menu"
+    / "localization"
+    / "simp_chinese"
+    / "tv_academy_philosophy_debate_l_simp_chinese.yml"
 )
 
 
@@ -27,7 +27,7 @@ def main() -> None:
     parser.add_argument("--dry", action="store_true", help="Print to stdout instead of writing")
     args = parser.parse_args()
 
-    content = generate_effects(load_data())
+    content = generate_loc(load_data(), "simp_chinese")
     if args.dry:
         print(content)
     else:

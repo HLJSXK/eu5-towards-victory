@@ -185,6 +185,20 @@ on_pre_winning_war = {
 	}
 }
 
+on_winning_war = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_winning_war
+	}
+}
+
+on_losing_war = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_losing_war
+	}
+}
+
 on_location_changed_owner = {
 	on_actions = {
 		# Towards Victory additions

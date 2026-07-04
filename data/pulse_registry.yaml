@@ -117,6 +117,12 @@ bridges:
   on_pre_winning_war:
     - tv_engineering_department_ritual_on_pre_winning_war
 
+  on_winning_war:
+    - tv_academy_debate_on_winning_war
+
+  on_losing_war:
+    - tv_academy_debate_on_losing_war
+
   on_location_changed_owner:
     - tv_govhouse_location_changed_owner
     - tv_wonder_ownership_location_changed_owner

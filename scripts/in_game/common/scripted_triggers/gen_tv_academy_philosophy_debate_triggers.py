@@ -1,4 +1,4 @@
-"""Generate Academy philosophy debate scripted effects."""
+"""Generate Academy philosophy debate scripted triggers."""
 
 import argparse
 import sys
@@ -10,15 +10,15 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.philosophy_debate_codegen import generate_effects, load_data, write_output
+from scripts.philosophy_debate_codegen import generate_triggers, load_data, write_output
 
 OUT_FILE = (
     REPO_ROOT
     / "src"
     / "in_game"
     / "common"
-    / "scripted_effects"
-    / "tv_academy_philosophy_debate_effects.txt"
+    / "scripted_triggers"
+    / "tv_academy_philosophy_debate_triggers.txt"
 )
 
 
@@ -27,7 +27,7 @@ def main() -> None:
     parser.add_argument("--dry", action="store_true", help="Print to stdout instead of writing")
     args = parser.parse_args()
 
-    content = generate_effects(load_data())
+    content = generate_triggers(load_data())
     if args.dry:
         print(content)
     else:

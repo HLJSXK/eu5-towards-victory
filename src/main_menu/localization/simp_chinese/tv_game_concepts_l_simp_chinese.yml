@@ -266,7 +266,13 @@
  game_concept_tv_debate_history_desc: "已经过去的哲学辩论节点。对新建立的[tv_academy_of_sciences|e]而言，建立节点及其之前的辩论都会显示为历史，玩家不会参与。"
 
  game_concept_tv_local_debate: "本地"
- game_concept_tv_local_debate_desc: "由[tv_academy_of_sciences|e]主持的国内哲学辩论节点。本轮实现中，本地辩论机制只以固定50%进度展示。"
+ game_concept_tv_local_debate_desc: "由[tv_academy_of_sciences|e]主持的国内哲学辩论节点。每场辩论都有一个固定王室席位和五个[tv_debate_seat|E]，这些席位会通过月度辩论事件逐渐由[tv_debate_group|E]入座。"
+
+ game_concept_tv_debate_seat: "辩论席"
+ game_concept_tv_debate_seat_desc: "[tv_local_debate|E]中的一个席位。席位记录一个[tv_debate_group|E]、其当前立场、倒戈冷却，以及可能绑定的艺术家、境外国家或大科学家。"
+
+ game_concept_tv_debate_group: "团体"
+ game_concept_tv_debate_group_desc: "可以占据[tv_debate_seat|E]的国内或境外派系。团体包括阶层、满足条件的阶层变体、艺术家、境外势力和大科学家；支持者推进辩论，反对者拖慢辩论，中立者等待后续事件表态。"
 
  game_concept_tv_world_debate: "世界"
  game_concept_tv_world_debate_desc: "国际哲学辩论节点。本轮实现中，世界辩论席位只显示占位席位，真实国家、旗帜、立场与结果将在后续接入。"
