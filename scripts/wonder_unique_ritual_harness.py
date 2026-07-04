@@ -12092,6 +12092,14 @@ def _alhambra_source_generator_contract_ref_summary(pack: dict[str, Any]) -> dic
     }
 
 
+def _alhambra_source_generator_expected_call_signature(owner_generator: str) -> str:
+    return (
+        f"{owner_generator}.emit_source_file_contract("
+        "source_file_validation_pack: Mapping[str, Any], *, dry_run: bool = True"
+        ") -> dict[str, Any]"
+    )
+
+
 def _alhambra_source_generator_interface_draft(
     *,
     target_path: str,
@@ -12102,11 +12110,7 @@ def _alhambra_source_generator_interface_draft(
         "interface_name": f"{owner_generator}.emit_source_file_contract",
         "proposed_function_name": "emit_source_file_contract",
         "owner_generator": owner_generator,
-        "call_signature_draft": (
-            f"{owner_generator}.emit_source_file_contract("
-            "source_file_validation_pack: Mapping[str, Any], *, dry_run: bool = True"
-            ") -> dict[str, Any]"
-        ),
+        "call_signature_draft": _alhambra_source_generator_expected_call_signature(owner_generator),
         "input_parameter": "source_file_validation_pack",
         "output_contract": "source_file_contract_artifacts",
         "target_path": target_path,
@@ -12459,6 +12463,17 @@ def _validate_alhambra_source_generator_interface_draft(
         return
     if draft.get("owner_generator") != owner_generator:
         errors.append(f"{context} generator interface draft owner mismatch")
+    expected_interface_name = f"{owner_generator}.emit_source_file_contract"
+    if draft.get("interface_name") != expected_interface_name:
+        errors.append(f"{context} generator interface draft interface_name mismatch")
+    if draft.get("proposed_function_name") != "emit_source_file_contract":
+        errors.append(f"{context} generator interface draft proposed_function_name mismatch")
+    if draft.get("input_parameter") != "source_file_validation_pack":
+        errors.append(f"{context} generator interface draft input_parameter mismatch")
+    if draft.get("output_contract") != "source_file_contract_artifacts":
+        errors.append(f"{context} generator interface draft output_contract mismatch")
+    if draft.get("call_signature_draft") != _alhambra_source_generator_expected_call_signature(owner_generator):
+        errors.append(f"{context} generator interface draft call_signature_draft mismatch")
     if draft.get("target_path") != target_path:
         errors.append(f"{context} generator interface draft target path mismatch")
     if draft.get("families") != families:
@@ -12467,8 +12482,6 @@ def _validate_alhambra_source_generator_interface_draft(
         errors.append(f"{context} generator interface draft status must be contract_drafted")
     if draft.get("dry_run_required") is not True or draft.get("source_file_level_contract") is not True:
         errors.append(f"{context} generator interface draft must be source-file-level dry-run")
-    if not str(draft.get("call_signature_draft", "")).strip():
-        errors.append(f"{context} generator interface draft missing call signature")
     for flag in ("body_emitted", "source_writer_allowed", "may_write_src", "writes_src"):
         if draft.get(flag) is not False:
             errors.append(f"{context} generator interface draft {flag} must be false")
@@ -12485,6 +12498,9 @@ def _validate_alhambra_source_generator_input_data_shape(
     artifact_count: int,
     source_body_candidate_ref_count: int,
     artifact_kinds: list[str],
+    family_artifact_counts: dict[str, int],
+    row_set_keys: list[str],
+    future_source_target_paths: list[str],
     errors: list[str],
 ) -> None:
     if not isinstance(shape, dict) or not shape:
@@ -12528,6 +12544,12 @@ def _validate_alhambra_source_generator_input_data_shape(
         errors.append(f"{context} input data shape source_body_candidate_ref_count mismatch")
     if sorted(_string_refs(shape.get("artifact_kinds"))) != artifact_kinds:
         errors.append(f"{context} input data shape artifact kinds mismatch")
+    if shape.get("family_artifact_counts") != family_artifact_counts:
+        errors.append(f"{context} input data shape family counts mismatch")
+    if sorted(_string_refs(shape.get("row_set_keys"))) != row_set_keys:
+        errors.append(f"{context} input data shape row set keys mismatch")
+    if sorted(_string_refs(shape.get("future_source_target_paths"))) != future_source_target_paths:
+        errors.append(f"{context} input data shape future source target paths mismatch")
     required_pack_fields = set(_string_refs(shape.get("required_pack_fields")))
     if not REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_REQUIRED_FIELDS <= required_pack_fields:
         errors.append(f"{context} input data shape required pack fields mismatch")
@@ -12568,6 +12590,8 @@ def _validate_alhambra_source_generator_output_artifact_family(
     source_body_candidate_ref_count: int,
     artifact_kinds: list[str],
     family_artifact_counts: dict[str, int],
+    row_set_keys: list[str],
+    future_source_target_paths: list[str],
     errors: list[str],
 ) -> None:
     if not isinstance(output, dict) or not output:
@@ -12608,6 +12632,10 @@ def _validate_alhambra_source_generator_output_artifact_family(
         errors.append(f"{context} output artifact family artifact kinds mismatch")
     if output.get("family_artifact_counts") != family_artifact_counts:
         errors.append(f"{context} output artifact family counts mismatch")
+    if sorted(_string_refs(output.get("row_set_keys"))) != row_set_keys:
+        errors.append(f"{context} output artifact family row set keys mismatch")
+    if sorted(_string_refs(output.get("future_source_target_paths"))) != future_source_target_paths:
+        errors.append(f"{context} output artifact family future source target paths mismatch")
     if output.get("output_kind") != "source_file_contract_artifacts":
         errors.append(f"{context} output artifact family output_kind mismatch")
     if output.get("output_is_loadable_source") is not False or output.get("contract_only") is not True:
@@ -12822,6 +12850,20 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             }
         )
         family_artifact_counts = _count_by_key(structured_refs, "family")
+        row_set_keys = sorted(
+            {
+                str(ref.get("row_set_key", ""))
+                for ref in structured_refs
+                if str(ref.get("row_set_key", "")).strip()
+            }
+        )
+        future_source_target_paths = sorted(
+            {
+                str(ref.get("future_source_target_path", ""))
+                for ref in structured_refs
+                if str(ref.get("future_source_target_path", "")).strip()
+            }
+        )
         required_validations = sorted(_string_refs(contract.get("required_validations")))
         remaining_blockers = sorted(_string_refs(contract.get("remaining_blockers")))
         source_target_boundary = (
@@ -12844,6 +12886,9 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             artifact_count=expected_artifact_count,
             source_body_candidate_ref_count=len(structured_refs),
             artifact_kinds=artifact_kinds,
+            family_artifact_counts=family_artifact_counts,
+            row_set_keys=row_set_keys,
+            future_source_target_paths=future_source_target_paths,
             errors=errors,
         )
         _validate_alhambra_source_generator_output_artifact_family(
@@ -12855,6 +12900,8 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(report: dict
             source_body_candidate_ref_count=len(structured_refs),
             artifact_kinds=artifact_kinds,
             family_artifact_counts=family_artifact_counts,
+            row_set_keys=row_set_keys,
+            future_source_target_paths=future_source_target_paths,
             errors=errors,
         )
         _validate_alhambra_source_body_candidate_flags(context=context, value=contract, errors=errors)

@@ -5740,10 +5740,52 @@ def main() -> None:
             raise AssertionError(f"{target_path} generator contract status changed: {contract}")
         if contract.get("planned_source_writer_exists") != "interface_contract_exists":
             raise AssertionError(f"{target_path} generator contract did not draft interface contract: {contract}")
+        expected_call_signature = (
+            f"{expected_alhambra_owner_generators[target_path]}.emit_source_file_contract("
+            "source_file_validation_pack: Mapping[str, Any], *, dry_run: bool = True"
+            ") -> dict[str, Any]"
+        )
+        validation_refs = [
+            ref
+            for ref in validation_pack.get("source_body_candidate_refs", []) or []
+            if isinstance(ref, dict)
+        ]
+        expected_artifact_kinds = sorted(
+            {
+                str(ref.get("artifact_kind", ""))
+                for ref in validation_refs
+                if str(ref.get("artifact_kind", "")).strip()
+            }
+        )
+        expected_family_artifact_counts: dict[str, int] = {}
+        for ref in validation_refs:
+            family = str(ref.get("family", ""))
+            if family.strip():
+                expected_family_artifact_counts[family] = expected_family_artifact_counts.get(family, 0) + 1
+        expected_row_set_keys = sorted(
+            {
+                str(ref.get("row_set_key", ""))
+                for ref in validation_refs
+                if str(ref.get("row_set_key", "")).strip()
+            }
+        )
+        expected_future_source_target_paths = sorted(
+            {
+                str(ref.get("future_source_target_path", ""))
+                for ref in validation_refs
+                if str(ref.get("future_source_target_path", "")).strip()
+            }
+        )
         interface_draft = contract.get("generator_interface_draft")
         if (
             not isinstance(interface_draft, dict)
+            or interface_draft.get("interface_name")
+            != f"{expected_alhambra_owner_generators[target_path]}.emit_source_file_contract"
+            or interface_draft.get("proposed_function_name") != "emit_source_file_contract"
             or interface_draft.get("owner_generator") != expected_alhambra_owner_generators[target_path]
+            or interface_draft.get("input_parameter") != "source_file_validation_pack"
+            or interface_draft.get("output_contract") != "source_file_contract_artifacts"
+            or interface_draft.get("call_signature_draft") != expected_call_signature
             or interface_draft.get("target_path") != target_path
             or interface_draft.get("families") != expected_alhambra_file_families[target_path]
             or interface_draft.get("generator_interface_status") != "contract_drafted"
@@ -5753,7 +5795,6 @@ def main() -> None:
             or interface_draft.get("source_writer_allowed") is not False
             or interface_draft.get("may_write_src") is not False
             or interface_draft.get("writes_src") is not False
-            or "source_file_validation_pack" not in str(interface_draft.get("call_signature_draft", ""))
         ):
             raise AssertionError(f"{target_path} generator contract lost source-file interface draft: {contract}")
         input_shape = contract.get("input_data_shape")
@@ -5763,7 +5804,10 @@ def main() -> None:
             or input_shape.get("families") != expected_alhambra_file_families[target_path]
             or input_shape.get("artifact_count") != expected_count
             or input_shape.get("source_body_candidate_ref_count") != expected_count
-            or not input_shape.get("artifact_kinds")
+            or input_shape.get("artifact_kinds") != expected_artifact_kinds
+            or input_shape.get("family_artifact_counts") != expected_family_artifact_counts
+            or input_shape.get("row_set_keys") != expected_row_set_keys
+            or input_shape.get("future_source_target_paths") != expected_future_source_target_paths
             or input_shape.get("source_file_validation_evidence_only") is not True
             or input_shape.get("source_writer_allowed") is not False
             or input_shape.get("may_write_src") is not False
@@ -5777,7 +5821,10 @@ def main() -> None:
             or output_family.get("families") != expected_alhambra_file_families[target_path]
             or output_family.get("artifact_count") != expected_count
             or output_family.get("source_body_candidate_ref_count") != expected_count
-            or not output_family.get("artifact_kinds")
+            or output_family.get("artifact_kinds") != expected_artifact_kinds
+            or output_family.get("family_artifact_counts") != expected_family_artifact_counts
+            or output_family.get("row_set_keys") != expected_row_set_keys
+            or output_family.get("future_source_target_paths") != expected_future_source_target_paths
             or output_family.get("output_kind") != "source_file_contract_artifacts"
             or output_family.get("output_is_loadable_source") is not False
             or output_family.get("body_emitted") is not False
@@ -5960,6 +6007,32 @@ def main() -> None:
         "missing field(s): generator_interface_draft",
     )
 
+    synced_wrong_interface_generator_contract = deepcopy(alhambra_source_generator_contract)
+    synced_wrong_interface_contract = _alhambra_source_generator_contract(
+        synced_wrong_interface_generator_contract,
+        alhambra_file_targets["event"],
+    )
+    synced_wrong_interface_draft = synced_wrong_interface_contract["generator_interface_draft"]
+    synced_wrong_interface_draft["interface_name"] = (
+        f"{synced_wrong_interface_contract['owner_generator']}.emit_loadable_source_file"
+    )
+    synced_wrong_interface_draft["proposed_function_name"] = "emit_loadable_source_file"
+    synced_wrong_interface_draft["input_parameter"] = "source_file_pack"
+    synced_wrong_interface_draft["output_contract"] = "loadable_source_file"
+    synced_wrong_interface_draft["call_signature_draft"] = (
+        f"{synced_wrong_interface_contract['owner_generator']}.emit_loadable_source_file("
+        "source_file_pack: Mapping[str, Any], *, dry_run: bool = False"
+        ") -> str"
+    )
+    synced_wrong_interface_contract["no_write_source_writer_contract_evidence"]["generator_interface_draft"] = deepcopy(
+        synced_wrong_interface_draft
+    )
+    assert_alhambra_generator_contract_error(
+        "synced wrong interface draft",
+        synced_wrong_interface_generator_contract,
+        "generator interface draft interface_name mismatch",
+    )
+
     missing_input_shape_generator_contract = deepcopy(alhambra_source_generator_contract)
     del _alhambra_source_generator_contract(
         missing_input_shape_generator_contract,
@@ -5971,6 +6044,21 @@ def main() -> None:
         "missing field(s): input_data_shape",
     )
 
+    synced_wrong_input_shape_generator_contract = deepcopy(alhambra_source_generator_contract)
+    synced_wrong_input_contract = _alhambra_source_generator_contract(
+        synced_wrong_input_shape_generator_contract,
+        alhambra_file_targets["english"],
+    )
+    synced_wrong_input_contract["input_data_shape"]["row_set_keys"] = ["forged_row_set"]
+    synced_wrong_input_contract["no_write_source_writer_contract_evidence"]["input_data_shape"] = deepcopy(
+        synced_wrong_input_contract["input_data_shape"]
+    )
+    assert_alhambra_generator_contract_error(
+        "synced wrong input row sets",
+        synced_wrong_input_shape_generator_contract,
+        "input data shape row set keys mismatch",
+    )
+
     collapsed_output_family_generator_contract = deepcopy(alhambra_source_generator_contract)
     _alhambra_source_generator_contract(
         collapsed_output_family_generator_contract,
@@ -5980,6 +6068,23 @@ def main() -> None:
         "collapsed output artifact family",
         collapsed_output_family_generator_contract,
         "output artifact family families mismatch",
+    )
+
+    synced_wrong_output_family_generator_contract = deepcopy(alhambra_source_generator_contract)
+    synced_wrong_output_contract = _alhambra_source_generator_contract(
+        synced_wrong_output_family_generator_contract,
+        alhambra_file_targets["gui"],
+    )
+    synced_wrong_output_contract["output_artifact_family"]["future_source_target_paths"] = [
+        "src/in_game/gui/panels/organization/forged_unique_alhambra_ritual.gui"
+    ]
+    synced_wrong_output_contract["no_write_source_writer_contract_evidence"]["output_artifact_family"] = deepcopy(
+        synced_wrong_output_contract["output_artifact_family"]
+    )
+    assert_alhambra_generator_contract_error(
+        "synced wrong output future target paths",
+        synced_wrong_output_family_generator_contract,
+        "output artifact family future source target paths mismatch",
     )
 
     missing_verification_command_generator_contract = deepcopy(alhambra_source_generator_contract)
