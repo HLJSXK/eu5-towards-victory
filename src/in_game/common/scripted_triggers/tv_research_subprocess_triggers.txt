@@ -529,7 +529,7 @@ tv_chief_scientist_busy_with_meditation_trigger = {
 }
 
 tv_chief_scientist_busy_with_philosophy_debate_trigger = {
-	var:tv_academy_philosophy_phase ?= 1
+	has_variable = tv_academy_debate_great_scientist_seated
 }
 
 tv_academy_philosophy_has_current_issue_trigger = {

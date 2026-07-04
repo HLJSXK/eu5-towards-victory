@@ -1,4 +1,4 @@
-"""Generate Academy philosophy debate scripted effects."""
+"""Generate Academy philosophy debate events."""
 
 import argparse
 import sys
@@ -7,19 +7,12 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.philosophy_debate_codegen import generate_effects, load_data, write_output
+from scripts.philosophy_debate_codegen import generate_events, load_data, write_output
 
-OUT_FILE = (
-    REPO_ROOT
-    / "src"
-    / "in_game"
-    / "common"
-    / "scripted_effects"
-    / "tv_academy_philosophy_debate_effects.txt"
-)
+OUT_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_academy_philosophy_debate_events.txt"
 
 
 def main() -> None:
@@ -27,7 +20,7 @@ def main() -> None:
     parser.add_argument("--dry", action="store_true", help="Print to stdout instead of writing")
     args = parser.parse_args()
 
-    content = generate_effects(load_data())
+    content = generate_events(load_data())
     if args.dry:
         print(content)
     else:

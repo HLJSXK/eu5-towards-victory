@@ -1,9 +1,26 @@
 ﻿# Towards Victory — Academy of Sciences on_action hooks
 
+tv_academy_debate_initialize_global_maps_on_game_start = {
+	effect = {
+		hidden_effect = {
+			tv_academy_debate_initialize_global_maps_effect = yes
+		}
+	}
+}
+
+tv_academy_debate_initialize_global_maps_on_game_load = {
+	effect = {
+		hidden_effect = {
+			tv_academy_debate_initialize_global_maps_effect = yes
+		}
+	}
+}
+
 # Death cleanup: if the Chief Scientist dies, clear country variable and notify.
 # root = country the character belonged to, scope:target = dead character.
 tv_academy_char_death = {
 	effect = {
+		tv_academy_debate_cleanup_invalid_special_seats_effect = yes
 		if = {
 			limit = {
 				custom_tooltip = {
@@ -14,6 +31,30 @@ tv_academy_char_death = {
 			}
 			# tv_academy_leader_char is cleared in the event option.
 			trigger_event_non_silently = { id = tv_academy.10 }
+		}
+	}
+}
+
+tv_academy_debate_on_winning_war = {
+	effect = {
+		if = {
+			limit = {
+				var:tv_academy_philosophy_phase ?= 1
+				has_variable = tv_academy_debate_group_professional_military_seated
+			}
+			set_variable = { name = tv_academy_debate_recent_war_won value = 1 }
+		}
+	}
+}
+
+tv_academy_debate_on_losing_war = {
+	effect = {
+		if = {
+			limit = {
+				var:tv_academy_philosophy_phase ?= 1
+				has_variable = tv_academy_debate_group_professional_military_seated
+			}
+			set_variable = { name = tv_academy_debate_recent_war_lost value = 1 }
 		}
 	}
 }

@@ -1,143 +1,358 @@
 settings:
-  base_monthly_delta: 0.01500
-  literacy_multiplier: 0.00020
-  weights:
-    high:
-      positive: 0.00005
-      negative: 0.00025
-    medium:
-      positive: 0.00004
-      negative: 0.00020
-    low:
-      positive: 0.00002
-      negative: 0.00010
+  seat_count: 5
+  initial_progress: 50
+  monthly_event_chance_weight: 10
+  monthly_no_event_weight: 90
+  defection_cooldown_months: 60
+  crown_contribution_multiplier: 0.1
+  base_group_contribution: 0.1
+  estate_power_multiplier: 0.2
+  variant_power_multiplier: 0.4
+  artist_skill_multiplier: 0.2
+  foreign_power_multiplier: 0.2
+  great_scientist_adm_multiplier: 0.2
 
-directions:
-  innov:
-    source: traditionalist_vs_innovative
-    sign: 1
-  traditionalist:
-    source: traditionalist_vs_innovative
-    sign: -1
-  humanist:
-    source: spiritualist_vs_humanist
-    sign: 1
-  spiritualist:
-    source: spiritualist_vs_humanist
-    sign: -1
-  plutocracy:
-    source: aristocracy_vs_plutocracy
-    sign: 1
-  capital:
-    source: capital_economy_vs_traditional_economy
-    sign: -1
-  centralized:
-    source: centralization_vs_decentralization
-    sign: -1
-  free_subjects:
-    source: serfdom_vs_free_subjects
-    sign: 1
-  free_trade:
-    source: mercantilism_vs_free_trade
-    sign: 1
-  outward:
-    source: outward_vs_inward
-    sign: -1
-  inward:
-    source: outward_vs_inward
-    sign: 1
-  naval:
-    source: land_vs_naval
-    sign: 1
+event_weights:
+  join: 5
+  leave: 1
+  support_price_join: 1
+  oppose_price_stay_out: 1
+  quarrel: 1
+  scientist_sways_support: 2
+  scientist_angers_oppose: 2
+  scientist_bargain_support: 1
+  great_scientist_requests_seat: 1
+  royal_appointment: 2
+  neutral_decides: 1
+  neutral_price_support: 1
+  neutral_price_not_oppose: 1
+  scientist_sways_neutral: 2
+  scientist_angers_neutral: 2
+  scientist_bargain_neutral: 1
+
+prices:
+  - key: scaled_gold_1
+    effect:
+      - "change_gold_effect = { scale = -1 }"
+    loc:
+      english: "scaled gold x1"
+      simp_chinese: "缩放金钱x1"
+  - key: scaled_gold_2
+    effect:
+      - "change_gold_effect = { scale = -2 }"
+    loc:
+      english: "scaled gold x2"
+      simp_chinese: "缩放金钱x2"
+  - key: prestige_10
+    effect:
+      - "add_prestige = -10"
+    loc:
+      english: "10 Prestige"
+      simp_chinese: "10威望"
+  - key: legitimacy_5
+    effect:
+      - "add_legitimacy = -5"
+    loc:
+      english: "5 Legitimacy"
+      simp_chinese: "5正统性"
+  - key: stability_7
+    effect:
+      - "add_stability = -7"
+    loc:
+      english: "7 Stability"
+      simp_chinese: "7稳定度"
 
 issues:
   - id: 1
     key: meritocracy
     institution: meritocracy
     advance: meritocracy_advance
-    formula:
-      high: centralized
-      medium:
-        - innov
-        - free_subjects
-      low: plutocracy
+    loc:
+      english: "Meritocracy"
+      simp_chinese: "唯贤主义"
   - id: 2
     key: renaissance
     institution: renaissance
     advance: renaissance_advance
-    formula:
-      high: innov
-      medium:
-        - humanist
-        - plutocracy
-      low: free_subjects
+    loc:
+      english: "Renaissance"
+      simp_chinese: "文艺复兴"
   - id: 3
     key: banking
     institution: banking
     advance: banking_advance
-    formula:
-      high: capital
-      medium:
-        - plutocracy
-        - free_trade
-      low: centralized
+    loc:
+      english: "Banking System"
+      simp_chinese: "银行系统"
   - id: 4
     key: new_world
     institution: new_world
     advance: new_world_advance
-    formula:
-      high: outward
-      medium:
-        - naval
-        - plutocracy
-      low: innov
+    loc:
+      english: "Discovery of the New World"
+      simp_chinese: "发现新大陆"
   - id: 5
     key: printing_press
     institution: printing_press
     advance: printing_press_advance
-    formula:
-      high: innov
-      medium:
-        - plutocracy
-        - humanist
-      low: free_subjects
+    loc:
+      english: "Printing Press Applications"
+      simp_chinese: "印刷机应用"
   - id: 6
     key: confessionalism
     institution: confessionalism
     advance: confessionalism_advance
-    formula:
-      high: spiritualist
-      medium:
-        - traditionalist
-        - centralized
-      low: inward
+    loc:
+      english: "Confessionalism"
+      simp_chinese: "认信主义"
   - id: 7
     key: global_trade
     institution: global_trade
     advance: global_trade_advance
-    formula:
-      high: free_trade
-      medium:
-        - outward
-        - naval
-      low: plutocracy
+    loc:
+      english: "Global Trade"
+      simp_chinese: "全球贸易"
   - id: 8
     key: manufactories
     institution: manufactories
     advance: manufactories_advance
-    formula:
-      high: capital
-      medium:
-        - plutocracy
-        - innov
-      low: free_trade
+    loc:
+      english: "Factory Production"
+      simp_chinese: "工厂生产"
   - id: 9
     key: scientific_revolution
     institution: scientific_revolution
     advance: scientific_revolution_advance
-    formula:
-      high: innov
-      medium:
-        - humanist
-        - free_subjects
-      low: plutocracy
+    loc:
+      english: "Scientific Revolution"
+      simp_chinese: "科学革命"
+
+groups:
+  - id: 1
+    key: nobility
+    type: estate
+    estate: nobles_estate
+    base_estate: nobles_estate
+    icon: "@nobles_estate!"
+    loc:
+      english: "Nobility"
+      simp_chinese: "贵族"
+  - id: 2
+    key: clergy
+    type: estate
+    estate: clergy_estate
+    base_estate: clergy_estate
+    icon: "@clergy_estate!"
+    loc:
+      english: "Clergy"
+      simp_chinese: "教士"
+  - id: 3
+    key: burghers
+    type: estate
+    estate: burghers_estate
+    base_estate: burghers_estate
+    icon: "@burghers_estate!"
+    loc:
+      english: "Burghers"
+      simp_chinese: "市民"
+  - id: 4
+    key: peasants
+    type: estate
+    estate: peasants_estate
+    base_estate: peasants_estate
+    icon: "@peasants_estate!"
+    loc:
+      english: "Peasants"
+      simp_chinese: "平民"
+  - id: 5
+    key: tribes
+    type: estate
+    estate: tribes_estate
+    base_estate: tribes_estate
+    icon: "@tribes_estate!"
+    loc:
+      english: "Tribes"
+      simp_chinese: "部落"
+  - id: 6
+    key: dhimmi
+    type: estate
+    estate: dhimmi_estate
+    base_estate: dhimmi_estate
+    icon: "@dhimmi_estate!"
+    loc:
+      english: "Dhimmi"
+      simp_chinese: "齐米"
+  - id: 7
+    key: cossacks
+    type: estate
+    estate: cossacks_estate
+    base_estate: cossacks_estate
+    icon: "@cossacks_estate!"
+    loc:
+      english: "Cossacks"
+      simp_chinese: "哥萨克"
+  - id: 8
+    key: scholarly_community
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    icon: "@adm!"
+    loc:
+      english: "Scholarly Community"
+      simp_chinese: "学术共同体"
+  - id: 9
+    key: public_opinion
+    type: variant
+    base_group: peasants
+    base_estate: peasants_estate
+    icon: "@peasants_estate!"
+    loc:
+      english: "Public Opinion"
+      simp_chinese: "舆论"
+  - id: 10
+    key: court_bureaucrats
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    icon: "@adm!"
+    loc:
+      english: "Court Bureaucrats"
+      simp_chinese: "宫廷官僚"
+  - id: 11
+    key: maritime_merchants
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    icon: "@diplomacy!"
+    loc:
+      english: "Maritime Merchants"
+      simp_chinese: "海上商业集团"
+  - id: 12
+    key: professional_military
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    icon: "@cannons!"
+    loc:
+      english: "Professional Military"
+      simp_chinese: "军事专业化集团"
+  - id: 13
+    key: religious_reformers
+    type: variant
+    base_group: clergy
+    base_estate: clergy_estate
+    icon: "@clergy_estate!"
+    loc:
+      english: "Religious Reformers"
+      simp_chinese: "宗教改革派"
+  - id: 14
+    key: local_autonomy
+    type: variant
+    base_group: peasants
+    base_estate: peasants_estate
+    icon: "@peasants_estate!"
+    loc:
+      english: "Local Autonomy"
+      simp_chinese: "地方自治团体"
+  - id: 15
+    key: minorities
+    type: variant
+    base_group: mixed_minor_estates
+    base_estate: peasants_estate
+    icon: "@tribes_estate!"
+    loc:
+      english: "Minorities"
+      simp_chinese: "少数族裔"
+  - id: 16
+    key: artists
+    type: artists
+    icon: "@artists!"
+    loc:
+      english: "Artists"
+      simp_chinese: "艺术家"
+  - id: 17
+    key: foreign_power
+    type: foreign_power
+    icon: "@diplomacy!"
+    loc:
+      english: "Foreign Power"
+      simp_chinese: "境外势力"
+  - id: 18
+    key: great_scientist
+    type: great_scientist
+    icon: "@adm!"
+    loc:
+      english: "Great Scientist"
+      simp_chinese: "大科学家"
+
+debate_positions:
+  nobility:
+    support: [confessionalism]
+    oppose: [meritocracy, banking, printing_press, global_trade, scientific_revolution]
+    neutral: [renaissance, new_world, manufactories]
+  clergy:
+    support: [new_world]
+    oppose: [meritocracy, renaissance, printing_press, confessionalism, scientific_revolution]
+    neutral: [banking, global_trade, manufactories]
+  burghers:
+    support: [meritocracy, renaissance, banking, new_world, printing_press, global_trade, manufactories, scientific_revolution]
+    oppose: []
+    neutral: [confessionalism]
+  peasants:
+    support: [meritocracy, printing_press]
+    oppose: [banking, global_trade, manufactories]
+    neutral: [renaissance, new_world, confessionalism, scientific_revolution]
+  tribes:
+    support: []
+    oppose: [meritocracy, banking, new_world, printing_press, global_trade, manufactories, scientific_revolution]
+    neutral: [renaissance, confessionalism]
+  dhimmi:
+    support: []
+    oppose: [banking, new_world, printing_press, global_trade, manufactories, scientific_revolution]
+    neutral: [meritocracy, renaissance, confessionalism]
+  cossacks:
+    support: [confessionalism]
+    oppose: [meritocracy, banking, printing_press, global_trade, manufactories]
+    neutral: [renaissance, new_world, scientific_revolution]
+  scholarly_community:
+    support: [meritocracy, renaissance, new_world, printing_press, scientific_revolution]
+    oppose: [confessionalism]
+    neutral: [banking, global_trade, manufactories]
+  public_opinion:
+    support: [meritocracy, renaissance, new_world, printing_press, confessionalism, global_trade, scientific_revolution]
+    oppose: []
+    neutral: [banking, manufactories]
+  court_bureaucrats:
+    support: [meritocracy, banking, printing_press, global_trade, manufactories, scientific_revolution]
+    oppose: [confessionalism]
+    neutral: [renaissance, new_world]
+  maritime_merchants:
+    support: [renaissance, banking, new_world, printing_press, global_trade, manufactories, scientific_revolution]
+    oppose: []
+    neutral: [meritocracy, confessionalism]
+  professional_military:
+    support: [meritocracy, new_world, printing_press, manufactories, scientific_revolution]
+    oppose: [confessionalism]
+    neutral: [renaissance, banking, global_trade]
+  religious_reformers:
+    support: [meritocracy, printing_press, confessionalism]
+    oppose: []
+    neutral: [renaissance, banking, new_world, global_trade, manufactories, scientific_revolution]
+  local_autonomy:
+    support: [meritocracy, printing_press, confessionalism]
+    oppose: [banking, new_world, global_trade, manufactories]
+    neutral: [renaissance, scientific_revolution]
+  minorities:
+    support: [meritocracy, printing_press, confessionalism, global_trade]
+    oppose: [new_world]
+    neutral: [renaissance, banking, manufactories, scientific_revolution]
+  artists:
+    support: [renaissance, new_world, printing_press, scientific_revolution]
+    oppose: [banking, confessionalism]
+    neutral: [meritocracy, global_trade, manufactories]
+  foreign_power:
+    dynamic: true
+  great_scientist:
+    support: [meritocracy, renaissance, banking, new_world, printing_press, confessionalism, global_trade, manufactories, scientific_revolution]
+    oppose: []
+    neutral: []

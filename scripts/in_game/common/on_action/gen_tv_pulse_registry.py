@@ -46,6 +46,8 @@ SOURCE_FILES: dict[str, Path | None] = {
     "on_join_war":           HARDCODED_ON_ACTIONS,
     "on_ending_war":         HARDCODED_ON_ACTIONS,
     "on_pre_winning_war":    HARDCODED_ON_ACTIONS,
+    "on_winning_war":        HARDCODED_ON_ACTIONS,
+    "on_losing_war":         HARDCODED_ON_ACTIONS,
     "on_location_changed_owner": HARDCODED_ON_ACTIONS,
     "on_institution_embraced": HARDCODED_ON_ACTIONS,
     "on_capital_moved":      HARDCODED_ON_ACTIONS,

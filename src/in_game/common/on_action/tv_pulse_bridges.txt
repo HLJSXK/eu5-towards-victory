@@ -73,6 +73,7 @@ on_ruler_death = {
 on_game_start = {
 	on_actions = {
 		# Towards Victory additions
+		tv_academy_debate_initialize_global_maps_on_game_start
 		tv_wonder_initialize_index_on_game_start
 		tv_wonder_sync_final_building_level_maps_on_game_start
 		tv_wonder_initialize_existing_unique_wonders_on_game_start
@@ -85,6 +86,7 @@ on_game_load = {
 	on_actions = {
 		# Towards Victory additions
 		tv_io_establishment_save_load_validation
+		tv_academy_debate_initialize_global_maps_on_game_load
 		tv_wonder_initialize_index_on_game_load
 		tv_wonder_sync_final_building_level_maps_on_game_load
 		tv_wonder_initialize_existing_unique_wonders_on_game_load
@@ -182,6 +184,20 @@ on_pre_winning_war = {
 	on_actions = {
 		# Towards Victory additions
 		tv_engineering_department_ritual_on_pre_winning_war
+	}
+}
+
+on_winning_war = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_winning_war
+	}
+}
+
+on_losing_war = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_losing_war
 	}
 }
 
