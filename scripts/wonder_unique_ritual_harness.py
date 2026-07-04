@@ -2717,29 +2717,33 @@ def codegen_support_errors(
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
     archetype_registry: dict[str, Any] | None = None,
+    validate_registries: bool = True,
 ) -> list[str]:
     identity = entry.get("identity") or {}
     key = str(identity.get("key", "<unknown>"))
     status = str(identity.get("status", ""))
     if status not in CODEGEN_ELIGIBLE_STATUSES:
         return [f"{key}: status {status!r} is not eligible for Harness codegen"]
-    registry_errors = validate_template_registry(template_registry) if template_registry is not None else validate_template_registry()
-    if registry_errors:
-        return [f"{key}: template registry error: {error}" for error in registry_errors]
-    capability_registry_errors = (
-        validate_capability_registry(capability_registry)
-        if capability_registry is not None
-        else validate_capability_registry()
-    )
-    if capability_registry_errors:
-        return [f"{key}: capability registry error: {error}" for error in capability_registry_errors]
-    archetype_registry_errors = (
-        validate_archetype_registry(archetype_registry, capability_registry=capability_registry)
-        if archetype_registry is not None
-        else validate_archetype_registry(capability_registry=capability_registry)
-    )
-    if archetype_registry_errors:
-        return [f"{key}: archetype registry error: {error}" for error in archetype_registry_errors]
+    if validate_registries:
+        registry_errors = (
+            validate_template_registry(template_registry) if template_registry is not None else validate_template_registry()
+        )
+        if registry_errors:
+            return [f"{key}: template registry error: {error}" for error in registry_errors]
+        capability_registry_errors = (
+            validate_capability_registry(capability_registry)
+            if capability_registry is not None
+            else validate_capability_registry()
+        )
+        if capability_registry_errors:
+            return [f"{key}: capability registry error: {error}" for error in capability_registry_errors]
+        archetype_registry_errors = (
+            validate_archetype_registry(archetype_registry, capability_registry=capability_registry)
+            if archetype_registry is not None
+            else validate_archetype_registry(capability_registry=capability_registry)
+        )
+        if archetype_registry_errors:
+            return [f"{key}: archetype registry error: {error}" for error in archetype_registry_errors]
     template_index = template_registry_index(template_registry)
     capability_index = capability_registry_index(capability_registry)
     archetype_index = archetype_registry_index(archetype_registry)

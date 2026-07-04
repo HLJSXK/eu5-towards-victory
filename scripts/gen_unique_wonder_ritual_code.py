@@ -24,11 +24,16 @@ from wonder_unique_ritual_harness import (  # noqa: E402
     load_capability_registry,
     load_template_registry,
     load_spec_data,
+    load_unique_wonders,
+    loc_english,
     supported_archetype_keys,
     supported_capability_keys,
     supported_codegen_template_keys,
     template_registry_index,
+    validate_archetype_registry,
+    validate_capability_registry,
     validate_spec_payload,
+    validate_template_registry,
 )
 
 SCRIPT_REL = "scripts/gen_unique_wonder_ritual_code.py"
@@ -39,6 +44,24 @@ INDEX_FILE_NAME = "unique_wonder_ritual_codegen_index.md"
 
 class CodegenError(ValueError):
     """Raised when a spec asks codegen to do something outside the verified slice."""
+
+
+def _registry_validation_errors(
+    template_registry: dict[str, Any],
+    capability_registry: dict[str, Any],
+    archetype_registry: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    errors.extend(f"template registry error: {error}" for error in validate_template_registry(template_registry))
+    errors.extend(f"capability registry error: {error}" for error in validate_capability_registry(capability_registry))
+    errors.extend(
+        f"archetype registry error: {error}"
+        for error in validate_archetype_registry(
+            archetype_registry,
+            capability_registry=capability_registry,
+        )
+    )
+    return errors
 
 
 def entry_key(entry: dict[str, Any]) -> str:
@@ -157,12 +180,14 @@ def render_entry_fragment(
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
     archetype_registry: dict[str, Any] | None = None,
+    registries_prevalidated: bool = False,
 ) -> str:
     errors = codegen_support_errors(
         entry,
         template_registry=template_registry,
         capability_registry=capability_registry,
         archetype_registry=archetype_registry,
+        validate_registries=not registries_prevalidated,
     )
     if errors:
         raise CodegenError("; ".join(errors))
@@ -673,11 +698,16 @@ def generate_fragments_for_payload(
     template_registry: dict[str, Any] | None = None,
     capability_registry: dict[str, Any] | None = None,
     archetype_registry: dict[str, Any] | None = None,
+    registries_prevalidated: bool = False,
 ) -> dict[str, Any]:
     selected, skipped = _selected_entries(payload, wonder_keys)
     registry = template_registry if template_registry is not None else load_template_registry()
     capabilities = capability_registry if capability_registry is not None else load_capability_registry()
     archetypes = archetype_registry if archetype_registry is not None else load_archetype_registry()
+    if not registries_prevalidated:
+        registry_errors = _registry_validation_errors(registry, capabilities, archetypes)
+        if registry_errors:
+            raise CodegenError("; ".join(registry_errors))
     generated: list[dict[str, Any]] = []
     for entry in selected:
         text = render_entry_fragment(
@@ -685,6 +715,7 @@ def generate_fragments_for_payload(
             template_registry=registry,
             capability_registry=capabilities,
             archetype_registry=archetypes,
+            registries_prevalidated=True,
         )
         path = target_path_for_entry(entry, output_dir)
         rel_path = path.relative_to(REPO_ROOT).as_posix() if path.is_absolute() else path.as_posix()
@@ -715,6 +746,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true", help="Write generated intermediate fragments.")
     parser.add_argument("--wonder", action="append", help="Specific unique wonder key to generate.")
+    parser.add_argument(
+        "--validate-all",
+        action="store_true",
+        help="Validate all 123 ritual specs before generation. Default validates only selected codegen targets.",
+    )
     parser.add_argument("--json", action="store_true", help="Print a machine-readable summary.")
     args = parser.parse_args()
 
@@ -722,14 +758,26 @@ def main() -> None:
     template_registry = load_template_registry()
     capability_registry = load_capability_registry()
     archetype_registry = load_archetype_registry()
+    wonder_keys = set(args.wonder) if args.wonder else None
+    try:
+        selected_entries, _ = _selected_entries(payload, wonder_keys)
+    except CodegenError as exc:
+        print(f"[FAIL] {exc}")
+        sys.exit(1)
+
+    validation_payload = payload if args.validate_all else {"unique_wonders": selected_entries}
     errors = validate_spec_payload(
-        payload,
+        validation_payload,
+        wonders=load_unique_wonders(),
+        localization=loc_english(),
+        require_all_wonders=args.validate_all,
         template_registry=template_registry,
         capability_registry=capability_registry,
         archetype_registry=archetype_registry,
     )
     if errors:
-        print("[FAIL] Unique wonder ritual specs failed validation:")
+        scope = "all unique wonder ritual specs" if args.validate_all else "selected codegen ritual specs"
+        print(f"[FAIL] {scope} failed validation:")
         for error in errors:
             print(f"  - {error}")
         sys.exit(1)
@@ -737,11 +785,12 @@ def main() -> None:
     try:
         result = generate_fragments_for_payload(
             payload,
-            wonder_keys=set(args.wonder) if args.wonder else None,
+            wonder_keys=wonder_keys,
             write=args.write,
             template_registry=template_registry,
             capability_registry=capability_registry,
             archetype_registry=archetype_registry,
+            registries_prevalidated=True,
         )
     except CodegenError as exc:
         print(f"[FAIL] {exc}")
@@ -750,6 +799,7 @@ def main() -> None:
     if args.json:
         summary = {
             "write": args.write,
+            "validate_all": args.validate_all,
             "generated": [{key: row[key] for key in ("key", "path")} for row in result["generated"]],
             "skipped_count": len(result["skipped"]),
             "index_path": result["index_path"],
