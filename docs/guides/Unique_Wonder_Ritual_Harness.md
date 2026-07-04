@@ -214,9 +214,13 @@ Alhambra event target. The shared scripted-effect/cleanup target derives from th
 scripted-effect target contract and external source-file validation evidence, exposes
 exactly one `scripted_effect_cleanup` interface, and emits exactly eighteen
 in-memory/report-level artifacts while preserving the `cleanup=8` / `effect=10` family
-split. Both validators must bind those artifacts back to external source-file validation
+split. The scripted-trigger target derives from the trigger generator contract and
+external source-file validation evidence, exposes exactly one trigger-family interface,
+and emits exactly six in-memory/report-level artifacts for
+`src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt`.
+All three validators must bind those artifacts back to external source-file validation
 evidence rather than trusting the report alone. These prototypes do not cover
-localization, scripted-trigger, GUI, or listener output yet. They must keep
+localization, GUI, or listener output yet. They must keep
 `output_is_loadable_source: false`, `body_emitted: false`, `source_ready: false`,
 `verified: false`, `backend_ready: false`, `source_writer_allowed: false`,
 `may_write_src: false`, and `writes_src: false`, and they must not write `src/` or
