@@ -39,6 +39,7 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_fil
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_file_validation_evidence_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_contract_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_source_generator_interface_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -48,6 +49,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_s
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_file_validation_evidence  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_contract  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_event_source_generator_interface  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface  # noqa: E402
 
 
 WONDER = {
@@ -1730,6 +1732,18 @@ def _alhambra_event_source_file_contract_artifact(report: dict, artifact_kind: s
         if artifact.get("artifact_kind") == artifact_kind:
             return artifact
     raise AssertionError(f"Alhambra event source generator interface has no artifact {artifact_kind}")
+
+
+def _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
+    report: dict,
+    artifact_kind: str,
+) -> dict:
+    for artifact in report.get("source_file_contract_artifacts", []) or []:
+        if artifact.get("artifact_kind") == artifact_kind:
+            return artifact
+    raise AssertionError(
+        f"Alhambra scripted-effect/cleanup source generator interface has no artifact {artifact_kind}"
+    )
 
 
 def _sync_alhambra_generator_contract_ref_derivatives(contract: dict) -> None:
@@ -6664,6 +6678,305 @@ def main() -> None:
         source_file_validation_evidence=None,
     )
 
+    alhambra_scripted_effect_cleanup_source_generator_interface = (
+        repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_scripted_effect_cleanup_source_generator_interface["validation_errors"]:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface unexpectedly failed validation: "
+            f"{alhambra_scripted_effect_cleanup_source_generator_interface['validation_errors']}"
+        )
+    evidence_bound_effect_cleanup_interface_errors = (
+        validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface(
+            alhambra_scripted_effect_cleanup_source_generator_interface,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_effect_cleanup_interface_errors:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface unexpectedly failed "
+            "external evidence-bound validation: "
+            f"{evidence_bound_effect_cleanup_interface_errors}"
+        )
+    effect_cleanup_interface_target = alhambra_file_targets["effect_cleanup"]
+    effect_cleanup_interface_summary = alhambra_scripted_effect_cleanup_source_generator_interface.get("summary", {})
+    if effect_cleanup_interface_summary.get("interface_count") != 1:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface count changed: "
+            f"{effect_cleanup_interface_summary}"
+        )
+    if effect_cleanup_interface_summary.get("artifact_count") != expected_alhambra_file_counts[effect_cleanup_interface_target]:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface artifact count changed: "
+            f"{effect_cleanup_interface_summary}"
+        )
+    if effect_cleanup_interface_summary.get("output_kind") != "source_file_contract_artifacts":
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface output kind changed: "
+            f"{effect_cleanup_interface_summary}"
+        )
+    if effect_cleanup_interface_summary.get("family_artifact_counts") != {"cleanup": 8, "effect": 10}:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface family split changed: "
+            f"{effect_cleanup_interface_summary}"
+        )
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if effect_cleanup_interface_summary.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra scripted-effect/cleanup source generator interface "
+                f"{count_key} changed: {effect_cleanup_interface_summary}"
+            )
+        if alhambra_scripted_effect_cleanup_source_generator_interface.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra scripted-effect/cleanup source generator interface report no-write count changed: "
+                f"{alhambra_scripted_effect_cleanup_source_generator_interface}"
+            )
+    if alhambra_scripted_effect_cleanup_source_generator_interface.get("required_target_paths") != [
+        effect_cleanup_interface_target
+    ]:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface should expose only the shared "
+            "scripted-effect target: "
+            f"{alhambra_scripted_effect_cleanup_source_generator_interface.get('required_target_paths')}"
+        )
+    if alhambra_scripted_effect_cleanup_source_generator_interface.get("output_is_loadable_source") is not False:
+        raise AssertionError("Alhambra scripted-effect/cleanup source generator interface must not output loadable source")
+    if (
+        alhambra_scripted_effect_cleanup_source_generator_interface.get("source_writer_allowed") is not False
+        or alhambra_scripted_effect_cleanup_source_generator_interface.get("may_write_src") is not False
+        or alhambra_scripted_effect_cleanup_source_generator_interface.get("writes_src") is not False
+    ):
+        raise AssertionError("Alhambra scripted-effect/cleanup source generator interface no-write flags changed")
+
+    effect_cleanup_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        effect_cleanup_interface_target,
+    )
+    effect_cleanup_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        effect_cleanup_interface_target,
+    )
+    effect_cleanup_generator_interfaces = (
+        alhambra_scripted_effect_cleanup_source_generator_interface.get("source_generator_interfaces", [])
+    )
+    if len(effect_cleanup_generator_interfaces) != 1:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface should expose one interface: "
+            f"{effect_cleanup_generator_interfaces}"
+        )
+    effect_cleanup_generator_interface = effect_cleanup_generator_interfaces[0]
+    if (
+        effect_cleanup_generator_interface.get("family") != "scripted_effect_cleanup"
+        or effect_cleanup_generator_interface.get("families") != ["cleanup", "effect"]
+        or effect_cleanup_generator_interface.get("target_path") != effect_cleanup_interface_target
+        or effect_cleanup_generator_interface.get("owner_generator")
+        != "unique_wonder_ritual_scripted_effect_source_generator"
+        or effect_cleanup_generator_interface.get("output_contract") != "source_file_contract_artifacts"
+        or effect_cleanup_generator_interface.get("dry_run_required") is not True
+        or effect_cleanup_generator_interface.get("memory_report_only") is not True
+        or effect_cleanup_generator_interface.get("source_writer_allowed") is not False
+        or effect_cleanup_generator_interface.get("may_write_src") is not False
+        or effect_cleanup_generator_interface.get("writes_src") is not False
+        or effect_cleanup_generator_interface.get("source_file_validation_evidence_ref")
+        != effect_cleanup_generator_contract.get("evidence_pack_ref")
+    ):
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface lost no-write interface shape: "
+            f"{effect_cleanup_generator_interface}"
+        )
+
+    effect_cleanup_contract_artifacts = (
+        alhambra_scripted_effect_cleanup_source_generator_interface.get("source_file_contract_artifacts", [])
+    )
+    if len(effect_cleanup_contract_artifacts) != expected_alhambra_file_counts[effect_cleanup_interface_target]:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface artifact list changed: "
+            f"{effect_cleanup_contract_artifacts}"
+        )
+    effect_cleanup_contract_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for ref in effect_cleanup_generator_contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    effect_cleanup_artifact_ref_keys = {
+        (
+            str(artifact.get("source_body_candidate_ref", {}).get("family", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("row_set_key", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("artifact_kind", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("future_source_target_path", "")),
+        )
+        for artifact in effect_cleanup_contract_artifacts
+        if isinstance(artifact, dict)
+    }
+    if (
+        effect_cleanup_artifact_ref_keys != effect_cleanup_contract_ref_keys
+        or len(effect_cleanup_artifact_ref_keys) != expected_alhambra_file_counts[effect_cleanup_interface_target]
+    ):
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface lost external source refs: "
+            f"{effect_cleanup_artifact_ref_keys}"
+        )
+    effect_cleanup_artifact_family_counts: dict[str, int] = {}
+    for artifact in effect_cleanup_contract_artifacts:
+        family = str(artifact.get("family", ""))
+        effect_cleanup_artifact_family_counts[family] = effect_cleanup_artifact_family_counts.get(family, 0) + 1
+        if (
+            artifact.get("interface_family") != "scripted_effect_cleanup"
+            or artifact.get("family") not in {"effect", "cleanup"}
+            or artifact.get("target_families") != ["cleanup", "effect"]
+            or artifact.get("target_path") != effect_cleanup_interface_target
+            or artifact.get("future_source_target_path") != effect_cleanup_interface_target
+            or artifact.get("output_kind") != "source_file_contract_artifacts"
+            or artifact.get("output_is_loadable_source") is not False
+            or artifact.get("source_file_contract_artifact_only") is not True
+            or artifact.get("source_generator_interface_prototype_only") is not True
+            or artifact.get("scripted_effect_cleanup_target_only") is not True
+            or artifact.get("memory_report_only") is not True
+            or artifact.get("dry_run") is not True
+            or artifact.get("dry_run_required") is not True
+            or artifact.get("source_file_validation_evidence_ref")
+            != effect_cleanup_generator_contract.get("evidence_pack_ref")
+            or artifact.get("source_body_candidate_ref_provenance")
+            != effect_cleanup_generator_contract.get("source_body_candidate_ref_provenance")
+            or artifact.get("no_write_source_writer_contract_evidence")
+            != effect_cleanup_generator_contract.get("no_write_source_writer_contract_evidence")
+            or artifact.get("body_emitted") is not False
+            or artifact.get("source_ready") is not False
+            or artifact.get("verified") is not False
+            or artifact.get("backend_ready") is not False
+            or artifact.get("source_writer_allowed") is not False
+            or artifact.get("may_write_src") is not False
+            or artifact.get("writes_src") is not False
+        ):
+            raise AssertionError(
+                "Alhambra scripted-effect/cleanup source generator interface artifact lost no-write contract shape: "
+                f"{artifact}"
+            )
+    if effect_cleanup_artifact_family_counts != {"cleanup": 8, "effect": 10}:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface artifact family counts changed: "
+            f"{effect_cleanup_artifact_family_counts}"
+        )
+    if effect_cleanup_validation_pack.get("target_path") != effect_cleanup_interface_target:
+        raise AssertionError(f"Alhambra effect/cleanup validation pack target changed: {effect_cleanup_validation_pack}")
+
+    def assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface(
+            report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra scripted-effect/cleanup source generator interface negative was not caught: "
+                f"{errors}"
+            )
+
+    missing_effect_cleanup_artifact_interface = deepcopy(alhambra_scripted_effect_cleanup_source_generator_interface)
+    missing_effect_cleanup_artifact_interface["source_file_contract_artifacts"] = (
+        missing_effect_cleanup_artifact_interface["source_file_contract_artifacts"][:-1]
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "missing scripted-effect/cleanup artifact",
+        missing_effect_cleanup_artifact_interface,
+        "artifact_count mismatch",
+    )
+
+    writable_effect_cleanup_artifact_interface = deepcopy(alhambra_scripted_effect_cleanup_source_generator_interface)
+    _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
+        writable_effect_cleanup_artifact_interface,
+        "scripted_effect_row_init",
+    )["may_write_src"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "writable scripted-effect artifact",
+        writable_effect_cleanup_artifact_interface,
+        "may_write_src must be false",
+    )
+
+    wrong_output_effect_cleanup_interface = deepcopy(alhambra_scripted_effect_cleanup_source_generator_interface)
+    wrong_output_effect_cleanup_interface["output_kind"] = "loadable_source_file"
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "wrong scripted-effect/cleanup output kind",
+        wrong_output_effect_cleanup_interface,
+        "output_kind must be source_file_contract_artifacts",
+    )
+
+    forged_ref_effect_cleanup_interface = deepcopy(alhambra_scripted_effect_cleanup_source_generator_interface)
+    _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
+        forged_ref_effect_cleanup_interface,
+        "scripted_effect_row_state_write",
+    )["source_body_candidate_ref"]["row_set_key"] = "forged_row_set"
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "forged scripted-effect/cleanup source ref",
+        forged_ref_effect_cleanup_interface,
+        "external validation evidence mismatch",
+    )
+
+    external_evidence_forged_effect_cleanup_validation = deepcopy(alhambra_source_file_validation_evidence)
+    external_evidence_forged_effect_cleanup_pack = _alhambra_source_file_validation_pack(
+        external_evidence_forged_effect_cleanup_validation,
+        effect_cleanup_interface_target,
+    )
+    external_evidence_forged_effect_cleanup_pack["source_body_candidate_refs"][0][
+        "row_set_key"
+    ] = "forged_row_set"
+    external_evidence_forged_effect_cleanup_generator_contract = (
+        repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            spec_data,
+            source_file_validation_evidence=external_evidence_forged_effect_cleanup_validation,
+        )
+    )
+    external_evidence_forged_effect_cleanup_interface = (
+        repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=external_evidence_forged_effect_cleanup_generator_contract,
+            source_file_validation_evidence=external_evidence_forged_effect_cleanup_validation,
+        )
+    )
+    if external_evidence_forged_effect_cleanup_interface["validation_errors"]:
+        raise AssertionError(
+            "Externally forged Alhambra scripted-effect/cleanup interface should stay self-consistent before "
+            "the original validation evidence is applied: "
+            f"{external_evidence_forged_effect_cleanup_interface['validation_errors']}"
+        )
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "external evidence-bound forged scripted-effect/cleanup interface",
+        external_evidence_forged_effect_cleanup_interface,
+        "external validation evidence",
+        source_generator_contract=external_evidence_forged_effect_cleanup_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+
+    detached_effect_cleanup_interface_validation = deepcopy(alhambra_scripted_effect_cleanup_source_generator_interface)
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "missing external validation evidence",
+        detached_effect_cleanup_interface_validation,
+        "requires external source-file validation evidence",
+        source_file_validation_evidence=None,
+    )
+
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
         wonders=[WONDER],
@@ -8083,6 +8396,9 @@ def main() -> None:
         repeated_entity_row_source_bundle_preview=source_bundle_preview,
         repeated_entity_row_alhambra_source_generator_contract=alhambra_source_generator_contract,
         repeated_entity_row_alhambra_event_source_generator_interface=alhambra_event_source_generator_interface,
+        repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface=(
+            alhambra_scripted_effect_cleanup_source_generator_interface
+        ),
     )
     if summary["source_codegen_ready_count"] != 4:
         raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
@@ -8161,6 +8477,33 @@ def main() -> None:
         raise AssertionError(
             "Alhambra event source generator interface no-write counts changed: "
             f"{alhambra_event_interface_summary}"
+        )
+    alhambra_effect_cleanup_interface_summary = summary[
+        "repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface"
+    ]["summary"]
+    if alhambra_effect_cleanup_interface_summary["interface_count"] != 1:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface count should remain 1, got "
+            f"{alhambra_effect_cleanup_interface_summary['interface_count']}"
+        )
+    if alhambra_effect_cleanup_interface_summary["artifact_count"] != 18:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface artifact_count should remain 18, got "
+            f"{alhambra_effect_cleanup_interface_summary['artifact_count']}"
+        )
+    if alhambra_effect_cleanup_interface_summary["family_artifact_counts"] != {"cleanup": 8, "effect": 10}:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface family split changed: "
+            f"{alhambra_effect_cleanup_interface_summary}"
+        )
+    if (
+        alhambra_effect_cleanup_interface_summary["source_writer_allowed_count"] != 0
+        or alhambra_effect_cleanup_interface_summary["may_write_src_count"] != 0
+        or alhambra_effect_cleanup_interface_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator interface no-write counts changed: "
+            f"{alhambra_effect_cleanup_interface_summary}"
         )
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")
