@@ -93,6 +93,20 @@
 				multiply = -5
 			}
 		}
+		add = {
+			desc = "TV_ALLIANCE_COHESION"
+			scope:actor = {
+				value = 0
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country ?= scope:actor
+					}
+					add = var:tv_alliance_cohesion
+				}
+			}
+			multiply = 0.2
+		}
 		if = {
 			limit = { exists = scope:recipient }
 			add = {
