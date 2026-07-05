@@ -764,7 +764,6 @@ tv_academy_philosophy_refresh_timeline_effect = {
 		limit = { NOT = { has_variable = tv_academy_philosophy_current } }
 		set_variable = { name = tv_academy_philosophy_current value = 1 }
 	}
-	set_variable = { name = tv_academy_world_debate_seat_count value = 50 }
 	set_variable = { name = tv_academy_debate_node_1_index value = var:tv_academy_debate_current_node }
 	change_variable = { name = tv_academy_debate_node_1_index add = -2 }
 	set_variable = { name = tv_academy_debate_node_1_year value = var:tv_academy_debate_node_1_index }

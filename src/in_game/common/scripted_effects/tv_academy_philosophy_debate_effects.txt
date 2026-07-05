@@ -4131,6 +4131,1590 @@ tv_academy_philosophy_resolve_pending_rejection_effect = {
 	}
 }
 
+tv_academy_world_debate_initialize_effect = {
+	remove_variable = tv_academy_world_debate_active
+	remove_variable = tv_academy_world_debate_issue
+	remove_variable = tv_academy_world_debate_node
+	remove_variable = tv_academy_world_debate_result
+	remove_variable = tv_academy_world_debate_delta
+	remove_variable = tv_academy_world_debate_next_seat
+	remove_variable = tv_academy_world_debate_decisive_seats
+	set_variable = { name = tv_academy_world_debate_progress value = 50 }
+	set_variable = { name = tv_academy_world_debate_strength value = 50 }
+	set_variable = { name = tv_academy_world_debate_months value = 0 }
+	tv_academy_world_debate_clear_seats_effect = yes
+}
+
+tv_academy_world_debate_clear_seats_effect = {
+	clear_global_variable_list = tv_academy_world_debate_participants
+	remove_variable = tv_academy_world_debate_seat_1_country
+	remove_variable = tv_academy_world_debate_seat_1_stance
+	remove_variable = tv_academy_world_debate_seat_2_country
+	remove_variable = tv_academy_world_debate_seat_2_stance
+	remove_variable = tv_academy_world_debate_seat_3_country
+	remove_variable = tv_academy_world_debate_seat_3_stance
+	remove_variable = tv_academy_world_debate_seat_4_country
+	remove_variable = tv_academy_world_debate_seat_4_stance
+	remove_variable = tv_academy_world_debate_seat_5_country
+	remove_variable = tv_academy_world_debate_seat_5_stance
+	remove_variable = tv_academy_world_debate_seat_6_country
+	remove_variable = tv_academy_world_debate_seat_6_stance
+	remove_variable = tv_academy_world_debate_seat_7_country
+	remove_variable = tv_academy_world_debate_seat_7_stance
+	remove_variable = tv_academy_world_debate_seat_8_country
+	remove_variable = tv_academy_world_debate_seat_8_stance
+	remove_variable = tv_academy_world_debate_seat_9_country
+	remove_variable = tv_academy_world_debate_seat_9_stance
+	remove_variable = tv_academy_world_debate_seat_10_country
+	remove_variable = tv_academy_world_debate_seat_10_stance
+	remove_variable = tv_academy_world_debate_seat_11_country
+	remove_variable = tv_academy_world_debate_seat_11_stance
+	remove_variable = tv_academy_world_debate_seat_12_country
+	remove_variable = tv_academy_world_debate_seat_12_stance
+	remove_variable = tv_academy_world_debate_seat_13_country
+	remove_variable = tv_academy_world_debate_seat_13_stance
+	remove_variable = tv_academy_world_debate_seat_14_country
+	remove_variable = tv_academy_world_debate_seat_14_stance
+	remove_variable = tv_academy_world_debate_seat_15_country
+	remove_variable = tv_academy_world_debate_seat_15_stance
+	remove_variable = tv_academy_world_debate_seat_16_country
+	remove_variable = tv_academy_world_debate_seat_16_stance
+	remove_variable = tv_academy_world_debate_seat_17_country
+	remove_variable = tv_academy_world_debate_seat_17_stance
+	remove_variable = tv_academy_world_debate_seat_18_country
+	remove_variable = tv_academy_world_debate_seat_18_stance
+	remove_variable = tv_academy_world_debate_seat_19_country
+	remove_variable = tv_academy_world_debate_seat_19_stance
+	remove_variable = tv_academy_world_debate_seat_20_country
+	remove_variable = tv_academy_world_debate_seat_20_stance
+	remove_variable = tv_academy_world_debate_seat_21_country
+	remove_variable = tv_academy_world_debate_seat_21_stance
+	remove_variable = tv_academy_world_debate_seat_22_country
+	remove_variable = tv_academy_world_debate_seat_22_stance
+	remove_variable = tv_academy_world_debate_seat_23_country
+	remove_variable = tv_academy_world_debate_seat_23_stance
+	remove_variable = tv_academy_world_debate_seat_24_country
+	remove_variable = tv_academy_world_debate_seat_24_stance
+	remove_variable = tv_academy_world_debate_seat_25_country
+	remove_variable = tv_academy_world_debate_seat_25_stance
+	remove_variable = tv_academy_world_debate_seat_26_country
+	remove_variable = tv_academy_world_debate_seat_26_stance
+	remove_variable = tv_academy_world_debate_seat_27_country
+	remove_variable = tv_academy_world_debate_seat_27_stance
+	remove_variable = tv_academy_world_debate_seat_28_country
+	remove_variable = tv_academy_world_debate_seat_28_stance
+	remove_variable = tv_academy_world_debate_seat_29_country
+	remove_variable = tv_academy_world_debate_seat_29_stance
+	remove_variable = tv_academy_world_debate_seat_30_country
+	remove_variable = tv_academy_world_debate_seat_30_stance
+	remove_variable = tv_academy_world_debate_seat_31_country
+	remove_variable = tv_academy_world_debate_seat_31_stance
+	remove_variable = tv_academy_world_debate_seat_32_country
+	remove_variable = tv_academy_world_debate_seat_32_stance
+	remove_variable = tv_academy_world_debate_seat_33_country
+	remove_variable = tv_academy_world_debate_seat_33_stance
+	remove_variable = tv_academy_world_debate_seat_34_country
+	remove_variable = tv_academy_world_debate_seat_34_stance
+	remove_variable = tv_academy_world_debate_seat_35_country
+	remove_variable = tv_academy_world_debate_seat_35_stance
+	remove_variable = tv_academy_world_debate_seat_36_country
+	remove_variable = tv_academy_world_debate_seat_36_stance
+	remove_variable = tv_academy_world_debate_seat_37_country
+	remove_variable = tv_academy_world_debate_seat_37_stance
+	remove_variable = tv_academy_world_debate_seat_38_country
+	remove_variable = tv_academy_world_debate_seat_38_stance
+	remove_variable = tv_academy_world_debate_seat_39_country
+	remove_variable = tv_academy_world_debate_seat_39_stance
+	remove_variable = tv_academy_world_debate_seat_40_country
+	remove_variable = tv_academy_world_debate_seat_40_stance
+	remove_variable = tv_academy_world_debate_seat_41_country
+	remove_variable = tv_academy_world_debate_seat_41_stance
+	remove_variable = tv_academy_world_debate_seat_42_country
+	remove_variable = tv_academy_world_debate_seat_42_stance
+	remove_variable = tv_academy_world_debate_seat_43_country
+	remove_variable = tv_academy_world_debate_seat_43_stance
+	remove_variable = tv_academy_world_debate_seat_44_country
+	remove_variable = tv_academy_world_debate_seat_44_stance
+	remove_variable = tv_academy_world_debate_seat_45_country
+	remove_variable = tv_academy_world_debate_seat_45_stance
+	remove_variable = tv_academy_world_debate_seat_46_country
+	remove_variable = tv_academy_world_debate_seat_46_stance
+	remove_variable = tv_academy_world_debate_seat_47_country
+	remove_variable = tv_academy_world_debate_seat_47_stance
+	remove_variable = tv_academy_world_debate_seat_48_country
+	remove_variable = tv_academy_world_debate_seat_48_stance
+	remove_variable = tv_academy_world_debate_seat_49_country
+	remove_variable = tv_academy_world_debate_seat_49_stance
+	remove_variable = tv_academy_world_debate_seat_50_country
+	remove_variable = tv_academy_world_debate_seat_50_stance
+	set_variable = { name = tv_academy_world_debate_support_seats value = 0 }
+	set_variable = { name = tv_academy_world_debate_oppose_seats value = 0 }
+	set_variable = { name = tv_academy_world_debate_neutral_seats value = 0 }
+	set_variable = { name = tv_academy_world_debate_seat_count value = 0 }
+	remove_variable = tv_academy_world_debate_next_seat
+	remove_variable = tv_academy_world_debate_decisive_seats
+}
+
+tv_academy_world_debate_try_begin_for_country_effect = {
+	if = {
+		limit = {
+			tv_academy_world_debate_country_has_academy_trigger = yes
+			var:tv_academy_debate_current_node_type ?= 2
+			tv_academy_philosophy_has_current_issue_trigger = yes
+			situation:tv_academy_world_debate_situation = {
+				NOT = { has_variable = tv_academy_world_debate_active }
+			}
+		}
+		situation:tv_academy_world_debate_situation = {
+			tv_academy_world_debate_initialize_effect = yes
+			set_variable = { name = tv_academy_world_debate_active value = 1 }
+			set_variable = { name = tv_academy_world_debate_issue value = prev.var:tv_academy_philosophy_current }
+			set_variable = { name = tv_academy_world_debate_node value = prev.var:tv_academy_debate_current_node }
+			set_variable = { name = tv_academy_world_debate_progress value = 50 }
+			set_variable = { name = tv_academy_world_debate_strength value = 50 }
+			set_variable = { name = tv_academy_world_debate_months value = 0 }
+			tv_academy_world_debate_refresh_seats_effect = yes
+			tv_academy_world_debate_mirror_all_countries_effect = yes
+		}
+	}
+}
+
+tv_academy_world_debate_monthly_effect = {
+	if = {
+		limit = { has_variable = tv_academy_world_debate_active }
+		tv_academy_world_debate_refresh_seats_effect = yes
+		change_variable = { name = tv_academy_world_debate_months add = 1 }
+		set_variable = { name = tv_academy_world_debate_delta value = var:tv_academy_world_debate_strength }
+		change_variable = { name = tv_academy_world_debate_delta add = -50 }
+		change_variable = { name = tv_academy_world_debate_delta divide = 100 }
+		change_variable = { name = tv_academy_world_debate_delta multiply = 5 }
+		change_variable = { name = tv_academy_world_debate_progress add = var:tv_academy_world_debate_delta }
+		clamp_variable = { name = tv_academy_world_debate_progress min = 0 max = 100 }
+		if = {
+			limit = { var:tv_academy_world_debate_progress <= 0 }
+			set_variable = { name = tv_academy_world_debate_result value = 2 }
+			tv_academy_world_debate_resolve_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_academy_world_debate_progress >= 100 }
+			set_variable = { name = tv_academy_world_debate_result value = 1 }
+			tv_academy_world_debate_resolve_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_academy_world_debate_months >= 120 }
+			set_variable = { name = tv_academy_world_debate_result value = 3 }
+			tv_academy_world_debate_resolve_effect = yes
+		}
+	}
+	tv_academy_world_debate_mirror_all_countries_effect = yes
+}
+
+tv_academy_world_debate_refresh_seats_effect = {
+	if = {
+		limit = { NOT = { has_variable = tv_academy_world_debate_active } }
+		tv_academy_world_debate_clear_seats_effect = yes
+	}
+	if = {
+		limit = { has_variable = tv_academy_world_debate_active }
+		tv_academy_world_debate_clear_seats_effect = yes
+		set_variable = { name = tv_academy_world_debate_next_seat value = 1 }
+		every_country = {
+			limit = { tv_academy_world_debate_country_can_participate_trigger = yes }
+			add_to_global_variable_list = { name = tv_academy_world_debate_participants target = this }
+			set_variable = { name = tv_academy_world_debate_stance value = 3 }
+			if = {
+				limit = { tv_academy_world_debate_country_supports_current_issue_trigger = yes }
+				set_variable = { name = tv_academy_world_debate_stance value = 1 }
+			}
+			else_if = {
+				limit = { tv_academy_world_debate_country_opposes_current_issue_trigger = yes }
+				set_variable = { name = tv_academy_world_debate_stance value = 2 }
+			}
+			if = {
+				limit = { var:tv_academy_world_debate_stance ?= 1 }
+				situation:tv_academy_world_debate_situation = { change_variable = { name = tv_academy_world_debate_support_seats add = 1 } }
+			}
+			if = {
+				limit = { var:tv_academy_world_debate_stance ?= 2 }
+				situation:tv_academy_world_debate_situation = { change_variable = { name = tv_academy_world_debate_oppose_seats add = 1 } }
+			}
+			if = {
+				limit = { var:tv_academy_world_debate_stance ?= 3 }
+				situation:tv_academy_world_debate_situation = { change_variable = { name = tv_academy_world_debate_neutral_seats add = 1 } }
+			}
+			situation:tv_academy_world_debate_situation = { change_variable = { name = tv_academy_world_debate_seat_count add = 1 } }
+			if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 1 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_1_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_1_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 2 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_2_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_2_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 3 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_3_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_3_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 4 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_4_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_4_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 5 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_5_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_5_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 6 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_6_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_6_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 7 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_7_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_7_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 8 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_8_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_8_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 9 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_9_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_9_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 10 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_10_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_10_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 11 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_11_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_11_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 12 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_12_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_12_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 13 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_13_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_13_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 14 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_14_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_14_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 15 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_15_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_15_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 16 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_16_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_16_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 17 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_17_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_17_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 18 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_18_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_18_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 19 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_19_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_19_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 20 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_20_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_20_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 21 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_21_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_21_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 22 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_22_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_22_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 23 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_23_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_23_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 24 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_24_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_24_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 25 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_25_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_25_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 26 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_26_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_26_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 27 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_27_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_27_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 28 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_28_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_28_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 29 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_29_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_29_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 30 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_30_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_30_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 31 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_31_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_31_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 32 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_32_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_32_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 33 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_33_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_33_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 34 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_34_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_34_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 35 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_35_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_35_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 36 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_36_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_36_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 37 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_37_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_37_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 38 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_38_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_38_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 39 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_39_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_39_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 40 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_40_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_40_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 41 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_41_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_41_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 42 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_42_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_42_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 43 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_43_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_43_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 44 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_44_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_44_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 45 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_45_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_45_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 46 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_46_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_46_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 47 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_47_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_47_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 48 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_48_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_48_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 49 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_49_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_49_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+			else_if = {
+				limit = { situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_next_seat ?= 50 } }
+				situation:tv_academy_world_debate_situation = {
+					set_variable = { name = tv_academy_world_debate_seat_50_country value = prev }
+					set_variable = { name = tv_academy_world_debate_seat_50_stance value = prev.var:tv_academy_world_debate_stance }
+					change_variable = { name = tv_academy_world_debate_next_seat add = 1 }
+				}
+			}
+		}
+		set_variable = { name = tv_academy_world_debate_decisive_seats value = var:tv_academy_world_debate_support_seats }
+		change_variable = { name = tv_academy_world_debate_decisive_seats add = var:tv_academy_world_debate_oppose_seats }
+		set_variable = { name = tv_academy_world_debate_strength value = 50 }
+		if = {
+			limit = { var:tv_academy_world_debate_decisive_seats > 0 }
+			set_variable = { name = tv_academy_world_debate_strength value = var:tv_academy_world_debate_support_seats }
+			change_variable = { name = tv_academy_world_debate_strength divide = var:tv_academy_world_debate_decisive_seats }
+			change_variable = { name = tv_academy_world_debate_strength multiply = 100 }
+			clamp_variable = { name = tv_academy_world_debate_strength min = 0 max = 100 }
+		}
+		remove_variable = tv_academy_world_debate_next_seat
+		remove_variable = tv_academy_world_debate_decisive_seats
+	}
+}
+
+tv_academy_world_debate_resolve_effect = {
+	if = {
+		limit = { has_variable = tv_academy_world_debate_active has_variable = tv_academy_world_debate_result }
+		if = {
+			limit = { has_global_variable_list = tv_academy_world_debate_participants }
+			every_in_global_list = {
+				variable = tv_academy_world_debate_participants
+				limit = {
+					tv_academy_world_debate_country_has_academy_trigger = yes
+					var:tv_academy_philosophy_current ?= root.var:tv_academy_world_debate_issue
+				}
+				tv_academy_world_debate_apply_country_result_effect = yes
+			}
+		}
+		remove_variable = tv_academy_world_debate_active
+		remove_variable = tv_academy_world_debate_issue
+		remove_variable = tv_academy_world_debate_node
+		remove_variable = tv_academy_world_debate_result
+		remove_variable = tv_academy_world_debate_delta
+		set_variable = { name = tv_academy_world_debate_progress value = 50 }
+		set_variable = { name = tv_academy_world_debate_strength value = 50 }
+		set_variable = { name = tv_academy_world_debate_months value = 0 }
+		tv_academy_world_debate_clear_seats_effect = yes
+	}
+}
+
+tv_academy_world_debate_apply_country_result_effect = {
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 1 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_meritocracy_progressive value = 1 }
+			remove_variable = tv_academy_debate_meritocracy_conservative
+			tv_academy_philosophy_accept_meritocracy_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:meritocracy } }
+			set_variable = { name = tv_academy_debate_meritocracy_conservative value = 1 }
+			remove_variable = tv_academy_debate_meritocracy_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 2 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_renaissance_progressive value = 1 }
+			remove_variable = tv_academy_debate_renaissance_conservative
+			tv_academy_philosophy_accept_renaissance_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:renaissance } }
+			set_variable = { name = tv_academy_debate_renaissance_conservative value = 1 }
+			remove_variable = tv_academy_debate_renaissance_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 3 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_banking_progressive value = 1 }
+			remove_variable = tv_academy_debate_banking_conservative
+			tv_academy_philosophy_accept_banking_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:banking } }
+			set_variable = { name = tv_academy_debate_banking_conservative value = 1 }
+			remove_variable = tv_academy_debate_banking_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 4 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_new_world_progressive value = 1 }
+			remove_variable = tv_academy_debate_new_world_conservative
+			tv_academy_philosophy_accept_new_world_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:new_world } }
+			set_variable = { name = tv_academy_debate_new_world_conservative value = 1 }
+			remove_variable = tv_academy_debate_new_world_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 5 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_printing_press_progressive value = 1 }
+			remove_variable = tv_academy_debate_printing_press_conservative
+			tv_academy_philosophy_accept_printing_press_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:printing_press } }
+			set_variable = { name = tv_academy_debate_printing_press_conservative value = 1 }
+			remove_variable = tv_academy_debate_printing_press_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 6 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_confessionalism_progressive value = 1 }
+			remove_variable = tv_academy_debate_confessionalism_conservative
+			tv_academy_philosophy_accept_confessionalism_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:confessionalism } }
+			set_variable = { name = tv_academy_debate_confessionalism_conservative value = 1 }
+			remove_variable = tv_academy_debate_confessionalism_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 7 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_global_trade_progressive value = 1 }
+			remove_variable = tv_academy_debate_global_trade_conservative
+			tv_academy_philosophy_accept_global_trade_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:global_trade } }
+			set_variable = { name = tv_academy_debate_global_trade_conservative value = 1 }
+			remove_variable = tv_academy_debate_global_trade_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 8 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_manufactories_progressive value = 1 }
+			remove_variable = tv_academy_debate_manufactories_conservative
+			tv_academy_philosophy_accept_manufactories_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:manufactories } }
+			set_variable = { name = tv_academy_debate_manufactories_conservative value = 1 }
+			remove_variable = tv_academy_debate_manufactories_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+	if = {
+		limit = { root = { var:tv_academy_world_debate_issue ?= 9 } }
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			set_variable = { name = tv_academy_debate_scientific_revolution_progressive value = 1 }
+			remove_variable = tv_academy_debate_scientific_revolution_conservative
+			tv_academy_philosophy_accept_scientific_revolution_effect = yes
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } NOT = { has_embraced_institution = institution:scientific_revolution } }
+			set_variable = { name = tv_academy_debate_scientific_revolution_conservative value = 1 }
+			remove_variable = tv_academy_debate_scientific_revolution_progressive
+		}
+		tv_academy_philosophy_advance_current_issue_effect = yes
+		tv_academy_philosophy_enter_recess_effect = yes
+	}
+}
+
+tv_academy_world_debate_mirror_all_countries_effect = {
+	every_country = {
+		limit = { tv_academy_world_debate_country_has_academy_trigger = yes }
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_active } }
+			set_variable = { name = tv_academy_world_debate_active value = prev.var:tv_academy_world_debate_active }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_active
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_issue } }
+			set_variable = { name = tv_academy_world_debate_issue value = prev.var:tv_academy_world_debate_issue }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_issue
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_node } }
+			set_variable = { name = tv_academy_world_debate_node value = prev.var:tv_academy_world_debate_node }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_node
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_progress } }
+			set_variable = { name = tv_academy_world_debate_progress value = prev.var:tv_academy_world_debate_progress }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_progress
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_strength } }
+			set_variable = { name = tv_academy_world_debate_strength value = prev.var:tv_academy_world_debate_strength }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_strength
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_months } }
+			set_variable = { name = tv_academy_world_debate_months value = prev.var:tv_academy_world_debate_months }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_months
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_support_seats } }
+			set_variable = { name = tv_academy_world_debate_support_seats value = prev.var:tv_academy_world_debate_support_seats }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_support_seats
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_oppose_seats } }
+			set_variable = { name = tv_academy_world_debate_oppose_seats value = prev.var:tv_academy_world_debate_oppose_seats }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_oppose_seats
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_neutral_seats } }
+			set_variable = { name = tv_academy_world_debate_neutral_seats value = prev.var:tv_academy_world_debate_neutral_seats }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_neutral_seats
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_count } }
+			set_variable = { name = tv_academy_world_debate_seat_count value = prev.var:tv_academy_world_debate_seat_count }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_count
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_result } }
+			set_variable = { name = tv_academy_world_debate_result value = prev.var:tv_academy_world_debate_result }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_result
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_1_country } }
+			set_variable = { name = tv_academy_world_debate_seat_1_country value = prev.var:tv_academy_world_debate_seat_1_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_1_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_1_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_1_stance value = prev.var:tv_academy_world_debate_seat_1_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_1_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_2_country } }
+			set_variable = { name = tv_academy_world_debate_seat_2_country value = prev.var:tv_academy_world_debate_seat_2_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_2_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_2_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_2_stance value = prev.var:tv_academy_world_debate_seat_2_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_2_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_3_country } }
+			set_variable = { name = tv_academy_world_debate_seat_3_country value = prev.var:tv_academy_world_debate_seat_3_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_3_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_3_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_3_stance value = prev.var:tv_academy_world_debate_seat_3_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_3_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_4_country } }
+			set_variable = { name = tv_academy_world_debate_seat_4_country value = prev.var:tv_academy_world_debate_seat_4_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_4_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_4_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_4_stance value = prev.var:tv_academy_world_debate_seat_4_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_4_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_5_country } }
+			set_variable = { name = tv_academy_world_debate_seat_5_country value = prev.var:tv_academy_world_debate_seat_5_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_5_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_5_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_5_stance value = prev.var:tv_academy_world_debate_seat_5_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_5_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_6_country } }
+			set_variable = { name = tv_academy_world_debate_seat_6_country value = prev.var:tv_academy_world_debate_seat_6_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_6_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_6_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_6_stance value = prev.var:tv_academy_world_debate_seat_6_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_6_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_7_country } }
+			set_variable = { name = tv_academy_world_debate_seat_7_country value = prev.var:tv_academy_world_debate_seat_7_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_7_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_7_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_7_stance value = prev.var:tv_academy_world_debate_seat_7_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_7_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_8_country } }
+			set_variable = { name = tv_academy_world_debate_seat_8_country value = prev.var:tv_academy_world_debate_seat_8_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_8_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_8_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_8_stance value = prev.var:tv_academy_world_debate_seat_8_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_8_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_9_country } }
+			set_variable = { name = tv_academy_world_debate_seat_9_country value = prev.var:tv_academy_world_debate_seat_9_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_9_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_9_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_9_stance value = prev.var:tv_academy_world_debate_seat_9_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_9_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_10_country } }
+			set_variable = { name = tv_academy_world_debate_seat_10_country value = prev.var:tv_academy_world_debate_seat_10_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_10_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_10_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_10_stance value = prev.var:tv_academy_world_debate_seat_10_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_10_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_11_country } }
+			set_variable = { name = tv_academy_world_debate_seat_11_country value = prev.var:tv_academy_world_debate_seat_11_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_11_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_11_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_11_stance value = prev.var:tv_academy_world_debate_seat_11_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_11_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_12_country } }
+			set_variable = { name = tv_academy_world_debate_seat_12_country value = prev.var:tv_academy_world_debate_seat_12_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_12_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_12_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_12_stance value = prev.var:tv_academy_world_debate_seat_12_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_12_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_13_country } }
+			set_variable = { name = tv_academy_world_debate_seat_13_country value = prev.var:tv_academy_world_debate_seat_13_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_13_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_13_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_13_stance value = prev.var:tv_academy_world_debate_seat_13_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_13_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_14_country } }
+			set_variable = { name = tv_academy_world_debate_seat_14_country value = prev.var:tv_academy_world_debate_seat_14_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_14_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_14_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_14_stance value = prev.var:tv_academy_world_debate_seat_14_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_14_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_15_country } }
+			set_variable = { name = tv_academy_world_debate_seat_15_country value = prev.var:tv_academy_world_debate_seat_15_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_15_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_15_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_15_stance value = prev.var:tv_academy_world_debate_seat_15_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_15_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_16_country } }
+			set_variable = { name = tv_academy_world_debate_seat_16_country value = prev.var:tv_academy_world_debate_seat_16_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_16_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_16_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_16_stance value = prev.var:tv_academy_world_debate_seat_16_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_16_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_17_country } }
+			set_variable = { name = tv_academy_world_debate_seat_17_country value = prev.var:tv_academy_world_debate_seat_17_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_17_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_17_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_17_stance value = prev.var:tv_academy_world_debate_seat_17_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_17_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_18_country } }
+			set_variable = { name = tv_academy_world_debate_seat_18_country value = prev.var:tv_academy_world_debate_seat_18_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_18_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_18_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_18_stance value = prev.var:tv_academy_world_debate_seat_18_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_18_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_19_country } }
+			set_variable = { name = tv_academy_world_debate_seat_19_country value = prev.var:tv_academy_world_debate_seat_19_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_19_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_19_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_19_stance value = prev.var:tv_academy_world_debate_seat_19_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_19_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_20_country } }
+			set_variable = { name = tv_academy_world_debate_seat_20_country value = prev.var:tv_academy_world_debate_seat_20_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_20_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_20_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_20_stance value = prev.var:tv_academy_world_debate_seat_20_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_20_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_21_country } }
+			set_variable = { name = tv_academy_world_debate_seat_21_country value = prev.var:tv_academy_world_debate_seat_21_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_21_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_21_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_21_stance value = prev.var:tv_academy_world_debate_seat_21_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_21_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_22_country } }
+			set_variable = { name = tv_academy_world_debate_seat_22_country value = prev.var:tv_academy_world_debate_seat_22_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_22_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_22_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_22_stance value = prev.var:tv_academy_world_debate_seat_22_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_22_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_23_country } }
+			set_variable = { name = tv_academy_world_debate_seat_23_country value = prev.var:tv_academy_world_debate_seat_23_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_23_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_23_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_23_stance value = prev.var:tv_academy_world_debate_seat_23_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_23_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_24_country } }
+			set_variable = { name = tv_academy_world_debate_seat_24_country value = prev.var:tv_academy_world_debate_seat_24_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_24_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_24_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_24_stance value = prev.var:tv_academy_world_debate_seat_24_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_24_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_25_country } }
+			set_variable = { name = tv_academy_world_debate_seat_25_country value = prev.var:tv_academy_world_debate_seat_25_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_25_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_25_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_25_stance value = prev.var:tv_academy_world_debate_seat_25_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_25_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_26_country } }
+			set_variable = { name = tv_academy_world_debate_seat_26_country value = prev.var:tv_academy_world_debate_seat_26_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_26_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_26_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_26_stance value = prev.var:tv_academy_world_debate_seat_26_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_26_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_27_country } }
+			set_variable = { name = tv_academy_world_debate_seat_27_country value = prev.var:tv_academy_world_debate_seat_27_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_27_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_27_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_27_stance value = prev.var:tv_academy_world_debate_seat_27_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_27_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_28_country } }
+			set_variable = { name = tv_academy_world_debate_seat_28_country value = prev.var:tv_academy_world_debate_seat_28_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_28_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_28_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_28_stance value = prev.var:tv_academy_world_debate_seat_28_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_28_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_29_country } }
+			set_variable = { name = tv_academy_world_debate_seat_29_country value = prev.var:tv_academy_world_debate_seat_29_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_29_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_29_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_29_stance value = prev.var:tv_academy_world_debate_seat_29_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_29_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_30_country } }
+			set_variable = { name = tv_academy_world_debate_seat_30_country value = prev.var:tv_academy_world_debate_seat_30_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_30_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_30_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_30_stance value = prev.var:tv_academy_world_debate_seat_30_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_30_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_31_country } }
+			set_variable = { name = tv_academy_world_debate_seat_31_country value = prev.var:tv_academy_world_debate_seat_31_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_31_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_31_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_31_stance value = prev.var:tv_academy_world_debate_seat_31_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_31_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_32_country } }
+			set_variable = { name = tv_academy_world_debate_seat_32_country value = prev.var:tv_academy_world_debate_seat_32_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_32_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_32_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_32_stance value = prev.var:tv_academy_world_debate_seat_32_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_32_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_33_country } }
+			set_variable = { name = tv_academy_world_debate_seat_33_country value = prev.var:tv_academy_world_debate_seat_33_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_33_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_33_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_33_stance value = prev.var:tv_academy_world_debate_seat_33_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_33_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_34_country } }
+			set_variable = { name = tv_academy_world_debate_seat_34_country value = prev.var:tv_academy_world_debate_seat_34_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_34_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_34_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_34_stance value = prev.var:tv_academy_world_debate_seat_34_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_34_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_35_country } }
+			set_variable = { name = tv_academy_world_debate_seat_35_country value = prev.var:tv_academy_world_debate_seat_35_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_35_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_35_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_35_stance value = prev.var:tv_academy_world_debate_seat_35_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_35_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_36_country } }
+			set_variable = { name = tv_academy_world_debate_seat_36_country value = prev.var:tv_academy_world_debate_seat_36_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_36_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_36_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_36_stance value = prev.var:tv_academy_world_debate_seat_36_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_36_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_37_country } }
+			set_variable = { name = tv_academy_world_debate_seat_37_country value = prev.var:tv_academy_world_debate_seat_37_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_37_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_37_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_37_stance value = prev.var:tv_academy_world_debate_seat_37_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_37_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_38_country } }
+			set_variable = { name = tv_academy_world_debate_seat_38_country value = prev.var:tv_academy_world_debate_seat_38_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_38_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_38_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_38_stance value = prev.var:tv_academy_world_debate_seat_38_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_38_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_39_country } }
+			set_variable = { name = tv_academy_world_debate_seat_39_country value = prev.var:tv_academy_world_debate_seat_39_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_39_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_39_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_39_stance value = prev.var:tv_academy_world_debate_seat_39_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_39_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_40_country } }
+			set_variable = { name = tv_academy_world_debate_seat_40_country value = prev.var:tv_academy_world_debate_seat_40_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_40_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_40_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_40_stance value = prev.var:tv_academy_world_debate_seat_40_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_40_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_41_country } }
+			set_variable = { name = tv_academy_world_debate_seat_41_country value = prev.var:tv_academy_world_debate_seat_41_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_41_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_41_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_41_stance value = prev.var:tv_academy_world_debate_seat_41_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_41_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_42_country } }
+			set_variable = { name = tv_academy_world_debate_seat_42_country value = prev.var:tv_academy_world_debate_seat_42_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_42_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_42_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_42_stance value = prev.var:tv_academy_world_debate_seat_42_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_42_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_43_country } }
+			set_variable = { name = tv_academy_world_debate_seat_43_country value = prev.var:tv_academy_world_debate_seat_43_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_43_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_43_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_43_stance value = prev.var:tv_academy_world_debate_seat_43_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_43_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_44_country } }
+			set_variable = { name = tv_academy_world_debate_seat_44_country value = prev.var:tv_academy_world_debate_seat_44_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_44_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_44_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_44_stance value = prev.var:tv_academy_world_debate_seat_44_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_44_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_45_country } }
+			set_variable = { name = tv_academy_world_debate_seat_45_country value = prev.var:tv_academy_world_debate_seat_45_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_45_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_45_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_45_stance value = prev.var:tv_academy_world_debate_seat_45_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_45_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_46_country } }
+			set_variable = { name = tv_academy_world_debate_seat_46_country value = prev.var:tv_academy_world_debate_seat_46_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_46_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_46_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_46_stance value = prev.var:tv_academy_world_debate_seat_46_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_46_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_47_country } }
+			set_variable = { name = tv_academy_world_debate_seat_47_country value = prev.var:tv_academy_world_debate_seat_47_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_47_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_47_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_47_stance value = prev.var:tv_academy_world_debate_seat_47_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_47_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_48_country } }
+			set_variable = { name = tv_academy_world_debate_seat_48_country value = prev.var:tv_academy_world_debate_seat_48_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_48_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_48_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_48_stance value = prev.var:tv_academy_world_debate_seat_48_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_48_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_49_country } }
+			set_variable = { name = tv_academy_world_debate_seat_49_country value = prev.var:tv_academy_world_debate_seat_49_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_49_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_49_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_49_stance value = prev.var:tv_academy_world_debate_seat_49_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_49_stance
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_50_country } }
+			set_variable = { name = tv_academy_world_debate_seat_50_country value = prev.var:tv_academy_world_debate_seat_50_country }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_50_country
+		}
+		if = {
+			limit = { prev = { has_variable = tv_academy_world_debate_seat_50_stance } }
+			set_variable = { name = tv_academy_world_debate_seat_50_stance value = prev.var:tv_academy_world_debate_seat_50_stance }
+		}
+		else = {
+			remove_variable = tv_academy_world_debate_seat_50_stance
+		}
+	}
+}
+
 tv_academy_philosophy_apply_monthly_debate_drift_effect = {
 	if = {
 		limit = {

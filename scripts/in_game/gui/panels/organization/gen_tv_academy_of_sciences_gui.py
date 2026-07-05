@@ -1119,6 +1119,10 @@ def debate_seat_var(seat: int, suffix: str) -> str:
     return f"tv_academy_debate_seat_{seat}_{suffix}"
 
 
+def world_debate_seat_var(seat: int, suffix: str) -> str:
+    return f"tv_academy_world_debate_seat_{seat}_{suffix}"
+
+
 def append_stance_marker(lines: list[str], level: int, visible_expr: str, icon: str, tooltip_key: str) -> None:
     emit(lines, level, "text_single = {")
     emit(lines, level + 1, f'visible = "{visible_expr}"')
@@ -1227,12 +1231,41 @@ def append_round_table(lines: list[str], level: int, visible_expr: str, table_te
     emit(lines, level, "}")
 
 
-def append_world_seat(lines: list[str], level: int) -> None:
+def append_world_seat_tint(lines: list[str], level: int, seat_set: str, stance_var: str, stance: int, texture: str) -> None:
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, f'visible = "[And({seat_set}, {fixed_eq(stance_var, stance)})]"')
+    emit(lines, level + 1, "size = { 100% 100% }")
+    emit(lines, level + 1, "using = bg_circle_piechart")
+    emit(lines, level + 1, "modify_texture = {")
+    emit(lines, level + 2, f"using = {texture}")
+    emit(lines, level + 2, "blend_mode = overlay")
+    emit(lines, level + 2, "alpha = 0.85")
+    emit(lines, level + 1, "}")
+    emit(lines, level, "}")
+
+
+def append_world_seat(lines: list[str], level: int, seat: int) -> None:
+    country_var = player_var(world_debate_seat_var(seat, "country"))
+    stance_var = player_var(world_debate_seat_var(seat, "stance"))
+    seat_set = f"{country_var}.IsSet"
     emit(lines, level, "widget = {")
     emit(lines, level + 1, "size = { 24 24 }")
     emit(lines, level + 1, "using = bg_circle_piechart")
-    emit(lines, level + 1, 'tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"')
+    emit(lines, level + 1, 'tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"')
+    append_world_seat_tint(lines, level + 1, seat_set, stance_var, 1, "color_light_green_texture")
+    append_world_seat_tint(lines, level + 1, seat_set, stance_var, 2, "color_red_texture")
+    append_world_seat_tint(lines, level + 1, seat_set, stance_var, 3, "color_yellow_texture")
+    emit(lines, level + 1, "widget = {")
+    emit(lines, level + 2, f'visible = "[{seat_set}]"')
+    emit(lines, level + 2, "parentanchor = center")
+    emit(lines, level + 2, "widgetanchor = center")
+    emit(lines, level + 2, "size = { 22 14 }")
+    emit(lines, level + 2, f'datacontext = "[{country_var}.GetCountry]"')
+    emit(lines, level + 2, 'tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"')
+    emit(lines, level + 2, "country_flag_small_plus = { size = { 22 14 } }")
+    emit(lines, level + 1, "}")
     emit(lines, level + 1, "text_single = {")
+    emit(lines, level + 2, f'visible = "[Not({seat_set})]"')
     emit(lines, level + 2, "parentanchor = center")
     emit(lines, level + 2, "size = { 100% 100% }")
     emit(lines, level + 2, 'raw_text = "@diplomacy!"')
@@ -1243,6 +1276,8 @@ def append_world_seat(lines: list[str], level: int) -> None:
 
 
 def append_world_table(lines: list[str], level: int) -> None:
+    strength_var = player_var("tv_academy_world_debate_strength")
+    progress_var = player_var("tv_academy_world_debate_progress")
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f'visible = "[{current_node_type_eq(2)}]"')
     emit(lines, level + 1, "size = { 470 328 }")
@@ -1251,6 +1286,7 @@ def append_world_table(lines: list[str], level: int) -> None:
     emit(lines, level + 2, "size = { 462 320 }")
     emit(lines, level + 2, "margin = { 4 6 }")
     emit(lines, level + 2, "spacing = 8")
+    seat = 1
     for _ in range(5):
         emit(lines, level + 2, "hbox = {")
         emit(lines, level + 3, "layoutpolicy_horizontal = fixed")
@@ -1258,10 +1294,24 @@ def append_world_table(lines: list[str], level: int) -> None:
         emit(lines, level + 3, "parentanchor = hcenter")
         emit(lines, level + 3, "spacing = 8")
         for _ in range(10):
-            append_world_seat(lines, level + 3)
+            append_world_seat(lines, level + 3, seat)
+            seat += 1
         emit(lines, level + 2, "}")
     emit(lines, level + 2, "expand = {}")
-    append_debate_progress_footer(lines, level + 2, "TV_ACADEMY_DEBATE_WORLD_PROGRESS_TT", "50", "50%")
+    append_debate_progress_footer(
+        lines,
+        level + 2,
+        "TV_ACADEMY_WORLD_DEBATE_STRENGTH_TT",
+        f"[{strength_var}.GetValue]",
+        f"[{strength_var}.GetValue|0]%",
+    )
+    append_debate_progress_footer(
+        lines,
+        level + 2,
+        "TV_ACADEMY_WORLD_DEBATE_PROGRESS_TT",
+        f"[{progress_var}.GetValue]",
+        f"[{progress_var}.GetValue|0]%",
+    )
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 

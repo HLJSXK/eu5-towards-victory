@@ -85,6 +85,10 @@ generated:
     data:   data/victory_paths.yaml + data/io_establishment.yaml
     output: src/in_game/gui/panels/situation/tv_victory_situation.gui
 
+  - script: scripts/in_game/gui/panels/situation/gen_tv_academy_world_debate_situation_gui.py
+    data:   data/philosophy_debates.yaml
+    output: src/in_game/gui/panels/situation/tv_academy_world_debate_situation.gui
+
   - script: scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py
     data:   data/io_leaders.yaml + data/io_establishment.yaml
     output: src/in_game/common/generic_actions/tv_io_leader_actions.txt

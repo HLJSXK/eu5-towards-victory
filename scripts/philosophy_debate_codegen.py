@@ -13,9 +13,43 @@ DATA_FILE = REPO_ROOT / "data" / "philosophy_debates.yaml"
 
 EVENT_NS = "tv_academy_debate"
 SEATS = range(1, 6)
+WORLD_SEATS = range(1, 51)
 STANCE_SUPPORT = 1
 STANCE_OPPOSE = 2
 STANCE_NEUTRAL = 3
+WORLD_RESULT_PROGRESSIVE = 1
+WORLD_RESULT_CONSERVATIVE = 2
+WORLD_RESULT_NEUTRAL = 3
+
+WORLD_PARTICIPANTS_LIST = "tv_academy_world_debate_participants"
+WORLD_ACTIVE_VAR = "tv_academy_world_debate_active"
+WORLD_ISSUE_VAR = "tv_academy_world_debate_issue"
+WORLD_NODE_VAR = "tv_academy_world_debate_node"
+WORLD_PROGRESS_VAR = "tv_academy_world_debate_progress"
+WORLD_STRENGTH_VAR = "tv_academy_world_debate_strength"
+WORLD_MONTHS_VAR = "tv_academy_world_debate_months"
+WORLD_SUPPORT_SEATS_VAR = "tv_academy_world_debate_support_seats"
+WORLD_OPPOSE_SEATS_VAR = "tv_academy_world_debate_oppose_seats"
+WORLD_NEUTRAL_SEATS_VAR = "tv_academy_world_debate_neutral_seats"
+WORLD_SEAT_COUNT_VAR = "tv_academy_world_debate_seat_count"
+WORLD_RESULT_VAR = "tv_academy_world_debate_result"
+WORLD_DELTA_VAR = "tv_academy_world_debate_delta"
+WORLD_NEXT_SEAT_VAR = "tv_academy_world_debate_next_seat"
+WORLD_DECISIVE_SEATS_VAR = "tv_academy_world_debate_decisive_seats"
+WORLD_COUNTRY_STANCE_VAR = "tv_academy_world_debate_stance"
+WORLD_NUMERIC_VARS = [
+    WORLD_ACTIVE_VAR,
+    WORLD_ISSUE_VAR,
+    WORLD_NODE_VAR,
+    WORLD_PROGRESS_VAR,
+    WORLD_STRENGTH_VAR,
+    WORLD_MONTHS_VAR,
+    WORLD_SUPPORT_SEATS_VAR,
+    WORLD_OPPOSE_SEATS_VAR,
+    WORLD_NEUTRAL_SEATS_VAR,
+    WORLD_SEAT_COUNT_VAR,
+    WORLD_RESULT_VAR,
+]
 
 EVENT_GROUP = "tv_academy_debate_event_group"
 EVENT_GROUP_2 = "tv_academy_debate_event_group_2"
@@ -129,6 +163,14 @@ def seat_foreign(seat: int | str) -> str:
 
 def seat_scientist(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_scientist"
+
+
+def world_seat_country(seat: int | str) -> str:
+    return f"tv_academy_world_debate_seat_{seat}_country"
+
+
+def world_seat_stance(seat: int | str) -> str:
+    return f"tv_academy_world_debate_seat_{seat}_stance"
 
 
 def group_condition(group: dict, status: str, *, negated: bool = False) -> str:
@@ -395,7 +437,54 @@ def generate_triggers(data: dict) -> str:
         emit(lines, 0, "}")
         emit(lines)
 
+    gen_world_debate_triggers(lines, data)
+
     return "\n".join(lines).rstrip() + "\n"
+
+
+def gen_world_debate_triggers(lines: list[str], data: dict) -> None:
+    emit(lines, 0, "tv_academy_world_debate_country_has_academy_trigger = {")
+    emit(lines, 1, "has_variable = tv_academy_io_member")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_country_can_participate_trigger = {")
+    emit(lines, 1, "tv_academy_world_debate_country_has_academy_trigger = yes")
+    emit(lines, 1, "var:tv_academy_debate_current_node_type ?= 2")
+    emit(lines, 1, "tv_academy_philosophy_has_current_issue_trigger = yes")
+    emit(lines, 1, "situation:tv_academy_world_debate_situation = {")
+    emit(lines, 2, f"has_variable = {WORLD_ACTIVE_VAR}")
+    emit(lines, 2, f"has_variable = {WORLD_ISSUE_VAR}")
+    emit(lines, 1, "}")
+    emit(lines, 1, f"var:tv_academy_philosophy_current ?= situation:tv_academy_world_debate_situation.var:{WORLD_ISSUE_VAR}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_country_supports_current_issue_trigger = {")
+    emit(lines, 1, "OR = {")
+    for issue in issues(data):
+        emit(lines, 2, "AND = {")
+        emit(lines, 3, f"situation:tv_academy_world_debate_situation = {{ var:{WORLD_ISSUE_VAR} ?= {issue['id']} }}")
+        emit(lines, 3, f"has_embraced_institution = institution:{issue['institution']}")
+        emit(lines, 2, "}")
+        emit(lines, 2, "AND = {")
+        emit(lines, 3, f"situation:tv_academy_world_debate_situation = {{ var:{WORLD_ISSUE_VAR} ?= {issue['id']} }}")
+        emit(lines, 3, f"has_variable = {issue_progressive_var(issue)}")
+        emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_country_opposes_current_issue_trigger = {")
+    emit(lines, 1, "OR = {")
+    for issue in issues(data):
+        emit(lines, 2, "AND = {")
+        emit(lines, 3, f"situation:tv_academy_world_debate_situation = {{ var:{WORLD_ISSUE_VAR} ?= {issue['id']} }}")
+        emit(lines, 3, f"has_variable = {issue_conservative_var(issue)}")
+        emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
 
 
 def gen_remove_group_seated(lines: list[str], level: int, group_id_expr: str, data: dict) -> None:
@@ -432,6 +521,7 @@ def generate_effects(data: dict) -> str:
     gen_defection_effects(lines, data)
     gen_result_effects(lines, data)
     gen_endpoint_effects(lines, data)
+    gen_world_debate_effects(lines, data)
 
     emit(lines, 0, "tv_academy_philosophy_apply_monthly_debate_drift_effect = {")
     emit(lines, 1, "if = {")
@@ -1438,6 +1528,218 @@ def gen_endpoint_effects(lines: list[str], data: dict) -> None:
         emit(lines)
 
 
+def gen_world_debate_effects(lines: list[str], data: dict) -> None:
+    emit(lines, 0, "tv_academy_world_debate_initialize_effect = {")
+    for var in (WORLD_ACTIVE_VAR, WORLD_ISSUE_VAR, WORLD_NODE_VAR, WORLD_RESULT_VAR, WORLD_DELTA_VAR, WORLD_NEXT_SEAT_VAR, WORLD_DECISIVE_SEATS_VAR):
+        emit(lines, 1, f"remove_variable = {var}")
+    emit(lines, 1, f"set_variable = {{ name = {WORLD_PROGRESS_VAR} value = 50 }}")
+    emit(lines, 1, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = 50 }}")
+    emit(lines, 1, f"set_variable = {{ name = {WORLD_MONTHS_VAR} value = 0 }}")
+    emit(lines, 1, "tv_academy_world_debate_clear_seats_effect = yes")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_clear_seats_effect = {")
+    emit(lines, 1, f"clear_global_variable_list = {WORLD_PARTICIPANTS_LIST}")
+    for seat in WORLD_SEATS:
+        emit(lines, 1, f"remove_variable = {world_seat_country(seat)}")
+        emit(lines, 1, f"remove_variable = {world_seat_stance(seat)}")
+    for var in (WORLD_SUPPORT_SEATS_VAR, WORLD_OPPOSE_SEATS_VAR, WORLD_NEUTRAL_SEATS_VAR, WORLD_SEAT_COUNT_VAR):
+        emit(lines, 1, f"set_variable = {{ name = {var} value = 0 }}")
+    emit(lines, 1, f"remove_variable = {WORLD_NEXT_SEAT_VAR}")
+    emit(lines, 1, f"remove_variable = {WORLD_DECISIVE_SEATS_VAR}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_try_begin_for_country_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, "limit = {")
+    emit(lines, 3, "tv_academy_world_debate_country_has_academy_trigger = yes")
+    emit(lines, 3, "var:tv_academy_debate_current_node_type ?= 2")
+    emit(lines, 3, "tv_academy_philosophy_has_current_issue_trigger = yes")
+    emit(lines, 3, "situation:tv_academy_world_debate_situation = {")
+    emit(lines, 4, f"NOT = {{ has_variable = {WORLD_ACTIVE_VAR} }}")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+    emit(lines, 2, "situation:tv_academy_world_debate_situation = {")
+    emit(lines, 3, "tv_academy_world_debate_initialize_effect = yes")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_ACTIVE_VAR} value = 1 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_ISSUE_VAR} value = prev.var:tv_academy_philosophy_current }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_NODE_VAR} value = prev.var:tv_academy_debate_current_node }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_PROGRESS_VAR} value = 50 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = 50 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_MONTHS_VAR} value = 0 }}")
+    emit(lines, 3, "tv_academy_world_debate_refresh_seats_effect = yes")
+    emit(lines, 3, "tv_academy_world_debate_mirror_all_countries_effect = yes")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_monthly_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ has_variable = {WORLD_ACTIVE_VAR} }}")
+    emit(lines, 2, "tv_academy_world_debate_refresh_seats_effect = yes")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_MONTHS_VAR} add = 1 }}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_DELTA_VAR} value = var:{WORLD_STRENGTH_VAR} }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_DELTA_VAR} add = -50 }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_DELTA_VAR} divide = 100 }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_DELTA_VAR} multiply = 5 }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_PROGRESS_VAR} add = var:{WORLD_DELTA_VAR} }}")
+    emit(lines, 2, f"clamp_variable = {{ name = {WORLD_PROGRESS_VAR} min = 0 max = 100 }}")
+    emit(lines, 2, "if = {")
+    emit(lines, 3, f"limit = {{ var:{WORLD_PROGRESS_VAR} <= 0 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_RESULT_VAR} value = {WORLD_RESULT_CONSERVATIVE} }}")
+    emit(lines, 3, "tv_academy_world_debate_resolve_effect = yes")
+    emit(lines, 2, "}")
+    emit(lines, 2, "else_if = {")
+    emit(lines, 3, f"limit = {{ var:{WORLD_PROGRESS_VAR} >= 100 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_RESULT_VAR} value = {WORLD_RESULT_PROGRESSIVE} }}")
+    emit(lines, 3, "tv_academy_world_debate_resolve_effect = yes")
+    emit(lines, 2, "}")
+    emit(lines, 2, "else_if = {")
+    emit(lines, 3, f"limit = {{ var:{WORLD_MONTHS_VAR} >= 120 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_RESULT_VAR} value = {WORLD_RESULT_NEUTRAL} }}")
+    emit(lines, 3, "tv_academy_world_debate_resolve_effect = yes")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 1, "tv_academy_world_debate_mirror_all_countries_effect = yes")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_refresh_seats_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ NOT = {{ has_variable = {WORLD_ACTIVE_VAR} }} }}")
+    emit(lines, 2, "tv_academy_world_debate_clear_seats_effect = yes")
+    emit(lines, 1, "}")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ has_variable = {WORLD_ACTIVE_VAR} }}")
+    emit(lines, 2, "tv_academy_world_debate_clear_seats_effect = yes")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_NEXT_SEAT_VAR} value = 1 }}")
+    emit(lines, 2, "every_country = {")
+    emit(lines, 3, "limit = { tv_academy_world_debate_country_can_participate_trigger = yes }")
+    emit(lines, 3, f"add_to_global_variable_list = {{ name = {WORLD_PARTICIPANTS_LIST} target = this }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_COUNTRY_STANCE_VAR} value = {STANCE_NEUTRAL} }}")
+    emit(lines, 3, "if = {")
+    emit(lines, 4, "limit = { tv_academy_world_debate_country_supports_current_issue_trigger = yes }")
+    emit(lines, 4, f"set_variable = {{ name = {WORLD_COUNTRY_STANCE_VAR} value = {STANCE_SUPPORT} }}")
+    emit(lines, 3, "}")
+    emit(lines, 3, "else_if = {")
+    emit(lines, 4, "limit = { tv_academy_world_debate_country_opposes_current_issue_trigger = yes }")
+    emit(lines, 4, f"set_variable = {{ name = {WORLD_COUNTRY_STANCE_VAR} value = {STANCE_OPPOSE} }}")
+    emit(lines, 3, "}")
+    for stance_value, count_var in (
+        (STANCE_SUPPORT, WORLD_SUPPORT_SEATS_VAR),
+        (STANCE_OPPOSE, WORLD_OPPOSE_SEATS_VAR),
+        (STANCE_NEUTRAL, WORLD_NEUTRAL_SEATS_VAR),
+    ):
+        emit(lines, 3, "if = {")
+        emit(lines, 4, f"limit = {{ {var_eq(WORLD_COUNTRY_STANCE_VAR, stance_value)} }}")
+        emit(lines, 4, f"situation:tv_academy_world_debate_situation = {{ change_variable = {{ name = {count_var} add = 1 }} }}")
+        emit(lines, 3, "}")
+    emit(lines, 3, f"situation:tv_academy_world_debate_situation = {{ change_variable = {{ name = {WORLD_SEAT_COUNT_VAR} add = 1 }} }}")
+    gen_world_seat_assignment_branches(lines, 3)
+    emit(lines, 2, "}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_DECISIVE_SEATS_VAR} value = var:{WORLD_SUPPORT_SEATS_VAR} }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_DECISIVE_SEATS_VAR} add = var:{WORLD_OPPOSE_SEATS_VAR} }}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = 50 }}")
+    emit(lines, 2, "if = {")
+    emit(lines, 3, f"limit = {{ var:{WORLD_DECISIVE_SEATS_VAR} > 0 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = var:{WORLD_SUPPORT_SEATS_VAR} }}")
+    emit(lines, 3, f"change_variable = {{ name = {WORLD_STRENGTH_VAR} divide = var:{WORLD_DECISIVE_SEATS_VAR} }}")
+    emit(lines, 3, f"change_variable = {{ name = {WORLD_STRENGTH_VAR} multiply = 100 }}")
+    emit(lines, 3, f"clamp_variable = {{ name = {WORLD_STRENGTH_VAR} min = 0 max = 100 }}")
+    emit(lines, 2, "}")
+    emit(lines, 2, f"remove_variable = {WORLD_NEXT_SEAT_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_DECISIVE_SEATS_VAR}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_resolve_effect = {")
+    emit(lines, 1, f"if = {{")
+    emit(lines, 2, f"limit = {{ has_variable = {WORLD_ACTIVE_VAR} has_variable = {WORLD_RESULT_VAR} }}")
+    emit(lines, 2, f"if = {{")
+    emit(lines, 3, f"limit = {{ has_global_variable_list = {WORLD_PARTICIPANTS_LIST} }}")
+    emit(lines, 3, "every_in_global_list = {")
+    emit(lines, 4, f"variable = {WORLD_PARTICIPANTS_LIST}")
+    emit(lines, 4, "limit = {")
+    emit(lines, 5, "tv_academy_world_debate_country_has_academy_trigger = yes")
+    emit(lines, 5, f"var:tv_academy_philosophy_current ?= root.var:{WORLD_ISSUE_VAR}")
+    emit(lines, 4, "}")
+    emit(lines, 4, "tv_academy_world_debate_apply_country_result_effect = yes")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+    emit(lines, 2, f"remove_variable = {WORLD_ACTIVE_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_ISSUE_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_NODE_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_RESULT_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_DELTA_VAR}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_PROGRESS_VAR} value = 50 }}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = 50 }}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_MONTHS_VAR} value = 0 }}")
+    emit(lines, 2, "tv_academy_world_debate_clear_seats_effect = yes")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_apply_country_result_effect = {")
+    for issue in issues(data):
+        emit(lines, 1, "if = {")
+        emit(lines, 2, f"limit = {{ root = {{ var:{WORLD_ISSUE_VAR} ?= {issue['id']} }} }}")
+        emit(lines, 2, "if = {")
+        emit(lines, 3, f"limit = {{ root = {{ var:{WORLD_RESULT_VAR} ?= {WORLD_RESULT_PROGRESSIVE} }} }}")
+        emit(lines, 3, f"set_variable = {{ name = {issue_progressive_var(issue)} value = 1 }}")
+        emit(lines, 3, f"remove_variable = {issue_conservative_var(issue)}")
+        emit(lines, 3, f"tv_academy_philosophy_accept_{issue['key']}_effect = yes")
+        emit(lines, 2, "}")
+        emit(lines, 2, "else_if = {")
+        emit(lines, 3, f"limit = {{ root = {{ var:{WORLD_RESULT_VAR} ?= {WORLD_RESULT_CONSERVATIVE} }} NOT = {{ has_embraced_institution = institution:{issue['institution']} }} }}")
+        emit(lines, 3, f"set_variable = {{ name = {issue_conservative_var(issue)} value = 1 }}")
+        emit(lines, 3, f"remove_variable = {issue_progressive_var(issue)}")
+        emit(lines, 2, "}")
+        emit(lines, 2, "tv_academy_philosophy_advance_current_issue_effect = yes")
+        emit(lines, 2, "tv_academy_philosophy_enter_recess_effect = yes")
+        emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_mirror_all_countries_effect = {")
+    emit(lines, 1, "every_country = {")
+    emit(lines, 2, "limit = { tv_academy_world_debate_country_has_academy_trigger = yes }")
+    gen_world_mirror_variable_branches(lines, 2)
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+
+def gen_world_seat_assignment_branches(lines: list[str], level: int) -> None:
+    for seat in WORLD_SEATS:
+        emit(lines, level, ("if" if seat == 1 else "else_if") + " = {")
+        emit(lines, level + 1, f"limit = {{ situation:tv_academy_world_debate_situation = {{ var:{WORLD_NEXT_SEAT_VAR} ?= {seat} }} }}")
+        emit(lines, level + 1, "situation:tv_academy_world_debate_situation = {")
+        emit(lines, level + 2, f"set_variable = {{ name = {world_seat_country(seat)} value = prev }}")
+        emit(lines, level + 2, f"set_variable = {{ name = {world_seat_stance(seat)} value = prev.var:{WORLD_COUNTRY_STANCE_VAR} }}")
+        emit(lines, level + 2, f"change_variable = {{ name = {WORLD_NEXT_SEAT_VAR} add = 1 }}")
+        emit(lines, level + 1, "}")
+        emit(lines, level, "}")
+
+
+def gen_world_mirror_variable_branches(lines: list[str], level: int) -> None:
+    variables = [*WORLD_NUMERIC_VARS]
+    for seat in WORLD_SEATS:
+        variables.append(world_seat_country(seat))
+        variables.append(world_seat_stance(seat))
+    for var in variables:
+        emit(lines, level, "if = {")
+        emit(lines, level + 1, f"limit = {{ prev = {{ has_variable = {var} }} }}")
+        emit(lines, level + 1, f"set_variable = {{ name = {var} value = prev.var:{var} }}")
+        emit(lines, level, "}")
+        emit(lines, level, "else = {")
+        emit(lines, level + 1, f"remove_variable = {var}")
+        emit(lines, level, "}")
+
+
 def generate_events(data: dict) -> str:
     script = "scripts/in_game/events/gen_tv_academy_philosophy_debate_events.py"
     lines: list[str] = [header(script).rstrip(), "", f"namespace = {EVENT_NS}", ""]
@@ -1623,6 +1925,17 @@ def generate_loc(data: dict, language: str) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def add_world_debate_loc_entries(entries: dict[str, str], zh: bool) -> None:
+    entries["tv_academy_world_debate_situation"] = "科学院世界辩论" if zh else "Academy World Debate"
+    entries["tv_academy_world_debate_situation_desc"] = "拥有科学院的国家会在世界辩论阶段围绕同一思潮展开辩论。" if zh else "Countries with an Academy of Sciences enter the world debate stage around the same philosophy."
+    entries["TV_ACADEMY_WORLD_DEBATE_TITLE"] = "世界辩论" if zh else "World Debate"
+    entries["TV_ACADEMY_WORLD_DEBATE_EMPTY"] = "尚无世界辩论" if zh else "No active world debate"
+    entries["TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"] = "一个空置的世界辩论席位。" if zh else "An empty world debate seat."
+    entries["TV_ACADEMY_WORLD_DEBATE_SEAT_TT"] = "该国家在世界辩论中拥有一个席位。绿色支持，红色反对，黄色中立。" if zh else "This country has one seat in the world debate. Green supports, red opposes, and yellow is neutral."
+    entries["TV_ACADEMY_WORLD_DEBATE_STRENGTH_TT"] = "世界辩论实力对比：支持席数 /（支持席数 + 反对席数）。中立席位不计入该比例。" if zh else "World debate strength: support seats divided by support plus opposition seats. Neutral seats are excluded."
+    entries["TV_ACADEMY_WORLD_DEBATE_PROGRESS_TT"] = "世界辩论从50进度开始；每月变化为（实力对比 - 50%）×5。达到0为保守结局，达到100为进步结局，10年未结束为中立结局。" if zh else "World debate starts at 50 progress. Each month changes by (strength - 50%) x 5. Reaching 0 gives the conservative result, reaching 100 gives the progressive result, and ten years without a result gives the neutral result."
+
+
 def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
     zh = lang == "simp_chinese"
     entries: dict[str, str] = {}
@@ -1633,6 +1946,7 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
     entries["TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"] = "本地辩论进度现在完全由辩论席上的团体通过月度事件推动；支持方增加进度，反对方降低进度，中立方暂不影响进度。" if zh else "Local debate progress is now event-driven by seated debate groups. Supporters increase progress, opponents reduce it, and neutral groups do not move it yet."
     entries["TV_ACADEMY_DEBATE_LOCAL_EMPTY_SEAT_TT"] = "一个空置的[tv_debate_seat|E]。" if zh else "An empty [tv_debate_seat|E]."
     entries["TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT"] = "王室固定主持本国辩论，并始终支持当前议题。" if zh else "The Crown permanently presides over the domestic debate and always supports the current issue."
+    add_world_debate_loc_entries(entries, zh)
     for group in groups(data):
         name = group["loc"][lang]
         for num, template in event_loc_templates(zh).items():
@@ -1699,6 +2013,7 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
     entries["TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"] = "本地辩论进度现在完全由辩论席上的团体通过月度事件推动：支持方增加进度，反对方降低进度，中立方暂不影响进度。" if zh else "Local debate progress is now event-driven by seated debate groups. Supporters increase progress, opponents reduce it, and neutral groups do not move it yet."
     entries["TV_ACADEMY_DEBATE_LOCAL_EMPTY_SEAT_TT"] = "一个空置的[tv_debate_seat|E]。" if zh else "An empty [tv_debate_seat|E]."
     entries["TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT"] = "王室固定主持本国辩论，并始终支持当前议题。" if zh else "The Crown permanently presides over the domestic debate and always supports the current issue."
+    add_world_debate_loc_entries(entries, zh)
     templates = event_loc_templates(zh)
     for group in groups(data):
         name = group["loc"][lang]
