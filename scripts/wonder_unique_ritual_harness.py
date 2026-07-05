@@ -3633,6 +3633,18 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT = 
     REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP.values()
 )
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START = 7309
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_COUNT = (
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP["event"]
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_END = (
+    REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START
+    + REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_COUNT
+    - 1
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_WINDOW = (
+    f"unique_alhambra event_ids {REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START}-"
+    f"{REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_END}"
+)
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND = {
     "event_opening_skeleton": "opening",
     "event_update_skeleton": "update",
@@ -4112,7 +4124,35 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_FILE_CONTRACT_ARTIFA
     "required_validations",
     "remaining_blockers",
     "unresolved_writer_blockers",
+    "scripted_effect_cleanup_source_body_draft",
     "no_write_source_writer_contract_evidence",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_REQUIRED_FIELDS = {
+    "kind",
+    "draft_version",
+    "pilot_key",
+    "family",
+    "interface_family",
+    "artifact_kind",
+    "row_set_key",
+    "target_path",
+    "future_source_target_path",
+    "source_type",
+    "operation",
+    "operation_family",
+    "operation_coverage",
+    "row_state_boundary",
+    "aggregate_refresh_boundary",
+    "cleanup_lifecycle_boundary",
+    "source_body_outline",
+    "output_is_loadable_source",
+    "body_emitted",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
 }
 REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED_FIELDS = {
     "artifact_key",
@@ -4331,6 +4371,30 @@ REPEATED_ENTITY_ROW_SOURCE_PREVIEW_CLEANUP_COVERAGE_SCOPES = (
     "ownership_loss",
     "ritual_reset",
 )
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_EFFECT_OPERATIONS = (
+    "row_init",
+    "row_state_write",
+    "branch_write",
+    "aggregate_refresh",
+    "cleanup_write",
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_CLEANUP_LIFECYCLE_SCOPES = (
+    "completion",
+    "failure",
+    "ownership_loss",
+    "reset",
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_OPERATION_BY_ARTIFACT_KIND = {
+    "scripted_effect_row_init": "row_init",
+    "scripted_effect_row_state_write": "row_state_write",
+    "scripted_effect_branch_write": "branch_write",
+    "scripted_effect_aggregate_refresh": "aggregate_refresh",
+    "scripted_effect_cleanup_write": "cleanup_write",
+    "cleanup_completion": "completion",
+    "cleanup_failure": "failure",
+    "cleanup_ownership_loss": "ownership_loss",
+    "cleanup_ritual_reset": "reset",
+}
 REPEATED_ENTITY_ROW_SOURCE_EVIDENCE_BY_ARTIFACT_KIND = {
     "event_opening_skeleton": {
         "eu5_source_syntax_pattern": (
@@ -13335,7 +13399,7 @@ def _alhambra_event_source_body_draft(
             "allocation_source": "alhambra_event_interface_artifact_index_no_write_draft",
             "base_event_id": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START,
             "artifact_index": index,
-            "declared_source_event_id_window": "unique_alhambra event_ids 7309-7312",
+            "declared_source_event_id_window": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_WINDOW,
             "derived_for_repeated_row_artifact": True,
             "writes_spec": False,
             "writes_src": False,
@@ -13655,6 +13719,125 @@ def _alhambra_scripted_effect_cleanup_source_body_candidate_ref_key(
     }
 
 
+def _alhambra_scripted_effect_cleanup_source_body_draft_effect_name(
+    *,
+    row_set_key: str,
+    artifact_kind: str,
+) -> str:
+    suffix = artifact_kind
+    for prefix in ("scripted_effect_", "cleanup_"):
+        if suffix.startswith(prefix):
+            suffix = suffix[len(prefix):]
+            break
+    return f"tv_wonder_unique_alhambra_ritual_{row_set_key}_{suffix}_effect"
+
+
+def _alhambra_scripted_effect_cleanup_source_body_draft(
+    *,
+    ref: dict[str, Any],
+    target_path: str,
+) -> dict[str, Any]:
+    family = str(ref.get("family", ""))
+    artifact_kind = str(ref.get("artifact_kind", ""))
+    row_set_key = str(ref.get("row_set_key", ""))
+    operation = (
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_OPERATION_BY_ARTIFACT_KIND.get(
+            artifact_kind,
+            "",
+        )
+    )
+    is_effect = family == "effect"
+    is_cleanup = family == "cleanup"
+    future_effect_name = _alhambra_scripted_effect_cleanup_source_body_draft_effect_name(
+        row_set_key=row_set_key,
+        artifact_kind=artifact_kind,
+    )
+    effect_operations = list(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_EFFECT_OPERATIONS
+    )
+    cleanup_lifecycle_scopes = list(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_CLEANUP_LIFECYCLE_SCOPES
+    )
+    return {
+        "kind": "scripted_effect_cleanup_source_body_draft",
+        "draft_version": 1,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": family,
+        "interface_family": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_FAMILY,
+        "artifact_kind": artifact_kind,
+        "row_set_key": row_set_key,
+        "target_path": target_path,
+        "future_source_target_path": str(ref.get("future_source_target_path", "")),
+        "source_type": "common/scripted_effects",
+        "operation": operation,
+        "operation_family": family,
+        "operation_coverage": {
+            "required_effect_operations": effect_operations,
+            "required_cleanup_lifecycle_scopes": cleanup_lifecycle_scopes,
+            "active_effect_operation": operation if is_effect else "",
+            "active_cleanup_lifecycle_scope": operation if is_cleanup else "",
+            "row_init": operation == "row_init",
+            "row_state_write": operation == "row_state_write",
+            "branch_write": operation == "branch_write",
+            "aggregate_refresh": operation == "aggregate_refresh",
+            "cleanup_write": operation == "cleanup_write",
+            "completion": operation == "completion",
+            "failure": operation == "failure",
+            "ownership_loss": operation == "ownership_loss",
+            "reset": operation == "reset",
+            "coverage_contract_only": True,
+            "body_emitted": False,
+        },
+        "row_state_boundary": {
+            "row_set_key": row_set_key,
+            "row_state_operation": operation if is_effect else "",
+            "row_init_planned": operation == "row_init",
+            "row_state_write_planned": operation == "row_state_write",
+            "branch_write_planned": operation == "branch_write",
+            "schema_contract_only": True,
+            "row_state_writes_allowed": False,
+            "row_state_write_schema_allowed": False,
+            "body_emitted": False,
+        },
+        "aggregate_refresh_boundary": {
+            "aggregate_refresh_operation": operation == "aggregate_refresh",
+            "aggregate_refresh_required_after_row_writes": True,
+            "projection_only": True,
+            "body_emitted": False,
+        },
+        "cleanup_lifecycle_boundary": {
+            "cleanup_write_planned": operation == "cleanup_write",
+            "cleanup_lifecycle_scope": operation if is_cleanup else "",
+            "required_cleanup_lifecycle_scopes": cleanup_lifecycle_scopes,
+            "completion": operation == "completion",
+            "failure": operation == "failure",
+            "ownership_loss": operation == "ownership_loss",
+            "reset": operation == "reset",
+            "cleanup_source_writer_allowed": False,
+            "row_state_writes_allowed": False,
+            "body_emitted": False,
+        },
+        "source_body_outline": {
+            "declaration_ref": future_effect_name,
+            "effect_name_ref": future_effect_name,
+            "operation": operation,
+            "row_set_key": row_set_key,
+            "source_body_emitted": False,
+            "inline_row_state_write_allowed": False,
+            "inline_cleanup_write_allowed": False,
+            "loadable_effect_body_allowed": False,
+        },
+        "output_is_loadable_source": False,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
 def _alhambra_scripted_effect_cleanup_source_generator_interface_prototype(
     *,
     contract: dict[str, Any],
@@ -13758,6 +13941,10 @@ def _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
         "required_validations": sorted(_string_refs(contract.get("required_validations"))),
         "remaining_blockers": sorted(_string_refs(contract.get("remaining_blockers"))),
         "unresolved_writer_blockers": sorted(_string_refs(contract.get("unresolved_writer_blockers"))),
+        "scripted_effect_cleanup_source_body_draft": _alhambra_scripted_effect_cleanup_source_body_draft(
+            ref=ref,
+            target_path=target_path,
+        ),
         "no_write_source_writer_contract_evidence": deepcopy(
             contract.get("no_write_source_writer_contract_evidence", {}) or {}
         ),
@@ -16352,6 +16539,7 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
 
     actual_ref_keys: set[tuple[str, str, str, str]] = set()
     draft_event_ids: list[int] = []
+    declared_event_id_windows: list[str] = []
     draft_stage_counts: dict[str, int] = {}
     for index, artifact in enumerate(artifacts):
         if not isinstance(artifact, dict):
@@ -16414,6 +16602,10 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
         if draft_event_id is not None:
             draft_event_ids.append(draft_event_id)
         draft = artifact.get("event_source_body_draft") if isinstance(artifact.get("event_source_body_draft"), dict) else {}
+        allocation = draft.get("event_id_allocation") if isinstance(draft.get("event_id_allocation"), dict) else {}
+        declared_window = str(allocation.get("declared_source_event_id_window", ""))
+        if declared_window:
+            declared_event_id_windows.append(declared_window)
         stage = str(draft.get("event_stage", ""))
         if stage:
             draft_stage_counts[stage] = draft_stage_counts.get(stage, 0) + 1
@@ -16432,6 +16624,16 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
         )
     if len(draft_event_ids) != len(set(draft_event_ids)):
         errors.append("Alhambra event source generator interface event source-body draft event ids must be unique")
+    if draft_event_ids:
+        actual_declared_window = f"unique_alhambra event_ids {min(draft_event_ids)}-{max(draft_event_ids)}"
+        if (
+            len(declared_event_id_windows) != len(draft_event_ids)
+            or set(declared_event_id_windows) != {actual_declared_window}
+        ):
+            errors.append(
+                "Alhambra event source generator interface declared source event id window must match actual "
+                "event_source_body_draft.event_id min/max"
+            )
     expected_stage_counts = {"opening": 2, "update": 2, "retry": 2, "resolve": 2}
     if draft_stage_counts != expected_stage_counts:
         errors.append("Alhambra event source generator interface event source-body draft stage coverage mismatch")
@@ -16763,6 +16965,156 @@ def validate_repeated_entity_row_alhambra_scripted_trigger_source_generator_inte
     return errors
 
 
+def _validate_alhambra_scripted_effect_cleanup_source_body_draft(
+    *,
+    context: str,
+    artifact: dict[str, Any],
+    draft: Any,
+    errors: list[str],
+) -> tuple[str, str, str]:
+    if not isinstance(draft, dict):
+        errors.append(f"{context} missing scripted-effect/cleanup source-body draft")
+        return "", "", ""
+    missing = _missing_required(
+        draft,
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_REQUIRED_FIELDS,
+    )
+    if missing:
+        errors.append(
+            f"{context} scripted-effect/cleanup source-body draft missing field(s): {', '.join(missing)}"
+        )
+        return "", "", ""
+
+    family = str(artifact.get("family", ""))
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    target_path = str(artifact.get("target_path", ""))
+    expected_operation = (
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_OPERATION_BY_ARTIFACT_KIND.get(
+            artifact_kind,
+            "",
+        )
+    )
+    if draft.get("kind") != "scripted_effect_cleanup_source_body_draft":
+        errors.append(f"{context} scripted-effect/cleanup source-body draft kind mismatch")
+    if draft.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append(f"{context} scripted-effect/cleanup source-body draft pilot_key must be unique_alhambra")
+    if draft.get("family") != family or draft.get("operation_family") != family:
+        errors.append(f"{context} scripted-effect/cleanup source-body draft family mismatch")
+    if draft.get("interface_family") != REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_FAMILY:
+        errors.append(f"{context} scripted-effect/cleanup source-body draft interface family mismatch")
+    if draft.get("artifact_kind") != artifact_kind:
+        errors.append(f"{context} scripted-effect/cleanup source-body draft artifact_kind mismatch")
+    if draft.get("row_set_key") != row_set_key:
+        errors.append(f"{context} scripted-effect/cleanup source-body draft row_set_key mismatch")
+    if draft.get("target_path") != target_path or draft.get("future_source_target_path") != target_path:
+        errors.append(f"{context} scripted-effect/cleanup source-body draft target path mismatch")
+    if draft.get("source_type") != "common/scripted_effects":
+        errors.append(f"{context} scripted-effect/cleanup source-body draft source_type mismatch")
+    if draft.get("operation") != expected_operation:
+        errors.append(f"{context} scripted-effect/cleanup source-body draft operation mismatch")
+    for flag in (
+        "output_is_loadable_source",
+        "body_emitted",
+        "source_ready",
+        "verified",
+        "backend_ready",
+        "source_writer_allowed",
+        "may_write_src",
+        "writes_src",
+    ):
+        if draft.get(flag) is not False:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft {flag} must be false")
+
+    required_effect_operations = set(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_EFFECT_OPERATIONS
+    )
+    required_cleanup_scopes = set(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_CLEANUP_LIFECYCLE_SCOPES
+    )
+    coverage = draft.get("operation_coverage")
+    if not isinstance(coverage, dict):
+        errors.append(f"{context} scripted-effect/cleanup source-body draft missing operation coverage")
+    else:
+        if set(_string_refs(coverage.get("required_effect_operations"))) != required_effect_operations:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft missing effect operation coverage")
+        if set(_string_refs(coverage.get("required_cleanup_lifecycle_scopes"))) != required_cleanup_scopes:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft missing cleanup lifecycle coverage")
+        expected_effect_operation = expected_operation if family == "effect" else ""
+        expected_cleanup_scope = expected_operation if family == "cleanup" else ""
+        if coverage.get("active_effect_operation") != expected_effect_operation:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft active effect operation mismatch")
+        if coverage.get("active_cleanup_lifecycle_scope") != expected_cleanup_scope:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft active cleanup scope mismatch")
+        if expected_operation and coverage.get(expected_operation) is not True:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft active operation coverage missing")
+        if coverage.get("coverage_contract_only") is not True or coverage.get("body_emitted") is not False:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft operation coverage must remain no-write")
+
+    row_state_boundary = draft.get("row_state_boundary")
+    if not isinstance(row_state_boundary, dict):
+        errors.append(f"{context} scripted-effect/cleanup source-body draft missing row-state boundary")
+    elif (
+        row_state_boundary.get("row_set_key") != row_set_key
+        or row_state_boundary.get("schema_contract_only") is not True
+        or row_state_boundary.get("row_state_writes_allowed") is not False
+        or row_state_boundary.get("row_state_write_schema_allowed") is not False
+        or row_state_boundary.get("body_emitted") is not False
+    ):
+        errors.append(f"{context} scripted-effect/cleanup source-body draft row-state boundary mismatch")
+
+    aggregate_boundary = draft.get("aggregate_refresh_boundary")
+    if not isinstance(aggregate_boundary, dict):
+        errors.append(f"{context} scripted-effect/cleanup source-body draft missing aggregate refresh boundary")
+    elif (
+        aggregate_boundary.get("aggregate_refresh_required_after_row_writes") is not True
+        or aggregate_boundary.get("projection_only") is not True
+        or aggregate_boundary.get("body_emitted") is not False
+    ):
+        errors.append(f"{context} scripted-effect/cleanup source-body draft aggregate refresh boundary mismatch")
+
+    cleanup_boundary = draft.get("cleanup_lifecycle_boundary")
+    if not isinstance(cleanup_boundary, dict):
+        errors.append(f"{context} scripted-effect/cleanup source-body draft missing cleanup lifecycle boundary")
+    else:
+        expected_cleanup_scope = expected_operation if family == "cleanup" else ""
+        if cleanup_boundary.get("cleanup_lifecycle_scope") != expected_cleanup_scope:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft cleanup lifecycle scope mismatch")
+        if set(_string_refs(cleanup_boundary.get("required_cleanup_lifecycle_scopes"))) != required_cleanup_scopes:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft missing cleanup lifecycle coverage")
+        if expected_cleanup_scope and cleanup_boundary.get(expected_cleanup_scope) is not True:
+            errors.append(f"{context} scripted-effect/cleanup source-body draft active cleanup lifecycle missing")
+        if (
+            cleanup_boundary.get("cleanup_source_writer_allowed") is not False
+            or cleanup_boundary.get("row_state_writes_allowed") is not False
+            or cleanup_boundary.get("body_emitted") is not False
+        ):
+            errors.append(f"{context} scripted-effect/cleanup source-body draft cleanup boundary must remain no-write")
+
+    outline = draft.get("source_body_outline")
+    expected_effect_name = _alhambra_scripted_effect_cleanup_source_body_draft_effect_name(
+        row_set_key=row_set_key,
+        artifact_kind=artifact_kind,
+    )
+    if not isinstance(outline, dict):
+        errors.append(f"{context} scripted-effect/cleanup source-body draft missing source body outline")
+    elif (
+        outline.get("declaration_ref") != expected_effect_name
+        or outline.get("effect_name_ref") != expected_effect_name
+        or outline.get("operation") != expected_operation
+        or outline.get("row_set_key") != row_set_key
+        or outline.get("source_body_emitted") is not False
+        or outline.get("inline_row_state_write_allowed") is not False
+        or outline.get("inline_cleanup_write_allowed") is not False
+        or outline.get("loadable_effect_body_allowed") is not False
+    ):
+        errors.append(f"{context} scripted-effect/cleanup source-body draft source body outline mismatch")
+
+    effect_operation = expected_operation if family == "effect" else ""
+    cleanup_scope = expected_operation if family == "cleanup" else ""
+    return row_set_key, effect_operation, cleanup_scope
+
+
 def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface(
     report: dict[str, Any],
     *,
@@ -17000,6 +17352,8 @@ def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generat
         errors.append("Alhambra scripted-effect/cleanup source generator interface prototype must be a mapping")
 
     actual_ref_keys: set[tuple[str, str, str, str]] = set()
+    draft_coverage_by_row_set: dict[str, dict[str, set[str]]] = {}
+    scripted_effect_cleanup_source_body_draft_count = 0
     for index, artifact in enumerate(artifacts):
         if not isinstance(artifact, dict):
             errors.append("Alhambra scripted-effect/cleanup source generator interface artifact must be a mapping")
@@ -17067,6 +17421,24 @@ def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generat
             errors.append(f"{context} source generator contract ref mismatch")
         if artifact.get("source_file_validation_evidence_ref") != expected_pack_ref:
             errors.append(f"{context} source-file validation evidence ref mismatch")
+        draft_row_set, draft_effect_operation, draft_cleanup_scope = (
+            _validate_alhambra_scripted_effect_cleanup_source_body_draft(
+                context=context,
+                artifact=artifact,
+                draft=artifact.get("scripted_effect_cleanup_source_body_draft"),
+                errors=errors,
+            )
+        )
+        if draft_row_set:
+            scripted_effect_cleanup_source_body_draft_count += 1
+            draft_coverage = draft_coverage_by_row_set.setdefault(
+                draft_row_set,
+                {"effect_operations": set(), "cleanup_lifecycle_scopes": set()},
+            )
+            if draft_effect_operation:
+                draft_coverage["effect_operations"].add(draft_effect_operation)
+            if draft_cleanup_scope:
+                draft_coverage["cleanup_lifecycle_scopes"].add(draft_cleanup_scope)
         if expected_artifacts and index < len(expected_artifacts) and artifact != expected_artifacts[index]:
             errors.append(f"{context} external validation evidence mismatch")
 
@@ -17088,6 +17460,37 @@ def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generat
         errors.append(
             "Alhambra scripted-effect/cleanup source generator interface family counts external validation evidence mismatch"
         )
+    if scripted_effect_cleanup_source_body_draft_count != len(artifacts):
+        errors.append(
+            "Alhambra scripted-effect/cleanup source generator interface scripted-effect/cleanup source-body "
+            "draft count mismatch"
+        )
+    expected_effect_operations = set(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_EFFECT_OPERATIONS
+    )
+    expected_cleanup_scopes = set(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_CLEANUP_LIFECYCLE_SCOPES
+    )
+    expected_row_set_keys = {
+        str(ref.get("row_set_key", ""))
+        for ref in expected_refs
+        if isinstance(ref, dict) and str(ref.get("row_set_key", "")).strip()
+    }
+    for row_set_key in sorted(expected_row_set_keys):
+        coverage = draft_coverage_by_row_set.get(
+            row_set_key,
+            {"effect_operations": set(), "cleanup_lifecycle_scopes": set()},
+        )
+        if coverage["effect_operations"] != expected_effect_operations:
+            errors.append(
+                "Alhambra scripted-effect/cleanup source generator interface source-body draft missing "
+                f"effect operation coverage for {row_set_key}"
+            )
+        if coverage["cleanup_lifecycle_scopes"] != expected_cleanup_scopes:
+            errors.append(
+                "Alhambra scripted-effect/cleanup source generator interface source-body draft missing "
+                f"cleanup lifecycle coverage for {row_set_key}"
+            )
     for count_key in (
         "source_ready_count",
         "source_writer_allowed_count",

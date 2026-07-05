@@ -6657,6 +6657,7 @@ def main() -> None:
         event_draft_stage_counts[stage] = event_draft_stage_counts.get(stage, 0) + 1
         prefix = f"tv_engineering_department.{event_id}"
         loc_refs = draft.get("localization_key_refs", {})
+        allocation = draft.get("event_id_allocation", {})
         option_handoff = draft.get("option_handoff", {})
         options = option_handoff.get("options", []) if isinstance(option_handoff, dict) else []
         expected_slots = ("a", "b") if stage == "retry" else ("a",)
@@ -6676,6 +6677,7 @@ def main() -> None:
             or loc_refs.get("desc_key") != f"{prefix}.d"
             or loc_refs.get("all_bound") is not True
             or loc_refs.get("unbound_keys") != []
+            or allocation.get("declared_source_event_id_window") != "unique_alhambra event_ids 7309-7316"
             or tuple(option.get("option_slot") for option in options) != expected_slots
         ):
             raise AssertionError(f"Alhambra event source-body draft shape changed: {draft}")
@@ -6776,6 +6778,17 @@ def main() -> None:
         "duplicate event source-body draft id",
         duplicate_event_id_interface,
         "event source-body draft event ids must be unique",
+    )
+
+    drifted_event_id_window_interface = deepcopy(alhambra_event_source_generator_interface)
+    for artifact in drifted_event_id_window_interface["source_file_contract_artifacts"]:
+        artifact["event_source_body_draft"]["event_id_allocation"][
+            "declared_source_event_id_window"
+        ] = "unique_alhambra event_ids 7309-7312"
+    assert_alhambra_event_source_generator_interface_error(
+        "drifted event source-body draft declared id window",
+        drifted_event_id_window_interface,
+        "declared source event id window must match actual event_source_body_draft.event_id min/max",
     )
 
     unbound_loc_event_interface = deepcopy(alhambra_event_source_generator_interface)
@@ -7025,8 +7038,22 @@ def main() -> None:
             f"{effect_cleanup_artifact_ref_keys}"
         )
     effect_cleanup_artifact_family_counts: dict[str, int] = {}
+    effect_cleanup_operation_by_artifact = {
+        "scripted_effect_row_init": "row_init",
+        "scripted_effect_row_state_write": "row_state_write",
+        "scripted_effect_branch_write": "branch_write",
+        "scripted_effect_aggregate_refresh": "aggregate_refresh",
+        "scripted_effect_cleanup_write": "cleanup_write",
+        "cleanup_completion": "completion",
+        "cleanup_failure": "failure",
+        "cleanup_ownership_loss": "ownership_loss",
+        "cleanup_ritual_reset": "reset",
+    }
+    effect_cleanup_source_body_draft_coverage: dict[str, dict[str, set[str]]] = {}
     for artifact in effect_cleanup_contract_artifacts:
         family = str(artifact.get("family", ""))
+        artifact_kind = str(artifact.get("artifact_kind", ""))
+        row_set_key = str(artifact.get("row_set_key", ""))
         effect_cleanup_artifact_family_counts[family] = effect_cleanup_artifact_family_counts.get(family, 0) + 1
         if (
             artifact.get("interface_family") != "scripted_effect_cleanup"
@@ -7060,11 +7087,70 @@ def main() -> None:
                 "Alhambra scripted-effect/cleanup source generator interface artifact lost no-write contract shape: "
                 f"{artifact}"
             )
+        draft = artifact.get("scripted_effect_cleanup_source_body_draft", {})
+        expected_operation = effect_cleanup_operation_by_artifact.get(artifact_kind, "")
+        coverage = draft.get("operation_coverage", {}) if isinstance(draft, dict) else {}
+        outline = draft.get("source_body_outline", {}) if isinstance(draft, dict) else {}
+        cleanup_boundary = draft.get("cleanup_lifecycle_boundary", {}) if isinstance(draft, dict) else {}
+        if (
+            not isinstance(draft, dict)
+            or draft.get("kind") != "scripted_effect_cleanup_source_body_draft"
+            or draft.get("family") != family
+            or draft.get("interface_family") != "scripted_effect_cleanup"
+            or draft.get("artifact_kind") != artifact_kind
+            or draft.get("row_set_key") != row_set_key
+            or draft.get("target_path") != effect_cleanup_interface_target
+            or draft.get("future_source_target_path") != effect_cleanup_interface_target
+            or draft.get("source_type") != "common/scripted_effects"
+            or draft.get("operation") != expected_operation
+            or draft.get("output_is_loadable_source") is not False
+            or draft.get("body_emitted") is not False
+            or draft.get("source_ready") is not False
+            or draft.get("verified") is not False
+            or draft.get("backend_ready") is not False
+            or draft.get("source_writer_allowed") is not False
+            or draft.get("may_write_src") is not False
+            or draft.get("writes_src") is not False
+            or coverage.get(expected_operation) is not True
+            or coverage.get("body_emitted") is not False
+            or outline.get("source_body_emitted") is not False
+            or outline.get("loadable_effect_body_allowed") is not False
+            or cleanup_boundary.get("cleanup_source_writer_allowed") is not False
+        ):
+            raise AssertionError(
+                "Alhambra scripted-effect/cleanup source-body draft shape changed: "
+                f"{draft}"
+            )
+        row_coverage = effect_cleanup_source_body_draft_coverage.setdefault(
+            row_set_key,
+            {"effect": set(), "cleanup": set()},
+        )
+        if family == "effect":
+            row_coverage["effect"].add(expected_operation)
+        if family == "cleanup":
+            row_coverage["cleanup"].add(expected_operation)
     if effect_cleanup_artifact_family_counts != {"cleanup": 8, "effect": 10}:
         raise AssertionError(
             "Alhambra scripted-effect/cleanup source generator interface artifact family counts changed: "
             f"{effect_cleanup_artifact_family_counts}"
         )
+    for row_set_key, coverage in effect_cleanup_source_body_draft_coverage.items():
+        if coverage["effect"] != {
+            "row_init",
+            "row_state_write",
+            "branch_write",
+            "aggregate_refresh",
+            "cleanup_write",
+        }:
+            raise AssertionError(
+                "Alhambra scripted-effect source-body draft effect coverage changed: "
+                f"{row_set_key}: {coverage}"
+            )
+        if coverage["cleanup"] != {"completion", "failure", "ownership_loss", "reset"}:
+            raise AssertionError(
+                "Alhambra cleanup source-body draft lifecycle coverage changed: "
+                f"{row_set_key}: {coverage}"
+            )
     if effect_cleanup_validation_pack.get("target_path") != effect_cleanup_interface_target:
         raise AssertionError(f"Alhambra effect/cleanup validation pack target changed: {effect_cleanup_validation_pack}")
 
@@ -7108,6 +7194,32 @@ def main() -> None:
         "may_write_src must be false",
     )
 
+    missing_effect_cleanup_source_body_draft_interface = deepcopy(
+        alhambra_scripted_effect_cleanup_source_generator_interface
+    )
+    del _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
+        missing_effect_cleanup_source_body_draft_interface,
+        "scripted_effect_row_init",
+    )["scripted_effect_cleanup_source_body_draft"]
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "missing scripted-effect/cleanup source-body draft",
+        missing_effect_cleanup_source_body_draft_interface,
+        "scripted_effect_cleanup_source_body_draft",
+    )
+
+    broken_effect_cleanup_source_body_draft_interface = deepcopy(
+        alhambra_scripted_effect_cleanup_source_generator_interface
+    )
+    _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
+        broken_effect_cleanup_source_body_draft_interface,
+        "cleanup_ownership_loss",
+    )["scripted_effect_cleanup_source_body_draft"]["cleanup_lifecycle_boundary"]["ownership_loss"] = False
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "broken scripted-effect/cleanup source-body draft lifecycle coverage",
+        broken_effect_cleanup_source_body_draft_interface,
+        "active cleanup lifecycle missing",
+    )
+
     wrong_output_effect_cleanup_interface = deepcopy(alhambra_scripted_effect_cleanup_source_generator_interface)
     wrong_output_effect_cleanup_interface["output_kind"] = "loadable_source_file"
     assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
@@ -7148,10 +7260,14 @@ def main() -> None:
             source_file_validation_evidence=external_evidence_forged_effect_cleanup_validation,
         )
     )
-    if external_evidence_forged_effect_cleanup_interface["validation_errors"]:
+    if not any(
+        "source-body draft missing effect operation coverage" in error
+        or "source-body draft missing cleanup lifecycle coverage" in error
+        for error in external_evidence_forged_effect_cleanup_interface["validation_errors"]
+    ):
         raise AssertionError(
-            "Externally forged Alhambra scripted-effect/cleanup interface should stay self-consistent before "
-            "the original validation evidence is applied: "
+            "Externally forged Alhambra scripted-effect/cleanup interface should fail its own "
+            "source-body draft row-set coverage before the original validation evidence is applied: "
             f"{external_evidence_forged_effect_cleanup_interface['validation_errors']}"
         )
     assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
