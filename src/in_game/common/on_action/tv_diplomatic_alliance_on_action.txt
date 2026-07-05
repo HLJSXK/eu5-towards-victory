@@ -7,3 +7,89 @@ tv_diplomatic_alliance_monthly_pulse = {
 		}
 	}
 }
+
+tv_diplomatic_alliance_on_dependency_gained = {
+	effect = {
+		save_scope_as = tv_diplomatic_alliance_subject_root
+		tv_diplomatic_alliance_destroy_owned_alliance_effect = yes
+		tv_diplomatic_alliance_remove_subject_chain_from_all_alliances_effect = yes
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_diplomatic_alliance_sync_subject_chain_to_owned_alliance_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_diplomatic_alliance_sync_subject_chain_to_owned_alliance_effect = yes
+			}
+		}
+	}
+}
+
+tv_diplomatic_alliance_on_becoming_free = {
+	effect = {
+		save_scope_as = tv_diplomatic_alliance_subject_root
+		scope:overlord ?= {
+			if = {
+				limit = { exists = top_overlord }
+				top_overlord ?= {
+					tv_diplomatic_alliance_remove_subject_chain_from_alliance_effect = yes
+				}
+			}
+			else = {
+				tv_diplomatic_alliance_remove_subject_chain_from_alliance_effect = yes
+			}
+		}
+		tv_diplomatic_alliance_check_rebuild_after_freedom_effect = yes
+	}
+}
+
+tv_diplomatic_alliance_on_subject_created = {
+	effect = {
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_diplomatic_alliance_sync_subject_chain_to_owned_alliance_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_diplomatic_alliance_sync_subject_chain_to_owned_alliance_effect = yes
+			}
+		}
+	}
+}
+
+tv_diplomatic_alliance_on_transfer_subject = {
+	effect = {
+		save_scope_as = tv_diplomatic_alliance_subject_root
+		scope:former_overlord ?= {
+			if = {
+				limit = { exists = top_overlord }
+				top_overlord ?= {
+					tv_diplomatic_alliance_remove_subject_chain_from_alliance_effect = yes
+				}
+			}
+			else = {
+				tv_diplomatic_alliance_remove_subject_chain_from_alliance_effect = yes
+			}
+		}
+		tv_diplomatic_alliance_destroy_owned_alliance_effect = yes
+		tv_diplomatic_alliance_remove_subject_chain_from_all_alliances_effect = yes
+		if = {
+			limit = { exists = top_overlord }
+			top_overlord ?= {
+				tv_diplomatic_alliance_sync_subject_chain_to_owned_alliance_effect = yes
+			}
+		}
+		else_if = {
+			limit = { exists = scope:overlord }
+			scope:overlord = {
+				tv_diplomatic_alliance_sync_subject_chain_to_owned_alliance_effect = yes
+			}
+		}
+	}
+}

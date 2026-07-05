@@ -96,15 +96,19 @@ bridges:
 
   on_dependency_gained:
     - tv_govhouse_on_dependency_gained
+    - tv_diplomatic_alliance_on_dependency_gained
 
   on_becoming_free:
     - tv_govhouse_on_becoming_free
+    - tv_diplomatic_alliance_on_becoming_free
 
   on_subject_created:
     - tv_govhouse_on_subject_created
+    - tv_diplomatic_alliance_on_subject_created
 
   on_transfer_subject:
     - tv_govhouse_on_transfer_subject
+    - tv_diplomatic_alliance_on_transfer_subject
 
   on_war_declared:
     - tv_govhouse_war_tent_on_war_declared
