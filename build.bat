@@ -13,7 +13,14 @@ set "MNT_COMPAT_DEST=%MOD_DIR%\tv_meiou_and_taxes_compat"
 
 echo === [1/3] Validating mod source ===
 set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
-call conda run --no-capture-output -n eu5 python "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
+if not defined EU5_PYTHON set "EU5_PYTHON=C:\Users\Hades\anaconda3\envs\eu5\python.exe"
+if not exist "!EU5_PYTHON!" (
+    echo [ERROR] eu5 Python interpreter not found: !EU5_PYTHON!
+    echo Set EU5_PYTHON to the python.exe inside the eu5 environment, then retry.
+    pause
+    exit /b 1
+)
+call "!EU5_PYTHON!" "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
 set "VALIDATE_RC=!errorlevel!"
 type "!VALIDATE_OUT!"
 del "!VALIDATE_OUT!" 2>nul
