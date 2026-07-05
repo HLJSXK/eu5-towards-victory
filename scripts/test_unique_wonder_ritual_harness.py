@@ -42,6 +42,7 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_sour
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_trigger_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_gui_source_generator_interface_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_listener_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_localization_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
@@ -55,6 +56,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_e
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_trigger_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_gui_source_generator_interface  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_listener_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_localization_source_generator_interface  # noqa: E402
 
 
@@ -1764,6 +1766,13 @@ def _alhambra_gui_source_file_contract_artifact(report: dict, artifact_kind: str
         if artifact.get("artifact_kind") == artifact_kind:
             return artifact
     raise AssertionError(f"Alhambra GUI source generator interface has no artifact {artifact_kind}")
+
+
+def _alhambra_listener_source_file_contract_artifact(report: dict, artifact_kind: str) -> dict:
+    for artifact in report.get("source_file_contract_artifacts", []) or []:
+        if artifact.get("artifact_kind") == artifact_kind:
+            return artifact
+    raise AssertionError(f"Alhambra listener source generator interface has no artifact {artifact_kind}")
 
 
 def _alhambra_localization_source_file_contract_artifact(
@@ -7604,6 +7613,337 @@ def main() -> None:
         source_file_validation_evidence=None,
     )
 
+    alhambra_listener_source_generator_interface = (
+        repeated_entity_row_alhambra_listener_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_listener_source_generator_interface["validation_errors"]:
+        raise AssertionError(
+            "Alhambra listener source generator interface unexpectedly failed validation: "
+            f"{alhambra_listener_source_generator_interface['validation_errors']}"
+        )
+    evidence_bound_listener_interface_errors = (
+        validate_repeated_entity_row_alhambra_listener_source_generator_interface(
+            alhambra_listener_source_generator_interface,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_listener_interface_errors:
+        raise AssertionError(
+            "Alhambra listener source generator interface unexpectedly failed external evidence-bound validation: "
+            f"{evidence_bound_listener_interface_errors}"
+        )
+    listener_interface_target = alhambra_file_targets["listener"]
+    listener_interface_summary = alhambra_listener_source_generator_interface.get("summary", {})
+    if listener_interface_summary.get("interface_count") != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface count changed: "
+            f"{listener_interface_summary}"
+        )
+    if listener_interface_summary.get("artifact_count") != expected_alhambra_file_counts[listener_interface_target]:
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact count changed: "
+            f"{listener_interface_summary}"
+        )
+    if listener_interface_summary.get("artifact_count") != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface must emit exactly 1 report-level artifact: "
+            f"{listener_interface_summary}"
+        )
+    if listener_interface_summary.get("artifact_kind") != "listener_war_integration":
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact kind changed: "
+            f"{listener_interface_summary}"
+        )
+    if listener_interface_summary.get("output_kind") != "source_file_contract_artifacts":
+        raise AssertionError(
+            "Alhambra listener source generator interface output kind changed: "
+            f"{listener_interface_summary}"
+        )
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if listener_interface_summary.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra listener source generator interface "
+                f"{count_key} changed: {listener_interface_summary}"
+            )
+        if alhambra_listener_source_generator_interface.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra listener source generator interface report no-write count changed: "
+                f"{alhambra_listener_source_generator_interface}"
+            )
+    if alhambra_listener_source_generator_interface.get("required_target_paths") != [listener_interface_target]:
+        raise AssertionError(
+            "Alhambra listener source generator interface should expose only the listener target: "
+            f"{alhambra_listener_source_generator_interface.get('required_target_paths')}"
+        )
+    if alhambra_listener_source_generator_interface.get("output_is_loadable_source") is not False:
+        raise AssertionError("Alhambra listener source generator interface must not output loadable source")
+    if (
+        alhambra_listener_source_generator_interface.get("source_writer_allowed") is not False
+        or alhambra_listener_source_generator_interface.get("may_write_src") is not False
+        or alhambra_listener_source_generator_interface.get("writes_src") is not False
+    ):
+        raise AssertionError("Alhambra listener source generator interface no-write flags changed")
+
+    listener_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        listener_interface_target,
+    )
+    listener_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        listener_interface_target,
+    )
+    listener_linkage_evidence = listener_validation_pack.get("listener_linkage_evidence", {})
+    listener_generator_interfaces = alhambra_listener_source_generator_interface.get("source_generator_interfaces", [])
+    if len(listener_generator_interfaces) != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface should expose one interface: "
+            f"{listener_generator_interfaces}"
+        )
+    listener_generator_interface = listener_generator_interfaces[0]
+    if (
+        listener_generator_interface.get("family") != "listener"
+        or listener_generator_interface.get("target_path") != listener_interface_target
+        or listener_generator_interface.get("owner_generator")
+        != "unique_wonder_ritual_listener_integration_source_generator"
+        or listener_generator_interface.get("output_contract") != "source_file_contract_artifacts"
+        or listener_generator_interface.get("dry_run_required") is not True
+        or listener_generator_interface.get("memory_report_only") is not True
+        or listener_generator_interface.get("listener_family_only") is not True
+        or listener_generator_interface.get("listener_target_only") is not True
+        or listener_generator_interface.get("source_writer_allowed") is not False
+        or listener_generator_interface.get("may_write_src") is not False
+        or listener_generator_interface.get("writes_src") is not False
+        or listener_generator_interface.get("source_file_validation_evidence_ref")
+        != listener_generator_contract.get("evidence_pack_ref")
+        or listener_generator_interface.get("listener_linkage_evidence_ref") != listener_linkage_evidence
+        or set(listener_generator_interface.get("on_action_hook_linkage_plan", {}).get("hooks", []))
+        != {"on_pre_winning_war", "on_ending_war"}
+        or listener_generator_interface.get("selected_ritual_trigger_linkage", {}).get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+        or set(
+            listener_generator_interface.get("war_scope_availability_persistence_plan", {}).get(
+                "war_scope_available_from_hooks",
+                [],
+            )
+        )
+        != {"on_pre_winning_war", "on_ending_war"}
+    ):
+        raise AssertionError(
+            "Alhambra listener source generator interface lost no-write linkage shape: "
+            f"{listener_generator_interface}"
+        )
+
+    listener_contract_artifacts = alhambra_listener_source_generator_interface.get("source_file_contract_artifacts", [])
+    if len(listener_contract_artifacts) != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact list changed: "
+            f"{listener_contract_artifacts}"
+        )
+    listener_contract_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for ref in listener_generator_contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    listener_artifact_ref_keys = {
+        (
+            str(artifact.get("source_body_candidate_ref", {}).get("family", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("row_set_key", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("artifact_kind", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("future_source_target_path", "")),
+        )
+        for artifact in listener_contract_artifacts
+        if isinstance(artifact, dict)
+    }
+    if listener_artifact_ref_keys != listener_contract_ref_keys or len(listener_artifact_ref_keys) != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface lost external source refs: "
+            f"{listener_artifact_ref_keys}"
+        )
+    listener_artifact = listener_contract_artifacts[0]
+    if (
+        listener_artifact.get("family") != "listener"
+        or listener_artifact.get("artifact_kind") != "listener_war_integration"
+        or listener_artifact.get("target_path") != listener_interface_target
+        or listener_artifact.get("future_source_target_path") != listener_interface_target
+        or listener_artifact.get("output_kind") != "source_file_contract_artifacts"
+        or listener_artifact.get("output_is_loadable_source") is not False
+        or listener_artifact.get("source_file_contract_artifact_only") is not True
+        or listener_artifact.get("source_generator_interface_prototype_only") is not True
+        or listener_artifact.get("listener_family_only") is not True
+        or listener_artifact.get("listener_target_only") is not True
+        or listener_artifact.get("memory_report_only") is not True
+        or listener_artifact.get("dry_run") is not True
+        or listener_artifact.get("dry_run_required") is not True
+        or listener_artifact.get("source_file_validation_evidence_ref")
+        != listener_generator_contract.get("evidence_pack_ref")
+        or listener_artifact.get("source_body_candidate_ref_provenance")
+        != listener_generator_contract.get("source_body_candidate_ref_provenance")
+        or listener_artifact.get("no_write_source_writer_contract_evidence")
+        != listener_generator_contract.get("no_write_source_writer_contract_evidence")
+        or listener_artifact.get("listener_linkage_evidence_ref") != listener_linkage_evidence
+        or set(listener_artifact.get("on_action_hook_linkage_plan", {}).get("hooks", []))
+        != {"on_pre_winning_war", "on_ending_war"}
+        or listener_artifact.get("selected_ritual_trigger_linkage", {}).get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+        or listener_artifact.get("war_scope_availability_persistence_plan", {}).get("persistence_contract_only")
+        is not True
+        or listener_artifact.get("body_emitted") is not False
+        or listener_artifact.get("source_ready") is not False
+        or listener_artifact.get("verified") is not False
+        or listener_artifact.get("backend_ready") is not False
+        or listener_artifact.get("source_writer_allowed") is not False
+        or listener_artifact.get("may_write_src") is not False
+        or listener_artifact.get("writes_src") is not False
+        or listener_artifact.get("listener_body_allowed") is not False
+        or listener_artifact.get("listener_scope_writes_allowed") is not False
+        or listener_artifact.get("war_scope_writes_allowed") is not False
+        or listener_artifact.get("source_writes_allowed") is not False
+    ):
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact lost no-write linkage shape: "
+            f"{listener_artifact}"
+        )
+    if listener_validation_pack.get("target_path") != listener_interface_target:
+        raise AssertionError(f"Alhambra listener validation pack target changed: {listener_validation_pack}")
+
+    def assert_alhambra_listener_source_generator_interface_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_listener_source_generator_interface(
+            report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra listener source generator interface negative was not caught: "
+                f"{errors}"
+            )
+
+    missing_listener_artifact_interface = deepcopy(alhambra_listener_source_generator_interface)
+    missing_listener_artifact_interface["source_file_contract_artifacts"] = []
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener artifact",
+        missing_listener_artifact_interface,
+        "artifact_count mismatch",
+    )
+
+    writable_listener_artifact_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        writable_listener_artifact_interface,
+        "listener_war_integration",
+    )["may_write_src"] = True
+    assert_alhambra_listener_source_generator_interface_error(
+        "writable listener artifact",
+        writable_listener_artifact_interface,
+        "may_write_src must be false",
+    )
+
+    missing_listener_hook_interface = deepcopy(alhambra_listener_source_generator_interface)
+    del _alhambra_listener_source_file_contract_artifact(
+        missing_listener_hook_interface,
+        "listener_war_integration",
+    )["listener_linkage_evidence_ref"]["on_action_hook_linkage_plan"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener hook evidence",
+        missing_listener_hook_interface,
+        "hook linkage",
+    )
+
+    missing_listener_trigger_interface = deepcopy(alhambra_listener_source_generator_interface)
+    del _alhambra_listener_source_file_contract_artifact(
+        missing_listener_trigger_interface,
+        "listener_war_integration",
+    )["listener_linkage_evidence_ref"]["selected_ritual_trigger_linkage"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener trigger evidence",
+        missing_listener_trigger_interface,
+        "selected ritual trigger linkage",
+    )
+
+    missing_listener_war_scope_interface = deepcopy(alhambra_listener_source_generator_interface)
+    del _alhambra_listener_source_file_contract_artifact(
+        missing_listener_war_scope_interface,
+        "listener_war_integration",
+    )["listener_linkage_evidence_ref"]["war_scope_availability_persistence_plan"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener war-scope evidence",
+        missing_listener_war_scope_interface,
+        "war-scope boundary",
+    )
+
+    forged_ref_listener_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        forged_ref_listener_interface,
+        "listener_war_integration",
+    )["source_body_candidate_ref"]["row_set_key"] = "forged_row_set"
+    assert_alhambra_listener_source_generator_interface_error(
+        "forged listener source ref",
+        forged_ref_listener_interface,
+        "external validation evidence mismatch",
+    )
+
+    external_evidence_forged_listener_validation = deepcopy(alhambra_source_file_validation_evidence)
+    external_evidence_forged_listener_pack = _alhambra_source_file_validation_pack(
+        external_evidence_forged_listener_validation,
+        listener_interface_target,
+    )
+    external_evidence_forged_listener_pack["source_body_candidate_refs"][0]["row_set_key"] = "forged_row_set"
+    external_evidence_forged_listener_generator_contract = (
+        repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            spec_data,
+            source_file_validation_evidence=external_evidence_forged_listener_validation,
+        )
+    )
+    external_evidence_forged_listener_interface = (
+        repeated_entity_row_alhambra_listener_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=external_evidence_forged_listener_generator_contract,
+            source_file_validation_evidence=external_evidence_forged_listener_validation,
+        )
+    )
+    if external_evidence_forged_listener_interface["validation_errors"]:
+        raise AssertionError(
+            "Externally forged Alhambra listener interface should stay self-consistent before "
+            "the original validation evidence is applied: "
+            f"{external_evidence_forged_listener_interface['validation_errors']}"
+        )
+    assert_alhambra_listener_source_generator_interface_error(
+        "external evidence-bound forged listener interface",
+        external_evidence_forged_listener_interface,
+        "external validation evidence",
+        source_generator_contract=external_evidence_forged_listener_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+
+    detached_listener_interface_validation = deepcopy(alhambra_listener_source_generator_interface)
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing external validation evidence",
+        detached_listener_interface_validation,
+        "requires external source-file validation evidence",
+        source_file_validation_evidence=None,
+    )
+
     alhambra_localization_source_generator_interface = (
         repeated_entity_row_alhambra_localization_source_generator_interface_for_payload(
             spec_data,
@@ -9354,6 +9694,9 @@ def main() -> None:
         repeated_entity_row_alhambra_gui_source_generator_interface=(
             alhambra_gui_source_generator_interface
         ),
+        repeated_entity_row_alhambra_listener_source_generator_interface=(
+            alhambra_listener_source_generator_interface
+        ),
         repeated_entity_row_alhambra_localization_source_generator_interface=(
             alhambra_localization_source_generator_interface
         ),
@@ -9511,6 +9854,33 @@ def main() -> None:
         raise AssertionError(
             "Alhambra GUI source generator interface no-write counts changed: "
             f"{alhambra_gui_interface_summary}"
+        )
+    alhambra_listener_interface_summary = summary[
+        "repeated_entity_row_alhambra_listener_source_generator_interface"
+    ]["summary"]
+    if alhambra_listener_interface_summary["interface_count"] != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface count should remain 1, got "
+            f"{alhambra_listener_interface_summary['interface_count']}"
+        )
+    if alhambra_listener_interface_summary["artifact_count"] != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact_count should remain 1, got "
+            f"{alhambra_listener_interface_summary['artifact_count']}"
+        )
+    if alhambra_listener_interface_summary["artifact_kind"] != "listener_war_integration":
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact kind changed: "
+            f"{alhambra_listener_interface_summary}"
+        )
+    if (
+        alhambra_listener_interface_summary["source_writer_allowed_count"] != 0
+        or alhambra_listener_interface_summary["may_write_src_count"] != 0
+        or alhambra_listener_interface_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra listener source generator interface no-write counts changed: "
+            f"{alhambra_listener_interface_summary}"
         )
     alhambra_localization_interface_summary = summary[
         "repeated_entity_row_alhambra_localization_source_generator_interface"
