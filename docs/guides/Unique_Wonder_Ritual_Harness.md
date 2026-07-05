@@ -218,6 +218,14 @@ split. The scripted-trigger target derives from the trigger generator contract a
 external source-file validation evidence, exposes exactly one trigger-family interface,
 and emits exactly six in-memory/report-level artifacts for
 `src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt`.
+The GUI target derives from the GUI target contract and external source-file validation
+evidence, exposes exactly one GUI-family dry-run interface, and emits exactly two
+in-memory/report-level artifacts for
+`src/in_game/gui/panels/organization/tv_wonder_unique_alhambra_ritual.gui`: the
+`gui_checklist_row` contract for `treaty_clause_register` and the
+`gui_incident_log_row` contract for `palace_risk_points`. This GUI interface must keep
+`listener_interface_declared: false` and must not declare or imply an Alhambra listener
+interface.
 The localization-family target derives from the separate English and Simplified Chinese
 localization target contracts and their separate external source-file validation evidence
 packs, exposes one dry-run interface per language target, and emits exactly ten
@@ -225,9 +233,9 @@ in-memory/report-level localization artifacts for
 `src/main_menu/localization/english/tv_wonder_unique_alhambra_ritual_l_english.yml`
 plus exactly ten for
 `src/main_menu/localization/simp_chinese/tv_wonder_unique_alhambra_ritual_l_simp_chinese.yml`.
-All four interface validators must bind those artifacts back to external source-file validation
-evidence rather than trusting the report alone. These prototypes do not cover GUI or
-listener output yet. They must keep
+All five interface validators must bind those artifacts back to external source-file validation
+evidence rather than trusting the report alone. These prototypes do not cover listener output
+yet. They must keep
 `output_is_loadable_source: false`, `body_emitted: false`, `source_ready: false`,
 `verified: false`, `backend_ready: false`, `source_writer_allowed: false`,
 `may_write_src: false`, and `writes_src: false`, and they must not write `src/` or
