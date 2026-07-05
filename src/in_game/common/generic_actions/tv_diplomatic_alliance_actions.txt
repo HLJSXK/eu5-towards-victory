@@ -118,6 +118,21 @@ tv_alliance_sublime_empire_subjugate_member = {
 					}
 				}
 			}
+			custom_tooltip = {
+				text = TV_ALLIANCE_SUBJUGATION_MEMBER_TENURE_TT
+				scope:actor = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country ?= scope:actor
+						scope:target = {
+							years_in_international_organization = {
+								international_organization = prev
+								value >= 5
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	effect = {
@@ -134,6 +149,10 @@ tv_alliance_sublime_empire_subjugate_member = {
 							any_international_organizations_member_of = {
 								international_organization_type = international_organization_type:tv_diplomatic_alliance
 								leader_country ?= scope:actor
+							}
+							years_in_international_organization = {
+								international_organization = prev
+								value >= 5
 							}
 						}
 					}

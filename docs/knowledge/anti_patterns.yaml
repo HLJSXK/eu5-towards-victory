@@ -2052,3 +2052,13 @@
   scope: country
   source: "runtime error.log for tv_invite_to_diplomatic_alliance, 2026-06-24; reference_game_files/game/in_game/common/country_interactions/invite_settlers.txt:90-104"
   notes: "Country interaction accept/effect paths can be evaluated from panel buttons before the selector populates recipient. Direct reads then report wrong-type `none`, unset variables, or unset `var` scopes while the player is only looking at the country picker."
+
+- id: io_member_tenure_manual_cooldown
+  pattern: ''
+  detectability: advisory
+  bad: "Creating custom monthly variables, cooldowns, or date stamps only to know how long a country has belonged to an international organization"
+  correction: "Use the native country-scoped `years_in_international_organization = { international_organization = <io scope> value >= N }` trigger, or the script value form `country.years_in_international_organization(io)` for scoring."
+  category: scope
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/parliament_issues/11_union_issue.txt:9-12; reference_game_files/game/in_game/common/country_interactions/negotiate_succession_law.txt:181"
+  notes: "EU5 already tracks country membership tenure per IO instance. In IO member iterators, `root` or `prev` can point the tenure check back to the current IO, avoiding extra monthly state and cleanup work."

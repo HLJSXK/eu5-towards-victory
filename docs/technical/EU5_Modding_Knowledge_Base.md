@@ -200,6 +200,21 @@ every_international_organizations_member_of = {
 
 Using `any_international_organizations_member_of = { limit = { ... } ... }` directly in an effect body logs `Unknown effect any_international_organizations_member_of`.
 
+#### International Organization Member Tenure
+
+EU5 tracks how long a country has belonged to each international organization instance. In a country scope, use the native trigger:
+
+```pdx
+years_in_international_organization = {
+    international_organization = prev
+    value >= 5
+}
+```
+
+`international_organization` must point at the IO instance being checked. In an IO-root `every_international_organization_member` iterator, vanilla uses `international_organization = root`; when a TV effect iterates `every_international_organizations_member_of` from a country and then enters a member-country scope, `prev` can point back to the iterated IO. For scoring, vanilla also exposes the script value form, e.g. `"scope:recipient.years_in_international_organization(scope:actor.union)"`.
+
+Prefer this built-in tenure value for mechanics such as "member must have belonged to this alliance for at least 5 years" instead of adding monthly countdown variables or custom join-date state.
+
 #### Random List Branch Filtering
 
 Use `trigger = { ... }` inside weighted `random_list` branches when a branch should only be eligible under some condition:
