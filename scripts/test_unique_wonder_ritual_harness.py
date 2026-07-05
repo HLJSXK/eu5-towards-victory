@@ -7461,6 +7461,99 @@ def main() -> None:
                 "Alhambra scripted-trigger source generator interface artifact lost no-write contract shape: "
                 f"{artifact}"
             )
+    expected_trigger_draft_groups = {
+        "eligibility",
+        "row_completion",
+        "tooltip_safe_condition_group",
+    }
+    trigger_draft_coverage: dict[str, set[str]] = {}
+    for artifact in trigger_contract_artifacts:
+        draft = artifact.get("scripted_trigger_source_body_draft")
+        if not isinstance(draft, dict):
+            raise AssertionError(f"Alhambra scripted-trigger artifact missing source-body draft: {artifact}")
+        row_set_key = str(artifact.get("row_set_key", ""))
+        artifact_kind = str(artifact.get("artifact_kind", ""))
+        expected_group = {
+            "scripted_trigger_eligibility": "eligibility",
+            "scripted_trigger_row_completion": "row_completion",
+            "scripted_trigger_tooltip_safe_condition_group": "tooltip_safe_condition_group",
+        }.get(artifact_kind)
+        trigger_draft_coverage.setdefault(row_set_key, set()).add(str(draft.get("tooltip_safe_condition_grouping", {}).get("active_group", "")))
+        expected_trigger_name = f"tv_wonder_unique_alhambra_ritual_{row_set_key}_{artifact_kind}_trigger"
+        if (
+            draft.get("kind") != "scripted_trigger_source_body_draft"
+            or draft.get("trigger_name") != expected_trigger_name
+            or draft.get("row_set_key") != row_set_key
+            or draft.get("artifact_kind") != artifact_kind
+            or draft.get("source_type") != "common/scripted_triggers"
+            or draft.get("output_is_loadable_source") is not False
+            or draft.get("body_emitted") is not False
+            or draft.get("source_ready") is not False
+            or draft.get("verified") is not False
+            or draft.get("backend_ready") is not False
+            or draft.get("source_writer_allowed") is not False
+            or draft.get("may_write_src") is not False
+            or draft.get("writes_src") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft shape changed: {draft}")
+        scope_contract = draft.get("scope_contract", {})
+        if (
+            scope_contract.get("trigger_name") != expected_trigger_name
+            or scope_contract.get("root_scope") != "country"
+            or scope_contract.get("scripted_trigger_scope") != "country"
+            or scope_contract.get("tooltip_safe") is not True
+            or scope_contract.get("row_state_writes_allowed") is not False
+            or scope_contract.get("may_write_src") is not False
+            or scope_contract.get("body_emitted") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft scope contract changed: {draft}")
+        row_refs = draft.get("row_variable_read_refs", {})
+        aggregate_refs = draft.get("aggregate_variable_read_refs", {})
+        if (
+            row_refs.get("all_bound") is not True
+            or not row_refs.get("entity_keys")
+            or not row_refs.get("per_row_variable_patterns")
+            or aggregate_refs.get("all_bound") is not True
+            or not aggregate_refs.get("aggregate_projection_variables")
+            or not aggregate_refs.get("node_read_refs")
+            or aggregate_refs.get("aggregate_only_row_reads_allowed") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft variable refs changed: {draft}")
+        grouping = draft.get("tooltip_safe_condition_grouping", {})
+        if (
+            set(grouping.get("required_groups", [])) != expected_trigger_draft_groups
+            or grouping.get("active_group") != expected_group
+            or grouping.get("condition_group_ref_count") != 3
+            or grouping.get("condition_group_refs_bound") is not True
+            or grouping.get("custom_tooltip_group_required") is not True
+            or grouping.get("predicate_group_only") is not True
+            or grouping.get("tooltip_safe") is not True
+            or grouping.get("unsafe_write_paths_allowed") is not False
+            or grouping.get("inline_effect_calls_allowed") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft condition grouping changed: {draft}")
+        handoff = draft.get("event_effect_handoff_refs", {})
+        if (
+            handoff.get("all_bound") is not True
+            or not handoff.get("event_refs")
+            or not handoff.get("effect_refs")
+            or not handoff.get("cleanup_refs")
+            or handoff.get("handoff_only") is not True
+            or handoff.get("inline_event_body_allowed") is not False
+            or handoff.get("inline_effect_body_allowed") is not False
+            or handoff.get("may_write_src") is not False
+            or handoff.get("body_emitted") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft handoff refs changed: {draft}")
+    expected_trigger_draft_coverage = {
+        "palace_risk_points": expected_trigger_draft_groups,
+        "treaty_clause_register": expected_trigger_draft_groups,
+    }
+    if trigger_draft_coverage != expected_trigger_draft_coverage:
+        raise AssertionError(
+            "Alhambra scripted-trigger source-body draft coverage changed: "
+            f"{trigger_draft_coverage}"
+        )
     if trigger_validation_pack.get("target_path") != trigger_interface_target:
         raise AssertionError(f"Alhambra trigger validation pack target changed: {trigger_validation_pack}")
 
@@ -7504,6 +7597,72 @@ def main() -> None:
         "may_write_src must be false",
     )
 
+    missing_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        missing_trigger_draft_interface,
+        "scripted_trigger_row_completion",
+    )["scripted_trigger_source_body_draft"] = None
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "missing scripted-trigger source-body draft",
+        missing_trigger_draft_interface,
+        "missing scripted-trigger source-body draft",
+    )
+
+    wrong_row_set_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        wrong_row_set_trigger_draft_interface,
+        "scripted_trigger_eligibility",
+    )["scripted_trigger_source_body_draft"]["row_set_key"] = "forged_row_set"
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "wrong scripted-trigger draft row set",
+        wrong_row_set_trigger_draft_interface,
+        "row_set_key mismatch",
+    )
+
+    unbound_variable_ref_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        unbound_variable_ref_trigger_draft_interface,
+        "scripted_trigger_eligibility",
+    )["scripted_trigger_source_body_draft"]["row_variable_read_refs"]["all_bound"] = False
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "unbound scripted-trigger draft variable refs",
+        unbound_variable_ref_trigger_draft_interface,
+        "variable read refs must be bound",
+    )
+
+    unsafe_tooltip_group_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        unsafe_tooltip_group_trigger_draft_interface,
+        "scripted_trigger_tooltip_safe_condition_group",
+    )["scripted_trigger_source_body_draft"]["tooltip_safe_condition_grouping"]["unsafe_write_paths_allowed"] = True
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "unsafe scripted-trigger draft tooltip group",
+        unsafe_tooltip_group_trigger_draft_interface,
+        "tooltip-safe condition grouping",
+    )
+
+    writable_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        writable_trigger_draft_interface,
+        "scripted_trigger_row_completion",
+    )["scripted_trigger_source_body_draft"]["may_write_src"] = True
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "writable scripted-trigger draft",
+        writable_trigger_draft_interface,
+        "may_write_src must be false",
+    )
+
+    body_emitted_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        body_emitted_trigger_draft_interface,
+        "scripted_trigger_row_completion",
+    )["scripted_trigger_source_body_draft"]["body_emitted"] = True
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "body-emitted scripted-trigger draft",
+        body_emitted_trigger_draft_interface,
+        "body_emitted must be false",
+    )
+
     wrong_output_trigger_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
     wrong_output_trigger_interface["output_kind"] = "loadable_source_file"
     assert_alhambra_scripted_trigger_source_generator_interface_error(
@@ -7542,10 +7701,14 @@ def main() -> None:
             source_file_validation_evidence=external_evidence_forged_trigger_validation,
         )
     )
-    if external_evidence_forged_trigger_interface["validation_errors"]:
+    if not any(
+        "variable read refs must be bound" in error
+        or "source-body draft coverage" in error
+        for error in external_evidence_forged_trigger_interface["validation_errors"]
+    ):
         raise AssertionError(
-            "Externally forged Alhambra scripted-trigger interface should stay self-consistent before "
-            "the original validation evidence is applied: "
+            "Externally forged Alhambra scripted-trigger interface should fail its own source-body "
+            "draft row-set binding before the original validation evidence is applied: "
             f"{external_evidence_forged_trigger_interface['validation_errors']}"
         )
     assert_alhambra_scripted_trigger_source_generator_interface_error(
