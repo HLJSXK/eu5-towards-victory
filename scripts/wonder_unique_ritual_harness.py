@@ -3603,6 +3603,35 @@ REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_GENERATOR_INTERFACE_FAMILY = "liste
 REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_GENERATOR_INTERFACE_STATUS = (
     REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_STATUS
 )
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS = (
+    "event",
+    "scripted_effect_cleanup",
+    "trigger",
+    "gui",
+    "listener",
+    "localization",
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_TARGET_PATHS_BY_GROUP = {
+    "event": (REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_TARGET_PATH,),
+    "scripted_effect_cleanup": (
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_TARGET_PATH,
+    ),
+    "trigger": (REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_INTERFACE_TARGET_PATH,),
+    "gui": (REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_GENERATOR_INTERFACE_TARGET_PATH,),
+    "listener": (REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_GENERATOR_INTERFACE_TARGET_PATH,),
+    "localization": REPEATED_ENTITY_ROW_ALHAMBRA_LOCALIZATION_SOURCE_GENERATOR_INTERFACE_TARGET_PATHS,
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP = {
+    "event": 8,
+    "scripted_effect_cleanup": 18,
+    "trigger": 6,
+    "gui": 2,
+    "listener": 1,
+    "localization": 20,
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT = sum(
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP.values()
+)
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_REQUIRED_FIELDS = {
     "pilot_key",
     "family",
@@ -17620,6 +17649,562 @@ def validate_repeated_entity_row_alhambra_localization_source_generator_interfac
     return errors
 
 
+def _alhambra_source_generator_interface_bundle_expected_target_counts(
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> dict[str, int]:
+    expected_counts = {
+        target_path: int(metadata["artifact_count"])
+        for target_path, metadata in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA.items()
+    }
+    if not isinstance(source_file_validation_evidence, dict):
+        return expected_counts
+    for pack in source_file_validation_evidence.get("evidence_packs", []) or []:
+        if not isinstance(pack, dict):
+            continue
+        target_path = str(pack.get("target_path", ""))
+        if target_path in expected_counts:
+            expected_counts[target_path] = int(pack.get("artifact_count", -1))
+    return expected_counts
+
+
+def _alhambra_source_generator_interface_bundle_report_ref(report: dict[str, Any]) -> dict[str, Any]:
+    ref = {
+        "pilot_key": str(report.get("pilot_key", "")),
+        "family": str(report.get("family", "")),
+        "interface_count": int(report.get("interface_count", 0)),
+        "artifact_count": int(report.get("artifact_count", 0)),
+        "validation_errors": list(report.get("validation_errors", []) or []),
+        "source_generator_interface_prototype_only": report.get("source_generator_interface_prototype_only") is True,
+        "memory_report_only": report.get("memory_report_only") is True,
+        "output_is_loadable_source": report.get("output_is_loadable_source") is True,
+        "source_writer_allowed": report.get("source_writer_allowed") is True,
+        "may_write_src": report.get("may_write_src") is True,
+        "writes_src": report.get("writes_src") is True,
+    }
+    if "target_path" in report:
+        ref["target_path"] = str(report.get("target_path", ""))
+    if "target_paths" in report:
+        ref["target_paths"] = list(report.get("target_paths", []) or [])
+    return ref
+
+
+def _alhambra_source_generator_interface_bundle_artifacts_by_group(
+    interface_reports: dict[str, Any],
+) -> dict[str, list[dict[str, Any]]]:
+    artifacts_by_group: dict[str, list[dict[str, Any]]] = {}
+    for group in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS:
+        group_report = interface_reports.get(group)
+        if not isinstance(group_report, dict):
+            artifacts_by_group[group] = []
+            continue
+        artifacts = group_report.get("source_file_contract_artifacts")
+        artifacts_by_group[group] = [
+            artifact
+            for artifact in artifacts
+            if isinstance(artifact, dict)
+        ] if isinstance(artifacts, list) else []
+    return artifacts_by_group
+
+
+def _alhambra_source_generator_interface_bundle_summary(
+    interface_reports: dict[str, Any],
+    *,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    artifacts_by_group = _alhambra_source_generator_interface_bundle_artifacts_by_group(interface_reports)
+    artifacts = [
+        artifact
+        for group_artifacts in artifacts_by_group.values()
+        for artifact in group_artifacts
+    ]
+    group_artifact_counts = {
+        group: len(artifacts_by_group[group])
+        for group in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS
+    }
+    target_artifact_counts = _count_by_key(artifacts, "target_path")
+    expected_target_artifact_counts = _alhambra_source_generator_interface_bundle_expected_target_counts(
+        source_file_validation_evidence
+    )
+    report_only_artifact_count = sum(
+        1
+        for artifact in artifacts
+        if artifact.get("memory_report_only") is True
+        and artifact.get("output_is_loadable_source") is False
+        and artifact.get("body_emitted") is False
+    )
+    return {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "interface_group_count": len(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS),
+        "target_file_count": len(expected_target_artifact_counts),
+        "artifact_count": len(artifacts),
+        "report_only_artifact_count": report_only_artifact_count,
+        "expected_artifact_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT,
+        "interface_group_artifact_counts": group_artifact_counts,
+        "target_artifact_counts": target_artifact_counts,
+        "expected_target_artifact_counts": expected_target_artifact_counts,
+        "source_ready_count": sum(1 for artifact in artifacts if artifact.get("source_ready") is True),
+        "source_writer_allowed_count": sum(
+            1 for artifact in artifacts if artifact.get("source_writer_allowed") is True
+        ),
+        "may_write_src_count": sum(1 for artifact in artifacts if artifact.get("may_write_src") is True),
+        "writes_src_count": sum(1 for artifact in artifacts if artifact.get("writes_src") is True),
+    }
+
+
+def repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+    source_generator_contract: dict[str, Any] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+    event_source_generator_interface: dict[str, Any] | None = None,
+    scripted_effect_cleanup_source_generator_interface: dict[str, Any] | None = None,
+    scripted_trigger_source_generator_interface: dict[str, Any] | None = None,
+    gui_source_generator_interface: dict[str, Any] | None = None,
+    listener_source_generator_interface: dict[str, Any] | None = None,
+    localization_source_generator_interface: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if source_file_validation_evidence is None:
+        source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+            payload,
+            statuses=statuses,
+        )
+    if source_generator_contract is None:
+        source_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            payload,
+            statuses=statuses,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    if event_source_generator_interface is None:
+        event_source_generator_interface = repeated_entity_row_alhambra_event_source_generator_interface_for_payload(
+            payload,
+            statuses=statuses,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    if scripted_effect_cleanup_source_generator_interface is None:
+        scripted_effect_cleanup_source_generator_interface = (
+            repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface_for_payload(
+                payload,
+                statuses=statuses,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+    if scripted_trigger_source_generator_interface is None:
+        scripted_trigger_source_generator_interface = (
+            repeated_entity_row_alhambra_scripted_trigger_source_generator_interface_for_payload(
+                payload,
+                statuses=statuses,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+    if gui_source_generator_interface is None:
+        gui_source_generator_interface = repeated_entity_row_alhambra_gui_source_generator_interface_for_payload(
+            payload,
+            statuses=statuses,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    if listener_source_generator_interface is None:
+        listener_source_generator_interface = (
+            repeated_entity_row_alhambra_listener_source_generator_interface_for_payload(
+                payload,
+                statuses=statuses,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+    if localization_source_generator_interface is None:
+        localization_source_generator_interface = (
+            repeated_entity_row_alhambra_localization_source_generator_interface_for_payload(
+                payload,
+                statuses=statuses,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+    interface_reports = {
+        "event": event_source_generator_interface,
+        "scripted_effect_cleanup": scripted_effect_cleanup_source_generator_interface,
+        "trigger": scripted_trigger_source_generator_interface,
+        "gui": gui_source_generator_interface,
+        "listener": listener_source_generator_interface,
+        "localization": localization_source_generator_interface,
+    }
+    summary = _alhambra_source_generator_interface_bundle_summary(
+        interface_reports,
+        source_file_validation_evidence=source_file_validation_evidence,
+    )
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "source_generator_interface_bundle_gate_only": True,
+        "source_generator_interface_reports_only": True,
+        "source_generator_contract_input_only": True,
+        "source_file_validation_evidence_input_only": True,
+        "source_generator_contract_input_ref": _alhambra_source_generator_contract_report_ref(
+            source_generator_contract
+        ),
+        "source_file_validation_evidence_input_ref": {
+            "pilot_key": str(source_file_validation_evidence.get("pilot_key", "")),
+            "evidence_pack_count": int(source_file_validation_evidence.get("evidence_pack_count", 0)),
+            "artifact_count": int(source_file_validation_evidence.get("artifact_count", 0)),
+            "source_body_candidate_ref_count": int(
+                source_file_validation_evidence.get("source_body_candidate_ref_count", 0)
+            ),
+            "validation_errors": list(source_file_validation_evidence.get("validation_errors", []) or []),
+        },
+        "source_generator_contract_validation_errors": list(
+            source_generator_contract.get("validation_errors", []) or []
+        ),
+        "source_file_validation_evidence_validation_errors": list(
+            source_file_validation_evidence.get("validation_errors", []) or []
+        ),
+        "required_interface_groups": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS),
+        "required_target_paths": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS),
+        "localization_target_paths": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+        ),
+        "expected_interface_group_artifact_counts": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP
+        ),
+        "expected_target_artifact_counts": summary["expected_target_artifact_counts"],
+        "summary": summary,
+        "interface_group_count": summary["interface_group_count"],
+        "target_file_count": summary["target_file_count"],
+        "artifact_count": summary["artifact_count"],
+        "report_only_artifact_count": summary["report_only_artifact_count"],
+        "source_ready_count": summary["source_ready_count"],
+        "source_writer_allowed_count": summary["source_writer_allowed_count"],
+        "may_write_src_count": summary["may_write_src_count"],
+        "writes_src_count": summary["writes_src_count"],
+        "memory_report_only": True,
+        "output_is_loadable_source": False,
+        "contract_only": True,
+        "candidate_only": True,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "no_write_boundary_flags": _repeated_row_source_bundle_no_write_boundary(),
+        "no_write_placeholder_flags": _alhambra_source_body_candidate_flags(),
+        "interface_report_refs": {
+            group: _alhambra_source_generator_interface_bundle_report_ref(interface_report)
+            for group, interface_report in interface_reports.items()
+            if isinstance(interface_report, dict)
+        },
+        "interface_reports": interface_reports,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra source generator interface bundle gate aggregates the six existing interface reports.",
+            "It recomputes bundle coverage against external source-file validation evidence and generator contract input.",
+            "It is report-only and cannot emit source bodies or authorize src writes.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate(
+        report,
+        source_generator_contract=source_generator_contract,
+        source_file_validation_evidence=source_file_validation_evidence,
+    )
+    return report
+
+
+def validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate(
+    report: dict[str, Any],
+    *,
+    source_generator_contract: dict[str, Any] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    expected_groups = list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS)
+    expected_group_set = set(expected_groups)
+    expected_group_counts = dict(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP
+    )
+
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source generator interface bundle gate pilot_key must be unique_alhambra")
+    if report.get("source_generator_interface_bundle_gate_only") is not True:
+        errors.append("Alhambra source generator interface bundle gate must declare bundle-gate-only")
+    if report.get("source_generator_interface_reports_only") is not True:
+        errors.append("Alhambra source generator interface bundle gate must only combine interface reports")
+    if report.get("source_generator_contract_input_only") is not True:
+        errors.append("Alhambra source generator interface bundle gate must derive from source generator contract input")
+    if report.get("source_file_validation_evidence_input_only") is not True:
+        errors.append(
+            "Alhambra source generator interface bundle gate must derive from source-file validation evidence input"
+        )
+    if report.get("memory_report_only") is not True:
+        errors.append("Alhambra source generator interface bundle gate must be memory/report-only")
+    if report.get("output_is_loadable_source") is not False:
+        errors.append("Alhambra source generator interface bundle gate output must not be loadable source")
+    if report.get("required_interface_groups") != expected_groups:
+        errors.append("Alhambra source generator interface bundle gate required interface groups mismatch")
+    if report.get("required_target_paths") != list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS):
+        errors.append("Alhambra source generator interface bundle gate required target paths mismatch")
+    if report.get("localization_target_paths") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS:
+        errors.append("Alhambra source generator interface bundle gate localization target paths must stay split")
+
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(
+            "Alhambra source generator interface bundle gate must not claim "
+            f"source_ready/verified/backend_ready/readiness at {path}"
+        )
+    for flag in (
+        "may_write_src",
+        "writes_src",
+        "source_writer_allowed",
+        "body_emitted",
+        "implementation_ready",
+        "harness_generated",
+    ):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source generator interface bundle gate {flag} must be false at {path}")
+    for path in _source_bundle_true_flag_paths(report, "output_is_loadable_source"):
+        errors.append(
+            "Alhambra source generator interface bundle gate output_is_loadable_source must be false "
+            f"at {path}"
+        )
+    _validate_alhambra_source_body_candidate_flags(
+        context="Alhambra source generator interface bundle gate report",
+        value=report,
+        errors=errors,
+    )
+
+    expected_target_counts = _alhambra_source_generator_interface_bundle_expected_target_counts(
+        source_file_validation_evidence
+    )
+    if source_file_validation_evidence is None:
+        errors.append(
+            "Alhambra source generator interface bundle gate requires external source-file validation evidence"
+        )
+    else:
+        evidence_errors = validate_repeated_entity_row_alhambra_source_file_validation_evidence(
+            source_file_validation_evidence
+        )
+        if evidence_errors:
+            errors.append(
+                "Alhambra source generator interface bundle gate external source-file validation evidence must be clean"
+            )
+        expected_evidence_input_ref = {
+            "pilot_key": str(source_file_validation_evidence.get("pilot_key", "")),
+            "evidence_pack_count": int(source_file_validation_evidence.get("evidence_pack_count", 0)),
+            "artifact_count": int(source_file_validation_evidence.get("artifact_count", 0)),
+            "source_body_candidate_ref_count": int(
+                source_file_validation_evidence.get("source_body_candidate_ref_count", 0)
+            ),
+            "validation_errors": list(source_file_validation_evidence.get("validation_errors", []) or []),
+        }
+        if report.get("source_file_validation_evidence_input_ref") != expected_evidence_input_ref:
+            errors.append(
+                "Alhambra source generator interface bundle gate source-file validation evidence input ref mismatch"
+            )
+        evidence_targets = {
+            str(pack.get("target_path", ""))
+            for pack in source_file_validation_evidence.get("evidence_packs", []) or []
+            if isinstance(pack, dict)
+        }
+        expected_targets = set(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS)
+        if evidence_targets != expected_targets:
+            errors.append("Alhambra source generator interface bundle gate external evidence target coverage mismatch")
+        for flag in ("may_write_src", "writes_src", "source_writer_allowed", "body_emitted"):
+            for path in _source_bundle_true_flag_paths(source_file_validation_evidence, flag):
+                errors.append(
+                    "Alhambra source generator interface bundle gate external source-file validation "
+                    f"evidence {flag} must be false at {path}"
+                )
+
+    if source_generator_contract is None:
+        errors.append("Alhambra source generator interface bundle gate requires source generator contract input")
+    else:
+        contract_errors = validate_repeated_entity_row_alhambra_source_generator_contract(
+            source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if contract_errors:
+            errors.append(
+                "Alhambra source generator interface bundle gate source generator contract input must bind cleanly"
+            )
+        source_generator_contract_ref = _alhambra_source_generator_contract_report_ref(source_generator_contract)
+        if report.get("source_generator_contract_input_ref") != source_generator_contract_ref:
+            errors.append(
+                "Alhambra source generator interface bundle gate source generator contract input ref mismatch"
+            )
+        contract_targets = {
+            str(contract.get("target_path", ""))
+            for contract in source_generator_contract.get("generator_contracts", []) or []
+            if isinstance(contract, dict)
+        }
+        if contract_targets != set(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS):
+            errors.append("Alhambra source generator interface bundle gate generator contract target coverage mismatch")
+        for flag in ("may_write_src", "writes_src", "source_writer_allowed", "body_emitted"):
+            for path in _source_bundle_true_flag_paths(source_generator_contract, flag):
+                errors.append(
+                    "Alhambra source generator interface bundle gate external source generator contract "
+                    f"{flag} must be false at {path}"
+                )
+
+    if report.get("source_generator_contract_validation_errors"):
+        errors.append("Alhambra source generator interface bundle gate source generator contract input must be clean")
+    if report.get("source_file_validation_evidence_validation_errors"):
+        errors.append(
+            "Alhambra source generator interface bundle gate source-file validation evidence input must be clean"
+        )
+
+    interface_reports = report.get("interface_reports")
+    if not isinstance(interface_reports, dict):
+        errors.append("Alhambra source generator interface bundle gate interface_reports must be a mapping")
+        interface_reports = {}
+    actual_group_set = set(interface_reports)
+    missing_groups = expected_group_set - actual_group_set
+    extra_groups = actual_group_set - expected_group_set
+    if missing_groups:
+        errors.append(
+            "Alhambra source generator interface bundle gate missing interface group(s): "
+            + ", ".join(sorted(missing_groups))
+        )
+    if extra_groups:
+        errors.append(
+            "Alhambra source generator interface bundle gate unexpected interface group(s): "
+            + ", ".join(sorted(extra_groups))
+        )
+
+    validator_by_group = {
+        "event": validate_repeated_entity_row_alhambra_event_source_generator_interface,
+        "scripted_effect_cleanup": (
+            validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface
+        ),
+        "trigger": validate_repeated_entity_row_alhambra_scripted_trigger_source_generator_interface,
+        "gui": validate_repeated_entity_row_alhambra_gui_source_generator_interface,
+        "listener": validate_repeated_entity_row_alhambra_listener_source_generator_interface,
+        "localization": validate_repeated_entity_row_alhambra_localization_source_generator_interface,
+    }
+    for group in expected_groups:
+        group_report = interface_reports.get(group)
+        if not isinstance(group_report, dict):
+            continue
+        group_errors = validator_by_group[group](
+            group_report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        errors.extend(
+            f"Alhambra source generator interface bundle gate {group} report: {error}"
+            for error in group_errors
+        )
+
+    artifacts_by_group = _alhambra_source_generator_interface_bundle_artifacts_by_group(interface_reports)
+    all_artifacts = [
+        artifact
+        for group_artifacts in artifacts_by_group.values()
+        for artifact in group_artifacts
+    ]
+    actual_group_counts = {
+        group: len(artifacts_by_group[group])
+        for group in expected_groups
+    }
+    if report.get("expected_interface_group_artifact_counts") != expected_group_counts:
+        errors.append("Alhambra source generator interface bundle gate expected group artifact counts mismatch")
+    if actual_group_counts != expected_group_counts:
+        errors.append(
+            "Alhambra source generator interface bundle gate artifact count mismatch by interface group: "
+            f"{actual_group_counts}"
+        )
+    for group, expected_targets in (
+        REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_TARGET_PATHS_BY_GROUP.items()
+    ):
+        actual_group_targets = {
+            str(artifact.get("target_path", ""))
+            for artifact in artifacts_by_group.get(group, [])
+            if isinstance(artifact, dict)
+        }
+        if actual_group_targets != set(expected_targets):
+            errors.append(
+                "Alhambra source generator interface bundle gate target coverage mismatch for "
+                f"{group}: {sorted(actual_group_targets)}"
+            )
+
+    actual_target_counts = _count_by_key(all_artifacts, "target_path")
+    if set(actual_target_counts) != set(expected_target_counts):
+        errors.append(
+            "Alhambra source generator interface bundle gate target coverage mismatch: "
+            f"{actual_target_counts}"
+        )
+    if actual_target_counts != expected_target_counts:
+        errors.append(
+            "Alhambra source generator interface bundle gate target artifact counts mismatch: "
+            f"{actual_target_counts}"
+        )
+    if len(all_artifacts) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT:
+        errors.append(
+            "Alhambra source generator interface bundle gate expected 55 report-only artifacts, got "
+            f"{len(all_artifacts)}"
+        )
+    report_only_artifact_count = 0
+    for index, artifact in enumerate(all_artifacts):
+        if (
+            artifact.get("memory_report_only") is True
+            and artifact.get("output_is_loadable_source") is False
+            and artifact.get("body_emitted") is False
+        ):
+            report_only_artifact_count += 1
+        else:
+            errors.append(
+                "Alhambra source generator interface bundle gate artifact must remain report-only at "
+                f"source_file_contract_artifacts[{index}]"
+            )
+    if report_only_artifact_count != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT:
+        errors.append(
+            "Alhambra source generator interface bundle gate expected 55 report-only artifacts, got "
+            f"{report_only_artifact_count}"
+        )
+
+    listener_artifacts = artifacts_by_group.get("listener", [])
+    if len(listener_artifacts) != 1:
+        errors.append("Alhambra source generator interface bundle gate listener linkage missing")
+    elif listener_artifacts:
+        listener_artifact = listener_artifacts[0]
+        if (
+            not isinstance(listener_artifact.get("on_action_hook_linkage_plan"), dict)
+            or not isinstance(listener_artifact.get("selected_ritual_trigger_linkage"), dict)
+            or not isinstance(listener_artifact.get("war_scope_availability_persistence_plan"), dict)
+        ):
+            errors.append("Alhambra source generator interface bundle gate listener linkage missing")
+
+    expected_summary = _alhambra_source_generator_interface_bundle_summary(
+        interface_reports,
+        source_file_validation_evidence=source_file_validation_evidence,
+    )
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    if summary != expected_summary:
+        errors.append("Alhambra source generator interface bundle gate summary mismatch")
+    if int(report.get("interface_group_count", -1)) != len(expected_groups):
+        errors.append("Alhambra source generator interface bundle gate interface_group_count must be 6")
+    if int(report.get("target_file_count", -1)) != len(expected_target_counts):
+        errors.append("Alhambra source generator interface bundle gate target_file_count must be 7")
+    if int(report.get("artifact_count", -1)) != len(all_artifacts):
+        errors.append("Alhambra source generator interface bundle gate artifact_count mismatch")
+    if int(report.get("artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT:
+        errors.append("Alhambra source generator interface bundle gate artifact_count must be 55")
+    if int(report.get("report_only_artifact_count", -1)) != report_only_artifact_count:
+        errors.append("Alhambra source generator interface bundle gate report_only_artifact_count mismatch")
+    if int(report.get("report_only_artifact_count", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT:
+        errors.append("Alhambra source generator interface bundle gate report_only_artifact_count must be 55")
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if int(report.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source generator interface bundle gate {count_key} must be 0")
+    return errors
+
+
 def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
     entries = matrix.get("unique_wonders", []) if isinstance(matrix, dict) else []
     return {
@@ -18077,6 +18662,7 @@ def audit_summary(
     repeated_entity_row_alhambra_gui_source_generator_interface: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_listener_source_generator_interface: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_localization_source_generator_interface: dict[str, Any] | None = None,
+    repeated_entity_row_alhambra_source_generator_interface_bundle_gate: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     wonders = wonders if wonders is not None else load_unique_wonders()
     wonder_keys = {str(wonder["key"]) for wonder in wonders}
@@ -18298,6 +18884,41 @@ def audit_summary(
                 source_file_validation_evidence=alhambra_source_file_validation_evidence,
             )
         )
+    if repeated_entity_row_alhambra_source_generator_interface_bundle_gate is None:
+        if alhambra_source_file_validation_evidence is None:
+            alhambra_source_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(
+                specs,
+                source_bundle_preview=repeated_entity_row_source_bundle_preview,
+            )
+            alhambra_source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(
+                specs,
+                source_body_candidate=alhambra_source_body_candidate,
+            )
+            alhambra_source_file_validation_evidence = (
+                repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+                    specs,
+                    source_file_preview=alhambra_source_file_preview,
+                )
+            )
+        repeated_entity_row_alhambra_source_generator_interface_bundle_gate = (
+            repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload(
+                specs,
+                source_generator_contract=repeated_entity_row_alhambra_source_generator_contract,
+                source_file_validation_evidence=alhambra_source_file_validation_evidence,
+                event_source_generator_interface=repeated_entity_row_alhambra_event_source_generator_interface,
+                scripted_effect_cleanup_source_generator_interface=(
+                    repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface
+                ),
+                scripted_trigger_source_generator_interface=(
+                    repeated_entity_row_alhambra_scripted_trigger_source_generator_interface
+                ),
+                gui_source_generator_interface=repeated_entity_row_alhambra_gui_source_generator_interface,
+                listener_source_generator_interface=repeated_entity_row_alhambra_listener_source_generator_interface,
+                localization_source_generator_interface=(
+                    repeated_entity_row_alhambra_localization_source_generator_interface
+                ),
+            )
+        )
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -18419,6 +19040,9 @@ def audit_summary(
         ),
         "repeated_entity_row_alhambra_localization_source_generator_interface": (
             repeated_entity_row_alhambra_localization_source_generator_interface
+        ),
+        "repeated_entity_row_alhambra_source_generator_interface_bundle_gate": (
+            repeated_entity_row_alhambra_source_generator_interface_bundle_gate
         ),
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,

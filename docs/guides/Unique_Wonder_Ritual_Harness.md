@@ -247,6 +247,15 @@ evidence rather than trusting the report alone. They must keep
 `verified: false`, `backend_ready: false`, `source_writer_allowed: false`,
 `may_write_src: false`, and `writes_src: false`, and they must not write `src/` or
 promote any spec readiness state.
+The Alhambra source generator interface bundle gate sits above those six validators and
+only aggregates their reports. It must verify all seven target files, all six interface
+groups, and exactly fifty-five report-only artifacts: event 8, scripted-effect/cleanup
+18, trigger 6, GUI 2, listener 1, and localization 20. The gate must recompute coverage
+against external source-file validation evidence plus the source-generator contract; it
+must not trust mutable report fields. It must reject missing interface groups,
+duplicate or missing targets, artifact-count drift, missing listener linkage, merged
+English/Simplified Chinese localization targets, any nested `may_write_src: true`, any
+source body emission, and any `implementation_ready` or `harness_generated` promotion.
 The event and localization vertical slices in that ledger are closure contracts only.
 They add machine-checkable event body preview and localization key-contract evidence for
 the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,

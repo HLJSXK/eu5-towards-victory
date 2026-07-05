@@ -44,6 +44,7 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_t
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_gui_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_listener_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_localization_source_generator_interface_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -58,6 +59,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_s
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_gui_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_listener_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_localization_source_generator_interface  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate  # noqa: E402
 
 
 WONDER = {
@@ -8266,6 +8268,197 @@ def main() -> None:
         source_file_validation_evidence=None,
     )
 
+    alhambra_source_generator_interface_bundle_gate = (
+        repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload(
+            spec_data,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+            event_source_generator_interface=alhambra_event_source_generator_interface,
+            scripted_effect_cleanup_source_generator_interface=(
+                alhambra_scripted_effect_cleanup_source_generator_interface
+            ),
+            scripted_trigger_source_generator_interface=alhambra_scripted_trigger_source_generator_interface,
+            gui_source_generator_interface=alhambra_gui_source_generator_interface,
+            listener_source_generator_interface=alhambra_listener_source_generator_interface,
+            localization_source_generator_interface=alhambra_localization_source_generator_interface,
+        )
+    )
+    if alhambra_source_generator_interface_bundle_gate["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate unexpectedly failed validation: "
+            f"{alhambra_source_generator_interface_bundle_gate['validation_errors']}"
+        )
+    evidence_bound_bundle_errors = (
+        validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate(
+            alhambra_source_generator_interface_bundle_gate,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_bundle_errors:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate unexpectedly failed external evidence-bound validation: "
+            f"{evidence_bound_bundle_errors}"
+        )
+    bundle_gate_summary = alhambra_source_generator_interface_bundle_gate.get("summary", {})
+    if bundle_gate_summary.get("interface_group_count") != 6:
+        raise AssertionError(f"Alhambra bundle interface group count changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("target_file_count") != 7:
+        raise AssertionError(f"Alhambra bundle target file count changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("artifact_count") != 55:
+        raise AssertionError(f"Alhambra bundle artifact count changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("report_only_artifact_count") != 55:
+        raise AssertionError(f"Alhambra bundle report-only artifact count changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("interface_group_artifact_counts") != {
+        "event": 8,
+        "scripted_effect_cleanup": 18,
+        "trigger": 6,
+        "gui": 2,
+        "listener": 1,
+        "localization": 20,
+    }:
+        raise AssertionError(f"Alhambra bundle interface group counts changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("target_artifact_counts") != {
+        alhambra_file_targets["event"]: 8,
+        alhambra_file_targets["effect_cleanup"]: 18,
+        alhambra_file_targets["trigger"]: 6,
+        alhambra_file_targets["gui"]: 2,
+        alhambra_file_targets["listener"]: 1,
+        alhambra_file_targets["english"]: 10,
+        alhambra_file_targets["simp_chinese"]: 10,
+    }:
+        raise AssertionError(f"Alhambra bundle target artifact counts changed: {bundle_gate_summary}")
+    if (
+        bundle_gate_summary.get("source_ready_count") != 0
+        or bundle_gate_summary.get("source_writer_allowed_count") != 0
+        or bundle_gate_summary.get("may_write_src_count") != 0
+        or bundle_gate_summary.get("writes_src_count") != 0
+    ):
+        raise AssertionError(f"Alhambra bundle no-write/readiness counts changed: {bundle_gate_summary}")
+    if (
+        alhambra_source_generator_interface_bundle_gate.get("output_is_loadable_source") is not False
+        or alhambra_source_generator_interface_bundle_gate.get("body_emitted") is not False
+        or alhambra_source_generator_interface_bundle_gate.get("source_writer_allowed") is not False
+        or alhambra_source_generator_interface_bundle_gate.get("may_write_src") is not False
+        or alhambra_source_generator_interface_bundle_gate.get("writes_src") is not False
+    ):
+        raise AssertionError(
+            "Alhambra bundle gate must remain report-only/no-write: "
+            f"{alhambra_source_generator_interface_bundle_gate}"
+        )
+
+    def assert_alhambra_bundle_gate_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate(
+            report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra bundle gate negative was not caught: {errors}")
+
+    missing_group_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    del missing_group_bundle["interface_reports"]["gui"]
+    assert_alhambra_bundle_gate_error(
+        "missing interface group",
+        missing_group_bundle,
+        "missing interface group",
+    )
+
+    duplicate_missing_target_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    duplicate_missing_target_artifact = duplicate_missing_target_bundle["interface_reports"]["trigger"][
+        "source_file_contract_artifacts"
+    ][0]
+    duplicate_missing_target_artifact["target_path"] = alhambra_file_targets["event"]
+    duplicate_missing_target_artifact["future_source_target_path"] = alhambra_file_targets["event"]
+    assert_alhambra_bundle_gate_error(
+        "duplicate and missing target",
+        duplicate_missing_target_bundle,
+        "target artifact counts mismatch",
+    )
+
+    wrong_bundle_artifact_count = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    wrong_bundle_artifact_count["interface_reports"]["event"]["source_file_contract_artifacts"].pop()
+    assert_alhambra_bundle_gate_error(
+        "artifact count mismatch",
+        wrong_bundle_artifact_count,
+        "expected 55 report-only artifacts",
+    )
+
+    missing_bundle_listener_linkage = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    del missing_bundle_listener_linkage["interface_reports"]["listener"]["source_file_contract_artifacts"][0][
+        "war_scope_availability_persistence_plan"
+    ]
+    assert_alhambra_bundle_gate_error(
+        "listener linkage missing",
+        missing_bundle_listener_linkage,
+        "listener linkage missing",
+    )
+
+    merged_bundle_localization_targets = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    merged_bundle_localization_targets["localization_target_paths"]["simp_chinese"] = alhambra_file_targets[
+        "english"
+    ]
+    assert_alhambra_bundle_gate_error(
+        "merged localization targets",
+        merged_bundle_localization_targets,
+        "localization target paths must stay split",
+    )
+
+    external_contract_may_write_src_bundle = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        external_contract_may_write_src_bundle,
+        alhambra_file_targets["effect_cleanup"],
+    )["may_write_src"] = True
+    assert_alhambra_bundle_gate_error(
+        "external contract may_write_src",
+        alhambra_source_generator_interface_bundle_gate,
+        "may_write_src must be false",
+        source_generator_contract=external_contract_may_write_src_bundle,
+    )
+
+    nested_report_may_write_src_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    nested_report_may_write_src_bundle["interface_reports"]["event"]["source_file_contract_artifacts"][0][
+        "may_write_src"
+    ] = True
+    assert_alhambra_bundle_gate_error(
+        "nested report may_write_src",
+        nested_report_may_write_src_bundle,
+        "may_write_src must be false",
+    )
+
+    emitted_source_body_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    emitted_source_body_bundle["interface_reports"]["gui"]["source_file_contract_artifacts"][0][
+        "body_emitted"
+    ] = True
+    assert_alhambra_bundle_gate_error(
+        "source body emission",
+        emitted_source_body_bundle,
+        "body_emitted must be false",
+    )
+
+    promoted_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    promoted_bundle["implementation_ready"] = True
+    assert_alhambra_bundle_gate_error(
+        "implementation_ready promotion",
+        promoted_bundle,
+        "implementation_ready must be false",
+    )
+
+    generated_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    generated_bundle["harness_generated"] = True
+    assert_alhambra_bundle_gate_error(
+        "harness_generated promotion",
+        generated_bundle,
+        "harness_generated must be false",
+    )
+
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
         wonders=[WONDER],
@@ -9700,6 +9893,9 @@ def main() -> None:
         repeated_entity_row_alhambra_localization_source_generator_interface=(
             alhambra_localization_source_generator_interface
         ),
+        repeated_entity_row_alhambra_source_generator_interface_bundle_gate=(
+            alhambra_source_generator_interface_bundle_gate
+        ),
     )
     if summary["source_codegen_ready_count"] != 4:
         raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
@@ -9911,6 +10107,48 @@ def main() -> None:
         raise AssertionError(
             "Alhambra localization source generator interface no-write counts changed: "
             f"{alhambra_localization_interface_summary}"
+        )
+    alhambra_bundle_gate_summary = summary[
+        "repeated_entity_row_alhambra_source_generator_interface_bundle_gate"
+    ]["summary"]
+    if alhambra_bundle_gate_summary["interface_group_count"] != 6:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate group count should remain 6, got "
+            f"{alhambra_bundle_gate_summary['interface_group_count']}"
+        )
+    if alhambra_bundle_gate_summary["target_file_count"] != 7:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate target count should remain 7, got "
+            f"{alhambra_bundle_gate_summary['target_file_count']}"
+        )
+    if (
+        alhambra_bundle_gate_summary["artifact_count"] != 55
+        or alhambra_bundle_gate_summary["report_only_artifact_count"] != 55
+    ):
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate report-only artifact count should remain 55: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    if alhambra_bundle_gate_summary["interface_group_artifact_counts"] != {
+        "event": 8,
+        "scripted_effect_cleanup": 18,
+        "trigger": 6,
+        "gui": 2,
+        "listener": 1,
+        "localization": 20,
+    }:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate family counts changed: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    if (
+        alhambra_bundle_gate_summary["source_writer_allowed_count"] != 0
+        or alhambra_bundle_gate_summary["may_write_src_count"] != 0
+        or alhambra_bundle_gate_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate no-write counts changed: "
+            f"{alhambra_bundle_gate_summary}"
         )
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")
