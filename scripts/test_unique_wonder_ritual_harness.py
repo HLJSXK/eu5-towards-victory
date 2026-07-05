@@ -6621,6 +6621,103 @@ def main() -> None:
             raise AssertionError(
                 f"Alhambra event source generator interface artifact lost no-write contract shape: {artifact}"
             )
+    event_draft_ids: list[int] = []
+    event_draft_stage_counts: dict[str, int] = {}
+    all_contract_source_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for contract in alhambra_source_generator_contract.get("generator_contracts", []) or []
+        if isinstance(contract, dict)
+        for ref in contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    all_evidence_source_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for pack in alhambra_source_file_validation_evidence.get("evidence_packs", []) or []
+        if isinstance(pack, dict)
+        for ref in pack.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    for artifact in event_contract_artifacts:
+        draft = artifact.get("event_source_body_draft", {})
+        if not isinstance(draft, dict):
+            raise AssertionError(f"Alhambra event artifact missing source-body draft: {artifact}")
+        event_id = draft.get("event_id")
+        event_draft_ids.append(event_id)
+        stage = str(draft.get("event_stage", ""))
+        event_draft_stage_counts[stage] = event_draft_stage_counts.get(stage, 0) + 1
+        prefix = f"tv_engineering_department.{event_id}"
+        loc_refs = draft.get("localization_key_refs", {})
+        option_handoff = draft.get("option_handoff", {})
+        options = option_handoff.get("options", []) if isinstance(option_handoff, dict) else []
+        expected_slots = ("a", "b") if stage == "retry" else ("a",)
+        if (
+            draft.get("kind") != "event_source_body_draft"
+            or draft.get("event_type") != "country_event"
+            or draft.get("namespace") != "tv_engineering_department"
+            or draft.get("target_path") != event_interface_target
+            or draft.get("future_source_target_path") != event_interface_target
+            or draft.get("output_is_loadable_source") is not False
+            or draft.get("body_emitted") is not False
+            or draft.get("source_writer_allowed") is not False
+            or draft.get("may_write_src") is not False
+            or draft.get("writes_src") is not False
+            or not isinstance(loc_refs, dict)
+            or loc_refs.get("title_key") != f"{prefix}.t"
+            or loc_refs.get("desc_key") != f"{prefix}.d"
+            or loc_refs.get("all_bound") is not True
+            or loc_refs.get("unbound_keys") != []
+            or tuple(option.get("option_slot") for option in options) != expected_slots
+        ):
+            raise AssertionError(f"Alhambra event source-body draft shape changed: {draft}")
+        for option in options:
+            if (
+                option.get("localization_key_ref") != f"{prefix}.{option.get('option_slot')}"
+                or option.get("handoff_only") is not True
+                or option.get("inline_effect_body_allowed") is not False
+                or option.get("inline_trigger_body_allowed") is not False
+                or option.get("body_emitted") is not False
+                or not option.get("effect_refs")
+                or not option.get("trigger_refs")
+            ):
+                raise AssertionError(f"Alhambra event option handoff draft changed: {option}")
+            option_effect_ref_keys = {
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+                for ref in option.get("effect_refs", []) or []
+                if isinstance(ref, dict)
+            }
+            option_trigger_ref_keys = {
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+                for ref in option.get("trigger_refs", []) or []
+                if isinstance(ref, dict)
+            }
+            if not option_effect_ref_keys <= all_contract_source_ref_keys & all_evidence_source_ref_keys:
+                raise AssertionError(f"Alhambra event option effect refs lost contract/evidence binding: {option}")
+            if not option_trigger_ref_keys <= all_contract_source_ref_keys & all_evidence_source_ref_keys:
+                raise AssertionError(f"Alhambra event option trigger refs lost contract/evidence binding: {option}")
+    if event_draft_ids != list(range(7309, 7317)) or len(set(event_draft_ids)) != 8:
+        raise AssertionError(f"Alhambra event source-body draft ids changed: {event_draft_ids}")
+    if event_draft_stage_counts != {"opening": 2, "update": 2, "retry": 2, "resolve": 2}:
+        raise AssertionError(f"Alhambra event source-body draft stage coverage changed: {event_draft_stage_counts}")
     if event_validation_pack.get("target_path") != event_interface_target:
         raise AssertionError(f"Alhambra event validation pack target changed: {event_validation_pack}")
 
@@ -6671,6 +6768,53 @@ def main() -> None:
         "output_kind must be source_file_contract_artifacts",
     )
 
+    duplicate_event_id_interface = deepcopy(alhambra_event_source_generator_interface)
+    duplicate_event_id_interface["source_file_contract_artifacts"][1]["event_source_body_draft"]["event_id"] = (
+        duplicate_event_id_interface["source_file_contract_artifacts"][0]["event_source_body_draft"]["event_id"]
+    )
+    assert_alhambra_event_source_generator_interface_error(
+        "duplicate event source-body draft id",
+        duplicate_event_id_interface,
+        "event source-body draft event ids must be unique",
+    )
+
+    unbound_loc_event_interface = deepcopy(alhambra_event_source_generator_interface)
+    _alhambra_event_source_file_contract_artifact(
+        unbound_loc_event_interface,
+        "event_opening_skeleton",
+    )["event_source_body_draft"]["localization_key_refs"]["all_bound"] = False
+    assert_alhambra_event_source_generator_interface_error(
+        "unbound event source-body draft loc keys",
+        unbound_loc_event_interface,
+        "localization key refs must be fully bound",
+    )
+
+    forged_effect_ref_event_interface = deepcopy(alhambra_event_source_generator_interface)
+    _alhambra_event_source_file_contract_artifact(
+        forged_effect_ref_event_interface,
+        "event_update_skeleton",
+    )["event_source_body_draft"]["option_handoff"]["options"][0]["effect_refs"][0][
+        "artifact_kind"
+    ] = "forged_effect_ref"
+    assert_alhambra_event_source_generator_interface_error(
+        "forged event source-body draft option effect ref",
+        forged_effect_ref_event_interface,
+        "option effect refs must come from existing contract/evidence",
+    )
+
+    forged_trigger_ref_event_interface = deepcopy(alhambra_event_source_generator_interface)
+    _alhambra_event_source_file_contract_artifact(
+        forged_trigger_ref_event_interface,
+        "event_resolve_skeleton",
+    )["event_source_body_draft"]["option_handoff"]["options"][0]["trigger_refs"][0][
+        "artifact_kind"
+    ] = "forged_trigger_ref"
+    assert_alhambra_event_source_generator_interface_error(
+        "forged event source-body draft option trigger ref",
+        forged_trigger_ref_event_interface,
+        "option trigger refs must come from existing contract/evidence",
+    )
+
     forged_ref_event_interface = deepcopy(alhambra_event_source_generator_interface)
     _alhambra_event_source_file_contract_artifact(
         forged_ref_event_interface,
@@ -6701,10 +6845,14 @@ def main() -> None:
             source_file_validation_evidence=external_evidence_forged_event_validation,
         )
     )
-    if external_evidence_forged_event_interface["validation_errors"]:
+    if not any(
+        "event source-body draft effect refs must not be empty" in error
+        or "event source-body draft trigger refs must not be empty" in error
+        for error in external_evidence_forged_event_interface["validation_errors"]
+    ):
         raise AssertionError(
-            "Externally forged Alhambra event interface should stay self-consistent before "
-            "the original validation evidence is applied: "
+            "Externally forged Alhambra event interface should fail its own source-body "
+            "draft ref binding before the original validation evidence is applied: "
             f"{external_evidence_forged_event_interface['validation_errors']}"
         )
     assert_alhambra_event_source_generator_interface_error(

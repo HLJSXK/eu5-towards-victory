@@ -3632,6 +3632,62 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_B
 REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT = sum(
     REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP.values()
 )
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START = 7309
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND = {
+    "event_opening_skeleton": "opening",
+    "event_update_skeleton": "update",
+    "event_retry_skeleton": "retry",
+    "event_resolve_skeleton": "resolve",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EFFECT_HANDOFFS_BY_STAGE = {
+    "opening": ("scripted_effect_row_init", "scripted_effect_aggregate_refresh"),
+    "update": ("scripted_effect_row_state_write", "scripted_effect_aggregate_refresh"),
+    "retry": ("scripted_effect_branch_write", "scripted_effect_row_state_write"),
+    "resolve": ("scripted_effect_branch_write", "cleanup_completion"),
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_TRIGGER_HANDOFFS_BY_STAGE = {
+    "opening": ("scripted_trigger_eligibility", "scripted_trigger_tooltip_safe_condition_group"),
+    "update": ("scripted_trigger_row_completion", "scripted_trigger_tooltip_safe_condition_group"),
+    "retry": ("scripted_trigger_eligibility", "scripted_trigger_tooltip_safe_condition_group"),
+    "resolve": ("scripted_trigger_row_completion", "scripted_trigger_tooltip_safe_condition_group"),
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_OPTION_SLOTS_BY_STAGE = {
+    "opening": ("a",),
+    "update": ("a",),
+    "retry": ("a", "b"),
+    "resolve": ("a",),
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_REQUIRED_FIELDS = {
+    "kind",
+    "draft_version",
+    "pilot_key",
+    "family",
+    "artifact_kind",
+    "event_stage",
+    "row_set_key",
+    "target_path",
+    "future_source_target_path",
+    "event_type",
+    "namespace",
+    "event_id",
+    "event_id_ref",
+    "event_id_allocation",
+    "localization_key_refs",
+    "effect_refs",
+    "trigger_refs",
+    "option_handoff",
+    "effect_ref_count",
+    "trigger_ref_count",
+    "source_body_outline",
+    "output_is_loadable_source",
+    "body_emitted",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_REQUIRED_FIELDS = {
     "pilot_key",
     "family",
@@ -3880,6 +3936,7 @@ REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED_FIELDS
     "required_validations",
     "remaining_blockers",
     "unresolved_writer_blockers",
+    "event_source_body_draft",
     "no_write_source_writer_contract_evidence",
 }
 REPEATED_ENTITY_ROW_ALHAMBRA_LOCALIZATION_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED_FIELDS = {
@@ -13130,6 +13187,202 @@ def _alhambra_event_source_generator_interface_contract_ref(contract: dict[str, 
     }
 
 
+def _alhambra_source_body_candidate_refs_from_generator_contract(
+    source_generator_contract: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not isinstance(source_generator_contract, dict):
+        return []
+    return [
+        deepcopy(ref)
+        for contract in source_generator_contract.get("generator_contracts", []) or []
+        if isinstance(contract, dict)
+        for ref in contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    ]
+
+
+def _alhambra_source_body_candidate_refs_from_validation_evidence(
+    source_file_validation_evidence: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not isinstance(source_file_validation_evidence, dict):
+        return []
+    return [
+        deepcopy(ref)
+        for pack in source_file_validation_evidence.get("evidence_packs", []) or []
+        if isinstance(pack, dict)
+        for ref in pack.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    ]
+
+
+def _alhambra_source_body_candidate_ref_key_set(refs: list[dict[str, Any]]) -> set[tuple[str, str, str, str]]:
+    return {_alhambra_source_file_preview_ref_key(ref) for ref in refs}
+
+
+def _alhambra_event_source_body_draft_handoff_refs(
+    *,
+    refs: list[dict[str, Any]],
+    row_set_key: str,
+    families: set[str],
+    artifact_kinds: tuple[str, ...],
+) -> list[dict[str, Any]]:
+    artifact_kind_set = set(artifact_kinds)
+    return [
+        deepcopy(ref)
+        for ref in refs
+        if str(ref.get("row_set_key", "")) == row_set_key
+        and str(ref.get("family", "")) in families
+        and str(ref.get("artifact_kind", "")) in artifact_kind_set
+    ]
+
+
+def _alhambra_event_source_body_draft_option_rows(
+    *,
+    stage: str,
+    event_key_prefix: str,
+    effect_refs: list[dict[str, Any]],
+    trigger_refs: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for slot in REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_OPTION_SLOTS_BY_STAGE.get(stage, ()):
+        rows.append(
+            {
+                "option_slot": slot,
+                "localization_key_ref": f"{event_key_prefix}.{slot}",
+                "handoff_only": True,
+                "inline_effect_body_allowed": False,
+                "inline_trigger_body_allowed": False,
+                "effect_refs": deepcopy(effect_refs),
+                "trigger_refs": deepcopy(trigger_refs),
+                "body_emitted": False,
+                "source_writer_allowed": False,
+                "may_write_src": False,
+                "writes_src": False,
+            }
+        )
+    return rows
+
+
+def _alhambra_event_source_body_draft(
+    *,
+    ref: dict[str, Any],
+    index: int,
+    target_path: str,
+    source_generator_contract: dict[str, Any] | None,
+) -> dict[str, Any]:
+    artifact_kind = str(ref.get("artifact_kind", ""))
+    row_set_key = str(ref.get("row_set_key", ""))
+    stage = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND.get(
+        artifact_kind,
+        "",
+    )
+    event_id = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START + index
+    namespace = "tv_engineering_department"
+    event_key_prefix = f"{namespace}.{event_id}"
+    contract_refs = _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract)
+    effect_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"effect", "cleanup"},
+        artifact_kinds=REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EFFECT_HANDOFFS_BY_STAGE.get(stage, ()),
+    )
+    trigger_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"trigger"},
+        artifact_kinds=REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_TRIGGER_HANDOFFS_BY_STAGE.get(stage, ()),
+    )
+    option_rows = _alhambra_event_source_body_draft_option_rows(
+        stage=stage,
+        event_key_prefix=event_key_prefix,
+        effect_refs=effect_refs,
+        trigger_refs=trigger_refs,
+    )
+    option_key_refs = [
+        {"option_slot": row["option_slot"], "key": row["localization_key_ref"]}
+        for row in option_rows
+    ]
+    source_body_outline_options = [
+        {
+            "option_slot": row["option_slot"],
+            "name_key_ref": row["localization_key_ref"],
+            "effect_handoff_ref_count": len(row["effect_refs"]),
+            "trigger_handoff_ref_count": len(row["trigger_refs"]),
+            "inline_body_emitted": False,
+        }
+        for row in option_rows
+    ]
+    return {
+        "kind": "event_source_body_draft",
+        "draft_version": 1,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_FAMILY,
+        "artifact_kind": artifact_kind,
+        "event_stage": stage,
+        "row_set_key": row_set_key,
+        "target_path": target_path,
+        "future_source_target_path": str(ref.get("future_source_target_path", "")),
+        "event_type": "country_event",
+        "namespace": namespace,
+        "event_id": event_id,
+        "event_id_ref": {
+            "qualified_event_id": event_key_prefix,
+            "namespace": namespace,
+            "id": event_id,
+            "unique_within_event_interface_draft": True,
+        },
+        "event_id_allocation": {
+            "allocation_source": "alhambra_event_interface_artifact_index_no_write_draft",
+            "base_event_id": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START,
+            "artifact_index": index,
+            "declared_source_event_id_window": "unique_alhambra event_ids 7309-7312",
+            "derived_for_repeated_row_artifact": True,
+            "writes_spec": False,
+            "writes_src": False,
+        },
+        "localization_key_refs": {
+            "title_key": f"{event_key_prefix}.t",
+            "desc_key": f"{event_key_prefix}.d",
+            "option_key_refs": option_key_refs,
+            "key_policy": "tv_engineering_department.<event_id>.t/d/a(/b)",
+            "all_bound": True,
+            "unbound_keys": [],
+            "localization_source_writer_allowed": False,
+            "body_emitted": False,
+        },
+        "effect_refs": deepcopy(effect_refs),
+        "trigger_refs": deepcopy(trigger_refs),
+        "option_handoff": {
+            "handoff_only": True,
+            "row_state_writes_allowed": False,
+            "inline_effect_body_allowed": False,
+            "inline_trigger_body_allowed": False,
+            "tooltip_heavy_finalization_allowed": False,
+            "options": option_rows,
+        },
+        "effect_ref_count": len(effect_refs),
+        "trigger_ref_count": len(trigger_refs),
+        "source_body_outline": {
+            "declaration_ref": event_key_prefix,
+            "event_type": "country_event",
+            "title_key_ref": f"{event_key_prefix}.t",
+            "desc_key_ref": f"{event_key_prefix}.d",
+            "options": source_body_outline_options,
+            "immediate_block_refs": [],
+            "hidden_effect_handoff_only": stage == "resolve",
+            "inline_body_emitted": False,
+        },
+        "output_is_loadable_source": False,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
 def _alhambra_event_source_generator_interface_prototype(
     *,
     contract: dict[str, Any],
@@ -13182,6 +13435,7 @@ def _alhambra_event_source_file_contract_artifact(
     contract: dict[str, Any],
     validation_pack: dict[str, Any],
     source_generator_contract_ref: dict[str, Any],
+    source_generator_contract: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     target_path = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
     return {
@@ -13226,6 +13480,12 @@ def _alhambra_event_source_file_contract_artifact(
         "required_validations": sorted(_string_refs(contract.get("required_validations"))),
         "remaining_blockers": sorted(_string_refs(contract.get("remaining_blockers"))),
         "unresolved_writer_blockers": sorted(_string_refs(contract.get("unresolved_writer_blockers"))),
+        "event_source_body_draft": _alhambra_event_source_body_draft(
+            ref=ref,
+            index=index,
+            target_path=target_path,
+            source_generator_contract=source_generator_contract,
+        ),
         "no_write_source_writer_contract_evidence": deepcopy(
             contract.get("no_write_source_writer_contract_evidence", {}) or {}
         ),
@@ -13273,6 +13533,7 @@ def repeated_entity_row_alhambra_event_source_generator_interface_for_payload(
             contract=contract,
             validation_pack=validation_pack,
             source_generator_contract_ref=source_generator_contract_ref,
+            source_generator_contract=source_generator_contract,
         )
         for index, ref in enumerate(refs)
     ]
@@ -13290,6 +13551,7 @@ def repeated_entity_row_alhambra_event_source_generator_interface_for_payload(
         "source_file_contract_artifact_count": len(source_file_contract_artifacts),
         "artifact_count": len(source_file_contract_artifacts),
         "output_kind": "source_file_contract_artifacts",
+        "event_source_body_draft_count": len(source_file_contract_artifacts),
         "source_ready_count": source_ready_count,
         "source_writer_allowed_count": source_writer_allowed_count,
         "may_write_src_count": may_write_src_count,
@@ -13326,6 +13588,7 @@ def repeated_entity_row_alhambra_event_source_generator_interface_for_payload(
         "interface_count": summary["interface_count"],
         "artifact_count": len(source_file_contract_artifacts),
         "source_file_contract_artifact_count": len(source_file_contract_artifacts),
+        "event_source_body_draft_count": len(source_file_contract_artifacts),
         "required_target_paths": [target_path],
         "source_generator_interfaces": [
             _alhambra_event_source_generator_interface_prototype(
@@ -15637,6 +15900,241 @@ def validate_repeated_entity_row_alhambra_source_generator_contract(
     return errors
 
 
+def _validate_alhambra_event_source_body_draft_refs(
+    *,
+    context: str,
+    label: str,
+    refs: Any,
+    expected_families: set[str],
+    contract_ref_keys: set[tuple[str, str, str, str]],
+    evidence_ref_keys: set[tuple[str, str, str, str]],
+    errors: list[str],
+) -> None:
+    if not isinstance(refs, list) or not refs:
+        errors.append(f"{context} event source-body draft {label} refs must not be empty")
+        return
+    bad_ref_found = False
+    for ref in refs:
+        if not isinstance(ref, dict):
+            bad_ref_found = True
+            continue
+        if str(ref.get("family", "")) not in expected_families:
+            bad_ref_found = True
+            continue
+        ref_key = _alhambra_source_file_preview_ref_key(ref)
+        if ref_key not in contract_ref_keys or ref_key not in evidence_ref_keys:
+            bad_ref_found = True
+    if bad_ref_found:
+        errors.append(
+            f"{context} event source-body draft {label} refs must come from existing contract/evidence"
+        )
+
+
+def _validate_alhambra_event_source_body_draft(
+    *,
+    context: str,
+    artifact: dict[str, Any],
+    draft: Any,
+    contract_ref_keys: set[tuple[str, str, str, str]],
+    evidence_ref_keys: set[tuple[str, str, str, str]],
+    errors: list[str],
+) -> int | None:
+    if not isinstance(draft, dict):
+        errors.append(f"{context} missing event source-body draft")
+        return None
+    missing = _missing_required(draft, REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_REQUIRED_FIELDS)
+    if missing:
+        errors.append(f"{context} event source-body draft missing field(s): {', '.join(missing)}")
+        return None
+
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    target_path = str(artifact.get("target_path", ""))
+    expected_stage = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND.get(
+        artifact_kind,
+        "",
+    )
+    if draft.get("kind") != "event_source_body_draft":
+        errors.append(f"{context} event source-body draft kind mismatch")
+    if draft.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append(f"{context} event source-body draft pilot_key must be unique_alhambra")
+    if draft.get("family") != REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_FAMILY:
+        errors.append(f"{context} event source-body draft family must be event")
+    if draft.get("artifact_kind") != artifact_kind:
+        errors.append(f"{context} event source-body draft artifact_kind mismatch")
+    if draft.get("event_stage") != expected_stage:
+        errors.append(f"{context} event source-body draft stage mismatch")
+    if draft.get("row_set_key") != row_set_key:
+        errors.append(f"{context} event source-body draft row_set_key mismatch")
+    if draft.get("target_path") != target_path or draft.get("future_source_target_path") != target_path:
+        errors.append(f"{context} event source-body draft target path mismatch")
+    if draft.get("event_type") != "country_event":
+        errors.append(f"{context} event source-body draft event_type must be country_event")
+    if draft.get("namespace") != "tv_engineering_department":
+        errors.append(f"{context} event source-body draft namespace mismatch")
+    for flag in (
+        "output_is_loadable_source",
+        "body_emitted",
+        "source_ready",
+        "verified",
+        "backend_ready",
+        "source_writer_allowed",
+        "may_write_src",
+        "writes_src",
+    ):
+        if draft.get(flag) is not False:
+            errors.append(f"{context} event source-body draft {flag} must be false")
+
+    try:
+        event_id = int(draft.get("event_id"))
+    except (TypeError, ValueError):
+        errors.append(f"{context} event source-body draft event_id must be an integer")
+        event_id = None
+    else:
+        expected_event_id = (
+            REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START
+            + int(artifact.get("artifact_index", 0))
+        )
+        if event_id != expected_event_id:
+            errors.append(f"{context} event source-body draft event_id mismatch")
+        if event_id >= 10000:
+            errors.append(f"{context} event source-body draft event_id must be < 10000")
+
+    event_key_prefix = f"tv_engineering_department.{event_id}" if event_id is not None else ""
+    event_id_ref = draft.get("event_id_ref") if isinstance(draft.get("event_id_ref"), dict) else {}
+    if event_id_ref.get("qualified_event_id") != event_key_prefix:
+        errors.append(f"{context} event source-body draft event id ref mismatch")
+    allocation = draft.get("event_id_allocation") if isinstance(draft.get("event_id_allocation"), dict) else {}
+    if (
+        allocation.get("allocation_source") != "alhambra_event_interface_artifact_index_no_write_draft"
+        or allocation.get("writes_spec") is not False
+        or allocation.get("writes_src") is not False
+    ):
+        errors.append(f"{context} event source-body draft event id allocation must remain no-write")
+
+    loc_refs = draft.get("localization_key_refs")
+    if not isinstance(loc_refs, dict):
+        errors.append(f"{context} event source-body draft missing localization key refs")
+    else:
+        if loc_refs.get("all_bound") is not True or loc_refs.get("unbound_keys"):
+            errors.append(f"{context} event source-body draft localization key refs must be fully bound")
+        if loc_refs.get("title_key") != f"{event_key_prefix}.t":
+            errors.append(f"{context} event source-body draft missing title localization key ref")
+        if loc_refs.get("desc_key") != f"{event_key_prefix}.d":
+            errors.append(f"{context} event source-body draft missing desc localization key ref")
+        option_key_refs = loc_refs.get("option_key_refs")
+        expected_slots = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_OPTION_SLOTS_BY_STAGE.get(
+            expected_stage,
+            (),
+        )
+        expected_option_key_refs = [
+            {"option_slot": slot, "key": f"{event_key_prefix}.{slot}"}
+            for slot in expected_slots
+        ]
+        if option_key_refs != expected_option_key_refs:
+            errors.append(f"{context} event source-body draft option localization key refs mismatch")
+        if loc_refs.get("localization_source_writer_allowed") is not False or loc_refs.get("body_emitted") is not False:
+            errors.append(f"{context} event source-body draft localization handoff must remain no-write")
+
+    effect_refs = draft.get("effect_refs")
+    trigger_refs = draft.get("trigger_refs")
+    _validate_alhambra_event_source_body_draft_refs(
+        context=context,
+        label="effect",
+        refs=effect_refs,
+        expected_families={"effect", "cleanup"},
+        contract_ref_keys=contract_ref_keys,
+        evidence_ref_keys=evidence_ref_keys,
+        errors=errors,
+    )
+    _validate_alhambra_event_source_body_draft_refs(
+        context=context,
+        label="trigger",
+        refs=trigger_refs,
+        expected_families={"trigger"},
+        contract_ref_keys=contract_ref_keys,
+        evidence_ref_keys=evidence_ref_keys,
+        errors=errors,
+    )
+    try:
+        effect_ref_count = int(draft.get("effect_ref_count", -1))
+    except (TypeError, ValueError):
+        effect_ref_count = -1
+    if not isinstance(effect_refs, list) or effect_ref_count != len(effect_refs):
+        errors.append(f"{context} event source-body draft effect_ref_count mismatch")
+    try:
+        trigger_ref_count = int(draft.get("trigger_ref_count", -1))
+    except (TypeError, ValueError):
+        trigger_ref_count = -1
+    if not isinstance(trigger_refs, list) or trigger_ref_count != len(trigger_refs):
+        errors.append(f"{context} event source-body draft trigger_ref_count mismatch")
+
+    handoff = draft.get("option_handoff")
+    if not isinstance(handoff, dict):
+        errors.append(f"{context} event source-body draft missing option handoff")
+    else:
+        if (
+            handoff.get("handoff_only") is not True
+            or handoff.get("row_state_writes_allowed") is not False
+            or handoff.get("inline_effect_body_allowed") is not False
+            or handoff.get("inline_trigger_body_allowed") is not False
+        ):
+            errors.append(f"{context} event source-body draft option handoff must remain no-write")
+        options = handoff.get("options")
+        if not isinstance(options, list) or not options:
+            errors.append(f"{context} event source-body draft option handoff must contain options")
+        else:
+            expected_slots = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_OPTION_SLOTS_BY_STAGE.get(
+                expected_stage,
+                (),
+            )
+            actual_slots = tuple(str(option.get("option_slot", "")) for option in options if isinstance(option, dict))
+            if actual_slots != expected_slots:
+                errors.append(f"{context} event source-body draft option handoff slots mismatch")
+            for option in options:
+                if not isinstance(option, dict):
+                    errors.append(f"{context} event source-body draft option handoff entry must be a mapping")
+                    continue
+                slot = str(option.get("option_slot", ""))
+                if option.get("localization_key_ref") != f"{event_key_prefix}.{slot}":
+                    errors.append(f"{context} event source-body draft option localization handoff mismatch")
+                for flag in ("body_emitted", "source_writer_allowed", "may_write_src", "writes_src"):
+                    if option.get(flag) is not False:
+                        errors.append(f"{context} event source-body draft option {flag} must be false")
+                _validate_alhambra_event_source_body_draft_refs(
+                    context=context,
+                    label="option effect",
+                    refs=option.get("effect_refs"),
+                    expected_families={"effect", "cleanup"},
+                    contract_ref_keys=contract_ref_keys,
+                    evidence_ref_keys=evidence_ref_keys,
+                    errors=errors,
+                )
+                _validate_alhambra_event_source_body_draft_refs(
+                    context=context,
+                    label="option trigger",
+                    refs=option.get("trigger_refs"),
+                    expected_families={"trigger"},
+                    contract_ref_keys=contract_ref_keys,
+                    evidence_ref_keys=evidence_ref_keys,
+                    errors=errors,
+                )
+
+    outline = draft.get("source_body_outline")
+    if not isinstance(outline, dict):
+        errors.append(f"{context} event source-body draft missing source body outline")
+    elif (
+        outline.get("declaration_ref") != event_key_prefix
+        or outline.get("event_type") != "country_event"
+        or outline.get("title_key_ref") != f"{event_key_prefix}.t"
+        or outline.get("desc_key_ref") != f"{event_key_prefix}.d"
+        or outline.get("inline_body_emitted") is not False
+    ):
+        errors.append(f"{context} event source-body draft source body outline mismatch")
+
+    return event_id
+
+
 def validate_repeated_entity_row_alhambra_event_source_generator_interface(
     report: dict[str, Any],
     *,
@@ -15769,6 +16267,7 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
             contract=expected_contract,
             validation_pack=external_pack,
             source_generator_contract_ref=source_generator_contract_ref,
+            source_generator_contract=source_generator_contract,
         )
         for index, ref in enumerate(expected_refs)
     ] if expected_contract and external_pack else []
@@ -15790,6 +16289,12 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
     if not isinstance(interfaces, list):
         errors.append("Alhambra event source generator interface source_generator_interfaces must be a list")
         interfaces = []
+    contract_ref_keys = _alhambra_source_body_candidate_ref_key_set(
+        _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract)
+    )
+    evidence_ref_keys = _alhambra_source_body_candidate_ref_key_set(
+        _alhambra_source_body_candidate_refs_from_validation_evidence(source_file_validation_evidence)
+    )
 
     if int(report.get("interface_count", -1)) != len(interfaces):
         errors.append("Alhambra event source generator interface interface_count mismatch")
@@ -15816,6 +16321,7 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
             "source_file_contract_artifact_count": len(artifacts),
             "artifact_count": len(artifacts),
             "output_kind": "source_file_contract_artifacts",
+            "event_source_body_draft_count": len(artifacts),
             "source_ready_count": 0,
             "source_writer_allowed_count": 0,
             "may_write_src_count": 0,
@@ -15845,6 +16351,8 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
         errors.append("Alhambra event source generator interface prototype must be a mapping")
 
     actual_ref_keys: set[tuple[str, str, str, str]] = set()
+    draft_event_ids: list[int] = []
+    draft_stage_counts: dict[str, int] = {}
     for index, artifact in enumerate(artifacts):
         if not isinstance(artifact, dict):
             errors.append("Alhambra event source generator interface artifact must be a mapping")
@@ -15895,6 +16403,20 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
             errors.append(f"{context} source generator contract ref mismatch")
         if artifact.get("source_file_validation_evidence_ref") != expected_pack_ref:
             errors.append(f"{context} source-file validation evidence ref mismatch")
+        draft_event_id = _validate_alhambra_event_source_body_draft(
+            context=context,
+            artifact=artifact,
+            draft=artifact.get("event_source_body_draft"),
+            contract_ref_keys=contract_ref_keys,
+            evidence_ref_keys=evidence_ref_keys,
+            errors=errors,
+        )
+        if draft_event_id is not None:
+            draft_event_ids.append(draft_event_id)
+        draft = artifact.get("event_source_body_draft") if isinstance(artifact.get("event_source_body_draft"), dict) else {}
+        stage = str(draft.get("event_stage", ""))
+        if stage:
+            draft_stage_counts[stage] = draft_stage_counts.get(stage, 0) + 1
         if expected_artifacts and index < len(expected_artifacts) and artifact != expected_artifacts[index]:
             errors.append(f"{context} external validation evidence mismatch")
 
@@ -15908,6 +16430,13 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
         errors.append(
             f"Alhambra event source generator interface expected 8 unique source file contract artifacts, got {len(actual_ref_keys)}"
         )
+    if len(draft_event_ids) != len(set(draft_event_ids)):
+        errors.append("Alhambra event source generator interface event source-body draft event ids must be unique")
+    expected_stage_counts = {"opening": 2, "update": 2, "retry": 2, "resolve": 2}
+    if draft_stage_counts != expected_stage_counts:
+        errors.append("Alhambra event source generator interface event source-body draft stage coverage mismatch")
+    if int(report.get("event_source_body_draft_count", -1)) != len(artifacts):
+        errors.append("Alhambra event source generator interface event_source_body_draft_count mismatch")
     for count_key in (
         "source_ready_count",
         "source_writer_allowed_count",
