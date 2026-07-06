@@ -46,6 +46,7 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_listener_s
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_localization_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_serialization_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_writer_gate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -62,6 +63,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_l
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_localization_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_serialization_preview  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_writer_gate  # noqa: E402
 
 
 WONDER = {
@@ -1730,6 +1732,13 @@ def _alhambra_source_serialization_preview(report: dict, target_path: str) -> di
         if preview.get("target_path") == target_path:
             return preview
     raise AssertionError(f"Alhambra source serialization preview has no target {target_path}")
+
+
+def _alhambra_source_writer_gate_check(report: dict, target_path: str) -> dict:
+    for check in report.get("target_file_checks", []) or []:
+        if check.get("target_path") == target_path:
+            return check
+    raise AssertionError(f"Alhambra source writer gate has no target {target_path}")
 
 
 def _alhambra_source_file_validation_pack(report: dict, target_path: str) -> dict:
@@ -9310,6 +9319,131 @@ def main() -> None:
         "body_emitted_to_file must be false",
     )
 
+    alhambra_source_writer_gate = repeated_entity_row_alhambra_source_writer_gate_for_payload(
+        spec_data,
+        source_serialization_preview=alhambra_source_serialization_preview,
+    )
+    if alhambra_source_writer_gate["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source writer gate unexpectedly failed validation: "
+            f"{alhambra_source_writer_gate['validation_errors']}"
+        )
+    writer_gate_summary = alhambra_source_writer_gate.get("summary", {})
+    if (
+        alhambra_source_writer_gate.get("decision")
+        != "go_for_first_real_generator_implementation_no_go_for_src_write"
+        or alhambra_source_writer_gate.get("can_enter_first_real_generator_implementation") is not True
+        or alhambra_source_writer_gate.get("source_writer_go") is not False
+        or alhambra_source_writer_gate.get("may_write_src") is not False
+        or alhambra_source_writer_gate.get("implementation_ready") is not False
+        or alhambra_source_writer_gate.get("harness_generated") is not False
+    ):
+        raise AssertionError(f"Alhambra source writer gate decision changed: {alhambra_source_writer_gate}")
+    if (
+        writer_gate_summary.get("target_file_count") != 7
+        or writer_gate_summary.get("passed_target_file_count") != 7
+        or writer_gate_summary.get("failed_target_file_count") != 0
+        or writer_gate_summary.get("generator_implementation_blocker_count") != 0
+        or writer_gate_summary.get("source_writer_blocker_count") != 4
+        or writer_gate_summary.get("eu5_exact_syntax_risk_count") != 7
+    ):
+        raise AssertionError(f"Alhambra source writer gate summary changed: {writer_gate_summary}")
+    expected_writer_gate_structures = {
+        alhambra_file_targets["event"]: ("country_event", 8, 0),
+        alhambra_file_targets["effect_cleanup"]: ("scripted_effect_cleanup", 18, 0),
+        alhambra_file_targets["trigger"]: ("scripted_trigger", 6, 0),
+        alhambra_file_targets["gui"]: ("gui_container", 2, 0),
+        alhambra_file_targets["listener"]: ("on_action", 2, 0),
+        alhambra_file_targets["english"]: ("l_english", 1, 46),
+        alhambra_file_targets["simp_chinese"]: ("l_simp_chinese", 1, 46),
+    }
+    for target_path, (expected_structure, expected_marker_count, expected_entry_count) in (
+        expected_writer_gate_structures.items()
+    ):
+        check = _alhambra_source_writer_gate_check(alhambra_source_writer_gate, target_path)
+        if (
+            check.get("expected_top_level_structure") != expected_structure
+            or check.get("observed_top_level_marker_count") != expected_marker_count
+            or check.get("observed_payload_entry_count") != expected_entry_count
+            or check.get("passed") is not True
+            or check.get("blockers") != []
+            or not check.get("eu5_exact_syntax_risks")
+            or check.get("may_write_src") is not False
+            or check.get("writes_src") is not False
+            or check.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"Alhambra source writer gate target check changed: {check}")
+    if alhambra_source_writer_gate.get("generator_implementation_blockers") != []:
+        raise AssertionError(
+            "Alhambra source writer gate should not block first real generator implementation: "
+            f"{alhambra_source_writer_gate}"
+        )
+    if len(alhambra_source_writer_gate.get("source_writer_blockers", [])) != 4:
+        raise AssertionError(
+            "Alhambra source writer gate must keep source-writer blockers: "
+            f"{alhambra_source_writer_gate}"
+        )
+
+    def assert_alhambra_source_writer_gate_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_serialization_preview: dict | None = alhambra_source_serialization_preview,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_writer_gate(
+            report,
+            source_serialization_preview=source_serialization_preview,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source writer gate negative was not caught: {errors}")
+
+    missing_event_structure_gate = deepcopy(alhambra_source_writer_gate)
+    _alhambra_source_writer_gate_check(
+        missing_event_structure_gate,
+        alhambra_file_targets["event"],
+    )["observed_top_level_marker_count"] = 0
+    assert_alhambra_source_writer_gate_error(
+        "missing country_event structure",
+        missing_event_structure_gate,
+        "target checks must derive",
+    )
+
+    writable_writer_gate = deepcopy(alhambra_source_writer_gate)
+    writable_writer_gate["may_write_src"] = True
+    assert_alhambra_source_writer_gate_error(
+        "may_write_src true",
+        writable_writer_gate,
+        "may_write_src must be false",
+    )
+
+    promoted_writer_gate = deepcopy(alhambra_source_writer_gate)
+    promoted_writer_gate["implementation_ready"] = True
+    assert_alhambra_source_writer_gate_error(
+        "implementation_ready true",
+        promoted_writer_gate,
+        "implementation_ready must be false",
+    )
+
+    generated_writer_gate = deepcopy(alhambra_source_writer_gate)
+    generated_writer_gate["harness_generated"] = True
+    assert_alhambra_source_writer_gate_error(
+        "harness_generated true",
+        generated_writer_gate,
+        "harness_generated must be false",
+    )
+
+    no_syntax_risk_gate = deepcopy(alhambra_source_writer_gate)
+    _alhambra_source_writer_gate_check(
+        no_syntax_risk_gate,
+        alhambra_file_targets["trigger"],
+    )["eu5_exact_syntax_risks"] = []
+    assert_alhambra_source_writer_gate_error(
+        "missing EU5 exact syntax risk",
+        no_syntax_risk_gate,
+        "must record EU5 exact syntax risk",
+    )
+
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
         wonders=[WONDER],
@@ -10750,6 +10884,7 @@ def main() -> None:
         repeated_entity_row_alhambra_source_serialization_preview=(
             alhambra_source_serialization_preview
         ),
+        repeated_entity_row_alhambra_source_writer_gate=alhambra_source_writer_gate,
     )
     if summary["source_codegen_ready_count"] != 4:
         raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
@@ -11064,6 +11199,23 @@ def main() -> None:
         raise AssertionError(
             "Alhambra source serialization preview no-write/readiness counts changed: "
             f"{alhambra_serialization_summary}"
+        )
+    alhambra_writer_gate_summary = summary["repeated_entity_row_alhambra_source_writer_gate"]["summary"]
+    if (
+        alhambra_writer_gate_summary["target_file_count"] != 7
+        or alhambra_writer_gate_summary["passed_target_file_count"] != 7
+        or alhambra_writer_gate_summary["failed_target_file_count"] != 0
+        or alhambra_writer_gate_summary["generator_implementation_blocker_count"] != 0
+        or alhambra_writer_gate_summary["source_writer_blocker_count"] != 4
+        or alhambra_writer_gate_summary["eu5_exact_syntax_risk_count"] != 7
+        or alhambra_writer_gate_summary["can_enter_first_real_generator_implementation"] is not True
+        or alhambra_writer_gate_summary["may_write_src_count"] != 0
+        or alhambra_writer_gate_summary["implementation_ready_count"] != 0
+        or alhambra_writer_gate_summary["harness_generated_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra source writer gate summary should remain generator-go/source-writer-no-go: "
+            f"{alhambra_writer_gate_summary}"
         )
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")

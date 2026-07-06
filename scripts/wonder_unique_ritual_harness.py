@@ -3653,6 +3653,99 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_SERIALIZATION_PREVIEW_FLAGS = {
     "implementation_ready": False,
     "harness_generated": False,
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_FLAGS = {
+    "memory_report_only": True,
+    "in_memory_only": True,
+    "source_writer_gate_report_only": True,
+    "dry_run": True,
+    "dry_run_required": True,
+    "contract_only": True,
+    "candidate_only": True,
+    "output_is_loadable_source": False,
+    "body_emitted": False,
+    "body_emitted_to_file": False,
+    "source_ready": False,
+    "verified": False,
+    "backend_ready": False,
+    "source_writer_allowed": False,
+    "may_write_src": False,
+    "writes_src": False,
+    "implementation_ready": False,
+    "harness_generated": False,
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_VERSION = 1
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_DECISION = (
+    "go_for_first_real_generator_implementation_no_go_for_src_write"
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_EXPECTED_STRUCTURES = {
+    REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_TARGET_PATH: {
+        "expected_top_level_structure": "country_event",
+        "marker": "country_event",
+        "expected_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "event"
+        ],
+        "expected_artifact_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "event"
+        ],
+        "risk_category": "country_event exact option/effect handoff syntax still needs EU5 verification",
+    },
+    REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_TARGET_PATH: {
+        "expected_top_level_structure": "scripted_effect_cleanup",
+        "marker": "scripted_effect_or_cleanup_declaration",
+        "expected_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "scripted_effect_cleanup"
+        ],
+        "expected_artifact_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "scripted_effect_cleanup"
+        ],
+        "risk_category": "scripted effect row-state writes and cleanup lifecycle syntax still need EU5 verification",
+    },
+    REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_INTERFACE_TARGET_PATH: {
+        "expected_top_level_structure": "scripted_trigger",
+        "marker": "scripted_trigger_declaration",
+        "expected_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "trigger"
+        ],
+        "expected_artifact_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "trigger"
+        ],
+        "risk_category": "scripted trigger tooltip-safe condition group syntax still needs EU5 verification",
+    },
+    REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_GENERATOR_INTERFACE_TARGET_PATH: {
+        "expected_top_level_structure": "gui_container",
+        "marker": "container",
+        "expected_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "gui"
+        ],
+        "expected_artifact_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "gui"
+        ],
+        "risk_category": "GUI container/widget expression syntax still needs EU5 verification",
+    },
+    REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_GENERATOR_INTERFACE_TARGET_PATH: {
+        "expected_top_level_structure": "on_action",
+        "marker": "on_action_hook",
+        "expected_count": 2,
+        "expected_artifact_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[
+            "listener"
+        ],
+        "risk_category": "on_action hook scope and war-listener syntax still need EU5 verification",
+    },
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["english"]: {
+        "expected_top_level_structure": "l_english",
+        "marker": "l_english",
+        "expected_count": 1,
+        "expected_artifact_count": 10,
+        "risk_category": "English YAML BOM, quoting, and key emission still need EU5 validation",
+    },
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["simp_chinese"]: {
+        "expected_top_level_structure": "l_simp_chinese",
+        "marker": "l_simp_chinese",
+        "expected_count": 1,
+        "expected_artifact_count": 10,
+        "risk_category": "Simplified Chinese YAML BOM, quoting, and key emission still need EU5 validation",
+    },
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START = 7309
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_COUNT = (
     REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP["event"]
@@ -21997,6 +22090,421 @@ def validate_repeated_entity_row_alhambra_source_serialization_preview(
     return errors
 
 
+def _alhambra_source_writer_gate_flags() -> dict[str, bool]:
+    return deepcopy(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_FLAGS)
+
+
+def _alhambra_source_writer_gate_serialization_input_ref(report: dict[str, Any]) -> dict[str, Any]:
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    return {
+        "pilot_key": str(report.get("pilot_key", "")),
+        "source_text_preview_count": int(report.get("source_text_preview_count", 0)),
+        "target_file_count": int(report.get("target_file_count", 0)),
+        "artifact_count": int(report.get("artifact_count", 0)),
+        "draft_ref_count": int(report.get("draft_ref_count", 0)),
+        "source_text_empty_count": int(summary.get("source_text_empty_count", 0)),
+        "validation_errors": list(report.get("validation_errors", []) or []),
+    }
+
+
+def _alhambra_source_writer_gate_previews_by_target(
+    source_serialization_preview: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    previews = source_serialization_preview.get("source_text_previews")
+    if not isinstance(previews, list):
+        return {}
+    return {
+        str(preview.get("target_path", "")): preview
+        for preview in previews
+        if isinstance(preview, dict) and str(preview.get("target_path", "")).strip()
+    }
+
+
+def _alhambra_source_writer_gate_top_level_marker_count(source_text: str, marker: str) -> int:
+    if marker == "country_event":
+        return len(re.findall(r"^country_event\s*=\s*\{$", source_text, flags=re.MULTILINE))
+    if marker in {"scripted_effect_or_cleanup_declaration", "scripted_trigger_declaration"}:
+        return len(re.findall(r"^tv_[A-Za-z0-9_]+\s*=\s*\{$", source_text, flags=re.MULTILINE))
+    if marker == "container":
+        return len(re.findall(r"^container\s*=\s*\{$", source_text, flags=re.MULTILINE))
+    if marker == "on_action_hook":
+        return len(re.findall(r"^on_[A-Za-z0-9_]+\s*=\s*\{$", source_text, flags=re.MULTILINE))
+    if marker in {"l_english", "l_simp_chinese"}:
+        return len(re.findall(rf"^{re.escape(marker)}:\s*$", source_text, flags=re.MULTILINE))
+    return 0
+
+
+def _alhambra_source_writer_gate_localization_entry_count(source_text: str) -> int:
+    return len(
+        re.findall(
+            r"^\s+tv_wonder_unique_alhambra_ritual\.[^:]+:0\s+\".*\"$",
+            source_text,
+            flags=re.MULTILINE,
+        )
+    )
+
+
+def _alhambra_source_writer_gate_target_check(
+    *,
+    target_path: str,
+    preview: dict[str, Any],
+) -> dict[str, Any]:
+    expected = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_EXPECTED_STRUCTURES[target_path]
+    source_text = str(preview.get("source_text", ""))
+    marker = str(expected["marker"])
+    marker_count = _alhambra_source_writer_gate_top_level_marker_count(source_text, marker)
+    expected_marker_count = int(expected["expected_count"])
+    payload_entry_count = 0
+    expected_payload_entry_count = 0
+    if marker in {"l_english", "l_simp_chinese"}:
+        payload_entry_count = _alhambra_source_writer_gate_localization_entry_count(source_text)
+    artifact_count = int(preview.get("artifact_count", 0))
+    expected_artifact_count = int(expected["expected_artifact_count"])
+    blockers: list[str] = []
+    if not source_text.strip():
+        blockers.append("source_text is empty")
+    if marker_count != expected_marker_count:
+        blockers.append(
+            f"expected {expected_marker_count} top-level {expected['expected_top_level_structure']} marker(s), "
+            f"got {marker_count}"
+        )
+    if artifact_count != expected_artifact_count:
+        blockers.append(f"expected artifact count {expected_artifact_count}, got {artifact_count}")
+    if not preview.get("eu5_syntax_evidence_refs"):
+        blockers.append("missing EU5 syntax evidence refs")
+    for flag in (
+        "may_write_src",
+        "writes_src",
+        "body_emitted_to_file",
+        "source_writer_allowed",
+        "implementation_ready",
+        "harness_generated",
+    ):
+        if preview.get(flag) is not False:
+            blockers.append(f"{flag} must remain false")
+    return {
+        "target_path": target_path,
+        "expected_top_level_structure": str(expected["expected_top_level_structure"]),
+        "observed_top_level_marker": marker,
+        "observed_top_level_marker_count": marker_count,
+        "expected_top_level_marker_count": expected_marker_count,
+        "observed_payload_entry_count": payload_entry_count,
+        "expected_payload_entry_count": expected_payload_entry_count,
+        "artifact_count": artifact_count,
+        "expected_artifact_count": expected_artifact_count,
+        "draft_ref_count": int(preview.get("draft_ref_count", 0)),
+        "source_text_line_count": int(preview.get("source_text_line_count", 0)),
+        "syntax_evidence_ref_count": len(preview.get("eu5_syntax_evidence_refs", []) or []),
+        "passed": not blockers,
+        "blockers": blockers,
+        "eu5_exact_syntax_risks": [str(expected["risk_category"])],
+        "may_write_src": False,
+        "writes_src": False,
+        "source_writer_allowed": False,
+    }
+
+
+def _alhambra_source_writer_gate_target_checks(
+    source_serialization_preview: dict[str, Any],
+) -> list[dict[str, Any]]:
+    previews_by_target = _alhambra_source_writer_gate_previews_by_target(source_serialization_preview)
+    checks: list[dict[str, Any]] = []
+    for target_path in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS:
+        preview = previews_by_target.get(target_path, {"target_path": target_path, "source_text": ""})
+        checks.append(_alhambra_source_writer_gate_target_check(target_path=target_path, preview=preview))
+    return checks
+
+
+def _alhambra_source_writer_gate_generator_blockers(
+    *,
+    source_serialization_preview: dict[str, Any],
+    target_checks: list[dict[str, Any]],
+) -> list[str]:
+    blockers: list[str] = []
+    if source_serialization_preview.get("validation_errors"):
+        blockers.append("source serialization preview validation errors must be resolved")
+    if int(source_serialization_preview.get("source_text_preview_count", -1)) != len(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS
+    ):
+        blockers.append("seven source_text previews must be present")
+    for check in target_checks:
+        for blocker in check.get("blockers", []) or []:
+            blockers.append(f"{check.get('target_path')}: {blocker}")
+    return blockers
+
+
+def _alhambra_source_writer_gate_source_writer_blockers() -> list[str]:
+    return [
+        "may_write_src remains false and no src file write is authorized",
+        "source_writer_allowed remains false until exact EU5 source syntax is verified",
+        "loadable emitted files have not been generated or validated with scripts/validate.py",
+        "implementation_ready and harness_generated must remain unpromoted",
+    ]
+
+
+def _alhambra_source_writer_gate_eu5_risks(target_checks: list[dict[str, Any]]) -> list[str]:
+    risks: list[str] = []
+    for check in target_checks:
+        for risk in check.get("eu5_exact_syntax_risks", []) or []:
+            risk_text = str(risk)
+            if risk_text and risk_text not in risks:
+                risks.append(risk_text)
+    return risks
+
+
+def _alhambra_source_writer_gate_summary(
+    *,
+    target_checks: list[dict[str, Any]],
+    generator_implementation_blockers: list[str],
+    source_writer_blockers: list[str],
+    eu5_exact_syntax_risks: list[str],
+) -> dict[str, Any]:
+    return {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "target_file_count": len(target_checks),
+        "passed_target_file_count": sum(1 for check in target_checks if check.get("passed") is True),
+        "failed_target_file_count": sum(1 for check in target_checks if check.get("passed") is not True),
+        "generator_implementation_blocker_count": len(generator_implementation_blockers),
+        "source_writer_blocker_count": len(source_writer_blockers),
+        "eu5_exact_syntax_risk_count": len(eu5_exact_syntax_risks),
+        "can_enter_first_real_generator_implementation": not generator_implementation_blockers,
+        "source_writer_allowed_count": 0,
+        "may_write_src_count": 0,
+        "writes_src_count": 0,
+        "implementation_ready_count": 0,
+        "harness_generated_count": 0,
+    }
+
+
+def repeated_entity_row_alhambra_source_writer_gate_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+    source_serialization_preview: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if source_serialization_preview is None:
+        source_serialization_preview = repeated_entity_row_alhambra_source_serialization_preview_for_payload(
+            payload,
+            statuses=statuses,
+        )
+    target_checks = _alhambra_source_writer_gate_target_checks(source_serialization_preview)
+    generator_implementation_blockers = _alhambra_source_writer_gate_generator_blockers(
+        source_serialization_preview=source_serialization_preview,
+        target_checks=target_checks,
+    )
+    source_writer_blockers = _alhambra_source_writer_gate_source_writer_blockers()
+    eu5_exact_syntax_risks = _alhambra_source_writer_gate_eu5_risks(target_checks)
+    flags = _alhambra_source_writer_gate_flags()
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "writer_gate_version": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_VERSION,
+        "writer_gate_report_only": True,
+        "source_serialization_preview_input_only": True,
+        "source_serialization_preview_input_ref": _alhambra_source_writer_gate_serialization_input_ref(
+            source_serialization_preview
+        ),
+        "decision": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_DECISION,
+        "can_enter_first_real_generator_implementation": not generator_implementation_blockers,
+        "source_writer_go": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "implementation_ready": False,
+        "harness_generated": False,
+        "required_target_paths": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS),
+        "source_text_preview_count": int(source_serialization_preview.get("source_text_preview_count", 0)),
+        "target_file_checks": target_checks,
+        "generator_implementation_blockers": generator_implementation_blockers,
+        "source_writer_blockers": source_writer_blockers,
+        "blockers": source_writer_blockers if not generator_implementation_blockers else generator_implementation_blockers,
+        "generator_implementation_entry_conditions": [
+            "all seven source_text previews are present",
+            "each target preview has the expected top-level file structure",
+            "draft refs, artifact counts, and EU5 syntax evidence refs remain bound",
+            "all no-write and no-promotion flags remain false",
+        ],
+        "still_requires_eu5_exact_syntax_validation": True,
+        "eu5_exact_syntax_validation_risks": eu5_exact_syntax_risks,
+        "summary": _alhambra_source_writer_gate_summary(
+            target_checks=target_checks,
+            generator_implementation_blockers=generator_implementation_blockers,
+            source_writer_blockers=source_writer_blockers,
+            eu5_exact_syntax_risks=eu5_exact_syntax_risks,
+        ),
+        "no_write_flags": flags,
+        **flags,
+        "validation_errors": [],
+        "notes": [
+            "This gate consumes the seven Alhambra source_text previews and checks only top-level structure.",
+            "It can permit the first real generator implementation while keeping src writes no-go.",
+            "Exact EU5 source syntax validation is still required before any future source writer permission.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_source_writer_gate(
+        report,
+        source_serialization_preview=source_serialization_preview,
+    )
+    return report
+
+
+def _validate_alhambra_source_writer_gate_flags(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} no-write flag {flag} mismatch")
+    no_write_flags = value.get("no_write_flags")
+    if not isinstance(no_write_flags, dict):
+        errors.append(f"{context} missing no-write flags")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_FLAGS.items():
+        if no_write_flags.get(flag) is not expected:
+            errors.append(f"{context} no_write_flags.{flag} mismatch")
+
+
+def validate_repeated_entity_row_alhambra_source_writer_gate(
+    report: dict[str, Any],
+    *,
+    source_serialization_preview: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    expected_targets = list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_REQUIRED_TARGET_PATHS)
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra source writer gate pilot_key must be unique_alhambra")
+    if int(report.get("writer_gate_version", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_VERSION:
+        errors.append("Alhambra source writer gate version mismatch")
+    if report.get("writer_gate_report_only") is not True:
+        errors.append("Alhambra source writer gate must declare writer_gate_report_only")
+    if report.get("source_serialization_preview_input_only") is not True:
+        errors.append("Alhambra source writer gate must derive from source serialization preview input")
+    if report.get("decision") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_DECISION:
+        errors.append("Alhambra source writer gate decision mismatch")
+    if report.get("source_writer_go") is not False:
+        errors.append("Alhambra source writer gate source_writer_go must be false")
+    if report.get("source_writer_allowed") is not False:
+        errors.append("Alhambra source writer gate source_writer_allowed must be false")
+    if report.get("may_write_src") is not False:
+        errors.append("Alhambra source writer gate may_write_src must be false")
+    if report.get("writes_src") is not False:
+        errors.append("Alhambra source writer gate writes_src must be false")
+    if report.get("implementation_ready") is not False:
+        errors.append("Alhambra source writer gate implementation_ready must be false")
+    if report.get("harness_generated") is not False:
+        errors.append("Alhambra source writer gate harness_generated must be false")
+    if report.get("required_target_paths") != expected_targets:
+        errors.append("Alhambra source writer gate required target paths mismatch")
+    _validate_alhambra_source_writer_gate_flags(
+        context="Alhambra source writer gate report",
+        value=report,
+        errors=errors,
+    )
+    for path in _source_bundle_forbidden_ready_paths(report):
+        errors.append(f"Alhambra source writer gate must not claim readiness at {path}")
+    for flag in (
+        "may_write_src",
+        "writes_src",
+        "body_emitted_to_file",
+        "source_writer_allowed",
+        "implementation_ready",
+        "harness_generated",
+    ):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra source writer gate {flag} must be false at {path}")
+
+    if source_serialization_preview is None:
+        errors.append("Alhambra source writer gate requires source serialization preview input")
+        expected_checks: list[dict[str, Any]] = []
+        expected_generator_blockers: list[str] = []
+    else:
+        if report.get("source_serialization_preview_input_ref") != (
+            _alhambra_source_writer_gate_serialization_input_ref(source_serialization_preview)
+        ):
+            errors.append("Alhambra source writer gate serialization preview input ref mismatch")
+        if source_serialization_preview.get("validation_errors"):
+            errors.append("Alhambra source writer gate source serialization input must be clean")
+        expected_checks = _alhambra_source_writer_gate_target_checks(source_serialization_preview)
+        expected_generator_blockers = _alhambra_source_writer_gate_generator_blockers(
+            source_serialization_preview=source_serialization_preview,
+            target_checks=expected_checks,
+        )
+
+    target_checks = report.get("target_file_checks")
+    if not isinstance(target_checks, list):
+        errors.append("Alhambra source writer gate target_file_checks must be a list")
+        target_checks = []
+    if len(target_checks) != len(expected_targets):
+        errors.append("Alhambra source writer gate must check all 7 target files")
+    actual_targets = [str(check.get("target_path", "")) for check in target_checks if isinstance(check, dict)]
+    if actual_targets != expected_targets:
+        errors.append("Alhambra source writer gate target check order mismatch")
+    if expected_checks and target_checks != expected_checks:
+        errors.append("Alhambra source writer gate target checks must derive from current source_text previews")
+    for check in target_checks:
+        if not isinstance(check, dict):
+            errors.append("Alhambra source writer gate target check must be a mapping")
+            continue
+        target_path = str(check.get("target_path", ""))
+        context = f"Alhambra source writer gate {target_path or '<missing-target>'}"
+        expected = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_WRITER_GATE_EXPECTED_STRUCTURES.get(target_path)
+        if expected is None:
+            errors.append(f"{context} unexpected target path")
+            continue
+        if check.get("expected_top_level_structure") != expected["expected_top_level_structure"]:
+            errors.append(f"{context} expected top-level structure mismatch")
+        if check.get("passed") is not (not check.get("blockers")):
+            errors.append(f"{context} passed flag must reflect blockers")
+        if check.get("may_write_src") is not False:
+            errors.append(f"{context} may_write_src must be false")
+        if check.get("writes_src") is not False:
+            errors.append(f"{context} writes_src must be false")
+        if check.get("source_writer_allowed") is not False:
+            errors.append(f"{context} source_writer_allowed must be false")
+        if not check.get("eu5_exact_syntax_risks"):
+            errors.append(f"{context} must record EU5 exact syntax risk")
+
+    expected_source_writer_blockers = _alhambra_source_writer_gate_source_writer_blockers()
+    expected_risks = _alhambra_source_writer_gate_eu5_risks(
+        [check for check in target_checks if isinstance(check, dict)]
+    )
+    if report.get("generator_implementation_blockers") != expected_generator_blockers:
+        errors.append("Alhambra source writer gate generator implementation blockers mismatch")
+    if report.get("source_writer_blockers") != expected_source_writer_blockers:
+        errors.append("Alhambra source writer gate source writer blockers mismatch")
+    generator_blockers = report.get("generator_implementation_blockers")
+    generator_blockers = generator_blockers if isinstance(generator_blockers, list) else []
+    if report.get("can_enter_first_real_generator_implementation") is not (not generator_blockers):
+        errors.append("Alhambra source writer gate generator go condition mismatch")
+    expected_blockers = expected_source_writer_blockers if not generator_blockers else generator_blockers
+    if report.get("blockers") != expected_blockers:
+        errors.append("Alhambra source writer gate blocker list mismatch")
+    if report.get("still_requires_eu5_exact_syntax_validation") is not True:
+        errors.append("Alhambra source writer gate must keep EU5 exact syntax validation risk")
+    if report.get("eu5_exact_syntax_validation_risks") != expected_risks:
+        errors.append("Alhambra source writer gate EU5 exact syntax risks mismatch")
+    expected_summary = _alhambra_source_writer_gate_summary(
+        target_checks=[check for check in target_checks if isinstance(check, dict)],
+        generator_implementation_blockers=generator_blockers,
+        source_writer_blockers=expected_source_writer_blockers,
+        eu5_exact_syntax_risks=expected_risks,
+    )
+    if report.get("summary") != expected_summary:
+        errors.append("Alhambra source writer gate summary mismatch")
+    summary = report.get("summary") if isinstance(report.get("summary"), dict) else {}
+    for count_key in (
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+        "implementation_ready_count",
+        "harness_generated_count",
+    ):
+        if int(summary.get(count_key, -1)) != 0:
+            errors.append(f"Alhambra source writer gate summary {count_key} must be 0")
+    return errors
+
+
 def _design_matrix_index(matrix: dict[str, Any]) -> dict[str, dict[str, Any]]:
     entries = matrix.get("unique_wonders", []) if isinstance(matrix, dict) else []
     return {
@@ -22456,6 +22964,7 @@ def audit_summary(
     repeated_entity_row_alhambra_localization_source_generator_interface: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_source_generator_interface_bundle_gate: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_source_serialization_preview: dict[str, Any] | None = None,
+    repeated_entity_row_alhambra_source_writer_gate: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     wonders = wonders if wonders is not None else load_unique_wonders()
     wonder_keys = {str(wonder["key"]) for wonder in wonders}
@@ -22737,6 +23246,13 @@ def audit_summary(
                 source_file_validation_evidence=alhambra_source_file_validation_evidence,
             )
         )
+    if repeated_entity_row_alhambra_source_writer_gate is None:
+        repeated_entity_row_alhambra_source_writer_gate = (
+            repeated_entity_row_alhambra_source_writer_gate_for_payload(
+                specs,
+                source_serialization_preview=repeated_entity_row_alhambra_source_serialization_preview,
+            )
+        )
     anti_flattening_warnings = anti_flattening_warnings_for_payload(
         specs,
         design_matrix=design_matrix,
@@ -22864,6 +23380,9 @@ def audit_summary(
         ),
         "repeated_entity_row_alhambra_source_serialization_preview": (
             repeated_entity_row_alhambra_source_serialization_preview
+        ),
+        "repeated_entity_row_alhambra_source_writer_gate": (
+            repeated_entity_row_alhambra_source_writer_gate
         ),
         "unsupported_templates": sorted(unsupported_templates),
         "template_registry_errors": template_registry_errors,
