@@ -252,6 +252,19 @@ reintroducing the old branch structure or generated per-key enumerations. Preser
 architecture and fix the failing scope/syntax. If a rollback or fallback would materially undo
 the stated refactor goal, stop and report that tradeoff before editing.
 
+## Structural Fidelity Rule
+
+Do not downgrade an existing event, GUI, localization, or scripted-effect structure merely to
+make a data change easier. If a file currently uses per-target `triggered_desc` branches,
+target-specific event options, per-id effect dispatch, staged GUI rows, or other explicit
+structure, preserve that structure when changing the data set. Removing those branches,
+collapsing them into generic text/options, replacing target-specific UX with a fallback, or
+leaving stale branches unreachable is a design change, not an implementation shortcut.
+
+If preserving the existing structure would require many repetitive edits, either extend the
+appropriate generator/data source first or stop and ask before changing the structure. Never
+quietly trade away target-specific event/GUI behavior in the name of smaller patches.
+
 ## Early Development: Ask-First Policy
 
 This mod is in early development (v0.1.0). When in doubt about design intent, **ask the user before implementing**.
