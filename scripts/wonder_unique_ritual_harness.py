@@ -3806,6 +3806,31 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_FLAGS = {
     "implementation_ready": False,
     "harness_generated": False,
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_VERSION = 1
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_KIND = (
+    "alhambra_scripted_trigger_source_generator"
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_STATUS = (
+    REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_STATUS
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_FLAGS = {
+    "memory_report_only": True,
+    "in_memory_only": True,
+    "source_text_candidate_only": True,
+    "scripted_trigger_family_only": True,
+    "output_is_loadable_source": False,
+    "body_emitted": False,
+    "body_emitted_to_file": False,
+    "source_ready": False,
+    "verified": False,
+    "backend_ready": False,
+    "source_writer_allowed": False,
+    "source_writer_go": False,
+    "may_write_src": False,
+    "writes_src": False,
+    "implementation_ready": False,
+    "harness_generated": False,
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
     {
         "syntax": "event namespace declaration",
@@ -3875,6 +3900,26 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_SYNTAX_EVI
         "syntax": "generated scripted_effect declaration",
         "reference": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py:18",
         "quote": 'OUT_FILE.write_text("\\ufeff" + generate_ritual_effects(), encoding="utf-8")',
+        "evidence_scope": "generator_ownership_only",
+    },
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
+    {
+        "syntax": "top-level scripted_trigger declaration",
+        "reference": "src/in_game/common/scripted_triggers/towards_victory_triggers.txt:11",
+        "quote": "tv_conquest_milestone_1 = {",
+        "evidence_scope": "declaration_only",
+    },
+    {
+        "syntax": "top-level scripted_trigger declaration",
+        "reference": "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:6",
+        "quote": "tv_wonder_location_meets_sacred_mountain_base_site_rules_trigger = {",
+        "evidence_scope": "declaration_only",
+    },
+    {
+        "syntax": "generated scripted_trigger declaration",
+        "reference": "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py:24",
+        "quote": 'lines.append(f"{trigger_name} = {{")',
         "evidence_scope": "generator_ownership_only",
     },
 )
@@ -3952,6 +3997,50 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_REQUIRED_F
     "in_memory_only",
     "source_text_candidate_only",
     "scripted_effect_cleanup_family_only",
+    "output_is_loadable_source",
+    "body_emitted",
+    "body_emitted_to_file",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "source_writer_go",
+    "may_write_src",
+    "writes_src",
+    "implementation_ready",
+    "harness_generated",
+    "validation_errors",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_REQUIRED_FIELDS = {
+    "kind",
+    "generator_version",
+    "pilot_key",
+    "family",
+    "target_path",
+    "generator_status",
+    "scripted_trigger_source_generator_interface_input_only",
+    "scripted_trigger_source_generator_interface_input_ref",
+    "scripted_trigger_source_body_draft_count",
+    "scripted_trigger_source_body_draft_refs",
+    "source_text_candidate",
+    "source_text_candidate_line_count",
+    "source_text_candidate_nonempty",
+    "scripted_trigger_declaration_count",
+    "trigger_names",
+    "row_set_condition_group_coverage",
+    "eu5_syntax_evidence_refs",
+    "syntax_evidence_binding_status",
+    "controlled_source_blockers",
+    "source_body_blocker_status",
+    "scripted_trigger_declaration_syntax_verified",
+    "condition_body_verified",
+    "variable_read_verified",
+    "tooltip_safe_condition_group_verified",
+    "no_write_flags",
+    "memory_report_only",
+    "in_memory_only",
+    "source_text_candidate_only",
+    "scripted_trigger_family_only",
     "output_is_loadable_source",
     "body_emitted",
     "body_emitted_to_file",
@@ -19157,6 +19246,582 @@ def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generat
     return errors
 
 
+def _alhambra_scripted_trigger_source_generator_flags() -> dict[str, bool]:
+    return deepcopy(REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_FLAGS)
+
+
+def _alhambra_scripted_trigger_source_generator_syntax_evidence_refs() -> list[dict[str, str]]:
+    return [
+        deepcopy(ref)
+        for ref in REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS
+    ]
+
+
+def _alhambra_scripted_trigger_source_generator_interface_input_ref(
+    scripted_trigger_source_generator_interface: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "pilot_key": str(scripted_trigger_source_generator_interface.get("pilot_key", "")),
+        "family": str(scripted_trigger_source_generator_interface.get("family", "")),
+        "target_path": str(scripted_trigger_source_generator_interface.get("target_path", "")),
+        "artifact_count": int(scripted_trigger_source_generator_interface.get("artifact_count", 0)),
+        "source_file_contract_artifact_count": int(
+            scripted_trigger_source_generator_interface.get("source_file_contract_artifact_count", 0)
+        ),
+        "validation_errors": list(scripted_trigger_source_generator_interface.get("validation_errors", []) or []),
+    }
+
+
+def _alhambra_scripted_trigger_source_generator_drafts_from_interface(
+    scripted_trigger_source_generator_interface: dict[str, Any],
+) -> list[dict[str, Any]]:
+    drafts: list[dict[str, Any]] = []
+    for artifact in scripted_trigger_source_generator_interface.get("source_file_contract_artifacts", []) or []:
+        if not isinstance(artifact, dict):
+            continue
+        draft = artifact.get("scripted_trigger_source_body_draft")
+        if isinstance(draft, dict):
+            drafts.append(deepcopy(draft))
+    return drafts
+
+
+def _alhambra_scripted_trigger_source_generator_draft_ref(draft: dict[str, Any]) -> dict[str, str]:
+    grouping = (
+        draft.get("tooltip_safe_condition_grouping")
+        if isinstance(draft.get("tooltip_safe_condition_grouping"), dict)
+        else {}
+    )
+    return {
+        "kind": str(draft.get("kind", "")),
+        "family": str(draft.get("family", "")),
+        "row_set_key": str(draft.get("row_set_key", "")),
+        "artifact_kind": str(draft.get("artifact_kind", "")),
+        "condition_group": str(grouping.get("active_group", "")),
+        "trigger_name": str(draft.get("trigger_name", "")),
+        "future_source_target_path": str(draft.get("future_source_target_path", "")),
+    }
+
+
+def _alhambra_scripted_trigger_source_generator_expected_declarations(
+    scripted_trigger_source_generator_interface: dict[str, Any],
+) -> list[dict[str, Any]]:
+    declarations: list[dict[str, Any]] = []
+    for draft in _alhambra_scripted_trigger_source_generator_drafts_from_interface(
+        scripted_trigger_source_generator_interface
+    ):
+        grouping = (
+            draft.get("tooltip_safe_condition_grouping")
+            if isinstance(draft.get("tooltip_safe_condition_grouping"), dict)
+            else {}
+        )
+        declarations.append(
+            {
+                "trigger_name": str(draft.get("trigger_name", "")),
+                "family": str(draft.get("family", "")),
+                "row_set_key": str(draft.get("row_set_key", "")),
+                "artifact_kind": str(draft.get("artifact_kind", "")),
+                "condition_group": str(grouping.get("active_group", "")),
+                "source_body_status": "controlled_blocker",
+                "future_source_target_path": str(draft.get("future_source_target_path", "")),
+            }
+        )
+    return declarations
+
+
+def _alhambra_scripted_trigger_source_generator_coverage(
+    declarations: list[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    coverage: dict[str, dict[str, Any]] = {
+        row_set_key: {
+            "condition_groups": [],
+            "declaration_count": 0,
+        }
+        for row_set_key in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS
+    }
+    for declaration in declarations:
+        row_set_key = str(declaration.get("row_set_key", ""))
+        if row_set_key not in coverage:
+            coverage[row_set_key] = {
+                "condition_groups": [],
+                "declaration_count": 0,
+            }
+        coverage[row_set_key]["declaration_count"] += 1
+        condition_group = str(declaration.get("condition_group", ""))
+        if condition_group and condition_group not in coverage[row_set_key]["condition_groups"]:
+            coverage[row_set_key]["condition_groups"].append(condition_group)
+    expected_group_order = list(REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_BODY_DRAFT_REQUIRED_GROUPS)
+    for row_coverage in coverage.values():
+        row_coverage["condition_groups"] = [
+            group
+            for group in expected_group_order
+            if group in set(row_coverage["condition_groups"])
+        ]
+    return coverage
+
+
+def _alhambra_scripted_trigger_source_generator_controlled_blockers(
+    declarations: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    blockers: list[dict[str, Any]] = []
+    for declaration in declarations:
+        blockers.append(
+            {
+                "trigger_name": str(declaration.get("trigger_name", "")),
+                "family": str(declaration.get("family", "")),
+                "row_set_key": str(declaration.get("row_set_key", "")),
+                "artifact_kind": str(declaration.get("artifact_kind", "")),
+                "condition_group": str(declaration.get("condition_group", "")),
+                "blocker_category": "scripted_trigger_condition_body",
+                "handoff_status": "controlled_blocker",
+                "blocker_reason": (
+                    "scripted-trigger declaration syntax is evidenced, but concrete conditions, variable reads, "
+                    "and tooltip-safe condition groups are not source-writer verified"
+                ),
+                "declaration_body_emitted": False,
+                "condition_body_verified": False,
+                "variable_read_verified": False,
+                "tooltip_safe_condition_group_verified": False,
+                "source_ready": False,
+                "verified": False,
+                "backend_ready": False,
+                "source_writer_allowed": False,
+                "may_write_src": False,
+                "writes_src": False,
+            }
+        )
+    return blockers
+
+
+def _alhambra_scripted_trigger_source_generator_header(target_path: str) -> list[str]:
+    return [
+        "# @InMemoryCandidate by scripts/wonder_unique_ritual_harness.py",
+        f"# Target: {target_path}",
+        "# Alhambra scripted-trigger source text candidate only; not emitted to src/.",
+        "",
+    ]
+
+
+def _alhambra_scripted_trigger_source_generator_render_declaration(
+    declaration: dict[str, Any],
+) -> list[str]:
+    trigger_name = str(declaration.get("trigger_name", ""))
+    return [
+        f"# -- {trigger_name} ----------------------------------------------",
+        f"{trigger_name} = {{",
+        f"\t# row_set = {declaration.get('row_set_key', '')}",
+        f"\t# condition_group = {declaration.get('condition_group', '')}",
+        "\t# CONTROLLED BLOCKER: concrete trigger conditions are not emitted by this generator.",
+        "\t# CONTROLLED BLOCKER: variable reads and tooltip-safe condition groups remain unverified.",
+        "\t# source_body_status = controlled_blocker",
+        "}",
+    ]
+
+
+def _alhambra_scripted_trigger_source_generator_render_source_text(
+    *,
+    target_path: str,
+    declarations: list[dict[str, Any]],
+) -> str:
+    lines = _alhambra_scripted_trigger_source_generator_header(target_path)
+    for declaration in declarations:
+        lines.extend(_alhambra_scripted_trigger_source_generator_render_declaration(declaration))
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def _alhambra_scripted_trigger_source_candidate_trigger_blocks(
+    source_text: str,
+) -> list[dict[str, Any]]:
+    blocks: list[dict[str, Any]] = []
+    lines = source_text.splitlines()
+    index = 0
+    trigger_pattern = re.compile(r"^(tv_[A-Za-z0-9_]+)\s*=\s*\{\s*$")
+    while index < len(lines):
+        match = trigger_pattern.match(lines[index].strip())
+        if not match:
+            index += 1
+            continue
+        start = index
+        depth = _alhambra_event_source_candidate_brace_delta(lines[index])
+        index += 1
+        while index < len(lines) and depth > 0:
+            depth += _alhambra_event_source_candidate_brace_delta(lines[index])
+            index += 1
+        blocks.append(
+            {
+                "trigger_name": match.group(1),
+                "start_line": start + 1,
+                "lines": lines[start:index],
+                "balanced": depth == 0,
+            }
+        )
+    return blocks
+
+
+def _validate_alhambra_scripted_trigger_source_generator_flags(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} {flag} must be {str(expected).lower()}")
+    no_write_flags = value.get("no_write_flags")
+    if not isinstance(no_write_flags, dict):
+        errors.append(f"{context} missing no-write flags")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_FLAGS.items():
+        if no_write_flags.get(flag) is not expected:
+            errors.append(f"{context} no_write_flags.{flag} must be {str(expected).lower()}")
+
+
+def _validate_alhambra_scripted_trigger_source_generator_syntax_evidence(
+    *,
+    refs: Any,
+    errors: list[str],
+) -> None:
+    if not isinstance(refs, list) or not refs:
+        errors.append("Alhambra scripted-trigger source generator missing syntax evidence")
+        return
+    declaration_evidence_count = 0
+    for index, ref in enumerate(refs):
+        if not isinstance(ref, dict):
+            errors.append(f"Alhambra scripted-trigger source generator syntax evidence {index} must be a mapping")
+            continue
+        if not str(ref.get("syntax", "")).strip():
+            errors.append(f"Alhambra scripted-trigger source generator syntax evidence {index} missing syntax")
+        reference = str(ref.get("reference", ""))
+        if not _alhambra_scripted_effect_cleanup_syntax_evidence_path_exists(reference):
+            errors.append(
+                "Alhambra scripted-trigger source generator syntax evidence must point to existing repo file: "
+                f"{reference}"
+            )
+        if not str(ref.get("quote", "")).strip():
+            errors.append(f"Alhambra scripted-trigger source generator syntax evidence {index} missing quote")
+        if ref.get("evidence_scope") == "declaration_only":
+            declaration_evidence_count += 1
+    if declaration_evidence_count == 0:
+        errors.append("Alhambra scripted-trigger source generator missing declaration syntax evidence")
+
+
+def _validate_alhambra_scripted_trigger_source_candidate_text(
+    *,
+    source_text: str,
+    expected_declarations: list[dict[str, Any]],
+    errors: list[str],
+) -> list[str]:
+    trigger_blocks = _alhambra_scripted_trigger_source_candidate_trigger_blocks(source_text)
+    observed_names = [str(block["trigger_name"]) for block in trigger_blocks]
+    expected_names = [str(declaration.get("trigger_name", "")) for declaration in expected_declarations]
+    expected_by_name = {
+        str(declaration.get("trigger_name", "")): declaration
+        for declaration in expected_declarations
+    }
+    if len(trigger_blocks) != len(expected_declarations):
+        errors.append("Alhambra scripted-trigger source generator source_text_candidate missing declaration")
+    duplicate_names = sorted({name for name in observed_names if observed_names.count(name) > 1})
+    if duplicate_names:
+        errors.append(
+            "Alhambra scripted-trigger source generator source_text_candidate duplicate trigger name(s): "
+            + ", ".join(duplicate_names)
+        )
+    missing_names = sorted(set(expected_names) - set(observed_names))
+    if missing_names:
+        errors.append(
+            "Alhambra scripted-trigger source generator source_text_candidate missing scripted-trigger "
+            "declaration(s): "
+            + ", ".join(missing_names)
+        )
+    extra_names = sorted(set(observed_names) - set(expected_names))
+    if extra_names:
+        errors.append(
+            "Alhambra scripted-trigger source generator source_text_candidate unexpected declaration(s): "
+            + ", ".join(extra_names)
+        )
+    if observed_names != expected_names:
+        errors.append("Alhambra scripted-trigger source generator source_text_candidate declaration order mismatch")
+
+    observed_expected_declarations: list[dict[str, Any]] = []
+    for block in trigger_blocks:
+        trigger_name = str(block["trigger_name"])
+        declaration = expected_by_name.get(trigger_name)
+        block_lines = block["lines"]
+        if not block.get("balanced"):
+            errors.append(f"Alhambra scripted-trigger source generator {trigger_name} braces are not balanced")
+        if declaration is not None:
+            observed_expected_declarations.append(declaration)
+        non_comment_lines = _alhambra_event_source_candidate_non_comment_lines(block_lines)
+        expected_non_comment_lines = [
+            f"{trigger_name} = {{",
+            "}",
+        ]
+        if non_comment_lines != expected_non_comment_lines:
+            errors.append(
+                "Alhambra scripted-trigger source generator "
+                f"{trigger_name} declaration body must stay controlled-blocker-only"
+            )
+            for line in non_comment_lines:
+                if line not in expected_non_comment_lines:
+                    errors.append(
+                        "Alhambra scripted-trigger source generator "
+                        f"{trigger_name} contains unverified body line: {line}"
+                    )
+
+    observed_coverage = _alhambra_scripted_trigger_source_generator_coverage(
+        observed_expected_declarations
+    )
+    expected_groups = set(REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_BODY_DRAFT_REQUIRED_GROUPS)
+    for row_set_key in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS:
+        coverage = observed_coverage.get(row_set_key, {})
+        if set(coverage.get("condition_groups", [])) != expected_groups:
+            errors.append(
+                "Alhambra scripted-trigger source generator row-set/condition-group coverage missing for "
+                f"{row_set_key}"
+            )
+    return observed_names
+
+
+def repeated_entity_row_alhambra_scripted_trigger_source_generator_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+    scripted_trigger_source_generator_interface: dict[str, Any] | None = None,
+    source_generator_contract: dict[str, Any] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if source_file_validation_evidence is None:
+        source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+            payload,
+            statuses=statuses,
+        )
+    if source_generator_contract is None:
+        source_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            payload,
+            statuses=statuses,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    if scripted_trigger_source_generator_interface is None:
+        scripted_trigger_source_generator_interface = (
+            repeated_entity_row_alhambra_scripted_trigger_source_generator_interface_for_payload(
+                payload,
+                statuses=statuses,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+    target_path = REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
+    declarations = _alhambra_scripted_trigger_source_generator_expected_declarations(
+        scripted_trigger_source_generator_interface
+    )
+    source_text_candidate = _alhambra_scripted_trigger_source_generator_render_source_text(
+        target_path=target_path,
+        declarations=declarations,
+    )
+    flags = _alhambra_scripted_trigger_source_generator_flags()
+    report = {
+        "kind": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_KIND,
+        "generator_version": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_VERSION,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_INTERFACE_FAMILY,
+        "target_path": target_path,
+        "generator_status": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_STATUS,
+        "scripted_trigger_source_generator_interface_input_only": True,
+        "scripted_trigger_source_generator_interface_input_ref": (
+            _alhambra_scripted_trigger_source_generator_interface_input_ref(
+                scripted_trigger_source_generator_interface
+            )
+        ),
+        "scripted_trigger_source_body_draft_count": len(declarations),
+        "scripted_trigger_source_body_draft_refs": [
+            _alhambra_scripted_trigger_source_generator_draft_ref(draft)
+            for draft in _alhambra_scripted_trigger_source_generator_drafts_from_interface(
+                scripted_trigger_source_generator_interface
+            )
+        ],
+        "source_text_candidate": source_text_candidate,
+        "source_text_candidate_line_count": len(source_text_candidate.splitlines()),
+        "source_text_candidate_nonempty": bool(source_text_candidate.strip()),
+        "scripted_trigger_declaration_count": len(declarations),
+        "trigger_names": [str(declaration.get("trigger_name", "")) for declaration in declarations],
+        "row_set_condition_group_coverage": _alhambra_scripted_trigger_source_generator_coverage(declarations),
+        "eu5_syntax_evidence_refs": _alhambra_scripted_trigger_source_generator_syntax_evidence_refs(),
+        "syntax_evidence_binding_status": "scripted_trigger_declaration_only",
+        "controlled_source_blockers": _alhambra_scripted_trigger_source_generator_controlled_blockers(declarations),
+        "source_body_blocker_status": "controlled_blocker",
+        "scripted_trigger_declaration_syntax_verified": True,
+        "condition_body_verified": False,
+        "variable_read_verified": False,
+        "tooltip_safe_condition_group_verified": False,
+        "no_write_flags": flags,
+        **flags,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra scripted-trigger source generator consumes the current 6 trigger source-body drafts.",
+            "It emits one in-memory source_text_candidate with 6 top-level tv_ trigger declarations.",
+            "Only declaration syntax is evidence-bound; conditions, variable reads, and tooltip groups remain blockers.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_scripted_trigger_source_generator(
+        report,
+        scripted_trigger_source_generator_interface=scripted_trigger_source_generator_interface,
+        source_generator_contract=source_generator_contract,
+        source_file_validation_evidence=source_file_validation_evidence,
+    )
+    return report
+
+
+def validate_repeated_entity_row_alhambra_scripted_trigger_source_generator(
+    report: dict[str, Any],
+    *,
+    scripted_trigger_source_generator_interface: dict[str, Any] | None = None,
+    source_generator_contract: dict[str, Any] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    missing = _missing_required(
+        report,
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_REQUIRED_FIELDS,
+    )
+    if missing:
+        errors.append(f"Alhambra scripted-trigger source generator missing field(s): {', '.join(missing)}")
+
+    target_path = REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
+    expected_family = REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_INTERFACE_FAMILY
+    if report.get("kind") != REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_KIND:
+        errors.append("Alhambra scripted-trigger source generator kind mismatch")
+    if report.get("generator_version") != REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_VERSION:
+        errors.append("Alhambra scripted-trigger source generator version mismatch")
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra scripted-trigger source generator pilot_key must be unique_alhambra")
+    if report.get("family") != expected_family:
+        errors.append("Alhambra scripted-trigger source generator family must be trigger")
+    if report.get("target_path") != target_path:
+        errors.append("Alhambra scripted-trigger source generator target_path mismatch")
+    if report.get("generator_status") != REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_STATUS:
+        errors.append("Alhambra scripted-trigger source generator status mismatch")
+    if report.get("scripted_trigger_source_generator_interface_input_only") is not True:
+        errors.append("Alhambra scripted-trigger source generator must consume scripted-trigger source-body drafts")
+
+    _validate_alhambra_scripted_trigger_source_generator_flags(
+        context="Alhambra scripted-trigger source generator report",
+        value=report,
+        errors=errors,
+    )
+    for flag in (
+        "source_writer_go",
+        "may_write_src",
+        "writes_src",
+        "body_emitted",
+        "body_emitted_to_file",
+        "source_writer_allowed",
+        "source_ready",
+        "verified",
+        "backend_ready",
+        "implementation_ready",
+        "harness_generated",
+    ):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra scripted-trigger source generator {flag} must be false at {path}")
+
+    if scripted_trigger_source_generator_interface is None:
+        errors.append("Alhambra scripted-trigger source generator requires scripted-trigger source generator interface input")
+        expected_declarations: list[dict[str, Any]] = []
+        expected_draft_refs: list[dict[str, str]] = []
+    else:
+        if source_generator_contract is not None and source_file_validation_evidence is not None:
+            interface_errors = validate_repeated_entity_row_alhambra_scripted_trigger_source_generator_interface(
+                scripted_trigger_source_generator_interface,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+            if interface_errors:
+                errors.append("Alhambra scripted-trigger source generator interface input must be clean")
+        elif scripted_trigger_source_generator_interface.get("validation_errors"):
+            errors.append("Alhambra scripted-trigger source generator interface input must be clean")
+        expected_input_ref = _alhambra_scripted_trigger_source_generator_interface_input_ref(
+            scripted_trigger_source_generator_interface
+        )
+        if report.get("scripted_trigger_source_generator_interface_input_ref") != expected_input_ref:
+            errors.append("Alhambra scripted-trigger source generator interface input ref mismatch")
+        expected_declarations = _alhambra_scripted_trigger_source_generator_expected_declarations(
+            scripted_trigger_source_generator_interface
+        )
+        expected_draft_refs = [
+            _alhambra_scripted_trigger_source_generator_draft_ref(draft)
+            for draft in _alhambra_scripted_trigger_source_generator_drafts_from_interface(
+                scripted_trigger_source_generator_interface
+            )
+        ]
+
+    expected_names = [str(declaration.get("trigger_name", "")) for declaration in expected_declarations]
+    expected_coverage = _alhambra_scripted_trigger_source_generator_coverage(expected_declarations)
+    expected_blockers = _alhambra_scripted_trigger_source_generator_controlled_blockers(expected_declarations)
+    if int(report.get("scripted_trigger_source_body_draft_count", -1)) != len(expected_declarations):
+        errors.append("Alhambra scripted-trigger source generator source-body draft count mismatch")
+    if len(expected_declarations) != 6:
+        errors.append("Alhambra scripted-trigger source generator must consume exactly 6 drafts")
+    if report.get("scripted_trigger_source_body_draft_refs") != expected_draft_refs:
+        errors.append("Alhambra scripted-trigger source generator source-body draft refs mismatch")
+    if int(report.get("scripted_trigger_declaration_count", -1)) != len(expected_declarations):
+        errors.append("Alhambra scripted-trigger source generator declaration count mismatch")
+    if report.get("trigger_names") != expected_names:
+        errors.append("Alhambra scripted-trigger source generator trigger names mismatch")
+    if report.get("row_set_condition_group_coverage") != expected_coverage:
+        errors.append("Alhambra scripted-trigger source generator row-set/condition-group coverage mismatch")
+
+    if report.get("eu5_syntax_evidence_refs") != _alhambra_scripted_trigger_source_generator_syntax_evidence_refs():
+        errors.append("Alhambra scripted-trigger source generator EU5 syntax evidence refs mismatch")
+    _validate_alhambra_scripted_trigger_source_generator_syntax_evidence(
+        refs=report.get("eu5_syntax_evidence_refs"),
+        errors=errors,
+    )
+    if report.get("syntax_evidence_binding_status") != "scripted_trigger_declaration_only":
+        errors.append("Alhambra scripted-trigger source generator syntax evidence must bind declaration only")
+    if report.get("scripted_trigger_declaration_syntax_verified") is not True:
+        errors.append("Alhambra scripted-trigger source generator declaration syntax must be verified")
+    if report.get("source_body_blocker_status") != "controlled_blocker":
+        errors.append("Alhambra scripted-trigger source generator source body must remain controlled_blocker")
+    for flag in ("condition_body_verified", "variable_read_verified", "tooltip_safe_condition_group_verified"):
+        if report.get(flag) is not False:
+            errors.append(f"Alhambra scripted-trigger source generator {flag} must be false")
+    if report.get("controlled_source_blockers") != expected_blockers:
+        errors.append("Alhambra scripted-trigger source generator controlled blockers mismatch")
+    for index, blocker in enumerate(report.get("controlled_source_blockers", []) or []):
+        if not isinstance(blocker, dict):
+            errors.append(f"Alhambra scripted-trigger source generator controlled blocker {index} must be a mapping")
+            continue
+        if (
+            blocker.get("handoff_status") != "controlled_blocker"
+            or blocker.get("declaration_body_emitted") is not False
+            or blocker.get("condition_body_verified") is not False
+            or blocker.get("variable_read_verified") is not False
+            or blocker.get("tooltip_safe_condition_group_verified") is not False
+            or blocker.get("verified") is not False
+            or blocker.get("source_ready") is not False
+            or blocker.get("source_writer_allowed") is not False
+            or blocker.get("may_write_src") is not False
+            or blocker.get("writes_src") is not False
+        ):
+            errors.append(f"Alhambra scripted-trigger source generator controlled blocker {index} must stay blocked")
+
+    source_text = str(report.get("source_text_candidate", ""))
+    if not source_text.strip():
+        errors.append("Alhambra scripted-trigger source generator source_text_candidate must not be empty")
+    if int(report.get("source_text_candidate_line_count", -1)) != len(source_text.splitlines()):
+        errors.append("Alhambra scripted-trigger source generator source_text_candidate_line_count mismatch")
+    if report.get("source_text_candidate_nonempty") is not bool(source_text.strip()):
+        errors.append("Alhambra scripted-trigger source generator source_text_candidate_nonempty mismatch")
+    observed_names = _validate_alhambra_scripted_trigger_source_candidate_text(
+        source_text=source_text,
+        expected_declarations=expected_declarations,
+        errors=errors,
+    )
+    if len(observed_names) != len(expected_names):
+        errors.append("Alhambra scripted-trigger source generator source_text_candidate declaration count mismatch")
+    return errors
+
+
 def _validate_alhambra_scripted_trigger_source_body_draft_refs(
     *,
     context: str,
@@ -24395,6 +25060,7 @@ def audit_summary(
     repeated_entity_row_alhambra_event_source_generator_interface: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_scripted_trigger_source_generator_interface: dict[str, Any] | None = None,
+    repeated_entity_row_alhambra_scripted_trigger_source_generator: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_gui_source_generator_interface: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_listener_source_generator_interface: dict[str, Any] | None = None,
     repeated_entity_row_alhambra_localization_source_generator_interface: dict[str, Any] | None = None,
@@ -24551,6 +25217,32 @@ def audit_summary(
                 specs,
                 source_generator_contract=repeated_entity_row_alhambra_source_generator_contract,
                 source_file_validation_evidence=alhambra_source_file_validation_evidence,
+            )
+        )
+    if repeated_entity_row_alhambra_scripted_trigger_source_generator is None:
+        if alhambra_source_file_validation_evidence is None:
+            alhambra_source_body_candidate = repeated_entity_row_alhambra_source_body_candidate_for_payload(
+                specs,
+                source_bundle_preview=repeated_entity_row_source_bundle_preview,
+            )
+            alhambra_source_file_preview = repeated_entity_row_alhambra_source_file_preview_for_payload(
+                specs,
+                source_body_candidate=alhambra_source_body_candidate,
+            )
+            alhambra_source_file_validation_evidence = (
+                repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+                    specs,
+                    source_file_preview=alhambra_source_file_preview,
+                )
+            )
+        repeated_entity_row_alhambra_scripted_trigger_source_generator = (
+            repeated_entity_row_alhambra_scripted_trigger_source_generator_for_payload(
+                specs,
+                source_generator_contract=repeated_entity_row_alhambra_source_generator_contract,
+                source_file_validation_evidence=alhambra_source_file_validation_evidence,
+                scripted_trigger_source_generator_interface=(
+                    repeated_entity_row_alhambra_scripted_trigger_source_generator_interface
+                ),
             )
         )
     if repeated_entity_row_alhambra_gui_source_generator_interface is None:
@@ -24801,6 +25493,9 @@ def audit_summary(
         ),
         "repeated_entity_row_alhambra_scripted_trigger_source_generator_interface": (
             repeated_entity_row_alhambra_scripted_trigger_source_generator_interface
+        ),
+        "repeated_entity_row_alhambra_scripted_trigger_source_generator": (
+            repeated_entity_row_alhambra_scripted_trigger_source_generator
         ),
         "repeated_entity_row_alhambra_gui_source_generator_interface": (
             repeated_entity_row_alhambra_gui_source_generator_interface
