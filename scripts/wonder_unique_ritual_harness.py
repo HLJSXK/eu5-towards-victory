@@ -656,6 +656,19 @@ def loc_english(data: dict[str, Any] | None = None) -> dict[str, str]:
     return dict((payload.get("wonder_localization") or {}).get("english") or {})
 
 
+def loc_simp_chinese(data: dict[str, Any] | None = None) -> dict[str, str]:
+    payload = data if data is not None else load_optional_yaml(LOCALIZATION_FILE)
+    return dict((payload.get("wonder_localization") or {}).get("simp_chinese") or {})
+
+
+def loc_for_language(language: str, data: dict[str, Any] | None = None) -> dict[str, str]:
+    if language == "english":
+        return loc_english(data)
+    if language == "simp_chinese":
+        return loc_simp_chinese(data)
+    raise ValueError(f"Unsupported localization language: {language}")
+
+
 def runtime_prefix_for_wonder(wonder: dict[str, Any]) -> str:
     explicit = {
         "unique_pharos_lighthouse": "tv_wonder_pharos",
@@ -1433,11 +1446,18 @@ def collect_occupied_engineering_event_ids(root: Path = REPO_ROOT) -> set[int]:
         root / "scripts" / "wonder_unique_rituals",
         root / "data" / "wonder_localization.yaml",
     ]
+    alhambra_generated_event_target = "src/in_game/events/tv_wonder_unique_alhambra_ritual_events.txt"
     ids: set[int] = set()
     for base in roots:
         paths = [base] if base.is_file() else list(base.rglob("*")) if base.exists() else []
         for path in paths:
             if not path.is_file() or path.suffix not in {".txt", ".py", ".yml", ".yaml"}:
+                continue
+            try:
+                rel_path = path.relative_to(root).as_posix()
+            except ValueError:
+                rel_path = path.as_posix()
+            if rel_path == alhambra_generated_event_target:
                 continue
             try:
                 text = path.read_text(encoding="utf-8-sig", errors="replace")
@@ -3831,6 +3851,96 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_FLAGS = {
     "implementation_ready": False,
     "harness_generated": False,
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_VERSION = 1
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_SCRIPT_REL = "scripts/gen_unique_wonder_ritual_code.py"
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_DATA_REL = (
+    "data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + "
+    "data/unique_wonder_ritual_codegen_templates.yaml + "
+    "data/unique_wonder_ritual_capabilities.yaml + "
+    "data/unique_wonder_ritual_archetypes.yaml"
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_REGEN_COMMAND = (
+    "conda run --no-capture-output -n eu5 python "
+    f"{REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_SCRIPT_REL} "
+    "--wonder unique_alhambra --write-alhambra-source"
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_PATHS = (
+    REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_TARGET_PATH,
+    REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_TARGET_PATH,
+    REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_INTERFACE_TARGET_PATH,
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["english"],
+    REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS["simp_chinese"],
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_GENERATOR_GROUPS = (
+    "event",
+    "scripted_effect_cleanup",
+    "trigger",
+    "localization_english",
+    "localization_simp_chinese",
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_LOCALIZATION_GENERATOR_GROUP_BY_LANGUAGE = {
+    "english": "localization_english",
+    "simp_chinese": "localization_simp_chinese",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_LOCALIZATION_LANGUAGE_BY_GENERATOR_GROUP = {
+    group: language
+    for language, group in REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_LOCALIZATION_GENERATOR_GROUP_BY_LANGUAGE.items()
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_LOCALIZATION_LANGUAGE_BY_TARGET_PATH = {
+    path: language
+    for language, path in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS.items()
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_VERSION = 1
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_KIND = (
+    "alhambra_event_localization_source_generator"
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_STATUS = (
+    REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_STATUS
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_FLAGS = {
+    "memory_report_only": True,
+    "in_memory_only": True,
+    "source_text_candidate_only": True,
+    "localization_family_only": True,
+    "output_is_loadable_source": False,
+    "body_emitted": False,
+    "body_emitted_to_file": False,
+    "source_ready": False,
+    "verified": False,
+    "backend_ready": False,
+    "source_writer_allowed": False,
+    "source_writer_go": False,
+    "may_write_src": False,
+    "writes_src": False,
+    "implementation_ready": False,
+    "harness_generated": False,
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_KEYS_BY_STAGE = {
+    "opening": {
+        "title": "TV_ENGINEERING_ALHAMBRA_OPENING_TITLE",
+        "desc": "TV_ENGINEERING_ALHAMBRA_OPENING_DESC",
+        "options": {"a": "TV_ENGINEERING_ALHAMBRA_OPENING_PREPARE"},
+    },
+    "update": {
+        "title": "TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_TITLE",
+        "desc": "TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_DESC",
+        "options": {"a": "TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_VALIDATE"},
+    },
+    "retry": {
+        "title": "TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TITLE",
+        "desc": "TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DESC",
+        "options": {
+            "a": "TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_MERCY",
+            "b": "TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TRIBUTE",
+            "c": "TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DETERRENCE",
+        },
+    },
+    "resolve": {
+        "title": "TV_ENGINEERING_ALHAMBRA_REWARD_TITLE",
+        "desc": "TV_ENGINEERING_ALHAMBRA_REWARD_DESC",
+        "options": {"a": "TV_ENGINEERING_ALHAMBRA_REWARD_SEAL"},
+    },
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
     {
         "syntax": "event namespace declaration",
@@ -3873,6 +3983,16 @@ REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
         "quote": "name = tv_engineering_department.6301.b",
     },
     {
+        "syntax": "option trigger block",
+        "reference": "src/in_game/events/tv_govhouse_events.txt:437",
+        "quote": "trigger = { var:tv_govhouse_pending_tactic ?= 1 }",
+    },
+    {
+        "syntax": "scripted effect call in event option/body",
+        "reference": "src/in_game/events/tv_engineering_department_events.txt:146",
+        "quote": "tv_wonder_construct_module_for_last_completed_part_effect = yes",
+    },
+    {
         "syntax": "english localization language header",
         "reference": "src/main_menu/localization/english/tv_engineering_department_wonder_mechanics_l_english.yml:1",
         "quote": "l_english:",
@@ -3902,6 +4022,18 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_SYNTAX_EVI
         "quote": 'OUT_FILE.write_text("\\ufeff" + generate_ritual_effects(), encoding="utf-8")',
         "evidence_scope": "generator_ownership_only",
     },
+    {
+        "syntax": "set country variable",
+        "reference": "src/in_game/common/scripted_effects/tv_govhouse_effects.txt:563",
+        "quote": "set_variable = { name = tv_gg_training_active value = 1 }",
+        "evidence_scope": "body",
+    },
+    {
+        "syntax": "remove country variable",
+        "reference": "src/in_game/common/scripted_effects/tv_engineering_department_wonder_mechanics_effects.txt:70",
+        "quote": "remove_variable = tv_wonder_hagia_step_1_done",
+        "evidence_scope": "body",
+    },
 )
 REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
     {
@@ -3922,6 +4054,36 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_GENERATOR_SYNTAX_EVIDENCE_R
         "quote": 'lines.append(f"{trigger_name} = {{")',
         "evidence_scope": "generator_ownership_only",
     },
+    {
+        "syntax": "scripted trigger always-pass body",
+        "reference": "src/in_game/common/scripted_triggers/tv_research_subprocess_triggers.txt:212",
+        "quote": "always = yes",
+        "evidence_scope": "body",
+    },
+    {
+        "syntax": "scripted trigger variable presence check",
+        "reference": "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30011",
+        "quote": "has_variable = tv_wonder_hagia_step_1_done",
+        "evidence_scope": "body",
+    },
+    {
+        "syntax": "scripted trigger variable value check",
+        "reference": "src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt:30012",
+        "quote": "var:tv_wonder_hagia_step_1_done ?= 1",
+        "evidence_scope": "body",
+    },
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_IMPLEMENTED_VERTICAL_SLICE_STATUS = (
+    "implemented_alhambra_vertical_slice"
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_ROW_VARIABLE_SUFFIXES = (
+    "started",
+    "progress",
+    "branch",
+    "completed",
+    "failed",
+    "reset",
+    "state",
 )
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_REQUIRED_FIELDS = {
     "kind",
@@ -4064,14 +4226,14 @@ REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND = {
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EFFECT_HANDOFFS_BY_STAGE = {
     "opening": ("scripted_effect_row_init", "scripted_effect_aggregate_refresh"),
     "update": ("scripted_effect_row_state_write", "scripted_effect_aggregate_refresh"),
-    "retry": ("scripted_effect_branch_write", "scripted_effect_row_state_write"),
-    "resolve": ("scripted_effect_branch_write", "cleanup_completion"),
+    "retry": ("scripted_effect_branch_write", "scripted_effect_aggregate_refresh"),
+    "resolve": ("cleanup_completion", "scripted_effect_cleanup_write"),
 }
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_TRIGGER_HANDOFFS_BY_STAGE = {
     "opening": ("scripted_trigger_eligibility", "scripted_trigger_tooltip_safe_condition_group"),
-    "update": ("scripted_trigger_row_completion", "scripted_trigger_tooltip_safe_condition_group"),
+    "update": ("scripted_trigger_eligibility", "scripted_trigger_tooltip_safe_condition_group"),
     "retry": ("scripted_trigger_eligibility", "scripted_trigger_tooltip_safe_condition_group"),
-    "resolve": ("scripted_trigger_row_completion", "scripted_trigger_tooltip_safe_condition_group"),
+    "resolve": ("scripted_trigger_eligibility", "scripted_trigger_tooltip_safe_condition_group"),
 }
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_OPTION_SLOTS_BY_STAGE = {
     "opening": ("a",),
@@ -13844,13 +14006,16 @@ def _alhambra_event_source_body_draft_handoff_refs(
     artifact_kinds: tuple[str, ...],
 ) -> list[dict[str, Any]]:
     artifact_kind_set = set(artifact_kinds)
-    return [
+    order = {artifact_kind: index for index, artifact_kind in enumerate(artifact_kinds)}
+    selected = [
         deepcopy(ref)
         for ref in refs
         if str(ref.get("row_set_key", "")) == row_set_key
         and str(ref.get("family", "")) in families
         and str(ref.get("artifact_kind", "")) in artifact_kind_set
     ]
+    selected.sort(key=lambda ref: order.get(str(ref.get("artifact_kind", "")), len(order)))
+    return selected
 
 
 def _alhambra_event_source_body_draft_option_rows(
@@ -18152,6 +18317,69 @@ def _alhambra_event_source_generator_controlled_handoff_blockers(
     return blockers
 
 
+def _alhambra_row_variable(row_set_key: str, suffix: str) -> str:
+    return f"tv_wonder_unique_alhambra_ritual_{row_set_key}_{suffix}"
+
+
+def _alhambra_event_source_generator_option_effect_names(
+    option: dict[str, Any],
+) -> list[str]:
+    names: list[str] = []
+    for ref in option.get("effect_refs", []) or []:
+        if not isinstance(ref, dict):
+            continue
+        row_set_key = str(ref.get("row_set_key", ""))
+        artifact_kind = str(ref.get("artifact_kind", ""))
+        if not row_set_key or not artifact_kind:
+            continue
+        effect_name = _alhambra_scripted_effect_cleanup_source_body_draft_effect_name(
+            row_set_key=row_set_key,
+            artifact_kind=artifact_kind,
+        )
+        if effect_name not in names:
+            names.append(effect_name)
+    return names
+
+
+def _alhambra_event_source_generator_option_trigger_names(
+    option: dict[str, Any],
+) -> list[str]:
+    names: list[str] = []
+    for ref in option.get("trigger_refs", []) or []:
+        if not isinstance(ref, dict):
+            continue
+        row_set_key = str(ref.get("row_set_key", ""))
+        artifact_kind = str(ref.get("artifact_kind", ""))
+        if not row_set_key or not artifact_kind:
+            continue
+        trigger_name = _alhambra_scripted_trigger_source_body_draft_trigger_name(
+            row_set_key=row_set_key,
+            artifact_kind=artifact_kind,
+        )
+        if trigger_name not in names:
+            names.append(trigger_name)
+    return names
+
+
+def _alhambra_event_source_generator_option_body_lines(option: dict[str, Any]) -> list[str]:
+    lines = [
+        "option = {",
+        f"name = {option.get('localization_key_ref', '')}",
+    ]
+    trigger_names = _alhambra_event_source_generator_option_trigger_names(option)
+    if trigger_names:
+        lines.append("trigger = {")
+        lines.extend(f"{trigger_name} = yes" for trigger_name in trigger_names)
+        lines.append("}")
+    effect_names = _alhambra_event_source_generator_option_effect_names(option)
+    if effect_names:
+        lines.append("effect = {")
+        lines.extend(f"{effect_name} = yes" for effect_name in effect_names)
+        lines.append("}")
+    lines.append("}")
+    return lines
+
+
 def _alhambra_event_source_generator_header(target_path: str) -> list[str]:
     return [
         "# @InMemoryCandidate by scripts/wonder_unique_ritual_harness.py",
@@ -18175,17 +18403,15 @@ def _alhambra_event_source_generator_render_event(event: dict[str, Any]) -> list
         f"\t# row_set = {event.get('row_set_key', '')}; stage = {event.get('event_stage', '')}",
     ]
     for option in event.get("options", []) or []:
-        lines.extend(
-            [
-                "",
-                "\toption = {",
-                f"\t\tname = {option.get('localization_key_ref', '')}",
-                "\t\t# CONTROLLED BLOCKER: effect/trigger handoff is not emitted by this generator.",
-                f"\t\t# effect_handoff_ref_count = {int(option.get('effect_ref_count', 0))}",
-                f"\t\t# trigger_handoff_ref_count = {int(option.get('trigger_ref_count', 0))}",
-                "\t}",
-            ]
-        )
+        lines.append("")
+        depth = 0
+        for body_line in _alhambra_event_source_generator_option_body_lines(option):
+            if body_line == "}":
+                depth -= 1
+            indent = "\t" * (1 + depth)
+            lines.append(f"{indent}{body_line}")
+            if body_line.endswith("{"):
+                depth += 1
     lines.append("}")
     return lines
 
@@ -18287,6 +18513,24 @@ def _validate_alhambra_event_source_generator_flags(
             errors.append(f"{context} no_write_flags.{flag} must be {str(expected).lower()}")
 
 
+def _validate_alhambra_event_localization_source_generator_flags(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} {flag} must be {str(expected).lower()}")
+    no_write_flags = value.get("no_write_flags")
+    if not isinstance(no_write_flags, dict):
+        errors.append(f"{context} missing no-write flags")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_FLAGS.items():
+        if no_write_flags.get(flag) is not expected:
+            errors.append(f"{context} no_write_flags.{flag} must be {str(expected).lower()}")
+
+
 def _validate_alhambra_event_source_candidate_text(
     *,
     source_text: str,
@@ -18360,19 +18604,19 @@ def _validate_alhambra_event_source_candidate_text(
             if option_index >= len(option_blocks):
                 continue
             option_lines = _alhambra_event_source_candidate_non_comment_lines(option_blocks[option_index])
-            expected_option_lines = [
-                "option = {",
-                f"name = {expected_option.get('localization_key_ref', '')}",
-                "}",
-            ]
+            expected_option_lines = _alhambra_event_source_generator_option_body_lines(expected_option)
             if option_lines != expected_option_lines:
                 if not any(line.startswith("name =") for line in option_lines):
                     errors.append(
                         f"Alhambra event source generator event {event_id} missing option localization key ref"
                     )
+                elif "effect = {" not in option_lines:
+                    errors.append(
+                        f"Alhambra event source generator event {event_id} missing option effect handoff"
+                    )
                 else:
                     errors.append(
-                        f"Alhambra event source generator event {event_id} option body must stay blocker-only"
+                        f"Alhambra event source generator event {event_id} option handoff body mismatch"
                     )
         option_line_indexes: set[int] = {
             line_index
@@ -18448,18 +18692,16 @@ def repeated_entity_row_alhambra_event_source_generator_for_payload(
         "event_ids": [int(event["event_id"]) for event in expected_events],
         "localization_key_refs": _alhambra_event_source_generator_localization_key_refs(expected_events),
         "eu5_syntax_evidence_refs": _alhambra_event_source_generator_syntax_evidence_refs(),
-        "controlled_handoff_blockers": _alhambra_event_source_generator_controlled_handoff_blockers(
-            expected_events
-        ),
-        "effect_trigger_handoff_status": "controlled_blocker",
-        "effect_trigger_handoff_verified": False,
+        "controlled_handoff_blockers": [],
+        "effect_trigger_handoff_status": REPEATED_ENTITY_ROW_ALHAMBRA_IMPLEMENTED_VERTICAL_SLICE_STATUS,
+        "effect_trigger_handoff_verified": True,
         "no_write_flags": flags,
         **flags,
         "validation_errors": [],
         "notes": [
             "Alhambra event source generator consumes the current 8 event source-body drafts.",
             "It emits one in-memory source_text_candidate for review and never writes src/.",
-            "Effect and trigger handoffs remain controlled blockers until their source families are verified.",
+            "Event options call conservative Alhambra-only scripted trigger/effect handoffs.",
         ],
     }
     report["validation_errors"] = validate_repeated_entity_row_alhambra_event_source_generator(
@@ -18570,13 +18812,12 @@ def validate_repeated_entity_row_alhambra_event_source_generator(
     if not report.get("eu5_syntax_evidence_refs"):
         errors.append("Alhambra event source generator missing EU5 syntax evidence")
 
-    expected_blockers = _alhambra_event_source_generator_controlled_handoff_blockers(expected_events)
-    if report.get("controlled_handoff_blockers") != expected_blockers:
-        errors.append("Alhambra event source generator controlled blocker handoffs mismatch")
-    if report.get("effect_trigger_handoff_status") != "controlled_blocker":
-        errors.append("Alhambra event source generator effect/trigger handoff must remain controlled_blocker")
-    if report.get("effect_trigger_handoff_verified") is not False:
-        errors.append("Alhambra event source generator effect/trigger handoff must remain unverified")
+    if report.get("controlled_handoff_blockers") != []:
+        errors.append("Alhambra event source generator controlled handoff blockers must be cleared")
+    if report.get("effect_trigger_handoff_status") != REPEATED_ENTITY_ROW_ALHAMBRA_IMPLEMENTED_VERTICAL_SLICE_STATUS:
+        errors.append("Alhambra event source generator effect/trigger handoff status mismatch")
+    if report.get("effect_trigger_handoff_verified") is not True:
+        errors.append("Alhambra event source generator effect/trigger handoff must be verified for Alhambra source")
     for index, blocker in enumerate(report.get("controlled_handoff_blockers", []) or []):
         if not isinstance(blocker, dict):
             errors.append(f"Alhambra event source generator controlled blocker {index} must be a mapping")
@@ -18791,16 +19032,99 @@ def _alhambra_scripted_effect_cleanup_source_generator_render_declaration(
     declaration: dict[str, Any],
 ) -> list[str]:
     effect_name = str(declaration.get("effect_name", ""))
-    return [
+    lines = [
         f"# -- {effect_name} ----------------------------------------------",
         f"{effect_name} = {{",
         f"\t# family = {declaration.get('family', '')}; operation = {declaration.get('operation', '')}",
         f"\t# row_set = {declaration.get('row_set_key', '')}",
-        "\t# CONTROLLED BLOCKER: source body is not emitted by this generator.",
-        "\t# CONTROLLED BLOCKER: row-state writes, aggregate refresh, and cleanup mutation remain unverified.",
-        "\t# source_body_status = controlled_blocker",
-        "}",
     ]
+    lines.extend(f"\t{line}" for line in _alhambra_scripted_effect_cleanup_source_generator_body_lines(declaration))
+    lines.append("}")
+    return lines
+
+
+def _alhambra_set_variable_line(variable_name: str, value: int) -> str:
+    return f"set_variable = {{ name = {variable_name} value = {value} }}"
+
+
+def _alhambra_remove_variable_line(variable_name: str) -> str:
+    return f"remove_variable = {variable_name}"
+
+
+def _alhambra_scripted_effect_cleanup_runtime_variables(row_set_key: str) -> dict[str, str]:
+    return {
+        suffix: _alhambra_row_variable(row_set_key, suffix)
+        for suffix in REPEATED_ENTITY_ROW_ALHAMBRA_ROW_VARIABLE_SUFFIXES
+    }
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_body_lines(
+    declaration: dict[str, Any],
+) -> list[str]:
+    row_set_key = str(declaration.get("row_set_key", ""))
+    operation = str(declaration.get("operation", ""))
+    variables = _alhambra_scripted_effect_cleanup_runtime_variables(row_set_key)
+    active_variables = [
+        variables["started"],
+        variables["progress"],
+        variables["branch"],
+        variables["failed"],
+        variables["reset"],
+        variables["state"],
+    ]
+    all_variables = active_variables + [variables["completed"]]
+    if operation == "row_init":
+        return [
+            _alhambra_set_variable_line(variables["started"], 1),
+            _alhambra_set_variable_line(variables["progress"], 0),
+            _alhambra_set_variable_line(variables["branch"], 0),
+            _alhambra_set_variable_line(variables["completed"], 0),
+            _alhambra_set_variable_line(variables["failed"], 0),
+            _alhambra_set_variable_line(variables["reset"], 0),
+            _alhambra_set_variable_line(variables["state"], 0),
+        ]
+    if operation == "row_state_write":
+        return [
+            _alhambra_set_variable_line(variables["started"], 1),
+            _alhambra_set_variable_line(variables["progress"], 1),
+            _alhambra_set_variable_line(variables["failed"], 0),
+        ]
+    if operation == "branch_write":
+        return [
+            _alhambra_set_variable_line(variables["started"], 1),
+            _alhambra_set_variable_line(variables["branch"], 1),
+            _alhambra_set_variable_line(variables["failed"], 0),
+        ]
+    if operation == "aggregate_refresh":
+        return [
+            _alhambra_set_variable_line(variables["state"], 1),
+            _alhambra_set_variable_line(variables["progress"], 1),
+        ]
+    if operation == "cleanup_write":
+        return [_alhambra_remove_variable_line(variable_name) for variable_name in active_variables]
+    if operation == "completion":
+        return [
+            _alhambra_set_variable_line(variables["started"], 1),
+            _alhambra_set_variable_line(variables["progress"], 2),
+            _alhambra_set_variable_line(variables["completed"], 1),
+            _alhambra_set_variable_line(variables["failed"], 0),
+            _alhambra_set_variable_line(variables["state"], 2),
+        ]
+    if operation == "failure":
+        return [
+            _alhambra_set_variable_line(variables["failed"], 1),
+            _alhambra_set_variable_line(variables["completed"], 0),
+            _alhambra_set_variable_line(variables["progress"], 0),
+            _alhambra_set_variable_line(variables["state"], 0),
+        ]
+    if operation == "ownership_loss":
+        return [_alhambra_remove_variable_line(variable_name) for variable_name in all_variables]
+    if operation == "reset":
+        return [
+            *[_alhambra_remove_variable_line(variable_name) for variable_name in all_variables],
+            _alhambra_set_variable_line(variables["reset"], 1),
+        ]
+    return ["always = yes"]
 
 
 def _alhambra_scripted_effect_cleanup_source_generator_render_source_text(
@@ -18946,18 +19270,19 @@ def _validate_alhambra_scripted_effect_cleanup_source_candidate_text(
         non_comment_lines = _alhambra_event_source_candidate_non_comment_lines(block_lines)
         expected_non_comment_lines = [
             f"{effect_name} = {{",
+            *_alhambra_scripted_effect_cleanup_source_generator_body_lines(declaration or {}),
             "}",
         ]
         if non_comment_lines != expected_non_comment_lines:
             errors.append(
                 "Alhambra scripted-effect/cleanup source generator "
-                f"{effect_name} declaration body must stay controlled-blocker-only"
+                f"{effect_name} declaration body mismatch"
             )
             for line in non_comment_lines:
                 if line not in expected_non_comment_lines:
                     errors.append(
                         "Alhambra scripted-effect/cleanup source generator "
-                        f"{effect_name} contains unverified body line: {line}"
+                        f"{effect_name} contains unexpected body line: {line}"
                     )
 
     observed_coverage = _alhambra_scripted_effect_cleanup_source_generator_coverage(
@@ -19056,22 +19381,20 @@ def repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_for_pa
         "eu5_syntax_evidence_refs": (
             _alhambra_scripted_effect_cleanup_source_generator_syntax_evidence_refs()
         ),
-        "syntax_evidence_binding_status": "scripted_effect_declaration_only",
-        "controlled_source_blockers": (
-            _alhambra_scripted_effect_cleanup_source_generator_controlled_blockers(declarations)
-        ),
-        "source_body_blocker_status": "controlled_blocker",
+        "syntax_evidence_binding_status": "scripted_effect_conservative_body",
+        "controlled_source_blockers": [],
+        "source_body_blocker_status": REPEATED_ENTITY_ROW_ALHAMBRA_IMPLEMENTED_VERTICAL_SLICE_STATUS,
         "scripted_effect_declaration_syntax_verified": True,
-        "row_state_write_verified": False,
-        "aggregate_refresh_verified": False,
-        "cleanup_mutation_verified": False,
+        "row_state_write_verified": True,
+        "aggregate_refresh_verified": True,
+        "cleanup_mutation_verified": True,
         "no_write_flags": flags,
         **flags,
         "validation_errors": [],
         "notes": [
             "Alhambra scripted-effect/cleanup source generator consumes the current 18 source-body drafts.",
             "It emits one in-memory source_text_candidate with 18 top-level tv_ declarations.",
-            "Only declaration syntax is evidence-bound; row writes, aggregate refresh, and cleanup mutation remain blockers.",
+            "Bodies use conservative country-scoped variable writes and cleanup for the Alhambra vertical slice.",
         ],
     }
     report["validation_errors"] = validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator(
@@ -19176,7 +19499,6 @@ def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generat
 
     expected_names = [str(declaration.get("effect_name", "")) for declaration in expected_declarations]
     expected_coverage = _alhambra_scripted_effect_cleanup_source_generator_coverage(expected_declarations)
-    expected_blockers = _alhambra_scripted_effect_cleanup_source_generator_controlled_blockers(expected_declarations)
     if int(report.get("scripted_effect_cleanup_source_body_draft_count", -1)) != len(expected_declarations):
         errors.append("Alhambra scripted-effect/cleanup source generator source-body draft count mismatch")
     if len(expected_declarations) != 18:
@@ -19201,17 +19523,17 @@ def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generat
         refs=report.get("eu5_syntax_evidence_refs"),
         errors=errors,
     )
-    if report.get("syntax_evidence_binding_status") != "scripted_effect_declaration_only":
-        errors.append("Alhambra scripted-effect/cleanup source generator syntax evidence must bind declaration only")
+    if report.get("syntax_evidence_binding_status") != "scripted_effect_conservative_body":
+        errors.append("Alhambra scripted-effect/cleanup source generator syntax evidence status mismatch")
     if report.get("scripted_effect_declaration_syntax_verified") is not True:
         errors.append("Alhambra scripted-effect/cleanup source generator declaration syntax must be verified")
-    if report.get("source_body_blocker_status") != "controlled_blocker":
-        errors.append("Alhambra scripted-effect/cleanup source generator source body must remain controlled_blocker")
+    if report.get("source_body_blocker_status") != REPEATED_ENTITY_ROW_ALHAMBRA_IMPLEMENTED_VERTICAL_SLICE_STATUS:
+        errors.append("Alhambra scripted-effect/cleanup source generator source body status mismatch")
     for flag in ("row_state_write_verified", "aggregate_refresh_verified", "cleanup_mutation_verified"):
-        if report.get(flag) is not False:
-            errors.append(f"Alhambra scripted-effect/cleanup source generator {flag} must be false")
-    if report.get("controlled_source_blockers") != expected_blockers:
-        errors.append("Alhambra scripted-effect/cleanup source generator controlled blockers mismatch")
+        if report.get(flag) is not True:
+            errors.append(f"Alhambra scripted-effect/cleanup source generator {flag} must be true")
+    if report.get("controlled_source_blockers") != []:
+        errors.append("Alhambra scripted-effect/cleanup source generator controlled blockers must be cleared")
     for index, blocker in enumerate(report.get("controlled_source_blockers", []) or []):
         if not isinstance(blocker, dict):
             errors.append(f"Alhambra scripted-effect/cleanup source generator controlled blocker {index} must be a mapping")
@@ -19405,16 +19727,29 @@ def _alhambra_scripted_trigger_source_generator_render_declaration(
     declaration: dict[str, Any],
 ) -> list[str]:
     trigger_name = str(declaration.get("trigger_name", ""))
-    return [
+    lines = [
         f"# -- {trigger_name} ----------------------------------------------",
         f"{trigger_name} = {{",
         f"\t# row_set = {declaration.get('row_set_key', '')}",
         f"\t# condition_group = {declaration.get('condition_group', '')}",
-        "\t# CONTROLLED BLOCKER: concrete trigger conditions are not emitted by this generator.",
-        "\t# CONTROLLED BLOCKER: variable reads and tooltip-safe condition groups remain unverified.",
-        "\t# source_body_status = controlled_blocker",
-        "}",
     ]
+    lines.extend(f"\t{line}" for line in _alhambra_scripted_trigger_source_generator_body_lines(declaration))
+    lines.append("}")
+    return lines
+
+
+def _alhambra_scripted_trigger_source_generator_body_lines(
+    declaration: dict[str, Any],
+) -> list[str]:
+    row_set_key = str(declaration.get("row_set_key", ""))
+    condition_group = str(declaration.get("condition_group", ""))
+    if condition_group == "row_completion":
+        completed_variable = _alhambra_row_variable(row_set_key, "completed")
+        return [
+            f"has_variable = {completed_variable}",
+            f"var:{completed_variable} ?= 1",
+        ]
+    return ["always = yes"]
 
 
 def _alhambra_scripted_trigger_source_generator_render_source_text(
@@ -19554,18 +19889,19 @@ def _validate_alhambra_scripted_trigger_source_candidate_text(
         non_comment_lines = _alhambra_event_source_candidate_non_comment_lines(block_lines)
         expected_non_comment_lines = [
             f"{trigger_name} = {{",
+            *_alhambra_scripted_trigger_source_generator_body_lines(declaration or {}),
             "}",
         ]
         if non_comment_lines != expected_non_comment_lines:
             errors.append(
                 "Alhambra scripted-trigger source generator "
-                f"{trigger_name} declaration body must stay controlled-blocker-only"
+                f"{trigger_name} declaration body mismatch"
             )
             for line in non_comment_lines:
                 if line not in expected_non_comment_lines:
                     errors.append(
                         "Alhambra scripted-trigger source generator "
-                        f"{trigger_name} contains unverified body line: {line}"
+                        f"{trigger_name} contains unexpected body line: {line}"
                     )
 
     observed_coverage = _alhambra_scripted_trigger_source_generator_coverage(
@@ -19646,20 +19982,20 @@ def repeated_entity_row_alhambra_scripted_trigger_source_generator_for_payload(
         "trigger_names": [str(declaration.get("trigger_name", "")) for declaration in declarations],
         "row_set_condition_group_coverage": _alhambra_scripted_trigger_source_generator_coverage(declarations),
         "eu5_syntax_evidence_refs": _alhambra_scripted_trigger_source_generator_syntax_evidence_refs(),
-        "syntax_evidence_binding_status": "scripted_trigger_declaration_only",
-        "controlled_source_blockers": _alhambra_scripted_trigger_source_generator_controlled_blockers(declarations),
-        "source_body_blocker_status": "controlled_blocker",
+        "syntax_evidence_binding_status": "scripted_trigger_conservative_body",
+        "controlled_source_blockers": [],
+        "source_body_blocker_status": REPEATED_ENTITY_ROW_ALHAMBRA_IMPLEMENTED_VERTICAL_SLICE_STATUS,
         "scripted_trigger_declaration_syntax_verified": True,
-        "condition_body_verified": False,
-        "variable_read_verified": False,
-        "tooltip_safe_condition_group_verified": False,
+        "condition_body_verified": True,
+        "variable_read_verified": True,
+        "tooltip_safe_condition_group_verified": True,
         "no_write_flags": flags,
         **flags,
         "validation_errors": [],
         "notes": [
             "Alhambra scripted-trigger source generator consumes the current 6 trigger source-body drafts.",
             "It emits one in-memory source_text_candidate with 6 top-level tv_ trigger declarations.",
-            "Only declaration syntax is evidence-bound; conditions, variable reads, and tooltip groups remain blockers.",
+            "Bodies use permissive eligibility/tooltip-safe conditions and completion checks against generated variables.",
         ],
     }
     report["validation_errors"] = validate_repeated_entity_row_alhambra_scripted_trigger_source_generator(
@@ -19756,7 +20092,6 @@ def validate_repeated_entity_row_alhambra_scripted_trigger_source_generator(
 
     expected_names = [str(declaration.get("trigger_name", "")) for declaration in expected_declarations]
     expected_coverage = _alhambra_scripted_trigger_source_generator_coverage(expected_declarations)
-    expected_blockers = _alhambra_scripted_trigger_source_generator_controlled_blockers(expected_declarations)
     if int(report.get("scripted_trigger_source_body_draft_count", -1)) != len(expected_declarations):
         errors.append("Alhambra scripted-trigger source generator source-body draft count mismatch")
     if len(expected_declarations) != 6:
@@ -19776,17 +20111,17 @@ def validate_repeated_entity_row_alhambra_scripted_trigger_source_generator(
         refs=report.get("eu5_syntax_evidence_refs"),
         errors=errors,
     )
-    if report.get("syntax_evidence_binding_status") != "scripted_trigger_declaration_only":
-        errors.append("Alhambra scripted-trigger source generator syntax evidence must bind declaration only")
+    if report.get("syntax_evidence_binding_status") != "scripted_trigger_conservative_body":
+        errors.append("Alhambra scripted-trigger source generator syntax evidence status mismatch")
     if report.get("scripted_trigger_declaration_syntax_verified") is not True:
         errors.append("Alhambra scripted-trigger source generator declaration syntax must be verified")
-    if report.get("source_body_blocker_status") != "controlled_blocker":
-        errors.append("Alhambra scripted-trigger source generator source body must remain controlled_blocker")
+    if report.get("source_body_blocker_status") != REPEATED_ENTITY_ROW_ALHAMBRA_IMPLEMENTED_VERTICAL_SLICE_STATUS:
+        errors.append("Alhambra scripted-trigger source generator source body status mismatch")
     for flag in ("condition_body_verified", "variable_read_verified", "tooltip_safe_condition_group_verified"):
-        if report.get(flag) is not False:
-            errors.append(f"Alhambra scripted-trigger source generator {flag} must be false")
-    if report.get("controlled_source_blockers") != expected_blockers:
-        errors.append("Alhambra scripted-trigger source generator controlled blockers mismatch")
+        if report.get(flag) is not True:
+            errors.append(f"Alhambra scripted-trigger source generator {flag} must be true")
+    if report.get("controlled_source_blockers") != []:
+        errors.append("Alhambra scripted-trigger source generator controlled blockers must be cleared")
     for index, blocker in enumerate(report.get("controlled_source_blockers", []) or []):
         if not isinstance(blocker, dict):
             errors.append(f"Alhambra scripted-trigger source generator controlled blocker {index} must be a mapping")
@@ -19819,6 +20154,829 @@ def validate_repeated_entity_row_alhambra_scripted_trigger_source_generator(
     )
     if len(observed_names) != len(expected_names):
         errors.append("Alhambra scripted-trigger source generator source_text_candidate declaration count mismatch")
+    return errors
+
+
+def _alhambra_event_localization_source_target_path(language: str) -> str:
+    return REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS[language]
+
+
+def _alhambra_event_localization_source_generator_flags() -> dict[str, bool]:
+    return dict(REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_FLAGS)
+
+
+def _alhambra_event_localization_source_generator_header(target_path: str, language: str) -> list[str]:
+    return [
+        "# @InMemoryCandidate by scripts/wonder_unique_ritual_harness.py",
+        f"# Target: {target_path}",
+        f"# Alhambra {language} event localization source text candidate only; not emitted to src/.",
+        "",
+    ]
+
+
+def _alhambra_event_localization_source_generator_event_refs(
+    event_source_generator: dict[str, Any],
+) -> list[dict[str, Any]]:
+    draft_refs_by_id = {
+        int(ref.get("event_id", 0)): ref
+        for ref in event_source_generator.get("event_source_body_draft_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    refs: list[dict[str, Any]] = []
+    for loc_ref in event_source_generator.get("localization_key_refs", []) or []:
+        if not isinstance(loc_ref, dict):
+            continue
+        event_id = int(loc_ref.get("event_id", 0))
+        draft_ref = draft_refs_by_id.get(event_id, {})
+        refs.append(
+            {
+                "event_id": event_id,
+                "qualified_event_id": str(loc_ref.get("qualified_event_id", "")),
+                "event_stage": str(draft_ref.get("event_stage", "")),
+                "row_set_key": str(draft_ref.get("row_set_key", "")),
+                "title_key": str(loc_ref.get("title_key", "")),
+                "desc_key": str(loc_ref.get("desc_key", "")),
+                "option_key_refs": deepcopy(loc_ref.get("option_key_refs", []) or []),
+            }
+        )
+    refs.sort(key=lambda ref: int(ref.get("event_id", 0)))
+    return refs
+
+
+def _alhambra_event_localization_source_rows(
+    *,
+    event_refs: list[dict[str, Any]],
+    localization: dict[str, str],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    rows: list[dict[str, Any]] = []
+    missing_source_keys: list[str] = []
+
+    def add_row(
+        *,
+        event_ref: dict[str, Any],
+        target_key: str,
+        loc_role: str,
+        source_key: str,
+        option_slot: str = "",
+    ) -> None:
+        if not source_key:
+            missing_source_keys.append(f"{event_ref.get('event_stage', '')}.{loc_role}{option_slot}")
+            value = ""
+        else:
+            value = localization.get(source_key, "")
+            if source_key not in localization:
+                missing_source_keys.append(source_key)
+        rows.append(
+            {
+                "event_id": int(event_ref.get("event_id", 0)),
+                "event_stage": str(event_ref.get("event_stage", "")),
+                "row_set_key": str(event_ref.get("row_set_key", "")),
+                "target_key": target_key,
+                "loc_role": loc_role,
+                "option_slot": option_slot,
+                "source_key": source_key,
+                "value": value,
+            }
+        )
+
+    for event_ref in event_refs:
+        stage = str(event_ref.get("event_stage", ""))
+        stage_keys = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_KEYS_BY_STAGE.get(stage, {})
+        add_row(
+            event_ref=event_ref,
+            target_key=str(event_ref.get("title_key", "")),
+            loc_role="title",
+            source_key=str(stage_keys.get("title", "")),
+        )
+        add_row(
+            event_ref=event_ref,
+            target_key=str(event_ref.get("desc_key", "")),
+            loc_role="desc",
+            source_key=str(stage_keys.get("desc", "")),
+        )
+        option_source_keys = stage_keys.get("options", {}) if isinstance(stage_keys.get("options"), dict) else {}
+        for option_ref in event_ref.get("option_key_refs", []) or []:
+            if not isinstance(option_ref, dict):
+                continue
+            option_slot = str(option_ref.get("option_slot", ""))
+            add_row(
+                event_ref=event_ref,
+                target_key=str(option_ref.get("key", "")),
+                loc_role="option",
+                option_slot=option_slot,
+                source_key=str(option_source_keys.get(option_slot, "")),
+            )
+    return rows, sorted(set(missing_source_keys))
+
+
+def _alhambra_event_localization_source_text(
+    *,
+    target_path: str,
+    language: str,
+    localization_key_rows: list[dict[str, Any]],
+) -> str:
+    lines = _alhambra_event_localization_source_generator_header(target_path, language)
+    lines.append(_alhambra_localization_language_header(language))
+    for row in localization_key_rows:
+        lines.append(loc_line(str(row.get("target_key", "")), str(row.get("value", ""))))
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def repeated_entity_row_alhambra_event_localization_source_generator_for_payload(
+    payload: dict[str, Any],
+    *,
+    language: str,
+    statuses: set[str] | None = None,
+    event_source_generator: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if language not in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS:
+        raise ValueError(f"Unsupported Alhambra localization language: {language}")
+    if event_source_generator is None:
+        event_source_generator = repeated_entity_row_alhambra_event_source_generator_for_payload(
+            payload,
+            statuses=statuses,
+        )
+    target_path = _alhambra_event_localization_source_target_path(language)
+    event_refs = _alhambra_event_localization_source_generator_event_refs(event_source_generator)
+    localization_key_rows, missing_source_keys = _alhambra_event_localization_source_rows(
+        event_refs=event_refs,
+        localization=loc_for_language(language),
+    )
+    source_text_candidate = _alhambra_event_localization_source_text(
+        target_path=target_path,
+        language=language,
+        localization_key_rows=localization_key_rows,
+    )
+    flags = _alhambra_event_localization_source_generator_flags()
+    report = {
+        "kind": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_KIND,
+        "generator_version": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_VERSION,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": "localization",
+        "families": ["localization"],
+        "target_path": target_path,
+        "localization_language": language,
+        "language_header": _alhambra_localization_language_header(language),
+        "generator_status": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_STATUS,
+        "event_source_generator_input_ref": _alhambra_reviewable_source_generator_ref(event_source_generator),
+        "event_refs": event_refs,
+        "event_ids": [int(ref.get("event_id", 0)) for ref in event_refs],
+        "localization_key_rows": localization_key_rows,
+        "localization_key_count": len(localization_key_rows),
+        "missing_source_localization_keys": missing_source_keys,
+        "source_text_candidate": source_text_candidate,
+        "source_text_candidate_line_count": len(source_text_candidate.splitlines()),
+        "source_text_candidate_nonempty": bool(source_text_candidate.strip()),
+        "no_write_flags": flags,
+        **flags,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra event localization source generator consumes the current 7309-7316 event loc refs.",
+            "Events 7313-7316 conservatively reuse the same four canonical Alhambra stage texts as 7309-7312.",
+            "It emits one in-memory localization source_text_candidate and never writes src/ directly.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_event_localization_source_generator(
+        report,
+        event_source_generator=event_source_generator,
+    )
+    return report
+
+
+def validate_repeated_entity_row_alhambra_event_localization_source_generator(
+    report: dict[str, Any],
+    *,
+    event_source_generator: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    language = str(report.get("localization_language", ""))
+    target_path = str(report.get("target_path", ""))
+    if report.get("kind") != REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_KIND:
+        errors.append("Alhambra event localization source generator kind mismatch")
+    if report.get("generator_version") != REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_LOCALIZATION_SOURCE_GENERATOR_VERSION:
+        errors.append("Alhambra event localization source generator version mismatch")
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra event localization source generator pilot_key must be unique_alhambra")
+    if report.get("family") != "localization" or report.get("families") != ["localization"]:
+        errors.append("Alhambra event localization source generator family must be localization")
+    if language not in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS:
+        errors.append("Alhambra event localization source generator language is unsupported")
+    elif target_path != _alhambra_event_localization_source_target_path(language):
+        errors.append("Alhambra event localization source generator target_path mismatch")
+    if report.get("language_header") != _alhambra_localization_language_header(language):
+        errors.append("Alhambra event localization source generator language header mismatch")
+    _validate_alhambra_event_localization_source_generator_flags(
+        context="Alhambra event localization source generator",
+        value=report,
+        errors=errors,
+    )
+    if report.get("missing_source_localization_keys"):
+        errors.append(
+            "Alhambra event localization source generator missing source localization key(s): "
+            + ", ".join(str(key) for key in report.get("missing_source_localization_keys", []) or [])
+        )
+    if event_source_generator is None:
+        errors.append("Alhambra event localization source generator requires event source generator input")
+        expected_event_refs: list[dict[str, Any]] = []
+    else:
+        if event_source_generator.get("validation_errors"):
+            errors.append("Alhambra event localization source generator event source generator input must be clean")
+        expected_input_ref = _alhambra_reviewable_source_generator_ref(event_source_generator)
+        if report.get("event_source_generator_input_ref") != expected_input_ref:
+            errors.append("Alhambra event localization source generator input ref mismatch")
+        expected_event_refs = _alhambra_event_localization_source_generator_event_refs(event_source_generator)
+
+    if report.get("event_refs") != expected_event_refs:
+        errors.append("Alhambra event localization source generator event refs mismatch")
+    expected_event_ids = [int(ref.get("event_id", 0)) for ref in expected_event_refs]
+    if report.get("event_ids") != expected_event_ids:
+        errors.append("Alhambra event localization source generator event ids mismatch")
+    if expected_event_ids != list(range(7309, 7317)):
+        errors.append("Alhambra event localization source generator event ids must remain 7309-7316")
+
+    localization: dict[str, str]
+    try:
+        localization = loc_for_language(language)
+    except ValueError:
+        localization = {}
+    expected_rows, expected_missing = _alhambra_event_localization_source_rows(
+        event_refs=expected_event_refs,
+        localization=localization,
+    )
+    if report.get("localization_key_rows") != expected_rows:
+        errors.append("Alhambra event localization source generator localization rows mismatch")
+    if report.get("missing_source_localization_keys") != expected_missing:
+        errors.append("Alhambra event localization source generator missing source key list mismatch")
+    if int(report.get("localization_key_count", -1)) != len(expected_rows):
+        errors.append("Alhambra event localization source generator localization key count mismatch")
+    target_keys = [str(row.get("target_key", "")) for row in expected_rows]
+    duplicate_target_keys = sorted({key for key in target_keys if target_keys.count(key) > 1})
+    if duplicate_target_keys:
+        errors.append(
+            "Alhambra event localization source generator duplicate target key(s): "
+            + ", ".join(duplicate_target_keys)
+        )
+    if any(not key for key in target_keys):
+        errors.append("Alhambra event localization source generator target keys must not be empty")
+    if any(not str(row.get("value", "")).strip() for row in expected_rows):
+        errors.append("Alhambra event localization source generator values must not be empty")
+
+    expected_text = _alhambra_event_localization_source_text(
+        target_path=target_path,
+        language=language,
+        localization_key_rows=expected_rows,
+    )
+    source_text = str(report.get("source_text_candidate", ""))
+    if source_text != expected_text:
+        errors.append("Alhambra event localization source generator source_text_candidate mismatch")
+    if source_text.splitlines()[0:1] != ["# @InMemoryCandidate by scripts/wonder_unique_ritual_harness.py"]:
+        errors.append("Alhambra event localization source generator missing in-memory candidate header")
+    if f"\n{_alhambra_localization_language_header(language)}\n" not in source_text:
+        errors.append("Alhambra event localization source generator missing language block")
+    if int(report.get("source_text_candidate_line_count", -1)) != len(source_text.splitlines()):
+        errors.append("Alhambra event localization source generator source_text_candidate line count mismatch")
+    if report.get("source_text_candidate_nonempty") is not bool(source_text.strip()):
+        errors.append("Alhambra event localization source generator source_text_candidate_nonempty mismatch")
+    return errors
+
+
+def _alhambra_reviewable_source_target_generated_header(target_path: str) -> list[str]:
+    return [
+        f"# @Generated by {REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_SCRIPT_REL}",
+        f"#   Data:    {REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_DATA_REL}",
+        f"#   Regen:   {REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_REGEN_COMMAND}",
+        "# Do not edit directly - modify the data file and re-run the generator.",
+        "# Alhambra-only reviewable source target generated from Harness source_text_candidate.",
+        f"# Target: {target_path}",
+        "",
+    ]
+
+
+def _alhambra_reviewable_source_target_localization_language(target_path: str) -> str:
+    return REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_LOCALIZATION_LANGUAGE_BY_TARGET_PATH.get(target_path, "")
+
+
+def _alhambra_reviewable_source_target_is_localization(target_path: str) -> bool:
+    return bool(_alhambra_reviewable_source_target_localization_language(target_path))
+
+
+def _alhambra_reviewable_source_target_strip_candidate_header(source_text_candidate: str) -> str:
+    lines = source_text_candidate.splitlines()
+    if lines and lines[0].startswith("# @InMemoryCandidate by "):
+        while lines and lines[0].strip():
+            lines.pop(0)
+        if lines and not lines[0].strip():
+            lines.pop(0)
+    return "\n".join(lines).strip() + "\n"
+
+
+def _alhambra_reviewable_source_target_generated_header_present(
+    *,
+    target_path: str,
+    source_text: str,
+) -> bool:
+    if _alhambra_reviewable_source_target_is_localization(target_path):
+        language = _alhambra_reviewable_source_target_localization_language(target_path)
+        return source_text.startswith(
+            f"{_alhambra_localization_language_header(language)}\n"
+            f" # @Generated by {REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_SCRIPT_REL}\n"
+        )
+    return source_text.startswith(
+        f"# @Generated by {REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_SCRIPT_REL}\n"
+    )
+
+
+def _alhambra_reviewable_source_target_text(
+    *,
+    target_path: str,
+    source_text_candidate: str,
+) -> str:
+    body = _alhambra_reviewable_source_target_strip_candidate_header(source_text_candidate)
+    language = _alhambra_reviewable_source_target_localization_language(target_path)
+    if language:
+        language_header = _alhambra_localization_language_header(language)
+        body_lines = body.splitlines()
+        if body_lines and body_lines[0].strip() == language_header:
+            body_lines = body_lines[1:]
+        header_lines = [
+            f" {line}" if line else " "
+            for line in _alhambra_reviewable_source_target_generated_header(target_path)
+        ]
+        return "\n".join([language_header, *header_lines, *body_lines]).rstrip() + "\n"
+    return "\n".join(_alhambra_reviewable_source_target_generated_header(target_path)) + body
+
+
+def _alhambra_reviewable_source_generator_ref(report: dict[str, Any]) -> dict[str, Any]:
+    ref = {
+        "kind": str(report.get("kind", "")),
+        "generator_version": int(report.get("generator_version", 0)),
+        "pilot_key": str(report.get("pilot_key", "")),
+        "family": str(report.get("family", "")),
+        "target_path": str(report.get("target_path", "")),
+        "generator_status": str(report.get("generator_status", "")),
+        "source_text_candidate_line_count": int(report.get("source_text_candidate_line_count", 0)),
+        "validation_errors": list(report.get("validation_errors", []) or []),
+    }
+    if report.get("families") is not None:
+        ref["families"] = list(report.get("families", []) or [])
+    if report.get("localization_language") is not None:
+        ref["localization_language"] = str(report.get("localization_language", ""))
+    if report.get("localization_key_count") is not None:
+        ref["localization_key_count"] = int(report.get("localization_key_count", 0))
+    return ref
+
+
+def _alhambra_reviewable_source_target_controlled_blocker_count(
+    source_generator: dict[str, Any],
+) -> int:
+    if isinstance(source_generator.get("controlled_handoff_blockers"), list):
+        return len(source_generator.get("controlled_handoff_blockers", []) or [])
+    if isinstance(source_generator.get("controlled_source_blockers"), list):
+        return len(source_generator.get("controlled_source_blockers", []) or [])
+    return 0
+
+
+def _alhambra_reviewable_source_target_from_generator(
+    *,
+    generator_group: str,
+    source_generator: dict[str, Any],
+) -> dict[str, Any]:
+    target_path = str(source_generator.get("target_path", ""))
+    source_text = _alhambra_reviewable_source_target_text(
+        target_path=target_path,
+        source_text_candidate=str(source_generator.get("source_text_candidate", "")),
+    )
+    controlled_blocker_count = _alhambra_reviewable_source_target_controlled_blocker_count(source_generator)
+    controlled_blocker_required = False
+    localization_language = str(source_generator.get("localization_language", ""))
+    return {
+        "target_version": REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_VERSION,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "generator_group": generator_group,
+        "family": str(source_generator.get("family", "")),
+        "families": list(source_generator.get("families", []) or []),
+        "target_path": target_path,
+        "localization_language": localization_language,
+        "script_rel": REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_SCRIPT_REL,
+        "data_rel": REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_DATA_REL,
+        "regen_command": REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_REGEN_COMMAND,
+        "source_generator_ref": _alhambra_reviewable_source_generator_ref(source_generator),
+        "source_text": source_text,
+        "source_text_line_count": len(source_text.splitlines()),
+        "source_text_nonempty": bool(source_text.strip()),
+        "generated_header_present": _alhambra_reviewable_source_target_generated_header_present(
+            target_path=target_path,
+            source_text=source_text,
+        ),
+        "candidate_header_stripped": "# @InMemoryCandidate" not in source_text,
+        "reviewable_source_target": True,
+        "alhambra_only": True,
+        "source_candidate_validation_errors": list(source_generator.get("validation_errors", []) or []),
+        "controlled_blocker_count": controlled_blocker_count,
+        "controlled_blocker_required": controlled_blocker_required,
+        "controlled_blockers_preserved": controlled_blocker_count == 0,
+        "source_writer_gate_required": True,
+        "write_scope": "unique_alhambra_event_effect_trigger_localization_source_targets",
+        "body_emitted_to_file": False,
+        "writes_src": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "implementation_ready": False,
+        "harness_generated": False,
+    }
+
+
+def _alhambra_reviewable_source_targets_summary(
+    targets: list[dict[str, Any]],
+    *,
+    source_writer_gate: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "target_count": len(targets),
+        "target_paths": [str(target.get("target_path", "")) for target in targets],
+        "generator_groups": [str(target.get("generator_group", "")) for target in targets],
+        "source_text_empty_count": sum(
+            1 for target in targets if not str(target.get("source_text", "")).strip()
+        ),
+        "generated_header_count": sum(1 for target in targets if target.get("generated_header_present") is True),
+        "candidate_header_retained_count": sum(
+            1 for target in targets if target.get("candidate_header_stripped") is not True
+        ),
+        "controlled_blocker_count": sum(int(target.get("controlled_blocker_count", 0)) for target in targets),
+        "body_emitted_to_file_count": sum(
+            1 for target in targets if target.get("body_emitted_to_file") is True
+        ),
+        "writes_src_count": sum(1 for target in targets if target.get("writes_src") is True),
+        "source_ready_count": sum(1 for target in targets if target.get("source_ready") is True),
+        "implementation_ready_count": sum(
+            1 for target in targets if target.get("implementation_ready") is True
+        ),
+        "harness_generated_count": sum(1 for target in targets if target.get("harness_generated") is True),
+        "source_writer_gate_allows_generator_implementation": (
+            source_writer_gate.get("can_enter_first_real_generator_implementation") is True
+        ),
+        "source_writer_go": source_writer_gate.get("source_writer_go") is True,
+    }
+
+
+def repeated_entity_row_alhambra_reviewable_source_targets_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+    event_source_generator: dict[str, Any] | None = None,
+    scripted_effect_cleanup_source_generator: dict[str, Any] | None = None,
+    scripted_trigger_source_generator: dict[str, Any] | None = None,
+    english_localization_source_generator: dict[str, Any] | None = None,
+    simp_chinese_localization_source_generator: dict[str, Any] | None = None,
+    source_writer_gate: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+        payload,
+        statuses=statuses,
+    )
+    source_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
+        payload,
+        statuses=statuses,
+        source_file_validation_evidence=source_file_validation_evidence,
+    )
+    if event_source_generator is None:
+        event_source_generator_interface = repeated_entity_row_alhambra_event_source_generator_interface_for_payload(
+            payload,
+            statuses=statuses,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        event_source_generator = repeated_entity_row_alhambra_event_source_generator_for_payload(
+            payload,
+            statuses=statuses,
+            event_source_generator_interface=event_source_generator_interface,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    if scripted_effect_cleanup_source_generator is None:
+        scripted_effect_cleanup_source_generator_interface = (
+            repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface_for_payload(
+                payload,
+                statuses=statuses,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+        scripted_effect_cleanup_source_generator = (
+            repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_for_payload(
+                payload,
+                statuses=statuses,
+                scripted_effect_cleanup_source_generator_interface=(
+                    scripted_effect_cleanup_source_generator_interface
+                ),
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+    if scripted_trigger_source_generator is None:
+        scripted_trigger_source_generator_interface = (
+            repeated_entity_row_alhambra_scripted_trigger_source_generator_interface_for_payload(
+                payload,
+                statuses=statuses,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+        scripted_trigger_source_generator = repeated_entity_row_alhambra_scripted_trigger_source_generator_for_payload(
+            payload,
+            statuses=statuses,
+            scripted_trigger_source_generator_interface=scripted_trigger_source_generator_interface,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    if english_localization_source_generator is None:
+        english_localization_source_generator = (
+            repeated_entity_row_alhambra_event_localization_source_generator_for_payload(
+                payload,
+                statuses=statuses,
+                language="english",
+                event_source_generator=event_source_generator,
+            )
+        )
+    if simp_chinese_localization_source_generator is None:
+        simp_chinese_localization_source_generator = (
+            repeated_entity_row_alhambra_event_localization_source_generator_for_payload(
+                payload,
+                statuses=statuses,
+                language="simp_chinese",
+                event_source_generator=event_source_generator,
+            )
+        )
+    if source_writer_gate is None:
+        source_writer_gate = repeated_entity_row_alhambra_source_writer_gate_for_payload(
+            payload,
+            statuses=statuses,
+        )
+    source_generators = {
+        "event": event_source_generator,
+        "scripted_effect_cleanup": scripted_effect_cleanup_source_generator,
+        "trigger": scripted_trigger_source_generator,
+        "localization_english": english_localization_source_generator,
+        "localization_simp_chinese": simp_chinese_localization_source_generator,
+    }
+    targets = [
+        _alhambra_reviewable_source_target_from_generator(
+            generator_group=generator_group,
+            source_generator=source_generators[generator_group],
+        )
+        for generator_group in REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_GENERATOR_GROUPS
+    ]
+    report = {
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "target_version": REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_VERSION,
+        "reviewable_source_targets_only": True,
+        "alhambra_only": True,
+        "source_writer_gate_input_ref": {
+            "pilot_key": str(source_writer_gate.get("pilot_key", "")),
+            "decision": str(source_writer_gate.get("decision", "")),
+            "can_enter_first_real_generator_implementation": (
+                source_writer_gate.get("can_enter_first_real_generator_implementation") is True
+            ),
+            "source_writer_go": source_writer_gate.get("source_writer_go") is True,
+            "validation_errors": list(source_writer_gate.get("validation_errors", []) or []),
+        },
+        "source_generator_refs": {
+            generator_group: _alhambra_reviewable_source_generator_ref(source_generators[generator_group])
+            for generator_group in REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_GENERATOR_GROUPS
+        },
+        "required_target_paths": list(REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_PATHS),
+        "required_generator_groups": list(REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_GENERATOR_GROUPS),
+        "target_count": len(targets),
+        "generated_source_targets": targets,
+        "summary": _alhambra_reviewable_source_targets_summary(
+            targets,
+            source_writer_gate=source_writer_gate,
+        ),
+        "body_emitted_to_file": False,
+        "writes_src": False,
+        "source_ready": False,
+        "implementation_ready": False,
+        "harness_generated": False,
+        "validation_errors": [],
+        "notes": [
+            "This layer serializes the Alhambra event/effect/trigger source_text_candidate outputs plus event localization.",
+            "GUI and on_action remain preview-only because they lack matching real source generators.",
+            "The emitted Alhambra event/effect/trigger text clears controlled blockers but does not promote specs or registry contracts.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_reviewable_source_targets(
+        report,
+        event_source_generator=event_source_generator,
+        scripted_effect_cleanup_source_generator=scripted_effect_cleanup_source_generator,
+        scripted_trigger_source_generator=scripted_trigger_source_generator,
+        english_localization_source_generator=english_localization_source_generator,
+        simp_chinese_localization_source_generator=simp_chinese_localization_source_generator,
+        source_writer_gate=source_writer_gate,
+    )
+    return report
+
+
+def _validate_alhambra_reviewable_source_target_text(
+    *,
+    target: dict[str, Any],
+    expected_source_generator: dict[str, Any],
+    errors: list[str],
+) -> None:
+    target_path = str(target.get("target_path", ""))
+    source_text = str(target.get("source_text", ""))
+    expected_text = _alhambra_reviewable_source_target_text(
+        target_path=target_path,
+        source_text_candidate=str(expected_source_generator.get("source_text_candidate", "")),
+    )
+    if source_text != expected_text:
+        errors.append(f"Alhambra reviewable source target {target_path} source text mismatch")
+    if not _alhambra_reviewable_source_target_generated_header_present(
+        target_path=target_path,
+        source_text=source_text,
+    ):
+        errors.append(f"Alhambra reviewable source target {target_path} missing @Generated header")
+    if "# @InMemoryCandidate" in source_text:
+        errors.append(f"Alhambra reviewable source target {target_path} retained in-memory candidate header")
+    if "# Do not edit directly" not in source_text:
+        errors.append(f"Alhambra reviewable source target {target_path} missing generated-file edit warning")
+    if not source_text.strip():
+        errors.append(f"Alhambra reviewable source target {target_path} source text must not be empty")
+    if int(target.get("source_text_line_count", -1)) != len(source_text.splitlines()):
+        errors.append(f"Alhambra reviewable source target {target_path} line count mismatch")
+    if target.get("source_text_nonempty") is not bool(source_text.strip()):
+        errors.append(f"Alhambra reviewable source target {target_path} nonempty flag mismatch")
+
+
+def validate_repeated_entity_row_alhambra_reviewable_source_targets(
+    report: dict[str, Any],
+    *,
+    event_source_generator: dict[str, Any] | None = None,
+    scripted_effect_cleanup_source_generator: dict[str, Any] | None = None,
+    scripted_trigger_source_generator: dict[str, Any] | None = None,
+    english_localization_source_generator: dict[str, Any] | None = None,
+    simp_chinese_localization_source_generator: dict[str, Any] | None = None,
+    source_writer_gate: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra reviewable source targets pilot_key must be unique_alhambra")
+    if int(report.get("target_version", -1)) != REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_VERSION:
+        errors.append("Alhambra reviewable source targets version mismatch")
+    if report.get("reviewable_source_targets_only") is not True:
+        errors.append("Alhambra reviewable source targets must declare reviewable_source_targets_only")
+    if report.get("alhambra_only") is not True:
+        errors.append("Alhambra reviewable source targets must stay Alhambra-only")
+    if report.get("required_target_paths") != list(REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_PATHS):
+        errors.append("Alhambra reviewable source targets required target paths mismatch")
+    if report.get("required_generator_groups") != list(
+        REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_GENERATOR_GROUPS
+    ):
+        errors.append("Alhambra reviewable source targets required generator groups mismatch")
+    for flag in ("body_emitted_to_file", "writes_src", "source_ready", "implementation_ready", "harness_generated"):
+        if report.get(flag) is not False:
+            errors.append(f"Alhambra reviewable source targets report {flag} must be false")
+
+    source_generators = {
+        "event": event_source_generator,
+        "scripted_effect_cleanup": scripted_effect_cleanup_source_generator,
+        "trigger": scripted_trigger_source_generator,
+        "localization_english": english_localization_source_generator,
+        "localization_simp_chinese": simp_chinese_localization_source_generator,
+    }
+    if any(source_generators[group] is None for group in source_generators):
+        errors.append("Alhambra reviewable source targets require all five source generator inputs")
+        return errors
+    for generator_group, source_generator in source_generators.items():
+        assert source_generator is not None
+        if source_generator.get("validation_errors"):
+            errors.append(f"Alhambra reviewable source targets {generator_group} source generator input must be clean")
+        if source_generator.get("target_path") not in REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_PATHS:
+            errors.append(f"Alhambra reviewable source targets {generator_group} target path is not allowed")
+        if source_generator.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append(f"Alhambra reviewable source targets {generator_group} source generator must be Alhambra-only")
+        for flag in ("source_writer_go", "may_write_src", "writes_src", "implementation_ready", "harness_generated"):
+            if source_generator.get(flag) is not False:
+                errors.append(f"Alhambra reviewable source targets {generator_group} source generator {flag} must be false")
+
+    if source_writer_gate is None:
+        errors.append("Alhambra reviewable source targets require source writer gate input")
+    else:
+        if source_writer_gate.get("validation_errors"):
+            errors.append("Alhambra reviewable source targets source writer gate input must be clean")
+        if source_writer_gate.get("can_enter_first_real_generator_implementation") is not True:
+            errors.append("Alhambra reviewable source targets source writer gate must allow generator implementation")
+        if source_writer_gate.get("source_writer_go") is not False:
+            errors.append("Alhambra reviewable source targets source writer gate must still keep src-write no-go")
+        expected_gate_ref = {
+            "pilot_key": str(source_writer_gate.get("pilot_key", "")),
+            "decision": str(source_writer_gate.get("decision", "")),
+            "can_enter_first_real_generator_implementation": (
+                source_writer_gate.get("can_enter_first_real_generator_implementation") is True
+            ),
+            "source_writer_go": source_writer_gate.get("source_writer_go") is True,
+            "validation_errors": list(source_writer_gate.get("validation_errors", []) or []),
+        }
+        if report.get("source_writer_gate_input_ref") != expected_gate_ref:
+            errors.append("Alhambra reviewable source targets source writer gate input ref mismatch")
+
+    expected_refs = {
+        group: _alhambra_reviewable_source_generator_ref(source_generator)
+        for group, source_generator in source_generators.items()
+        if source_generator is not None
+    }
+    if report.get("source_generator_refs") != expected_refs:
+        errors.append("Alhambra reviewable source targets source generator refs mismatch")
+
+    targets = report.get("generated_source_targets")
+    if not isinstance(targets, list):
+        errors.append("Alhambra reviewable source targets generated_source_targets must be a list")
+        targets = []
+    if int(report.get("target_count", -1)) != len(targets):
+        errors.append("Alhambra reviewable source targets target_count mismatch")
+    if len(targets) != len(REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_PATHS):
+        errors.append("Alhambra reviewable source targets must emit exactly five targets")
+    observed_paths = [str(target.get("target_path", "")) for target in targets if isinstance(target, dict)]
+    if observed_paths != list(REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_PATHS):
+        errors.append("Alhambra reviewable source targets target path order mismatch")
+    observed_groups = [str(target.get("generator_group", "")) for target in targets if isinstance(target, dict)]
+    if observed_groups != list(REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_GENERATOR_GROUPS):
+        errors.append("Alhambra reviewable source targets generator group order mismatch")
+
+    source_generators_by_target = {
+        str(source_generator.get("target_path", "")): source_generator
+        for source_generator in source_generators.values()
+        if isinstance(source_generator, dict)
+    }
+    for target in targets:
+        if not isinstance(target, dict):
+            errors.append("Alhambra reviewable source target must be a mapping")
+            continue
+        target_path = str(target.get("target_path", ""))
+        source_generator = source_generators_by_target.get(target_path)
+        if source_generator is None:
+            errors.append(f"Alhambra reviewable source target {target_path} missing source generator input")
+            continue
+        if target.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+            errors.append(f"Alhambra reviewable source target {target_path} pilot_key must be unique_alhambra")
+        if target.get("target_version") != REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_VERSION:
+            errors.append(f"Alhambra reviewable source target {target_path} version mismatch")
+        if target.get("script_rel") != REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_SCRIPT_REL:
+            errors.append(f"Alhambra reviewable source target {target_path} script_rel mismatch")
+        if target.get("data_rel") != REPEATED_ENTITY_ROW_ALHAMBRA_REVIEWABLE_SOURCE_TARGET_DATA_REL:
+            errors.append(f"Alhambra reviewable source target {target_path} data_rel mismatch")
+        if target.get("source_generator_ref") != _alhambra_reviewable_source_generator_ref(source_generator):
+            errors.append(f"Alhambra reviewable source target {target_path} source generator ref mismatch")
+        if target.get("reviewable_source_target") is not True:
+            errors.append(f"Alhambra reviewable source target {target_path} must be reviewable")
+        if target.get("alhambra_only") is not True:
+            errors.append(f"Alhambra reviewable source target {target_path} must stay Alhambra-only")
+        if target.get("source_candidate_validation_errors"):
+            errors.append(f"Alhambra reviewable source target {target_path} source candidate must be clean")
+        controlled_blocker_required = bool(target.get("controlled_blocker_required"))
+        if controlled_blocker_required:
+            errors.append(f"Alhambra reviewable source target {target_path} must not require controlled blockers")
+        if int(target.get("controlled_blocker_count", 0)) != 0:
+            errors.append(f"Alhambra reviewable source target {target_path} controlled blockers must be cleared")
+        if target.get("controlled_blockers_preserved") is not True:
+            errors.append(f"Alhambra reviewable source target {target_path} controlled blocker flag mismatch")
+        localization_language = _alhambra_reviewable_source_target_localization_language(target_path)
+        if localization_language:
+            if target.get("localization_language") != localization_language:
+                errors.append(f"Alhambra reviewable source target {target_path} localization language mismatch")
+            if not str(target.get("source_text", "")).startswith(
+                _alhambra_localization_language_header(localization_language) + "\n"
+            ):
+                errors.append(f"Alhambra reviewable source target {target_path} missing localization language header")
+            if " # @Generated by scripts/gen_unique_wonder_ritual_code.py" not in str(target.get("source_text", "")):
+                errors.append(f"Alhambra reviewable source target {target_path} missing indented generated header")
+        elif target.get("localization_language"):
+            errors.append(f"Alhambra reviewable source target {target_path} unexpected localization language")
+        for flag in (
+            "body_emitted_to_file",
+            "writes_src",
+            "source_ready",
+            "verified",
+            "backend_ready",
+            "implementation_ready",
+            "harness_generated",
+        ):
+            if target.get(flag) is not False:
+                errors.append(f"Alhambra reviewable source target {target_path} {flag} must be false")
+        _validate_alhambra_reviewable_source_target_text(
+            target=target,
+            expected_source_generator=source_generator,
+            errors=errors,
+        )
+
+    if isinstance(source_writer_gate, dict):
+        expected_summary = _alhambra_reviewable_source_targets_summary(
+            [target for target in targets if isinstance(target, dict)],
+            source_writer_gate=source_writer_gate,
+        )
+        if report.get("summary") != expected_summary:
+            errors.append("Alhambra reviewable source targets summary mismatch")
     return errors
 
 

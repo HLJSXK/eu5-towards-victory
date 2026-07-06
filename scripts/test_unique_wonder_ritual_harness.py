@@ -13,6 +13,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from gen_unique_wonder_ritual_code import (  # noqa: E402
     CodegenError,
+    generate_alhambra_source_targets_for_payload,
     generate_fragments_for_payload,
 )
 from wonder_unique_ritual_harness import (  # noqa: E402
@@ -48,8 +49,10 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_gen
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_serialization_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_writer_gate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_source_generator_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_localization_source_generator_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_trigger_source_generator_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_reviewable_source_targets_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -70,6 +73,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_s
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_event_source_generator  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_trigger_source_generator  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_reviewable_source_targets  # noqa: E402
 
 
 WONDER = {
@@ -6927,8 +6931,9 @@ def main() -> None:
         or alhambra_event_source_generator.get("event_count") != 8
         or alhambra_event_source_generator.get("country_event_count") != 8
         or alhambra_event_source_generator.get("event_ids") != list(range(7309, 7317))
-        or alhambra_event_source_generator.get("effect_trigger_handoff_status") != "controlled_blocker"
-        or alhambra_event_source_generator.get("effect_trigger_handoff_verified") is not False
+        or alhambra_event_source_generator.get("effect_trigger_handoff_status")
+        != "implemented_alhambra_vertical_slice"
+        or alhambra_event_source_generator.get("effect_trigger_handoff_verified") is not True
         or alhambra_event_source_generator.get("source_writer_go") is not False
         or alhambra_event_source_generator.get("may_write_src") is not False
         or alhambra_event_source_generator.get("writes_src") is not False
@@ -6938,12 +6943,36 @@ def main() -> None:
         or "tv_engineering_department.7309 = {" not in event_source_text_candidate
         or "tv_engineering_department.7316 = {" not in event_source_text_candidate
         or "name = tv_engineering_department.7311.b" not in event_source_text_candidate
-        or "CONTROLLED BLOCKER" not in event_source_text_candidate
+        or "CONTROLLED BLOCKER" in event_source_text_candidate
+        or "trigger = {" not in event_source_text_candidate
+        or "effect = {" not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_init_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_aggregate_refresh_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_branch_write_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_cleanup_write_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_palace_risk_points_completion_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_scripted_trigger_eligibility_trigger = yes"
+        not in event_source_text_candidate
     ):
         raise AssertionError(f"Alhambra event source generator shape changed: {alhambra_event_source_generator}")
-    if len(alhambra_event_source_generator.get("controlled_handoff_blockers", [])) != 10:
+    if event_source_text_candidate.count("treaty_clause_register_aggregate_refresh_effect = yes") < 3:
         raise AssertionError(
-            "Alhambra event source generator should keep one controlled blocker per option: "
+            "Alhambra event source generator should call treaty aggregate refresh from opening/update/retry: "
+            f"{event_source_text_candidate}"
+        )
+    if event_source_text_candidate.count("palace_risk_points_aggregate_refresh_effect = yes") < 3:
+        raise AssertionError(
+            "Alhambra event source generator should call palace aggregate refresh from opening/update/retry: "
+            f"{event_source_text_candidate}"
+        )
+    if len(alhambra_event_source_generator.get("controlled_handoff_blockers", [])) != 0:
+        raise AssertionError(
+            "Alhambra event source generator should clear controlled blockers: "
             f"{alhambra_event_source_generator.get('controlled_handoff_blockers')}"
         )
     if not alhambra_event_source_generator.get("eu5_syntax_evidence_refs"):
@@ -7492,12 +7521,12 @@ def main() -> None:
         or alhambra_scripted_effect_cleanup_source_generator.get("family_declaration_counts")
         != {"cleanup": 8, "effect": 10}
         or alhambra_scripted_effect_cleanup_source_generator.get("source_body_blocker_status")
-        != "controlled_blocker"
+        != "implemented_alhambra_vertical_slice"
         or alhambra_scripted_effect_cleanup_source_generator.get("scripted_effect_declaration_syntax_verified")
         is not True
-        or alhambra_scripted_effect_cleanup_source_generator.get("row_state_write_verified") is not False
-        or alhambra_scripted_effect_cleanup_source_generator.get("aggregate_refresh_verified") is not False
-        or alhambra_scripted_effect_cleanup_source_generator.get("cleanup_mutation_verified") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("row_state_write_verified") is not True
+        or alhambra_scripted_effect_cleanup_source_generator.get("aggregate_refresh_verified") is not True
+        or alhambra_scripted_effect_cleanup_source_generator.get("cleanup_mutation_verified") is not True
         or alhambra_scripted_effect_cleanup_source_generator.get("source_writer_go") is not False
         or alhambra_scripted_effect_cleanup_source_generator.get("may_write_src") is not False
         or alhambra_scripted_effect_cleanup_source_generator.get("writes_src") is not False
@@ -7506,9 +7535,15 @@ def main() -> None:
         or alhambra_scripted_effect_cleanup_source_generator.get("implementation_ready") is not False
         or alhambra_scripted_effect_cleanup_source_generator.get("harness_generated") is not False
         or len(effect_cleanup_source_names) != 18
-        or effect_cleanup_source_text_candidate.count(" = {") != 18
-        or effect_cleanup_source_text_candidate.count("CONTROLLED BLOCKER") != 36
+        or effect_cleanup_source_text_candidate.count("# -- tv_wonder_unique_alhambra_ritual_") != 18
+        or "CONTROLLED BLOCKER" in effect_cleanup_source_text_candidate
         or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_init_effect = {"
+        not in effect_cleanup_source_text_candidate
+        or "set_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started value = 1 }"
+        not in effect_cleanup_source_text_candidate
+        or "set_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_completed value = 1 }"
+        not in effect_cleanup_source_text_candidate
+        or "remove_variable = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started"
         not in effect_cleanup_source_text_candidate
         or "tv_wonder_unique_alhambra_ritual_palace_risk_points_ritual_reset_effect = {"
         not in effect_cleanup_source_text_candidate
@@ -7517,9 +7552,9 @@ def main() -> None:
             "Alhambra scripted-effect/cleanup source generator shape changed: "
             f"{alhambra_scripted_effect_cleanup_source_generator}"
         )
-    if len(alhambra_scripted_effect_cleanup_source_generator.get("controlled_source_blockers", [])) != 18:
+    if len(alhambra_scripted_effect_cleanup_source_generator.get("controlled_source_blockers", [])) != 0:
         raise AssertionError(
-            "Alhambra scripted-effect/cleanup source generator should keep one controlled blocker per draft: "
+            "Alhambra scripted-effect/cleanup source generator should clear controlled blockers: "
             f"{alhambra_scripted_effect_cleanup_source_generator.get('controlled_source_blockers')}"
         )
     for row_set_key in ("treaty_clause_register", "palace_risk_points"):
@@ -7629,14 +7664,14 @@ def main() -> None:
     unverified_body_line_source_generator["source_text_candidate"] = unverified_body_line_source_generator[
         "source_text_candidate"
     ].replace(
-        "\t# source_body_status = controlled_blocker\n}",
-        "\t# source_body_status = controlled_blocker\n\tset_variable = tv_forged_row_state\n}",
+        "\tset_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started value = 1 }\n",
+        "\tset_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started value = 9 }\n",
         1,
     )
     assert_alhambra_scripted_effect_cleanup_source_generator_error(
-        "unverified body line in source_text_candidate",
+        "unexpected body line in source_text_candidate",
         unverified_body_line_source_generator,
-        "unverified body line",
+        "unexpected body line",
     )
 
     missing_syntax_evidence_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
@@ -8162,12 +8197,12 @@ def main() -> None:
         or alhambra_scripted_trigger_source_generator.get("scripted_trigger_source_body_draft_count") != 6
         or alhambra_scripted_trigger_source_generator.get("scripted_trigger_declaration_count") != 6
         or alhambra_scripted_trigger_source_generator.get("source_body_blocker_status")
-        != "controlled_blocker"
+        != "implemented_alhambra_vertical_slice"
         or alhambra_scripted_trigger_source_generator.get("scripted_trigger_declaration_syntax_verified")
         is not True
-        or alhambra_scripted_trigger_source_generator.get("condition_body_verified") is not False
-        or alhambra_scripted_trigger_source_generator.get("variable_read_verified") is not False
-        or alhambra_scripted_trigger_source_generator.get("tooltip_safe_condition_group_verified") is not False
+        or alhambra_scripted_trigger_source_generator.get("condition_body_verified") is not True
+        or alhambra_scripted_trigger_source_generator.get("variable_read_verified") is not True
+        or alhambra_scripted_trigger_source_generator.get("tooltip_safe_condition_group_verified") is not True
         or alhambra_scripted_trigger_source_generator.get("source_writer_go") is not False
         or alhambra_scripted_trigger_source_generator.get("may_write_src") is not False
         or alhambra_scripted_trigger_source_generator.get("writes_src") is not False
@@ -8176,9 +8211,14 @@ def main() -> None:
         or alhambra_scripted_trigger_source_generator.get("implementation_ready") is not False
         or alhambra_scripted_trigger_source_generator.get("harness_generated") is not False
         or len(trigger_source_names) != 6
-        or trigger_source_text_candidate.count(" = {") != 6
-        or trigger_source_text_candidate.count("CONTROLLED BLOCKER") != 12
+        or trigger_source_text_candidate.count("# -- tv_wonder_unique_alhambra_ritual_") != 6
+        or "CONTROLLED BLOCKER" in trigger_source_text_candidate
         or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_scripted_trigger_eligibility_trigger = {"
+        not in trigger_source_text_candidate
+        or "always = yes" not in trigger_source_text_candidate
+        or "has_variable = tv_wonder_unique_alhambra_ritual_treaty_clause_register_completed"
+        not in trigger_source_text_candidate
+        or "var:tv_wonder_unique_alhambra_ritual_treaty_clause_register_completed ?= 1"
         not in trigger_source_text_candidate
         or "tv_wonder_unique_alhambra_ritual_palace_risk_points_scripted_trigger_tooltip_safe_condition_group_trigger = {"
         not in trigger_source_text_candidate
@@ -8187,9 +8227,9 @@ def main() -> None:
             "Alhambra scripted-trigger source generator shape changed: "
             f"{alhambra_scripted_trigger_source_generator}"
         )
-    if len(alhambra_scripted_trigger_source_generator.get("controlled_source_blockers", [])) != 6:
+    if len(alhambra_scripted_trigger_source_generator.get("controlled_source_blockers", [])) != 0:
         raise AssertionError(
-            "Alhambra scripted-trigger source generator should keep one controlled blocker per draft: "
+            "Alhambra scripted-trigger source generator should clear controlled blockers: "
             f"{alhambra_scripted_trigger_source_generator.get('controlled_source_blockers')}"
         )
     for row_set_key in ("treaty_clause_register", "palace_risk_points"):
@@ -8296,15 +8336,15 @@ def main() -> None:
     unverified_trigger_body_line_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
     unverified_trigger_body_line_source_generator["source_text_candidate"] = (
         unverified_trigger_body_line_source_generator["source_text_candidate"].replace(
-            "\t# source_body_status = controlled_blocker\n}",
-            "\t# source_body_status = controlled_blocker\n\thas_variable = tv_forged_row_state\n}",
+            "\talways = yes\n",
+            "\thas_variable = tv_forged_row_state\n",
             1,
         )
     )
     assert_alhambra_scripted_trigger_source_generator_error(
-        "unverified body line in scripted-trigger source_text_candidate",
+        "unexpected body line in scripted-trigger source_text_candidate",
         unverified_trigger_body_line_source_generator,
-        "unverified body line",
+        "unexpected body line",
     )
 
     missing_syntax_evidence_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
@@ -8348,19 +8388,19 @@ def main() -> None:
     )
 
     variable_read_verified_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
-    variable_read_verified_trigger_source_generator["variable_read_verified"] = True
+    variable_read_verified_trigger_source_generator["variable_read_verified"] = False
     assert_alhambra_scripted_trigger_source_generator_error(
-        "variable_read_verified true in scripted-trigger source generator",
+        "variable_read_verified false in scripted-trigger source generator",
         variable_read_verified_trigger_source_generator,
-        "variable_read_verified must be false",
+        "variable_read_verified must be true",
     )
 
     tooltip_group_verified_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
-    tooltip_group_verified_trigger_source_generator["tooltip_safe_condition_group_verified"] = True
+    tooltip_group_verified_trigger_source_generator["tooltip_safe_condition_group_verified"] = False
     assert_alhambra_scripted_trigger_source_generator_error(
-        "tooltip_safe_condition_group_verified true in scripted-trigger source generator",
+        "tooltip_safe_condition_group_verified false in scripted-trigger source generator",
         tooltip_group_verified_trigger_source_generator,
-        "tooltip_safe_condition_group_verified must be false",
+        "tooltip_safe_condition_group_verified must be true",
     )
 
     implementation_ready_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
@@ -10078,6 +10118,205 @@ def main() -> None:
         "must record EU5 exact syntax risk",
     )
 
+    alhambra_english_localization_source_generator = (
+        repeated_entity_row_alhambra_event_localization_source_generator_for_payload(
+            spec_data,
+            language="english",
+            event_source_generator=alhambra_event_source_generator,
+        )
+    )
+    alhambra_simp_chinese_localization_source_generator = (
+        repeated_entity_row_alhambra_event_localization_source_generator_for_payload(
+            spec_data,
+            language="simp_chinese",
+            event_source_generator=alhambra_event_source_generator,
+        )
+    )
+    if (
+        alhambra_english_localization_source_generator["validation_errors"]
+        or alhambra_simp_chinese_localization_source_generator["validation_errors"]
+    ):
+        raise AssertionError(
+            "Alhambra event localization source generators unexpectedly failed validation: "
+            f"{alhambra_english_localization_source_generator['validation_errors']} / "
+            f"{alhambra_simp_chinese_localization_source_generator['validation_errors']}"
+        )
+
+    alhambra_reviewable_source_targets = repeated_entity_row_alhambra_reviewable_source_targets_for_payload(
+        spec_data,
+        event_source_generator=alhambra_event_source_generator,
+        scripted_effect_cleanup_source_generator=alhambra_scripted_effect_cleanup_source_generator,
+        scripted_trigger_source_generator=alhambra_scripted_trigger_source_generator,
+        english_localization_source_generator=alhambra_english_localization_source_generator,
+        simp_chinese_localization_source_generator=alhambra_simp_chinese_localization_source_generator,
+        source_writer_gate=alhambra_source_writer_gate,
+    )
+    if alhambra_reviewable_source_targets["validation_errors"]:
+        raise AssertionError(
+            "Alhambra reviewable source targets unexpectedly failed validation: "
+            f"{alhambra_reviewable_source_targets['validation_errors']}"
+        )
+    reviewable_summary = alhambra_reviewable_source_targets.get("summary", {})
+    expected_reviewable_paths = [
+        alhambra_file_targets["event"],
+        alhambra_file_targets["effect_cleanup"],
+        alhambra_file_targets["trigger"],
+        alhambra_file_targets["english"],
+        alhambra_file_targets["simp_chinese"],
+    ]
+    expected_reviewable_groups = [
+        "event",
+        "scripted_effect_cleanup",
+        "trigger",
+        "localization_english",
+        "localization_simp_chinese",
+    ]
+    if (
+        reviewable_summary.get("target_count") != 5
+        or reviewable_summary.get("target_paths") != expected_reviewable_paths
+        or reviewable_summary.get("generator_groups") != expected_reviewable_groups
+        or reviewable_summary.get("generated_header_count") != 5
+        or reviewable_summary.get("candidate_header_retained_count") != 0
+        or reviewable_summary.get("controlled_blocker_count") != 0
+        or reviewable_summary.get("source_writer_gate_allows_generator_implementation") is not True
+        or reviewable_summary.get("source_writer_go") is not False
+        or reviewable_summary.get("writes_src_count") != 0
+        or reviewable_summary.get("implementation_ready_count") != 0
+        or reviewable_summary.get("harness_generated_count") != 0
+    ):
+        raise AssertionError(f"Alhambra reviewable source target summary changed: {reviewable_summary}")
+    reviewable_targets = {
+        target.get("target_path"): target
+        for target in alhambra_reviewable_source_targets.get("generated_source_targets", [])
+    }
+    if set(reviewable_targets) != set(expected_reviewable_paths):
+        raise AssertionError(f"Alhambra reviewable source target paths changed: {reviewable_targets}")
+    for target_path, expected_marker in {
+        alhambra_file_targets["event"]: "namespace = tv_engineering_department",
+        alhambra_file_targets["effect_cleanup"]: (
+            "set_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started value = 1 }"
+        ),
+        alhambra_file_targets["trigger"]: (
+            "var:tv_wonder_unique_alhambra_ritual_treaty_clause_register_completed ?= 1"
+        ),
+        alhambra_file_targets["english"]: ' tv_engineering_department.7309.t:0 "Keys of Granada and Courtly Concord"',
+        alhambra_file_targets["simp_chinese"]: ' tv_engineering_department.7309.t:0 "格拉纳达钥匙与宫廷协和"',
+    }.items():
+        target = reviewable_targets[target_path]
+        source_text = target.get("source_text", "")
+        is_localization_target = target_path in {
+            alhambra_file_targets["english"],
+            alhambra_file_targets["simp_chinese"],
+        }
+        if (
+            (
+                source_text.startswith("# @Generated by scripts/gen_unique_wonder_ritual_code.py\n")
+                if not is_localization_target
+                else source_text.startswith(
+                    ("l_english:" if target_path == alhambra_file_targets["english"] else "l_simp_chinese:")
+                    + "\n # @Generated by scripts/gen_unique_wonder_ritual_code.py\n"
+                )
+            )
+            is False
+            or "# @InMemoryCandidate" in source_text
+            or "# Do not edit directly" not in source_text
+            or "# Target: " + target_path not in source_text
+            or expected_marker not in source_text
+            or "CONTROLLED BLOCKER" in source_text
+            or target.get("reviewable_source_target") is not True
+            or target.get("alhambra_only") is not True
+            or target.get("body_emitted_to_file") is not False
+            or target.get("writes_src") is not False
+            or target.get("implementation_ready") is not False
+            or target.get("harness_generated") is not False
+        ):
+            raise AssertionError(f"Alhambra reviewable source target shape changed: {target}")
+
+    def assert_alhambra_reviewable_source_target_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_writer_gate: dict | None = alhambra_source_writer_gate,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_reviewable_source_targets(
+            report,
+            event_source_generator=alhambra_event_source_generator,
+            scripted_effect_cleanup_source_generator=alhambra_scripted_effect_cleanup_source_generator,
+            scripted_trigger_source_generator=alhambra_scripted_trigger_source_generator,
+            english_localization_source_generator=alhambra_english_localization_source_generator,
+            simp_chinese_localization_source_generator=alhambra_simp_chinese_localization_source_generator,
+            source_writer_gate=source_writer_gate,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra reviewable source target negative was not caught: {errors}")
+
+    missing_generated_header_targets = deepcopy(alhambra_reviewable_source_targets)
+    reviewable_targets_by_path = {
+        target.get("target_path"): target
+        for target in missing_generated_header_targets["generated_source_targets"]
+    }
+    reviewable_targets_by_path[alhambra_file_targets["event"]]["source_text"] = (
+        reviewable_targets_by_path[alhambra_file_targets["event"]]["source_text"].replace(
+            "# @Generated by scripts/gen_unique_wonder_ritual_code.py\n",
+            "",
+            1,
+        )
+    )
+    reviewable_targets_by_path[alhambra_file_targets["event"]]["generated_header_present"] = False
+    assert_alhambra_reviewable_source_target_error(
+        "missing generated header",
+        missing_generated_header_targets,
+        "missing @Generated header",
+    )
+
+    promoted_reviewable_target = deepcopy(alhambra_reviewable_source_targets)
+    promoted_reviewable_target["generated_source_targets"][0]["implementation_ready"] = True
+    assert_alhambra_reviewable_source_target_error(
+        "implementation_ready reviewable target",
+        promoted_reviewable_target,
+        "implementation_ready must be false",
+    )
+
+    blocked_gate_for_reviewable_targets = deepcopy(alhambra_source_writer_gate)
+    blocked_gate_for_reviewable_targets["can_enter_first_real_generator_implementation"] = False
+    blocked_gate_report = deepcopy(alhambra_reviewable_source_targets)
+    blocked_gate_report["source_writer_gate_input_ref"]["can_enter_first_real_generator_implementation"] = False
+    blocked_gate_report["summary"]["source_writer_gate_allows_generator_implementation"] = False
+    assert_alhambra_reviewable_source_target_error(
+        "blocked source writer gate",
+        blocked_gate_report,
+        "source writer gate must allow generator implementation",
+        source_writer_gate=blocked_gate_for_reviewable_targets,
+    )
+
+    alhambra_source_codegen_result = generate_alhambra_source_targets_for_payload(spec_data, write_source=False)
+    if (
+        alhambra_source_codegen_result.get("write_source") is not False
+        or alhambra_source_codegen_result.get("target_count") != 5
+        or [
+            row.get("path")
+            for row in alhambra_source_codegen_result.get("generated", [])
+        ]
+        != expected_reviewable_paths
+        or any(
+            (
+                not row.get("text", "").startswith("# @Generated by scripts/gen_unique_wonder_ritual_code.py\n")
+                if row.get("path") not in {alhambra_file_targets["english"], alhambra_file_targets["simp_chinese"]}
+                else not row.get("text", "").startswith(
+                    (
+                        "l_english:"
+                        if row.get("path") == alhambra_file_targets["english"]
+                        else "l_simp_chinese:"
+                    )
+                    + "\n # @Generated by scripts/gen_unique_wonder_ritual_code.py\n"
+                )
+            )
+            for row in alhambra_source_codegen_result.get("generated", [])
+        )
+    ):
+        raise AssertionError(f"Alhambra source codegen dry-run result changed: {alhambra_source_codegen_result}")
+
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
         wonders=[WONDER],
@@ -11662,11 +11901,12 @@ def main() -> None:
         alhambra_trigger_source_generator_summary["scripted_trigger_source_body_draft_count"] != 6
         or alhambra_trigger_source_generator_summary["scripted_trigger_declaration_count"] != 6
         or len(alhambra_trigger_source_generator_summary["trigger_names"]) != 6
-        or alhambra_trigger_source_generator_summary["source_body_blocker_status"] != "controlled_blocker"
+        or alhambra_trigger_source_generator_summary["source_body_blocker_status"]
+        != "implemented_alhambra_vertical_slice"
         or alhambra_trigger_source_generator_summary["scripted_trigger_declaration_syntax_verified"] is not True
-        or alhambra_trigger_source_generator_summary["condition_body_verified"] is not False
-        or alhambra_trigger_source_generator_summary["variable_read_verified"] is not False
-        or alhambra_trigger_source_generator_summary["tooltip_safe_condition_group_verified"] is not False
+        or alhambra_trigger_source_generator_summary["condition_body_verified"] is not True
+        or alhambra_trigger_source_generator_summary["variable_read_verified"] is not True
+        or alhambra_trigger_source_generator_summary["tooltip_safe_condition_group_verified"] is not True
         or alhambra_trigger_source_generator_summary["source_writer_go"] is not False
         or alhambra_trigger_source_generator_summary["may_write_src"] is not False
         or alhambra_trigger_source_generator_summary["body_emitted"] is not False
