@@ -7889,6 +7889,25 @@ def main() -> None:
             f"{gui_contract_artifacts}"
         )
     for artifact in gui_contract_artifacts:
+        draft = artifact.get("gui_source_body_draft")
+        if not isinstance(draft, dict) or draft.get("kind") != "gui_source_body_draft":
+            raise AssertionError(
+                "Alhambra GUI source generator interface artifact lost GUI source-body draft: "
+                f"{artifact}"
+            )
+        if (
+            draft.get("row_set_key") != artifact.get("row_set_key")
+            or draft.get("artifact_kind") != artifact.get("artifact_kind")
+            or draft.get("body_emitted") is not False
+            or draft.get("may_write_src") is not False
+            or draft.get("loc_key_refs", {}).get("all_bound") is not True
+            or draft.get("trigger_effect_handoff_refs", {}).get("all_bound") is not True
+            or draft.get("variable_read_refs", {}).get("all_bound") is not True
+        ):
+            raise AssertionError(
+                "Alhambra GUI source-body draft lost row/loc/variable/handoff binding: "
+                f"{draft}"
+            )
         if (
             artifact.get("family") != "gui"
             or artifact.get("target_path") != gui_interface_target
@@ -8001,6 +8020,28 @@ def main() -> None:
         "external validation evidence mismatch",
     )
 
+    missing_gui_loc_key_interface = deepcopy(alhambra_gui_source_generator_interface)
+    _alhambra_gui_source_file_contract_artifact(
+        missing_gui_loc_key_interface,
+        "gui_checklist_row",
+    )["gui_source_body_draft"]["loc_key_refs"]["row_label_keys"] = []
+    assert_alhambra_gui_source_generator_interface_error(
+        "GUI draft missing loc key",
+        missing_gui_loc_key_interface,
+        "loc key refs must be bound",
+    )
+
+    body_emitted_gui_draft_interface = deepcopy(alhambra_gui_source_generator_interface)
+    _alhambra_gui_source_file_contract_artifact(
+        body_emitted_gui_draft_interface,
+        "gui_incident_log_row",
+    )["gui_source_body_draft"]["body_emitted"] = True
+    assert_alhambra_gui_source_generator_interface_error(
+        "GUI draft emitted body",
+        body_emitted_gui_draft_interface,
+        "body_emitted must be false",
+    )
+
     external_evidence_forged_gui_validation = deepcopy(alhambra_source_file_validation_evidence)
     external_evidence_forged_gui_pack = _alhambra_source_file_validation_pack(
         external_evidence_forged_gui_validation,
@@ -8020,9 +8061,9 @@ def main() -> None:
             source_file_validation_evidence=external_evidence_forged_gui_validation,
         )
     )
-    if external_evidence_forged_gui_interface["validation_errors"]:
+    if not any("row_set_key mismatch" in error for error in external_evidence_forged_gui_interface["validation_errors"]):
         raise AssertionError(
-            "Externally forged Alhambra GUI interface should stay self-consistent before "
+            "Externally forged Alhambra GUI interface must reject wrong row set before "
             "the original validation evidence is applied: "
             f"{external_evidence_forged_gui_interface['validation_errors']}"
         )
@@ -8562,6 +8603,27 @@ def main() -> None:
                 f"{target_path}: {localization_artifact_ref_keys}"
             )
         for artifact in target_artifacts:
+            draft = artifact.get("localization_source_body_draft")
+            if not isinstance(draft, dict) or draft.get("kind") != "localization_source_body_draft":
+                raise AssertionError(
+                    "Alhambra localization source generator interface artifact lost localization "
+                    f"source-body draft: {artifact}"
+                )
+            if (
+                draft.get("localization_language") != expected_localization_languages[target_path]
+                or draft.get("target_path") != target_path
+                or draft.get("row_set_key") != artifact.get("row_set_key")
+                or draft.get("artifact_kind") != artifact.get("artifact_kind")
+                or draft.get("body_emitted") is not False
+                or draft.get("may_write_src") is not False
+                or draft.get("language_target", {}).get("separate_language_target") is not True
+                or draft.get("localization_key_refs", {}).get("all_bound") is not True
+                or draft.get("reverse_binding_refs", {}).get("all_bound") is not True
+            ):
+                raise AssertionError(
+                    "Alhambra localization source-body draft lost language/key/reverse binding: "
+                    f"{draft}"
+                )
             if (
                 artifact.get("family") != "localization"
                 or artifact.get("localization_language") != expected_localization_languages[target_path]
@@ -8672,6 +8734,44 @@ def main() -> None:
         "forged localization source ref",
         forged_ref_localization_interface,
         "external validation evidence mismatch",
+    )
+
+    missing_localization_key_interface = deepcopy(alhambra_localization_source_generator_interface)
+    _alhambra_localization_source_file_contract_artifact(
+        missing_localization_key_interface,
+        alhambra_file_targets["english"],
+        "localization_row_labels",
+    )["localization_source_body_draft"]["localization_key_refs"]["keys"] = []
+    assert_alhambra_localization_source_generator_interface_error(
+        "localization draft missing loc key",
+        missing_localization_key_interface,
+        "missing loc key",
+    )
+
+    body_emitted_localization_draft_interface = deepcopy(alhambra_localization_source_generator_interface)
+    _alhambra_localization_source_file_contract_artifact(
+        body_emitted_localization_draft_interface,
+        alhambra_file_targets["simp_chinese"],
+        "localization_summary_text",
+    )["localization_source_body_draft"]["body_emitted"] = True
+    assert_alhambra_localization_source_generator_interface_error(
+        "localization draft emitted body",
+        body_emitted_localization_draft_interface,
+        "body_emitted must be false",
+    )
+
+    merged_language_draft_interface = deepcopy(alhambra_localization_source_generator_interface)
+    merged_language_draft = _alhambra_localization_source_file_contract_artifact(
+        merged_language_draft_interface,
+        alhambra_file_targets["simp_chinese"],
+        "localization_tooltips",
+    )["localization_source_body_draft"]
+    merged_language_draft["language_target"]["language_targets_merged"] = True
+    merged_language_draft["language_target"]["target_path"] = alhambra_file_targets["english"]
+    assert_alhambra_localization_source_generator_interface_error(
+        "localization draft merged language target",
+        merged_language_draft_interface,
+        "language target must stay split",
     )
 
     external_evidence_forged_localization_validation = deepcopy(alhambra_source_file_validation_evidence)

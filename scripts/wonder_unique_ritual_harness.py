@@ -3679,6 +3679,70 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_BODY_DRAFT_REQUIRED_GROUPS 
     "row_completion",
     "tooltip_safe_condition_group",
 )
+REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_BODY_DRAFT_COMPONENT_BY_ARTIFACT_KIND = {
+    "gui_checklist_row": "checklist",
+    "gui_incident_log_row": "incident_log",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_BODY_DRAFT_ROW_SET_BY_ARTIFACT_KIND = {
+    "gui_checklist_row": "treaty_clause_register",
+    "gui_incident_log_row": "palace_risk_points",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS = (
+    "treaty_clause_register",
+    "palace_risk_points",
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_BODY_DRAFT_REQUIRED_FIELDS = {
+    "kind",
+    "draft_version",
+    "pilot_key",
+    "family",
+    "artifact_kind",
+    "row_set_key",
+    "target_path",
+    "future_source_target_path",
+    "component_type",
+    "row_set_binding",
+    "variable_read_refs",
+    "loc_key_refs",
+    "trigger_effect_handoff_refs",
+    "source_body_outline",
+    "source_body_candidate_ref_key",
+    "output_is_loadable_source",
+    "body_emitted",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_LOCALIZATION_SOURCE_BODY_DRAFT_REQUIRED_FIELDS = {
+    "kind",
+    "draft_version",
+    "pilot_key",
+    "family",
+    "artifact_kind",
+    "localization_language",
+    "row_set_key",
+    "target_path",
+    "future_source_target_path",
+    "source_candidate_future_target_path",
+    "loc_group",
+    "language_target",
+    "row_set_binding",
+    "localization_key_refs",
+    "reverse_binding_refs",
+    "source_body_outline",
+    "source_body_candidate_ref_key",
+    "output_is_loadable_source",
+    "body_emitted",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_REQUIRED_FIELDS = {
     "kind",
     "draft_version",
@@ -4004,6 +4068,7 @@ REPEATED_ENTITY_ROW_ALHAMBRA_LOCALIZATION_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED
     "required_validations",
     "remaining_blockers",
     "unresolved_writer_blockers",
+    "localization_source_body_draft",
     "no_write_source_writer_contract_evidence",
 }
 REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED_FIELDS = {
@@ -4119,6 +4184,7 @@ REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED_FIELDS =
     "required_validations",
     "remaining_blockers",
     "unresolved_writer_blockers",
+    "gui_source_body_draft",
     "no_write_source_writer_contract_evidence",
 }
 REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED_FIELDS = {
@@ -14652,6 +14718,219 @@ def _alhambra_gui_source_body_candidate_ref_key(ref: dict[str, Any]) -> dict[str
     }
 
 
+def _alhambra_localization_key_namespace(row_set_key: str) -> str:
+    return f"tv_wonder_unique_alhambra_ritual.{row_set_key}"
+
+
+def _alhambra_localization_key_ref(
+    *,
+    row_set_key: str,
+    loc_group: str,
+    entity_key: str,
+) -> str:
+    return f"{_alhambra_localization_key_namespace(row_set_key)}.{entity_key}.{loc_group}"
+
+
+def _alhambra_localization_key_refs_for_row_set(
+    *,
+    row_set_key: str,
+    entity_keys: list[str],
+    loc_groups: tuple[str, ...] = REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS,
+) -> dict[str, list[str]]:
+    return {
+        loc_group: [
+            _alhambra_localization_key_ref(
+                row_set_key=row_set_key,
+                loc_group=loc_group,
+                entity_key=entity_key,
+            )
+            for entity_key in (entity_keys if loc_group != "summary_text" else ["summary"])
+        ]
+        for loc_group in loc_groups
+    }
+
+
+def _alhambra_localization_refs_by_row_set_from_generator_contract(
+    source_generator_contract: dict[str, Any] | None,
+) -> dict[str, list[dict[str, Any]]]:
+    refs_by_row_set: dict[str, list[dict[str, Any]]] = {}
+    for ref in _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract):
+        if str(ref.get("family", "")) != "localization":
+            continue
+        row_set_key = str(ref.get("row_set_key", ""))
+        if not row_set_key:
+            continue
+        refs_by_row_set.setdefault(row_set_key, []).append(ref)
+    return refs_by_row_set
+
+
+def _alhambra_gui_source_body_draft(
+    *,
+    ref: dict[str, Any],
+    target_path: str,
+    row_set_context: dict[str, Any],
+    source_generator_contract: dict[str, Any] | None,
+) -> dict[str, Any]:
+    artifact_kind = str(ref.get("artifact_kind", ""))
+    row_set_key = str(ref.get("row_set_key", ""))
+    component_type = REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_BODY_DRAFT_COMPONENT_BY_ARTIFACT_KIND.get(
+        artifact_kind,
+        "",
+    )
+    entity_keys = _string_refs(row_set_context.get("entity_keys"))
+    state_values = _string_refs(row_set_context.get("state_values"))
+    per_row_variable_patterns = _string_refs(row_set_context.get("per_row_variable_patterns"))
+    aggregate_variable_refs = _string_refs(row_set_context.get("aggregate_projection_variables"))
+    node_read_refs = [
+        {
+            "node_key": str(node.get("key", "")),
+            "node_kind": str(node.get("kind", "")),
+            "reads": _string_refs(node.get("reads")),
+            "ui_state_refs": _string_refs(node.get("ui_state_refs")),
+        }
+        for node in row_set_context.get("node_read_write_coverage", []) or []
+        if isinstance(node, dict)
+    ]
+    ui_binding_refs = [
+        {
+            "binding_key": str(binding.get("key", "")),
+            "component_key": str(binding.get("component_key", "")),
+            "variable_refs": _string_refs(binding.get("variable_refs")),
+            "node_refs": _string_refs(binding.get("node_refs")),
+        }
+        for binding in row_set_context.get("ui_bindings", []) or []
+        if isinstance(binding, dict)
+    ]
+    contract_refs = _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract)
+    event_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"event"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND),
+    )
+    trigger_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"trigger"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_BODY_DRAFT_GROUP_BY_ARTIFACT_KIND),
+    )
+    effect_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"effect"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["effect"]),
+    )
+    cleanup_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"cleanup"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"]),
+    )
+    localization_candidate_refs = _alhambra_localization_refs_by_row_set_from_generator_contract(
+        source_generator_contract
+    ).get(row_set_key, [])
+    loc_key_refs = _alhambra_localization_key_refs_for_row_set(
+        row_set_key=row_set_key,
+        entity_keys=entity_keys,
+    )
+    return {
+        "kind": "gui_source_body_draft",
+        "draft_version": 1,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_GENERATOR_INTERFACE_FAMILY,
+        "artifact_kind": artifact_kind,
+        "row_set_key": row_set_key,
+        "target_path": target_path,
+        "future_source_target_path": str(ref.get("future_source_target_path", "")),
+        "component_type": component_type,
+        "row_set_binding": {
+            "row_set_key": row_set_key,
+            "component_type": component_type,
+            "expected_component_type": str(row_set_context.get("expected_ui_component_type", "")),
+            "entity_type": str(row_set_context.get("entity_type", "")),
+            "entity_keys": entity_keys,
+            "state_values": state_values,
+            "ui_binding": str(row_set_context.get("ui_binding", "")),
+            "all_bound": bool(entity_keys and component_type == row_set_context.get("expected_ui_component_type")),
+            "unbound_refs": [],
+            "wrong_row_set_allowed": False,
+            "body_emitted": False,
+        },
+        "variable_read_refs": {
+            "row_set_key": row_set_key,
+            "per_row_variable_patterns": per_row_variable_patterns,
+            "aggregate_projection_variables": aggregate_variable_refs,
+            "node_read_refs": node_read_refs,
+            "ui_binding_refs": ui_binding_refs,
+            "read_ref_source": "design_ir.tracked_entity_sets + node_graph.variables + ui_model.bindings",
+            "aggregate_only_row_reads_allowed": False,
+            "row_state_writes_allowed": False,
+            "all_bound": bool(per_row_variable_patterns and aggregate_variable_refs and ui_binding_refs),
+            "unbound_refs": [],
+            "body_emitted": False,
+        },
+        "loc_key_refs": {
+            "row_set_key": row_set_key,
+            "loc_key_namespace": _alhambra_localization_key_namespace(row_set_key),
+            "required_loc_groups": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS),
+            "row_label_keys": loc_key_refs["row_labels"],
+            "status_text_keys": loc_key_refs["status_text"],
+            "summary_text_keys": loc_key_refs["summary_text"],
+            "tooltip_keys": loc_key_refs["tooltips"],
+            "incident_text_keys": loc_key_refs["incident_text"],
+            "localization_candidate_refs": deepcopy(localization_candidate_refs),
+            "localization_candidate_ref_count": len(localization_candidate_refs),
+            "all_bound": bool(localization_candidate_refs),
+            "unbound_keys": [],
+            "localization_source_writer_allowed": False,
+            "body_emitted": False,
+        },
+        "trigger_effect_handoff_refs": {
+            "row_set_key": row_set_key,
+            "event_refs": deepcopy(event_refs),
+            "trigger_refs": deepcopy(trigger_refs),
+            "effect_refs": deepcopy(effect_refs),
+            "cleanup_refs": deepcopy(cleanup_refs),
+            "event_ref_count": len(event_refs),
+            "trigger_ref_count": len(trigger_refs),
+            "effect_ref_count": len(effect_refs),
+            "cleanup_ref_count": len(cleanup_refs),
+            "all_bound": bool(event_refs and trigger_refs and effect_refs and cleanup_refs),
+            "handoff_only": True,
+            "inline_trigger_body_allowed": False,
+            "inline_effect_body_allowed": False,
+            "row_state_writes_allowed": False,
+            "body_emitted": False,
+            "source_writer_allowed": False,
+            "may_write_src": False,
+            "writes_src": False,
+        },
+        "source_body_outline": {
+            "declaration_ref": f"{row_set_key}.{component_type}",
+            "component_type": component_type,
+            "row_count": len(entity_keys),
+            "row_label_key_count": len(loc_key_refs["row_labels"]),
+            "status_text_key_count": len(loc_key_refs["status_text"]),
+            "summary_text_key_count": len(loc_key_refs["summary_text"]),
+            "tooltip_key_count": len(loc_key_refs["tooltips"]),
+            "incident_text_key_count": len(loc_key_refs["incident_text"]),
+            "variable_read_ref_count": len(per_row_variable_patterns) + len(aggregate_variable_refs),
+            "handoff_ref_count": len(event_refs) + len(trigger_refs) + len(effect_refs) + len(cleanup_refs),
+            "inline_body_emitted": False,
+            "body_emitted": False,
+        },
+        "source_body_candidate_ref_key": _alhambra_gui_source_body_candidate_ref_key(ref),
+        "output_is_loadable_source": False,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
 def _alhambra_gui_source_generator_interface_prototype(
     *,
     contract: dict[str, Any],
@@ -14706,6 +14985,8 @@ def _alhambra_gui_source_file_contract_artifact(
     contract: dict[str, Any],
     validation_pack: dict[str, Any],
     source_generator_contract_ref: dict[str, Any],
+    row_set_context: dict[str, Any],
+    source_generator_contract: dict[str, Any] | None,
 ) -> dict[str, Any]:
     target_path = REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
     return {
@@ -14752,6 +15033,12 @@ def _alhambra_gui_source_file_contract_artifact(
         "required_validations": sorted(_string_refs(contract.get("required_validations"))),
         "remaining_blockers": sorted(_string_refs(contract.get("remaining_blockers"))),
         "unresolved_writer_blockers": sorted(_string_refs(contract.get("unresolved_writer_blockers"))),
+        "gui_source_body_draft": _alhambra_gui_source_body_draft(
+            ref=ref,
+            target_path=target_path,
+            row_set_context=row_set_context,
+            source_generator_contract=source_generator_contract,
+        ),
         "no_write_source_writer_contract_evidence": deepcopy(
             contract.get("no_write_source_writer_contract_evidence", {}) or {}
         ),
@@ -14788,6 +15075,7 @@ def repeated_entity_row_alhambra_gui_source_generator_interface_for_payload(
         {},
     )
     source_generator_contract_ref = _alhambra_source_generator_contract_report_ref(source_generator_contract)
+    row_set_contexts = _alhambra_repeated_row_contexts_by_key(payload, statuses=statuses)
     refs = [
         ref
         for ref in contract.get("source_body_candidate_refs", []) or []
@@ -14800,6 +15088,8 @@ def repeated_entity_row_alhambra_gui_source_generator_interface_for_payload(
             contract=contract,
             validation_pack=validation_pack,
             source_generator_contract_ref=source_generator_contract_ref,
+            row_set_context=row_set_contexts.get(str(ref.get("row_set_key", "")), {}),
+            source_generator_contract=source_generator_contract,
         )
         for index, ref in enumerate(refs)
     ]
@@ -15221,6 +15511,162 @@ def _alhambra_localization_source_body_candidate_ref_key(ref: dict[str, Any]) ->
     }
 
 
+def _alhambra_localization_language_header(language: str) -> str:
+    return f"l_{language}:"
+
+
+def _alhambra_localization_source_body_draft(
+    *,
+    ref: dict[str, Any],
+    contract: dict[str, Any],
+    target_path: str,
+    row_set_context: dict[str, Any],
+    source_generator_contract: dict[str, Any] | None,
+) -> dict[str, Any]:
+    artifact_kind = str(ref.get("artifact_kind", ""))
+    row_set_key = str(ref.get("row_set_key", ""))
+    language = str(contract.get("localization_language", ""))
+    loc_group = REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND.get(artifact_kind, "")
+    entity_keys = _string_refs(row_set_context.get("entity_keys"))
+    loc_entities = entity_keys if loc_group != "summary_text" else ["summary"]
+    key_rows = [
+        {
+            "entity_key": entity_key,
+            "loc_key": _alhambra_localization_key_ref(
+                row_set_key=row_set_key,
+                loc_group=loc_group,
+                entity_key=entity_key,
+            ),
+            "loc_group": loc_group,
+            "language": language,
+            "target_path": target_path,
+            "preview_value_source": "design_ir.tracked_entity_sets + localization draft placeholder",
+            "preview_value": (
+                f"Alhambra {row_set_key} {entity_key} {loc_group}"
+                if language == "english"
+                else f"阿尔罕布拉 {row_set_key} {entity_key} {loc_group}"
+            ),
+            "body_emitted": False,
+            "may_write_src": False,
+        }
+        for entity_key in loc_entities
+    ]
+    contract_refs = _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract)
+    gui_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"gui"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_GUI_ARTIFACT_KINDS),
+    )
+    event_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"event"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND),
+    )
+    trigger_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"trigger"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_BODY_DRAFT_GROUP_BY_ARTIFACT_KIND),
+    )
+    return {
+        "kind": "localization_source_body_draft",
+        "draft_version": 1,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": REPEATED_ENTITY_ROW_ALHAMBRA_LOCALIZATION_SOURCE_GENERATOR_INTERFACE_FAMILY,
+        "artifact_kind": artifact_kind,
+        "localization_language": language,
+        "row_set_key": row_set_key,
+        "target_path": target_path,
+        "future_source_target_path": target_path,
+        "source_candidate_future_target_path": str(ref.get("future_source_target_path", "")),
+        "loc_group": loc_group,
+        "language_target": {
+            "language": language,
+            "target_path": target_path,
+            "expected_language_header": _alhambra_localization_language_header(language),
+            "language_target_paths": dict(
+                REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+            ),
+            "separate_language_target": True,
+            "language_targets_merged": False,
+            "body_emitted": False,
+            "may_write_src": False,
+        },
+        "row_set_binding": {
+            "row_set_key": row_set_key,
+            "entity_type": str(row_set_context.get("entity_type", "")),
+            "entity_keys": entity_keys,
+            "state_values": _string_refs(row_set_context.get("state_values")),
+            "loc_entities": loc_entities,
+            "summary_uses_single_key": loc_group == "summary_text",
+            "all_bound": bool(loc_entities),
+            "unbound_refs": [],
+            "wrong_row_set_allowed": False,
+            "body_emitted": False,
+        },
+        "localization_key_refs": {
+            "loc_key_namespace": _alhambra_localization_key_namespace(row_set_key),
+            "loc_group": loc_group,
+            "artifact_kind": artifact_kind,
+            "keys": [row["loc_key"] for row in key_rows],
+            "key_rows": key_rows,
+            "key_count": len(key_rows),
+            "required_coverage_groups": list(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS),
+            "covers_row_labels": loc_group == "row_labels",
+            "covers_status_text": loc_group == "status_text",
+            "covers_summary_text": loc_group == "summary_text",
+            "covers_tooltips": loc_group == "tooltips",
+            "covers_incident_text": loc_group == "incident_text",
+            "all_bound": bool(key_rows),
+            "missing_loc_keys": [],
+            "body_emitted": False,
+            "source_writer_allowed": False,
+            "may_write_src": False,
+            "writes_src": False,
+        },
+        "reverse_binding_refs": {
+            "row_set_key": row_set_key,
+            "gui_refs": deepcopy(gui_refs),
+            "event_refs": deepcopy(event_refs),
+            "trigger_refs": deepcopy(trigger_refs),
+            "gui_ref_count": len(gui_refs),
+            "event_ref_count": len(event_refs),
+            "trigger_ref_count": len(trigger_refs),
+            "reverse_binding_only": True,
+            "all_bound": bool(gui_refs and event_refs and trigger_refs),
+            "unbound_refs": [],
+            "body_emitted": False,
+            "source_writer_allowed": False,
+            "may_write_src": False,
+            "writes_src": False,
+        },
+        "source_body_outline": {
+            "language_header": _alhambra_localization_language_header(language),
+            "target_path": target_path,
+            "row_set_key": row_set_key,
+            "loc_group": loc_group,
+            "loc_key_count": len(key_rows),
+            "preview_lines": [
+                loc_line(row["loc_key"], row["preview_value"])
+                for row in key_rows
+            ],
+            "inline_body_emitted": False,
+            "body_emitted": False,
+        },
+        "source_body_candidate_ref_key": _alhambra_localization_source_body_candidate_ref_key(ref),
+        "output_is_loadable_source": False,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+    }
+
+
 def _alhambra_localization_source_generator_interface_prototype(
     *,
     contract: dict[str, Any],
@@ -15276,6 +15722,8 @@ def _alhambra_localization_source_file_contract_artifact(
     contract: dict[str, Any],
     validation_pack: dict[str, Any],
     source_generator_contract_ref: dict[str, Any],
+    row_set_context: dict[str, Any],
+    source_generator_contract: dict[str, Any] | None,
 ) -> dict[str, Any]:
     target_path = str(contract.get("target_path", ""))
     language = str(contract.get("localization_language", ""))
@@ -15328,6 +15776,13 @@ def _alhambra_localization_source_file_contract_artifact(
         "required_validations": sorted(_string_refs(contract.get("required_validations"))),
         "remaining_blockers": sorted(_string_refs(contract.get("remaining_blockers"))),
         "unresolved_writer_blockers": sorted(_string_refs(contract.get("unresolved_writer_blockers"))),
+        "localization_source_body_draft": _alhambra_localization_source_body_draft(
+            ref=ref,
+            contract=contract,
+            target_path=target_path,
+            row_set_context=row_set_context,
+            source_generator_contract=source_generator_contract,
+        ),
         "no_write_source_writer_contract_evidence": deepcopy(
             contract.get("no_write_source_writer_contract_evidence", {}) or {}
         ),
@@ -15354,6 +15809,7 @@ def repeated_entity_row_alhambra_localization_source_generator_interface_for_pay
         )
     target_paths = list(REPEATED_ENTITY_ROW_ALHAMBRA_LOCALIZATION_SOURCE_GENERATOR_INTERFACE_TARGET_PATHS)
     source_generator_contract_ref = _alhambra_source_generator_contract_report_ref(source_generator_contract)
+    row_set_contexts = _alhambra_repeated_row_contexts_by_key(payload, statuses=statuses)
     source_generator_interfaces: list[dict[str, Any]] = []
     source_file_contract_artifacts: list[dict[str, Any]] = []
     for target_path in target_paths:
@@ -15387,6 +15843,8 @@ def repeated_entity_row_alhambra_localization_source_generator_interface_for_pay
                 contract=contract,
                 validation_pack=validation_pack,
                 source_generator_contract_ref=source_generator_contract_ref,
+                row_set_context=row_set_contexts.get(str(ref.get("row_set_key", "")), {}),
+                source_generator_contract=source_generator_contract,
             )
             for index, ref in enumerate(refs)
         )
@@ -16393,6 +16851,39 @@ def _validate_alhambra_event_source_body_draft_refs(
         errors.append(
             f"{context} event source-body draft {label} refs must come from existing contract/evidence"
         )
+
+
+def _validate_alhambra_source_body_draft_refs(
+    *,
+    context: str,
+    draft_kind: str,
+    label: str,
+    refs: Any,
+    expected_families: set[str],
+    contract_ref_keys: set[tuple[str, str, str, str]],
+    evidence_ref_keys: set[tuple[str, str, str, str]],
+    errors: list[str],
+    expected_row_set_key: str = "",
+) -> None:
+    if not isinstance(refs, list) or not refs:
+        errors.append(f"{context} {draft_kind} {label} refs must not be empty")
+        return
+    bad_ref_found = False
+    for ref in refs:
+        if not isinstance(ref, dict):
+            bad_ref_found = True
+            continue
+        if expected_row_set_key and str(ref.get("row_set_key", "")) != expected_row_set_key:
+            bad_ref_found = True
+            continue
+        if str(ref.get("family", "")) not in expected_families:
+            bad_ref_found = True
+            continue
+        ref_key = _alhambra_source_file_preview_ref_key(ref)
+        if ref_key not in contract_ref_keys or ref_key not in evidence_ref_keys:
+            bad_ref_found = True
+    if bad_ref_found:
+        errors.append(f"{context} {draft_kind} {label} refs must come from existing contract/evidence")
 
 
 def _validate_alhambra_event_source_body_draft(
@@ -18119,6 +18610,210 @@ def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generat
     return errors
 
 
+def _validate_alhambra_gui_source_body_draft(
+    *,
+    context: str,
+    artifact: dict[str, Any],
+    draft: Any,
+    contract_ref_keys: set[tuple[str, str, str, str]],
+    evidence_ref_keys: set[tuple[str, str, str, str]],
+    errors: list[str],
+) -> tuple[str, str]:
+    if not isinstance(draft, dict):
+        errors.append(f"{context} missing GUI source-body draft")
+        return "", ""
+    missing = _missing_required(draft, REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_BODY_DRAFT_REQUIRED_FIELDS)
+    if missing:
+        errors.append(f"{context} GUI source-body draft missing field(s): {', '.join(missing)}")
+        return "", ""
+
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    target_path = str(artifact.get("target_path", ""))
+    expected_component = REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_BODY_DRAFT_COMPONENT_BY_ARTIFACT_KIND.get(
+        artifact_kind,
+        "",
+    )
+    expected_row_set = REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_BODY_DRAFT_ROW_SET_BY_ARTIFACT_KIND.get(
+        artifact_kind,
+        "",
+    )
+    if draft.get("kind") != "gui_source_body_draft":
+        errors.append(f"{context} GUI source-body draft kind mismatch")
+    if draft.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append(f"{context} GUI source-body draft pilot_key must be unique_alhambra")
+    if draft.get("family") != REPEATED_ENTITY_ROW_ALHAMBRA_GUI_SOURCE_GENERATOR_INTERFACE_FAMILY:
+        errors.append(f"{context} GUI source-body draft family must be gui")
+    if draft.get("artifact_kind") != artifact_kind:
+        errors.append(f"{context} GUI source-body draft artifact_kind mismatch")
+    if row_set_key != expected_row_set or draft.get("row_set_key") != row_set_key:
+        errors.append(f"{context} GUI source-body draft row_set_key mismatch")
+    if draft.get("target_path") != target_path or draft.get("future_source_target_path") != target_path:
+        errors.append(f"{context} GUI source-body draft target path mismatch")
+    if draft.get("component_type") != expected_component:
+        errors.append(f"{context} GUI source-body draft component_type mismatch")
+    if draft.get("source_body_candidate_ref_key") != _alhambra_gui_source_body_candidate_ref_key(
+        artifact.get("source_body_candidate_ref") if isinstance(artifact.get("source_body_candidate_ref"), dict) else {}
+    ):
+        errors.append(f"{context} GUI source-body draft source ref key mismatch")
+    for flag in (
+        "output_is_loadable_source",
+        "body_emitted",
+        "source_ready",
+        "verified",
+        "backend_ready",
+        "source_writer_allowed",
+        "may_write_src",
+        "writes_src",
+    ):
+        if draft.get(flag) is not False:
+            errors.append(f"{context} GUI source-body draft {flag} must be false")
+
+    row_binding = draft.get("row_set_binding")
+    entity_keys: list[str] = []
+    if not isinstance(row_binding, dict):
+        errors.append(f"{context} GUI source-body draft row-set binding must be bound")
+    else:
+        entity_keys = _string_refs(row_binding.get("entity_keys"))
+        if (
+            row_binding.get("row_set_key") != row_set_key
+            or row_binding.get("component_type") != expected_component
+            or row_binding.get("expected_component_type") != expected_component
+            or row_binding.get("all_bound") is not True
+            or row_binding.get("unbound_refs")
+            or row_binding.get("wrong_row_set_allowed") is not False
+            or row_binding.get("body_emitted") is not False
+            or not entity_keys
+        ):
+            errors.append(f"{context} GUI source-body draft row-set binding must be bound")
+
+    variable_refs = draft.get("variable_read_refs")
+    if not isinstance(variable_refs, dict):
+        errors.append(f"{context} GUI source-body draft variable read refs must be bound")
+    elif (
+        variable_refs.get("row_set_key") != row_set_key
+        or variable_refs.get("aggregate_only_row_reads_allowed") is not False
+        or variable_refs.get("row_state_writes_allowed") is not False
+        or variable_refs.get("all_bound") is not True
+        or variable_refs.get("unbound_refs")
+        or variable_refs.get("body_emitted") is not False
+        or not _string_refs(variable_refs.get("per_row_variable_patterns"))
+        or not _string_refs(variable_refs.get("aggregate_projection_variables"))
+        or not isinstance(variable_refs.get("node_read_refs"), list)
+        or not variable_refs.get("node_read_refs")
+        or not isinstance(variable_refs.get("ui_binding_refs"), list)
+        or not variable_refs.get("ui_binding_refs")
+    ):
+        errors.append(f"{context} GUI source-body draft variable read refs must be bound")
+
+    loc_refs = draft.get("loc_key_refs")
+    if not isinstance(loc_refs, dict):
+        errors.append(f"{context} GUI source-body draft loc key refs must be bound")
+    else:
+        expected_loc_keys = _alhambra_localization_key_refs_for_row_set(
+            row_set_key=row_set_key,
+            entity_keys=entity_keys,
+        )
+        if (
+            loc_refs.get("row_set_key") != row_set_key
+            or loc_refs.get("loc_key_namespace") != _alhambra_localization_key_namespace(row_set_key)
+            or set(_string_refs(loc_refs.get("required_loc_groups")))
+            != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS)
+            or loc_refs.get("row_label_keys") != expected_loc_keys["row_labels"]
+            or loc_refs.get("status_text_keys") != expected_loc_keys["status_text"]
+            or loc_refs.get("summary_text_keys") != expected_loc_keys["summary_text"]
+            or loc_refs.get("tooltip_keys") != expected_loc_keys["tooltips"]
+            or loc_refs.get("incident_text_keys") != expected_loc_keys["incident_text"]
+            or loc_refs.get("all_bound") is not True
+            or loc_refs.get("unbound_keys")
+            or loc_refs.get("localization_source_writer_allowed") is not False
+            or loc_refs.get("body_emitted") is not False
+        ):
+            errors.append(f"{context} GUI source-body draft loc key refs must be bound")
+        localization_refs = loc_refs.get("localization_candidate_refs")
+        if loc_refs.get("localization_candidate_ref_count") != (
+            len(localization_refs) if isinstance(localization_refs, list) else -1
+        ):
+            errors.append(f"{context} GUI source-body draft loc key refs must be bound")
+        _validate_alhambra_source_body_draft_refs(
+            context=context,
+            draft_kind="GUI source-body draft",
+            label="localization",
+            refs=localization_refs,
+            expected_families={"localization"},
+            contract_ref_keys=contract_ref_keys,
+            evidence_ref_keys=evidence_ref_keys,
+            errors=errors,
+            expected_row_set_key=row_set_key,
+        )
+        localization_artifact_kinds = {
+            str(ref.get("artifact_kind", ""))
+            for ref in localization_refs or []
+            if isinstance(ref, dict)
+        }
+        if localization_artifact_kinds != REPEATED_ENTITY_ROW_LOCALIZATION_ARTIFACT_KINDS:
+            errors.append(f"{context} GUI source-body draft loc key refs must cover all loc groups")
+
+    handoff = draft.get("trigger_effect_handoff_refs")
+    if not isinstance(handoff, dict):
+        errors.append(f"{context} GUI source-body draft trigger/effect handoff refs must be bound")
+    else:
+        if (
+            handoff.get("row_set_key") != row_set_key
+            or handoff.get("all_bound") is not True
+            or handoff.get("handoff_only") is not True
+            or handoff.get("inline_trigger_body_allowed") is not False
+            or handoff.get("inline_effect_body_allowed") is not False
+            or handoff.get("row_state_writes_allowed") is not False
+            or handoff.get("body_emitted") is not False
+            or handoff.get("source_writer_allowed") is not False
+            or handoff.get("may_write_src") is not False
+            or handoff.get("writes_src") is not False
+        ):
+            errors.append(f"{context} GUI source-body draft trigger/effect handoff refs must be bound")
+        for label, families in (
+            ("event", {"event"}),
+            ("trigger", {"trigger"}),
+            ("effect", {"effect"}),
+            ("cleanup", {"cleanup"}),
+        ):
+            refs = handoff.get(f"{label}_refs")
+            if isinstance(refs, list) and handoff.get(f"{label}_ref_count") != len(refs):
+                errors.append(f"{context} GUI source-body draft trigger/effect handoff refs must be bound")
+            _validate_alhambra_source_body_draft_refs(
+                context=context,
+                draft_kind="GUI source-body draft",
+                label=label,
+                refs=refs,
+                expected_families=families,
+                contract_ref_keys=contract_ref_keys,
+                evidence_ref_keys=evidence_ref_keys,
+                errors=errors,
+                expected_row_set_key=row_set_key,
+            )
+
+    outline = draft.get("source_body_outline")
+    if not isinstance(outline, dict):
+        errors.append(f"{context} GUI source-body draft missing source body outline")
+    elif (
+        outline.get("declaration_ref") != f"{row_set_key}.{expected_component}"
+        or outline.get("component_type") != expected_component
+        or int(outline.get("row_count", -1)) != len(entity_keys)
+        or int(outline.get("row_label_key_count", -1)) != len(entity_keys)
+        or int(outline.get("status_text_key_count", -1)) != len(entity_keys)
+        or int(outline.get("summary_text_key_count", -1)) != 1
+        or int(outline.get("tooltip_key_count", -1)) != len(entity_keys)
+        or int(outline.get("incident_text_key_count", -1)) != len(entity_keys)
+        or int(outline.get("variable_read_ref_count", 0)) <= 0
+        or int(outline.get("handoff_ref_count", 0)) <= 0
+        or outline.get("inline_body_emitted") is not False
+        or outline.get("body_emitted") is not False
+    ):
+        errors.append(f"{context} GUI source-body draft source body outline mismatch")
+
+    return row_set_key, expected_component
+
+
 def validate_repeated_entity_row_alhambra_gui_source_generator_interface(
     report: dict[str, Any],
     *,
@@ -18168,7 +18863,7 @@ def validate_repeated_entity_row_alhambra_gui_source_generator_interface(
             "Alhambra GUI source generator interface must not claim source_ready/verified/backend_ready "
             f"at {path}"
         )
-    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+    for flag in ("body_emitted", "may_write_src", "writes_src", "source_writer_allowed"):
         for path in _source_bundle_true_flag_paths(report, flag):
             errors.append(f"Alhambra GUI source generator interface {flag} must be false at {path}")
     _validate_alhambra_source_body_candidate_flags(
@@ -18245,6 +18940,8 @@ def validate_repeated_entity_row_alhambra_gui_source_generator_interface(
             contract=expected_contract,
             validation_pack=external_pack,
             source_generator_contract_ref=source_generator_contract_ref,
+            row_set_context={},
+            source_generator_contract=source_generator_contract,
         )
         for index, ref in enumerate(expected_refs)
     ] if expected_contract and external_pack else []
@@ -18321,7 +19018,15 @@ def validate_repeated_entity_row_alhambra_gui_source_generator_interface(
     else:
         errors.append("Alhambra GUI source generator interface prototype must be a mapping")
 
+    contract_ref_keys = _alhambra_source_body_candidate_ref_key_set(
+        _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract)
+    )
+    evidence_ref_keys = _alhambra_source_body_candidate_ref_key_set(
+        _alhambra_source_body_candidate_refs_from_validation_evidence(source_file_validation_evidence)
+    )
+
     actual_ref_keys: set[tuple[str, str, str, str]] = set()
+    gui_draft_components_by_row_set: dict[str, str] = {}
     for index, artifact in enumerate(artifacts):
         if not isinstance(artifact, dict):
             errors.append("Alhambra GUI source generator interface artifact must be a mapping")
@@ -18396,8 +19101,28 @@ def validate_repeated_entity_row_alhambra_gui_source_generator_interface(
                 "no_write_source_writer_contract_evidence"
             ):
                 errors.append(f"{context} no-write source writer evidence mismatch")
-        if expected_artifacts and index < len(expected_artifacts) and artifact != expected_artifacts[index]:
+        if expected_artifacts and index < len(expected_artifacts):
+            actual_contract_shell = deepcopy(artifact)
+            expected_contract_shell = deepcopy(expected_artifacts[index])
+            actual_contract_shell.pop("gui_source_body_draft", None)
+            expected_contract_shell.pop("gui_source_body_draft", None)
+            if actual_contract_shell != expected_contract_shell:
+                errors.append(f"{context} external validation evidence mismatch")
+        if expected_artifacts and index < len(expected_artifacts) and not isinstance(
+            artifact.get("gui_source_body_draft"),
+            dict,
+        ):
             errors.append(f"{context} external validation evidence mismatch")
+        draft_row_set, draft_component = _validate_alhambra_gui_source_body_draft(
+            context=context,
+            artifact=artifact,
+            draft=artifact.get("gui_source_body_draft"),
+            contract_ref_keys=contract_ref_keys,
+            evidence_ref_keys=evidence_ref_keys,
+            errors=errors,
+        )
+        if draft_row_set and draft_component:
+            gui_draft_components_by_row_set[draft_row_set] = draft_component
 
     expected_ref_keys = {
         _alhambra_source_file_preview_ref_key(ref)
@@ -18410,8 +19135,26 @@ def validate_repeated_entity_row_alhambra_gui_source_generator_interface(
             "Alhambra GUI source generator interface expected 2 unique source file contract "
             f"artifacts, got {len(actual_ref_keys)}"
         )
-    if expected_artifacts and artifacts != expected_artifacts:
-        errors.append("Alhambra GUI source generator interface artifacts external validation evidence mismatch")
+    expected_gui_draft_components = {
+        "treaty_clause_register": "checklist",
+        "palace_risk_points": "incident_log",
+    }
+    if gui_draft_components_by_row_set != expected_gui_draft_components:
+        errors.append("Alhambra GUI source generator interface GUI source-body draft row/component coverage mismatch")
+    if expected_artifacts:
+        actual_shells = []
+        expected_shells = []
+        for artifact in artifacts:
+            if isinstance(artifact, dict):
+                shell = deepcopy(artifact)
+                shell.pop("gui_source_body_draft", None)
+                actual_shells.append(shell)
+        for artifact in expected_artifacts:
+            shell = deepcopy(artifact)
+            shell.pop("gui_source_body_draft", None)
+            expected_shells.append(shell)
+        if actual_shells != expected_shells:
+            errors.append("Alhambra GUI source generator interface artifacts external validation evidence mismatch")
     for count_key in (
         "source_ready_count",
         "source_writer_allowed_count",
@@ -18770,6 +19513,212 @@ def validate_repeated_entity_row_alhambra_listener_source_generator_interface(
     return errors
 
 
+def _validate_alhambra_localization_source_body_draft(
+    *,
+    context: str,
+    artifact: dict[str, Any],
+    draft: Any,
+    contract_ref_keys: set[tuple[str, str, str, str]],
+    evidence_ref_keys: set[tuple[str, str, str, str]],
+    errors: list[str],
+) -> tuple[str, str, str]:
+    if not isinstance(draft, dict):
+        errors.append(f"{context} missing localization source-body draft")
+        return "", "", ""
+    missing = _missing_required(
+        draft,
+        REPEATED_ENTITY_ROW_ALHAMBRA_LOCALIZATION_SOURCE_BODY_DRAFT_REQUIRED_FIELDS,
+    )
+    if missing:
+        errors.append(f"{context} localization source-body draft missing field(s): {', '.join(missing)}")
+        return "", "", ""
+
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    target_path = str(artifact.get("target_path", ""))
+    language = str(artifact.get("localization_language", ""))
+    expected_loc_group = REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUP_BY_ARTIFACT_KIND.get(artifact_kind, "")
+    localization_targets = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_PREVIEW_LOCALIZATION_TARGET_PATHS
+    if row_set_key not in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS:
+        errors.append(f"{context} localization source-body draft row_set_key mismatch")
+    if draft.get("kind") != "localization_source_body_draft":
+        errors.append(f"{context} localization source-body draft kind mismatch")
+    if draft.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append(f"{context} localization source-body draft pilot_key must be unique_alhambra")
+    if draft.get("family") != REPEATED_ENTITY_ROW_ALHAMBRA_LOCALIZATION_SOURCE_GENERATOR_INTERFACE_FAMILY:
+        errors.append(f"{context} localization source-body draft family must be localization")
+    if draft.get("artifact_kind") != artifact_kind:
+        errors.append(f"{context} localization source-body draft artifact_kind mismatch")
+    if draft.get("localization_language") != language:
+        errors.append(f"{context} localization source-body draft localization language mismatch")
+    if draft.get("row_set_key") != row_set_key:
+        errors.append(f"{context} localization source-body draft row_set_key mismatch")
+    if draft.get("target_path") != target_path or draft.get("future_source_target_path") != target_path:
+        errors.append(f"{context} localization source-body draft target path mismatch")
+    if localization_targets.get(language) != target_path:
+        errors.append(f"{context} localization source-body draft language target mismatch")
+    if draft.get("source_candidate_future_target_path") != str(
+        artifact.get("source_body_candidate_ref", {}).get("future_source_target_path", "")
+    ):
+        errors.append(f"{context} localization source-body draft source candidate target mismatch")
+    if draft.get("loc_group") != expected_loc_group:
+        errors.append(f"{context} localization source-body draft loc_group mismatch")
+    if draft.get("source_body_candidate_ref_key") != _alhambra_localization_source_body_candidate_ref_key(
+        artifact.get("source_body_candidate_ref") if isinstance(artifact.get("source_body_candidate_ref"), dict) else {}
+    ):
+        errors.append(f"{context} localization source-body draft source ref key mismatch")
+    for flag in (
+        "output_is_loadable_source",
+        "body_emitted",
+        "source_ready",
+        "verified",
+        "backend_ready",
+        "source_writer_allowed",
+        "may_write_src",
+        "writes_src",
+    ):
+        if draft.get(flag) is not False:
+            errors.append(f"{context} localization source-body draft {flag} must be false")
+
+    language_target = draft.get("language_target")
+    if not isinstance(language_target, dict):
+        errors.append(f"{context} localization source-body draft language target must stay split")
+    elif (
+        language_target.get("language") != language
+        or language_target.get("target_path") != target_path
+        or language_target.get("expected_language_header") != _alhambra_localization_language_header(language)
+        or language_target.get("language_target_paths") != localization_targets
+        or language_target.get("separate_language_target") is not True
+        or language_target.get("language_targets_merged") is not False
+        or language_target.get("body_emitted") is not False
+        or language_target.get("may_write_src") is not False
+    ):
+        errors.append(f"{context} localization source-body draft language target must stay split")
+
+    row_binding = draft.get("row_set_binding")
+    loc_entities: list[str] = []
+    if not isinstance(row_binding, dict):
+        errors.append(f"{context} localization source-body draft row-set binding must be bound")
+    else:
+        entity_keys = _string_refs(row_binding.get("entity_keys"))
+        loc_entities = _string_refs(row_binding.get("loc_entities"))
+        expected_loc_entities = entity_keys if expected_loc_group != "summary_text" else ["summary"]
+        if (
+            row_binding.get("row_set_key") != row_set_key
+            or loc_entities != expected_loc_entities
+            or row_binding.get("summary_uses_single_key") is not (expected_loc_group == "summary_text")
+            or row_binding.get("all_bound") is not True
+            or row_binding.get("unbound_refs")
+            or row_binding.get("wrong_row_set_allowed") is not False
+            or row_binding.get("body_emitted") is not False
+            or not loc_entities
+        ):
+            errors.append(f"{context} localization source-body draft row-set binding must be bound")
+
+    key_refs = draft.get("localization_key_refs")
+    if not isinstance(key_refs, dict):
+        errors.append(f"{context} localization source-body draft missing loc key")
+    else:
+        expected_keys = [
+            _alhambra_localization_key_ref(
+                row_set_key=row_set_key,
+                loc_group=expected_loc_group,
+                entity_key=entity_key,
+            )
+            for entity_key in loc_entities
+        ]
+        key_rows = key_refs.get("key_rows")
+        if (
+            key_refs.get("loc_key_namespace") != _alhambra_localization_key_namespace(row_set_key)
+            or key_refs.get("loc_group") != expected_loc_group
+            or key_refs.get("artifact_kind") != artifact_kind
+            or key_refs.get("keys") != expected_keys
+            or int(key_refs.get("key_count", -1)) != len(expected_keys)
+            or set(_string_refs(key_refs.get("required_coverage_groups")))
+            != set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS)
+            or key_refs.get("covers_row_labels") is not (expected_loc_group == "row_labels")
+            or key_refs.get("covers_status_text") is not (expected_loc_group == "status_text")
+            or key_refs.get("covers_summary_text") is not (expected_loc_group == "summary_text")
+            or key_refs.get("covers_tooltips") is not (expected_loc_group == "tooltips")
+            or key_refs.get("covers_incident_text") is not (expected_loc_group == "incident_text")
+            or key_refs.get("all_bound") is not True
+            or key_refs.get("missing_loc_keys")
+            or key_refs.get("body_emitted") is not False
+            or key_refs.get("source_writer_allowed") is not False
+            or key_refs.get("may_write_src") is not False
+            or key_refs.get("writes_src") is not False
+            or not isinstance(key_rows, list)
+            or len(key_rows) != len(expected_keys)
+        ):
+            errors.append(f"{context} localization source-body draft missing loc key")
+        else:
+            for row, expected_key in zip(key_rows, expected_keys, strict=True):
+                if (
+                    not isinstance(row, dict)
+                    or row.get("loc_key") != expected_key
+                    or row.get("loc_group") != expected_loc_group
+                    or row.get("language") != language
+                    or row.get("target_path") != target_path
+                    or row.get("body_emitted") is not False
+                    or row.get("may_write_src") is not False
+                ):
+                    errors.append(f"{context} localization source-body draft missing loc key")
+                    break
+
+    reverse_refs = draft.get("reverse_binding_refs")
+    if not isinstance(reverse_refs, dict):
+        errors.append(f"{context} localization source-body draft reverse binding refs must be bound")
+    else:
+        if (
+            reverse_refs.get("row_set_key") != row_set_key
+            or reverse_refs.get("reverse_binding_only") is not True
+            or reverse_refs.get("all_bound") is not True
+            or reverse_refs.get("unbound_refs")
+            or reverse_refs.get("body_emitted") is not False
+            or reverse_refs.get("source_writer_allowed") is not False
+            or reverse_refs.get("may_write_src") is not False
+            or reverse_refs.get("writes_src") is not False
+        ):
+            errors.append(f"{context} localization source-body draft reverse binding refs must be bound")
+        for label, families in (
+            ("gui", {"gui"}),
+            ("event", {"event"}),
+            ("trigger", {"trigger"}),
+        ):
+            refs = reverse_refs.get(f"{label}_refs")
+            if isinstance(refs, list) and reverse_refs.get(f"{label}_ref_count") != len(refs):
+                errors.append(f"{context} localization source-body draft reverse binding refs must be bound")
+            _validate_alhambra_source_body_draft_refs(
+                context=context,
+                draft_kind="localization source-body draft",
+                label=label,
+                refs=refs,
+                expected_families=families,
+                contract_ref_keys=contract_ref_keys,
+                evidence_ref_keys=evidence_ref_keys,
+                errors=errors,
+                expected_row_set_key=row_set_key,
+            )
+
+    outline = draft.get("source_body_outline")
+    if not isinstance(outline, dict):
+        errors.append(f"{context} localization source-body draft missing source body outline")
+    elif (
+        outline.get("language_header") != _alhambra_localization_language_header(language)
+        or outline.get("target_path") != target_path
+        or outline.get("row_set_key") != row_set_key
+        or outline.get("loc_group") != expected_loc_group
+        or int(outline.get("loc_key_count", -1)) != len(loc_entities)
+        or not isinstance(outline.get("preview_lines"), list)
+        or len(outline.get("preview_lines")) != len(loc_entities)
+        or outline.get("inline_body_emitted") is not False
+        or outline.get("body_emitted") is not False
+    ):
+        errors.append(f"{context} localization source-body draft source body outline mismatch")
+
+    return language, row_set_key, expected_loc_group
+
+
 def validate_repeated_entity_row_alhambra_localization_source_generator_interface(
     report: dict[str, Any],
     *,
@@ -18832,7 +19781,7 @@ def validate_repeated_entity_row_alhambra_localization_source_generator_interfac
             "Alhambra localization source generator interface must not claim "
             f"source_ready/verified/backend_ready at {path}"
         )
-    for flag in ("may_write_src", "writes_src", "source_writer_allowed"):
+    for flag in ("body_emitted", "may_write_src", "writes_src", "source_writer_allowed"):
         for path in _source_bundle_true_flag_paths(report, flag):
             errors.append(f"Alhambra localization source generator interface {flag} must be false at {path}")
     _validate_alhambra_source_body_candidate_flags(
@@ -18944,6 +19893,8 @@ def validate_repeated_entity_row_alhambra_localization_source_generator_interfac
             contract=expected_contracts_by_target[target_path],
             validation_pack=external_packs_by_target[target_path],
             source_generator_contract_ref=source_generator_contract_ref,
+            row_set_context={},
+            source_generator_contract=source_generator_contract,
         )
         for target_path in target_paths
         if target_path in expected_contracts_by_target and target_path in external_packs_by_target
@@ -19062,9 +20013,20 @@ def validate_repeated_entity_row_alhambra_localization_source_generator_interfac
             errors=errors,
         )
 
+    contract_ref_keys = _alhambra_source_body_candidate_ref_key_set(
+        _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract)
+    )
+    evidence_ref_keys = _alhambra_source_body_candidate_ref_key_set(
+        _alhambra_source_body_candidate_refs_from_validation_evidence(source_file_validation_evidence)
+    )
+
     actual_artifact_keys_by_target: dict[str, set[tuple[str, str, str, str]]] = {
         target_path: set()
         for target_path in target_paths
+    }
+    localization_draft_coverage: dict[str, dict[str, set[str]]] = {
+        language: {row_set: set() for row_set in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS}
+        for language in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS
     }
     for index, artifact in enumerate(artifacts):
         if not isinstance(artifact, dict):
@@ -19160,8 +20122,30 @@ def validate_repeated_entity_row_alhambra_localization_source_generator_interfac
             target_path=target_path,
             errors=errors,
         )
-        if expected_artifacts and index < len(expected_artifacts) and artifact != expected_artifacts[index]:
+        if expected_artifacts and index < len(expected_artifacts):
+            actual_contract_shell = deepcopy(artifact)
+            expected_contract_shell = deepcopy(expected_artifacts[index])
+            actual_contract_shell.pop("localization_source_body_draft", None)
+            expected_contract_shell.pop("localization_source_body_draft", None)
+            if actual_contract_shell != expected_contract_shell:
+                errors.append(f"{context} external validation evidence mismatch")
+        if expected_artifacts and index < len(expected_artifacts) and not isinstance(
+            artifact.get("localization_source_body_draft"),
+            dict,
+        ):
             errors.append(f"{context} external validation evidence mismatch")
+        draft_language, draft_row_set, draft_loc_group = _validate_alhambra_localization_source_body_draft(
+            context=context,
+            artifact=artifact,
+            draft=artifact.get("localization_source_body_draft"),
+            contract_ref_keys=contract_ref_keys,
+            evidence_ref_keys=evidence_ref_keys,
+            errors=errors,
+        )
+        if draft_language and draft_row_set and draft_loc_group:
+            localization_draft_coverage.setdefault(draft_language, {}).setdefault(draft_row_set, set()).add(
+                draft_loc_group
+            )
 
     for target_path in target_paths:
         expected_refs = [
@@ -19185,8 +20169,28 @@ def validate_repeated_entity_row_alhambra_localization_source_generator_interfac
                 "Alhambra localization source generator interface expected 10 unique source file contract "
                 f"artifacts for {target_path}, got {len(actual_ref_keys)}"
             )
-    if expected_artifacts and artifacts != expected_artifacts:
-        errors.append("Alhambra localization source generator interface artifacts external validation evidence mismatch")
+    expected_loc_groups = set(REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LOC_GROUPS)
+    for language in REPEATED_ENTITY_ROW_SOURCE_PREVIEW_LANGUAGE_KEYS:
+        for row_set in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS:
+            if localization_draft_coverage.get(language, {}).get(row_set, set()) != expected_loc_groups:
+                errors.append(
+                    "Alhambra localization source generator interface localization source-body draft "
+                    f"coverage mismatch for {language}/{row_set}"
+                )
+    if expected_artifacts:
+        actual_shells = []
+        expected_shells = []
+        for artifact in artifacts:
+            if isinstance(artifact, dict):
+                shell = deepcopy(artifact)
+                shell.pop("localization_source_body_draft", None)
+                actual_shells.append(shell)
+        for artifact in expected_artifacts:
+            shell = deepcopy(artifact)
+            shell.pop("localization_source_body_draft", None)
+            expected_shells.append(shell)
+        if actual_shells != expected_shells:
+            errors.append("Alhambra localization source generator interface artifacts external validation evidence mismatch")
     for count_key in (
         "source_ready_count",
         "source_writer_allowed_count",
