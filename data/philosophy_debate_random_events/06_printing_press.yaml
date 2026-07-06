@@ -1,0 +1,731 @@
+random_events:
+  - design_id: P01
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "First Run of Pamphlets"
+      simp_chinese: "小册子首印"
+    desc:
+      english: "The first pamphlet run finishes before the censors finish deciding what a pamphlet is."
+      simp_chinese: "第一批小册子刚印完，审查官还没决定小册子究竟算什么。"
+    options:
+      a:
+        text:
+          english: "Distribute it widely."
+          simp_chinese: "广泛散发。"
+        progress_delta: 10
+        rationale:
+          english: "Wide distribution turns the new medium into a public fact before old controls can define it, so the debate moves sharply toward accepting printing press applications."
+          simp_chinese: "广泛散发使新媒介先于旧式管制成为公共事实，因此辩论明显转向接受印刷术应用。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Confine it to scholars."
+          simp_chinese: "仅限学者传阅。"
+        progress_delta: -5
+        rationale:
+          english: "Restricting copies to scholars keeps the argument orderly but prevents print from proving its mass political value."
+          simp_chinese: "将副本限制在学者圈内能维持论辩秩序，却使印刷术无法证明其大众政治价值。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: 1
+  - design_id: P02
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Printer's Guild Petition"
+      simp_chinese: "印刷匠行会请愿"
+    desc:
+      english: "Printers ask for legal recognition before more presses appear in basements and borrowed kitchens."
+      simp_chinese: "印刷匠请求法律承认，以免更多印刷机出现在地下室和借来的厨房里。"
+    options:
+      a:
+        text:
+          english: "Recognize the guild."
+          simp_chinese: "承认行会。"
+        progress_delta: 10
+        rationale:
+          english: "Legal recognition makes printing a regulated civic trade rather than a tolerated irregular craft, giving urban producers a stake in acceptance."
+          simp_chinese: "法律承认把印刷变成受规制的城市行业，而不是被默许的零散手艺，使城市生产者在接受印刷术中获得利益。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.04
+      b:
+        text:
+          english: "Keep presses licensed case by case."
+          simp_chinese: "对印刷机逐案许可。"
+        progress_delta: -5
+        rationale:
+          english: "Case-by-case licensing preserves administrative discretion and slows the formation of a confident printing interest."
+          simp_chinese: "逐案许可保留行政裁量，也延缓印刷业形成自信而稳定的利益群体。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 18
+  - design_id: P03
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Clerical Index"
+      simp_chinese: "教士禁书索引"
+    desc:
+      english: "Clergy propose an index of dangerous books, which the students immediately want to read."
+      simp_chinese: "教士提议编制危险书籍索引，而学生们立刻想把这些书全读一遍。"
+    options:
+      a:
+        text:
+          english: "Reject broad indexing."
+          simp_chinese: "拒绝广泛索引。"
+        progress_delta: 10
+        rationale:
+          english: "Refusing a broad index denies clerical authorities the power to define printed inquiry as danger by default."
+          simp_chinese: "拒绝广泛索引，就是不让教会权威默认把印刷出来的探究定义为危险。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.05
+      b:
+        text:
+          english: "Approve the index."
+          simp_chinese: "批准索引。"
+        progress_delta: -10
+        rationale:
+          english: "Approving the index places printed argument under religious gatekeeping, sharply strengthening opposition to press-driven debate."
+          simp_chinese: "批准索引会把印刷论辩置于宗教把关之下，明显强化对印刷推动辩论的反对。"
+        effect_blocks:
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 24
+  - design_id: P04
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Cheap Prayer Sheets"
+      simp_chinese: "廉价祈祷单"
+    desc:
+      english: "Cheap printed prayer sheets reach villages faster than official sermons."
+      simp_chinese: "廉价印刷祈祷单比正式布道更快传到乡村。"
+    options:
+      a:
+        text:
+          english: "Use print for reform."
+          simp_chinese: "用印刷推动改革。"
+        progress_delta: 5
+        rationale:
+          english: "Using print for reform accepts that cheap religious text can bypass old channels and build practical support for the new medium."
+          simp_chinese: "使用印刷推动改革，就是承认廉价宗教文本可以绕过旧渠道，并为新媒介建立实际支持。"
+        effect_blocks:
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Restrict village printing."
+          simp_chinese: "限制乡村印刷。"
+        progress_delta: -5
+        rationale:
+          english: "Restricting village printing reassures clergy that parish authority still controls common religious instruction."
+          simp_chinese: "限制乡村印刷让教士相信，堂区权威仍掌握普通人的宗教教导。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.03
+  - design_id: P05
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Scandal Sheet"
+      simp_chinese: "丑闻小报"
+    desc:
+      english: "A printer publishes court gossip beside serious argument and sells both equally well."
+      simp_chinese: "一名印刷商把宫廷流言和严肃论辩印在一起出售，两者卖得同样好。"
+    options:
+      a:
+        text:
+          english: "Defend press freedom."
+          simp_chinese: "捍卫出版自由。"
+        progress_delta: 5
+        rationale:
+          english: "Defending the press despite vulgar misuse protects the principle of open publication, but the Crown pays a legitimacy cost for tolerating scandal."
+          simp_chinese: "即便印刷被低俗滥用仍加以维护，能保护公开出版的原则，但王权会因容忍丑闻而付出正统性代价。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: -5
+      b:
+        text:
+          english: "Punish the printer."
+          simp_chinese: "惩罚印刷商。"
+        progress_delta: -10
+        rationale:
+          english: "Punishing the printer restores visible order by making scandal an example, but it also teaches observers that press freedom ends at court embarrassment."
+          simp_chinese: "惩罚印刷商会把丑闻变成警示并恢复可见秩序，却也让旁观者明白出版自由止步于宫廷难堪。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_scandal_sheet_crackdown
+            months: 12
+            effects:
+              public-order enforcement: 0.03
+  - design_id: P06
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Corrected Textbook"
+      simp_chinese: "校正课本"
+    desc:
+      english: "A printed textbook spreads corrected diagrams through schools in one season."
+      simp_chinese: "一本印刷课本在一个学季内把修正过的图表传遍各地学校。"
+    options:
+      a:
+        text:
+          english: "Adopt it."
+          simp_chinese: "采用它。"
+        progress_delta: 10
+        rationale:
+          english: "Adopting the textbook lets print prove its strongest scholarly claim: one correction can travel faster, farther, and more consistently than manuscript teaching."
+          simp_chinese: "采用这本课本能让印刷证明其最强的学术主张：一次修正可以比手抄教学传播得更快、更远，也更一致。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 24
+      b:
+        text:
+          english: "Review it for another season."
+          simp_chinese: "再审查一季。"
+        progress_delta: -5
+        rationale:
+          english: "Another season of review reassures cautious teachers and conservative patrons, but it treats print's ability to standardize knowledge as a risk to be delayed."
+          simp_chinese: "再审查一季能安抚谨慎教师和保守赞助者，却把印刷术统一知识的能力当成需要拖延的风险。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_textbook_review
+            months: 12
+            effects:
+              curricular caution: 0.02
+  - design_id: P07
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Paper Shortage"
+      simp_chinese: "纸张短缺"
+    desc:
+      english: "Paper makers warn that debate cannot be printed on enthusiasm alone."
+      simp_chinese: "造纸匠警告说，辩论不能只靠热情印在纸上。"
+    options:
+      a:
+        text:
+          english: "Subsidize paper."
+          simp_chinese: "补贴纸张。"
+        progress_delta: 10
+        rationale:
+          english: "Subsidizing paper turns a material bottleneck into state-backed capacity, letting the debate expand through actual sheets rather than hopeful speeches."
+          simp_chinese: "补贴纸张供应把物资瓶颈变成国家支持的产能，让辩论依靠真实纸页扩散，而不是停留在热切演说中。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -2
+      b:
+        text:
+          english: "Limit print runs."
+          simp_chinese: "限制印数。"
+        progress_delta: -10
+        rationale:
+          english: "Limiting print runs protects the treasury, but it proves that the new medium can be stopped by supply discipline before it reshapes opinion."
+          simp_chinese: "限制印数能保护国库，却也证明新媒介在重塑舆论前就会被供应纪律拦住。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: 1
+  - design_id: P08
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Anonymous Broadsides"
+      simp_chinese: "匿名传单"
+    desc:
+      english: "Anonymous broadsides support the issue with such vigor that even allies look nervous."
+      simp_chinese: "匿名传单以过分热烈的语气支持这项议题，连盟友都显得不安。"
+    options:
+      a:
+        text:
+          english: "Tolerate them."
+          simp_chinese: "容忍这些传单。"
+        progress_delta: 5
+        rationale:
+          english: "Tolerating the broadsides accepts messy public enthusiasm as part of print politics, allowing popular pressure to pull the debate toward acceptance."
+          simp_chinese: "容忍这些传单就是承认混乱的大众热情也是印刷政治的一部分，让民间压力把辩论推向接受。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Hunt the authors."
+          simp_chinese: "搜捕作者。"
+        progress_delta: -5
+        rationale:
+          english: "Hunting the authors calms officials and reduces street pressure, but it frames anonymous print as a threat rather than a sign of widening debate."
+          simp_chinese: "搜捕作者能安抚官员并减轻街头压力，却把匿名印刷品定义成威胁，而不是辩论扩大的迹象。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_broadsides_watch
+            months: 12
+            effects:
+              anonymous street agitation: -0.03
+  - design_id: P09
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Foreign Press Copies Us"
+      simp_chinese: "外国印刷所转载我方论点"
+    desc:
+      english: "A foreign press reprints Academy arguments with errors, insults, and impressive speed."
+      simp_chinese: "一家外国印刷所带着错误、讥讽和惊人的速度转载了学院论点。"
+    options:
+      a:
+        text:
+          english: "Answer in print."
+          simp_chinese: "以印刷回应。"
+        progress_delta: 10
+        rationale:
+          english: "Answering in print shows that the Academy can fight distortion with the same medium, though defending intellectual authority abroad costs prestige."
+          simp_chinese: "以印刷回应表明学院能用同一种媒介反击歪曲，尽管在国外维护学术权威需要消耗威望。"
+        effect_blocks:
+          - type: resource
+            resource: prestige
+            amount: -5
+      b:
+        text:
+          english: "Ignore foreign noise."
+          simp_chinese: "忽视外国噪声。"
+        progress_delta: -5
+        rationale:
+          english: "Ignoring the reprint keeps diplomatic tempers lower, but it leaves foreign printers to define the Academy's argument without reply."
+          simp_chinese: "忽视转载能降低外交火气，却把学院论点的解释权交给外国印刷者而不作回应。"
+        effect_blocks:
+          - type: seat_cooldown
+            group: foreign_power
+            cooldown_months: 12
+  - design_id: P10
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Scribes' Protest"
+      simp_chinese: "抄写员抗议"
+    desc:
+      english: "Scribes warn that movable type will starve honest hands and dishonest abbreviations alike."
+      simp_chinese: "抄写员警告说，活字印刷会让诚实的双手和不诚实的缩写一起挨饿。"
+    options:
+      a:
+        text:
+          english: "Retrain scribes for presses."
+          simp_chinese: "重新训练抄写员操作印刷机。"
+        progress_delta: 5
+        rationale:
+          english: "Retraining scribes makes the labor shock manageable and turns a threatened old profession into a bridge toward practical acceptance of the press."
+          simp_chinese: "重新训练抄写员能缓和劳动力冲击，把受威胁的旧职业变成通向实际接受印刷机的桥梁。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+      b:
+        text:
+          english: "Protect manuscript work."
+          simp_chinese: "保护手抄行业。"
+        progress_delta: -5
+        rationale:
+          english: "Protecting manuscript work reassures old literate professions, but it deliberately slows the replacement of hand copying with reproducible type."
+          simp_chinese: "保护手抄行业能安抚旧有文书职业，却有意放慢可复制活字取代手抄的进程。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 18
+  - design_id: P11
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Royal Proclamation Printed"
+      simp_chinese: "印刷王室公告"
+    desc:
+      english: "Officials discover that printed proclamations reach people before rumor edits them."
+      simp_chinese: "官员们发现，印刷公告能在谣言替它改写之前抵达民众手中。"
+    options:
+      a:
+        text:
+          english: "Standardize printed law."
+          simp_chinese: "统一印刷法令。"
+        progress_delta: 10
+        rationale:
+          english: "Standardized printed law proves that the press can serve royal administration with speed and consistency, so acceptance gains a strong institutional argument."
+          simp_chinese: "标准化印刷法令证明印刷机能以速度和一致性服务王室行政，因此接受印刷应用获得了强有力的制度论据。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_printed_law_standardization
+            months: 18
+            effects:
+              administrative reach and consistency: 0.03
+      b:
+        text:
+          english: "Keep proclamations traditional."
+          simp_chinese: "保留传统公告方式。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping proclamations traditional preserves local channels of interpretation and lets regional elites remain useful gatekeepers of the law."
+          simp_chinese: "保留传统公告方式会维持地方解释渠道，让地方精英继续充当法令传播的有用把关人。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+  - design_id: P12
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Forbidden Book Success"
+      simp_chinese: "禁书畅销"
+    desc:
+      english: "A banned book becomes popular because it is banned, as books sometimes do out of spite."
+      simp_chinese: "一本被禁的书因为遭禁而流行起来，书籍有时就是这样带着几分倔强。"
+    options:
+      a:
+        text:
+          english: "Legalize and annotate it."
+          simp_chinese: "将其合法化并加注解。"
+        progress_delta: 10
+        rationale:
+          english: "Legalizing the book and surrounding it with official annotation turns forbidden curiosity into supervised public argument, advancing acceptance while angering clerical guardians."
+          simp_chinese: "将禁书合法化并配上官方注解，会把被禁止激起的好奇转化为受监督的公共论辩，在推进接纳的同时激怒宗教守门人。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.05
+      b:
+        text:
+          english: "Expand confiscations."
+          simp_chinese: "扩大查禁。"
+        progress_delta: -10
+        rationale:
+          english: "Wider confiscations restore visible order, but they also concede that printed text is dangerous enough to be fought by force."
+          simp_chinese: "扩大查禁能恢复可见秩序，却也等于承认印刷文本危险到必须用强制手段对付。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: 1
+  - design_id: P13
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "University Printer"
+      simp_chinese: "大学印刷所"
+    desc:
+      english: "A university requests its own press to avoid begging city printers for sober priorities."
+      simp_chinese: "一所大学请求拥有自己的印刷机，免得总要求城中印刷工优先处理严肃文本。"
+    options:
+      a:
+        text:
+          english: "Grant the press."
+          simp_chinese: "准许设立印刷所。"
+        progress_delta: 5
+        rationale:
+          english: "Granting the university a press makes printing a scholarly instrument instead of merely an urban trade, giving learned supporters a direct stake in acceptance."
+          simp_chinese: "准许大学设立印刷所，会让印刷术成为学术工具，而不只是城市行业，使学者支持者直接从接纳中受益。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Centralize printing."
+          simp_chinese: "集中管理印刷事务。"
+        progress_delta: -5
+        rationale:
+          english: "Centralizing printing satisfies officials who prefer every press to answer upward, but it denies universities a practical demonstration of scholarly self-direction."
+          simp_chinese: "集中管理印刷事务能满足希望所有印刷机向上负责的官员，却剥夺了大学展示学术自理能力的实践机会。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_central_print_office
+            months: 18
+            effects:
+              licensing consistency: 0.02
+  - design_id: P14
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Errors Multiply"
+      simp_chinese: "错误成倍扩散"
+    desc:
+      english: "One bad printed table spreads the same error through hundreds of copies."
+      simp_chinese: "一张错误的印刷表格让同一个错误随着数百份副本传播开来。"
+    options:
+      a:
+        text:
+          english: "Create correction sheets."
+          simp_chinese: "印制勘误单。"
+        progress_delta: 5
+        rationale:
+          english: "Correction sheets admit the failure while showing that print can repair itself through the same rapid circulation that spread the mistake."
+          simp_chinese: "印制勘误单是在承认失败的同时，证明印刷术能用传播错误的同一种速度来修正自身。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+      b:
+        text:
+          english: "Use it against print reliability."
+          simp_chinese: "借此质疑印刷可靠性。"
+        progress_delta: -5
+        rationale:
+          english: "Treating the error as proof against the press lets conservative scholars argue that multiplication magnifies falsehood as easily as truth."
+          simp_chinese: "把错误当作反对印刷术的证据，会让保守学者声称，大量复制既能放大真理，也同样能放大谬误。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: oppose
+            cooldown_months: 12
+  - design_id: P15
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Ballad of the Issue"
+      simp_chinese: "议题歌谣"
+    desc:
+      english: "A printed ballad explains the debate badly but memorably."
+      simp_chinese: "一首印刷歌谣把这场辩论解释得不甚准确，却令人难忘。"
+    options:
+      a:
+        text:
+          english: "Use popular print."
+          simp_chinese: "利用通俗印刷品。"
+        progress_delta: 5
+        rationale:
+          english: "Using popular print accepts that simplified songs can carry the debate beyond the Academy even when they sand down the argument."
+          simp_chinese: "利用通俗印刷品，就是承认简化过的歌谣即使磨平了论证，也能把辩论带出学院之外。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Suppress vulgar argument."
+          simp_chinese: "压制粗俗论辩。"
+        progress_delta: -5
+        rationale:
+          english: "Suppressing vulgar argument reassures elites that philosophy will not be surrendered to catchy refrains and street interpretation."
+          simp_chinese: "压制粗俗论辩会让精英放心，相信哲学不会被朗朗上口的副歌和街头解读接管。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.03
+  - design_id: P16
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Noble Libel Suit"
+      simp_chinese: "贵族诽谤诉讼"
+    desc:
+      english: "A noble sues a printer for making old privilege look ridiculous in affordable type."
+      simp_chinese: "一名贵族起诉印刷商，因为廉价铅字把旧特权写得可笑起来。"
+    options:
+      a:
+        text:
+          english: "Protect the printer."
+          simp_chinese: "保护印刷商。"
+        progress_delta: 10
+        rationale:
+          english: "Protecting the printer turns noble embarrassment into a legal precedent for public criticism, sharply advancing acceptance of printing press applications."
+          simp_chinese: "保护印刷商会把贵族的难堪转化为公开批评的法律先例，从而明显推动对印刷术应用的接受。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.05
+      b:
+        text:
+          english: "Fine the printer."
+          simp_chinese: "罚款惩戒印刷商。"
+        progress_delta: -10
+        rationale:
+          english: "Fining the printer restores noble honor and makes privilege a boundary that cheap print may not cross, sharply strengthening resistance to the press."
+          simp_chinese: "罚款惩戒印刷商能恢复贵族体面，并把特权划成廉价印刷不得越过的界线，从而明显加强对印刷术的抵制。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.05
+  - design_id: P17
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Multilingual Edition"
+      simp_chinese: "多语种版本"
+    desc:
+      english: "Printers propose editions in several languages, making the argument harder to contain."
+      simp_chinese: "印刷商提议用数种语言出版同一论点，让这场争论更难被圈住。"
+    options:
+      a:
+        text:
+          english: "Publish them."
+          simp_chinese: "出版多语种版本。"
+        progress_delta: 10
+        rationale:
+          english: "Multilingual publication lets print carry the issue through communities that official language normally filters out, giving minorities and cities a stake in acceptance."
+          simp_chinese: "多语种出版让印刷品把议题带进官方语言通常过滤掉的群体之中，使少数群体和城市都从接受印刷应用中受益。"
+        effect_blocks:
+          - type: seat_stance
+            group: minorities
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.03
+      b:
+        text:
+          english: "Keep one official language."
+          simp_chinese: "只保留一种官方语言。"
+        progress_delta: -5
+        rationale:
+          english: "A single official language keeps interpretation centralized and administratively tidy, but it narrows the press back into an instrument of authority."
+          simp_chinese: "单一官方语言能让解释权保持集中，也让行政更整齐，却会把印刷术重新压缩成权威机关的工具。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: 3
+  - design_id: P18
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Press in the Barracks"
+      simp_chinese: "营房里的印刷机"
+    desc:
+      english: "Officers request printed drill manuals and technical sheets."
+      simp_chinese: "军官们请求印刷操典手册和技术单页。"
+    options:
+      a:
+        text:
+          english: "Approve military printing."
+          simp_chinese: "批准军事印刷。"
+        progress_delta: 5
+        rationale:
+          english: "Military manuals show that print can standardize practice under pressure, winning practical support from officers without turning the debate fully public."
+          simp_chinese: "军事手册证明印刷术能在高压环境下统一实践，从军官那里赢得务实支持，但不会把争论完全推向街头。"
+        effect_blocks:
+          - type: seat_stance
+            group: professional_military
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Keep presses civil."
+          simp_chinese: "让印刷机只服务民政事务。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping presses civil reassures conservative officers that barracks discipline will not be rewritten by printed sheets, but it denies the press a useful technical role."
+          simp_chinese: "让印刷机只服务民政事务会使保守军官相信营房纪律不会被印刷单页改写，却也否认了印刷术有用的技术角色。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_civil_press_boundary
+            months: 12
+            effects:
+              barracks information discipline: 0.02
+  - design_id: P19
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "Printer Becomes Celebrity"
+      simp_chinese: "印刷商成了名人"
+    desc:
+      english: "A printer becomes famous enough to annoy scholars who wrote the actual words."
+      simp_chinese: "一名印刷商出名到足以惹恼真正写下那些文字的学者。"
+    options:
+      a:
+        text:
+          english: "Use the fame."
+          simp_chinese: "借用这份名声。"
+        progress_delta: 5
+        rationale:
+          english: "Using the printer's fame accepts that the medium now has its own public figures, letting urban trades turn attention into support for acceptance."
+          simp_chinese: "借用印刷商的名声等于承认这种媒介已经拥有自己的公众人物，让城市行业把关注转化为支持接纳。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.04
+      b:
+        text:
+          english: "Recenter scholars."
+          simp_chinese: "重新把学者放回中心。"
+        progress_delta: -5
+        rationale:
+          english: "Recentering scholars protects learned authorship from commercial showmanship, but it pushes the debate away from the public power of the press itself."
+          simp_chinese: "重新把学者放回中心能保护学术作者免受商业作秀遮蔽，却会让辩论远离印刷术本身的公共力量。"
+        effect_blocks:
+          - type: seat_cooldown
+            group: scholarly_community
+            cooldown_months: 18
+  - design_id: P20
+    pool: printing_press
+    issue: printing_press
+    weight: 1
+    title:
+      english: "The Censor's Delay"
+      simp_chinese: "审查官的拖延"
+    desc:
+      english: "The censor takes so long that the issue risks dying politely in a locked drawer."
+      simp_chinese: "审查官拖得太久，以至于这项议题可能体面地死在上锁抽屉里。"
+    options:
+      a:
+        text:
+          english: "Bypass the delay."
+          simp_chinese: "绕过拖延程序。"
+        progress_delta: 10
+        rationale:
+          english: "Bypassing the censor prevents procedure from smothering the issue and proves that printing can outrun official delay, though legitimacy suffers from the irregular route."
+          simp_chinese: "绕过审查官能防止程序闷死议题，并证明印刷术可以跑过官方拖延，虽然这种非常规路径会损害正统性。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: -5
+      b:
+        text:
+          english: "Respect the process."
+          simp_chinese: "尊重既定流程。"
+        progress_delta: -10
+        rationale:
+          english: "Respecting the process lets bureaucrats define delay as prudence, sharply weakening the case that printing needs faster channels of approval."
+          simp_chinese: "尊重既定流程会让官僚把拖延定义成审慎，从而明显削弱印刷术需要更快审批渠道的论点。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 24
+excluded_events: []

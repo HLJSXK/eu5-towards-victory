@@ -98,7 +98,7 @@ generated:
     output: src/in_game/common/generic_action_ai_lists/tv_io_establishment_list.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_academy_philosophy_debate_effects.py
-    data:   data/philosophy_debates.yaml
+    data:   data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml
     output: src/in_game/common/scripted_effects/tv_academy_philosophy_debate_effects.txt
 
   - script: scripts/in_game/common/scripted_triggers/gen_tv_academy_philosophy_debate_triggers.py
@@ -106,19 +106,19 @@ generated:
     output: src/in_game/common/scripted_triggers/tv_academy_philosophy_debate_triggers.txt
 
   - script: scripts/in_game/events/gen_tv_academy_philosophy_debate_events.py
-    data:   data/philosophy_debates.yaml
+    data:   data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml
     output: src/in_game/events/tv_academy_philosophy_debate_events.txt
 
   - script: scripts/in_game/common/static_modifiers/gen_tv_academy_philosophy_debate_modifiers.py
-    data:   data/philosophy_debates.yaml
+    data:   data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml
     output: src/in_game/common/static_modifiers/tv_academy_philosophy_debate_modifiers.txt
 
   - script: scripts/main_menu/localization/english/gen_tv_academy_philosophy_debate_l_english.py
-    data:   data/philosophy_debates.yaml
+    data:   data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml
     output: src/main_menu/localization/english/tv_academy_philosophy_debate_l_english.yml
 
   - script: scripts/main_menu/localization/simp_chinese/gen_tv_academy_philosophy_debate_l_simp_chinese.py
-    data:   data/philosophy_debates.yaml
+    data:   data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml
     output: src/main_menu/localization/simp_chinese/tv_academy_philosophy_debate_l_simp_chinese.yml
 
   - script: scripts/in_game/common/building_types/gen_towards_victory_buildings.py

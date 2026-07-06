@@ -1,0 +1,882 @@
+random_events:
+  - design_id: R01
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "A Newly Found Torso"
+      simp_chinese: "新发现的残躯"
+    desc:
+      english: "Laborers uncover an ancient marble torso, broken at the limbs but disturbingly complete in its argument. Artists crowd around it and insist that stone has answered questions the commentaries kept postponing."
+      simp_chinese: "工匠掘出一具古代大理石残躯，四肢虽断，论证却完整得令人不安。艺术家围在它周围，坚持说石头已经回答了注疏一再拖延的问题。"
+    options:
+      a:
+        text:
+          english: "Exhibit it at the Academy."
+          simp_chinese: "在学院展出它。"
+        progress_delta: 10
+        rationale:
+          english: "Exhibiting the torso turns classical recovery into visible evidence for Renaissance inquiry, giving artists a powerful supporting seat while making the clergy uneasy about the body's authority."
+          simp_chinese: "展出残躯会把古典复兴变成可见证据，使艺术家更有力地支持文艺复兴式探究，同时也让神职阶层对身体本身获得论证权感到不安。"
+        effect_blocks:
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.03
+      b:
+        text:
+          english: "Store it as a curiosity."
+          simp_chinese: "将它作为珍品收藏。"
+        progress_delta: -5
+        rationale:
+          english: "Treating the torso as a private curiosity preserves decorum and calms conservative readers, but it denies the debate the public force of a rediscovered classical form."
+          simp_chinese: "将残躯视作私人珍品可以维持体面，也能安抚保守派读者，但这会让辩论失去重新发现的古典形体所带来的公共力量。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.03
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 12
+  - design_id: R02
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Anatomy Before the Court"
+      simp_chinese: "宫廷前的解剖"
+    desc:
+      english: "Physicians ask to conduct a sanctioned anatomical lesson before courtiers and scholars. The old diagrams remain polite on the table, but the physicians warn that politeness has never made a body true."
+      simp_chinese: "医师请求在廷臣与学者面前举行一场获准的解剖课。旧图依然端正地摆在桌上，但医师提醒众人，端正从来不能让身体变得真实。"
+    options:
+      a:
+        text:
+          english: "Permit the lesson."
+          simp_chinese: "准许这堂课。"
+        progress_delta: 10
+        rationale:
+          english: "Permitting the lesson gives direct observation priority over inherited diagrams, sharply advancing Renaissance empiricism while offending clergy who see the display as a breach of sacred restraint."
+          simp_chinese: "准许解剖课等于让直接观察压过沿袭下来的图谱，强力推动文艺复兴式经验探究，同时冒犯那些认为公开展示身体越过神圣克制界限的神职人员。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.05
+      b:
+        text:
+          english: "Forbid the spectacle."
+          simp_chinese: "禁止这场展示。"
+        progress_delta: -10
+        rationale:
+          english: "Forbidding the lesson hands opponents a decisive victory: the court chooses reverence and order over demonstration, making old diagrams safe again."
+          simp_chinese: "禁止这堂课会给反对者一场明确胜利：宫廷选择敬畏与秩序，而不是演示与观察，于是旧图谱重新变得安全。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.05
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 18
+  - design_id: R03
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Perspective in the Chapel"
+      simp_chinese: "礼拜堂中的透视"
+    desc:
+      english: "A painter unveils a chapel design where arches, saints, and shadows obey the same measured vanishing point. Some call it reverence made clearer; others call it geometry standing too close to the altar."
+      simp_chinese: "一位画家展示了新的礼拜堂设计，拱券、圣像与阴影都服从同一个可测量的消失点。有人说这是更清晰的虔敬，也有人说几何站得离祭坛太近了。"
+    options:
+      a:
+        text:
+          english: "Celebrate the method."
+          simp_chinese: "赞扬这种方法。"
+        progress_delta: 5
+        rationale:
+          english: "Celebrating perspective lets artistic technique serve sacred space without breaking it, giving artists favor and a modest push toward accepting Renaissance methods."
+          simp_chinese: "赞扬透视法意味着让艺术技法服务于神圣空间而不摧毁它，这会提高艺术家的地位，并温和推动对文艺复兴方法的接受。"
+        effect_blocks:
+          - type: artist_skill
+            amount: 0.03
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Demand traditional forms."
+          simp_chinese: "要求沿用传统形式。"
+        progress_delta: -5
+        rationale:
+          english: "Demanding older forms reassures religious patrons that novelty will not redraw devotion without permission, but it blunts the argument that measurement can deepen art."
+          simp_chinese: "要求旧形式会让宗教赞助者放心，确信新奇手法不能未经许可重画虔敬；但这也削弱了'测量可以加深艺术'的论点。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.03
+          - type: seat_cooldown
+            group: artists
+            cooldown_months: 12
+  - design_id: R04
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Patronage Ledger"
+      simp_chinese: "赞助账册"
+    desc:
+      english: "Artists bring a ledger showing which workshops changed when patrons paid, and which sermons merely praised change after it was already carved, painted, and delivered. Inspiration, the ledger suggests, has a treasurer."
+      simp_chinese: "艺术家带来一本账簿，列出哪些工坊在赞助到来后发生改变，哪些布道只是在作品已经雕好、画好、交付之后才赞美变化。账簿暗示，灵感也有司库。"
+    options:
+      a:
+        text:
+          english: "Expand court patronage."
+          simp_chinese: "扩大宫廷赞助。"
+        progress_delta: 10
+        rationale:
+          english: "Expanding patronage admits that institutions can manufacture artistic renewal, strongly advancing Renaissance acceptance at an immediate fiscal cost."
+          simp_chinese: "扩大赞助等于承认制度可以制造艺术更新，因此会强力推动对文艺复兴的接受，但需要立刻付出财政代价。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -2
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Keep patronage ceremonial."
+          simp_chinese: "将赞助保持为礼仪事务。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping patronage ceremonial protects the treasury and keeps art subordinate to court display, but it leaves innovation dependent on private accidents rather than public commitment."
+          simp_chinese: "将赞助保持为礼仪事务可以保护国库，也让艺术继续服从宫廷展示；但创新仍只能依赖私人偶然，而不是公共承诺。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_ceremonial_patronage
+            months: 12
+            effects:
+              court expenditure restraint: 0.02
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 12
+  - design_id: R05
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "The Humanist Tutor"
+      simp_chinese: "人文主义导师"
+    desc:
+      english: "A humanist tutor argues that rulers should read history as instruction, not ornament. Several nobles hear the word \"instruction\" and immediately wonder who is being instructed to surrender old habits."
+      simp_chinese: "一位人文主义导师主张，统治者阅读历史应当是为了受教，而不是为了装点门面。几位贵族一听见'受教'二字，立刻开始怀疑是谁要被教着放下旧习惯。"
+    options:
+      a:
+        text:
+          english: "Invite them to lecture."
+          simp_chinese: "邀请其公开讲学。"
+        progress_delta: 5
+        rationale:
+          english: "Inviting the tutor makes humanist learning part of public political formation, nudging the debate forward while making nobles uncomfortable with history being used to judge rank and custom."
+          simp_chinese: "邀请导师公开讲学，会把人文主义学问纳入公开的政治塑造，温和推进辩论；同时，贵族会因历史被用来评判等级与习俗而感到不适。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.03
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Keep tutors private."
+          simp_chinese: "让导师留在私人场合。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping tutors private preserves court order and noble comfort, but it turns humanist history back into decoration for elites rather than an argument for public renewal."
+          simp_chinese: "让导师留在私人场合可以维持宫廷秩序与贵族舒适感，却会把人文主义历史重新变成精英的装饰，而不是公共更新的论证。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: 5
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 12
+  - design_id: R06
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Classics in the Market"
+      simp_chinese: "市场上的古典诗篇"
+    desc:
+      english: "Cheap copies of classical verses appear beside account books and salt fish. The Academy discovers that old authors sound different when read by people who paid market price for them."
+      simp_chinese: "廉价的古典诗篇抄本出现在账簿和咸鱼旁边。学院发现，当普通人以市价买下旧作者时，那些旧文字听起来便不再只属于书斋。"
+    options:
+      a:
+        text:
+          english: "Let the market read."
+          simp_chinese: "让市场读下去。"
+        progress_delta: 5
+        rationale:
+          english: "Allowing cheap copies to circulate turns Renaissance learning into a public habit instead of a guarded elite possession, so public opinion becomes more receptive to accepting the issue."
+          simp_chinese: "放任廉价抄本流通，会把文艺复兴式学问从精英守护的藏品变成市民日常，因此民意更容易倾向接受该议题。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.02
+      b:
+        text:
+          english: "Restrict copies to scholars."
+          simp_chinese: "只准学者持有抄本。"
+        progress_delta: -5
+        rationale:
+          english: "Restricting the copies protects elite control over interpretation, reassuring high-status readers while making the Renaissance argument look too delicate for broad acceptance."
+          simp_chinese: "限制抄本能保护精英对解释权的控制，安抚高位读者，却也让文艺复兴论点显得过于脆弱，难以被广泛接纳。"
+        effect_blocks:
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.02
+  - design_id: R07
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Artist Versus Theologian"
+      simp_chinese: "艺术家与神学家"
+    desc:
+      english: "An artist and a theologian quarrel over whether beauty teaches truth or merely distracts the soul from it. The Academy listens as brushwork and doctrine accuse each other of vanity."
+      simp_chinese: "一位艺术家和一位神学家争论美究竟能教人认识真理，还是只会让灵魂分心。学院听着笔触与教义彼此指责对方虚荣。"
+    options:
+      a:
+        text:
+          english: "Defend artistic inquiry."
+          simp_chinese: "捍卫艺术探究。"
+        progress_delta: 10
+        rationale:
+          english: "Defending artistic inquiry gives Renaissance method a major victory: beauty is treated as a way to investigate truth, even though clergy lose confidence in the debate's restraint."
+          simp_chinese: "捍卫艺术探究会让文艺复兴方法取得重大胜利：美被承认为探求真理的一种方式，尽管神职人员会更不信任这场辩论的分寸。"
+        effect_blocks:
+          - type: artist_skill
+            amount: 0.05
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.05
+      b:
+        text:
+          english: "Side with theology."
+          simp_chinese: "站在神学一边。"
+        progress_delta: -10
+        rationale:
+          english: "Siding with theology makes doctrinal caution stronger than artistic investigation, sharply weakening acceptance while rewarding clerical guardianship and discouraging artists."
+          simp_chinese: "站在神学一边，会让教义谨慎压过艺术探究，显著削弱接受趋势，同时奖励神职守护权并打击艺术家。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.05
+          - type: artist_skill
+            amount: -0.04
+  - design_id: R08
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Court Masque of Renewal"
+      simp_chinese: "宫廷新生假面剧"
+    desc:
+      english: "Courtiers propose a grand performance celebrating rebirth, order, and the Crown's excellent taste. Everyone agrees the doctrine would be more convincing with music, costumes, and invoices."
+      simp_chinese: "朝臣提议举办一场盛大演出，歌颂新生、秩序，以及王室无可挑剔的品味。众人一致认为，只要有音乐、服饰和账单，学说就会更有说服力。"
+    options:
+      a:
+        text:
+          english: "Fund the masque."
+          simp_chinese: "资助这场假面剧。"
+        progress_delta: 5
+        rationale:
+          english: "Funding the masque turns Renaissance renewal into a public court ritual, modestly helping acceptance by attaching the issue to spectacle and prestige at a real treasury cost."
+          simp_chinese: "资助假面剧会把文艺复兴式新生包装成公开的宫廷仪式，借声望和盛典略微推动接受，但国库必须承担实际成本。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+          - type: temporary_country_modifier
+            key: tv_academy_debate_court_masque
+            months: 12
+            effects:
+              courtly prestige display: 0.02
+      b:
+        text:
+          english: "Avoid theatrical doctrine."
+          simp_chinese: "避免把学说搬上舞台。"
+        progress_delta: -5
+        rationale:
+          english: "Avoiding theatrical doctrine keeps the treasury quiet and prevents courtiers from dressing the issue as royal fashion, but it also denies the Renaissance side a persuasive ceremonial stage."
+          simp_chinese: "避免把学说搬上舞台可以让国库安静，也防止朝臣把议题装扮成王室风尚，但这会剥夺文艺复兴一方有说服力的仪式舞台。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: 1
+          - type: seat_cooldown
+            group: artists
+            cooldown_months: 12
+  - design_id: R09
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "A Ruin Measured"
+      simp_chinese: "丈量古代遗迹"
+    desc:
+      english: "Surveyors measure ancient ruins and discover proportions that embarrass current builders. The stones say nothing, which makes their arithmetic harder to interrupt."
+      simp_chinese: "测绘者丈量古代遗迹，发现其中比例足以让当代建造者脸红。石头一言不发，正因如此，它们的算术更难被打断。"
+    options:
+      a:
+        text:
+          english: "Publish the measures."
+          simp_chinese: "公布丈量结果。"
+        progress_delta: 5
+        rationale:
+          english: "Publishing the measurements lets material evidence from antiquity discipline current practice, strengthening acceptance through craft, proportion, and artist-scholar cooperation."
+          simp_chinese: "公布丈量结果会让来自古代的物证反过来规范当下技艺，借工艺、比例以及艺术家与学者的合作来推动接受。"
+        effect_blocks:
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_measured_ruins
+            months: 18
+            effects:
+              architectural study momentum: 0.02
+      b:
+        text:
+          english: "Treat them as antiquarian trivia."
+          simp_chinese: "当作古董趣闻处理。"
+        progress_delta: -5
+        rationale:
+          english: "Treating the measures as trivia preserves the ruins as harmless curiosities instead of evidence for reform, muting artists who would turn old stone into a current standard."
+          simp_chinese: "把丈量结果当作趣闻，会让遗迹停留在无害收藏物的位置，而不是成为改革证据，也会压低艺术家借古代石材制定当代标准的声音。"
+        effect_blocks:
+          - type: seat_cooldown
+            group: artists
+            cooldown_months: 12
+          - type: seat_stance
+            group: scholarly_community
+            stance: neutral
+            cooldown_months: 6
+  - design_id: R10
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Women's Learning Salon"
+      simp_chinese: "女性学识沙龙"
+    desc:
+      english: "A salon of learned women circulates essays that make the Academy look smaller than it claims. Their arguments arrive polished, unattributed to any chair, and inconveniently difficult to dismiss."
+      simp_chinese: "一场由博学女性主持的沙龙开始传阅文章，使学院显得没有自己宣称的那样广大。她们的论证优雅，并不依附任何讲席，而且麻烦地难以驳倒。"
+    options:
+      a:
+        text:
+          english: "Welcome the essays."
+          simp_chinese: "欢迎这些文章。"
+        progress_delta: 10
+        rationale:
+          english: "Welcoming the essays strongly advances acceptance because the Academy admits Renaissance learning can flourish beyond its familiar male and official channels, even as conservative estates object."
+          simp_chinese: "欢迎这些文章会显著推动接受，因为学院承认文艺复兴式学问能够在熟悉的男性与官方渠道之外生长，尽管保守阶层会提出反对。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.03
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.03
+      b:
+        text:
+          english: "Dismiss the salon."
+          simp_chinese: "轻视这场沙龙。"
+        progress_delta: -10
+        rationale:
+          english: "Dismissing the salon restores courtly and conservative comfort, but it teaches the room that accepted learning must remain socially narrow and officially credentialed."
+          simp_chinese: "轻视沙龙可以恢复宫廷与保守派的舒适感，却也等于告诉辩论厅：被承认的学问必须继续保持狭窄的社会边界和官方资格。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.04
+  - design_id: R11
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Translation of a Greek Text"
+      simp_chinese: "希腊文本的翻译"
+    desc:
+      english: "A Greek text arrives with enough ambiguity to start three arguments and one school."
+      simp_chinese: "一部希腊文本送抵学院，其中的含混之处足以引发三场争论，并催生一个学派。"
+    options:
+      a:
+        text:
+          english: "Sponsor translation"
+          simp_chinese: "资助翻译"
+        progress_delta: 10
+        rationale:
+          english: "Funding a careful translation turns ambiguity into humanist momentum. The debate advances because scholars gain usable language for the new Renaissance claim, while the treasury pays for copyists, philologists, and comparison manuscripts."
+          simp_chinese: "资助严谨翻译会把含混之处转化为人文主义的推动力。学者获得可用于阐明文艺复兴主张的术语，因此辩论向接受方向推进，但国库需要承担抄写员、语文学者和校勘底本的费用。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Delay for review"
+          simp_chinese: "延后审阅"
+        progress_delta: -5
+        rationale:
+          english: "Review delays let institutional caution define the text before reformers can use it. Clergy and bureaucrats are reassured because difficult passages remain contained and administratively supervised."
+          simp_chinese: "延后审阅让制度性的谨慎先于改革者解释文本。疑难段落仍被控制在审查和行政程序中，因此神职人员与官僚更感安心。"
+        effect_blocks:
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 18
+          - type: seat_cooldown
+            group: court_bureaucrats
+            cooldown_months: 12
+  - design_id: R12
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Fresco of the New Age"
+      simp_chinese: "新时代的湿壁画"
+    desc:
+      english: "A fresco depicts the realm stepping from shadow into measured light. It is not subtle, which is why it works."
+      simp_chinese: "一幅湿壁画描绘王国从阴影中走向有度量的光明。它并不含蓄，也正因如此才有效。"
+    options:
+      a:
+        text:
+          english: "Place it in the Academy"
+          simp_chinese: "将它置于学院"
+        progress_delta: 5
+        rationale:
+          english: "Installing the fresco makes Renaissance renewal part of the Academy's daily visual language. It advances acceptance modestly because the argument becomes atmospheric and memorable rather than strictly doctrinal."
+          simp_chinese: "将湿壁画安置在学院中，会让文艺复兴式更新成为学院日常视觉语言的一部分。它不是以教义论证取胜，而是以氛围和记忆推动接受，因此进度小幅上升。"
+        effect_blocks:
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 12
+          - type: artist_skill
+            amount: 0.05
+      b:
+        text:
+          english: "Keep walls neutral"
+          simp_chinese: "保持墙面中立"
+        progress_delta: -5
+        rationale:
+          english: "Neutral walls keep the debate from becoming visual propaganda. Conservative seats can frame restraint as dignity, slowing acceptance without requiring a harsher crackdown."
+          simp_chinese: "保持墙面中立，可以避免辩论变成视觉宣传。保守席位能够把克制解释为庄重，从而减缓接受进度，同时不必采取更严厉的压制。"
+        effect_blocks:
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.02
+  - design_id: R13
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Old Workshop Resists"
+      simp_chinese: "旧工坊的抵制"
+    desc:
+      english: "Traditional masters refuse new proportions, calling them foreign vanity."
+      simp_chinese: "传统大师拒绝新的比例法，称其为外来的虚荣。"
+    options:
+      a:
+        text:
+          english: "Enforce the new curriculum"
+          simp_chinese: "强制推行新课程"
+        progress_delta: 10
+        rationale:
+          english: "Enforcing the curriculum makes Renaissance method a taught standard instead of an optional fashion. The large progress gain reflects the Crown turning workshop practice into institutional doctrine, while guild-linked burghers resent the intrusion."
+          simp_chinese: "强制推行课程会把文艺复兴方法变成教学标准，而不是可有可无的风尚。大幅推进来自王权将工坊技艺纳入制度教义，但与行会相连的市民会反感这种干预。"
+        effect_blocks:
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: -0.05
+      b:
+        text:
+          english: "Respect workshop custom"
+          simp_chinese: "尊重工坊惯例"
+        progress_delta: -10
+        rationale:
+          english: "Respecting workshop custom concedes that inherited craft authority outranks the new proportions. The debate loses ground sharply because conservative practice wins a practical veto, while guild interests feel protected."
+          simp_chinese: "尊重工坊惯例等于承认传统技艺权威高于新的比例法。保守实践获得了事实上的否决权，因此辩论大幅后退，而行会利益则感到受到保护。"
+        effect_blocks:
+          - type: seat_stance
+            group: burghers
+            stance: oppose
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.05
+  - design_id: R14
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Poets at the Debate"
+      simp_chinese: "辩论中的诗人"
+    desc:
+      english: "Poets begin turning the issue into quotable lines, which may be useful and is definitely dangerous."
+      simp_chinese: "诗人开始把议题改写成可传诵的句子。这也许有用，但绝对危险。"
+    options:
+      a:
+        text:
+          english: "Use their language"
+          simp_chinese: "借用他们的语言"
+        progress_delta: 5
+        rationale:
+          english: "Adopting the poets' phrasing lets Renaissance ideas travel as memorable speech. The progress gain is modest because popularity helps persuasion, but poetic language also makes the issue harder to control."
+          simp_chinese: "采纳诗人的措辞，会让文艺复兴观念以易于传诵的语言扩散。进度小幅上升，因为流行表达有助于说服，但诗性语言也让议题更难被控制。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 12
+          - type: resource
+            resource: prestige
+            amount: 5
+      b:
+        text:
+          english: "Expel the poets"
+          simp_chinese: "驱逐诗人"
+        progress_delta: -5
+        rationale:
+          english: "Expelling the poets preserves procedural seriousness but drains the debate of public energy. Bureaucratic guardians of orderly deliberation are strengthened as the issue retreats back into controlled rooms."
+          simp_chinese: "驱逐诗人可以维护程序上的严肃性，却会抽走辩论的公共活力。维护有序议事的官僚因此得到加强，议题也退回受控的房间之中。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_orderly_proceedings
+            months: 12
+            effects:
+              academy procedural calm: 0.01
+  - design_id: R15
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "The Prince's Portrait"
+      simp_chinese: "王子的肖像"
+    desc:
+      english: "The royal portraitist proposes painting the ruler in humanist style rather than sacred distance."
+      simp_chinese: "王室肖像画师提议以人文主义风格描绘统治者，而不是维持神圣而遥远的姿态。"
+    options:
+      a:
+        text:
+          english: "Accept the style"
+          simp_chinese: "接受这种风格"
+        progress_delta: 5
+        rationale:
+          english: "Accepting the humanist portrait places the ruler inside the Renaissance argument without making policy text do all the work. Prestige may rise because the court appears learned, confident, and modern."
+          simp_chinese: "接受人文主义肖像，会让统治者亲自进入文艺复兴论证，而不必只依靠政策文字。宫廷显得博学、自信且新颖，因此威望可能上升。"
+        effect_blocks:
+          - type: resource
+            resource: prestige
+            amount: 10
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Keep the old iconography"
+          simp_chinese: "保留旧图像传统"
+        progress_delta: -5
+        rationale:
+          english: "Keeping old iconography protects sacred distance and reassures clerical interpreters of royal image-making. The debate slows because the Crown declines to model the new humanist language publicly."
+          simp_chinese: "保留旧图像传统会维护神圣距离，并安抚负责解释王室形象的神职人员。王权拒绝公开示范新的人文主义语言，因此辩论进度放缓。"
+        effect_blocks:
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.03
+  - design_id: R16
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "New Calendar of Festivals"
+      simp_chinese: "新节庆历"
+    desc:
+      english: "Scholars suggest reshaping civic festivals around learning, arts, and urban pride, until the year's holy and market days begin to look like an argument about what the realm honors."
+      simp_chinese: "学者建议重塑市民节庆，使其围绕学问、艺术与城市荣誉展开。于是，一年的圣日与集市日也开始像是在争论王国究竟尊崇什么。"
+    options:
+      a:
+        text:
+          english: "Adopt the new festivals."
+          simp_chinese: "采纳新的节庆安排。"
+        progress_delta: 10
+        rationale:
+          english: "Turning the calendar itself into a civic-humanist teaching tool makes Renaissance acceptance feel public and durable, but organizing new festivals costs money and unsettles inherited ritual rhythms."
+          simp_chinese: "把历法本身改造成市民人文主义的教化工具，会让文艺复兴的接受显得公开而持久；但筹办新节庆需要花费，也会扰动既有礼仪节奏。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Keep the old festival order."
+          simp_chinese: "保留旧有节庆秩序。"
+        progress_delta: -10
+        rationale:
+          english: "Preserving the old order lets clergy and local elders frame Renaissance festival reform as needless disruption, hardening resistance rather than merely slowing the debate."
+          simp_chinese: "保留旧秩序会让神职人员与地方长老把节庆改革说成无谓扰动，从而强化反对，而不只是拖慢辩论。"
+        effect_blocks:
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 18
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.04
+  - design_id: R17
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Imported Master"
+      simp_chinese: "外来的大师"
+    desc:
+      english: "A foreign master offers techniques that local artists resent for being both foreign and better, and every compliment paid to the visitor lands like a correction."
+      simp_chinese: "一位外国大师带来新技法，本地艺术家因其既是外来之物又确实更高明而心生怨气。每一句赞美听起来都像在纠正他们。"
+    options:
+      a:
+        text:
+          english: "Hire the master."
+          simp_chinese: "聘用这位大师。"
+        progress_delta: 10
+        rationale:
+          english: "Hiring the master makes Renaissance technique immediately visible and teachable, so the debate surges forward; the cost is local resentment from workshops that feel displaced."
+          simp_chinese: "聘用大师会让文艺复兴技法立刻变得可见、可学，因此辩论大幅推进；代价是本地作坊会感到被取代并滋生怨气。"
+        effect_blocks:
+          - type: artist_skill
+            amount: 0.05
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 18
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 12
+      b:
+        text:
+          english: "Decline politely."
+          simp_chinese: "礼貌谢绝。"
+        progress_delta: -5
+        rationale:
+          english: "Refusing the foreign master protects local pride and avoids a workshop quarrel, but it also lets caution define the Academy's answer to superior technique."
+          simp_chinese: "拒绝外国大师能维护本地自尊，避免作坊争端；但这也等于让谨慎成为学院面对高明技法时的答案。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.03
+  - design_id: R18
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Library Reordered"
+      simp_chinese: "重新整理图书馆"
+    desc:
+      english: "Humanists reorder the Academy library by subject instead of inherited shelf tradition, and suddenly old books begin introducing themselves to new neighbors."
+      simp_chinese: "人文主义者按照学科重新整理学院图书馆，而不是沿用祖传书架传统。旧书于是突然开始与新的邻居彼此相识。"
+    options:
+      a:
+        text:
+          english: "Accept the new order."
+          simp_chinese: "接受新的分类。"
+        progress_delta: 5
+        rationale:
+          english: "A subject catalogue quietly normalizes Renaissance habits of comparison and classification, giving scholars a modest but stable reason to support the new issue."
+          simp_chinese: "按学科编目的做法会悄然使比较与分类的文艺复兴习惯正常化，给学者们一个温和但稳定的支持理由。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_subject_catalogue
+            months: 18
+            effects:
+              "academy reference efficiency": 0.02
+      b:
+        text:
+          english: "Restore the old shelves."
+          simp_chinese: "恢复旧书架。"
+        progress_delta: -5
+        rationale:
+          english: "Restoring inherited shelves lets conservative scholars treat the old arrangement as a memory palace of authority, slowing the humanist habit of rearranging knowledge."
+          simp_chinese: "恢复旧书架会让保守学者把原有排列视为权威的记忆宫殿，从而减缓人文主义重新组织知识的习惯。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: oppose
+            cooldown_months: 12
+          - type: seat_cooldown
+            group: court_bureaucrats
+            cooldown_months: 12
+  - design_id: R19
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "The City as Classroom"
+      simp_chinese: "城市即课堂"
+    desc:
+      english: "Urban reformers argue that streets, squares, and facades can teach citizens better taste, provided the treasury accepts that stone is now a syllabus."
+      simp_chinese: "城市改革者主张，街道、广场与立面都能教导市民更好的品味，只要国库愿意承认石头如今也是一种课程。"
+    options:
+      a:
+        text:
+          english: "Back the urban program."
+          simp_chinese: "支持城市计划。"
+        progress_delta: 10
+        rationale:
+          english: "Funding public urban reform makes Renaissance taste unavoidable in daily life, so acceptance advances strongly, but the program needs real construction money."
+          simp_chinese: "资助公共城市改造会让文艺复兴品味进入日常生活、无法回避，因此接受度大幅推进；但这项计划需要真实的建设经费。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -2
+          - type: seat_stance
+            group: artists
+            stance: support
+            cooldown_months: 24
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Keep art indoors."
+          simp_chinese: "让艺术留在室内。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping art indoors avoids expensive civic works and keeps the treasury calm, but it limits Renaissance ideas to controlled interiors rather than shared public space."
+          simp_chinese: "让艺术留在室内可以避免昂贵的市政工程，使国库保持平静；但这也把文艺复兴思想限制在受控的室内空间，而非公共场所。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: 1
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 12
+  - design_id: R20
+    pool: renaissance
+    issue: renaissance
+    weight: 1
+    title:
+      english: "Satire of the Old Masters"
+      simp_chinese: "讽刺旧大师"
+    desc:
+      english: "A biting satire makes old authorities look pompous, which is effective and slightly unfair; by noon, half the Academy is laughing and the other half is counting copies."
+      simp_chinese: "一篇辛辣讽刺把旧权威写得傲慢可笑，效果显著，也略显不公。到正午时，学院一半人在发笑，另一半人在清点印本。"
+    options:
+      a:
+        text:
+          english: "Let satire circulate."
+          simp_chinese: "允许讽刺流传。"
+        progress_delta: 5
+        rationale:
+          english: "Allowing satire to circulate gives reformers a popular language against stale authority, but the gain is modest because ridicule persuades unevenly."
+          simp_chinese: "允许讽刺流传，会给改革者一种反对陈旧权威的通俗语言；但讥讽的说服力并不稳定，因此推进幅度有限。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_licensed_wit
+            months: 12
+            effects:
+              "pamphlet debate heat": 0.02
+      b:
+        text:
+          english: "Confiscate the copies."
+          simp_chinese: "没收所有印本。"
+        progress_delta: -10
+        rationale:
+          english: "Confiscation turns conservative annoyance into institutional victory, chilling the reformers more sharply than a simple refusal to laugh."
+          simp_chinese: "没收会把保守派的不满转化为制度性的胜利，比单纯拒绝发笑更强烈地压制改革者。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: oppose
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.03
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.03
+excluded_events: []

@@ -10,6 +10,9 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = REPO_ROOT / "data" / "philosophy_debates.yaml"
+RANDOM_EVENTS_DIR = REPO_ROOT / "data" / "philosophy_debate_random_events"
+PHILOSOPHY_DEBATE_DATA_SOURCES = "data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml"
+RANDOM_EVENT_ID_BASE = 2000
 
 EVENT_NS = "tv_academy_debate"
 SEATS = range(1, 6)
@@ -72,12 +75,48 @@ GROUP_ESTATE_MAP = "tv_academy_debate_group_to_estate"
 RESULT_GROUP_LOCAL = "tv_academy_debate_result_group"
 RESULT_ESTATE_LOCAL = "tv_academy_debate_result_estate"
 
+RANDOM_EVENT_EFFECT_TYPES = {
+    "artist_skill",
+    "estate_satisfaction",
+    "foreign_prestige",
+    "resource",
+    "scientist_attribute",
+    "seat_cooldown",
+    "seat_stance",
+    "temporary_country_modifier",
+}
+RANDOM_EVENT_RESOURCES = {"gold", "legitimacy", "prestige", "stability"}
+RANDOM_EVENT_STANCES = {"support", "oppose", "neutral"}
+RANDOM_EVENT_PROGRESS_DELTAS = {-10, -5, 5, 10}
+
 
 def load_data() -> dict:
     with DATA_FILE.open(encoding="utf-8") as file:
         data = yaml.safe_load(file)
+    load_random_event_data(data)
     validate_data(data)
     return data
+
+
+def load_random_event_data(data: dict) -> None:
+    random_events: list[dict] = []
+    excluded_events: list[dict] = []
+    if RANDOM_EVENTS_DIR.exists():
+        for path in sorted(RANDOM_EVENTS_DIR.glob("*.yaml")):
+            with path.open(encoding="utf-8-sig") as file:
+                fragment = yaml.safe_load(file) or {}
+            for event in fragment.get("random_events") or []:
+                entry = dict(event)
+                entry["source_file"] = path.relative_to(REPO_ROOT).as_posix()
+                random_events.append(entry)
+            for event in fragment.get("excluded_events") or []:
+                entry = dict(event)
+                entry["source_file"] = path.relative_to(REPO_ROOT).as_posix()
+                excluded_events.append(entry)
+    for idx, event in enumerate(random_events):
+        event["event_num"] = RANDOM_EVENT_ID_BASE + idx
+    data["random_events"] = random_events
+    data["excluded_random_events"] = sorted(excluded_events, key=lambda event: event["design_id"])
 
 
 def validate_data(data: dict) -> None:
@@ -113,8 +152,112 @@ def validate_data(data: dict) -> None:
                 for field in ("hook", "condition", "chance", "delta"):
                     if field not in trigger:
                         missing.append(f"action_triggers.{issue_key}.{direction}.{idx}.{field}")
+    validate_random_event_data(data, missing)
     if missing:
         raise ValueError("Missing/invalid philosophy debate fields:\n  " + "\n  ".join(missing))
+
+
+def validate_random_event_data(data: dict, missing: list[str]) -> None:
+    random_event_entries = data.get("random_events") or []
+    excluded_entries = data.get("excluded_random_events") or []
+    issue_keys = {issue["key"] for issue in data.get("issues", [])}
+    group_keys = {group["key"] for group in data.get("groups", [])}
+    seen_ids: set[str] = set()
+    excluded_ids = {entry.get("design_id") for entry in excluded_entries}
+    if random_event_entries or excluded_entries:
+        if len(random_event_entries) != 198:
+            missing.append(f"random_events.expected_198_found_{len(random_event_entries)}")
+        if len(excluded_entries) != 2:
+            missing.append(f"excluded_random_events.expected_2_found_{len(excluded_entries)}")
+        if excluded_ids != {"G09", "G12"}:
+            missing.append(f"excluded_random_events.expected_G09_G12_found_{sorted(excluded_ids)}")
+    for idx, event in enumerate(random_event_entries, start=1):
+        path = f"random_events.{event.get('design_id', idx)}"
+        design_id = event.get("design_id")
+        if not design_id:
+            missing.append(f"{path}.design_id")
+        elif design_id in seen_ids:
+            missing.append(f"{path}.duplicate_design_id")
+        else:
+            seen_ids.add(design_id)
+        if design_id in {"G09", "G12"}:
+            missing.append(f"{path}.excluded_id_in_random_events")
+        event_num = event.get("event_num")
+        if event_num is None or int(event_num) >= 10000:
+            missing.append(f"{path}.event_num")
+        if event.get("pool") == "general":
+            if event.get("issue") is not None:
+                missing.append(f"{path}.general_issue_must_be_null")
+        elif event.get("issue") not in issue_keys:
+            missing.append(f"{path}.issue")
+        for loc_field in ("title", "desc"):
+            loc = event.get(loc_field) or {}
+            for lang in ("english", "simp_chinese"):
+                if not loc.get(lang):
+                    missing.append(f"{path}.{loc_field}.{lang}")
+        options = event.get("options") or {}
+        if set(options) != {"a", "b"}:
+            missing.append(f"{path}.options.expected_a_b")
+            continue
+        for opt_key in ("a", "b"):
+            option_data = options.get(opt_key) or {}
+            opt_path = f"{path}.options.{opt_key}"
+            text = option_data.get("text") or {}
+            rationale = option_data.get("rationale") or {}
+            for lang in ("english", "simp_chinese"):
+                if not text.get(lang):
+                    missing.append(f"{opt_path}.text.{lang}")
+                if not rationale.get(lang):
+                    missing.append(f"{opt_path}.rationale.{lang}")
+            if option_data.get("progress_delta") not in RANDOM_EVENT_PROGRESS_DELTAS:
+                missing.append(f"{opt_path}.progress_delta")
+            for block_idx, block in enumerate(option_data.get("effect_blocks") or [], start=1):
+                validate_random_effect_block(block, f"{opt_path}.effect_blocks.{block_idx}", missing, group_keys)
+
+
+def validate_random_effect_block(block: dict, path: str, missing: list[str], group_keys: set[str]) -> None:
+    effect_type = block.get("type")
+    if effect_type not in RANDOM_EVENT_EFFECT_TYPES:
+        missing.append(f"{path}.type")
+        return
+    if effect_type == "seat_stance":
+        if block.get("group") not in group_keys:
+            missing.append(f"{path}.group")
+        if block.get("stance") not in RANDOM_EVENT_STANCES:
+            missing.append(f"{path}.stance")
+        if not isinstance(block.get("cooldown_months"), int):
+            missing.append(f"{path}.cooldown_months")
+    elif effect_type == "seat_cooldown":
+        if block.get("group") not in group_keys:
+            missing.append(f"{path}.group")
+        if not isinstance(block.get("cooldown_months"), int):
+            missing.append(f"{path}.cooldown_months")
+    elif effect_type == "estate_satisfaction":
+        if not str(block.get("estate", "")).endswith("_estate"):
+            missing.append(f"{path}.estate")
+        if not isinstance(block.get("value"), (int, float)):
+            missing.append(f"{path}.value")
+    elif effect_type == "resource":
+        if block.get("resource") not in RANDOM_EVENT_RESOURCES:
+            missing.append(f"{path}.resource")
+        if not isinstance(block.get("amount", block.get("scale")), (int, float)):
+            missing.append(f"{path}.amount")
+    elif effect_type == "temporary_country_modifier":
+        if not str(block.get("key", "")).startswith("tv_"):
+            missing.append(f"{path}.key")
+        if not isinstance(block.get("months"), int):
+            missing.append(f"{path}.months")
+        if not block.get("effects"):
+            missing.append(f"{path}.effects")
+    elif effect_type == "artist_skill":
+        if not isinstance(block.get("amount"), (int, float)):
+            missing.append(f"{path}.amount")
+    elif effect_type == "scientist_attribute":
+        if "adm" not in block and "dip" not in block:
+            missing.append(f"{path}.adm_or_dip")
+    elif effect_type == "foreign_prestige":
+        if not isinstance(block.get("amount"), (int, float)):
+            missing.append(f"{path}.amount")
 
 
 def emit(lines: list[str], level: int = 0, text: str = "") -> None:
@@ -138,12 +281,24 @@ def issues(data: dict) -> list[dict]:
     return sorted(data["issues"], key=lambda i: int(i["id"]))
 
 
+def random_events(data: dict) -> list[dict]:
+    return sorted(data.get("random_events") or [], key=lambda event: int(event["event_num"]))
+
+
 def group_by_key(data: dict) -> dict[str, dict]:
     return {g["key"]: g for g in data["groups"]}
 
 
 def issue_by_key(data: dict) -> dict[str, dict]:
     return {i["key"]: i for i in data["issues"]}
+
+
+def random_event_loc_key(event: dict, suffix: str) -> str:
+    return f"{EVENT_NS}.{event['event_num']}.{suffix}"
+
+
+def random_event_modifier_name(block: dict) -> str:
+    return block["key"]
 
 
 def group_var(key: str, suffix: str) -> str:
@@ -584,7 +739,7 @@ def gen_set_group_seated(lines: list[str], level: int, data: dict) -> None:
 
 def generate_effects(data: dict) -> str:
     script = "scripts/in_game/common/scripted_effects/gen_tv_academy_philosophy_debate_effects.py"
-    lines: list[str] = [header(script).rstrip(), ""]
+    lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
     settings = data["settings"]
 
     gen_cleanup_effects(lines, data)
@@ -1377,9 +1532,135 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
         emit(lines, 3, "}")
         emit(lines, 3, f"{prep} = yes")
         emit(lines, 2, "}")
+    for event in random_events(data):
+        emit(lines, 2, f"{event['weight']} = {{")
+        emit(lines, 3, "trigger = {")
+        gen_random_event_guard(lines, 4, data, event)
+        emit(lines, 3, "}")
+        emit(lines, 3, f"trigger_event_non_silently = {{ id = {EVENT_NS}.{event['event_num']} days = 1 }}")
+        emit(lines, 2, "}")
     emit(lines, 1, "}")
     emit(lines, 0, "}")
     emit(lines)
+
+
+def gen_random_event_guard(lines: list[str], level: int, data: dict, event: dict) -> None:
+    emit(lines, level, "var:tv_academy_philosophy_phase ?= 1")
+    emit(lines, level, "var:tv_academy_debate_current_node_type ?= 1")
+    emit(lines, level, "tv_academy_philosophy_has_current_issue_trigger = yes")
+    emit(lines, level, "NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }")
+    emit(lines, level, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
+    emit(lines, level, "NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }")
+    if event.get("issue"):
+        issue = issue_by_key(data)[event["issue"]]
+        emit(lines, level, f"var:tv_academy_philosophy_current ?= {issue['id']}")
+
+
+def gen_random_event_effects(lines: list[str], level: int, data: dict, event: dict, opt_key: str) -> None:
+    option_data = event["options"][opt_key]
+    emit(lines, level, "if = {")
+    emit(lines, level + 1, "limit = {")
+    gen_random_event_guard(lines, level + 2, data, event)
+    emit(lines, level + 1, "}")
+    emit(lines, level + 1, f"change_variable = {{ name = tv_academy_philosophy_debate_position add = {option_data['progress_delta']} }}")
+    emit(lines, level + 1, "clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }")
+    for block in option_data.get("effect_blocks") or []:
+        gen_random_event_effect_block(lines, level + 1, data, block)
+    emit(lines, level + 1, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
+    emit(lines, level, "}")
+
+
+def gen_random_event_effect_block(lines: list[str], level: int, data: dict, block: dict) -> None:
+    effect_type = block["type"]
+    if effect_type == "seat_stance":
+        group_id = group_by_key(data)[block["group"]]["id"]
+        stance_value = {"support": STANCE_SUPPORT, "oppose": STANCE_OPPOSE, "neutral": STANCE_NEUTRAL}[block["stance"]]
+        for seat in SEATS:
+            emit(lines, level, "if = {")
+            emit(lines, level + 1, f"limit = {{ {var_eq(seat_group(seat), group_id)} }}")
+            emit(lines, level + 1, f"set_variable = {{ name = {seat_stance(seat)} value = {stance_value} }}")
+            emit(lines, level + 1, f"set_variable = {{ name = {seat_cooldown(seat)} value = {block['cooldown_months']} }}")
+            emit(lines, level, "}")
+    elif effect_type == "seat_cooldown":
+        group_id = group_by_key(data)[block["group"]]["id"]
+        for seat in SEATS:
+            emit(lines, level, "if = {")
+            emit(lines, level + 1, f"limit = {{ {var_eq(seat_group(seat), group_id)} }}")
+            emit(lines, level + 1, f"set_variable = {{ name = {seat_cooldown(seat)} value = {block['cooldown_months']} }}")
+            emit(lines, level, "}")
+    elif effect_type == "estate_satisfaction":
+        emit(lines, level, f"add_estate_satisfaction = {{ type = estate_type:{block['estate']} value = {format_number(block['value'])} }}")
+    elif effect_type == "resource":
+        amount = block.get("scale", block.get("amount"))
+        resource = block["resource"]
+        if resource == "gold":
+            emit(lines, level, f"change_gold_effect = {{ scale = {format_number(amount)} }}")
+        elif resource == "prestige":
+            emit(lines, level, f"add_prestige = {format_number(amount)}")
+        elif resource == "legitimacy":
+            emit(lines, level, f"add_legitimacy = {format_number(amount)}")
+        elif resource == "stability":
+            emit(lines, level, f"add_stability = {format_number(amount)}")
+    elif effect_type == "temporary_country_modifier":
+        emit(lines, level, "add_country_modifier = {")
+        emit(lines, level + 1, f"modifier = {random_event_modifier_name(block)}")
+        emit(lines, level + 1, f"months = {block['months']}")
+        emit(lines, level + 1, "mode = add_and_extend")
+        emit(lines, level, "}")
+    elif effect_type == "artist_skill":
+        emit(lines, level, "random_character = {")
+        emit(lines, level + 1, "limit = { is_alive = yes is_artist = yes }")
+        emit(lines, level + 1, f"add_artist_skill = {format_number(block['amount'])}")
+        emit(lines, level, "}")
+    elif effect_type == "scientist_attribute":
+        emit(lines, level, "var:tv_academy_leader_char ?= {")
+        if block.get("adm"):
+            emit(lines, level + 1, f"add_adm = {format_number(block['adm'])}")
+        if block.get("dip"):
+            emit(lines, level + 1, f"add_dip = {format_number(block['dip'])}")
+        emit(lines, level, "}")
+    elif effect_type == "foreign_prestige":
+        for seat in SEATS:
+            emit(lines, level, "if = {")
+            emit(lines, level + 1, f"limit = {{ {var_eq(seat_group(seat), group_by_key(data)['foreign_power']['id'])} has_variable = {seat_foreign(seat)} }}")
+            emit(lines, level + 1, f"var:{seat_foreign(seat)} ?= {{ add_prestige = {format_number(block['amount'])} }}")
+            emit(lines, level, "}")
+
+
+def format_number(value: int | float) -> str:
+    if isinstance(value, int):
+        return str(value)
+    return f"{value:.4f}".rstrip("0").rstrip(".")
+
+
+def random_event_modifier_entries(data: dict) -> list[dict]:
+    by_key: dict[str, dict] = {}
+    for event in random_events(data):
+        for opt_key in ("a", "b"):
+            option_data = event["options"][opt_key]
+            for block in option_data.get("effect_blocks") or []:
+                if block.get("type") != "temporary_country_modifier":
+                    continue
+                key = random_event_modifier_name(block)
+                entry = by_key.setdefault(
+                    key,
+                    {
+                        "key": key,
+                        "english_name": f"{event['title']['english']}: {option_data['text']['english']}",
+                        "simp_chinese_name": f"{event['title']['simp_chinese']}：{option_data['text']['simp_chinese']}",
+                        "english_desc": option_data["rationale"]["english"],
+                        "simp_chinese_desc": option_data["rationale"]["simp_chinese"],
+                        "value": 0.0,
+                    },
+                )
+                for value in (block.get("effects") or {}).values():
+                    entry["value"] += float(value)
+    result = sorted(by_key.values(), key=lambda entry: entry["key"])
+    for entry in result:
+        if entry["value"] == 0:
+            entry["value"] = 0.01
+        entry["modifier_value"] = max(-0.03, min(0.03, entry["value"]))
+    return result
 
 
 def gen_defection_effects(lines: list[str], data: dict) -> None:
@@ -1862,7 +2143,7 @@ def gen_world_mirror_variable_branches(lines: list[str], level: int) -> None:
 
 def generate_events(data: dict) -> str:
     script = "scripts/in_game/events/gen_tv_academy_philosophy_debate_events.py"
-    lines: list[str] = [header(script).rstrip(), "", f"namespace = {EVENT_NS}", ""]
+    lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), "", f"namespace = {EVENT_NS}", ""]
     emit(lines, 0, f"{EVENT_NS}.1 = {{")
     emit(lines, 1, "type = country_event")
     emit(lines, 1, "hidden = yes")
@@ -1902,6 +2183,23 @@ def generate_events(data: dict) -> str:
             emit(lines, 2, f"has_variable = {EVENT_GROUP}")
         emit(lines, 1, "}")
         emit_event_options(lines, 1, data, event_num, key)
+        emit(lines, 0, "}")
+        emit(lines)
+    for event in random_events(data):
+        emit(lines, 0, f"{EVENT_NS}.{event['event_num']} = {{")
+        emit(lines, 1, "type = country_event")
+        emit(lines, 1, f"title = {random_event_loc_key(event, 't')}")
+        emit(lines, 1, f"desc = {random_event_loc_key(event, 'd')}")
+        emit(lines, 1, "outcome = neutral")
+        emit(lines)
+        emit(lines, 1, "trigger = {")
+        gen_random_event_guard(lines, 2, data, event)
+        emit(lines, 1, "}")
+        for opt_key in ("a", "b"):
+            emit(lines, 1, "option = {")
+            emit(lines, 2, f"name = {random_event_loc_key(event, opt_key)}")
+            gen_random_event_effects(lines, 2, data, event, opt_key)
+            emit(lines, 1, "}")
         emit(lines, 0, "}")
         emit(lines)
     return "\n".join(lines).rstrip() + "\n"
@@ -2004,7 +2302,7 @@ def option(lines: list[str], level: int, name: str, effects: list[str]) -> None:
 
 def generate_modifiers(data: dict) -> str:
     script = "scripts/in_game/common/static_modifiers/gen_tv_academy_philosophy_debate_modifiers.py"
-    lines = [header(script).rstrip(), ""]
+    lines = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
     seen: set[str] = set()
     for group in groups(data):
         if not is_estate_or_variant(group):
@@ -2016,6 +2314,11 @@ def generate_modifiers(data: dict) -> str:
         emit(lines, 0, f"{name} = {{")
         emit(lines, 1, f"{group['base_estate']}_target_satisfaction = 0.025")
         emit(lines, 1, f"global_{group['base_estate']}_power = 0.50")
+        emit(lines, 0, "}")
+        emit(lines)
+    for entry in random_event_modifier_entries(data):
+        emit(lines, 0, f"{entry['key']} = {{")
+        emit(lines, 1, f"legislative_efficiency = {format_number(entry['modifier_value'])}")
         emit(lines, 0, "}")
         emit(lines)
     return "\n".join(lines).rstrip() + "\n"
@@ -2038,7 +2341,15 @@ def generate_loc(data: dict, language: str) -> str:
         "TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT",
     ):
         entries.pop(duplicate_key, None)
-    lines = [header(script).rstrip(), f"{lang_header}:"]
+    for event in random_events(data):
+        entries[random_event_loc_key(event, "t")] = event["title"][loc_lang]
+        entries[random_event_loc_key(event, "d")] = event["desc"][loc_lang]
+        for opt_key in ("a", "b"):
+            entries[random_event_loc_key(event, opt_key)] = event["options"][opt_key]["text"][loc_lang]
+    for entry in random_event_modifier_entries(data):
+        entries[f"STATIC_MODIFIER_NAME_{entry['key']}"] = entry[f"{loc_lang}_name"]
+        entries[f"STATIC_MODIFIER_DESC_{entry['key']}"] = entry[f"{loc_lang}_desc"]
+    lines = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), f"{lang_header}:"]
     for key in sorted(entries):
         value = entries[key].replace('"', '\\"').replace("\n", "\\n")
         lines.append(f' {key}: "{value}"')
