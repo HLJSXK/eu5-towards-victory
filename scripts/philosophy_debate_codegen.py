@@ -10,12 +10,59 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = REPO_ROOT / "data" / "philosophy_debates.yaml"
+RANDOM_EVENTS_DIR = REPO_ROOT / "data" / "philosophy_debate_random_events"
+PHILOSOPHY_DEBATE_DATA_SOURCES = "data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml"
+RANDOM_EVENT_ID_BASE = 2000
 
 EVENT_NS = "tv_academy_debate"
+LOCAL_ACTION_POSITIVE_EVENT = 116
+LOCAL_ACTION_NEGATIVE_EVENT = 117
+WORLD_DEBATE_START_EVENT = 118
+WORLD_DEBATE_PROGRESSIVE_EVENT = 119
+WORLD_DEBATE_CONSERVATIVE_EVENT = 120
+WORLD_DEBATE_NEUTRAL_EVENT = 121
+AUTO_STANCE_SUPPORT_EVENT = 122
+AUTO_STANCE_OPPOSE_EVENT = 123
+AUTO_STANCE_NEUTRAL_EVENT = 124
+AUTO_SEAT_VACATED_EVENT = 125
 SEATS = range(1, 6)
+WORLD_SEATS = range(1, 51)
 STANCE_SUPPORT = 1
 STANCE_OPPOSE = 2
 STANCE_NEUTRAL = 3
+WORLD_RESULT_PROGRESSIVE = 1
+WORLD_RESULT_CONSERVATIVE = 2
+WORLD_RESULT_NEUTRAL = 3
+
+WORLD_PARTICIPANTS_LIST = "tv_academy_world_debate_participants"
+WORLD_ACTIVE_VAR = "tv_academy_world_debate_active"
+WORLD_ISSUE_VAR = "tv_academy_world_debate_issue"
+WORLD_NODE_VAR = "tv_academy_world_debate_node"
+WORLD_PROGRESS_VAR = "tv_academy_world_debate_progress"
+WORLD_STRENGTH_VAR = "tv_academy_world_debate_strength"
+WORLD_MONTHS_VAR = "tv_academy_world_debate_months"
+WORLD_SUPPORT_SEATS_VAR = "tv_academy_world_debate_support_seats"
+WORLD_OPPOSE_SEATS_VAR = "tv_academy_world_debate_oppose_seats"
+WORLD_NEUTRAL_SEATS_VAR = "tv_academy_world_debate_neutral_seats"
+WORLD_SEAT_COUNT_VAR = "tv_academy_world_debate_seat_count"
+WORLD_RESULT_VAR = "tv_academy_world_debate_result"
+WORLD_DELTA_VAR = "tv_academy_world_debate_delta"
+WORLD_NEXT_SEAT_VAR = "tv_academy_world_debate_next_seat"
+WORLD_DECISIVE_SEATS_VAR = "tv_academy_world_debate_decisive_seats"
+WORLD_COUNTRY_STANCE_VAR = "tv_academy_world_debate_stance"
+WORLD_NUMERIC_VARS = [
+    WORLD_ACTIVE_VAR,
+    WORLD_ISSUE_VAR,
+    WORLD_NODE_VAR,
+    WORLD_PROGRESS_VAR,
+    WORLD_STRENGTH_VAR,
+    WORLD_MONTHS_VAR,
+    WORLD_SUPPORT_SEATS_VAR,
+    WORLD_OPPOSE_SEATS_VAR,
+    WORLD_NEUTRAL_SEATS_VAR,
+    WORLD_SEAT_COUNT_VAR,
+    WORLD_RESULT_VAR,
+]
 
 EVENT_GROUP = "tv_academy_debate_event_group"
 EVENT_GROUP_2 = "tv_academy_debate_event_group_2"
@@ -33,17 +80,57 @@ SELECTED_SCIENTIST_SCOPE = "tv_academy_debate_selected_scientist"
 PENDING_RESULT_VAR = "tv_academy_philosophy_result_pending"
 PENDING_ISSUE_VAR = "tv_academy_philosophy_result_issue"
 PENDING_KIND_VAR = "tv_academy_philosophy_result_kind"
+AUTO_STANCE_SUPPORT_VAR = "tv_academy_debate_auto_stance_support_pending"
+AUTO_STANCE_OPPOSE_VAR = "tv_academy_debate_auto_stance_oppose_pending"
+AUTO_STANCE_NEUTRAL_VAR = "tv_academy_debate_auto_stance_neutral_pending"
+AUTO_SEAT_VACATED_VAR = "tv_academy_debate_auto_seat_vacated_pending"
 
 GROUP_ESTATE_MAP = "tv_academy_debate_group_to_estate"
 RESULT_GROUP_LOCAL = "tv_academy_debate_result_group"
 RESULT_ESTATE_LOCAL = "tv_academy_debate_result_estate"
 
+RANDOM_EVENT_EFFECT_TYPES = {
+    "artist_skill",
+    "estate_satisfaction",
+    "foreign_prestige",
+    "resource",
+    "scientist_attribute",
+    "seat_cooldown",
+    "seat_stance",
+    "temporary_country_modifier",
+}
+RANDOM_EVENT_RESOURCES = {"gold", "legitimacy", "prestige", "stability"}
+RANDOM_EVENT_STANCES = {"support", "oppose", "neutral"}
+RANDOM_EVENT_PROGRESS_DELTAS = {-10, -5, 5, 10}
+
 
 def load_data() -> dict:
     with DATA_FILE.open(encoding="utf-8") as file:
         data = yaml.safe_load(file)
+    load_random_event_data(data)
     validate_data(data)
     return data
+
+
+def load_random_event_data(data: dict) -> None:
+    random_events: list[dict] = []
+    excluded_events: list[dict] = []
+    if RANDOM_EVENTS_DIR.exists():
+        for path in sorted(RANDOM_EVENTS_DIR.glob("*.yaml")):
+            with path.open(encoding="utf-8-sig") as file:
+                fragment = yaml.safe_load(file) or {}
+            for event in fragment.get("random_events") or []:
+                entry = dict(event)
+                entry["source_file"] = path.relative_to(REPO_ROOT).as_posix()
+                random_events.append(entry)
+            for event in fragment.get("excluded_events") or []:
+                entry = dict(event)
+                entry["source_file"] = path.relative_to(REPO_ROOT).as_posix()
+                excluded_events.append(entry)
+    for idx, event in enumerate(random_events):
+        event["event_num"] = RANDOM_EVENT_ID_BASE + idx
+    data["random_events"] = random_events
+    data["excluded_random_events"] = sorted(excluded_events, key=lambda event: event["design_id"])
 
 
 def validate_data(data: dict) -> None:
@@ -70,8 +157,121 @@ def validate_data(data: dict) -> None:
             for issue_key in positions[stance]:
                 if issue_key not in issue_keys:
                     missing.append(f"debate_positions.{group_key}.{stance}.{issue_key}")
+    for issue_key, trigger_groups in (data.get("action_triggers") or {}).items():
+        if issue_key not in issue_keys:
+            missing.append(f"action_triggers.{issue_key}")
+            continue
+        for direction in ("positive", "negative"):
+            for idx, trigger in enumerate(trigger_groups.get(direction, []), start=1):
+                for field in ("hook", "condition", "chance", "delta"):
+                    if field not in trigger:
+                        missing.append(f"action_triggers.{issue_key}.{direction}.{idx}.{field}")
+    validate_random_event_data(data, missing)
     if missing:
         raise ValueError("Missing/invalid philosophy debate fields:\n  " + "\n  ".join(missing))
+
+
+def validate_random_event_data(data: dict, missing: list[str]) -> None:
+    random_event_entries = data.get("random_events") or []
+    excluded_entries = data.get("excluded_random_events") or []
+    issue_keys = {issue["key"] for issue in data.get("issues", [])}
+    group_keys = {group["key"] for group in data.get("groups", [])}
+    seen_ids: set[str] = set()
+    excluded_ids = {entry.get("design_id") for entry in excluded_entries}
+    if random_event_entries or excluded_entries:
+        if len(random_event_entries) != 198:
+            missing.append(f"random_events.expected_198_found_{len(random_event_entries)}")
+        if len(excluded_entries) != 2:
+            missing.append(f"excluded_random_events.expected_2_found_{len(excluded_entries)}")
+        if excluded_ids != {"G09", "G12"}:
+            missing.append(f"excluded_random_events.expected_G09_G12_found_{sorted(excluded_ids)}")
+    for idx, event in enumerate(random_event_entries, start=1):
+        path = f"random_events.{event.get('design_id', idx)}"
+        design_id = event.get("design_id")
+        if not design_id:
+            missing.append(f"{path}.design_id")
+        elif design_id in seen_ids:
+            missing.append(f"{path}.duplicate_design_id")
+        else:
+            seen_ids.add(design_id)
+        if design_id in {"G09", "G12"}:
+            missing.append(f"{path}.excluded_id_in_random_events")
+        event_num = event.get("event_num")
+        if event_num is None or int(event_num) >= 10000:
+            missing.append(f"{path}.event_num")
+        if event.get("pool") == "general":
+            if event.get("issue") is not None:
+                missing.append(f"{path}.general_issue_must_be_null")
+        elif event.get("issue") not in issue_keys:
+            missing.append(f"{path}.issue")
+        for loc_field in ("title", "desc"):
+            loc = event.get(loc_field) or {}
+            for lang in ("english", "simp_chinese"):
+                if not loc.get(lang):
+                    missing.append(f"{path}.{loc_field}.{lang}")
+        options = event.get("options") or {}
+        if set(options) != {"a", "b"}:
+            missing.append(f"{path}.options.expected_a_b")
+            continue
+        for opt_key in ("a", "b"):
+            option_data = options.get(opt_key) or {}
+            opt_path = f"{path}.options.{opt_key}"
+            text = option_data.get("text") or {}
+            rationale = option_data.get("rationale") or {}
+            for lang in ("english", "simp_chinese"):
+                if not text.get(lang):
+                    missing.append(f"{opt_path}.text.{lang}")
+                if not rationale.get(lang):
+                    missing.append(f"{opt_path}.rationale.{lang}")
+            if option_data.get("progress_delta") not in RANDOM_EVENT_PROGRESS_DELTAS:
+                missing.append(f"{opt_path}.progress_delta")
+            for block_idx, block in enumerate(option_data.get("effect_blocks") or [], start=1):
+                validate_random_effect_block(block, f"{opt_path}.effect_blocks.{block_idx}", missing, group_keys)
+
+
+def validate_random_effect_block(block: dict, path: str, missing: list[str], group_keys: set[str]) -> None:
+    effect_type = block.get("type")
+    if effect_type not in RANDOM_EVENT_EFFECT_TYPES:
+        missing.append(f"{path}.type")
+        return
+    if effect_type == "seat_stance":
+        if block.get("group") not in group_keys:
+            missing.append(f"{path}.group")
+        if block.get("stance") not in RANDOM_EVENT_STANCES:
+            missing.append(f"{path}.stance")
+        if not isinstance(block.get("cooldown_months"), int):
+            missing.append(f"{path}.cooldown_months")
+    elif effect_type == "seat_cooldown":
+        if block.get("group") not in group_keys:
+            missing.append(f"{path}.group")
+        if not isinstance(block.get("cooldown_months"), int):
+            missing.append(f"{path}.cooldown_months")
+    elif effect_type == "estate_satisfaction":
+        if not str(block.get("estate", "")).endswith("_estate"):
+            missing.append(f"{path}.estate")
+        if not isinstance(block.get("value"), (int, float)):
+            missing.append(f"{path}.value")
+    elif effect_type == "resource":
+        if block.get("resource") not in RANDOM_EVENT_RESOURCES:
+            missing.append(f"{path}.resource")
+        if not isinstance(block.get("amount", block.get("scale")), (int, float)):
+            missing.append(f"{path}.amount")
+    elif effect_type == "temporary_country_modifier":
+        if not str(block.get("key", "")).startswith("tv_"):
+            missing.append(f"{path}.key")
+        if not isinstance(block.get("months"), int):
+            missing.append(f"{path}.months")
+        if not block.get("effects"):
+            missing.append(f"{path}.effects")
+    elif effect_type == "artist_skill":
+        if not isinstance(block.get("amount"), (int, float)):
+            missing.append(f"{path}.amount")
+    elif effect_type == "scientist_attribute":
+        if "adm" not in block and "dip" not in block:
+            missing.append(f"{path}.adm_or_dip")
+    elif effect_type == "foreign_prestige":
+        if not isinstance(block.get("amount"), (int, float)):
+            missing.append(f"{path}.amount")
 
 
 def emit(lines: list[str], level: int = 0, text: str = "") -> None:
@@ -95,12 +295,24 @@ def issues(data: dict) -> list[dict]:
     return sorted(data["issues"], key=lambda i: int(i["id"]))
 
 
+def random_events(data: dict) -> list[dict]:
+    return sorted(data.get("random_events") or [], key=lambda event: int(event["event_num"]))
+
+
 def group_by_key(data: dict) -> dict[str, dict]:
     return {g["key"]: g for g in data["groups"]}
 
 
 def issue_by_key(data: dict) -> dict[str, dict]:
     return {i["key"]: i for i in data["issues"]}
+
+
+def random_event_loc_key(event: dict, suffix: str) -> str:
+    return f"{EVENT_NS}.{event['event_num']}.{suffix}"
+
+
+def random_event_modifier_name(block: dict) -> str:
+    return block["key"]
 
 
 def group_var(key: str, suffix: str) -> str:
@@ -129,6 +341,14 @@ def seat_foreign(seat: int | str) -> str:
 
 def seat_scientist(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_scientist"
+
+
+def world_seat_country(seat: int | str) -> str:
+    return f"tv_academy_world_debate_seat_{seat}_country"
+
+
+def world_seat_stance(seat: int | str) -> str:
+    return f"tv_academy_world_debate_seat_{seat}_stance"
 
 
 def group_condition(group: dict, status: str, *, negated: bool = False) -> str:
@@ -236,6 +456,72 @@ def issue_progressive_var(issue: dict) -> str:
 
 def issue_conservative_var(issue: dict) -> str:
     return f"tv_academy_debate_{issue['key']}_conservative"
+
+
+def sanitize_id(value: str) -> str:
+    return "".join(ch if ch.isalnum() else "_" for ch in value).strip("_")
+
+
+def action_triggers(data: dict) -> list[dict]:
+    by_key = issue_by_key(data)
+    result: list[dict] = []
+    for issue_key, trigger_groups in (data.get("action_triggers") or {}).items():
+        issue = by_key[issue_key]
+        for direction in ("positive", "negative"):
+            for idx, trigger in enumerate(trigger_groups.get(direction, []), start=1):
+                entry = dict(trigger)
+                entry["issue_key"] = issue_key
+                entry["issue_id"] = int(issue["id"])
+                entry["direction"] = direction
+                entry["idx"] = idx
+                entry["context"] = action_trigger_context(entry)
+                result.append(entry)
+    return result
+
+
+def action_trigger_context(trigger: dict) -> str:
+    hook = trigger["hook"]
+    condition = trigger["condition"]
+    if hook in {"on_work_of_art_created", "on_work_of_art_destroyed"}:
+        return f"{hook}_owner"
+    if hook == "on_work_of_art_looted":
+        return f"{hook}_old_owner"
+    if hook in {"on_location_occupied", "on_siege_won"}:
+        return f"{hook}_owner"
+    if hook == "on_took_location_in_peace_treaty":
+        if condition.startswith("gain_"):
+            return f"{hook}_winner"
+        if condition.startswith("lose_"):
+            return f"{hook}_loser"
+    if hook == "on_war_declared":
+        return f"{hook}_actor"
+    return hook
+
+
+def action_contexts(data: dict) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for trigger in action_triggers(data):
+        context = trigger["context"]
+        if context not in seen:
+            seen.add(context)
+            result.append(context)
+    return result
+
+
+def action_trigger_effect_name(trigger: dict) -> str:
+    parts = [
+        "tv_academy_debate_action_trigger",
+        trigger["issue_key"],
+        trigger["direction"],
+        sanitize_id(trigger["hook"]),
+        str(trigger["idx"]),
+    ]
+    return "_".join(parts) + "_effect"
+
+
+def action_context_effect_name(context: str) -> str:
+    return f"tv_academy_debate_action_triggers_{sanitize_id(context)}_effect"
 
 
 def generate_triggers(data: dict) -> str:
@@ -395,7 +681,54 @@ def generate_triggers(data: dict) -> str:
         emit(lines, 0, "}")
         emit(lines)
 
+    gen_world_debate_triggers(lines, data)
+
     return "\n".join(lines).rstrip() + "\n"
+
+
+def gen_world_debate_triggers(lines: list[str], data: dict) -> None:
+    emit(lines, 0, "tv_academy_world_debate_country_has_academy_trigger = {")
+    emit(lines, 1, "has_variable = tv_academy_io_member")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_country_can_participate_trigger = {")
+    emit(lines, 1, "tv_academy_world_debate_country_has_academy_trigger = yes")
+    emit(lines, 1, "var:tv_academy_debate_current_node_type ?= 2")
+    emit(lines, 1, "tv_academy_philosophy_has_current_issue_trigger = yes")
+    emit(lines, 1, "situation:tv_academy_world_debate_situation = {")
+    emit(lines, 2, f"has_variable = {WORLD_ACTIVE_VAR}")
+    emit(lines, 2, f"has_variable = {WORLD_ISSUE_VAR}")
+    emit(lines, 1, "}")
+    emit(lines, 1, f"var:tv_academy_philosophy_current ?= situation:tv_academy_world_debate_situation.var:{WORLD_ISSUE_VAR}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_country_supports_current_issue_trigger = {")
+    emit(lines, 1, "OR = {")
+    for issue in issues(data):
+        emit(lines, 2, "AND = {")
+        emit(lines, 3, f"situation:tv_academy_world_debate_situation = {{ var:{WORLD_ISSUE_VAR} ?= {issue['id']} }}")
+        emit(lines, 3, f"has_embraced_institution = institution:{issue['institution']}")
+        emit(lines, 2, "}")
+        emit(lines, 2, "AND = {")
+        emit(lines, 3, f"situation:tv_academy_world_debate_situation = {{ var:{WORLD_ISSUE_VAR} ?= {issue['id']} }}")
+        emit(lines, 3, f"has_variable = {issue_progressive_var(issue)}")
+        emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_country_opposes_current_issue_trigger = {")
+    emit(lines, 1, "OR = {")
+    for issue in issues(data):
+        emit(lines, 2, "AND = {")
+        emit(lines, 3, f"situation:tv_academy_world_debate_situation = {{ var:{WORLD_ISSUE_VAR} ?= {issue['id']} }}")
+        emit(lines, 3, f"has_variable = {issue_conservative_var(issue)}")
+        emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
 
 
 def gen_remove_group_seated(lines: list[str], level: int, group_id_expr: str, data: dict) -> None:
@@ -420,7 +753,7 @@ def gen_set_group_seated(lines: list[str], level: int, data: dict) -> None:
 
 def generate_effects(data: dict) -> str:
     script = "scripts/in_game/common/scripted_effects/gen_tv_academy_philosophy_debate_effects.py"
-    lines: list[str] = [header(script).rstrip(), ""]
+    lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
     settings = data["settings"]
 
     gen_cleanup_effects(lines, data)
@@ -432,6 +765,8 @@ def generate_effects(data: dict) -> str:
     gen_defection_effects(lines, data)
     gen_result_effects(lines, data)
     gen_endpoint_effects(lines, data)
+    gen_action_trigger_effects(lines, data)
+    gen_world_debate_effects(lines, data)
 
     emit(lines, 0, "tv_academy_philosophy_apply_monthly_debate_drift_effect = {")
     emit(lines, 1, "if = {")
@@ -456,6 +791,7 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     runtime_vars = [
         EVENT_GROUP, EVENT_GROUP_2, EVENT_STANCE, EVENT_STANCE_2, EVENT_SEAT, EVENT_SEAT_2, EVENT_PRICE,
         MONTHLY_DELTA, SEAT_CONTRIB,
+        AUTO_STANCE_SUPPORT_VAR, AUTO_STANCE_OPPOSE_VAR, AUTO_STANCE_NEUTRAL_VAR, AUTO_SEAT_VACATED_VAR,
         "tv_academy_debate_left_count", "tv_academy_debate_right_count",
         "tv_academy_debate_royal_option_1_group",
         "tv_academy_debate_royal_option_2_group",
@@ -1095,6 +1431,8 @@ def contribution_value(group: dict, settings: dict) -> list[str]:
 def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
     settings = data["settings"]
     emit(lines, 0, "tv_academy_debate_monthly_tick_effect = {")
+    for var in (AUTO_STANCE_SUPPORT_VAR, AUTO_STANCE_OPPOSE_VAR, AUTO_STANCE_NEUTRAL_VAR, AUTO_SEAT_VACATED_VAR):
+        emit(lines, 1, f"remove_variable = {var}")
     emit(lines, 1, "tv_update_chief_scientist_effective_adm_effect = yes")
     emit(lines, 1, "tv_academy_debate_cleanup_invalid_special_seats_effect = yes")
     emit(lines, 1, "tv_academy_debate_decrement_cooldowns_effect = yes")
@@ -1105,6 +1443,7 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
     emit(lines, 2, f"{settings['monthly_event_chance_weight']} = {{ tv_academy_debate_dispatch_monthly_event_effect = yes }}")
     emit(lines, 1, "}")
     emit(lines, 1, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
+    emit(lines, 1, "tv_academy_debate_dispatch_auto_stance_notifications_effect = yes")
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1112,14 +1451,17 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
     for seat in SEATS:
         emit(lines, 1, "if = {")
         emit(lines, 2, f"limit = {{ has_variable = {seat_artist(seat)} NOT = {{ var:{seat_artist(seat)} ?= {{ is_alive = yes }} }} }}")
+        emit(lines, 2, f"set_variable = {{ name = {AUTO_SEAT_VACATED_VAR} value = 1 }}")
         emit(lines, 2, f"tv_academy_debate_clear_seat_{seat}_effect = yes")
         emit(lines, 1, "}")
         emit(lines, 1, "if = {")
         emit(lines, 2, f"limit = {{ has_variable = {seat_scientist(seat)} NOT = {{ var:{seat_scientist(seat)} ?= {{ is_alive = yes }} }} }}")
+        emit(lines, 2, f"set_variable = {{ name = {AUTO_SEAT_VACATED_VAR} value = 1 }}")
         emit(lines, 2, f"tv_academy_debate_clear_seat_{seat}_effect = yes")
         emit(lines, 1, "}")
         emit(lines, 1, "if = {")
         emit(lines, 2, f"limit = {{ has_variable = {seat_foreign(seat)} NOT = {{ country_exists = var:{seat_foreign(seat)} }} }}")
+        emit(lines, 2, f"set_variable = {{ name = {AUTO_SEAT_VACATED_VAR} value = 1 }}")
         emit(lines, 2, f"tv_academy_debate_clear_seat_{seat}_effect = yes")
         emit(lines, 1, "}")
     emit(lines, 0, "}")
@@ -1211,9 +1553,135 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
         emit(lines, 3, "}")
         emit(lines, 3, f"{prep} = yes")
         emit(lines, 2, "}")
+    for event in random_events(data):
+        emit(lines, 2, f"{event['weight']} = {{")
+        emit(lines, 3, "trigger = {")
+        gen_random_event_guard(lines, 4, data, event)
+        emit(lines, 3, "}")
+        emit(lines, 3, f"trigger_event_non_silently = {{ id = {EVENT_NS}.{event['event_num']} days = 1 }}")
+        emit(lines, 2, "}")
     emit(lines, 1, "}")
     emit(lines, 0, "}")
     emit(lines)
+
+
+def gen_random_event_guard(lines: list[str], level: int, data: dict, event: dict) -> None:
+    emit(lines, level, "var:tv_academy_philosophy_phase ?= 1")
+    emit(lines, level, "var:tv_academy_debate_current_node_type ?= 1")
+    emit(lines, level, "tv_academy_philosophy_has_current_issue_trigger = yes")
+    emit(lines, level, "NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }")
+    emit(lines, level, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
+    emit(lines, level, "NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }")
+    if event.get("issue"):
+        issue = issue_by_key(data)[event["issue"]]
+        emit(lines, level, f"var:tv_academy_philosophy_current ?= {issue['id']}")
+
+
+def gen_random_event_effects(lines: list[str], level: int, data: dict, event: dict, opt_key: str) -> None:
+    option_data = event["options"][opt_key]
+    emit(lines, level, "if = {")
+    emit(lines, level + 1, "limit = {")
+    gen_random_event_guard(lines, level + 2, data, event)
+    emit(lines, level + 1, "}")
+    emit(lines, level + 1, f"change_variable = {{ name = tv_academy_philosophy_debate_position add = {option_data['progress_delta']} }}")
+    emit(lines, level + 1, "clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }")
+    for block in option_data.get("effect_blocks") or []:
+        gen_random_event_effect_block(lines, level + 1, data, block)
+    emit(lines, level + 1, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
+    emit(lines, level, "}")
+
+
+def gen_random_event_effect_block(lines: list[str], level: int, data: dict, block: dict) -> None:
+    effect_type = block["type"]
+    if effect_type == "seat_stance":
+        group_id = group_by_key(data)[block["group"]]["id"]
+        stance_value = {"support": STANCE_SUPPORT, "oppose": STANCE_OPPOSE, "neutral": STANCE_NEUTRAL}[block["stance"]]
+        for seat in SEATS:
+            emit(lines, level, "if = {")
+            emit(lines, level + 1, f"limit = {{ {var_eq(seat_group(seat), group_id)} }}")
+            emit(lines, level + 1, f"set_variable = {{ name = {seat_stance(seat)} value = {stance_value} }}")
+            emit(lines, level + 1, f"set_variable = {{ name = {seat_cooldown(seat)} value = {block['cooldown_months']} }}")
+            emit(lines, level, "}")
+    elif effect_type == "seat_cooldown":
+        group_id = group_by_key(data)[block["group"]]["id"]
+        for seat in SEATS:
+            emit(lines, level, "if = {")
+            emit(lines, level + 1, f"limit = {{ {var_eq(seat_group(seat), group_id)} }}")
+            emit(lines, level + 1, f"set_variable = {{ name = {seat_cooldown(seat)} value = {block['cooldown_months']} }}")
+            emit(lines, level, "}")
+    elif effect_type == "estate_satisfaction":
+        emit(lines, level, f"add_estate_satisfaction = {{ type = estate_type:{block['estate']} value = {format_number(block['value'])} }}")
+    elif effect_type == "resource":
+        amount = block.get("scale", block.get("amount"))
+        resource = block["resource"]
+        if resource == "gold":
+            emit(lines, level, f"change_gold_effect = {{ scale = {format_number(amount)} }}")
+        elif resource == "prestige":
+            emit(lines, level, f"add_prestige = {format_number(amount)}")
+        elif resource == "legitimacy":
+            emit(lines, level, f"add_legitimacy = {format_number(amount)}")
+        elif resource == "stability":
+            emit(lines, level, f"add_stability = {format_number(amount)}")
+    elif effect_type == "temporary_country_modifier":
+        emit(lines, level, "add_country_modifier = {")
+        emit(lines, level + 1, f"modifier = {random_event_modifier_name(block)}")
+        emit(lines, level + 1, f"months = {block['months']}")
+        emit(lines, level + 1, "mode = add_and_extend")
+        emit(lines, level, "}")
+    elif effect_type == "artist_skill":
+        emit(lines, level, "random_character = {")
+        emit(lines, level + 1, "limit = { is_alive = yes is_artist = yes }")
+        emit(lines, level + 1, f"add_artist_skill = {format_number(block['amount'])}")
+        emit(lines, level, "}")
+    elif effect_type == "scientist_attribute":
+        emit(lines, level, "var:tv_academy_leader_char ?= {")
+        if block.get("adm"):
+            emit(lines, level + 1, f"add_adm = {format_number(block['adm'])}")
+        if block.get("dip"):
+            emit(lines, level + 1, f"add_dip = {format_number(block['dip'])}")
+        emit(lines, level, "}")
+    elif effect_type == "foreign_prestige":
+        for seat in SEATS:
+            emit(lines, level, "if = {")
+            emit(lines, level + 1, f"limit = {{ {var_eq(seat_group(seat), group_by_key(data)['foreign_power']['id'])} has_variable = {seat_foreign(seat)} }}")
+            emit(lines, level + 1, f"var:{seat_foreign(seat)} ?= {{ add_prestige = {format_number(block['amount'])} }}")
+            emit(lines, level, "}")
+
+
+def format_number(value: int | float) -> str:
+    if isinstance(value, int):
+        return str(value)
+    return f"{value:.4f}".rstrip("0").rstrip(".")
+
+
+def random_event_modifier_entries(data: dict) -> list[dict]:
+    by_key: dict[str, dict] = {}
+    for event in random_events(data):
+        for opt_key in ("a", "b"):
+            option_data = event["options"][opt_key]
+            for block in option_data.get("effect_blocks") or []:
+                if block.get("type") != "temporary_country_modifier":
+                    continue
+                key = random_event_modifier_name(block)
+                entry = by_key.setdefault(
+                    key,
+                    {
+                        "key": key,
+                        "english_name": f"{event['title']['english']}: {option_data['text']['english']}",
+                        "simp_chinese_name": f"{event['title']['simp_chinese']}：{option_data['text']['simp_chinese']}",
+                        "english_desc": option_data["rationale"]["english"],
+                        "simp_chinese_desc": option_data["rationale"]["simp_chinese"],
+                        "value": 0.0,
+                    },
+                )
+                for value in (block.get("effects") or {}).values():
+                    entry["value"] += float(value)
+    result = sorted(by_key.values(), key=lambda entry: entry["key"])
+    for entry in result:
+        if entry["value"] == 0:
+            entry["value"] = 0.01
+        entry["modifier_value"] = max(-0.03, min(0.03, entry["value"]))
+    return result
 
 
 def gen_defection_effects(lines: list[str], data: dict) -> None:
@@ -1234,6 +1702,21 @@ def gen_defection_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    emit(lines, 0, "tv_academy_debate_dispatch_auto_stance_notifications_effect = {")
+    for var, event_num in (
+        (AUTO_STANCE_SUPPORT_VAR, AUTO_STANCE_SUPPORT_EVENT),
+        (AUTO_STANCE_OPPOSE_VAR, AUTO_STANCE_OPPOSE_EVENT),
+        (AUTO_STANCE_NEUTRAL_VAR, AUTO_STANCE_NEUTRAL_EVENT),
+        (AUTO_SEAT_VACATED_VAR, AUTO_SEAT_VACATED_EVENT),
+    ):
+        emit(lines, 1, "if = {")
+        emit(lines, 2, f"limit = {{ has_variable = {var} NOT = {{ has_variable = {PENDING_RESULT_VAR} }} }}")
+        emit(lines, 2, f"trigger_event_non_silently = {{ id = {EVENT_NS}.{event_num} days = 1 }}")
+        emit(lines, 1, "}")
+        emit(lines, 1, f"remove_variable = {var}")
+    emit(lines, 0, "}")
+    emit(lines)
+
     emit(lines, 0, "tv_academy_debate_apply_seat_defection_effect = {")
     emit(lines, 1, "if = {")
     emit(lines, 2, f"limit = {{ has_variable = {seat_group('$seat$')} var:{seat_cooldown('$seat$')} <= 0 NOT = {{ {var_eq(seat_group('$seat$'), 18)} }} }}")
@@ -1248,17 +1731,31 @@ def gen_defection_effects(lines: list[str], data: dict) -> None:
             emit(lines, 3, "tv_academy_debate_set_selected_foreign_stance_effect = yes")
             emit(lines, 3, "if = {")
             emit(lines, 4, f"limit = {{ NOT = {{ var:{EVENT_STANCE} ?= var:{seat_stance('$seat$')} }} }}")
+            emit(lines, 4, "if = {")
+            emit(lines, 5, f"limit = {{ var:{EVENT_STANCE} ?= {STANCE_SUPPORT} }}")
+            emit(lines, 5, f"set_variable = {{ name = {AUTO_STANCE_SUPPORT_VAR} value = 1 }}")
+            emit(lines, 4, "}")
+            emit(lines, 4, "else_if = {")
+            emit(lines, 5, f"limit = {{ var:{EVENT_STANCE} ?= {STANCE_OPPOSE} }}")
+            emit(lines, 5, f"set_variable = {{ name = {AUTO_STANCE_OPPOSE_VAR} value = 1 }}")
+            emit(lines, 4, "}")
+            emit(lines, 4, "else_if = {")
+            emit(lines, 5, f"limit = {{ var:{EVENT_STANCE} ?= {STANCE_NEUTRAL} }}")
+            emit(lines, 5, f"set_variable = {{ name = {AUTO_STANCE_NEUTRAL_VAR} value = 1 }}")
+            emit(lines, 4, "}")
             emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = var:{EVENT_STANCE} }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
             emit(lines, 3, "}")
         else:
             emit(lines, 3, "if = {")
             emit(lines, 4, f"limit = {{ {var_eq(seat_stance('$seat$'), STANCE_SUPPORT)} tv_academy_debate_group_{group['key']}_negative_defection_condition_trigger = yes }}")
+            emit(lines, 4, f"set_variable = {{ name = {AUTO_STANCE_OPPOSE_VAR} value = 1 }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = {STANCE_OPPOSE} }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
             emit(lines, 3, "}")
             emit(lines, 3, "else_if = {")
             emit(lines, 4, f"limit = {{ {var_eq(seat_stance('$seat$'), STANCE_OPPOSE)} tv_academy_debate_group_{group['key']}_positive_defection_condition_trigger = yes }}")
+            emit(lines, 4, f"set_variable = {{ name = {AUTO_STANCE_SUPPORT_VAR} value = 1 }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = {STANCE_SUPPORT} }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
             emit(lines, 3, "}")
@@ -1438,9 +1935,293 @@ def gen_endpoint_effects(lines: list[str], data: dict) -> None:
         emit(lines)
 
 
+def gen_action_trigger_effects(lines: list[str], data: dict) -> None:
+    triggers = action_triggers(data)
+    if not triggers:
+        return
+
+    for trigger in triggers:
+        chance = int(trigger["chance"])
+        miss_chance = max(0, 100 - chance)
+        delta = int(trigger["delta"])
+        emit(lines, 0, f"{action_trigger_effect_name(trigger)} = {{")
+        emit(lines, 1, f"# Semantic condition: {trigger['condition']}")
+        emit(lines, 1, "if = {")
+        emit(lines, 2, "limit = {")
+        emit(lines, 3, "var:tv_academy_philosophy_phase ?= 1")
+        emit(lines, 3, "var:tv_academy_debate_current_node_type ?= 1")
+        emit(lines, 3, "tv_academy_philosophy_has_current_issue_trigger = yes")
+        emit(lines, 3, "has_variable = tv_academy_philosophy_debate_position")
+        emit(lines, 3, f"var:tv_academy_philosophy_current ?= {trigger['issue_id']}")
+        emit(lines, 3, "NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }")
+        emit(lines, 3, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
+        emit(lines, 3, "NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }")
+        emit(lines, 2, "}")
+        emit(lines, 2, "random_list = {")
+        emit(lines, 3, f"{chance} = {{")
+        emit(lines, 4, f"change_variable = {{ name = tv_academy_philosophy_debate_position add = {delta} }}")
+        emit(lines, 4, "clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }")
+        emit(lines, 4, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
+        emit(lines, 4, "if = {")
+        emit(lines, 5, f"limit = {{ NOT = {{ has_variable = {PENDING_RESULT_VAR} }} }}")
+        event_num = LOCAL_ACTION_POSITIVE_EVENT if delta > 0 else LOCAL_ACTION_NEGATIVE_EVENT
+        emit(lines, 5, f"trigger_event_non_silently = {{ id = {EVENT_NS}.{event_num} days = 1 }}")
+        emit(lines, 4, "}")
+        emit(lines, 3, "}")
+        if miss_chance > 0:
+            emit(lines, 3, f"{miss_chance} = {{ }}")
+        emit(lines, 2, "}")
+        emit(lines, 1, "}")
+        emit(lines, 0, "}")
+        emit(lines)
+
+    for context in action_contexts(data):
+        emit(lines, 0, f"{action_context_effect_name(context)} = {{")
+        for trigger in triggers:
+            if trigger["context"] == context:
+                emit(lines, 1, f"{action_trigger_effect_name(trigger)} = yes")
+        emit(lines, 0, "}")
+        emit(lines)
+
+
+def gen_world_debate_effects(lines: list[str], data: dict) -> None:
+    emit(lines, 0, "tv_academy_world_debate_initialize_effect = {")
+    for var in (WORLD_ACTIVE_VAR, WORLD_ISSUE_VAR, WORLD_NODE_VAR, WORLD_RESULT_VAR, WORLD_DELTA_VAR, WORLD_NEXT_SEAT_VAR, WORLD_DECISIVE_SEATS_VAR):
+        emit(lines, 1, f"remove_variable = {var}")
+    emit(lines, 1, f"set_variable = {{ name = {WORLD_PROGRESS_VAR} value = 50 }}")
+    emit(lines, 1, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = 50 }}")
+    emit(lines, 1, f"set_variable = {{ name = {WORLD_MONTHS_VAR} value = 0 }}")
+    emit(lines, 1, "tv_academy_world_debate_clear_seats_effect = yes")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_clear_seats_effect = {")
+    emit(lines, 1, f"clear_global_variable_list = {WORLD_PARTICIPANTS_LIST}")
+    for seat in WORLD_SEATS:
+        emit(lines, 1, f"remove_variable = {world_seat_country(seat)}")
+        emit(lines, 1, f"remove_variable = {world_seat_stance(seat)}")
+    for var in (WORLD_SUPPORT_SEATS_VAR, WORLD_OPPOSE_SEATS_VAR, WORLD_NEUTRAL_SEATS_VAR, WORLD_SEAT_COUNT_VAR):
+        emit(lines, 1, f"set_variable = {{ name = {var} value = 0 }}")
+    emit(lines, 1, f"remove_variable = {WORLD_NEXT_SEAT_VAR}")
+    emit(lines, 1, f"remove_variable = {WORLD_DECISIVE_SEATS_VAR}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_try_begin_for_country_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, "limit = {")
+    emit(lines, 3, "tv_academy_world_debate_country_has_academy_trigger = yes")
+    emit(lines, 3, "var:tv_academy_debate_current_node_type ?= 2")
+    emit(lines, 3, "tv_academy_philosophy_has_current_issue_trigger = yes")
+    emit(lines, 3, "situation:tv_academy_world_debate_situation = {")
+    emit(lines, 4, f"NOT = {{ has_variable = {WORLD_ACTIVE_VAR} }}")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+    emit(lines, 2, "situation:tv_academy_world_debate_situation = {")
+    emit(lines, 3, "tv_academy_world_debate_initialize_effect = yes")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_ACTIVE_VAR} value = 1 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_ISSUE_VAR} value = prev.var:tv_academy_philosophy_current }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_NODE_VAR} value = prev.var:tv_academy_debate_current_node }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_PROGRESS_VAR} value = 50 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = 50 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_MONTHS_VAR} value = 0 }}")
+    emit(lines, 3, "tv_academy_world_debate_refresh_seats_effect = yes")
+    emit(lines, 3, "tv_academy_world_debate_mirror_all_countries_effect = yes")
+    emit(lines, 3, f"if = {{")
+    emit(lines, 4, f"limit = {{ has_global_variable_list = {WORLD_PARTICIPANTS_LIST} }}")
+    emit(lines, 4, "every_in_global_list = {")
+    emit(lines, 5, f"variable = {WORLD_PARTICIPANTS_LIST}")
+    emit(lines, 5, "limit = {")
+    emit(lines, 6, "tv_academy_world_debate_country_has_academy_trigger = yes")
+    emit(lines, 6, f"var:tv_academy_philosophy_current ?= prev.var:{WORLD_ISSUE_VAR}")
+    emit(lines, 5, "}")
+    emit(lines, 5, f"trigger_event_non_silently = {{ id = {EVENT_NS}.{WORLD_DEBATE_START_EVENT} days = 1 }}")
+    emit(lines, 4, "}")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_monthly_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ has_variable = {WORLD_ACTIVE_VAR} }}")
+    emit(lines, 2, "tv_academy_world_debate_refresh_seats_effect = yes")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_MONTHS_VAR} add = 1 }}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_DELTA_VAR} value = var:{WORLD_STRENGTH_VAR} }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_DELTA_VAR} add = -50 }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_DELTA_VAR} divide = 100 }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_DELTA_VAR} multiply = 5 }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_PROGRESS_VAR} add = var:{WORLD_DELTA_VAR} }}")
+    emit(lines, 2, f"clamp_variable = {{ name = {WORLD_PROGRESS_VAR} min = 0 max = 100 }}")
+    emit(lines, 2, "if = {")
+    emit(lines, 3, f"limit = {{ var:{WORLD_PROGRESS_VAR} <= 0 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_RESULT_VAR} value = {WORLD_RESULT_CONSERVATIVE} }}")
+    emit(lines, 3, "tv_academy_world_debate_resolve_effect = yes")
+    emit(lines, 2, "}")
+    emit(lines, 2, "else_if = {")
+    emit(lines, 3, f"limit = {{ var:{WORLD_PROGRESS_VAR} >= 100 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_RESULT_VAR} value = {WORLD_RESULT_PROGRESSIVE} }}")
+    emit(lines, 3, "tv_academy_world_debate_resolve_effect = yes")
+    emit(lines, 2, "}")
+    emit(lines, 2, "else_if = {")
+    emit(lines, 3, f"limit = {{ var:{WORLD_MONTHS_VAR} >= 120 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_RESULT_VAR} value = {WORLD_RESULT_NEUTRAL} }}")
+    emit(lines, 3, "tv_academy_world_debate_resolve_effect = yes")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 1, "tv_academy_world_debate_mirror_all_countries_effect = yes")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_refresh_seats_effect = {")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ NOT = {{ has_variable = {WORLD_ACTIVE_VAR} }} }}")
+    emit(lines, 2, "tv_academy_world_debate_clear_seats_effect = yes")
+    emit(lines, 1, "}")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ has_variable = {WORLD_ACTIVE_VAR} }}")
+    emit(lines, 2, "tv_academy_world_debate_clear_seats_effect = yes")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_NEXT_SEAT_VAR} value = 1 }}")
+    emit(lines, 2, "every_country = {")
+    emit(lines, 3, "limit = { tv_academy_world_debate_country_can_participate_trigger = yes }")
+    emit(lines, 3, f"add_to_global_variable_list = {{ name = {WORLD_PARTICIPANTS_LIST} target = this }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_COUNTRY_STANCE_VAR} value = {STANCE_NEUTRAL} }}")
+    emit(lines, 3, "if = {")
+    emit(lines, 4, "limit = { tv_academy_world_debate_country_supports_current_issue_trigger = yes }")
+    emit(lines, 4, f"set_variable = {{ name = {WORLD_COUNTRY_STANCE_VAR} value = {STANCE_SUPPORT} }}")
+    emit(lines, 3, "}")
+    emit(lines, 3, "else_if = {")
+    emit(lines, 4, "limit = { tv_academy_world_debate_country_opposes_current_issue_trigger = yes }")
+    emit(lines, 4, f"set_variable = {{ name = {WORLD_COUNTRY_STANCE_VAR} value = {STANCE_OPPOSE} }}")
+    emit(lines, 3, "}")
+    for stance_value, count_var in (
+        (STANCE_SUPPORT, WORLD_SUPPORT_SEATS_VAR),
+        (STANCE_OPPOSE, WORLD_OPPOSE_SEATS_VAR),
+        (STANCE_NEUTRAL, WORLD_NEUTRAL_SEATS_VAR),
+    ):
+        emit(lines, 3, "if = {")
+        emit(lines, 4, f"limit = {{ {var_eq(WORLD_COUNTRY_STANCE_VAR, stance_value)} }}")
+        emit(lines, 4, f"situation:tv_academy_world_debate_situation = {{ change_variable = {{ name = {count_var} add = 1 }} }}")
+        emit(lines, 3, "}")
+    emit(lines, 3, f"situation:tv_academy_world_debate_situation = {{ change_variable = {{ name = {WORLD_SEAT_COUNT_VAR} add = 1 }} }}")
+    gen_world_seat_assignment_branches(lines, 3)
+    emit(lines, 2, "}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_DECISIVE_SEATS_VAR} value = var:{WORLD_SUPPORT_SEATS_VAR} }}")
+    emit(lines, 2, f"change_variable = {{ name = {WORLD_DECISIVE_SEATS_VAR} add = var:{WORLD_OPPOSE_SEATS_VAR} }}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = 50 }}")
+    emit(lines, 2, "if = {")
+    emit(lines, 3, f"limit = {{ var:{WORLD_DECISIVE_SEATS_VAR} > 0 }}")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = var:{WORLD_SUPPORT_SEATS_VAR} }}")
+    emit(lines, 3, f"change_variable = {{ name = {WORLD_STRENGTH_VAR} divide = var:{WORLD_DECISIVE_SEATS_VAR} }}")
+    emit(lines, 3, f"change_variable = {{ name = {WORLD_STRENGTH_VAR} multiply = 100 }}")
+    emit(lines, 3, f"clamp_variable = {{ name = {WORLD_STRENGTH_VAR} min = 0 max = 100 }}")
+    emit(lines, 2, "}")
+    emit(lines, 2, f"remove_variable = {WORLD_NEXT_SEAT_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_DECISIVE_SEATS_VAR}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_resolve_effect = {")
+    emit(lines, 1, f"if = {{")
+    emit(lines, 2, f"limit = {{ has_variable = {WORLD_ACTIVE_VAR} has_variable = {WORLD_RESULT_VAR} }}")
+    emit(lines, 2, f"if = {{")
+    emit(lines, 3, f"limit = {{ has_global_variable_list = {WORLD_PARTICIPANTS_LIST} }}")
+    emit(lines, 3, "every_in_global_list = {")
+    emit(lines, 4, f"variable = {WORLD_PARTICIPANTS_LIST}")
+    emit(lines, 4, "limit = {")
+    emit(lines, 5, "tv_academy_world_debate_country_has_academy_trigger = yes")
+    emit(lines, 5, f"var:tv_academy_philosophy_current ?= root.var:{WORLD_ISSUE_VAR}")
+    emit(lines, 4, "}")
+    emit(lines, 4, "tv_academy_world_debate_apply_country_result_effect = yes")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+    emit(lines, 2, f"remove_variable = {WORLD_ACTIVE_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_ISSUE_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_NODE_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_RESULT_VAR}")
+    emit(lines, 2, f"remove_variable = {WORLD_DELTA_VAR}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_PROGRESS_VAR} value = 50 }}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_STRENGTH_VAR} value = 50 }}")
+    emit(lines, 2, f"set_variable = {{ name = {WORLD_MONTHS_VAR} value = 0 }}")
+    emit(lines, 2, "tv_academy_world_debate_clear_seats_effect = yes")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_apply_country_result_effect = {")
+    for issue in issues(data):
+        emit(lines, 1, "if = {")
+        emit(lines, 2, f"limit = {{ root = {{ var:{WORLD_ISSUE_VAR} ?= {issue['id']} }} }}")
+        emit(lines, 2, "if = {")
+        emit(lines, 3, f"limit = {{ root = {{ var:{WORLD_RESULT_VAR} ?= {WORLD_RESULT_PROGRESSIVE} }} }}")
+        emit(lines, 3, f"set_variable = {{ name = {issue_progressive_var(issue)} value = 1 }}")
+        emit(lines, 3, f"remove_variable = {issue_conservative_var(issue)}")
+        emit(lines, 3, f"tv_academy_philosophy_accept_{issue['key']}_effect = yes")
+        emit(lines, 2, "}")
+        emit(lines, 2, "else_if = {")
+        emit(lines, 3, f"limit = {{ root = {{ var:{WORLD_RESULT_VAR} ?= {WORLD_RESULT_CONSERVATIVE} }} NOT = {{ has_embraced_institution = institution:{issue['institution']} }} }}")
+        emit(lines, 3, f"set_variable = {{ name = {issue_conservative_var(issue)} value = 1 }}")
+        emit(lines, 3, f"remove_variable = {issue_progressive_var(issue)}")
+        emit(lines, 2, "}")
+        emit(lines, 2, "tv_academy_philosophy_advance_current_issue_effect = yes")
+        emit(lines, 2, "tv_academy_philosophy_enter_recess_effect = yes")
+        emit(lines, 2, "if = {")
+        emit(lines, 3, f"limit = {{ root = {{ var:{WORLD_RESULT_VAR} ?= {WORLD_RESULT_PROGRESSIVE} }} }}")
+        emit(lines, 3, f"trigger_event_non_silently = {{ id = {EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT} days = 1 }}")
+        emit(lines, 2, "}")
+        emit(lines, 2, "else_if = {")
+        emit(lines, 3, f"limit = {{ root = {{ var:{WORLD_RESULT_VAR} ?= {WORLD_RESULT_CONSERVATIVE} }} }}")
+        emit(lines, 3, f"trigger_event_non_silently = {{ id = {EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT} days = 1 }}")
+        emit(lines, 2, "}")
+        emit(lines, 2, "else_if = {")
+        emit(lines, 3, f"limit = {{ root = {{ var:{WORLD_RESULT_VAR} ?= {WORLD_RESULT_NEUTRAL} }} }}")
+        emit(lines, 3, f"trigger_event_non_silently = {{ id = {EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT} days = 1 }}")
+        emit(lines, 2, "}")
+        emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_world_debate_mirror_all_countries_effect = {")
+    emit(lines, 1, "every_country = {")
+    emit(lines, 2, "limit = { tv_academy_world_debate_country_has_academy_trigger = yes }")
+    gen_world_mirror_variable_branches(lines, 2)
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+
+def gen_world_seat_assignment_branches(lines: list[str], level: int) -> None:
+    for seat in WORLD_SEATS:
+        emit(lines, level, ("if" if seat == 1 else "else_if") + " = {")
+        emit(lines, level + 1, f"limit = {{ situation:tv_academy_world_debate_situation = {{ var:{WORLD_NEXT_SEAT_VAR} ?= {seat} }} }}")
+        emit(lines, level + 1, "situation:tv_academy_world_debate_situation = {")
+        emit(lines, level + 2, f"set_variable = {{ name = {world_seat_country(seat)} value = prev }}")
+        emit(lines, level + 2, f"set_variable = {{ name = {world_seat_stance(seat)} value = prev.var:{WORLD_COUNTRY_STANCE_VAR} }}")
+        emit(lines, level + 2, f"change_variable = {{ name = {WORLD_NEXT_SEAT_VAR} add = 1 }}")
+        emit(lines, level + 1, "}")
+        emit(lines, level, "}")
+
+
+def gen_world_mirror_variable_branches(lines: list[str], level: int) -> None:
+    variables = [*WORLD_NUMERIC_VARS]
+    for seat in WORLD_SEATS:
+        variables.append(world_seat_country(seat))
+        variables.append(world_seat_stance(seat))
+    for var in variables:
+        emit(lines, level, "if = {")
+        emit(lines, level + 1, f"limit = {{ prev = {{ has_variable = {var} }} }}")
+        emit(lines, level + 1, f"set_variable = {{ name = {var} value = prev.var:{var} }}")
+        emit(lines, level, "}")
+        emit(lines, level, "else = {")
+        emit(lines, level + 1, f"remove_variable = {var}")
+        emit(lines, level, "}")
+
+
 def generate_events(data: dict) -> str:
     script = "scripts/in_game/events/gen_tv_academy_philosophy_debate_events.py"
-    lines: list[str] = [header(script).rstrip(), "", f"namespace = {EVENT_NS}", ""]
+    lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), "", f"namespace = {EVENT_NS}", ""]
     emit(lines, 0, f"{EVENT_NS}.1 = {{")
     emit(lines, 1, "type = country_event")
     emit(lines, 1, "hidden = yes")
@@ -1480,6 +2261,47 @@ def generate_events(data: dict) -> str:
             emit(lines, 2, f"has_variable = {EVENT_GROUP}")
         emit(lines, 1, "}")
         emit_event_options(lines, 1, data, event_num, key)
+        emit(lines, 0, "}")
+        emit(lines)
+
+    notification_specs = {
+        LOCAL_ACTION_POSITIVE_EVENT: "good",
+        LOCAL_ACTION_NEGATIVE_EVENT: "bad",
+        WORLD_DEBATE_START_EVENT: "neutral",
+        WORLD_DEBATE_PROGRESSIVE_EVENT: "good",
+        WORLD_DEBATE_CONSERVATIVE_EVENT: "bad",
+        WORLD_DEBATE_NEUTRAL_EVENT: "neutral",
+        AUTO_STANCE_SUPPORT_EVENT: "good",
+        AUTO_STANCE_OPPOSE_EVENT: "bad",
+        AUTO_STANCE_NEUTRAL_EVENT: "neutral",
+        AUTO_SEAT_VACATED_EVENT: "neutral",
+    }
+    for event_num, outcome in notification_specs.items():
+        emit(lines, 0, f"{EVENT_NS}.{event_num} = {{")
+        emit(lines, 1, "type = country_event")
+        emit(lines, 1, f"title = {EVENT_NS}.{event_num}.t")
+        emit(lines, 1, f"desc = {EVENT_NS}.{event_num}.d")
+        emit(lines, 1, f"outcome = {outcome}")
+        emit(lines)
+        option(lines, 1, f"{EVENT_NS}.{event_num}.a", [])
+        emit(lines, 0, "}")
+        emit(lines)
+
+    for event in random_events(data):
+        emit(lines, 0, f"{EVENT_NS}.{event['event_num']} = {{")
+        emit(lines, 1, "type = country_event")
+        emit(lines, 1, f"title = {random_event_loc_key(event, 't')}")
+        emit(lines, 1, f"desc = {random_event_loc_key(event, 'd')}")
+        emit(lines, 1, "outcome = neutral")
+        emit(lines)
+        emit(lines, 1, "trigger = {")
+        gen_random_event_guard(lines, 2, data, event)
+        emit(lines, 1, "}")
+        for opt_key in ("a", "b"):
+            emit(lines, 1, "option = {")
+            emit(lines, 2, f"name = {random_event_loc_key(event, opt_key)}")
+            gen_random_event_effects(lines, 2, data, event, opt_key)
+            emit(lines, 1, "}")
         emit(lines, 0, "}")
         emit(lines)
     return "\n".join(lines).rstrip() + "\n"
@@ -1582,7 +2404,7 @@ def option(lines: list[str], level: int, name: str, effects: list[str]) -> None:
 
 def generate_modifiers(data: dict) -> str:
     script = "scripts/in_game/common/static_modifiers/gen_tv_academy_philosophy_debate_modifiers.py"
-    lines = [header(script).rstrip(), ""]
+    lines = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
     seen: set[str] = set()
     for group in groups(data):
         if not is_estate_or_variant(group):
@@ -1594,6 +2416,11 @@ def generate_modifiers(data: dict) -> str:
         emit(lines, 0, f"{name} = {{")
         emit(lines, 1, f"{group['base_estate']}_target_satisfaction = 0.025")
         emit(lines, 1, f"global_{group['base_estate']}_power = 0.50")
+        emit(lines, 0, "}")
+        emit(lines)
+    for entry in random_event_modifier_entries(data):
+        emit(lines, 0, f"{entry['key']} = {{")
+        emit(lines, 1, f"legislative_efficiency = {format_number(entry['modifier_value'])}")
         emit(lines, 0, "}")
         emit(lines)
     return "\n".join(lines).rstrip() + "\n"
@@ -1616,11 +2443,30 @@ def generate_loc(data: dict, language: str) -> str:
         "TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT",
     ):
         entries.pop(duplicate_key, None)
-    lines = [header(script).rstrip(), f"{lang_header}:"]
+    for event in random_events(data):
+        entries[random_event_loc_key(event, "t")] = event["title"][loc_lang]
+        entries[random_event_loc_key(event, "d")] = event["desc"][loc_lang]
+        for opt_key in ("a", "b"):
+            entries[random_event_loc_key(event, opt_key)] = event["options"][opt_key]["text"][loc_lang]
+    for entry in random_event_modifier_entries(data):
+        entries[f"STATIC_MODIFIER_NAME_{entry['key']}"] = entry[f"{loc_lang}_name"]
+        entries[f"STATIC_MODIFIER_DESC_{entry['key']}"] = entry[f"{loc_lang}_desc"]
+    lines = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), f"{lang_header}:"]
     for key in sorted(entries):
         value = entries[key].replace('"', '\\"').replace("\n", "\\n")
         lines.append(f' {key}: "{value}"')
     return "\n".join(lines).rstrip() + "\n"
+
+
+def add_world_debate_loc_entries(entries: dict[str, str], zh: bool) -> None:
+    entries["tv_academy_world_debate_situation"] = "科学院世界辩论" if zh else "Academy World Debate"
+    entries["tv_academy_world_debate_situation_desc"] = "拥有科学院的国家会在世界辩论阶段围绕同一思潮展开辩论。" if zh else "Countries with an Academy of Sciences enter the world debate stage around the same philosophy."
+    entries["TV_ACADEMY_WORLD_DEBATE_TITLE"] = "世界辩论" if zh else "World Debate"
+    entries["TV_ACADEMY_WORLD_DEBATE_EMPTY"] = "尚无世界辩论" if zh else "No active world debate"
+    entries["TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"] = "一个空置的世界辩论席位。" if zh else "An empty world debate seat."
+    entries["TV_ACADEMY_WORLD_DEBATE_SEAT_TT"] = "该国家在世界辩论中拥有一个席位。绿色支持，红色反对，黄色中立。" if zh else "This country has one seat in the world debate. Green supports, red opposes, and yellow is neutral."
+    entries["TV_ACADEMY_WORLD_DEBATE_STRENGTH_TT"] = "世界辩论实力对比：支持席数 /（支持席数 + 反对席数）。中立席位不计入该比例。" if zh else "World debate strength: support seats divided by support plus opposition seats. Neutral seats are excluded."
+    entries["TV_ACADEMY_WORLD_DEBATE_PROGRESS_TT"] = "世界辩论从50进度开始；每月变化为（实力对比 - 50%）×5。达到0为保守结局，达到100为进步结局，10年未结束为中立结局。" if zh else "World debate starts at 50 progress. Each month changes by (strength - 50%) x 5. Reaching 0 gives the conservative result, reaching 100 gives the progressive result, and ten years without a result gives the neutral result."
 
 
 def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
@@ -1633,6 +2479,7 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
     entries["TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"] = "本地辩论进度现在完全由辩论席上的团体通过月度事件推动；支持方增加进度，反对方降低进度，中立方暂不影响进度。" if zh else "Local debate progress is now event-driven by seated debate groups. Supporters increase progress, opponents reduce it, and neutral groups do not move it yet."
     entries["TV_ACADEMY_DEBATE_LOCAL_EMPTY_SEAT_TT"] = "一个空置的[tv_debate_seat|E]。" if zh else "An empty [tv_debate_seat|E]."
     entries["TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT"] = "王室固定主持本国辩论，并始终支持当前议题。" if zh else "The Crown permanently presides over the domestic debate and always supports the current issue."
+    add_world_debate_loc_entries(entries, zh)
     for group in groups(data):
         name = group["loc"][lang]
         for num, template in event_loc_templates(zh).items():
@@ -1647,6 +2494,74 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
             entries[f"STATIC_MODIFIER_NAME_{estate_modifier_name(group)}"] = ("王室钦点：" if zh else "Royal Appointment: ") + group["loc"][lang]
             entries[f"STATIC_MODIFIER_DESC_{estate_modifier_name(group)}"] = "该阶层因王室在哲学辩论中公开抬举其代表而更加满意，也拥有更高影响力。" if zh else "This estate is more satisfied and influential after the Crown publicly elevated its representative in a philosophy debate."
     return entries
+
+
+def notification_loc_entries(zh: bool) -> dict[str, str]:
+    if zh:
+        return {
+            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.t": "辩论声势上扬",
+            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.d": "近期的政策和公共行动增强了当前科学院议题的论证。本地辩论正向接纳推进。",
+            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.a": "圆桌已经注意到。",
+            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.t": "辩论声势受挫",
+            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.d": "近期的政策和公共行动削弱了当前科学院议题的论证。本地辩论正向排斥滑落。",
+            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.a": "圆桌已经注意到。",
+            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.t": "世界辩论开幕",
+            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.d": "拥有科学院的诸国已经围绕当前哲学议题进入世界辩论。本国科学院将作为参与者记录这场争论的走向。",
+            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.a": "派代表入席。",
+            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.t": "世界辩论走向接纳",
+            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.d": "世界辩论已经形成接纳当前哲学议题的结论。本国科学院据此推进哲学序列，并让相关思潮在全国扎根。",
+            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.a": "记录这项结论。",
+            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.t": "世界辩论走向排斥",
+            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.d": "世界辩论已经形成排斥当前哲学议题的结论。本国科学院据此结束该议题，并继续推进哲学序列。",
+            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.a": "记录这项结论。",
+            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.t": "世界辩论无果而终",
+            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.d": "世界辩论未能形成明确结论。本国科学院将当前哲学议题归档，继续推进哲学序列。",
+            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.a": "将档案封存。",
+            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.t": "辩论席位转向支持",
+            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.d": "本月的政治与社会条件改变了圆桌上的部分立场。至少一个辩论席位已经转向支持当前哲学议题。",
+            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.a": "记录这次转向。",
+            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.t": "辩论席位转向反对",
+            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.d": "本月的政治与社会条件改变了圆桌上的部分立场。至少一个辩论席位已经转向反对当前哲学议题。",
+            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.a": "记录这次转向。",
+            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.t": "辩论席位转向中立",
+            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.d": "本月的政治与社会条件改变了圆桌上的部分立场。至少一个辩论席位已经不再明确支持或反对当前哲学议题。",
+            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.a": "记录这次转向。",
+            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.t": "辩论席位空缺",
+            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.d": "圆桌上的一名特殊参与者已经无法继续出席。本月的清理将对应辩论席位腾空。",
+            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.a": "记录这次空缺。",
+        }
+    return {
+        f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.t": "Debate Momentum Rises",
+        f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.d": "Recent policy and public action have strengthened the argument for the current Academy issue. The local debate moves toward acceptance.",
+        f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.a": "The table takes note.",
+        f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.t": "Debate Momentum Falters",
+        f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.d": "Recent policy and public action have weakened the argument for the current Academy issue. The local debate moves toward rejection.",
+        f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.a": "The table takes note.",
+        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.t": "A World Debate Opens",
+        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.d": "Countries with an Academy of Sciences have entered a world debate around the current philosophical issue. Our Academy will take part and record where the argument leads.",
+        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.a": "Send our representatives.",
+        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.t": "The World Debate Accepts",
+        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.d": "The world debate has reached an accepting conclusion on the current philosophical issue. Our Academy advances the philosophy sequence and lets the related institution take root across the country.",
+        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.a": "Record the conclusion.",
+        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.t": "The World Debate Rejects",
+        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.d": "The world debate has reached a rejecting conclusion on the current philosophical issue. Our Academy closes this issue and advances the philosophy sequence.",
+        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.a": "Record the conclusion.",
+        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.t": "The World Debate Ends Inconclusively",
+        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.d": "The world debate has ended without a clear conclusion. Our Academy files the current philosophical issue away and advances the philosophy sequence.",
+        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.a": "Seal the archive.",
+        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.t": "A Debate Seat Turns Supportive",
+        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.d": "This month's political and social conditions have changed part of the roundtable. At least one debate seat now supports the current philosophical issue.",
+        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.a": "Record the shift.",
+        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.t": "A Debate Seat Turns Opposed",
+        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.d": "This month's political and social conditions have changed part of the roundtable. At least one debate seat now opposes the current philosophical issue.",
+        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.a": "Record the shift.",
+        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.t": "A Debate Seat Turns Neutral",
+        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.d": "This month's political and social conditions have changed part of the roundtable. At least one debate seat no longer clearly supports or opposes the current philosophical issue.",
+        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.a": "Record the shift.",
+        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.t": "A Debate Seat Falls Vacant",
+        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.d": "A special participant at the roundtable can no longer attend. This month's cleanup has vacated the corresponding debate seat.",
+        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.a": "Record the vacancy.",
+    }
 
 
 def event_loc_templates(zh: bool) -> dict[int, dict]:
@@ -1699,6 +2614,7 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
     entries["TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"] = "本地辩论进度现在完全由辩论席上的团体通过月度事件推动：支持方增加进度，反对方降低进度，中立方暂不影响进度。" if zh else "Local debate progress is now event-driven by seated debate groups. Supporters increase progress, opponents reduce it, and neutral groups do not move it yet."
     entries["TV_ACADEMY_DEBATE_LOCAL_EMPTY_SEAT_TT"] = "一个空置的[tv_debate_seat|E]。" if zh else "An empty [tv_debate_seat|E]."
     entries["TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT"] = "王室固定主持本国辩论，并始终支持当前议题。" if zh else "The Crown permanently presides over the domestic debate and always supports the current issue."
+    add_world_debate_loc_entries(entries, zh)
     templates = event_loc_templates(zh)
     for group in groups(data):
         name = group["loc"][lang]
@@ -1716,6 +2632,7 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
             base_text = template["options"][opt]
             for price in data["prices"]:
                 entries[price_option_loc_key(num, opt, price)] = f"{base_text}: {price['loc'][lang]}"
+    entries.update(notification_loc_entries(zh))
     for group in groups(data):
         if is_estate_or_variant(group):
             entries[f"STATIC_MODIFIER_NAME_{estate_modifier_name(group)}"] = ("王室钦点：" if zh else "Royal Appointment: ") + group["loc"][lang]

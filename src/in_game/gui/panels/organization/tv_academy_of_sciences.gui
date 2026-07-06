@@ -1750,8 +1750,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_1_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1762,8 +1802,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_2_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1774,8 +1854,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_3_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1786,8 +1906,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_4_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1798,8 +1958,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_5_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1810,8 +2010,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_6_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1822,8 +2062,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_7_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1834,8 +2114,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_8_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1846,8 +2166,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_9_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1858,8 +2218,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_10_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1876,8 +2276,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_11_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1888,8 +2328,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_12_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1900,8 +2380,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_13_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1912,8 +2432,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_14_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1924,8 +2484,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_15_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1936,8 +2536,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_16_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1948,8 +2588,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_17_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1960,8 +2640,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_18_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1972,8 +2692,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_19_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -1984,8 +2744,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_20_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2002,8 +2802,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_21_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2014,8 +2854,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_22_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2026,8 +2906,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_23_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2038,8 +2958,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_24_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2050,8 +3010,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_25_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2062,8 +3062,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_26_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2074,8 +3114,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_27_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2086,8 +3166,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_28_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2098,8 +3218,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_29_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2110,8 +3270,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_30_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2128,8 +3328,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_31_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2140,8 +3380,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_32_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2152,8 +3432,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_33_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2164,8 +3484,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_34_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2176,8 +3536,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_35_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2188,8 +3588,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_36_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2200,8 +3640,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_37_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2212,8 +3692,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_38_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2224,8 +3744,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_39_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2236,8 +3796,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_40_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2254,8 +3854,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_41_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2266,8 +3906,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_42_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2278,8 +3958,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_43_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2290,8 +4010,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_44_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2302,8 +4062,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_45_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2314,8 +4114,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_46_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2326,8 +4166,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_47_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2338,8 +4218,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_48_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2350,8 +4270,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_49_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2362,8 +4322,48 @@ organization_panel = {
 											widget = {
 												size = { 24 24 }
 												using = bg_circle_piechart
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_stance').GetValue, '(CFixedPoint)1.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_light_green_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_stance').GetValue, '(CFixedPoint)2.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_red_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_country').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_stance').GetValue, '(CFixedPoint)3.0'))]"
+													size = { 100% 100% }
+													using = bg_circle_piechart
+													modify_texture = {
+														using = color_yellow_texture
+														blend_mode = overlay
+														alpha = 0.85
+													}
+												}
+												widget = {
+													visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_country').IsSet]"
+													parentanchor = center
+													widgetanchor = center
+													size = { 22 14 }
+													datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_country').GetCountry]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"
+													country_flag_small_plus = { size = { 22 14 } }
+												}
 												text_single = {
+													visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_seat_50_country').IsSet)]"
 													parentanchor = center
 													size = { 100% 100% }
 													raw_text = "@diplomacy!"
@@ -2386,15 +4386,40 @@ organization_panel = {
 													using = progress_bar_blue_alt
 													min = 0
 													max = 100
-													value = "50"
-													tooltip = "TV_ACADEMY_DEBATE_WORLD_PROGRESS_TT"
+													value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_strength').GetValue]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_STRENGTH_TT"
 												}
 											}
 											text_single = {
 												size = { 74 22 }
-												raw_text = "50%"
+												raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_strength').GetValue|0]%"
 												fontsize = 13
-												tooltip = "TV_ACADEMY_DEBATE_WORLD_PROGRESS_TT"
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_STRENGTH_TT"
+												align = right|nobaseline
+											}
+										}
+										hbox = {
+											layoutpolicy_horizontal = fixed
+											size = { 462 24 }
+											spacing = 8
+											widget = {
+												size = { 380 22 }
+												progressbar = {
+													size = { 380 16 }
+													parentanchor = vcenter
+													widgetanchor = vcenter
+													using = progress_bar_blue_alt
+													min = 0
+													max = 100
+													value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_progress').GetValue]"
+													tooltip = "TV_ACADEMY_WORLD_DEBATE_PROGRESS_TT"
+												}
+											}
+											text_single = {
+												size = { 74 22 }
+												raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_world_debate_progress').GetValue|0]%"
+												fontsize = 13
+												tooltip = "TV_ACADEMY_WORLD_DEBATE_PROGRESS_TT"
 												align = right|nobaseline
 											}
 										}
@@ -2465,14 +4490,38 @@ organization_panel = {
 						text_single = {
 							size = { 440 26 }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)1.0')]"
-							text = "TV_RM_TARGET_PRINTING_PRESS"
+							text = "TV_RM_TARGET_MEDIEVAL_ADMINISTRATION"
 							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_PRINTING_PRESS_TT"
+							tooltip = "TV_RM_TARGET_MEDIEVAL_ADMINISTRATION_TT"
 							align = center|nobaseline
 						}
 						text_single = {
 							size = { 440 26 }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)2.0')]"
+							text = "TV_RM_TARGET_SCRIPTORIUM"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_SCRIPTORIUM_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)3.0')]"
+							text = "TV_RM_TARGET_HORSE_RIDING"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_HORSE_RIDING_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)4.0')]"
+							text = "TV_RM_TARGET_BRONZE_WORKING"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_BRONZE_WORKING_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)5.0')]"
 							text = "TV_RM_TARGET_IRON_WORKING"
 							default_format = "#explanation_link"
 							tooltip = "TV_RM_TARGET_IRON_WORKING_TT"
@@ -2480,7 +4529,55 @@ organization_panel = {
 						}
 						text_single = {
 							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)4.0')]"
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)6.0')]"
+							text = "TV_RM_TARGET_EFFICIENT_LOGISTICS"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_EFFICIENT_LOGISTICS_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)7.0')]"
+							text = "TV_RM_TARGET_ABACUS"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_ABACUS_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)8.0')]"
+							text = "TV_RM_TARGET_RENAISSANCE_SCULPTURES"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_RENAISSANCE_SCULPTURES_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)9.0')]"
+							text = "TV_RM_TARGET_CROWN_POWER_RENAISSANCE"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_CROWN_POWER_RENAISSANCE_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)10.0')]"
+							text = "TV_RM_TARGET_DOCK"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_DOCK_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)11.0')]"
+							text = "TV_RM_TARGET_STANDARDIZED_COINS"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_STANDARDIZED_COINS_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)12.0')]"
 							text = "TV_RM_TARGET_GUNPOWDER"
 							default_format = "#explanation_link"
 							tooltip = "TV_RM_TARGET_GUNPOWDER_TT"
@@ -2488,7 +4585,23 @@ organization_panel = {
 						}
 						text_single = {
 							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)5.0')]"
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)13.0')]"
+							text = "TV_RM_TARGET_ARMORY"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_ARMORY_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)14.0')]"
+							text = "TV_RM_TARGET_OPEN_SEA_EXPLORATION"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_OPEN_SEA_EXPLORATION_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)15.0')]"
 							text = "TV_RM_TARGET_BLAST_FURNACE"
 							default_format = "#explanation_link"
 							tooltip = "TV_RM_TARGET_BLAST_FURNACE_TT"
@@ -2496,130 +4609,130 @@ organization_panel = {
 						}
 						text_single = {
 							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)6.0')]"
-							text = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_SCIENTIFIC_EXPERIMENTATION_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)7.0')]"
-							text = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_SCIENTIFIC_REVOLUTION_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)8.0')]"
-							text = "TV_RM_TARGET_MANUFACTORIES"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_MANUFACTORIES_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)9.0')]"
-							text = "TV_RM_TARGET_INDUSTRIALIZATION"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_INDUSTRIALIZATION_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)10.0')]"
-							text = "TV_RM_TARGET_VACCINATION"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_VACCINATION_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)11.0')]"
-							text = "TV_RM_TARGET_RENAISSANCE"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_RENAISSANCE_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)12.0')]"
-							text = "TV_RM_TARGET_BANKING"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_BANKING_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)13.0')]"
-							text = "TV_RM_TARGET_PROFESSIONAL_ARMIES"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_PROFESSIONAL_ARMIES_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)14.0')]"
-							text = "TV_RM_TARGET_NEW_WORLD"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_NEW_WORLD_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
-							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)15.0')]"
-							text = "TV_RM_TARGET_PIKE_AND_SHOT"
-							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_PIKE_AND_SHOT_TT"
-							align = center|nobaseline
-						}
-						text_single = {
-							size = { 440 26 }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)16.0')]"
-							text = "TV_RM_TARGET_CONFESSIONALISM"
+							text = "TV_RM_TARGET_FACETING"
 							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_CONFESSIONALISM_TT"
+							tooltip = "TV_RM_TARGET_FACETING_TT"
 							align = center|nobaseline
 						}
 						text_single = {
 							size = { 440 26 }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)17.0')]"
-							text = "TV_RM_TARGET_GLOBAL_TRADE"
+							text = "TV_RM_TARGET_PAPER_WORKSHOP"
 							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_GLOBAL_TRADE_TT"
+							tooltip = "TV_RM_TARGET_PAPER_WORKSHOP_TT"
 							align = center|nobaseline
 						}
 						text_single = {
 							size = { 440 26 }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)18.0')]"
-							text = "TV_RM_TARGET_ARTILLERY_INSTITUTION"
+							text = "TV_RM_TARGET_TRAINING_FIELDS"
 							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_ARTILLERY_INSTITUTION_TT"
+							tooltip = "TV_RM_TARGET_TRAINING_FIELDS_TT"
 							align = center|nobaseline
 						}
 						text_single = {
 							size = { 440 26 }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)19.0')]"
-							text = "TV_RM_TARGET_MILITARY_REVOLUTION"
+							text = "TV_RM_TARGET_CUSTOMS_HOUSE"
 							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_MILITARY_REVOLUTION_TT"
+							tooltip = "TV_RM_TARGET_CUSTOMS_HOUSE_TT"
 							align = center|nobaseline
 						}
 						text_single = {
 							size = { 440 26 }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)20.0')]"
-							text = "TV_RM_TARGET_ENLIGHTENMENT"
+							text = "TV_RM_TARGET_THE_PRINCE"
 							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_ENLIGHTENMENT_TT"
+							tooltip = "TV_RM_TARGET_THE_PRINCE_TT"
 							align = center|nobaseline
 						}
 						text_single = {
 							size = { 440 26 }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)21.0')]"
-							text = "TV_RM_TARGET_LEVEE_EN_MASSE"
+							text = "TV_RM_TARGET_PHARMACOLOGY"
 							default_format = "#explanation_link"
-							tooltip = "TV_RM_TARGET_LEVEE_EN_MASSE_TT"
+							tooltip = "TV_RM_TARGET_PHARMACOLOGY_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)22.0')]"
+							text = "TV_RM_TARGET_LETTERS_OF_MARQUE"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_LETTERS_OF_MARQUE_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)23.0')]"
+							text = "TV_RM_TARGET_SLITTING_MILLS"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_SLITTING_MILLS_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)24.0')]"
+							text = "TV_RM_TARGET_CANNON_WORKSHOP"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_CANNON_WORKSHOP_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)25.0')]"
+							text = "TV_RM_TARGET_BARRACKS"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_BARRACKS_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)26.0')]"
+							text = "TV_RM_TARGET_OSTENTATIOUS_CLOTHING"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_OSTENTATIOUS_CLOTHING_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)27.0')]"
+							text = "TV_RM_TARGET_SANITATION"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_SANITATION_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)28.0')]"
+							text = "TV_RM_TARGET_COKE_BLAST_FURNACE"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_COKE_BLAST_FURNACE_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)29.0')]"
+							text = "TV_RM_TARGET_SCIENTIFIC_MAPPING"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_SCIENTIFIC_MAPPING_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)30.0')]"
+							text = "TV_RM_TARGET_SIEGE_CANNONS"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_SIEGE_CANNONS_TT"
+							align = center|nobaseline
+						}
+						text_single = {
+							size = { 440 26 }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_target').GetValue, '(CFixedPoint)31.0')]"
+							text = "TV_RM_TARGET_MAGAZINES"
+							default_format = "#explanation_link"
+							tooltip = "TV_RM_TARGET_MAGAZINES_TT"
 							align = center|nobaseline
 						}
 						expand = {}

@@ -736,6 +736,17 @@
   source: "User-reported Engineering Department wonder finalization tooltip stutter, 2026-06-10; fixed in generated tv_wonder_finalization_events.txt / tv_wonder_finalization_effects.txt via tv_engineering_department.6202"
   notes: "hidden_effect suppresses visible tooltip output, but it does not isolate event-option code from hover evaluation. The wonder finalization hidden chain was expensive because it included per-wonder/per-style dispatch, final building construction, cleanup, world-news broadcast, post-finalization priority caching, and project-state clearing."
 
+- id: event_gui_structure_downgrade_for_data_change
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['events', 'gui', 'scripted_effects', 'localization']
+  bad: "Collapsing existing per-target event descriptions, target-specific options, per-id effect dispatch, staged GUI rows, or localized branch text into generic fallback behavior just to make a data-list change smaller"
+  correction: "Preserve the existing player-facing structure when changing the data set. If the branch count is large, extend the appropriate generator/data source first, or stop and ask before changing structure. Do not silently replace target-specific UX with generic text/options or leave stale unreachable branches."
+  category: event
+  scope: any
+  source: "User correction during Academy research-target update, 2026-07-06"
+  notes: "A data-list update is not permission to downgrade event/GUI structure. Removing or genericizing established branch structure is a design change and must be explicitly requested or approved."
+
 - id: event_option_temp_variable_used_by_visible_helper
   detectability: needs_parser
   pattern: ''

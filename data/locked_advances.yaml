@@ -17,131 +17,196 @@
 #                       unlocked via prior cycle" guard)
 #
 # Enum assignments for tv_research_target (used in subprocess_effects.txt and GUI):
-#   gui_value must match the hardcoded enum in subprocess_effects.txt — do NOT reorder.
+#   gui_value must match the hardcoded enum in subprocess_effects.txt — keep in sync.
 #   gui_loc_key is derived by the GUI generator as TV_RM_TARGET_<ID_UPPER>.
-#   gui_value 3 is retired (formerly anatomy_advance) and intentionally not reused.
 #
 # DO NOT hand-edit generated output files. Run:
 #   conda run --no-capture-output -n eu5 python scripts/gen_locked_advances.py
 #   conda run --no-capture-output -n eu5 python scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py
 
 locked_advances:
-  - id: printing_press
+  - id: medieval_administration
     gui_value: 1
-    vanilla_advance_id: printing_press_advance
-    age: 3
-    research_unlock_var: tv_advance_printing_press_unlocked
+    vanilla_advance_id: medieval_administration
+    age: 1
+    research_unlock_var: tv_advance_medieval_administration_unlocked
+
+  - id: scriptorium
+    gui_value: 2
+    vanilla_advance_id: scriptorium_advance
+    age: 1
+    research_unlock_var: tv_advance_scriptorium_unlocked
+
+  - id: horse_riding
+    gui_value: 3
+    vanilla_advance_id: horse_riding_advance
+    age: 1
+    research_unlock_var: tv_advance_horse_riding_unlocked
+
+  - id: bronze_working
+    gui_value: 4
+    vanilla_advance_id: bronze_working
+    age: 1
+    research_unlock_var: tv_advance_bronze_working_unlocked
 
   - id: iron_working
-    gui_value: 2
+    gui_value: 5
     vanilla_advance_id: iron_working
     age: 1
     research_unlock_var: tv_advance_iron_working_unlocked
 
+  - id: efficient_logistics
+    gui_value: 6
+    vanilla_advance_id: efficient_logistics
+    age: 1
+    research_unlock_var: tv_advance_efficient_logistics_unlocked
+
+  - id: abacus
+    gui_value: 7
+    vanilla_advance_id: abacus_advance
+    age: 1
+    research_unlock_var: tv_advance_abacus_unlocked
+
+  - id: renaissance_sculptures
+    gui_value: 8
+    vanilla_advance_id: renaissance_sculptures
+    age: 2
+    research_unlock_var: tv_advance_renaissance_sculptures_unlocked
+
+  - id: crown_power_renaissance
+    gui_value: 9
+    vanilla_advance_id: crown_power_advance_renaissance
+    age: 2
+    research_unlock_var: tv_advance_crown_power_renaissance_unlocked
+
+  - id: dock
+    gui_value: 10
+    vanilla_advance_id: dock_advance
+    age: 2
+    research_unlock_var: tv_advance_dock_unlocked
+
+  - id: standardized_coins
+    gui_value: 11
+    vanilla_advance_id: standardized_coins
+    age: 2
+    research_unlock_var: tv_advance_standardized_coins_unlocked
+
   - id: gunpowder
-    gui_value: 4
+    gui_value: 12
     vanilla_advance_id: gunpowder_advance
     age: 2
     research_unlock_var: tv_advance_gunpowder_unlocked
 
+  - id: armory
+    gui_value: 13
+    vanilla_advance_id: armory_advance
+    age: 2
+    research_unlock_var: tv_advance_armory_unlocked
+
+  - id: open_sea_exploration
+    gui_value: 14
+    vanilla_advance_id: open_sea_exploration
+    age: 3
+    research_unlock_var: tv_advance_open_sea_exploration_unlocked
+
   - id: blast_furnace
-    gui_value: 5
+    gui_value: 15
     vanilla_advance_id: blast_furnace
     age: 3
     research_unlock_var: tv_advance_blast_furnace_unlocked
 
-  - id: scientific_experimentation
-    gui_value: 6
-    vanilla_advance_id: scientific_experimentation
-    age: 4
-    research_unlock_var: tv_advance_scientific_experimentation_unlocked
-
-  - id: scientific_revolution
-    gui_value: 7
-    vanilla_advance_id: scientific_revolution_advance
-    age: 5
-    research_unlock_var: tv_advance_scientific_revolution_unlocked
-
-  - id: manufactories
-    gui_value: 8
-    vanilla_advance_id: manufactories_advance
-    age: 5
-    research_unlock_var: tv_advance_manufactories_unlocked
-
-  - id: industrialization
-    gui_value: 9
-    vanilla_advance_id: industrialization_advance
-    age: 6
-    research_unlock_var: tv_advance_industrialization_unlocked
-
-  - id: vaccination
-    gui_value: 10
-    vanilla_advance_id: vaccination_advance
-    age: 6
-    research_unlock_var: tv_advance_vaccination_unlocked
-
-  - id: renaissance
-    gui_value: 11
-    vanilla_advance_id: renaissance_advance
-    age: 2
-    research_unlock_var: tv_advance_renaissance_unlocked
-
-  - id: banking
-    gui_value: 12
-    vanilla_advance_id: banking_advance
-    age: 2
-    research_unlock_var: tv_advance_banking_unlocked
-
-  - id: professional_armies
-    gui_value: 13
-    vanilla_advance_id: professional_armies_advance
-    age: 2
-    research_unlock_var: tv_advance_professional_armies_unlocked
-
-  - id: new_world
-    gui_value: 14
-    vanilla_advance_id: new_world_advance
-    age: 3
-    research_unlock_var: tv_advance_new_world_unlocked
-
-  - id: pike_and_shot
-    gui_value: 15
-    vanilla_advance_id: pike_and_shot_advance
-    age: 3
-    research_unlock_var: tv_advance_pike_and_shot_unlocked
-
-  - id: confessionalism
+  - id: faceting
     gui_value: 16
-    vanilla_advance_id: confessionalism_advance
-    age: 4
-    research_unlock_var: tv_advance_confessionalism_unlocked
+    vanilla_advance_id: faceting
+    age: 3
+    research_unlock_var: tv_advance_faceting_unlocked
 
-  - id: global_trade
+  - id: paper_workshop
     gui_value: 17
-    vanilla_advance_id: global_trade_advance
-    age: 4
-    research_unlock_var: tv_advance_global_trade_unlocked
+    vanilla_advance_id: paper_workshop_advance
+    age: 3
+    research_unlock_var: tv_advance_paper_workshop_unlocked
 
-  - id: artillery_institution
+  - id: training_fields
     gui_value: 18
-    vanilla_advance_id: artillery_institution_advance
-    age: 4
-    research_unlock_var: tv_advance_artillery_institution_unlocked
+    vanilla_advance_id: training_fields_advance
+    age: 3
+    research_unlock_var: tv_advance_training_fields_unlocked
 
-  - id: military_revolution
+  - id: customs_house
     gui_value: 19
-    vanilla_advance_id: military_revolution_advance
-    age: 5
-    research_unlock_var: tv_advance_military_revolution_unlocked
+    vanilla_advance_id: customs_house_advance
+    age: 3
+    research_unlock_var: tv_advance_customs_house_unlocked
 
-  - id: enlightenment
+  - id: the_prince
     gui_value: 20
-    vanilla_advance_id: enlightenment_advance
-    age: 6
-    research_unlock_var: tv_advance_enlightenment_unlocked
+    vanilla_advance_id: gov_reform_reformation_a
+    age: 4
+    research_unlock_var: tv_advance_the_prince_unlocked
 
-  - id: levee_en_masse
+  - id: pharmacology
     gui_value: 21
-    vanilla_advance_id: levee_en_masse_advance
-    age: 6
-    research_unlock_var: tv_advance_levee_en_masse_unlocked
+    vanilla_advance_id: pharmacology_advance
+    age: 4
+    research_unlock_var: tv_advance_pharmacology_unlocked
+
+  - id: letters_of_marque
+    gui_value: 22
+    vanilla_advance_id: letters_of_marque
+    age: 4
+    research_unlock_var: tv_advance_letters_of_marque_unlocked
+
+  - id: slitting_mills
+    gui_value: 23
+    vanilla_advance_id: slitting_mills
+    age: 4
+    research_unlock_var: tv_advance_slitting_mills_unlocked
+
+  - id: cannon_workshop
+    gui_value: 24
+    vanilla_advance_id: cannon_workshop_advance
+    age: 4
+    research_unlock_var: tv_advance_cannon_workshop_unlocked
+
+  - id: barracks
+    gui_value: 25
+    vanilla_advance_id: barracks_advance
+    age: 4
+    research_unlock_var: tv_advance_barracks_unlocked
+
+  - id: ostentatious_clothing
+    gui_value: 26
+    vanilla_advance_id: ostentatious_clothing
+    age: 5
+    research_unlock_var: tv_advance_ostentatious_clothing_unlocked
+
+  - id: sanitation
+    gui_value: 27
+    vanilla_advance_id: sanitation_advance
+    age: 5
+    research_unlock_var: tv_advance_sanitation_unlocked
+
+  - id: coke_blast_furnace
+    gui_value: 28
+    vanilla_advance_id: coke_blast_furnace
+    age: 5
+    research_unlock_var: tv_advance_coke_blast_furnace_unlocked
+
+  - id: scientific_mapping
+    gui_value: 29
+    vanilla_advance_id: scientific_mapping_advance
+    age: 5
+    research_unlock_var: tv_advance_scientific_mapping_unlocked
+
+  - id: siege_cannons
+    gui_value: 30
+    vanilla_advance_id: artillery_vs_fort_age_5_absolutism
+    age: 5
+    research_unlock_var: tv_advance_siege_cannons_unlocked
+
+  - id: magazines
+    gui_value: 31
+    vanilla_advance_id: army_movement_speed_absolutism
+    age: 5
+    research_unlock_var: tv_advance_magazines_unlocked

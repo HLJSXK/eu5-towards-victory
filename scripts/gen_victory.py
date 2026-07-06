@@ -742,6 +742,35 @@ tv_victory_situation = {{
 \t\t# Should never fire — tv_victory_situation is permanent
 \t}}
 }}
+
+tv_academy_world_debate_situation = {{
+\tmonthly_spawn_chance = monthly_spawn_chance_unique
+
+\tcan_start = {{
+\t\talways = yes
+\t}}
+
+\tcan_end = {{
+\t\talways = no
+\t}}
+
+\tvisible = {{
+\t\thas_variable = tv_academy_io_member
+\t}}
+
+\ton_start = {{
+\t\ttv_academy_world_debate_initialize_effect = yes
+\t}}
+
+\ton_monthly = {{
+\t\thidden_effect = {{
+\t\t\ttv_academy_world_debate_monthly_effect = yes
+\t\t}}
+\t}}
+
+\ton_ended = {{
+\t}}
+}}
 """
 
 def gen_situation(data: dict) -> str:

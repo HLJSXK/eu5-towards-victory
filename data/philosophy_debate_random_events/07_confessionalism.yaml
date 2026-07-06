@@ -1,0 +1,903 @@
+random_events:
+  - design_id: C01
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Confession of the Court"
+      simp_chinese: "宫廷的信仰告白"
+    desc:
+      english: "Courtiers ask whether the Crown's faith should stand in public as a rule for the realm, or remain a private habit spoken through chapel attendance and careful silences."
+      simp_chinese: "朝臣们追问，君主的信仰究竟应当公开成为统治王国的准则，还是只在出席礼拜与谨慎沉默中作为私人习惯存在。"
+    options:
+      a:
+        text:
+          english: "Make confession public policy."
+          simp_chinese: "将信仰告白列为公开国策。"
+        progress_delta: 10
+        rationale:
+          english: "Declaring confession as public policy makes the Crown an open patron of the confessional settlement, giving reformers a signal strong enough to move the debate toward acceptance while unsettling noble households that prefer ambiguity."
+          simp_chinese: "将信仰告白列为公开国策，会让君主成为宗派定制的明确庇护者，给改革派足够强的信号推动辩论走向接受，同时也会搅动那些偏爱模糊空间的贵族家族。"
+        effect_blocks:
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.03
+      b:
+        text:
+          english: "Keep court faith private."
+          simp_chinese: "让宫廷信仰留在私下。"
+        progress_delta: -10
+        rationale:
+          english: "Keeping court faith private prevents the royal household from becoming a confessional banner, calming clerical factions but making acceptance look premature and politically needless."
+          simp_chinese: "让宫廷信仰留在私下，可以避免王室自身变成宗派旗帜，并安抚教士派系，但也会让接受该议题显得过早且没有政治必要。"
+        effect_blocks:
+          - type: seat_cooldown
+            group: clergy
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.03
+  - design_id: C02
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Parish Registers"
+      simp_chinese: "堂区登记簿"
+    desc:
+      english: "Reformers place parish registers before the Academy and argue that belief, marriage, and birth cannot guide policy until the state can read them in a steady hand."
+      simp_chinese: "改革者把堂区登记簿推到学院面前，声称信仰、婚姻与出生若不能被国家稳定读懂，就无法真正成为政策的依据。"
+    options:
+      a:
+        text:
+          english: "Require registers."
+          simp_chinese: "强制使用登记簿。"
+        progress_delta: 10
+        rationale:
+          english: "Required registers turn confession into legible administration, so bureaucrats can treat doctrine as a governing system even as local clergy resent being measured by state forms."
+          simp_chinese: "强制登记会把信仰告白转化为可读的行政资料，使官僚能够把教义视作治理体系来执行，即便地方教士会反感自己被国家表格衡量。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.03
+      b:
+        text:
+          english: "Leave records local."
+          simp_chinese: "让记录留在地方。"
+        progress_delta: -5
+        rationale:
+          english: "Leaving records local preserves parish discretion and avoids a fight over oversight, but it also keeps confession from becoming a realm-wide administrative standard."
+          simp_chinese: "让记录留在地方可以保留堂区自主权，避免围绕监督权爆发冲突，但也会阻止信仰告白成为全国通行的行政标准。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.03
+  - design_id: C03
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Sermon Licensing"
+      simp_chinese: "讲道许可"
+    desc:
+      english: "As doctrine becomes government, the pulpit no longer feels merely local. Preachers ask who may speak for orthodoxy when every sermon can sound like policy."
+      simp_chinese: "当教义开始成为政务，讲坛便不再只是地方事务。传道人要求说明，当每篇讲道都可能像政策一样被听见时，谁才有资格代表正统发声。"
+    options:
+      a:
+        text:
+          english: "License sermons centrally."
+          simp_chinese: "由中央许可讲道。"
+        progress_delta: 5
+        rationale:
+          english: "Central licensing gives the confessional settlement a controlled voice and reduces contradictory preaching, nudging acceptance through order rather than sweeping reform."
+          simp_chinese: "由中央许可讲道，会让宗派定制获得受控的声音，并减少彼此矛盾的布道，因此它是通过秩序而非激烈改革来推动接受。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: 1
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Preserve local preaching custom."
+          simp_chinese: "保留地方布道惯例。"
+        progress_delta: -5
+        rationale:
+          english: "Preserving local preaching custom reassures parishes that the settlement will not silence familiar voices, but it leaves doctrine too uneven to carry acceptance strongly."
+          simp_chinese: "保留地方布道惯例会安抚各堂区，让他们相信新的宗派安排不会压制熟悉的声音，但也会使教义过于参差，难以有力推动接受。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_local_pulpits
+            months: 12
+            effects:
+              "local preaching discretion preserved": 0.02
+  - design_id: C04
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Noble Chapel Dispute"
+      simp_chinese: "贵族礼拜堂之争"
+    desc:
+      english: "A noble house maintains a chapel practice that no longer fits the emerging confession. Its defenders call it family honor; its opponents call it a loophole with candles."
+      simp_chinese: "一个贵族家族仍在自家礼拜堂中维持旧例，而这种做法已同正在形成的国家信纲不合。辩护者称之为家族荣誉，反对者则说那不过是点着蜡烛的漏洞。"
+    options:
+      a:
+        text:
+          english: "Enforce uniformity."
+          simp_chinese: "强制执行信仰统一。"
+        progress_delta: 10
+        rationale:
+          english: "Enforcing uniformity proves that noble privilege cannot exempt a household from the confessional settlement, giving acceptance a concrete victory at the cost of noble satisfaction."
+          simp_chinese: "强制统一证明贵族特权不能让某个家族豁免于宗派定制之外，使接受派获得具体胜利，但代价是贵族满意度下降。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.05
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Tolerate the chapel."
+          simp_chinese: "容忍贵族礼拜堂。"
+        progress_delta: -10
+        rationale:
+          english: "Tolerating the chapel buys noble cooperation and preserves household privilege, but it teaches everyone that the confessional settlement bends before rank."
+          simp_chinese: "容忍贵族礼拜堂能换取贵族配合并保存家族特权，但它也会让所有人看见，宗派定制会在门第面前弯曲。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.05
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 18
+  - design_id: C05
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Catechism Draft"
+      simp_chinese: "教理问答草案"
+    desc:
+      english: "Scholars produce a catechism brief enough for children to memorize and sharp enough for adults to argue over. Its margins already look like a battlefield."
+      simp_chinese: "学者们写出一份教理问答，短到儿童也能背诵，锋利到成年人也会争执。它的页边空白已经像一片战场。"
+    options:
+      a:
+        text:
+          english: "Print and teach it."
+          simp_chinese: "印行并教授它。"
+        progress_delta: 10
+        rationale:
+          english: "Printing the catechism turns confessional doctrine into repeatable instruction, pushing acceptance through classrooms and pulpits while provoking clergy who dislike the chosen wording."
+          simp_chinese: "印行教理问答会把宗派教义变成可反复教授的文本，通过课堂与讲坛推动接受，同时也会激怒不满具体措辞的教士。"
+        effect_blocks:
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.02
+          - type: temporary_country_modifier
+            key: tv_academy_debate_catechism_lessons
+            months: 18
+            effects:
+              "doctrinal teaching reach": 0.02
+      b:
+        text:
+          english: "Delay for consensus."
+          simp_chinese: "延后，等待共识。"
+        progress_delta: -5
+        rationale:
+          english: "Delaying for consensus keeps the peace among rival clerical readers, but every extra revision weakens the claim that the settlement is ready to be accepted."
+          simp_chinese: "延后等待共识可以维持相互竞争的教士读者之间的和平，但每多一轮修订，都会削弱这项宗派定制已经可以被接受的说服力。"
+        effect_blocks:
+          - type: seat_cooldown
+            group: clergy
+            cooldown_months: 24
+          - type: temporary_country_modifier
+            key: tv_academy_debate_consensus_delay
+            months: 12
+            effects:
+              "religious peacekeeping": 0.02
+  - design_id: C06
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Minority Petition"
+      simp_chinese: "少数社群请愿"
+    desc:
+      english: "A minority community sends elders to the Academy with a petition folded beneath careful seals. They do not deny the realm's confession; they ask whether obedience will mean protection or only quieter exclusion."
+      simp_chinese: "一个少数信仰社群派出长老来到学院，呈上一份封印谨慎的请愿书。他们并不否认王国的信纲，只想知道服从之后得到的是保护，还是更安静的排斥。"
+    options:
+      a:
+        text:
+          english: "Define legal protection under confession."
+          simp_chinese: "在信纲之下规定法律保护。"
+        progress_delta: 5
+        rationale:
+          english: "Legal protection makes confessional order look governable rather than purely exclusionary, so cautious minorities can accept the settlement as a rule they may live under."
+          simp_chinese: "法律保护会让宗派秩序显得可以治理，而不只是排斥异己；谨慎的少数社群因此能把新秩序视为可以生活其中的规则。"
+        effect_blocks:
+          - type: seat_stance
+            group: minorities
+            stance: support
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: dhimmi_estate
+            value: 0.04
+      b:
+        text:
+          english: "Avoid guarantees."
+          simp_chinese: "避免作出保障。"
+        progress_delta: -5
+        rationale:
+          english: "Refusing guarantees pleases conservative clergy who fear loopholes, but it leaves the proposed confession looking too brittle to hold a mixed realm together."
+          simp_chinese: "拒绝保障会取悦担心留下漏洞的保守教士，却也让拟议中的信纲显得过于脆弱，难以维系一个多元王国。"
+        effect_blocks:
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.03
+  - design_id: C07
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Army Oath"
+      simp_chinese: "军中誓词"
+    desc:
+      english: "Officers warn that soldiers who pray in different parishes still stand in the same line of battle. They want one oath strong enough to bind the camp before local custom pulls it apart."
+      simp_chinese: "军官们警告说，士兵即使在不同堂区祈祷，也终究站在同一条战线上。他们要求一份共同誓词，在地方习俗把军营分开之前先把军队系紧。"
+    options:
+      a:
+        text:
+          english: "Issue the oath."
+          simp_chinese: "颁布共同誓词。"
+        progress_delta: 5
+        rationale:
+          english: "A common oath turns confession into a shared military discipline, giving the new settlement practical force beyond pulpits and court language."
+          simp_chinese: "共同誓词把信纲转化为共享的军事纪律，使新秩序不再只停留在讲坛和宫廷文辞之中，而具有实际约束力。"
+        effect_blocks:
+          - type: seat_stance
+            group: professional_military
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_common_army_oath
+            months: 18
+            effects:
+              "confessional army cohesion": 0.02
+      b:
+        text:
+          english: "Keep old oaths."
+          simp_chinese: "保留旧有誓词。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping older oaths avoids forcing provincial estates and local commanders into a single formula, but it weakens the claim that confession can organize the realm as one body."
+          simp_chinese: "保留旧誓词可以避免把省份等级和地方军官强行纳入同一套公式，却也削弱了信纲能够把王国组织成一个整体的说服力。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.02
+  - design_id: C08
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Synod Summons"
+      simp_chinese: "召集宗教会议"
+    desc:
+      english: "A formal synod is proposed, with witnesses numerous enough that no faction can later pretend the hard words were never spoken. Doctrine would leave the Academy as a public settlement, not a rumor."
+      simp_chinese: "有人提议召开一场正式宗教会议，列席见证者多到足以让任何派别都无法事后装作尖锐言辞从未出现。教义将以公开决议的形式离开学院，而不是以传闻流散。"
+    options:
+      a:
+        text:
+          english: "Summon the synod."
+          simp_chinese: "召集宗教会议。"
+        progress_delta: 10
+        rationale:
+          english: "A witnessed synod gives the confessional settlement institutional weight and makes evasion costly, but convening it spends money and exposes royal legitimacy to open doctrinal conflict."
+          simp_chinese: "有见证者的宗教会议会赋予宗派定制制度分量，并让回避变得代价高昂；但召集会议需要花费金钱，也会让王权合法性暴露在公开教义冲突之中。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+          - type: resource
+            resource: legitimacy
+            amount: -5
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 24
+      b:
+        text:
+          english: "Avoid spectacle."
+          simp_chinese: "避免公开场面。"
+        progress_delta: -10
+        rationale:
+          english: "Avoiding the synod preserves calm by denying the dispute a stage, but it also lets opponents argue that the confession cannot survive formal scrutiny."
+          simp_chinese: "避免召开会议可以不给争端搭建舞台，从而保住平静；但这也让反对者有理由宣称，该信纲经不起正式审查。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: 1
+          - type: seat_cooldown
+            group: clergy
+            cooldown_months: 12
+  - design_id: C09
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Foreign Co-Religionists"
+      simp_chinese: "外国同信者"
+    desc:
+      english: "Letters arrive from foreign co-religionists, full of encouragement, advice, and signatures too prominent to ignore. Their support strengthens the argument and makes every listener wonder who else is listening."
+      simp_chinese: "外国同信者寄来书信，里面满是鼓励、建议，以及显眼到无法忽视的署名。他们的支持加强了论点，也让每个听众都忍不住猜测还有谁在旁听。"
+    options:
+      a:
+        text:
+          english: "Accept their letters."
+          simp_chinese: "接受他们的来信。"
+        progress_delta: 5
+        rationale:
+          english: "Accepting the letters frames the confession as part of a wider religious community, adding outside credibility while inviting foreign attention into the debate."
+          simp_chinese: "接受来信会把本国信纲描绘成更大信仰共同体的一部分，增加外部可信度，同时也把外国关注引入辩论。"
+        effect_blocks:
+          - type: seat_stance
+            group: foreign_power
+            stance: support
+            cooldown_months: 18
+          - type: foreign_prestige
+            amount: 5
+      b:
+        text:
+          english: "Reject foreign influence."
+          simp_chinese: "拒绝外国影响。"
+        progress_delta: -5
+        rationale:
+          english: "Rejecting foreign influence reassures nobles who want confession to remain a domestic settlement, but it cuts away useful testimony from allies abroad."
+          simp_chinese: "拒绝外国影响会安抚那些希望信纲保持国内事务的贵族，却也切断了来自海外盟友的有用证词。"
+        effect_blocks:
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.03
+  - design_id: C10
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Feast Day Reform"
+      simp_chinese: "圣日历改革"
+    desc:
+      english: "Reformers spread a revised holy calendar across the table and discover that every crossed-out feast has neighbors, guilds, and grandparents attached to it. The state can align sacred time, but not quietly."
+      simp_chinese: "改革者把一份修订后的圣日历铺在桌上，随即发现每个被划去的节日背后都有邻里、行会和祖辈记忆。国家可以校准神圣时间，却很难悄无声息地做到。"
+    options:
+      a:
+        text:
+          english: "Reform the calendar."
+          simp_chinese: "改革圣日历。"
+        progress_delta: 10
+        rationale:
+          english: "Reforming the calendar makes confession visible in the rhythm of ordinary life, which strongly advances acceptance while provoking peasants and clergy attached to local holy days."
+          simp_chinese: "改革圣日历会把信纲写进日常生活的节奏，因而大幅推动接受；但依附地方圣日的农民和教士也会被激怒。"
+        effect_blocks:
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: peasants_estate
+            value: -0.04
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.03
+      b:
+        text:
+          english: "Keep local feasts."
+          simp_chinese: "保留地方节日。"
+        progress_delta: -10
+        rationale:
+          english: "Keeping local feasts protects familiar parish rhythms and satisfies local communities, but it concedes that confessional order cannot yet command the calendar."
+          simp_chinese: "保留地方节日保护了熟悉的堂区节奏，也让地方社群满意；但这等于承认宗派秩序尚不能支配历法。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: peasants_estate
+            value: 0.04
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.02
+  - design_id: C11
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Confessional Schoolbooks"
+      simp_chinese: "宗派教义课本"
+    desc:
+      english: "New schoolbooks arrive at the Academy with doctrine printed beside spelling, sums, and civic maxims. Children will learn their letters and the realm's confession from the same page."
+      simp_chinese: "新课本被送到学院，教义与拼写、算术和臣民格言并排印在纸上。孩子们将从同一页上学会字母，也学会国家希望他们信奉的教义。"
+    options:
+      a:
+        text:
+          english: "Approve them."
+          simp_chinese: "批准使用这些课本。"
+        progress_delta: 10
+        rationale:
+          english: "Approving the schoolbooks turns confession into basic civic literacy, giving the accepting side a broad generational argument instead of another narrow clerical order."
+          simp_chinese: "批准课本会把宗派信纲变成基本的臣民读写教育，使支持接纳的一方获得面向下一代的广泛理由，而不只是又一道狭窄的教会命令。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 18
+          - type: seat_cooldown
+            group: scholarly_community
+            cooldown_months: 12
+      b:
+        text:
+          english: "Keep schools doctrinally local."
+          simp_chinese: "让各地学校自行讲授教义。"
+        progress_delta: -5
+        rationale:
+          english: "Leaving doctrine to local schools preserves clerical and parish autonomy, but it also keeps confession fragmented enough that the Academy's policy case weakens."
+          simp_chinese: "让各地学校自行讲授教义能保留教士和堂区的自主权，但也会让宗派教义继续分散，削弱学院把它上升为国家政策的论证。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.04
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 12
+  - design_id: C12
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Pilgrim Riot"
+      simp_chinese: "朝圣骚乱"
+    desc:
+      english: "A pilgrimage spills from devotion into street violence after rival sermons, old badges, and new slogans meet on the same road. The Academy must decide whether custom can be disciplined without being broken."
+      simp_chinese: "一场朝圣在相互竞争的布道、旧徽记和新口号相遇后，从虔敬滑向街头冲突。学院必须判断，是否能约束旧俗而不彻底摧毁它。"
+    options:
+      a:
+        text:
+          english: "Regulate the pilgrimage."
+          simp_chinese: "规范朝圣活动。"
+        progress_delta: 5
+        rationale:
+          english: "Regulation proves the state confession can contain inherited devotion inside public order, but calming a holy crowd costs real stability."
+          simp_chinese: "规范朝圣说明国家化的宗派秩序能够把旧有虔敬纳入公共秩序之中，但安抚神圣人群需要付出真实的稳定代价。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: -1
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Let custom rule."
+          simp_chinese: "让习俗自行维持秩序。"
+        progress_delta: -5
+        rationale:
+          english: "Letting custom rule reassures clergy and local guardians of pilgrimage practice, but it concedes that inherited devotion outranks confessional discipline."
+          simp_chinese: "让习俗自行维持秩序会安抚教士和地方朝圣守护者，但也等于承认旧有虔敬高于新宗派纪律。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.04
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 12
+  - design_id: C13
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Marriage Court"
+      simp_chinese: "婚姻法庭"
+    desc:
+      english: "Jurists propose marriage courts recognized by the state and ruled by confessional law. What families once carried to familiar clergy may soon arrive with seals, clerks, and precedent."
+      simp_chinese: "法学家提议设立由国家承认、依宗派法律裁决的婚姻法庭。过去家庭交给熟悉教士处理的事情，或许很快就要带着印章、书记员和判例而来。"
+    options:
+      a:
+        text:
+          english: "Establish the courts."
+          simp_chinese: "设立这些法庭。"
+        progress_delta: 10
+        rationale:
+          english: "Establishing marriage courts gives confession a daily legal jurisdiction over households, strongly advancing acceptance while empowering bureaucratic interpreters of doctrine."
+          simp_chinese: "设立婚姻法庭会让宗派信纲获得支配日常家庭关系的法律管辖权，强力推动接纳，同时也增强官僚对教义的解释权。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.04
+      b:
+        text:
+          english: "Leave marriage to existing clergy courts."
+          simp_chinese: "仍由现有教会法庭处理婚姻。"
+        progress_delta: -10
+        rationale:
+          english: "Keeping marriage in existing clergy courts protects old jurisdiction and wins clerical approval, but it denies the confessional state a powerful household-level institution."
+          simp_chinese: "继续由现有教会法庭处理婚姻能保护旧有管辖权并赢得教士支持，但也会让宗派国家失去一个深入家庭层面的有力制度。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.06
+          - type: temporary_country_modifier
+            key: tv_academy_debate_clergy_marriage_jurisdiction
+            months: 18
+            effects:
+              "clerical marriage court authority": 0.03
+  - design_id: C14
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Icon Debate"
+      simp_chinese: "圣像之争"
+    desc:
+      english: "A church image becomes more than paint and wood once preachers, worshippers, and officials all insist it proves their point. The question is no longer whether the image is beautiful, but who may say what devotion means."
+      simp_chinese: "一幅教堂图像在布道者、信众和官员都坚持它能证明己方立场之后，便不再只是颜料与木板。问题已不再是图像是否美丽，而是谁有权解释虔敬的含义。"
+    options:
+      a:
+        text:
+          english: "Set a confessional rule."
+          simp_chinese: "制定宗派规则。"
+        progress_delta: 5
+        rationale:
+          english: "A clear rule lets religious reformers turn a symbolic quarrel into enforceable discipline, modestly advancing acceptance by defining acceptable devotion."
+          simp_chinese: "明确规则能让宗教改革派把象征性的争吵变成可执行的纪律，通过界定可接受的虔敬方式，适度推动接纳。"
+        effect_blocks:
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 12
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.02
+      b:
+        text:
+          english: "Avoid ruling."
+          simp_chinese: "暂不裁决。"
+        progress_delta: -5
+        rationale:
+          english: "Avoiding a ruling preserves local calm around the image, but it leaves devotion undefined and weakens the case for a disciplined confession."
+          simp_chinese: "暂不裁决能维持围绕圣像的地方平静，但会让虔敬继续缺乏明确界定，削弱建立有纪律宗派秩序的论证。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_icon_local_truce
+            months: 12
+            effects:
+              "local devotional calm": 0.02
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 12
+  - design_id: C15
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Border Preachers"
+      simp_chinese: "边境传教士"
+    desc:
+      english: "Preachers cross the frontier with sermons sharp enough to win converts and complaints. Their doctrine strengthens the debate at home, but every border village now has a diplomatic echo."
+      simp_chinese: "传教士带着足以赢得皈依者和投诉的布道越过边境。他们的教义强化了国内辩论，但每个边境村庄如今都会在外交厅里产生回声。"
+    options:
+      a:
+        text:
+          english: "Protect the preachers."
+          simp_chinese: "保护这些传教士。"
+        progress_delta: 10
+        rationale:
+          english: "Protecting the preachers shows the confession has outward confidence and active champions, sharply advancing acceptance while making neighboring powers feel provoked."
+          simp_chinese: "保护传教士说明这一宗派秩序具有外向的自信和积极的倡导者，能显著推动接纳，但也会让邻国感到被挑衅。"
+        effect_blocks:
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 18
+          - type: foreign_prestige
+            amount: -10
+      b:
+        text:
+          english: "Restrain them."
+          simp_chinese: "约束他们的活动。"
+        progress_delta: -10
+        rationale:
+          english: "Restraining the preachers calms foreign relations, but it signals that diplomatic caution can silence the very agents who would carry the confession beyond the Academy."
+          simp_chinese: "约束传教士能平息对外关系，但也表明外交谨慎足以压制那些本该把宗派教义带出学院的人。"
+        effect_blocks:
+          - type: foreign_prestige
+            amount: 10
+          - type: seat_stance
+            group: foreign_power
+            stance: neutral
+            cooldown_months: 18
+  - design_id: C16
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Confession Tax"
+      simp_chinese: "信纲税"
+    desc:
+      english: "Officials propose a dedicated levy for confessional schools, arguing that doctrine taught cheaply will be doctrine forgotten quickly. The villages hear the word \"school\" and count the word \"tax.\""
+      simp_chinese: "官员提议为宗派学校征收一项专门税，声称教义若教得太廉价，就会被遗忘得太迅速。乡村听见的是\"学校\"，盘算的却是\"税\"。"
+    options:
+      a:
+        text:
+          english: "Levy the tax."
+          simp_chinese: "征收这项税。"
+        progress_delta: 5
+        rationale:
+          english: "Funding schools gives the confessional program a practical classroom base, so acceptance advances, but the levy makes ordinary households feel that doctrine is being collected from their purses."
+          simp_chinese: "为学校筹资会给宗派纲领提供实际的课堂基础，因此推动接纳；但这项征税也会让普通人家觉得，教义正从他们的钱袋里被征收出来。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: 1
+          - type: estate_satisfaction
+            estate: peasants_estate
+            value: -0.04
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Refuse the tax."
+          simp_chinese: "拒绝这项税。"
+        progress_delta: -5
+        rationale:
+          english: "Refusing the tax protects rural patience and keeps confessional education from becoming a fiscal grievance, but it also leaves the new doctrine without the funding needed to reach parish children."
+          simp_chinese: "拒绝征税可以保全乡村的耐心，避免宗派教育变成财政怨言；但新教义也因此缺少进入堂区儿童生活所需的经费。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: peasants_estate
+            value: 0.04
+          - type: seat_cooldown
+            group: religious_reformers
+            cooldown_months: 12
+  - design_id: C17
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Clergy Split"
+      simp_chinese: "教士分裂"
+    desc:
+      english: "Clergy who once spoke as a single estate now divide over whether the new confession should discipline them as servants of a doctrine or protect them as guardians of inherited privilege."
+      simp_chinese: "曾经以同一等级发声的教士，如今争论新宗派究竟应把他们约束为教义的仆从，还是继续保护他们作为祖传特权守护者的身份。"
+    options:
+      a:
+        text:
+          english: "Back discipline."
+          simp_chinese: "支持宗派纪律。"
+        progress_delta: 10
+        rationale:
+          english: "Backing discipline makes the confession more than a clerical possession; it becomes a rule that can bind even churchmen, sharply advancing acceptance while angering clergy attached to corporate privilege."
+          simp_chinese: "支持宗派纪律会让信纲不再只是教士阶层的财产，而成为连教士也要遵守的规则；这会强力推动接纳，却激怒依恋团体特权的教士。"
+        effect_blocks:
+          - type: seat_stance
+            group: religious_reformers
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.05
+          - type: temporary_country_modifier
+            key: tv_academy_debate_clerical_discipline
+            months: 12
+            effects:
+              "parish oversight hardens around the new confession": 0.02
+      b:
+        text:
+          english: "Back clerical privilege."
+          simp_chinese: "支持教士特权。"
+        progress_delta: -10
+        rationale:
+          english: "Protecting clerical privilege reassures the clergy estate that confession will not become a royal leash, but it signals that institutional comfort matters more than doctrinal discipline."
+          simp_chinese: "保护教士特权会让教士等级相信，宗派信纲不会变成王权的缰绳；但这也表明制度安逸比教义纪律更重要。"
+        effect_blocks:
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.05
+          - type: resource
+            resource: legitimacy
+            amount: 5
+  - design_id: C18
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Public Recantation"
+      simp_chinese: "公开悔认"
+    desc:
+      english: "A prominent opponent offers to recant if the Academy spares them a ritual humiliation. Some see mercy as proof of confidence; others see a missed chance to make resistance tremble."
+      simp_chinese: "一位著名反对者表示，只要学院免去羞辱仪式，自己便愿意悔认。有人认为宽恕证明了自信，也有人觉得这是错过了让反抗者战栗的机会。"
+    options:
+      a:
+        text:
+          english: "Accept the recantation."
+          simp_chinese: "接受悔认。"
+        progress_delta: 5
+        rationale:
+          english: "Accepting the recantation turns an opponent into evidence that persuasion can work, moving the debate toward acceptance while improving public order through restraint."
+          simp_chinese: "接受悔认会把一名反对者变成劝服有效的证据，使辩论走向接纳；克制的处理也有助于安定公共秩序。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: 1
+          - type: seat_cooldown
+            group: public_opinion
+            cooldown_months: 12
+      b:
+        text:
+          english: "Demand public shame."
+          simp_chinese: "要求公开受辱。"
+        progress_delta: 10
+        rationale:
+          english: "Demanding public shame makes the victory unmistakable and intimidates wavering opponents, so acceptance jumps forward, but the spectacle hardens those who fear confession as coercion."
+          simp_chinese: "要求公开受辱会让胜利无可误认，并震慑摇摆的反对者，因此接纳大幅前进；但这种场面也会使那些害怕宗派强制的人更加顽固。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 18
+          - type: seat_stance
+            group: minorities
+            stance: oppose
+            cooldown_months: 24
+          - type: resource
+            resource: prestige
+            amount: -5
+  - design_id: C19
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "Confessional Census"
+      simp_chinese: "宗派户籍清查"
+    desc:
+      english: "Bureaucrats ask to count communities by confession, promising that columns are calmer than rumors. Minority elders notice that a column can become a target as easily as a tool."
+      simp_chinese: "官僚请求按宗派统计各地社群，保证表格总比传闻冷静。少数社群的长老却明白，一栏数字既可以是工具，也很容易变成目标。"
+    options:
+      a:
+        text:
+          english: "Count them."
+          simp_chinese: "将他们统计入册。"
+        progress_delta: 10
+        rationale:
+          english: "Counting communities gives the confessional state the knowledge it needs to govern doctrine locally, strongly advancing acceptance while making minorities fear that visibility will become vulnerability."
+          simp_chinese: "统计各社群会让宗派国家获得在地方治理教义所需的知识，强力推动接纳；但少数群体会担心，被看见也意味着更容易受伤害。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: dhimmi_estate
+            value: -0.03
+          - type: seat_stance
+            group: minorities
+            stance: oppose
+            cooldown_months: 18
+      b:
+        text:
+          english: "Refuse the count."
+          simp_chinese: "拒绝这次清查。"
+        progress_delta: -5
+        rationale:
+          english: "Refusing the count preserves local peace and reassures vulnerable communities, but it keeps the confessional program half-blind outside the Academy chamber."
+          simp_chinese: "拒绝清查可以维持地方和平，并安抚脆弱社群；但这也让宗派纲领在学院之外依旧半盲。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: dhimmi_estate
+            value: 0.03
+          - type: resource
+            resource: stability
+            amount: 1
+  - design_id: C20
+    pool: confessionalism
+    issue: confessionalism
+    weight: 1
+    title:
+      english: "The Crown's Formula"
+      simp_chinese: "王室信纲条文"
+    desc:
+      english: "Advisers draft a royal formula meant to sound ancient by tomorrow morning and inevitable by next week. The words are polished enough to shine, which is not the same as being settled."
+      simp_chinese: "顾问们草拟了一套王室条文，希望它明早听起来就像古训，下周听起来就像天命。词句已经打磨得发亮，但发亮并不等于尘埃落定。"
+    options:
+      a:
+        text:
+          english: "Proclaim it."
+          simp_chinese: "正式颁布。"
+        progress_delta: 10
+        rationale:
+          english: "Proclaiming the formula gives the debate a royal sentence to rally around, rapidly pushing acceptance, but a formula issued before consensus risks making legitimacy bear the weight of every disputed word."
+          simp_chinese: "颁布条文会给辩论一个可供拥护的王室定句，迅速推动接纳；但在共识形成前发布，也会让正统性承担每一个争议词句的重量。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 18
+          - type: resource
+            resource: legitimacy
+            amount: -5
+          - type: temporary_country_modifier
+            key: tv_academy_debate_royal_formula
+            months: 12
+            effects:
+              "royal confessional language anchors public argument": 0.02
+      b:
+        text:
+          english: "Return it for revision."
+          simp_chinese: "退回重修。"
+        progress_delta: -5
+        rationale:
+          english: "Returning the formula for revision avoids staking royal dignity on an unstable text, but it also tells the Academy that the confession still lacks words strong enough to govern."
+          simp_chinese: "退回重修可以避免把王室尊严押在一份不稳固的文本上；但这也告诉学院，信纲仍缺少足以治国的措辞。"
+        effect_blocks:
+          - type: seat_cooldown
+            group: court_bureaucrats
+            cooldown_months: 12
+          - type: resource
+            resource: prestige
+            amount: -5
+excluded_events: []

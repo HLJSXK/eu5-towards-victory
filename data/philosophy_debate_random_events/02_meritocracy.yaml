@@ -1,0 +1,867 @@
+random_events:
+  - design_id: M01
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Anonymous Examination"
+      simp_chinese: "匿名考试"
+    desc:
+      english: "The examiners propose removing names from the papers before judgement. Birth complains that ink has become blind."
+      simp_chinese: "考官提议在评判前抹去试卷上的姓名。门第抱怨说，墨水竟然变得盲目了。"
+    options:
+      a:
+        text:
+          english: "Adopt anonymous scoring."
+          simp_chinese: "采用匿名评分。"
+        progress_delta: 10
+        rationale:
+          english: "Anonymous scoring makes the debate's central claim practical: offices can be judged by demonstrated ability rather than family recognition. Nobles lose comfort because their names no longer do quiet work in the margins."
+          simp_chinese: "匿名评分把这场辩论的核心主张变成了实际制度：官职可以按展现出的能力而非家族名望来评判。贵族之所以不安，是因为他们的姓氏不再能在页边悄悄出力。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.04
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Keep names visible."
+          simp_chinese: "保留姓名可见。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping names visible preserves the old social signals inside the examination process, slowing the meritocratic argument while reassuring noble families that rank still has an authorized voice."
+          simp_chinese: "保留姓名可见，会让旧有的社会信号继续留在考试流程里，放慢任人唯才的论证，同时安抚贵族家族，让他们相信等级仍有被认可的发言权。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.03
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 18
+  - design_id: M02
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Genealogies on the Table"
+      simp_chinese: "桌上的族谱"
+    desc:
+      english: "Great houses bring polished family trees to prove that service is inherited like silver."
+      simp_chinese: "大族带来打磨精美的家谱，想证明服务可以像银器一样世代相传。"
+    options:
+      a:
+        text:
+          english: "Question the trees."
+          simp_chinese: "质疑这些家谱。"
+        progress_delta: 5
+        rationale:
+          english: "Questioning the genealogies makes ancestry answer to evidence instead of etiquette. The Crown spends prestige by publicly challenging houses that are accustomed to being treated as proof in themselves."
+          simp_chinese: "质疑族谱，就是要求血统接受证据而不是礼节的审查。王冠公开挑战那些习惯把自身当作证据的家族，因此要消耗威望。"
+        effect_blocks:
+          - type: resource
+            resource: prestige
+            amount: -10
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Honor hereditary service."
+          simp_chinese: "表彰世袭服务。"
+        progress_delta: -10
+        rationale:
+          english: "Honoring hereditary service grants the noble argument its strongest form: past office becomes a credential for future office. That pushes the debate away from open assessment and toward inherited entitlement."
+          simp_chinese: "表彰世袭服务等于把贵族论点推到最有力的位置：祖先任职本身成了后代任职的凭据。这会把辩论从公开考核拉回继承权利。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.05
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 24
+  - design_id: M03
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "The Provincial Prodigy"
+      simp_chinese: "外省奇才"
+    desc:
+      english: "A candidate from a distant province solves a problem that court favorites have avoided for weeks."
+      simp_chinese: "一名来自遥远省份的候选人，解决了宫廷宠臣们回避数周的问题。"
+    options:
+      a:
+        text:
+          english: "Invite them to court."
+          simp_chinese: "邀请其入朝。"
+        progress_delta: 10
+        rationale:
+          english: "Bringing the provincial candidate to court turns meritocracy from a theory into a visible promotion path. Local elites resent the disruption because talent can now bypass their patronage channels."
+          simp_chinese: "把这名外省候选人带入宫廷，会使任人唯才不再只是理论，而成为一条可见的晋升路径。地方精英会反感这种扰动，因为人才可能绕过他们的庇护渠道。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_provincial_disruption
+            months: 24
+            effects:
+              "provincial elite resentment": -0.02
+      b:
+        text:
+          english: "Praise them from afar."
+          simp_chinese: "遥致嘉奖。"
+        progress_delta: -5
+        rationale:
+          english: "Praising the prodigy from a distance lets the court applaud ability without letting it disturb appointments. Order is preserved, but the debate learns that talent may still be kept politely outside the door."
+          simp_chinese: "遥致嘉奖让宫廷可以赞美才能，却不必让才能扰动任命秩序。秩序得以维持，但辩论也看见了人才仍可能被礼貌地挡在门外。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_court_order_preserved
+            months: 18
+            effects:
+              "court routine confidence": 0.02
+  - design_id: M04
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Purchased Office"
+      simp_chinese: "买来的官职"
+    desc:
+      english: "A lucrative office is quietly offered to a donor's son during the debate."
+      simp_chinese: "辩论期间，一项肥缺被悄悄许给某位捐献者的儿子。"
+    options:
+      a:
+        text:
+          english: "Expose the sale."
+          simp_chinese: "揭露这笔交易。"
+        progress_delta: 10
+        rationale:
+          english: "Exposing the sale proves that purchased office is not a harmless custom but a direct rival to tested competence. The reform gains force, but the Crown loses money and noble patrons lose satisfaction."
+          simp_chinese: "揭露这笔交易能够证明买官不是无伤大雅的惯例，而是对考核能力的直接竞争。改革因此更有力，但王室失去收入，贵族庇护者也会不满。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.03
+      b:
+        text:
+          english: "Accept the arrangement."
+          simp_chinese: "接受这项安排。"
+        progress_delta: -10
+        rationale:
+          english: "Accepting the arrangement turns the debate's enemy into policy: money and connection purchase what merit was supposed to earn. The treasury relaxes, but the argument for open assessment is badly damaged."
+          simp_chinese: "接受安排等于把辩论的敌人变成政策：金钱和关系买下了本该由才能赢得的职位。国库得到宽慰，但公开考核的主张受到重创。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: 1
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 18
+  - design_id: M05
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Merit on the Battlefield"
+      simp_chinese: "战场上的功绩"
+    desc:
+      english: "Officers argue that command earned under fire should count more than old names."
+      simp_chinese: "军官们主张，炮火下赢得的指挥资格应当比古老姓氏更有分量。"
+    options:
+      a:
+        text:
+          english: "Recognize battlefield merit."
+          simp_chinese: "承认战场功绩。"
+        progress_delta: 5
+        rationale:
+          english: "Recognizing battlefield merit gives the reform a martial constituency and shows that competence can be proven under pressure, not merely on paper. The professional military gains a reason to back the debate."
+          simp_chinese: "承认战场功绩会为改革带来军事支持者，并说明能力不仅能在纸面上证明，也能在压力之下证明。职业军人因此有理由支持这场辩论。"
+        effect_blocks:
+          - type: seat_stance
+            group: professional_military
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_commission_review
+            months: 24
+            effects:
+              "army reform credibility": 0.02
+      b:
+        text:
+          english: "Preserve noble command privilege."
+          simp_chinese: "维护贵族指挥特权。"
+        progress_delta: -5
+        rationale:
+          english: "Preserving noble command privilege keeps military rank tied to birth and honor. The old command families are reassured, while battlefield competence remains secondary to inherited status."
+          simp_chinese: "维护贵族指挥特权，会让军阶继续依附于出身与荣誉。旧有统帅家族得到安抚，而战场能力仍被置于继承地位之后。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.03
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 18
+  - design_id: M06
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "The Tutor's Nephew"
+      simp_chinese: "王室教师的侄子"
+    desc:
+      english: "The royal tutor requests a cabinet post for a brilliant nephew, though every witness seems more certain of the family tie than of the brilliance."
+      simp_chinese: "王室教师请求为一位聪慧的侄子谋取内阁职位，只是所有见证者似乎更确信那层亲缘，而不是那份聪慧。"
+    options:
+      a:
+        text:
+          english: "Demand open assessment."
+          simp_chinese: "要求公开考核。"
+        progress_delta: 5
+        rationale:
+          english: "Open assessment moves the appointment away from household access and toward measured competence, so it advances meritocracy while irritating officials who prefer quiet recommendations."
+          simp_chinese: "公开考核把任命从宫廷门路转向可衡量的能力，因此推动任人唯才，但会惹恼那些习惯私下举荐的官僚。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 12
+      b:
+        text:
+          english: "Grant the favor."
+          simp_chinese: "准许这份人情。"
+        progress_delta: -5
+        rationale:
+          english: "Granting the favor preserves court calm and eases immediate legitimacy pressure, but it teaches the Academy that kinship can still outrank proof."
+          simp_chinese: "准许这份人情能够维持宫廷安宁、缓和眼前的正统性压力，却也等于告诉学院，亲缘仍可压过实证。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: 5
+  - design_id: M07
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Clerical Certificates"
+      simp_chinese: "教士证明"
+    desc:
+      english: "Clergy propose that no one should hold public office without moral certification, making virtue the gate through which ability must ask permission."
+      simp_chinese: "教士们提出，任何人担任公职前都应取得道德证明，让德行成为能力必须请求许可的门槛。"
+    options:
+      a:
+        text:
+          english: "Require ability first."
+          simp_chinese: "能力优先。"
+        progress_delta: 5
+        rationale:
+          english: "Prioritizing ability keeps appointment standards testable and secular enough for meritocratic debate, but it costs clerical satisfaction by limiting religious veto power."
+          simp_chinese: "优先考察能力能让任命标准保持可检验，也使任人唯才的讨论不被宗教否决权先行截断，但这会降低教士满意度。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: -0.04
+      b:
+        text:
+          english: "Accept moral certification."
+          simp_chinese: "接受道德证明。"
+        progress_delta: -5
+        rationale:
+          english: "Accepting moral certificates reassures the clergy, yet it places a corporate approval filter ahead of demonstrated competence."
+          simp_chinese: "接受道德证明能安抚教士，却也把团体认可置于实际才干之前。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.04
+  - design_id: M08
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Guild Tests"
+      simp_chinese: "行会测试"
+    desc:
+      english: "City guilds offer practical trials for accountants, engineers, and clerks, insisting that a hand steady over real work can prove what polished quotations cannot."
+      simp_chinese: "城市行会愿为会计、工程师和书记员提供实务试炼，坚持认为能稳稳处理真活的手，足以证明漂亮引文证明不了的东西。"
+    options:
+      a:
+        text:
+          english: "Add practical tests."
+          simp_chinese: "加入实务测试。"
+        progress_delta: 10
+        rationale:
+          english: "Practical tests strongly advance meritocracy because they make officeholding depend on demonstrable work, while rewarding burgher institutions that can supply those tests."
+          simp_chinese: "实务测试以可展示的工作能力决定任用，强力推动任人唯才，同时奖励能提供测试的市民机构。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.05
+          - type: seat_stance
+            group: burghers
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Keep classical credentials."
+          simp_chinese: "保留古典资历。"
+        progress_delta: -5
+        rationale:
+          english: "Classical credentials keep office culture legible to conservative scholars, but they soften the demand that candidates prove useful ability directly."
+          simp_chinese: "古典资历让保守学者熟悉的任官方式得以延续，却削弱了候选人直接证明实用能力的要求。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: oppose
+            cooldown_months: 12
+  - design_id: M09
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "A Peasant's Petition"
+      simp_chinese: "农民的请愿"
+    desc:
+      english: "A village schoolmaster asks whether talent born beneath a thatched roof is still talent, and the question enters the chamber with mud on its shoes."
+      simp_chinese: "一位乡村塾师问，生在茅屋下的才智是否仍算才智；这个问题带着泥点走进了辩论厅。"
+    options:
+      a:
+        text:
+          english: "Admit the petition."
+          simp_chinese: "接纳请愿。"
+        progress_delta: 10
+        rationale:
+          english: "Hearing the petition makes meritocracy socially broader, proving that origin cannot disqualify talent before ability is even examined."
+          simp_chinese: "接纳请愿扩大了任人唯才的社会边界，证明出身不能在能力被检验前就取消一个人的资格。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: peasants_estate
+            value: 0.05
+          - type: seat_stance
+            group: peasants
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Return it to local authorities."
+          simp_chinese: "交还地方当局。"
+        progress_delta: -5
+        rationale:
+          english: "Returning the petition protects administrative order, but it lets local hierarchy decide whether lowborn talent may even be heard."
+          simp_chinese: "交还地方能够维护行政秩序，却也让地方等级决定寒门才智是否有资格被听见。"
+        effect_blocks:
+          - type: temporary_country_modifier
+            key: tv_academy_debate_local_order_preserved
+            months: 12
+            effects:
+              "local administrative calm": 0.03
+  - design_id: M10
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Boycott by Old Families"
+      simp_chinese: "旧家族的抵制"
+    desc:
+      english: "Several noble families threaten to withdraw their sons from the Academy if open rankings proceed, mistaking absence for an argument."
+      simp_chinese: "几个贵族家族威胁说，如果公开排名继续推进，就让他们的儿子退出学院，仿佛缺席本身就是论据。"
+    options:
+      a:
+        text:
+          english: "Let them boycott."
+          simp_chinese: "任其抵制。"
+        progress_delta: 10
+        rationale:
+          english: "Allowing the boycott proves that open ranking will not be hostage to noble participation, sharply advancing meritocracy at the cost of noble satisfaction."
+          simp_chinese: "任其抵制表明公开排名不会被贵族参与所绑架，因此显著推动任人唯才，但会牺牲贵族满意度。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.06
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 18
+      b:
+        text:
+          english: "Suspend the ranking."
+          simp_chinese: "暂停排名。"
+        progress_delta: -10
+        rationale:
+          english: "Suspending the ranking gives noble families a public victory and stabilizes their cooperation, but it makes birth strong enough to halt evidence."
+          simp_chinese: "暂停排名让贵族家族获得公开胜利，也稳定了他们的配合，却等于承认门第足以叫停证据。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.06
+          - type: temporary_country_modifier
+            key: tv_academy_debate_rankings_suspended
+            months: 12
+            effects:
+              "elite academy attendance restored": 0.03
+  - design_id: M11
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Examination Fraud"
+      simp_chinese: "考试舞弊"
+    desc:
+      english: "A leaked answer key reveals that merit can be imitated by money with excellent penmanship."
+      simp_chinese: "一份泄露的标准答案显示，只要钱袋足够体面，所谓才能也能被漂亮笔迹模仿出来。"
+    options:
+      a:
+        text:
+          english: "Purge the examiners."
+          simp_chinese: "清洗考官队伍。"
+        progress_delta: 5
+        rationale:
+          english: "Purging the examiners treats fraud as an institutional threat to measured ability, not merely as a few spoiled papers. The reform gains credibility, but the public disruption costs stability."
+          simp_chinese: "清洗考官队伍把舞弊视为对能力考核制度的威胁，而不是几份试卷的瑕疵。改革因此获得可信度，但公开整顿会消耗社会稳定。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: -1
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Quietly invalidate only the worst papers."
+          simp_chinese: "只悄悄作废最严重的试卷。"
+        progress_delta: -5
+        rationale:
+          english: "Invalidating only the worst papers contains the scandal while preserving the existing examining circle. That protects administrative calm, but it implies that fraud is tolerable when hidden well enough."
+          simp_chinese: "只作废最严重的试卷可以把丑闻压在可控范围内，同时保住原有考官圈子。行政秩序得以维持，但这也暗示只要藏得足够好，舞弊仍可被容忍。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_limited_exam_scandal
+            months: 12
+            effects:
+              "contained examination scandal": 0.02
+  - design_id: M12
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Public Ranking List"
+      simp_chinese: "公开排名榜"
+    desc:
+      english: "Reformers want the results posted where every family can see what influence did not buy."
+      simp_chinese: "改革者希望把结果张贴在每个家族都能看见的地方，让他们明白哪些东西并非影响力可以买到。"
+    options:
+      a:
+        text:
+          english: "Post the rankings."
+          simp_chinese: "张贴排名。"
+        progress_delta: 10
+        rationale:
+          english: "Posting the rankings turns private evaluation into public evidence, making patronage harder to disguise. Public opinion gains a concrete standard, while nobles see family influence publicly outpaced."
+          simp_chinese: "张贴排名把私下评定变成公开证据，使庇护关系更难伪装。舆论获得了可以比较的标准，而贵族会看到家族影响力被公开超越。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.04
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Keep rankings private."
+          simp_chinese: "保持排名私密。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping rankings private lets court offices manage embarrassment and favors behind closed doors. It preserves bureaucratic discretion, but weakens the claim that merit can stand in the open."
+          simp_chinese: "保持排名私密让宫廷机构可以在门后处理尴尬与人情。官僚裁量得到保全，但任人唯才能够公开站立的主张被削弱。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: 3
+          - type: temporary_country_modifier
+            key: tv_academy_debate_private_rankings
+            months: 12
+            effects:
+              "bureaucratic discretion": 0.02
+  - design_id: M13
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Local Language Answers"
+      simp_chinese: "地方语言答卷"
+    desc:
+      english: "Provincial candidates ask to answer in local administrative language rather than courtly style."
+      simp_chinese: "省份候选人请求用地方行政语言作答，而不是用宫廷风格行文。"
+    options:
+      a:
+        text:
+          english: "Permit local answers."
+          simp_chinese: "允许地方语言作答。"
+        progress_delta: 5
+        rationale:
+          english: "Permitting local answers separates competence from courtly polish and lets provincial talent be judged on administration rather than accent. Local communities gain confidence that access is not reserved for the capital's style."
+          simp_chinese: "允许地方语言作答把能力与宫廷修饰分开，使省份人才可以按行政本领而不是口音文风受评。地方社群会相信晋身之门并非只为首都风格而开。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_local_language_access
+            months: 18
+            effects:
+              "provincial candidate trust": 0.02
+      b:
+        text:
+          english: "Require court style."
+          simp_chinese: "要求使用宫廷文体。"
+        progress_delta: -5
+        rationale:
+          english: "Requiring court style keeps standards uniform and comfortable for central officials, but it lets cultivated language filter candidates before ability can speak plainly."
+          simp_chinese: "要求宫廷文体让标准保持统一，也让中央官员更安心，但它会让修辞教养在能力开口之前先行筛人。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_court_style_uniformity
+            months: 18
+            effects:
+              "central examination uniformity": 0.02
+  - design_id: M14
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Hereditary Office in Crisis"
+      simp_chinese: "世袭官职危机"
+    desc:
+      english: "A hereditary official fails publicly at the exact task the debate claims should be tested."
+      simp_chinese: "一名世袭官员正好在辩论声称应被测试的任务上当众失败。"
+    options:
+      a:
+        text:
+          english: "Use the failure as proof."
+          simp_chinese: "以这次失败作为证据。"
+        progress_delta: 10
+        rationale:
+          english: "Using the failure as proof gives the meritocratic side a vivid case that inherited office can endanger public work. The argument advances sharply, while noble satisfaction falls because an old privilege has become evidence against itself."
+          simp_chinese: "把这次失败当作证据，为任人唯才一方提供了鲜明案例：世袭官职会危及公共事务。论点因此大幅推进，而贵族满意度下降，因为旧特权成了反证自身的材料。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.05
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Shield the office."
+          simp_chinese: "保护该官职。"
+        progress_delta: -10
+        rationale:
+          english: "Shielding the office prevents an immediate legitimacy crisis and protects the dignity of inherited administration. It also tells the debate that birth may survive even the public failure of competence."
+          simp_chinese: "保护该官职可以避免眼前的正统性危机，并维护世袭行政的体面。但这也等于告诉辩论，即使能力公开失败，出身仍可幸存。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: 5
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 24
+  - design_id: M15
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Scholar Demand for Open Chairs"
+      simp_chinese: "学者要求公开教席"
+    desc:
+      english: "Academy scholars demand that teaching posts be competed for, not inherited from patrons."
+      simp_chinese: "学院学者要求教职通过竞争取得，而不是从赞助人手中继承。"
+    options:
+      a:
+        text:
+          english: "Open the chairs."
+          simp_chinese: "开放教席竞争。"
+        progress_delta: 5
+        rationale:
+          english: "Opening the chairs applies meritocracy inside the Academy itself, proving that the institution will test its own posts before lecturing the realm. Scholars gain support because their careers no longer depend solely on patrons."
+          simp_chinese: "开放教席竞争把任人唯才用于学院自身，证明学院在规劝国家之前也愿意考核自己的职位。学者获得支持，因为他们的前途不再只取决于赞助人。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_open_chair_competition
+            months: 24
+            effects:
+              "academy teaching competition": 0.02
+      b:
+        text:
+          english: "Confirm patron rights."
+          simp_chinese: "确认赞助人权利。"
+        progress_delta: -5
+        rationale:
+          english: "Confirming patron rights reassures those who fund and protect Academy posts, but it leaves scholarship tied to inherited favors rather than open comparison."
+          simp_chinese: "确认赞助人权利安抚了资助并保护学院职位的人，却也让学术继续依附于继承下来的恩惠，而不是公开比较。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.02
+          - type: temporary_country_modifier
+            key: tv_academy_debate_patron_rights_confirmed
+            months: 18
+            effects:
+              "academy patron confidence": 0.02
+  - design_id: M16
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Veterans' Service Rolls"
+      simp_chinese: "老兵服役名册"
+    desc:
+      english: "Veterans ask whether years of disciplined service count as merit or merely scars."
+      simp_chinese: "老兵们询问，多年纪律严明的服役究竟算不算功绩，还是只算一身旧伤。"
+    options:
+      a:
+        text:
+          english: "Count service in appointments."
+          simp_chinese: "将服役年限计入任官考量。"
+        progress_delta: 5
+        rationale:
+          english: "Counting disciplined service broadens merit beyond classroom examinations without abandoning evidence. The professional military approves because long service becomes a legible qualification rather than a sentimental appeal."
+          simp_chinese: "将严格服役计入考量，会把才能的范围从课堂考试扩展到可验证的军旅履历，而不只是诉诸同情。职业军人会支持此举，因为长期服役终于成为可读的资格，而不只是旧日功劳。"
+        effect_blocks:
+          - type: seat_stance
+            group: professional_military
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_service_rolls
+            months: 18
+            effects:
+              "veteran appointment review": 0.02
+      b:
+        text:
+          english: "Keep civil posts separate."
+          simp_chinese: "保持文职任命独立。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping civil posts separate preserves the bureaucratic claim that offices should be filled through paperwork, schooling, and court procedure. It slows the meritocratic case by declaring one proven form of service irrelevant."
+          simp_chinese: "保持文职任命独立，会维护官僚体系的主张：职位应由文书、学业和宫廷程序决定。它通过宣告一种已被证明的服务经验无关紧要，削弱任人唯才的推进。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_civil_posts_separate
+            months: 18
+            effects:
+              "civil appointment regularity": 0.02
+  - design_id: M17
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "The Crown's Favorite Fails"
+      simp_chinese: "王冠的宠儿失败了"
+    desc:
+      english: "A favored candidate performs badly in a supervised trial and everyone notices."
+      simp_chinese: "一名受宠候选人在监督试炼中表现糟糕，而且人人都看见了。"
+    options:
+      a:
+        text:
+          english: "Let the result stand."
+          simp_chinese: "让结果照常生效。"
+        progress_delta: 10
+        rationale:
+          english: "Letting the result stand proves that even royal favor cannot rescue a failed performance. The debate moves sharply toward meritocracy, but the Crown spends legitimacy by allowing its own preference to be publicly overruled."
+          simp_chinese: "让结果照常生效，证明即使王冠宠信也无法挽救失败的表现。辩论会大幅转向任人唯才，但王冠必须付出正统性代价，因为它公开承认自己的偏好可以被考核推翻。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: -10
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Order a second trial."
+          simp_chinese: "命令重新考核。"
+        progress_delta: -10
+        rationale:
+          english: "Ordering a second trial tells court factions that influence can buy another chance when evidence proves inconvenient. The old patronage logic recovers ground while the bureaucracy learns which candidates are protected."
+          simp_chinese: "命令重新考核等于告诉宫廷派系，当证据令人尴尬时，影响力可以换来第二次机会。旧有庇护逻辑因此收复阵地，官僚体系也看清了哪些候选人受到保护。"
+        effect_blocks:
+          - type: resource
+            resource: legitimacy
+            amount: 5
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 24
+  - design_id: M18
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Clean Ink, Dirty Hands"
+      simp_chinese: "清白墨迹，肮脏之手"
+    desc:
+      english: "Investigators find that the cleanest exam papers came from the dirtiest patronage network."
+      simp_chinese: "调查者发现，卷面最干净的试卷出自最肮脏的庇护网络。"
+    options:
+      a:
+        text:
+          english: "Publicly void them."
+          simp_chinese: "公开作废这些试卷。"
+        progress_delta: 10
+        rationale:
+          english: "Publicly voiding the papers makes corruption visible and treats clean presentation as worthless without clean process. Prestige is spent because the Academy must admit that its own examination table was compromised."
+          simp_chinese: "公开作废这些试卷，会让腐败暴露在众人面前，并声明没有清白流程，卷面整洁毫无价值。学院必须承认自己的考场已被渗透，因此要付出威望代价。"
+        effect_blocks:
+          - type: resource
+            resource: prestige
+            amount: -10
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 24
+      b:
+        text:
+          english: "Bury the investigation."
+          simp_chinese: "掩埋这场调查。"
+        progress_delta: -10
+        rationale:
+          english: "Burying the investigation protects patrons from scandal and lets noble households treat the exam as another channel of influence. The debate retreats because merit is allowed to wear borrowed handwriting."
+          simp_chinese: "掩埋调查会保护庇护者免于丑闻，也让贵族家族继续把考试当成影响力渠道。辩论因此倒退，因为所谓才能被允许披上借来的笔迹。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.04
+          - type: temporary_country_modifier
+            key: tv_academy_debate_patronage_buried
+            months: 24
+            effects:
+              "patronage network confidence": 0.02
+  - design_id: M19
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "A School Outside the Capital"
+      simp_chinese: "首都之外的学校"
+    desc:
+      english: "A provincial school claims it can train officials without court polish."
+      simp_chinese: "一所省立学校声称，它无需宫廷润饰也能培养官员。"
+    options:
+      a:
+        text:
+          english: "Recognize the school."
+          simp_chinese: "承认这所学校。"
+        progress_delta: 5
+        rationale:
+          english: "Recognizing the school admits that administrative ability can be trained outside the capital's manners and patronage circuits. Local autonomy gains confidence because provincial institutions are treated as producers of talent."
+          simp_chinese: "承认这所学校，就是承认行政才能可以在首都礼法和庇护圈之外培养。地方自治会因此更有信心，因为地方机构被视为人才来源，而不是等待核准的边缘。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_provincial_training
+            months: 24
+            effects:
+              "provincial official recruitment": 0.02
+      b:
+        text:
+          english: "Require capital certification."
+          simp_chinese: "要求首都认证。"
+        progress_delta: -5
+        rationale:
+          english: "Requiring capital certification keeps provincial training subordinate to the center. Central bureaucrats approve because competence remains filtered through familiar offices, seals, and courtly standards."
+          simp_chinese: "要求首都认证会让地方训练继续服从中央。中央官僚会赞成，因为才能仍须经过熟悉的机关、印信和宫廷标准筛选。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_capital_certification
+            months: 18
+            effects:
+              "central examination control": 0.02
+  - design_id: M20
+    pool: meritocracy
+    issue: meritocracy
+    weight: 1
+    title:
+      english: "Oath of the Examiners"
+      simp_chinese: "考官之誓"
+    desc:
+      english: "Examiners ask the Crown to protect them from noble retaliation before they publish results."
+      simp_chinese: "考官们要求王冠在他们公布结果前保护他们免受贵族报复。"
+    options:
+      a:
+        text:
+          english: "Swear protection."
+          simp_chinese: "宣誓保护考官。"
+        progress_delta: 10
+        rationale:
+          english: "Swearing protection makes the examination process answer upward to law and the Crown rather than sideways to noble retaliation. Meritocracy advances because examiners can publish unwelcome results without first calculating family revenge."
+          simp_chinese: "宣誓保护考官，会让考试流程向法律和王冠负责，而不是向贵族报复低头。任人唯才因此大幅推进，因为考官可以公布不受欢迎的结果，不必先计算家族复仇。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.05
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 24
+      b:
+        text:
+          english: "Refuse to provoke great houses."
+          simp_chinese: "拒绝激怒大族。"
+        progress_delta: -10
+        rationale:
+          english: "Refusing protection keeps the great houses calm by leaving intimidation unchallenged. Noble approval rises, but every examiner learns that a correct result may still be too dangerous to print."
+          simp_chinese: "拒绝保护会让大族保持平静，因为恐吓没有受到挑战。贵族赞许随之上升，但每位考官都会明白，即使结果正确，也可能危险到不能刊布。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.05
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 36
+excluded_events: []

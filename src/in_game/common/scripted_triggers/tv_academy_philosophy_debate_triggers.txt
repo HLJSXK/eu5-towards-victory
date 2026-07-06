@@ -765,3 +765,136 @@ tv_academy_debate_great_scientist_dip_between_30_and_80_trigger = {
 		dip < 80
 	}
 }
+
+tv_academy_world_debate_country_has_academy_trigger = {
+	has_variable = tv_academy_io_member
+}
+
+tv_academy_world_debate_country_can_participate_trigger = {
+	tv_academy_world_debate_country_has_academy_trigger = yes
+	var:tv_academy_debate_current_node_type ?= 2
+	tv_academy_philosophy_has_current_issue_trigger = yes
+	situation:tv_academy_world_debate_situation = {
+		has_variable = tv_academy_world_debate_active
+		has_variable = tv_academy_world_debate_issue
+	}
+	var:tv_academy_philosophy_current ?= situation:tv_academy_world_debate_situation.var:tv_academy_world_debate_issue
+}
+
+tv_academy_world_debate_country_supports_current_issue_trigger = {
+	OR = {
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 1 }
+			has_embraced_institution = institution:meritocracy
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 1 }
+			has_variable = tv_academy_debate_meritocracy_progressive
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 2 }
+			has_embraced_institution = institution:renaissance
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 2 }
+			has_variable = tv_academy_debate_renaissance_progressive
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 3 }
+			has_embraced_institution = institution:banking
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 3 }
+			has_variable = tv_academy_debate_banking_progressive
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 4 }
+			has_embraced_institution = institution:new_world
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 4 }
+			has_variable = tv_academy_debate_new_world_progressive
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 5 }
+			has_embraced_institution = institution:printing_press
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 5 }
+			has_variable = tv_academy_debate_printing_press_progressive
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 6 }
+			has_embraced_institution = institution:confessionalism
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 6 }
+			has_variable = tv_academy_debate_confessionalism_progressive
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 7 }
+			has_embraced_institution = institution:global_trade
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 7 }
+			has_variable = tv_academy_debate_global_trade_progressive
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 8 }
+			has_embraced_institution = institution:manufactories
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 8 }
+			has_variable = tv_academy_debate_manufactories_progressive
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 9 }
+			has_embraced_institution = institution:scientific_revolution
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 9 }
+			has_variable = tv_academy_debate_scientific_revolution_progressive
+		}
+	}
+}
+
+tv_academy_world_debate_country_opposes_current_issue_trigger = {
+	OR = {
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 1 }
+			has_variable = tv_academy_debate_meritocracy_conservative
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 2 }
+			has_variable = tv_academy_debate_renaissance_conservative
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 3 }
+			has_variable = tv_academy_debate_banking_conservative
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 4 }
+			has_variable = tv_academy_debate_new_world_conservative
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 5 }
+			has_variable = tv_academy_debate_printing_press_conservative
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 6 }
+			has_variable = tv_academy_debate_confessionalism_conservative
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 7 }
+			has_variable = tv_academy_debate_global_trade_conservative
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 8 }
+			has_variable = tv_academy_debate_manufactories_conservative
+		}
+		AND = {
+			situation:tv_academy_world_debate_situation = { var:tv_academy_world_debate_issue ?= 9 }
+			has_variable = tv_academy_debate_scientific_revolution_conservative
+		}
+	}
+}

@@ -14,83 +14,127 @@ tv_research.1 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 1 }
-				desc = tv_research.1.d_printing_press
+				desc = tv_research.1.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 2 }
-				desc = tv_research.1.d_iron_working
+				desc = tv_research.1.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 3 }
+				desc = tv_research.1.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 4 }
-				desc = tv_research.1.d_gunpowder
+				desc = tv_research.1.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 5 }
-				desc = tv_research.1.d_blast_furnace
+				desc = tv_research.1.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 6 }
-				desc = tv_research.1.d_scientific_experimentation
+				desc = tv_research.1.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 7 }
-				desc = tv_research.1.d_scientific_revolution
+				desc = tv_research.1.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 8 }
-				desc = tv_research.1.d_manufactories
+				desc = tv_research.1.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 9 }
-				desc = tv_research.1.d_industrialization
+				desc = tv_research.1.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 10 }
-				desc = tv_research.1.d_vaccination
+				desc = tv_research.1.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 11 }
-				desc = tv_research.1.d_renaissance
+				desc = tv_research.1.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 12 }
-				desc = tv_research.1.d_banking
+				desc = tv_research.1.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 13 }
-				desc = tv_research.1.d_professional_armies
+				desc = tv_research.1.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 14 }
-				desc = tv_research.1.d_new_world
+				desc = tv_research.1.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 15 }
-				desc = tv_research.1.d_pike_and_shot
+				desc = tv_research.1.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 16 }
-				desc = tv_research.1.d_confessionalism
+				desc = tv_research.1.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 17 }
-				desc = tv_research.1.d_global_trade
+				desc = tv_research.1.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 18 }
-				desc = tv_research.1.d_artillery_institution
+				desc = tv_research.1.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 19 }
-				desc = tv_research.1.d_military_revolution
+				desc = tv_research.1.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 20 }
-				desc = tv_research.1.d_enlightenment
+				desc = tv_research.1.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 21 }
-				desc = tv_research.1.d_levee_en_masse
+				desc = tv_research.1.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 22 }
+				desc = tv_research.1.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 23 }
+				desc = tv_research.1.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 24 }
+				desc = tv_research.1.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 25 }
+				desc = tv_research.1.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 26 }
+				desc = tv_research.1.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 27 }
+				desc = tv_research.1.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 28 }
+				desc = tv_research.1.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 29 }
+				desc = tv_research.1.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 30 }
+				desc = tv_research.1.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 31 }
+				desc = tv_research.1.d_magazines
 			}
 			triggered_desc = {
 				trigger = { always = yes }
@@ -138,83 +182,127 @@ tv_research.2 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 1 }
-				desc = tv_research.2.d_printing_press
+				desc = tv_research.2.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 2 }
-				desc = tv_research.2.d_iron_working
+				desc = tv_research.2.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 3 }
+				desc = tv_research.2.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 4 }
-				desc = tv_research.2.d_gunpowder
+				desc = tv_research.2.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 5 }
-				desc = tv_research.2.d_blast_furnace
+				desc = tv_research.2.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 6 }
-				desc = tv_research.2.d_scientific_experimentation
+				desc = tv_research.2.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 7 }
-				desc = tv_research.2.d_scientific_revolution
+				desc = tv_research.2.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 8 }
-				desc = tv_research.2.d_manufactories
+				desc = tv_research.2.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 9 }
-				desc = tv_research.2.d_industrialization
+				desc = tv_research.2.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 10 }
-				desc = tv_research.2.d_vaccination
+				desc = tv_research.2.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 11 }
-				desc = tv_research.2.d_renaissance
+				desc = tv_research.2.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 12 }
-				desc = tv_research.2.d_banking
+				desc = tv_research.2.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 13 }
-				desc = tv_research.2.d_professional_armies
+				desc = tv_research.2.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 14 }
-				desc = tv_research.2.d_new_world
+				desc = tv_research.2.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 15 }
-				desc = tv_research.2.d_pike_and_shot
+				desc = tv_research.2.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 16 }
-				desc = tv_research.2.d_confessionalism
+				desc = tv_research.2.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 17 }
-				desc = tv_research.2.d_global_trade
+				desc = tv_research.2.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 18 }
-				desc = tv_research.2.d_artillery_institution
+				desc = tv_research.2.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 19 }
-				desc = tv_research.2.d_military_revolution
+				desc = tv_research.2.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 20 }
-				desc = tv_research.2.d_enlightenment
+				desc = tv_research.2.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 21 }
-				desc = tv_research.2.d_levee_en_masse
+				desc = tv_research.2.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 22 }
+				desc = tv_research.2.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 23 }
+				desc = tv_research.2.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 24 }
+				desc = tv_research.2.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 25 }
+				desc = tv_research.2.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 26 }
+				desc = tv_research.2.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 27 }
+				desc = tv_research.2.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 28 }
+				desc = tv_research.2.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 29 }
+				desc = tv_research.2.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 30 }
+				desc = tv_research.2.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 31 }
+				desc = tv_research.2.d_magazines
 			}
 			triggered_desc = {
 				trigger = { always = yes }
@@ -262,83 +350,127 @@ tv_research.3 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 1 }
-				desc = tv_research.3.d_printing_press
+				desc = tv_research.3.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 2 }
-				desc = tv_research.3.d_iron_working
+				desc = tv_research.3.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 3 }
+				desc = tv_research.3.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 4 }
-				desc = tv_research.3.d_gunpowder
+				desc = tv_research.3.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 5 }
-				desc = tv_research.3.d_blast_furnace
+				desc = tv_research.3.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 6 }
-				desc = tv_research.3.d_scientific_experimentation
+				desc = tv_research.3.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 7 }
-				desc = tv_research.3.d_scientific_revolution
+				desc = tv_research.3.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 8 }
-				desc = tv_research.3.d_manufactories
+				desc = tv_research.3.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 9 }
-				desc = tv_research.3.d_industrialization
+				desc = tv_research.3.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 10 }
-				desc = tv_research.3.d_vaccination
+				desc = tv_research.3.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 11 }
-				desc = tv_research.3.d_renaissance
+				desc = tv_research.3.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 12 }
-				desc = tv_research.3.d_banking
+				desc = tv_research.3.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 13 }
-				desc = tv_research.3.d_professional_armies
+				desc = tv_research.3.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 14 }
-				desc = tv_research.3.d_new_world
+				desc = tv_research.3.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 15 }
-				desc = tv_research.3.d_pike_and_shot
+				desc = tv_research.3.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 16 }
-				desc = tv_research.3.d_confessionalism
+				desc = tv_research.3.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 17 }
-				desc = tv_research.3.d_global_trade
+				desc = tv_research.3.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 18 }
-				desc = tv_research.3.d_artillery_institution
+				desc = tv_research.3.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 19 }
-				desc = tv_research.3.d_military_revolution
+				desc = tv_research.3.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 20 }
-				desc = tv_research.3.d_enlightenment
+				desc = tv_research.3.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 21 }
-				desc = tv_research.3.d_levee_en_masse
+				desc = tv_research.3.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 22 }
+				desc = tv_research.3.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 23 }
+				desc = tv_research.3.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 24 }
+				desc = tv_research.3.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 25 }
+				desc = tv_research.3.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 26 }
+				desc = tv_research.3.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 27 }
+				desc = tv_research.3.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 28 }
+				desc = tv_research.3.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 29 }
+				desc = tv_research.3.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 30 }
+				desc = tv_research.3.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 31 }
+				desc = tv_research.3.d_magazines
 			}
 			triggered_desc = {
 				trigger = { always = yes }
@@ -386,83 +518,127 @@ tv_research.4 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 1 }
-				desc = tv_research.4.d_printing_press
+				desc = tv_research.4.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 2 }
-				desc = tv_research.4.d_iron_working
+				desc = tv_research.4.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 3 }
+				desc = tv_research.4.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 4 }
-				desc = tv_research.4.d_gunpowder
+				desc = tv_research.4.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 5 }
-				desc = tv_research.4.d_blast_furnace
+				desc = tv_research.4.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 6 }
-				desc = tv_research.4.d_scientific_experimentation
+				desc = tv_research.4.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 7 }
-				desc = tv_research.4.d_scientific_revolution
+				desc = tv_research.4.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 8 }
-				desc = tv_research.4.d_manufactories
+				desc = tv_research.4.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 9 }
-				desc = tv_research.4.d_industrialization
+				desc = tv_research.4.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 10 }
-				desc = tv_research.4.d_vaccination
+				desc = tv_research.4.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 11 }
-				desc = tv_research.4.d_renaissance
+				desc = tv_research.4.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 12 }
-				desc = tv_research.4.d_banking
+				desc = tv_research.4.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 13 }
-				desc = tv_research.4.d_professional_armies
+				desc = tv_research.4.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 14 }
-				desc = tv_research.4.d_new_world
+				desc = tv_research.4.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 15 }
-				desc = tv_research.4.d_pike_and_shot
+				desc = tv_research.4.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 16 }
-				desc = tv_research.4.d_confessionalism
+				desc = tv_research.4.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 17 }
-				desc = tv_research.4.d_global_trade
+				desc = tv_research.4.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 18 }
-				desc = tv_research.4.d_artillery_institution
+				desc = tv_research.4.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 19 }
-				desc = tv_research.4.d_military_revolution
+				desc = tv_research.4.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 20 }
-				desc = tv_research.4.d_enlightenment
+				desc = tv_research.4.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 21 }
-				desc = tv_research.4.d_levee_en_masse
+				desc = tv_research.4.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 22 }
+				desc = tv_research.4.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 23 }
+				desc = tv_research.4.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 24 }
+				desc = tv_research.4.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 25 }
+				desc = tv_research.4.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 26 }
+				desc = tv_research.4.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 27 }
+				desc = tv_research.4.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 28 }
+				desc = tv_research.4.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 29 }
+				desc = tv_research.4.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 30 }
+				desc = tv_research.4.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 31 }
+				desc = tv_research.4.d_magazines
 			}
 			triggered_desc = {
 				trigger = { always = yes }
@@ -510,83 +686,127 @@ tv_research.5 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 1 }
-				desc = tv_research.5.d_printing_press
+				desc = tv_research.5.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 2 }
-				desc = tv_research.5.d_iron_working
+				desc = tv_research.5.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 3 }
+				desc = tv_research.5.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 4 }
-				desc = tv_research.5.d_gunpowder
+				desc = tv_research.5.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 5 }
-				desc = tv_research.5.d_blast_furnace
+				desc = tv_research.5.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 6 }
-				desc = tv_research.5.d_scientific_experimentation
+				desc = tv_research.5.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 7 }
-				desc = tv_research.5.d_scientific_revolution
+				desc = tv_research.5.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 8 }
-				desc = tv_research.5.d_manufactories
+				desc = tv_research.5.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 9 }
-				desc = tv_research.5.d_industrialization
+				desc = tv_research.5.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 10 }
-				desc = tv_research.5.d_vaccination
+				desc = tv_research.5.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 11 }
-				desc = tv_research.5.d_renaissance
+				desc = tv_research.5.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 12 }
-				desc = tv_research.5.d_banking
+				desc = tv_research.5.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 13 }
-				desc = tv_research.5.d_professional_armies
+				desc = tv_research.5.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 14 }
-				desc = tv_research.5.d_new_world
+				desc = tv_research.5.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 15 }
-				desc = tv_research.5.d_pike_and_shot
+				desc = tv_research.5.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 16 }
-				desc = tv_research.5.d_confessionalism
+				desc = tv_research.5.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 17 }
-				desc = tv_research.5.d_global_trade
+				desc = tv_research.5.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 18 }
-				desc = tv_research.5.d_artillery_institution
+				desc = tv_research.5.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 19 }
-				desc = tv_research.5.d_military_revolution
+				desc = tv_research.5.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 20 }
-				desc = tv_research.5.d_enlightenment
+				desc = tv_research.5.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 21 }
-				desc = tv_research.5.d_levee_en_masse
+				desc = tv_research.5.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 22 }
+				desc = tv_research.5.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 23 }
+				desc = tv_research.5.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 24 }
+				desc = tv_research.5.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 25 }
+				desc = tv_research.5.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 26 }
+				desc = tv_research.5.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 27 }
+				desc = tv_research.5.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 28 }
+				desc = tv_research.5.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 29 }
+				desc = tv_research.5.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 30 }
+				desc = tv_research.5.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 31 }
+				desc = tv_research.5.d_magazines
 			}
 			triggered_desc = {
 				trigger = { always = yes }
@@ -634,83 +854,127 @@ tv_research.6 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 1 }
-				desc = tv_research.6.d_printing_press
+				desc = tv_research.6.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 2 }
-				desc = tv_research.6.d_iron_working
+				desc = tv_research.6.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 3 }
+				desc = tv_research.6.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 4 }
-				desc = tv_research.6.d_gunpowder
+				desc = tv_research.6.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 5 }
-				desc = tv_research.6.d_blast_furnace
+				desc = tv_research.6.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 6 }
-				desc = tv_research.6.d_scientific_experimentation
+				desc = tv_research.6.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 7 }
-				desc = tv_research.6.d_scientific_revolution
+				desc = tv_research.6.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 8 }
-				desc = tv_research.6.d_manufactories
+				desc = tv_research.6.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 9 }
-				desc = tv_research.6.d_industrialization
+				desc = tv_research.6.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 10 }
-				desc = tv_research.6.d_vaccination
+				desc = tv_research.6.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 11 }
-				desc = tv_research.6.d_renaissance
+				desc = tv_research.6.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 12 }
-				desc = tv_research.6.d_banking
+				desc = tv_research.6.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 13 }
-				desc = tv_research.6.d_professional_armies
+				desc = tv_research.6.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 14 }
-				desc = tv_research.6.d_new_world
+				desc = tv_research.6.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 15 }
-				desc = tv_research.6.d_pike_and_shot
+				desc = tv_research.6.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 16 }
-				desc = tv_research.6.d_confessionalism
+				desc = tv_research.6.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 17 }
-				desc = tv_research.6.d_global_trade
+				desc = tv_research.6.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 18 }
-				desc = tv_research.6.d_artillery_institution
+				desc = tv_research.6.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 19 }
-				desc = tv_research.6.d_military_revolution
+				desc = tv_research.6.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 20 }
-				desc = tv_research.6.d_enlightenment
+				desc = tv_research.6.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target ?= 21 }
-				desc = tv_research.6.d_levee_en_masse
+				desc = tv_research.6.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 22 }
+				desc = tv_research.6.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 23 }
+				desc = tv_research.6.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 24 }
+				desc = tv_research.6.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 25 }
+				desc = tv_research.6.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 26 }
+				desc = tv_research.6.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 27 }
+				desc = tv_research.6.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 28 }
+				desc = tv_research.6.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 29 }
+				desc = tv_research.6.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 30 }
+				desc = tv_research.6.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target ?= 31 }
+				desc = tv_research.6.d_magazines
 			}
 			triggered_desc = {
 				trigger = { always = yes }
@@ -762,83 +1026,127 @@ tv_research.10 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 1 }
-				desc = tv_research.10.d_printing_press
+				desc = tv_research.10.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 2 }
-				desc = tv_research.10.d_iron_working
+				desc = tv_research.10.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 3 }
+				desc = tv_research.10.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 4 }
-				desc = tv_research.10.d_gunpowder
+				desc = tv_research.10.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 5 }
-				desc = tv_research.10.d_blast_furnace
+				desc = tv_research.10.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 6 }
-				desc = tv_research.10.d_scientific_experimentation
+				desc = tv_research.10.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 7 }
-				desc = tv_research.10.d_scientific_revolution
+				desc = tv_research.10.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 8 }
-				desc = tv_research.10.d_manufactories
+				desc = tv_research.10.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 9 }
-				desc = tv_research.10.d_industrialization
+				desc = tv_research.10.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 10 }
-				desc = tv_research.10.d_vaccination
+				desc = tv_research.10.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 11 }
-				desc = tv_research.10.d_renaissance
+				desc = tv_research.10.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 12 }
-				desc = tv_research.10.d_banking
+				desc = tv_research.10.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 13 }
-				desc = tv_research.10.d_professional_armies
+				desc = tv_research.10.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 14 }
-				desc = tv_research.10.d_new_world
+				desc = tv_research.10.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 15 }
-				desc = tv_research.10.d_pike_and_shot
+				desc = tv_research.10.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 16 }
-				desc = tv_research.10.d_confessionalism
+				desc = tv_research.10.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 17 }
-				desc = tv_research.10.d_global_trade
+				desc = tv_research.10.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 18 }
-				desc = tv_research.10.d_artillery_institution
+				desc = tv_research.10.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 19 }
-				desc = tv_research.10.d_military_revolution
+				desc = tv_research.10.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 20 }
-				desc = tv_research.10.d_enlightenment
+				desc = tv_research.10.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_proposed_advance ?= 21 }
-				desc = tv_research.10.d_levee_en_masse
+				desc = tv_research.10.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 22 }
+				desc = tv_research.10.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 23 }
+				desc = tv_research.10.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 24 }
+				desc = tv_research.10.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 25 }
+				desc = tv_research.10.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 26 }
+				desc = tv_research.10.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 27 }
+				desc = tv_research.10.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 28 }
+				desc = tv_research.10.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 29 }
+				desc = tv_research.10.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 30 }
+				desc = tv_research.10.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_proposed_advance ?= 31 }
+				desc = tv_research.10.d_magazines
 			}
 		}
 	}
@@ -856,123 +1164,189 @@ tv_research.10 = {
 	}
 
 	option = {
-		name = tv_research.10.a_printing_press
+		name = tv_research.10.a_medieval_administration
 		trigger = { var:tv_research_proposed_advance ?= 1 }
-		custom_tooltip = tv_research.10.a_printing_press.tt
+		custom_tooltip = tv_research.10.a_medieval_administration.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_scriptorium
+		trigger = { var:tv_research_proposed_advance ?= 2 }
+		custom_tooltip = tv_research.10.a_scriptorium.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_horse_riding
+		trigger = { var:tv_research_proposed_advance ?= 3 }
+		custom_tooltip = tv_research.10.a_horse_riding.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_bronze_working
+		trigger = { var:tv_research_proposed_advance ?= 4 }
+		custom_tooltip = tv_research.10.a_bronze_working.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
 		name = tv_research.10.a_iron_working
-		trigger = { var:tv_research_proposed_advance ?= 2 }
+		trigger = { var:tv_research_proposed_advance ?= 5 }
 		custom_tooltip = tv_research.10.a_iron_working.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
+		name = tv_research.10.a_efficient_logistics
+		trigger = { var:tv_research_proposed_advance ?= 6 }
+		custom_tooltip = tv_research.10.a_efficient_logistics.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_abacus
+		trigger = { var:tv_research_proposed_advance ?= 7 }
+		custom_tooltip = tv_research.10.a_abacus.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_renaissance_sculptures
+		trigger = { var:tv_research_proposed_advance ?= 8 }
+		custom_tooltip = tv_research.10.a_renaissance_sculptures.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_crown_power_renaissance
+		trigger = { var:tv_research_proposed_advance ?= 9 }
+		custom_tooltip = tv_research.10.a_crown_power_renaissance.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_dock
+		trigger = { var:tv_research_proposed_advance ?= 10 }
+		custom_tooltip = tv_research.10.a_dock.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_standardized_coins
+		trigger = { var:tv_research_proposed_advance ?= 11 }
+		custom_tooltip = tv_research.10.a_standardized_coins.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
 		name = tv_research.10.a_gunpowder
-		trigger = { var:tv_research_proposed_advance ?= 4 }
+		trigger = { var:tv_research_proposed_advance ?= 12 }
 		custom_tooltip = tv_research.10.a_gunpowder.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
+		name = tv_research.10.a_armory
+		trigger = { var:tv_research_proposed_advance ?= 13 }
+		custom_tooltip = tv_research.10.a_armory.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_open_sea_exploration
+		trigger = { var:tv_research_proposed_advance ?= 14 }
+		custom_tooltip = tv_research.10.a_open_sea_exploration.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
 		name = tv_research.10.a_blast_furnace
-		trigger = { var:tv_research_proposed_advance ?= 5 }
+		trigger = { var:tv_research_proposed_advance ?= 15 }
 		custom_tooltip = tv_research.10.a_blast_furnace.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a_scientific_experimentation
-		trigger = { var:tv_research_proposed_advance ?= 6 }
-		custom_tooltip = tv_research.10.a_scientific_experimentation.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_scientific_revolution
-		trigger = { var:tv_research_proposed_advance ?= 7 }
-		custom_tooltip = tv_research.10.a_scientific_revolution.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_manufactories
-		trigger = { var:tv_research_proposed_advance ?= 8 }
-		custom_tooltip = tv_research.10.a_manufactories.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_industrialization
-		trigger = { var:tv_research_proposed_advance ?= 9 }
-		custom_tooltip = tv_research.10.a_industrialization.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_vaccination
-		trigger = { var:tv_research_proposed_advance ?= 10 }
-		custom_tooltip = tv_research.10.a_vaccination.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_renaissance
-		trigger = { var:tv_research_proposed_advance ?= 11 }
-		custom_tooltip = tv_research.10.a_renaissance.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_banking
-		trigger = { var:tv_research_proposed_advance ?= 12 }
-		custom_tooltip = tv_research.10.a_banking.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_professional_armies
-		trigger = { var:tv_research_proposed_advance ?= 13 }
-		custom_tooltip = tv_research.10.a_professional_armies.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_new_world
-		trigger = { var:tv_research_proposed_advance ?= 14 }
-		custom_tooltip = tv_research.10.a_new_world.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_pike_and_shot
-		trigger = { var:tv_research_proposed_advance ?= 15 }
-		custom_tooltip = tv_research.10.a_pike_and_shot.tt
-		tv_research_confirm_target_effect = yes
-	}
-	option = {
-		name = tv_research.10.a_confessionalism
+		name = tv_research.10.a_faceting
 		trigger = { var:tv_research_proposed_advance ?= 16 }
-		custom_tooltip = tv_research.10.a_confessionalism.tt
+		custom_tooltip = tv_research.10.a_faceting.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a_global_trade
+		name = tv_research.10.a_paper_workshop
 		trigger = { var:tv_research_proposed_advance ?= 17 }
-		custom_tooltip = tv_research.10.a_global_trade.tt
+		custom_tooltip = tv_research.10.a_paper_workshop.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a_artillery_institution
+		name = tv_research.10.a_training_fields
 		trigger = { var:tv_research_proposed_advance ?= 18 }
-		custom_tooltip = tv_research.10.a_artillery_institution.tt
+		custom_tooltip = tv_research.10.a_training_fields.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a_military_revolution
+		name = tv_research.10.a_customs_house
 		trigger = { var:tv_research_proposed_advance ?= 19 }
-		custom_tooltip = tv_research.10.a_military_revolution.tt
+		custom_tooltip = tv_research.10.a_customs_house.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a_enlightenment
+		name = tv_research.10.a_the_prince
 		trigger = { var:tv_research_proposed_advance ?= 20 }
-		custom_tooltip = tv_research.10.a_enlightenment.tt
+		custom_tooltip = tv_research.10.a_the_prince.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
-		name = tv_research.10.a_levee_en_masse
+		name = tv_research.10.a_pharmacology
 		trigger = { var:tv_research_proposed_advance ?= 21 }
-		custom_tooltip = tv_research.10.a_levee_en_masse.tt
+		custom_tooltip = tv_research.10.a_pharmacology.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_letters_of_marque
+		trigger = { var:tv_research_proposed_advance ?= 22 }
+		custom_tooltip = tv_research.10.a_letters_of_marque.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_slitting_mills
+		trigger = { var:tv_research_proposed_advance ?= 23 }
+		custom_tooltip = tv_research.10.a_slitting_mills.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_cannon_workshop
+		trigger = { var:tv_research_proposed_advance ?= 24 }
+		custom_tooltip = tv_research.10.a_cannon_workshop.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_barracks
+		trigger = { var:tv_research_proposed_advance ?= 25 }
+		custom_tooltip = tv_research.10.a_barracks.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_ostentatious_clothing
+		trigger = { var:tv_research_proposed_advance ?= 26 }
+		custom_tooltip = tv_research.10.a_ostentatious_clothing.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_sanitation
+		trigger = { var:tv_research_proposed_advance ?= 27 }
+		custom_tooltip = tv_research.10.a_sanitation.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_coke_blast_furnace
+		trigger = { var:tv_research_proposed_advance ?= 28 }
+		custom_tooltip = tv_research.10.a_coke_blast_furnace.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_scientific_mapping
+		trigger = { var:tv_research_proposed_advance ?= 29 }
+		custom_tooltip = tv_research.10.a_scientific_mapping.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_siege_cannons
+		trigger = { var:tv_research_proposed_advance ?= 30 }
+		custom_tooltip = tv_research.10.a_siege_cannons.tt
+		tv_research_confirm_target_effect = yes
+	}
+	option = {
+		name = tv_research.10.a_magazines
+		trigger = { var:tv_research_proposed_advance ?= 31 }
+		custom_tooltip = tv_research.10.a_magazines.tt
 		tv_research_confirm_target_effect = yes
 	}
 	option = {
@@ -1059,83 +1433,127 @@ tv_research.30 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_target = 1 }
-				desc = tv_research.30.d_printing_press
+				desc = tv_research.30.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 2 }
-				desc = tv_research.30.d_iron_working
+				desc = tv_research.30.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 3 }
+				desc = tv_research.30.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 4 }
-				desc = tv_research.30.d_gunpowder
+				desc = tv_research.30.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 5 }
-				desc = tv_research.30.d_blast_furnace
+				desc = tv_research.30.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 6 }
-				desc = tv_research.30.d_scientific_experimentation
+				desc = tv_research.30.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 7 }
-				desc = tv_research.30.d_scientific_revolution
+				desc = tv_research.30.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 8 }
-				desc = tv_research.30.d_manufactories
+				desc = tv_research.30.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 9 }
-				desc = tv_research.30.d_industrialization
+				desc = tv_research.30.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 10 }
-				desc = tv_research.30.d_vaccination
+				desc = tv_research.30.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 11 }
-				desc = tv_research.30.d_renaissance
+				desc = tv_research.30.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 12 }
-				desc = tv_research.30.d_banking
+				desc = tv_research.30.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 13 }
-				desc = tv_research.30.d_professional_armies
+				desc = tv_research.30.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 14 }
-				desc = tv_research.30.d_new_world
+				desc = tv_research.30.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 15 }
-				desc = tv_research.30.d_pike_and_shot
+				desc = tv_research.30.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 16 }
-				desc = tv_research.30.d_confessionalism
+				desc = tv_research.30.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 17 }
-				desc = tv_research.30.d_global_trade
+				desc = tv_research.30.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 18 }
-				desc = tv_research.30.d_artillery_institution
+				desc = tv_research.30.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 19 }
-				desc = tv_research.30.d_military_revolution
+				desc = tv_research.30.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 20 }
-				desc = tv_research.30.d_enlightenment
+				desc = tv_research.30.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_target = 21 }
-				desc = tv_research.30.d_levee_en_masse
+				desc = tv_research.30.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 22 }
+				desc = tv_research.30.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 23 }
+				desc = tv_research.30.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 24 }
+				desc = tv_research.30.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 25 }
+				desc = tv_research.30.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 26 }
+				desc = tv_research.30.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 27 }
+				desc = tv_research.30.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 28 }
+				desc = tv_research.30.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 29 }
+				desc = tv_research.30.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 30 }
+				desc = tv_research.30.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_target = 31 }
+				desc = tv_research.30.d_magazines
 			}
 		}
 	}
@@ -1151,7 +1569,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 1 }
-		tv_unlock_advance_printing_press_effect = yes
+		tv_unlock_advance_medieval_administration_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1161,7 +1579,17 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 2 }
-		tv_unlock_advance_iron_working_effect = yes
+		tv_unlock_advance_scriptorium_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 3 }
+		tv_unlock_advance_horse_riding_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1171,7 +1599,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 4 }
-		tv_unlock_advance_gunpowder_effect = yes
+		tv_unlock_advance_bronze_working_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1181,7 +1609,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 5 }
-		tv_unlock_advance_blast_furnace_effect = yes
+		tv_unlock_advance_iron_working_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1191,7 +1619,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 6 }
-		tv_unlock_advance_scientific_experimentation_effect = yes
+		tv_unlock_advance_efficient_logistics_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1201,7 +1629,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 7 }
-		tv_unlock_advance_scientific_revolution_effect = yes
+		tv_unlock_advance_abacus_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1211,7 +1639,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 8 }
-		tv_unlock_advance_manufactories_effect = yes
+		tv_unlock_advance_renaissance_sculptures_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1221,7 +1649,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 9 }
-		tv_unlock_advance_industrialization_effect = yes
+		tv_unlock_advance_crown_power_renaissance_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1231,7 +1659,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 10 }
-		tv_unlock_advance_vaccination_effect = yes
+		tv_unlock_advance_dock_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1241,7 +1669,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 11 }
-		tv_unlock_advance_renaissance_effect = yes
+		tv_unlock_advance_standardized_coins_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1251,7 +1679,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 12 }
-		tv_unlock_advance_banking_effect = yes
+		tv_unlock_advance_gunpowder_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1261,7 +1689,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 13 }
-		tv_unlock_advance_professional_armies_effect = yes
+		tv_unlock_advance_armory_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1271,7 +1699,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 14 }
-		tv_unlock_advance_new_world_effect = yes
+		tv_unlock_advance_open_sea_exploration_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1281,7 +1709,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 15 }
-		tv_unlock_advance_pike_and_shot_effect = yes
+		tv_unlock_advance_blast_furnace_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1291,7 +1719,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 16 }
-		tv_unlock_advance_confessionalism_effect = yes
+		tv_unlock_advance_faceting_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1301,7 +1729,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 17 }
-		tv_unlock_advance_global_trade_effect = yes
+		tv_unlock_advance_paper_workshop_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1311,7 +1739,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 18 }
-		tv_unlock_advance_artillery_institution_effect = yes
+		tv_unlock_advance_training_fields_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1321,7 +1749,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 19 }
-		tv_unlock_advance_military_revolution_effect = yes
+		tv_unlock_advance_customs_house_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1331,7 +1759,7 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 20 }
-		tv_unlock_advance_enlightenment_effect = yes
+		tv_unlock_advance_the_prince_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1341,7 +1769,107 @@ tv_research.30 = {
 	option = {
 		name = tv_research.30.a	# "Excellent!"
 		trigger = { var:tv_research_target = 21 }
-		tv_unlock_advance_levee_en_masse_effect = yes
+		tv_unlock_advance_pharmacology_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 22 }
+		tv_unlock_advance_letters_of_marque_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 23 }
+		tv_unlock_advance_slitting_mills_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 24 }
+		tv_unlock_advance_cannon_workshop_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 25 }
+		tv_unlock_advance_barracks_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 26 }
+		tv_unlock_advance_ostentatious_clothing_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 27 }
+		tv_unlock_advance_sanitation_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 28 }
+		tv_unlock_advance_coke_blast_furnace_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 29 }
+		tv_unlock_advance_scientific_mapping_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 30 }
+		tv_unlock_advance_siege_cannons_effect = yes
+		tv_upgrade_great_scientist_trait_effect = yes
+		hidden_effect = {
+			tv_update_chief_scientist_effective_adm_effect = yes
+			tv_research_reset_cycle_effect = yes
+		}
+	}
+	option = {
+		name = tv_research.30.a	# "Excellent!"
+		trigger = { var:tv_research_target = 31 }
+		tv_unlock_advance_magazines_effect = yes
 		tv_upgrade_great_scientist_trait_effect = yes
 		hidden_effect = {
 			tv_update_chief_scientist_effective_adm_effect = yes
@@ -1360,83 +1888,127 @@ tv_research.31 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 1 }
-				desc = tv_research.31.d_printing_press
+				desc = tv_research.31.d_medieval_administration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 2 }
-				desc = tv_research.31.d_iron_working
+				desc = tv_research.31.d_scriptorium
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 3 }
+				desc = tv_research.31.d_horse_riding
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 4 }
-				desc = tv_research.31.d_gunpowder
+				desc = tv_research.31.d_bronze_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 5 }
-				desc = tv_research.31.d_blast_furnace
+				desc = tv_research.31.d_iron_working
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 6 }
-				desc = tv_research.31.d_scientific_experimentation
+				desc = tv_research.31.d_efficient_logistics
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 7 }
-				desc = tv_research.31.d_scientific_revolution
+				desc = tv_research.31.d_abacus
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 8 }
-				desc = tv_research.31.d_manufactories
+				desc = tv_research.31.d_renaissance_sculptures
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 9 }
-				desc = tv_research.31.d_industrialization
+				desc = tv_research.31.d_crown_power_renaissance
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 10 }
-				desc = tv_research.31.d_vaccination
+				desc = tv_research.31.d_dock
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 11 }
-				desc = tv_research.31.d_renaissance
+				desc = tv_research.31.d_standardized_coins
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 12 }
-				desc = tv_research.31.d_banking
+				desc = tv_research.31.d_gunpowder
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 13 }
-				desc = tv_research.31.d_professional_armies
+				desc = tv_research.31.d_armory
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 14 }
-				desc = tv_research.31.d_new_world
+				desc = tv_research.31.d_open_sea_exploration
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 15 }
-				desc = tv_research.31.d_pike_and_shot
+				desc = tv_research.31.d_blast_furnace
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 16 }
-				desc = tv_research.31.d_confessionalism
+				desc = tv_research.31.d_faceting
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 17 }
-				desc = tv_research.31.d_global_trade
+				desc = tv_research.31.d_paper_workshop
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 18 }
-				desc = tv_research.31.d_artillery_institution
+				desc = tv_research.31.d_training_fields
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 19 }
-				desc = tv_research.31.d_military_revolution
+				desc = tv_research.31.d_customs_house
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 20 }
-				desc = tv_research.31.d_enlightenment
+				desc = tv_research.31.d_the_prince
 			}
 			triggered_desc = {
 				trigger = { var:tv_research_completed_target_notice ?= 21 }
-				desc = tv_research.31.d_levee_en_masse
+				desc = tv_research.31.d_pharmacology
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 22 }
+				desc = tv_research.31.d_letters_of_marque
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 23 }
+				desc = tv_research.31.d_slitting_mills
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 24 }
+				desc = tv_research.31.d_cannon_workshop
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 25 }
+				desc = tv_research.31.d_barracks
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 26 }
+				desc = tv_research.31.d_ostentatious_clothing
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 27 }
+				desc = tv_research.31.d_sanitation
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 28 }
+				desc = tv_research.31.d_coke_blast_furnace
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 29 }
+				desc = tv_research.31.d_scientific_mapping
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 30 }
+				desc = tv_research.31.d_siege_cannons
+			}
+			triggered_desc = {
+				trigger = { var:tv_research_completed_target_notice ?= 31 }
+				desc = tv_research.31.d_magazines
 			}
 			triggered_desc = {
 				trigger = { always = yes }
