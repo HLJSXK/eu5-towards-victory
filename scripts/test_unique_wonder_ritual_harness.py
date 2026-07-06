@@ -47,6 +47,7 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_localizati
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_serialization_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_writer_gate_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_source_generator_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -64,6 +65,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_l
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_serialization_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_writer_gate  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_event_source_generator  # noqa: E402
 
 
 WONDER = {
@@ -6900,6 +6902,153 @@ def main() -> None:
         detached_event_interface_validation,
         "requires external source-file validation evidence",
         source_file_validation_evidence=None,
+    )
+
+    alhambra_event_source_generator = repeated_entity_row_alhambra_event_source_generator_for_payload(
+        spec_data,
+        event_source_generator_interface=alhambra_event_source_generator_interface,
+        source_generator_contract=alhambra_source_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+    if alhambra_event_source_generator["validation_errors"]:
+        raise AssertionError(
+            "Alhambra event source generator unexpectedly failed validation: "
+            f"{alhambra_event_source_generator['validation_errors']}"
+        )
+    event_source_text_candidate = alhambra_event_source_generator.get("source_text_candidate", "")
+    if (
+        alhambra_event_source_generator.get("target_path") != event_interface_target
+        or alhambra_event_source_generator.get("namespace") != "tv_engineering_department"
+        or alhambra_event_source_generator.get("event_source_body_draft_count") != 8
+        or alhambra_event_source_generator.get("event_count") != 8
+        or alhambra_event_source_generator.get("country_event_count") != 8
+        or alhambra_event_source_generator.get("event_ids") != list(range(7309, 7317))
+        or alhambra_event_source_generator.get("effect_trigger_handoff_status") != "controlled_blocker"
+        or alhambra_event_source_generator.get("effect_trigger_handoff_verified") is not False
+        or alhambra_event_source_generator.get("source_writer_go") is not False
+        or alhambra_event_source_generator.get("may_write_src") is not False
+        or alhambra_event_source_generator.get("writes_src") is not False
+        or alhambra_event_source_generator.get("implementation_ready") is not False
+        or "namespace = tv_engineering_department" not in event_source_text_candidate
+        or event_source_text_candidate.count("\ttype = country_event") != 8
+        or "tv_engineering_department.7309 = {" not in event_source_text_candidate
+        or "tv_engineering_department.7316 = {" not in event_source_text_candidate
+        or "name = tv_engineering_department.7311.b" not in event_source_text_candidate
+        or "CONTROLLED BLOCKER" not in event_source_text_candidate
+    ):
+        raise AssertionError(f"Alhambra event source generator shape changed: {alhambra_event_source_generator}")
+    if len(alhambra_event_source_generator.get("controlled_handoff_blockers", [])) != 10:
+        raise AssertionError(
+            "Alhambra event source generator should keep one controlled blocker per option: "
+            f"{alhambra_event_source_generator.get('controlled_handoff_blockers')}"
+        )
+    if not alhambra_event_source_generator.get("eu5_syntax_evidence_refs"):
+        raise AssertionError("Alhambra event source generator lost EU5 syntax evidence refs")
+    if not alhambra_event_source_generator.get("localization_key_refs"):
+        raise AssertionError("Alhambra event source generator lost localization key refs")
+
+    evidence_bound_event_source_generator_errors = validate_repeated_entity_row_alhambra_event_source_generator(
+        alhambra_event_source_generator,
+        event_source_generator_interface=alhambra_event_source_generator_interface,
+        source_generator_contract=alhambra_source_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+    if evidence_bound_event_source_generator_errors:
+        raise AssertionError(
+            "Alhambra event source generator unexpectedly failed evidence-bound validation: "
+            f"{evidence_bound_event_source_generator_errors}"
+        )
+
+    def assert_alhambra_event_source_generator_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        event_source_generator_interface: dict | None = alhambra_event_source_generator_interface,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_event_source_generator(
+            report,
+            event_source_generator_interface=event_source_generator_interface,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra event source generator negative was not caught: {errors}")
+
+    def remove_event_from_source_text(source_text: str, event_id: int) -> str:
+        lines = source_text.splitlines()
+        declaration = f"tv_engineering_department.{event_id} = {{"
+        start = next(index for index, line in enumerate(lines) if line == declaration)
+        delete_start = start - 1 if start > 0 and lines[start - 1].startswith("# -- ") else start
+        depth = 0
+        end = start
+        while end < len(lines):
+            code = lines[end].split("#", 1)[0]
+            depth += code.count("{") - code.count("}")
+            end += 1
+            if depth == 0:
+                break
+        if end < len(lines) and lines[end] == "":
+            end += 1
+        return "\n".join(lines[:delete_start] + lines[end:]).rstrip() + "\n"
+
+    missing_event_source_generator = deepcopy(alhambra_event_source_generator)
+    missing_event_source_generator["source_text_candidate"] = remove_event_from_source_text(
+        missing_event_source_generator["source_text_candidate"],
+        7316,
+    )
+    assert_alhambra_event_source_generator_error(
+        "missing event source_text_candidate event",
+        missing_event_source_generator,
+        "missing event",
+    )
+
+    duplicate_event_id_source_generator = deepcopy(alhambra_event_source_generator)
+    duplicate_event_id_source_generator["source_text_candidate"] = duplicate_event_id_source_generator[
+        "source_text_candidate"
+    ].replace("tv_engineering_department.7310 = {", "tv_engineering_department.7309 = {", 1)
+    assert_alhambra_event_source_generator_error(
+        "duplicate event id in source_text_candidate",
+        duplicate_event_id_source_generator,
+        "duplicate event id",
+    )
+
+    missing_loc_ref_source_generator = deepcopy(alhambra_event_source_generator)
+    missing_loc_ref_source_generator["source_text_candidate"] = missing_loc_ref_source_generator[
+        "source_text_candidate"
+    ].replace("\ttitle = tv_engineering_department.7309.t\n", "", 1)
+    assert_alhambra_event_source_generator_error(
+        "missing localization key ref in source_text_candidate",
+        missing_loc_ref_source_generator,
+        "missing localization key ref",
+    )
+
+    wrong_namespace_source_generator = deepcopy(alhambra_event_source_generator)
+    wrong_namespace_source_generator["source_text_candidate"] = wrong_namespace_source_generator[
+        "source_text_candidate"
+    ].replace("namespace = tv_engineering_department", "namespace = forged_namespace", 1)
+    assert_alhambra_event_source_generator_error(
+        "wrong namespace in source_text_candidate",
+        wrong_namespace_source_generator,
+        "namespace mismatch",
+    )
+
+    writable_event_source_generator = deepcopy(alhambra_event_source_generator)
+    writable_event_source_generator["may_write_src"] = True
+    assert_alhambra_event_source_generator_error(
+        "may_write_src true in event source generator",
+        writable_event_source_generator,
+        "may_write_src must be false",
+    )
+
+    source_writer_go_event_source_generator = deepcopy(alhambra_event_source_generator)
+    source_writer_go_event_source_generator["source_writer_go"] = True
+    assert_alhambra_event_source_generator_error(
+        "source_writer_go true in event source generator",
+        source_writer_go_event_source_generator,
+        "source_writer_go must be false",
     )
 
     alhambra_scripted_effect_cleanup_source_generator_interface = (

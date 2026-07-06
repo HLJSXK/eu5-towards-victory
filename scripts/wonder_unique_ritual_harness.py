@@ -3759,6 +3759,122 @@ REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_WINDOW = (
     f"unique_alhambra event_ids {REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START}-"
     f"{REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_END}"
 )
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_VERSION = 1
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_KIND = "alhambra_event_source_generator"
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_NAMESPACE = "tv_engineering_department"
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_STATUS = "in_memory_source_text_candidate"
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_FLAGS = {
+    "memory_report_only": True,
+    "in_memory_only": True,
+    "source_text_candidate_only": True,
+    "event_family_only": True,
+    "output_is_loadable_source": False,
+    "body_emitted": False,
+    "body_emitted_to_file": False,
+    "source_ready": False,
+    "verified": False,
+    "backend_ready": False,
+    "source_writer_allowed": False,
+    "source_writer_go": False,
+    "may_write_src": False,
+    "writes_src": False,
+    "implementation_ready": False,
+    "harness_generated": False,
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
+    {
+        "syntax": "event namespace declaration",
+        "reference": "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:6",
+        "quote": "namespace = tv_engineering_department",
+    },
+    {
+        "syntax": "qualified event id declaration",
+        "reference": "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:9",
+        "quote": "tv_engineering_department.7300 = {",
+    },
+    {
+        "syntax": "country event type field",
+        "reference": "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:10",
+        "quote": "type = country_event",
+    },
+    {
+        "syntax": "title localization key reference",
+        "reference": "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:11",
+        "quote": "title = tv_engineering_department.7300.t",
+    },
+    {
+        "syntax": "description localization key reference",
+        "reference": "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:12",
+        "quote": "desc = tv_engineering_department.7300.d",
+    },
+    {
+        "syntax": "option block declaration",
+        "reference": "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:27",
+        "quote": "option = {",
+    },
+    {
+        "syntax": "option localization key reference",
+        "reference": "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt:28",
+        "quote": "name = tv_engineering_department.7300.a",
+    },
+    {
+        "syntax": "retry option localization key reference",
+        "reference": "src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt:22",
+        "quote": "name = tv_engineering_department.6301.b",
+    },
+    {
+        "syntax": "english localization language header",
+        "reference": "src/main_menu/localization/english/tv_engineering_department_wonder_mechanics_l_english.yml:1",
+        "quote": "l_english:",
+    },
+    {
+        "syntax": "english localization key payload",
+        "reference": "src/main_menu/localization/english/tv_engineering_department_wonder_mechanics_l_english.yml:1446",
+        "quote": 'tv_engineering_department.7300.t:0 "The Lamp-Keepers Take the Stair"',
+    },
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_REQUIRED_FIELDS = {
+    "kind",
+    "generator_version",
+    "pilot_key",
+    "family",
+    "target_path",
+    "namespace",
+    "generator_status",
+    "event_source_generator_interface_input_only",
+    "event_source_generator_interface_input_ref",
+    "event_source_body_draft_count",
+    "event_source_body_draft_refs",
+    "source_text_candidate",
+    "source_text_candidate_line_count",
+    "source_text_candidate_nonempty",
+    "event_count",
+    "country_event_count",
+    "event_ids",
+    "localization_key_refs",
+    "eu5_syntax_evidence_refs",
+    "controlled_handoff_blockers",
+    "effect_trigger_handoff_status",
+    "effect_trigger_handoff_verified",
+    "no_write_flags",
+    "memory_report_only",
+    "in_memory_only",
+    "source_text_candidate_only",
+    "event_family_only",
+    "output_is_loadable_source",
+    "body_emitted",
+    "body_emitted_to_file",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "source_writer_go",
+    "may_write_src",
+    "writes_src",
+    "implementation_ready",
+    "harness_generated",
+    "validation_errors",
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND = {
     "event_opening_skeleton": "opening",
     "event_update_skeleton": "update",
@@ -17718,6 +17834,598 @@ def validate_repeated_entity_row_alhambra_event_source_generator_interface(
     ):
         if int(report.get(count_key, -1)) != 0:
             errors.append(f"Alhambra event source generator interface {count_key} must be 0")
+    return errors
+
+
+def _alhambra_event_source_generator_flags() -> dict[str, bool]:
+    return deepcopy(REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_FLAGS)
+
+
+def _alhambra_event_source_generator_syntax_evidence_refs() -> list[dict[str, str]]:
+    return [deepcopy(ref) for ref in REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS]
+
+
+def _alhambra_event_source_generator_interface_input_ref(
+    event_source_generator_interface: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "pilot_key": str(event_source_generator_interface.get("pilot_key", "")),
+        "family": str(event_source_generator_interface.get("family", "")),
+        "target_path": str(event_source_generator_interface.get("target_path", "")),
+        "artifact_count": int(event_source_generator_interface.get("artifact_count", 0)),
+        "event_source_body_draft_count": int(event_source_generator_interface.get("event_source_body_draft_count", 0)),
+        "validation_errors": list(event_source_generator_interface.get("validation_errors", []) or []),
+    }
+
+
+def _alhambra_event_source_generator_drafts_from_interface(
+    event_source_generator_interface: dict[str, Any],
+) -> list[dict[str, Any]]:
+    drafts: list[dict[str, Any]] = []
+    for artifact in event_source_generator_interface.get("source_file_contract_artifacts", []) or []:
+        if not isinstance(artifact, dict):
+            continue
+        draft = artifact.get("event_source_body_draft")
+        if isinstance(draft, dict):
+            drafts.append(deepcopy(draft))
+    drafts.sort(key=lambda draft: int(draft.get("event_id", 0)))
+    return drafts
+
+
+def _alhambra_event_source_generator_draft_ref(draft: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "kind": str(draft.get("kind", "")),
+        "family": str(draft.get("family", "")),
+        "row_set_key": str(draft.get("row_set_key", "")),
+        "artifact_kind": str(draft.get("artifact_kind", "")),
+        "event_stage": str(draft.get("event_stage", "")),
+        "qualified_event_id": str((draft.get("event_id_ref") or {}).get("qualified_event_id", "")),
+        "event_id": int(draft.get("event_id", 0)),
+        "future_source_target_path": str(draft.get("future_source_target_path", "")),
+    }
+
+
+def _alhambra_event_source_generator_expected_events(
+    event_source_generator_interface: dict[str, Any],
+) -> list[dict[str, Any]]:
+    expected_events: list[dict[str, Any]] = []
+    for draft in _alhambra_event_source_generator_drafts_from_interface(event_source_generator_interface):
+        loc_refs = draft.get("localization_key_refs") if isinstance(draft.get("localization_key_refs"), dict) else {}
+        handoff = draft.get("option_handoff") if isinstance(draft.get("option_handoff"), dict) else {}
+        options: list[dict[str, Any]] = []
+        for option in handoff.get("options", []) or []:
+            if not isinstance(option, dict):
+                continue
+            options.append(
+                {
+                    "option_slot": str(option.get("option_slot", "")),
+                    "localization_key_ref": str(option.get("localization_key_ref", "")),
+                    "effect_ref_count": len(option.get("effect_refs", []) or []),
+                    "trigger_ref_count": len(option.get("trigger_refs", []) or []),
+                    "effect_refs": deepcopy(option.get("effect_refs", []) or []),
+                    "trigger_refs": deepcopy(option.get("trigger_refs", []) or []),
+                }
+            )
+        event_id = int(draft.get("event_id", 0))
+        expected_events.append(
+            {
+                "event_id": event_id,
+                "qualified_event_id": f"{REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_NAMESPACE}.{event_id}",
+                "event_stage": str(draft.get("event_stage", "")),
+                "row_set_key": str(draft.get("row_set_key", "")),
+                "artifact_kind": str(draft.get("artifact_kind", "")),
+                "title_key": str(loc_refs.get("title_key", "")),
+                "desc_key": str(loc_refs.get("desc_key", "")),
+                "option_key_refs": deepcopy(loc_refs.get("option_key_refs", []) or []),
+                "options": options,
+            }
+        )
+    return expected_events
+
+
+def _alhambra_event_source_generator_localization_key_refs(
+    expected_events: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "qualified_event_id": str(event.get("qualified_event_id", "")),
+            "event_id": int(event.get("event_id", 0)),
+            "title_key": str(event.get("title_key", "")),
+            "desc_key": str(event.get("desc_key", "")),
+            "option_key_refs": deepcopy(event.get("option_key_refs", []) or []),
+            "source": "event_source_body_draft.localization_key_refs",
+            "all_bound": True,
+        }
+        for event in expected_events
+    ]
+
+
+def _alhambra_event_source_generator_controlled_handoff_blockers(
+    expected_events: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    blockers: list[dict[str, Any]] = []
+    for event in expected_events:
+        for option in event.get("options", []) or []:
+            blockers.append(
+                {
+                    "qualified_event_id": str(event.get("qualified_event_id", "")),
+                    "event_id": int(event.get("event_id", 0)),
+                    "event_stage": str(event.get("event_stage", "")),
+                    "row_set_key": str(event.get("row_set_key", "")),
+                    "option_slot": str(option.get("option_slot", "")),
+                    "handoff_status": "controlled_blocker",
+                    "blocker_reason": (
+                        "effect/trigger source writers are not verified for Alhambra repeated-row handoff"
+                    ),
+                    "effect_ref_count": int(option.get("effect_ref_count", 0)),
+                    "trigger_ref_count": int(option.get("trigger_ref_count", 0)),
+                    "effect_body_emitted": False,
+                    "trigger_body_emitted": False,
+                    "source_ready": False,
+                    "verified": False,
+                    "backend_ready": False,
+                    "source_writer_allowed": False,
+                    "may_write_src": False,
+                    "writes_src": False,
+                }
+            )
+    return blockers
+
+
+def _alhambra_event_source_generator_header(target_path: str) -> list[str]:
+    return [
+        "# @InMemoryCandidate by scripts/wonder_unique_ritual_harness.py",
+        f"# Target: {target_path}",
+        "# Alhambra event source text candidate only; not emitted to src/.",
+        "",
+    ]
+
+
+def _alhambra_event_source_generator_render_event(event: dict[str, Any]) -> list[str]:
+    event_id = int(event.get("event_id", 0))
+    qualified_event_id = str(event.get("qualified_event_id", ""))
+    lines = [
+        f"# -- {qualified_event_id} ----------------------------------------------",
+        f"{qualified_event_id} = {{",
+        "\ttype = country_event",
+        f"\ttitle = {event.get('title_key', '')}",
+        f"\tdesc = {event.get('desc_key', '')}",
+        "\toutcome = neutral",
+        "",
+        f"\t# row_set = {event.get('row_set_key', '')}; stage = {event.get('event_stage', '')}",
+    ]
+    for option in event.get("options", []) or []:
+        lines.extend(
+            [
+                "",
+                "\toption = {",
+                f"\t\tname = {option.get('localization_key_ref', '')}",
+                "\t\t# CONTROLLED BLOCKER: effect/trigger handoff is not emitted by this generator.",
+                f"\t\t# effect_handoff_ref_count = {int(option.get('effect_ref_count', 0))}",
+                f"\t\t# trigger_handoff_ref_count = {int(option.get('trigger_ref_count', 0))}",
+                "\t}",
+            ]
+        )
+    lines.append("}")
+    return lines
+
+
+def _alhambra_event_source_generator_render_source_text(
+    *,
+    target_path: str,
+    expected_events: list[dict[str, Any]],
+) -> str:
+    lines = _alhambra_event_source_generator_header(target_path)
+    lines.extend([f"namespace = {REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_NAMESPACE}", ""])
+    for event in expected_events:
+        lines.extend(_alhambra_event_source_generator_render_event(event))
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def _alhambra_event_source_candidate_brace_delta(line: str) -> int:
+    code = line.split("#", 1)[0]
+    return code.count("{") - code.count("}")
+
+
+def _alhambra_event_source_candidate_event_blocks(source_text: str) -> list[dict[str, Any]]:
+    blocks: list[dict[str, Any]] = []
+    lines = source_text.splitlines()
+    index = 0
+    event_pattern = re.compile(r"^tv_engineering_department\.([0-9]+)\s*=\s*\{\s*$")
+    while index < len(lines):
+        match = event_pattern.match(lines[index].strip())
+        if not match:
+            index += 1
+            continue
+        start = index
+        depth = _alhambra_event_source_candidate_brace_delta(lines[index])
+        index += 1
+        while index < len(lines) and depth > 0:
+            depth += _alhambra_event_source_candidate_brace_delta(lines[index])
+            index += 1
+        blocks.append(
+            {
+                "event_id": int(match.group(1)),
+                "start_line": start + 1,
+                "lines": lines[start:index],
+                "balanced": depth == 0,
+            }
+        )
+    return blocks
+
+
+def _alhambra_event_source_candidate_option_spans(block_lines: list[str]) -> list[tuple[int, int]]:
+    spans: list[tuple[int, int]] = []
+    index = 0
+    while index < len(block_lines):
+        if not re.match(r"^\s*option\s*=\s*\{\s*$", block_lines[index]):
+            index += 1
+            continue
+        start = index
+        depth = _alhambra_event_source_candidate_brace_delta(block_lines[index])
+        index += 1
+        while index < len(block_lines) and depth > 0:
+            depth += _alhambra_event_source_candidate_brace_delta(block_lines[index])
+            index += 1
+        spans.append((start, index))
+    return spans
+
+
+def _alhambra_event_source_candidate_option_blocks(block_lines: list[str]) -> list[list[str]]:
+    return [
+        block_lines[start:end]
+        for start, end in _alhambra_event_source_candidate_option_spans(block_lines)
+    ]
+
+
+def _alhambra_event_source_candidate_non_comment_lines(lines: list[str]) -> list[str]:
+    result: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        result.append(stripped)
+    return result
+
+
+def _validate_alhambra_event_source_generator_flags(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} {flag} must be {str(expected).lower()}")
+    no_write_flags = value.get("no_write_flags")
+    if not isinstance(no_write_flags, dict):
+        errors.append(f"{context} missing no-write flags")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_FLAGS.items():
+        if no_write_flags.get(flag) is not expected:
+            errors.append(f"{context} no_write_flags.{flag} must be {str(expected).lower()}")
+
+
+def _validate_alhambra_event_source_candidate_text(
+    *,
+    source_text: str,
+    expected_events: list[dict[str, Any]],
+    errors: list[str],
+) -> list[int]:
+    namespace_matches = re.findall(r"^namespace\s*=\s*([A-Za-z0-9_]+)\s*$", source_text, flags=re.MULTILINE)
+    if namespace_matches != [REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_NAMESPACE]:
+        errors.append("Alhambra event source generator source_text_candidate namespace mismatch")
+
+    event_blocks = _alhambra_event_source_candidate_event_blocks(source_text)
+    observed_ids = [int(block["event_id"]) for block in event_blocks]
+    expected_ids = [int(event.get("event_id", 0)) for event in expected_events]
+    if len(event_blocks) != len(expected_events):
+        errors.append("Alhambra event source generator source_text_candidate missing event")
+    duplicate_ids = sorted({event_id for event_id in observed_ids if observed_ids.count(event_id) > 1})
+    if duplicate_ids:
+        errors.append(
+            "Alhambra event source generator source_text_candidate duplicate event id(s): "
+            + ", ".join(str(event_id) for event_id in duplicate_ids)
+        )
+    missing_ids = sorted(set(expected_ids) - set(observed_ids))
+    if missing_ids:
+        errors.append(
+            "Alhambra event source generator source_text_candidate missing event id(s): "
+            + ", ".join(str(event_id) for event_id in missing_ids)
+        )
+    extra_ids = sorted(set(observed_ids) - set(expected_ids))
+    if extra_ids:
+        errors.append(
+            "Alhambra event source generator source_text_candidate unexpected event id(s): "
+            + ", ".join(str(event_id) for event_id in extra_ids)
+        )
+    if observed_ids != expected_ids:
+        errors.append("Alhambra event source generator source_text_candidate event id order mismatch")
+
+    expected_by_id = {int(event.get("event_id", 0)): event for event in expected_events}
+    for block in event_blocks:
+        event_id = int(block["event_id"])
+        event = expected_by_id.get(event_id)
+        block_lines = block["lines"]
+        if not block.get("balanced"):
+            errors.append(f"Alhambra event source generator event {event_id} braces are not balanced")
+        if event is None:
+            continue
+        non_comment_lines = _alhambra_event_source_candidate_non_comment_lines(block_lines)
+        required_lines = {
+            f"tv_engineering_department.{event_id} = {{",
+            "type = country_event",
+            f"title = {event.get('title_key', '')}",
+            f"desc = {event.get('desc_key', '')}",
+            "outcome = neutral",
+            "}",
+        }
+        for required_line in required_lines:
+            if required_line not in non_comment_lines:
+                if required_line.startswith("title =") or required_line.startswith("desc ="):
+                    errors.append(
+                        f"Alhambra event source generator event {event_id} missing localization key ref"
+                    )
+                else:
+                    errors.append(
+                        f"Alhambra event source generator event {event_id} missing line: {required_line}"
+                    )
+        option_spans = _alhambra_event_source_candidate_option_spans(block_lines)
+        option_blocks = [block_lines[start:end] for start, end in option_spans]
+        expected_options = list(event.get("options", []) or [])
+        if len(option_blocks) != len(expected_options):
+            errors.append(f"Alhambra event source generator event {event_id} missing option")
+        for option_index, expected_option in enumerate(expected_options):
+            if option_index >= len(option_blocks):
+                continue
+            option_lines = _alhambra_event_source_candidate_non_comment_lines(option_blocks[option_index])
+            expected_option_lines = [
+                "option = {",
+                f"name = {expected_option.get('localization_key_ref', '')}",
+                "}",
+            ]
+            if option_lines != expected_option_lines:
+                if not any(line.startswith("name =") for line in option_lines):
+                    errors.append(
+                        f"Alhambra event source generator event {event_id} missing option localization key ref"
+                    )
+                else:
+                    errors.append(
+                        f"Alhambra event source generator event {event_id} option body must stay blocker-only"
+                    )
+        option_line_indexes: set[int] = {
+            line_index
+            for start, end in option_spans
+            for line_index in range(start, end)
+        }
+        for line_index, line in enumerate(block_lines):
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#") or line_index in option_line_indexes:
+                continue
+            if stripped not in required_lines:
+                errors.append(
+                    f"Alhambra event source generator event {event_id} contains unverified body line: {stripped}"
+                )
+    return observed_ids
+
+
+def repeated_entity_row_alhambra_event_source_generator_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+    event_source_generator_interface: dict[str, Any] | None = None,
+    source_generator_contract: dict[str, Any] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if source_file_validation_evidence is None:
+        source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+            payload,
+            statuses=statuses,
+        )
+    if source_generator_contract is None:
+        source_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            payload,
+            statuses=statuses,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    if event_source_generator_interface is None:
+        event_source_generator_interface = repeated_entity_row_alhambra_event_source_generator_interface_for_payload(
+            payload,
+            statuses=statuses,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    target_path = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
+    expected_events = _alhambra_event_source_generator_expected_events(event_source_generator_interface)
+    source_text_candidate = _alhambra_event_source_generator_render_source_text(
+        target_path=target_path,
+        expected_events=expected_events,
+    )
+    flags = _alhambra_event_source_generator_flags()
+    report = {
+        "kind": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_KIND,
+        "generator_version": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_VERSION,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_FAMILY,
+        "target_path": target_path,
+        "namespace": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_NAMESPACE,
+        "generator_status": REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_STATUS,
+        "event_source_generator_interface_input_only": True,
+        "event_source_generator_interface_input_ref": _alhambra_event_source_generator_interface_input_ref(
+            event_source_generator_interface
+        ),
+        "event_source_body_draft_count": len(expected_events),
+        "event_source_body_draft_refs": [
+            _alhambra_event_source_generator_draft_ref(draft)
+            for draft in _alhambra_event_source_generator_drafts_from_interface(event_source_generator_interface)
+        ],
+        "source_text_candidate": source_text_candidate,
+        "source_text_candidate_line_count": len(source_text_candidate.splitlines()),
+        "source_text_candidate_nonempty": bool(source_text_candidate.strip()),
+        "event_count": len(expected_events),
+        "country_event_count": len(expected_events),
+        "event_ids": [int(event["event_id"]) for event in expected_events],
+        "localization_key_refs": _alhambra_event_source_generator_localization_key_refs(expected_events),
+        "eu5_syntax_evidence_refs": _alhambra_event_source_generator_syntax_evidence_refs(),
+        "controlled_handoff_blockers": _alhambra_event_source_generator_controlled_handoff_blockers(
+            expected_events
+        ),
+        "effect_trigger_handoff_status": "controlled_blocker",
+        "effect_trigger_handoff_verified": False,
+        "no_write_flags": flags,
+        **flags,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra event source generator consumes the current 8 event source-body drafts.",
+            "It emits one in-memory source_text_candidate for review and never writes src/.",
+            "Effect and trigger handoffs remain controlled blockers until their source families are verified.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_event_source_generator(
+        report,
+        event_source_generator_interface=event_source_generator_interface,
+        source_generator_contract=source_generator_contract,
+        source_file_validation_evidence=source_file_validation_evidence,
+    )
+    return report
+
+
+def validate_repeated_entity_row_alhambra_event_source_generator(
+    report: dict[str, Any],
+    *,
+    event_source_generator_interface: dict[str, Any] | None = None,
+    source_generator_contract: dict[str, Any] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    missing = _missing_required(report, REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_REQUIRED_FIELDS)
+    if missing:
+        errors.append(f"Alhambra event source generator missing field(s): {', '.join(missing)}")
+
+    target_path = REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
+    if report.get("kind") != REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_KIND:
+        errors.append("Alhambra event source generator kind mismatch")
+    if report.get("generator_version") != REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_VERSION:
+        errors.append("Alhambra event source generator version mismatch")
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra event source generator pilot_key must be unique_alhambra")
+    if report.get("family") != REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_INTERFACE_FAMILY:
+        errors.append("Alhambra event source generator family must be event")
+    if report.get("target_path") != target_path:
+        errors.append("Alhambra event source generator target_path mismatch")
+    if report.get("namespace") != REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_NAMESPACE:
+        errors.append("Alhambra event source generator namespace mismatch")
+    if report.get("generator_status") != REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_STATUS:
+        errors.append("Alhambra event source generator status mismatch")
+    if report.get("event_source_generator_interface_input_only") is not True:
+        errors.append("Alhambra event source generator must consume event source-body drafts")
+
+    _validate_alhambra_event_source_generator_flags(
+        context="Alhambra event source generator report",
+        value=report,
+        errors=errors,
+    )
+    for flag in (
+        "source_writer_go",
+        "may_write_src",
+        "writes_src",
+        "body_emitted_to_file",
+        "source_writer_allowed",
+        "implementation_ready",
+        "harness_generated",
+    ):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra event source generator {flag} must be false at {path}")
+
+    if event_source_generator_interface is None:
+        errors.append("Alhambra event source generator requires event source generator interface input")
+        expected_events: list[dict[str, Any]] = []
+        expected_draft_refs: list[dict[str, Any]] = []
+    else:
+        if source_generator_contract is not None and source_file_validation_evidence is not None:
+            interface_errors = validate_repeated_entity_row_alhambra_event_source_generator_interface(
+                event_source_generator_interface,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+            if interface_errors:
+                errors.append("Alhambra event source generator interface input must be clean")
+        elif event_source_generator_interface.get("validation_errors"):
+            errors.append("Alhambra event source generator interface input must be clean")
+        expected_input_ref = _alhambra_event_source_generator_interface_input_ref(event_source_generator_interface)
+        if report.get("event_source_generator_interface_input_ref") != expected_input_ref:
+            errors.append("Alhambra event source generator interface input ref mismatch")
+        expected_events = _alhambra_event_source_generator_expected_events(event_source_generator_interface)
+        expected_draft_refs = [
+            _alhambra_event_source_generator_draft_ref(draft)
+            for draft in _alhambra_event_source_generator_drafts_from_interface(event_source_generator_interface)
+        ]
+
+    expected_ids = [
+        event_id
+        for event_id in range(
+            REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_START,
+            REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_EVENT_ID_END + 1,
+        )
+    ]
+    if [int(event.get("event_id", 0)) for event in expected_events] != expected_ids:
+        errors.append("Alhambra event source generator event source-body draft ids must remain 7309-7316")
+    if int(report.get("event_source_body_draft_count", -1)) != len(expected_events):
+        errors.append("Alhambra event source generator event_source_body_draft_count mismatch")
+    if report.get("event_source_body_draft_refs") != expected_draft_refs:
+        errors.append("Alhambra event source generator event source-body draft refs mismatch")
+    if int(report.get("event_count", -1)) != len(expected_events):
+        errors.append("Alhambra event source generator event_count mismatch")
+    if int(report.get("country_event_count", -1)) != len(expected_events):
+        errors.append("Alhambra event source generator country_event_count mismatch")
+    if report.get("event_ids") != expected_ids:
+        errors.append("Alhambra event source generator event_ids must remain 7309-7316")
+
+    expected_loc_refs = _alhambra_event_source_generator_localization_key_refs(expected_events)
+    if report.get("localization_key_refs") != expected_loc_refs:
+        errors.append("Alhambra event source generator localization key refs mismatch")
+    if report.get("eu5_syntax_evidence_refs") != _alhambra_event_source_generator_syntax_evidence_refs():
+        errors.append("Alhambra event source generator EU5 syntax evidence refs mismatch")
+    if not report.get("eu5_syntax_evidence_refs"):
+        errors.append("Alhambra event source generator missing EU5 syntax evidence")
+
+    expected_blockers = _alhambra_event_source_generator_controlled_handoff_blockers(expected_events)
+    if report.get("controlled_handoff_blockers") != expected_blockers:
+        errors.append("Alhambra event source generator controlled blocker handoffs mismatch")
+    if report.get("effect_trigger_handoff_status") != "controlled_blocker":
+        errors.append("Alhambra event source generator effect/trigger handoff must remain controlled_blocker")
+    if report.get("effect_trigger_handoff_verified") is not False:
+        errors.append("Alhambra event source generator effect/trigger handoff must remain unverified")
+    for index, blocker in enumerate(report.get("controlled_handoff_blockers", []) or []):
+        if not isinstance(blocker, dict):
+            errors.append(f"Alhambra event source generator controlled blocker {index} must be a mapping")
+            continue
+        if (
+            blocker.get("handoff_status") != "controlled_blocker"
+            or blocker.get("effect_body_emitted") is not False
+            or blocker.get("trigger_body_emitted") is not False
+            or blocker.get("verified") is not False
+            or blocker.get("source_ready") is not False
+            or blocker.get("may_write_src") is not False
+            or blocker.get("writes_src") is not False
+        ):
+            errors.append(f"Alhambra event source generator controlled blocker {index} must stay blocked")
+
+    source_text = str(report.get("source_text_candidate", ""))
+    if not source_text.strip():
+        errors.append("Alhambra event source generator source_text_candidate must not be empty")
+    if int(report.get("source_text_candidate_line_count", -1)) != len(source_text.splitlines()):
+        errors.append("Alhambra event source generator source_text_candidate_line_count mismatch")
+    if report.get("source_text_candidate_nonempty") is not bool(source_text.strip()):
+        errors.append("Alhambra event source generator source_text_candidate_nonempty mismatch")
+    observed_ids = _validate_alhambra_event_source_candidate_text(
+        source_text=source_text,
+        expected_events=expected_events,
+        errors=errors,
+    )
+    if len(observed_ids) != len(expected_ids):
+        errors.append("Alhambra event source generator source_text_candidate country_event count mismatch")
     return errors
 
 
