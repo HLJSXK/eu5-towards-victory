@@ -13,6 +13,10 @@ tv_academy_debate_clear_event_state_effect = {
 	remove_variable = tv_academy_debate_event_price
 	remove_variable = tv_academy_philosophy_monthly_delta
 	remove_variable = tv_academy_debate_seat_contribution
+	remove_variable = tv_academy_debate_auto_stance_support_pending
+	remove_variable = tv_academy_debate_auto_stance_oppose_pending
+	remove_variable = tv_academy_debate_auto_stance_neutral_pending
+	remove_variable = tv_academy_debate_auto_seat_vacated_pending
 	remove_variable = tv_academy_debate_left_count
 	remove_variable = tv_academy_debate_right_count
 	remove_variable = tv_academy_debate_royal_option_1_group
@@ -2859,6 +2863,10 @@ tv_academy_debate_accept_royal_option_3_effect = {
 }
 
 tv_academy_debate_monthly_tick_effect = {
+	remove_variable = tv_academy_debate_auto_stance_support_pending
+	remove_variable = tv_academy_debate_auto_stance_oppose_pending
+	remove_variable = tv_academy_debate_auto_stance_neutral_pending
+	remove_variable = tv_academy_debate_auto_seat_vacated_pending
 	tv_update_chief_scientist_effective_adm_effect = yes
 	tv_academy_debate_cleanup_invalid_special_seats_effect = yes
 	tv_academy_debate_decrement_cooldowns_effect = yes
@@ -2869,67 +2877,83 @@ tv_academy_debate_monthly_tick_effect = {
 		10 = { tv_academy_debate_dispatch_monthly_event_effect = yes }
 	}
 	tv_academy_philosophy_check_debate_endpoint_effect = yes
+	tv_academy_debate_dispatch_auto_stance_notifications_effect = yes
 }
 
 tv_academy_debate_cleanup_invalid_special_seats_effect = {
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_1_artist NOT = { var:tv_academy_debate_seat_1_artist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_1_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_1_scientist NOT = { var:tv_academy_debate_seat_1_scientist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_1_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_1_foreign_country NOT = { country_exists = var:tv_academy_debate_seat_1_foreign_country } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_1_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_2_artist NOT = { var:tv_academy_debate_seat_2_artist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_2_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_2_scientist NOT = { var:tv_academy_debate_seat_2_scientist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_2_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_2_foreign_country NOT = { country_exists = var:tv_academy_debate_seat_2_foreign_country } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_2_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_3_artist NOT = { var:tv_academy_debate_seat_3_artist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_3_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_3_scientist NOT = { var:tv_academy_debate_seat_3_scientist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_3_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_3_foreign_country NOT = { country_exists = var:tv_academy_debate_seat_3_foreign_country } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_3_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_4_artist NOT = { var:tv_academy_debate_seat_4_artist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_4_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_4_scientist NOT = { var:tv_academy_debate_seat_4_scientist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_4_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_4_foreign_country NOT = { country_exists = var:tv_academy_debate_seat_4_foreign_country } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_4_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_5_artist NOT = { var:tv_academy_debate_seat_5_artist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_5_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_5_scientist NOT = { var:tv_academy_debate_seat_5_scientist ?= { is_alive = yes } } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_5_effect = yes
 	}
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_5_foreign_country NOT = { country_exists = var:tv_academy_debate_seat_5_foreign_country } }
+		set_variable = { name = tv_academy_debate_auto_seat_vacated_pending value = 1 }
 		tv_academy_debate_clear_seat_5_effect = yes
 	}
 }
@@ -5862,6 +5886,29 @@ tv_academy_debate_apply_defections_effect = {
 	tv_academy_debate_apply_seat_5_defection_effect = yes
 }
 
+tv_academy_debate_dispatch_auto_stance_notifications_effect = {
+	if = {
+		limit = { has_variable = tv_academy_debate_auto_stance_support_pending NOT = { has_variable = tv_academy_philosophy_result_pending } }
+		trigger_event_non_silently = { id = tv_academy_debate.122 days = 1 }
+	}
+	remove_variable = tv_academy_debate_auto_stance_support_pending
+	if = {
+		limit = { has_variable = tv_academy_debate_auto_stance_oppose_pending NOT = { has_variable = tv_academy_philosophy_result_pending } }
+		trigger_event_non_silently = { id = tv_academy_debate.123 days = 1 }
+	}
+	remove_variable = tv_academy_debate_auto_stance_oppose_pending
+	if = {
+		limit = { has_variable = tv_academy_debate_auto_stance_neutral_pending NOT = { has_variable = tv_academy_philosophy_result_pending } }
+		trigger_event_non_silently = { id = tv_academy_debate.124 days = 1 }
+	}
+	remove_variable = tv_academy_debate_auto_stance_neutral_pending
+	if = {
+		limit = { has_variable = tv_academy_debate_auto_seat_vacated_pending NOT = { has_variable = tv_academy_philosophy_result_pending } }
+		trigger_event_non_silently = { id = tv_academy_debate.125 days = 1 }
+	}
+	remove_variable = tv_academy_debate_auto_seat_vacated_pending
+}
+
 tv_academy_debate_apply_seat_defection_effect = {
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_$seat$_group var:tv_academy_debate_seat_$seat$_cooldown <= 0 NOT = { var:tv_academy_debate_seat_$seat$_group ?= 18 } }
@@ -5869,11 +5916,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 1 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_nobility_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_nobility_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5882,11 +5931,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 2 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_clergy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_clergy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5895,11 +5946,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 3 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_burghers_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_burghers_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5908,11 +5961,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 4 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_peasants_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_peasants_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5921,11 +5976,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 5 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_tribes_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_tribes_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5934,11 +5991,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 6 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_dhimmi_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_dhimmi_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5947,11 +6006,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 7 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_cossacks_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_cossacks_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5960,11 +6021,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 8 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_scholarly_community_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_scholarly_community_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5973,11 +6036,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 9 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_public_opinion_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_public_opinion_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5986,11 +6051,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 10 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_court_bureaucrats_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_court_bureaucrats_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -5999,11 +6066,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 11 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_maritime_merchants_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_maritime_merchants_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -6012,11 +6081,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 12 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_professional_military_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_professional_military_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -6025,11 +6096,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 13 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_religious_reformers_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_religious_reformers_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -6038,11 +6111,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 14 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_local_autonomy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_local_autonomy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -6051,11 +6126,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 15 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_minorities_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_minorities_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -6064,11 +6141,13 @@ tv_academy_debate_apply_seat_defection_effect = {
 			limit = { var:tv_academy_debate_seat_$seat$_group ?= 16 }
 			if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_artists_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_artists_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -6080,6 +6159,18 @@ tv_academy_debate_apply_seat_defection_effect = {
 			tv_academy_debate_set_selected_foreign_stance_effect = yes
 			if = {
 				limit = { NOT = { var:tv_academy_debate_event_stance ?= var:tv_academy_debate_seat_$seat$_stance } }
+				if = {
+					limit = { var:tv_academy_debate_event_stance ?= 1 }
+					set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				}
+				else_if = {
+					limit = { var:tv_academy_debate_event_stance ?= 2 }
+					set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				}
+				else_if = {
+					limit = { var:tv_academy_debate_event_stance ?= 3 }
+					set_variable = { name = tv_academy_debate_auto_stance_neutral_pending value = 1 }
+				}
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = var:tv_academy_debate_event_stance }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
@@ -6507,6 +6598,10 @@ tv_academy_debate_action_trigger_meritocracy_positive_on_cabinet_assigned_1_effe
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6531,6 +6626,10 @@ tv_academy_debate_action_trigger_meritocracy_positive_on_bureaucracy_added_2_eff
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6555,6 +6654,10 @@ tv_academy_debate_action_trigger_meritocracy_negative_on_cabinet_removed_1_effec
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6579,6 +6682,10 @@ tv_academy_debate_action_trigger_meritocracy_negative_on_reform_change_2_effect 
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6603,6 +6710,10 @@ tv_academy_debate_action_trigger_renaissance_positive_on_work_of_art_created_1_e
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6627,6 +6738,10 @@ tv_academy_debate_action_trigger_renaissance_positive_building_completed_2_effec
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6651,6 +6766,10 @@ tv_academy_debate_action_trigger_renaissance_negative_on_work_of_art_looted_1_ef
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6675,6 +6794,10 @@ tv_academy_debate_action_trigger_renaissance_negative_on_location_occupied_2_eff
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6699,6 +6822,10 @@ tv_academy_debate_action_trigger_renaissance_negative_on_siege_won_3_effect = {
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6723,6 +6850,10 @@ tv_academy_debate_action_trigger_banking_positive_on_loan_repaid_1_effect = {
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6747,6 +6878,10 @@ tv_academy_debate_action_trigger_banking_positive_on_parliament_passed_2_effect 
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6771,6 +6906,10 @@ tv_academy_debate_action_trigger_banking_positive_on_policy_changed_3_effect = {
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6795,6 +6934,10 @@ tv_academy_debate_action_trigger_banking_negative_on_loan_renewed_1_effect = {
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6819,6 +6962,10 @@ tv_academy_debate_action_trigger_banking_negative_on_bankruptcy_2_effect = {
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6843,6 +6990,10 @@ tv_academy_debate_action_trigger_new_world_positive_on_exploration_success_1_eff
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6867,6 +7018,10 @@ tv_academy_debate_action_trigger_new_world_positive_on_colonial_charter_finished
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6891,6 +7046,10 @@ tv_academy_debate_action_trigger_new_world_negative_on_colonial_charter_failed_1
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6915,6 +7074,10 @@ tv_academy_debate_action_trigger_new_world_negative_on_took_location_in_peace_tr
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6939,6 +7102,10 @@ tv_academy_debate_action_trigger_printing_press_positive_on_work_of_art_created_
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6963,6 +7130,10 @@ tv_academy_debate_action_trigger_printing_press_positive_building_completed_2_ef
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -6987,6 +7158,10 @@ tv_academy_debate_action_trigger_printing_press_negative_on_work_of_art_destroye
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7011,6 +7186,10 @@ tv_academy_debate_action_trigger_printing_press_negative_on_work_of_art_looted_2
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7035,6 +7214,10 @@ tv_academy_debate_action_trigger_printing_press_negative_on_policy_changed_3_eff
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7059,6 +7242,10 @@ tv_academy_debate_action_trigger_confessionalism_positive_on_religion_changed_1_
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7083,6 +7270,10 @@ tv_academy_debate_action_trigger_confessionalism_positive_on_winning_war_2_effec
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7107,6 +7298,10 @@ tv_academy_debate_action_trigger_confessionalism_negative_on_losing_war_1_effect
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7131,6 +7326,10 @@ tv_academy_debate_action_trigger_confessionalism_negative_on_policy_changed_2_ef
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7155,6 +7354,10 @@ tv_academy_debate_action_trigger_global_trade_positive_on_took_location_in_peace
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7179,6 +7382,10 @@ tv_academy_debate_action_trigger_global_trade_positive_on_policy_changed_2_effec
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7203,6 +7410,10 @@ tv_academy_debate_action_trigger_global_trade_negative_on_location_occupied_1_ef
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7227,6 +7438,10 @@ tv_academy_debate_action_trigger_global_trade_negative_on_siege_won_2_effect = {
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7251,6 +7466,10 @@ tv_academy_debate_action_trigger_global_trade_negative_on_war_declared_3_effect 
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7275,6 +7494,10 @@ tv_academy_debate_action_trigger_manufactories_positive_building_completed_1_eff
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7299,6 +7522,10 @@ tv_academy_debate_action_trigger_manufactories_positive_on_policy_changed_2_effe
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7323,6 +7550,10 @@ tv_academy_debate_action_trigger_manufactories_negative_on_location_occupied_1_e
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7347,6 +7578,10 @@ tv_academy_debate_action_trigger_manufactories_negative_on_siege_won_2_effect = 
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7371,6 +7606,10 @@ tv_academy_debate_action_trigger_manufactories_negative_on_bankruptcy_3_effect =
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7395,6 +7634,10 @@ tv_academy_debate_action_trigger_scientific_revolution_positive_on_cabinet_assig
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7419,6 +7662,10 @@ tv_academy_debate_action_trigger_scientific_revolution_positive_on_work_of_art_c
 				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7443,6 +7690,10 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_cabinet_remov
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7467,6 +7718,10 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_work_of_art_d
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7491,6 +7746,10 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_work_of_art_l
 				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
 				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
+				if = {
+					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
+					trigger_event_non_silently = { id = tv_academy_debate.117 days = 1 }
+				}
 			}
 			75 = { }
 		}
@@ -7755,6 +8014,17 @@ tv_academy_world_debate_try_begin_for_country_effect = {
 			set_variable = { name = tv_academy_world_debate_months value = 0 }
 			tv_academy_world_debate_refresh_seats_effect = yes
 			tv_academy_world_debate_mirror_all_countries_effect = yes
+			if = {
+				limit = { has_global_variable_list = tv_academy_world_debate_participants }
+				every_in_global_list = {
+					variable = tv_academy_world_debate_participants
+					limit = {
+						tv_academy_world_debate_country_has_academy_trigger = yes
+						var:tv_academy_philosophy_current ?= prev.var:tv_academy_world_debate_issue
+					}
+					trigger_event_non_silently = { id = tv_academy_debate.118 days = 1 }
+				}
+			}
 		}
 	}
 }
@@ -8281,6 +8551,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 	if = {
 		limit = { root = { var:tv_academy_world_debate_issue ?= 2 } }
@@ -8297,6 +8579,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 	if = {
 		limit = { root = { var:tv_academy_world_debate_issue ?= 3 } }
@@ -8313,6 +8607,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 	if = {
 		limit = { root = { var:tv_academy_world_debate_issue ?= 4 } }
@@ -8329,6 +8635,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 	if = {
 		limit = { root = { var:tv_academy_world_debate_issue ?= 5 } }
@@ -8345,6 +8663,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 	if = {
 		limit = { root = { var:tv_academy_world_debate_issue ?= 6 } }
@@ -8361,6 +8691,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 	if = {
 		limit = { root = { var:tv_academy_world_debate_issue ?= 7 } }
@@ -8377,6 +8719,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 	if = {
 		limit = { root = { var:tv_academy_world_debate_issue ?= 8 } }
@@ -8393,6 +8747,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 	if = {
 		limit = { root = { var:tv_academy_world_debate_issue ?= 9 } }
@@ -8409,6 +8775,18 @@ tv_academy_world_debate_apply_country_result_effect = {
 		}
 		tv_academy_philosophy_advance_current_issue_effect = yes
 		tv_academy_philosophy_enter_recess_effect = yes
+		if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 1 } }
+			trigger_event_non_silently = { id = tv_academy_debate.119 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 2 } }
+			trigger_event_non_silently = { id = tv_academy_debate.120 days = 1 }
+		}
+		else_if = {
+			limit = { root = { var:tv_academy_world_debate_result ?= 3 } }
+			trigger_event_non_silently = { id = tv_academy_debate.121 days = 1 }
+		}
 	}
 }
 
