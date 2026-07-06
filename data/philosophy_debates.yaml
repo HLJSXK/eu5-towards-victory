@@ -356,3 +356,208 @@ debate_positions:
     support: [meritocracy, renaissance, banking, new_world, printing_press, confessionalism, global_trade, manufactories, scientific_revolution]
     oppose: []
     neutral: []
+
+action_triggers:
+  meritocracy:
+    positive:
+      - hook: on_cabinet_assigned
+        condition: appoint_high_skill_non_hereditary_cabinet_member
+        chance: 25
+        delta: 5
+      - hook: on_bureaucracy_added
+        condition: add_professional_bureaucracy
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_cabinet_removed
+        condition: remove_high_skill_official
+        chance: 25
+        delta: -5
+      - hook: on_reform_change
+        condition: strengthen_hereditary_or_noble_privilege
+        chance: 25
+        delta: -5
+
+  renaissance:
+    positive:
+      - hook: on_work_of_art_created
+        condition: create_work_of_art
+        chance: 25
+        delta: 5
+      - hook: building_completed
+        condition: complete_art_university_court_or_cultural_building
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_work_of_art_looted
+        condition: own_work_of_art_looted
+        chance: 25
+        delta: -5
+      - hook: on_location_occupied
+        condition: capital_or_cultural_center_occupied
+        chance: 25
+        delta: -5
+      - hook: on_siege_won
+        condition: capital_or_cultural_center_occupied
+        chance: 25
+        delta: -5
+
+  banking:
+    positive:
+      - hook: on_loan_repaid
+        condition: repay_loan
+        chance: 25
+        delta: 5
+      - hook: on_parliament_passed
+        condition: pass_fiscal_tax_credit_or_currency_reform
+        chance: 25
+        delta: 5
+      - hook: on_policy_changed
+        condition: pass_fiscal_tax_credit_or_currency_reform
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_loan_renewed
+        condition: renew_loan
+        chance: 25
+        delta: -5
+      - hook: on_bankruptcy
+        condition: go_bankrupt
+        chance: 25
+        delta: -5
+
+  new_world:
+    positive:
+      - hook: on_exploration_success
+        condition: complete_exploration
+        chance: 25
+        delta: 5
+      - hook: on_colonial_charter_finished
+        condition: complete_colonial_charter
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_colonial_charter_failed
+        condition: fail_colonial_charter
+        chance: 25
+        delta: -5
+      - hook: on_took_location_in_peace_treaty
+        condition: lose_overseas_colony_or_trade_post
+        chance: 25
+        delta: -5
+
+  printing_press:
+    positive:
+      - hook: on_work_of_art_created
+        condition: create_book_map_or_manuscript
+        chance: 25
+        delta: 5
+      - hook: building_completed
+        condition: complete_university_library_paper_or_book_building
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_work_of_art_destroyed
+        condition: book_map_or_manuscript_destroyed_or_looted
+        chance: 25
+        delta: -5
+      - hook: on_work_of_art_looted
+        condition: book_map_or_manuscript_destroyed_or_looted
+        chance: 25
+        delta: -5
+      - hook: on_policy_changed
+        condition: adopt_censorship_publication_restriction_or_knowledge_monopoly
+        chance: 25
+        delta: -5
+
+  confessionalism:
+    positive:
+      - hook: on_religion_changed
+        condition: state_conversion_or_major_confessional_turn
+        chance: 25
+        delta: 5
+      - hook: on_winning_war
+        condition: win_religious_war
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_losing_war
+        condition: lose_religious_war
+        chance: 25
+        delta: -5
+      - hook: on_policy_changed
+        condition: adopt_toleration_multifaith_or_weaken_state_church_policy
+        chance: 25
+        delta: -5
+
+  global_trade:
+    positive:
+      - hook: on_took_location_in_peace_treaty
+        condition: gain_major_port_trade_center_or_overseas_trade_post
+        chance: 25
+        delta: 5
+      - hook: on_policy_changed
+        condition: adopt_open_trade_merchant_privilege_or_shipping_support_policy
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_location_occupied
+        condition: own_major_port_or_trade_center_occupied
+        chance: 25
+        delta: -5
+      - hook: on_siege_won
+        condition: own_major_port_or_trade_center_occupied
+        chance: 25
+        delta: -5
+      - hook: on_war_declared
+        condition: declare_war_on_major_trade_partner_trade_node_or_naval_power
+        chance: 25
+        delta: -5
+
+  manufactories:
+    positive:
+      - hook: building_completed
+        condition: complete_workshop_manufactory_proto_factory_or_production_building
+        chance: 25
+        delta: 5
+      - hook: on_policy_changed
+        condition: adopt_production_support_guild_reform_or_industrial_organization_policy
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_location_occupied
+        condition: own_major_production_center_occupied
+        chance: 25
+        delta: -5
+      - hook: on_siege_won
+        condition: own_major_production_center_occupied
+        chance: 25
+        delta: -5
+      - hook: on_bankruptcy
+        condition: go_bankrupt
+        chance: 25
+        delta: -5
+
+  scientific_revolution:
+    positive:
+      - hook: on_cabinet_assigned
+        condition: appoint_high_adm_or_scholarly_cabinet_member
+        chance: 25
+        delta: 5
+      - hook: on_work_of_art_created
+        condition: create_scientific_book_star_chart_map_or_instrument
+        chance: 25
+        delta: 5
+    negative:
+      - hook: on_cabinet_removed
+        condition: remove_high_skill_scholarly_official
+        chance: 25
+        delta: -5
+      - hook: on_work_of_art_destroyed
+        condition: scientific_manuscript_map_or_instrument_destroyed_or_looted
+        chance: 25
+        delta: -5
+      - hook: on_work_of_art_looted
+        condition: scientific_manuscript_map_or_instrument_destroyed_or_looted
+        chance: 25
+        delta: -5

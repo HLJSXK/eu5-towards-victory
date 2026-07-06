@@ -81,6 +81,61 @@ bridges:
 
   on_work_of_art_created:
     - tv_on_work_of_art_created_callback # Cultural Influence Points from newly created art
+    - tv_academy_debate_on_work_of_art_created
+
+  on_work_of_art_destroyed:
+    - tv_academy_debate_on_work_of_art_destroyed
+
+  on_work_of_art_looted:
+    - tv_academy_debate_on_work_of_art_looted
+
+  on_location_occupied:
+    - tv_academy_debate_on_location_occupied
+
+  on_siege_won:
+    - tv_academy_debate_on_siege_won
+
+  on_loan_repaid:
+    - tv_academy_debate_on_loan_repaid
+
+  on_loan_renewed:
+    - tv_academy_debate_on_loan_renewed
+
+  on_bankruptcy:
+    - tv_academy_debate_on_bankruptcy
+
+  on_exploration_success:
+    - tv_academy_debate_on_exploration_success
+
+  on_colonial_charter_finished:
+    - tv_academy_debate_on_colonial_charter_finished
+
+  on_colonial_charter_failed:
+    - tv_academy_debate_on_colonial_charter_failed
+
+  on_took_location_in_peace_treaty:
+    - tv_academy_debate_on_took_location_in_peace_treaty
+
+  on_reform_change:
+    - tv_academy_debate_on_reform_change
+
+  on_bureaucracy_added:
+    - tv_academy_debate_on_bureaucracy_added
+
+  on_religion_changed:
+    - tv_academy_debate_on_religion_changed
+
+  on_cabinet_assigned:
+    - tv_academy_debate_on_cabinet_assigned
+
+  on_cabinet_removed:
+    - tv_academy_debate_on_cabinet_removed
+
+  on_parliament_passed:
+    - tv_academy_debate_on_parliament_passed
+
+  on_policy_changed:
+    - tv_academy_debate_on_policy_changed
 
   on_character_moved_country:
     - tv_govhouse_governor_moved_country
@@ -108,6 +163,7 @@ bridges:
 
   on_war_declared:
     - tv_govhouse_war_tent_on_war_declared
+    - tv_academy_debate_on_war_declared
 
   on_join_war:
     - tv_govhouse_war_tent_on_join_war

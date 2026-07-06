@@ -104,6 +104,7 @@ def gen_building(tier: dict) -> str:
     lines.append(T*3 + "location.owner = {")
     lines.append(T*4 + f"set_variable = {{ name = tv_academy_of_sciences_level value = {n} }}")
     lines.append(T*4 + "tv_check_science_milestones_effect = yes")
+    lines.append(T*4 + "tv_academy_debate_action_triggers_building_completed_effect = yes")
     if event_id:
         lines.append(T*4 + f"trigger_event_non_silently = {{ id = {event_id} }}")
     lines.append(T*3 + "}")

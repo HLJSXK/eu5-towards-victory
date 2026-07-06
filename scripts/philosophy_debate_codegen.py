@@ -104,6 +104,15 @@ def validate_data(data: dict) -> None:
             for issue_key in positions[stance]:
                 if issue_key not in issue_keys:
                     missing.append(f"debate_positions.{group_key}.{stance}.{issue_key}")
+    for issue_key, trigger_groups in (data.get("action_triggers") or {}).items():
+        if issue_key not in issue_keys:
+            missing.append(f"action_triggers.{issue_key}")
+            continue
+        for direction in ("positive", "negative"):
+            for idx, trigger in enumerate(trigger_groups.get(direction, []), start=1):
+                for field in ("hook", "condition", "chance", "delta"):
+                    if field not in trigger:
+                        missing.append(f"action_triggers.{issue_key}.{direction}.{idx}.{field}")
     if missing:
         raise ValueError("Missing/invalid philosophy debate fields:\n  " + "\n  ".join(missing))
 
@@ -278,6 +287,72 @@ def issue_progressive_var(issue: dict) -> str:
 
 def issue_conservative_var(issue: dict) -> str:
     return f"tv_academy_debate_{issue['key']}_conservative"
+
+
+def sanitize_id(value: str) -> str:
+    return "".join(ch if ch.isalnum() else "_" for ch in value).strip("_")
+
+
+def action_triggers(data: dict) -> list[dict]:
+    by_key = issue_by_key(data)
+    result: list[dict] = []
+    for issue_key, trigger_groups in (data.get("action_triggers") or {}).items():
+        issue = by_key[issue_key]
+        for direction in ("positive", "negative"):
+            for idx, trigger in enumerate(trigger_groups.get(direction, []), start=1):
+                entry = dict(trigger)
+                entry["issue_key"] = issue_key
+                entry["issue_id"] = int(issue["id"])
+                entry["direction"] = direction
+                entry["idx"] = idx
+                entry["context"] = action_trigger_context(entry)
+                result.append(entry)
+    return result
+
+
+def action_trigger_context(trigger: dict) -> str:
+    hook = trigger["hook"]
+    condition = trigger["condition"]
+    if hook in {"on_work_of_art_created", "on_work_of_art_destroyed"}:
+        return f"{hook}_owner"
+    if hook == "on_work_of_art_looted":
+        return f"{hook}_old_owner"
+    if hook in {"on_location_occupied", "on_siege_won"}:
+        return f"{hook}_owner"
+    if hook == "on_took_location_in_peace_treaty":
+        if condition.startswith("gain_"):
+            return f"{hook}_winner"
+        if condition.startswith("lose_"):
+            return f"{hook}_loser"
+    if hook == "on_war_declared":
+        return f"{hook}_actor"
+    return hook
+
+
+def action_contexts(data: dict) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for trigger in action_triggers(data):
+        context = trigger["context"]
+        if context not in seen:
+            seen.add(context)
+            result.append(context)
+    return result
+
+
+def action_trigger_effect_name(trigger: dict) -> str:
+    parts = [
+        "tv_academy_debate_action_trigger",
+        trigger["issue_key"],
+        trigger["direction"],
+        sanitize_id(trigger["hook"]),
+        str(trigger["idx"]),
+    ]
+    return "_".join(parts) + "_effect"
+
+
+def action_context_effect_name(context: str) -> str:
+    return f"tv_academy_debate_action_triggers_{sanitize_id(context)}_effect"
 
 
 def generate_triggers(data: dict) -> str:
@@ -521,6 +596,7 @@ def generate_effects(data: dict) -> str:
     gen_defection_effects(lines, data)
     gen_result_effects(lines, data)
     gen_endpoint_effects(lines, data)
+    gen_action_trigger_effects(lines, data)
     gen_world_debate_effects(lines, data)
 
     emit(lines, 0, "tv_academy_philosophy_apply_monthly_debate_drift_effect = {")
@@ -1524,6 +1600,50 @@ def gen_endpoint_effects(lines: list[str], data: dict) -> None:
         emit(lines, 2, "tv_academy_philosophy_enter_recess_effect = yes")
         emit(lines, 2, "tv_academy_philosophy_clear_debate_result_effect = yes")
         emit(lines, 1, "}")
+        emit(lines, 0, "}")
+        emit(lines)
+
+
+def gen_action_trigger_effects(lines: list[str], data: dict) -> None:
+    triggers = action_triggers(data)
+    if not triggers:
+        return
+
+    for trigger in triggers:
+        chance = int(trigger["chance"])
+        miss_chance = max(0, 100 - chance)
+        delta = int(trigger["delta"])
+        emit(lines, 0, f"{action_trigger_effect_name(trigger)} = {{")
+        emit(lines, 1, f"# Semantic condition: {trigger['condition']}")
+        emit(lines, 1, "if = {")
+        emit(lines, 2, "limit = {")
+        emit(lines, 3, "var:tv_academy_philosophy_phase ?= 1")
+        emit(lines, 3, "var:tv_academy_debate_current_node_type ?= 1")
+        emit(lines, 3, "tv_academy_philosophy_has_current_issue_trigger = yes")
+        emit(lines, 3, "has_variable = tv_academy_philosophy_debate_position")
+        emit(lines, 3, f"var:tv_academy_philosophy_current ?= {trigger['issue_id']}")
+        emit(lines, 3, "NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }")
+        emit(lines, 3, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
+        emit(lines, 3, "NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }")
+        emit(lines, 2, "}")
+        emit(lines, 2, "random_list = {")
+        emit(lines, 3, f"{chance} = {{")
+        emit(lines, 4, f"change_variable = {{ name = tv_academy_philosophy_debate_position add = {delta} }}")
+        emit(lines, 4, "clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }")
+        emit(lines, 4, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
+        emit(lines, 3, "}")
+        if miss_chance > 0:
+            emit(lines, 3, f"{miss_chance} = {{ }}")
+        emit(lines, 2, "}")
+        emit(lines, 1, "}")
+        emit(lines, 0, "}")
+        emit(lines)
+
+    for context in action_contexts(data):
+        emit(lines, 0, f"{action_context_effect_name(context)} = {{")
+        for trigger in triggers:
+            if trigger["context"] == context:
+                emit(lines, 1, f"{action_trigger_effect_name(trigger)} = yes")
         emit(lines, 0, "}")
         emit(lines)
 
