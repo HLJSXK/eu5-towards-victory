@@ -3781,6 +3781,31 @@ REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_FLAGS = {
     "implementation_ready": False,
     "harness_generated": False,
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_VERSION = 1
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_KIND = (
+    "alhambra_scripted_effect_cleanup_source_generator"
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_STATUS = (
+    REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_STATUS
+)
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_FLAGS = {
+    "memory_report_only": True,
+    "in_memory_only": True,
+    "source_text_candidate_only": True,
+    "scripted_effect_cleanup_family_only": True,
+    "output_is_loadable_source": False,
+    "body_emitted": False,
+    "body_emitted_to_file": False,
+    "source_ready": False,
+    "verified": False,
+    "backend_ready": False,
+    "source_writer_allowed": False,
+    "source_writer_go": False,
+    "may_write_src": False,
+    "writes_src": False,
+    "implementation_ready": False,
+    "harness_generated": False,
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
     {
         "syntax": "event namespace declaration",
@@ -3833,6 +3858,26 @@ REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
         "quote": 'tv_engineering_department.7300.t:0 "The Lamp-Keepers Take the Stair"',
     },
 )
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS = (
+    {
+        "syntax": "top-level scripted_effect declaration",
+        "reference": "src/in_game/common/scripted_effects/tv_wonder_ritual_effects.txt:6",
+        "quote": "tv_wonder_pharos_refresh_threat_effect = {",
+        "evidence_scope": "declaration_only",
+    },
+    {
+        "syntax": "top-level scripted_effect declaration",
+        "reference": "src/in_game/common/scripted_effects/tv_engineering_department_effects.txt:4",
+        "quote": "tv_engineering_department_create_effect = {",
+        "evidence_scope": "declaration_only",
+    },
+    {
+        "syntax": "generated scripted_effect declaration",
+        "reference": "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py:18",
+        "quote": 'OUT_FILE.write_text("\\ufeff" + generate_ritual_effects(), encoding="utf-8")',
+        "evidence_scope": "generator_ownership_only",
+    },
+)
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_REQUIRED_FIELDS = {
     "kind",
     "generator_version",
@@ -3861,6 +3906,52 @@ REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_GENERATOR_REQUIRED_FIELDS = {
     "in_memory_only",
     "source_text_candidate_only",
     "event_family_only",
+    "output_is_loadable_source",
+    "body_emitted",
+    "body_emitted_to_file",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "source_writer_go",
+    "may_write_src",
+    "writes_src",
+    "implementation_ready",
+    "harness_generated",
+    "validation_errors",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_REQUIRED_FIELDS = {
+    "kind",
+    "generator_version",
+    "pilot_key",
+    "family",
+    "families",
+    "target_path",
+    "generator_status",
+    "scripted_effect_cleanup_source_generator_interface_input_only",
+    "scripted_effect_cleanup_source_generator_interface_input_ref",
+    "scripted_effect_cleanup_source_body_draft_count",
+    "scripted_effect_cleanup_source_body_draft_refs",
+    "source_text_candidate",
+    "source_text_candidate_line_count",
+    "source_text_candidate_nonempty",
+    "scripted_effect_declaration_count",
+    "effect_names",
+    "family_declaration_counts",
+    "row_set_operation_lifecycle_coverage",
+    "eu5_syntax_evidence_refs",
+    "syntax_evidence_binding_status",
+    "controlled_source_blockers",
+    "source_body_blocker_status",
+    "scripted_effect_declaration_syntax_verified",
+    "row_state_write_verified",
+    "aggregate_refresh_verified",
+    "cleanup_mutation_verified",
+    "no_write_flags",
+    "memory_report_only",
+    "in_memory_only",
+    "source_text_candidate_only",
+    "scripted_effect_cleanup_family_only",
     "output_is_loadable_source",
     "body_emitted",
     "body_emitted_to_file",
@@ -18426,6 +18517,643 @@ def validate_repeated_entity_row_alhambra_event_source_generator(
     )
     if len(observed_ids) != len(expected_ids):
         errors.append("Alhambra event source generator source_text_candidate country_event count mismatch")
+    return errors
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_flags() -> dict[str, bool]:
+    return deepcopy(REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_FLAGS)
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_syntax_evidence_refs() -> list[dict[str, str]]:
+    return [
+        deepcopy(ref)
+        for ref in REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_SYNTAX_EVIDENCE_REFS
+    ]
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_interface_input_ref(
+    scripted_effect_cleanup_source_generator_interface: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "pilot_key": str(scripted_effect_cleanup_source_generator_interface.get("pilot_key", "")),
+        "family": str(scripted_effect_cleanup_source_generator_interface.get("family", "")),
+        "families": list(scripted_effect_cleanup_source_generator_interface.get("families", []) or []),
+        "target_path": str(scripted_effect_cleanup_source_generator_interface.get("target_path", "")),
+        "artifact_count": int(scripted_effect_cleanup_source_generator_interface.get("artifact_count", 0)),
+        "source_file_contract_artifact_count": int(
+            scripted_effect_cleanup_source_generator_interface.get("source_file_contract_artifact_count", 0)
+        ),
+        "validation_errors": list(scripted_effect_cleanup_source_generator_interface.get("validation_errors", []) or []),
+    }
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_drafts_from_interface(
+    scripted_effect_cleanup_source_generator_interface: dict[str, Any],
+) -> list[dict[str, Any]]:
+    drafts: list[dict[str, Any]] = []
+    for artifact in scripted_effect_cleanup_source_generator_interface.get("source_file_contract_artifacts", []) or []:
+        if not isinstance(artifact, dict):
+            continue
+        draft = artifact.get("scripted_effect_cleanup_source_body_draft")
+        if isinstance(draft, dict):
+            drafts.append(deepcopy(draft))
+    return drafts
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_draft_ref(draft: dict[str, Any]) -> dict[str, str]:
+    outline = draft.get("source_body_outline") if isinstance(draft.get("source_body_outline"), dict) else {}
+    return {
+        "kind": str(draft.get("kind", "")),
+        "family": str(draft.get("family", "")),
+        "row_set_key": str(draft.get("row_set_key", "")),
+        "artifact_kind": str(draft.get("artifact_kind", "")),
+        "operation": str(draft.get("operation", "")),
+        "effect_name": str(outline.get("effect_name_ref", outline.get("declaration_ref", ""))),
+        "future_source_target_path": str(draft.get("future_source_target_path", "")),
+    }
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_expected_declarations(
+    scripted_effect_cleanup_source_generator_interface: dict[str, Any],
+) -> list[dict[str, Any]]:
+    declarations: list[dict[str, Any]] = []
+    for draft in _alhambra_scripted_effect_cleanup_source_generator_drafts_from_interface(
+        scripted_effect_cleanup_source_generator_interface
+    ):
+        outline = draft.get("source_body_outline") if isinstance(draft.get("source_body_outline"), dict) else {}
+        family = str(draft.get("family", ""))
+        operation = str(draft.get("operation", ""))
+        declarations.append(
+            {
+                "effect_name": str(outline.get("effect_name_ref", outline.get("declaration_ref", ""))),
+                "family": family,
+                "row_set_key": str(draft.get("row_set_key", "")),
+                "artifact_kind": str(draft.get("artifact_kind", "")),
+                "operation": operation,
+                "effect_operation": operation if family == "effect" else "",
+                "cleanup_lifecycle_scope": operation if family == "cleanup" else "",
+                "source_body_status": "controlled_blocker",
+                "future_source_target_path": str(draft.get("future_source_target_path", "")),
+            }
+        )
+    return declarations
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_coverage(
+    declarations: list[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    coverage: dict[str, dict[str, Any]] = {
+        row_set_key: {
+            "effect_operations": [],
+            "cleanup_lifecycle_scopes": [],
+            "declaration_count": 0,
+        }
+        for row_set_key in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS
+    }
+    for declaration in declarations:
+        row_set_key = str(declaration.get("row_set_key", ""))
+        if row_set_key not in coverage:
+            coverage[row_set_key] = {
+                "effect_operations": [],
+                "cleanup_lifecycle_scopes": [],
+                "declaration_count": 0,
+            }
+        coverage[row_set_key]["declaration_count"] += 1
+        effect_operation = str(declaration.get("effect_operation", ""))
+        cleanup_lifecycle_scope = str(declaration.get("cleanup_lifecycle_scope", ""))
+        if effect_operation and effect_operation not in coverage[row_set_key]["effect_operations"]:
+            coverage[row_set_key]["effect_operations"].append(effect_operation)
+        if cleanup_lifecycle_scope and cleanup_lifecycle_scope not in coverage[row_set_key]["cleanup_lifecycle_scopes"]:
+            coverage[row_set_key]["cleanup_lifecycle_scopes"].append(cleanup_lifecycle_scope)
+    expected_effect_order = list(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_EFFECT_OPERATIONS
+    )
+    expected_cleanup_order = list(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_CLEANUP_LIFECYCLE_SCOPES
+    )
+    for row_coverage in coverage.values():
+        row_coverage["effect_operations"] = [
+            operation
+            for operation in expected_effect_order
+            if operation in set(row_coverage["effect_operations"])
+        ]
+        row_coverage["cleanup_lifecycle_scopes"] = [
+            scope
+            for scope in expected_cleanup_order
+            if scope in set(row_coverage["cleanup_lifecycle_scopes"])
+        ]
+    return coverage
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_controlled_blockers(
+    declarations: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    row_state_operations = {"row_init", "row_state_write", "branch_write"}
+    cleanup_mutation_operations = {"cleanup_write", "completion", "failure", "ownership_loss", "reset"}
+    blockers: list[dict[str, Any]] = []
+    for declaration in declarations:
+        operation = str(declaration.get("operation", ""))
+        if operation in row_state_operations:
+            blocker_category = "row_state_write"
+        elif operation == "aggregate_refresh":
+            blocker_category = "aggregate_refresh"
+        elif operation in cleanup_mutation_operations:
+            blocker_category = "cleanup_mutation"
+        else:
+            blocker_category = "scripted_effect_body"
+        blockers.append(
+            {
+                "effect_name": str(declaration.get("effect_name", "")),
+                "family": str(declaration.get("family", "")),
+                "row_set_key": str(declaration.get("row_set_key", "")),
+                "artifact_kind": str(declaration.get("artifact_kind", "")),
+                "operation": operation,
+                "blocker_category": blocker_category,
+                "handoff_status": "controlled_blocker",
+                "blocker_reason": (
+                    "scripted-effect declaration syntax is evidenced, but row-state writes, aggregate refresh, "
+                    "and cleanup mutations are not source-writer verified"
+                ),
+                "declaration_body_emitted": False,
+                "row_state_write_verified": False,
+                "aggregate_refresh_verified": False,
+                "cleanup_mutation_verified": False,
+                "source_ready": False,
+                "verified": False,
+                "backend_ready": False,
+                "source_writer_allowed": False,
+                "may_write_src": False,
+                "writes_src": False,
+            }
+        )
+    return blockers
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_header(target_path: str) -> list[str]:
+    return [
+        "# @InMemoryCandidate by scripts/wonder_unique_ritual_harness.py",
+        f"# Target: {target_path}",
+        "# Alhambra scripted-effect/cleanup source text candidate only; not emitted to src/.",
+        "",
+    ]
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_render_declaration(
+    declaration: dict[str, Any],
+) -> list[str]:
+    effect_name = str(declaration.get("effect_name", ""))
+    return [
+        f"# -- {effect_name} ----------------------------------------------",
+        f"{effect_name} = {{",
+        f"\t# family = {declaration.get('family', '')}; operation = {declaration.get('operation', '')}",
+        f"\t# row_set = {declaration.get('row_set_key', '')}",
+        "\t# CONTROLLED BLOCKER: source body is not emitted by this generator.",
+        "\t# CONTROLLED BLOCKER: row-state writes, aggregate refresh, and cleanup mutation remain unverified.",
+        "\t# source_body_status = controlled_blocker",
+        "}",
+    ]
+
+
+def _alhambra_scripted_effect_cleanup_source_generator_render_source_text(
+    *,
+    target_path: str,
+    declarations: list[dict[str, Any]],
+) -> str:
+    lines = _alhambra_scripted_effect_cleanup_source_generator_header(target_path)
+    for declaration in declarations:
+        lines.extend(_alhambra_scripted_effect_cleanup_source_generator_render_declaration(declaration))
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def _alhambra_scripted_effect_cleanup_source_candidate_effect_blocks(
+    source_text: str,
+) -> list[dict[str, Any]]:
+    blocks: list[dict[str, Any]] = []
+    lines = source_text.splitlines()
+    index = 0
+    effect_pattern = re.compile(r"^(tv_[A-Za-z0-9_]+)\s*=\s*\{\s*$")
+    while index < len(lines):
+        match = effect_pattern.match(lines[index].strip())
+        if not match:
+            index += 1
+            continue
+        start = index
+        depth = _alhambra_event_source_candidate_brace_delta(lines[index])
+        index += 1
+        while index < len(lines) and depth > 0:
+            depth += _alhambra_event_source_candidate_brace_delta(lines[index])
+            index += 1
+        blocks.append(
+            {
+                "effect_name": match.group(1),
+                "start_line": start + 1,
+                "lines": lines[start:index],
+                "balanced": depth == 0,
+            }
+        )
+    return blocks
+
+
+def _validate_alhambra_scripted_effect_cleanup_source_generator_flags(
+    *,
+    context: str,
+    value: dict[str, Any],
+    errors: list[str],
+) -> None:
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_FLAGS.items():
+        if value.get(flag) is not expected:
+            errors.append(f"{context} {flag} must be {str(expected).lower()}")
+    no_write_flags = value.get("no_write_flags")
+    if not isinstance(no_write_flags, dict):
+        errors.append(f"{context} missing no-write flags")
+        return
+    for flag, expected in REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_FLAGS.items():
+        if no_write_flags.get(flag) is not expected:
+            errors.append(f"{context} no_write_flags.{flag} must be {str(expected).lower()}")
+
+
+def _alhambra_scripted_effect_cleanup_syntax_evidence_path_exists(reference: str) -> bool:
+    reference_text = str(reference).strip()
+    path_text = reference_text.rsplit(":", 1)[0] if ":" in reference_text else reference_text
+    return _alhambra_source_file_validation_repo_path_exists(path_text)
+
+
+def _validate_alhambra_scripted_effect_cleanup_source_generator_syntax_evidence(
+    *,
+    refs: Any,
+    errors: list[str],
+) -> None:
+    if not isinstance(refs, list) or not refs:
+        errors.append("Alhambra scripted-effect/cleanup source generator missing syntax evidence")
+        return
+    declaration_evidence_count = 0
+    for index, ref in enumerate(refs):
+        if not isinstance(ref, dict):
+            errors.append(f"Alhambra scripted-effect/cleanup source generator syntax evidence {index} must be a mapping")
+            continue
+        if not str(ref.get("syntax", "")).strip():
+            errors.append(f"Alhambra scripted-effect/cleanup source generator syntax evidence {index} missing syntax")
+        reference = str(ref.get("reference", ""))
+        if not _alhambra_scripted_effect_cleanup_syntax_evidence_path_exists(reference):
+            errors.append(
+                "Alhambra scripted-effect/cleanup source generator syntax evidence must point to existing repo file: "
+                f"{reference}"
+            )
+        if not str(ref.get("quote", "")).strip():
+            errors.append(f"Alhambra scripted-effect/cleanup source generator syntax evidence {index} missing quote")
+        if ref.get("evidence_scope") == "declaration_only":
+            declaration_evidence_count += 1
+    if declaration_evidence_count == 0:
+        errors.append("Alhambra scripted-effect/cleanup source generator missing declaration syntax evidence")
+
+
+def _validate_alhambra_scripted_effect_cleanup_source_candidate_text(
+    *,
+    source_text: str,
+    expected_declarations: list[dict[str, Any]],
+    errors: list[str],
+) -> list[str]:
+    effect_blocks = _alhambra_scripted_effect_cleanup_source_candidate_effect_blocks(source_text)
+    observed_names = [str(block["effect_name"]) for block in effect_blocks]
+    expected_names = [str(declaration.get("effect_name", "")) for declaration in expected_declarations]
+    expected_by_name = {
+        str(declaration.get("effect_name", "")): declaration
+        for declaration in expected_declarations
+    }
+    if len(effect_blocks) != len(expected_declarations):
+        errors.append("Alhambra scripted-effect/cleanup source generator source_text_candidate missing declaration")
+    duplicate_names = sorted({name for name in observed_names if observed_names.count(name) > 1})
+    if duplicate_names:
+        errors.append(
+            "Alhambra scripted-effect/cleanup source generator source_text_candidate duplicate effect name(s): "
+            + ", ".join(duplicate_names)
+        )
+    missing_names = sorted(set(expected_names) - set(observed_names))
+    if missing_names:
+        errors.append(
+            "Alhambra scripted-effect/cleanup source generator source_text_candidate missing scripted-effect "
+            "declaration(s): "
+            + ", ".join(missing_names)
+        )
+    extra_names = sorted(set(observed_names) - set(expected_names))
+    if extra_names:
+        errors.append(
+            "Alhambra scripted-effect/cleanup source generator source_text_candidate unexpected declaration(s): "
+            + ", ".join(extra_names)
+        )
+    if observed_names != expected_names:
+        errors.append("Alhambra scripted-effect/cleanup source generator source_text_candidate declaration order mismatch")
+
+    observed_expected_declarations: list[dict[str, Any]] = []
+    for block in effect_blocks:
+        effect_name = str(block["effect_name"])
+        declaration = expected_by_name.get(effect_name)
+        block_lines = block["lines"]
+        if not block.get("balanced"):
+            errors.append(f"Alhambra scripted-effect/cleanup source generator {effect_name} braces are not balanced")
+        if declaration is not None:
+            observed_expected_declarations.append(declaration)
+        non_comment_lines = _alhambra_event_source_candidate_non_comment_lines(block_lines)
+        expected_non_comment_lines = [
+            f"{effect_name} = {{",
+            "}",
+        ]
+        if non_comment_lines != expected_non_comment_lines:
+            errors.append(
+                "Alhambra scripted-effect/cleanup source generator "
+                f"{effect_name} declaration body must stay controlled-blocker-only"
+            )
+            for line in non_comment_lines:
+                if line not in expected_non_comment_lines:
+                    errors.append(
+                        "Alhambra scripted-effect/cleanup source generator "
+                        f"{effect_name} contains unverified body line: {line}"
+                    )
+
+    observed_coverage = _alhambra_scripted_effect_cleanup_source_generator_coverage(
+        observed_expected_declarations
+    )
+    expected_effect_operations = set(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_EFFECT_OPERATIONS
+    )
+    expected_cleanup_scopes = set(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_BODY_DRAFT_CLEANUP_LIFECYCLE_SCOPES
+    )
+    for row_set_key in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS:
+        coverage = observed_coverage.get(row_set_key, {})
+        if set(coverage.get("effect_operations", [])) != expected_effect_operations:
+            errors.append(
+                "Alhambra scripted-effect/cleanup source generator row-set/operation coverage missing for "
+                f"{row_set_key}"
+            )
+        if set(coverage.get("cleanup_lifecycle_scopes", [])) != expected_cleanup_scopes:
+            errors.append(
+                "Alhambra scripted-effect/cleanup source generator row-set/cleanup lifecycle coverage missing for "
+                f"{row_set_key}"
+            )
+    return observed_names
+
+
+def repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_for_payload(
+    payload: dict[str, Any],
+    *,
+    statuses: set[str] | None = None,
+    scripted_effect_cleanup_source_generator_interface: dict[str, Any] | None = None,
+    source_generator_contract: dict[str, Any] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if source_file_validation_evidence is None:
+        source_file_validation_evidence = repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(
+            payload,
+            statuses=statuses,
+        )
+    if source_generator_contract is None:
+        source_generator_contract = repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            payload,
+            statuses=statuses,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+    if scripted_effect_cleanup_source_generator_interface is None:
+        scripted_effect_cleanup_source_generator_interface = (
+            repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface_for_payload(
+                payload,
+                statuses=statuses,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+        )
+    target_path = REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
+    declarations = _alhambra_scripted_effect_cleanup_source_generator_expected_declarations(
+        scripted_effect_cleanup_source_generator_interface
+    )
+    source_text_candidate = _alhambra_scripted_effect_cleanup_source_generator_render_source_text(
+        target_path=target_path,
+        declarations=declarations,
+    )
+    flags = _alhambra_scripted_effect_cleanup_source_generator_flags()
+    report = {
+        "kind": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_KIND,
+        "generator_version": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_VERSION,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_FAMILY,
+        "families": list(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_TARGET_FAMILIES
+        ),
+        "target_path": target_path,
+        "generator_status": REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_STATUS,
+        "scripted_effect_cleanup_source_generator_interface_input_only": True,
+        "scripted_effect_cleanup_source_generator_interface_input_ref": (
+            _alhambra_scripted_effect_cleanup_source_generator_interface_input_ref(
+                scripted_effect_cleanup_source_generator_interface
+            )
+        ),
+        "scripted_effect_cleanup_source_body_draft_count": len(declarations),
+        "scripted_effect_cleanup_source_body_draft_refs": [
+            _alhambra_scripted_effect_cleanup_source_generator_draft_ref(draft)
+            for draft in _alhambra_scripted_effect_cleanup_source_generator_drafts_from_interface(
+                scripted_effect_cleanup_source_generator_interface
+            )
+        ],
+        "source_text_candidate": source_text_candidate,
+        "source_text_candidate_line_count": len(source_text_candidate.splitlines()),
+        "source_text_candidate_nonempty": bool(source_text_candidate.strip()),
+        "scripted_effect_declaration_count": len(declarations),
+        "effect_names": [str(declaration.get("effect_name", "")) for declaration in declarations],
+        "family_declaration_counts": _count_by_key(declarations, "family"),
+        "row_set_operation_lifecycle_coverage": (
+            _alhambra_scripted_effect_cleanup_source_generator_coverage(declarations)
+        ),
+        "eu5_syntax_evidence_refs": (
+            _alhambra_scripted_effect_cleanup_source_generator_syntax_evidence_refs()
+        ),
+        "syntax_evidence_binding_status": "scripted_effect_declaration_only",
+        "controlled_source_blockers": (
+            _alhambra_scripted_effect_cleanup_source_generator_controlled_blockers(declarations)
+        ),
+        "source_body_blocker_status": "controlled_blocker",
+        "scripted_effect_declaration_syntax_verified": True,
+        "row_state_write_verified": False,
+        "aggregate_refresh_verified": False,
+        "cleanup_mutation_verified": False,
+        "no_write_flags": flags,
+        **flags,
+        "validation_errors": [],
+        "notes": [
+            "Alhambra scripted-effect/cleanup source generator consumes the current 18 source-body drafts.",
+            "It emits one in-memory source_text_candidate with 18 top-level tv_ declarations.",
+            "Only declaration syntax is evidence-bound; row writes, aggregate refresh, and cleanup mutation remain blockers.",
+        ],
+    }
+    report["validation_errors"] = validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator(
+        report,
+        scripted_effect_cleanup_source_generator_interface=scripted_effect_cleanup_source_generator_interface,
+        source_generator_contract=source_generator_contract,
+        source_file_validation_evidence=source_file_validation_evidence,
+    )
+    return report
+
+
+def validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator(
+    report: dict[str, Any],
+    *,
+    scripted_effect_cleanup_source_generator_interface: dict[str, Any] | None = None,
+    source_generator_contract: dict[str, Any] | None = None,
+    source_file_validation_evidence: dict[str, Any] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    missing = _missing_required(
+        report,
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_REQUIRED_FIELDS,
+    )
+    if missing:
+        errors.append(f"Alhambra scripted-effect/cleanup source generator missing field(s): {', '.join(missing)}")
+
+    target_path = REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
+    expected_family = REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_FAMILY
+    expected_families = list(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_INTERFACE_TARGET_FAMILIES
+    )
+    if report.get("kind") != REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_KIND:
+        errors.append("Alhambra scripted-effect/cleanup source generator kind mismatch")
+    if report.get("generator_version") != REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_VERSION:
+        errors.append("Alhambra scripted-effect/cleanup source generator version mismatch")
+    if report.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append("Alhambra scripted-effect/cleanup source generator pilot_key must be unique_alhambra")
+    if report.get("family") != expected_family:
+        errors.append("Alhambra scripted-effect/cleanup source generator family must be scripted_effect_cleanup")
+    if report.get("families") != expected_families:
+        errors.append("Alhambra scripted-effect/cleanup source generator families mismatch")
+    if report.get("target_path") != target_path:
+        errors.append("Alhambra scripted-effect/cleanup source generator target_path mismatch")
+    if report.get("generator_status") != REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_EFFECT_CLEANUP_SOURCE_GENERATOR_STATUS:
+        errors.append("Alhambra scripted-effect/cleanup source generator status mismatch")
+    if report.get("scripted_effect_cleanup_source_generator_interface_input_only") is not True:
+        errors.append("Alhambra scripted-effect/cleanup source generator must consume source-body drafts")
+
+    _validate_alhambra_scripted_effect_cleanup_source_generator_flags(
+        context="Alhambra scripted-effect/cleanup source generator report",
+        value=report,
+        errors=errors,
+    )
+    for flag in (
+        "source_writer_go",
+        "may_write_src",
+        "writes_src",
+        "body_emitted",
+        "body_emitted_to_file",
+        "source_writer_allowed",
+        "source_ready",
+        "verified",
+        "backend_ready",
+        "implementation_ready",
+        "harness_generated",
+    ):
+        for path in _source_bundle_true_flag_paths(report, flag):
+            errors.append(f"Alhambra scripted-effect/cleanup source generator {flag} must be false at {path}")
+
+    if scripted_effect_cleanup_source_generator_interface is None:
+        errors.append(
+            "Alhambra scripted-effect/cleanup source generator requires scripted-effect/cleanup source "
+            "generator interface input"
+        )
+        expected_declarations: list[dict[str, Any]] = []
+        expected_draft_refs: list[dict[str, str]] = []
+    else:
+        if source_generator_contract is not None and source_file_validation_evidence is not None:
+            interface_errors = validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface(
+                scripted_effect_cleanup_source_generator_interface,
+                source_generator_contract=source_generator_contract,
+                source_file_validation_evidence=source_file_validation_evidence,
+            )
+            if interface_errors:
+                errors.append("Alhambra scripted-effect/cleanup source generator interface input must be clean")
+        elif scripted_effect_cleanup_source_generator_interface.get("validation_errors"):
+            errors.append("Alhambra scripted-effect/cleanup source generator interface input must be clean")
+        expected_input_ref = _alhambra_scripted_effect_cleanup_source_generator_interface_input_ref(
+            scripted_effect_cleanup_source_generator_interface
+        )
+        if report.get("scripted_effect_cleanup_source_generator_interface_input_ref") != expected_input_ref:
+            errors.append("Alhambra scripted-effect/cleanup source generator interface input ref mismatch")
+        expected_declarations = _alhambra_scripted_effect_cleanup_source_generator_expected_declarations(
+            scripted_effect_cleanup_source_generator_interface
+        )
+        expected_draft_refs = [
+            _alhambra_scripted_effect_cleanup_source_generator_draft_ref(draft)
+            for draft in _alhambra_scripted_effect_cleanup_source_generator_drafts_from_interface(
+                scripted_effect_cleanup_source_generator_interface
+            )
+        ]
+
+    expected_names = [str(declaration.get("effect_name", "")) for declaration in expected_declarations]
+    expected_coverage = _alhambra_scripted_effect_cleanup_source_generator_coverage(expected_declarations)
+    expected_blockers = _alhambra_scripted_effect_cleanup_source_generator_controlled_blockers(expected_declarations)
+    if int(report.get("scripted_effect_cleanup_source_body_draft_count", -1)) != len(expected_declarations):
+        errors.append("Alhambra scripted-effect/cleanup source generator source-body draft count mismatch")
+    if len(expected_declarations) != 18:
+        errors.append("Alhambra scripted-effect/cleanup source generator must consume exactly 18 drafts")
+    if report.get("scripted_effect_cleanup_source_body_draft_refs") != expected_draft_refs:
+        errors.append("Alhambra scripted-effect/cleanup source generator source-body draft refs mismatch")
+    if int(report.get("scripted_effect_declaration_count", -1)) != len(expected_declarations):
+        errors.append("Alhambra scripted-effect/cleanup source generator declaration count mismatch")
+    if report.get("effect_names") != expected_names:
+        errors.append("Alhambra scripted-effect/cleanup source generator effect names mismatch")
+    if report.get("family_declaration_counts") != _count_by_key(expected_declarations, "family"):
+        errors.append("Alhambra scripted-effect/cleanup source generator family declaration counts mismatch")
+    if report.get("row_set_operation_lifecycle_coverage") != expected_coverage:
+        errors.append("Alhambra scripted-effect/cleanup source generator row-set/operation coverage mismatch")
+
+    if (
+        report.get("eu5_syntax_evidence_refs")
+        != _alhambra_scripted_effect_cleanup_source_generator_syntax_evidence_refs()
+    ):
+        errors.append("Alhambra scripted-effect/cleanup source generator EU5 syntax evidence refs mismatch")
+    _validate_alhambra_scripted_effect_cleanup_source_generator_syntax_evidence(
+        refs=report.get("eu5_syntax_evidence_refs"),
+        errors=errors,
+    )
+    if report.get("syntax_evidence_binding_status") != "scripted_effect_declaration_only":
+        errors.append("Alhambra scripted-effect/cleanup source generator syntax evidence must bind declaration only")
+    if report.get("scripted_effect_declaration_syntax_verified") is not True:
+        errors.append("Alhambra scripted-effect/cleanup source generator declaration syntax must be verified")
+    if report.get("source_body_blocker_status") != "controlled_blocker":
+        errors.append("Alhambra scripted-effect/cleanup source generator source body must remain controlled_blocker")
+    for flag in ("row_state_write_verified", "aggregate_refresh_verified", "cleanup_mutation_verified"):
+        if report.get(flag) is not False:
+            errors.append(f"Alhambra scripted-effect/cleanup source generator {flag} must be false")
+    if report.get("controlled_source_blockers") != expected_blockers:
+        errors.append("Alhambra scripted-effect/cleanup source generator controlled blockers mismatch")
+    for index, blocker in enumerate(report.get("controlled_source_blockers", []) or []):
+        if not isinstance(blocker, dict):
+            errors.append(f"Alhambra scripted-effect/cleanup source generator controlled blocker {index} must be a mapping")
+            continue
+        if (
+            blocker.get("handoff_status") != "controlled_blocker"
+            or blocker.get("declaration_body_emitted") is not False
+            or blocker.get("row_state_write_verified") is not False
+            or blocker.get("aggregate_refresh_verified") is not False
+            or blocker.get("cleanup_mutation_verified") is not False
+            or blocker.get("verified") is not False
+            or blocker.get("source_ready") is not False
+            or blocker.get("may_write_src") is not False
+            or blocker.get("writes_src") is not False
+        ):
+            errors.append(f"Alhambra scripted-effect/cleanup source generator controlled blocker {index} must stay blocked")
+
+    source_text = str(report.get("source_text_candidate", ""))
+    if not source_text.strip():
+        errors.append("Alhambra scripted-effect/cleanup source generator source_text_candidate must not be empty")
+    if int(report.get("source_text_candidate_line_count", -1)) != len(source_text.splitlines()):
+        errors.append("Alhambra scripted-effect/cleanup source generator source_text_candidate_line_count mismatch")
+    if report.get("source_text_candidate_nonempty") is not bool(source_text.strip()):
+        errors.append("Alhambra scripted-effect/cleanup source generator source_text_candidate_nonempty mismatch")
+    observed_names = _validate_alhambra_scripted_effect_cleanup_source_candidate_text(
+        source_text=source_text,
+        expected_declarations=expected_declarations,
+        errors=errors,
+    )
+    if len(observed_names) != len(expected_names):
+        errors.append("Alhambra scripted-effect/cleanup source generator source_text_candidate declaration count mismatch")
     return errors
 
 

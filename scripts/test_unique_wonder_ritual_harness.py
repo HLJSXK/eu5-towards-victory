@@ -48,6 +48,7 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_gen
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_serialization_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_writer_gate_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_source_generator_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -66,6 +67,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_s
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_serialization_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_writer_gate  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_event_source_generator  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator  # noqa: E402
 
 
 WONDER = {
@@ -7451,6 +7453,244 @@ def main() -> None:
         detached_effect_cleanup_interface_validation,
         "requires external source-file validation evidence",
         source_file_validation_evidence=None,
+    )
+
+    alhambra_scripted_effect_cleanup_source_generator = (
+        repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_for_payload(
+            spec_data,
+            scripted_effect_cleanup_source_generator_interface=(
+                alhambra_scripted_effect_cleanup_source_generator_interface
+            ),
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_scripted_effect_cleanup_source_generator["validation_errors"]:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator unexpectedly failed validation: "
+            f"{alhambra_scripted_effect_cleanup_source_generator['validation_errors']}"
+        )
+    effect_cleanup_source_text_candidate = alhambra_scripted_effect_cleanup_source_generator.get(
+        "source_text_candidate",
+        "",
+    )
+    effect_cleanup_source_names = alhambra_scripted_effect_cleanup_source_generator.get("effect_names", [])
+    effect_cleanup_source_coverage = alhambra_scripted_effect_cleanup_source_generator.get(
+        "row_set_operation_lifecycle_coverage",
+        {},
+    )
+    if (
+        alhambra_scripted_effect_cleanup_source_generator.get("target_path") != effect_cleanup_interface_target
+        or alhambra_scripted_effect_cleanup_source_generator.get("families") != ["cleanup", "effect"]
+        or alhambra_scripted_effect_cleanup_source_generator.get(
+            "scripted_effect_cleanup_source_body_draft_count"
+        )
+        != 18
+        or alhambra_scripted_effect_cleanup_source_generator.get("scripted_effect_declaration_count") != 18
+        or alhambra_scripted_effect_cleanup_source_generator.get("family_declaration_counts")
+        != {"cleanup": 8, "effect": 10}
+        or alhambra_scripted_effect_cleanup_source_generator.get("source_body_blocker_status")
+        != "controlled_blocker"
+        or alhambra_scripted_effect_cleanup_source_generator.get("scripted_effect_declaration_syntax_verified")
+        is not True
+        or alhambra_scripted_effect_cleanup_source_generator.get("row_state_write_verified") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("aggregate_refresh_verified") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("cleanup_mutation_verified") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("source_writer_go") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("may_write_src") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("writes_src") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("body_emitted") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("source_ready") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("implementation_ready") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("harness_generated") is not False
+        or len(effect_cleanup_source_names) != 18
+        or effect_cleanup_source_text_candidate.count(" = {") != 18
+        or effect_cleanup_source_text_candidate.count("CONTROLLED BLOCKER") != 36
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_init_effect = {"
+        not in effect_cleanup_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_palace_risk_points_ritual_reset_effect = {"
+        not in effect_cleanup_source_text_candidate
+    ):
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator shape changed: "
+            f"{alhambra_scripted_effect_cleanup_source_generator}"
+        )
+    if len(alhambra_scripted_effect_cleanup_source_generator.get("controlled_source_blockers", [])) != 18:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator should keep one controlled blocker per draft: "
+            f"{alhambra_scripted_effect_cleanup_source_generator.get('controlled_source_blockers')}"
+        )
+    for row_set_key in ("treaty_clause_register", "palace_risk_points"):
+        row_coverage = effect_cleanup_source_coverage.get(row_set_key, {})
+        if (
+            set(row_coverage.get("effect_operations", []))
+            != {"row_init", "row_state_write", "branch_write", "aggregate_refresh", "cleanup_write"}
+            or set(row_coverage.get("cleanup_lifecycle_scopes", []))
+            != {"completion", "failure", "ownership_loss", "reset"}
+            or row_coverage.get("declaration_count") != 9
+        ):
+            raise AssertionError(
+                "Alhambra scripted-effect/cleanup source generator coverage changed: "
+                f"{row_set_key}: {row_coverage}"
+            )
+    if not alhambra_scripted_effect_cleanup_source_generator.get("eu5_syntax_evidence_refs"):
+        raise AssertionError("Alhambra scripted-effect/cleanup source generator lost EU5 syntax evidence refs")
+
+    evidence_bound_effect_cleanup_source_generator_errors = (
+        validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator(
+            alhambra_scripted_effect_cleanup_source_generator,
+            scripted_effect_cleanup_source_generator_interface=(
+                alhambra_scripted_effect_cleanup_source_generator_interface
+            ),
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_effect_cleanup_source_generator_errors:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator unexpectedly failed evidence-bound validation: "
+            f"{evidence_bound_effect_cleanup_source_generator_errors}"
+        )
+
+    def assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        scripted_effect_cleanup_source_generator_interface: dict | None = (
+            alhambra_scripted_effect_cleanup_source_generator_interface
+        ),
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator(
+            report,
+            scripted_effect_cleanup_source_generator_interface=(
+                scripted_effect_cleanup_source_generator_interface
+            ),
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra scripted-effect/cleanup source generator negative was not caught: {errors}"
+            )
+
+    def remove_effect_declaration_from_source_text(source_text: str, effect_name: str) -> str:
+        lines = source_text.splitlines()
+        declaration = f"{effect_name} = {{"
+        start = next(index for index, line in enumerate(lines) if line == declaration)
+        delete_start = start - 1 if start > 0 and lines[start - 1].startswith("# -- ") else start
+        depth = 0
+        end = start
+        while end < len(lines):
+            code = lines[end].split("#", 1)[0]
+            depth += code.count("{") - code.count("}")
+            end += 1
+            if depth == 0:
+                break
+        if end < len(lines) and lines[end] == "":
+            end += 1
+        return "\n".join(lines[:delete_start] + lines[end:]).rstrip() + "\n"
+
+    missing_effect_declaration_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    missing_effect_declaration_source_generator["source_text_candidate"] = remove_effect_declaration_from_source_text(
+        missing_effect_declaration_source_generator["source_text_candidate"],
+        "tv_wonder_unique_alhambra_ritual_palace_risk_points_ritual_reset_effect",
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "missing scripted-effect declaration",
+        missing_effect_declaration_source_generator,
+        "missing scripted-effect declaration",
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "row-set/operation coverage missing",
+        missing_effect_declaration_source_generator,
+        "row-set/cleanup lifecycle coverage missing",
+    )
+
+    duplicate_effect_name_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    duplicate_effect_name_source_generator["source_text_candidate"] = duplicate_effect_name_source_generator[
+        "source_text_candidate"
+    ].replace(
+        "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_state_write_effect = {",
+        "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_init_effect = {",
+        1,
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "duplicate effect name in source_text_candidate",
+        duplicate_effect_name_source_generator,
+        "duplicate effect name",
+    )
+
+    unverified_body_line_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    unverified_body_line_source_generator["source_text_candidate"] = unverified_body_line_source_generator[
+        "source_text_candidate"
+    ].replace(
+        "\t# source_body_status = controlled_blocker\n}",
+        "\t# source_body_status = controlled_blocker\n\tset_variable = tv_forged_row_state\n}",
+        1,
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "unverified body line in source_text_candidate",
+        unverified_body_line_source_generator,
+        "unverified body line",
+    )
+
+    missing_syntax_evidence_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    missing_syntax_evidence_source_generator["eu5_syntax_evidence_refs"] = []
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "missing syntax evidence",
+        missing_syntax_evidence_source_generator,
+        "missing syntax evidence",
+    )
+
+    writable_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    writable_effect_cleanup_source_generator["may_write_src"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "may_write_src true in scripted-effect/cleanup source generator",
+        writable_effect_cleanup_source_generator,
+        "may_write_src must be false",
+    )
+
+    source_writer_go_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    source_writer_go_effect_cleanup_source_generator["source_writer_go"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "source_writer_go true in scripted-effect/cleanup source generator",
+        source_writer_go_effect_cleanup_source_generator,
+        "source_writer_go must be false",
+    )
+
+    body_emitted_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    body_emitted_effect_cleanup_source_generator["body_emitted"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "body_emitted true in scripted-effect/cleanup source generator",
+        body_emitted_effect_cleanup_source_generator,
+        "body_emitted must be false",
+    )
+
+    source_ready_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    source_ready_effect_cleanup_source_generator["source_ready"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "source_ready true in scripted-effect/cleanup source generator",
+        source_ready_effect_cleanup_source_generator,
+        "source_ready must be false",
+    )
+
+    implementation_ready_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    implementation_ready_effect_cleanup_source_generator["implementation_ready"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "implementation_ready true in scripted-effect/cleanup source generator",
+        implementation_ready_effect_cleanup_source_generator,
+        "implementation_ready must be false",
+    )
+
+    harness_generated_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    harness_generated_effect_cleanup_source_generator["harness_generated"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "harness_generated true in scripted-effect/cleanup source generator",
+        harness_generated_effect_cleanup_source_generator,
+        "harness_generated must be false",
     )
 
     alhambra_scripted_trigger_source_generator_interface = (
