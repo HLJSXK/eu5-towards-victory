@@ -8288,6 +8288,42 @@ def main() -> None:
             "Alhambra listener source generator interface artifact lost no-write linkage shape: "
             f"{listener_artifact}"
         )
+    listener_draft = listener_artifact.get("listener_source_body_draft")
+    if not isinstance(listener_draft, dict) or listener_draft.get("kind") != "listener_source_body_draft":
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact lost listener source-body draft: "
+            f"{listener_artifact}"
+        )
+    if (
+        listener_draft.get("artifact_kind") != "listener_war_integration"
+        or listener_draft.get("target_path") != listener_interface_target
+        or listener_draft.get("future_source_target_path") != listener_interface_target
+        or listener_draft.get("body_emitted") is not False
+        or listener_draft.get("may_write_src") is not False
+        or listener_draft.get("listener_body_allowed") is not False
+        or listener_draft.get("listener_scope_writes_allowed") is not False
+        or listener_draft.get("war_scope_writes_allowed") is not False
+        or set(listener_draft.get("on_action_hook_linkage_plan", {}).get("hooks", []))
+        != {"on_pre_winning_war", "on_ending_war"}
+        or listener_draft.get("war_scope_contract", {}).get("persistence_contract_only") is not True
+        or set(listener_draft.get("war_scope_contract", {}).get("war_scope_available_from_hooks", []))
+        != {"on_pre_winning_war", "on_ending_war"}
+        or listener_draft.get("selected_ritual_trigger_refs", {}).get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+        or listener_draft.get("selected_ritual_trigger_refs", {}).get("all_bound") is not True
+        or listener_draft.get("event_effect_cleanup_handoff_refs", {}).get("all_bound") is not True
+    ):
+        raise AssertionError(
+            "Alhambra listener source-body draft lost hook/war-scope/trigger/handoff binding: "
+            f"{listener_draft}"
+        )
+    for ref_label in ("event", "trigger", "effect", "cleanup"):
+        refs = listener_draft.get("event_effect_cleanup_handoff_refs", {}).get(f"{ref_label}_refs")
+        if not isinstance(refs, list) or not refs:
+            raise AssertionError(
+                "Alhambra listener source-body draft lost "
+                f"{ref_label} handoff refs: {listener_draft}"
+            )
     if listener_validation_pack.get("target_path") != listener_interface_target:
         raise AssertionError(f"Alhambra listener validation pack target changed: {listener_validation_pack}")
 
@@ -8362,6 +8398,83 @@ def main() -> None:
         "war-scope boundary",
     )
 
+    missing_listener_draft_interface = deepcopy(alhambra_listener_source_generator_interface)
+    del _alhambra_listener_source_file_contract_artifact(
+        missing_listener_draft_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener source-body draft",
+        missing_listener_draft_interface,
+        "missing listener source-body draft",
+    )
+
+    missing_listener_draft_hook_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        missing_listener_draft_hook_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["on_action_hook_linkage_plan"]["hooks"] = ["on_pre_winning_war"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener draft hook",
+        missing_listener_draft_hook_interface,
+        "hook linkage",
+    )
+
+    wrong_listener_draft_war_scope_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        wrong_listener_draft_war_scope_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["war_scope_contract"]["war_scope_writes_allowed"] = True
+    assert_alhambra_listener_source_generator_interface_error(
+        "wrong listener draft war scope",
+        wrong_listener_draft_war_scope_interface,
+        "war scope contract mismatch",
+    )
+
+    unbound_listener_draft_effect_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        unbound_listener_draft_effect_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["event_effect_cleanup_handoff_refs"]["effect_refs"] = []
+    assert_alhambra_listener_source_generator_interface_error(
+        "unbound listener draft effect refs",
+        unbound_listener_draft_effect_interface,
+        "effect refs must not be empty",
+    )
+
+    wrong_listener_draft_target_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        wrong_listener_draft_target_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["target_path"] = "src/in_game/common/on_action/forged.txt"
+    assert_alhambra_listener_source_generator_interface_error(
+        "wrong listener draft target",
+        wrong_listener_draft_target_interface,
+        "target path mismatch",
+    )
+
+    body_emitted_listener_draft_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        body_emitted_listener_draft_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["body_emitted"] = True
+    assert_alhambra_listener_source_generator_interface_error(
+        "body-emitted listener draft",
+        body_emitted_listener_draft_interface,
+        "body_emitted must be false",
+    )
+
+    may_write_listener_draft_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        may_write_listener_draft_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["may_write_src"] = True
+    assert_alhambra_listener_source_generator_interface_error(
+        "writable listener draft",
+        may_write_listener_draft_interface,
+        "may_write_src must be false",
+    )
+
     forged_ref_listener_interface = deepcopy(alhambra_listener_source_generator_interface)
     _alhambra_listener_source_file_contract_artifact(
         forged_ref_listener_interface,
@@ -8392,10 +8505,15 @@ def main() -> None:
             source_file_validation_evidence=external_evidence_forged_listener_validation,
         )
     )
-    if external_evidence_forged_listener_interface["validation_errors"]:
+    if not any(
+        "listener source-body draft" in error
+        or "refs must not be empty" in error
+        or "source-body draft completeness" in error
+        for error in external_evidence_forged_listener_interface["validation_errors"]
+    ):
         raise AssertionError(
-            "Externally forged Alhambra listener interface should stay self-consistent before "
-            "the original validation evidence is applied: "
+            "Externally forged Alhambra listener interface should fail its own source-body "
+            "draft binding before the original validation evidence is applied: "
             f"{external_evidence_forged_listener_interface['validation_errors']}"
         )
     assert_alhambra_listener_source_generator_interface_error(
@@ -8845,6 +8963,22 @@ def main() -> None:
         "localization": 20,
     }:
         raise AssertionError(f"Alhambra bundle interface group counts changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("source_body_draft_artifact_counts") != {
+        "event": 8,
+        "scripted_effect_cleanup": 18,
+        "trigger": 6,
+        "gui": 2,
+        "listener": 1,
+        "localization": 20,
+    }:
+        raise AssertionError(f"Alhambra bundle source-body draft counts changed: {bundle_gate_summary}")
+    source_body_draft_gate = bundle_gate_summary.get("source_body_draft_completeness_gate", {})
+    if (
+        source_body_draft_gate.get("all_source_body_draft_groups_complete") is not True
+        or source_body_draft_gate.get("source_body_draft_count") != 55
+        or source_body_draft_gate.get("missing_source_body_draft_groups") != []
+    ):
+        raise AssertionError(f"Alhambra bundle source-body draft completeness changed: {bundle_gate_summary}")
     if bundle_gate_summary.get("target_artifact_counts") != {
         alhambra_file_targets["event"]: 8,
         alhambra_file_targets["effect_cleanup"]: 18,
@@ -8926,6 +9060,16 @@ def main() -> None:
         "listener linkage missing",
         missing_bundle_listener_linkage,
         "listener linkage missing",
+    )
+
+    missing_bundle_listener_draft = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    del missing_bundle_listener_draft["interface_reports"]["listener"]["source_file_contract_artifacts"][0][
+        "listener_source_body_draft"
+    ]
+    assert_alhambra_bundle_gate_error(
+        "listener source-body draft missing",
+        missing_bundle_listener_draft,
+        "source-body draft completeness",
     )
 
     merged_bundle_localization_targets = deepcopy(alhambra_source_generator_interface_bundle_gate)
@@ -10666,6 +10810,28 @@ def main() -> None:
     }:
         raise AssertionError(
             "Alhambra source generator interface bundle gate family counts changed: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    if alhambra_bundle_gate_summary["source_body_draft_artifact_counts"] != {
+        "event": 8,
+        "scripted_effect_cleanup": 18,
+        "trigger": 6,
+        "gui": 2,
+        "listener": 1,
+        "localization": 20,
+    }:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate source-body draft counts changed: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    audit_source_body_draft_gate = alhambra_bundle_gate_summary["source_body_draft_completeness_gate"]
+    if (
+        audit_source_body_draft_gate["all_source_body_draft_groups_complete"] is not True
+        or audit_source_body_draft_gate["source_body_draft_count"] != 55
+        or audit_source_body_draft_gate["missing_source_body_draft_groups"] != []
+    ):
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate source-body draft completeness changed: "
             f"{alhambra_bundle_gate_summary}"
         )
     if (

@@ -3982,6 +3982,14 @@ REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_GENERATOR_INTERFACE_REQUIRED_FIELDS
     "may_write_src",
     "writes_src",
 }
+REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_KEY_BY_INTERFACE_GROUP = {
+    "event": "event_source_body_draft",
+    "scripted_effect_cleanup": "scripted_effect_cleanup_source_body_draft",
+    "trigger": "scripted_trigger_source_body_draft",
+    "gui": "gui_source_body_draft",
+    "listener": "listener_source_body_draft",
+    "localization": "localization_source_body_draft",
+}
 REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED_FIELDS = {
     "artifact_key",
     "artifact_index",
@@ -4305,11 +4313,41 @@ REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_FILE_CONTRACT_ARTIFACT_REQUIRED_FIE
     "selected_ritual_trigger_linkage",
     "war_scope_availability_persistence_plan",
     "row_state_handoff_boundary",
+    "listener_source_body_draft",
     "listener_body_allowed",
     "listener_scope_writes_allowed",
     "war_scope_writes_allowed",
     "source_writes_allowed",
     "no_write_source_writer_contract_evidence",
+}
+REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_BODY_DRAFT_REQUIRED_FIELDS = {
+    "kind",
+    "draft_version",
+    "pilot_key",
+    "family",
+    "artifact_kind",
+    "row_set_key",
+    "target_path",
+    "future_source_target_path",
+    "source_type",
+    "on_action_hook_linkage_plan",
+    "war_scope_contract",
+    "selected_ritual_trigger_refs",
+    "event_effect_cleanup_handoff_refs",
+    "source_body_outline",
+    "source_body_candidate_ref_key",
+    "output_is_loadable_source",
+    "body_emitted",
+    "source_ready",
+    "verified",
+    "backend_ready",
+    "source_writer_allowed",
+    "may_write_src",
+    "writes_src",
+    "listener_body_allowed",
+    "listener_scope_writes_allowed",
+    "war_scope_writes_allowed",
+    "source_writes_allowed",
 }
 REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_REQUIRED_FIELDS = {
     "target_path",
@@ -15211,6 +15249,148 @@ def _alhambra_listener_linkage_evidence_from_contract(contract: dict[str, Any]) 
     return deepcopy(contract.get("listener_linkage_contract", {}) or {})
 
 
+def _alhambra_listener_source_body_draft(
+    *,
+    ref: dict[str, Any],
+    contract: dict[str, Any],
+    target_path: str,
+    source_generator_contract: dict[str, Any] | None,
+) -> dict[str, Any]:
+    artifact_kind = str(ref.get("artifact_kind", ""))
+    row_set_key = str(ref.get("row_set_key", ""))
+    listener_linkage_evidence = _alhambra_listener_linkage_evidence_from_contract(contract)
+    hook_plan = deepcopy(listener_linkage_evidence.get("on_action_hook_linkage_plan", {}) or {})
+    selected_ritual_trigger_linkage = deepcopy(
+        listener_linkage_evidence.get("selected_ritual_trigger_linkage", {}) or {}
+    )
+    war_scope_plan = deepcopy(
+        listener_linkage_evidence.get("war_scope_availability_persistence_plan", {}) or {}
+    )
+    contract_refs = _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract)
+    event_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"event"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_ALHAMBRA_EVENT_SOURCE_BODY_DRAFT_STAGE_BY_ARTIFACT_KIND),
+    )
+    trigger_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"trigger"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_ALHAMBRA_SCRIPTED_TRIGGER_SOURCE_BODY_DRAFT_GROUP_BY_ARTIFACT_KIND),
+    )
+    effect_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"effect"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["effect"]),
+    )
+    cleanup_refs = _alhambra_event_source_body_draft_handoff_refs(
+        refs=contract_refs,
+        row_set_key=row_set_key,
+        families={"cleanup"},
+        artifact_kinds=tuple(REPEATED_ENTITY_ROW_SOURCE_PLAN_KIND_GROUPS["cleanup"]),
+    )
+    hooks = _string_refs(hook_plan.get("hooks"))
+    war_scope_hooks = _string_refs(war_scope_plan.get("war_scope_available_from_hooks"))
+    return {
+        "kind": "listener_source_body_draft",
+        "draft_version": 1,
+        "pilot_key": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT,
+        "family": REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_GENERATOR_INTERFACE_FAMILY,
+        "artifact_kind": artifact_kind,
+        "row_set_key": row_set_key,
+        "target_path": target_path,
+        "future_source_target_path": str(ref.get("future_source_target_path", "")),
+        "source_type": "on_action_listener",
+        "on_action_hook_linkage_plan": {
+            "hooks": hooks,
+            "required_hooks": ["on_pre_winning_war", "on_ending_war"],
+            "hook_source": "listener_linkage_contract",
+            "linkage_only": hook_plan.get("linkage_only") is True,
+            "body_emitted": False,
+            "source_writer_allowed": False,
+            "may_write_src": False,
+            "writes_src": False,
+        },
+        "war_scope_contract": {
+            "war_scope_available_from_hooks": war_scope_hooks,
+            "persistence_contract_only": war_scope_plan.get("persistence_contract_only") is True,
+            "listener_scope_writes_allowed": war_scope_plan.get("listener_scope_writes_allowed") is True,
+            "war_scope_writes_allowed": war_scope_plan.get("war_scope_writes_allowed") is True,
+            "war_scope_persistence_writer_allowed": False,
+            "body_emitted": False,
+            "source_writer_allowed": False,
+            "may_write_src": False,
+            "writes_src": False,
+        },
+        "selected_ritual_trigger_refs": {
+            "trigger_name": str(selected_ritual_trigger_linkage.get("trigger_name", "")),
+            "selected_ritual_only": selected_ritual_trigger_linkage.get("selected_ritual_only") is True,
+            "linkage_only": selected_ritual_trigger_linkage.get("linkage_only") is True,
+            "trigger_refs": deepcopy(trigger_refs),
+            "trigger_ref_count": len(trigger_refs),
+            "all_bound": bool(selected_ritual_trigger_linkage.get("trigger_name") and trigger_refs),
+            "unbound_refs": [],
+            "body_emitted": False,
+            "source_writer_allowed": False,
+            "may_write_src": False,
+            "writes_src": False,
+        },
+        "event_effect_cleanup_handoff_refs": {
+            "row_set_key": row_set_key,
+            "event_refs": deepcopy(event_refs),
+            "trigger_refs": deepcopy(trigger_refs),
+            "effect_refs": deepcopy(effect_refs),
+            "cleanup_refs": deepcopy(cleanup_refs),
+            "event_ref_count": len(event_refs),
+            "trigger_ref_count": len(trigger_refs),
+            "effect_ref_count": len(effect_refs),
+            "cleanup_ref_count": len(cleanup_refs),
+            "handoff_only": True,
+            "all_bound": bool(event_refs and trigger_refs and effect_refs and cleanup_refs),
+            "unbound_refs": [],
+            "inline_on_action_body_allowed": False,
+            "inline_effect_body_allowed": False,
+            "inline_cleanup_body_allowed": False,
+            "row_state_writes_allowed": False,
+            "body_emitted": False,
+            "source_writer_allowed": False,
+            "may_write_src": False,
+            "writes_src": False,
+        },
+        "source_body_outline": {
+            "declaration_ref": "listener_war_integration.on_action_bridge",
+            "source_type": "on_action_listener",
+            "target_path": target_path,
+            "row_set_key": row_set_key,
+            "hook_count": len(hooks),
+            "hook_names": hooks,
+            "selected_ritual_trigger_name": str(selected_ritual_trigger_linkage.get("trigger_name", "")),
+            "event_ref_count": len(event_refs),
+            "trigger_ref_count": len(trigger_refs),
+            "effect_ref_count": len(effect_refs),
+            "cleanup_ref_count": len(cleanup_refs),
+            "inline_body_emitted": False,
+            "body_emitted": False,
+            "on_action_body_emitted": False,
+        },
+        "source_body_candidate_ref_key": _alhambra_listener_source_body_candidate_ref_key(ref),
+        "output_is_loadable_source": False,
+        "body_emitted": False,
+        "source_ready": False,
+        "verified": False,
+        "backend_ready": False,
+        "source_writer_allowed": False,
+        "may_write_src": False,
+        "writes_src": False,
+        "listener_body_allowed": False,
+        "listener_scope_writes_allowed": False,
+        "war_scope_writes_allowed": False,
+        "source_writes_allowed": False,
+    }
+
+
 def _alhambra_listener_source_generator_interface_prototype(
     *,
     contract: dict[str, Any],
@@ -15275,6 +15455,7 @@ def _alhambra_listener_source_file_contract_artifact(
     contract: dict[str, Any],
     validation_pack: dict[str, Any],
     source_generator_contract_ref: dict[str, Any],
+    source_generator_contract: dict[str, Any] | None,
 ) -> dict[str, Any]:
     target_path = REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_GENERATOR_INTERFACE_TARGET_PATH
     listener_linkage_evidence = _alhambra_listener_linkage_evidence_from_contract(contract)
@@ -15337,6 +15518,12 @@ def _alhambra_listener_source_file_contract_artifact(
         "row_state_handoff_boundary": deepcopy(
             structured_body_candidate.get("row_state_handoff_boundary", {}) or {}
         ),
+        "listener_source_body_draft": _alhambra_listener_source_body_draft(
+            ref=ref,
+            contract=contract,
+            target_path=target_path,
+            source_generator_contract=source_generator_contract,
+        ),
         "listener_body_allowed": False,
         "listener_scope_writes_allowed": False,
         "war_scope_writes_allowed": False,
@@ -15389,6 +15576,7 @@ def repeated_entity_row_alhambra_listener_source_generator_interface_for_payload
             contract=contract,
             validation_pack=validation_pack,
             source_generator_contract_ref=source_generator_contract_ref,
+            source_generator_contract=source_generator_contract,
         )
         for index, ref in enumerate(refs)
     ]
@@ -19166,6 +19354,197 @@ def validate_repeated_entity_row_alhambra_gui_source_generator_interface(
     return errors
 
 
+def _validate_alhambra_listener_source_body_draft(
+    *,
+    context: str,
+    artifact: dict[str, Any],
+    draft: Any,
+    contract_ref_keys: set[tuple[str, str, str, str]],
+    evidence_ref_keys: set[tuple[str, str, str, str]],
+    errors: list[str],
+) -> None:
+    if not isinstance(draft, dict):
+        errors.append(f"{context} missing listener source-body draft")
+        return
+    missing = _missing_required(
+        draft,
+        REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_BODY_DRAFT_REQUIRED_FIELDS,
+    )
+    if missing:
+        errors.append(f"{context} listener source-body draft missing field(s): {', '.join(missing)}")
+        return
+
+    artifact_kind = str(artifact.get("artifact_kind", ""))
+    row_set_key = str(artifact.get("row_set_key", ""))
+    target_path = str(artifact.get("target_path", ""))
+    if draft.get("kind") != "listener_source_body_draft":
+        errors.append(f"{context} listener source-body draft kind mismatch")
+    if draft.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
+        errors.append(f"{context} listener source-body draft pilot_key must be unique_alhambra")
+    if draft.get("family") != REPEATED_ENTITY_ROW_ALHAMBRA_LISTENER_SOURCE_GENERATOR_INTERFACE_FAMILY:
+        errors.append(f"{context} listener source-body draft family must be listener")
+    if draft.get("artifact_kind") != artifact_kind:
+        errors.append(f"{context} listener source-body draft artifact_kind mismatch")
+    if artifact_kind != "listener_war_integration":
+        errors.append(f"{context} listener source-body draft artifact_kind must be listener_war_integration")
+    if draft.get("row_set_key") != row_set_key or row_set_key not in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_ROW_SETS:
+        errors.append(f"{context} listener source-body draft row_set_key mismatch")
+    if draft.get("target_path") != target_path or draft.get("future_source_target_path") != target_path:
+        errors.append(f"{context} listener source-body draft target path mismatch")
+    if draft.get("source_type") != "on_action_listener":
+        errors.append(f"{context} listener source-body draft source_type must be on_action_listener")
+    if draft.get("source_body_candidate_ref_key") != _alhambra_listener_source_body_candidate_ref_key(
+        artifact.get("source_body_candidate_ref") if isinstance(artifact.get("source_body_candidate_ref"), dict) else {}
+    ):
+        errors.append(f"{context} listener source-body draft source ref key mismatch")
+    for flag in (
+        "output_is_loadable_source",
+        "body_emitted",
+        "source_ready",
+        "verified",
+        "backend_ready",
+        "source_writer_allowed",
+        "may_write_src",
+        "writes_src",
+        "listener_body_allowed",
+        "listener_scope_writes_allowed",
+        "war_scope_writes_allowed",
+        "source_writes_allowed",
+    ):
+        if draft.get(flag) is not False:
+            errors.append(f"{context} listener source-body draft {flag} must be false")
+
+    hook_plan = draft.get("on_action_hook_linkage_plan")
+    expected_hooks = {"on_pre_winning_war", "on_ending_war"}
+    if not isinstance(hook_plan, dict):
+        errors.append(f"{context} listener source-body draft hook linkage must cover required hooks")
+    else:
+        hooks = set(_string_refs(hook_plan.get("hooks")))
+        required_hooks = set(_string_refs(hook_plan.get("required_hooks")))
+        if (
+            hooks != expected_hooks
+            or required_hooks != expected_hooks
+            or hook_plan.get("linkage_only") is not True
+            or hook_plan.get("body_emitted") is not False
+            or hook_plan.get("source_writer_allowed") is not False
+            or hook_plan.get("may_write_src") is not False
+            or hook_plan.get("writes_src") is not False
+        ):
+            errors.append(f"{context} listener source-body draft hook linkage must cover required hooks")
+
+    war_scope = draft.get("war_scope_contract")
+    if not isinstance(war_scope, dict):
+        errors.append(f"{context} listener source-body draft war scope contract mismatch")
+    else:
+        war_scope_hooks = set(_string_refs(war_scope.get("war_scope_available_from_hooks")))
+        if (
+            war_scope_hooks != expected_hooks
+            or war_scope.get("persistence_contract_only") is not True
+            or war_scope.get("listener_scope_writes_allowed") is not False
+            or war_scope.get("war_scope_writes_allowed") is not False
+            or war_scope.get("war_scope_persistence_writer_allowed") is not False
+            or war_scope.get("body_emitted") is not False
+            or war_scope.get("source_writer_allowed") is not False
+            or war_scope.get("may_write_src") is not False
+            or war_scope.get("writes_src") is not False
+        ):
+            errors.append(f"{context} listener source-body draft war scope contract mismatch")
+
+    selected_trigger = draft.get("selected_ritual_trigger_refs")
+    if not isinstance(selected_trigger, dict):
+        errors.append(f"{context} listener source-body draft selected ritual trigger refs must be bound")
+    else:
+        if (
+            selected_trigger.get("trigger_name")
+            != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+            or selected_trigger.get("selected_ritual_only") is not True
+            or selected_trigger.get("linkage_only") is not True
+            or selected_trigger.get("all_bound") is not True
+            or selected_trigger.get("unbound_refs")
+            or selected_trigger.get("body_emitted") is not False
+            or selected_trigger.get("source_writer_allowed") is not False
+            or selected_trigger.get("may_write_src") is not False
+            or selected_trigger.get("writes_src") is not False
+        ):
+            errors.append(f"{context} listener source-body draft selected ritual trigger refs must be bound")
+        trigger_refs = selected_trigger.get("trigger_refs")
+        if isinstance(trigger_refs, list) and selected_trigger.get("trigger_ref_count") != len(trigger_refs):
+            errors.append(f"{context} listener source-body draft selected ritual trigger refs must be bound")
+        _validate_alhambra_source_body_draft_refs(
+            context=context,
+            draft_kind="listener source-body draft",
+            label="selected ritual trigger",
+            refs=trigger_refs,
+            expected_families={"trigger"},
+            contract_ref_keys=contract_ref_keys,
+            evidence_ref_keys=evidence_ref_keys,
+            errors=errors,
+            expected_row_set_key=row_set_key,
+        )
+
+    handoff = draft.get("event_effect_cleanup_handoff_refs")
+    if not isinstance(handoff, dict):
+        errors.append(f"{context} listener source-body draft trigger/effect/cleanup refs must be bound")
+    else:
+        if (
+            handoff.get("row_set_key") != row_set_key
+            or handoff.get("handoff_only") is not True
+            or handoff.get("all_bound") is not True
+            or handoff.get("unbound_refs")
+            or handoff.get("inline_on_action_body_allowed") is not False
+            or handoff.get("inline_effect_body_allowed") is not False
+            or handoff.get("inline_cleanup_body_allowed") is not False
+            or handoff.get("row_state_writes_allowed") is not False
+            or handoff.get("body_emitted") is not False
+            or handoff.get("source_writer_allowed") is not False
+            or handoff.get("may_write_src") is not False
+            or handoff.get("writes_src") is not False
+        ):
+            errors.append(f"{context} listener source-body draft trigger/effect/cleanup refs must be bound")
+        for label, families in (
+            ("event", {"event"}),
+            ("trigger", {"trigger"}),
+            ("effect", {"effect"}),
+            ("cleanup", {"cleanup"}),
+        ):
+            refs = handoff.get(f"{label}_refs")
+            if isinstance(refs, list) and handoff.get(f"{label}_ref_count") != len(refs):
+                errors.append(f"{context} listener source-body draft {label} refs must be bound")
+            _validate_alhambra_source_body_draft_refs(
+                context=context,
+                draft_kind="listener source-body draft",
+                label=label,
+                refs=refs,
+                expected_families=families,
+                contract_ref_keys=contract_ref_keys,
+                evidence_ref_keys=evidence_ref_keys,
+                errors=errors,
+                expected_row_set_key=row_set_key,
+            )
+
+    outline = draft.get("source_body_outline")
+    if not isinstance(outline, dict):
+        errors.append(f"{context} listener source-body draft missing source body outline")
+    elif (
+        outline.get("declaration_ref") != "listener_war_integration.on_action_bridge"
+        or outline.get("source_type") != "on_action_listener"
+        or outline.get("target_path") != target_path
+        or outline.get("row_set_key") != row_set_key
+        or set(_string_refs(outline.get("hook_names"))) != expected_hooks
+        or int(outline.get("hook_count", -1)) != 2
+        or outline.get("selected_ritual_trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+        or int(outline.get("event_ref_count", 0)) <= 0
+        or int(outline.get("trigger_ref_count", 0)) <= 0
+        or int(outline.get("effect_ref_count", 0)) <= 0
+        or int(outline.get("cleanup_ref_count", 0)) <= 0
+        or outline.get("inline_body_emitted") is not False
+        or outline.get("body_emitted") is not False
+        or outline.get("on_action_body_emitted") is not False
+    ):
+        errors.append(f"{context} listener source-body draft source body outline mismatch")
+
+
 def validate_repeated_entity_row_alhambra_listener_source_generator_interface(
     report: dict[str, Any],
     *,
@@ -19302,6 +19681,7 @@ def validate_repeated_entity_row_alhambra_listener_source_generator_interface(
             contract=expected_contract,
             validation_pack=external_pack,
             source_generator_contract_ref=source_generator_contract_ref,
+            source_generator_contract=source_generator_contract,
         )
         for index, ref in enumerate(expected_refs)
     ] if expected_contract and external_pack else []
@@ -19315,6 +19695,12 @@ def validate_repeated_entity_row_alhambra_listener_source_generator_interface(
         else {}
     )
     expected_listener_linkage = _alhambra_listener_linkage_evidence_from_contract(expected_contract)
+    contract_ref_keys = _alhambra_source_body_candidate_ref_key_set(
+        _alhambra_source_body_candidate_refs_from_generator_contract(source_generator_contract)
+    )
+    evidence_ref_keys = _alhambra_source_body_candidate_ref_key_set(
+        _alhambra_source_body_candidate_refs_from_validation_evidence(source_file_validation_evidence)
+    )
 
     artifacts = report.get("source_file_contract_artifacts")
     if not isinstance(artifacts, list):
@@ -19398,6 +19784,8 @@ def validate_repeated_entity_row_alhambra_listener_source_generator_interface(
         )
         if missing:
             errors.append(f"{context} missing field(s): {', '.join(missing)}")
+            if "listener_source_body_draft" in missing:
+                errors.append(f"{context} missing listener source-body draft")
             continue
         if artifact.get("pilot_key") != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_CANDIDATE_PILOT:
             errors.append(f"{context} pilot_key must be unique_alhambra")
@@ -19473,6 +19861,14 @@ def validate_repeated_entity_row_alhambra_listener_source_generator_interface(
         _validate_alhambra_source_file_validation_listener_linkage(
             context=context,
             linkage=artifact.get("listener_linkage_evidence_ref"),
+            errors=errors,
+        )
+        _validate_alhambra_listener_source_body_draft(
+            context=context,
+            artifact=artifact,
+            draft=artifact.get("listener_source_body_draft"),
+            contract_ref_keys=contract_ref_keys,
+            evidence_ref_keys=evidence_ref_keys,
             errors=errors,
         )
         if expected_contract:
@@ -20259,6 +20655,21 @@ def _alhambra_source_generator_interface_bundle_artifacts_by_group(
     return artifacts_by_group
 
 
+def _alhambra_source_generator_interface_bundle_source_body_draft_counts(
+    artifacts_by_group: dict[str, list[dict[str, Any]]],
+) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for group in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS:
+        draft_key = REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_KEY_BY_INTERFACE_GROUP[group]
+        counts[group] = sum(
+            1
+            for artifact in artifacts_by_group.get(group, [])
+            if isinstance(artifact.get(draft_key), dict)
+            and artifact.get(draft_key, {}).get("kind") == draft_key
+        )
+    return counts
+
+
 def _alhambra_source_generator_interface_bundle_summary(
     interface_reports: dict[str, Any],
     *,
@@ -20273,6 +20684,28 @@ def _alhambra_source_generator_interface_bundle_summary(
     group_artifact_counts = {
         group: len(artifacts_by_group[group])
         for group in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS
+    }
+    source_body_draft_counts = _alhambra_source_generator_interface_bundle_source_body_draft_counts(
+        artifacts_by_group
+    )
+    source_body_draft_completeness_gate = {
+        "required_interface_groups": list(REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS),
+        "required_draft_keys_by_group": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_KEY_BY_INTERFACE_GROUP
+        ),
+        "expected_source_body_draft_counts": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP
+        ),
+        "source_body_draft_counts": source_body_draft_counts,
+        "source_body_draft_count": sum(source_body_draft_counts.values()),
+        "all_source_body_draft_groups_complete": source_body_draft_counts
+        == REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP,
+        "missing_source_body_draft_groups": [
+            group
+            for group in REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_GROUPS
+            if source_body_draft_counts.get(group, 0)
+            != REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP[group]
+        ],
     }
     target_artifact_counts = _count_by_key(artifacts, "target_path")
     expected_target_artifact_counts = _alhambra_source_generator_interface_bundle_expected_target_counts(
@@ -20293,6 +20726,9 @@ def _alhambra_source_generator_interface_bundle_summary(
         "report_only_artifact_count": report_only_artifact_count,
         "expected_artifact_count": REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNT,
         "interface_group_artifact_counts": group_artifact_counts,
+        "source_body_draft_artifact_counts": source_body_draft_counts,
+        "source_body_draft_count": source_body_draft_completeness_gate["source_body_draft_count"],
+        "source_body_draft_completeness_gate": source_body_draft_completeness_gate,
         "target_artifact_counts": target_artifact_counts,
         "expected_target_artifact_counts": expected_target_artifact_counts,
         "source_ready_count": sum(1 for artifact in artifacts if artifact.get("source_ready") is True),
@@ -20423,6 +20859,7 @@ def repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payl
             REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP
         ),
         "expected_target_artifact_counts": summary["expected_target_artifact_counts"],
+        "source_body_draft_completeness_gate": summary["source_body_draft_completeness_gate"],
         "summary": summary,
         "interface_group_count": summary["interface_group_count"],
         "target_file_count": summary["target_file_count"],
@@ -20666,6 +21103,36 @@ def validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate
         errors.append(
             "Alhambra source generator interface bundle gate artifact count mismatch by interface group: "
             f"{actual_group_counts}"
+        )
+    actual_source_body_draft_counts = _alhambra_source_generator_interface_bundle_source_body_draft_counts(
+        artifacts_by_group
+    )
+    expected_source_body_draft_counts = dict(
+        REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_ARTIFACT_COUNTS_BY_GROUP
+    )
+    expected_source_body_draft_gate = {
+        "required_interface_groups": expected_groups,
+        "required_draft_keys_by_group": dict(
+            REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_BODY_DRAFT_KEY_BY_INTERFACE_GROUP
+        ),
+        "expected_source_body_draft_counts": expected_source_body_draft_counts,
+        "source_body_draft_counts": actual_source_body_draft_counts,
+        "source_body_draft_count": sum(actual_source_body_draft_counts.values()),
+        "all_source_body_draft_groups_complete": (
+            actual_source_body_draft_counts == expected_source_body_draft_counts
+        ),
+        "missing_source_body_draft_groups": [
+            group
+            for group in expected_groups
+            if actual_source_body_draft_counts.get(group, 0) != expected_source_body_draft_counts[group]
+        ],
+    }
+    if report.get("source_body_draft_completeness_gate") != expected_source_body_draft_gate:
+        errors.append("Alhambra source generator interface bundle gate source-body draft completeness gate mismatch")
+    if actual_source_body_draft_counts != expected_source_body_draft_counts:
+        errors.append(
+            "Alhambra source generator interface bundle gate source-body draft completeness missing "
+            f"draft(s): {actual_source_body_draft_counts}"
         )
     for group, expected_targets in (
         REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_GENERATOR_INTERFACE_BUNDLE_TARGET_PATHS_BY_GROUP.items()
