@@ -1,6 +1,6 @@
-from . import hagia, pharos
+from . import alhambra, hagia, pharos
 
-UNIQUE_RITUAL_PLUGINS = (pharos, hagia)
+UNIQUE_RITUAL_PLUGINS = (pharos, hagia, alhambra)
 
 
 def iter_unique_ritual_plugins():

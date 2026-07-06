@@ -71,6 +71,28 @@ def _print_repeated_entity_row_source_plan(source_plan: dict) -> None:
         )
 
 
+def _print_alhambra_source_writer_gate(gate: dict) -> None:
+    summary = gate.get("summary", {})
+    print("Alhambra source-writer gate:")
+    print(f"  Decision: {gate.get('decision')}")
+    print(
+        "  Generator implementation go: "
+        f"{gate.get('can_enter_first_real_generator_implementation')}"
+    )
+    print(f"  Source writer go: {gate.get('source_writer_go')}")
+    print(f"  May write src: {gate.get('may_write_src')}")
+    print(
+        "  Target checks: "
+        f"{summary.get('passed_target_file_count')}/{summary.get('target_file_count')}"
+    )
+    print(f"  Generator blockers: {gate.get('generator_implementation_blockers', [])}")
+    print(f"  Source-writer blockers: {gate.get('source_writer_blockers', [])}")
+    print(
+        "  EU5 exact syntax risk count: "
+        f"{summary.get('eu5_exact_syntax_risk_count')}"
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON.")
@@ -117,6 +139,7 @@ def main() -> None:
         print(f"Node kind summary: {summary['node_kind_summary']}")
         _print_repeated_entity_row_preflight(summary["repeated_entity_row_preflight"])
         _print_repeated_entity_row_source_plan(summary["repeated_entity_row_source_plan"])
+        _print_alhambra_source_writer_gate(summary["repeated_entity_row_alhambra_source_writer_gate"])
         print(f"Graph reachable nodes: {summary['graph_reachable_count']}")
         print(f"Graph unreachable nodes: {summary['graph_unreachable_count']}")
         print(f"Lifecycle error count: {summary['lifecycle_error_count']}")

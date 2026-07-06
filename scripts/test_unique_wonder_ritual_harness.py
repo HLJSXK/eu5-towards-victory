@@ -13,6 +13,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from gen_unique_wonder_ritual_code import (  # noqa: E402
     CodegenError,
+    generate_alhambra_source_targets_for_payload,
     generate_fragments_for_payload,
 )
 from wonder_unique_ritual_harness import (  # noqa: E402
@@ -40,6 +41,18 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_fil
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_contract_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_trigger_source_generator_interface_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_gui_source_generator_interface_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_listener_source_generator_interface_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_localization_source_generator_interface_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_serialization_preview_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_writer_gate_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_source_generator_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_event_localization_source_generator_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_scripted_trigger_source_generator_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_reviewable_source_targets_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -50,6 +63,17 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_s
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_contract  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_event_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_trigger_source_generator_interface  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_gui_source_generator_interface  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_listener_source_generator_interface  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_localization_source_generator_interface  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_serialization_preview  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_writer_gate  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_event_source_generator  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_scripted_trigger_source_generator  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_reviewable_source_targets  # noqa: E402
 
 
 WONDER = {
@@ -1713,6 +1737,20 @@ def _alhambra_source_file_preview(report: dict, target_path: str) -> dict:
     raise AssertionError(f"Alhambra source file preview has no target {target_path}")
 
 
+def _alhambra_source_serialization_preview(report: dict, target_path: str) -> dict:
+    for preview in report.get("source_text_previews", []) or []:
+        if preview.get("target_path") == target_path:
+            return preview
+    raise AssertionError(f"Alhambra source serialization preview has no target {target_path}")
+
+
+def _alhambra_source_writer_gate_check(report: dict, target_path: str) -> dict:
+    for check in report.get("target_file_checks", []) or []:
+        if check.get("target_path") == target_path:
+            return check
+    raise AssertionError(f"Alhambra source writer gate has no target {target_path}")
+
+
 def _alhambra_source_file_validation_pack(report: dict, target_path: str) -> dict:
     for pack in report.get("evidence_packs", []) or []:
         if pack.get("target_path") == target_path:
@@ -1743,6 +1781,41 @@ def _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
             return artifact
     raise AssertionError(
         f"Alhambra scripted-effect/cleanup source generator interface has no artifact {artifact_kind}"
+    )
+
+
+def _alhambra_scripted_trigger_source_file_contract_artifact(report: dict, artifact_kind: str) -> dict:
+    for artifact in report.get("source_file_contract_artifacts", []) or []:
+        if artifact.get("artifact_kind") == artifact_kind:
+            return artifact
+    raise AssertionError(f"Alhambra scripted-trigger source generator interface has no artifact {artifact_kind}")
+
+
+def _alhambra_gui_source_file_contract_artifact(report: dict, artifact_kind: str) -> dict:
+    for artifact in report.get("source_file_contract_artifacts", []) or []:
+        if artifact.get("artifact_kind") == artifact_kind:
+            return artifact
+    raise AssertionError(f"Alhambra GUI source generator interface has no artifact {artifact_kind}")
+
+
+def _alhambra_listener_source_file_contract_artifact(report: dict, artifact_kind: str) -> dict:
+    for artifact in report.get("source_file_contract_artifacts", []) or []:
+        if artifact.get("artifact_kind") == artifact_kind:
+            return artifact
+    raise AssertionError(f"Alhambra listener source generator interface has no artifact {artifact_kind}")
+
+
+def _alhambra_localization_source_file_contract_artifact(
+    report: dict,
+    target_path: str,
+    artifact_kind: str,
+) -> dict:
+    for artifact in report.get("source_file_contract_artifacts", []) or []:
+        if artifact.get("target_path") == target_path and artifact.get("artifact_kind") == artifact_kind:
+            return artifact
+    raise AssertionError(
+        "Alhambra localization source generator interface has no artifact "
+        f"{artifact_kind} for {target_path}"
     )
 
 
@@ -6576,6 +6649,105 @@ def main() -> None:
             raise AssertionError(
                 f"Alhambra event source generator interface artifact lost no-write contract shape: {artifact}"
             )
+    event_draft_ids: list[int] = []
+    event_draft_stage_counts: dict[str, int] = {}
+    all_contract_source_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for contract in alhambra_source_generator_contract.get("generator_contracts", []) or []
+        if isinstance(contract, dict)
+        for ref in contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    all_evidence_source_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for pack in alhambra_source_file_validation_evidence.get("evidence_packs", []) or []
+        if isinstance(pack, dict)
+        for ref in pack.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    for artifact in event_contract_artifacts:
+        draft = artifact.get("event_source_body_draft", {})
+        if not isinstance(draft, dict):
+            raise AssertionError(f"Alhambra event artifact missing source-body draft: {artifact}")
+        event_id = draft.get("event_id")
+        event_draft_ids.append(event_id)
+        stage = str(draft.get("event_stage", ""))
+        event_draft_stage_counts[stage] = event_draft_stage_counts.get(stage, 0) + 1
+        prefix = f"tv_engineering_department.{event_id}"
+        loc_refs = draft.get("localization_key_refs", {})
+        allocation = draft.get("event_id_allocation", {})
+        option_handoff = draft.get("option_handoff", {})
+        options = option_handoff.get("options", []) if isinstance(option_handoff, dict) else []
+        expected_slots = ("a", "b") if stage == "retry" else ("a",)
+        if (
+            draft.get("kind") != "event_source_body_draft"
+            or draft.get("event_type") != "country_event"
+            or draft.get("namespace") != "tv_engineering_department"
+            or draft.get("target_path") != event_interface_target
+            or draft.get("future_source_target_path") != event_interface_target
+            or draft.get("output_is_loadable_source") is not False
+            or draft.get("body_emitted") is not False
+            or draft.get("source_writer_allowed") is not False
+            or draft.get("may_write_src") is not False
+            or draft.get("writes_src") is not False
+            or not isinstance(loc_refs, dict)
+            or loc_refs.get("title_key") != f"{prefix}.t"
+            or loc_refs.get("desc_key") != f"{prefix}.d"
+            or loc_refs.get("all_bound") is not True
+            or loc_refs.get("unbound_keys") != []
+            or allocation.get("declared_source_event_id_window") != "unique_alhambra event_ids 7309-7316"
+            or tuple(option.get("option_slot") for option in options) != expected_slots
+        ):
+            raise AssertionError(f"Alhambra event source-body draft shape changed: {draft}")
+        for option in options:
+            if (
+                option.get("localization_key_ref") != f"{prefix}.{option.get('option_slot')}"
+                or option.get("handoff_only") is not True
+                or option.get("inline_effect_body_allowed") is not False
+                or option.get("inline_trigger_body_allowed") is not False
+                or option.get("body_emitted") is not False
+                or not option.get("effect_refs")
+                or not option.get("trigger_refs")
+            ):
+                raise AssertionError(f"Alhambra event option handoff draft changed: {option}")
+            option_effect_ref_keys = {
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+                for ref in option.get("effect_refs", []) or []
+                if isinstance(ref, dict)
+            }
+            option_trigger_ref_keys = {
+                (
+                    str(ref.get("family", "")),
+                    str(ref.get("row_set_key", "")),
+                    str(ref.get("artifact_kind", "")),
+                    str(ref.get("future_source_target_path", "")),
+                )
+                for ref in option.get("trigger_refs", []) or []
+                if isinstance(ref, dict)
+            }
+            if not option_effect_ref_keys <= all_contract_source_ref_keys & all_evidence_source_ref_keys:
+                raise AssertionError(f"Alhambra event option effect refs lost contract/evidence binding: {option}")
+            if not option_trigger_ref_keys <= all_contract_source_ref_keys & all_evidence_source_ref_keys:
+                raise AssertionError(f"Alhambra event option trigger refs lost contract/evidence binding: {option}")
+    if event_draft_ids != list(range(7309, 7317)) or len(set(event_draft_ids)) != 8:
+        raise AssertionError(f"Alhambra event source-body draft ids changed: {event_draft_ids}")
+    if event_draft_stage_counts != {"opening": 2, "update": 2, "retry": 2, "resolve": 2}:
+        raise AssertionError(f"Alhambra event source-body draft stage coverage changed: {event_draft_stage_counts}")
     if event_validation_pack.get("target_path") != event_interface_target:
         raise AssertionError(f"Alhambra event validation pack target changed: {event_validation_pack}")
 
@@ -6626,6 +6798,64 @@ def main() -> None:
         "output_kind must be source_file_contract_artifacts",
     )
 
+    duplicate_event_id_interface = deepcopy(alhambra_event_source_generator_interface)
+    duplicate_event_id_interface["source_file_contract_artifacts"][1]["event_source_body_draft"]["event_id"] = (
+        duplicate_event_id_interface["source_file_contract_artifacts"][0]["event_source_body_draft"]["event_id"]
+    )
+    assert_alhambra_event_source_generator_interface_error(
+        "duplicate event source-body draft id",
+        duplicate_event_id_interface,
+        "event source-body draft event ids must be unique",
+    )
+
+    drifted_event_id_window_interface = deepcopy(alhambra_event_source_generator_interface)
+    for artifact in drifted_event_id_window_interface["source_file_contract_artifacts"]:
+        artifact["event_source_body_draft"]["event_id_allocation"][
+            "declared_source_event_id_window"
+        ] = "unique_alhambra event_ids 7309-7312"
+    assert_alhambra_event_source_generator_interface_error(
+        "drifted event source-body draft declared id window",
+        drifted_event_id_window_interface,
+        "declared source event id window must match actual event_source_body_draft.event_id min/max",
+    )
+
+    unbound_loc_event_interface = deepcopy(alhambra_event_source_generator_interface)
+    _alhambra_event_source_file_contract_artifact(
+        unbound_loc_event_interface,
+        "event_opening_skeleton",
+    )["event_source_body_draft"]["localization_key_refs"]["all_bound"] = False
+    assert_alhambra_event_source_generator_interface_error(
+        "unbound event source-body draft loc keys",
+        unbound_loc_event_interface,
+        "localization key refs must be fully bound",
+    )
+
+    forged_effect_ref_event_interface = deepcopy(alhambra_event_source_generator_interface)
+    _alhambra_event_source_file_contract_artifact(
+        forged_effect_ref_event_interface,
+        "event_update_skeleton",
+    )["event_source_body_draft"]["option_handoff"]["options"][0]["effect_refs"][0][
+        "artifact_kind"
+    ] = "forged_effect_ref"
+    assert_alhambra_event_source_generator_interface_error(
+        "forged event source-body draft option effect ref",
+        forged_effect_ref_event_interface,
+        "option effect refs must come from existing contract/evidence",
+    )
+
+    forged_trigger_ref_event_interface = deepcopy(alhambra_event_source_generator_interface)
+    _alhambra_event_source_file_contract_artifact(
+        forged_trigger_ref_event_interface,
+        "event_resolve_skeleton",
+    )["event_source_body_draft"]["option_handoff"]["options"][0]["trigger_refs"][0][
+        "artifact_kind"
+    ] = "forged_trigger_ref"
+    assert_alhambra_event_source_generator_interface_error(
+        "forged event source-body draft option trigger ref",
+        forged_trigger_ref_event_interface,
+        "option trigger refs must come from existing contract/evidence",
+    )
+
     forged_ref_event_interface = deepcopy(alhambra_event_source_generator_interface)
     _alhambra_event_source_file_contract_artifact(
         forged_ref_event_interface,
@@ -6656,10 +6886,14 @@ def main() -> None:
             source_file_validation_evidence=external_evidence_forged_event_validation,
         )
     )
-    if external_evidence_forged_event_interface["validation_errors"]:
+    if not any(
+        "event source-body draft effect refs must not be empty" in error
+        or "event source-body draft trigger refs must not be empty" in error
+        for error in external_evidence_forged_event_interface["validation_errors"]
+    ):
         raise AssertionError(
-            "Externally forged Alhambra event interface should stay self-consistent before "
-            "the original validation evidence is applied: "
+            "Externally forged Alhambra event interface should fail its own source-body "
+            "draft ref binding before the original validation evidence is applied: "
             f"{external_evidence_forged_event_interface['validation_errors']}"
         )
     assert_alhambra_event_source_generator_interface_error(
@@ -6676,6 +6910,178 @@ def main() -> None:
         detached_event_interface_validation,
         "requires external source-file validation evidence",
         source_file_validation_evidence=None,
+    )
+
+    alhambra_event_source_generator = repeated_entity_row_alhambra_event_source_generator_for_payload(
+        spec_data,
+        event_source_generator_interface=alhambra_event_source_generator_interface,
+        source_generator_contract=alhambra_source_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+    if alhambra_event_source_generator["validation_errors"]:
+        raise AssertionError(
+            "Alhambra event source generator unexpectedly failed validation: "
+            f"{alhambra_event_source_generator['validation_errors']}"
+        )
+    event_source_text_candidate = alhambra_event_source_generator.get("source_text_candidate", "")
+    if (
+        alhambra_event_source_generator.get("target_path") != event_interface_target
+        or alhambra_event_source_generator.get("namespace") != "tv_engineering_department"
+        or alhambra_event_source_generator.get("event_source_body_draft_count") != 8
+        or alhambra_event_source_generator.get("event_count") != 8
+        or alhambra_event_source_generator.get("country_event_count") != 8
+        or alhambra_event_source_generator.get("event_ids") != list(range(7309, 7317))
+        or alhambra_event_source_generator.get("effect_trigger_handoff_status")
+        != "implemented_alhambra_vertical_slice"
+        or alhambra_event_source_generator.get("effect_trigger_handoff_verified") is not True
+        or alhambra_event_source_generator.get("source_writer_go") is not False
+        or alhambra_event_source_generator.get("may_write_src") is not False
+        or alhambra_event_source_generator.get("writes_src") is not False
+        or alhambra_event_source_generator.get("implementation_ready") is not False
+        or "namespace = tv_engineering_department" not in event_source_text_candidate
+        or event_source_text_candidate.count("\ttype = country_event") != 8
+        or "tv_engineering_department.7309 = {" not in event_source_text_candidate
+        or "tv_engineering_department.7316 = {" not in event_source_text_candidate
+        or "name = tv_engineering_department.7311.b" not in event_source_text_candidate
+        or "CONTROLLED BLOCKER" in event_source_text_candidate
+        or "trigger = {" not in event_source_text_candidate
+        or "effect = {" not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_init_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_aggregate_refresh_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_branch_write_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_cleanup_write_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_palace_risk_points_completion_effect = yes"
+        not in event_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_scripted_trigger_eligibility_trigger = yes"
+        not in event_source_text_candidate
+    ):
+        raise AssertionError(f"Alhambra event source generator shape changed: {alhambra_event_source_generator}")
+    if event_source_text_candidate.count("treaty_clause_register_aggregate_refresh_effect = yes") < 3:
+        raise AssertionError(
+            "Alhambra event source generator should call treaty aggregate refresh from opening/update/retry: "
+            f"{event_source_text_candidate}"
+        )
+    if event_source_text_candidate.count("palace_risk_points_aggregate_refresh_effect = yes") < 3:
+        raise AssertionError(
+            "Alhambra event source generator should call palace aggregate refresh from opening/update/retry: "
+            f"{event_source_text_candidate}"
+        )
+    if len(alhambra_event_source_generator.get("controlled_handoff_blockers", [])) != 0:
+        raise AssertionError(
+            "Alhambra event source generator should clear controlled blockers: "
+            f"{alhambra_event_source_generator.get('controlled_handoff_blockers')}"
+        )
+    if not alhambra_event_source_generator.get("eu5_syntax_evidence_refs"):
+        raise AssertionError("Alhambra event source generator lost EU5 syntax evidence refs")
+    if not alhambra_event_source_generator.get("localization_key_refs"):
+        raise AssertionError("Alhambra event source generator lost localization key refs")
+
+    evidence_bound_event_source_generator_errors = validate_repeated_entity_row_alhambra_event_source_generator(
+        alhambra_event_source_generator,
+        event_source_generator_interface=alhambra_event_source_generator_interface,
+        source_generator_contract=alhambra_source_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+    if evidence_bound_event_source_generator_errors:
+        raise AssertionError(
+            "Alhambra event source generator unexpectedly failed evidence-bound validation: "
+            f"{evidence_bound_event_source_generator_errors}"
+        )
+
+    def assert_alhambra_event_source_generator_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        event_source_generator_interface: dict | None = alhambra_event_source_generator_interface,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_event_source_generator(
+            report,
+            event_source_generator_interface=event_source_generator_interface,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra event source generator negative was not caught: {errors}")
+
+    def remove_event_from_source_text(source_text: str, event_id: int) -> str:
+        lines = source_text.splitlines()
+        declaration = f"tv_engineering_department.{event_id} = {{"
+        start = next(index for index, line in enumerate(lines) if line == declaration)
+        delete_start = start - 1 if start > 0 and lines[start - 1].startswith("# -- ") else start
+        depth = 0
+        end = start
+        while end < len(lines):
+            code = lines[end].split("#", 1)[0]
+            depth += code.count("{") - code.count("}")
+            end += 1
+            if depth == 0:
+                break
+        if end < len(lines) and lines[end] == "":
+            end += 1
+        return "\n".join(lines[:delete_start] + lines[end:]).rstrip() + "\n"
+
+    missing_event_source_generator = deepcopy(alhambra_event_source_generator)
+    missing_event_source_generator["source_text_candidate"] = remove_event_from_source_text(
+        missing_event_source_generator["source_text_candidate"],
+        7316,
+    )
+    assert_alhambra_event_source_generator_error(
+        "missing event source_text_candidate event",
+        missing_event_source_generator,
+        "missing event",
+    )
+
+    duplicate_event_id_source_generator = deepcopy(alhambra_event_source_generator)
+    duplicate_event_id_source_generator["source_text_candidate"] = duplicate_event_id_source_generator[
+        "source_text_candidate"
+    ].replace("tv_engineering_department.7310 = {", "tv_engineering_department.7309 = {", 1)
+    assert_alhambra_event_source_generator_error(
+        "duplicate event id in source_text_candidate",
+        duplicate_event_id_source_generator,
+        "duplicate event id",
+    )
+
+    missing_loc_ref_source_generator = deepcopy(alhambra_event_source_generator)
+    missing_loc_ref_source_generator["source_text_candidate"] = missing_loc_ref_source_generator[
+        "source_text_candidate"
+    ].replace("\ttitle = tv_engineering_department.7309.t\n", "", 1)
+    assert_alhambra_event_source_generator_error(
+        "missing localization key ref in source_text_candidate",
+        missing_loc_ref_source_generator,
+        "missing localization key ref",
+    )
+
+    wrong_namespace_source_generator = deepcopy(alhambra_event_source_generator)
+    wrong_namespace_source_generator["source_text_candidate"] = wrong_namespace_source_generator[
+        "source_text_candidate"
+    ].replace("namespace = tv_engineering_department", "namespace = forged_namespace", 1)
+    assert_alhambra_event_source_generator_error(
+        "wrong namespace in source_text_candidate",
+        wrong_namespace_source_generator,
+        "namespace mismatch",
+    )
+
+    writable_event_source_generator = deepcopy(alhambra_event_source_generator)
+    writable_event_source_generator["may_write_src"] = True
+    assert_alhambra_event_source_generator_error(
+        "may_write_src true in event source generator",
+        writable_event_source_generator,
+        "may_write_src must be false",
+    )
+
+    source_writer_go_event_source_generator = deepcopy(alhambra_event_source_generator)
+    source_writer_go_event_source_generator["source_writer_go"] = True
+    assert_alhambra_event_source_generator_error(
+        "source_writer_go true in event source generator",
+        source_writer_go_event_source_generator,
+        "source_writer_go must be false",
     )
 
     alhambra_scripted_effect_cleanup_source_generator_interface = (
@@ -6832,8 +7238,22 @@ def main() -> None:
             f"{effect_cleanup_artifact_ref_keys}"
         )
     effect_cleanup_artifact_family_counts: dict[str, int] = {}
+    effect_cleanup_operation_by_artifact = {
+        "scripted_effect_row_init": "row_init",
+        "scripted_effect_row_state_write": "row_state_write",
+        "scripted_effect_branch_write": "branch_write",
+        "scripted_effect_aggregate_refresh": "aggregate_refresh",
+        "scripted_effect_cleanup_write": "cleanup_write",
+        "cleanup_completion": "completion",
+        "cleanup_failure": "failure",
+        "cleanup_ownership_loss": "ownership_loss",
+        "cleanup_ritual_reset": "reset",
+    }
+    effect_cleanup_source_body_draft_coverage: dict[str, dict[str, set[str]]] = {}
     for artifact in effect_cleanup_contract_artifacts:
         family = str(artifact.get("family", ""))
+        artifact_kind = str(artifact.get("artifact_kind", ""))
+        row_set_key = str(artifact.get("row_set_key", ""))
         effect_cleanup_artifact_family_counts[family] = effect_cleanup_artifact_family_counts.get(family, 0) + 1
         if (
             artifact.get("interface_family") != "scripted_effect_cleanup"
@@ -6867,11 +7287,70 @@ def main() -> None:
                 "Alhambra scripted-effect/cleanup source generator interface artifact lost no-write contract shape: "
                 f"{artifact}"
             )
+        draft = artifact.get("scripted_effect_cleanup_source_body_draft", {})
+        expected_operation = effect_cleanup_operation_by_artifact.get(artifact_kind, "")
+        coverage = draft.get("operation_coverage", {}) if isinstance(draft, dict) else {}
+        outline = draft.get("source_body_outline", {}) if isinstance(draft, dict) else {}
+        cleanup_boundary = draft.get("cleanup_lifecycle_boundary", {}) if isinstance(draft, dict) else {}
+        if (
+            not isinstance(draft, dict)
+            or draft.get("kind") != "scripted_effect_cleanup_source_body_draft"
+            or draft.get("family") != family
+            or draft.get("interface_family") != "scripted_effect_cleanup"
+            or draft.get("artifact_kind") != artifact_kind
+            or draft.get("row_set_key") != row_set_key
+            or draft.get("target_path") != effect_cleanup_interface_target
+            or draft.get("future_source_target_path") != effect_cleanup_interface_target
+            or draft.get("source_type") != "common/scripted_effects"
+            or draft.get("operation") != expected_operation
+            or draft.get("output_is_loadable_source") is not False
+            or draft.get("body_emitted") is not False
+            or draft.get("source_ready") is not False
+            or draft.get("verified") is not False
+            or draft.get("backend_ready") is not False
+            or draft.get("source_writer_allowed") is not False
+            or draft.get("may_write_src") is not False
+            or draft.get("writes_src") is not False
+            or coverage.get(expected_operation) is not True
+            or coverage.get("body_emitted") is not False
+            or outline.get("source_body_emitted") is not False
+            or outline.get("loadable_effect_body_allowed") is not False
+            or cleanup_boundary.get("cleanup_source_writer_allowed") is not False
+        ):
+            raise AssertionError(
+                "Alhambra scripted-effect/cleanup source-body draft shape changed: "
+                f"{draft}"
+            )
+        row_coverage = effect_cleanup_source_body_draft_coverage.setdefault(
+            row_set_key,
+            {"effect": set(), "cleanup": set()},
+        )
+        if family == "effect":
+            row_coverage["effect"].add(expected_operation)
+        if family == "cleanup":
+            row_coverage["cleanup"].add(expected_operation)
     if effect_cleanup_artifact_family_counts != {"cleanup": 8, "effect": 10}:
         raise AssertionError(
             "Alhambra scripted-effect/cleanup source generator interface artifact family counts changed: "
             f"{effect_cleanup_artifact_family_counts}"
         )
+    for row_set_key, coverage in effect_cleanup_source_body_draft_coverage.items():
+        if coverage["effect"] != {
+            "row_init",
+            "row_state_write",
+            "branch_write",
+            "aggregate_refresh",
+            "cleanup_write",
+        }:
+            raise AssertionError(
+                "Alhambra scripted-effect source-body draft effect coverage changed: "
+                f"{row_set_key}: {coverage}"
+            )
+        if coverage["cleanup"] != {"completion", "failure", "ownership_loss", "reset"}:
+            raise AssertionError(
+                "Alhambra cleanup source-body draft lifecycle coverage changed: "
+                f"{row_set_key}: {coverage}"
+            )
     if effect_cleanup_validation_pack.get("target_path") != effect_cleanup_interface_target:
         raise AssertionError(f"Alhambra effect/cleanup validation pack target changed: {effect_cleanup_validation_pack}")
 
@@ -6915,6 +7394,32 @@ def main() -> None:
         "may_write_src must be false",
     )
 
+    missing_effect_cleanup_source_body_draft_interface = deepcopy(
+        alhambra_scripted_effect_cleanup_source_generator_interface
+    )
+    del _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
+        missing_effect_cleanup_source_body_draft_interface,
+        "scripted_effect_row_init",
+    )["scripted_effect_cleanup_source_body_draft"]
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "missing scripted-effect/cleanup source-body draft",
+        missing_effect_cleanup_source_body_draft_interface,
+        "scripted_effect_cleanup_source_body_draft",
+    )
+
+    broken_effect_cleanup_source_body_draft_interface = deepcopy(
+        alhambra_scripted_effect_cleanup_source_generator_interface
+    )
+    _alhambra_scripted_effect_cleanup_source_file_contract_artifact(
+        broken_effect_cleanup_source_body_draft_interface,
+        "cleanup_ownership_loss",
+    )["scripted_effect_cleanup_source_body_draft"]["cleanup_lifecycle_boundary"]["ownership_loss"] = False
+    assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
+        "broken scripted-effect/cleanup source-body draft lifecycle coverage",
+        broken_effect_cleanup_source_body_draft_interface,
+        "active cleanup lifecycle missing",
+    )
+
     wrong_output_effect_cleanup_interface = deepcopy(alhambra_scripted_effect_cleanup_source_generator_interface)
     wrong_output_effect_cleanup_interface["output_kind"] = "loadable_source_file"
     assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
@@ -6955,10 +7460,14 @@ def main() -> None:
             source_file_validation_evidence=external_evidence_forged_effect_cleanup_validation,
         )
     )
-    if external_evidence_forged_effect_cleanup_interface["validation_errors"]:
+    if not any(
+        "source-body draft missing effect operation coverage" in error
+        or "source-body draft missing cleanup lifecycle coverage" in error
+        for error in external_evidence_forged_effect_cleanup_interface["validation_errors"]
+    ):
         raise AssertionError(
-            "Externally forged Alhambra scripted-effect/cleanup interface should stay self-consistent before "
-            "the original validation evidence is applied: "
+            "Externally forged Alhambra scripted-effect/cleanup interface should fail its own "
+            "source-body draft row-set coverage before the original validation evidence is applied: "
             f"{external_evidence_forged_effect_cleanup_interface['validation_errors']}"
         )
     assert_alhambra_scripted_effect_cleanup_source_generator_interface_error(
@@ -6976,6 +7485,2837 @@ def main() -> None:
         "requires external source-file validation evidence",
         source_file_validation_evidence=None,
     )
+
+    alhambra_scripted_effect_cleanup_source_generator = (
+        repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_for_payload(
+            spec_data,
+            scripted_effect_cleanup_source_generator_interface=(
+                alhambra_scripted_effect_cleanup_source_generator_interface
+            ),
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_scripted_effect_cleanup_source_generator["validation_errors"]:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator unexpectedly failed validation: "
+            f"{alhambra_scripted_effect_cleanup_source_generator['validation_errors']}"
+        )
+    effect_cleanup_source_text_candidate = alhambra_scripted_effect_cleanup_source_generator.get(
+        "source_text_candidate",
+        "",
+    )
+    effect_cleanup_source_names = alhambra_scripted_effect_cleanup_source_generator.get("effect_names", [])
+    effect_cleanup_source_coverage = alhambra_scripted_effect_cleanup_source_generator.get(
+        "row_set_operation_lifecycle_coverage",
+        {},
+    )
+    if (
+        alhambra_scripted_effect_cleanup_source_generator.get("target_path") != effect_cleanup_interface_target
+        or alhambra_scripted_effect_cleanup_source_generator.get("families") != ["cleanup", "effect"]
+        or alhambra_scripted_effect_cleanup_source_generator.get(
+            "scripted_effect_cleanup_source_body_draft_count"
+        )
+        != 18
+        or alhambra_scripted_effect_cleanup_source_generator.get("scripted_effect_declaration_count") != 18
+        or alhambra_scripted_effect_cleanup_source_generator.get("family_declaration_counts")
+        != {"cleanup": 8, "effect": 10}
+        or alhambra_scripted_effect_cleanup_source_generator.get("source_body_blocker_status")
+        != "implemented_alhambra_vertical_slice"
+        or alhambra_scripted_effect_cleanup_source_generator.get("scripted_effect_declaration_syntax_verified")
+        is not True
+        or alhambra_scripted_effect_cleanup_source_generator.get("row_state_write_verified") is not True
+        or alhambra_scripted_effect_cleanup_source_generator.get("aggregate_refresh_verified") is not True
+        or alhambra_scripted_effect_cleanup_source_generator.get("cleanup_mutation_verified") is not True
+        or alhambra_scripted_effect_cleanup_source_generator.get("source_writer_go") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("may_write_src") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("writes_src") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("body_emitted") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("source_ready") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("implementation_ready") is not False
+        or alhambra_scripted_effect_cleanup_source_generator.get("harness_generated") is not False
+        or len(effect_cleanup_source_names) != 18
+        or effect_cleanup_source_text_candidate.count("# -- tv_wonder_unique_alhambra_ritual_") != 18
+        or "CONTROLLED BLOCKER" in effect_cleanup_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_init_effect = {"
+        not in effect_cleanup_source_text_candidate
+        or "set_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started value = 1 }"
+        not in effect_cleanup_source_text_candidate
+        or "set_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_completed value = 1 }"
+        not in effect_cleanup_source_text_candidate
+        or "remove_variable = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started"
+        not in effect_cleanup_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_palace_risk_points_ritual_reset_effect = {"
+        not in effect_cleanup_source_text_candidate
+    ):
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator shape changed: "
+            f"{alhambra_scripted_effect_cleanup_source_generator}"
+        )
+    if len(alhambra_scripted_effect_cleanup_source_generator.get("controlled_source_blockers", [])) != 0:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator should clear controlled blockers: "
+            f"{alhambra_scripted_effect_cleanup_source_generator.get('controlled_source_blockers')}"
+        )
+    for row_set_key in ("treaty_clause_register", "palace_risk_points"):
+        row_coverage = effect_cleanup_source_coverage.get(row_set_key, {})
+        if (
+            set(row_coverage.get("effect_operations", []))
+            != {"row_init", "row_state_write", "branch_write", "aggregate_refresh", "cleanup_write"}
+            or set(row_coverage.get("cleanup_lifecycle_scopes", []))
+            != {"completion", "failure", "ownership_loss", "reset"}
+            or row_coverage.get("declaration_count") != 9
+        ):
+            raise AssertionError(
+                "Alhambra scripted-effect/cleanup source generator coverage changed: "
+                f"{row_set_key}: {row_coverage}"
+            )
+    if not alhambra_scripted_effect_cleanup_source_generator.get("eu5_syntax_evidence_refs"):
+        raise AssertionError("Alhambra scripted-effect/cleanup source generator lost EU5 syntax evidence refs")
+
+    evidence_bound_effect_cleanup_source_generator_errors = (
+        validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator(
+            alhambra_scripted_effect_cleanup_source_generator,
+            scripted_effect_cleanup_source_generator_interface=(
+                alhambra_scripted_effect_cleanup_source_generator_interface
+            ),
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_effect_cleanup_source_generator_errors:
+        raise AssertionError(
+            "Alhambra scripted-effect/cleanup source generator unexpectedly failed evidence-bound validation: "
+            f"{evidence_bound_effect_cleanup_source_generator_errors}"
+        )
+
+    def assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        scripted_effect_cleanup_source_generator_interface: dict | None = (
+            alhambra_scripted_effect_cleanup_source_generator_interface
+        ),
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator(
+            report,
+            scripted_effect_cleanup_source_generator_interface=(
+                scripted_effect_cleanup_source_generator_interface
+            ),
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra scripted-effect/cleanup source generator negative was not caught: {errors}"
+            )
+
+    def remove_effect_declaration_from_source_text(source_text: str, effect_name: str) -> str:
+        lines = source_text.splitlines()
+        declaration = f"{effect_name} = {{"
+        start = next(index for index, line in enumerate(lines) if line == declaration)
+        delete_start = start - 1 if start > 0 and lines[start - 1].startswith("# -- ") else start
+        depth = 0
+        end = start
+        while end < len(lines):
+            code = lines[end].split("#", 1)[0]
+            depth += code.count("{") - code.count("}")
+            end += 1
+            if depth == 0:
+                break
+        if end < len(lines) and lines[end] == "":
+            end += 1
+        return "\n".join(lines[:delete_start] + lines[end:]).rstrip() + "\n"
+
+    missing_effect_declaration_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    missing_effect_declaration_source_generator["source_text_candidate"] = remove_effect_declaration_from_source_text(
+        missing_effect_declaration_source_generator["source_text_candidate"],
+        "tv_wonder_unique_alhambra_ritual_palace_risk_points_ritual_reset_effect",
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "missing scripted-effect declaration",
+        missing_effect_declaration_source_generator,
+        "missing scripted-effect declaration",
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "row-set/operation coverage missing",
+        missing_effect_declaration_source_generator,
+        "row-set/cleanup lifecycle coverage missing",
+    )
+
+    duplicate_effect_name_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    duplicate_effect_name_source_generator["source_text_candidate"] = duplicate_effect_name_source_generator[
+        "source_text_candidate"
+    ].replace(
+        "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_state_write_effect = {",
+        "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_init_effect = {",
+        1,
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "duplicate effect name in source_text_candidate",
+        duplicate_effect_name_source_generator,
+        "duplicate effect name",
+    )
+
+    unverified_body_line_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    unverified_body_line_source_generator["source_text_candidate"] = unverified_body_line_source_generator[
+        "source_text_candidate"
+    ].replace(
+        "\tset_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started value = 1 }\n",
+        "\tset_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started value = 9 }\n",
+        1,
+    )
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "unexpected body line in source_text_candidate",
+        unverified_body_line_source_generator,
+        "unexpected body line",
+    )
+
+    missing_syntax_evidence_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    missing_syntax_evidence_source_generator["eu5_syntax_evidence_refs"] = []
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "missing syntax evidence",
+        missing_syntax_evidence_source_generator,
+        "missing syntax evidence",
+    )
+
+    writable_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    writable_effect_cleanup_source_generator["may_write_src"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "may_write_src true in scripted-effect/cleanup source generator",
+        writable_effect_cleanup_source_generator,
+        "may_write_src must be false",
+    )
+
+    source_writer_go_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    source_writer_go_effect_cleanup_source_generator["source_writer_go"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "source_writer_go true in scripted-effect/cleanup source generator",
+        source_writer_go_effect_cleanup_source_generator,
+        "source_writer_go must be false",
+    )
+
+    body_emitted_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    body_emitted_effect_cleanup_source_generator["body_emitted"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "body_emitted true in scripted-effect/cleanup source generator",
+        body_emitted_effect_cleanup_source_generator,
+        "body_emitted must be false",
+    )
+
+    source_ready_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    source_ready_effect_cleanup_source_generator["source_ready"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "source_ready true in scripted-effect/cleanup source generator",
+        source_ready_effect_cleanup_source_generator,
+        "source_ready must be false",
+    )
+
+    implementation_ready_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    implementation_ready_effect_cleanup_source_generator["implementation_ready"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "implementation_ready true in scripted-effect/cleanup source generator",
+        implementation_ready_effect_cleanup_source_generator,
+        "implementation_ready must be false",
+    )
+
+    harness_generated_effect_cleanup_source_generator = deepcopy(alhambra_scripted_effect_cleanup_source_generator)
+    harness_generated_effect_cleanup_source_generator["harness_generated"] = True
+    assert_alhambra_scripted_effect_cleanup_source_generator_error(
+        "harness_generated true in scripted-effect/cleanup source generator",
+        harness_generated_effect_cleanup_source_generator,
+        "harness_generated must be false",
+    )
+
+    alhambra_scripted_trigger_source_generator_interface = (
+        repeated_entity_row_alhambra_scripted_trigger_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_scripted_trigger_source_generator_interface["validation_errors"]:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface unexpectedly failed validation: "
+            f"{alhambra_scripted_trigger_source_generator_interface['validation_errors']}"
+        )
+    evidence_bound_trigger_interface_errors = (
+        validate_repeated_entity_row_alhambra_scripted_trigger_source_generator_interface(
+            alhambra_scripted_trigger_source_generator_interface,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_trigger_interface_errors:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface unexpectedly failed external evidence-bound "
+            f"validation: {evidence_bound_trigger_interface_errors}"
+        )
+    trigger_interface_target = alhambra_file_targets["trigger"]
+    trigger_interface_summary = alhambra_scripted_trigger_source_generator_interface.get("summary", {})
+    if trigger_interface_summary.get("interface_count") != 1:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface count changed: "
+            f"{trigger_interface_summary}"
+        )
+    if trigger_interface_summary.get("artifact_count") != expected_alhambra_file_counts[trigger_interface_target]:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface artifact count changed: "
+            f"{trigger_interface_summary}"
+        )
+    if trigger_interface_summary.get("output_kind") != "source_file_contract_artifacts":
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface output kind changed: "
+            f"{trigger_interface_summary}"
+        )
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if trigger_interface_summary.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra scripted-trigger source generator interface "
+                f"{count_key} changed: {trigger_interface_summary}"
+            )
+        if alhambra_scripted_trigger_source_generator_interface.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra scripted-trigger source generator interface report no-write count changed: "
+                f"{alhambra_scripted_trigger_source_generator_interface}"
+            )
+    if alhambra_scripted_trigger_source_generator_interface.get("required_target_paths") != [
+        trigger_interface_target
+    ]:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface should expose only the scripted-trigger target: "
+            f"{alhambra_scripted_trigger_source_generator_interface.get('required_target_paths')}"
+        )
+    if alhambra_scripted_trigger_source_generator_interface.get("output_is_loadable_source") is not False:
+        raise AssertionError("Alhambra scripted-trigger source generator interface must not output loadable source")
+    if (
+        alhambra_scripted_trigger_source_generator_interface.get("source_writer_allowed") is not False
+        or alhambra_scripted_trigger_source_generator_interface.get("may_write_src") is not False
+        or alhambra_scripted_trigger_source_generator_interface.get("writes_src") is not False
+    ):
+        raise AssertionError("Alhambra scripted-trigger source generator interface no-write flags changed")
+
+    trigger_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        trigger_interface_target,
+    )
+    trigger_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        trigger_interface_target,
+    )
+    trigger_generator_interfaces = (
+        alhambra_scripted_trigger_source_generator_interface.get("source_generator_interfaces", [])
+    )
+    if len(trigger_generator_interfaces) != 1:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface should expose one interface: "
+            f"{trigger_generator_interfaces}"
+        )
+    trigger_generator_interface = trigger_generator_interfaces[0]
+    if (
+        trigger_generator_interface.get("family") != "trigger"
+        or trigger_generator_interface.get("target_path") != trigger_interface_target
+        or trigger_generator_interface.get("owner_generator")
+        != "unique_wonder_ritual_scripted_trigger_source_generator"
+        or trigger_generator_interface.get("output_contract") != "source_file_contract_artifacts"
+        or trigger_generator_interface.get("dry_run_required") is not True
+        or trigger_generator_interface.get("memory_report_only") is not True
+        or trigger_generator_interface.get("source_writer_allowed") is not False
+        or trigger_generator_interface.get("may_write_src") is not False
+        or trigger_generator_interface.get("writes_src") is not False
+        or trigger_generator_interface.get("source_file_validation_evidence_ref")
+        != trigger_generator_contract.get("evidence_pack_ref")
+    ):
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface lost no-write interface shape: "
+            f"{trigger_generator_interface}"
+        )
+
+    trigger_contract_artifacts = (
+        alhambra_scripted_trigger_source_generator_interface.get("source_file_contract_artifacts", [])
+    )
+    if len(trigger_contract_artifacts) != expected_alhambra_file_counts[trigger_interface_target]:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface artifact list changed: "
+            f"{trigger_contract_artifacts}"
+        )
+    trigger_contract_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for ref in trigger_generator_contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    trigger_artifact_ref_keys = {
+        (
+            str(artifact.get("source_body_candidate_ref", {}).get("family", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("row_set_key", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("artifact_kind", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("future_source_target_path", "")),
+        )
+        for artifact in trigger_contract_artifacts
+        if isinstance(artifact, dict)
+    }
+    if (
+        trigger_artifact_ref_keys != trigger_contract_ref_keys
+        or len(trigger_artifact_ref_keys) != expected_alhambra_file_counts[trigger_interface_target]
+    ):
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface lost external source refs: "
+            f"{trigger_artifact_ref_keys}"
+        )
+    for artifact in trigger_contract_artifacts:
+        if (
+            artifact.get("family") != "trigger"
+            or artifact.get("target_path") != trigger_interface_target
+            or artifact.get("future_source_target_path") != trigger_interface_target
+            or artifact.get("output_kind") != "source_file_contract_artifacts"
+            or artifact.get("output_is_loadable_source") is not False
+            or artifact.get("source_file_contract_artifact_only") is not True
+            or artifact.get("source_generator_interface_prototype_only") is not True
+            or artifact.get("scripted_trigger_target_only") is not True
+            or artifact.get("memory_report_only") is not True
+            or artifact.get("dry_run") is not True
+            or artifact.get("dry_run_required") is not True
+            or artifact.get("source_file_validation_evidence_ref") != trigger_generator_contract.get("evidence_pack_ref")
+            or artifact.get("source_body_candidate_ref_provenance")
+            != trigger_generator_contract.get("source_body_candidate_ref_provenance")
+            or artifact.get("no_write_source_writer_contract_evidence")
+            != trigger_generator_contract.get("no_write_source_writer_contract_evidence")
+            or artifact.get("body_emitted") is not False
+            or artifact.get("source_ready") is not False
+            or artifact.get("verified") is not False
+            or artifact.get("backend_ready") is not False
+            or artifact.get("source_writer_allowed") is not False
+            or artifact.get("may_write_src") is not False
+            or artifact.get("writes_src") is not False
+        ):
+            raise AssertionError(
+                "Alhambra scripted-trigger source generator interface artifact lost no-write contract shape: "
+                f"{artifact}"
+            )
+    expected_trigger_draft_groups = {
+        "eligibility",
+        "row_completion",
+        "tooltip_safe_condition_group",
+    }
+    trigger_draft_coverage: dict[str, set[str]] = {}
+    for artifact in trigger_contract_artifacts:
+        draft = artifact.get("scripted_trigger_source_body_draft")
+        if not isinstance(draft, dict):
+            raise AssertionError(f"Alhambra scripted-trigger artifact missing source-body draft: {artifact}")
+        row_set_key = str(artifact.get("row_set_key", ""))
+        artifact_kind = str(artifact.get("artifact_kind", ""))
+        expected_group = {
+            "scripted_trigger_eligibility": "eligibility",
+            "scripted_trigger_row_completion": "row_completion",
+            "scripted_trigger_tooltip_safe_condition_group": "tooltip_safe_condition_group",
+        }.get(artifact_kind)
+        trigger_draft_coverage.setdefault(row_set_key, set()).add(str(draft.get("tooltip_safe_condition_grouping", {}).get("active_group", "")))
+        expected_trigger_name = f"tv_wonder_unique_alhambra_ritual_{row_set_key}_{artifact_kind}_trigger"
+        if (
+            draft.get("kind") != "scripted_trigger_source_body_draft"
+            or draft.get("trigger_name") != expected_trigger_name
+            or draft.get("row_set_key") != row_set_key
+            or draft.get("artifact_kind") != artifact_kind
+            or draft.get("source_type") != "common/scripted_triggers"
+            or draft.get("output_is_loadable_source") is not False
+            or draft.get("body_emitted") is not False
+            or draft.get("source_ready") is not False
+            or draft.get("verified") is not False
+            or draft.get("backend_ready") is not False
+            or draft.get("source_writer_allowed") is not False
+            or draft.get("may_write_src") is not False
+            or draft.get("writes_src") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft shape changed: {draft}")
+        scope_contract = draft.get("scope_contract", {})
+        if (
+            scope_contract.get("trigger_name") != expected_trigger_name
+            or scope_contract.get("root_scope") != "country"
+            or scope_contract.get("scripted_trigger_scope") != "country"
+            or scope_contract.get("tooltip_safe") is not True
+            or scope_contract.get("row_state_writes_allowed") is not False
+            or scope_contract.get("may_write_src") is not False
+            or scope_contract.get("body_emitted") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft scope contract changed: {draft}")
+        row_refs = draft.get("row_variable_read_refs", {})
+        aggregate_refs = draft.get("aggregate_variable_read_refs", {})
+        if (
+            row_refs.get("all_bound") is not True
+            or not row_refs.get("entity_keys")
+            or not row_refs.get("per_row_variable_patterns")
+            or aggregate_refs.get("all_bound") is not True
+            or not aggregate_refs.get("aggregate_projection_variables")
+            or not aggregate_refs.get("node_read_refs")
+            or aggregate_refs.get("aggregate_only_row_reads_allowed") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft variable refs changed: {draft}")
+        grouping = draft.get("tooltip_safe_condition_grouping", {})
+        if (
+            set(grouping.get("required_groups", [])) != expected_trigger_draft_groups
+            or grouping.get("active_group") != expected_group
+            or grouping.get("condition_group_ref_count") != 3
+            or grouping.get("condition_group_refs_bound") is not True
+            or grouping.get("custom_tooltip_group_required") is not True
+            or grouping.get("predicate_group_only") is not True
+            or grouping.get("tooltip_safe") is not True
+            or grouping.get("unsafe_write_paths_allowed") is not False
+            or grouping.get("inline_effect_calls_allowed") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft condition grouping changed: {draft}")
+        handoff = draft.get("event_effect_handoff_refs", {})
+        if (
+            handoff.get("all_bound") is not True
+            or not handoff.get("event_refs")
+            or not handoff.get("effect_refs")
+            or not handoff.get("cleanup_refs")
+            or handoff.get("handoff_only") is not True
+            or handoff.get("inline_event_body_allowed") is not False
+            or handoff.get("inline_effect_body_allowed") is not False
+            or handoff.get("may_write_src") is not False
+            or handoff.get("body_emitted") is not False
+        ):
+            raise AssertionError(f"Alhambra scripted-trigger source-body draft handoff refs changed: {draft}")
+    expected_trigger_draft_coverage = {
+        "palace_risk_points": expected_trigger_draft_groups,
+        "treaty_clause_register": expected_trigger_draft_groups,
+    }
+    if trigger_draft_coverage != expected_trigger_draft_coverage:
+        raise AssertionError(
+            "Alhambra scripted-trigger source-body draft coverage changed: "
+            f"{trigger_draft_coverage}"
+        )
+    if trigger_validation_pack.get("target_path") != trigger_interface_target:
+        raise AssertionError(f"Alhambra trigger validation pack target changed: {trigger_validation_pack}")
+
+    def assert_alhambra_scripted_trigger_source_generator_interface_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_scripted_trigger_source_generator_interface(
+            report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra scripted-trigger source generator interface negative was not caught: "
+                f"{errors}"
+            )
+
+    missing_trigger_artifact_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    missing_trigger_artifact_interface["source_file_contract_artifacts"] = (
+        missing_trigger_artifact_interface["source_file_contract_artifacts"][:-1]
+    )
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "missing scripted-trigger artifact",
+        missing_trigger_artifact_interface,
+        "artifact_count mismatch",
+    )
+
+    writable_trigger_artifact_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        writable_trigger_artifact_interface,
+        "scripted_trigger_row_completion",
+    )["may_write_src"] = True
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "writable scripted-trigger artifact",
+        writable_trigger_artifact_interface,
+        "may_write_src must be false",
+    )
+
+    missing_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        missing_trigger_draft_interface,
+        "scripted_trigger_row_completion",
+    )["scripted_trigger_source_body_draft"] = None
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "missing scripted-trigger source-body draft",
+        missing_trigger_draft_interface,
+        "missing scripted-trigger source-body draft",
+    )
+
+    wrong_row_set_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        wrong_row_set_trigger_draft_interface,
+        "scripted_trigger_eligibility",
+    )["scripted_trigger_source_body_draft"]["row_set_key"] = "forged_row_set"
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "wrong scripted-trigger draft row set",
+        wrong_row_set_trigger_draft_interface,
+        "row_set_key mismatch",
+    )
+
+    unbound_variable_ref_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        unbound_variable_ref_trigger_draft_interface,
+        "scripted_trigger_eligibility",
+    )["scripted_trigger_source_body_draft"]["row_variable_read_refs"]["all_bound"] = False
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "unbound scripted-trigger draft variable refs",
+        unbound_variable_ref_trigger_draft_interface,
+        "variable read refs must be bound",
+    )
+
+    unsafe_tooltip_group_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        unsafe_tooltip_group_trigger_draft_interface,
+        "scripted_trigger_tooltip_safe_condition_group",
+    )["scripted_trigger_source_body_draft"]["tooltip_safe_condition_grouping"]["unsafe_write_paths_allowed"] = True
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "unsafe scripted-trigger draft tooltip group",
+        unsafe_tooltip_group_trigger_draft_interface,
+        "tooltip-safe condition grouping",
+    )
+
+    writable_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        writable_trigger_draft_interface,
+        "scripted_trigger_row_completion",
+    )["scripted_trigger_source_body_draft"]["may_write_src"] = True
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "writable scripted-trigger draft",
+        writable_trigger_draft_interface,
+        "may_write_src must be false",
+    )
+
+    body_emitted_trigger_draft_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        body_emitted_trigger_draft_interface,
+        "scripted_trigger_row_completion",
+    )["scripted_trigger_source_body_draft"]["body_emitted"] = True
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "body-emitted scripted-trigger draft",
+        body_emitted_trigger_draft_interface,
+        "body_emitted must be false",
+    )
+
+    wrong_output_trigger_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    wrong_output_trigger_interface["output_kind"] = "loadable_source_file"
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "wrong scripted-trigger output kind",
+        wrong_output_trigger_interface,
+        "output_kind must be source_file_contract_artifacts",
+    )
+
+    forged_ref_trigger_interface = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    _alhambra_scripted_trigger_source_file_contract_artifact(
+        forged_ref_trigger_interface,
+        "scripted_trigger_eligibility",
+    )["source_body_candidate_ref"]["row_set_key"] = "forged_row_set"
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "forged scripted-trigger source ref",
+        forged_ref_trigger_interface,
+        "external validation evidence mismatch",
+    )
+
+    external_evidence_forged_trigger_validation = deepcopy(alhambra_source_file_validation_evidence)
+    external_evidence_forged_trigger_pack = _alhambra_source_file_validation_pack(
+        external_evidence_forged_trigger_validation,
+        trigger_interface_target,
+    )
+    external_evidence_forged_trigger_pack["source_body_candidate_refs"][0]["row_set_key"] = "forged_row_set"
+    external_evidence_forged_trigger_generator_contract = (
+        repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            spec_data,
+            source_file_validation_evidence=external_evidence_forged_trigger_validation,
+        )
+    )
+    external_evidence_forged_trigger_interface = (
+        repeated_entity_row_alhambra_scripted_trigger_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=external_evidence_forged_trigger_generator_contract,
+            source_file_validation_evidence=external_evidence_forged_trigger_validation,
+        )
+    )
+    if not any(
+        "variable read refs must be bound" in error
+        or "source-body draft coverage" in error
+        for error in external_evidence_forged_trigger_interface["validation_errors"]
+    ):
+        raise AssertionError(
+            "Externally forged Alhambra scripted-trigger interface should fail its own source-body "
+            "draft row-set binding before the original validation evidence is applied: "
+            f"{external_evidence_forged_trigger_interface['validation_errors']}"
+        )
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "external evidence-bound forged scripted-trigger interface",
+        external_evidence_forged_trigger_interface,
+        "external validation evidence",
+        source_generator_contract=external_evidence_forged_trigger_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+
+    detached_trigger_interface_validation = deepcopy(alhambra_scripted_trigger_source_generator_interface)
+    assert_alhambra_scripted_trigger_source_generator_interface_error(
+        "missing external validation evidence",
+        detached_trigger_interface_validation,
+        "requires external source-file validation evidence",
+        source_file_validation_evidence=None,
+    )
+
+    alhambra_scripted_trigger_source_generator = (
+        repeated_entity_row_alhambra_scripted_trigger_source_generator_for_payload(
+            spec_data,
+            scripted_trigger_source_generator_interface=(
+                alhambra_scripted_trigger_source_generator_interface
+            ),
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_scripted_trigger_source_generator["validation_errors"]:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator unexpectedly failed validation: "
+            f"{alhambra_scripted_trigger_source_generator['validation_errors']}"
+        )
+    trigger_source_text_candidate = alhambra_scripted_trigger_source_generator.get("source_text_candidate", "")
+    trigger_source_names = alhambra_scripted_trigger_source_generator.get("trigger_names", [])
+    trigger_source_coverage = alhambra_scripted_trigger_source_generator.get(
+        "row_set_condition_group_coverage",
+        {},
+    )
+    if (
+        alhambra_scripted_trigger_source_generator.get("target_path") != trigger_interface_target
+        or alhambra_scripted_trigger_source_generator.get("scripted_trigger_source_body_draft_count") != 6
+        or alhambra_scripted_trigger_source_generator.get("scripted_trigger_declaration_count") != 6
+        or alhambra_scripted_trigger_source_generator.get("source_body_blocker_status")
+        != "implemented_alhambra_vertical_slice"
+        or alhambra_scripted_trigger_source_generator.get("scripted_trigger_declaration_syntax_verified")
+        is not True
+        or alhambra_scripted_trigger_source_generator.get("condition_body_verified") is not True
+        or alhambra_scripted_trigger_source_generator.get("variable_read_verified") is not True
+        or alhambra_scripted_trigger_source_generator.get("tooltip_safe_condition_group_verified") is not True
+        or alhambra_scripted_trigger_source_generator.get("source_writer_go") is not False
+        or alhambra_scripted_trigger_source_generator.get("may_write_src") is not False
+        or alhambra_scripted_trigger_source_generator.get("writes_src") is not False
+        or alhambra_scripted_trigger_source_generator.get("body_emitted") is not False
+        or alhambra_scripted_trigger_source_generator.get("source_ready") is not False
+        or alhambra_scripted_trigger_source_generator.get("implementation_ready") is not False
+        or alhambra_scripted_trigger_source_generator.get("harness_generated") is not False
+        or len(trigger_source_names) != 6
+        or trigger_source_text_candidate.count("# -- tv_wonder_unique_alhambra_ritual_") != 6
+        or "CONTROLLED BLOCKER" in trigger_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_scripted_trigger_eligibility_trigger = {"
+        not in trigger_source_text_candidate
+        or "always = yes" not in trigger_source_text_candidate
+        or "has_variable = tv_wonder_unique_alhambra_ritual_treaty_clause_register_completed"
+        not in trigger_source_text_candidate
+        or "var:tv_wonder_unique_alhambra_ritual_treaty_clause_register_completed ?= 1"
+        not in trigger_source_text_candidate
+        or "tv_wonder_unique_alhambra_ritual_palace_risk_points_scripted_trigger_tooltip_safe_condition_group_trigger = {"
+        not in trigger_source_text_candidate
+    ):
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator shape changed: "
+            f"{alhambra_scripted_trigger_source_generator}"
+        )
+    if len(alhambra_scripted_trigger_source_generator.get("controlled_source_blockers", [])) != 0:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator should clear controlled blockers: "
+            f"{alhambra_scripted_trigger_source_generator.get('controlled_source_blockers')}"
+        )
+    for row_set_key in ("treaty_clause_register", "palace_risk_points"):
+        row_coverage = trigger_source_coverage.get(row_set_key, {})
+        if (
+            set(row_coverage.get("condition_groups", []))
+            != {"eligibility", "row_completion", "tooltip_safe_condition_group"}
+            or row_coverage.get("declaration_count") != 3
+        ):
+            raise AssertionError(
+                "Alhambra scripted-trigger source generator coverage changed: "
+                f"{row_set_key}: {row_coverage}"
+            )
+    if not alhambra_scripted_trigger_source_generator.get("eu5_syntax_evidence_refs"):
+        raise AssertionError("Alhambra scripted-trigger source generator lost EU5 syntax evidence refs")
+
+    evidence_bound_trigger_source_generator_errors = (
+        validate_repeated_entity_row_alhambra_scripted_trigger_source_generator(
+            alhambra_scripted_trigger_source_generator,
+            scripted_trigger_source_generator_interface=(
+                alhambra_scripted_trigger_source_generator_interface
+            ),
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_trigger_source_generator_errors:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator unexpectedly failed evidence-bound validation: "
+            f"{evidence_bound_trigger_source_generator_errors}"
+        )
+
+    def assert_alhambra_scripted_trigger_source_generator_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        scripted_trigger_source_generator_interface: dict | None = (
+            alhambra_scripted_trigger_source_generator_interface
+        ),
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_scripted_trigger_source_generator(
+            report,
+            scripted_trigger_source_generator_interface=(
+                scripted_trigger_source_generator_interface
+            ),
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra scripted-trigger source generator negative was not caught: {errors}"
+            )
+
+    def remove_trigger_declaration_from_source_text(source_text: str, trigger_name: str) -> str:
+        lines = source_text.splitlines()
+        declaration = f"{trigger_name} = {{"
+        start = next(index for index, line in enumerate(lines) if line == declaration)
+        delete_start = start - 1 if start > 0 and lines[start - 1].startswith("# -- ") else start
+        depth = 0
+        end = start
+        while end < len(lines):
+            code = lines[end].split("#", 1)[0]
+            depth += code.count("{") - code.count("}")
+            end += 1
+            if depth == 0:
+                break
+        if end < len(lines) and lines[end] == "":
+            end += 1
+        return "\n".join(lines[:delete_start] + lines[end:]).rstrip() + "\n"
+
+    missing_trigger_declaration_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    missing_trigger_declaration_source_generator["source_text_candidate"] = remove_trigger_declaration_from_source_text(
+        missing_trigger_declaration_source_generator["source_text_candidate"],
+        "tv_wonder_unique_alhambra_ritual_palace_risk_points_scripted_trigger_tooltip_safe_condition_group_trigger",
+    )
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "missing scripted-trigger declaration",
+        missing_trigger_declaration_source_generator,
+        "missing scripted-trigger declaration",
+    )
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "row-set/condition-group coverage missing",
+        missing_trigger_declaration_source_generator,
+        "row-set/condition-group coverage missing",
+    )
+
+    duplicate_trigger_name_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    duplicate_trigger_name_source_generator["source_text_candidate"] = duplicate_trigger_name_source_generator[
+        "source_text_candidate"
+    ].replace(
+        "tv_wonder_unique_alhambra_ritual_treaty_clause_register_scripted_trigger_row_completion_trigger = {",
+        "tv_wonder_unique_alhambra_ritual_treaty_clause_register_scripted_trigger_eligibility_trigger = {",
+        1,
+    )
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "duplicate trigger name in source_text_candidate",
+        duplicate_trigger_name_source_generator,
+        "duplicate trigger name",
+    )
+
+    unverified_trigger_body_line_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    unverified_trigger_body_line_source_generator["source_text_candidate"] = (
+        unverified_trigger_body_line_source_generator["source_text_candidate"].replace(
+            "\talways = yes\n",
+            "\thas_variable = tv_forged_row_state\n",
+            1,
+        )
+    )
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "unexpected body line in scripted-trigger source_text_candidate",
+        unverified_trigger_body_line_source_generator,
+        "unexpected body line",
+    )
+
+    missing_syntax_evidence_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    missing_syntax_evidence_trigger_source_generator["eu5_syntax_evidence_refs"] = []
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "missing scripted-trigger syntax evidence",
+        missing_syntax_evidence_trigger_source_generator,
+        "missing syntax evidence",
+    )
+
+    writable_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    writable_trigger_source_generator["may_write_src"] = True
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "may_write_src true in scripted-trigger source generator",
+        writable_trigger_source_generator,
+        "may_write_src must be false",
+    )
+
+    source_writer_go_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    source_writer_go_trigger_source_generator["source_writer_go"] = True
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "source_writer_go true in scripted-trigger source generator",
+        source_writer_go_trigger_source_generator,
+        "source_writer_go must be false",
+    )
+
+    body_emitted_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    body_emitted_trigger_source_generator["body_emitted"] = True
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "body_emitted true in scripted-trigger source generator",
+        body_emitted_trigger_source_generator,
+        "body_emitted must be false",
+    )
+
+    source_ready_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    source_ready_trigger_source_generator["source_ready"] = True
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "source_ready true in scripted-trigger source generator",
+        source_ready_trigger_source_generator,
+        "source_ready must be false",
+    )
+
+    variable_read_verified_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    variable_read_verified_trigger_source_generator["variable_read_verified"] = False
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "variable_read_verified false in scripted-trigger source generator",
+        variable_read_verified_trigger_source_generator,
+        "variable_read_verified must be true",
+    )
+
+    tooltip_group_verified_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    tooltip_group_verified_trigger_source_generator["tooltip_safe_condition_group_verified"] = False
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "tooltip_safe_condition_group_verified false in scripted-trigger source generator",
+        tooltip_group_verified_trigger_source_generator,
+        "tooltip_safe_condition_group_verified must be true",
+    )
+
+    implementation_ready_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    implementation_ready_trigger_source_generator["implementation_ready"] = True
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "implementation_ready true in scripted-trigger source generator",
+        implementation_ready_trigger_source_generator,
+        "implementation_ready must be false",
+    )
+
+    harness_generated_trigger_source_generator = deepcopy(alhambra_scripted_trigger_source_generator)
+    harness_generated_trigger_source_generator["harness_generated"] = True
+    assert_alhambra_scripted_trigger_source_generator_error(
+        "harness_generated true in scripted-trigger source generator",
+        harness_generated_trigger_source_generator,
+        "harness_generated must be false",
+    )
+
+    alhambra_gui_source_generator_interface = (
+        repeated_entity_row_alhambra_gui_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_gui_source_generator_interface["validation_errors"]:
+        raise AssertionError(
+            "Alhambra GUI source generator interface unexpectedly failed validation: "
+            f"{alhambra_gui_source_generator_interface['validation_errors']}"
+        )
+    evidence_bound_gui_interface_errors = (
+        validate_repeated_entity_row_alhambra_gui_source_generator_interface(
+            alhambra_gui_source_generator_interface,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_gui_interface_errors:
+        raise AssertionError(
+            "Alhambra GUI source generator interface unexpectedly failed external evidence-bound validation: "
+            f"{evidence_bound_gui_interface_errors}"
+        )
+    gui_interface_target = alhambra_file_targets["gui"]
+    gui_interface_summary = alhambra_gui_source_generator_interface.get("summary", {})
+    if gui_interface_summary.get("interface_count") != 1:
+        raise AssertionError(
+            "Alhambra GUI source generator interface count changed: "
+            f"{gui_interface_summary}"
+        )
+    if gui_interface_summary.get("artifact_count") != expected_alhambra_file_counts[gui_interface_target]:
+        raise AssertionError(
+            "Alhambra GUI source generator interface artifact count changed: "
+            f"{gui_interface_summary}"
+        )
+    if gui_interface_summary.get("artifact_count") != 2:
+        raise AssertionError(
+            "Alhambra GUI source generator interface must emit exactly 2 report-level artifacts: "
+            f"{gui_interface_summary}"
+        )
+    if gui_interface_summary.get("output_kind") != "source_file_contract_artifacts":
+        raise AssertionError(
+            "Alhambra GUI source generator interface output kind changed: "
+            f"{gui_interface_summary}"
+        )
+    if gui_interface_summary.get("listener_interface_declared") is not False:
+        raise AssertionError(
+            "Alhambra GUI source generator interface must not declare listener interface: "
+            f"{gui_interface_summary}"
+        )
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if gui_interface_summary.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra GUI source generator interface "
+                f"{count_key} changed: {gui_interface_summary}"
+            )
+        if alhambra_gui_source_generator_interface.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra GUI source generator interface report no-write count changed: "
+                f"{alhambra_gui_source_generator_interface}"
+            )
+    if alhambra_gui_source_generator_interface.get("required_target_paths") != [gui_interface_target]:
+        raise AssertionError(
+            "Alhambra GUI source generator interface should expose only the GUI target: "
+            f"{alhambra_gui_source_generator_interface.get('required_target_paths')}"
+        )
+    if alhambra_gui_source_generator_interface.get("output_is_loadable_source") is not False:
+        raise AssertionError("Alhambra GUI source generator interface must not output loadable source")
+    if (
+        alhambra_gui_source_generator_interface.get("source_writer_allowed") is not False
+        or alhambra_gui_source_generator_interface.get("may_write_src") is not False
+        or alhambra_gui_source_generator_interface.get("writes_src") is not False
+    ):
+        raise AssertionError("Alhambra GUI source generator interface no-write flags changed")
+    if alhambra_gui_source_generator_interface.get("listener_interface_declared") is not False:
+        raise AssertionError("Alhambra GUI source generator interface must not declare listener interface")
+
+    gui_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        gui_interface_target,
+    )
+    gui_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        gui_interface_target,
+    )
+    gui_generator_interfaces = alhambra_gui_source_generator_interface.get("source_generator_interfaces", [])
+    if len(gui_generator_interfaces) != 1:
+        raise AssertionError(
+            "Alhambra GUI source generator interface should expose one interface: "
+            f"{gui_generator_interfaces}"
+        )
+    gui_generator_interface = gui_generator_interfaces[0]
+    if (
+        gui_generator_interface.get("family") != "gui"
+        or gui_generator_interface.get("target_path") != gui_interface_target
+        or gui_generator_interface.get("owner_generator") != "unique_wonder_ritual_gui_row_source_generator"
+        or gui_generator_interface.get("output_contract") != "source_file_contract_artifacts"
+        or gui_generator_interface.get("dry_run_required") is not True
+        or gui_generator_interface.get("memory_report_only") is not True
+        or gui_generator_interface.get("gui_family_only") is not True
+        or gui_generator_interface.get("gui_target_only") is not True
+        or gui_generator_interface.get("listener_interface_declared") is not False
+        or gui_generator_interface.get("source_writer_allowed") is not False
+        or gui_generator_interface.get("may_write_src") is not False
+        or gui_generator_interface.get("writes_src") is not False
+        or gui_generator_interface.get("source_file_validation_evidence_ref")
+        != gui_generator_contract.get("evidence_pack_ref")
+    ):
+        raise AssertionError(
+            "Alhambra GUI source generator interface lost no-write interface shape: "
+            f"{gui_generator_interface}"
+        )
+
+    gui_contract_artifacts = alhambra_gui_source_generator_interface.get("source_file_contract_artifacts", [])
+    if len(gui_contract_artifacts) != 2:
+        raise AssertionError(
+            "Alhambra GUI source generator interface artifact list changed: "
+            f"{gui_contract_artifacts}"
+        )
+    gui_contract_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for ref in gui_generator_contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    gui_artifact_ref_keys = {
+        (
+            str(artifact.get("source_body_candidate_ref", {}).get("family", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("row_set_key", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("artifact_kind", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("future_source_target_path", "")),
+        )
+        for artifact in gui_contract_artifacts
+        if isinstance(artifact, dict)
+    }
+    if (
+        gui_artifact_ref_keys != gui_contract_ref_keys
+        or len(gui_artifact_ref_keys) != expected_alhambra_file_counts[gui_interface_target]
+    ):
+        raise AssertionError(
+            "Alhambra GUI source generator interface lost external source refs: "
+            f"{gui_artifact_ref_keys}"
+        )
+    if {
+        artifact.get("artifact_kind")
+        for artifact in gui_contract_artifacts
+    } != {"gui_checklist_row", "gui_incident_log_row"}:
+        raise AssertionError(
+            "Alhambra GUI source generator interface artifact kinds changed: "
+            f"{gui_contract_artifacts}"
+        )
+    for artifact in gui_contract_artifacts:
+        draft = artifact.get("gui_source_body_draft")
+        if not isinstance(draft, dict) or draft.get("kind") != "gui_source_body_draft":
+            raise AssertionError(
+                "Alhambra GUI source generator interface artifact lost GUI source-body draft: "
+                f"{artifact}"
+            )
+        if (
+            draft.get("row_set_key") != artifact.get("row_set_key")
+            or draft.get("artifact_kind") != artifact.get("artifact_kind")
+            or draft.get("body_emitted") is not False
+            or draft.get("may_write_src") is not False
+            or draft.get("loc_key_refs", {}).get("all_bound") is not True
+            or draft.get("trigger_effect_handoff_refs", {}).get("all_bound") is not True
+            or draft.get("variable_read_refs", {}).get("all_bound") is not True
+        ):
+            raise AssertionError(
+                "Alhambra GUI source-body draft lost row/loc/variable/handoff binding: "
+                f"{draft}"
+            )
+        if (
+            artifact.get("family") != "gui"
+            or artifact.get("target_path") != gui_interface_target
+            or artifact.get("future_source_target_path") != gui_interface_target
+            or artifact.get("output_kind") != "source_file_contract_artifacts"
+            or artifact.get("output_is_loadable_source") is not False
+            or artifact.get("source_file_contract_artifact_only") is not True
+            or artifact.get("source_generator_interface_prototype_only") is not True
+            or artifact.get("gui_family_only") is not True
+            or artifact.get("gui_target_only") is not True
+            or artifact.get("listener_interface_declared") is not False
+            or artifact.get("memory_report_only") is not True
+            or artifact.get("dry_run") is not True
+            or artifact.get("dry_run_required") is not True
+            or artifact.get("source_file_validation_evidence_ref") != gui_generator_contract.get("evidence_pack_ref")
+            or artifact.get("source_body_candidate_ref_provenance")
+            != gui_generator_contract.get("source_body_candidate_ref_provenance")
+            or artifact.get("no_write_source_writer_contract_evidence")
+            != gui_generator_contract.get("no_write_source_writer_contract_evidence")
+            or artifact.get("body_emitted") is not False
+            or artifact.get("source_ready") is not False
+            or artifact.get("verified") is not False
+            or artifact.get("backend_ready") is not False
+            or artifact.get("source_writer_allowed") is not False
+            or artifact.get("may_write_src") is not False
+            or artifact.get("writes_src") is not False
+        ):
+            raise AssertionError(
+                "Alhambra GUI source generator interface artifact lost no-write contract shape: "
+                f"{artifact}"
+            )
+    if gui_validation_pack.get("target_path") != gui_interface_target:
+        raise AssertionError(f"Alhambra GUI validation pack target changed: {gui_validation_pack}")
+
+    def assert_alhambra_gui_source_generator_interface_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_gui_source_generator_interface(
+            report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra GUI source generator interface negative was not caught: "
+                f"{errors}"
+            )
+
+    missing_gui_artifact_interface = deepcopy(alhambra_gui_source_generator_interface)
+    missing_gui_artifact_interface["source_file_contract_artifacts"] = (
+        missing_gui_artifact_interface["source_file_contract_artifacts"][:-1]
+    )
+    assert_alhambra_gui_source_generator_interface_error(
+        "missing GUI artifact",
+        missing_gui_artifact_interface,
+        "artifact_count mismatch",
+    )
+
+    writable_gui_artifact_interface = deepcopy(alhambra_gui_source_generator_interface)
+    _alhambra_gui_source_file_contract_artifact(
+        writable_gui_artifact_interface,
+        "gui_checklist_row",
+    )["may_write_src"] = True
+    assert_alhambra_gui_source_generator_interface_error(
+        "writable GUI artifact",
+        writable_gui_artifact_interface,
+        "may_write_src must be false",
+    )
+
+    listener_declared_gui_interface = deepcopy(alhambra_gui_source_generator_interface)
+    listener_declared_gui_interface["listener_interface_declared"] = True
+    assert_alhambra_gui_source_generator_interface_error(
+        "listener-declaring GUI interface",
+        listener_declared_gui_interface,
+        "must not declare listener interface",
+    )
+
+    source_ready_gui_interface = deepcopy(alhambra_gui_source_generator_interface)
+    _alhambra_gui_source_file_contract_artifact(
+        source_ready_gui_interface,
+        "gui_incident_log_row",
+    )["source_ready"] = True
+    assert_alhambra_gui_source_generator_interface_error(
+        "source-ready GUI artifact",
+        source_ready_gui_interface,
+        "source_ready/verified/backend_ready",
+    )
+
+    wrong_output_gui_interface = deepcopy(alhambra_gui_source_generator_interface)
+    wrong_output_gui_interface["output_kind"] = "loadable_source_file"
+    assert_alhambra_gui_source_generator_interface_error(
+        "wrong GUI output kind",
+        wrong_output_gui_interface,
+        "output_kind must be source_file_contract_artifacts",
+    )
+
+    forged_ref_gui_interface = deepcopy(alhambra_gui_source_generator_interface)
+    _alhambra_gui_source_file_contract_artifact(
+        forged_ref_gui_interface,
+        "gui_checklist_row",
+    )["source_body_candidate_ref"]["row_set_key"] = "forged_row_set"
+    assert_alhambra_gui_source_generator_interface_error(
+        "forged GUI source ref",
+        forged_ref_gui_interface,
+        "external validation evidence mismatch",
+    )
+
+    missing_gui_loc_key_interface = deepcopy(alhambra_gui_source_generator_interface)
+    _alhambra_gui_source_file_contract_artifact(
+        missing_gui_loc_key_interface,
+        "gui_checklist_row",
+    )["gui_source_body_draft"]["loc_key_refs"]["row_label_keys"] = []
+    assert_alhambra_gui_source_generator_interface_error(
+        "GUI draft missing loc key",
+        missing_gui_loc_key_interface,
+        "loc key refs must be bound",
+    )
+
+    body_emitted_gui_draft_interface = deepcopy(alhambra_gui_source_generator_interface)
+    _alhambra_gui_source_file_contract_artifact(
+        body_emitted_gui_draft_interface,
+        "gui_incident_log_row",
+    )["gui_source_body_draft"]["body_emitted"] = True
+    assert_alhambra_gui_source_generator_interface_error(
+        "GUI draft emitted body",
+        body_emitted_gui_draft_interface,
+        "body_emitted must be false",
+    )
+
+    external_evidence_forged_gui_validation = deepcopy(alhambra_source_file_validation_evidence)
+    external_evidence_forged_gui_pack = _alhambra_source_file_validation_pack(
+        external_evidence_forged_gui_validation,
+        gui_interface_target,
+    )
+    external_evidence_forged_gui_pack["source_body_candidate_refs"][0]["row_set_key"] = "forged_row_set"
+    external_evidence_forged_gui_generator_contract = (
+        repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            spec_data,
+            source_file_validation_evidence=external_evidence_forged_gui_validation,
+        )
+    )
+    external_evidence_forged_gui_interface = (
+        repeated_entity_row_alhambra_gui_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=external_evidence_forged_gui_generator_contract,
+            source_file_validation_evidence=external_evidence_forged_gui_validation,
+        )
+    )
+    if not any("row_set_key mismatch" in error for error in external_evidence_forged_gui_interface["validation_errors"]):
+        raise AssertionError(
+            "Externally forged Alhambra GUI interface must reject wrong row set before "
+            "the original validation evidence is applied: "
+            f"{external_evidence_forged_gui_interface['validation_errors']}"
+        )
+    assert_alhambra_gui_source_generator_interface_error(
+        "external evidence-bound forged GUI interface",
+        external_evidence_forged_gui_interface,
+        "external validation evidence",
+        source_generator_contract=external_evidence_forged_gui_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+
+    detached_gui_interface_validation = deepcopy(alhambra_gui_source_generator_interface)
+    assert_alhambra_gui_source_generator_interface_error(
+        "missing external validation evidence",
+        detached_gui_interface_validation,
+        "requires external source-file validation evidence",
+        source_file_validation_evidence=None,
+    )
+
+    alhambra_listener_source_generator_interface = (
+        repeated_entity_row_alhambra_listener_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_listener_source_generator_interface["validation_errors"]:
+        raise AssertionError(
+            "Alhambra listener source generator interface unexpectedly failed validation: "
+            f"{alhambra_listener_source_generator_interface['validation_errors']}"
+        )
+    evidence_bound_listener_interface_errors = (
+        validate_repeated_entity_row_alhambra_listener_source_generator_interface(
+            alhambra_listener_source_generator_interface,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_listener_interface_errors:
+        raise AssertionError(
+            "Alhambra listener source generator interface unexpectedly failed external evidence-bound validation: "
+            f"{evidence_bound_listener_interface_errors}"
+        )
+    listener_interface_target = alhambra_file_targets["listener"]
+    listener_interface_summary = alhambra_listener_source_generator_interface.get("summary", {})
+    if listener_interface_summary.get("interface_count") != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface count changed: "
+            f"{listener_interface_summary}"
+        )
+    if listener_interface_summary.get("artifact_count") != expected_alhambra_file_counts[listener_interface_target]:
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact count changed: "
+            f"{listener_interface_summary}"
+        )
+    if listener_interface_summary.get("artifact_count") != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface must emit exactly 1 report-level artifact: "
+            f"{listener_interface_summary}"
+        )
+    if listener_interface_summary.get("artifact_kind") != "listener_war_integration":
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact kind changed: "
+            f"{listener_interface_summary}"
+        )
+    if listener_interface_summary.get("output_kind") != "source_file_contract_artifacts":
+        raise AssertionError(
+            "Alhambra listener source generator interface output kind changed: "
+            f"{listener_interface_summary}"
+        )
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if listener_interface_summary.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra listener source generator interface "
+                f"{count_key} changed: {listener_interface_summary}"
+            )
+        if alhambra_listener_source_generator_interface.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra listener source generator interface report no-write count changed: "
+                f"{alhambra_listener_source_generator_interface}"
+            )
+    if alhambra_listener_source_generator_interface.get("required_target_paths") != [listener_interface_target]:
+        raise AssertionError(
+            "Alhambra listener source generator interface should expose only the listener target: "
+            f"{alhambra_listener_source_generator_interface.get('required_target_paths')}"
+        )
+    if alhambra_listener_source_generator_interface.get("output_is_loadable_source") is not False:
+        raise AssertionError("Alhambra listener source generator interface must not output loadable source")
+    if (
+        alhambra_listener_source_generator_interface.get("source_writer_allowed") is not False
+        or alhambra_listener_source_generator_interface.get("may_write_src") is not False
+        or alhambra_listener_source_generator_interface.get("writes_src") is not False
+    ):
+        raise AssertionError("Alhambra listener source generator interface no-write flags changed")
+
+    listener_generator_contract = _alhambra_source_generator_contract(
+        alhambra_source_generator_contract,
+        listener_interface_target,
+    )
+    listener_validation_pack = _alhambra_source_file_validation_pack(
+        alhambra_source_file_validation_evidence,
+        listener_interface_target,
+    )
+    listener_linkage_evidence = listener_validation_pack.get("listener_linkage_evidence", {})
+    listener_generator_interfaces = alhambra_listener_source_generator_interface.get("source_generator_interfaces", [])
+    if len(listener_generator_interfaces) != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface should expose one interface: "
+            f"{listener_generator_interfaces}"
+        )
+    listener_generator_interface = listener_generator_interfaces[0]
+    if (
+        listener_generator_interface.get("family") != "listener"
+        or listener_generator_interface.get("target_path") != listener_interface_target
+        or listener_generator_interface.get("owner_generator")
+        != "unique_wonder_ritual_listener_integration_source_generator"
+        or listener_generator_interface.get("output_contract") != "source_file_contract_artifacts"
+        or listener_generator_interface.get("dry_run_required") is not True
+        or listener_generator_interface.get("memory_report_only") is not True
+        or listener_generator_interface.get("listener_family_only") is not True
+        or listener_generator_interface.get("listener_target_only") is not True
+        or listener_generator_interface.get("source_writer_allowed") is not False
+        or listener_generator_interface.get("may_write_src") is not False
+        or listener_generator_interface.get("writes_src") is not False
+        or listener_generator_interface.get("source_file_validation_evidence_ref")
+        != listener_generator_contract.get("evidence_pack_ref")
+        or listener_generator_interface.get("listener_linkage_evidence_ref") != listener_linkage_evidence
+        or set(listener_generator_interface.get("on_action_hook_linkage_plan", {}).get("hooks", []))
+        != {"on_pre_winning_war", "on_ending_war"}
+        or listener_generator_interface.get("selected_ritual_trigger_linkage", {}).get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+        or set(
+            listener_generator_interface.get("war_scope_availability_persistence_plan", {}).get(
+                "war_scope_available_from_hooks",
+                [],
+            )
+        )
+        != {"on_pre_winning_war", "on_ending_war"}
+    ):
+        raise AssertionError(
+            "Alhambra listener source generator interface lost no-write linkage shape: "
+            f"{listener_generator_interface}"
+        )
+
+    listener_contract_artifacts = alhambra_listener_source_generator_interface.get("source_file_contract_artifacts", [])
+    if len(listener_contract_artifacts) != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact list changed: "
+            f"{listener_contract_artifacts}"
+        )
+    listener_contract_ref_keys = {
+        (
+            str(ref.get("family", "")),
+            str(ref.get("row_set_key", "")),
+            str(ref.get("artifact_kind", "")),
+            str(ref.get("future_source_target_path", "")),
+        )
+        for ref in listener_generator_contract.get("source_body_candidate_refs", []) or []
+        if isinstance(ref, dict)
+    }
+    listener_artifact_ref_keys = {
+        (
+            str(artifact.get("source_body_candidate_ref", {}).get("family", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("row_set_key", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("artifact_kind", "")),
+            str(artifact.get("source_body_candidate_ref", {}).get("future_source_target_path", "")),
+        )
+        for artifact in listener_contract_artifacts
+        if isinstance(artifact, dict)
+    }
+    if listener_artifact_ref_keys != listener_contract_ref_keys or len(listener_artifact_ref_keys) != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface lost external source refs: "
+            f"{listener_artifact_ref_keys}"
+        )
+    listener_artifact = listener_contract_artifacts[0]
+    if (
+        listener_artifact.get("family") != "listener"
+        or listener_artifact.get("artifact_kind") != "listener_war_integration"
+        or listener_artifact.get("target_path") != listener_interface_target
+        or listener_artifact.get("future_source_target_path") != listener_interface_target
+        or listener_artifact.get("output_kind") != "source_file_contract_artifacts"
+        or listener_artifact.get("output_is_loadable_source") is not False
+        or listener_artifact.get("source_file_contract_artifact_only") is not True
+        or listener_artifact.get("source_generator_interface_prototype_only") is not True
+        or listener_artifact.get("listener_family_only") is not True
+        or listener_artifact.get("listener_target_only") is not True
+        or listener_artifact.get("memory_report_only") is not True
+        or listener_artifact.get("dry_run") is not True
+        or listener_artifact.get("dry_run_required") is not True
+        or listener_artifact.get("source_file_validation_evidence_ref")
+        != listener_generator_contract.get("evidence_pack_ref")
+        or listener_artifact.get("source_body_candidate_ref_provenance")
+        != listener_generator_contract.get("source_body_candidate_ref_provenance")
+        or listener_artifact.get("no_write_source_writer_contract_evidence")
+        != listener_generator_contract.get("no_write_source_writer_contract_evidence")
+        or listener_artifact.get("listener_linkage_evidence_ref") != listener_linkage_evidence
+        or set(listener_artifact.get("on_action_hook_linkage_plan", {}).get("hooks", []))
+        != {"on_pre_winning_war", "on_ending_war"}
+        or listener_artifact.get("selected_ritual_trigger_linkage", {}).get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+        or listener_artifact.get("war_scope_availability_persistence_plan", {}).get("persistence_contract_only")
+        is not True
+        or listener_artifact.get("body_emitted") is not False
+        or listener_artifact.get("source_ready") is not False
+        or listener_artifact.get("verified") is not False
+        or listener_artifact.get("backend_ready") is not False
+        or listener_artifact.get("source_writer_allowed") is not False
+        or listener_artifact.get("may_write_src") is not False
+        or listener_artifact.get("writes_src") is not False
+        or listener_artifact.get("listener_body_allowed") is not False
+        or listener_artifact.get("listener_scope_writes_allowed") is not False
+        or listener_artifact.get("war_scope_writes_allowed") is not False
+        or listener_artifact.get("source_writes_allowed") is not False
+    ):
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact lost no-write linkage shape: "
+            f"{listener_artifact}"
+        )
+    listener_draft = listener_artifact.get("listener_source_body_draft")
+    if not isinstance(listener_draft, dict) or listener_draft.get("kind") != "listener_source_body_draft":
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact lost listener source-body draft: "
+            f"{listener_artifact}"
+        )
+    if (
+        listener_draft.get("artifact_kind") != "listener_war_integration"
+        or listener_draft.get("target_path") != listener_interface_target
+        or listener_draft.get("future_source_target_path") != listener_interface_target
+        or listener_draft.get("body_emitted") is not False
+        or listener_draft.get("may_write_src") is not False
+        or listener_draft.get("listener_body_allowed") is not False
+        or listener_draft.get("listener_scope_writes_allowed") is not False
+        or listener_draft.get("war_scope_writes_allowed") is not False
+        or set(listener_draft.get("on_action_hook_linkage_plan", {}).get("hooks", []))
+        != {"on_pre_winning_war", "on_ending_war"}
+        or listener_draft.get("war_scope_contract", {}).get("persistence_contract_only") is not True
+        or set(listener_draft.get("war_scope_contract", {}).get("war_scope_available_from_hooks", []))
+        != {"on_pre_winning_war", "on_ending_war"}
+        or listener_draft.get("selected_ritual_trigger_refs", {}).get("trigger_name")
+        != "tv_wonder_unique_alhambra_ritual_selected_ritual_listener_trigger"
+        or listener_draft.get("selected_ritual_trigger_refs", {}).get("all_bound") is not True
+        or listener_draft.get("event_effect_cleanup_handoff_refs", {}).get("all_bound") is not True
+    ):
+        raise AssertionError(
+            "Alhambra listener source-body draft lost hook/war-scope/trigger/handoff binding: "
+            f"{listener_draft}"
+        )
+    for ref_label in ("event", "trigger", "effect", "cleanup"):
+        refs = listener_draft.get("event_effect_cleanup_handoff_refs", {}).get(f"{ref_label}_refs")
+        if not isinstance(refs, list) or not refs:
+            raise AssertionError(
+                "Alhambra listener source-body draft lost "
+                f"{ref_label} handoff refs: {listener_draft}"
+            )
+    if listener_validation_pack.get("target_path") != listener_interface_target:
+        raise AssertionError(f"Alhambra listener validation pack target changed: {listener_validation_pack}")
+
+    def assert_alhambra_listener_source_generator_interface_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_listener_source_generator_interface(
+            report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra listener source generator interface negative was not caught: "
+                f"{errors}"
+            )
+
+    missing_listener_artifact_interface = deepcopy(alhambra_listener_source_generator_interface)
+    missing_listener_artifact_interface["source_file_contract_artifacts"] = []
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener artifact",
+        missing_listener_artifact_interface,
+        "artifact_count mismatch",
+    )
+
+    writable_listener_artifact_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        writable_listener_artifact_interface,
+        "listener_war_integration",
+    )["may_write_src"] = True
+    assert_alhambra_listener_source_generator_interface_error(
+        "writable listener artifact",
+        writable_listener_artifact_interface,
+        "may_write_src must be false",
+    )
+
+    missing_listener_hook_interface = deepcopy(alhambra_listener_source_generator_interface)
+    del _alhambra_listener_source_file_contract_artifact(
+        missing_listener_hook_interface,
+        "listener_war_integration",
+    )["listener_linkage_evidence_ref"]["on_action_hook_linkage_plan"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener hook evidence",
+        missing_listener_hook_interface,
+        "hook linkage",
+    )
+
+    missing_listener_trigger_interface = deepcopy(alhambra_listener_source_generator_interface)
+    del _alhambra_listener_source_file_contract_artifact(
+        missing_listener_trigger_interface,
+        "listener_war_integration",
+    )["listener_linkage_evidence_ref"]["selected_ritual_trigger_linkage"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener trigger evidence",
+        missing_listener_trigger_interface,
+        "selected ritual trigger linkage",
+    )
+
+    missing_listener_war_scope_interface = deepcopy(alhambra_listener_source_generator_interface)
+    del _alhambra_listener_source_file_contract_artifact(
+        missing_listener_war_scope_interface,
+        "listener_war_integration",
+    )["listener_linkage_evidence_ref"]["war_scope_availability_persistence_plan"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener war-scope evidence",
+        missing_listener_war_scope_interface,
+        "war-scope boundary",
+    )
+
+    missing_listener_draft_interface = deepcopy(alhambra_listener_source_generator_interface)
+    del _alhambra_listener_source_file_contract_artifact(
+        missing_listener_draft_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener source-body draft",
+        missing_listener_draft_interface,
+        "missing listener source-body draft",
+    )
+
+    missing_listener_draft_hook_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        missing_listener_draft_hook_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["on_action_hook_linkage_plan"]["hooks"] = ["on_pre_winning_war"]
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing listener draft hook",
+        missing_listener_draft_hook_interface,
+        "hook linkage",
+    )
+
+    wrong_listener_draft_war_scope_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        wrong_listener_draft_war_scope_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["war_scope_contract"]["war_scope_writes_allowed"] = True
+    assert_alhambra_listener_source_generator_interface_error(
+        "wrong listener draft war scope",
+        wrong_listener_draft_war_scope_interface,
+        "war scope contract mismatch",
+    )
+
+    unbound_listener_draft_effect_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        unbound_listener_draft_effect_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["event_effect_cleanup_handoff_refs"]["effect_refs"] = []
+    assert_alhambra_listener_source_generator_interface_error(
+        "unbound listener draft effect refs",
+        unbound_listener_draft_effect_interface,
+        "effect refs must not be empty",
+    )
+
+    wrong_listener_draft_target_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        wrong_listener_draft_target_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["target_path"] = "src/in_game/common/on_action/forged.txt"
+    assert_alhambra_listener_source_generator_interface_error(
+        "wrong listener draft target",
+        wrong_listener_draft_target_interface,
+        "target path mismatch",
+    )
+
+    body_emitted_listener_draft_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        body_emitted_listener_draft_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["body_emitted"] = True
+    assert_alhambra_listener_source_generator_interface_error(
+        "body-emitted listener draft",
+        body_emitted_listener_draft_interface,
+        "body_emitted must be false",
+    )
+
+    may_write_listener_draft_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        may_write_listener_draft_interface,
+        "listener_war_integration",
+    )["listener_source_body_draft"]["may_write_src"] = True
+    assert_alhambra_listener_source_generator_interface_error(
+        "writable listener draft",
+        may_write_listener_draft_interface,
+        "may_write_src must be false",
+    )
+
+    forged_ref_listener_interface = deepcopy(alhambra_listener_source_generator_interface)
+    _alhambra_listener_source_file_contract_artifact(
+        forged_ref_listener_interface,
+        "listener_war_integration",
+    )["source_body_candidate_ref"]["row_set_key"] = "forged_row_set"
+    assert_alhambra_listener_source_generator_interface_error(
+        "forged listener source ref",
+        forged_ref_listener_interface,
+        "external validation evidence mismatch",
+    )
+
+    external_evidence_forged_listener_validation = deepcopy(alhambra_source_file_validation_evidence)
+    external_evidence_forged_listener_pack = _alhambra_source_file_validation_pack(
+        external_evidence_forged_listener_validation,
+        listener_interface_target,
+    )
+    external_evidence_forged_listener_pack["source_body_candidate_refs"][0]["row_set_key"] = "forged_row_set"
+    external_evidence_forged_listener_generator_contract = (
+        repeated_entity_row_alhambra_source_generator_contract_for_payload(
+            spec_data,
+            source_file_validation_evidence=external_evidence_forged_listener_validation,
+        )
+    )
+    external_evidence_forged_listener_interface = (
+        repeated_entity_row_alhambra_listener_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=external_evidence_forged_listener_generator_contract,
+            source_file_validation_evidence=external_evidence_forged_listener_validation,
+        )
+    )
+    if not any(
+        "listener source-body draft" in error
+        or "refs must not be empty" in error
+        or "source-body draft completeness" in error
+        for error in external_evidence_forged_listener_interface["validation_errors"]
+    ):
+        raise AssertionError(
+            "Externally forged Alhambra listener interface should fail its own source-body "
+            "draft binding before the original validation evidence is applied: "
+            f"{external_evidence_forged_listener_interface['validation_errors']}"
+        )
+    assert_alhambra_listener_source_generator_interface_error(
+        "external evidence-bound forged listener interface",
+        external_evidence_forged_listener_interface,
+        "external validation evidence",
+        source_generator_contract=external_evidence_forged_listener_generator_contract,
+        source_file_validation_evidence=alhambra_source_file_validation_evidence,
+    )
+
+    detached_listener_interface_validation = deepcopy(alhambra_listener_source_generator_interface)
+    assert_alhambra_listener_source_generator_interface_error(
+        "missing external validation evidence",
+        detached_listener_interface_validation,
+        "requires external source-file validation evidence",
+        source_file_validation_evidence=None,
+    )
+
+    alhambra_localization_source_generator_interface = (
+        repeated_entity_row_alhambra_localization_source_generator_interface_for_payload(
+            spec_data,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_localization_source_generator_interface["validation_errors"]:
+        raise AssertionError(
+            "Alhambra localization source generator interface unexpectedly failed validation: "
+            f"{alhambra_localization_source_generator_interface['validation_errors']}"
+        )
+    evidence_bound_localization_interface_errors = (
+        validate_repeated_entity_row_alhambra_localization_source_generator_interface(
+            alhambra_localization_source_generator_interface,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_localization_interface_errors:
+        raise AssertionError(
+            "Alhambra localization source generator interface unexpectedly failed external evidence-bound "
+            f"validation: {evidence_bound_localization_interface_errors}"
+        )
+    localization_interface_targets = [
+        alhambra_file_targets["english"],
+        alhambra_file_targets["simp_chinese"],
+    ]
+    localization_interface_summary = alhambra_localization_source_generator_interface.get("summary", {})
+    if localization_interface_summary.get("interface_count") != 2:
+        raise AssertionError(
+            "Alhambra localization source generator interface count changed: "
+            f"{localization_interface_summary}"
+        )
+    if localization_interface_summary.get("artifact_count") != 20:
+        raise AssertionError(
+            "Alhambra localization source generator interface artifact count changed: "
+            f"{localization_interface_summary}"
+        )
+    if localization_interface_summary.get("target_artifact_counts") != {
+        alhambra_file_targets["english"]: 10,
+        alhambra_file_targets["simp_chinese"]: 10,
+    }:
+        raise AssertionError(
+            "Alhambra localization source generator interface target split changed: "
+            f"{localization_interface_summary}"
+        )
+    if localization_interface_summary.get("language_artifact_counts") != {
+        "english": 10,
+        "simp_chinese": 10,
+    }:
+        raise AssertionError(
+            "Alhambra localization source generator interface language split changed: "
+            f"{localization_interface_summary}"
+        )
+    if localization_interface_summary.get("output_kind") != "source_file_contract_artifacts":
+        raise AssertionError(
+            "Alhambra localization source generator interface output kind changed: "
+            f"{localization_interface_summary}"
+        )
+    for count_key in (
+        "source_ready_count",
+        "source_writer_allowed_count",
+        "may_write_src_count",
+        "writes_src_count",
+    ):
+        if localization_interface_summary.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra localization source generator interface "
+                f"{count_key} changed: {localization_interface_summary}"
+            )
+        if alhambra_localization_source_generator_interface.get(count_key) != 0:
+            raise AssertionError(
+                "Alhambra localization source generator interface report no-write count changed: "
+                f"{alhambra_localization_source_generator_interface}"
+            )
+    if alhambra_localization_source_generator_interface.get("required_target_paths") != localization_interface_targets:
+        raise AssertionError(
+            "Alhambra localization source generator interface should expose only the two localization targets: "
+            f"{alhambra_localization_source_generator_interface.get('required_target_paths')}"
+        )
+    if alhambra_localization_source_generator_interface.get("output_is_loadable_source") is not False:
+        raise AssertionError("Alhambra localization source generator interface must not output loadable source")
+    if (
+        alhambra_localization_source_generator_interface.get("source_writer_allowed") is not False
+        or alhambra_localization_source_generator_interface.get("may_write_src") is not False
+        or alhambra_localization_source_generator_interface.get("writes_src") is not False
+    ):
+        raise AssertionError("Alhambra localization source generator interface no-write flags changed")
+
+    localization_generator_interfaces = (
+        alhambra_localization_source_generator_interface.get("source_generator_interfaces", [])
+    )
+    if len(localization_generator_interfaces) != 2:
+        raise AssertionError(
+            "Alhambra localization source generator interface should expose one interface per target: "
+            f"{localization_generator_interfaces}"
+        )
+    expected_localization_languages = {
+        alhambra_file_targets["english"]: "english",
+        alhambra_file_targets["simp_chinese"]: "simp_chinese",
+    }
+    for localization_interface in localization_generator_interfaces:
+        target_path = localization_interface.get("target_path")
+        localization_generator_contract = _alhambra_source_generator_contract(
+            alhambra_source_generator_contract,
+            target_path,
+        )
+        if (
+            localization_interface.get("family") != "localization"
+            or localization_interface.get("localization_language") != expected_localization_languages[target_path]
+            or localization_interface.get("owner_generator")
+            != "unique_wonder_ritual_localization_source_generator"
+            or localization_interface.get("output_contract") != "source_file_contract_artifacts"
+            or localization_interface.get("dry_run_required") is not True
+            or localization_interface.get("memory_report_only") is not True
+            or localization_interface.get("localization_family_only") is not True
+            or localization_interface.get("source_writer_allowed") is not False
+            or localization_interface.get("may_write_src") is not False
+            or localization_interface.get("writes_src") is not False
+            or localization_interface.get("source_file_validation_evidence_ref")
+            != localization_generator_contract.get("evidence_pack_ref")
+            or localization_interface.get("localization_language_boundary", {}).get("language_target_paths")
+            != {
+                "english": alhambra_file_targets["english"],
+                "simp_chinese": alhambra_file_targets["simp_chinese"],
+            }
+        ):
+            raise AssertionError(
+                "Alhambra localization source generator interface lost no-write interface shape: "
+                f"{localization_interface}"
+            )
+
+    localization_contract_artifacts = (
+        alhambra_localization_source_generator_interface.get("source_file_contract_artifacts", [])
+    )
+    if len(localization_contract_artifacts) != 20:
+        raise AssertionError(
+            "Alhambra localization source generator interface artifact list changed: "
+            f"{localization_contract_artifacts}"
+        )
+    for target_path in localization_interface_targets:
+        localization_generator_contract = _alhambra_source_generator_contract(
+            alhambra_source_generator_contract,
+            target_path,
+        )
+        localization_validation_pack = _alhambra_source_file_validation_pack(
+            alhambra_source_file_validation_evidence,
+            target_path,
+        )
+        target_artifacts = [
+            artifact
+            for artifact in localization_contract_artifacts
+            if artifact.get("target_path") == target_path
+        ]
+        if len(target_artifacts) != expected_alhambra_file_counts[target_path]:
+            raise AssertionError(
+                "Alhambra localization source generator interface target artifact list changed: "
+                f"{target_path}: {target_artifacts}"
+            )
+        localization_contract_ref_keys = {
+            (
+                str(ref.get("family", "")),
+                str(ref.get("row_set_key", "")),
+                str(ref.get("artifact_kind", "")),
+                str(ref.get("future_source_target_path", "")),
+            )
+            for ref in localization_generator_contract.get("source_body_candidate_refs", []) or []
+            if isinstance(ref, dict)
+        }
+        localization_artifact_ref_keys = {
+            (
+                str(artifact.get("source_body_candidate_ref", {}).get("family", "")),
+                str(artifact.get("source_body_candidate_ref", {}).get("row_set_key", "")),
+                str(artifact.get("source_body_candidate_ref", {}).get("artifact_kind", "")),
+                str(artifact.get("source_body_candidate_ref", {}).get("future_source_target_path", "")),
+            )
+            for artifact in target_artifacts
+            if isinstance(artifact, dict)
+        }
+        if (
+            localization_artifact_ref_keys != localization_contract_ref_keys
+            or len(localization_artifact_ref_keys) != expected_alhambra_file_counts[target_path]
+        ):
+            raise AssertionError(
+                "Alhambra localization source generator interface lost external source refs: "
+                f"{target_path}: {localization_artifact_ref_keys}"
+            )
+        for artifact in target_artifacts:
+            draft = artifact.get("localization_source_body_draft")
+            if not isinstance(draft, dict) or draft.get("kind") != "localization_source_body_draft":
+                raise AssertionError(
+                    "Alhambra localization source generator interface artifact lost localization "
+                    f"source-body draft: {artifact}"
+                )
+            if (
+                draft.get("localization_language") != expected_localization_languages[target_path]
+                or draft.get("target_path") != target_path
+                or draft.get("row_set_key") != artifact.get("row_set_key")
+                or draft.get("artifact_kind") != artifact.get("artifact_kind")
+                or draft.get("body_emitted") is not False
+                or draft.get("may_write_src") is not False
+                or draft.get("language_target", {}).get("separate_language_target") is not True
+                or draft.get("localization_key_refs", {}).get("all_bound") is not True
+                or draft.get("reverse_binding_refs", {}).get("all_bound") is not True
+            ):
+                raise AssertionError(
+                    "Alhambra localization source-body draft lost language/key/reverse binding: "
+                    f"{draft}"
+                )
+            if (
+                artifact.get("family") != "localization"
+                or artifact.get("localization_language") != expected_localization_languages[target_path]
+                or artifact.get("target_path") != target_path
+                or artifact.get("future_source_target_path") != target_path
+                or artifact.get("source_candidate_future_target_path")
+                != artifact.get("source_body_candidate_ref", {}).get("future_source_target_path")
+                or artifact.get("output_kind") != "source_file_contract_artifacts"
+                or artifact.get("output_is_loadable_source") is not False
+                or artifact.get("source_file_contract_artifact_only") is not True
+                or artifact.get("source_generator_interface_prototype_only") is not True
+                or artifact.get("localization_family_only") is not True
+                or artifact.get("memory_report_only") is not True
+                or artifact.get("dry_run") is not True
+                or artifact.get("dry_run_required") is not True
+                or artifact.get("source_file_validation_evidence_ref")
+                != localization_generator_contract.get("evidence_pack_ref")
+                or artifact.get("source_body_candidate_ref_provenance")
+                != localization_generator_contract.get("source_body_candidate_ref_provenance")
+                or artifact.get("no_write_source_writer_contract_evidence")
+                != localization_generator_contract.get("no_write_source_writer_contract_evidence")
+                or artifact.get("localization_language_boundary")
+                != localization_generator_contract.get("localization_language_boundary")
+                or artifact.get("body_emitted") is not False
+                or artifact.get("source_ready") is not False
+                or artifact.get("verified") is not False
+                or artifact.get("backend_ready") is not False
+                or artifact.get("source_writer_allowed") is not False
+                or artifact.get("may_write_src") is not False
+                or artifact.get("writes_src") is not False
+            ):
+                raise AssertionError(
+                    "Alhambra localization source generator interface artifact lost no-write contract shape: "
+                    f"{artifact}"
+                )
+        if localization_validation_pack.get("target_path") != target_path:
+            raise AssertionError(f"Alhambra localization validation pack target changed: {localization_validation_pack}")
+
+    def assert_alhambra_localization_source_generator_interface_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_localization_source_generator_interface(
+            report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(
+                f"{name} Alhambra localization source generator interface negative was not caught: "
+                f"{errors}"
+            )
+
+    missing_english_localization_artifact_interface = deepcopy(alhambra_localization_source_generator_interface)
+    missing_english_localization_artifact_interface["source_file_contract_artifacts"] = [
+        artifact
+        for artifact in missing_english_localization_artifact_interface["source_file_contract_artifacts"]
+        if not (
+            artifact.get("target_path") == alhambra_file_targets["english"]
+            and artifact.get("artifact_kind") == "localization_row_labels"
+        )
+    ]
+    assert_alhambra_localization_source_generator_interface_error(
+        "missing English localization artifact",
+        missing_english_localization_artifact_interface,
+        "report-only artifacts per target",
+    )
+
+    writable_localization_artifact_interface = deepcopy(alhambra_localization_source_generator_interface)
+    _alhambra_localization_source_file_contract_artifact(
+        writable_localization_artifact_interface,
+        alhambra_file_targets["simp_chinese"],
+        "localization_status_text",
+    )["may_write_src"] = True
+    assert_alhambra_localization_source_generator_interface_error(
+        "writable localization artifact",
+        writable_localization_artifact_interface,
+        "may_write_src must be false",
+    )
+
+    wrong_output_localization_interface = deepcopy(alhambra_localization_source_generator_interface)
+    wrong_output_localization_interface["output_kind"] = "loadable_source_file"
+    assert_alhambra_localization_source_generator_interface_error(
+        "wrong localization output kind",
+        wrong_output_localization_interface,
+        "output_kind must be source_file_contract_artifacts",
+    )
+
+    collapsed_localization_interface = deepcopy(alhambra_localization_source_generator_interface)
+    collapsed_localization_interface["localization_target_paths"]["simp_chinese"] = alhambra_file_targets["english"]
+    assert_alhambra_localization_source_generator_interface_error(
+        "merged localization interface boundary",
+        collapsed_localization_interface,
+        "target paths must stay split",
+    )
+
+    forged_ref_localization_interface = deepcopy(alhambra_localization_source_generator_interface)
+    _alhambra_localization_source_file_contract_artifact(
+        forged_ref_localization_interface,
+        alhambra_file_targets["english"],
+        "localization_tooltips",
+    )["source_body_candidate_ref"]["row_set_key"] = "forged_row_set"
+    assert_alhambra_localization_source_generator_interface_error(
+        "forged localization source ref",
+        forged_ref_localization_interface,
+        "external validation evidence mismatch",
+    )
+
+    missing_localization_key_interface = deepcopy(alhambra_localization_source_generator_interface)
+    _alhambra_localization_source_file_contract_artifact(
+        missing_localization_key_interface,
+        alhambra_file_targets["english"],
+        "localization_row_labels",
+    )["localization_source_body_draft"]["localization_key_refs"]["keys"] = []
+    assert_alhambra_localization_source_generator_interface_error(
+        "localization draft missing loc key",
+        missing_localization_key_interface,
+        "missing loc key",
+    )
+
+    body_emitted_localization_draft_interface = deepcopy(alhambra_localization_source_generator_interface)
+    _alhambra_localization_source_file_contract_artifact(
+        body_emitted_localization_draft_interface,
+        alhambra_file_targets["simp_chinese"],
+        "localization_summary_text",
+    )["localization_source_body_draft"]["body_emitted"] = True
+    assert_alhambra_localization_source_generator_interface_error(
+        "localization draft emitted body",
+        body_emitted_localization_draft_interface,
+        "body_emitted must be false",
+    )
+
+    merged_language_draft_interface = deepcopy(alhambra_localization_source_generator_interface)
+    merged_language_draft = _alhambra_localization_source_file_contract_artifact(
+        merged_language_draft_interface,
+        alhambra_file_targets["simp_chinese"],
+        "localization_tooltips",
+    )["localization_source_body_draft"]
+    merged_language_draft["language_target"]["language_targets_merged"] = True
+    merged_language_draft["language_target"]["target_path"] = alhambra_file_targets["english"]
+    assert_alhambra_localization_source_generator_interface_error(
+        "localization draft merged language target",
+        merged_language_draft_interface,
+        "language target must stay split",
+    )
+
+    external_evidence_forged_localization_validation = deepcopy(alhambra_source_file_validation_evidence)
+    external_evidence_forged_localization_pack = _alhambra_source_file_validation_pack(
+        external_evidence_forged_localization_validation,
+        alhambra_file_targets["english"],
+    )
+    external_evidence_forged_localization_pack["source_body_candidate_refs"][0]["row_set_key"] = "forged_row_set"
+    assert_alhambra_localization_source_generator_interface_error(
+        "external evidence-bound forged localization interface",
+        alhambra_localization_source_generator_interface,
+        "external validation evidence",
+        source_file_validation_evidence=external_evidence_forged_localization_validation,
+    )
+
+    detached_localization_interface_validation = deepcopy(alhambra_localization_source_generator_interface)
+    assert_alhambra_localization_source_generator_interface_error(
+        "missing external validation evidence",
+        detached_localization_interface_validation,
+        "requires external source-file validation evidence",
+        source_file_validation_evidence=None,
+    )
+
+    alhambra_source_generator_interface_bundle_gate = (
+        repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload(
+            spec_data,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+            event_source_generator_interface=alhambra_event_source_generator_interface,
+            scripted_effect_cleanup_source_generator_interface=(
+                alhambra_scripted_effect_cleanup_source_generator_interface
+            ),
+            scripted_trigger_source_generator_interface=alhambra_scripted_trigger_source_generator_interface,
+            gui_source_generator_interface=alhambra_gui_source_generator_interface,
+            listener_source_generator_interface=alhambra_listener_source_generator_interface,
+            localization_source_generator_interface=alhambra_localization_source_generator_interface,
+        )
+    )
+    if alhambra_source_generator_interface_bundle_gate["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate unexpectedly failed validation: "
+            f"{alhambra_source_generator_interface_bundle_gate['validation_errors']}"
+        )
+    evidence_bound_bundle_errors = (
+        validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate(
+            alhambra_source_generator_interface_bundle_gate,
+            source_generator_contract=alhambra_source_generator_contract,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if evidence_bound_bundle_errors:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate unexpectedly failed external evidence-bound validation: "
+            f"{evidence_bound_bundle_errors}"
+        )
+    bundle_gate_summary = alhambra_source_generator_interface_bundle_gate.get("summary", {})
+    if bundle_gate_summary.get("interface_group_count") != 6:
+        raise AssertionError(f"Alhambra bundle interface group count changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("target_file_count") != 7:
+        raise AssertionError(f"Alhambra bundle target file count changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("artifact_count") != 55:
+        raise AssertionError(f"Alhambra bundle artifact count changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("report_only_artifact_count") != 55:
+        raise AssertionError(f"Alhambra bundle report-only artifact count changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("interface_group_artifact_counts") != {
+        "event": 8,
+        "scripted_effect_cleanup": 18,
+        "trigger": 6,
+        "gui": 2,
+        "listener": 1,
+        "localization": 20,
+    }:
+        raise AssertionError(f"Alhambra bundle interface group counts changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("source_body_draft_artifact_counts") != {
+        "event": 8,
+        "scripted_effect_cleanup": 18,
+        "trigger": 6,
+        "gui": 2,
+        "listener": 1,
+        "localization": 20,
+    }:
+        raise AssertionError(f"Alhambra bundle source-body draft counts changed: {bundle_gate_summary}")
+    source_body_draft_gate = bundle_gate_summary.get("source_body_draft_completeness_gate", {})
+    if (
+        source_body_draft_gate.get("all_source_body_draft_groups_complete") is not True
+        or source_body_draft_gate.get("source_body_draft_count") != 55
+        or source_body_draft_gate.get("missing_source_body_draft_groups") != []
+    ):
+        raise AssertionError(f"Alhambra bundle source-body draft completeness changed: {bundle_gate_summary}")
+    if bundle_gate_summary.get("target_artifact_counts") != {
+        alhambra_file_targets["event"]: 8,
+        alhambra_file_targets["effect_cleanup"]: 18,
+        alhambra_file_targets["trigger"]: 6,
+        alhambra_file_targets["gui"]: 2,
+        alhambra_file_targets["listener"]: 1,
+        alhambra_file_targets["english"]: 10,
+        alhambra_file_targets["simp_chinese"]: 10,
+    }:
+        raise AssertionError(f"Alhambra bundle target artifact counts changed: {bundle_gate_summary}")
+    if (
+        bundle_gate_summary.get("source_ready_count") != 0
+        or bundle_gate_summary.get("source_writer_allowed_count") != 0
+        or bundle_gate_summary.get("may_write_src_count") != 0
+        or bundle_gate_summary.get("writes_src_count") != 0
+    ):
+        raise AssertionError(f"Alhambra bundle no-write/readiness counts changed: {bundle_gate_summary}")
+    if (
+        alhambra_source_generator_interface_bundle_gate.get("output_is_loadable_source") is not False
+        or alhambra_source_generator_interface_bundle_gate.get("body_emitted") is not False
+        or alhambra_source_generator_interface_bundle_gate.get("source_writer_allowed") is not False
+        or alhambra_source_generator_interface_bundle_gate.get("may_write_src") is not False
+        or alhambra_source_generator_interface_bundle_gate.get("writes_src") is not False
+    ):
+        raise AssertionError(
+            "Alhambra bundle gate must remain report-only/no-write: "
+            f"{alhambra_source_generator_interface_bundle_gate}"
+        )
+
+    def assert_alhambra_bundle_gate_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_contract: dict | None = alhambra_source_generator_contract,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate(
+            report,
+            source_generator_contract=source_generator_contract,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra bundle gate negative was not caught: {errors}")
+
+    missing_group_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    del missing_group_bundle["interface_reports"]["gui"]
+    assert_alhambra_bundle_gate_error(
+        "missing interface group",
+        missing_group_bundle,
+        "missing interface group",
+    )
+
+    duplicate_missing_target_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    duplicate_missing_target_artifact = duplicate_missing_target_bundle["interface_reports"]["trigger"][
+        "source_file_contract_artifacts"
+    ][0]
+    duplicate_missing_target_artifact["target_path"] = alhambra_file_targets["event"]
+    duplicate_missing_target_artifact["future_source_target_path"] = alhambra_file_targets["event"]
+    assert_alhambra_bundle_gate_error(
+        "duplicate and missing target",
+        duplicate_missing_target_bundle,
+        "target artifact counts mismatch",
+    )
+
+    wrong_bundle_artifact_count = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    wrong_bundle_artifact_count["interface_reports"]["event"]["source_file_contract_artifacts"].pop()
+    assert_alhambra_bundle_gate_error(
+        "artifact count mismatch",
+        wrong_bundle_artifact_count,
+        "expected 55 report-only artifacts",
+    )
+
+    missing_bundle_listener_linkage = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    del missing_bundle_listener_linkage["interface_reports"]["listener"]["source_file_contract_artifacts"][0][
+        "war_scope_availability_persistence_plan"
+    ]
+    assert_alhambra_bundle_gate_error(
+        "listener linkage missing",
+        missing_bundle_listener_linkage,
+        "listener linkage missing",
+    )
+
+    missing_bundle_listener_draft = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    del missing_bundle_listener_draft["interface_reports"]["listener"]["source_file_contract_artifacts"][0][
+        "listener_source_body_draft"
+    ]
+    assert_alhambra_bundle_gate_error(
+        "listener source-body draft missing",
+        missing_bundle_listener_draft,
+        "source-body draft completeness",
+    )
+
+    merged_bundle_localization_targets = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    merged_bundle_localization_targets["localization_target_paths"]["simp_chinese"] = alhambra_file_targets[
+        "english"
+    ]
+    assert_alhambra_bundle_gate_error(
+        "merged localization targets",
+        merged_bundle_localization_targets,
+        "localization target paths must stay split",
+    )
+
+    external_contract_may_write_src_bundle = deepcopy(alhambra_source_generator_contract)
+    _alhambra_source_generator_contract(
+        external_contract_may_write_src_bundle,
+        alhambra_file_targets["effect_cleanup"],
+    )["may_write_src"] = True
+    assert_alhambra_bundle_gate_error(
+        "external contract may_write_src",
+        alhambra_source_generator_interface_bundle_gate,
+        "may_write_src must be false",
+        source_generator_contract=external_contract_may_write_src_bundle,
+    )
+
+    nested_report_may_write_src_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    nested_report_may_write_src_bundle["interface_reports"]["event"]["source_file_contract_artifacts"][0][
+        "may_write_src"
+    ] = True
+    assert_alhambra_bundle_gate_error(
+        "nested report may_write_src",
+        nested_report_may_write_src_bundle,
+        "may_write_src must be false",
+    )
+
+    emitted_source_body_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    emitted_source_body_bundle["interface_reports"]["gui"]["source_file_contract_artifacts"][0][
+        "body_emitted"
+    ] = True
+    assert_alhambra_bundle_gate_error(
+        "source body emission",
+        emitted_source_body_bundle,
+        "body_emitted must be false",
+    )
+
+    promoted_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    promoted_bundle["implementation_ready"] = True
+    assert_alhambra_bundle_gate_error(
+        "implementation_ready promotion",
+        promoted_bundle,
+        "implementation_ready must be false",
+    )
+
+    generated_bundle = deepcopy(alhambra_source_generator_interface_bundle_gate)
+    generated_bundle["harness_generated"] = True
+    assert_alhambra_bundle_gate_error(
+        "harness_generated promotion",
+        generated_bundle,
+        "harness_generated must be false",
+    )
+
+    alhambra_source_serialization_preview = (
+        repeated_entity_row_alhambra_source_serialization_preview_for_payload(
+            spec_data,
+            source_generator_interface_bundle_gate=alhambra_source_generator_interface_bundle_gate,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_source_serialization_preview["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source serialization preview unexpectedly failed validation: "
+            f"{alhambra_source_serialization_preview['validation_errors']}"
+        )
+    serialization_summary = alhambra_source_serialization_preview.get("summary", {})
+    expected_serialization_target_counts = {
+        alhambra_file_targets["event"]: 8,
+        alhambra_file_targets["effect_cleanup"]: 18,
+        alhambra_file_targets["trigger"]: 6,
+        alhambra_file_targets["gui"]: 2,
+        alhambra_file_targets["listener"]: 1,
+        alhambra_file_targets["english"]: 10,
+        alhambra_file_targets["simp_chinese"]: 10,
+    }
+    if (
+        serialization_summary.get("source_text_preview_count") != 7
+        or serialization_summary.get("target_file_count") != 7
+        or serialization_summary.get("artifact_count") != 55
+        or serialization_summary.get("draft_ref_count") != 55
+        or serialization_summary.get("target_artifact_counts") != expected_serialization_target_counts
+    ):
+        raise AssertionError(f"Alhambra source serialization summary changed: {serialization_summary}")
+    if (
+        serialization_summary.get("source_text_empty_count") != 0
+        or serialization_summary.get("source_ready_count") != 0
+        or serialization_summary.get("source_writer_allowed_count") != 0
+        or serialization_summary.get("may_write_src_count") != 0
+        or serialization_summary.get("writes_src_count") != 0
+        or serialization_summary.get("body_emitted_to_file_count") != 0
+        or serialization_summary.get("implementation_ready_count") != 0
+        or serialization_summary.get("harness_generated_count") != 0
+    ):
+        raise AssertionError(f"Alhambra source serialization no-write counts changed: {serialization_summary}")
+    for target_path, expected_count in expected_serialization_target_counts.items():
+        preview = _alhambra_source_serialization_preview(alhambra_source_serialization_preview, target_path)
+        if (
+            preview.get("target_path") != target_path
+            or preview.get("draft_ref_count") != expected_count
+            or not str(preview.get("source_text", "")).strip()
+            or not preview.get("draft_refs")
+            or not preview.get("eu5_syntax_evidence_refs")
+            or preview.get("may_write_src") is not False
+            or preview.get("writes_src") is not False
+            or preview.get("body_emitted_to_file") is not False
+        ):
+            raise AssertionError(f"Alhambra source serialization preview shape changed: {preview}")
+    if "country_event = {" not in _alhambra_source_serialization_preview(
+        alhambra_source_serialization_preview,
+        alhambra_file_targets["event"],
+    )["source_text"]:
+        raise AssertionError("Alhambra event source serialization text lost event body preview")
+    if "l_english:" not in _alhambra_source_serialization_preview(
+        alhambra_source_serialization_preview,
+        alhambra_file_targets["english"],
+    )["source_text"]:
+        raise AssertionError("Alhambra English source serialization text lost language header")
+    if "l_simp_chinese:" not in _alhambra_source_serialization_preview(
+        alhambra_source_serialization_preview,
+        alhambra_file_targets["simp_chinese"],
+    )["source_text"]:
+        raise AssertionError("Alhambra Simplified Chinese source serialization text lost language header")
+
+    def assert_alhambra_source_serialization_preview_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_interface_bundle_gate: dict | None = alhambra_source_generator_interface_bundle_gate,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_serialization_preview(
+            report,
+            source_generator_interface_bundle_gate=source_generator_interface_bundle_gate,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source serialization negative was not caught: {errors}")
+
+    missing_serialization_target = deepcopy(alhambra_source_serialization_preview)
+    missing_serialization_target["source_text_previews"] = missing_serialization_target["source_text_previews"][:-1]
+    assert_alhambra_source_serialization_preview_error(
+        "missing target file",
+        missing_serialization_target,
+        "missing target file",
+    )
+
+    empty_serialization_source_text = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        empty_serialization_source_text,
+        alhambra_file_targets["event"],
+    )["source_text"] = ""
+    assert_alhambra_source_serialization_preview_error(
+        "empty source text",
+        empty_serialization_source_text,
+        "empty source text",
+    )
+
+    unbound_serialization_draft = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        unbound_serialization_draft,
+        alhambra_file_targets["trigger"],
+    )["draft_refs"] = []
+    assert_alhambra_source_serialization_preview_error(
+        "unbound draft ref",
+        unbound_serialization_draft,
+        "unbound draft ref",
+    )
+
+    missing_serialization_syntax = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        missing_serialization_syntax,
+        alhambra_file_targets["gui"],
+    )["eu5_syntax_evidence_refs"] = []
+    assert_alhambra_source_serialization_preview_error(
+        "missing EU5 syntax evidence",
+        missing_serialization_syntax,
+        "missing EU5 syntax evidence",
+    )
+
+    merged_serialization_loc = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        merged_serialization_loc,
+        alhambra_file_targets["simp_chinese"],
+    )["localization_language"] = "english"
+    assert_alhambra_source_serialization_preview_error(
+        "cross-language loc merge",
+        merged_serialization_loc,
+        "cross-language loc merge",
+    )
+
+    writable_serialization = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        writable_serialization,
+        alhambra_file_targets["effect_cleanup"],
+    )["may_write_src"] = True
+    assert_alhambra_source_serialization_preview_error(
+        "may_write_src true",
+        writable_serialization,
+        "may_write_src must be false",
+    )
+
+    writing_serialization = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        writing_serialization,
+        alhambra_file_targets["listener"],
+    )["writes_src"] = True
+    assert_alhambra_source_serialization_preview_error(
+        "writes_src true",
+        writing_serialization,
+        "writes_src must be false",
+    )
+
+    emitted_file_serialization = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        emitted_file_serialization,
+        alhambra_file_targets["english"],
+    )["body_emitted_to_file"] = True
+    assert_alhambra_source_serialization_preview_error(
+        "body emitted to file",
+        emitted_file_serialization,
+        "body_emitted_to_file must be false",
+    )
+
+    alhambra_source_writer_gate = repeated_entity_row_alhambra_source_writer_gate_for_payload(
+        spec_data,
+        source_serialization_preview=alhambra_source_serialization_preview,
+    )
+    if alhambra_source_writer_gate["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source writer gate unexpectedly failed validation: "
+            f"{alhambra_source_writer_gate['validation_errors']}"
+        )
+    writer_gate_summary = alhambra_source_writer_gate.get("summary", {})
+    if (
+        alhambra_source_writer_gate.get("decision")
+        != "go_for_first_real_generator_implementation_no_go_for_src_write"
+        or alhambra_source_writer_gate.get("can_enter_first_real_generator_implementation") is not True
+        or alhambra_source_writer_gate.get("source_writer_go") is not False
+        or alhambra_source_writer_gate.get("may_write_src") is not False
+        or alhambra_source_writer_gate.get("implementation_ready") is not False
+        or alhambra_source_writer_gate.get("harness_generated") is not False
+    ):
+        raise AssertionError(f"Alhambra source writer gate decision changed: {alhambra_source_writer_gate}")
+    if (
+        writer_gate_summary.get("target_file_count") != 7
+        or writer_gate_summary.get("passed_target_file_count") != 7
+        or writer_gate_summary.get("failed_target_file_count") != 0
+        or writer_gate_summary.get("generator_implementation_blocker_count") != 0
+        or writer_gate_summary.get("source_writer_blocker_count") != 4
+        or writer_gate_summary.get("eu5_exact_syntax_risk_count") != 7
+    ):
+        raise AssertionError(f"Alhambra source writer gate summary changed: {writer_gate_summary}")
+    expected_writer_gate_structures = {
+        alhambra_file_targets["event"]: ("country_event", 8, 0),
+        alhambra_file_targets["effect_cleanup"]: ("scripted_effect_cleanup", 18, 0),
+        alhambra_file_targets["trigger"]: ("scripted_trigger", 6, 0),
+        alhambra_file_targets["gui"]: ("gui_container", 2, 0),
+        alhambra_file_targets["listener"]: ("on_action", 2, 0),
+        alhambra_file_targets["english"]: ("l_english", 1, 46),
+        alhambra_file_targets["simp_chinese"]: ("l_simp_chinese", 1, 46),
+    }
+    for target_path, (expected_structure, expected_marker_count, expected_entry_count) in (
+        expected_writer_gate_structures.items()
+    ):
+        check = _alhambra_source_writer_gate_check(alhambra_source_writer_gate, target_path)
+        if (
+            check.get("expected_top_level_structure") != expected_structure
+            or check.get("observed_top_level_marker_count") != expected_marker_count
+            or check.get("observed_payload_entry_count") != expected_entry_count
+            or check.get("passed") is not True
+            or check.get("blockers") != []
+            or not check.get("eu5_exact_syntax_risks")
+            or check.get("may_write_src") is not False
+            or check.get("writes_src") is not False
+            or check.get("source_writer_allowed") is not False
+        ):
+            raise AssertionError(f"Alhambra source writer gate target check changed: {check}")
+    if alhambra_source_writer_gate.get("generator_implementation_blockers") != []:
+        raise AssertionError(
+            "Alhambra source writer gate should not block first real generator implementation: "
+            f"{alhambra_source_writer_gate}"
+        )
+    if len(alhambra_source_writer_gate.get("source_writer_blockers", [])) != 4:
+        raise AssertionError(
+            "Alhambra source writer gate must keep source-writer blockers: "
+            f"{alhambra_source_writer_gate}"
+        )
+
+    def assert_alhambra_source_writer_gate_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_serialization_preview: dict | None = alhambra_source_serialization_preview,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_writer_gate(
+            report,
+            source_serialization_preview=source_serialization_preview,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source writer gate negative was not caught: {errors}")
+
+    missing_event_structure_gate = deepcopy(alhambra_source_writer_gate)
+    _alhambra_source_writer_gate_check(
+        missing_event_structure_gate,
+        alhambra_file_targets["event"],
+    )["observed_top_level_marker_count"] = 0
+    assert_alhambra_source_writer_gate_error(
+        "missing country_event structure",
+        missing_event_structure_gate,
+        "target checks must derive",
+    )
+
+    writable_writer_gate = deepcopy(alhambra_source_writer_gate)
+    writable_writer_gate["may_write_src"] = True
+    assert_alhambra_source_writer_gate_error(
+        "may_write_src true",
+        writable_writer_gate,
+        "may_write_src must be false",
+    )
+
+    promoted_writer_gate = deepcopy(alhambra_source_writer_gate)
+    promoted_writer_gate["implementation_ready"] = True
+    assert_alhambra_source_writer_gate_error(
+        "implementation_ready true",
+        promoted_writer_gate,
+        "implementation_ready must be false",
+    )
+
+    generated_writer_gate = deepcopy(alhambra_source_writer_gate)
+    generated_writer_gate["harness_generated"] = True
+    assert_alhambra_source_writer_gate_error(
+        "harness_generated true",
+        generated_writer_gate,
+        "harness_generated must be false",
+    )
+
+    no_syntax_risk_gate = deepcopy(alhambra_source_writer_gate)
+    _alhambra_source_writer_gate_check(
+        no_syntax_risk_gate,
+        alhambra_file_targets["trigger"],
+    )["eu5_exact_syntax_risks"] = []
+    assert_alhambra_source_writer_gate_error(
+        "missing EU5 exact syntax risk",
+        no_syntax_risk_gate,
+        "must record EU5 exact syntax risk",
+    )
+
+    alhambra_english_localization_source_generator = (
+        repeated_entity_row_alhambra_event_localization_source_generator_for_payload(
+            spec_data,
+            language="english",
+            event_source_generator=alhambra_event_source_generator,
+        )
+    )
+    alhambra_simp_chinese_localization_source_generator = (
+        repeated_entity_row_alhambra_event_localization_source_generator_for_payload(
+            spec_data,
+            language="simp_chinese",
+            event_source_generator=alhambra_event_source_generator,
+        )
+    )
+    if (
+        alhambra_english_localization_source_generator["validation_errors"]
+        or alhambra_simp_chinese_localization_source_generator["validation_errors"]
+    ):
+        raise AssertionError(
+            "Alhambra event localization source generators unexpectedly failed validation: "
+            f"{alhambra_english_localization_source_generator['validation_errors']} / "
+            f"{alhambra_simp_chinese_localization_source_generator['validation_errors']}"
+        )
+
+    alhambra_reviewable_source_targets = repeated_entity_row_alhambra_reviewable_source_targets_for_payload(
+        spec_data,
+        event_source_generator=alhambra_event_source_generator,
+        scripted_effect_cleanup_source_generator=alhambra_scripted_effect_cleanup_source_generator,
+        scripted_trigger_source_generator=alhambra_scripted_trigger_source_generator,
+        english_localization_source_generator=alhambra_english_localization_source_generator,
+        simp_chinese_localization_source_generator=alhambra_simp_chinese_localization_source_generator,
+        source_writer_gate=alhambra_source_writer_gate,
+    )
+    if alhambra_reviewable_source_targets["validation_errors"]:
+        raise AssertionError(
+            "Alhambra reviewable source targets unexpectedly failed validation: "
+            f"{alhambra_reviewable_source_targets['validation_errors']}"
+        )
+    reviewable_summary = alhambra_reviewable_source_targets.get("summary", {})
+    expected_reviewable_paths = [
+        alhambra_file_targets["event"],
+        alhambra_file_targets["effect_cleanup"],
+        alhambra_file_targets["trigger"],
+        alhambra_file_targets["english"],
+        alhambra_file_targets["simp_chinese"],
+    ]
+    expected_reviewable_groups = [
+        "event",
+        "scripted_effect_cleanup",
+        "trigger",
+        "localization_english",
+        "localization_simp_chinese",
+    ]
+    if (
+        reviewable_summary.get("target_count") != 5
+        or reviewable_summary.get("target_paths") != expected_reviewable_paths
+        or reviewable_summary.get("generator_groups") != expected_reviewable_groups
+        or reviewable_summary.get("generated_header_count") != 5
+        or reviewable_summary.get("candidate_header_retained_count") != 0
+        or reviewable_summary.get("controlled_blocker_count") != 0
+        or reviewable_summary.get("source_writer_gate_allows_generator_implementation") is not True
+        or reviewable_summary.get("source_writer_go") is not False
+        or reviewable_summary.get("writes_src_count") != 0
+        or reviewable_summary.get("implementation_ready_count") != 0
+        or reviewable_summary.get("harness_generated_count") != 0
+    ):
+        raise AssertionError(f"Alhambra reviewable source target summary changed: {reviewable_summary}")
+    reviewable_targets = {
+        target.get("target_path"): target
+        for target in alhambra_reviewable_source_targets.get("generated_source_targets", [])
+    }
+    if set(reviewable_targets) != set(expected_reviewable_paths):
+        raise AssertionError(f"Alhambra reviewable source target paths changed: {reviewable_targets}")
+    for target_path, expected_marker in {
+        alhambra_file_targets["event"]: "namespace = tv_engineering_department",
+        alhambra_file_targets["effect_cleanup"]: (
+            "set_variable = { name = tv_wonder_unique_alhambra_ritual_treaty_clause_register_started value = 1 }"
+        ),
+        alhambra_file_targets["trigger"]: (
+            "var:tv_wonder_unique_alhambra_ritual_treaty_clause_register_completed ?= 1"
+        ),
+        alhambra_file_targets["english"]: ' tv_engineering_department.7309.t:0 "Keys of Granada and Courtly Concord"',
+        alhambra_file_targets["simp_chinese"]: ' tv_engineering_department.7309.t:0 "格拉纳达钥匙与宫廷协和"',
+    }.items():
+        target = reviewable_targets[target_path]
+        source_text = target.get("source_text", "")
+        is_localization_target = target_path in {
+            alhambra_file_targets["english"],
+            alhambra_file_targets["simp_chinese"],
+        }
+        if (
+            (
+                source_text.startswith("# @Generated by scripts/gen_unique_wonder_ritual_code.py\n")
+                if not is_localization_target
+                else source_text.startswith(
+                    ("l_english:" if target_path == alhambra_file_targets["english"] else "l_simp_chinese:")
+                    + "\n # @Generated by scripts/gen_unique_wonder_ritual_code.py\n"
+                )
+            )
+            is False
+            or "# @InMemoryCandidate" in source_text
+            or "# Do not edit directly" not in source_text
+            or "# Target: " + target_path not in source_text
+            or expected_marker not in source_text
+            or "CONTROLLED BLOCKER" in source_text
+            or target.get("reviewable_source_target") is not True
+            or target.get("alhambra_only") is not True
+            or target.get("body_emitted_to_file") is not False
+            or target.get("writes_src") is not False
+            or target.get("implementation_ready") is not False
+            or target.get("harness_generated") is not False
+        ):
+            raise AssertionError(f"Alhambra reviewable source target shape changed: {target}")
+
+    def assert_alhambra_reviewable_source_target_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_writer_gate: dict | None = alhambra_source_writer_gate,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_reviewable_source_targets(
+            report,
+            event_source_generator=alhambra_event_source_generator,
+            scripted_effect_cleanup_source_generator=alhambra_scripted_effect_cleanup_source_generator,
+            scripted_trigger_source_generator=alhambra_scripted_trigger_source_generator,
+            english_localization_source_generator=alhambra_english_localization_source_generator,
+            simp_chinese_localization_source_generator=alhambra_simp_chinese_localization_source_generator,
+            source_writer_gate=source_writer_gate,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra reviewable source target negative was not caught: {errors}")
+
+    missing_generated_header_targets = deepcopy(alhambra_reviewable_source_targets)
+    reviewable_targets_by_path = {
+        target.get("target_path"): target
+        for target in missing_generated_header_targets["generated_source_targets"]
+    }
+    reviewable_targets_by_path[alhambra_file_targets["event"]]["source_text"] = (
+        reviewable_targets_by_path[alhambra_file_targets["event"]]["source_text"].replace(
+            "# @Generated by scripts/gen_unique_wonder_ritual_code.py\n",
+            "",
+            1,
+        )
+    )
+    reviewable_targets_by_path[alhambra_file_targets["event"]]["generated_header_present"] = False
+    assert_alhambra_reviewable_source_target_error(
+        "missing generated header",
+        missing_generated_header_targets,
+        "missing @Generated header",
+    )
+
+    promoted_reviewable_target = deepcopy(alhambra_reviewable_source_targets)
+    promoted_reviewable_target["generated_source_targets"][0]["implementation_ready"] = True
+    assert_alhambra_reviewable_source_target_error(
+        "implementation_ready reviewable target",
+        promoted_reviewable_target,
+        "implementation_ready must be false",
+    )
+
+    blocked_gate_for_reviewable_targets = deepcopy(alhambra_source_writer_gate)
+    blocked_gate_for_reviewable_targets["can_enter_first_real_generator_implementation"] = False
+    blocked_gate_report = deepcopy(alhambra_reviewable_source_targets)
+    blocked_gate_report["source_writer_gate_input_ref"]["can_enter_first_real_generator_implementation"] = False
+    blocked_gate_report["summary"]["source_writer_gate_allows_generator_implementation"] = False
+    assert_alhambra_reviewable_source_target_error(
+        "blocked source writer gate",
+        blocked_gate_report,
+        "source writer gate must allow generator implementation",
+        source_writer_gate=blocked_gate_for_reviewable_targets,
+    )
+
+    alhambra_source_codegen_result = generate_alhambra_source_targets_for_payload(spec_data, write_source=False)
+    if (
+        alhambra_source_codegen_result.get("write_source") is not False
+        or alhambra_source_codegen_result.get("target_count") != 5
+        or [
+            row.get("path")
+            for row in alhambra_source_codegen_result.get("generated", [])
+        ]
+        != expected_reviewable_paths
+        or any(
+            (
+                not row.get("text", "").startswith("# @Generated by scripts/gen_unique_wonder_ritual_code.py\n")
+                if row.get("path") not in {alhambra_file_targets["english"], alhambra_file_targets["simp_chinese"]}
+                else not row.get("text", "").startswith(
+                    (
+                        "l_english:"
+                        if row.get("path") == alhambra_file_targets["english"]
+                        else "l_simp_chinese:"
+                    )
+                    + "\n # @Generated by scripts/gen_unique_wonder_ritual_code.py\n"
+                )
+            )
+            for row in alhambra_source_codegen_result.get("generated", [])
+        )
+    ):
+        raise AssertionError(f"Alhambra source codegen dry-run result changed: {alhambra_source_codegen_result}")
 
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
@@ -8399,6 +11739,28 @@ def main() -> None:
         repeated_entity_row_alhambra_scripted_effect_cleanup_source_generator_interface=(
             alhambra_scripted_effect_cleanup_source_generator_interface
         ),
+        repeated_entity_row_alhambra_scripted_trigger_source_generator_interface=(
+            alhambra_scripted_trigger_source_generator_interface
+        ),
+        repeated_entity_row_alhambra_scripted_trigger_source_generator=(
+            alhambra_scripted_trigger_source_generator
+        ),
+        repeated_entity_row_alhambra_gui_source_generator_interface=(
+            alhambra_gui_source_generator_interface
+        ),
+        repeated_entity_row_alhambra_listener_source_generator_interface=(
+            alhambra_listener_source_generator_interface
+        ),
+        repeated_entity_row_alhambra_localization_source_generator_interface=(
+            alhambra_localization_source_generator_interface
+        ),
+        repeated_entity_row_alhambra_source_generator_interface_bundle_gate=(
+            alhambra_source_generator_interface_bundle_gate
+        ),
+        repeated_entity_row_alhambra_source_serialization_preview=(
+            alhambra_source_serialization_preview
+        ),
+        repeated_entity_row_alhambra_source_writer_gate=alhambra_source_writer_gate,
     )
     if summary["source_codegen_ready_count"] != 4:
         raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
@@ -8504,6 +11866,274 @@ def main() -> None:
         raise AssertionError(
             "Alhambra scripted-effect/cleanup source generator interface no-write counts changed: "
             f"{alhambra_effect_cleanup_interface_summary}"
+        )
+    alhambra_trigger_interface_summary = summary[
+        "repeated_entity_row_alhambra_scripted_trigger_source_generator_interface"
+    ]["summary"]
+    if alhambra_trigger_interface_summary["interface_count"] != 1:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface count should remain 1, got "
+            f"{alhambra_trigger_interface_summary['interface_count']}"
+        )
+    if alhambra_trigger_interface_summary["artifact_count"] != 6:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface artifact_count should remain 6, got "
+            f"{alhambra_trigger_interface_summary['artifact_count']}"
+        )
+    if (
+        alhambra_trigger_interface_summary["source_writer_allowed_count"] != 0
+        or alhambra_trigger_interface_summary["may_write_src_count"] != 0
+        or alhambra_trigger_interface_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator interface no-write counts changed: "
+            f"{alhambra_trigger_interface_summary}"
+        )
+    alhambra_trigger_source_generator_summary = summary[
+        "repeated_entity_row_alhambra_scripted_trigger_source_generator"
+    ]
+    if alhambra_trigger_source_generator_summary["validation_errors"]:
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator summary validation changed: "
+            f"{alhambra_trigger_source_generator_summary['validation_errors']}"
+        )
+    if (
+        alhambra_trigger_source_generator_summary["scripted_trigger_source_body_draft_count"] != 6
+        or alhambra_trigger_source_generator_summary["scripted_trigger_declaration_count"] != 6
+        or len(alhambra_trigger_source_generator_summary["trigger_names"]) != 6
+        or alhambra_trigger_source_generator_summary["source_body_blocker_status"]
+        != "implemented_alhambra_vertical_slice"
+        or alhambra_trigger_source_generator_summary["scripted_trigger_declaration_syntax_verified"] is not True
+        or alhambra_trigger_source_generator_summary["condition_body_verified"] is not True
+        or alhambra_trigger_source_generator_summary["variable_read_verified"] is not True
+        or alhambra_trigger_source_generator_summary["tooltip_safe_condition_group_verified"] is not True
+        or alhambra_trigger_source_generator_summary["source_writer_go"] is not False
+        or alhambra_trigger_source_generator_summary["may_write_src"] is not False
+        or alhambra_trigger_source_generator_summary["body_emitted"] is not False
+        or alhambra_trigger_source_generator_summary["implementation_ready"] is not False
+        or alhambra_trigger_source_generator_summary["harness_generated"] is not False
+    ):
+        raise AssertionError(
+            "Alhambra scripted-trigger source generator summary shape changed: "
+            f"{alhambra_trigger_source_generator_summary}"
+        )
+    for row_set_key in ("treaty_clause_register", "palace_risk_points"):
+        row_coverage = alhambra_trigger_source_generator_summary["row_set_condition_group_coverage"].get(
+            row_set_key,
+            {},
+        )
+        if (
+            set(row_coverage.get("condition_groups", []))
+            != {"eligibility", "row_completion", "tooltip_safe_condition_group"}
+            or row_coverage.get("declaration_count") != 3
+        ):
+            raise AssertionError(
+                "Alhambra scripted-trigger source generator summary coverage changed: "
+                f"{row_set_key}: {row_coverage}"
+            )
+    alhambra_gui_interface_summary = summary[
+        "repeated_entity_row_alhambra_gui_source_generator_interface"
+    ]["summary"]
+    if alhambra_gui_interface_summary["interface_count"] != 1:
+        raise AssertionError(
+            "Alhambra GUI source generator interface count should remain 1, got "
+            f"{alhambra_gui_interface_summary['interface_count']}"
+        )
+    if alhambra_gui_interface_summary["artifact_count"] != 2:
+        raise AssertionError(
+            "Alhambra GUI source generator interface artifact_count should remain 2, got "
+            f"{alhambra_gui_interface_summary['artifact_count']}"
+        )
+    if alhambra_gui_interface_summary["listener_interface_declared"] is not False:
+        raise AssertionError(
+            "Alhambra GUI source generator interface must not declare listener interface: "
+            f"{alhambra_gui_interface_summary}"
+        )
+    if (
+        alhambra_gui_interface_summary["source_writer_allowed_count"] != 0
+        or alhambra_gui_interface_summary["may_write_src_count"] != 0
+        or alhambra_gui_interface_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra GUI source generator interface no-write counts changed: "
+            f"{alhambra_gui_interface_summary}"
+        )
+    alhambra_listener_interface_summary = summary[
+        "repeated_entity_row_alhambra_listener_source_generator_interface"
+    ]["summary"]
+    if alhambra_listener_interface_summary["interface_count"] != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface count should remain 1, got "
+            f"{alhambra_listener_interface_summary['interface_count']}"
+        )
+    if alhambra_listener_interface_summary["artifact_count"] != 1:
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact_count should remain 1, got "
+            f"{alhambra_listener_interface_summary['artifact_count']}"
+        )
+    if alhambra_listener_interface_summary["artifact_kind"] != "listener_war_integration":
+        raise AssertionError(
+            "Alhambra listener source generator interface artifact kind changed: "
+            f"{alhambra_listener_interface_summary}"
+        )
+    if (
+        alhambra_listener_interface_summary["source_writer_allowed_count"] != 0
+        or alhambra_listener_interface_summary["may_write_src_count"] != 0
+        or alhambra_listener_interface_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra listener source generator interface no-write counts changed: "
+            f"{alhambra_listener_interface_summary}"
+        )
+    alhambra_localization_interface_summary = summary[
+        "repeated_entity_row_alhambra_localization_source_generator_interface"
+    ]["summary"]
+    if alhambra_localization_interface_summary["interface_count"] != 2:
+        raise AssertionError(
+            "Alhambra localization source generator interface count should remain 2, got "
+            f"{alhambra_localization_interface_summary['interface_count']}"
+        )
+    if alhambra_localization_interface_summary["artifact_count"] != 20:
+        raise AssertionError(
+            "Alhambra localization source generator interface artifact_count should remain 20, got "
+            f"{alhambra_localization_interface_summary['artifact_count']}"
+        )
+    if alhambra_localization_interface_summary["target_artifact_counts"] != {
+        alhambra_file_targets["english"]: 10,
+        alhambra_file_targets["simp_chinese"]: 10,
+    }:
+        raise AssertionError(
+            "Alhambra localization source generator interface target counts changed: "
+            f"{alhambra_localization_interface_summary}"
+        )
+    if (
+        alhambra_localization_interface_summary["source_writer_allowed_count"] != 0
+        or alhambra_localization_interface_summary["may_write_src_count"] != 0
+        or alhambra_localization_interface_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra localization source generator interface no-write counts changed: "
+            f"{alhambra_localization_interface_summary}"
+        )
+    alhambra_bundle_gate_summary = summary[
+        "repeated_entity_row_alhambra_source_generator_interface_bundle_gate"
+    ]["summary"]
+    if alhambra_bundle_gate_summary["interface_group_count"] != 6:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate group count should remain 6, got "
+            f"{alhambra_bundle_gate_summary['interface_group_count']}"
+        )
+    if alhambra_bundle_gate_summary["target_file_count"] != 7:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate target count should remain 7, got "
+            f"{alhambra_bundle_gate_summary['target_file_count']}"
+        )
+    if (
+        alhambra_bundle_gate_summary["artifact_count"] != 55
+        or alhambra_bundle_gate_summary["report_only_artifact_count"] != 55
+    ):
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate report-only artifact count should remain 55: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    if alhambra_bundle_gate_summary["interface_group_artifact_counts"] != {
+        "event": 8,
+        "scripted_effect_cleanup": 18,
+        "trigger": 6,
+        "gui": 2,
+        "listener": 1,
+        "localization": 20,
+    }:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate family counts changed: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    if alhambra_bundle_gate_summary["source_body_draft_artifact_counts"] != {
+        "event": 8,
+        "scripted_effect_cleanup": 18,
+        "trigger": 6,
+        "gui": 2,
+        "listener": 1,
+        "localization": 20,
+    }:
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate source-body draft counts changed: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    audit_source_body_draft_gate = alhambra_bundle_gate_summary["source_body_draft_completeness_gate"]
+    if (
+        audit_source_body_draft_gate["all_source_body_draft_groups_complete"] is not True
+        or audit_source_body_draft_gate["source_body_draft_count"] != 55
+        or audit_source_body_draft_gate["missing_source_body_draft_groups"] != []
+    ):
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate source-body draft completeness changed: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    if (
+        alhambra_bundle_gate_summary["source_writer_allowed_count"] != 0
+        or alhambra_bundle_gate_summary["may_write_src_count"] != 0
+        or alhambra_bundle_gate_summary["writes_src_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra source generator interface bundle gate no-write counts changed: "
+            f"{alhambra_bundle_gate_summary}"
+        )
+    alhambra_serialization_summary = summary[
+        "repeated_entity_row_alhambra_source_serialization_preview"
+    ]["summary"]
+    if (
+        alhambra_serialization_summary["source_text_preview_count"] != 7
+        or alhambra_serialization_summary["target_file_count"] != 7
+        or alhambra_serialization_summary["artifact_count"] != 55
+        or alhambra_serialization_summary["draft_ref_count"] != 55
+    ):
+        raise AssertionError(
+            "Alhambra source serialization preview counts should remain 7 files / 55 draft refs: "
+            f"{alhambra_serialization_summary}"
+        )
+    if alhambra_serialization_summary["target_artifact_counts"] != {
+        alhambra_file_targets["event"]: 8,
+        alhambra_file_targets["effect_cleanup"]: 18,
+        alhambra_file_targets["trigger"]: 6,
+        alhambra_file_targets["gui"]: 2,
+        alhambra_file_targets["listener"]: 1,
+        alhambra_file_targets["english"]: 10,
+        alhambra_file_targets["simp_chinese"]: 10,
+    }:
+        raise AssertionError(
+            "Alhambra source serialization preview target counts changed: "
+            f"{alhambra_serialization_summary}"
+        )
+    if (
+        alhambra_serialization_summary["source_text_empty_count"] != 0
+        or alhambra_serialization_summary["source_writer_allowed_count"] != 0
+        or alhambra_serialization_summary["may_write_src_count"] != 0
+        or alhambra_serialization_summary["writes_src_count"] != 0
+        or alhambra_serialization_summary["body_emitted_to_file_count"] != 0
+        or alhambra_serialization_summary["implementation_ready_count"] != 0
+        or alhambra_serialization_summary["harness_generated_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra source serialization preview no-write/readiness counts changed: "
+            f"{alhambra_serialization_summary}"
+        )
+    alhambra_writer_gate_summary = summary["repeated_entity_row_alhambra_source_writer_gate"]["summary"]
+    if (
+        alhambra_writer_gate_summary["target_file_count"] != 7
+        or alhambra_writer_gate_summary["passed_target_file_count"] != 7
+        or alhambra_writer_gate_summary["failed_target_file_count"] != 0
+        or alhambra_writer_gate_summary["generator_implementation_blocker_count"] != 0
+        or alhambra_writer_gate_summary["source_writer_blocker_count"] != 4
+        or alhambra_writer_gate_summary["eu5_exact_syntax_risk_count"] != 7
+        or alhambra_writer_gate_summary["can_enter_first_real_generator_implementation"] is not True
+        or alhambra_writer_gate_summary["may_write_src_count"] != 0
+        or alhambra_writer_gate_summary["implementation_ready_count"] != 0
+        or alhambra_writer_gate_summary["harness_generated_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra source writer gate summary should remain generator-go/source-writer-no-go: "
+            f"{alhambra_writer_gate_summary}"
         )
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")

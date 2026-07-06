@@ -30,6 +30,7 @@ from wonder_unique_ritual_harness import (  # noqa: E402
     supported_capability_keys,
     supported_codegen_template_keys,
     template_registry_index,
+    repeated_entity_row_alhambra_reviewable_source_targets_for_payload,
     validate_archetype_registry,
     validate_capability_registry,
     validate_spec_payload,
@@ -40,6 +41,7 @@ SCRIPT_REL = "scripts/gen_unique_wonder_ritual_code.py"
 DATA_REL = "data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml + data/unique_wonder_ritual_archetypes.yaml"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "data" / "generated_fragments" / "unique_wonder_rituals"
 INDEX_FILE_NAME = "unique_wonder_ritual_codegen_index.md"
+ALHAMBRA_SOURCE_WRITER_KEY = "unique_alhambra"
 
 
 class CodegenError(ValueError):
@@ -742,10 +744,57 @@ def generate_fragments_for_payload(
     }
 
 
+def generate_alhambra_source_targets_for_payload(
+    payload: dict[str, Any],
+    *,
+    write_source: bool = False,
+) -> dict[str, Any]:
+    report = repeated_entity_row_alhambra_reviewable_source_targets_for_payload(payload)
+    if report.get("validation_errors"):
+        raise CodegenError(
+            "Alhambra reviewable source targets failed validation: "
+            + "; ".join(str(error) for error in report.get("validation_errors", []) or [])
+        )
+    generated: list[dict[str, Any]] = []
+    for target in report.get("generated_source_targets", []) or []:
+        if not isinstance(target, dict):
+            continue
+        target_path = REPO_ROOT / str(target.get("target_path", ""))
+        rel_path = target_path.relative_to(REPO_ROOT).as_posix()
+        text = str(target.get("source_text", ""))
+        encoding = "utf-8-sig" if rel_path.startswith("src/main_menu/localization/") else "utf-8"
+        generated.append(
+            {
+                "key": ALHAMBRA_SOURCE_WRITER_KEY,
+                "path": rel_path,
+                "generator_group": str(target.get("generator_group", "")),
+                "encoding": encoding,
+                "text": text,
+            }
+        )
+        if write_source:
+            target_path.parent.mkdir(parents=True, exist_ok=True)
+            target_path.write_text(text, encoding=encoding)
+    return {
+        "write_source": write_source,
+        "generated": generated,
+        "target_count": len(generated),
+        "report": report,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true", help="Write generated intermediate fragments.")
     parser.add_argument("--wonder", action="append", help="Specific unique wonder key to generate.")
+    parser.add_argument(
+        "--write-alhambra-source",
+        action="store_true",
+        help=(
+            "Write the conservative Alhambra reviewable source targets "
+            "(events, scripted effects, scripted triggers, event localization) to src/."
+        ),
+    )
     parser.add_argument(
         "--validate-all",
         action="store_true",
@@ -759,6 +808,12 @@ def main() -> None:
     capability_registry = load_capability_registry()
     archetype_registry = load_archetype_registry()
     wonder_keys = set(args.wonder) if args.wonder else None
+    if args.write_alhambra_source and wonder_keys and wonder_keys != {ALHAMBRA_SOURCE_WRITER_KEY}:
+        print(
+            "[FAIL] --write-alhambra-source is an Alhambra-only vertical slice; "
+            "use --wonder unique_alhambra or omit --wonder."
+        )
+        sys.exit(1)
     try:
         selected_entries, _ = _selected_entries(payload, wonder_keys)
     except CodegenError as exc:
@@ -796,14 +851,28 @@ def main() -> None:
         print(f"[FAIL] {exc}")
         sys.exit(1)
 
+    alhambra_source_result: dict[str, Any] | None = None
+    if args.write_alhambra_source:
+        try:
+            alhambra_source_result = generate_alhambra_source_targets_for_payload(payload, write_source=True)
+        except CodegenError as exc:
+            print(f"[FAIL] {exc}")
+            sys.exit(1)
+
     if args.json:
         summary = {
             "write": args.write,
+            "write_alhambra_source": args.write_alhambra_source,
             "validate_all": args.validate_all,
             "generated": [{key: row[key] for key in ("key", "path")} for row in result["generated"]],
             "skipped_count": len(result["skipped"]),
             "index_path": result["index_path"],
         }
+        if alhambra_source_result is not None:
+            summary["alhambra_source_targets"] = [
+                {key: row[key] for key in ("key", "path", "generator_group")}
+                for row in alhambra_source_result["generated"]
+            ]
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
 
@@ -814,6 +883,10 @@ def main() -> None:
         print("No files were written. Re-run with --write to update generated fragments.")
     for row in result["generated"]:
         print(f"  - {row['key']}: {row['path']}")
+    if alhambra_source_result is not None:
+        print(f"Wrote {alhambra_source_result['target_count']} Alhambra reviewable source target(s).")
+        for row in alhambra_source_result["generated"]:
+            print(f"  - {row['generator_group']}: {row['path']}")
 
 
 if __name__ == "__main__":
