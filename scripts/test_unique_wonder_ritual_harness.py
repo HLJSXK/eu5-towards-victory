@@ -45,6 +45,7 @@ from wonder_unique_ritual_harness import repeated_entity_row_alhambra_gui_source
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_listener_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_localization_source_generator_interface_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_generator_interface_bundle_gate_for_payload  # noqa: E402
+from wonder_unique_ritual_harness import repeated_entity_row_alhambra_source_serialization_preview_for_payload  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_plan  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_preview  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_source_bundle_preview  # noqa: E402
@@ -60,6 +61,7 @@ from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_g
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_listener_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_localization_source_generator_interface  # noqa: E402
 from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_generator_interface_bundle_gate  # noqa: E402
+from wonder_unique_ritual_harness import validate_repeated_entity_row_alhambra_source_serialization_preview  # noqa: E402
 
 
 WONDER = {
@@ -1721,6 +1723,13 @@ def _alhambra_source_file_preview(report: dict, target_path: str) -> dict:
         if preview.get("target_path") == target_path:
             return preview
     raise AssertionError(f"Alhambra source file preview has no target {target_path}")
+
+
+def _alhambra_source_serialization_preview(report: dict, target_path: str) -> dict:
+    for preview in report.get("source_text_previews", []) or []:
+        if preview.get("target_path") == target_path:
+            return preview
+    raise AssertionError(f"Alhambra source serialization preview has no target {target_path}")
 
 
 def _alhambra_source_file_validation_pack(report: dict, target_path: str) -> dict:
@@ -9130,6 +9139,177 @@ def main() -> None:
         "harness_generated must be false",
     )
 
+    alhambra_source_serialization_preview = (
+        repeated_entity_row_alhambra_source_serialization_preview_for_payload(
+            spec_data,
+            source_generator_interface_bundle_gate=alhambra_source_generator_interface_bundle_gate,
+            source_file_validation_evidence=alhambra_source_file_validation_evidence,
+        )
+    )
+    if alhambra_source_serialization_preview["validation_errors"]:
+        raise AssertionError(
+            "Alhambra source serialization preview unexpectedly failed validation: "
+            f"{alhambra_source_serialization_preview['validation_errors']}"
+        )
+    serialization_summary = alhambra_source_serialization_preview.get("summary", {})
+    expected_serialization_target_counts = {
+        alhambra_file_targets["event"]: 8,
+        alhambra_file_targets["effect_cleanup"]: 18,
+        alhambra_file_targets["trigger"]: 6,
+        alhambra_file_targets["gui"]: 2,
+        alhambra_file_targets["listener"]: 1,
+        alhambra_file_targets["english"]: 10,
+        alhambra_file_targets["simp_chinese"]: 10,
+    }
+    if (
+        serialization_summary.get("source_text_preview_count") != 7
+        or serialization_summary.get("target_file_count") != 7
+        or serialization_summary.get("artifact_count") != 55
+        or serialization_summary.get("draft_ref_count") != 55
+        or serialization_summary.get("target_artifact_counts") != expected_serialization_target_counts
+    ):
+        raise AssertionError(f"Alhambra source serialization summary changed: {serialization_summary}")
+    if (
+        serialization_summary.get("source_text_empty_count") != 0
+        or serialization_summary.get("source_ready_count") != 0
+        or serialization_summary.get("source_writer_allowed_count") != 0
+        or serialization_summary.get("may_write_src_count") != 0
+        or serialization_summary.get("writes_src_count") != 0
+        or serialization_summary.get("body_emitted_to_file_count") != 0
+        or serialization_summary.get("implementation_ready_count") != 0
+        or serialization_summary.get("harness_generated_count") != 0
+    ):
+        raise AssertionError(f"Alhambra source serialization no-write counts changed: {serialization_summary}")
+    for target_path, expected_count in expected_serialization_target_counts.items():
+        preview = _alhambra_source_serialization_preview(alhambra_source_serialization_preview, target_path)
+        if (
+            preview.get("target_path") != target_path
+            or preview.get("draft_ref_count") != expected_count
+            or not str(preview.get("source_text", "")).strip()
+            or not preview.get("draft_refs")
+            or not preview.get("eu5_syntax_evidence_refs")
+            or preview.get("may_write_src") is not False
+            or preview.get("writes_src") is not False
+            or preview.get("body_emitted_to_file") is not False
+        ):
+            raise AssertionError(f"Alhambra source serialization preview shape changed: {preview}")
+    if "country_event = {" not in _alhambra_source_serialization_preview(
+        alhambra_source_serialization_preview,
+        alhambra_file_targets["event"],
+    )["source_text"]:
+        raise AssertionError("Alhambra event source serialization text lost event body preview")
+    if "l_english:" not in _alhambra_source_serialization_preview(
+        alhambra_source_serialization_preview,
+        alhambra_file_targets["english"],
+    )["source_text"]:
+        raise AssertionError("Alhambra English source serialization text lost language header")
+    if "l_simp_chinese:" not in _alhambra_source_serialization_preview(
+        alhambra_source_serialization_preview,
+        alhambra_file_targets["simp_chinese"],
+    )["source_text"]:
+        raise AssertionError("Alhambra Simplified Chinese source serialization text lost language header")
+
+    def assert_alhambra_source_serialization_preview_error(
+        name: str,
+        report: dict,
+        needle: str,
+        *,
+        source_generator_interface_bundle_gate: dict | None = alhambra_source_generator_interface_bundle_gate,
+        source_file_validation_evidence: dict | None = alhambra_source_file_validation_evidence,
+    ) -> None:
+        errors = validate_repeated_entity_row_alhambra_source_serialization_preview(
+            report,
+            source_generator_interface_bundle_gate=source_generator_interface_bundle_gate,
+            source_file_validation_evidence=source_file_validation_evidence,
+        )
+        if not any(needle in error for error in errors):
+            raise AssertionError(f"{name} Alhambra source serialization negative was not caught: {errors}")
+
+    missing_serialization_target = deepcopy(alhambra_source_serialization_preview)
+    missing_serialization_target["source_text_previews"] = missing_serialization_target["source_text_previews"][:-1]
+    assert_alhambra_source_serialization_preview_error(
+        "missing target file",
+        missing_serialization_target,
+        "missing target file",
+    )
+
+    empty_serialization_source_text = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        empty_serialization_source_text,
+        alhambra_file_targets["event"],
+    )["source_text"] = ""
+    assert_alhambra_source_serialization_preview_error(
+        "empty source text",
+        empty_serialization_source_text,
+        "empty source text",
+    )
+
+    unbound_serialization_draft = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        unbound_serialization_draft,
+        alhambra_file_targets["trigger"],
+    )["draft_refs"] = []
+    assert_alhambra_source_serialization_preview_error(
+        "unbound draft ref",
+        unbound_serialization_draft,
+        "unbound draft ref",
+    )
+
+    missing_serialization_syntax = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        missing_serialization_syntax,
+        alhambra_file_targets["gui"],
+    )["eu5_syntax_evidence_refs"] = []
+    assert_alhambra_source_serialization_preview_error(
+        "missing EU5 syntax evidence",
+        missing_serialization_syntax,
+        "missing EU5 syntax evidence",
+    )
+
+    merged_serialization_loc = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        merged_serialization_loc,
+        alhambra_file_targets["simp_chinese"],
+    )["localization_language"] = "english"
+    assert_alhambra_source_serialization_preview_error(
+        "cross-language loc merge",
+        merged_serialization_loc,
+        "cross-language loc merge",
+    )
+
+    writable_serialization = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        writable_serialization,
+        alhambra_file_targets["effect_cleanup"],
+    )["may_write_src"] = True
+    assert_alhambra_source_serialization_preview_error(
+        "may_write_src true",
+        writable_serialization,
+        "may_write_src must be false",
+    )
+
+    writing_serialization = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        writing_serialization,
+        alhambra_file_targets["listener"],
+    )["writes_src"] = True
+    assert_alhambra_source_serialization_preview_error(
+        "writes_src true",
+        writing_serialization,
+        "writes_src must be false",
+    )
+
+    emitted_file_serialization = deepcopy(alhambra_source_serialization_preview)
+    _alhambra_source_serialization_preview(
+        emitted_file_serialization,
+        alhambra_file_targets["english"],
+    )["body_emitted_to_file"] = True
+    assert_alhambra_source_serialization_preview_error(
+        "body emitted to file",
+        emitted_file_serialization,
+        "body_emitted_to_file must be false",
+    )
+
     non_monthly_errors = validate_spec_payload(
         {"unique_wonders": [pure_non_monthly_cadence_entry()]},
         wonders=[WONDER],
@@ -10567,6 +10747,9 @@ def main() -> None:
         repeated_entity_row_alhambra_source_generator_interface_bundle_gate=(
             alhambra_source_generator_interface_bundle_gate
         ),
+        repeated_entity_row_alhambra_source_serialization_preview=(
+            alhambra_source_serialization_preview
+        ),
     )
     if summary["source_codegen_ready_count"] != 4:
         raise AssertionError(f"source_codegen_ready count should remain 4, got {summary['source_codegen_ready_count']}")
@@ -10842,6 +11025,45 @@ def main() -> None:
         raise AssertionError(
             "Alhambra source generator interface bundle gate no-write counts changed: "
             f"{alhambra_bundle_gate_summary}"
+        )
+    alhambra_serialization_summary = summary[
+        "repeated_entity_row_alhambra_source_serialization_preview"
+    ]["summary"]
+    if (
+        alhambra_serialization_summary["source_text_preview_count"] != 7
+        or alhambra_serialization_summary["target_file_count"] != 7
+        or alhambra_serialization_summary["artifact_count"] != 55
+        or alhambra_serialization_summary["draft_ref_count"] != 55
+    ):
+        raise AssertionError(
+            "Alhambra source serialization preview counts should remain 7 files / 55 draft refs: "
+            f"{alhambra_serialization_summary}"
+        )
+    if alhambra_serialization_summary["target_artifact_counts"] != {
+        alhambra_file_targets["event"]: 8,
+        alhambra_file_targets["effect_cleanup"]: 18,
+        alhambra_file_targets["trigger"]: 6,
+        alhambra_file_targets["gui"]: 2,
+        alhambra_file_targets["listener"]: 1,
+        alhambra_file_targets["english"]: 10,
+        alhambra_file_targets["simp_chinese"]: 10,
+    }:
+        raise AssertionError(
+            "Alhambra source serialization preview target counts changed: "
+            f"{alhambra_serialization_summary}"
+        )
+    if (
+        alhambra_serialization_summary["source_text_empty_count"] != 0
+        or alhambra_serialization_summary["source_writer_allowed_count"] != 0
+        or alhambra_serialization_summary["may_write_src_count"] != 0
+        or alhambra_serialization_summary["writes_src_count"] != 0
+        or alhambra_serialization_summary["body_emitted_to_file_count"] != 0
+        or alhambra_serialization_summary["implementation_ready_count"] != 0
+        or alhambra_serialization_summary["harness_generated_count"] != 0
+    ):
+        raise AssertionError(
+            "Alhambra source serialization preview no-write/readiness counts changed: "
+            f"{alhambra_serialization_summary}"
         )
 
     print("[OK] Unique wonder ritual Harness quality-gate tests passed.")
