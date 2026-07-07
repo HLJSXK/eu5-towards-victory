@@ -341,206 +341,215 @@ organization_panel = {
 							text = "TV_ACADEMY_DEBATE_TIMELINE_CARD_TITLE"
 						}
 						blockoverride "common_bottom_content" {
-							widget = {
+							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = fixed
-								minimumsize = { 470 96 }
-								maximumsize = { 470 96 }
-								size = { 470 96 }
+								size = { 470 66 }
+								spacing = 0
 								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									position = { 21 24 }
-									size = { 428 18 }
-									progressbar = {
-										size = { 428 14 }
-										parentanchor = vcenter
-										widgetanchor = vcenter
-										using = progress_bar_blue_alt
-										min = 0
-										max = 100
-										value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue]"
-									}
-								}
-								hbox = {
-									position = { 0 12 }
 									size = { 470 42 }
-									layoutpolicy_horizontal = fixed
-									layoutpolicy_vertical = fixed
-									spacing = 65
-									widget = {
-										size = { 42 42 }
-										using = bg_circle_piechart
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_type').GetValue, '(CFixedPoint)0.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@time!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
-											align = center|nobaseline
+									hbox = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 470 42 }
+										spacing = 0
+										widget = { size = { 21 42 } }
+										widget = {
+											layoutpolicy_horizontal = fixed
+											layoutpolicy_vertical = fixed
+											size = { 428 42 }
+											progressbar = {
+												size = { 428 14 }
+												parentanchor = vcenter
+												widgetanchor = vcenter
+												using = progress_bar_blue_alt
+												min = 0
+												max = 100
+												value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue]"
+											}
 										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_type').GetValue, '(CFixedPoint)1.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@location!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
-											align = center|nobaseline
-										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_type').GetValue, '(CFixedPoint)2.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@diplomacy!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
-											align = center|nobaseline
-										}
+										widget = { size = { 21 42 } }
 									}
-									widget = {
-										size = { 42 42 }
-										using = bg_circle_piechart
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_type').GetValue, '(CFixedPoint)0.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@time!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
-											align = center|nobaseline
+									hbox = {
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										size = { 470 42 }
+										spacing = 65
+										widget = {
+											size = { 42 42 }
+											using = bg_circle_piechart
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_type').GetValue, '(CFixedPoint)0.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@time!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_type').GetValue, '(CFixedPoint)1.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@location!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_type').GetValue, '(CFixedPoint)2.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@diplomacy!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
+												align = center|nobaseline
+											}
 										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_type').GetValue, '(CFixedPoint)1.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@location!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
-											align = center|nobaseline
+										widget = {
+											size = { 42 42 }
+											using = bg_circle_piechart
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_type').GetValue, '(CFixedPoint)0.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@time!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_type').GetValue, '(CFixedPoint)1.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@location!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_type').GetValue, '(CFixedPoint)2.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@diplomacy!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
+												align = center|nobaseline
+											}
 										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_type').GetValue, '(CFixedPoint)2.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@diplomacy!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
-											align = center|nobaseline
+										widget = {
+											size = { 42 42 }
+											using = bg_circle_piechart
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_type').GetValue, '(CFixedPoint)0.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@time!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_type').GetValue, '(CFixedPoint)1.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@location!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_type').GetValue, '(CFixedPoint)2.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@diplomacy!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
+												align = center|nobaseline
+											}
 										}
-									}
-									widget = {
-										size = { 42 42 }
-										using = bg_circle_piechart
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_type').GetValue, '(CFixedPoint)0.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@time!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
-											align = center|nobaseline
+										widget = {
+											size = { 42 42 }
+											using = bg_circle_piechart
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_type').GetValue, '(CFixedPoint)0.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@time!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_type').GetValue, '(CFixedPoint)1.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@location!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_type').GetValue, '(CFixedPoint)2.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@diplomacy!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
+												align = center|nobaseline
+											}
 										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_type').GetValue, '(CFixedPoint)1.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@location!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
-											align = center|nobaseline
-										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_type').GetValue, '(CFixedPoint)2.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@diplomacy!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
-											align = center|nobaseline
-										}
-									}
-									widget = {
-										size = { 42 42 }
-										using = bg_circle_piechart
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_type').GetValue, '(CFixedPoint)0.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@time!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
-											align = center|nobaseline
-										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_type').GetValue, '(CFixedPoint)1.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@location!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
-											align = center|nobaseline
-										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_type').GetValue, '(CFixedPoint)2.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@diplomacy!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
-											align = center|nobaseline
-										}
-									}
-									widget = {
-										size = { 42 42 }
-										using = bg_circle_piechart
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_type').GetValue, '(CFixedPoint)0.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@time!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
-											align = center|nobaseline
-										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_type').GetValue, '(CFixedPoint)1.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@location!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
-											align = center|nobaseline
-										}
-										text_single = {
-											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_type').GetValue, '(CFixedPoint)2.0')]"
-											parentanchor = center
-											size = { 100% 100% }
-											raw_text = "@diplomacy!"
-											fontsize = 21
-											autoresize = no
-											tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
-											align = center|nobaseline
+										widget = {
+											size = { 42 42 }
+											using = bg_circle_piechart
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_type').GetValue, '(CFixedPoint)0.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@time!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_type').GetValue, '(CFixedPoint)1.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@location!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"
+												align = center|nobaseline
+											}
+											text_single = {
+												visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_type').GetValue, '(CFixedPoint)2.0')]"
+												parentanchor = center
+												size = { 100% 100% }
+												raw_text = "@diplomacy!"
+												fontsize = 21
+												autoresize = no
+												tooltip = "TV_ACADEMY_DEBATE_NODE_WORLD_TT"
+												align = center|nobaseline
+											}
 										}
 									}
 								}
 								hbox = {
-									position = { 0 60 }
 									size = { 470 24 }
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
