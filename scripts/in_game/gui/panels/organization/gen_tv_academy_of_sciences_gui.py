@@ -90,7 +90,7 @@ organization_panel = {
 \tblockoverride "extra_titles" {}
 \tblockoverride "organization_panel_extra_item" {
 \t\twidget = {
-\t\t\tsize = { 260 150 }
+\t\t\tsize = { 260 120 }
 \t\t\tparentanchor = top|right
 \t\t\twidgetanchor = top|right
 \t\t\tposition = { -12 6 }
@@ -99,8 +99,8 @@ organization_panel = {
 \t\t\tvbox = {
 \t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\tminimumsize = { 260 150 }
-\t\t\t\tmaximumsize = { 260 150 }
+\t\t\t\tminimumsize = { 260 120 }
+\t\t\t\tmaximumsize = { 260 120 }
 \t\t\t\tusing = bg_paper_card_situations
 
 \t\t\t\twidget = {
@@ -128,10 +128,10 @@ organization_panel = {
 \t\t\t\t}
 
 \t\t\t\tvbox = {
-\t\t\t\t\tsize = { 236 94 }
+\t\t\t\t\tsize = { 236 72 }
 \t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\tmargin = { 10 8 }
+\t\t\t\t\tmargin = { 10 4 }
 \t\t\t\t\tignoreinvisible = yes
 \t\t\t\t\tspacing = 8
 
@@ -227,6 +227,7 @@ organization_panel = {
 \t\t\t\t\t\t}
 \t\t\t\t\t}
 \t\t\t\t}
+\t\t\t\texpand = {}
 \t\t\t}
 \t\t}
 \t}
