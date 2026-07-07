@@ -726,6 +726,15 @@ such as `tv_governor_remove_effect`.
 
 The `exists = scope:<name>` trigger is the vanilla pattern for this (confirmed in `assign_governor.txt` and `assume_fort_command.txt`). The errors appear in `error.log` as "Undefined event target" or "Failed to fetch variable" but the effect still fires correctly once all selections are complete.
 
+`save_scope_as` is an effect only; it is not registered as a trigger type at all. Any scope save
+performed inside a `select_trigger` `visible`/`enabled` block, an `allow`/`potential` block, or an
+`if = { limit = { ... } }` trigger body must use `save_temporary_scope_as` instead. Using
+`save_scope_as` in a trigger context logs `Unknown trigger type: save_scope_as` at load time, once
+per occurrence — a single reused generator helper can produce hundreds of duplicate errors. Confirmed
+against vanilla `coa_def_BOH_ensign_trigger` (`c:BOH = { save_temporary_scope_as = custom_overlord }`
+inside a trigger-only `scripted_trigger` block). Reserve `save_scope_as` for saves written directly
+inside an effect body (a sibling of `limit`, not inside it).
+
 Do not mirror target availability in the action `allow` block just to avoid an empty chooser.
 The `select_trigger` definition already supports `none_available_msg_key`, documented by
 vanilla as the localization shown when no targets are available. Put target eligibility in

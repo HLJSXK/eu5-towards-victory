@@ -2020,3 +2020,14 @@
   scope: country
   source: "runtime error.log for tv_invite_to_diplomatic_alliance, 2026-06-24; reference_game_files/game/in_game/common/country_interactions/invite_settlers.txt:90-104"
   notes: "Country interaction accept/effect paths can be evaluated from panel buttons before the selector populates recipient. Direct reads then report wrong-type `none`, unset variables, or unset `var` scopes while the player is only looking at the country picker."
+
+- id: save_scope_as_used_in_trigger_context
+  pattern: 'save_scope_as\s*='
+  detectability: needs_parser
+  only_in_paths: ['generic_actions']
+  bad: "Using `save_scope_as` inside a select_trigger `visible`/`enabled` block, or inside an `effect`'s `if`/`limit` trigger body, to stash a scope for a later comparison in that same trigger context"
+  correction: "Use `save_temporary_scope_as` for any scope save performed inside a trigger-evaluated block (select_trigger visible/enabled, allow, potential, or any `limit = { ... }` body). Reserve `save_scope_as` for saves performed directly inside an effect body (siblings of `limit`, not inside it), where the scope needs to persist to sibling/later effect lines."
+  category: scope
+  scope: generic_actions
+  source: "reference_game_files/game/main_menu/common/scripted_triggers/00_coa_triggers.txt:116 (c:BOH = { save_temporary_scope_as = custom_overlord } inside a trigger-only scripted_trigger); pdx_persistent_reader.cpp 'Unknown trigger type: save_scope_as' runtime error in tv_trade_league_actions.txt, 2026-07-07"
+  notes: "The engine's trigger parser does not register `save_scope_as` as a valid trigger type at all; only `save_temporary_scope_as` is valid inside trigger evaluation. `save_scope_as` is effect-only. The Trade Chain generator (`scripts/in_game/common/generic_actions/gen_tv_trade_league_actions.py`) used `save_scope_as` inside `chain_previous_save`/`chain_nearest_previous_limits` (limit-block distance comparisons) and `chain_selector_filter` (select_trigger visible/enabled), producing hundreds of duplicate 'Unknown trigger type: save_scope_as' errors on load. Fixed by switching those three helpers to `save_temporary_scope_as`; the one genuine effect-body save (`scope:target = { save_scope_as = tv_trade_chain_candidate_market }` in the action's `effect` block) was left unchanged."
