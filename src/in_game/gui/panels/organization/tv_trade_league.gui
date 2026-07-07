@@ -186,7 +186,7 @@ organization_panel = {
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = fixed
+			layoutpolicy_vertical = shrinking
 			ignoreinvisible = yes
 			spacing = 8
 
@@ -245,6 +245,7 @@ organization_panel = {
 					widget = {
 						layoutpolicy_horizontal = fixed
 						layoutpolicy_vertical = shrinking
+						set_parent_size_to_minimum = yes
 						minimumsize = { 462 -1 }
 						maximumsize = { 462 -1 }
 							widget = {
@@ -388,16 +389,20 @@ organization_panel = {
 								widget = { size = { 8 1862 } background = { using = color_gold alpha = 0.55 } }
 							}
 						vbox = {
+							set_parent_size_to_minimum = yes
 							layoutpolicy_horizontal = fixed
 							layoutpolicy_vertical = shrinking
 							size = { 462 -1 }
 							spacing = 8
 							margin = { 0 0 }
+							ignoreinvisible = yes
 							vbox = {
+								set_parent_size_to_minimum = yes
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = shrinking
 								size = { 462 -1 }
 								spacing = 8
+								ignoreinvisible = yes
 								datamodel = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetList('tv_trade_chain_markets')]"
 								item = {
 						widget = {

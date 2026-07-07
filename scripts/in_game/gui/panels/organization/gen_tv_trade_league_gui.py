@@ -224,7 +224,7 @@ organization_panel = {
 \t\tvbox = {
 \t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
-\t\t\tlayoutpolicy_vertical = fixed
+\t\t\tlayoutpolicy_vertical = shrinking
 \t\t\tignoreinvisible = yes
 \t\t\tspacing = 8
 
@@ -977,19 +977,24 @@ def trade_chain_overview(chain_data: dict) -> str:
 \t\t\t\t\twidget = {{
 \t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\tlayoutpolicy_vertical = shrinking
+\t\t\t\t\t\tset_parent_size_to_minimum = yes
 \t\t\t\t\t\tminimumsize = {{ 462 -1 }}
 \t\t\t\t\t\tmaximumsize = {{ 462 -1 }}
 {progress}\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\tset_parent_size_to_minimum = yes
 \t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\tlayoutpolicy_vertical = shrinking
 \t\t\t\t\t\t\tsize = {{ 462 -1 }}
 \t\t\t\t\t\t\tspacing = 8
 \t\t\t\t\t\t\tmargin = {{ 0 0 }}
+\t\t\t\t\t\t\tignoreinvisible = yes
 \t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\tset_parent_size_to_minimum = yes
 \t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\tlayoutpolicy_vertical = shrinking
 \t\t\t\t\t\t\t\tsize = {{ 462 -1 }}
 \t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\tignoreinvisible = yes
 \t\t\t\t\t\t\t\tdatamodel = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetList('tv_trade_chain_markets')]"
 \t\t\t\t\t\t\t\titem = {{
 {market_card}\t\t\t\t\t\t\t\t}}
