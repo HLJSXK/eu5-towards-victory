@@ -725,7 +725,7 @@ def chain_previous_save(slot: int, indent: str) -> str:
         f"{indent}has_variable_map = tv_trade_chain_market_by_slot\n"
         f"{indent}is_key_in_variable_map = {{ name = tv_trade_chain_market_by_slot target = {slot} }}\n"
         f"{indent}\"variable_map(tv_trade_chain_market_by_slot|{slot})\" = "
-        "{ location = { save_scope_as = tv_trade_chain_previous_location } }"
+        "{ location = { save_temporary_scope_as = tv_trade_chain_previous_location } }"
     )
 
 
@@ -736,7 +736,7 @@ def chain_nearest_previous_limits(next_slot: int, indent: str) -> str:
         lines.append(f"{indent}is_key_in_variable_map = {{ name = tv_trade_chain_market_by_slot target = {compare} }}")
         lines.append(
             f"{indent}\"variable_map(tv_trade_chain_market_by_slot|{compare})\" = "
-            f"{{ location = {{ save_scope_as = tv_trade_chain_compare_location_{compare} }} }}"
+            f"{{ location = {{ save_temporary_scope_as = tv_trade_chain_compare_location_{compare} }} }}"
         )
         lines.append(
             f'{indent}"scope:tv_trade_chain_candidate_location.distance_to(scope:tv_trade_chain_previous_location)" < '
@@ -784,8 +784,8 @@ def chain_candidate_trigger(max_nodes: int, indent: str) -> str:
 def chain_selector_filter(max_nodes: int, indent: str) -> str:
     inner = indent + "\t"
     return f"""{indent}in_trade_range_of = scope:actor
-{indent}save_scope_as = tv_trade_chain_candidate_market
-{indent}location = {{ save_scope_as = tv_trade_chain_candidate_location }}
+{indent}save_temporary_scope_as = tv_trade_chain_candidate_market
+{indent}location = {{ save_temporary_scope_as = tv_trade_chain_candidate_location }}
 {indent}scope:actor = {{
 {actor_leader_limit(indent=inner)}
 {inner}var:tv_trade_chain_count < {max_nodes}

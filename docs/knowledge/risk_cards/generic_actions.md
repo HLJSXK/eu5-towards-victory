@@ -104,6 +104,15 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    progress; those bypasses can evaluate action or building checks without the literal
    `scope:actor` event target.
 
+17. Use `save_temporary_scope_as` inside trigger contexts, never `save_scope_as`.
+   `save_scope_as` is effect-only. Any scope save inside a `select_trigger` `visible`/`enabled`
+   block, an `allow`/`potential` block, or an `if = { limit = { ... } }` trigger body must use
+   `save_temporary_scope_as`. The engine's trigger parser does not recognize `save_scope_as` as a
+   trigger type at all and logs "Unknown trigger type: save_scope_as" for every occurrence,
+   which can spam hundreds of load errors from one generator helper reused across many action
+   variants. Reserve `save_scope_as` for saves written directly inside an effect body (a sibling
+   of `limit`, not inside it).
+
 ## Safe Skeleton
 
 ```txt
@@ -147,6 +156,10 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --fix
 Warnings tagged `generic_action_pre_eval` are not always hard failures, but new warnings fail
 validation unless they are fixed or explicitly added to `data/validation_baseline.yaml` with a
 rationale.
+
+- `save_scope_as_used_in_trigger_context` [needs_parser]: `save_scope_as` is not a valid trigger
+  type at all; any scope save inside select_trigger `visible`/`enabled`, `allow`/`potential`, or a
+  trigger `limit` body must use `save_temporary_scope_as` instead.
 
 ## Relevant Anti-Patterns
 - `dynamic_scope_value_must_use_script_value_block` [advisory]: Dynamic selector values and
