@@ -7,17 +7,17 @@ random_events:
       english: "The Sailor's Chart"
       simp_chinese: "水手的海图"
     desc:
-      english: "A battered chart reaches the Academy with coastlines that refuse to fit any known map. Its stains look like tavern evidence until the room notices that every wrong line still points west."
-      simp_chinese: "一张破旧的海图被送进学院，上面的海岸线不肯嵌入任何已知地图。它的污痕起初像酒馆里的证据，直到满屋人发现，每一条不合旧图的线仍然指向西方。"
+      english: "A sea-stained chart reaches the Academy, its coastlines refusing to lie flat against any known map. The blots look like tavern evidence until the copyists notice that every crooked line still points stubbornly west."
+      simp_chinese: "一张浸满盐渍的海图送进学院，海岸线怎么也贴不平任何一张已知地图。那些墨渍起初像酒馆里留下的证物，直到誊抄的人发现，每一条歪斜的线仍固执地指向西方。"
     options:
       a:
         text:
-          english: "Trust the chart."
-          simp_chinese: "信任这张海图。"
+          english: "The pilots pin the chart above the great table and set a course by it."
+          simp_chinese: "领航员们把海图钉在大案之上，照着它定下航向。"
         progress_delta: 10
         rationale:
-          english: "Trusting the chart lets practical seafaring evidence challenge inherited geography directly. The debate moves strongly toward acceptance because maritime merchants can now point to a usable route rather than a rumor."
-          simp_chinese: "信任这张海图，就是让航海实践的证据直接挑战承袭下来的地理知识。由于海商终于能指向一条可用航路，而不是只重复传闻，辩论会强烈转向接受。"
+          english: "Trusting the chart lets practical seafaring evidence challenge inherited geography head-on. The debate swings hard toward acceptance, because the maritime merchants can now point to a route a man might actually sail rather than a rumor swapped over ale."
+          simp_chinese: "信任这张海图，等于让航海实践的证据正面挑战承袭下来的地理知识。辩论会强烈转向接受，因为海商终于能指着一条真能航行的航路，而不再是就着麦酒交换的传闻。"
         effect_blocks:
           - type: seat_stance
             group: maritime_merchants
@@ -30,12 +30,12 @@ random_events:
               private chart copying and voyage subscriptions: 0.03
       b:
         text:
-          english: "Dismiss it as tavern ink."
-          simp_chinese: "将其斥为酒馆墨迹。"
+          english: "We know tavern ink when we see it."
+          simp_chinese: "酒馆里的墨迹，我们一眼就认得。"
         progress_delta: -10
         rationale:
-          english: "Dismissing the chart protects the old map by attacking the witness rather than the coastline. Conservative listeners gain confidence because uncertain sailor knowledge is kept outside Academy authority."
-          simp_chinese: "将海图斥为酒馆墨迹，是通过贬低见证者而不是检验海岸线来保护旧地图。保守听众会更有信心，因为不稳定的水手知识被挡在学院权威之外。"
+          english: "Dismissing the chart guards the old map by attacking the witness instead of the coastline. Conservative listeners take heart, since uncertain sailors' knowledge is kept safely outside the Academy's authority."
+          simp_chinese: "斥其为酒馆墨迹，是靠攻击见证者、而非检验海岸线来保住旧地图。保守的听众因此安心，因为不可靠的水手见闻被稳稳挡在学院权威之外。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -52,17 +52,17 @@ random_events:
       english: "Returned Pilot"
       simp_chinese: "归来的领航员"
     desc:
-      english: "A pilot returns with salt in their clothes, fever in their bones, and a story that repeats itself too clearly to be waved away. The Academy must decide whether the realm hears the tale as evidence or as a secret."
-      simp_chinese: "一名领航员归来，衣上带着盐痕，骨子里还留着热病，讲出的故事前后一致到难以随手抹去。学院必须决定，是让王国把这段经历当作证据来听，还是当作秘密来审。"
+      english: "A pilot returns with salt crusted in his coat, fever still in his bones, and a story that repeats itself too exactly to be waved off as delirium. The Academy must decide whether the realm hears the tale as testimony or buries it as a secret."
+      simp_chinese: "一名领航员归来，外套上结着盐霜，骨子里还烧着热病，讲出的故事前后一致得不像胡话，难以随手打发。学院必须决定，是让王国把这段经历当作证词来听，还是当作秘密来埋。"
     options:
       a:
         text:
-          english: "Hear them publicly."
-          simp_chinese: "公开听取其证词。"
+          english: "A clerk calls the chamber to order and lets the pilot speak before every bench."
+          simp_chinese: "一名文吏敲定秩序，让领航员当着每一排座位开口。"
         progress_delta: 10
         rationale:
-          english: "A public hearing turns the pilot from a rumor carrier into a witnessed source. Acceptance rises sharply because the story becomes communal evidence, although the Crown spends some prestige if the testimony later proves imperfect."
-          simp_chinese: "公开听证会会把领航员从传闻携带者变成有见证的来源。由于这段故事变成了共同听到的证据，接受度会显著上升，尽管若证词日后被证明并不完美，王权也会消耗一些声望。"
+          english: "A public hearing turns the pilot from a carrier of rumor into a witnessed source. Acceptance climbs sharply as the tale becomes evidence the whole room has heard, though the Crown spends a little prestige should the testimony later prove imperfect."
+          simp_chinese: "公开听证会把领航员从传闻的携带者变成有众人作证的来源。这段故事成为满堂共同听见的证据，接受度因此显著上升；只是若日后证词被发现有瑕疵，王权也要折损些许声望。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -73,12 +73,12 @@ random_events:
             amount: -5
       b:
         text:
-          english: "Question them privately."
-          simp_chinese: "私下盘问。"
+          english: "We take his account behind a closed door."
+          simp_chinese: "我们把他的说法带到闭门之后再问。"
         progress_delta: -5
         rationale:
-          english: "Private questioning keeps the pilot useful to officials but denies the debate a public witness. Court caution slows acceptance without fully rejecting the possibility that the story is true."
-          simp_chinese: "私下盘问可以让官员继续利用领航员，却不给辩论一个公开见证人。宫廷谨慎会减缓接受进程，但并不彻底否认这段经历可能是真的。"
+          english: "Private questioning keeps the pilot useful to the officials but denies the debate a public witness. Court caution slows acceptance without ever quite calling the story false."
+          simp_chinese: "私下盘问让官员继续能用得上领航员，却不给辩论一位公开的见证人。宫廷的谨慎减缓了接受进程，却始终没把这段经历说成假的。"
         effect_blocks:
           - type: seat_cooldown
             group: court_bureaucrats
@@ -96,17 +96,17 @@ random_events:
       english: "Clergy Ask for Mission Rights"
       simp_chinese: "神职人员索要传教权"
     desc:
-      english: "Clerics argue that discovery without conversion is only wandering with better maps. The Academy's debate is pulled between souls, surveys, and the uncomfortable question of who gets to define a new shore first."
-      simp_chinese: "神职人员主张，没有皈依的发现不过是带着更好地图的游荡。学院的辩论被拉扯在灵魂、测绘，以及一个令人不安的问题之间：谁有资格最先定义一片新海岸？"
+      english: "The clerics argue that discovery without conversion is merely wandering with better maps. The Academy's debate is torn between souls, surveys, and the awkward question of who is entitled to name a new shore first."
+      simp_chinese: "神职人员主张，没有皈依的发现，不过是带着更好地图的游荡罢了。学院的辩论被撕扯在灵魂、测绘，与一个尴尬的问题之间：谁有资格最先为一片新海岸命名？"
     options:
       a:
         text:
-          english: "Grant mission priority."
-          simp_chinese: "授予传教优先权。"
+          english: "No coast is truly found until a soul is saved upon it."
+          simp_chinese: "海岸上不救得一条灵魂，便算不得真正发现了它。"
         progress_delta: -5
         rationale:
-          english: "Mission priority narrows discovery into a clerical mandate before the Academy can treat new lands as an empirical problem. Clergy approve, but acceptance slows because survey, trade, and testimony become subordinate to conversion."
-          simp_chinese: "传教优先会在学院把新土地视为经验问题之前，先把发现收窄成神职使命。神职人员会认可这一安排，但测绘、贸易和证词都被置于皈依之下，接受进程因此放缓。"
+          english: "Mission priority narrows discovery into a clerical errand before the Academy can treat new lands as an empirical problem. The clergy approve, but acceptance slows as survey, trade, and testimony are all made to kneel behind conversion."
+          simp_chinese: "传教优先，会在学院把新土地当作经验问题来看待之前，先把发现收窄成一桩神职差事。神职人员对此认可，但测绘、贸易与证词都被迫跪在皈依之后，接受进程因此放缓。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -118,12 +118,12 @@ random_events:
               missionary access ahead of geographic survey: 0.02
       b:
         text:
-          english: "Balance mission with survey."
-          simp_chinese: "让传教与测绘并重。"
+          english: "The Academy seats the missionary and the surveyor at one table."
+          simp_chinese: "学院让传教士与测绘师同坐一张桌子。"
         progress_delta: 5
         rationale:
-          english: "Balancing mission with survey keeps religious purpose present while refusing to let it monopolize the meaning of discovery. The debate gains modestly because scholars can still collect evidence, though clergy satisfaction falls."
-          simp_chinese: "让传教与测绘并重，既保留宗教目的，又拒绝让它垄断发现的意义。学者仍能收集证据，所以辩论会小幅转向接受，但神职人员的满意度会下降。"
+          english: "Balancing mission with survey keeps a religious purpose in the room while refusing to let it monopolize the meaning of discovery. The debate gains modest ground, since scholars may still gather evidence, though clergy satisfaction slips."
+          simp_chinese: "让传教与测绘并重，既把宗教目的留在场内，又不许它垄断发现的意义。学者依旧能收集证据，辩论因此小幅前进，只是神职人员的满意度会滑落。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -140,17 +140,17 @@ random_events:
       english: "Merchants Want Charter"
       simp_chinese: "商人索要特许状"
     desc:
-      english: "Merchants offer to fund voyages if the Crown lets them name harbors they have not yet seen. Their confidence is useful, expensive, and already trying to put a seal on empty water."
-      simp_chinese: "商人提出资助远航，条件是王权允许他们给尚未见过的港湾命名。他们的信心有用、昂贵，而且已经迫不及待想把印章盖在空白海面上。"
+      english: "Merchants offer to fund voyages, provided the Crown lets them name harbors they have not yet laid eyes on. Their confidence is useful, expensive, and already busy pressing a seal onto empty water."
+      simp_chinese: "商人提出资助远航，条件是王权允许他们为尚未亲眼见过的港湾命名。他们的信心有用、昂贵，且早已忙着把印章按在一片空白海面上。"
     options:
       a:
         text:
-          english: "Issue a charter."
-          simp_chinese: "颁发特许状。"
+          english: "The seal is pressed, and harbors gain owners before they gain names."
+          simp_chinese: "印章按下，港湾还没得到名字，便先有了主人。"
         progress_delta: 10
         rationale:
-          english: "A charter turns the New World claim into financed action and gives merchants a stake in proving the Academy right. Acceptance rises strongly because private capital starts treating discovery as an investable reality."
-          simp_chinese: "特许状会把新世界主张转化为有资金支持的行动，也让商人有理由证明学院是对的。私人资本开始把发现视为可投资的现实，因此接受度会大幅上升。"
+          english: "A charter turns the New World claim into financed action and gives merchants a stake in proving the Academy right. Acceptance rises strongly as private capital begins treating discovery as a thing worth investing in."
+          simp_chinese: "特许状把新世界主张化为有资金支撑的行动，也让商人有理由去证明学院没错。私人资本开始把发现当作值得投资的现实，接受度因此大幅上升。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -161,12 +161,12 @@ random_events:
             cooldown_months: 24
       b:
         text:
-          english: "Keep discovery under Crown lock."
-          simp_chinese: "将发现权锁在王权之下。"
+          english: "Not so fast -- the shore answers to the Crown."
+          simp_chinese: "且慢——那片海岸只听命于王权。"
         progress_delta: -5
         rationale:
-          english: "Keeping discovery under Crown lock preserves legitimacy and central control, but it leaves voyages dependent on cautious official timing. The debate loses momentum because interested backers are kept at arm's length."
-          simp_chinese: "将发现权锁在王权之下可以维护正统性和中央控制，却也让远航继续受谨慎的官方节奏支配。由于有意资助者被保持距离，辩论的势头会减弱。"
+          english: "Keeping discovery under Crown lock preserves legitimacy and central control, but it leaves every voyage waiting on cautious official timing. The debate loses momentum as eager backers are held at arm's length."
+          simp_chinese: "将发现权锁在王权之下，维护了正统性与中央控制，却也让每一次远航都得等待谨慎的官方节奏。热切的资助者被保持在一臂之外，辩论的势头因此减弱。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -184,17 +184,17 @@ random_events:
       english: "Native Envoy's Account"
       simp_chinese: "原住民使者的叙述"
     desc:
-      english: "A translated account from across the sea contradicts half the Academy's assumptions without sounding impressed by any of them. The room discovers that the new world has not been waiting silently to be described."
-      simp_chinese: "一份来自海彼岸的译文叙述反驳了学院一半的假设，而且听起来并不为其中任何一种假设所折服。众人这才发现，新世界并不是一直沉默地等待别人来描述。"
+      english: "A translated account from across the sea contradicts half the Academy's assumptions, and sounds not the least bit impressed by any of them. The room discovers that the new world has not been sitting silent, waiting politely to be described."
+      simp_chinese: "一份来自海彼岸的译文叙述反驳了学院一半的假设，且听起来对其中任何一条都毫不动容。众人这才发现，新世界并不曾沉默端坐，礼貌地等待别人来描述。"
     options:
       a:
         text:
-          english: "Let it reshape the debate."
-          simp_chinese: "让它重塑辩论。"
+          english: "We let the account rewrite what we thought we already knew."
+          simp_chinese: "我们让这份叙述改写我们自以为早已知道的东西。"
         progress_delta: 10
         rationale:
-          english: "Letting the envoy's account reshape the debate treats New World peoples as sources of knowledge rather than scenery. Acceptance rises sharply because the Academy must revise geography, custom, and authority at once."
-          simp_chinese: "让使者的叙述重塑辩论，意味着把新世界的人们视为知识来源，而不是风景。学院必须同时修正地理、习俗和权威，接受度因此会显著上升。"
+          english: "Letting the envoy's account reshape the debate treats New World peoples as sources of knowledge rather than scenery. Acceptance rises sharply, for the Academy must revise geography, custom, and authority all at once."
+          simp_chinese: "让使者的叙述重塑辩论，是把新世界的人们当作知识来源，而不是背景风景。学院必须同时修正地理、习俗与权威，接受度因此显著上升。"
         effect_blocks:
           - type: seat_stance
             group: minorities
@@ -205,12 +205,12 @@ random_events:
             value: -0.03
       b:
         text:
-          english: "Treat it as curiosity."
-          simp_chinese: "将其视为奇闻。"
+          english: "The clerks file the account among the cabinet's curiosities."
+          simp_chinese: "文吏把这份叙述归入陈列柜里的奇珍异闻。"
         progress_delta: -10
         rationale:
-          english: "Treating the account as a curiosity preserves old geography by placing unfamiliar testimony in a cabinet instead of the argument. The debate retreats sharply because living knowledge is made decorative."
-          simp_chinese: "将这份叙述视为奇闻，会把陌生证词放进陈列柜，而不是放进论证中，从而保护旧地理。由于活生生的知识被装饰化，辩论会明显退回保守立场。"
+          english: "Treating the account as a curiosity guards the old geography by shelving unfamiliar testimony in a cabinet instead of the argument. The debate retreats sharply as living knowledge is turned into ornament."
+          simp_chinese: "将这份叙述当作奇闻，是把陌生证词放进陈列柜、而非放进论证，从而保住旧地理。活生生的知识被当成装饰，辩论因此明显退回保守立场。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -229,17 +229,17 @@ random_events:
       english: "Disease Report"
       simp_chinese: "疾病报告"
     desc:
-      english: "Physicians warn the Academy that new shores may bring fevers as well as coastlines. Supporters of discovery must now prove that prudence can travel on the same ships as curiosity."
-      simp_chinese: "医生提醒学院，新海岸带来的不只海岸线，也可能有港口从未见过的热病。发现的支持者必须证明，谨慎和好奇心可以登上同一批船。"
+      english: "Physicians warn the Academy that new shores may bring fevers along with coastlines. The supporters of discovery must now prove that prudence can be stowed aboard the same ships as curiosity."
+      simp_chinese: "医生们提醒学院，新海岸带来的不只海岸线，还可能有热病。发现的支持者如今必须证明，谨慎与好奇心能装上同一批船。"
     options:
       a:
         text:
-          english: "Fund precautions and proceed."
-          simp_chinese: "资助防疫并继续探索。"
+          english: "The physicians are funded, and the ships sail with their cautions stowed aboard."
+          simp_chinese: "医生们得到资助，船只带着他们的防范条陈一同起航。"
         progress_delta: 5
         rationale:
-          english: "Funding precautions accepts the medical warning without letting fear define the whole question. The debate moves modestly toward acceptance because discovery is presented as manageable, regulated risk rather than reckless appetite."
-          simp_chinese: "资助防疫意味着承认医生的警告，却不让恐惧决定整个议题。由于探索被塑造成可管理、可规制的风险，而不是鲁莽欲望，辩论会小幅转向接受。"
+          english: "Funding precautions accepts the medical warning without letting fear define the whole question. The debate edges toward acceptance, since discovery is framed as a managed, regulated risk rather than reckless appetite."
+          simp_chinese: "资助防疫，是承认医生的警告，却不让恐惧决定整个议题。发现被塑造成可管理、可规制的风险，而非鲁莽的欲望，辩论因此小幅转向接受。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -251,12 +251,12 @@ random_events:
               port health inspections and voyage precautions: 0.03
       b:
         text:
-          english: "Use disease as warning."
-          simp_chinese: "把疾病视为警告。"
+          english: "Fair coasts have foul fevers."
+          simp_chinese: "海岸再美，也藏着恶疾。"
         progress_delta: -5
         rationale:
-          english: "Treating illness as the lesson makes caution sound responsible and gives conservative listeners a concrete danger to rally around, slowing acceptance of the New World argument."
-          simp_chinese: "把疾病当作主要教训，会让谨慎显得负责任，也给保守听众一个可以共同强调的具体危险，从而减缓对新世界论点的接受。"
+          english: "Treating illness as the lesson makes caution sound responsible and hands conservative listeners a concrete danger to gather around, slowing acceptance of the New World argument."
+          simp_chinese: "把疾病当作主要教训，让谨慎显得负责任，也给保守听众一个可供共同强调的具体危险，从而减缓对新世界论点的接受。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -273,17 +273,17 @@ random_events:
       english: "Missing Expedition"
       simp_chinese: "失踪的远征队"
     desc:
-      english: "An expedition fails to return, and the empty harbor argues with better timing than any lecturer. Opponents call the silence evidence; supporters answer that the unknown was never going to surrender politely."
-      simp_chinese: "一支远征队迟迟未归，空荡的港口比任何讲师都更会挑时机发言。反对者把沉默称作证据，支持者则回答说，未知从来不会礼貌地投降。"
+      english: "An expedition fails to return, and the empty harbor makes its argument with better timing than any lecturer. Opponents call the silence proof; supporters answer that the unknown was never going to surrender politely."
+      simp_chinese: "一支远征队迟迟未归，空荡的港口比任何讲师都更懂得挑时机发言。反对者把这份沉默称作证据，支持者则回答：未知从来不会礼貌地投降。"
     options:
       a:
         text:
-          english: "Continue the program."
-          simp_chinese: "继续航海计划。"
+          english: "We do not strike our colors for one empty harbor."
+          simp_chinese: "我们不会为了一座空港就降下旗帜。"
         progress_delta: 10
         rationale:
-          english: "Continuing despite a missing expedition is a dramatic commitment to the discovery thesis. It pushes acceptance hard, but the Crown spends prestige by appearing willing to risk honor and lives before the proof is complete."
-          simp_chinese: "在远征队失踪后仍继续计划，是对发现论点的强烈承诺。它会大幅推动接受，但王权也会消耗声望，因为这显得愿意在证据未全之前冒着荣誉与生命的风险。"
+          english: "Continuing despite a missing expedition is a dramatic wager on the discovery thesis. It drives acceptance hard, though the Crown spends prestige by appearing willing to risk honor and lives before the proof is in hand."
+          simp_chinese: "在远征队失踪后仍坚持计划，是对发现论点的一场高调押注。它强力推动接受，但王权也要消耗声望，因为这显得愿意在证据到手之前，就赌上荣誉与生命。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -294,12 +294,12 @@ random_events:
             cooldown_months: 24
       b:
         text:
-          english: "Suspend voyages."
-          simp_chinese: "暂停远航。"
+          english: "Enough. No more hulls into the dark."
+          simp_chinese: "够了。别再把船送进那片黑暗。"
         progress_delta: -10
         rationale:
-          english: "Suspending voyages lets the loss define policy. Families, clergy, and cautious observers feel heard, while the debate retreats sharply from accepting oceanic discovery as a governing principle."
-          simp_chinese: "暂停远航等于让这次损失来定义政策。家属、神职人员与谨慎的旁观者会觉得自己的担忧被听见，但辩论也会明显远离把远洋发现作为治国原则。"
+          english: "Suspending voyages lets the loss define policy. Families, clergy, and cautious observers feel heard, while the debate retreats sharply from accepting oceanic discovery as a principle of rule."
+          simp_chinese: "暂停远航，等于让这场损失来定义政策。家属、神职人员与谨慎的旁观者觉得自己的担忧被听见，而辩论也明显远离把远洋发现当作治国原则。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -316,17 +316,17 @@ random_events:
       english: "Harbor Crowd"
       simp_chinese: "港口人群"
     desc:
-      english: "The harbor fills with people eager to see strange goods unloaded. Each object becomes a small ambassador, giving the Academy's argument color, weight, and something the crowd can point at."
-      simp_chinese: "港口挤满了想看异域货物卸船的人。每一件物品都像一位小小的使节，让学院的论点有了颜色、重量，以及围观者可以指认的形状。"
+      english: "The harbor fills with people craning to watch strange goods come off the boards. Each object turns into a small ambassador, lending the Academy's argument color, weight, and something the crowd can actually point at."
+      simp_chinese: "港口挤满了伸长脖子、想看异域货物卸船的人。每一件物品都成了一位小小的使节，给学院的论点添上颜色、重量，以及围观者真能伸手指认的东西。"
     options:
       a:
         text:
-          english: "Display the goods."
-          simp_chinese: "展示这些货物。"
+          english: "The strange goods are laid out where the harbor crowd can lay hands on them."
+          simp_chinese: "异域货物摊开陈列，让港口的人群都能上手触碰。"
         progress_delta: 5
         rationale:
-          english: "Public display turns distant discovery into tangible evidence for ordinary observers. The progress gain is modest because curiosity is broad but shallow, yet public opinion begins leaning toward acceptance."
-          simp_chinese: "公开展示会把遥远的发现变成普通旁观者也能触摸和想象的证据。进展只是小幅增加，因为这种好奇广泛却不深，但公众舆论会开始倾向接受。"
+          english: "Public display turns distant discovery into evidence ordinary onlookers can touch. The gain is modest, since curiosity runs broad but shallow, yet public opinion begins to lean toward acceptance."
+          simp_chinese: "公开展示把遥远的发现变成普通旁观者也能触摸的证据。这份好奇广而不深，进展因此只是小幅，但公众舆论已开始倾向接受。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -339,12 +339,12 @@ random_events:
               public curiosity about overseas goods: 0.02
       b:
         text:
-          english: "Seal the cargo."
-          simp_chinese: "封存货物。"
+          english: "We keep the cargo under lock until the ledgers agree."
+          simp_chinese: "货物先锁起来，等账目对齐再说。"
         progress_delta: -5
         rationale:
-          english: "Sealing the cargo prevents disorder and rumor, but it also keeps discovery abstract and controlled by officials. The debate loses momentum because the public is denied its most immediate proof."
-          simp_chinese: "封存货物可以防止混乱和谣言，却也让发现继续停留在抽象层面，并由官员独占解释权。由于公众被剥夺了最直接的证据，辩论的势头会减弱。"
+          english: "Sealing the cargo heads off disorder and rumor, but it also keeps discovery abstract and in the officials' keeping. The debate loses momentum, for the public is denied its most immediate proof."
+          simp_chinese: "封存货物挡下了混乱与谣言，却也让发现停留在抽象层面，握在官员手中。公众被剥夺了最直接的证据，辩论的势头因此减弱。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -363,17 +363,17 @@ random_events:
       english: "Mapmaker's Correction"
       simp_chinese: "制图师的修正"
     desc:
-      english: "A mapmaker erases a traditional boundary in front of witnesses and inks a coast where certainty used to sit. The scrape of the knife sounds small until everyone realizes what authority has just lost."
-      simp_chinese: "制图师当着众人的面擦去旧有边界，在曾经写着确定性的地方画上新的海岸。刮刀的声音很轻，直到众人意识到刚刚失去墨迹的是哪一种权威。"
+      english: "A mapmaker scrapes away a traditional boundary before witnesses and inks a coast where certainty used to sit. The rasp of the knife sounds small, until the room grasps which authority has just lost its ink."
+      simp_chinese: "制图师当着众人的面刮去一道传统边界，在曾经写着确定性的地方画上新的海岸。刮刀的声响很轻，直到满室的人明白，刚刚失去墨迹的是哪一种权威。"
     options:
       a:
         text:
-          english: "Accept the correction."
-          simp_chinese: "接受修正。"
+          english: "The corrected coast is entered on the master chart, boundary and all."
+          simp_chinese: "修正后的海岸连同边界，一并录入母本海图。"
         progress_delta: 10
         rationale:
-          english: "Accepting the correction makes the New World debate an institutional act of revision, not merely a traveler's claim. Scholarly authority shifts toward evidence that can redraw inherited knowledge."
-          simp_chinese: "接受修正会让新世界辩论变成一种制度性的修订，而不只是旅行者的说法。学术权威会转向那些能够改写承袭知识的证据。"
+          english: "Accepting the correction makes the New World debate an institutional act of revision, not merely a traveler's claim. Scholarly authority shifts toward evidence able to redraw inherited knowledge."
+          simp_chinese: "接受修正，让新世界辩论成为一桩制度性的修订，而不只是旅行者的一面之词。学术权威转向那些能够改写承袭知识的证据。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -386,12 +386,12 @@ random_events:
               survey credibility and map revision: 0.03
       b:
         text:
-          english: "Restore the old map."
-          simp_chinese: "恢复旧地图。"
+          english: "Back to the old map, if you please."
+          simp_chinese: "劳驾，还是把旧地图挂回去吧。"
         progress_delta: -10
         rationale:
-          english: "Restoring the old map protects inherited geography from public embarrassment. Conservatives gain confidence because the Academy chooses continuity over the unsettling discipline of correction."
-          simp_chinese: "恢复旧地图可以保护承袭下来的地理知识免于公开难堪。保守派会更有信心，因为学院选择了延续，而不是令人不安的修正纪律。"
+          english: "Restoring the old map shields inherited geography from public embarrassment. Conservatives take confidence, since the Academy chooses continuity over the unsettling discipline of correction."
+          simp_chinese: "恢复旧地图，为承袭下来的地理知识挡下公开的难堪。学院选择了延续，而不是令人不安的修正纪律，保守派因此更有底气。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -408,17 +408,17 @@ random_events:
       english: "Naval Officers Demand Funds"
       simp_chinese: "海军军官索要经费"
     desc:
-      english: "Naval officers tell the Academy that discovery cannot be sailed on ceremonial timber. If the realm wants the ocean to become a road, it must pay for ships prepared to survive more than a parade."
-      simp_chinese: "海军军官告诉学院，发现新世界不能靠仪典用的木头航行。如果王国想让海洋成为道路，就必须出钱准备那些不只会参加检阅的船。"
+      english: "Naval officers tell the Academy that discovery cannot be sailed on ceremonial timber. If the realm wants the ocean turned into a road, it must pay for ships built to outlast a parade."
+      simp_chinese: "海军军官告诉学院，发现新世界靠的不是仪典用的木料。王国若想把海洋变成道路，就得出钱造出经得起检阅之外风浪的船。"
     options:
       a:
         text:
-          english: "Fund oceanic preparation."
-          simp_chinese: "资助远洋准备。"
+          english: "The dockyards are opened, and timber is cut for ships meant to survive the open sea."
+          simp_chinese: "船坞开工，为经得起远海的船只备下木料。"
         progress_delta: 10
         rationale:
-          english: "Funding oceanic preparation converts discovery from speculation into state capacity. The debate moves strongly toward acceptance because officers, dockyards, and planners begin treating the New World as reachable policy."
-          simp_chinese: "资助远洋准备会把发现从猜想转化为国家能力。由于军官、船坞和规划者开始把新世界视为可以抵达的政策目标，辩论会大幅转向接受。"
+          english: "Funding oceanic preparation turns discovery from speculation into state capacity. The debate swings strongly toward acceptance as officers, dockyards, and planners begin treating the New World as reachable policy."
+          simp_chinese: "资助远洋准备，把发现从猜想化为国家能力。军官、船坞与规划者开始把新世界当作可以抵达的政策目标，辩论因此大幅转向接受。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -429,12 +429,12 @@ random_events:
             cooldown_months: 24
       b:
         text:
-          english: "Keep fleets coastal."
-          simp_chinese: "让舰队留在近海。"
+          english: "We keep our hulls within sight of home."
+          simp_chinese: "我们的船，就留在望得见故土的地方。"
         progress_delta: -5
         rationale:
-          english: "Keeping fleets coastal preserves money and familiar naval priorities, but it makes discovery look like rhetoric without hulls. Fiscal caution slows acceptance without fully repudiating the idea."
-          simp_chinese: "让舰队留在近海可以保存财力，也维持熟悉的海军优先事项，但这会让发现显得像没有船壳支撑的空话。财政谨慎会拖慢接受，却不至于彻底否定这个想法。"
+          english: "Keeping the fleets coastal conserves money and familiar naval priorities, but it makes discovery look like rhetoric without hulls beneath it. Fiscal caution slows acceptance without ever quite disowning the idea."
+          simp_chinese: "让舰队留在近海，保住了财力与熟悉的海军优先事项，却让发现显得像没有船壳支撑的空话。财政上的谨慎拖慢了接受，却始终没把这个想法彻底否定。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -451,17 +451,17 @@ random_events:
       english: "Rumor of Gold"
       simp_chinese: "黄金传闻"
     desc:
-      english: "Reports of gold spread faster than reliable latitude. Supporters argue that greed can be harnessed before it becomes policy by accident, while opponents warn that the Academy is mistaking fever for evidence."
-      simp_chinese: "黄金的消息比可靠的纬度传播得更快。支持者认为，可以先利用贪欲来资助航行，免得它自行变成政策；反对者则警告，学院正在把狂热误当作证据。"
+      english: "Reports of gold spread faster than any reliable latitude. Supporters argue that greed can be harnessed before it hardens into policy by accident; opponents warn that the Academy is mistaking fever for evidence."
+      simp_chinese: "黄金的消息比任何可靠的纬度都传得更快。支持者认为，可以趁贪欲还没自行凝成政策之前先加以驾驭；反对者则警告，学院正把狂热误当成证据。"
     options:
       a:
         text:
-          english: "Use greed to fund voyages."
-          simp_chinese: "用贪欲资助航行。"
+          english: "We let greed pull the oars for once."
+          simp_chinese: "这一回，就让贪欲来划桨吧。"
         progress_delta: 5
         rationale:
-          english: "Using gold rumors as funding accepts a morally dubious motive while keeping discovery moving. The debate gains modest acceptance because private appetite is redirected into voyages, but the side effects mark the speculative risk around that choice."
-          simp_chinese: "利用黄金传闻来筹资，等于承认一种道德上可疑的动机，同时让探索继续前进。辩论会小幅转向接受，因为私人欲望被引导进航行事业；但副作用也标记了随之而来的投机风险。"
+          english: "Using gold rumors as funding accepts a morally dubious motive while keeping discovery in motion. The debate gains modest ground as private appetite is turned into voyages, though the side effects mark the speculative risk in that bargain."
+          simp_chinese: "用黄金传闻筹资，是承认一种道德上可疑的动机，同时让探索继续前行。私人欲望被引入航行事业，辩论因此小幅转向接受；但副作用也标记了这笔交易背后的投机风险。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -473,12 +473,12 @@ random_events:
               speculative expedition pressure: 0.03
       b:
         text:
-          english: "Denounce the rumor."
-          simp_chinese: "斥责这则传闻。"
+          english: "The chair denounces the rumor from the floor of the chamber."
+          simp_chinese: "主席在议厅当众斥责这则传闻。"
         progress_delta: -5
         rationale:
-          english: "Denouncing the rumor frames discovery enthusiasm as greed wearing a scholar's coat. Clergy and nobles approve of the restraint, and the debate loses momentum as moral suspicion becomes the safer public language."
-          simp_chinese: "斥责传闻会把探索热情描绘成披着学者外衣的贪欲。神职人员和贵族赞成这种克制，而当道德怀疑成为更安全的公共语言时，辩论的推进也会放缓。"
+          english: "Denouncing the rumor paints discovery's enthusiasm as greed in a scholar's coat. Clergy and nobles approve of the restraint, and the debate loses momentum as moral suspicion becomes the safer public language."
+          simp_chinese: "斥责传闻，把探索的热情描绘成披着学者外衣的贪欲。神职人员与贵族赞成这份克制，当道德怀疑成为更安全的公共话语，辩论的推进也随之放缓。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -495,17 +495,17 @@ random_events:
       english: "Foreign Claim"
       simp_chinese: "外国声索"
     desc:
-      english: "A rival court claims the new coast first and sends letters polished smooth by confidence. Suddenly the Academy's question is not only whether the coast exists, but whether silence would make it belong to someone else."
-      simp_chinese: "一个敌对宫廷宣称自己率先发现了新海岸，并送来措辞自信得发亮的书信。学院的问题突然不再只是那片海岸是否存在，而是沉默是否会让它属于别人。"
+      english: "A rival court claims the new coast first and sends letters polished smooth with confidence. All at once the Academy's question is no longer only whether the coast exists, but whether silence would hand it to someone else."
+      simp_chinese: "一个敌对宫廷宣称率先发现了新海岸，并送来措辞被自信打磨得发亮的书信。学院的问题骤然不再只是那片海岸是否存在，而是沉默会不会把它拱手让给别人。"
     options:
       a:
         text:
-          english: "Contest the claim."
-          simp_chinese: "争辩这项声索。"
+          english: "The Academy drafts a reply that concedes the rival not one league of coast."
+          simp_chinese: "学院起草回信，一里海岸也不让给对手。"
         progress_delta: 10
         rationale:
-          english: "Contesting the foreign claim forces the realm to treat discovery as a real geopolitical issue, not a rumor for seminar rooms. Acceptance rises sharply because denying the rival requires asserting that the new coast matters, even at diplomatic cost."
-          simp_chinese: "争辩外国声索会迫使王国把发现视为真实的地缘政治问题，而不是讲堂里的传闻。接受度会大幅上升，因为否认对手的主张就必须承认新海岸具有实际意义，即使这会付出外交代价。"
+          english: "Contesting the foreign claim forces the realm to treat discovery as a real geopolitical matter, not a rumor for seminar rooms. Acceptance rises sharply, for denying the rival means asserting that the new coast matters, diplomatic cost and all."
+          simp_chinese: "争辩外国声索，迫使王国把发现当作真实的地缘政治问题，而不是讲堂里的传闻。否认对手就必须承认新海岸事关重大，接受度因此大幅上升，哪怕要付出外交代价。"
         effect_blocks:
           - type: seat_stance
             group: foreign_power
@@ -516,12 +516,12 @@ random_events:
             amount: -10
       b:
         text:
-          english: "Avoid provocation."
-          simp_chinese: "避免挑衅。"
+          english: "Peace -- let the rival keep its paper coast."
+          simp_chinese: "息事宁人吧——那片纸上的海岸，就让给对手。"
         progress_delta: -10
         rationale:
-          english: "Avoiding provocation lets caution define policy. Stability is protected because the court refuses a distant quarrel, but the debate retreats hard from accepting discovery as something worth contesting."
-          simp_chinese: "避免挑衅会让谨慎来定义政策。宫廷拒绝卷入遥远争端，因此国内稳定得以保全；但辩论也会明显后退，不再把发现视为值得争夺的事业。"
+          english: "Avoiding provocation lets caution define policy. Stability holds, since the court refuses a distant quarrel, but the debate retreats hard from treating discovery as something worth contesting."
+          simp_chinese: "避免挑衅，让谨慎来定义政策。宫廷拒绝卷入遥远的争端，国内稳定得以保全；但辩论也明显后退，不再把发现视为值得争夺之事。"
         effect_blocks:
           - type: temporary_country_modifier
             key: tv_academy_debate_avoided_foreign_claim_crisis
@@ -540,17 +540,17 @@ random_events:
       english: "Cosmographer's Error"
       simp_chinese: "宇宙志学者的错误"
     desc:
-      english: "The Academy's favored cosmographer admits that a major distance estimate was wrong. The error is small on parchment only because parchment is mercifully flat."
-      simp_chinese: "学院偏爱的宇宙志学者承认，一项重要的距离估算错了。这个错误只有在羊皮纸上才显得很小，因为羊皮纸毕竟仁慈地保持平整。"
+      english: "The Academy's favored cosmographer admits that a major distance estimate was wrong. The error looks small on parchment only because parchment, mercifully, is flat."
+      simp_chinese: "学院偏爱的宇宙志学者承认，一项重要的距离估算出了错。这个错误在羊皮纸上显得很小，只因为羊皮纸——谢天谢地——是平的。"
     options:
       a:
         text:
-          english: "Praise correction as science."
-          simp_chinese: "将修正誉为科学精神。"
+          english: "The chamber praises the admission and enters the new figure without a blush."
+          simp_chinese: "议厅称许这份坦白，毫不脸红地录下新的数字。"
         progress_delta: 10
         rationale:
-          english: "Praising the correction turns embarrassment into the method itself. The debate moves strongly toward acceptance because New World evidence becomes proof that knowledge can improve by admitting error, though scholarly prestige is spent to make that lesson credible."
-          simp_chinese: "赞扬修正会把尴尬转化为方法本身。辩论会大幅转向接受，因为新世界的证据变成了知识可以通过承认错误而进步的证明；不过，为了让这个教训可信，学术声望会被消耗。"
+          english: "Praising the correction turns embarrassment into the method itself. The debate swings strongly toward acceptance, as New World evidence becomes proof that knowledge improves by owning its errors, though scholarly prestige is spent to make the lesson credible."
+          simp_chinese: "赞扬修正，把尴尬本身化为方法。新世界的证据变成了知识可凭承认错误而进步的明证，辩论因此大幅转向接受；只是为了让这个教训可信，学术声望要被消耗。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -561,12 +561,12 @@ random_events:
             cooldown_months: 24
       b:
         text:
-          english: "Hide the error."
-          simp_chinese: "掩盖这个错误。"
+          english: "We keep the miscalculation between these four walls."
+          simp_chinese: "这处算错，就留在这四壁之内吧。"
         progress_delta: -10
         rationale:
-          english: "Hiding the error preserves the old hierarchy of expertise at the cost of honest revision. Acceptance falls sharply because the Academy chooses authority's appearance over the corrected evidence that would have supported discovery."
-          simp_chinese: "掩盖错误会维持旧有专家等级的体面，却牺牲诚实修正的机会。接受度会大幅下降，因为学院选择了权威的外观，而不是能够支持发现论点的修正证据。"
+          english: "Hiding the error preserves the old hierarchy of expertise at the cost of honest revision. Acceptance falls sharply, as the Academy chooses the look of authority over the corrected evidence that would have backed discovery."
+          simp_chinese: "掩盖错误，以牺牲诚实修正为代价，保住了旧有专家等级的体面。学院选择了权威的外观，而不是本可支撑发现论点的修正证据，接受度因此大幅下降。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -583,17 +583,17 @@ random_events:
       english: "Sailors' Superstitions"
       simp_chinese: "水手的迷信"
     desc:
-      english: "Sailors refuse another voyage until omens are answered, and every official explanation seems to make the signs more stubborn. The Academy must decide whether fear at sea is a problem of pay, persuasion, or providence."
-      simp_chinese: "水手们拒绝再次出航，除非那些征兆得到回应，而每一种官方解释似乎都让征兆变得更加顽固。学院必须判断，海上的恐惧究竟是薪酬、劝说，还是天意的问题。"
+      english: "Sailors refuse another voyage until the omens are answered, and every official explanation only seems to make the signs more stubborn. The Academy must decide whether fear at sea is a matter of pay, of persuasion, or of providence."
+      simp_chinese: "水手们拒绝再次出海，除非那些征兆得到回应，而每一种官方解释似乎都只让征兆更加顽固。学院必须判断，海上的恐惧究竟是薪酬、劝说，还是天意的问题。"
     options:
       a:
         text:
-          english: "Pay and persuade them."
-          simp_chinese: "付钱并劝服他们。"
+          english: "The paymaster opens his purse, and the chaplain his arguments, until the crews relent."
+          simp_chinese: "军需官打开钱袋，随船教士摆出道理，直到水手们松了口。"
         progress_delta: 5
         rationale:
-          english: "Paying and persuading the sailors treats superstition as an obstacle to manage rather than a verdict against discovery. Acceptance rises modestly because the voyage program survives, but the Crown must spend to restore confidence."
-          simp_chinese: "付钱并劝服水手，是把迷信当作需要管理的障碍，而不是反对发现的判决。由于远航计划得以继续，接受度会小幅上升；但王权必须花费资金来恢复信心。"
+          english: "Paying and persuading the sailors treats superstition as an obstacle to manage rather than a verdict against discovery. Acceptance rises modestly as the voyage program survives, but the Crown must spend to restore confidence."
+          simp_chinese: "付钱并劝服水手，是把迷信当作需要管理的障碍，而不是反对发现的判决。远航计划得以延续，接受度因此小幅上升；但王权必须花钱来恢复信心。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -604,12 +604,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Accept their fear as wisdom."
-          simp_chinese: "将他们的恐惧视为智慧。"
+          english: "The sea keeps its own counsel."
+          simp_chinese: "大海自有它的主意。"
         progress_delta: -5
         rationale:
-          english: "Accepting the sailors' fear gives religious and cautious voices a language that sounds respectful rather than timid. The debate slows because omens become acceptable evidence against further discovery."
-          simp_chinese: "接受水手的恐惧，会给宗教人士和谨慎派一种听起来像尊重而不是胆怯的说法。辩论会放缓，因为征兆被承认为反对继续发现的有效证据。"
+          english: "Accepting the sailors' fear gives religious and cautious voices a language that sounds like respect rather than timidity. The debate slows, for omens become admissible evidence against pressing further."
+          simp_chinese: "接受水手的恐惧，给宗教与谨慎的声音一套听来像尊重、而非胆怯的说法。征兆被承认为反对继续深入的有效证据，辩论因此放缓。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -626,17 +626,17 @@ random_events:
       english: "Colonial Charter Abuse"
       simp_chinese: "殖民特许权滥用"
     desc:
-      english: "A charter holder abuses distant authority before the principle has even won the argument at home. The scandal hands opponents a sharp question: if discovery begins this badly, what exactly is being accepted?"
-      simp_chinese: "一名特许权持有人在这项原则尚未于国内辩论中获胜之前，就已经滥用了远方权力。这桩丑闻给了反对者一个尖锐的问题：如果发现事业一开始就如此糟糕，我们到底是在接受什么？"
+      english: "A charter holder abuses distant authority before the principle has even won its argument at home. The scandal hands the opponents a sharp question: if discovery begins this badly, what exactly is being accepted?"
+      simp_chinese: "一名特许权持有人在这项原则尚未于国内辩论中获胜之前，就已滥用了远方的权力。这桩丑闻给了反对者一个尖锐的问题：如果发现事业开头就如此不堪，我们究竟是在接受什么？"
     options:
       a:
         text:
-          english: "Reform charters."
-          simp_chinese: "改革特许制度。"
+          english: "The Academy rewrites the charters, clause by watchful clause."
+          simp_chinese: "学院逐条重写特许状，字字都盯得很紧。"
         progress_delta: 5
         rationale:
-          english: "Reforming charters admits the abuse but argues that discovery can be governed instead of abandoned. Acceptance rises modestly because regulation saves the principle, while burghers lose some freedom over distant ventures."
-          simp_chinese: "改革特许制度承认了滥用，却主张发现事业可以被治理，而不是被抛弃。接受度会小幅上升，因为规制挽救了原则；但市民阶层会失去一部分经营远方事业的自由。"
+          english: "Reforming charters admits the abuse yet argues that discovery can be governed rather than abandoned. Acceptance rises modestly, since regulation saves the principle, while the burghers lose some freedom over their distant ventures."
+          simp_chinese: "改革特许制度，承认了滥用，却主张发现事业可以被治理，而非抛弃。规制挽救了原则，接受度因此小幅上升；但市民阶层会失去一部分经营远方事业的自由。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -648,12 +648,12 @@ random_events:
               regulated charter oversight: 0.03
       b:
         text:
-          english: "Revoke the experiment."
-          simp_chinese: "撤销这场实验。"
+          english: "We call the whole experiment home."
+          simp_chinese: "我们把这整场实验召回国内。"
         progress_delta: -10
         rationale:
-          english: "Revoking the experiment lets the scandal condemn the whole premise of distant charters. Conservatives approve because the realm chooses familiar authority over risky overseas delegation, and the debate moves sharply toward rejection."
-          simp_chinese: "撤销这场实验会让丑闻定罪整个远方特许的前提。保守派会赞成，因为王国选择了熟悉的权威，而不是危险的海外授权；辩论也会明显转向拒绝。"
+          english: "Revoking the experiment lets the scandal condemn the entire premise of distant charters. Conservatives approve, since the realm chooses familiar authority over risky overseas delegation, and the debate lurches toward rejection."
+          simp_chinese: "撤销这场实验，让丑闻定罪整个远方特许的前提。王国选择了熟悉的权威，而不是危险的海外授权，保守派因此赞成，辩论也明显转向拒绝。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -670,17 +670,17 @@ random_events:
       english: "Imported Crop"
       simp_chinese: "输入作物"
     desc:
-      english: "A strange crop survives in the Academy test garden, stubbornly green where theory expected only rumor. Farmers, merchants, and skeptics gather around the leaves because the unknown has become something that can be watered."
-      simp_chinese: "一种陌生作物在学院试验园里活了下来，在理论只期待传闻的地方倔强地泛着绿色。农民、商人和怀疑者都围到叶片旁，因为未知之物终于变成了可以浇水的东西。"
+      english: "A strange crop survives in the Academy's test garden, stubbornly green where theory had promised only rumor. Farmers, merchants, and skeptics gather around the leaves, because the unknown has finally become something a man can water."
+      simp_chinese: "一种陌生作物在学院的试验园里活了下来，在理论只许诺过传闻的地方，倔强地泛着绿。农民、商人与怀疑者都围到叶片旁，因为未知之物终于变成了可以浇水的东西。"
     options:
       a:
         text:
-          english: "Promote the crop."
-          simp_chinese: "推广这种作物。"
+          english: "The seedlings are sent out to every willing field in the realm."
+          simp_chinese: "秧苗被分送到王国里每一块肯接纳它的田地。"
         progress_delta: 5
         rationale:
-          english: "Promoting the crop makes discovery practical and domestic rather than purely nautical. The gain is modest because a garden cannot prove a continent, but peasants and merchants begin to see New World contact as useful."
-          simp_chinese: "推广这种作物会把发现新世界从单纯的航海问题变成务实的国内收益。进展幅度不大，因为一座试验园不能证明整片大陆，但农民和商人会开始把新世界接触视为有用之事。"
+          english: "Promoting the crop makes discovery practical and domestic rather than purely nautical. The gain is modest, since a garden cannot prove a continent, but peasants and merchants begin to see New World contact as useful."
+          simp_chinese: "推广这种作物，把发现新世界从单纯的航海问题变成务实的国内收益。一座试验园证明不了整片大陆，进展因此有限；但农民与商人开始把与新世界的接触视为有用之事。"
         effect_blocks:
           - type: seat_stance
             group: peasants
@@ -691,12 +691,12 @@ random_events:
             value: 0.02
       b:
         text:
-          english: "Keep it contained."
-          simp_chinese: "将它限制在园中。"
+          english: "Behind the fence it stays."
+          simp_chinese: "它就留在围栏后面。"
         progress_delta: -5
         rationale:
-          english: "Containment treats the crop as a possible contamination or disruption. Cautious estates can accept study under lock and fence, but the debate loses momentum because the useful evidence is kept from ordinary life."
-          simp_chinese: "将作物限制起来，是把它视作可能的污染或扰动。谨慎的阶层可以接受在围栏和看管下研究它，但由于有用证据被排除在日常生活之外，辩论的势头会减弱。"
+          english: "Containment treats the crop as a possible contamination or disruption. Cautious estates will allow study under lock and fence, but the debate loses momentum as the useful evidence is kept out of ordinary life."
+          simp_chinese: "将它圈禁起来，是把它当作可能的污染或扰动。谨慎的阶层愿意在看管与围栏之下研究它，但有用的证据被挡在日常生活之外，辩论的势头因此减弱。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -713,17 +713,17 @@ random_events:
       english: "Treaty of Unknown Shores"
       simp_chinese: "未知海岸条约"
     desc:
-      english: "Diplomats ask whether shores still half-imagined by mapmakers can already be divided by ink. The Academy's argument is suddenly not only about what exists, but about who may claim the right to arrive there first."
-      simp_chinese: "外交官询问，那些制图师还只能半凭想象描绘的海岸，是否已经可以用墨水分割。学院的争论忽然不只关乎那里是否存在，也关乎谁有权声称自己可以率先抵达。"
+      english: "Diplomats ask whether shores still half-imagined by mapmakers can already be carved up with ink. All at once the Academy's argument is not only about what exists, but about who may claim the right to arrive there first."
+      simp_chinese: "外交官询问，那些制图师还只能半凭想象描摹的海岸，是否已经可以用墨水分割。学院的争论骤然不只关乎那里是否存在，也关乎谁有权声称自己可以率先抵达。"
     options:
       a:
         text:
-          english: "Assert navigational rights."
-          simp_chinese: "宣示航行权利。"
+          english: "The realm proclaims its right to sail wherever a keel can reach."
+          simp_chinese: "王国宣告：凡船首所能抵达之处，皆有本国航行之权。"
         progress_delta: 10
         rationale:
           english: "Asserting navigational rights makes the New World claim a matter of state doctrine before every detail is known. It drives acceptance sharply forward, while foreign powers harden against the realm's confidence."
-          simp_chinese: "宣示航行权利，会在细节尚未完全明朗前把新世界主张提升为国家原则。这会强力推动接受方向，但也会让外国势力因本国的自信而转为警惕。"
+          simp_chinese: "宣示航行权利，在细节尚未完全明朗之前，就把新世界主张抬升为国家原则。这强力推动接受方向，但外国势力也会因本国的自信而转为强硬。"
         effect_blocks:
           - type: seat_stance
             group: foreign_power
@@ -733,12 +733,12 @@ random_events:
             amount: -5
       b:
         text:
-          english: "Refuse distant entanglement."
-          simp_chinese: "拒绝远方纠葛。"
+          english: "We will not trade solid ground for imagined shores."
+          simp_chinese: "我们不会拿脚下的实土，去换想象中的海岸。"
         progress_delta: -10
         rationale:
-          english: "Refusing entanglement lets caution define policy and avoids converting uncertain maps into diplomatic obligations. The debate retreats strongly because the court chooses safety over the legal imagination of discovery."
-          simp_chinese: "拒绝远方纠葛，会让谨慎成为政策原则，并避免把不确定的地图变成外交义务。由于宫廷选择安全而不是发现所需要的法律想象，辩论会明显转向拒绝。"
+          english: "Refusing entanglement lets caution define policy and spares the realm from turning uncertain maps into diplomatic obligations. The debate retreats strongly, as the court chooses safety over the legal imagination of discovery."
+          simp_chinese: "拒绝远方纠葛，让谨慎成为政策，也使王国免于把不确定的地图变成外交义务。宫廷选择安全，而不是发现所需的法律想象，辩论因此明显转向拒绝。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -755,17 +755,17 @@ random_events:
       english: "Missionary Grammar"
       simp_chinese: "传教士语法书"
     desc:
-      english: "A missionary arrives with a grammar of a language no courtier can pronounce without humility. The pages prove that discovery has voices, rules, and meanings of its own, not merely coastlines waiting to be named."
-      simp_chinese: "一名传教士带来了一部新语言的语法书，宫廷中无人能不带谦卑地读出那些音节。书页证明，发现新世界面对的是自有声音、规则和意义的人群，而不只是等待命名的海岸线。"
+      english: "A missionary arrives with a grammar of a tongue no courtier can pronounce without humility. The pages prove that discovery has voices, rules, and meanings of its own, and is not merely a set of coastlines waiting to be named."
+      simp_chinese: "一名传教士带来一部新语言的语法书，宫中无人能不带谦卑地念出那些音节。书页证明，发现新世界所面对的是自有声音、规则与意义的人群，而不只是一串等待命名的海岸线。"
     options:
       a:
         text:
-          english: "Circulate the grammar."
-          simp_chinese: "传阅这部语法书。"
+          english: "Copies of the grammar pass from the Academy benches to the pulpits alike."
+          simp_chinese: "语法书的抄本从学院的座席一路传到讲道坛。"
         progress_delta: 10
         rationale:
-          english: "Circulating the grammar lets scholars and clergy both treat the New World as a society that can be studied, translated, and addressed. Acceptance advances strongly because the unknown gains language rather than remaining blank space."
-          simp_chinese: "传阅语法书会让学者和神职人员都把新世界视为可以研究、翻译和对话的社会。由于未知之地获得了语言，而不再只是空白空间，接受方向会大幅推进。"
+          english: "Circulating the grammar lets scholars and clergy alike treat the New World as a society that can be studied, translated, and addressed. Acceptance advances strongly, as the unknown gains a language instead of remaining blank space."
+          simp_chinese: "传阅语法书，让学者与神职人员都把新世界当作可以研究、翻译、与之对话的社会。未知之地获得了语言，而不再只是空白，接受方向因此大幅推进。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -777,12 +777,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Keep it for missions only."
-          simp_chinese: "仅供传教使用。"
+          english: "Scripture before syntax."
+          simp_chinese: "先有经文，才轮到语法。"
         progress_delta: -5
         rationale:
-          english: "Restricting the grammar to missions preserves clerical control and keeps linguistic knowledge from becoming a general Academy argument. The debate slows because voices from the New World are filtered through a single institution."
-          simp_chinese: "将语法书限于传教用途，可以保留神职控制，也阻止语言知识成为学院内部更广泛的论据。由于新世界的声音被单一机构过滤，辩论会放慢脚步。"
+          english: "Restricting the grammar to missions preserves clerical control and keeps linguistic knowledge from becoming a general Academy argument. The debate slows, for the voices of the New World are strained through a single institution."
+          simp_chinese: "将语法书限于传教之用，保住了神职的控制，也阻止语言知识成为学院内更广泛的论据。新世界的声音被单一机构滤过，辩论因此放慢脚步。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -799,17 +799,17 @@ random_events:
       english: "Port Investors Panic"
       simp_chinese: "港口投资者恐慌"
     desc:
-      english: "A storm breaks ships prepared for the next voyage, and the port's confidence cracks almost as loudly as the masts. Investors who praised discovery yesterday now study the wreckage like accountants of fear."
-      simp_chinese: "一场风暴摧毁了为下一次航行准备的船只，港口的信心几乎和桅杆一起断裂。昨日还称颂发现事业的投资者，如今像恐惧的账房一样盯着残骸盘算。"
+      english: "A storm splinters the ships readied for the next voyage, and the port's confidence cracks nearly as loudly as the masts. Investors who praised discovery yesterday now pore over the wreckage like accountants of fear."
+      simp_chinese: "一场风暴把为下一次航行备好的船只劈成碎木，港口的信心几乎和桅杆一起断裂。昨日还在称颂发现事业的投资者，如今像恐惧的账房先生一样，盯着残骸细算。"
     options:
       a:
         text:
-          english: "Guarantee the expedition."
-          simp_chinese: "为远征提供担保。"
+          english: "The Crown underwrites the expedition against wind and wave alike."
+          simp_chinese: "王权为这次远征提供担保，风浪都算在内。"
         progress_delta: 10
         rationale:
-          english: "Guaranteeing the expedition turns a commercial panic into a public commitment. Acceptance surges because the Crown refuses to let weather decide the debate, but the treasury absorbs the risk that private investors no longer will."
-          simp_chinese: "为远征提供担保，会把商业恐慌转化为公开承诺。由于王权拒绝让天气决定辩论走向，接受方向会迅速推进，但国库也必须承担私人投资者不愿再承担的风险。"
+          english: "Guaranteeing the expedition turns a commercial panic into a public commitment. Acceptance surges as the Crown refuses to let weather decide the debate, though the treasury shoulders the risk that private investors no longer will."
+          simp_chinese: "为远征提供担保，把商业恐慌转化为公开承诺。王权拒绝让天气决定辩论走向，接受方向因此迅速推进；但国库也要扛起私人投资者不再愿担的风险。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -820,12 +820,12 @@ random_events:
             cooldown_months: 24
       b:
         text:
-          english: "Let investors retreat."
-          simp_chinese: "允许投资者退场。"
+          english: "We let the frightened money walk away."
+          simp_chinese: "受了惊的钱，我们就任它走吧。"
         progress_delta: -10
         rationale:
-          english: "Letting investors retreat allows the wrecked ships to become a verdict on the whole enterprise. Trade confidence falls, and the debate turns sharply away from acceptance because discovery now looks financially fragile."
-          simp_chinese: "允许投资者退场，会让这些破损船只成为对整项事业的判决。贸易信心下降，而发现事业也显得财务基础脆弱，因此辩论会明显转向拒绝。"
+          english: "Letting investors retreat allows the wrecked ships to stand as a verdict on the whole enterprise. Trade confidence falls, and the debate turns sharply from acceptance, for discovery now looks financially fragile."
+          simp_chinese: "任投资者退场，让这些破船成为对整项事业的判决。贸易信心下跌，发现事业显得财务脆弱，辩论因此明显转向拒绝。"
         effect_blocks:
           - type: seat_stance
             group: burghers
@@ -844,17 +844,17 @@ random_events:
       english: "School Globe"
       simp_chinese: "学校地球仪"
     desc:
-      english: "A new globe is carried into the Academy schoolroom, round enough to make old wall maps look embarrassed. Students turn it by hand, and the room discovers that geography can change under one's fingers."
-      simp_chinese: "一具新的地球仪被抬进学院教室，它的圆弧足以让墙上的旧地图显得窘迫。学生们亲手转动它，整个房间发现，地理知识竟能在人们指尖下改变。"
+      english: "A new globe is carried into the Academy schoolroom, round enough to make the old wall maps look embarrassed. Students turn it by hand, and the room discovers that geography can shift beneath one's fingers."
+      simp_chinese: "一具新的地球仪被抬进学院教室，那圆弧足以让墙上的旧地图显得窘迫。学生们用手转动它，整间屋子发现，地理知识竟能在指尖之下移动。"
     options:
       a:
         text:
-          english: "Make it public teaching."
-          simp_chinese: "将它用于公共教学。"
+          english: "The globe is set in the schoolroom for every pupil to turn."
+          simp_chinese: "地球仪摆进教室，任每一名学生动手转动。"
         progress_delta: 5
         rationale:
-          english: "Public teaching spreads the New World argument through repeated instruction rather than spectacle or crisis. The progress gain is modest, but public opinion moves toward acceptance as students learn new geography as normal knowledge."
-          simp_chinese: "公共教学会通过反复授课传播新世界论点，而不是依靠奇观或危机。进展幅度不大，但当学生把新地理当作正常知识来学习时，公众舆论会转向接受。"
+          english: "Public teaching spreads the New World argument through steady instruction rather than spectacle or crisis. The gain is modest, but public opinion drifts toward acceptance as students learn the new geography as ordinary knowledge."
+          simp_chinese: "公共教学通过稳定的授课、而非奇观或危机来传播新世界论点。进展幅度不大，但当学生把新地理当作平常知识来学，公众舆论便渐渐倾向接受。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -867,12 +867,12 @@ random_events:
               public geography instruction: 0.02
       b:
         text:
-          english: "Keep it for experts."
-          simp_chinese: "仅供专家使用。"
+          english: "For learned hands only."
+          simp_chinese: "只交给有学问的人经手。"
         progress_delta: -5
         rationale:
-          english: "Keeping the globe for experts preserves control over unsettling knowledge, but it also prevents the new map from becoming common sense. The debate slips backward because discovery remains an elite secret rather than public instruction."
-          simp_chinese: "将地球仪留给专家，可以保持对令人不安知识的控制，却也阻止新地图成为常识。由于发现仍是精英掌握的秘密，而不是公众教育，辩论会向后退。"
+          english: "Keeping the globe for experts preserves control over unsettling knowledge, but it also stops the new map from becoming common sense. The debate slips backward, since discovery stays an elite secret rather than public instruction."
+          simp_chinese: "将地球仪留给专家，保住了对令人不安知识的控制，却也阻止新地图变成常识。发现仍是精英掌握的秘密，而非公众教育，辩论因此向后退。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats

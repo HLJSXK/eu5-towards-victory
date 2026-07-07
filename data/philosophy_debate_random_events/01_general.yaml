@@ -7,17 +7,17 @@ random_events:
       english: "The Chair's Summary"
       simp_chinese: "主席的摘要"
     desc:
-      english: "After three days of tangled claims, the chair reduces the argument to a brief that even the restless back benches can follow. The room changes as soon as everyone can see what is truly being disputed."
-      simp_chinese: "三天缠绕不清的论辩之后，主席把争点压成一份连后排听众也能读懂的简报。众人一旦看清真正的分歧，室内的气氛立刻改变。"
+      english: "After three days of tangled claims, the chair reduces the argument to a brief that even the restless back benches can follow. Half the room calls this clarity. The other half calls it a trap with excellent penmanship."
+      simp_chinese: "三天唇枪舌剑之后，主席把满室争执压成一份连后排的人也看得懂的简报。有人说这叫条理清楚，也有人说，这不过是一份字写得特别工整的陷阱。"
     options:
       a:
         text:
-          english: "Publish the summary."
-          simp_chinese: "公布摘要。"
+          english: "The clerks distribute the summary to every bench."
+          simp_chinese: "书记员把摘要发到每一排座位上。"
         progress_delta: 5
         rationale:
           english: "Publishing the chair's brief makes the current issue legible outside the inner circle, so wavering listeners become more willing to accept the argument rather than fear it."
-          simp_chinese: "公布主席简报会让当前议题不再只属于少数内圈，摇摆的旁听者更容易理解并接受论点，而不是先被它吓退。"
+          simp_chinese: "简报一发，这件事就不再是圈内人的专利，摇摆不定的旁听者也能看懂论点，不会先被它吓跑。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -25,12 +25,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Redact the dangerous passages."
-          simp_chinese: "删去危险段落。"
+          english: "We strike the sharpest lines before anyone can quote them."
+          simp_chinese: "趁没人能拿它当把柄，先把最扎眼的句子删掉。"
         progress_delta: -5
         rationale:
           english: "Redaction keeps order and spares officials from defending volatile language, but it also makes the issue look too dangerous to embrace openly."
-          simp_chinese: "删节能维持秩序，也让官僚免于替尖锐文字辩护，但这会显得该议题过于危险，不宜公开接受。"
+          simp_chinese: "删节保住了秩序，官僚也不必替尖锐字句辩护，可这么做等于承认这件事太危险，不宜公开接受。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -45,17 +45,17 @@ random_events:
       english: "Crowded Galleries"
       simp_chinese: "拥挤的旁听席"
     desc:
-      english: "Students, clerks, idle nobles, and citizens with suspiciously excellent hearing pack the galleries. Every strong line now travels farther than the speaker intended."
-      simp_chinese: "学生、书记员、闲散贵族，以及一些听力好得可疑的市民挤满旁听席。每一句有力的话都会传得比发言者预想的更远。"
+      english: "Students, clerks, idle nobles, and citizens with suspiciously excellent hearing pack the galleries. Every strong line now travels farther than the speaker intended, and gossip, unlike scholarship, has never once needed a footnote."
+      simp_chinese: "旁听席挤满了学生、书记员、闲得没事干的贵族，还有几个耳朵好得可疑的市民。谁说了句硬话，传得都比自己想的远——流言从来不用讲证据，学问却处处都要。"
     options:
       a:
         text:
-          english: "Keep the doors open."
-          simp_chinese: "继续开放大门。"
+          english: "The ushers wave the crowd toward the open doors."
+          simp_chinese: "引座员招手，放人群从大门涌进来。"
         progress_delta: 5
         rationale:
           english: "Open galleries turn the issue into a public lesson. Wider attention gives acceptance a social constituency, even if the room becomes harder to control."
-          simp_chinese: "开放旁听席会把议题变成一场公开课程。更广泛的关注会给接受派带来社会支撑，即使会场更难控制。"
+          simp_chinese: "旁听席一开，这件事就变成了一堂公开课。关注的人越多，接受派的底气就越足，只是场面会更难控制。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -63,12 +63,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Clear the galleries."
-          simp_chinese: "清空旁听席。"
+          english: "Peace, before the benches learn to riot."
+          simp_chinese: "肃静！再吵下去旁听席要闹起来了。"
         progress_delta: -5
         rationale:
           english: "Clearing the galleries lowers the pressure on the Crown and prevents every careless phrase from becoming rumor, but it also moves the debate away from acceptance."
-          simp_chinese: "清空旁听席能减轻王权承受的舆论压力，也避免每句失言变成传闻，但同时会让辩论远离接受方向。"
+          simp_chinese: "清空旁听席能给王权减压，也不怕哪句失言传成流言，可辩论也就此离接受更远了一步。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -82,29 +82,29 @@ random_events:
       english: "A Useful Misquotation"
       simp_chinese: "有用的误引"
     desc:
-      english: "A copied line from a respected authority appears to favor the new argument. The wording is convenient, the ink is fresh, and several scholars are suddenly very interested in handwriting."
-      simp_chinese: "一句抄自权威著作的话看起来支持新论点。措辞太过方便，墨迹又太新，几位学者忽然对笔迹产生了浓厚兴趣。"
+      english: "A copied line from a respected authority appears to favor the new argument. The wording is convenient, the ink is fresh, and several scholars have suddenly discovered a passionate interest in handwriting analysis."
+      simp_chinese: "有人抄了一句权威著作里的话，正好帮新论点撑腰。措辞太顺、墨迹太新，几位学者忽然对笔迹这门手艺产生了浓厚兴趣。"
     options:
       a:
         text:
-          english: "Correct it publicly."
-          simp_chinese: "公开更正。"
+          english: "The scholars trace the quotation back to its true source and disown it."
+          simp_chinese: "学者们查出引文的真正出处，当众撇清关系。"
         progress_delta: 5
         rationale:
           english: "Public correction shows that the accepting side can win without corrupted evidence, but admitting the mistake costs reputation in the short term."
-          simp_chinese: "公开更正表明接受派不必靠伪证取胜，但承认错误会在短期内损耗声望。"
+          simp_chinese: "公开更正说明接受派不必靠假证据取胜，只是承认错误，短期内总要折损些声望。"
         effect_blocks:
           - type: resource
             resource: prestige
             amount: -10
       b:
         text:
-          english: "Let the ambiguity work."
-          simp_chinese: "任由含混发挥作用。"
+          english: "Let the dead man's words work for us a little longer."
+          simp_chinese: "死无对证，正好。"
         progress_delta: 10
         rationale:
           english: "Keeping the ambiguity gives acceptance an immediate rhetorical victory, while the scholarly community learns that convenience may outweigh accuracy in this debate."
-          simp_chinese: "保留含混之处能让接受派迅速取得修辞优势，但学术共同体会意识到这场辩论中便利可能压过准确。"
+          simp_chinese: "含混不清能让接受派抢占口舌上的先机，可学界看得明白：这场辩论里，方便有时比准确更管用。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -119,17 +119,17 @@ random_events:
       english: "Margins of the Old Book"
       simp_chinese: "旧书页边的批注"
     desc:
-      english: "An old commentary emerges from the Academy library with a note in the margin sharp enough to cut both sides. By noon, everyone claims the dead commentator as an ally."
-      simp_chinese: "学院图书馆里翻出一部旧注释，页边的批注锋利得足以被双方同时当作武器。到正午时，所有人都声称那位已故注释者站在自己一边。"
+      english: "An old commentary emerges from the Academy library with a note in the margin sharp enough to cut both sides. By noon, every faction claims the dead commentator as an ally, which is a comfort, since he can no longer object."
+      simp_chinese: "学院图书馆里翻出一部旧注释，页边的批注够锋利，两边都能拿来当武器。到正午，各派都说那位已故的注释者站在自己这边——好在他没法反驳。"
     options:
       a:
         text:
-          english: "Treat the old note as evidence."
-          simp_chinese: "将旧批注视为证据。"
+          english: "The old note is entered as evidence, exactly as the ancients left it."
+          simp_chinese: "书吏照古人原样，把旧批注列为证据。"
         progress_delta: -5
         rationale:
           english: "Treating the marginal note as evidence privileges inherited authority and reassures religious conservatives who prefer the debate to remain bound by older readings."
-          simp_chinese: "将页边批注视为证据，会抬高继承权威，并安抚希望辩论受旧解释约束的宗教保守派。"
+          simp_chinese: "把页边批注当证据，等于抬高祖训的地位，也能安抚那些希望辩论继续受旧解释约束的宗教保守派。"
         effect_blocks:
           - type: seat_stance
             group: clergy
@@ -140,12 +140,12 @@ random_events:
             value: 0.03
       b:
         text:
-          english: "Challenge the authority of the note."
-          simp_chinese: "质疑批注的权威。"
+          english: "We question whether a dead man still gets the last word."
+          simp_chinese: "我们要问一句：死人还能不能有最后的发言权？"
         progress_delta: 5
         rationale:
           english: "Challenging the note tells scholars that old annotations may be studied without being obeyed, strengthening confidence in fresh interpretation."
-          simp_chinese: "质疑批注等于宣布旧注可以被研究，却不必被服从，从而增强学者对新解释的信心。"
+          simp_chinese: "质疑批注，就是告诉大家旧注可以拿来研究，却不必当作圣旨，学者对新解释的信心也就更足了。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -160,17 +160,17 @@ random_events:
       english: "Private Lecture at Dusk"
       simp_chinese: "黄昏的私人讲课"
     desc:
-      english: "As the chamber empties, the Chief Scientist offers to gather a few decisive listeners before the candles burn low. Confusion can still be turned into conviction, if someone pays the evening's cost."
-      simp_chinese: "议厅渐渐散去时，首席科学家提议在烛火燃尽前召集几位关键听众。只要有人承担这个夜晚的代价，困惑仍可被转化为信念。"
+      english: "As the chamber empties, the Chief Scientist offers to gather a few decisive listeners before the candles burn low. Confusion can still be turned into conviction tonight, if someone is willing to pay for the wax."
+      simp_chinese: "议厅渐渐散去时，首席科学家提议趁蜡烛还没燃尽，把几位关键听众留下来单独谈谈。困惑变成信念，今晚还来得及——前提是有人肯付这份烛火钱。"
     options:
       a:
         text:
-          english: "Authorize the lecture."
-          simp_chinese: "准许讲课。"
+          english: "The Chief Scientist detains the pivotal few until they understand."
+          simp_chinese: "首席科学家留下那几位关键人物，直到他们真正理解为止。"
         progress_delta: 10
         rationale:
           english: "A focused lecture lets the Chief Scientist convert a small number of pivotal listeners quickly, but the extra labor strains the Academy's most important advocate."
-          simp_chinese: "集中的私人讲课能让首席科学家迅速说服少数关键听众，但额外投入会使学院最重要的倡导者承压。"
+          simp_chinese: "开小课确实能让首席科学家很快说服几个关键人物，可这份额外功夫，压的是学院最要紧的那位倡导者。"
         effect_blocks:
           - type: temporary_country_modifier
             key: tv_academy_debate_private_lecture_strain
@@ -179,12 +179,12 @@ random_events:
               "Chief Scientist workload pressure": -0.05
       b:
         text:
-          english: "Save their strength."
-          simp_chinese: "保留他们的精力。"
+          english: "Let the candles burn out unattended."
+          simp_chinese: "让烛火自己燃尽吧。"
         progress_delta: -5
         rationale:
           english: "Refusing the lecture preserves the Chief Scientist's strength and avoids a personal overcommitment, but the undecided listeners drift back toward caution."
-          simp_chinese: "拒绝讲课能保存首席科学家的精力，避免个人过度投入，但未决的听众会重新滑向谨慎。"
+          simp_chinese: "不开这堂课，首席科学家能省些力气，不必事事亲力亲为，可那些还没想通的人，又会缩回谨慎里去。"
         effect_blocks:
           - type: seat_cooldown
             group: great_scientist
@@ -198,17 +198,17 @@ random_events:
       english: "Minutes for the Ministries"
       simp_chinese: "各部所需的会议记录"
     desc:
-      english: "Before the Academy's arguments can touch policy, ministry clerks demand minutes exact enough to file, quote, and delay."
-      simp_chinese: "在学院的争论影响政策之前，各部文吏要求取得足以归档、引用并拖延程序的详尽记录。"
+      english: "Before the Academy's arguments can touch policy, ministry clerks demand minutes exact enough to file, quote, and delay. No idea in this kingdom has ever outrun a sufficiently determined filing clerk."
+      simp_chinese: "学院的论点要影响政策之前，各部文吏先要一份记得够细的会议记录，好归档、好引用、也好拖延。这个王国里，还没有哪个想法真正跑赢过一位铁了心的档房文吏。"
     options:
       a:
         text:
-          english: "Give them exact minutes"
-          simp_chinese: "提交详尽记录"
+          english: "The clerks receive minutes exact enough to bind every clause."
+          simp_chinese: "文吏拿到一份详尽记录，字字都能拿来钉死条款。"
         progress_delta: -5
         rationale:
           english: "Exact minutes turn the debate into an administrative object ministries can control, slowing acceptance while giving court bureaucrats procedural leverage."
-          simp_chinese: "详尽记录会把辩论变成各部可以掌控的行政文件，减缓接受新主张的速度，同时让宫廷官僚取得程序上的筹码。"
+          simp_chinese: "详尽记录一交出去，辩论就变成了各部能捏在手里的公文，接受新主张的进度慢了下来，宫廷官僚倒是多了几张程序上的牌。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -216,12 +216,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Keep the argument informal"
-          simp_chinese: "让争论保持非正式"
+          english: "We let the argument stay unwritten a little longer."
+          simp_chinese: "这场争论，我们再让它口说无凭一阵子。"
         progress_delta: 5
         rationale:
           english: "Keeping the argument informal lets the new proposition keep moving before ministries can pin it down, but the Crown appears less procedurally careful."
-          simp_chinese: "让争论保持非正式，可以在各部将其固定成公文之前继续推动新主张，但王权会显得不够重视程序。"
+          simp_chinese: "争论不落文字，新主张就能在各部下手之前继续往前走，只是王权难免显得不太讲规矩。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -235,29 +235,29 @@ random_events:
       english: "A Moral Preface"
       simp_chinese: "道德序言"
     desc:
-      english: "Religious figures ask that the disputed proposition be wrapped in moral caution before anyone dares to call it wisdom."
-      simp_chinese: "宗教人士要求在任何人敢称这项争议主张为智慧之前，先为它包上一层道德上的谨慎说明。"
+      english: "Religious figures ask that the disputed proposition be wrapped in moral caution before anyone dares to call it wisdom. Every new idea, it seems, must first apologize for existing."
+      simp_chinese: "宗教人士要求先给这项争议主张裹上一层道德上的谨慎说明，才准许任何人称它为智慧。看来每个新念头出场之前，都得先赔个礼。"
     options:
       a:
         text:
-          english: "Add the preface"
-          simp_chinese: "加上序言"
+          english: "The scribes append the requested caution to every copy."
+          simp_chinese: "书吏在每份抄本上都附上所要求的谨慎说明。"
         progress_delta: -5
         rationale:
           english: "A moral preface reassures the clergy and frames the issue as something dangerous enough to require restraint, nudging the debate away from acceptance."
-          simp_chinese: "道德序言能安抚教士，并把该议题描绘成必须加以约束的危险之物，从而使辩论偏离接受方向。"
+          simp_chinese: "序言一加，教士安心了，可这议题也就此被描绘成需要严加管束的危险东西，辩论离接受更远了。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
             value: 0.04
       b:
         text:
-          english: "Refuse the preface"
-          simp_chinese: "拒绝序言"
+          english: "Let the idea stand on its own reasoning, unadorned."
+          simp_chinese: "这想法站得住脚，用不着穿什么外衣。"
         progress_delta: 5
         rationale:
           english: "Refusing the preface lets the Academy treat the proposition on its own intellectual merits, but clergy satisfaction falls as caution is set aside."
-          simp_chinese: "拒绝序言使学院能按主张本身的学理价值来讨论它，但这种搁置谨慎的做法会降低教士满意度。"
+          simp_chinese: "不加序言，学院就能单看主张本身的学理价值来讨论，只是这么搁置谨慎，教士的满意度难免要跌一跌。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -271,29 +271,29 @@ random_events:
       english: "Merchant Subscription"
       simp_chinese: "商人认捐"
     desc:
-      english: "Burghers offer to fund pamphlets, copied notes, and coffeehouse discussion, provided their names sit close enough to the title."
-      simp_chinese: "市民商人愿意资助小册子、抄写笔记和咖啡馆讨论，条件是他们的名字要离标题足够近。"
+      english: "Burghers offer to fund pamphlets, copied notes, and coffeehouse discussion, provided their names sit close enough to the title. Patronage, it turns out, has always preferred a byline to a footnote."
+      simp_chinese: "市民商人愿意出钱印小册子、抄笔记、请人在咖啡馆里讨论，条件是他们的名字要挨着标题印出来。看来赞助自古偏爱署名，胜过脚注。"
     options:
       a:
         text:
-          english: "Accept the subscription"
-          simp_chinese: "接受认捐"
+          english: "The burghers see their names printed beside the argument."
+          simp_chinese: "商人们看到自己的名字印在论点旁边。"
         progress_delta: 5
         rationale:
           english: "Merchant money spreads the new argument beyond the chamber and makes burghers feel invested in the Academy's conclusion."
-          simp_chinese: "商人的资金会把新论点传播到会场之外，也让市民商人觉得自己参与了学院结论的形成。"
+          simp_chinese: "商人的钱能把新论点送出会场之外，市民商人也觉得自己在学院的结论里出了一份力。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
             value: 0.04
       b:
         text:
-          english: "Reject commercial noise"
-          simp_chinese: "拒绝商业喧嚣"
+          english: "We decline to sell the truth a subscription."
+          simp_chinese: "我们拒绝把真理卖给一份认捐。"
         progress_delta: -5
         rationale:
           english: "Rejecting the subscription keeps commercial branding away from doctrine, which pleases nobles who dislike seeing public argument dressed as a market venture."
-          simp_chinese: "拒绝认捐能让商业署名远离学理判断，这会取悦那些不愿看到公共争论被包装成市场事业的贵族。"
+          simp_chinese: "拒了认捐，学理判断就不必挂着商号的名字，那些不愿看到公共争论被包装成买卖的贵族，也乐得如此。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -307,17 +307,17 @@ random_events:
       english: "Student Disputation"
       simp_chinese: "学生论辩"
     desc:
-      english: "Students stage their own version of the debate and demonstrate that enthusiasm can be louder than preparation."
-      simp_chinese: "学生们自行举办了一场辩论，并证明热情有时确实比准备更响亮。"
+      english: "Students stage their own version of the debate in the courtyard, proving once again that enthusiasm can be louder than preparation, and considerably cheaper to arrange."
+      simp_chinese: "学生们在庭院里自己办了一场辩论，又一次证明热情有时确实比准备更响亮——而且便宜得多。"
     options:
       a:
         text:
-          english: "Let them argue"
-          simp_chinese: "让他们争辩"
+          english: "The courtyard fills with young voices arguing past dusk."
+          simp_chinese: "庭院里挤满了争论到日暮时分的年轻声音。"
         progress_delta: 5
         rationale:
           english: "Letting students argue draws public opinion into the issue and gives the new proposition noisy life outside the formal chamber."
-          simp_chinese: "允许学生争辩会把公众舆论卷入议题，并让新主张在正式会场之外获得喧闹的生命力。"
+          simp_chinese: "让学生去争，公众舆论也就被卷进来了，新主张在正式会场之外反倒活得更热闹。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -325,12 +325,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Ban the gathering"
-          simp_chinese: "禁止集会"
+          english: "Quiet down, before the courtyard becomes a second chamber."
+          simp_chinese: "安静下来，免得庭院变成第二个议厅。"
         progress_delta: -5
         rationale:
           english: "Banning the gathering preserves order by preventing amateur disputation from becoming a street argument, but it also cools momentum toward acceptance."
-          simp_chinese: "禁止集会能防止业余论辩演变为街头争执，从而维护秩序，但也会削弱接受新主张的势头。"
+          simp_chinese: "禁止集会，业余论辩就不会闹成街头争吵，秩序保住了，可接受新主张的势头也跟着弱了下去。"
         effect_blocks:
           - type: temporary_country_modifier
             key: tv_academy_debate_quiet_courtyards
@@ -346,17 +346,17 @@ random_events:
       english: "Letter from Abroad"
       simp_chinese: "海外来信"
     desc:
-      english: "A foreign scholar sends a careful letter, folded like evidence and read like gossip. Its argument is precise enough to help the Academy, and foreign enough to make every listener wonder who benefits from hearing it aloud."
-      simp_chinese: "一位外国学者寄来措辞谨慎的书信，它像证据一样被折好，却像流言一样被传读。信中的论证足以帮助学院，也足够\"外来\"，让每个听众都怀疑公开朗读究竟会让谁得利。"
+      english: "A foreign scholar sends a careful letter, folded like evidence and read like gossip. Its argument is precise enough to help the Academy, and foreign enough to make every listener wonder who truly benefits from hearing it aloud."
+      simp_chinese: "一位外国学者寄来一封措辞谨慎的信，折得像证据，读起来却像流言。信里的论证足以帮上学院，又足够\"外来\"，让每个听众都在心里犯嘀咕：这信一读出来，到底谁得利。"
     options:
       a:
         text:
-          english: "Read it aloud."
-          simp_chinese: "当众朗读。"
+          english: "A clerk reads the foreign letter aloud to the full chamber."
+          simp_chinese: "一名文吏在满座的议厅里当众朗读这封外国来信。"
         progress_delta: 5
         rationale:
           english: "Reading the letter aloud lets outside scholarship strengthen the accepting side, while giving the foreign-power seat a reason to treat the debate as a live diplomatic-intellectual channel."
-          simp_chinese: "当众朗读让外部学术资源为接受方增势，同时也使外国势力席位有理由把这场辩论视为仍在运作的外交与学术渠道。"
+          simp_chinese: "当众一读，外部的学术资源就成了接受方的助力，外国势力席位也乐得把这场辩论当成还在运转的外交与学术渠道。"
         effect_blocks:
           - type: seat_stance
             group: foreign_power
@@ -364,12 +364,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "File it quietly."
-          simp_chinese: "悄悄归档。"
+          english: "Into the archive, quietly, where foreign ink cannot embarrass us."
+          simp_chinese: "悄悄归入档房，免得外来的墨迹让我们难堪。"
         progress_delta: -5
         rationale:
           english: "Filing the letter quietly favors caution over intellectual momentum; the debate retreats from foreign entanglement and dampens the foreign-power seat's short-term involvement."
-          simp_chinese: "悄悄归档选择谨慎而非推进论证；辩论因此避开外部牵连，并暂时压低外国势力席位的参与度。"
+          simp_chinese: "悄悄归档，选的是谨慎而非推进论证；辩论躲开了外部牵连，外国势力席位的参与度也就暂时低了下去。"
         effect_blocks:
           - type: seat_cooldown
             group: foreign_power
@@ -383,17 +383,17 @@ random_events:
       english: "Instrument in the Hall"
       simp_chinese: "会场中的仪器"
     desc:
-      english: "A working instrument is carried into the debate chamber and placed where theory can no longer pretend to be alone. Its gears, lenses, or measures do not settle every question, but they do make old abstractions sweat."
-      simp_chinese: "一件能够运作的仪器被抬进辩论厅，摆在理论再也无法假装孤身作战的位置。齿轮、镜片或刻度未必能解决所有问题，却足以让旧有的抽象说法冒汗。"
+      english: "A working instrument is carried into the debate chamber and placed where theory can no longer pretend to be alone. Its gears, lenses, or measures do not settle every question, but they make old abstractions sweat, and a few old men along with them."
+      simp_chinese: "一件能运转的仪器被抬进辩论厅，摆在理论再也没法装作孤军奋战的位置。齿轮、镜片或是刻度，未必能解决每一个问题，却足以让旧有的空谈冒汗——顺带也让几位老先生跟着冒汗。"
     options:
       a:
         text:
-          english: "Trust the demonstration."
-          simp_chinese: "相信演示。"
+          english: "The chamber watches the device perform, and believes its own eyes."
+          simp_chinese: "满座目睹仪器运转，并选择相信自己的眼睛。"
         progress_delta: 10
         rationale:
           english: "Trusting the demonstration lets visible practice overwhelm hesitation, but conservative estates lose satisfaction because the chamber has allowed a device to outrank inherited authority."
-          simp_chinese: "相信演示让可见实践压过犹疑，但保守阶层会降低满意度，因为会场等于承认一件器物可以压过继承而来的权威。"
+          simp_chinese: "相信这场演示，眼见的实践就压过了犹疑，可保守阶层的满意度要往下掉——毕竟这等于承认，一件器物能压过祖辈传下来的权威。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -403,12 +403,12 @@ random_events:
             value: -0.03
       b:
         text:
-          english: "Call it preliminary."
-          simp_chinese: "称其仍属初步。"
+          english: "Interesting, but hardly conclusive."
+          simp_chinese: "有趣，但远称不上定论。"
         progress_delta: -5
         rationale:
           english: "Calling the result preliminary preserves the older interpretive order, yet scholars resent seeing a working proof treated as if it were only a curiosity."
-          simp_chinese: "称其仍属初步可以保住旧有解释秩序，但学者们会不满于一项可运作的证明被降格为单纯奇物。"
+          simp_chinese: "说它还只是初步结果，旧有的解释秩序就还能保住，只是学者们看着一项能运作的证明被贬成稀奇玩意儿，难免不满。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -423,17 +423,17 @@ random_events:
       english: "A Street Song"
       simp_chinese: "街头歌谣"
     desc:
-      english: "The issue escapes the Academy as a street song, half misunderstanding and half recruitment. By sunset, people who could not name the proposition can hum its sharpest insult."
-      simp_chinese: "这项议题化作一首街头歌谣逃出了学院，一半是误解，一半是动员。到日落时，许多说不出命题名称的人已经会哼其中最尖刻的一句。"
+      english: "The issue escapes the Academy as a street song, half misunderstanding and half recruitment. By sunset, people who could not name the proposition can hum its sharpest insult from memory."
+      simp_chinese: "这议题变成一首街头歌谣，从学院里溜了出去，一半是误解，一半是拉人入伙。到日落时，好些说不出这项主张名字的人，已经能凭记忆哼出里面最刻薄的那句。"
     options:
       a:
         text:
-          english: "Let the song spread."
-          simp_chinese: "任由歌谣流传。"
+          english: "The tune spreads from tavern to tavern, gathering listeners and slander alike."
+          simp_chinese: "曲调从一间酒馆传到另一间，一路招揽听众与流言。"
         progress_delta: 5
         rationale:
           english: "Letting the song spread turns imperfect popular attention into accepting momentum, bringing public opinion into the debate even though the message is noisy."
-          simp_chinese: "任由歌谣流传把不完美的民间关注转化为接受方的势头，让公众舆论进入辩论，哪怕其中充满噪音。"
+          simp_chinese: "任它流传，民间这份不完美的关注就变成了接受方的势头，公众舆论也就此挤进辩论——哪怕吵吵嚷嚷。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -441,12 +441,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Suppress the song."
-          simp_chinese: "压制这首歌。"
+          english: "Silence the singers before the melody outlives the argument."
+          simp_chinese: "让歌者住口，免得曲调比论点活得更久。"
         progress_delta: -5
         rationale:
           english: "Suppression prevents the argument from spreading through unruly channels and eases immediate stability pressure, but the debate loses the popular energy it might have gained."
-          simp_chinese: "压制歌谣阻止论点通过难以控制的渠道扩散，并缓和眼前的稳定压力，但辩论也失去了本可借用的民间热度。"
+          simp_chinese: "压下歌谣，论点就不会顺着难以控制的渠道乱传，眼前的稳定压力也松一松，只是辩论跟着失去了本该借上的民间热度。"
         effect_blocks:
           - type: resource
             resource: stability
@@ -460,17 +460,17 @@ random_events:
       english: "Formal Challenge"
       simp_chinese: "正式挑战"
     desc:
-      english: "A respected opponent challenges the new claim under rules strict enough to make evasion visible. The hall grows quieter, not because tempers have cooled, but because everyone can now count the blows."
-      simp_chinese: "一位受人尊重的反对者依照严密规则挑战新主张，严密到任何回避都会显形。大厅安静下来，并非怒气消散，而是因为每个人都能数清交锋的回合。"
+      english: "A respected opponent challenges the new claim under rules strict enough to make evasion visible. The hall grows quieter, not because tempers have cooled, but because everyone can now count the blows out loud."
+      simp_chinese: "一位受人尊重的反对者按严密的规矩挑战新主张，严到任何回避都藏不住。大厅安静了下来，不是因为火气消了，而是因为每个人都能大声数清每一回交锋。"
     options:
       a:
         text:
-          english: "Back the new argument."
-          simp_chinese: "支持新论证。"
+          english: "The judges rule that the new argument has survived every blow."
+          simp_chinese: "评判者裁定新论证挺过了每一次交锋。"
         progress_delta: 5
         rationale:
           english: "Backing the new argument rewards open contest and gives the scholarly community confidence that rigorous challenge can strengthen acceptance rather than freeze it."
-          simp_chinese: "支持新论证奖励公开交锋，也让学术共同体相信严密挑战能够巩固接受方，而不是让辩论停滞。"
+          simp_chinese: "支持新论证，等于奖励公开交锋，学术共同体也就相信，严密的挑战能巩固接受方，而不是让辩论卡住不动。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -478,12 +478,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Back the old reading."
-          simp_chinese: "支持旧解读。"
+          english: "Old wisdom needs no new witnesses."
+          simp_chinese: "古老的智慧无需新的见证人。"
         progress_delta: -5
         rationale:
           english: "Backing the old reading lets conservative seats claim that the rules exposed weakness in the new claim, increasing their confidence in resistance."
-          simp_chinese: "支持旧解读使保守席位能够声称严密规则暴露了新主张的弱点，从而增强其反对的信心。"
+          simp_chinese: "支持旧解读，保守席位就能说严密规则暴露了新主张的破绽，反对的信心也就更硬了。"
         effect_blocks:
           - type: seat_stance
             group: nobility
@@ -502,17 +502,17 @@ random_events:
       english: "Committee Exhaustion"
       simp_chinese: "委员会疲惫"
     desc:
-      english: "Everyone knows another month of debate will produce longer speeches, not better reasons. The committee has begun perfecting its objections instead of testing them."
-      simp_chinese: "人人都明白，再辩一个月只会让发言更长，而不会让理由更好。委员会已经开始打磨反对意见，而不是检验它们。"
+      english: "Everyone knows another month of debate will produce longer speeches, not better reasons. The committee has begun perfecting its objections instead of testing them, an old and comfortable vice."
+      simp_chinese: "人人都明白，再辩一个月，只会让发言更长，不会让理由更好。委员会开始打磨自己的反对意见，而不是去检验它——这是个古老又舒服的毛病。"
     options:
       a:
         text:
-          english: "Force a decision"
-          simp_chinese: "强行作出决定"
+          english: "The gavel falls, and the committee is made to choose."
+          simp_chinese: "议事槌落下，委员会被迫作出选择。"
         progress_delta: 10
         rationale:
           english: "Forcing the committee to decide converts procedural fatigue into decisive movement toward acceptance, but it makes hesitant observers feel pressured rather than persuaded."
-          simp_chinese: "强迫委员会作出决定，会把程序性的疲惫转化为推动接受的明确动力，但也会让犹疑的旁观者觉得自己是被压服，而不是被说服。"
+          simp_chinese: "强迫委员会拿主意，程序上的疲惫就变成了推动接受的动力，只是犹疑的旁观者会觉得自己是被压服的，不是被说服的。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -523,12 +523,12 @@ random_events:
             value: -0.03
       b:
         text:
-          english: "Postpone"
-          simp_chinese: "暂且延期"
+          english: "Not yet."
+          simp_chinese: "还不到时候。"
         progress_delta: -5
         rationale:
           english: "Postponement avoids an ugly procedural fight and gives doubters room to breathe, but it signals that the new claim cannot yet survive a verdict."
-          simp_chinese: "延期可以避免难看的程序冲突，也给怀疑者喘息空间，但这等于承认新论点尚经不起裁决。"
+          simp_chinese: "延期能躲开一场难看的程序冲突，也给怀疑者留口喘息的空间，只是这等于承认，新论点还经不起裁决。"
         effect_blocks:
           - type: seat_cooldown
             group: court_bureaucrats
@@ -542,17 +542,17 @@ random_events:
       english: "Translation Quarrel"
       simp_chinese: "译词之争"
     desc:
-      english: "Two translations of the same key term produce two different futures for the realm. Each side insists the other has mistranslated both the word and the age."
-      simp_chinese: "同一个关键词的两种译法，为国家勾勒出两个不同的未来。双方都坚称，对方不仅译错了词，也译错了时代。"
+      english: "Two translations of the same key term produce two different futures for the realm. Each side insists the other has mistranslated not only the word, but the entire age it was written in."
+      simp_chinese: "同一个关键词，两种译法，硬是给国家画出两个不同的未来。双方都咬定，对方译错的不只是这个词，还有它所属的整个时代。"
     options:
       a:
         text:
-          english: "Sponsor a new translation"
-          simp_chinese: "资助新的译本"
+          english: "The Academy commissions a fresh translation, ink and argument together."
+          simp_chinese: "学院出钱另请人重译一遍，墨迹和论证都从头来。"
         progress_delta: 5
         rationale:
           english: "Commissioning a new translation gives reformers a legitimate path to clarify the disputed term, but the work costs money and temporarily empowers scholars over inherited wording."
-          simp_chinese: "委托新译本能让改革派以正当方式澄清争议词义，但这需要花费资金，也会暂时让学者的判断压过继承下来的措辞。"
+          simp_chinese: "重译一遍，改革派就能名正言顺地把争议词义说清楚，只是要花钱，还会让学者的判断暂时压过祖传的措辞。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -563,12 +563,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Keep the traditional wording"
-          simp_chinese: "保留传统措辞"
+          english: "The word our fathers used will do."
+          simp_chinese: "先辈用过的那个词，如今仍够用。"
         progress_delta: -5
         rationale:
           english: "Keeping the old wording preserves continuity and reassures conservative readers, but it lets inherited language narrow what the debate can imagine."
-          simp_chinese: "保留旧措辞可以维持连续性，并安抚保守读者，但也会让继承下来的语言限制辩论能够想象的未来。"
+          simp_chinese: "留着旧措辞，连续性是保住了，保守的读者也安心，只是继承下来的这套语言，也框住了辩论能想到的未来。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -586,17 +586,17 @@ random_events:
       english: "Allegory on Canvas"
       simp_chinese: "画布上的寓言"
     desc:
-      english: "An artist paints the issue as a scene so flattering to novelty that even its opponents stop to inspect the colors. The argument has learned to wear light."
-      simp_chinese: "一位艺术家把议题画成一幅格外偏爱新意的场景，连反对者也停下来端详色彩。争论仿佛学会了披上光线。"
+      english: "An artist paints the issue as a scene so flattering to novelty that even its opponents stop to inspect the colors. The argument, it seems, has finally learned to wear light instead of merely quoting it."
+      simp_chinese: "一位艺术家把这议题画成一幅格外偏爱新意的场景，连反对者都停下脚步端详颜色。看来这场争论，总算学会了披上光线，而不只是嘴上提提。"
     options:
       a:
         text:
-          english: "Exhibit the work"
-          simp_chinese: "展出这幅作品"
+          english: "The canvas hangs in the hall where every eye must pass it."
+          simp_chinese: "画作挂在大厅正中，谁的目光都躲不开它。"
         progress_delta: 5
         rationale:
           english: "Exhibition turns abstract reasoning into a shared image, nudging undecided viewers toward acceptance while rewarding the artists who made novelty attractive."
-          simp_chinese: "展出作品会把抽象推理变成可以共同观看的图像，推动犹疑者走向接受，同时奖励那些让新意变得动人的艺术家。"
+          simp_chinese: "画一挂出来，抽象的推理就变成了大家都能看的画面，犹疑的人也被推向接受一方，那些把新意画得动人的艺术家，同样跟着受益。"
         effect_blocks:
           - type: artist_skill
             amount: 0.05
@@ -606,12 +606,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Keep art out of doctrine"
-          simp_chinese: "让艺术远离教义"
+          english: "Doctrine needs no gallery."
+          simp_chinese: "教义无需画廊。"
         progress_delta: -5
         rationale:
           english: "Excluding art keeps the debate in safer doctrinal language and reassures religious conservatives, but it wastes a persuasive bridge to the wider court."
-          simp_chinese: "排除艺术可以让辩论停留在更安全的教义语言中，并安抚宗教保守派，但也浪费了通向更广泛宫廷听众的说服桥梁。"
+          simp_chinese: "把艺术挡在外面，辩论能留在更安全的教义语言里，宗教保守派也安心，只是白白浪费了一条能说服更多宫廷听众的桥。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -629,17 +629,17 @@ random_events:
       english: "Anonymous Denunciation"
       simp_chinese: "匿名告发"
     desc:
-      english: "A sealed accusation claims the debate is a plot, a vanity, or both. The handwriting is conveniently unfamiliar, and the room suddenly studies the door."
-      simp_chinese: "一封密封的指控声称这场辩论不是阴谋，就是虚荣，或者两者兼有。字迹恰好无人认得，屋里的人忽然都开始留意门口。"
+      english: "A sealed accusation claims the debate is a plot, a vanity, or both. The handwriting is conveniently unfamiliar, and the room suddenly develops a keen interest in studying the door."
+      simp_chinese: "一封密封的指控信声称，这场辩论不是阴谋就是虚荣，或者两样都占。字迹恰好没人认得，屋里的人忽然都对门口来了兴趣。"
     options:
       a:
         text:
-          english: "Investigate calmly"
-          simp_chinese: "冷静调查"
+          english: "The bailiff opens a calm inquiry, letters and rumors alike."
+          simp_chinese: "法警展开一场冷静的调查，书信与流言一并追查。"
         progress_delta: 5
         rationale:
           english: "A calm inquiry refuses to let suspicion govern the Academy, allowing the debate to continue under lawful scrutiny at the cost of royal credibility."
-          simp_chinese: "冷静调查拒绝让猜疑支配学院，使辩论能够在合法审查下继续推进，但会消耗王权信誉。"
+          simp_chinese: "冷静调查不让猜疑牵着学院走，辩论能在合法审查下继续推进，只是要耗一些王权的信誉。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -650,12 +650,12 @@ random_events:
             cooldown_months: 9
       b:
         text:
-          english: "Seize the papers"
-          simp_chinese: "扣押文书"
+          english: "Every paper in the room, seized before dusk."
+          simp_chinese: "室内的文书，日落之前全数扣下。"
         progress_delta: -10
         rationale:
           english: "Seizing the papers restores visible order and rewards officials who prefer control, but the sharp intervention chills scholars and pushes the debate toward rejection."
-          simp_chinese: "扣押文书能恢复可见的秩序，并奖赏偏好控制的官员，但这种强硬干预会寒了学者之心，把辩论推向拒斥。"
+          simp_chinese: "扣下文书，秩序看得见地恢复了，偏好掌控的官员也得了赏，只是这份强硬会寒了学者的心，把辩论往拒斥的方向推。"
         effect_blocks:
           - type: resource
             resource: stability
@@ -673,17 +673,17 @@ random_events:
       english: "Consensus After Midnight"
       simp_chinese: "午夜后的共识"
     desc:
-      english: "By candlelight, tired opponents accidentally admit which points they can no longer deny. No one calls it agreement yet, but everyone hears the shape of it."
-      simp_chinese: "烛光之下，疲惫的反对者无意中承认了哪些论点已经无法否认。还没有人称之为同意，但所有人都听见了它的轮廓。"
+      english: "By candlelight, tired opponents accidentally admit which points they can no longer deny. No one calls it agreement yet, but everyone in the room hears the shape of it, the way one hears rain before the first drop lands."
+      simp_chinese: "烛光下，疲惫的反对者一时松了口，承认了几处再也驳不倒的论点。还没人愿意叫它\"同意\"，但满屋子人都听出了那个轮廓——就像雨还没落下，风声已经先到了。"
     options:
       a:
         text:
-          english: "Keep them in session"
-          simp_chinese: "让他们继续开会"
+          english: "The lamps stay lit, and the room is kept in session until dawn concedes something too."
+          simp_chinese: "灯火不熄，会议一直开下去，直到连天色都撑不住了。"
         progress_delta: 10
         rationale:
           english: "Keeping the session going captures a fragile moment of convergence before pride returns, but it strains the intellectual staff holding the room together."
-          simp_chinese: "继续开会可以在自尊回潮之前抓住脆弱的趋同瞬间，但也会消耗维持会场运转的智识骨干。"
+          simp_chinese: "会不散，就能在自尊回潮之前抓住这一点脆弱的趋同，只是撑着会场运转的那批学识骨干，也跟着被耗光了力气。"
         effect_blocks:
           - type: scientist_attribute
             adm: -1
@@ -694,12 +694,12 @@ random_events:
             cooldown_months: 9
       b:
         text:
-          english: "Adjourn with dignity"
-          simp_chinese: "体面休会"
+          english: "Let pride sleep on it."
+          simp_chinese: "让自尊先睡一觉再说。"
         progress_delta: -5
         rationale:
           english: "Adjournment preserves decorum and lets exhausted opponents leave without humiliation, but it allows the emerging consensus to cool overnight."
-          simp_chinese: "休会能保全体面，让疲惫的反对者不必带着羞辱离开，但也会让刚浮现的共识在一夜之间冷却。"
+          simp_chinese: "休会保住了体面，疲惫的反对者不必带着羞辱离场，只是刚冒头的那点共识，也就这样在一夜之间凉了。"
         effect_blocks:
           - type: seat_cooldown
             group: scholarly_community

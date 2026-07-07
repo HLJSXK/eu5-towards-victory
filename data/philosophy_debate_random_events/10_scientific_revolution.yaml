@@ -4,20 +4,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Table of Observations"
+      english: "A Table of Observations"
       simp_chinese: "观察记录表"
     desc:
-      english: "A patient table of repeated observations is laid before the Academy, each line too ordinary to dazzle and too consistent to ignore. The old authorities remain impressive, but the numbers have begun refusing to bow."
-      simp_chinese: "一份耐心整理的重复观察记录表被摆在学院面前，每一行都平淡得不足以炫目，却又一致得无法忽视。旧权威依然令人敬畏，但这些数字已经开始拒绝低头。"
+      english: "Column after column of repeated observations is set before the Academy, each entry too plain to dazzle and too consistent to wave away. The ancient authorities still command the room; the figures, however, have quietly stopped bowing to them."
+      simp_chinese: "一栏又一栏的重复观察记录被摆到学院面前，每一条都平淡得难以炫目，却又一致得无法挥手带过。古老的权威仍然镇得住全场，可这些数字，已经悄悄不再向他们低头了。"
     options:
       a:
         text:
-          english: "Trust repeated observation."
-          simp_chinese: "相信重复观察。"
+          english: "The scribes copy the table into the record, line by patient line."
+          simp_chinese: "书吏把记录表一行行誊入卷宗，任那些数字自己说话。"
         progress_delta: 10
         rationale:
-          english: "Trusting the table gives the debate a reproducible foundation: the current issue no longer rests on a single brilliant claim, but on repeated evidence that cautious scholars can inspect together."
-          simp_chinese: "相信观察表会让辩论获得可复现的基础：当前议题不再依赖某个耀眼的单一主张，而是依赖谨慎学者可以共同检视的反复证据。"
+          english: "Trusting the patient table gives the debate a reproducible footing: the issue no longer leans on one dazzling claim but on evidence any cautious scholar may check for himself, and the record of it earns quiet credit over time."
+          simp_chinese: "相信这份耐心的记录表，会给辩论一个可复现的立足点：议题不再依赖某个耀眼的单一主张，而是依靠任何谨慎学者都能亲自核对的证据，这份记录也会随时间悄悄赢得信誉。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -30,12 +30,12 @@ random_events:
               "recorded observation credibility": 0.03
       b:
         text:
-          english: "Treat it as anomaly."
-          simp_chinese: "将其视为异常。"
+          english: "One swallow does not make a summer."
+          simp_chinese: "一燕不成夏。"
         progress_delta: -10
         rationale:
-          english: "Calling the evidence an anomaly preserves the inherited explanation and comforts those who fear that tables will outrank commentaries, but it teaches the room that inconvenient repetition can be dismissed."
-          simp_chinese: "把证据称为异常，可以保留继承下来的解释，也能安抚那些害怕表格凌驾于注疏之上的人；但这会让会场相信，只要重复结果不合心意，也可以被轻易搁置。"
+          english: "Naming the evidence an anomaly keeps the inherited explanation intact and soothes those who dread seeing tables set above the commentaries, but it teaches the chamber that repetition, however patient, may be dismissed the moment it grows inconvenient."
+          simp_chinese: "把证据称作异常，能保住继承下来的解释，也安抚了那些害怕表格凌驾于注疏之上的人；但这会让会场明白：无论多么耐心的重复，只要变得不合心意，都可以被搁在一边。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -49,20 +49,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Failed Replication"
+      english: "The Failed Replication"
       simp_chinese: "复验失败"
     desc:
-      english: "A celebrated result is repeated before careful witnesses and refuses to appear. The silence after the failed trial is embarrassing, but it is also the first honest sound the chamber has heard all week."
-      simp_chinese: "一项备受称颂的结果在谨慎见证者面前被重新试验，却迟迟不肯出现。失败后的沉默令人难堪，但它也是会场这一周听到的第一种诚实声音。"
+      english: "A celebrated result is repeated before careful witnesses and simply declines to appear. The silence after the empty trial is mortifying, and it is also the first wholly honest sound the chamber has heard all week."
+      simp_chinese: "一项备受称颂的结果在谨慎的见证者面前被重新试验，却干脆不肯现身。空手而归后的沉默令人窘迫，可它也是会场整整一周里听到的第一声全然诚实的声音。"
     options:
       a:
         text:
-          english: "Publish the failure."
-          simp_chinese: "公布这次失败。"
+          english: "The clerks print the empty result beside the famous one."
+          simp_chinese: "书记员把这次一无所获的结果，紧挨着那项著名成果一并刊印。"
         progress_delta: 10
         rationale:
-          english: "Publishing the failure makes correction part of the method rather than a scandal outside it. The Academy loses face in the short term, but the debate moves strongly toward accepting replication as a rule of truth."
-          simp_chinese: "公布失败会把纠错变成方法本身的一部分，而不是方法之外的丑闻。学院短期内会失面子，但辩论会明显转向接受复验作为求真的规则。"
+          english: "Publishing the failure folds correction into the method instead of leaving it a scandal outside the door. The Academy loses face for a season, yet the debate swings hard toward accepting replication as a rule of truth."
+          simp_chinese: "公布失败会把纠错纳入方法本身，而不是把它当成门外的丑闻。学院一时会失些面子，可辩论也会强烈转向接受复验作为求真的规则。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -73,12 +73,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Hide the failed trial."
-          simp_chinese: "隐瞒失败的试验。"
+          english: "We let the famous result keep its reputation a while longer."
+          simp_chinese: "我们让那项著名成果，再多保住一阵名声。"
         progress_delta: -10
         rationale:
-          english: "Concealing the failed trial protects reputations and keeps patrons calm, but it tells every observer that fame matters more than repeated proof when the result becomes inconvenient."
-          simp_chinese: "隐瞒失败试验可以保护名声、安抚资助人，但它也会告诉所有旁观者：当结果变得不方便时，声望比反复证明更重要。"
+          english: "Concealing the empty trial protects reputations and keeps the patrons calm, but it tells every witness that fame outweighs repeated proof the moment the result turns inconvenient, and the Academy's own great mind takes note."
+          simp_chinese: "隐瞒这次空手的试验，能保住名声、安抚资助人，却也在告诉每一位见证者：一旦结果变得不便，声望就压过反复的证明——学院自己那位大科学家也把这一切看在眼里。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -92,20 +92,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Mathematical Proof"
+      english: "A Proof in Symbols"
       simp_chinese: "数学证明"
     desc:
-      english: "A mathematician turns the disputed natural question into symbols so spare that several officials seem personally accused by the clarity. What had sounded like philosophy now sits on the page as a chain of necessity."
-      simp_chinese: "一名数学家把争议中的自然问题化成简洁的符号，清晰得仿佛是在当面指控几位官员。原本听起来像哲学的话题，如今在纸面上成了一串不得不承认的必然。"
+      english: "A mathematician renders the disputed natural question into symbols so spare that several officials look personally accused by their clarity. What had passed for philosophy now lies on the page as a chain of necessity, link by unforgiving link."
+      simp_chinese: "一名数学家把争议中的自然问题化为极其简练的符号，简练得让好几位官员觉得那份清晰是在当面指控自己。原本被当作哲学的东西，如今在纸面上化作一串必然，一环紧扣一环，毫不留情。"
     options:
       a:
         text:
-          english: "Accept mathematical method."
-          simp_chinese: "接受数学方法。"
+          english: "We follow the symbols wherever the necessity leads."
+          simp_chinese: "符号指向哪里，我们就跟到哪里。"
         progress_delta: 10
         rationale:
-          english: "Accepting mathematical proof lets the debate move from inherited description to demonstrable relation. It strengthens the Great Scientist's methodological authority and gives scholars a precise language for acceptance."
-          simp_chinese: "接受数学证明会让辩论从继承下来的描述转向可展示的关系。它会强化大科学家的方法权威，也给学者们一种精确的接受语言。"
+          english: "Accepting the proof moves the debate from inherited description to demonstrable relation. It sharpens the Great Scientist's command of method and hands scholars a precise language in which acceptance can be spoken without hedging."
+          simp_chinese: "接受这项证明，会让辩论从继承下来的描述转向可展示的关系。它会磨砺大科学家对方法的掌控，也给学者们一种精确的语言，让他们谈接受时不必再含糊其辞。"
         effect_blocks:
           - type: scientist_attribute
             adm: 1
@@ -116,12 +116,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Demand plain tradition."
-          simp_chinese: "要求沿用朴素传统。"
+          english: "Chalk is not wisdom."
+          simp_chinese: "粉笔画得再满，也不是智慧。"
         progress_delta: -5
         rationale:
-          english: "Demanding plain tradition does not fully defeat the new claim, but it slows acceptance by insisting that inherited language remain the only respectable way to speak about nature."
-          simp_chinese: "要求沿用朴素传统并不会彻底击败新主张，但它会坚持旧语言才是谈论自然的唯一体面方式，从而放慢接受速度。"
+          english: "Demanding plain tradition does not defeat the new claim outright, but it slows acceptance by insisting that inherited language remain the only respectable way to speak of nature, a stance the older nobility applauds and one that lets the Crown look reassuringly unchanged."
+          simp_chinese: "要求沿用朴素传统，并不能彻底击败新主张，却会坚持旧语言才是谈论自然的唯一体面方式，从而放慢接受的脚步——年长的贵族为此叫好，王权也因显得稳如往昔而受益。"
         effect_blocks:
           - type: seat_stance
             group: nobility
@@ -135,20 +135,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Instrument Maker's Claim"
+      english: "The Instrument Maker's Claim"
       simp_chinese: "仪器匠的主张"
     desc:
-      english: "An instrument maker brings lenses, screws, brass fittings, and the serene confidence of someone who knows scholars need better hands. Better tools, they insist, do not make better toys; they make better truth."
-      simp_chinese: "一名仪器匠带来镜片、螺丝、黄铜部件，以及那种明白学者其实需要更好双手的平静自信。他坚持说，更好的工具造出的不是更好的玩具，而是更好的真理。"
+      english: "An instrument maker arrives with lenses, screws, brass fittings, and the serene certainty of a man who has decided that scholars simply need better hands. Better tools, he insists, do not yield better toys; they yield better truth."
+      simp_chinese: "一名仪器匠带着镜片、螺丝和黄铜部件走了进来，还带着一种笃定的从容——他早已认定，学者们不过是需要一双更好的手罢了。他坚称，更好的工具造出的不是更好的玩具，而是更好的真理。"
     options:
       a:
         text:
-          english: "Fund new instruments."
-          simp_chinese: "资助新仪器。"
+          english: "The treasurer counts out coin for lenses, screws, and brass."
+          simp_chinese: "司库数出银钱，买下镜片、螺丝与黄铜。"
         progress_delta: 10
         rationale:
-          english: "Funding instruments makes the debate materially testable: the Academy admits that truth may depend on calibrated tools as well as learned eyes. The cost is real, but toolmakers and experimental scholars gain a seat at the argument."
-          simp_chinese: "资助仪器会让辩论获得可实际检验的条件：学院承认真理不仅依赖博学的眼睛，也可能依赖校准过的工具。花费确实存在，但工具匠和实验学者会在争论中获得位置。"
+          english: "Funding the instruments makes the debate materially testable: the Academy concedes that truth may rest on calibrated tools as much as on learned eyes. The outlay is real, but toolmakers and experimental scholars win a seat at the argument."
+          simp_chinese: "资助这些仪器，会让辩论获得可以实际检验的条件：学院承认真理不仅系于博学的眼睛，也可能系于校准过的工具。开销确实不小，但工具匠与实验学者由此在争论中占得一席。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -159,12 +159,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Distrust tool-made claims."
-          simp_chinese: "不信任工具制造的主张。"
+          english: "Trinkets, the lot of it."
+          simp_chinese: "净是些玩意儿罢了。"
         progress_delta: -10
         rationale:
-          english: "Distrusting tool-made claims protects old scholarly habits from dependence on artisans and devices. It sharply reverses acceptance because the new method looks like mechanical trickery rather than disciplined inquiry."
-          simp_chinese: "不信任由工具制造出的主张，可以保护旧学术习惯不必依赖工匠和器具。它会明显拉低接受度，因为新方法会显得像机械把戏，而不是严谨探究。"
+          english: "Distrusting tool-made claims shields old scholarly habits from any dependence on artisans and their devices. It reverses acceptance sharply, because the new method now looks like mechanical trickery rather than disciplined inquiry, and the burghers who make such tools feel the slight."
+          simp_chinese: "不信任由工具制造出的主张，能让旧有的学术习惯不必依赖工匠和他们的器具。它会明显拉低接受度，因为新方法这下显得像机械把戏，而非严谨的探究；而那些打造这些工具的市民商人，也感到被轻慢了。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -178,20 +178,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Academy Experiment Code"
+      english: "The Academy Experiment Code"
       simp_chinese: "学院实验守则"
     desc:
-      english: "Reformers propose a code for witnessing, recording, and repeating experiments, complete with columns, signatures, and enough procedure to make every informal genius sigh. Trust, they argue, should leave a paper trail."
-      simp_chinese: "改革者提议制定一套见证、记录和重复实验的守则，里面有表格、签名，以及足以让每位随性天才叹气的程序。他们说，信任也应当留下纸面痕迹。"
+      english: "Reformers propose a code for witnessing, recording, and repeating experiments: columns, signatures, and enough procedure to make every informal genius sigh into his sleeve. Trust, they argue, ought to leave a paper trail."
+      simp_chinese: "改革者提议制定一套见证、记录与重复实验的守则——表格、签名，外加足以让每一位随性天才对着袖口叹气的繁琐程序。他们主张：信任也该留下纸面的痕迹。"
     options:
       a:
         text:
-          english: "Adopt the code."
-          simp_chinese: "采纳这套守则。"
+          english: "The clerks rule the columns and pass the pen for signatures."
+          simp_chinese: "书记员划好表格的栏目，把笔递过去要人签字。"
         progress_delta: 10
         rationale:
-          english: "Adopting the code turns experimental credibility into a shared institution rather than a matter of personal honor. The paperwork is burdensome, but it makes acceptance easier because witnesses can compare records across trials."
-          simp_chinese: "采纳守则会把实验可信度变成一种共同制度，而不是个人荣誉问题。文书负担会增加，但见证者能够跨试验比较记录，因此更容易接受新方法。"
+          english: "Adopting the code turns experimental credibility into a shared institution rather than a point of personal honor. The paperwork weighs on everyone, but acceptance grows easier once witnesses can lay one trial's record beside another's."
+          simp_chinese: "采纳这套守则，会把实验的可信度变成一种共同的制度，而不再是个人荣誉的问题。文书负担压在每个人身上，但只要见证者能把一次试验的记录与另一次并排比对，接受新方法也就更容易了。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -204,12 +204,12 @@ random_events:
               "academy record-keeping burden": -0.02
       b:
         text:
-          english: "Keep gentlemanly trust."
-          simp_chinese: "保持绅士式信任。"
+          english: "We would sooner trust a gentleman's word than a clerk's column."
+          simp_chinese: "比起书记员的表格，我们更愿意相信一位绅士的一句话。"
         progress_delta: -5
         rationale:
-          english: "Keeping gentlemanly trust preserves elite ease and avoids making honorable witnesses submit to clerks. The issue only slides moderately backward, because private trust still allows experiments, but it weakens repetition as public proof."
-          simp_chinese: "保持绅士式信任能维护精英的从容，也避免让体面的见证者服从书记员。议题只会适度后退，因为私人信任仍允许实验存在，但它削弱了复验作为公共证明的力量。"
+          english: "Keeping gentlemanly trust preserves elite ease and spares honorable witnesses from bowing to clerks. The issue slips back only moderately, since private trust still permits experiments, but it weakens repetition as a form of public proof, an arrangement the nobility is glad to keep."
+          simp_chinese: "保持绅士式的信任，能维护精英的从容，也免得体面的见证者向书记员低头。议题只会适度后退，因为私人信任仍允许实验存在，却削弱了复验作为公共证明的分量——贵族乐得维持这样的安排。"
         effect_blocks:
           - type: seat_stance
             group: nobility
@@ -223,20 +223,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Clerical Cosmology Objection"
+      english: "The Clerical Cosmology Objection"
       simp_chinese: "神职宇宙论异议"
     desc:
-      english: "Clergy warn that the new model rearranges more than the heavens. If the sky can be argued from observation, sermons, courts, and crowns may all be asked to explain what else they have inherited without proof."
-      simp_chinese: "神职人员警告说，新的天体模型重排的不只是星辰。若天空可以由观察来争辩，讲坛、法庭与王冠都可能被追问还有什么只是未经证明的继承。"
+      english: "The clergy warn that the new model rearranges rather more than the heavens. If the sky can be argued from observation, then sermons, courts, and crowns may each be asked, in time, to explain what else they have inherited without proof."
+      simp_chinese: "神职人员警告说，新的天体模型重新排布的，远不止是星辰。若天空可以凭观察来争辩，那么讲坛、法庭与王冠，迟早都可能被追问：它们还有多少东西，只是未经证明便继承了下来。"
     options:
       a:
         text:
-          english: "Defend inquiry."
-          simp_chinese: "捍卫探究。"
+          english: "We will not ask the heavens for permission to look."
+          simp_chinese: "仰观星空，我们不必先向上天请示。"
         progress_delta: 10
         rationale:
-          english: "Defending inquiry makes the scientific method a matter of principle rather than a narrow astronomical quarrel, pushing the debate strongly toward acceptance while alienating clerical authority."
-          simp_chinese: "捍卫探究会把科学方法提升为原则问题，而不只是狭窄的天文学争执，因此强力推动辩论走向接受，同时疏远神职权威。"
+          english: "Defending inquiry raises the scientific method into a matter of principle rather than a narrow astronomical quarrel, driving the debate hard toward acceptance while setting clerical authority firmly at a distance."
+          simp_chinese: "捍卫探究，会把科学方法抬升为一个原则问题，而不只是狭隘的天文学争执，从而强力推动辩论走向接受，同时也把神职权威明确地推远了一步。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -247,12 +247,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Soften the model."
-          simp_chinese: "缓和模型。"
+          english: "The scholars trim the model until it no longer troubles the pulpit."
+          simp_chinese: "学者们修剪这套模型，直到它不再惊动讲坛为止。"
         progress_delta: -10
         rationale:
-          english: "Softening the model reassures religious authorities that doctrine will not be overturned by calculation, but it teaches the Academy to retreat when observation becomes politically dangerous."
-          simp_chinese: "缓和模型能让宗教权威相信教义不会被计算推翻，但也会让学院学会在观察变得危险时退让。"
+          english: "Softening the model reassures the religious authorities that doctrine will not be overturned by calculation, but it teaches the Academy to retreat the moment observation grows politically dangerous."
+          simp_chinese: "缓和这套模型，能让宗教权威相信教义不会被计算推翻，却也教会了学院：一旦观察变得政治上危险，就该退让。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -269,17 +269,17 @@ random_events:
       english: "A Prediction Comes True"
       simp_chinese: "预言成真"
     desc:
-      english: "A calculation names the hour of a natural event, and the event arrives with uncomfortable punctuality. For a moment, even the skeptics have to decide whether coincidence has learned mathematics."
-      simp_chinese: "一项计算预告了一场自然现象的时刻，而那现象竟准时到来。片刻之间，连怀疑者也不得不判断：巧合是否已经学会了数学。"
+      english: "A calculation names the very hour of a natural event, and the event arrives with uncomfortable punctuality. For one long moment, even the skeptics must decide whether coincidence has lately taken up mathematics."
+      simp_chinese: "一项计算指名道姓地预告了某场自然现象发生的时刻，而那现象竟准时得令人不安。有那么漫长的一瞬，连怀疑者都不得不掂量：巧合是不是近来也开始钻研数学了。"
     options:
       a:
         text:
-          english: "Publicize the prediction."
-          simp_chinese: "宣扬这次预测。"
+          english: "Criers carry the calculation and its keeping through the streets."
+          simp_chinese: "报事人把这项计算，连同它的应验，一路喊遍街巷。"
         progress_delta: 10
         rationale:
-          english: "Publicizing the prediction gives the new method a visible victory: it did not merely explain the past, it anticipated the world before witnesses."
-          simp_chinese: "宣扬这次预测会让新方法获得一场可见的胜利：它不只是解释过去，而是在众人面前预见了世界。"
+          english: "Publicizing the prediction hands the new method a victory anyone can see: it did not merely explain the past, it named the world in advance and was proved right before witnesses, and the crowd will now expect such feats again."
+          simp_chinese: "宣扬这次预测，会给新方法一场人人可见的胜利：它不只解释了过去，还预先说中了未来，并在众目睽睽之下得到应验——从此民众也会期待它再来一次。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -291,12 +291,12 @@ random_events:
               "public expectation after accurate prediction": 0.03
       b:
         text:
-          english: "Call it coincidence."
-          simp_chinese: "称它只是巧合。"
+          english: "A lucky guess, nothing more."
+          simp_chinese: "不过是碰巧猜中，仅此而已。"
         progress_delta: -10
         rationale:
-          english: "Calling the success coincidence calms conservative listeners and avoids giving reformers a triumphal example, but it makes predictive evidence easier to dismiss."
-          simp_chinese: "称其为巧合能安抚保守听众，也避免给改革派一个胜利样本，但这会让预测性证据更容易被轻视。"
+          english: "Calling the success mere coincidence calms the conservative listeners and denies the reformers a triumphal example, but it also teaches the room that predictive evidence can be shrugged away, and the scholars who did the arithmetic will not forget the slight."
+          simp_chinese: "把这次成功说成纯属巧合，能安抚保守的听众，也不给改革派留下一个可供炫耀的样本，却也让会场学会：预测性的证据，是可以耸耸肩带过的——而那些做了运算的学者，不会忘记这份轻慢。"
         effect_blocks:
           - type: resource
             resource: stability
@@ -310,20 +310,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Laboratory Accident"
+      english: "The Laboratory Accident"
       simp_chinese: "实验室事故"
     desc:
-      english: "A demonstration explodes with enough force to settle the question of whether experiment has energy. Smoke drifts through the hall while both sides claim the wreckage as evidence."
-      simp_chinese: "一场演示轰然炸裂，至少证明了实验确实充满能量。烟雾飘过大厅时，双方都把残骸说成对自己有利的证据。"
+      english: "A demonstration bursts apart with force enough to settle, at least, the question of whether experiment has energy. Smoke drifts along the rafters while both sides hurry to claim the wreckage as evidence."
+      simp_chinese: "一场演示轰然炸开，那股力道至少解决了一个问题：实验究竟有没有能量。烟雾顺着屋梁飘散，两边却都抢着把这堆残骸说成对自己有利的证据。"
     options:
       a:
         text:
-          english: "Improve safety and continue."
-          simp_chinese: "改进安全并继续。"
+          english: "The workmen fit new guards to the bench and light the next trial."
+          simp_chinese: "工匠给实验台装上新的防护，接着点起了下一场试验。"
         progress_delta: 5
         rationale:
-          english: "Improving safety treats the accident as a procedural failure rather than a failure of experimentation itself, preserving momentum at a practical cost."
-          simp_chinese: "改进安全把事故解释为程序上的失败，而不是实验本身的失败，因此能以实际成本保住推进势头。"
+          english: "Improving safety treats the accident as a failure of procedure rather than of experiment itself, so momentum survives, at a practical cost and with a little more caution built into every future demonstration."
+          simp_chinese: "改进安全，会把事故解释为程序的失败，而非实验本身的失败，因此推进的势头得以保住——代价是实实在在的开销，也让日后每一场演示都多添了几分谨慎。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -335,12 +335,12 @@ random_events:
               "safer experimental demonstrations": 0.03
       b:
         text:
-          english: "Suspend experiments."
-          simp_chinese: "暂停实验。"
+          english: "We put out the fires and lock the laboratory doors."
+          simp_chinese: "我们扑灭火头，把实验室的门锁上。"
         progress_delta: -10
         rationale:
-          english: "Suspending experiments restores public order and prevents further embarrassment, but it hands opponents a simple story: dangerous methods should not guide the realm."
-          simp_chinese: "暂停实验能够恢复公共秩序并避免更多难堪，但这也给了反对者一个简单说法：危险的方法不该指导国家。"
+          english: "Suspending experiments restores public order and spares the Academy further embarrassment, but it hands opponents a tidy story to repeat in the galleries: dangerous methods have no business steering the realm."
+          simp_chinese: "暂停实验，能恢复公共秩序，也免去学院再出更多的洋相，却给了反对者一个可以在旁听席上反复念叨的现成说法：危险的方法，没资格掌舵这个国家。"
         effect_blocks:
           - type: resource
             resource: stability
@@ -354,20 +354,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Artisan Knowledge"
+      english: "The Artisan's Knowledge"
       simp_chinese: "工匠的知识"
     desc:
-      english: "An artisan solves a practical problem that scholars have spent weeks dressing in Latin. When the tool chest is set on the table, several elegant commentaries suddenly look very heavy."
-      simp_chinese: "一名工匠解决了学者们用拉丁文包装了数周的实际难题。当工具箱被放上桌面时，几篇精致的注释忽然显得格外沉重。"
+      english: "An artisan settles in an afternoon a practical problem that scholars have spent weeks dressing in Latin. When his tool chest lands on the table, several elegant commentaries suddenly look very heavy indeed."
+      simp_chinese: "一名工匠用一个下午，解决了学者们花数周时间用拉丁文精心包装的实际难题。当他的工具箱往桌上一放，几篇文采斐然的注释，忽然显得沉重得可以。"
     options:
       a:
         text:
-          english: "Admit artisan evidence."
-          simp_chinese: "接纳工匠证据。"
+          english: "The register admits the artisan's result alongside the learned ones."
+          simp_chinese: "名册把这名工匠的成果，与那些博学之人的成果并列在册。"
         progress_delta: 10
         rationale:
-          english: "Admitting artisan evidence broadens truth-making beyond classical learning and shows that tested practice can correct learned theory."
-          simp_chinese: "接纳工匠证据会把求真范围扩展到古典学问之外，并表明经受检验的实践可以修正书本理论。"
+          english: "Admitting artisan evidence widens truth-making beyond classical learning and shows the room that tested practice can correct a learned theory, the sort of correction that keeps recurring once it is allowed even once."
+          simp_chinese: "接纳工匠的证据，会把求真的范围扩展到古典学问之外，也向会场表明：经受检验的实践，能够修正书本上的理论——而这样的修正，只要被允许过一次，便会一再出现。"
         effect_blocks:
           - type: seat_stance
             group: burghers
@@ -380,12 +380,12 @@ random_events:
               "practical problem solving in academy debates": 0.03
       b:
         text:
-          english: "Keep scholarly hierarchy."
-          simp_chinese: "维持学术等级。"
+          english: "Rough hands, rougher proof."
+          simp_chinese: "手粗，证据也粗。"
         progress_delta: -5
         rationale:
-          english: "Keeping scholarly hierarchy reassures learned elites that social rank still decides whose evidence counts, but it discards useful proof because it arrived with rough hands."
-          simp_chinese: "维持学术等级能让博学精英相信社会身份仍决定何种证据有效，但这也会因为证据来自粗糙双手而丢掉有用证明。"
+          english: "Keeping the scholarly hierarchy assures the learned elite that social rank still decides whose evidence counts, but it throws away a useful proof for the sole crime of arriving in calloused hands, and the nobility rest easier for it."
+          simp_chinese: "维持学术等级，能让博学的精英相信：社会身份依旧决定谁的证据算数，却也仅仅因为证据出自一双长满老茧的手，就把它白白丢弃——贵族倒因此更安心了。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -399,20 +399,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Natural History Cabinet"
+      english: "The Natural History Cabinet"
       simp_chinese: "自然史陈列柜"
     desc:
-      english: "Collectors propose a cabinet where shells, bones, seeds, and stones are arranged by observed likeness rather than inherited categories. The old labels still fit the drawers, which is precisely the problem."
-      simp_chinese: "收藏家提议建立一座陈列柜，把贝壳、骨骼、种子与石块按亲眼所见的相似性排列，而不是按继承下来的类别摆放。旧标签仍能贴进抽屉，这正是问题所在。"
+      english: "Collectors propose a cabinet where shells, bones, seeds, and stones are arranged by observed likeness rather than inherited category. The old labels still slide neatly into the drawers, which is precisely the trouble."
+      simp_chinese: "收藏家提议建一座陈列柜，把贝壳、骨骼、种子与石块，按亲眼所见的相似之处来排列，而不是按继承下来的类别摆放。旧标签仍能整整齐齐地滑进抽屉——而这，恰恰就是麻烦所在。"
     options:
       a:
         text:
-          english: "Build the cabinet."
-          simp_chinese: "建造陈列柜。"
+          english: "We arrange the drawers by what our eyes report, not what the books decreed."
+          simp_chinese: "抽屉如何排列，我们听凭眼睛所见，而非书本所定。"
         progress_delta: 5
         rationale:
-          english: "Building the cabinet turns observation into a durable institutional habit, though it advances acceptance more gently than a proof, prediction, or public experiment."
-          simp_chinese: "建造陈列柜会把观察变成持久的制度习惯，虽然它推动接受的力度不如证明、预测或公开实验那样猛烈。"
+          english: "Building the cabinet turns observation into a durable institutional habit, though it advances acceptance more gently than a proof, a prediction, or a public experiment would."
+          simp_chinese: "建造这座陈列柜，会把观察变成一种持久的制度习惯，只是它推动接受的力道，不及一项证明、一次预测或一场公开实验那样迅猛。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -428,12 +428,12 @@ random_events:
               "ordered natural history collections": 0.02
       b:
         text:
-          english: "Keep old classifications."
-          simp_chinese: "保留旧分类。"
+          english: "The curators leave every specimen under the label it inherited."
+          simp_chinese: "管理员让每一件标本，都留在它继承下来的标签之下。"
         progress_delta: -5
         rationale:
-          english: "Keeping old classifications protects familiar scholarly order and avoids new expense, but it leaves observation subordinate to inherited categories."
-          simp_chinese: "保留旧分类能保护熟悉的学术秩序并避免新开支，但也会让观察继续服从继承下来的类别。"
+          english: "Keeping the old classifications protects a familiar scholarly order and spares the treasury a new expense, but it leaves observation forever subordinate to inherited categories."
+          simp_chinese: "保留旧的分类，能守住熟悉的学术秩序，也替国库省下一笔新开支，却让观察永远屈居于继承下来的类别之下。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -450,17 +450,17 @@ random_events:
       english: "Open Correspondence"
       simp_chinese: "公开通信"
     desc:
-      english: "Scientists ask to publish letters and results across borders before rivals do. What began as private ink now looks like a race to decide whether truth belongs to guarded rooms or to everyone quick enough to answer."
-      simp_chinese: "科学家请求在竞争者抢先之前，将书信与成果跨境发表。原本私下流动的墨迹，如今变成一场竞赛，要决定真理究竟属于戒备森严的房间，还是属于所有来得及回应的人。"
+      english: "Scientists ask to publish letters and results across borders before their rivals can. What began as private ink now resembles a race to decide whether truth belongs to guarded rooms or to everyone quick enough to answer the post."
+      simp_chinese: "科学家请求在竞争者抢先之前，把书信与成果跨越国界发表出去。原本在私下流动的墨迹，如今俨然成了一场竞赛，要判定真理究竟属于戒备森严的密室，还是属于所有来得及回信的人。"
     options:
       a:
         text:
-          english: "Open correspondence."
-          simp_chinese: "开放通信。"
+          english: "The couriers ride out with the letters unsealed to every academy."
+          simp_chinese: "信使带着未封缄的书信策马而出，送往各家学院。"
         progress_delta: 10
         rationale:
-          english: "Opening correspondence makes cross-border verification and priority claims part of the Scientific Revolution's appeal. The debate advances strongly because discovery becomes a shared network rather than a court secret, while foreign observers gain a firmer place in the argument."
-          simp_chinese: "开放通信会把跨境验证与发现优先权变成科学革命吸引力的一部分。发现不再只是宫廷秘密，而成为共享网络，因此辩论大幅走向接纳；与此同时，外国观察者在争论中的位置也更加稳固。"
+          english: "Opening correspondence makes cross-border verification and priority claims part of the Scientific Revolution's appeal. Discovery becomes a shared network rather than a court secret, so the debate advances strongly, and foreign observers gain a firmer footing in the argument."
+          simp_chinese: "开放通信，会把跨境的验证与发现优先权，变成科学革命魅力的一部分。发现不再是宫廷的秘密，而成为一张共享的网络，辩论因此大幅走向接纳；与此同时，外国观察者在争论中的立足点也更稳了。"
         effect_blocks:
           - type: seat_stance
             group: foreign_power
@@ -470,12 +470,12 @@ random_events:
             amount: 5
       b:
         text:
-          english: "Restrict exchange."
-          simp_chinese: "限制交流。"
+          english: "Not a page leaves these walls."
+          simp_chinese: "一页纸也别想出这道墙。"
         progress_delta: -10
         rationale:
-          english: "Restricting exchange lets security-minded officials define scientific letters as leakage rather than evidence. That sharply strengthens rejection by making open inquiry look diplomatically reckless."
-          simp_chinese: "限制交流会让重视安全的官员把科学书信说成泄密，而不是证据。这会使公开探究显得像外交冒险，从而强烈推动拒斥方向。"
+          english: "Restricting exchange lets security-minded officials cast scientific letters as leakage rather than evidence. That strengthens rejection sharply, since open inquiry begins to look diplomatically reckless, and the guarded channels that remain grow a little more guarded."
+          simp_chinese: "限制交流，会让重视安全的官员把科学书信说成泄密，而非证据。这会强力推动拒斥方向，因为公开探究开始显得像是外交上的鲁莽；而留下的那些渠道，也变得更加戒备森严。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -491,20 +491,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Old Master Contradicted"
+      english: "The Old Master Contradicted"
       simp_chinese: "旧大师遭到反驳"
     desc:
-      english: "A revered authority is contradicted in a footnote so polite it feels cruel. The page says almost nothing loudly, which somehow makes every defender of inherited wisdom hear it."
-      simp_chinese: "一位备受尊崇的权威在脚注里遭到反驳，措辞礼貌得近乎残酷。那一页几乎没有高声宣告什么，却偏偏让每个维护旧学问的人都听得清清楚楚。"
+      english: "A revered authority is contradicted in a footnote so courteous it feels cruel. The page says almost nothing loudly, and yet every defender of inherited wisdom somehow hears it from across the hall."
+      simp_chinese: "一位备受尊崇的权威，在一条彬彬有礼得近乎残忍的脚注里遭到了反驳。那一页几乎没有高声宣告什么，可每一个维护旧学问的人，却仿佛隔着整座大厅都听得一清二楚。"
     options:
       a:
         text:
-          english: "Keep the footnote."
-          simp_chinese: "保留脚注。"
+          english: "The printer sets the footnote in type, exactly as it was written."
+          simp_chinese: "印刷匠照原样把这条脚注排入铅字。"
         progress_delta: 10
         rationale:
-          english: "Keeping the footnote proves that even revered authorities can be tested against new evidence. Acceptance surges because polite contradiction makes the old hierarchy of knowledge visibly answerable, though clerical prestige and scholarly decorum suffer."
-          simp_chinese: "保留脚注证明，即使备受尊崇的权威也必须接受新证据检验。礼貌的反驳使旧有知识等级显得需要回应，因此接纳大幅推进；代价是神职威望与学术体面受到损伤。"
+          english: "Keeping the footnote proves that even a revered authority may be tested against fresh evidence. Acceptance surges because the old hierarchy of knowledge is made visibly answerable, though clerical prestige and scholarly decorum both take a bruise."
+          simp_chinese: "保留这条脚注，证明了即便是备受尊崇的权威，也须接受新证据的检验。接纳大幅推进，因为旧有的知识等级如今显得必须给出交代；代价则是神职威望与学术体面，都挨了一记。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -515,12 +515,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Remove it."
-          simp_chinese: "删除脚注。"
+          english: "We strike the footnote and let the master rest undisturbed."
+          simp_chinese: "我们删去这条脚注，让那位大师安然无扰。"
         progress_delta: -10
         rationale:
-          english: "Removing the footnote protects the old master from public correction and lets conservative interpreters claim that reverence still outranks experiment. Rejection gains force because the Academy chooses deference at the exact moment method asks for candor."
-          simp_chinese: "删除脚注会保护旧大师免于公开修正，并让保守解释者宣称敬畏仍高于实验。学院在方法要求坦诚的时刻选择恭顺，因此拒斥方向获得强劲推动。"
+          english: "Removing the footnote shields the old master from public correction and lets conservative interpreters insist that reverence still outranks experiment. Rejection gains force, because the Academy chooses deference at the very moment method asks for candor."
+          simp_chinese: "删去这条脚注，会庇护旧大师免于公开的修正，也让保守的解释者得以坚称：敬畏依然高于实验。拒斥的方向由此获得推力，因为学院偏偏在方法要求坦诚的当口，选择了恭顺。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -534,20 +534,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Public Demonstration"
+      english: "The Public Demonstration"
       simp_chinese: "公开演示"
     desc:
-      english: "The Chief Scientist wants a public experiment where failure would be impossible to hide. The proposal thrills the galleries and terrifies everyone who prefers uncertainty to have closed doors."
-      simp_chinese: "首席科学家希望举行一场公开实验，让失败无法被掩藏。这个提议让旁听席兴奋不已，也让所有希望不确定性能留在闭门之后的人感到惊恐。"
+      english: "The Chief Scientist wants a public experiment where failure would be impossible to hide. The proposal thrills the galleries and terrifies everyone who would prefer uncertainty to keep behind closed doors."
+      simp_chinese: "首席科学家想办一场公开实验，让失败无处遁形。这个提议让旁听席兴奋不已，也让所有宁愿把不确定性锁在闭门之后的人，心里发怵。"
     options:
       a:
         text:
-          english: "Hold it publicly."
-          simp_chinese: "公开举行。"
+          english: "We stake our name on the result, in front of everyone."
+          simp_chinese: "我们把名声当众押在这次结果上。"
         progress_delta: 10
         rationale:
-          english: "A public demonstration turns experimental risk into persuasive theater. Acceptance rises sharply because witnesses see the method stake its reputation on visible results, even though a failed display would cost prestige."
-          simp_chinese: "公开演示会把实验风险变成具有说服力的剧场。见证者看到新方法把声誉押在可见结果上，因此接纳大幅上升；即使演示失败，威望也会付出代价。"
+          english: "A public demonstration turns experimental risk into persuasive theater. Acceptance climbs sharply because the witnesses watch the method wager its own reputation on a visible result, though a failed display would cost prestige dearly."
+          simp_chinese: "公开演示，会把实验的风险变成一场极具说服力的剧场。接纳陡然上升，因为见证者亲眼看着新方法，把自己的声誉押在了可见的结果之上——只是演示一旦失败，威望的代价也将十分沉重。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -558,12 +558,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Keep trials private."
-          simp_chinese: "保持试验私密。"
+          english: "The doors stay shut, and the trials keep to the back room."
+          simp_chinese: "门依旧紧闭，试验仍留在里屋进行。"
         progress_delta: -5
         rationale:
-          english: "Keeping trials private preserves caution and prevents one visible mistake from humiliating the Academy, but it also denies the Scientific Revolution the public proof its supporters wanted."
-          simp_chinese: "保持试验私密能够保留谨慎，并防止一次可见失误羞辱学院；但这也剥夺了科学革命支持者所需要的公共证明。"
+          english: "Keeping the trials private preserves caution and prevents a single visible mistake from humiliating the Academy, but it also denies the Scientific Revolution the public proof its supporters had been hoping for."
+          simp_chinese: "保持试验私密，能守住谨慎，也防止一次看得见的失误羞辱学院，却也剥夺了科学革命支持者一直盼望的那份公共证明。"
         effect_blocks:
           - type: seat_cooldown
             group: public_opinion
@@ -578,20 +578,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Measurement Standard"
+      english: "The Measurement Standard"
       simp_chinese: "度量标准"
     desc:
-      english: "Researchers complain that every province measures nature with different tools and pride. The Academy realizes that a fact can travel only so far when every ruler, weight, and vessel speaks its own dialect."
-      simp_chinese: "研究者抱怨各省都用不同的工具和自尊来衡量自然。学院终于意识到，当每把尺、每个砝码、每只量器都说着自己的方言时，事实能走出的距离也十分有限。"
+      english: "Researchers complain that every province measures nature with a different tool and an equal quantity of pride. The Academy at last understands how short a distance a fact can travel when every ruler, weight, and vessel insists on speaking its own dialect."
+      simp_chinese: "研究者抱怨说，每个省份都用不同的工具、外加同样多的自尊，来衡量自然。学院终于明白：当每一把尺、每一个砝码、每一只量器都执意说着自己的方言时，一个事实能走出的距离，其实短得可怜。"
     options:
       a:
         text:
-          english: "Standardize measurement."
-          simp_chinese: "统一度量。"
+          english: "The Academy casts one rule, one weight, one measure for all provinces."
+          simp_chinese: "学院为各省铸下同一把尺、同一个砝码、同一套量器。"
         progress_delta: 10
         rationale:
-          english: "Standard measurement makes observations comparable across provinces, giving the Scientific Revolution a practical infrastructure for shared evidence. The strong progress comes from turning scattered experiments into a common language, at a material cost."
-          simp_chinese: "统一度量会让各省观察结果彼此可比，为科学革命提供共享证据的实际基础设施。分散实验被转化为共同语言，因此进度大幅推进；代价则是实际支出。"
+          english: "A standard measure makes observations comparable across provinces, giving the Scientific Revolution a practical infrastructure for shared evidence. The strong progress comes from turning scattered experiments into a common language, paid for in coin."
+          simp_chinese: "统一的度量，会让各省的观察结果彼此可比，为科学革命提供一套共享证据的实际基础设施。这份大幅的进展，来自把分散的实验化为一种共同的语言——代价则以银钱支付。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -603,12 +603,12 @@ random_events:
               "shared research protocols": 0.02
       b:
         text:
-          english: "Accept local measures."
-          simp_chinese: "接受地方度量。"
+          english: "Let each province keep its own yardstick."
+          simp_chinese: "各省的尺子，就由它各自留着吧。"
         progress_delta: -5
         rationale:
-          english: "Accepting local measures keeps provincial practice intact and reassures those who distrust central standards. It slows acceptance because evidence remains harder to compare, but the resistance is moderate rather than decisive."
-          simp_chinese: "接受地方度量会保留各省惯例，并安抚不信任中央标准的人。由于证据仍难以比较，接纳受到拖慢；不过这种阻力只是温和的，而非决定性的。"
+          english: "Accepting local measures leaves provincial practice intact and reassures those who distrust a central standard. Acceptance slows, because evidence stays harder to compare, yet the resistance here is moderate rather than decisive."
+          simp_chinese: "接受地方度量，会让各省的惯例原封不动，也安抚了那些不信任中央标准的人。接纳因此放缓，因为证据依旧难以比对；不过这里的阻力只是温和的，而非决定性的。"
         effect_blocks:
           - type: seat_stance
             group: local_autonomy
@@ -624,20 +624,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Dissection of Error"
+      english: "The Dissection of Error"
       simp_chinese: "解剖错误"
     desc:
-      english: "Scholars propose studying errors as data, a suggestion that threatens many careers. Suddenly every failed calculation, cracked lens, and spoiled sample looks less like shame than like evidence with inconvenient timing."
-      simp_chinese: "学者提议把错误也当作数据来研究，这个建议威胁到了许多人的仕途。突然之间，每一次失败的计算、裂开的镜片和变质的样本，都不再只是耻辱，而像是来得不合时宜的证据。"
+      english: "Scholars propose studying errors as data, a suggestion that quietly threatens a great many careers. All at once, every botched calculation, cracked lens, and spoiled sample looks less like shame and more like evidence that arrived at an inconvenient hour."
+      simp_chinese: "学者提议把错误也当作数据来研究，这个提议悄悄威胁到了许多人的仕途。转眼之间，每一次算砸的运算、每一片裂开的镜片、每一份变质的样本，都不再那么像耻辱，倒更像是来得不合时宜的证据。"
     options:
       a:
         text:
-          english: "Record errors openly."
-          simp_chinese: "公开记录错误。"
+          english: "The registrar files every failure where the successes are kept."
+          simp_chinese: "登记员把每一次失败，都归入与成功同放的卷宗。"
         progress_delta: 5
         rationale:
-          english: "Recording errors openly strengthens the method by making failure useful instead of shameful. The progress is modest because the lesson is procedural, but it still nudges the debate toward acceptance while costing prestige."
-          simp_chinese: "公开记录错误会让失败变得有用，而不只是可耻，从而强化新方法。由于这一教训偏向程序性，进度提升较小；但它仍会推动辩论走向接纳，并付出威望代价。"
+          english: "Recording errors openly strengthens the method by making failure useful instead of shameful. The gain is modest, since the lesson is procedural, but it still nudges the debate toward acceptance, and costs some prestige to admit so much fallibility."
+          simp_chinese: "公开记录错误，会让失败变得有用，而非仅仅可耻，从而强化新方法。所得进展有限，因为这教训偏于程序层面，却仍会把辩论推向接纳——而承认自己如此易错，也要折损几分威望。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -647,12 +647,12 @@ random_events:
             dip: 0
       b:
         text:
-          english: "Preserve reputations."
-          simp_chinese: "维护名声。"
+          english: "We keep our failures to ourselves, as reputations require."
+          simp_chinese: "为了名声，我们把失败自己收着。"
         progress_delta: -5
         rationale:
-          english: "Preserving reputations spares established scholars from public embarrassment, but it also teaches the Academy to hide the very mistakes that could improve the method."
-          simp_chinese: "维护名声能让资深学者免于公开难堪，但也等于教会学院隐藏那些本可改进方法的错误。"
+          english: "Preserving reputations spares the established scholars a public embarrassment, but it also trains the Academy to bury the very mistakes that might have sharpened the method."
+          simp_chinese: "维护名声，能让资深学者免于当众出丑，却也训练出学院一个习惯：把那些本可磨砺方法的错误，统统埋起来。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -666,20 +666,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Royal Observatory"
+      english: "The Royal Observatory"
       simp_chinese: "皇家天文台"
     desc:
-      english: "Astronomers ask for a permanent observatory because the sky refuses to attend meetings indoors. A tower, instruments, and salaried watchers would turn scattered nights of argument into a standing discipline."
-      simp_chinese: "天文学家请求建立一座常设天文台，因为天空并不会按时走进室内参加会议。一座高塔、一批仪器和受薪守夜人，能够把零散夜晚里的争论变成一门稳定的学问。"
+      english: "Astronomers ask for a permanent observatory, since the sky stubbornly refuses to attend meetings held indoors. A tower, a set of instruments, and salaried watchers would turn scattered nights of argument into a standing discipline."
+      simp_chinese: "天文学家请求建一座常设的天文台，因为天空执拗得很，从不肯走进室内来参加会议。一座高塔、一套仪器，加上受薪的守夜人，能把零散夜晚里的争论，变成一门稳稳站住的学问。"
     options:
       a:
         text:
-          english: "Build or fund it."
-          simp_chinese: "建造或资助天文台。"
+          english: "The masons raise the tower, and the watchers take their salaried nights."
+          simp_chinese: "石匠垒起高塔，守夜人领着薪俸，值起了一夜又一夜。"
         progress_delta: 10
         rationale:
           english: "Funding a permanent observatory gives the new method an institution that can watch, compare, and return to the same question night after night. The cost is heavy, but durable observation strongly favors acceptance."
-          simp_chinese: "资助常设天文台，会让新方法获得一个能够长期观察、比较并反复回到同一问题的制度场所。花费不小，但持久观察会有力推动接受当前议题。"
+          simp_chinese: "资助一座常设天文台，会给新方法一个能够长期观察、比对，并一夜又一夜地回到同一问题的制度场所。花费不小，但持久的观察，会有力地推动接受当前议题。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -695,12 +695,12 @@ random_events:
               "astronomical observation infrastructure": 0.03
       b:
         text:
-          english: "Use temporary observations."
-          simp_chinese: "采用临时观察。"
+          english: "A borrowed roof serves for a clear night."
+          simp_chinese: "晴夜一宿，借片屋顶也就够了。"
         progress_delta: -5
         rationale:
-          english: "Relying on temporary observations keeps the treasury calm and leaves astronomers improvising with borrowed roofs and fair weather. The debate moves backward because the realm refuses to make observation a permanent public duty."
-          simp_chinese: "依赖临时观察可以安抚国库，却让天文学家继续借屋顶、等晴夜、靠凑合。辩论会后退，因为国家拒绝把观察变成持久的公共职责。"
+          english: "Relying on temporary observations keeps the treasury calm and leaves the astronomers improvising with borrowed roofs and fair weather. The debate slides backward, because the realm refuses to make observation a permanent public duty."
+          simp_chinese: "依赖临时的观察，能安住国库，却让天文学家继续凑合——借人家的屋顶、等一个晴夜。辩论会往后退，因为国家拒绝把观察变成一项持久的公共职责。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -714,20 +714,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Mechanic's Model"
+      english: "The Mechanic's Model"
       simp_chinese: "机械匠的模型"
     desc:
-      english: "A mechanic sets a model on the table and turns the crank. Gears translate an invisible process into motion, and the room leans forward before anyone remembers to look dignified."
-      simp_chinese: "一名机械匠把模型摆上桌面，转动曲柄。齿轮把看不见的自然过程翻译成运动，满屋人还没来得及端起架子，身体已经向前倾去。"
+      english: "A mechanic sets a model on the table and turns the crank. Gears translate an invisible natural process into plain motion, and the whole room leans forward before anyone remembers to look dignified."
+      simp_chinese: "一名机械匠把一具模型摆上桌面，转动曲柄。齿轮把一个看不见的自然过程，翻译成了明明白白的运动，满屋子人还没来得及端起架子，身子已经先探了过去。"
     options:
       a:
         text:
-          english: "Treat models as evidence."
-          simp_chinese: "将模型视为证据。"
+          english: "The chamber admits the turning model into the record as proof."
+          simp_chinese: "会场把这具转动的模型，作为证据记入卷宗。"
         progress_delta: 5
         rationale:
-          english: "Treating the model as evidence modestly advances the debate by admitting that mechanical analogy can clarify natural process. It favors artisans without replacing observation, proof, or replication as stronger sources of acceptance."
-          simp_chinese: "将模型视为证据，会承认机械类比能够澄清自然过程，从而温和推动辩论。它抬高工匠地位，但并不取代观察、证明或复验这些更强的接受依据。"
+          english: "Treating the model as evidence advances the debate modestly by allowing that mechanical analogy can clarify a natural process. It lifts the artisans without displacing observation, proof, or replication as the stronger grounds for acceptance."
+          simp_chinese: "将模型视为证据，会承认机械类比能够澄清自然过程，从而温和地推动辩论。它抬高了工匠的地位，却并不取代观察、证明或复验——那些才是更有力的接受依据。"
         effect_blocks:
           - type: scientist_attribute
             adm: 0
@@ -738,12 +738,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Treat models as illustrations only."
-          simp_chinese: "只把模型当作图解。"
+          english: "We admire the toy, then set it back among the diagrams."
+          simp_chinese: "我们赞叹一番这件玩意儿，随后把它放回图解堆里。"
         progress_delta: -5
         rationale:
-          english: "Demoting the model to a mere illustration reassures scholars who fear workshop devices will outrank learned argument. The issue slips backward because a useful bridge between craft and theory is deliberately narrowed."
-          simp_chinese: "把模型降格为单纯图解，会安抚那些担心作坊器具凌驾于学术论证之上的学者。议题因此后退，因为工艺与理论之间一座有用的桥被刻意收窄。"
+          english: "Demoting the model to a mere illustration reassures scholars who fear that workshop devices will outrank learned argument. The issue slips back, because a useful bridge between craft and theory is deliberately narrowed, and the burghers who built it are kept waiting."
+          simp_chinese: "把模型降格为单纯的图解，会安抚那些担心作坊器具凌驾于学术论证之上的学者。议题因此后退，因为工艺与理论之间一座有用的桥被刻意收窄；而打造它的市民商人，则被晾在一旁干等。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -757,20 +757,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Dangerous Publication"
+      english: "A Dangerous Publication"
       simp_chinese: "危险的出版"
     desc:
-      english: "A treatise lies ready for the printer, sharp enough to overturn a doctrine and expensive enough to offend nearly everyone who funds the Academy. The pages are dry; only the courage is still wet."
-      simp_chinese: "一部论著已经准备交给印刷匠，锋利得足以推翻一条旧教义，也昂贵得足以冒犯几乎所有资助学院的人。纸页已经干透，尚未干透的只有勇气。"
+      english: "A treatise lies ready for the printer, sharp enough to overturn a doctrine and costly enough to offend nearly everyone who funds the Academy. The pages are dry; only the courage is still wet."
+      simp_chinese: "一部论著已经备好，只待交给印刷匠——它锋利得足以推翻一条旧教义，也昂贵得足以冒犯几乎每一个资助学院的人。纸页早已干透，唯一还没干的，是那份勇气。"
     options:
       a:
         text:
-          english: "Publish it."
-          simp_chinese: "将其出版。"
+          english: "To the press, and let it fall where it will."
+          simp_chinese: "付印吧，此后爱落到谁头上，就落到谁头上。"
         progress_delta: 10
         rationale:
-          english: "Publishing the treatise forces the Academy to stand behind dangerous evidence in public. Acceptance surges because the claim can no longer be confined to private murmurs, but prestige and clerical comfort suffer."
-          simp_chinese: "出版这部论著，会迫使学院公开支持危险的证据。主张不再能被关在私下低语之中，因此接受度大幅上升，但声望与神职阶层的安稳都会受损。"
+          english: "Publishing the treatise forces the Academy to stand behind dangerous evidence in the open. Acceptance surges, since the claim can no longer be confined to private murmurs, but prestige and clerical comfort both suffer for it."
+          simp_chinese: "出版这部论著，会迫使学院公开为危险的证据背书。接纳大幅上升，因为这项主张再也关不进私下的低语里；代价则是威望与神职阶层的安稳，都要为此受损。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -784,12 +784,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Delay publication."
-          simp_chinese: "推迟出版。"
+          english: "The manuscript returns to the drawer until the patrons cool."
+          simp_chinese: "手稿被收回抽屉，等资助人的火气平息下去。"
         progress_delta: -10
         rationale:
-          english: "Delaying publication protects patrons from embarrassment and keeps dangerous doctrine off the street. The reversal is sharp because the Academy chooses sponsorship peace over the open circulation of evidence."
-          simp_chinese: "推迟出版可以保护资助人免于难堪，也让危险学说暂时无法流入街巷。辩论会大幅后退，因为学院选择了赞助和平，而不是证据的公开流通。"
+          english: "Delaying publication shields the patrons from embarrassment and keeps a dangerous doctrine off the street. The reversal is sharp, because the Academy chooses peace with its sponsors over the open circulation of evidence."
+          simp_chinese: "推迟出版，能庇护资助人免于难堪，也让一条危险的学说暂时流不进街巷。辩论会大幅后退，因为学院选择了与金主之间的和气，而不是证据的公开流通。"
         effect_blocks:
           - type: seat_stance
             group: nobility
@@ -803,20 +803,20 @@ random_events:
     issue: scientific_revolution
     weight: 1
     title:
-      english: "Experimental Oath"
+      english: "The Experimental Oath"
       simp_chinese: "实验誓约"
     desc:
-      english: "Assistants ask for protection if results contradict patrons, teachers, or the Crown's favorite theory. They are willing to measure honestly, but not to be ruined for noticing what the instruments say."
-      simp_chinese: "助手们请求得到保护，以免结果违背资助人、导师或王室偏爱的理论时遭到清算。他们愿意诚实测量，却不愿因为看见仪器所显示的事实而毁掉前程。"
+      english: "The assistants ask for protection should their results contradict a patron, a teacher, or the Crown's favorite theory. They are willing to measure honestly; they are not willing to be ruined for reporting what the instruments plainly say."
+      simp_chinese: "助手们请求得到保护，以防结果违背了资助人、导师，或是王室钟爱的那套理论。他们愿意诚实地测量，却不愿只因如实说出仪器分明显示的东西，就毁掉自己的前程。"
     options:
       a:
         text:
-          english: "Protect the assistants."
-          simp_chinese: "保护助手。"
+          english: "We swear to shield whoever reports what the instruments say."
+          simp_chinese: "谁如实报出仪器所示，我们便立誓护他周全。"
         progress_delta: 10
         rationale:
-          english: "Protecting assistants makes contradictory results safer to report, which strengthens experiment as a collective method rather than a performance controlled by patrons. Legitimacy strains because hierarchy is asked to tolerate unwelcome truth."
-          simp_chinese: "保护助手会让相互矛盾的结果更容易被报告出来，从而把实验强化为一种集体方法，而不是受资助人操纵的表演。由于等级秩序必须容忍不合意的真相，正统性会承受压力。"
+          english: "Protecting the assistants makes contradictory results safer to report, which strengthens experiment as a collective method rather than a performance staged for patrons. Legitimacy strains, because the hierarchy is now asked to tolerate an unwelcome truth."
+          simp_chinese: "保护助手，会让相互矛盾的结果更容易被报告出来，从而把实验强化为一种集体的方法，而不是为资助人上演的表演。正统性会承受压力，因为等级秩序如今被要求容忍一个不受欢迎的真相。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -831,12 +831,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Require deference."
-          simp_chinese: "要求服从。"
+          english: "The masters remind the assistants to know their place."
+          simp_chinese: "师长们提醒助手：各安其位，莫忘本分。"
         progress_delta: -10
         rationale:
-          english: "Requiring deference keeps assistants, teachers, and patrons in their expected places. The hierarchy approves, but the debate turns sharply away from a method that depends on witnesses speaking against power."
-          simp_chinese: "要求服从可以让助手、导师和资助人继续待在各自应在的位置。等级秩序会赞同此举，但辩论会急剧远离那种依赖见证者敢于违逆权势发声的方法。"
+          english: "Requiring deference keeps assistants, teachers, and patrons in their expected places. The hierarchy approves, but the debate turns sharply away from a method that depends on witnesses willing to speak against power."
+          simp_chinese: "要求服从，会让助手、导师与资助人，各自留在他们应在的位置上。等级秩序对此赞许，但辩论会急剧偏离那种方法——一种依赖见证者敢于违逆权势、如实发声的方法。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -856,17 +856,17 @@ random_events:
       english: "The New Method Named"
       simp_chinese: "新方法得名"
     desc:
-      english: "Someone gives the method a name, and suddenly a cluster of habits becomes a movement. Friends repeat it with relief, opponents with alarm, and undecided listeners with the dangerous feeling that history may need a label."
-      simp_chinese: "有人为这套方法取了名字，于是一簇习惯忽然变成了一场运动。支持者如释重负地重复它，反对者警惕地重复它，犹豫者则危险地感觉到，历史也许正需要一个标签。"
+      english: "Someone gives the method a name, and all at once a loose cluster of habits becomes a movement. Friends repeat the word with relief, opponents with alarm, and the undecided with the uneasy sense that history may be about to need a label."
+      simp_chinese: "有人给这套方法取了个名字，一簇松散的习惯，转眼之间就成了一场运动。支持者如释重负地念着这个词，反对者则警惕地念着它，而犹疑者念起它时，隐隐生出一种不安：历史，也许就要用得上一个标签了。"
     options:
       a:
         text:
-          english: "Embrace the name."
-          simp_chinese: "接受这个名称。"
+          english: "The word is spoken into the record, and the movement takes its name."
+          simp_chinese: "这个词被写进卷宗，这场运动，就此有了名字。"
         progress_delta: 10
         rationale:
-          english: "Embracing the name turns scattered practices into a recognizable program, making acceptance easier to organize and defend. The same clarity also helps opponents consolidate against it."
-          simp_chinese: "接受这个名称，会把分散的做法变成一个可识别的纲领，使接受者更容易组织和辩护。同样的清晰度也会帮助反对者凝聚起来。"
+          english: "Embracing the name turns scattered practices into a recognizable program, making acceptance easier to organize and to defend. The same clarity, however, also helps the opponents gather themselves against it."
+          simp_chinese: "接受这个名字，会把分散的做法变成一个可以辨认的纲领，使接纳更易于组织，也更易于辩护。可同样的这份清晰，也帮着反对者，把自己重新聚拢起来对抗它。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -883,12 +883,12 @@ random_events:
               "organized scientific faction": 0.03
       b:
         text:
-          english: "Avoid naming it."
-          simp_chinese: "避免为它命名。"
+          english: "Best leave it nameless a while yet."
+          simp_chinese: "还是先别急着给它安名字。"
         progress_delta: -5
         rationale:
-          english: "Avoiding the name keeps the debate less threatening and denies opponents a banner to attack. It also weakens momentum because supporters cannot easily rally around unnamed habits."
-          simp_chinese: "避免命名可以让辩论显得不那么咄咄逼人，也不给反对者一个可攻击的旗号。但它同样会削弱势头，因为支持者很难围绕没有名字的习惯集合起来。"
+          english: "Avoiding the name keeps the debate looking less threatening and denies the opponents a banner to strike at. It also saps momentum, though, since supporters cannot easily rally around a set of habits that has no name to shout."
+          simp_chinese: "避免命名，能让辩论显得不那么咄咄逼人，也不给反对者留下一面可供攻击的旗帜。可它同样会消磨势头，因为支持者很难围着一堆连喊都没法喊出名字的习惯，聚起阵势来。"
         effect_blocks:
           - type: seat_cooldown
             group: public_opinion
