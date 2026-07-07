@@ -188,19 +188,6 @@ tv_auto_assign_governors = {
 					any_location_in_region = {
 						owner ?= scope:actor
 					}
-					OR = {
-						scope:actor = {
-							capital ?= {
-								region = scope:tv_govhouse_auto_candidate_region
-							}
-						}
-						AND = {
-							any_location_in_region = {
-								owner ?= scope:actor
-								has_building_with_at_least_one_level = tv_govhouse_local_administration
-							}
-						}
-					}
 					NOT = {
 						scope:actor = {
 							any_in_list = { variable = tv_governor_list
