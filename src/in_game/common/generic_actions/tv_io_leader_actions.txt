@@ -123,7 +123,9 @@ tv_establish_conquest_io = {
 				exists = scope:target
 				scope:actor = { tv_conquest_establishment_ready_to_appoint = yes }
 			}
-			scope:actor = { tv_establish_conquest_io_effect = yes }
+			hidden_effect = {
+				scope:actor = { tv_establish_conquest_io_effect = yes }
+			}
 		}
 	}
 
@@ -246,7 +248,9 @@ tv_establish_prosperity_io = {
 				exists = scope:target
 				scope:actor = { tv_prosperity_establishment_ready_to_appoint = yes }
 			}
-			scope:actor = { tv_establish_prosperity_io_effect = yes }
+			hidden_effect = {
+				scope:actor = { tv_establish_prosperity_io_effect = yes }
+			}
 		}
 	}
 
@@ -402,7 +406,9 @@ tv_establish_trade_io = {
 				exists = scope:target
 				scope:actor = { tv_trade_establishment_ready_to_appoint = yes }
 			}
-			scope:actor = { tv_establish_trade_io_effect = yes }
+			hidden_effect = {
+				scope:actor = { tv_establish_trade_io_effect = yes }
+			}
 		}
 	}
 
@@ -560,7 +566,9 @@ tv_establish_diplomatic_io = {
 				exists = scope:target
 				scope:actor = { tv_diplomatic_establishment_ready_to_appoint = yes }
 			}
-			scope:actor = { tv_establish_diplomatic_io_effect = yes }
+			hidden_effect = {
+				scope:actor = { tv_establish_diplomatic_io_effect = yes }
+			}
 		}
 	}
 
@@ -687,7 +695,9 @@ tv_establish_cultural_io = {
 				exists = scope:target
 				scope:actor = { tv_cultural_establishment_ready_to_appoint = yes }
 			}
-			scope:actor = { tv_establish_cultural_io_effect = yes }
+			hidden_effect = {
+				scope:actor = { tv_establish_cultural_io_effect = yes }
+			}
 		}
 	}
 
@@ -820,7 +830,9 @@ tv_establish_science_io = {
 				exists = scope:target
 				scope:actor = { tv_science_establishment_ready_to_appoint = yes }
 			}
-			scope:actor = { tv_establish_science_io_effect = yes }
+			hidden_effect = {
+				scope:actor = { tv_establish_science_io_effect = yes }
+			}
 		}
 	}
 

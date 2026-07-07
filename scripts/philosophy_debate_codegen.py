@@ -823,11 +823,12 @@ def emit_change_local_debate_progress_effect(lines: list[str], level: int, value
 
 def gen_local_debate_progress_effects(lines: list[str]) -> None:
     emit(lines, 0, "tv_academy_debate_change_local_progress_effect = {")
+    emit(lines, 1, "save_scope_as = tv_academy_debate_progress_owner")
     emit(lines, 1, "custom_description = {")
     emit(lines, 2, "text = tv_academy_debate_change_local_progress_text")
     emit(lines, 2, "value = $value$")
     emit(lines, 2, "every_international_organizations_member_of = {")
-    emit_owned_academy_io_limit(lines, 3)
+    emit_owned_academy_io_limit(lines, 3, leader_expr="scope:tv_academy_debate_progress_owner")
     emit(lines, 3, f"change_variable = {{ name = {LOCAL_DEBATE_PROGRESS_VAR} add = $value$ }}")
     emit(lines, 3, f"clamp_variable = {{ name = {LOCAL_DEBATE_PROGRESS_VAR} min = 0 max = 100 }}")
     emit(lines, 2, "}")
@@ -836,8 +837,9 @@ def gen_local_debate_progress_effects(lines: list[str]) -> None:
     emit(lines)
 
     emit(lines, 0, "tv_academy_debate_set_local_progress_effect = {")
+    emit(lines, 1, "save_scope_as = tv_academy_debate_progress_owner")
     emit(lines, 1, "every_international_organizations_member_of = {")
-    emit_owned_academy_io_limit(lines, 2)
+    emit_owned_academy_io_limit(lines, 2, leader_expr="scope:tv_academy_debate_progress_owner")
     emit(lines, 2, f"set_local_variable = {{ name = {LOCAL_DEBATE_PROGRESS_DELTA_LOCAL} value = $value$ }}")
     emit(lines, 2, f"change_local_variable = {{ name = {LOCAL_DEBATE_PROGRESS_DELTA_LOCAL} subtract = var:{LOCAL_DEBATE_PROGRESS_VAR} }}")
     emit(lines, 2, "leader_country ?= {")
@@ -2319,6 +2321,7 @@ def generate_events(data: dict) -> str:
     lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), "", f"namespace = {EVENT_NS}", ""]
     emit(lines, 0, f"{EVENT_NS}.1 = {{")
     emit(lines, 1, "type = country_event")
+    emit(lines, 1, f"title = {EVENT_NS}.1.t")
     emit(lines, 1, "hidden = yes")
     emit(lines, 1, "immediate = { tv_academy_debate_monthly_tick_effect = yes }")
     emit(lines, 0, "}")
@@ -2531,6 +2534,7 @@ def generate_loc(data: dict, language: str) -> str:
         entries[group_tt_key(group)] = f"{group['icon']} {group['loc'][loc_lang]}"
     for price in data["prices"]:
         entries[price_loc_key(price)] = price["loc"][loc_lang]
+    entries[f"{EVENT_NS}.1.t"] = "Academy Debate Monthly Tick" if language == "english" else "科学院辩论月度刻"
     entries.update(generic_loc_entries(data, loc_lang))
     for duplicate_key in (
         "TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT",

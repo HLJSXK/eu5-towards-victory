@@ -709,6 +709,19 @@ hides effect text, but the pre-evaluator can still walk into nested `scripted_ef
 Any helper reached from a generic action must not assume variables written earlier in that same
 effect chain exist during hover.
 
+For display-refresh helpers that derive a row, timeline, or progress state, do not write a
+persistent variable and then immediately compare `var:X` later in the same chain. Compute the
+derived values with `set_local_variable` / `change_local_variable`, compare `local_var:X`, and
+only then mirror the final values into persistent variables for GUI display. This avoids
+`Failed to fetch variable` / `Invalid left side during comparison 'var'` errors when a generic
+action's selector or tooltip pre-evaluator walks the effect before same-chain `set_variable`
+writes have been committed.
+
+Reusable helpers reached from generic actions should also avoid assuming `root` is the current
+country after they enter nested IO/member iterators. If the helper needs to compare nested state
+to the action actor or current country, save that owner at helper entry with `save_scope_as =
+<owner_scope>` and compare against `scope:<owner_scope>` instead of `root`.
+
 Cleanup-only helpers are still different from player-facing effects: if the button is only
 clearing variables, removing list entries, stripping stale modifiers, or rebuilding display
 state, call that helper from `hidden_effect = { ... }` so the cleanup is not rendered as tooltip

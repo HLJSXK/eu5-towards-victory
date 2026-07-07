@@ -27,13 +27,14 @@ tv_academy_debate_clear_event_state_effect = {
 }
 
 tv_academy_debate_change_local_progress_effect = {
+	save_scope_as = tv_academy_debate_progress_owner
 	custom_description = {
 		text = tv_academy_debate_change_local_progress_text
 		value = $value$
 		every_international_organizations_member_of = {
 			limit = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
-				leader_country ?= root
+				leader_country ?= scope:tv_academy_debate_progress_owner
 			}
 			change_variable = { name = tv_academy_philosophy_debate_position add = $value$ }
 			clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
@@ -42,10 +43,11 @@ tv_academy_debate_change_local_progress_effect = {
 }
 
 tv_academy_debate_set_local_progress_effect = {
+	save_scope_as = tv_academy_debate_progress_owner
 	every_international_organizations_member_of = {
 		limit = {
 			international_organization_type = international_organization_type:tv_academy_of_sciences
-			leader_country ?= root
+			leader_country ?= scope:tv_academy_debate_progress_owner
 		}
 		set_local_variable = { name = tv_academy_debate_local_progress_delta value = $value$ }
 		change_local_variable = { name = tv_academy_debate_local_progress_delta subtract = var:tv_academy_philosophy_debate_position }
