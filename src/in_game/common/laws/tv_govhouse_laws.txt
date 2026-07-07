@@ -1342,7 +1342,7 @@ tv_govhouse_grand_general_power_law = {
 			custom_tooltip = { text = tv_govhouse_general_marching_orders_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			    tv_govhouse_apply_active_tactic_modifier_effect = yes
 			    tv_govhouse_update_plan_modifiers_effect = yes
 			  }
@@ -1389,7 +1389,7 @@ tv_govhouse_grand_general_power_law = {
 			custom_tooltip = { text = tv_govhouse_general_garrison_orders_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			    tv_govhouse_apply_active_tactic_modifier_effect = yes
 			    tv_govhouse_update_plan_modifiers_effect = yes
 			  }
@@ -1436,7 +1436,7 @@ tv_govhouse_grand_general_power_law = {
 			custom_tooltip = { text = tv_govhouse_general_supreme_command_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			    tv_govhouse_apply_active_tactic_modifier_effect = yes
 			    tv_govhouse_update_plan_modifiers_effect = yes
 			  }
@@ -1501,7 +1501,7 @@ tv_govhouse_administrative_function_law = {
 			custom_tooltip = { text = tv_govhouse_admin_control_registers_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}
@@ -1546,7 +1546,7 @@ tv_govhouse_administrative_function_law = {
 			custom_tooltip = { text = tv_govhouse_admin_development_surveys_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}
@@ -1591,7 +1591,7 @@ tv_govhouse_administrative_function_law = {
 			custom_tooltip = { text = tv_govhouse_admin_production_offices_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}
@@ -1654,7 +1654,7 @@ tv_govhouse_diplomatic_function_law = {
 			custom_tooltip = { text = tv_govhouse_dip_construction_charters_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}
@@ -1699,7 +1699,7 @@ tv_govhouse_diplomatic_function_law = {
 			custom_tooltip = { text = tv_govhouse_dip_pop_advancement_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}
@@ -1744,7 +1744,7 @@ tv_govhouse_diplomatic_function_law = {
 			custom_tooltip = { text = tv_govhouse_dip_settlement_patronage_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}
@@ -1807,7 +1807,7 @@ tv_govhouse_military_function_law = {
 			custom_tooltip = { text = tv_govhouse_mil_order_patrols_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}
@@ -1852,7 +1852,7 @@ tv_govhouse_military_function_law = {
 			custom_tooltip = { text = tv_govhouse_mil_frontier_levies_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}
@@ -1897,7 +1897,7 @@ tv_govhouse_military_function_law = {
 			custom_tooltip = { text = tv_govhouse_mil_fortress_engineers_policy_effect_tt }
 			hidden_effect = {
 			  leader_country ?= {
-			    tv_apply_governor_bonuses_effect = yes
+			    tv_govhouse_refresh_all_governor_modifiers_effect = yes
 			  }
 			}
 		}

@@ -31,7 +31,6 @@ pulses:
     - tv_govhouse_training_monthly_pulse # Grand General training timer
     - tv_govhouse_loyalty_monthly_pulse # Grand General loyalty random events
     - tv_govhouse_negative_monthly_pulse # Governor's House balance-of-power backlash events
-    - tv_govhouse_governor_bonuses_monthly_pulse # Regional governor modifier/display refresh
     - tv_govhouse_governor_events_monthly_pulse # Regional governor random events
     - tv_govhouse_war_tent_monthly_pulse # War Tent plans and tactic refresh
     - tv_arts_exchange_monthly_pulse     # Arts Exchange timer, auto-invites, and monthly events
@@ -63,6 +62,7 @@ pulses:
 
 bridges:
   on_game_start:
+    - tv_govhouse_initialize_on_game_start
     - tv_academy_debate_initialize_global_maps_on_game_start
     - tv_wonder_initialize_index_on_game_start
     - tv_wonder_sync_final_building_level_maps_on_game_start
@@ -71,6 +71,7 @@ bridges:
     - tv_wonder_initialize_location_display_state_on_game_start
 
   on_game_load:
+    - tv_govhouse_initialize_on_game_load
     - tv_io_establishment_save_load_validation # remove stale route enable flags when the matching TV IO is absent
     - tv_academy_debate_initialize_global_maps_on_game_load
     - tv_wonder_initialize_index_on_game_load
@@ -189,6 +190,7 @@ bridges:
     - tv_academy_philosophy_on_institution_embraced
 
   on_capital_moved:
+    - tv_govhouse_capital_moved
     - tv_trade_league_capital_moved # reset Trade Chain if the capital market changes
 
   cmf_on_callback:
