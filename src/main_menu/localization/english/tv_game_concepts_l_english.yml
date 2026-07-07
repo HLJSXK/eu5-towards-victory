@@ -288,7 +288,9 @@
 
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "Governor's House"
- game_concept_tv_govhouse_desc: "An international organization established through the [tv_conquest_victory|e] IO establishment flow. The founding country appoints a [tv_grand_general|e] and can assign [tv_local_governor|e]s to regions within their realm. Each governor reduces construction costs and unrest while increasing maximum control in their governed region, scaled to their military attributes."
+ game_concept_tv_govhouse_desc: "An international organization established through the [tv_conquest_victory|e] IO establishment flow. The founding country appoints a [tv_grand_general|e], can assign [tv_local_governor|e]s to regions within their realm, and uses the [tv_govhouse_assembly|e] for Governor's House law votes."
+ game_concept_tv_govhouse_assembly: "Governor's Assembly"
+ game_concept_tv_govhouse_assembly_desc: "The parliamentary forum of the [tv_govhouse|e]. Only the [tv_govhouse_supreme_overlord_status|e] can propose law changes; the Supreme Overlord has 100 votes, while attached members vote according to their relative strength against the Supreme Overlord."
  game_concept_tv_grand_general: "Grand General"
  game_concept_tv_grand_general_desc: "The supreme commander appointed through the [tv_govhouse|e]. The [tv_grand_general|e] can be trained, can propose tactics and [tv_war_plan|e]s, and accumulates [tv_govhouse_power_consolidation|e] while in office."
  game_concept_tv_local_governor: "Local Governor"

@@ -27,6 +27,15 @@ tv_govhouse_subject_status = {
 		is_leader_of_international_organization = scope:recipient
 	}
 	special_status_power = {
-		value = 10
+		value = 0
+		if = {
+			limit = {
+				scope:recipient = { international_organization_has_leader = yes }
+			}
+			add = {
+				value = "root.relative_strength(scope:recipient.leader_country)"
+				multiply = 200
+			}
+		}
 	}
 }

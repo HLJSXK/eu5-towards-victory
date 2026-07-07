@@ -18,6 +18,22 @@ tv_govhouse_sync_supreme_overlord_status_effect = {
 	clear_saved_scope = tv_govhouse_supreme_overlord_country
 }
 
+# Scope: Governor's House IO. Keeps vanilla parliament law votes anchored to
+# a real location even though the IO itself does not own locations.
+tv_govhouse_sync_parliament_seat_effect = {
+	if = {
+		limit = { exists = leader_country }
+		leader_country = {
+			capital ?= { save_scope_as = tv_govhouse_parliament_seat }
+		}
+		if = {
+			limit = { exists = scope:tv_govhouse_parliament_seat }
+			set_variable = { name = parliament_seat value = scope:tv_govhouse_parliament_seat }
+		}
+	}
+	clear_saved_scope = tv_govhouse_parliament_seat
+}
+
 # Creates the Governor's House IO for scope country (must be called as owner country).
 # Sets the tv_govhouse_member owner flag, creates the IO, and adds the subject chain.
 tv_govhouse_create_effect = {
@@ -44,6 +60,7 @@ tv_govhouse_create_effect = {
 			limit = { exists = scope:tv_govhouse_new_io }
 			scope:tv_govhouse_new_io = {
 				tv_govhouse_sync_supreme_overlord_status_effect = yes
+				tv_govhouse_sync_parliament_seat_effect = yes
 			}
 		}
 		clear_saved_scope = tv_govhouse_new_io
@@ -74,6 +91,7 @@ tv_govhouse_sync_subject_chain_to_owned_house_effect = {
 				leader_country ?= scope:tv_govhouse_subject_chain_owner
 			}
 			tv_govhouse_sync_supreme_overlord_status_effect = yes
+			tv_govhouse_sync_parliament_seat_effect = yes
 			save_scope_as = tv_govhouse_subject_chain_io
 			scope:tv_govhouse_subject_chain_owner = {
 				every_subject_or_below = {

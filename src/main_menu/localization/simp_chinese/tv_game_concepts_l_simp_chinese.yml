@@ -279,7 +279,9 @@
 
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "总督府"
- game_concept_tv_govhouse_desc: "通过[tv_conquest_victory|e]IO建立流程创立的国际组织。创始国可任命[tv_grand_general|e]，并向领土内各地区派遣[tv_local_governor|e]。每位总督可降低其管辖地区内的建造费用与动乱，并提升最大控制力，效果与其军事属性成正比。"
+ game_concept_tv_govhouse_desc: "通过[tv_conquest_victory|e]IO建立流程创立的国际组织。创始国可任命[tv_grand_general|e]，向领土内各地区派遣[tv_local_governor|e]，并通过[tv_govhouse_assembly|e]表决总督府法律。"
+ game_concept_tv_govhouse_assembly: "总督府议会"
+ game_concept_tv_govhouse_assembly_desc: "[tv_govhouse|e]的议会场所。只有[tv_govhouse_supreme_overlord_status|e]可以提出法律变更；最高宗主固定拥有100票，附属成员的票数取决于其相对最高宗主的实力。"
  game_concept_tv_grand_general: "大将军"
  game_concept_tv_grand_general_desc: "通过[tv_govhouse|e]任命的最高军事统帅。[tv_grand_general|e]可以接受训练、提出战术与[tv_war_plan|e]，并在任期间积累[tv_govhouse_power_consolidation|e]。"
  game_concept_tv_local_governor: "地方总督"

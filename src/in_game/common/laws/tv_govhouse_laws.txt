@@ -5,7 +5,7 @@
 #
 # TOWARDS VICTORY - GOVERNOR'S HOUSE LAWS
 # Governor's House law groups and Local Governor Function policies.
-# requires_vote = yes: Governor's House law changes use IO policy votes.
+# requires_vote = yes: Governor's House law changes use IO parliament votes.
 
 # ------------------------------------------------------------------------------
 # LAW 1: Expedition Goal
@@ -17,7 +17,7 @@ tv_govhouse_expedition_goal_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -235,7 +235,7 @@ tv_govhouse_governor_appointment_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -443,7 +443,7 @@ tv_govhouse_local_autonomy_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -656,7 +656,7 @@ tv_govhouse_religious_mission_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -867,7 +867,7 @@ tv_govhouse_frontier_military_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -1082,7 +1082,7 @@ tv_govhouse_imperial_integration_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -1296,7 +1296,7 @@ tv_govhouse_grand_general_power_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -1455,7 +1455,7 @@ tv_govhouse_administrative_function_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -1608,7 +1608,7 @@ tv_govhouse_diplomatic_function_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -1761,7 +1761,7 @@ tv_govhouse_military_function_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
@@ -1914,7 +1914,7 @@ tv_govhouse_governor_duty_tendency_law = {
 		international_organization_type = international_organization_type:tv_govhouse
 	}
 	allow = {
-		always = yes
+		uses_parliament_for_law_votes_trigger = yes
 	}
 	locked = {
 	}
