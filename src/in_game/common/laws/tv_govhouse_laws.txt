@@ -5,6 +5,7 @@
 #
 # TOWARDS VICTORY - GOVERNOR'S HOUSE LAWS
 # Governor's House law groups and Local Governor Function policies.
+# country_modifier blocks intentionally apply to every member country.
 # requires_vote = yes: Governor's House law changes use IO parliament votes.
 
 # ------------------------------------------------------------------------------
@@ -60,12 +61,6 @@ tv_govhouse_expedition_goal_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_foreign_build_buildings_cost = -0.10
 			trade_sea_efficiency = 0.10
 			global_trade_center_power = 0.10
@@ -111,12 +106,6 @@ tv_govhouse_expedition_goal_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			tax_income_efficiency = 0.03
 			global_garrison_size_modifier = 0.10
 			monthly_rebel_growth = 0.0005
@@ -160,12 +149,6 @@ tv_govhouse_expedition_goal_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			colonial_migration_size_modifier = 0.15
 			global_population_growth = 0.00025
 			global_pop_assimilation_speed_modifier = 0.10
@@ -210,12 +193,6 @@ tv_govhouse_expedition_goal_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			subject_income_modifier = 0.10
 			diplomatic_reputation = 1
 			global_bureaucracy_maintenance_cost_modifier = -0.10
@@ -278,12 +255,6 @@ tv_govhouse_governor_appointment_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			monthly_legitimacy = 0.10
 			global_monthly_control = 0.001
 			global_estate_target_satisfaction = -0.025
@@ -326,12 +297,6 @@ tv_govhouse_governor_appointment_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_nobles_estate_power = 0.50
 			nobles_estate_target_satisfaction = 0.05
 		}
@@ -373,12 +338,6 @@ tv_govhouse_governor_appointment_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_burghers_estate_power = 0.50
 			trade_income = 0.10
 		}
@@ -420,12 +379,6 @@ tv_govhouse_governor_appointment_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			siege_ability = 0.10
 			monthly_army_tradition = 0.05
 			monthly_legitimacy = -0.05
@@ -486,12 +439,6 @@ tv_govhouse_local_autonomy_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			tax_income_efficiency = 0.03
 			global_monthly_control = 0.002
 			global_estate_target_satisfaction = -0.025
@@ -535,12 +482,6 @@ tv_govhouse_local_autonomy_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_estate_target_satisfaction = 0.025
 			global_production_efficiency = 0.05
 			global_monthly_prosperity = 0.0005
@@ -585,12 +526,6 @@ tv_govhouse_local_autonomy_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			colonial_migration_size_modifier = 0.25
 			global_foreign_build_buildings_cost = -0.10
 			global_burghers_estate_power = 0.50
@@ -633,12 +568,6 @@ tv_govhouse_local_autonomy_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			monthly_rebel_growth = -0.0005
 			global_pop_assimilation_speed_modifier = -0.40
 			global_pop_conversion_speed_modifier = -0.40
@@ -699,12 +628,6 @@ tv_govhouse_religious_mission_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			tolerance_heathen = 1
 			tolerance_heretic = 1
 			global_pop_conversion_speed_modifier = -0.20
@@ -747,12 +670,6 @@ tv_govhouse_religious_mission_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_pop_conversion_speed_modifier = 0.20
 			global_clergy_estate_power = 0.10
 			diplomatic_reputation = -1
@@ -795,12 +712,6 @@ tv_govhouse_religious_mission_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_pop_conversion_speed_modifier = 0.40
 			land_morale_modifier = 0.05
 			clergy_estate_target_satisfaction = 0.025
@@ -844,12 +755,6 @@ tv_govhouse_religious_mission_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			tolerance_heathen = 2
 			tolerance_heretic = 2
 			global_pop_conversion_speed_modifier = -0.40
@@ -910,12 +815,6 @@ tv_govhouse_frontier_military_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			discipline = 0.025
 			global_garrison_size_modifier = 0.10
 			global_defensive = 0.05
@@ -959,12 +858,6 @@ tv_govhouse_frontier_military_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			levy_maintenance_modifier = -0.10
 			global_army_levy_size_modifier = 0.10
 			global_monthly_control = -0.001
@@ -1009,12 +902,6 @@ tv_govhouse_frontier_military_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_monthly_control = 0.002
 			global_monthly_prosperity = 0.0005
 			global_soldiers_pop_growth = 0.25
@@ -1058,12 +945,6 @@ tv_govhouse_frontier_military_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			mercenary_maintenance_efficiency = 0.10
 			mercenary_range_modifier = 0.25
 			army_movement_speed = 0.05
@@ -1125,12 +1006,6 @@ tv_govhouse_imperial_integration_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			subject_income_modifier = 0.10
 			global_bureaucracy_maintenance_cost_modifier = 0.05
 			subject_loyalty = -5
@@ -1173,12 +1048,6 @@ tv_govhouse_imperial_integration_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			subject_loyalty = 10
 			global_estate_target_satisfaction = 0.025
 			global_monthly_prosperity = 0.0005
@@ -1223,12 +1092,6 @@ tv_govhouse_imperial_integration_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_pop_assimilation_speed_modifier = 0.15
 			global_integration_speed_modifier = 0.15
 			global_monthly_development = 0.001
@@ -1272,12 +1135,6 @@ tv_govhouse_imperial_integration_law = {
 			}
 		}
 		country_modifier = {
-			potential_trigger = {
-				OR = {
-					NOT = { exists = scope:recipient }
-					is_leader_of_international_organization = scope:recipient
-				}
-			}
 			global_production_efficiency = 0.10
 			global_monthly_prosperity = -0.001
 			global_monthly_control = -0.002
