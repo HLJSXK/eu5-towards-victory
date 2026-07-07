@@ -49,6 +49,14 @@ organization_panel = {
 \t\tvisible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
 \t}
 
+\tblockoverride "organization_members_tab_down" {
+\t\tdown = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+\t}
+
+\tblockoverride "organization_panel_members_visible" {
+\t\tvisible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+\t}
+
 \tblockoverride "organization_resolutions_tab_visible" {
 \t\tvisible = yes
 \t}
