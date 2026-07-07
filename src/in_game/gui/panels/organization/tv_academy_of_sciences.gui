@@ -598,10 +598,10 @@ organization_panel = {
 						}
 						blockoverride "common_bottom_content" {
 							widget = {
-								size = { 470 384 }
+								size = { 470 412 }
 								widget = {
 									visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_current_node_type').GetValue, '(CFixedPoint)0.0')]"
-									size = { 470 376 }
+									size = { 470 404 }
 									allow_outside = yes
 									widget = {
 										size = { 220 220 }
@@ -623,7 +623,7 @@ organization_panel = {
 								}
 								widget = {
 									visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_current_node_type').GetValue, '(CFixedPoint)1.0')]"
-									size = { 470 376 }
+									size = { 470 404 }
 									allow_outside = yes
 									widget = {
 										size = { 220 220 }
@@ -1755,8 +1755,34 @@ organization_panel = {
 										}
 									}
 									vbox = {
-										position = { 4 340 }
-										size = { 462 28 }
+										position = { 4 342 }
+										size = { 462 56 }
+										spacing = 4
+										hbox = {
+											layoutpolicy_horizontal = fixed
+											size = { 462 24 }
+											spacing = 8
+											widget = {
+												size = { 380 22 }
+												progressbar = {
+													size = { 380 16 }
+													parentanchor = vcenter
+													widgetanchor = vcenter
+													using = progress_bar_green_red_alt
+													min = 0
+													max = 100
+													value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_debate_local_balance').GetValue]"
+													tooltip = "TV_ACADEMY_DEBATE_LOCAL_BALANCE_TT"
+												}
+											}
+											text_single = {
+												size = { 74 22 }
+												raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_debate_local_balance').GetValue|0]%"
+												fontsize = 13
+												tooltip = "TV_ACADEMY_DEBATE_LOCAL_BALANCE_TT"
+												align = right|nobaseline
+											}
+										}
 										hbox = {
 											layoutpolicy_horizontal = fixed
 											size = { 462 24 }

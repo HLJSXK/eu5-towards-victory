@@ -1956,6 +1956,7 @@ tv_academy_debate.2000 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -1996,6 +1997,7 @@ tv_academy_debate.2000 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2052,6 +2054,7 @@ tv_academy_debate.2001 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2068,6 +2071,7 @@ tv_academy_debate.2001 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_legitimacy = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2100,6 +2104,7 @@ tv_academy_debate.2002 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			add_prestige = -10
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2140,6 +2145,7 @@ tv_academy_debate.2002 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2197,6 +2203,7 @@ tv_academy_debate.2003 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2237,6 +2244,7 @@ tv_academy_debate.2003 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2273,6 +2281,7 @@ tv_academy_debate.2004 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2308,6 +2317,7 @@ tv_academy_debate.2004 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 18 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 6 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2364,6 +2374,7 @@ tv_academy_debate.2005 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2380,6 +2391,7 @@ tv_academy_debate.2005 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			add_legitimacy = -5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2412,6 +2424,7 @@ tv_academy_debate.2006 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2428,6 +2441,7 @@ tv_academy_debate.2006 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2460,6 +2474,7 @@ tv_academy_debate.2007 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2476,6 +2491,7 @@ tv_academy_debate.2007 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2532,6 +2548,7 @@ tv_academy_debate.2008 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2552,6 +2569,7 @@ tv_academy_debate.2008 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2608,6 +2626,7 @@ tv_academy_debate.2009 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2643,6 +2662,7 @@ tv_academy_debate.2009 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 17 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2676,6 +2696,7 @@ tv_academy_debate.2010 = {
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.03 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2716,6 +2737,7 @@ tv_academy_debate.2010 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2772,6 +2794,7 @@ tv_academy_debate.2011 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2788,6 +2811,7 @@ tv_academy_debate.2011 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_stability = 1
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2844,6 +2868,7 @@ tv_academy_debate.2012 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2909,6 +2934,7 @@ tv_academy_debate.2012 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -2966,6 +2992,7 @@ tv_academy_debate.2013 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3001,6 +3028,7 @@ tv_academy_debate.2013 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 10 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 6 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3058,6 +3086,7 @@ tv_academy_debate.2014 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3099,6 +3128,7 @@ tv_academy_debate.2014 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3159,6 +3189,7 @@ tv_academy_debate.2015 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3200,6 +3231,7 @@ tv_academy_debate.2015 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 3 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3257,6 +3289,7 @@ tv_academy_debate.2016 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 3 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 9 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3298,6 +3331,7 @@ tv_academy_debate.2016 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3357,6 +3391,7 @@ tv_academy_debate.2017 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 9 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3392,6 +3427,7 @@ tv_academy_debate.2017 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 8 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 6 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3451,6 +3487,7 @@ tv_academy_debate.2018 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3493,6 +3530,7 @@ tv_academy_debate.2018 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3552,6 +3590,7 @@ tv_academy_debate.2019 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3594,6 +3633,7 @@ tv_academy_debate.2019 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3657,6 +3697,7 @@ tv_academy_debate.2020 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3703,6 +3744,7 @@ tv_academy_debate.2020 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3738,6 +3780,7 @@ tv_academy_debate.2021 = {
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			change_gold_effect = { scale = -1 }
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3780,6 +3823,7 @@ tv_academy_debate.2021 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3843,6 +3887,7 @@ tv_academy_debate.2022 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3885,6 +3930,7 @@ tv_academy_debate.2022 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3943,6 +3989,7 @@ tv_academy_debate.2023 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3960,6 +4007,7 @@ tv_academy_debate.2023 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_legitimacy = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -3994,6 +4042,7 @@ tv_academy_debate.2024 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4011,6 +4060,7 @@ tv_academy_debate.2024 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4070,6 +4120,7 @@ tv_academy_debate.2025 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4111,6 +4162,7 @@ tv_academy_debate.2025 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4170,6 +4222,7 @@ tv_academy_debate.2026 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4191,6 +4244,7 @@ tv_academy_debate.2026 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4250,6 +4304,7 @@ tv_academy_debate.2027 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4272,6 +4327,7 @@ tv_academy_debate.2027 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4331,6 +4387,7 @@ tv_academy_debate.2028 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4377,6 +4434,7 @@ tv_academy_debate.2028 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4436,6 +4494,7 @@ tv_academy_debate.2029 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4458,6 +4517,7 @@ tv_academy_debate.2029 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4521,6 +4581,7 @@ tv_academy_debate.2030 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4567,6 +4628,7 @@ tv_academy_debate.2030 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4626,6 +4688,7 @@ tv_academy_debate.2031 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4668,6 +4731,7 @@ tv_academy_debate.2031 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4731,6 +4795,7 @@ tv_academy_debate.2032 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4753,6 +4818,7 @@ tv_academy_debate.2032 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4816,6 +4882,7 @@ tv_academy_debate.2033 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4862,6 +4929,7 @@ tv_academy_debate.2033 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4921,6 +4989,7 @@ tv_academy_debate.2034 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -4963,6 +5032,7 @@ tv_academy_debate.2034 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5022,6 +5092,7 @@ tv_academy_debate.2035 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5044,6 +5115,7 @@ tv_academy_debate.2035 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5107,6 +5179,7 @@ tv_academy_debate.2036 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5153,6 +5226,7 @@ tv_academy_debate.2036 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5212,6 +5286,7 @@ tv_academy_debate.2037 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5254,6 +5329,7 @@ tv_academy_debate.2037 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 36 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5313,6 +5389,7 @@ tv_academy_debate.2038 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5355,6 +5432,7 @@ tv_academy_debate.2038 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5414,6 +5492,7 @@ tv_academy_debate.2039 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5456,6 +5535,7 @@ tv_academy_debate.2039 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5518,6 +5598,7 @@ tv_academy_debate.2040 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5555,6 +5636,7 @@ tv_academy_debate.2040 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 16 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5614,6 +5696,7 @@ tv_academy_debate.2041 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5660,6 +5743,7 @@ tv_academy_debate.2041 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5719,6 +5803,7 @@ tv_academy_debate.2042 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5761,6 +5846,7 @@ tv_academy_debate.2042 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5820,6 +5906,7 @@ tv_academy_debate.2043 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5862,6 +5949,7 @@ tv_academy_debate.2043 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5900,6 +5988,7 @@ tv_academy_debate.2044 = {
 				add_artist_skill = 0.05
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5921,6 +6010,7 @@ tv_academy_debate.2044 = {
 				limit = { is_alive = yes is_artist = yes }
 				add_artist_skill = -0.04
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5960,6 +6050,7 @@ tv_academy_debate.2045 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -5997,6 +6088,7 @@ tv_academy_debate.2045 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 16 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6060,6 +6152,7 @@ tv_academy_debate.2046 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6121,6 +6214,7 @@ tv_academy_debate.2046 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 3 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 6 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6181,6 +6275,7 @@ tv_academy_debate.2047 = {
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.03 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6223,6 +6318,7 @@ tv_academy_debate.2047 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6282,6 +6378,7 @@ tv_academy_debate.2048 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6343,6 +6440,7 @@ tv_academy_debate.2048 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 10 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6405,6 +6503,7 @@ tv_academy_debate.2049 = {
 				limit = { is_alive = yes is_artist = yes }
 				add_artist_skill = 0.05
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6447,6 +6546,7 @@ tv_academy_debate.2049 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6506,6 +6606,7 @@ tv_academy_debate.2050 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6548,6 +6649,7 @@ tv_academy_debate.2050 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6607,6 +6709,7 @@ tv_academy_debate.2051 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_prestige = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6653,6 +6756,7 @@ tv_academy_debate.2051 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6712,6 +6816,7 @@ tv_academy_debate.2052 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6754,6 +6859,7 @@ tv_academy_debate.2052 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6813,6 +6919,7 @@ tv_academy_debate.2053 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6880,6 +6987,7 @@ tv_academy_debate.2053 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -6967,6 +7075,7 @@ tv_academy_debate.2054 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7009,6 +7118,7 @@ tv_academy_debate.2054 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7072,6 +7182,7 @@ tv_academy_debate.2055 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7133,6 +7244,7 @@ tv_academy_debate.2055 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 10 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7217,6 +7329,7 @@ tv_academy_debate.2056 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7259,6 +7372,7 @@ tv_academy_debate.2056 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7322,6 +7436,7 @@ tv_academy_debate.2057 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7365,6 +7480,7 @@ tv_academy_debate.2057 = {
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.03 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7424,6 +7540,7 @@ tv_academy_debate.2058 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7470,6 +7587,7 @@ tv_academy_debate.2058 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7529,6 +7647,7 @@ tv_academy_debate.2059 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7571,6 +7690,7 @@ tv_academy_debate.2059 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7630,6 +7750,7 @@ tv_academy_debate.2060 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7672,6 +7793,7 @@ tv_academy_debate.2060 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7731,6 +7853,7 @@ tv_academy_debate.2061 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7773,6 +7896,7 @@ tv_academy_debate.2061 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7832,6 +7956,7 @@ tv_academy_debate.2062 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7874,6 +7999,7 @@ tv_academy_debate.2062 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7933,6 +8059,7 @@ tv_academy_debate.2063 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -7975,6 +8102,7 @@ tv_academy_debate.2063 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8034,6 +8162,7 @@ tv_academy_debate.2064 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8052,6 +8181,7 @@ tv_academy_debate.2064 = {
 			tv_academy_debate_change_local_progress_effect = { value = -10 }
 			add_legitimacy = 5
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8115,6 +8245,7 @@ tv_academy_debate.2065 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8157,6 +8288,7 @@ tv_academy_debate.2065 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8216,6 +8348,7 @@ tv_academy_debate.2066 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8234,6 +8367,7 @@ tv_academy_debate.2066 = {
 			tv_academy_debate_change_local_progress_effect = { value = -10 }
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.03 }
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8293,6 +8427,7 @@ tv_academy_debate.2067 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8335,6 +8470,7 @@ tv_academy_debate.2067 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8394,6 +8530,7 @@ tv_academy_debate.2068 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8436,6 +8573,7 @@ tv_academy_debate.2068 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8495,6 +8633,7 @@ tv_academy_debate.2069 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8537,6 +8676,7 @@ tv_academy_debate.2069 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8598,6 +8738,7 @@ tv_academy_debate.2070 = {
 			var:tv_academy_leader_char ?= {
 				add_adm = 1
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8640,6 +8781,7 @@ tv_academy_debate.2070 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8679,6 +8821,7 @@ tv_academy_debate.2071 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8725,6 +8868,7 @@ tv_academy_debate.2071 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8803,6 +8947,7 @@ tv_academy_debate.2072 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 17 has_variable = tv_academy_debate_seat_5_foreign_country }
 				var:tv_academy_debate_seat_5_foreign_country ?= { add_prestige = 5 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8845,6 +8990,7 @@ tv_academy_debate.2072 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8904,6 +9050,7 @@ tv_academy_debate.2073 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -8946,6 +9093,7 @@ tv_academy_debate.2073 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9005,6 +9153,7 @@ tv_academy_debate.2074 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9051,6 +9200,7 @@ tv_academy_debate.2074 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9114,6 +9264,7 @@ tv_academy_debate.2075 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9156,6 +9307,7 @@ tv_academy_debate.2075 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9220,6 +9372,7 @@ tv_academy_debate.2076 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9263,6 +9416,7 @@ tv_academy_debate.2076 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9327,6 +9481,7 @@ tv_academy_debate.2077 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9373,6 +9528,7 @@ tv_academy_debate.2077 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9436,6 +9592,7 @@ tv_academy_debate.2078 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9478,6 +9635,7 @@ tv_academy_debate.2078 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9537,6 +9695,7 @@ tv_academy_debate.2079 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_prestige = -5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9578,6 +9737,7 @@ tv_academy_debate.2079 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9617,6 +9777,7 @@ tv_academy_debate.2080 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9659,6 +9820,7 @@ tv_academy_debate.2080 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9718,6 +9880,7 @@ tv_academy_debate.2081 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9740,6 +9903,7 @@ tv_academy_debate.2081 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9799,6 +9963,7 @@ tv_academy_debate.2082 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9845,6 +10010,7 @@ tv_academy_debate.2082 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9884,6 +10050,7 @@ tv_academy_debate.2083 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9926,6 +10093,7 @@ tv_academy_debate.2083 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -9985,6 +10153,7 @@ tv_academy_debate.2084 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10027,6 +10196,7 @@ tv_academy_debate.2084 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10090,6 +10260,7 @@ tv_academy_debate.2085 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10136,6 +10307,7 @@ tv_academy_debate.2085 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10199,6 +10371,7 @@ tv_academy_debate.2086 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10241,6 +10414,7 @@ tv_academy_debate.2086 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10300,6 +10474,7 @@ tv_academy_debate.2087 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10342,6 +10517,7 @@ tv_academy_debate.2087 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10381,6 +10557,7 @@ tv_academy_debate.2088 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10423,6 +10600,7 @@ tv_academy_debate.2088 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10482,6 +10660,7 @@ tv_academy_debate.2089 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_prestige = -10
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10528,6 +10707,7 @@ tv_academy_debate.2089 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10587,6 +10767,7 @@ tv_academy_debate.2090 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10629,6 +10810,7 @@ tv_academy_debate.2090 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10688,6 +10870,7 @@ tv_academy_debate.2091 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10730,6 +10913,7 @@ tv_academy_debate.2091 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10769,6 +10953,7 @@ tv_academy_debate.2092 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10811,6 +10996,7 @@ tv_academy_debate.2092 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10870,6 +11056,7 @@ tv_academy_debate.2093 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10912,6 +11099,7 @@ tv_academy_debate.2093 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -10990,6 +11178,7 @@ tv_academy_debate.2094 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 17 has_variable = tv_academy_debate_seat_5_foreign_country }
 				var:tv_academy_debate_seat_5_foreign_country ?= { add_prestige = -5 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11032,6 +11221,7 @@ tv_academy_debate.2094 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_legitimacy = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11115,6 +11305,7 @@ tv_academy_debate.2095 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11157,6 +11348,7 @@ tv_academy_debate.2095 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11216,6 +11408,7 @@ tv_academy_debate.2096 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11262,6 +11455,7 @@ tv_academy_debate.2096 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11325,6 +11519,7 @@ tv_academy_debate.2097 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11367,6 +11562,7 @@ tv_academy_debate.2097 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11425,6 +11621,7 @@ tv_academy_debate.2098 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11442,6 +11639,7 @@ tv_academy_debate.2098 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_stability = 1
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11476,6 +11674,7 @@ tv_academy_debate.2099 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11517,6 +11716,7 @@ tv_academy_debate.2099 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11551,6 +11751,7 @@ tv_academy_debate.2100 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11592,6 +11793,7 @@ tv_academy_debate.2100 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11650,6 +11852,7 @@ tv_academy_debate.2101 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11667,6 +11870,7 @@ tv_academy_debate.2101 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11701,6 +11905,7 @@ tv_academy_debate.2102 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			add_legitimacy = -5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11722,6 +11927,7 @@ tv_academy_debate.2102 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11780,6 +11986,7 @@ tv_academy_debate.2103 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11801,6 +12008,7 @@ tv_academy_debate.2103 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11835,6 +12043,7 @@ tv_academy_debate.2104 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			change_gold_effect = { scale = -2 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11852,6 +12061,7 @@ tv_academy_debate.2104 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -10 }
 			change_gold_effect = { scale = 1 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11910,6 +12120,7 @@ tv_academy_debate.2105 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11931,6 +12142,7 @@ tv_academy_debate.2105 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -11965,6 +12177,7 @@ tv_academy_debate.2106 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			add_prestige = -5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12001,6 +12214,7 @@ tv_academy_debate.2106 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 17 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12035,6 +12249,7 @@ tv_academy_debate.2107 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			change_gold_effect = { scale = -1 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12076,6 +12291,7 @@ tv_academy_debate.2107 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12114,6 +12330,7 @@ tv_academy_debate.2108 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12155,6 +12372,7 @@ tv_academy_debate.2108 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12189,6 +12407,7 @@ tv_academy_debate.2109 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12206,6 +12425,7 @@ tv_academy_debate.2109 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -10 }
 			add_stability = 1
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12264,6 +12484,7 @@ tv_academy_debate.2110 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12285,6 +12506,7 @@ tv_academy_debate.2110 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12319,6 +12541,7 @@ tv_academy_debate.2111 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			change_gold_effect = { scale = -1 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12360,6 +12583,7 @@ tv_academy_debate.2111 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12418,6 +12642,7 @@ tv_academy_debate.2112 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12435,6 +12660,7 @@ tv_academy_debate.2112 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12469,6 +12695,7 @@ tv_academy_debate.2113 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12486,6 +12713,7 @@ tv_academy_debate.2113 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -10 }
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12545,6 +12773,7 @@ tv_academy_debate.2114 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12562,6 +12791,7 @@ tv_academy_debate.2114 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_legitimacy = 3
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12620,6 +12850,7 @@ tv_academy_debate.2115 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12641,6 +12872,7 @@ tv_academy_debate.2115 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12675,6 +12907,7 @@ tv_academy_debate.2116 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12711,6 +12944,7 @@ tv_academy_debate.2116 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 8 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12745,6 +12979,7 @@ tv_academy_debate.2117 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			add_legitimacy = -5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12786,6 +13021,7 @@ tv_academy_debate.2117 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12845,6 +13081,7 @@ tv_academy_debate.2118 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12882,6 +13119,7 @@ tv_academy_debate.2118 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12941,6 +13179,7 @@ tv_academy_debate.2119 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -12983,6 +13222,7 @@ tv_academy_debate.2119 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13042,6 +13282,7 @@ tv_academy_debate.2120 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13088,6 +13329,7 @@ tv_academy_debate.2120 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13147,6 +13389,7 @@ tv_academy_debate.2121 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13189,6 +13432,7 @@ tv_academy_debate.2121 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13253,6 +13497,7 @@ tv_academy_debate.2122 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13294,6 +13539,7 @@ tv_academy_debate.2122 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13353,6 +13599,7 @@ tv_academy_debate.2123 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:dhimmi_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13395,6 +13642,7 @@ tv_academy_debate.2123 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13458,6 +13706,7 @@ tv_academy_debate.2124 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13500,6 +13749,7 @@ tv_academy_debate.2124 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13560,6 +13810,7 @@ tv_academy_debate.2125 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13597,6 +13848,7 @@ tv_academy_debate.2125 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13675,6 +13927,7 @@ tv_academy_debate.2126 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 17 has_variable = tv_academy_debate_seat_5_foreign_country }
 				var:tv_academy_debate_seat_5_foreign_country ?= { add_prestige = 5 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13717,6 +13970,7 @@ tv_academy_debate.2126 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13777,6 +14031,7 @@ tv_academy_debate.2127 = {
 			}
 			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.04 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13820,6 +14075,7 @@ tv_academy_debate.2127 = {
 			}
 			add_estate_satisfaction = { type = estate_type:peasants_estate value = 0.04 }
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13898,6 +14154,7 @@ tv_academy_debate.2128 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 8 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13940,6 +14197,7 @@ tv_academy_debate.2128 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -13999,6 +14257,7 @@ tv_academy_debate.2129 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14041,6 +14300,7 @@ tv_academy_debate.2129 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14100,6 +14360,7 @@ tv_academy_debate.2130 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14122,6 +14383,7 @@ tv_academy_debate.2130 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14181,6 +14443,7 @@ tv_academy_debate.2131 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14227,6 +14490,7 @@ tv_academy_debate.2131 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14305,6 +14569,7 @@ tv_academy_debate.2132 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 17 has_variable = tv_academy_debate_seat_5_foreign_country }
 				var:tv_academy_debate_seat_5_foreign_country ?= { add_prestige = -10 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14366,6 +14631,7 @@ tv_academy_debate.2132 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 3 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14426,6 +14692,7 @@ tv_academy_debate.2133 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14463,6 +14730,7 @@ tv_academy_debate.2133 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 13 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14527,6 +14795,7 @@ tv_academy_debate.2134 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14570,6 +14839,7 @@ tv_academy_debate.2134 = {
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.05 }
 			add_legitimacy = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14624,6 +14894,7 @@ tv_academy_debate.2135 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 9 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14691,6 +14962,7 @@ tv_academy_debate.2135 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_prestige = -5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14775,6 +15047,7 @@ tv_academy_debate.2136 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14818,6 +15091,7 @@ tv_academy_debate.2136 = {
 			}
 			add_estate_satisfaction = { type = estate_type:dhimmi_estate value = 0.03 }
 			add_stability = 1
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14882,6 +15156,7 @@ tv_academy_debate.2137 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14919,6 +15194,7 @@ tv_academy_debate.2137 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_prestige = -5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -14978,6 +15254,7 @@ tv_academy_debate.2138 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15020,6 +15297,7 @@ tv_academy_debate.2138 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15098,6 +15376,7 @@ tv_academy_debate.2139 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 17 has_variable = tv_academy_debate_seat_5_foreign_country }
 				var:tv_academy_debate_seat_5_foreign_country ?= { add_prestige = 5 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15140,6 +15419,7 @@ tv_academy_debate.2139 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15203,6 +15483,7 @@ tv_academy_debate.2140 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15245,6 +15526,7 @@ tv_academy_debate.2140 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15328,6 +15610,7 @@ tv_academy_debate.2141 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15365,6 +15648,7 @@ tv_academy_debate.2141 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 9 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15424,6 +15708,7 @@ tv_academy_debate.2142 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15466,6 +15751,7 @@ tv_academy_debate.2142 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15529,6 +15815,7 @@ tv_academy_debate.2143 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15571,6 +15858,7 @@ tv_academy_debate.2143 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15654,6 +15942,7 @@ tv_academy_debate.2144 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15695,6 +15984,7 @@ tv_academy_debate.2144 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15754,6 +16044,7 @@ tv_academy_debate.2145 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15796,6 +16087,7 @@ tv_academy_debate.2145 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15859,6 +16151,7 @@ tv_academy_debate.2146 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15925,6 +16218,7 @@ tv_academy_debate.2146 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -15989,6 +16283,7 @@ tv_academy_debate.2147 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16035,6 +16330,7 @@ tv_academy_debate.2147 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16094,6 +16390,7 @@ tv_academy_debate.2148 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16135,6 +16432,7 @@ tv_academy_debate.2148 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16195,6 +16493,7 @@ tv_academy_debate.2149 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16237,6 +16536,7 @@ tv_academy_debate.2149 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16296,6 +16596,7 @@ tv_academy_debate.2150 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16338,6 +16639,7 @@ tv_academy_debate.2150 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16377,6 +16679,7 @@ tv_academy_debate.2151 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16423,6 +16726,7 @@ tv_academy_debate.2151 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16487,6 +16791,7 @@ tv_academy_debate.2152 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16529,6 +16834,7 @@ tv_academy_debate.2152 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16588,6 +16894,7 @@ tv_academy_debate.2153 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16630,6 +16937,7 @@ tv_academy_debate.2153 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16713,6 +17021,7 @@ tv_academy_debate.2154 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16759,6 +17068,7 @@ tv_academy_debate.2154 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16818,6 +17128,7 @@ tv_academy_debate.2155 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16860,6 +17171,7 @@ tv_academy_debate.2155 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16919,6 +17231,7 @@ tv_academy_debate.2156 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -16965,6 +17278,7 @@ tv_academy_debate.2156 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17026,6 +17340,7 @@ tv_academy_debate.2157 = {
 			var:tv_academy_leader_char ?= {
 				add_dip = 1
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17072,6 +17387,7 @@ tv_academy_debate.2157 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17131,6 +17447,7 @@ tv_academy_debate.2158 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17173,6 +17490,7 @@ tv_academy_debate.2158 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17232,6 +17550,7 @@ tv_academy_debate.2159 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17274,6 +17593,7 @@ tv_academy_debate.2159 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17313,6 +17633,7 @@ tv_academy_debate.2160 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17355,6 +17676,7 @@ tv_academy_debate.2160 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17414,6 +17736,7 @@ tv_academy_debate.2161 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17456,6 +17779,7 @@ tv_academy_debate.2161 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17515,6 +17839,7 @@ tv_academy_debate.2162 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17557,6 +17882,7 @@ tv_academy_debate.2162 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17621,6 +17947,7 @@ tv_academy_debate.2163 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17663,6 +17990,7 @@ tv_academy_debate.2163 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17727,6 +18055,7 @@ tv_academy_debate.2164 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17769,6 +18098,7 @@ tv_academy_debate.2164 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17832,6 +18162,7 @@ tv_academy_debate.2165 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17878,6 +18209,7 @@ tv_academy_debate.2165 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17937,6 +18269,7 @@ tv_academy_debate.2166 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -17979,6 +18312,7 @@ tv_academy_debate.2166 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18019,6 +18353,7 @@ tv_academy_debate.2167 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18086,6 +18421,7 @@ tv_academy_debate.2167 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18144,6 +18480,7 @@ tv_academy_debate.2168 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18161,6 +18498,7 @@ tv_academy_debate.2168 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18219,6 +18557,7 @@ tv_academy_debate.2169 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18236,6 +18575,7 @@ tv_academy_debate.2169 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -5 }
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18290,6 +18630,7 @@ tv_academy_debate.2170 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 4 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18307,6 +18648,7 @@ tv_academy_debate.2170 = {
 			}
 			tv_academy_debate_change_local_progress_effect = { value = -10 }
 			add_estate_satisfaction = { type = estate_type:peasants_estate value = 0.05 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18366,6 +18708,7 @@ tv_academy_debate.2171 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18407,6 +18750,7 @@ tv_academy_debate.2171 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18466,6 +18810,7 @@ tv_academy_debate.2172 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18507,6 +18852,7 @@ tv_academy_debate.2172 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18566,6 +18912,7 @@ tv_academy_debate.2173 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18608,6 +18955,7 @@ tv_academy_debate.2173 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18643,6 +18991,7 @@ tv_academy_debate.2174 = {
 			tv_academy_debate_change_local_progress_effect = { value = 10 }
 			change_gold_effect = { scale = -1 }
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18665,6 +19014,7 @@ tv_academy_debate.2174 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18724,6 +19074,7 @@ tv_academy_debate.2175 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18766,6 +19117,7 @@ tv_academy_debate.2175 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18805,6 +19157,7 @@ tv_academy_debate.2176 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18847,6 +19200,7 @@ tv_academy_debate.2176 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18882,6 +19236,7 @@ tv_academy_debate.2177 = {
 			tv_academy_debate_change_local_progress_effect = { value = 5 }
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = 0.02 }
 			add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.02 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18924,6 +19279,7 @@ tv_academy_debate.2177 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -18987,6 +19343,7 @@ tv_academy_debate.2178 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19029,6 +19386,7 @@ tv_academy_debate.2178 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19088,6 +19446,7 @@ tv_academy_debate.2179 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19130,6 +19489,7 @@ tv_academy_debate.2179 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19191,6 +19551,7 @@ tv_academy_debate.2180 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19233,6 +19594,7 @@ tv_academy_debate.2180 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_legitimacy = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19292,6 +19654,7 @@ tv_academy_debate.2181 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19334,6 +19697,7 @@ tv_academy_debate.2181 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19397,6 +19761,7 @@ tv_academy_debate.2182 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19439,6 +19804,7 @@ tv_academy_debate.2182 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19498,6 +19864,7 @@ tv_academy_debate.2183 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19540,6 +19907,7 @@ tv_academy_debate.2183 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19579,6 +19947,7 @@ tv_academy_debate.2184 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19621,6 +19990,7 @@ tv_academy_debate.2184 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19660,6 +20030,7 @@ tv_academy_debate.2185 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19702,6 +20073,7 @@ tv_academy_debate.2185 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19765,6 +20137,7 @@ tv_academy_debate.2186 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19807,6 +20180,7 @@ tv_academy_debate.2186 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.03 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19871,6 +20245,7 @@ tv_academy_debate.2187 = {
 				months = 36
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19913,6 +20288,7 @@ tv_academy_debate.2187 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			change_gold_effect = { scale = 1 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -19991,6 +20367,7 @@ tv_academy_debate.2188 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 17 has_variable = tv_academy_debate_seat_5_foreign_country }
 				var:tv_academy_debate_seat_5_foreign_country ?= { add_prestige = 5 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20037,6 +20414,7 @@ tv_academy_debate.2188 = {
 				months = 18
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20096,6 +20474,7 @@ tv_academy_debate.2189 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20138,6 +20517,7 @@ tv_academy_debate.2189 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 24 }
 			}
 			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20197,6 +20577,7 @@ tv_academy_debate.2190 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20238,6 +20619,7 @@ tv_academy_debate.2190 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20277,6 +20659,7 @@ tv_academy_debate.2191 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20323,6 +20706,7 @@ tv_academy_debate.2191 = {
 				months = 12
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20360,6 +20744,7 @@ tv_academy_debate.2192 = {
 			var:tv_academy_leader_char ?= {
 				add_adm = 1
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20402,6 +20787,7 @@ tv_academy_debate.2192 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_prestige = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20466,6 +20852,7 @@ tv_academy_debate.2193 = {
 				months = 36
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20508,6 +20895,7 @@ tv_academy_debate.2193 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20569,6 +20957,7 @@ tv_academy_debate.2194 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20630,6 +21019,7 @@ tv_academy_debate.2194 = {
 				limit = { var:tv_academy_debate_seat_5_group ?= 3 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20690,6 +21080,7 @@ tv_academy_debate.2195 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20732,6 +21123,7 @@ tv_academy_debate.2195 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 18 }
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.04 }
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20816,6 +21208,7 @@ tv_academy_debate.2196 = {
 				set_variable = { name = tv_academy_debate_seat_5_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20859,6 +21252,7 @@ tv_academy_debate.2196 = {
 			}
 			add_estate_satisfaction = { type = estate_type:nobles_estate value = 0.03 }
 			add_legitimacy = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20947,6 +21341,7 @@ tv_academy_debate.2197 = {
 				months = 24
 				mode = add_and_extend
 			}
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}
@@ -20984,6 +21379,7 @@ tv_academy_debate.2197 = {
 				set_variable = { name = tv_academy_debate_seat_5_cooldown value = 12 }
 			}
 			add_legitimacy = 5
+			tv_academy_debate_refresh_local_balance_effect = yes
 			tv_academy_philosophy_check_debate_endpoint_effect = yes
 		}
 	}

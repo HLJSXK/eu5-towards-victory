@@ -1100,7 +1100,14 @@ def append_node_year(lines: list[str], level: int, slot: int) -> None:
     emit(lines, level, "}")
 
 
-def append_debate_progress_footer(lines: list[str], level: int, tooltip: str, value_expr: str, label_expr: str) -> None:
+def append_debate_progress_footer(
+    lines: list[str],
+    level: int,
+    tooltip: str,
+    value_expr: str,
+    label_expr: str,
+    using: str = "progress_bar_blue_alt",
+) -> None:
     emit(lines, level, "hbox = {")
     emit(lines, level + 1, "layoutpolicy_horizontal = fixed")
     emit(lines, level + 1, "size = { 462 24 }")
@@ -1111,7 +1118,7 @@ def append_debate_progress_footer(lines: list[str], level: int, tooltip: str, va
     emit(lines, level + 3, "size = { 380 16 }")
     emit(lines, level + 3, "parentanchor = vcenter")
     emit(lines, level + 3, "widgetanchor = vcenter")
-    emit(lines, level + 3, "using = progress_bar_blue_alt")
+    emit(lines, level + 3, f"using = {using}")
     emit(lines, level + 3, "min = 0")
     emit(lines, level + 3, "max = 100")
     emit(lines, level + 3, f'value = "{value_expr}"')
@@ -1202,7 +1209,7 @@ def append_local_debate_seat(lines: list[str], level: int, x: int, y: int, seat:
 def append_round_table(lines: list[str], level: int, visible_expr: str, table_text_key: str | None, history: bool = False) -> None:
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f'visible = "{visible_expr}"')
-    emit(lines, level + 1, "size = { 470 376 }")
+    emit(lines, level + 1, "size = { 470 404 }")
     emit(lines, level + 1, "allow_outside = yes")
     emit(lines, level + 1, "widget = {")
     emit(lines, level + 2, "size = { 220 220 }")
@@ -1243,9 +1250,19 @@ def append_round_table(lines: list[str], level: int, visible_expr: str, table_te
         ]:
             append_local_debate_seat(lines, level + 1, x, y, seat, crown)
         emit(lines, level + 1, "vbox = {")
-        emit(lines, level + 2, "position = { 4 340 }")
-        emit(lines, level + 2, "size = { 462 28 }")
+        emit(lines, level + 2, "position = { 4 342 }")
+        emit(lines, level + 2, "size = { 462 56 }")
+        emit(lines, level + 2, "spacing = 4")
+        local_balance = io_var("tv_academy_debate_local_balance")
         debate_position = io_var("tv_academy_philosophy_debate_position")
+        append_debate_progress_footer(
+            lines,
+            level + 2,
+            "TV_ACADEMY_DEBATE_LOCAL_BALANCE_TT",
+            f"[{local_balance}.GetValue]",
+            f"[{local_balance}.GetValue|0]%",
+            "progress_bar_green_red_alt",
+        )
         append_debate_progress_footer(
             lines,
             level + 2,
@@ -1446,7 +1463,7 @@ def append_current_issue_card(lines: list[str], level: int) -> None:
     emit(lines, level + 1, "}")
     emit(lines, level + 1, 'blockoverride "common_bottom_content" {')
     emit(lines, level + 2, "widget = {")
-    emit(lines, level + 3, "size = { 470 384 }")
+    emit(lines, level + 3, "size = { 470 412 }")
     append_round_table(lines, level + 3, f"[{current_node_type_eq(0)}]", "TV_ACADEMY_DEBATE_HISTORY_TABLE_TEXT", history=True)
     append_round_table(lines, level + 3, f"[{current_node_type_eq(1)}]", None, history=False)
     append_world_table(lines, level + 3)

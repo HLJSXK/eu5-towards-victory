@@ -101,6 +101,7 @@ tv_academy_debate_clear_all_seats_effect = {
 	remove_variable = tv_academy_debate_group_great_scientist_left
 	remove_variable = tv_academy_debate_great_scientist_seated
 	tv_academy_debate_clear_event_state_effect = yes
+	tv_academy_debate_refresh_local_balance_effect = yes
 }
 
 tv_academy_debate_initialize_global_maps_effect = {
@@ -139,6 +140,7 @@ tv_academy_debate_initialize_global_maps_effect = {
 tv_academy_debate_initialize_debate_effect = {
 	tv_academy_debate_clear_all_seats_effect = yes
 	tv_academy_debate_set_local_progress_effect = { value = 50 }
+	tv_academy_debate_refresh_local_balance_effect = yes
 }
 
 tv_academy_debate_cleanup_debate_effect = {
@@ -294,6 +296,71 @@ tv_academy_debate_mark_selected_group_seated_effect = {
 		limit = { var:tv_academy_debate_event_group ?= 18 }
 		set_variable = { name = tv_academy_debate_group_great_scientist_seated value = 1 }
 		set_variable = { name = tv_academy_debate_great_scientist_seated value = 1 }
+	}
+}
+
+tv_academy_debate_refresh_local_balance_effect = {
+	save_scope_as = tv_academy_debate_balance_owner
+	set_local_variable = { name = tv_academy_debate_local_support_count value = 0 }
+	set_local_variable = { name = tv_academy_debate_local_oppose_count value = 0 }
+	if = {
+		limit = { has_variable = tv_academy_debate_seat_1_group var:tv_academy_debate_seat_1_stance ?= 1 }
+		change_local_variable = { name = tv_academy_debate_local_support_count add = 1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_academy_debate_seat_1_group var:tv_academy_debate_seat_1_stance ?= 2 }
+		change_local_variable = { name = tv_academy_debate_local_oppose_count add = 1 }
+	}
+	if = {
+		limit = { has_variable = tv_academy_debate_seat_2_group var:tv_academy_debate_seat_2_stance ?= 1 }
+		change_local_variable = { name = tv_academy_debate_local_support_count add = 1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_academy_debate_seat_2_group var:tv_academy_debate_seat_2_stance ?= 2 }
+		change_local_variable = { name = tv_academy_debate_local_oppose_count add = 1 }
+	}
+	if = {
+		limit = { has_variable = tv_academy_debate_seat_3_group var:tv_academy_debate_seat_3_stance ?= 1 }
+		change_local_variable = { name = tv_academy_debate_local_support_count add = 1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_academy_debate_seat_3_group var:tv_academy_debate_seat_3_stance ?= 2 }
+		change_local_variable = { name = tv_academy_debate_local_oppose_count add = 1 }
+	}
+	if = {
+		limit = { has_variable = tv_academy_debate_seat_4_group var:tv_academy_debate_seat_4_stance ?= 1 }
+		change_local_variable = { name = tv_academy_debate_local_support_count add = 1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_academy_debate_seat_4_group var:tv_academy_debate_seat_4_stance ?= 2 }
+		change_local_variable = { name = tv_academy_debate_local_oppose_count add = 1 }
+	}
+	if = {
+		limit = { has_variable = tv_academy_debate_seat_5_group var:tv_academy_debate_seat_5_stance ?= 1 }
+		change_local_variable = { name = tv_academy_debate_local_support_count add = 1 }
+	}
+	else_if = {
+		limit = { has_variable = tv_academy_debate_seat_5_group var:tv_academy_debate_seat_5_stance ?= 2 }
+		change_local_variable = { name = tv_academy_debate_local_oppose_count add = 1 }
+	}
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_academy_of_sciences
+			leader_country ?= scope:tv_academy_debate_balance_owner
+		}
+		set_variable = { name = tv_academy_debate_local_support_seats value = local_var:tv_academy_debate_local_support_count }
+		set_variable = { name = tv_academy_debate_local_oppose_seats value = local_var:tv_academy_debate_local_oppose_count }
+		set_variable = { name = tv_academy_debate_local_decisive_seats value = var:tv_academy_debate_local_support_seats }
+		change_variable = { name = tv_academy_debate_local_decisive_seats add = var:tv_academy_debate_local_oppose_seats }
+		set_variable = { name = tv_academy_debate_local_balance value = 50 }
+		if = {
+			limit = { var:tv_academy_debate_local_decisive_seats > 0 }
+			set_variable = { name = tv_academy_debate_local_balance value = var:tv_academy_debate_local_support_seats }
+			change_variable = { name = tv_academy_debate_local_balance divide = var:tv_academy_debate_local_decisive_seats }
+			change_variable = { name = tv_academy_debate_local_balance multiply = 100 }
+			clamp_variable = { name = tv_academy_debate_local_balance min = 0 max = 100 }
+		}
+		remove_variable = tv_academy_debate_local_decisive_seats
 	}
 }
 
@@ -648,6 +715,7 @@ tv_academy_debate_clear_selected_seat_effect = {
 		limit = { var:tv_academy_debate_event_seat ?= 5 }
 		tv_academy_debate_clear_seat_5_effect = yes
 	}
+	tv_academy_debate_refresh_local_balance_effect = yes
 }
 
 tv_academy_philosophy_accept_meritocracy_effect = {
@@ -2903,6 +2971,7 @@ tv_academy_debate_assign_selected_group_to_specific_seat_effect = {
 	if = { limit = { exists = scope:tv_academy_debate_selected_foreign_country } set_variable = { name = tv_academy_debate_seat_$seat$_foreign_country value = scope:tv_academy_debate_selected_foreign_country } }
 	if = { limit = { exists = scope:tv_academy_debate_selected_scientist } set_variable = { name = tv_academy_debate_seat_$seat$_scientist value = scope:tv_academy_debate_selected_scientist } }
 	tv_academy_debate_mark_selected_group_seated_effect = yes
+	tv_academy_debate_refresh_local_balance_effect = yes
 }
 
 tv_academy_debate_set_selected_neutral_stance_effect = {
@@ -2932,6 +3001,7 @@ tv_academy_debate_set_selected_neutral_stance_effect = {
 		set_variable = { name = tv_academy_debate_seat_5_stance value = $stance$ }
 		set_variable = { name = tv_academy_debate_seat_5_cooldown value = 60 }
 	}
+	tv_academy_debate_refresh_local_balance_effect = yes
 }
 
 tv_academy_debate_set_selected_neutral_to_support_effect = {
@@ -6004,6 +6074,7 @@ tv_academy_debate_apply_defections_effect = {
 	tv_academy_debate_apply_seat_3_defection_effect = yes
 	tv_academy_debate_apply_seat_4_defection_effect = yes
 	tv_academy_debate_apply_seat_5_defection_effect = yes
+	tv_academy_debate_refresh_local_balance_effect = yes
 }
 
 tv_academy_debate_dispatch_auto_stance_notifications_effect = {

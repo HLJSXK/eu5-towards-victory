@@ -75,6 +75,10 @@ EVENT_PRICE = "tv_academy_debate_event_price"
 MONTHLY_DELTA = "tv_academy_philosophy_monthly_delta"
 SEAT_CONTRIB = "tv_academy_debate_seat_contribution"
 LOCAL_DEBATE_PROGRESS_VAR = "tv_academy_philosophy_debate_position"
+LOCAL_DEBATE_BALANCE_VAR = "tv_academy_debate_local_balance"
+LOCAL_DEBATE_SUPPORT_SEATS_VAR = "tv_academy_debate_local_support_seats"
+LOCAL_DEBATE_OPPOSE_SEATS_VAR = "tv_academy_debate_local_oppose_seats"
+LOCAL_DEBATE_DECISIVE_SEATS_VAR = "tv_academy_debate_local_decisive_seats"
 LOCAL_DEBATE_PROGRESS_DELTA_LOCAL = "tv_academy_debate_local_progress_delta"
 SELECTED_ARTIST_SCOPE = "tv_academy_debate_selected_artist"
 SELECTED_FOREIGN_SCOPE = "tv_academy_debate_selected_foreign_country"
@@ -841,6 +845,10 @@ def emit_change_local_debate_progress_effect(lines: list[str], level: int, value
     emit(lines, level, f"tv_academy_debate_change_local_progress_effect = {{ value = {value_expr} }}")
 
 
+def emit_refresh_local_balance_effect(lines: list[str], level: int) -> None:
+    emit(lines, level, "tv_academy_debate_refresh_local_balance_effect = yes")
+
+
 def gen_local_debate_progress_effects(lines: list[str]) -> None:
     emit(lines, 0, "tv_academy_debate_change_local_progress_effect = {")
     emit(lines, 1, "save_scope_as = tv_academy_debate_progress_owner")
@@ -934,6 +942,7 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
             emit(lines, 1, f"remove_variable = {group_var(group['key'], suffix)}")
     emit(lines, 1, "remove_variable = tv_academy_debate_great_scientist_seated")
     emit(lines, 1, "tv_academy_debate_clear_event_state_effect = yes")
+    emit_refresh_local_balance_effect(lines, 1)
     emit(lines, 0, "}")
     emit(lines)
 
@@ -949,6 +958,7 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "tv_academy_debate_initialize_debate_effect = {")
     emit(lines, 1, "tv_academy_debate_clear_all_seats_effect = yes")
     emit(lines, 1, f"tv_academy_debate_set_local_progress_effect = {{ value = {settings['initial_progress']} }}")
+    emit_refresh_local_balance_effect(lines, 1)
     emit(lines, 0, "}")
     emit(lines)
 
@@ -964,6 +974,38 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
 
     emit(lines, 0, "tv_academy_debate_mark_selected_group_seated_effect = {")
     gen_set_group_seated(lines, 1, data)
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_refresh_local_balance_effect = {")
+    emit(lines, 1, "save_scope_as = tv_academy_debate_balance_owner")
+    emit(lines, 1, "set_local_variable = { name = tv_academy_debate_local_support_count value = 0 }")
+    emit(lines, 1, "set_local_variable = { name = tv_academy_debate_local_oppose_count value = 0 }")
+    for seat in SEATS:
+        emit(lines, 1, "if = {")
+        emit(lines, 2, f"limit = {{ has_variable = {seat_group(seat)} {var_eq(seat_stance(seat), STANCE_SUPPORT)} }}")
+        emit(lines, 2, "change_local_variable = { name = tv_academy_debate_local_support_count add = 1 }")
+        emit(lines, 1, "}")
+        emit(lines, 1, "else_if = {")
+        emit(lines, 2, f"limit = {{ has_variable = {seat_group(seat)} {var_eq(seat_stance(seat), STANCE_OPPOSE)} }}")
+        emit(lines, 2, "change_local_variable = { name = tv_academy_debate_local_oppose_count add = 1 }")
+        emit(lines, 1, "}")
+    emit(lines, 1, "every_international_organizations_member_of = {")
+    emit_owned_academy_io_limit(lines, 2, leader_expr="scope:tv_academy_debate_balance_owner")
+    emit(lines, 2, f"set_variable = {{ name = {LOCAL_DEBATE_SUPPORT_SEATS_VAR} value = local_var:tv_academy_debate_local_support_count }}")
+    emit(lines, 2, f"set_variable = {{ name = {LOCAL_DEBATE_OPPOSE_SEATS_VAR} value = local_var:tv_academy_debate_local_oppose_count }}")
+    emit(lines, 2, f"set_variable = {{ name = {LOCAL_DEBATE_DECISIVE_SEATS_VAR} value = var:{LOCAL_DEBATE_SUPPORT_SEATS_VAR} }}")
+    emit(lines, 2, f"change_variable = {{ name = {LOCAL_DEBATE_DECISIVE_SEATS_VAR} add = var:{LOCAL_DEBATE_OPPOSE_SEATS_VAR} }}")
+    emit(lines, 2, f"set_variable = {{ name = {LOCAL_DEBATE_BALANCE_VAR} value = 50 }}")
+    emit(lines, 2, "if = {")
+    emit(lines, 3, f"limit = {{ var:{LOCAL_DEBATE_DECISIVE_SEATS_VAR} > 0 }}")
+    emit(lines, 3, f"set_variable = {{ name = {LOCAL_DEBATE_BALANCE_VAR} value = var:{LOCAL_DEBATE_SUPPORT_SEATS_VAR} }}")
+    emit(lines, 3, f"change_variable = {{ name = {LOCAL_DEBATE_BALANCE_VAR} divide = var:{LOCAL_DEBATE_DECISIVE_SEATS_VAR} }}")
+    emit(lines, 3, f"change_variable = {{ name = {LOCAL_DEBATE_BALANCE_VAR} multiply = 100 }}")
+    emit(lines, 3, f"clamp_variable = {{ name = {LOCAL_DEBATE_BALANCE_VAR} min = 0 max = 100 }}")
+    emit(lines, 2, "}")
+    emit(lines, 2, f"remove_variable = {LOCAL_DEBATE_DECISIVE_SEATS_VAR}")
+    emit(lines, 1, "}")
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1008,6 +1050,7 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
         emit(lines, 2, f"limit = {{ {var_eq(EVENT_SEAT, seat)} }}")
         emit(lines, 2, f"tv_academy_debate_clear_seat_{seat}_effect = yes")
         emit(lines, 1, "}")
+    emit_refresh_local_balance_effect(lines, 1)
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1441,6 +1484,7 @@ def gen_seat_effects(lines: list[str], data: dict) -> None:
     emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_FOREIGN_SCOPE} }} set_variable = {{ name = {seat_foreign('$seat$')} value = scope:{SELECTED_FOREIGN_SCOPE} }} }}")
     emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_SCIENTIST_SCOPE} }} set_variable = {{ name = {seat_scientist('$seat$')} value = scope:{SELECTED_SCIENTIST_SCOPE} }} }}")
     emit(lines, 1, "tv_academy_debate_mark_selected_group_seated_effect = yes")
+    emit_refresh_local_balance_effect(lines, 1)
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1452,6 +1496,7 @@ def gen_seat_effects(lines: list[str], data: dict) -> None:
         emit(lines, 2, f"set_variable = {{ name = {seat_stance(seat)} value = $stance$ }}")
         emit(lines, 2, f"set_variable = {{ name = {seat_cooldown(seat)} value = {data['settings']['defection_cooldown_months']} }}")
         emit(lines, 1, "}")
+    emit_refresh_local_balance_effect(lines, 1)
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1727,6 +1772,7 @@ def gen_random_event_effects(lines: list[str], level: int, data: dict, event: di
     emit_change_local_debate_progress_effect(lines, level + 1, option_data["progress_delta"])
     for block in option_data.get("effect_blocks") or []:
         gen_random_event_effect_block(lines, level + 1, data, block)
+    emit_refresh_local_balance_effect(lines, level + 1)
     emit(lines, level + 1, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
     emit(lines, level, "}")
 
@@ -1828,6 +1874,7 @@ def gen_defection_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "tv_academy_debate_apply_defections_effect = {")
     for seat in SEATS:
         emit(lines, 1, f"tv_academy_debate_apply_seat_{seat}_defection_effect = yes")
+    emit_refresh_local_balance_effect(lines, 1)
     emit(lines, 0, "}")
     emit(lines)
 
@@ -2698,8 +2745,16 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
         if zh
         else "Measures the Academy's local philosophy debate movement toward acceptance or rejection of the current issue. Reaching 100 accepts the issue; reaching 0 rejects it."
     )
+    entries[LOCAL_DEBATE_BALANCE_VAR] = "本地势力平衡" if zh else "Local Balance of Forces"
+    entries[f"{LOCAL_DEBATE_BALANCE_VAR}_desc"] = (
+        "比较本地辩论圆桌上非王室支持席与反对席的比例。中立和空席不计入该比例。"
+        if zh
+        else "Compares the share of non-Crown supportive and opposing seats at the local debate roundtable. Neutral and empty seats are excluded."
+    )
     entries["TV_ACADEMY_DEBATE_POSITION_FORMAT"] = "$VAL|0$/100"
     entries["TV_ACADEMY_DEBATE_POSITION_CHANGE_FORMAT"] = "$KEY$: $VALUE|+=2$"
+    entries["TV_ACADEMY_DEBATE_LOCAL_BALANCE_FORMAT"] = "$VAL|0$%"
+    entries["TV_ACADEMY_DEBATE_LOCAL_BALANCE_CHANGE_FORMAT"] = "$KEY$: $VALUE|+=2$"
     if zh:
         entries.update({
             "TV_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "获得$VALUE|+$#Y $tv_academy_philosophy_debate_position$#!",
@@ -2734,6 +2789,7 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
     entries["TV_ACADEMY_DEBATE_STANCE_OPPOSE"] = "反对" if zh else "Oppose"
     entries["TV_ACADEMY_DEBATE_STANCE_NEUTRAL"] = "中立" if zh else "Neutral"
     entries["TV_ACADEMY_DEBATE_SEAT_FILLED_TT"] = "该辩论席已有团体入座。绿色表示支持，红色表示反对，黄色表示中立。" if zh else "This debate seat is occupied. Green supports the proposal, red opposes it, and yellow is neutral."
+    entries["TV_ACADEMY_DEBATE_LOCAL_BALANCE_TT"] = "本地势力平衡：非王室支持席数 /（非王室支持席数 + 非王室反对席数）。中立和空席不计入该比例；没有明确阵营时显示50%。" if zh else "Local balance of forces: non-Crown support seats divided by non-Crown support plus opposition seats. Neutral and empty seats are excluded; if no side is declared, the bar shows 50%."
     entries["TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"] = "本地辩论进度现在完全由辩论席上的团体通过月度事件推动：支持方增加进度，反对方降低进度，中立方暂不影响进度。" if zh else "Local debate progress is now event-driven by seated debate groups. Supporters increase progress, opponents reduce it, and neutral groups do not move it yet."
     entries["TV_ACADEMY_DEBATE_LOCAL_EMPTY_SEAT_TT"] = "一个空置的[tv_debate_seat|E]。" if zh else "An empty [tv_debate_seat|E]."
     entries["TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT"] = "王室固定主持本国辩论，并始终支持当前议题。" if zh else "The Crown permanently presides over the domestic debate and always supports the current issue."
