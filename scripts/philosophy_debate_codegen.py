@@ -1539,7 +1539,11 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
     emit(lines, 1, "tv_academy_debate_apply_defections_effect = yes")
     emit(lines, 1, "random_list = {")
     emit(lines, 2, f"{settings['monthly_no_event_weight']} = {{ }}")
-    emit(lines, 2, f"{settings['monthly_event_chance_weight']} = {{ tv_academy_debate_dispatch_monthly_event_effect = yes }}")
+    emit(lines, 2, f"{settings['monthly_event_chance_weight']} = {{ tv_academy_debate_dispatch_monthly_seat_event_effect = yes }}")
+    emit(lines, 1, "}")
+    emit(lines, 1, "random_list = {")
+    emit(lines, 2, f"{settings['monthly_no_event_weight']} = {{ }}")
+    emit(lines, 2, f"{settings['monthly_event_chance_weight']} = {{ tv_academy_debate_dispatch_monthly_progress_event_effect = yes }}")
     emit(lines, 1, "}")
     emit(lines, 1, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
     emit(lines, 1, "tv_academy_debate_dispatch_auto_stance_notifications_effect = yes")
@@ -1620,7 +1624,7 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
         emit(lines, 0, "}")
         emit(lines)
 
-    emit(lines, 0, "tv_academy_debate_dispatch_monthly_event_effect = {")
+    emit(lines, 0, "tv_academy_debate_dispatch_monthly_seat_event_effect = {")
     emit(lines, 1, "random_list = {")
     for key, weight in data["event_weights"].items():
         prep = f"tv_academy_debate_prepare_{key}_event_effect"
@@ -1651,6 +1655,12 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
         emit(lines, 3, "}")
         emit(lines, 3, f"{prep} = yes")
         emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_dispatch_monthly_progress_event_effect = {")
+    emit(lines, 1, "random_list = {")
     for event in random_events(data):
         emit(lines, 2, f"{event['weight']} = {{")
         emit(lines, 3, "trigger = {")

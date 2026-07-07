@@ -2903,7 +2903,11 @@ tv_academy_debate_monthly_tick_effect = {
 	tv_academy_debate_apply_defections_effect = yes
 	random_list = {
 		90 = { }
-		10 = { tv_academy_debate_dispatch_monthly_event_effect = yes }
+		10 = { tv_academy_debate_dispatch_monthly_seat_event_effect = yes }
+	}
+	random_list = {
+		90 = { }
+		10 = { tv_academy_debate_dispatch_monthly_progress_event_effect = yes }
 	}
 	tv_academy_philosophy_check_debate_endpoint_effect = yes
 	tv_academy_debate_dispatch_auto_stance_notifications_effect = yes
@@ -3295,7 +3299,7 @@ tv_academy_debate_apply_seat_5_monthly_progress_effect = {
 	tv_academy_debate_apply_seat_monthly_progress_effect = { seat = 5 }
 }
 
-tv_academy_debate_dispatch_monthly_event_effect = {
+tv_academy_debate_dispatch_monthly_seat_event_effect = {
 	random_list = {
 		5 = {
 			trigger = {
@@ -3401,6 +3405,11 @@ tv_academy_debate_dispatch_monthly_event_effect = {
 			}
 			tv_academy_debate_prepare_scientist_bargain_neutral_event_effect = yes
 		}
+	}
+}
+
+tv_academy_debate_dispatch_monthly_progress_event_effect = {
+	random_list = {
 		1 = {
 			trigger = {
 				var:tv_academy_philosophy_phase ?= 1
