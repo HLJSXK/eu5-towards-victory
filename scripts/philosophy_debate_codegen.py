@@ -709,9 +709,23 @@ def generate_triggers(data: dict) -> str:
         emit(lines, 0, "}")
         emit(lines)
 
+    gen_defection_condition_triggers(lines, data)
     gen_world_debate_triggers(lines, data)
 
     return "\n".join(lines).rstrip() + "\n"
+
+
+def gen_defection_condition_triggers(lines: list[str], data: dict) -> None:
+    for group in groups(data):
+        key = group["key"]
+        emit(lines, 0, f"tv_academy_debate_group_{key}_positive_defection_condition_trigger = {{")
+        emit_defection_condition(lines, 1, group, positive=True)
+        emit(lines, 0, "}")
+        emit(lines)
+        emit(lines, 0, f"tv_academy_debate_group_{key}_negative_defection_condition_trigger = {{")
+        emit_defection_condition(lines, 1, group, positive=False)
+        emit(lines, 0, "}")
+        emit(lines)
 
 
 def gen_world_debate_triggers(lines: list[str], data: dict) -> None:
@@ -1132,7 +1146,7 @@ def gen_prepare_event_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
-    emit(lines, 0, "tv_academy_debate_prepare_great_scientist_request_event_effect = {")
+    emit(lines, 0, "tv_academy_debate_prepare_great_scientist_requests_seat_event_effect = {")
     emit(lines, 1, "tv_academy_debate_clear_event_state_effect = yes")
     emit(lines, 1, "if = {")
     emit(lines, 2, "limit = { tv_academy_debate_great_scientist_available_for_seat_trigger = yes }")
@@ -1713,17 +1727,6 @@ def random_event_modifier_entries(data: dict) -> list[dict]:
 
 
 def gen_defection_effects(lines: list[str], data: dict) -> None:
-    for group in groups(data):
-        key = group["key"]
-        emit(lines, 0, f"tv_academy_debate_group_{key}_positive_defection_condition_trigger = {{")
-        emit_defection_condition(lines, 1, group, positive=True)
-        emit(lines, 0, "}")
-        emit(lines)
-        emit(lines, 0, f"tv_academy_debate_group_{key}_negative_defection_condition_trigger = {{")
-        emit_defection_condition(lines, 1, group, positive=False)
-        emit(lines, 0, "}")
-        emit(lines)
-
     emit(lines, 0, "tv_academy_debate_apply_defections_effect = {")
     for seat in SEATS:
         emit(lines, 1, f"tv_academy_debate_apply_seat_{seat}_defection_effect = yes")

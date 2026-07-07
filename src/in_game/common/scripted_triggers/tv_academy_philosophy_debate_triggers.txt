@@ -766,6 +766,150 @@ tv_academy_debate_great_scientist_dip_between_30_and_80_trigger = {
 	}
 }
 
+tv_academy_debate_group_nobility_positive_defection_condition_trigger = {
+	estate_satisfaction:nobles_estate > 0.8
+}
+
+tv_academy_debate_group_nobility_negative_defection_condition_trigger = {
+	estate_satisfaction:nobles_estate < 0.2
+}
+
+tv_academy_debate_group_clergy_positive_defection_condition_trigger = {
+	religious_unity > 0.9
+}
+
+tv_academy_debate_group_clergy_negative_defection_condition_trigger = {
+	religious_unity < 0.5
+}
+
+tv_academy_debate_group_burghers_positive_defection_condition_trigger = {
+	monthly_trade_income > { value = monthly_income_total multiply = 0.5 }
+}
+
+tv_academy_debate_group_burghers_negative_defection_condition_trigger = {
+	monthly_trade_income < { value = monthly_income_total multiply = 0.2 }
+}
+
+tv_academy_debate_group_peasants_positive_defection_condition_trigger = {
+	stability > 30
+}
+
+tv_academy_debate_group_peasants_negative_defection_condition_trigger = {
+	stability < -30
+}
+
+tv_academy_debate_group_tribes_positive_defection_condition_trigger = {
+	estate_satisfaction:tribes_estate > 0.8
+}
+
+tv_academy_debate_group_tribes_negative_defection_condition_trigger = {
+	estate_satisfaction:tribes_estate < 0.2
+}
+
+tv_academy_debate_group_dhimmi_positive_defection_condition_trigger = {
+	modifier:tolerance_heathen > 3
+}
+
+tv_academy_debate_group_dhimmi_negative_defection_condition_trigger = {
+	modifier:tolerance_heathen < -3
+}
+
+tv_academy_debate_group_cossacks_positive_defection_condition_trigger = {
+	army_size_percentage >= 0.5
+}
+
+tv_academy_debate_group_cossacks_negative_defection_condition_trigger = {
+	regular_army_size <= 0
+}
+
+tv_academy_debate_group_scholarly_community_positive_defection_condition_trigger = {
+	average_country_literacy > 50
+}
+
+tv_academy_debate_group_scholarly_community_negative_defection_condition_trigger = {
+	average_country_literacy < 20
+}
+
+tv_academy_debate_group_public_opinion_positive_defection_condition_trigger = {
+	has_policy = no_censorship
+}
+
+tv_academy_debate_group_public_opinion_negative_defection_condition_trigger = {
+	has_policy = strict_censorship
+}
+
+tv_academy_debate_group_court_bureaucrats_positive_defection_condition_trigger = {
+	government_power > 90
+}
+
+tv_academy_debate_group_court_bureaucrats_negative_defection_condition_trigger = {
+	government_power < 50
+}
+
+tv_academy_debate_group_maritime_merchants_positive_defection_condition_trigger = {
+	societal_value:land_vs_naval > 50
+}
+
+tv_academy_debate_group_maritime_merchants_negative_defection_condition_trigger = {
+	societal_value:land_vs_naval < -1
+}
+
+tv_academy_debate_group_professional_military_positive_defection_condition_trigger = {
+	has_variable = tv_academy_debate_recent_war_won
+}
+
+tv_academy_debate_group_professional_military_negative_defection_condition_trigger = {
+	has_variable = tv_academy_debate_recent_war_lost
+}
+
+tv_academy_debate_group_religious_reformers_positive_defection_condition_trigger = {
+	modifier:tolerance_heretic > 3
+}
+
+tv_academy_debate_group_religious_reformers_negative_defection_condition_trigger = {
+	modifier:tolerance_heretic < -3
+}
+
+tv_academy_debate_group_local_autonomy_positive_defection_condition_trigger = {
+	average_control_in_home_region > 0.5
+}
+
+tv_academy_debate_group_local_autonomy_negative_defection_condition_trigger = {
+	average_control_in_home_region < 0.2
+}
+
+tv_academy_debate_group_minorities_positive_defection_condition_trigger = {
+	any_owned_location = { dominant_culture = { is_accepted_in = root } }
+}
+
+tv_academy_debate_group_minorities_negative_defection_condition_trigger = {
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+}
+
+tv_academy_debate_group_artists_positive_defection_condition_trigger = {
+	any_international_organizations_member_of = { international_organization_type = international_organization_type:tv_arts_exhibition international_organization_has_policy = policy:tv_arts_free_creation_policy }
+}
+
+tv_academy_debate_group_artists_negative_defection_condition_trigger = {
+	any_international_organizations_member_of = { international_organization_type = international_organization_type:tv_arts_exhibition international_organization_has_policy = policy:tv_arts_strict_censorship_policy }
+}
+
+tv_academy_debate_group_foreign_power_positive_defection_condition_trigger = {
+	always = yes
+}
+
+tv_academy_debate_group_foreign_power_negative_defection_condition_trigger = {
+	always = yes
+}
+
+tv_academy_debate_group_great_scientist_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_great_scientist_negative_defection_condition_trigger = {
+	always = no
+}
+
 tv_academy_world_debate_country_has_academy_trigger = {
 	has_variable = tv_academy_io_member
 }

@@ -1,0 +1,7 @@
+tv_good_generated_condition_effect = {
+	if = {
+		limit = { has_variable = tv_bad_state }
+		remove_variable = tv_bad_state
+	}
+}
+

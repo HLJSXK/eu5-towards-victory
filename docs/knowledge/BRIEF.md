@@ -526,6 +526,7 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | advisory | gui | any | Removing custom_tooltip from event options (wrong fix for dotted key confusion) | Keep custom_tooltip; verify key format via Step 2/3 — dotted suffix IS valid in event options | AI wrongly removed custom_tooltip thinking dotted key format was invalid. Never remove; only verify format. |
 | advisory | event | any | Generating or referencing an event ID whose numeric part is 10000 or higher, such as tv_engineering_department.50011 | EU5 event IDs must be <namespace>.<integer> with the integer below 10000. Do high-cardinality dispatch before firing the event, or branch only over a small non-event-id dimension inside an already typed event. | The engine logs that five-digit numeric event IDs are invalid and can then report duplicate IDs as parser fallout. scripts/validate.py scans src/data/scripts for dotted event references whose numeric part is >= 10000. |
 | lint | event | country | Putting `effect = { ... }` as a direct child of an event `option = { ... }` | Write effect calls directly in the option block, alongside `name` and optional `trigger` / `hidden_effect`. Use `hidden_effect = { ... }` only when the option chain should be hidden from the tooltip. | EU5 parses event option contents as an effect list. A direct child named effect is treated as an effect command named `effect`, which does not exist, producing 'Unknown effect effect'. |
+| lint | script | scripted_effects | Defining a top-level scripted_trigger-style block inside common/scripted_effects | Generate or move the `_trigger = { ... }` block to common/scripted_triggers, and keep common/scripted_effects for real scripted effects only. | EU5 parses every top-level block in common/scripted_effects as a scripted effect. If a generated trigger body is placed there, trigger clauses such as has_variable, religious_unity, or any_international_organizations_member_of are parsed as effect commands and log `Unknown effect ...`. |
 | lint | gui | any | text_single widget inside blockoverride "common_header_text" | blockoverride overrides a 'text' property value, not a widget container; do not add child widgets | Guessing block structure causes silent failures; always read cards.gui before using blockoverride |
 | advisory | gui | any | Using GUI And(...) or Or(...) with three or more operands | Use And3(...) / Or3(...) for exactly three operands, or nest binary And(...) / Or(...) calls for larger expressions. | EU5 GUI And() and Or() are binary helpers, not variadic. And(a,b,c) fails conversion with 'Function And expected 2 arguments, got 3'. Pattern left empty because commas inside typed comparison calls make static regex detection noisy. |
 | advisory | gui | any | Using percent position directly on icon widgets for fixed-position overlays | For icon overlays on a fixed-size parent, use pixel positions; if percent placement is needed, put the icon inside a positioned widget wrapper instead. | Percent position is confirmed on vanilla widget wrappers, but percent position directly on these icon overlays collapsed them to the left edge. Fixed pixel bins are reliable for fixed-width bars. |
@@ -751,10 +752,10 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 | Category | Count | Index file | Notes |
 | --- | --- | --- | --- |
 | GUI Icons (`@xxx!`) | 351 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
-| Scripted Triggers | 3217 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 3913 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
-| Static Modifiers | 2340 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 14088 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| Scripted Triggers | 3253 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
+| Scripted Effects | 3878 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Static Modifiers | 2342 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
+| English Loc Keys | 14093 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

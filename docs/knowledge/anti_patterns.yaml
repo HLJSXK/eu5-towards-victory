@@ -111,6 +111,17 @@
   source: "runtime error.log: jomini_effect.cpp:556, events/tv_wonder_unique_alhambra_ritual_events.txt:24; fixed 2026-07-07"
   notes: "EU5 parses event option contents as an effect list. A direct child named effect is treated as an effect command named `effect`, which does not exist, producing 'Unknown effect effect'."
 
+- id: scripted_trigger_top_level_in_scripted_effects
+  pattern: '^(?![ \t])[A-Za-z0-9_]+_trigger\s*=\s*\{'
+  detectability: lint
+  only_in_paths: ['scripted_effects']
+  bad: "Defining a top-level scripted_trigger-style block inside common/scripted_effects"
+  correction: "Generate or move the `_trigger = { ... }` block to common/scripted_triggers, and keep common/scripted_effects for real scripted effects only."
+  category: script
+  scope: scripted_effects
+  source: "runtime error.log: common/scripted_effects/tv_academy_philosophy_debate_effects.txt:5738-5878, 2026-07-07"
+  notes: "EU5 parses every top-level block in common/scripted_effects as a scripted effect. If a generated trigger body is placed there, trigger clauses such as has_variable, religious_unity, or any_international_organizations_member_of are parsed as effect commands and log `Unknown effect ...`."
+
 - id: blockoverride_widget_child_invalid
   pattern: 'blockoverride\s+"common_header_text"\s*\{[^}]*text_single'
   bad: "text_single widget inside blockoverride \"common_header_text\""

@@ -65,14 +65,19 @@ called directly from event options.
    cleanup, and other heavy work to a `hidden = yes` event's `immediate` block or another
    non-tooltip execution path.
 
-8. Use guarded delayed silent loops for daily hidden work.
+8. Keep generated trigger helpers in `common/scripted_triggers`.
+   `common/scripted_effects` treats every top-level block as a scripted effect. Do not emit
+   `_trigger = { ... }` definitions there; trigger clauses inside such a block are parsed as
+   effects and produce `Unknown effect ...` load errors.
+
+9. Use guarded delayed silent loops for daily hidden work.
    For daily background logic, seed exactly one delayed loop from a lifecycle point:
    `trigger_event_silently = { id = tv_namespace.900 days = 1 }`. The target should be a
    `hidden = yes` country event whose `immediate` checks the feature prerequisite and a
    persistent loop sentinel before doing work and rescheduling itself. Clear that sentinel
    during teardown so already queued events stop naturally instead of scheduling the next day.
 
-9. Keep numeric event IDs below 10000.
+10. Keep numeric event IDs below 10000.
    EU5 accepts event IDs as `<namespace>.<integer>`, but the integer must be `< 10000`.
    For generated high-cardinality systems, do not encode multiple dimensions into the numeric
    event ID if that crosses the limit. Move large wonder/type dispatch before the event fires;
