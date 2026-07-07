@@ -2319,6 +2319,7 @@ def generate_events(data: dict) -> str:
     lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), "", f"namespace = {EVENT_NS}", ""]
     emit(lines, 0, f"{EVENT_NS}.1 = {{")
     emit(lines, 1, "type = country_event")
+    emit(lines, 1, f"title = {EVENT_NS}.1.t")
     emit(lines, 1, "hidden = yes")
     emit(lines, 1, "immediate = { tv_academy_debate_monthly_tick_effect = yes }")
     emit(lines, 0, "}")
@@ -2531,6 +2532,7 @@ def generate_loc(data: dict, language: str) -> str:
         entries[group_tt_key(group)] = f"{group['icon']} {group['loc'][loc_lang]}"
     for price in data["prices"]:
         entries[price_loc_key(price)] = price["loc"][loc_lang]
+    entries[f"{EVENT_NS}.1.t"] = "Academy Debate Monthly Tick" if language == "english" else "科学院辩论月度刻"
     entries.update(generic_loc_entries(data, loc_lang))
     for duplicate_key in (
         "TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT",

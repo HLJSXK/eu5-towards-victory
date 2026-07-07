@@ -2112,6 +2112,17 @@
   source: "runtime error.log for tv_invite_to_diplomatic_alliance, 2026-06-24; reference_game_files/game/in_game/common/country_interactions/invite_settlers.txt:90-104"
   notes: "Country interaction accept/effect paths can be evaluated from panel buttons before the selector populates recipient. Direct reads then report wrong-type `none`, unset variables, or unset `var` scopes while the player is only looking at the country picker."
 
+- id: hidden_event_missing_title
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['events']
+  bad: "Defining hidden country events without a `title = ...` field"
+  correction: "Give every event, including hidden tick/executor events, a localized title key. The title can be technical if the event is never shown."
+  category: event
+  scope: events
+  source: "runtime error.log, 2026-07-07: event_database.cpp reported tv_academy_debate.1, tv_research.45, and tv_research.46 missing titles"
+  notes: "EU5 validates the event database schema before considering whether an event is hidden. Hidden monthly tick or executor events still need a title field and matching localization to avoid startup errors."
+
 - id: save_scope_as_used_in_trigger_context
   pattern: 'save_scope_as\s*='
   detectability: needs_parser
