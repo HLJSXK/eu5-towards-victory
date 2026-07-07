@@ -1318,12 +1318,13 @@ def append_world_table(lines: list[str], level: int) -> None:
     for _ in range(5):
         emit(lines, level + 2, "hbox = {")
         emit(lines, level + 3, "layoutpolicy_horizontal = fixed")
-        emit(lines, level + 3, "size = { 396 36 }")
-        emit(lines, level + 3, "parentanchor = hcenter")
+        emit(lines, level + 3, "size = { 462 36 }")
         emit(lines, level + 3, "spacing = 4")
+        emit(lines, level + 3, "expand = {}")
         for _ in range(10):
             append_world_seat(lines, level + 3, seat)
             seat += 1
+        emit(lines, level + 3, "expand = {}")
         emit(lines, level + 2, "}")
     emit(lines, level + 2, "expand = {}")
     append_debate_progress_footer(

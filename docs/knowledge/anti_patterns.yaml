@@ -552,13 +552,15 @@
 
 - id: parentanchor_under_hbox_vbox
   pattern: ''
-  detectability: needs_parser
+  validator: check_gui_parentanchor_under_hbox_vbox
+  detectability: lint
+  only_in_paths: ['.gui']
   bad: "Setting parentanchor on a widget that is a direct child of an hbox or vbox (e.g. inside hbox = { widget = { parentanchor = vcenter ... } })"
   correction: "Remove parentanchor from hbox/vbox children — the layout box arranges them automatically on the cross-axis. parentanchor remains valid on children of plain widget/window/container parents."
   category: gui
   scope: any
   source: "EU5 engine validation (pdx_gui_validation.cpp:62: 'Unsupported property: parentanchor on widgets that are a child of a hbox/vbox. Hboxes/vboxes arrange their children automatically.')"
-  notes: "Pattern is empty because static detection requires parsing GUI parent structure. Audit any widget nested inside hbox = { ... } or vbox = { ... } and strip parentanchor. Children of progressbar/widget/window are unaffected."
+  notes: "Brace-aware validator checks direct hbox/vbox child blocks for direct parentanchor properties. Children of progressbar/widget/window are unaffected."
 
 - id: gui_progressbar_margin_top
   pattern: '(?ms)^[ \t]*progressbar\s*=\s*\{(?:(?!^[ \t]*\}).)*^[ \t]*margin_top\s*='
