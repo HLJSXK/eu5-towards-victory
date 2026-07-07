@@ -845,6 +845,8 @@ def trade_chain_strength_card(chain_data: dict) -> str:
 
 def trade_chain_pie_widget(indent: str) -> str:
     return f"""{indent}widget = {{
+{indent}\tlayoutpolicy_horizontal = fixed
+{indent}\tlayoutpolicy_vertical = fixed
 {indent}\tsize = {{ 72 72 }}
 {indent}\tpiechart = {{
 {indent}\t\tsize = {{ 72 72 }}
@@ -870,30 +872,35 @@ def trade_chain_market_card() -> str:
 \t\t\t\t\t\t\tdatacontext = "[Scope.GetMarket]"
 \t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\tsize = {{ 462 90 }}
-\t\t\t\t\t\t\t\tspacing = 10
-\t\t\t\t\t\t\t\tmargin = {{ 8 9 }}
+\t\t\t\t\t\t\t\tspacing = 0
+\t\t\t\t\t\t\t\tmargin = {{ 0 9 }}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 10 72 }} }}
 {pie}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 8 72 }} }}
 \t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\tsize = {{ 360 72 }}
 \t\t\t\t\t\t\t\t\tspacing = 3
 \t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 360 20 }} raw_text = "@market! [Market.GetNameWithNoTooltip]" align = nobaseline|left fontsize = 14 }}
 \t\t\t\t\t\t\t\t\thbox = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 360 48 }}
-\t\t\t\t\t\t\t\t\t\tspacing = 10
-\t\t\t\t\t\t\t\t\t\tvbox = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 175 48 }}
-\t\t\t\t\t\t\t\t\t\t\tspacing = 2
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ size = {{ 175 22 }} datacontext = "[Market.GetCenterLocation.GetOwner]" text_single = {{ size = {{ 175 22 }} raw_text = "[Country.GetNameWithFlag]" align = nobaseline|left fontsize = 12 }} }}
-\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 175 22 }} raw_text = "[Market.GetTotalMerchantCapacity(Player.Self)|2]@trade_capacity!" align = nobaseline|left fontsize = 12 }}
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t\tvbox = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 175 48 }}
-\t\t\t\t\t\t\t\t\t\t\tspacing = 2
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = {{ 175 22 }} datacontext = "[Market.GetMerchant(Player.Self)]" text_single = {{ size = {{ 175 22 }} raw_text = "[Merchant.GetPowerWithLabel]@trade_advantage!" align = nobaseline|left fontsize = 12 }} }}
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = {{ 175 22 }} datacontext = "[Market.GetMerchant(Player.Self)]" text_single = {{ size = {{ 175 22 }} raw_text = "[Merchant.GetTotalTradeProfit|2+=]@gold!" align = nobaseline|left fontsize = 12 }} }}
-\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\tsize = {{ 360 48 }}
+\t\t\t\t\t\t\t\t\tspacing = 10
+\t\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 175 48 }}
+\t\t\t\t\t\t\t\t\t\tspacing = 2
+\t\t\t\t\t\t\t\t\t\twidget = {{ size = {{ 175 22 }} datacontext = "[Market.GetCenterLocation.GetOwner]" text_single = {{ size = {{ 175 22 }} raw_text = "[Country.GetNameWithFlag]" align = nobaseline|left fontsize = 12 }} }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 175 22 }} raw_text = "[Market.GetTotalMerchantCapacity(Player.Self)|2]@trade_capacity!" align = nobaseline|left fontsize = 12 }}
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 175 48 }}
+\t\t\t\t\t\t\t\t\t\tspacing = 2
+\t\t\t\t\t\t\t\t\t\twidget = {{ visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = {{ 175 22 }} datacontext = "[Market.GetMerchant(Player.Self)]" text_single = {{ size = {{ 175 22 }} raw_text = "[Merchant.GetPowerWithLabel]@trade_advantage!" align = nobaseline|left fontsize = 12 }} }}
+\t\t\t\t\t\t\t\t\t\twidget = {{ visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = {{ 175 22 }} datacontext = "[Market.GetMerchant(Player.Self)]" text_single = {{ size = {{ 175 22 }} raw_text = "[Merchant.GetTotalTradeProfit|2+=]@gold!" align = nobaseline|left fontsize = 12 }} }}
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = expanding layoutpolicy_vertical = fixed size = {{ -1 72 }} }}
 \t\t\t\t\t\t\t}}
 \t\t\t\t\t\t}}
 """
@@ -916,9 +923,12 @@ def trade_chain_add_card(max_nodes: int) -> str:
 \t\t\t\t\t\t\tbackground = {{ using = bg_cabinet_card_frame }}
 \t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\tsize = {{ 462 90 }}
-\t\t\t\t\t\t\t\tspacing = 10
-\t\t\t\t\t\t\t\tmargin = {{ 8 9 }}
+\t\t\t\t\t\t\t\tspacing = 0
+\t\t\t\t\t\t\t\tmargin = {{ 0 9 }}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 10 72 }} }}
 \t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\tsize = {{ 72 72 }}
 \t\t\t\t\t\t\t\t\tpiechart = {{
 \t\t\t\t\t\t\t\t\t\tsize = {{ 72 72 }}
@@ -929,7 +939,9 @@ def trade_chain_add_card(max_nodes: int) -> str:
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 72 72 }} raw_text = "+" align = center fontsize = 34 }}
 \t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\ttext_multi = {{ size = {{ 360 72 }} autoresize = yes max_width = 360 text = "TV_TRADE_CHAIN_ADD_NODE_HINT" align = nobaseline|left }}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 8 72 }} }}
+\t\t\t\t\t\t\t\ttext_multi = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 360 72 }} autoresize = yes max_width = 360 text = "TV_TRADE_CHAIN_ADD_NODE_HINT" align = nobaseline|left }}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = expanding layoutpolicy_vertical = fixed size = {{ -1 72 }} }}
 \t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\taction_button = {{
 \t\t\t\t\t\t\t\tsize = {{ 462 90 }}

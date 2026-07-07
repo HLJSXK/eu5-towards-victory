@@ -414,9 +414,12 @@ organization_panel = {
 							datacontext = "[Scope.GetMarket]"
 							hbox = {
 								size = { 462 90 }
-								spacing = 10
-								margin = { 8 9 }
+								spacing = 0
+								margin = { 0 9 }
+								widget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 10 72 } }
 								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
 									size = { 72 72 }
 									piechart = {
 										size = { 72 72 }
@@ -428,27 +431,31 @@ organization_panel = {
 										using = bg_circle_piechart
 									}
 								}
+								widget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 8 72 } }
 								vbox = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
 									size = { 360 72 }
 									spacing = 3
 									text_single = { size = { 360 20 } raw_text = "@market! [Market.GetNameWithNoTooltip]" align = nobaseline|left fontsize = 14 }
 									hbox = {
-										size = { 360 48 }
-										spacing = 10
-										vbox = {
-											size = { 175 48 }
-											spacing = 2
-											widget = { size = { 175 22 } datacontext = "[Market.GetCenterLocation.GetOwner]" text_single = { size = { 175 22 } raw_text = "[Country.GetNameWithFlag]" align = nobaseline|left fontsize = 12 } }
-											text_single = { size = { 175 22 } raw_text = "[Market.GetTotalMerchantCapacity(Player.Self)|2]@trade_capacity!" align = nobaseline|left fontsize = 12 }
-										}
-										vbox = {
-											size = { 175 48 }
-											spacing = 2
-											widget = { visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = { 175 22 } datacontext = "[Market.GetMerchant(Player.Self)]" text_single = { size = { 175 22 } raw_text = "[Merchant.GetPowerWithLabel]@trade_advantage!" align = nobaseline|left fontsize = 12 } }
-											widget = { visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = { 175 22 } datacontext = "[Market.GetMerchant(Player.Self)]" text_single = { size = { 175 22 } raw_text = "[Merchant.GetTotalTradeProfit|2+=]@gold!" align = nobaseline|left fontsize = 12 } }
-										}
+									size = { 360 48 }
+									spacing = 10
+									vbox = {
+										size = { 175 48 }
+										spacing = 2
+										widget = { size = { 175 22 } datacontext = "[Market.GetCenterLocation.GetOwner]" text_single = { size = { 175 22 } raw_text = "[Country.GetNameWithFlag]" align = nobaseline|left fontsize = 12 } }
+										text_single = { size = { 175 22 } raw_text = "[Market.GetTotalMerchantCapacity(Player.Self)|2]@trade_capacity!" align = nobaseline|left fontsize = 12 }
+									}
+									vbox = {
+										size = { 175 48 }
+										spacing = 2
+										widget = { visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = { 175 22 } datacontext = "[Market.GetMerchant(Player.Self)]" text_single = { size = { 175 22 } raw_text = "[Merchant.GetPowerWithLabel]@trade_advantage!" align = nobaseline|left fontsize = 12 } }
+										widget = { visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = { 175 22 } datacontext = "[Market.GetMerchant(Player.Self)]" text_single = { size = { 175 22 } raw_text = "[Merchant.GetTotalTradeProfit|2+=]@gold!" align = nobaseline|left fontsize = 12 } }
 									}
 								}
+							}
+								widget = { layoutpolicy_horizontal = expanding layoutpolicy_vertical = fixed size = { -1 72 } }
 							}
 						}
 								}
@@ -462,9 +469,12 @@ organization_panel = {
 							background = { using = bg_cabinet_card_frame }
 							hbox = {
 								size = { 462 90 }
-								spacing = 10
-								margin = { 8 9 }
+								spacing = 0
+								margin = { 0 9 }
+								widget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 10 72 } }
 								widget = {
+									layoutpolicy_horizontal = fixed
+									layoutpolicy_vertical = fixed
 									size = { 72 72 }
 									piechart = {
 										size = { 72 72 }
@@ -475,7 +485,9 @@ organization_panel = {
 									}
 									text_single = { size = { 72 72 } raw_text = "+" align = center fontsize = 34 }
 								}
-								text_multi = { size = { 360 72 } autoresize = yes max_width = 360 text = "TV_TRADE_CHAIN_ADD_NODE_HINT" align = nobaseline|left }
+								widget = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 8 72 } }
+								text_multi = { layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = { 360 72 } autoresize = yes max_width = 360 text = "TV_TRADE_CHAIN_ADD_NODE_HINT" align = nobaseline|left }
+								widget = { layoutpolicy_horizontal = expanding layoutpolicy_vertical = fixed size = { -1 72 } }
 							}
 							action_button = {
 								size = { 462 90 }
