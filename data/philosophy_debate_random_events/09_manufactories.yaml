@@ -7,17 +7,17 @@ random_events:
       english: "Workshop Under One Roof"
       simp_chinese: "同檐工坊"
     desc:
-      english: "A merchant lays out the case for bringing spinners, finishers, clerks, and overseers beneath one roof. The bell above the yard sounds less like a tool than a new argument about how work should be ordered."
-      simp_chinese: "一名商人陈述把纺工、整饰工、账房和监工集中到同一屋檐下的理由。院门上方的钟声听起来不像工具，更像一场关于劳动应如何安排的新论证。"
+      english: "A merchant lays out the case for gathering spinners, finishers, clerks, and overseers beneath a single roof. The bell above the yard sounds less like a tool than a new argument about how work should be ordered, and who holds the ordering."
+      simp_chinese: "一名商人陈述把纺工、整饰工、账房和监工聚到同一屋檐下的理由。院门上方的钟声听起来不像工具，倒像一场新的论证：劳动该如何排布，又该由谁来排。"
     options:
       a:
         text:
-          english: "Back the model."
-          simp_chinese: "支持这种模式。"
+          english: "The clerks and looms are brought under one roof."
+          simp_chinese: "账房与织机被并到一个屋檐之下。"
         progress_delta: 10
         rationale:
-          english: "Backing the shared-roof model turns manufactory theory into a visible institution: labor can be sequenced, supervised, and compared in one place. That strongly advances acceptance, while older guild households resent losing control over pace and custom."
-          simp_chinese: "支持同檐模式，会把制造工场理论变成可见制度：劳动可以在一处被排序、监督和比较。这会有力推动接纳，而旧式行会家庭会怨恨节奏与惯例不再由自己掌握。"
+          english: "Bringing labor under one roof turns manufactory theory into a visible institution where work can be sequenced, watched, and compared, which strongly advances acceptance; but the old guild households resent surrendering their command of pace and custom."
+          simp_chinese: "把劳动集中到一个屋檐下，会把制造工场理论变成看得见的制度：工序可以排序、监督、比较。这有力推动接纳，只是旧行会家庭怨恨节奏与惯例不再由自己说了算。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -28,12 +28,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Keep dispersed workshops."
-          simp_chinese: "保留分散工坊。"
+          english: "We leave each craftsman his own doorway."
+          simp_chinese: "我们让每个匠人各守各的门户。"
         progress_delta: -10
         rationale:
-          english: "Keeping work dispersed protects guild habits and household production from the discipline of a centralized bell. The debate moves sharply toward rejection because manufactories remain easy to describe as an unnecessary assault on proven custom."
-          simp_chinese: "保留分散生产，能保护行会习惯和家庭工坊，使其不受集中钟声的纪律约束。辩论会明显转向拒绝，因为制造工场仍可被说成是对可靠旧俗的不必要侵犯。"
+          english: "Leaving work dispersed shelters guild habit and household production from the discipline of a centralized bell, and the debate moves sharply toward rejection, since a manufactory is easy to paint as a needless assault on proven custom."
+          simp_chinese: "让生产各自分散，能护住行会习惯和家庭工坊，不受集中钟声的纪律约束；辩论因此明显转向拒绝，毕竟制造工场很容易被说成对可靠旧俗的多余侵犯。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -50,17 +50,17 @@ random_events:
       english: "Guild Master's Complaint"
       simp_chinese: "行会师傅的控诉"
     desc:
-      english: "Guild masters arrive with samples of warped cloth, brittle tools, and finishing so hurried it feels like an accusation. They warn that scale can multiply errors as efficiently as it multiplies goods."
-      simp_chinese: "行会师傅带来变形的布匹、易碎的器具和仓促到近乎控诉的收尾活。他们警告说，规模既能成倍增加货物，也能同样高效地成倍放大错误。"
+      english: "Guild masters arrive bearing warped cloth, brittle tools, and finishing so hurried it reads like an accusation. Scale, they warn, multiplies errors as briskly as it multiplies goods."
+      simp_chinese: "行会师傅带来变形的布匹、易脆的器具，还有仓促到近乎控诉的收尾活。他们警告：规模既能成倍出货，也能同样麻利地成倍出错。"
     options:
       a:
         text:
-          english: "Enforce quality standards in manufactories."
-          simp_chinese: "在制造工场执行质量标准。"
+          english: "Inspectors are posted at the manufactory gates."
+          simp_chinese: "检查员被派驻到制造工场门口。"
         progress_delta: 5
         rationale:
-          english: "Quality rules answer the strongest guild criticism without abandoning manufactories. The advance is moderate because regulation makes the model more credible, but the Crown must pay for inspectors, measures, and enforcement."
-          simp_chinese: "质量规则回应了行会最有力的批评，同时不放弃制造工场。推进幅度适中，因为监管让新模式更可信，但王权必须为检查员、量具和执行成本付账。"
+          english: "Quality rules answer the guilds' sharpest charge without surrendering the manufactory, so acceptance advances modestly as the model gains credibility; the Crown pays for inspectors, measures, and enforcement."
+          simp_chinese: "质量规则回应了行会最尖锐的指控，却没有放弃制造工场，模式更可信，接纳因此适度推进；代价是王权得为检查员、量具与执行付账。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -71,12 +71,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Preserve guild inspection."
-          simp_chinese: "保留行会检验。"
+          english: "Only the maker knows the true weave."
+          simp_chinese: "布好不好，织的人最清楚。"
         progress_delta: -5
         rationale:
-          english: "Preserving guild inspection grants older masters the authority to judge scale from inside their own standards. That reassures urban craft interests, but it slows acceptance by making manufactories answer to the institutions they threaten."
-          simp_chinese: "保留行会检验，就是让旧师傅继续用自己的标准裁断规模生产。这能安抚城市手工业利益，却会让制造工场服从其所威胁的旧制度，从而减缓接纳。"
+          english: "Preserving guild inspection lets the older masters judge scale by their own standards, which reassures urban craft interests but slows acceptance by making manufactories answer to the very institutions they threaten."
+          simp_chinese: "保留行会检验，等于让旧师傅继续用自家标准裁断规模生产，能安抚城市手工业，却让制造工场服从它所威胁的旧制度，从而减缓接纳。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -93,17 +93,17 @@ random_events:
       english: "Waterwheel Proposal"
       simp_chinese: "水轮提案"
     desc:
-      english: "Engineers sketch a water-powered process that would pull, pound, and turn with an appetite no hand can match. The river suddenly seems less like scenery and more like an employee waiting to be hired."
-      simp_chinese: "工程师勾画出一种由水力驱动的工序，能拉、能捣、能转，其胃口远非人手可比。那条河忽然不再只是风景，更像一名等待受雇的工人。"
+      english: "Engineers sketch a water-driven process that would pull, pound, and turn with an appetite no pair of hands can satisfy. The river stops looking like scenery and begins to look like a laborer waiting to be hired."
+      simp_chinese: "工程师勾出一套由水力驱动的工序，能拉、能捣、能转，其胃口远非人手所能填。那条河不再像风景，倒像个等着受雇的工人。"
     options:
       a:
         text:
-          english: "Build the works."
-          simp_chinese: "兴建水力工场。"
+          english: "We set the river to work at the wheels."
+          simp_chinese: "我们让这条河到水轮上做工。"
         progress_delta: 10
         rationale:
-          english: "Building the works proves that manufactories can command natural force rather than merely gather workers together. The argument surges forward, but nearby communities bear the disruption of channels, rights, and altered routines."
-          simp_chinese: "兴建水力工场证明制造工场不只是集中工人，还能调动自然之力。论点会大幅推进，但附近社区必须承受水渠、水权和日常节奏被改动的扰动。"
+          english: "Building the works proves manufactories can command natural force, not merely herd workers together, so the argument surges forward; nearby communities bear the disruption of new channels, water rights, and altered routines."
+          simp_chinese: "兴建水力工场证明制造工场不只是把工人赶到一处，还能驱使自然之力，论点因此大幅推进；附近社区则要承受新水渠、水权与日常节奏被打乱的扰动。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -115,12 +115,12 @@ random_events:
               "local construction disruption near water sites": -0.03
       b:
         text:
-          english: "Refuse mechanized pressure."
-          simp_chinese: "拒绝机械化压力。"
+          english: "The engineers are sent home with their drawings rolled up."
+          simp_chinese: "工程师被打发回家，图纸卷了起来。"
         progress_delta: -10
         rationale:
-          english: "Refusing mechanized pressure protects rural rhythms from being bent around wheels, races, and mill rights. It strongly weakens acceptance because the debate retreats from the most tangible proof that production can be transformed."
-          simp_chinese: "拒绝机械化压力，能保护乡村节奏，使其不必围着水轮、引水渠和磨坊权利重新安排。这会强烈削弱接纳倾向，因为辩论退避了生产可被改造的最直观证据。"
+          english: "Refusing mechanized pressure keeps rural rhythms from being bent around wheels, races, and mill rights, and it strongly weakens acceptance because the debate turns away from its most tangible proof that production can be transformed."
+          simp_chinese: "拒绝机械化压力，让乡村节奏不必围着水轮、引水渠和磨坊权利重排；这会强烈削弱接纳，因为辩论退开了生产可被改造的最直观证据。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -137,17 +137,17 @@ random_events:
       english: "Women at the Looms"
       simp_chinese: "织机旁的女性"
     desc:
-      english: "A manufactory hires women in numbers too large to be dismissed as household help. What began as wages becomes an argument about custom, discipline, and who may stand visibly inside the new economy."
-      simp_chinese: "一家制造工场雇用了许多女性，多到无法再被轻描淡写地称作家内帮工。最初只是工资的问题，如今变成了关于习俗、纪律以及谁能公开站进新经济的争论。"
+      english: "A manufactory hires women in numbers too large to be waved off as household help. What began as a matter of wages becomes an argument about custom, discipline, and who may stand plainly inside the new economy."
+      simp_chinese: "一家制造工场雇了许多女性，数目大到再不能被轻描淡写地当作家内帮工。最初只是工资问题，如今变成关于习俗、纪律，以及谁能光明正大地站进新经济的争论。"
     options:
       a:
         text:
-          english: "Defend wage work."
-          simp_chinese: "捍卫有薪劳动。"
+          english: "Enough hand-wringing; they have earned their pay."
+          simp_chinese: "何必大惊小怪，给她们发工钱便是。"
         progress_delta: 10
         rationale:
-          english: "Defending wage work treats the manufactory as a social transformation, not just a production trick. Acceptance advances sharply because the Academy endorses new labor arrangements, while conservative moral and household authorities object."
-          simp_chinese: "捍卫有薪劳动，就是把制造工场视为社会转型，而不只是生产技巧。学院认可新的劳动安排，接纳度会显著上升；但保守的道德与家户权威会表示反对。"
+          english: "Defending wage work treats the manufactory as a social transformation rather than a mere production trick, so acceptance advances sharply as the Academy endorses new labor arrangements; conservative moral and household authorities object."
+          simp_chinese: "捍卫有薪劳动，是把制造工场当成社会转型，而非单纯的生产花招，学院一认可新的劳动安排，接纳便显著上升；保守的道德与家户权威则表示反对。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -158,12 +158,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Restrict hiring custom."
-          simp_chinese: "限制雇佣惯例。"
+          english: "The registers are closed to the new hands."
+          simp_chinese: "用工名册对这些新雇工关上了。"
         progress_delta: -10
         rationale:
-          english: "Restricting hiring custom makes manufactories prove that they will not disturb accepted household and moral order. That reassures clergy and guild conservatives, but it turns the debate decisively away from embracing the new model."
-          simp_chinese: "限制雇佣惯例，等于要求制造工场证明自己不会扰乱既有家户和道德秩序。这能安抚教士与行会保守派，却会让辩论明确远离接纳新模式。"
+          english: "Restricting hiring custom forces manufactories to prove they will not disturb accepted household and moral order, which reassures clergy and guild conservatives but turns the debate decisively away from the new model."
+          simp_chinese: "限制雇佣惯例，等于逼制造工场证明自己不会扰乱既有的家户与道德秩序，能安抚教士与行会保守派，却让辩论明确背离新模式。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -180,17 +180,17 @@ random_events:
       english: "Raw Material Bottleneck"
       simp_chinese: "原料瓶颈"
     desc:
-      english: "Production stalls because wool, timber, dye, or ore still arrives by village habit rather than manufactory appetite. The machines and benches wait while the countryside insists that supply has seasons, neighbors, and old obligations."
-      simp_chinese: "生产停滞了，因为羊毛、木材、染料或矿石仍按村庄习惯抵达，而不是按制造工场的胃口供应。机器与工作台只能等待，乡间则坚持供应自有季节、邻里和旧义务。"
+      english: "Production stalls because wool, timber, dye, and ore still arrive by village habit rather than manufactory appetite. The benches wait idle while the countryside insists that supply has its seasons, its neighbors, and its old obligations."
+      simp_chinese: "生产停了下来，因为羊毛、木材、染料和矿石仍按村庄习惯送来，而不是按制造工场的胃口。工作台闲着等，乡间却坚持：供应自有季节、邻里，还有旧日的义务。"
     options:
       a:
         text:
-          english: "Organize supply contracts."
-          simp_chinese: "组织供应契约。"
+          english: "The clerks draw up standing contracts for every input."
+          simp_chinese: "账房为每一样原料拟定长期契约。"
         progress_delta: 5
         rationale:
-          english: "Supply contracts make manufactories practical by connecting rural inputs to predictable urban production. The gain is moderate because it solves a bottleneck rather than proving the whole system, and merchants welcome the clearer obligations."
-          simp_chinese: "供应契约把乡村投入与可预测的城市生产连接起来，使制造工场更具可行性。推进幅度适中，因为它解决的是瓶颈，而非证明整个制度；商人会欢迎更清楚的义务关系。"
+          english: "Supply contracts make manufactories practical by tying rural inputs to predictable urban production; the gain is moderate because it clears a bottleneck rather than proving the whole system, and merchants welcome the clearer obligations."
+          simp_chinese: "供应契约把乡村投入系到可预测的城市生产上，让制造工场更可行；推进适中，因为它清的是瓶颈，而非证明整套制度，商人也乐见更清楚的义务。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -201,12 +201,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Limit production to supply custom."
-          simp_chinese: "让产量服从供应旧俗。"
+          english: "We let the harvest set the pace, as it always has."
+          simp_chinese: "我们照旧让收成来定节奏。"
         progress_delta: -5
         rationale:
-          english: "Limiting production to supply custom keeps rural obligations, seasonal movement, and local bargaining intact. Acceptance falls because manufactories are forced to match the old rhythm instead of reorganizing the material chain around scale."
-          simp_chinese: "让产量服从供应旧俗，能保留乡村义务、季节性流动和地方议价。接纳度会下降，因为制造工场被迫适应旧节奏，而不是围绕规模重组原料链条。"
+          english: "Limiting production to supply custom keeps rural obligation, seasonal movement, and local bargaining intact; acceptance falls because manufactories are made to match the old rhythm instead of reorganizing the material chain around scale."
+          simp_chinese: "让产量服从供应旧俗，能保住乡村义务、季节流动与地方议价；接纳随之下降，因为制造工场被迫迁就旧节奏，而非围绕规模重组原料链。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -223,17 +223,17 @@ random_events:
       english: "Fire in the Yard"
       simp_chinese: "院中失火"
     desc:
-      english: "A workshop fire leaves scorched beams, ruined stock, and a crowd of witnesses ready to decide what the flames have proven. Some see danger in concentration; others see danger in leaving concentration unregulated."
-      simp_chinese: "一场作坊大火留下焦黑梁木、毁坏存货，以及一群急着解释火焰含义的目击者。有人认为集中生产本身危险，也有人认为真正危险的是集中生产却无人监管。"
+      english: "A workshop fire leaves scorched beams, ruined stock, and a crowd of witnesses already deciding what the flames have proven. Some read danger in concentration itself; others read it in concentration left unwatched."
+      simp_chinese: "一场作坊大火留下焦黑的梁木、毁掉的存货，还有一群早已在给火焰下定论的目击者。有人从集中生产本身读出危险，也有人从无人看管的集中生产里读出危险。"
     options:
       a:
         text:
-          english: "Regulate manufactories."
-          simp_chinese: "监管制造工场。"
+          english: "The Crown writes firebreaks and inspections into the model."
+          simp_chinese: "王权把防火隔离与检查写进了工场章程。"
         progress_delta: 5
         rationale:
-          english: "Regulation admits that large workshops carry new risks, but treats those risks as a reason to govern manufactories rather than abandon them. The gold cost represents inspections, firebreaks, and safer storage."
-          simp_chinese: "监管承认大型作坊带来了新的风险，但把这些风险视为治理制造工场的理由，而不是放弃它们的理由。花费金币代表检查、防火隔离和更安全的储料安排。"
+          english: "Regulation admits that large workshops carry new risks yet treats them as a reason to govern manufactories rather than abandon them; the gold pays for inspections, firebreaks, and safer storage."
+          simp_chinese: "监管承认大型作坊带来新风险，却把风险当作治理制造工场的理由，而非放弃它们的理由；金币用于检查、防火隔离与更安全的储料。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -249,12 +249,12 @@ random_events:
               "inspected workshop safety codes": 0.02
       b:
         text:
-          english: "Condemn large workshops."
-          simp_chinese: "谴责大型作坊。"
+          english: "Gather the sparks in one shed and you build a pyre."
+          simp_chinese: "火星聚一处，便是柴堆。"
         progress_delta: -10
         rationale:
-          english: "Condemning large workshops lets guild critics turn the fire into a verdict against concentration itself. It strongly pushes rejection because safety failure becomes proof that scale should not be trusted."
-          simp_chinese: "谴责大型作坊，会让行会批评者把火灾变成对集中生产本身的判决。这会强烈推动否定，因为安全事故被说成了规模化不可信的证据。"
+          english: "Condemning large workshops lets guild critics turn the fire into a verdict against concentration itself, which strongly pushes rejection as a safety failure becomes proof that scale cannot be trusted."
+          simp_chinese: "谴责大型作坊，会让行会批评者把这场火烧成对集中生产本身的判决，强烈推动否定，因为一次安全事故被说成规模化不可信的铁证。"
         effect_blocks:
           - type: seat_stance
             group: burghers
@@ -271,17 +271,17 @@ random_events:
       english: "Clock Discipline"
       simp_chinese: "钟表纪律"
     desc:
-      english: "Managers hang bells and clocks where masters once relied on habit. Workers quickly discover that time can become a supervisor with no patience and no need to sleep."
-      simp_chinese: "管事把钟和铃挂在从前只靠习惯运转的地方。工人很快发现，时间也能变成一名既无耐心也无需睡眠的监督者。"
+      english: "Managers hang bells and clocks where masters once trusted to habit. The workers soon learn that time can be made a supervisor, one with no patience and no need to sleep."
+      simp_chinese: "管事把钟和铃挂在从前只靠习惯运转的地方。工人很快学到：时间也能被立成一名监工，一个既没耐心、也不用睡觉的监工。"
     options:
       a:
         text:
-          english: "Accept clock discipline."
-          simp_chinese: "接受钟表纪律。"
+          english: "The bells are hung, and the day is cut to their measure."
+          simp_chinese: "钟铃挂了起来，一天照着它们的刻度被切开。"
         progress_delta: 10
         rationale:
-          english: "Accepting clock discipline makes manufactories a new social order of measured labor, not just a larger room of tools. The sharp progress gain is balanced by peasant and worker resentment at being ruled by the bell."
-          simp_chinese: "接受钟表纪律，会让制造工场成为一种以计时劳动为核心的新秩序，而不只是更大的工具房。强烈的进度推进以农民和工人的不满作为代价，因为他们被铃声支配。"
+          english: "Accepting clock discipline makes the manufactory a new social order of measured labor rather than a larger room of tools, so progress climbs sharply; the gain is balanced by peasant and worker resentment at being ruled by the bell."
+          simp_chinese: "接受钟表纪律，会让制造工场成为以计时劳动为核心的新秩序，而不只是更大的工具房，进度因此陡升；代价是农民与工人不满被铃声支配。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -297,12 +297,12 @@ random_events:
               "measured workshop schedules": 0.03
       b:
         text:
-          english: "Limit work rules."
-          simp_chinese: "限制作坊规章。"
+          english: "Peace, before the hours become jailers."
+          simp_chinese: "消停些吧，别让时辰都成了狱卒。"
         progress_delta: -5
         rationale:
-          english: "Limiting work rules reassures laboring households that manufactories will not turn every hour into a command. It only mildly weakens acceptance because the model can still continue, but without its most disciplined schedule."
-          simp_chinese: "限制作坊规章会安抚劳动家庭，使他们相信制造工场不会把每个时辰都变成命令。它只会轻微削弱接纳倾向，因为工场模式仍可继续，只是少了最严密的时间安排。"
+          english: "Limiting work rules reassures laboring households that manufactories will not turn every hour into a command; it only mildly weakens acceptance, since the model can continue, only without its most disciplined schedule."
+          simp_chinese: "限制作坊规章，安抚劳动家庭，让他们相信制造工场不会把每个时辰都变成命令；这只轻微削弱接纳，因为模式仍能运转，只是少了最严密的时间表。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -319,17 +319,17 @@ random_events:
       english: "Military Contract"
       simp_chinese: "军需合同"
     desc:
-      english: "The army offers a contract large enough to make every workshop owner count their benches twice. The catch is simple: the Crown wants parts and cloth that match, not charming local variations."
-      simp_chinese: "军队开出一份大到足以让每个作坊主重新清点工台的合同。条件也很简单：王权要的是一致的零件和布匹，而不是各地各有风味的差异。"
+      english: "The army offers a contract large enough to make every workshop owner count his benches twice. The condition is plain: the Crown wants parts and cloth that match, not the charming variations of each town."
+      simp_chinese: "军队开出一份大到让每个作坊主把工台数上两遍的合同。条件很直白：王权要的是彼此一致的零件与布匹，而不是各镇各有风味的差异。"
     options:
       a:
         text:
-          english: "Accept standard production."
-          simp_chinese: "接受标准化生产。"
+          english: "Every workshop is bound to a single specification."
+          simp_chinese: "每一家作坊都被绑定到同一份规格上。"
         progress_delta: 10
         rationale:
-          english: "Standard production ties manufactories to state capacity: weapons, uniforms, and supplies become reliable because workshops can repeat the same specification. The professional military supports the reform because predictability matters in the field."
-          simp_chinese: "标准化生产把制造工场同国家能力连接起来：武器、制服和补给之所以可靠，是因为作坊能够反复执行同一规格。职业军队支持这种改革，因为战场上的可预期性极其重要。"
+          english: "Standard production ties manufactories to state capacity, since weapons, uniforms, and supplies grow reliable once workshops can repeat one specification; the professional military supports the reform because predictability wins in the field."
+          simp_chinese: "标准化生产把制造工场同国家能力绑在一起：作坊能反复照一份规格来做，武器、制服和补给便可靠；职业军队支持这项改革，因为战场上可预期性能取胜。"
         effect_blocks:
           - type: seat_stance
             group: professional_military
@@ -342,12 +342,12 @@ random_events:
               "standardized military supply": 0.03
       b:
         text:
-          english: "Keep bespoke supply."
-          simp_chinese: "保留定制供应。"
+          english: "We would rather keep each supplier's own hand."
+          simp_chinese: "我们宁可留着每家供应商各自的手法。"
         progress_delta: -5
         rationale:
-          english: "Keeping bespoke supply protects older contractors and local methods, but it makes the case for manufactories less urgent. Production remains a network of favors and adaptations rather than a system of repeatable standards."
-          simp_chinese: "保留定制供应保护了旧承包商和地方做法，但也削弱了制造工场的必要性。生产仍是一张人情和临场调整的网络，而不是可重复规格的体系。"
+          english: "Keeping bespoke supply shelters older contractors and local methods but makes the case for manufactories less urgent, leaving production a network of favors and adaptations instead of a system of repeatable standards."
+          simp_chinese: "保留定制供应，护住了旧承包商和地方做法，却让制造工场显得不那么必要，生产仍是一张人情与临场调整的网，而非可重复规格的体系。"
         effect_blocks:
           - type: seat_stance
             group: burghers
@@ -366,17 +366,17 @@ random_events:
       english: "Noble Estate Workshop"
       simp_chinese: "贵族庄园作坊"
     desc:
-      english: "A noble estate opens a large workshop with admirable confidence, then objects when burghers ask for the same freedom. The Academy is invited to discover whether scale is modern only when it wears a crest."
-      simp_chinese: "一处贵族庄园满怀自信地开办了大型作坊，却在市民也要求同样自由时表示反对。学院被迫判断：难道只有带着纹章的规模化才算体面？"
+      english: "A noble estate opens a great workshop with admirable confidence, then objects the moment burghers ask for the same liberty. The Academy is invited to discover whether scale becomes respectable only when it wears a crest."
+      simp_chinese: "一处贵族庄园满怀自信地开起大作坊，却在市民也要同样的自由时立刻反对。学院被请去裁断：难道规模化只有戴上纹章才算体面？"
     options:
       a:
         text:
-          english: "Apply rules equally."
-          simp_chinese: "平等适用规则。"
+          english: "One rule for the crest is one rule for the bench."
+          simp_chinese: "纹章一条规矩，工台也是这条规矩。"
         progress_delta: 10
         rationale:
-          english: "Applying rules equally turns manufactories into a general economic principle rather than a privilege of rank. Noble satisfaction falls because landed status no longer decides who may benefit from concentrated production."
-          simp_chinese: "平等适用规则，会把制造工场变成普遍经济原则，而不是等级特权。贵族满意度下降，因为土地身份不再决定谁能从集中生产中获益。"
+          english: "Applying rules equally turns manufactories into a general economic principle rather than a privilege of rank, so noble satisfaction falls because landed status no longer decides who may profit from concentrated production."
+          simp_chinese: "平等适用规则，把制造工场变成普遍的经济原则，而非等级特权；贵族满意度因此下降，因为土地身份不再决定谁能从集中生产里获利。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -387,12 +387,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Exempt noble workshops."
-          simp_chinese: "豁免贵族作坊。"
+          english: "The crest is granted its exemption; the burgher is refused."
+          simp_chinese: "纹章获准豁免，市民则被驳回。"
         progress_delta: -10
         rationale:
-          english: "Exempting noble workshops preserves rank privilege while hollowing out the reform. If scale is allowed only for estates, manufactories become another noble exception rather than a new productive order."
-          simp_chinese: "豁免贵族作坊会保全等级特权，同时掏空改革本身。如果规模化只准庄园享用，制造工场就会变成又一项贵族例外，而不是新的生产秩序。"
+          english: "Exempting noble workshops preserves rank privilege while hollowing out the reform: if scale is permitted only to estates, manufactories become another noble exception rather than a new productive order."
+          simp_chinese: "豁免贵族作坊，保全了等级特权，却把改革掏空：若规模化只准庄园享用，制造工场就成了又一项贵族例外，而非新的生产秩序。"
         effect_blocks:
           - type: seat_stance
             group: nobility
@@ -409,17 +409,17 @@ random_events:
       english: "Child Labor Petition"
       simp_chinese: "童工请愿"
     desc:
-      english: "Parish leaders arrive with names, ages, and smaller hands than the debate has been willing to imagine. The question is no longer whether manufactories produce more, but what kind of labor they are allowed to consume."
-      simp_chinese: "堂区领袖带着姓名、年龄，以及辩论此前不愿认真想象的一双双小手来到学院。问题不再是制造工场能否生产更多，而是它被允许消耗怎样的劳动。"
+      english: "Parish leaders arrive with names, ages, and smaller hands than the debate had cared to imagine. The question is no longer whether manufactories make more, but what kind of labor they may be allowed to consume."
+      simp_chinese: "堂区领袖带着姓名、年岁，以及一双双辩论此前不愿细想的小手来到学院。问题不再是制造工场能否生产更多，而是它被允许消耗怎样的劳动。"
     options:
       a:
         text:
-          english: "Set labor rules and continue."
-          simp_chinese: "制定劳动规则并继续推进。"
+          english: "The Academy sets an age to the bench and lets the work go on."
+          simp_chinese: "学院给工作台定下年龄，再让活计继续。"
         progress_delta: 5
         rationale:
-          english: "Labor rules keep the manufactory argument alive while conceding that production cannot be separated from moral supervision. Clergy and peasants partly approve because the reform now includes limits rather than pure expansion."
-          simp_chinese: "劳动规则让制造工场的论点继续成立，同时承认生产不能同道德监督分离。神职人员和农民部分赞同，是因为改革现在包含限制，而不只是扩张。"
+          english: "Labor rules keep the manufactory argument alive while conceding that production cannot be divorced from moral supervision; clergy and peasants partly approve because the reform now carries limits rather than pure expansion."
+          simp_chinese: "劳动规则让制造工场的论点继续成立，同时承认生产无法与道德监督分离；教士与农民部分赞同，因为改革如今带着限制，而不只是一味扩张。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -434,12 +434,12 @@ random_events:
               "regulated workshop labor": 0.02
       b:
         text:
-          english: "Shut the model down."
-          simp_chinese: "关闭这种模式。"
+          english: "No, not with these hands."
+          simp_chinese: "不行，不能用这样的手。"
         progress_delta: -10
         rationale:
-          english: "Shutting the model down lets conservative critics treat child labor as proof that proto-factory organization is morally rotten at the root. It strongly rejects acceptance while giving protective estates a clear victory."
-          simp_chinese: "关闭这种模式，会让保守批评者把童工视为原始工厂组织在道德上根本腐坏的证据。它强烈推动否定，同时让主张保护的阶层取得明确胜利。"
+          english: "Shutting the model down lets conservative critics treat child labor as proof that proto-factory organization is morally rotten at the root, which strongly rejects acceptance while handing the protective estates a clear victory."
+          simp_chinese: "关闭这种模式，会让保守批评者把童工当作原始工厂组织从根上道德败坏的证据，强烈推动否定，同时让主张保护的阶层取得明确胜利。"
         effect_blocks:
           - type: seat_stance
             group: clergy
@@ -460,17 +460,17 @@ random_events:
       english: "Standard Parts"
       simp_chinese: "标准部件"
     desc:
-      english: "Artisans bring a neat row of parts that can trade places without complaint. Half the chamber sees a future of faster repair and steadier supply; the other half hears the quiet funeral bell of individual craft."
-      simp_chinese: "工匠们带来一排整齐的部件，它们可以毫无怨言地互换位置。半个会场看见了维修更快、供应更稳的未来；另一半则听见了个人手艺的静默丧钟。"
+      english: "Artisans lay out a neat row of parts that change places without complaint. Half the chamber sees faster repair and steadier supply; the other half hears the quiet funeral bell of individual craft."
+      simp_chinese: "工匠们摆出一排整齐的部件，它们能毫无怨言地彼此互换。半个会场看见更快的维修、更稳的供应；另一半却听见个人手艺的静默丧钟。"
     options:
       a:
         text:
-          english: "Promote standard parts."
-          simp_chinese: "推广标准部件。"
+          english: "The Academy blesses parts that answer to a gauge, not a name."
+          simp_chinese: "学院认可那些只对量规、不对姓名负责的部件。"
         progress_delta: 10
         rationale:
-          english: "Standard parts make manufactories look like a new system of reliable production rather than merely larger workshops. The debate moves strongly toward acceptance, while artists and craft advocates resist the loss of distinctive workmanship."
-          simp_chinese: "标准部件让工场看起来不只是更大的作坊，而是一套可靠生产的新体系。因此辩论会明显转向接纳，但艺术家与手艺维护者会反感独特工艺被削平。"
+          english: "Standard parts make manufactories look like a new system of reliable production rather than merely larger workshops, so the debate moves strongly toward acceptance; artists and craft advocates resist the loss of distinctive workmanship."
+          simp_chinese: "标准部件让制造工场看起来不只是更大的作坊，而是一套可靠生产的新体系，辩论因此明显转向接纳；艺术家与手艺维护者则反感独特工艺被磨平。"
         effect_blocks:
           - type: seat_stance
             group: artists
@@ -478,12 +478,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Keep craft variation."
-          simp_chinese: "保留手工差异。"
+          english: "We keep the mark of the maker's own hand."
+          simp_chinese: "我们留住匠人亲手打下的记号。"
         progress_delta: -5
         rationale:
-          english: "Preserving craft variation reassures guild-minded burghers that skill and local reputation still matter. Acceptance slips because interchangeable production remains an affront to valued workmanship."
-          simp_chinese: "保留手工差异会安抚重视行会传统的市民阶层，使他们相信技艺和地方名声仍然重要。由于互换式生产仍被视为对精工的冒犯，接纳度随之下降。"
+          english: "Preserving craft variation reassures guild-minded burghers that skill and local reputation still count, and acceptance slips because interchangeable production remains an affront to valued workmanship."
+          simp_chinese: "保留手工差异，安抚重视行会传统的市民，让他们相信技艺与地方名声仍然要紧；接纳随之滑落，因为互换式生产仍被当作对精工的冒犯。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -496,17 +496,17 @@ random_events:
       english: "Factory Accounts"
       simp_chinese: "工厂账册"
     desc:
-      english: "Accountants lay out waste, delay, spoilage, and idle time in columns so tidy they feel accusatory. What once hid inside dust and habit now becomes a public question of management, discipline, and responsibility."
-      simp_chinese: "会计把废料、迟误、损耗和闲置时间列成整齐得近乎控诉的栏目。曾经藏在尘土和习惯里的东西，如今变成了关于管理、纪律与责任的公共问题。"
+      english: "Accountants lay waste, delay, spoilage, and idle hours in columns so tidy they feel like an accusation. What once hid inside dust and habit becomes a public question of management, discipline, and blame."
+      simp_chinese: "会计把废料、迟误、损耗和闲置的钟点排成整齐得像控诉的栏目。曾藏在尘土与习惯里的东西，如今成了关于管理、纪律与追责的公共问题。"
     options:
       a:
         text:
-          english: "Use the accounts."
-          simp_chinese: "使用这些账册。"
+          english: "We rule the workshop by its own ledger."
+          simp_chinese: "我们用作坊自己的账册来管作坊。"
         progress_delta: 5
         rationale:
-          english: "Using the accounts makes large-scale production governable and gives bureaucrats a practical reason to support manufactories. The gain is modest because visibility creates friction as well as reform."
-          simp_chinese: "使用账册会让大规模生产变得可治理，也给官僚一个支持工场的实际理由。进展幅度较小，因为透明度带来改革的同时也会制造摩擦。"
+          english: "Using the accounts makes large-scale production governable and gives bureaucrats a practical reason to back manufactories; the gain is modest because visibility breeds friction as well as reform."
+          simp_chinese: "使用账册让大规模生产变得可治理，也给官僚一个支持制造工场的实际理由；进展有限，因为透明在带来改革的同时也制造摩擦。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -514,12 +514,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Avoid intrusive accounting."
-          simp_chinese: "避免侵入式核算。"
+          english: "The owners keep their columns to themselves."
+          simp_chinese: "业主把自己的账目栏留给自己看。"
         progress_delta: -5
         rationale:
-          english: "Avoiding intrusive accounting protects workshop owners from official scrutiny and keeps production knowledge private. The debate loses ground because manufactories look less like a disciplined institution and more like enlarged private interest."
-          simp_chinese: "避免侵入式核算能保护工场主免受官方审视，也让生产知识继续留在私人手中。辩论因此退步，因为工场看起来不再像有纪律的制度，而更像被放大的私人利益。"
+          english: "Avoiding intrusive accounting shields workshop owners from official scrutiny and keeps production knowledge private, so the debate loses ground as manufactories look less like a disciplined institution and more like enlarged private interest."
+          simp_chinese: "避免侵入式核算，护住业主不受官方审视，也把生产知识留在私人手中；辩论因此退步，因为制造工场看起来不再像有纪律的制度，倒更像被放大的私利。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -532,17 +532,17 @@ random_events:
       english: "Rural Displacement"
       simp_chinese: "乡村流离"
     desc:
-      english: "Peasant spokesmen complain that manufactory demand pulls hands from fields and daughters from household arrangements. The Academy hears not merely an objection to production, but the creaking of an entire rural order."
-      simp_chinese: "农民代表抱怨，工场需求把劳力从田地里拉走，也把女儿们从家庭安排里带走。学院听见的并非单纯的生产异议，而是整个乡村秩序正在吱呀作响。"
+      english: "Peasant spokesmen complain that manufactory demand draws hands from the fields and daughters from household arrangements. The Academy hears not merely a grievance against production, but the creaking of an entire rural order."
+      simp_chinese: "农民代表抱怨，工场的需求把劳力从田里拽走，也把女儿们从家庭安排里带走。学院听见的不只是对生产的抱怨，而是整个乡村秩序的吱呀作响。"
     options:
       a:
         text:
-          english: "Manage transition."
-          simp_chinese: "管理这场转变。"
+          english: "The Crown spends to cushion the villages as the benches fill."
+          simp_chinese: "王权掏钱缓冲村庄，任工台一点点填满。"
         progress_delta: 5
         rationale:
-          english: "Managing the transition admits that manufactories disrupt rural life while refusing to abandon the new model. Acceptance rises carefully, with public spending used to soften the social shock."
-          simp_chinese: "管理转变等于承认工场会冲击乡村生活，但并不放弃新模式。接纳度会谨慎上升，同时以公共支出来缓和社会震荡。"
+          english: "Managing the transition admits that manufactories disrupt rural life without abandoning the new model, so acceptance rises carefully, with public spending used to soften the social shock."
+          simp_chinese: "管理这场转变，等于承认制造工场会冲击乡村生活，却不放弃新模式；接纳谨慎上升，同时以公共支出缓和社会震荡。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -552,12 +552,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Slow expansion."
-          simp_chinese: "放慢扩张。"
+          english: "Slowly, before the fields empty."
+          simp_chinese: "慢些来，别把田都掏空了。"
         progress_delta: -10
         rationale:
-          english: "Slowing expansion gives peasants a clear victory and frames manufactories as something that must wait upon rural custom. The debate turns sharply against acceptance because the old household economy regains authority."
-          simp_chinese: "放慢扩张会让农民获得明确胜利，并把工场塑造成必须服从乡村习俗的事物。由于旧有家庭经济重新取得权威，辩论会明显转向拒绝。"
+          english: "Slowing expansion hands the peasants a clear victory and frames manufactories as something that must wait upon rural custom, so the debate turns sharply against acceptance as the old household economy regains authority."
+          simp_chinese: "放慢扩张，给农民一场明确的胜利，也把制造工场塑造成必须迁就乡村习俗的东西；旧家庭经济重掌权威，辩论因此明显转向拒绝。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -570,17 +570,17 @@ random_events:
       english: "Imported Machine"
       simp_chinese: "舶来机器"
     desc:
-      english: "A foreign machine is carried into the Academy with unfamiliar bolts and very familiar ambition. Its admirers see a design that can be copied; its enemies see another country reaching a metal hand into local workshops."
-      simp_chinese: "一台外国机器被搬进学院，螺栓陌生，野心却十分熟悉。赞成者看见一套可以仿制的设计，反对者则看见另一个国家把金属之手伸进本地工坊。"
+      english: "A foreign machine is carried into the Academy with unfamiliar bolts and very familiar ambition. Its admirers see a design that can be copied; its enemies see another realm reaching a metal hand into local workshops."
+      simp_chinese: "一台外国机器被搬进学院，螺栓陌生，野心却熟悉得很。赞成者看见一套可以仿制的设计，反对者则看见另一个国家把金属之手伸进本地工坊。"
     options:
       a:
         text:
-          english: "Copy and adapt it."
-          simp_chinese: "仿制并改造它。"
+          english: "The Academy takes the machine apart to build its own."
+          simp_chinese: "学院把机器拆开，好造出自己的一台。"
         progress_delta: 10
         rationale:
-          english: "Copying and adapting the machine turns foreign example into domestic manufacturing capacity, giving the acceptance argument a dramatic proof of usefulness. The cost is both practical expense and sharper foreign unease."
-          simp_chinese: "仿制并改造机器，会把外国范例转化为本国制造能力，为接纳派提供极有力的实用证明。代价则是实际支出，以及更明显的对外紧张。"
+          english: "Copying and adapting the machine turns a foreign example into domestic manufacturing capacity, giving the acceptance argument a dramatic proof of usefulness; the cost is both practical expense and sharper foreign unease."
+          simp_chinese: "仿制并改造机器，把外国范例变成本国的制造能力，为接纳派提供极有力的实用证明；代价是实际的开销，以及对外更明显的不安。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -591,12 +591,12 @@ random_events:
             cooldown_months: 24
       b:
         text:
-          english: "Reject foreign machinery."
-          simp_chinese: "拒绝外国机械。"
+          english: "Foreign iron carries a foreign hand."
+          simp_chinese: "外来的铁，牵着外来的手。"
         progress_delta: -10
         rationale:
-          english: "Rejecting the machine protects guild pride and casts foreign methods as contamination rather than opportunity. Rejection gains strong momentum because suspicion of imported technique becomes a defense of local order."
-          simp_chinese: "拒绝这台机器会维护行会自尊，并把外国方法说成污染而不是机会。由于对舶来技术的怀疑被包装成维护本地秩序，拒绝方向会强烈推进。"
+          english: "Rejecting the machine guards guild pride and casts foreign methods as contamination rather than opportunity, so rejection gains strong momentum as suspicion of imported technique becomes a defense of local order."
+          simp_chinese: "拒绝这台机器，维护了行会的自尊，也把外国方法说成污染而非机会；对舶来技术的怀疑被包装成守护本地秩序，拒绝方向因此强劲推进。"
         effect_blocks:
           - type: seat_stance
             group: burghers
@@ -610,17 +610,17 @@ random_events:
       english: "Coal Smoke Argument"
       simp_chinese: "煤烟之争"
     desc:
-      english: "Urban residents remind the Academy that productive smoke is still smoke. Window ledges, lungs, and laundry lines become witnesses against any theory that treats output as proof enough."
-      simp_chinese: "城中居民提醒学院，能带来产量的烟雾依旧是烟雾。窗台、肺部和晾衣绳一起作证，反驳那种只要产出增加便足以自证其正当性的理论。"
+      english: "Townsfolk remind the Academy that productive smoke is smoke all the same. Window ledges, lungs, and laundry lines are entered as witnesses against any theory that treats output as proof enough."
+      simp_chinese: "城里人提醒学院：能带来产量的烟，终究还是烟。窗台、肺，还有晾衣绳，一并被传作证人，反驳那种以为产出增加便自证清白的理论。"
     options:
       a:
         text:
-          english: "Regulate smoke and continue."
-          simp_chinese: "管控烟尘并继续推进。"
+          english: "The Crown pays for cleaner flues and lets the fires burn."
+          simp_chinese: "王权出钱装更干净的烟道，任炉火照烧。"
         progress_delta: 5
         rationale:
-          english: "Regulating smoke concedes the harm without abandoning manufactories, so acceptance can advance in a more politically durable form. Gold is spent because cleaner production requires oversight and equipment."
-          simp_chinese: "管控烟尘承认了伤害，却没有放弃工场，因此接纳派能以更耐久的政治形式前进。由于更清洁的生产需要监督和设备，国库必须支出。"
+          english: "Regulating smoke concedes the harm without abandoning manufactories, so acceptance can advance in a more politically durable form; gold is spent because cleaner production needs oversight and equipment."
+          simp_chinese: "管控烟尘，承认了危害却没放弃制造工场，接纳因此能以更耐久的政治形态推进；由于更清洁的生产需要监督与设备，国库要出钱。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -631,12 +631,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Limit industrial sites."
-          simp_chinese: "限制工业场址。"
+          english: "We push the furnaces past the city wall."
+          simp_chinese: "我们把炉子赶到城墙外去。"
         progress_delta: -5
         rationale:
-          english: "Limiting industrial sites calms local complaints and makes the old urban fabric feel protected. The debate turns slightly against acceptance because production is treated as something that must be contained."
-          simp_chinese: "限制工业场址会平息地方怨言，让旧有城市肌理显得受到保护。辩论会小幅转向拒绝，因为生产被视为必须加以圈限的东西。"
+          english: "Limiting industrial sites calms local complaints and makes the old urban fabric feel protected, so the debate turns slightly against acceptance because production is treated as something that must be fenced off."
+          simp_chinese: "限制工业场址，平息了地方的怨言，也让旧城市肌理显得受到保护；辩论因此小幅转向拒绝，因为生产被当成必须圈起来的东西。"
         effect_blocks:
           - type: seat_stance
             group: local_autonomy
@@ -650,17 +650,17 @@ random_events:
       english: "Piecework Pay"
       simp_chinese: "计件工资"
     desc:
-      english: "Owners propose paying by the piece, so every finished length of cloth, polished tool, or packed crate becomes both wage and accusation. Workers hear arithmetic trying to become a foreman."
-      simp_chinese: "业主提议按件付薪，于是每一匹织好的布、每一件磨亮的工具、每一箱封好的货物，都既是工资，也是责备。工人听见算术正试图变成监工。"
+      english: "Owners propose paying by the piece, so every finished length of cloth, polished tool, or packed crate becomes at once a wage and an accusation. The workers hear arithmetic trying to become a foreman."
+      simp_chinese: "业主提议按件付薪，于是每一匹织好的布、每一件磨亮的工具、每一箱封好的货，既是工资，也是责备。工人听见算术正想变成监工。"
     options:
       a:
         text:
-          english: "Permit regulated piecework."
-          simp_chinese: "允许受规制的计件工资。"
+          english: "The clerks price each finished piece and post the rate."
+          simp_chinese: "账房给每件成品定价，把工价贴了出来。"
         progress_delta: 10
         rationale:
-          english: "Regulated piecework makes manufactory labor measurable and ties reward directly to output, which strongly advances the argument for production by scale. The cost is social: workers and rural households suspect that the new arithmetic will squeeze more labor from the same hands."
-          simp_chinese: "受规制的计件工资让制造工场劳动可以被衡量，并把报酬直接系在产量上，因此会有力推动规模化生产的论点。代价在于社会层面：工人和乡村家庭会怀疑这种新算术只是要从同一双手里压出更多劳动。"
+          english: "Regulated piecework makes manufactory labor measurable and ties reward straight to output, which strongly advances the case for production by scale; the cost is social, as workers and rural households suspect the new arithmetic will squeeze more labor from the same hands."
+          simp_chinese: "受规制的计件工资让制造工场的劳动可衡量，把报酬直接系在产量上，有力推动规模化生产的论点；代价在社会层面：工人和乡村家庭怀疑这套新算术只是要从同一双手里榨出更多活。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -671,12 +671,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Ban piecework."
-          simp_chinese: "禁止计件工资。"
+          english: "Enough; a wage is not a tally."
+          simp_chinese: "够了，工钱不是记数。"
         progress_delta: -10
         rationale:
-          english: "Banning piecework protects older expectations about fair wages, household rhythm, and guild bargaining. The debate moves sharply toward rejection because manufactories lose one of their clearest tools for turning labor into counted output."
-          simp_chinese: "禁止计件工资保护了关于公平工资、家庭节奏和行会议价的旧有期待。辩论会明显转向拒绝，因为制造工场失去了把劳动转化为可计量产出的最清晰工具之一。"
+          english: "Banning piecework protects older expectations of fair wages, household rhythm, and guild bargaining, so the debate moves sharply toward rejection as manufactories lose one of their clearest tools for turning labor into counted output."
+          simp_chinese: "禁止计件工资，护住了关于公平工资、家庭节奏与行会议价的旧期待；辩论因此明显转向拒绝，因为制造工场失去了把劳动化为可计量产出的最清晰工具之一。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -693,17 +693,17 @@ random_events:
       english: "Workshop School"
       simp_chinese: "工场学校"
     desc:
-      english: "Reformers propose teaching workers inside manufactories, where the lesson begins at the bench and ends in a counted batch. Guild masters notice that apprenticeship is being asked to share its own vocabulary."
-      simp_chinese: "改革者提议在制造工场内部训练工人，让课程从工作台开始，以一批可计数的成品结束。行会师傅立刻意识到，学徒制正在被迫分享自己的语汇。"
+      english: "Reformers propose training workers inside the manufactory, where the lesson opens at the bench and closes in a counted batch. Guild masters notice at once that apprenticeship is being asked to lend out its own vocabulary."
+      simp_chinese: "改革者提议在制造工场内部训练工人，让课程从工作台开讲，以一批可计数的成品收尾。行会师傅立刻察觉：学徒制正被要求把自己的语汇借出去。"
     options:
       a:
         text:
-          english: "Fund workshop schools."
-          simp_chinese: "资助工场学校。"
+          english: "The manufactory opens a school at its own gate."
+          simp_chinese: "制造工场在自家门口办起了学校。"
         progress_delta: 10
         rationale:
-          english: "Funding workshop schools lets manufactories reproduce their own skilled labor instead of borrowing legitimacy from guild apprenticeship. That powerfully advances acceptance, but it costs money and tells guilds that their gatekeeping role is no longer secure."
-          simp_chinese: "资助工场学校，使制造工场能够自行培养熟练劳动力，而不必再向行会学徒制借取合法性。这会强力推动接纳制造工场，但也要花钱，并且等于告诉行会：它们的把关地位不再稳固。"
+          english: "Funding workshop schools lets manufactories reproduce their own skilled labor instead of borrowing legitimacy from guild apprenticeship, which powerfully advances acceptance; it costs money and tells the guilds their gatekeeping role is no longer secure."
+          simp_chinese: "资助工场学校，让制造工场自行培养熟练劳力，而不必再向行会学徒制借合法性，有力推动接纳；但要花钱，也等于告诉行会：它们把关的地位不再稳固。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -713,12 +713,12 @@ random_events:
             value: -0.03
       b:
         text:
-          english: "Keep guild apprenticeship."
-          simp_chinese: "保留行会学徒制。"
+          english: "We send the boys back to the guild masters."
+          simp_chinese: "我们把学徒送回行会师傅那里。"
         progress_delta: -10
         rationale:
-          english: "Keeping guild apprenticeship preserves the old ladder of skill, patronage, and urban status. The debate turns decisively against manufactories because training remains tied to the institutions most threatened by factory discipline."
-          simp_chinese: "保留行会学徒制，就是保留技能、庇护关系和城市身份的旧阶梯。辩论会明确转向反对制造工场，因为训练仍被系在最受工场纪律威胁的旧制度上。"
+          english: "Keeping guild apprenticeship preserves the old ladder of skill, patronage, and urban standing, so the debate turns decisively against manufactories because training stays tied to the institutions most threatened by factory discipline."
+          simp_chinese: "保留行会学徒制，保住了技能、庇护与城市身份的旧阶梯；辩论因此明确转向反对制造工场，因为训练仍被系在最受工场纪律威胁的旧制度上。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -736,17 +736,17 @@ random_events:
       english: "Quality Scandal"
       simp_chinese: "质量丑闻"
     desc:
-      english: "A large batch fails inspection in public: seams split, fittings crack, and the opponents of scale look almost grateful for the evidence. The question is whether the failure condemns the system or merely the inspectors."
-      simp_chinese: "一大批货物当众未能通过检验：缝线裂开，配件崩断，反对规模化的人几乎要感谢这份证据。眼下的问题是，这次失败究竟定罪的是整个制度，还是只是检验者。"
+      english: "A large batch fails inspection in full view: seams split, fittings crack, and the enemies of scale look almost grateful for the evidence. The question is whether the failure condemns the system, or only the inspectors."
+      simp_chinese: "一大批货物当众没能过检：缝线绽开，配件崩断，反对规模化的人几乎要谢过这份证据。眼下的问题是：这次失败定罪的是整套制度，还是只是检验者。"
     options:
       a:
         text:
-          english: "Improve inspection and continue."
-          simp_chinese: "改进检验并继续推进。"
+          english: "The Academy spends its name to mend the inspection."
+          simp_chinese: "学院搭上自己的名声，去修补检验环节。"
         progress_delta: 5
         rationale:
-          english: "Improving inspection admits the scandal without surrendering the manufactory model. Acceptance rises moderately because reformers show that scale can correct itself, but prestige is spent to survive the embarrassment."
-          simp_chinese: "改进检验意味着承认丑闻，却不放弃制造工场模式。接纳度会适度上升，因为改革者证明规模化可以自我纠正，但国家必须花费威望来熬过这场难堪。"
+          english: "Improving inspection admits the scandal without surrendering the manufactory model, so acceptance rises moderately as reformers show that scale can correct itself; prestige is spent to survive the embarrassment."
+          simp_chinese: "改进检验，等于承认丑闻却不放弃制造工场模式，接纳因此适度上升，因为改革者证明规模化能自我纠正；代价是花费威望来熬过这场难堪。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -757,12 +757,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Blame scale itself."
-          simp_chinese: "指责规模本身。"
+          english: "We say the fault lies in the very size of it."
+          simp_chinese: "我们说，毛病就出在这规模本身。"
         progress_delta: -5
         rationale:
-          english: "Blaming scale itself turns a bad batch into a moral lesson against concentration, speed, and oversight by strangers. The rejection is moderate because the scandal is real, and conservative readers of the evidence gain confidence."
-          simp_chinese: "指责规模本身，会把一批劣货变成反对集中、速度和外来监督的道德教训。拒绝幅度适中，因为丑闻确实存在，而保守派会从这份证据中获得信心。"
+          english: "Blaming scale itself turns a bad batch into a moral lesson against concentration, speed, and oversight by strangers; the rejection is moderate because the scandal is real, and conservative readers of the evidence take heart."
+          simp_chinese: "指责规模本身，把一批劣货变成反对集中、求快与外人监督的道德教训；拒绝幅度适中，因为丑闻确有其事，保守派也从这份证据里得了底气。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -779,17 +779,17 @@ random_events:
       english: "Merchant Capital Pool"
       simp_chinese: "商人资本池"
     desc:
-      english: "Merchants propose pooling capital large enough to build a manufactory no single family could command. The money arrives not as a purse, but as a committee with ledgers and patience."
-      simp_chinese: "商人提议合资筹集一笔足以兴建制造工场的资本，规模大到任何单一家族都难以独自掌握。这笔钱来的时候不像一个钱袋，更像一群带着账本和耐心的委员。"
+      english: "Merchants propose pooling capital vast enough to raise a manufactory no single family could command. The money arrives not as a purse but as a committee, with ledgers and patience."
+      simp_chinese: "商人提议合资筹集一笔足以立起制造工场的资本，大到任何单一家族都无法独掌。这笔钱来时不像一个钱袋，倒像一群带着账本与耐心的委员。"
     options:
       a:
         text:
-          english: "Legalize the pool."
-          simp_chinese: "使资本池合法化。"
+          english: "The Crown lets the merchants bind their purses into one."
+          simp_chinese: "王权准许商人把各自的钱袋并成一个。"
         progress_delta: 10
         rationale:
-          english: "Legalizing pooled capital gives manufactories a financial body large enough to match their physical ambition. Acceptance advances sharply because scale becomes investable, and banking-minded burghers see a path from ledger to workshop."
-          simp_chinese: "使资本池合法化，为制造工场提供了足以匹配其物质野心的金融身体。接纳度会大幅推进，因为规模化从此可以被投资，而具有银行思维的市民阶层也看见了从账本通向工场的道路。"
+          english: "Legalizing pooled capital gives manufactories a financial body large enough to match their physical ambition, so acceptance advances sharply as scale becomes investable and banking-minded burghers see a path from ledger to workshop."
+          simp_chinese: "使资本池合法化，给制造工场配上足以匹配其物质野心的金融身体，接纳因此大幅推进：规模化从此可投资，有银行头脑的市民也看见了从账本通向工场的路。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -801,12 +801,12 @@ random_events:
               "large manufactory finance": 0.03
       b:
         text:
-          english: "Forbid such concentration."
-          simp_chinese: "禁止这种集中。"
+          english: "We will not let a committee own a trade."
+          simp_chinese: "我们不会让一个委员会攥住整个行当。"
         progress_delta: -10
         rationale:
-          english: "Forbidding pooled capital protects noble landlords and guild masters from a new kind of collective commercial power. The debate moves strongly toward rejection because large manufactories remain trapped below the scale their advocates promised."
-          simp_chinese: "禁止资本池保护了贵族地主和行会师傅，使他们免受新型集体商业力量的冲击。辩论会强烈转向拒绝，因为大型制造工场仍被困在倡导者所承诺的规模之下。"
+          english: "Forbidding pooled capital shields noble landlords and guild masters from a new kind of collective commercial power, so the debate moves strongly toward rejection as large manufactories stay trapped below the scale their advocates promised."
+          simp_chinese: "禁止资本池，护住贵族地主与行会师傅，免受新型集体商业力量的冲击；辩论因此强烈转向拒绝，因为大型制造工场仍被困在倡导者所许诺的规模之下。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -823,17 +823,17 @@ random_events:
       english: "The First Whistle"
       simp_chinese: "第一声汽笛"
     desc:
-      english: "A new factory whistle divides the day with admirable efficiency and unbearable certainty. It tells workers when to begin, neighbors when to complain, and reformers that discipline can be heard from three streets away."
-      simp_chinese: "一只新的工场汽笛以令人赞叹的效率、也以令人难忍的确定性切分一天。它告诉工人何时开工，告诉邻人何时抱怨，也告诉改革者：纪律隔着三条街也能被听见。"
+      english: "A new factory whistle splits the day with admirable efficiency and unbearable certainty. It tells workers when to begin, neighbors when to complain, and reformers that discipline can now be heard three streets away."
+      simp_chinese: "一只新的工场汽笛以令人赞叹的效率、也以令人难忍的确定，切开一天。它告诉工人何时开工，告诉邻人何时抱怨，也告诉改革者：纪律隔着三条街也听得见。"
     options:
       a:
         text:
-          english: "Defend the new discipline."
-          simp_chinese: "捍卫新的纪律。"
+          english: "So be it, let the whistle keep the hour."
+          simp_chinese: "也罢，就让汽笛来守着钟点。"
         progress_delta: 5
         rationale:
-          english: "Defending the whistle accepts that manufactories need public, audible discipline to coordinate many workers at once. Acceptance rises modestly because the symbol is practical but irritating, pleasing production supporters while angering nearby laboring households."
-          simp_chinese: "捍卫汽笛，就是承认制造工场需要公开且可听见的纪律，才能同时协调许多工人。接纳度会小幅上升，因为这个象征很实用也很恼人：生产支持者满意，附近劳动家庭却会愤怒。"
+          english: "Defending the whistle accepts that manufactories need a public, audible discipline to coordinate many workers at once, so acceptance rises modestly; the symbol is practical yet grating, pleasing production's backers while angering nearby laboring households."
+          simp_chinese: "捍卫汽笛，是承认制造工场需要一种公开、可听见的纪律来同时协调众多工人，接纳因此小幅上升；这个象征实用却刺耳，让生产的支持者满意，也让附近的劳动家庭恼怒。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -843,12 +843,12 @@ random_events:
             value: -0.02
       b:
         text:
-          english: "Silence the whistle."
-          simp_chinese: "让汽笛安静。"
+          english: "The magistrate orders the whistle stopped."
+          simp_chinese: "地方官下令让汽笛停下。"
         progress_delta: -5
         rationale:
-          english: "Silencing the whistle restores local quiet and makes factory discipline look negotiable. The debate slips toward rejection because the manufactory must retreat from one of its simplest tools for organizing time."
-          simp_chinese: "让汽笛安静可以恢复地方安宁，也会让工场纪律显得可以讨价还价。辩论会转向拒绝，因为制造工场不得不放弃组织时间的最简单工具之一。"
+          english: "Silencing the whistle restores local quiet and makes factory discipline look negotiable, so the debate slips toward rejection because the manufactory must retreat from one of its simplest tools for organizing time."
+          simp_chinese: "让汽笛安静，恢复了地方的宁静，也让工场纪律显得可以商量；辩论因此滑向拒绝，因为制造工场不得不放弃组织时间的最简单工具之一。"
         effect_blocks:
           - type: resource
             resource: stability

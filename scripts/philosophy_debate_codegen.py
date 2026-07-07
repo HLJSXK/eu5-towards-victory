@@ -311,6 +311,34 @@ def random_event_loc_key(event: dict, suffix: str) -> str:
     return f"{EVENT_NS}.{event['event_num']}.{suffix}"
 
 
+def random_event_reason_hint(data: dict, event: dict, lang: str) -> str:
+    """Single trailing line explaining why this random debate event appeared.
+
+    Mirrors the concentrated-research great-scientist attribute hint: separated
+    from the flavor text by a blank line and wrapped in a neutral #Y ... #! span.
+    Issue-locked events name the current debate issue; general-pool events note
+    that they can surface under any issue.
+    """
+    zh = lang == "simp_chinese"
+    issue_key = event.get("issue")
+    if issue_key:
+        issue_name = issue_by_key(data)[issue_key]["loc"][lang]
+        if zh:
+            body = f"本事件出现是因为当前辩论议题为【{issue_name}】。"
+        else:
+            body = f"This event appeared because the current debate issue is {issue_name}."
+    else:
+        if zh:
+            body = "本事件出现是因为一场本地辩论正在进行，且适用于任何辩论议题。"
+        else:
+            body = "This event appeared because a local debate is under way, and it can surface under any debate issue."
+    return f"\n\n#Y {body}#!"
+
+
+def random_event_desc_with_hint(data: dict, event: dict, lang: str) -> str:
+    return event["desc"][lang] + random_event_reason_hint(data, event, lang)
+
+
 def random_event_modifier_name(block: dict) -> str:
     return block["key"]
 
@@ -2445,7 +2473,7 @@ def generate_loc(data: dict, language: str) -> str:
         entries.pop(duplicate_key, None)
     for event in random_events(data):
         entries[random_event_loc_key(event, "t")] = event["title"][loc_lang]
-        entries[random_event_loc_key(event, "d")] = event["desc"][loc_lang]
+        entries[random_event_loc_key(event, "d")] = random_event_desc_with_hint(data, event, loc_lang)
         for opt_key in ("a", "b"):
             entries[random_event_loc_key(event, opt_key)] = event["options"][opt_key]["text"][loc_lang]
     for entry in random_event_modifier_entries(data):
@@ -2469,138 +2497,71 @@ def add_world_debate_loc_entries(entries: dict[str, str], zh: bool) -> None:
     entries["TV_ACADEMY_WORLD_DEBATE_PROGRESS_TT"] = "世界辩论从50进度开始；每月变化为（实力对比 - 50%）×5。达到0为保守结局，达到100为进步结局，10年未结束为中立结局。" if zh else "World debate starts at 50 progress. Each month changes by (strength - 50%) x 5. Reaching 0 gives the conservative result, reaching 100 gives the progressive result, and ten years without a result gives the neutral result."
 
 
-def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
-    zh = lang == "simp_chinese"
-    entries: dict[str, str] = {}
-    entries["TV_ACADEMY_DEBATE_STANCE_SUPPORT"] = "支持" if zh else "Support"
-    entries["TV_ACADEMY_DEBATE_STANCE_OPPOSE"] = "反对" if zh else "Oppose"
-    entries["TV_ACADEMY_DEBATE_STANCE_NEUTRAL"] = "中立" if zh else "Neutral"
-    entries["TV_ACADEMY_DEBATE_SEAT_FILLED_TT"] = "该辩论席已有团体入座。绿色表示支持，红色表示反对，黄色表示中立。" if zh else "This debate seat is occupied. Green supports the proposal, red opposes it, and yellow is neutral."
-    entries["TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"] = "本地辩论进度现在完全由辩论席上的团体通过月度事件推动；支持方增加进度，反对方降低进度，中立方暂不影响进度。" if zh else "Local debate progress is now event-driven by seated debate groups. Supporters increase progress, opponents reduce it, and neutral groups do not move it yet."
-    entries["TV_ACADEMY_DEBATE_LOCAL_EMPTY_SEAT_TT"] = "一个空置的[tv_debate_seat|E]。" if zh else "An empty [tv_debate_seat|E]."
-    entries["TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT"] = "王室固定主持本国辩论，并始终支持当前议题。" if zh else "The Crown permanently presides over the domestic debate and always supports the current issue."
-    add_world_debate_loc_entries(entries, zh)
-    for group in groups(data):
-        name = group["loc"][lang]
-        for num, template in event_loc_templates(zh).items():
-            entries[f"{EVENT_NS}.{num}.d_{group['key']}"] = template["desc"].format(group=name)
-    for num, template in event_loc_templates(zh).items():
-        entries[f"{EVENT_NS}.{num}.t"] = template["title"]
-        entries[f"{EVENT_NS}.{num}.d"] = template["desc"].format(group=("[tv_debate_group|E]" if zh else "[tv_debate_group|E]"))
-        for opt, text in template["options"].items():
-            entries[f"{EVENT_NS}.{num}.{opt}"] = text
-    for group in groups(data):
-        if is_estate_or_variant(group):
-            entries[f"STATIC_MODIFIER_NAME_{estate_modifier_name(group)}"] = ("王室钦点：" if zh else "Royal Appointment: ") + group["loc"][lang]
-            entries[f"STATIC_MODIFIER_DESC_{estate_modifier_name(group)}"] = "该阶层因王室在哲学辩论中公开抬举其代表而更加满意，也拥有更高影响力。" if zh else "This estate is more satisfied and influential after the Crown publicly elevated its representative in a philosophy debate."
-    return entries
-
-
 def notification_loc_entries(zh: bool) -> dict[str, str]:
     if zh:
         return {
-            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.t": "辩论声势上扬",
-            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.d": "近期的政策和公共行动增强了当前科学院议题的论证。本地辩论正向接纳推进。",
-            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.a": "圆桌已经注意到。",
-            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.t": "辩论声势受挫",
-            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.d": "近期的政策和公共行动削弱了当前科学院议题的论证。本地辩论正向排斥滑落。",
-            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.a": "圆桌已经注意到。",
-            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.t": "世界辩论开幕",
-            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.d": "拥有科学院的诸国已经围绕当前哲学议题进入世界辩论。本国科学院将作为参与者记录这场争论的走向。",
-            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.a": "派代表入席。",
-            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.t": "世界辩论走向接纳",
-            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.d": "世界辩论已经形成接纳当前哲学议题的结论。本国科学院据此推进哲学序列，并让相关思潮在全国扎根。",
-            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.a": "记录这项结论。",
-            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.t": "世界辩论走向排斥",
-            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.d": "世界辩论已经形成排斥当前哲学议题的结论。本国科学院据此结束该议题，并继续推进哲学序列。",
-            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.a": "记录这项结论。",
-            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.t": "世界辩论无果而终",
-            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.d": "世界辩论未能形成明确结论。本国科学院将当前哲学议题归档，继续推进哲学序列。",
-            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.a": "将档案封存。",
-            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.t": "辩论席位转向支持",
-            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.d": "本月的政治与社会条件改变了圆桌上的部分立场。至少一个辩论席位已经转向支持当前哲学议题。",
-            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.a": "记录这次转向。",
-            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.t": "辩论席位转向反对",
-            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.d": "本月的政治与社会条件改变了圆桌上的部分立场。至少一个辩论席位已经转向反对当前哲学议题。",
-            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.a": "记录这次转向。",
-            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.t": "辩论席位转向中立",
-            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.d": "本月的政治与社会条件改变了圆桌上的部分立场。至少一个辩论席位已经不再明确支持或反对当前哲学议题。",
-            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.a": "记录这次转向。",
-            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.t": "辩论席位空缺",
-            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.d": "圆桌上的一名特殊参与者已经无法继续出席。本月的清理将对应辩论席位腾空。",
-            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.a": "记录这次空缺。",
+            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.t": "辩论渐占上风",
+            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.d": "这个月的政策和公众行动，都替当前议题攒了几分说服力。辩论的风向，正慢慢往接纳那头吹。",
+            f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.a": "圆桌记下这一笔。",
+            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.t": "辩论渐落下风",
+            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.d": "这个月的政策和公众行动，反倒削弱了当前议题的说服力。辩论的风向，正慢慢往排斥那头吹。",
+            f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.a": "圆桌记下这一笔。",
+            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.t": "世界辩论开场",
+            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.d": "各国的科学院，都围着同一个哲学议题坐了下来。我们的科学院也会派人上场，看这场争论最后落在哪一边。",
+            f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.a": "派我们的代表入席。",
+            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.t": "世界辩论，接纳了",
+            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.d": "世界辩论有了结论：这个议题，被接纳了。我们的科学院就此推进哲学序列，让相关思潮在国内扎下根。",
+            f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.a": "记下这个结论。",
+            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.t": "世界辩论，否了",
+            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.d": "世界辩论有了结论：这个议题，被否了。我们的科学院就此收起这个议题，继续往哲学序列的下一步走。",
+            f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.a": "记下这个结论。",
+            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.t": "世界辩论，不了了之",
+            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.d": "世界辩论没能吵出个结果。我们的科学院把这个议题归了档，继续往哲学序列的下一步走。",
+            f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.a": "把档案封起来。",
+            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.t": "有人倒向了支持",
+            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.d": "这个月的政局和民情，悄悄挪动了圆桌上几张椅子。至少有一个辩论席，已经转而支持当前议题了。",
+            f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.a": "记下这次转向。",
+            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.t": "有人倒向了反对",
+            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.d": "这个月的政局和民情，悄悄挪动了圆桌上几张椅子。至少有一个辩论席，已经转而反对当前议题了。",
+            f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.a": "记下这次转向。",
+            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.t": "有人不表态了",
+            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.d": "这个月的政局和民情，悄悄挪动了圆桌上几张椅子。至少有一个辩论席，已经不再明确支持或反对当前议题了。",
+            f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.a": "记下这次转向。",
+            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.t": "一个席位空了下来",
+            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.d": "圆桌上一位特殊的常客，已经没法再来了。这个月的清点，把对应的辩论席空了出来。",
+            f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.a": "记下这次空缺。",
         }
     return {
-        f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.t": "Debate Momentum Rises",
-        f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.d": "Recent policy and public action have strengthened the argument for the current Academy issue. The local debate moves toward acceptance.",
+        f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.t": "The Debate Tips Our Way",
+        f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.d": "This month's policies and public deeds have added real weight to the current issue. The debate is leaning toward acceptance.",
         f"{EVENT_NS}.{LOCAL_ACTION_POSITIVE_EVENT}.a": "The table takes note.",
-        f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.t": "Debate Momentum Falters",
-        f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.d": "Recent policy and public action have weakened the argument for the current Academy issue. The local debate moves toward rejection.",
+        f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.t": "The Debate Tips Against Us",
+        f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.d": "This month's policies and public deeds have taken weight away from the current issue. The debate is leaning toward rejection.",
         f"{EVENT_NS}.{LOCAL_ACTION_NEGATIVE_EVENT}.a": "The table takes note.",
-        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.t": "A World Debate Opens",
-        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.d": "Countries with an Academy of Sciences have entered a world debate around the current philosophical issue. Our Academy will take part and record where the argument leads.",
-        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.a": "Send our representatives.",
-        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.t": "The World Debate Accepts",
-        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.d": "The world debate has reached an accepting conclusion on the current philosophical issue. Our Academy advances the philosophy sequence and lets the related institution take root across the country.",
-        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.a": "Record the conclusion.",
-        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.t": "The World Debate Rejects",
-        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.d": "The world debate has reached a rejecting conclusion on the current philosophical issue. Our Academy closes this issue and advances the philosophy sequence.",
-        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.a": "Record the conclusion.",
-        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.t": "The World Debate Ends Inconclusively",
-        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.d": "The world debate has ended without a clear conclusion. Our Academy files the current philosophical issue away and advances the philosophy sequence.",
-        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.a": "Seal the archive.",
-        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.t": "A Debate Seat Turns Supportive",
-        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.d": "This month's political and social conditions have changed part of the roundtable. At least one debate seat now supports the current philosophical issue.",
-        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.a": "Record the shift.",
-        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.t": "A Debate Seat Turns Opposed",
-        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.d": "This month's political and social conditions have changed part of the roundtable. At least one debate seat now opposes the current philosophical issue.",
-        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.a": "Record the shift.",
-        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.t": "A Debate Seat Turns Neutral",
-        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.d": "This month's political and social conditions have changed part of the roundtable. At least one debate seat no longer clearly supports or opposes the current philosophical issue.",
-        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.a": "Record the shift.",
-        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.t": "A Debate Seat Falls Vacant",
-        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.d": "A special participant at the roundtable can no longer attend. This month's cleanup has vacated the corresponding debate seat.",
-        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.a": "Record the vacancy.",
-    }
-
-
-def event_loc_templates(zh: bool) -> dict[int, dict]:
-    if zh:
-        return {
-            100: {"title": "团体加入辩论", "desc": "#Y{group}#!要求取得一个[tv_debate_seat|E]。其立场已由当前议题和国内条件决定。", "options": {"a": "让他们入座"}},
-            101: {"title": "团体离开辩论", "desc": "#R{group}#!选择退出本场辩论。已离开的[tv_debate_group|E]不会在本场辩论中再次加入。", "options": {"a": "记录他们的离席"}},
-            102: {"title": "有条件的支持", "desc": "#G{group}#!愿意加入辩论支持我们，但要求一项代价。", "options": {"a": "接受条件", "b": "拒绝"}},
-            103: {"title": "要求收买的反对派", "desc": "#R{group}#!可能加入反对席；支付代价可让他们退出本场辩论。", "options": {"a": "付出代价", "b": "让他们上场"}},
-            104: {"title": "争吵升级", "desc": "#Y{group}#!与另一团体围绕当前议题争执不休，双方都将坐上辩论席。", "options": {"a": "给他们席位"}},
-            105: {"title": "大科学家争取支持", "desc": "#G大科学家外交能力不低于80#!，成功为我们争取到#G{group}#!。", "options": {"a": "欢迎他们"}},
-            106: {"title": "大科学家触怒反对派", "desc": "#R大科学家外交能力不高于30#!，私下触怒了#R{group}#!。", "options": {"a": "他们会公开反对"}},
-            107: {"title": "大科学家的交易", "desc": "#Y大科学家外交能力介于30与80之间#!，与#G{group}#!达成一项有条件支持。", "options": {"a": "接受交易", "b": "拒绝"}},
-            108: {"title": "大科学家请求一席之地", "desc": "#Y大科学家#!希望亲自上场辩论。若同意，其将进入忙碌状态直到本场辩论结束。", "options": {"a": "准许入席", "b": "婉拒"}},
-            109: {"title": "王室钦点", "desc": "#G王室#!可以从支持当前议题的阶层或变体中钦点代表入席，并给予其基础阶层5年影响力。", "options": {"a": "钦点第一候选", "b": "钦点第二候选", "c": "钦点第三候选", "d": "放弃机会"}},
-            110: {"title": "中立团体表态", "desc": "#Y{group}#!不再保持中立，必须决定是否支持当前辩题。", "options": {"a": "转为支持", "b": "转为反对"}},
-            111: {"title": "中立团体索价支持", "desc": "#Y{group}#!愿以一项代价换取公开支持。", "options": {"a": "接受条件", "b": "拒绝"}},
-            112: {"title": "中立团体索价不反对", "desc": "#Y{group}#!暗示如果得不到让步，他们可能转向反对。", "options": {"a": "付出代价", "b": "不作让步"}},
-            113: {"title": "大科学家说服中立者", "desc": "#G大科学家外交能力不低于80#!，说服原本中立的#G{group}#!支持我们。", "options": {"a": "很好", "b": "暂缓"}},
-            114: {"title": "大科学家惹怒中立者", "desc": "#R大科学家外交能力不高于30#!，使原本中立的#R{group}#!转为反对。", "options": {"a": "糟糕", "b": "安抚"}},
-            115: {"title": "大科学家的中立交易", "desc": "#Y大科学家外交能力介于30与80之间#!，与#Y{group}#!谈成有条件支持。", "options": {"a": "接受交易", "b": "拒绝"}},
-        }
-    return {
-        100: {"title": "A Group Joins the Debate", "desc": "#Y{group}#! claims a [tv_debate_seat|E]. Its stance is determined by the current issue and domestic conditions.", "options": {"a": "Seat them"}},
-        101: {"title": "A Group Leaves the Debate", "desc": "#R{group}#! withdraws from this debate. A departed [tv_debate_group|E] cannot rejoin before the debate ends.", "options": {"a": "Record their departure"}},
-        102: {"title": "Conditional Support", "desc": "#G{group}#! will support us in the debate for a price.", "options": {"a": "Accept the terms", "b": "Refuse"}},
-        103: {"title": "An Opposition Group Bargains", "desc": "#R{group}#! may join the opposition seats; a concession can keep them out of this debate.", "options": {"a": "Pay the price", "b": "Let them speak"}},
-        104: {"title": "A Quarrel Escalates", "desc": "#Y{group}#! and another group are arguing over the current issue. Both will take debate seats.", "options": {"a": "Give them seats"}},
-        105: {"title": "The Great Scientist Wins Support", "desc": "#GGreat Scientist Diplomacy is at least 80#!, securing #G{group}#! for our side.", "options": {"a": "Welcome them"}},
-        106: {"title": "The Great Scientist Angers a Group", "desc": "#RGreat Scientist Diplomacy is no more than 30#!, and #R{group}#! is now furious.", "options": {"a": "They will oppose us"}},
-        107: {"title": "A Scientist's Bargain", "desc": "#YGreat Scientist Diplomacy is between 30 and 80#!, producing conditional support from #G{group}#!.", "options": {"a": "Accept the bargain", "b": "Refuse"}},
-        108: {"title": "The Great Scientist Requests a Seat", "desc": "#YThe Great Scientist#! asks to join the debate personally. Accepting keeps them busy until this debate ends.", "options": {"a": "Grant the seat", "b": "Decline"}},
-        109: {"title": "Royal Appointment", "desc": "#GThe Crown#! may appoint one supportive estate or variant group to a debate seat and empower its base estate for five years.", "options": {"a": "Appoint the first nominee", "b": "Appoint the second nominee", "c": "Appoint the third nominee", "d": "Pass"}},
-        110: {"title": "A Neutral Group Takes a Side", "desc": "#Y{group}#! will no longer remain neutral.", "options": {"a": "They support us", "b": "They oppose us"}},
-        111: {"title": "Neutral Support Has a Price", "desc": "#Y{group}#! will support us for a concession.", "options": {"a": "Accept the terms", "b": "Refuse"}},
-        112: {"title": "Neutrality Wavers", "desc": "#Y{group}#! hints that without concessions they may turn against us.", "options": {"a": "Make concessions", "b": "Make no concessions"}},
-        113: {"title": "The Great Scientist Persuades Neutrals", "desc": "#GGreat Scientist Diplomacy is at least 80#!, persuading #G{group}#! to support us.", "options": {"a": "Excellent", "b": "Wait"}},
-        114: {"title": "The Great Scientist Offends Neutrals", "desc": "#RGreat Scientist Diplomacy is no more than 30#!, pushing #R{group}#! into opposition.", "options": {"a": "Unfortunate", "b": "Placate them"}},
-        115: {"title": "A Neutral Bargain", "desc": "#YGreat Scientist Diplomacy is between 30 and 80#!, producing conditional support from #Y{group}#!.", "options": {"a": "Accept the bargain", "b": "Refuse"}},
+        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.t": "The World Takes Its Seats",
+        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.d": "Every country with an Academy of Sciences has gathered around the same philosophical issue. Our Academy will send its own delegation and watch where the argument leads.",
+        f"{EVENT_NS}.{WORLD_DEBATE_START_EVENT}.a": "Send our delegation.",
+        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.t": "The World Debate Says Yes",
+        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.d": "The world debate has a verdict: the issue is accepted. Our Academy advances the philosophy sequence and lets the idea take root at home.",
+        f"{EVENT_NS}.{WORLD_DEBATE_PROGRESSIVE_EVENT}.a": "Record the verdict.",
+        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.t": "The World Debate Says No",
+        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.d": "The world debate has a verdict: the issue is rejected. Our Academy closes the file and moves on to the next step in the sequence.",
+        f"{EVENT_NS}.{WORLD_DEBATE_CONSERVATIVE_EVENT}.a": "Record the verdict.",
+        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.t": "The World Debate Fizzles Out",
+        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.d": "The world debate never reached a verdict. Our Academy files the issue away and moves on to the next step in the sequence.",
+        f"{EVENT_NS}.{WORLD_DEBATE_NEUTRAL_EVENT}.a": "Seal the file.",
+        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.t": "A Chair Slides Toward Support",
+        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.d": "This month's politics and public mood have shifted a few chairs at the table. At least one debate seat now backs the current issue.",
+        f"{EVENT_NS}.{AUTO_STANCE_SUPPORT_EVENT}.a": "Note the shift.",
+        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.t": "A Chair Slides Toward Opposition",
+        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.d": "This month's politics and public mood have shifted a few chairs at the table. At least one debate seat now stands against the current issue.",
+        f"{EVENT_NS}.{AUTO_STANCE_OPPOSE_EVENT}.a": "Note the shift.",
+        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.t": "A Chair Slides to the Fence",
+        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.d": "This month's politics and public mood have shifted a few chairs at the table. At least one debate seat no longer clearly backs or opposes the current issue.",
+        f"{EVENT_NS}.{AUTO_STANCE_NEUTRAL_EVENT}.a": "Note the shift.",
+        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.t": "A Chair Sits Empty",
+        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.d": "A regular at the table can no longer attend. This month's tally leaves the corresponding seat vacant.",
+        f"{EVENT_NS}.{AUTO_SEAT_VACATED_EVENT}.a": "Note the vacancy.",
     }
 
 
@@ -2643,38 +2604,38 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
 def event_loc_templates(zh: bool) -> dict[int, dict]:
     if zh:
         return {
-            100: {"title": "团体加入辩论", "desc": "#Y{group}#!要求取得一个[tv_debate_seat|E]。其立场已由当前议题和国内条件决定。", "options": {"a": "让他们入席"}},
-            101: {"title": "团体离开辩论", "desc": "#R{group}#!选择退出本场辩论。已离开的[tv_debate_group|E]不会在本场辩论中再次加入。", "options": {"a": "记录他们的离席"}},
-            102: {"title": "有条件的支持", "desc": "#G{group}#!愿意加入辩论支持我们，但要求一项代价。", "options": {"a": "接受条件", "b": "拒绝"}},
-            103: {"title": "要求收买的反对派", "desc": "#R{group}#!可能加入反对席；支付代价可让他们退出本场辩论。", "options": {"a": "付出代价", "b": "让他们上场"}},
-            104: {"title": "争吵升级", "desc": "#Y{group}#!与另一个团体围绕当前议题争执不休，双方都将坐上辩论席。", "options": {"a": "给他们席位"}},
-            105: {"title": "大科学家争取支持", "desc": "#G大科学家外交能力不低于80#!，成功为我们争取到#G{group}#!。", "options": {"a": "欢迎他们"}},
-            106: {"title": "大科学家触怒反对派", "desc": "#R大科学家外交能力不高于30#!，私下触怒了#R{group}#!。", "options": {"a": "他们会公开反对"}},
-            107: {"title": "大科学家的交易", "desc": "#Y大科学家外交能力介于30和80之间#!，与#G{group}#!达成一项有条件支持。", "options": {"a": "接受交易", "b": "拒绝"}},
-            108: {"title": "大科学家请求一席之地", "desc": "#Y大科学家#!希望亲自上场辩论。若同意，其将进入忙碌状态直到本场辩论结束。", "options": {"a": "准许入席", "b": "婉拒"}},
-            109: {"title": "王室钦点", "desc": "#G王室#!可以从支持当前议题的阶层或变体中钦点代表入席，并给予其基础阶层5年影响力。", "options": {"a": "钦点第一候选", "b": "钦点第二候选", "c": "钦点第三候选", "d": "放弃机会"}},
-            110: {"title": "中立团体表态", "desc": "#Y{group}#!不再保持中立，必须决定是否支持当前辩题。", "options": {"a": "转为支持", "b": "转为反对"}},
-            111: {"title": "中立团体索价支持", "desc": "#Y{group}#!愿以一项代价换取公开支持。", "options": {"a": "接受条件", "b": "拒绝"}},
-            112: {"title": "中立团体索价不反对", "desc": "#Y{group}#!暗示如果得不到让步，他们可能转向反对。", "options": {"a": "付出代价", "b": "不作让步"}},
-            113: {"title": "大科学家说服中立者", "desc": "#G大科学家外交能力不低于80#!，说服原本中立的#G{group}#!支持我们。", "options": {"a": "很好", "b": "暂缓"}},
-            114: {"title": "大科学家惹怒中立者", "desc": "#R大科学家外交能力不高于30#!，使原本中立的#R{group}#!转为反对。", "options": {"a": "糟糕", "b": "安抚"}},
-            115: {"title": "大科学家的中立交易", "desc": "#Y大科学家外交能力介于30和80之间#!，与#Y{group}#!谈成有条件支持。", "options": {"a": "接受交易", "b": "拒绝"}},
+            100: {"title": "又添一位客人", "desc": "#Y{group}#!推门而入，要在[tv_debate_seat|E]上占一个位置。他们的立场，早由当前议题和国内的风气定下了，用不着再问。", "options": {"a": "给他们让个座"}},
+            101: {"title": "有人拂袖而去", "desc": "#R{group}#!觉得话不投机，径直退出了这场辩论。走了的[tv_debate_group|E]，这场辩论里就不会再回来了。", "options": {"a": "记下他们的离席"}},
+            102: {"title": "支持是有价的", "desc": "#G{group}#!愿意站到我们这边，但先得开个价。天下没有白来的掌声。", "options": {"a": "答应这个价", "b": "拒绝"}},
+            103: {"title": "反对派想要封口费", "desc": "#R{group}#!眼看就要坐上反对席；给点好处，倒也能让他们打消这个念头。", "options": {"a": "付这笔钱", "b": "让他们上场"}},
+            104: {"title": "一场口角闹大了", "desc": "#Y{group}#!为着当前议题跟另一个团体吵得不可开交，谁也不肯先松口，两边索性都坐上了辩论席。", "options": {"a": "给他们各留一席"}},
+            105: {"title": "大科学家说动了人心", "desc": "#G大科学家外交能力不低于80#!，一番游说下来，#G{group}#!站到了我们这边。", "options": {"a": "欢迎他们入席"}},
+            106: {"title": "大科学家说错了话", "desc": "#R大科学家外交能力不高于30#!，一句话没说对，私下惹恼了#R{group}#!。", "options": {"a": "他们要公开唱反调了"}},
+            107: {"title": "一笔私下的交易", "desc": "#Y大科学家外交能力介于30与80之间#!，跟#G{group}#!谈出了一份有条件的支持。", "options": {"a": "接受这笔交易", "b": "拒绝"}},
+            108: {"title": "大科学家想亲自上场", "desc": "#Y大科学家#!想放下手头的研究，亲自上桌辩论几句。一旦同意，他就要一直忙到这场辩论收场为止。", "options": {"a": "准他入席", "b": "婉言谢绝"}},
+            109: {"title": "王室金口一开", "desc": "#G王室#!有意从支持当前议题的阶层或其变体里挑一位代表入席，还会给对方的基础阶层加五年的影响力。", "options": {"a": "钦点第一候选", "b": "钦点第二候选", "c": "钦点第三候选", "d": "这次不点了"}},
+            110: {"title": "墙头草也得站队", "desc": "#Y{group}#!发现自己再骑墙下去也不是办法，只好在支持和反对之间挑一个。", "options": {"a": "站过来支持我们", "b": "转身站到对面"}},
+            111: {"title": "中立方也想讨点好处", "desc": "#Y{group}#!表示，只要给点甜头，公开支持这事不是不能谈。", "options": {"a": "答应这个价", "b": "拒绝"}},
+            112: {"title": "不表态,也是一种威胁", "desc": "#Y{group}#!话里有话：要是什么好处都不给，他们保不齐会转去反对。", "options": {"a": "给出让步", "b": "什么都不给"}},
+            113: {"title": "大科学家把墙头草劝了过来", "desc": "#G大科学家外交能力不低于80#!，说得原本中立的#G{group}#!点了头，站到我们这边。", "options": {"a": "这下好了", "b": "先缓一缓"}},
+            114: {"title": "大科学家把墙头草惹恼了", "desc": "#R大科学家外交能力不高于30#!，原本还中立的#R{group}#!，被这么一激，转头站到了对面。", "options": {"a": "这下麻烦了", "b": "赶紧安抚"}},
+            115: {"title": "跟墙头草的私下交易", "desc": "#Y大科学家外交能力介于30与80之间#!，跟原本中立的#Y{group}#!谈出了一份有条件的支持。", "options": {"a": "接受这笔交易", "b": "拒绝"}},
         }
     return {
-        100: {"title": "A Group Joins the Debate", "desc": "#Y{group}#! claims a [tv_debate_seat|E]. Its stance is determined by the current issue and domestic conditions.", "options": {"a": "Seat them"}},
-        101: {"title": "A Group Leaves the Debate", "desc": "#R{group}#! withdraws from this debate. A departed [tv_debate_group|E] cannot rejoin before the debate ends.", "options": {"a": "Record their departure"}},
-        102: {"title": "Conditional Support", "desc": "#G{group}#! will support us in the debate for a price.", "options": {"a": "Accept the terms", "b": "Refuse"}},
-        103: {"title": "An Opposition Group Bargains", "desc": "#R{group}#! may join the opposition seats; a concession can keep them out of this debate.", "options": {"a": "Pay the price", "b": "Let them speak"}},
-        104: {"title": "A Quarrel Escalates", "desc": "#Y{group}#! and another group are arguing over the current issue. Both will take debate seats.", "options": {"a": "Give them seats"}},
-        105: {"title": "The Great Scientist Wins Support", "desc": "#GGreat Scientist Diplomacy is at least 80#!, securing #G{group}#! for our side.", "options": {"a": "Welcome them"}},
-        106: {"title": "The Great Scientist Angers a Group", "desc": "#RGreat Scientist Diplomacy is no more than 30#!, and #R{group}#! is now furious.", "options": {"a": "They will oppose us"}},
-        107: {"title": "A Scientist's Bargain", "desc": "#YGreat Scientist Diplomacy is between 30 and 80#!, producing conditional support from #G{group}#!.", "options": {"a": "Accept the bargain", "b": "Refuse"}},
-        108: {"title": "The Great Scientist Requests a Seat", "desc": "#YThe Great Scientist#! asks to join the debate personally. Accepting keeps them busy until this debate ends.", "options": {"a": "Grant the seat", "b": "Decline"}},
-        109: {"title": "Royal Appointment", "desc": "#GThe Crown#! may appoint one supportive estate or variant group to a debate seat and empower its base estate for five years.", "options": {"a": "Appoint the first nominee", "b": "Appoint the second nominee", "c": "Appoint the third nominee", "d": "Pass"}},
-        110: {"title": "A Neutral Group Takes a Side", "desc": "#Y{group}#! will no longer remain neutral.", "options": {"a": "They support us", "b": "They oppose us"}},
-        111: {"title": "Neutral Support Has a Price", "desc": "#Y{group}#! will support us for a concession.", "options": {"a": "Accept the terms", "b": "Refuse"}},
-        112: {"title": "Neutrality Wavers", "desc": "#Y{group}#! hints that without concessions they may turn against us.", "options": {"a": "Make concessions", "b": "Make no concessions"}},
-        113: {"title": "The Great Scientist Persuades Neutrals", "desc": "#GGreat Scientist Diplomacy is at least 80#!, persuading #G{group}#! to support us.", "options": {"a": "Excellent", "b": "Wait"}},
-        114: {"title": "The Great Scientist Offends Neutrals", "desc": "#RGreat Scientist Diplomacy is no more than 30#!, pushing #R{group}#! into opposition.", "options": {"a": "Unfortunate", "b": "Placate them"}},
-        115: {"title": "A Neutral Bargain", "desc": "#YGreat Scientist Diplomacy is between 30 and 80#!, producing conditional support from #Y{group}#!.", "options": {"a": "Accept the bargain", "b": "Refuse"}},
+        100: {"title": "Another Chair Fills Up", "desc": "#Y{group}#! walks in and claims a [tv_debate_seat|E]. Their stance is already settled by the current issue and the mood back home, no need to ask.", "options": {"a": "Make room for them"}},
+        101: {"title": "A Chair Empties Out", "desc": "#R{group}#! has heard enough and walks out of this debate. Once a [tv_debate_group|E] leaves, it will not come back before the debate ends.", "options": {"a": "Note their departure"}},
+        102: {"title": "Support Has a Price Tag", "desc": "#G{group}#! will stand with us, but only after naming a price. Nothing at this table comes free.", "options": {"a": "Pay the price", "b": "Refuse"}},
+        103: {"title": "The Opposition Wants Hush Money", "desc": "#R{group}#! is about to take an opposition seat, but the right favor might change their mind.", "options": {"a": "Pay them off", "b": "Let them speak"}},
+        104: {"title": "A Quarrel Gets Out of Hand", "desc": "#Y{group}#! and another group are trading words over the current issue, and neither will back down. Both end up taking a seat.", "options": {"a": "Seat them both"}},
+        105: {"title": "The Great Scientist Wins Them Over", "desc": "#GGreat Scientist Diplomacy is at least 80#!, and some careful persuading has brought #G{group}#! to our side.", "options": {"a": "Welcome them in"}},
+        106: {"title": "The Great Scientist Puts a Foot Wrong", "desc": "#RGreat Scientist Diplomacy is no more than 30#!, and one careless remark has left #R{group}#! quietly furious.", "options": {"a": "They'll speak against us now"}},
+        107: {"title": "A Quiet Arrangement", "desc": "#YGreat Scientist Diplomacy is between 30 and 80#!, enough to talk #G{group}#! into a conditional support.", "options": {"a": "Take the deal", "b": "Refuse"}},
+        108: {"title": "The Great Scientist Wants a Seat", "desc": "#YThe Great Scientist#! wants to set the research aside and argue this one in person. Say yes, and they'll be tied up here until the debate ends.", "options": {"a": "Grant the seat", "b": "Politely decline"}},
+        109: {"title": "The Crown Makes Its Choice", "desc": "#GThe Crown#! may name one supportive estate or variant group to a seat, and grant its base estate five years of added influence.", "options": {"a": "Name the first nominee", "b": "Name the second nominee", "c": "Name the third nominee", "d": "Make no appointment"}},
+        110: {"title": "The Fence-Sitters Pick a Side", "desc": "#Y{group}#! has decided that sitting on the fence forever isn't an option, and must choose a side.", "options": {"a": "They side with us", "b": "They side against us"}},
+        111: {"title": "Neutral, for the Right Price", "desc": "#Y{group}#! hints that public support isn't out of reach, given a small sweetener.", "options": {"a": "Pay the price", "b": "Refuse"}},
+        112: {"title": "Silence Has Its Own Threat", "desc": "#Y{group}#! makes it plain: without some concession, they might not stay neutral for long.", "options": {"a": "Offer a concession", "b": "Offer nothing"}},
+        113: {"title": "The Great Scientist Wins the Fence-Sitters", "desc": "#GGreat Scientist Diplomacy is at least 80#!, and the once-neutral #G{group}#! has nodded along and come to our side.", "options": {"a": "Well done", "b": "Hold off for now"}},
+        114: {"title": "The Great Scientist Loses the Fence-Sitters", "desc": "#RGreat Scientist Diplomacy is no more than 30#!, and the once-neutral #R{group}#! has been pushed straight into opposition.", "options": {"a": "That's unfortunate", "b": "Try to smooth it over"}},
+        115: {"title": "A Quiet Word with the Fence-Sitters", "desc": "#YGreat Scientist Diplomacy is between 30 and 80#!, enough to talk the once-neutral #Y{group}#! into a conditional support.", "options": {"a": "Take the deal", "b": "Refuse"}},
     }

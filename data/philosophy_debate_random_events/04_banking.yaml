@@ -4,20 +4,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Double-Entry Demonstration"
-      simp_chinese: "复式记账演示"
+      english: "Double-Entry Before the Bench"
+      simp_chinese: "复式记账呈于席前"
     desc:
-      english: "A merchant accountant opens a ledger before the Academy and matches every claim to a counterclaim. The arithmetic is dry, merciless, and suddenly more persuasive than rhetoric."
-      simp_chinese: "一位商人会计在学院众人面前摊开账簿，把每一项主张都同对应的反项核在一起。这套算术枯燥、冷峻，却忽然比修辞更有说服力。"
+      english: "A merchant accountant unrolls his ledger before the Academy and pairs each claim with its answering entry, credit against debit, until the columns close upon themselves. The arithmetic is dry and merciless, and for once more persuasive than any speech from the floor."
+      simp_chinese: "一位商人会计在学院众人面前摊开账簿，让每一笔主张都对上它的反项，借方对贷方，直到两栏彼此闭合。这套算术枯燥而冷峻，却难得地比席间任何雄辩都更有说服力。"
     options:
       a:
         text:
-          english: "Adopt double-entry standards."
-          simp_chinese: "采用复式记账标准。"
+          english: "The Academy takes double-entry as its standard of proof."
+          simp_chinese: "学院将复式记账定为验证的标准。"
         progress_delta: 10
         rationale:
-          english: "Double-entry standards make banking reform look like a practical discipline rather than a merchant trick, so supporters can point to a method that reveals fraud and steadies trust."
-          simp_chinese: "复式记账标准会让银行改革显得是一门可执行的制度，而不是商人的花招；支持者因此能指向一种既能揭露欺诈、又能稳住信任的方法。"
+          english: "Adopting double-entry makes banking reform look like a teachable discipline rather than a merchant's sleight of hand, so supporters can point to a method that exposes fraud and steadies trust."
+          simp_chinese: "采用复式记账，会让银行改革显得像一门可以传授的制度，而不是商人的手法花招；支持者因此能指向一种既能揭露欺诈、又能稳住信任的方法。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -28,12 +28,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Keep older accounts."
-          simp_chinese: "保留旧式账目。"
+          english: "We keep the accounts our clerks already know by heart."
+          simp_chinese: "我们保留文书们早已烂熟于心的旧式账目。"
         progress_delta: -5
         rationale:
-          english: "Keeping older accounts avoids upsetting clerks and offices that know the old forms, but it lets ambiguity remain respectable and slows acceptance of banking discipline."
-          simp_chinese: "保留旧式账目可以避免惊扰熟悉旧格式的文书和官署，但也让含混继续披着体面的外衣，拖慢对银行制度纪律的接受。"
+          english: "Keeping the older accounts spares the clerks and offices that know the old forms, but it lets ambiguity stay respectable and slows the room's acceptance of banking discipline."
+          simp_chinese: "保留旧式账目能让熟悉旧格式的文书和官署省心，却也让含混继续披着体面的外衣，拖慢会场对银行制度纪律的接受。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -49,20 +49,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Noble Debt Roll"
-      simp_chinese: "贵族债册"
+      english: "A Roll of Noble Debts"
+      simp_chinese: "一卷贵族债册"
     desc:
-      english: "Bankers arrive with a roll of noble debts, sealed twice and whispered over once. It shows that several proud estates stand on credit they publicly despise."
-      simp_chinese: "银行家带来一卷贵族债册，蜡封了两层，流言却早已绕过一圈。它表明好几座骄傲的庄园，正靠他们公开鄙夷的信用支撑门面。"
+      english: "Bankers arrive with a roll of noble debts, twice sealed and once already whispered over in the corridors. It shows that several proud houses stand upright only on the credit they denounce in public."
+      simp_chinese: "银行家带来一卷贵族债册，蜡封了两层，走廊里却早已被人低声传过一遍。它表明好几座骄傲的世家，全靠他们在公开场合痛斥的信用撑着门面。"
     options:
       a:
         text:
-          english: "Use the roll as proof."
-          simp_chinese: "将债册作为证据。"
+          english: "The bankers' roll is read into the record, seal by seal."
+          simp_chinese: "银行家的债册被逐一验封，记入案卷。"
         progress_delta: 10
         rationale:
-          english: "Publicly using the roll exposes that old landed power already depends on credit, making banking reform harder to dismiss while angering nobles whose dependence is now visible."
-          simp_chinese: "公开使用债册会揭穿旧有土地权力早已依赖信用，使银行改革更难被轻易否定，同时也激怒那些债务依赖被看见的贵族。"
+          english: "Reading the roll aloud shows that old landed power already leans on credit, making banking reform hard to wave away, though it angers the nobles whose dependence is now on open display."
+          simp_chinese: "当众宣读债册，会揭穿旧有的土地权力早已倚仗信用，使银行改革难以被轻易挥退；只是那些债务依赖被摆上明面的贵族，难免动怒。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -73,12 +73,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Suppress the roll."
-          simp_chinese: "压下这卷债册。"
+          english: "Enough. The roll never leaves this chamber."
+          simp_chinese: "够了。这卷债册不许出这间议厅。"
         progress_delta: -10
         rationale:
-          english: "Suppression protects noble dignity and keeps the alliance of credit and privilege quiet, but it tells the debate that banking law must yield whenever rank is embarrassed."
-          simp_chinese: "压下债册能保护贵族体面，让信用与特权之间的联盟继续保持安静；但这也等于告诉辩论，一旦等级尊严受损，银行法就必须退让。"
+          english: "Suppressing the roll guards noble dignity and keeps the quiet marriage of credit and privilege out of sight, but it tells the debate that banking law must retreat whenever rank is embarrassed."
+          simp_chinese: "压下债册能维护贵族体面，让信用与特权之间的沉默联姻继续藏在暗处；但这也等于告诉辩论，一旦等级尊严受损，银行法就得退让。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -92,20 +92,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Sermon on Usury"
+      english: "A Sermon Against Usury"
       simp_chinese: "反高利贷布道"
     desc:
-      english: "At dawn a preacher turns interest into a sin that every debtor can understand. By noon the Academy is arguing whether regulation purifies credit or merely gives vice a receipt."
-      simp_chinese: "黎明时分，一位布道者把利息说成每个债务人都能听懂的罪。到正午，学院已经在争论：监管能净化信用，还是只给恶习开了一张收据。"
+      english: "At dawn a preacher turns interest into a sin plain enough for every debtor to feel in his own purse. By noon the Academy is quarreling over whether regulation purifies credit or merely hands vice a tidy receipt."
+      simp_chinese: "黎明时分，一位布道者把利息说成一桩人人都能在自家钱袋里感到的罪。到正午，学院已在争吵：监管究竟是净化了信用，还是只给恶习开了一张工整的收据。"
     options:
       a:
         text:
-          english: "Defend regulated interest."
-          simp_chinese: "为受监管的利息辩护。"
+          english: "We grant interest its due, then bind it with law."
+          simp_chinese: "我们承认利息自有其分，再用法律把它约束住。"
         progress_delta: 5
         rationale:
-          english: "Defending regulated interest accepts moral anxiety but argues that law can discipline credit, nudging the debate toward reform while offending clergy who want a clearer condemnation."
-          simp_chinese: "为受监管的利息辩护，等于承认道德忧虑却主张法律可以约束信用；这会推动辩论走向改革，也会冒犯希望更直接谴责的神职阶层。"
+          english: "Defending regulated interest concedes the moral unease yet argues that law can discipline credit, nudging the debate toward reform while offending clergy who wanted a plainer condemnation."
+          simp_chinese: "为受监管的利息辩护，等于承认那份道德不安，却主张法律能约束信用；这会把辩论推向改革，也会冒犯那些盼着更直白谴责的神职阶层。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -116,12 +116,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Condemn the practice."
-          simp_chinese: "谴责这种做法。"
+          english: "The Academy lets the preacher's condemnation stand as its verdict."
+          simp_chinese: "学院让布道者的谴责作为定论留下。"
         progress_delta: -10
         rationale:
-          english: "Condemnation gives the sermon the last word, pleasing religious authorities but casting the banking system as a moral danger rather than an institution that can be governed."
-          simp_chinese: "谴责会让布道成为最后结论，取悦宗教权威，却把银行体系塑造成道德危险，而不是一种可以被治理的制度。"
+          english: "Condemnation gives the sermon the last word, pleasing religious authorities but casting the banking system as a moral peril rather than an institution that can be governed."
+          simp_chinese: "谴责让布道成了最后的结论，取悦了宗教权威，却把银行体系塑造成道德危险，而非一种可被治理的制度。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -135,20 +135,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Public Bank Proposal"
-      simp_chinese: "公共银行提案"
+      english: "A Public Bank on Paper"
+      simp_chinese: "纸面上的公共银行"
     desc:
-      english: "City burghers draft a public bank backed by Crown promise. The plan offers stability on paper and then invites everyone to ask what the promise itself is worth."
-      simp_chinese: "城市市民起草了一份由王室承诺担保的公共银行方案。纸面上它能带来稳定，却也立刻让所有人追问：这份承诺本身究竟值多少。"
+      english: "City burghers draft a public bank propped on the Crown's promise. On paper it offers stability, and then, politely, invites the whole room to ask what that promise itself is worth."
+      simp_chinese: "城市市民起草了一份倚仗王室承诺的公共银行方案。纸面上它许诺稳定，随后又客客气气地请满座众人一同追问：这份承诺本身，究竟值几个钱。"
     options:
       a:
         text:
-          english: "Charter the bank."
-          simp_chinese: "特许成立银行。"
+          english: "The Crown sets its seal to the new public bank."
+          simp_chinese: "王室为这家新的公共银行盖上印玺。"
         progress_delta: 10
         rationale:
-          english: "Chartering the bank turns the debate from theory into public credit, giving reformers a flagship institution while putting the Crown's credibility visibly at stake."
-          simp_chinese: "特许成立银行会把辩论从理论推向公共信用，为改革者提供一个标志性制度，同时也把王室信誉明明白白地押上台面。"
+          english: "Chartering the bank turns the debate from theory into public credit, handing reformers a flagship institution while placing the Crown's credibility visibly on the table."
+          simp_chinese: "特许成立银行，会把辩论从理论推向公共信用，为改革者送上一座旗舰式的制度，同时也把王室的信誉明明白白摆上台面。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -159,12 +159,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Delay the charter."
-          simp_chinese: "推迟特许状。"
+          english: "We let the charter wait for a promise worth its wax."
+          simp_chinese: "我们让这份特许状再等一等，等来一个配得上这滴火漆的承诺。"
         progress_delta: -5
         rationale:
-          english: "Delay reassures conservative officials that the Crown will not guarantee a fragile experiment too quickly, but hesitation makes banking reform look premature."
-          simp_chinese: "推迟会让保守官员放心，认为王室不会过快担保一项脆弱的试验；但这种犹豫也会让银行改革显得尚未成熟。"
+          english: "Delaying the charter reassures conservative officials that the Crown will not guarantee a fragile experiment in haste, but the hesitation makes banking reform look premature."
+          simp_chinese: "推迟特许状能让保守官员放心，相信王室不会仓促担保一项脆弱的试验；但这份犹豫，也会让银行改革显得尚未成熟。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -181,17 +181,17 @@ random_events:
       english: "Debased Coin Panic"
       simp_chinese: "劣币恐慌"
     desc:
-      english: "Rumor claims the coin in every purse is thinner than the Crown's promise. Markets begin weighing trust as carefully as silver."
-      simp_chinese: "流言声称每只钱袋里的硬币，都比王室承诺更薄。市场于是开始像称量白银一样，仔细称量信任。"
+      english: "Rumor swears that the coin in every purse is thinner than the Crown's word, and the markets begin to weigh trust as carefully as they weigh silver."
+      simp_chinese: "流言赌咒发誓，说每只钱袋里的硬币都比王室的诺言更薄；于是市场开始像称量白银一样，仔细称量起信任来。"
     options:
       a:
         text:
-          english: "Reform the coinage."
-          simp_chinese: "改革铸币。"
+          english: "The mints are opened and the coinage struck true again."
+          simp_chinese: "各处铸币所重开，硬币被重新铸得足重。"
         progress_delta: 10
         rationale:
-          english: "Reforming the coinage pays a real fiscal cost to prove that monetary trust can be governed, giving the banking argument a visible foundation in reliable money."
-          simp_chinese: "改革铸币需要付出真实的财政代价，以证明货币信任可以被治理；这会让银行制度的论证建立在可靠货币这一可见基础之上。"
+          english: "Reforming the coinage pays a real fiscal price to prove that monetary trust can be governed, giving the banking argument a visible footing in reliable money."
+          simp_chinese: "改革铸币要付出实打实的财政代价，以证明货币信任可以被治理；这会让银行制度的论证，立在可靠货币这一看得见的根基上。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -202,12 +202,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Blame rumor-mongers."
-          simp_chinese: "指责散布流言者。"
+          english: "Silence, before the whispers empty every purse."
+          simp_chinese: "都住口，免得这些流言把每只钱袋都掏空。"
         progress_delta: -5
         rationale:
-          english: "Blaming rumor-mongers preserves immediate order and avoids paying for reform, but it treats monetary distrust as disobedience rather than a banking problem to solve."
-          simp_chinese: "指责散布流言者能维持眼前秩序，也能避免改革开支；但这把货币不信任视为不服从，而不是需要解决的银行制度问题。"
+          english: "Blaming the rumor-mongers keeps the peace for now and spares the treasury a reform, but it treats monetary distrust as disobedience rather than a banking problem to be solved."
+          simp_chinese: "指责散布流言者能保住眼前的太平，也替国库省下一场改革；但这把货币不信任当成了不服从，而不是一桩需要解决的银行制度难题。"
         effect_blocks:
           - type: resource
             resource: stability
@@ -221,20 +221,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Widow's Deposit"
+      english: "The Widow's Deposit"
       simp_chinese: "寡妇的存款"
     desc:
-      english: "A widow comes before the Academy with a receipt, a lost dowry, and a voice too steady to dismiss. What had sounded like an argument over banking rules now has a face in the hall."
-      simp_chinese: "一名寡妇带着收据、失去的嫁资和不容轻慢的平静声音来到学院。原本抽象的银行规则之争，忽然在大厅里有了人的面孔。"
+      english: "A widow comes before the Academy with a receipt, a vanished dowry, and a voice too steady to be waved aside. What had been an argument over banking rules now has a face, and it is watching the bench."
+      simp_chinese: "一名寡妇带着一张收据、一份不翼而飞的嫁资，以及一副平静得无法被打发的嗓音，来到学院面前。原本一场关于银行规则的争论，如今有了一张面孔——而它正望着席位。"
     options:
       a:
         text:
-          english: "Regulate deposits."
-          simp_chinese: "监管存款。"
+          english: "We set a rule around every coin a depositor entrusts to us."
+          simp_chinese: "我们为存户托付的每一枚硬币，都立下一条规矩。"
         progress_delta: 5
         rationale:
-          english: "Regulating deposits turns the banking debate toward public trust and ordinary depositors, making reform easier to defend even while commercial bankers accept closer oversight."
-          simp_chinese: "监管存款会把银行制度之争转向公共信任和普通存户，使改革更容易被辩护，即使商业银行家必须接受更严密的监督。"
+          english: "Regulating deposits turns the banking debate toward public trust and the ordinary saver, making reform easier to defend even as commercial bankers must accept closer oversight."
+          simp_chinese: "监管存款会把银行制度之争转向公共信任与普通存户，使改革更容易被辩护，纵然商业银行家必须接受更严的监督。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -245,12 +245,12 @@ random_events:
             value: -0.02
       b:
         text:
-          english: "Treat it as private misfortune."
-          simp_chinese: "视为私人不幸。"
+          english: "The hall records the loss as a private misfortune and moves on."
+          simp_chinese: "议厅将这笔损失记作私人不幸，随后继续议程。"
         progress_delta: -5
         rationale:
-          english: "Calling the loss a private misfortune shields bankers from new limits, but it tells undecided listeners that the proposed system protects institutions before people."
-          simp_chinese: "将损失称为私人不幸，可以让银行家免于新的限制，但也会让摇摆的旁听者觉得，拟议中的制度先保护机构，而不是保护人。"
+          english: "Calling the loss a private misfortune shields the bankers from new limits, but it tells the undecided that the proposed system guards institutions before it guards people."
+          simp_chinese: "把损失称作私人不幸，能让银行家躲开新的约束；但这也告诉摇摆者，拟议中的制度是先护机构、后护人。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -264,20 +264,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Royal Loan Refusal"
+      english: "Royal Loan Refused"
       simp_chinese: "王室贷款遭拒"
     desc:
-      english: "An emergency loan is requested in the Crown's name, and the bankers answer with silence, then conditions. The hall learns that unclear banking law can make even royal need wait at the counter."
-      simp_chinese: "王室以紧急之名请求贷款，银行家先以沉默回应，随后才提出条件。大厅由此明白，含混的银行法甚至能让王室的急需在柜台前等待。"
+      english: "An emergency loan is asked in the Crown's name; the bankers answer first with silence, then with conditions. The hall learns that unclear banking law can leave even royal need standing at the counter."
+      simp_chinese: "王室以紧急之名请求一笔贷款；银行家先报以沉默，再报以条件。大厅由此明白，含混的银行法，竟能让王室的急需也在柜台前干等。"
     options:
       a:
         text:
-          english: "Clarify the law."
-          simp_chinese: "澄清法律。"
+          english: "The clerks draft the credit law plain enough to bind Crown and lender alike."
+          simp_chinese: "书吏们把信用法草拟得明白无误，王室与放贷者一体受约束。"
         progress_delta: 10
         rationale:
-          english: "Clarifying the law concedes that credit needs predictable rules rather than pure royal command, strongly advancing banking reform while costing the Crown some aura of unquestioned authority."
-          simp_chinese: "澄清法律等于承认信用需要可预期的规则，而不能只靠王命推动；这会大幅推进银行改革，同时削弱王权不容置疑的光环。"
+          english: "Clarifying the law concedes that credit needs predictable rules rather than pure royal command, strongly advancing banking reform while costing the Crown some of its air of unquestioned authority."
+          simp_chinese: "澄清法律，等于承认信用需要可预期的规则，而不能只靠王命推动；这会大力推进银行改革，也会削去王权那层不容置疑的光环。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -288,12 +288,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Threaten the bankers."
-          simp_chinese: "威胁银行家。"
+          english: "Mind whose need you keep waiting at the counter."
+          simp_chinese: "掂量掂量，你们让谁的急需在柜台前干等。"
         progress_delta: -10
         rationale:
-          english: "Threatening the bankers preserves the image that royal authority cannot be bargained with, but it turns the debate away from durable credit law and toward coercion."
-          simp_chinese: "威胁银行家可以维持王权不可讨价还价的形象，却会把辩论从持久的信用法律转向强制手段。"
+          english: "Threatening the bankers keeps up the image that royal authority cannot be haggled with, but it turns the debate away from durable credit law and toward plain coercion."
+          simp_chinese: "威胁银行家能维持王权不容讨价还价的形象，却会把辩论从持久的信用法律，扭向赤裸裸的强制。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -309,17 +309,17 @@ random_events:
       english: "Bills of Exchange"
       simp_chinese: "汇票"
     desc:
-      english: "Merchants lay out letters, seals, and signatures showing how wealth can cross borders while guarded carts are still choosing a road. The paper looks fragile until everyone notices how much coin it commands."
-      simp_chinese: "商人摊开书信、印章和签名，证明财富可以在护送钱车尚未选路时就已越过边境。纸张看似脆弱，直到众人看见它能调动多少硬币。"
+      english: "Merchants lay out letters, seals, and signatures showing how wealth can cross a border while the guarded carts are still arguing over which road to take. The paper looks fragile, right up until everyone notices how much coin it commands."
+      simp_chinese: "商人摊开书信、印章与签名，显示财富如何在护送的钱车还在争论走哪条路时，就已越过了边境。那纸张看着脆弱，直到众人发觉，它能调动多少硬币。"
     options:
       a:
         text:
-          english: "Endorse bills of exchange."
-          simp_chinese: "认可汇票。"
+          english: "The Academy endorses the bill of exchange as lawful tender of trust."
+          simp_chinese: "学院认可汇票，作为一纸合法的信用凭证。"
         progress_delta: 5
         rationale:
-          english: "Endorsing bills of exchange makes banking reform useful to trade rather than merely tidy in ledgers, giving maritime merchants a practical reason to support the new system."
-          simp_chinese: "认可汇票会让银行改革不只是账本整洁，而是真正服务贸易，使海商有切身理由支持新制度。"
+          english: "Endorsing bills of exchange makes banking reform useful to trade rather than merely tidy in the ledger, giving maritime merchants a practical reason to back the new system."
+          simp_chinese: "认可汇票，会让银行改革不只是账本上的整洁，而是真正对贸易有用，使海商有了切身的理由去支持新制度。"
         effect_blocks:
           - type: seat_stance
             group: maritime_merchants
@@ -332,12 +332,12 @@ random_events:
               commercial transfer confidence: 0.02
       b:
         text:
-          english: "Restrict paper instruments."
-          simp_chinese: "限制纸面工具。"
+          english: "Coin in the hand outweighs ink on the page."
+          simp_chinese: "手中硬币，重过纸上墨迹。"
         progress_delta: -5
         rationale:
-          english: "Restricting paper instruments reassures estates that prefer visible coin and familiar routes, but it leaves the debate suspicious of financial abstraction."
-          simp_chinese: "限制纸面工具会安抚偏好实体硬币和熟悉路线的等级势力，却也会让这场辩论继续怀疑金融抽象化本身。"
+          english: "Restricting paper instruments reassures the estates that trust visible coin and familiar routes, but it leaves the debate suspicious of financial abstraction."
+          simp_chinese: "限制纸面工具，会安抚那些信赖实体硬币与熟悉路线的等级势力，却也让这场辩论继续怀疑金融的抽象化本身。"
         effect_blocks:
           - type: seat_stance
             group: nobility
@@ -351,20 +351,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Fraudulent Ledger"
-      simp_chinese: "欺诈账簿"
+      english: "The Ledger That Lies"
+      simp_chinese: "会说谎的账簿"
     desc:
-      english: "The ledger is elegant, balanced, and false. Its columns possess the calm beauty of order, which makes the theft behind them feel like an insult to arithmetic itself."
-      simp_chinese: "这本账簿优雅、平衡，并且虚假。它的栏目带着秩序的冷静美感，也因此让藏在其中的盗窃显得像是对算术本身的侮辱。"
+      english: "The ledger is elegant, balanced, and false. Its columns keep the calm beauty of good order, which somehow makes the theft hidden inside them feel like an insult aimed at arithmetic itself."
+      simp_chinese: "这本账簿优雅、平衡，且是假的。它的栏目保有良好秩序的那份冷静美感，也不知怎地，让藏在其中的盗窃，显得像是冲着算术本身来的一记侮辱。"
     options:
       a:
         text:
-          english: "Use it to demand standards."
-          simp_chinese: "借此要求标准。"
+          english: "The forged book is exhibited as the case for enforceable standards."
+          simp_chinese: "这本伪造的账簿被公开展示，作为设立强制标准的理由。"
         progress_delta: 10
         rationale:
-          english: "Using the fraudulent ledger as evidence turns scandal into a demand for enforceable standards, but exposing a beautiful crime costs prestige because the Academy admits how easily order can be forged."
-          simp_chinese: "将欺诈账簿作为证据，会把丑闻转化为对可执行标准的要求；但揭开这场漂亮的犯罪也会损耗声望，因为学院承认秩序原来如此容易被伪造。"
+          english: "Using the fraudulent ledger as evidence turns scandal into a demand for enforceable standards, but exposing so beautiful a crime costs prestige, since the Academy admits how easily good order can be forged."
+          simp_chinese: "把欺诈账簿当作证据，会把丑闻转化为对强制标准的要求；但揭开这样一场漂亮的犯罪也要损耗声望，因为学院等于承认，良好秩序竟如此容易被伪造。"
         effect_blocks:
           - type: resource
             resource: prestige
@@ -375,12 +375,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Punish only the clerk."
-          simp_chinese: "只惩罚书记员。"
+          english: "We hang the clerk and let his betters keep their patrons."
+          simp_chinese: "我们绞死那名书记员，至于他背后的贵人，一个不动。"
         progress_delta: -10
         rationale:
-          english: "Punishing only the clerk contains the scandal and protects elite patrons from scrutiny, but it teaches the debate that banking rules will be enforced only where power is weakest."
-          simp_chinese: "只惩罚书记员可以压住丑闻，并保护上层赞助人免受追查；但这会让辩论意识到，银行规则只会在权力最弱处得到执行。"
+          english: "Punishing only the clerk contains the scandal and keeps elite patrons clear of scrutiny, but it teaches the debate that banking rules will bite only where power is weakest."
+          simp_chinese: "只惩罚书记员能压住丑闻，也让上层赞助人免于追查；但这会让辩论明白，银行规则只会在权力最弱的地方咬人。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -393,20 +393,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Clerical Credit Chest"
-      simp_chinese: "教会信用箱"
+      english: "The Cloister's Credit Chest"
+      simp_chinese: "修道院的信用箱"
     desc:
-      english: "Monasteries and church offices open their records just far enough to reveal a web of loans, pledges, and quiet exemptions. The debate discovers that sacred hands can also count interest."
-      simp_chinese: "修道院和教会机构把记录打开到刚好足以露出贷款、抵押和沉默豁免的网络。辩论由此发现，神圣之手同样会计算利息。"
+      english: "Monasteries and church offices open their records just far enough to reveal a web of loans, pledges, and quiet exemptions. The debate discovers, with some awkwardness, that sacred hands can also reckon interest."
+      simp_chinese: "修道院与教会机构把记录打开到刚好露出一张由贷款、抵押与沉默豁免织成的网。辩论就此发现——还带着几分尴尬——神圣之手同样会算利息。"
     options:
       a:
         text:
-          english: "Bring them under law."
-          simp_chinese: "将其纳入法律。"
+          english: "The Academy brings clerical lending under the same law as any other."
+          simp_chinese: "学院将教会放贷纳入与旁人一体适用的法律。"
         progress_delta: 5
         rationale:
-          english: "Bringing clerical credit under law extends banking reform beyond merchants and royal offices, proving that no lender can claim sanctity as a permanent exemption."
-          simp_chinese: "将教会信用纳入法律，会把银行改革扩展到商人和王室机构之外，证明没有放贷者能永远以神圣名义获得豁免。"
+          english: "Bringing clerical credit under the law extends banking reform past merchants and royal offices, proving that no lender can plead sanctity as a permanent exemption."
+          simp_chinese: "将教会信用纳入法律，会把银行改革推到商人与王室机构之外，证明没有哪个放贷者能永远以神圣之名求得豁免。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -417,12 +417,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Exempt religious credit."
-          simp_chinese: "豁免宗教信用。"
+          english: "Peace with the cloister, for now."
+          simp_chinese: "与修道院，暂且相安无事吧。"
         progress_delta: -5
         rationale:
-          english: "Exempting religious credit keeps clergy satisfied and avoids a doctrinal quarrel, but it leaves a large lending network outside the very standards the debate claims to need."
-          simp_chinese: "豁免宗教信用可以维持神职阶层满意，并避免教义争执；但这也会让一个庞大的借贷网络留在辩论所主张的标准之外。"
+          english: "Exempting religious credit keeps the clergy content and heads off a doctrinal quarrel, but it leaves a vast lending network outside the very standards the debate claims to need."
+          simp_chinese: "豁免宗教信用能让神职阶层满意，也避开一场教义争执；但这也让一张庞大的借贷网络，留在了辩论声称自己需要的标准之外。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -439,17 +439,17 @@ random_events:
       english: "City Bank Riot"
       simp_chinese: "城市银行骚乱"
     desc:
-      english: "Debtors and creditors clash outside a city bank, each side waving contracts like injuries and calling the other side robbery with better handwriting. The Academy cannot pretend that banking reform is only an argument among ledgers."
-      simp_chinese: "债务人与债权人在城市银行门前冲突，双方都把契约挥得像伤口，并指责对方只是字迹更工整的抢劫。学院再也不能假装银行改革只是账簿之间的争论。"
+      english: "Debtors and creditors clash outside a city bank, each side brandishing contracts like wounds and calling the other robbery with neater handwriting. The Academy can no longer pretend that banking reform is only a quarrel among ledgers."
+      simp_chinese: "债务人与债权人在一家城市银行门前扭打，双方都把契约挥舞得像伤口，并骂对方不过是字迹更工整的抢劫。学院再也没法假装，银行改革只是账簿之间的一场口角。"
     options:
       a:
         text:
-          english: "Mediate with new rules."
-          simp_chinese: "以新规则调停。"
+          english: "The Crown steps between the two crowds with a set of new rules."
+          simp_chinese: "王权带着一套新规则，插身于两拨人群之间。"
         progress_delta: 5
         rationale:
-          english: "Mediation accepts that credit disputes need public rules rather than private force. It costs stability because the Crown must step into a street crisis before those rules have earned trust."
-          simp_chinese: "调停意味着承认信用纠纷需要公共规则，而不是私人暴力。它会消耗稳定，因为王权必须在这些规则取得信任之前介入街头危机。"
+          english: "Mediation accepts that credit disputes need public rules rather than private force; it costs stability, because the Crown must wade into a street crisis before those rules have earned any trust."
+          simp_chinese: "调停意味着承认信用纠纷需要公共规则，而非私人暴力；它会消耗稳定，因为王权必须在这些规则尚未取得信任之前，就蹚进街头危机。"
         effect_blocks:
           - type: resource
             resource: stability
@@ -460,12 +460,12 @@ random_events:
             cooldown_months: 12
       b:
         text:
-          english: "Close the bank temporarily."
-          simp_chinese: "暂时关闭银行。"
+          english: "Bar the doors, before debt turns into blood."
+          simp_chinese: "把门闩上，免得债务变成血案。"
         progress_delta: -10
         rationale:
-          english: "Closing the bank restores visible order, but it teaches the room that banking institutions are too dangerous to reform in public and pushes the debate toward rejection."
-          simp_chinese: "关闭银行可以恢复表面秩序，但它也让会场相信银行机构过于危险，不能公开改革，从而把辩论推向否定。"
+          english: "Closing the bank restores a visible order, but it teaches the room that banking institutions are too dangerous to reform in the open, and pushes the debate toward rejection."
+          simp_chinese: "关闭银行能恢复看得见的秩序，却也让会场相信，银行机构太过危险，不宜公开改革，从而把辩论推向否定。"
         effect_blocks:
           - type: resource
             resource: stability
@@ -479,20 +479,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Tax Farm Accounts"
-      simp_chinese: "包税账目"
+      english: "Accounts Tied in Ribbon"
+      simp_chinese: "系着缎带的账目"
     desc:
-      english: "Tax farmers object that transparent finance will make their profession less profitable, which is true and therefore very badly received. Their ledgers arrive tied in ribbon, as if ribbon could make rents look like service."
-      simp_chinese: "包税人抗议说，透明财政会让他们的行当不再那么有利可图；这话是真的，所以格外刺耳。他们把账簿用缎带捆好送来，仿佛缎带能把租利装扮成服务。"
+      english: "Tax farmers protest that transparent finance would make their trade less profitable, which is true and therefore very poorly received. Their ledgers arrive bound in ribbon, as though ribbon could dress rents up as service."
+      simp_chinese: "包税人抗议说，透明的财政会让他们这门行当不再那么有赚头——这话是真的，所以格外招人厌。他们的账簿系着缎带送来，仿佛一根缎带就能把租利装扮成服务。"
     options:
       a:
         text:
-          english: "Audit the farms."
-          simp_chinese: "审计包税账目。"
+          english: "We untie the ribbon and read every farmer's book aloud."
+          simp_chinese: "我们解开缎带，把每一位包税人的账册当众念出来。"
         progress_delta: 10
         rationale:
-          english: "Auditing tax farms turns banking reform into a direct attack on opaque fiscal privilege. It strongly advances acceptance, but nobles and revenue contractors resent losing the profitable shadows around collection."
-          simp_chinese: "审计包税把银行改革变成对不透明财政特权的直接挑战。它会大幅推动接受改革，但贵族和承包税收者会怨恨征收过程中的有利阴影被驱散。"
+          english: "Auditing the tax farms turns banking reform into a direct assault on opaque fiscal privilege; it strongly advances acceptance, though nobles and revenue contractors resent losing the profitable shadows around collection."
+          simp_chinese: "审计包税，会把银行改革变成对不透明财政特权的正面攻击；这会大力推进接受，只是贵族与承包税收者会怨恨征收过程中那些有利可图的阴影被驱散。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -503,12 +503,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Preserve tax custom."
-          simp_chinese: "保留税收惯例。"
+          english: "The old collectors keep their ribboned books and their comfortable shadows."
+          simp_chinese: "旧日的征税人留住了他们系着缎带的账册，也留住了那些舒服的阴影。"
         progress_delta: -10
         rationale:
-          english: "Preserving custom keeps short-term collections comfortable and avoids a fight with entrenched contractors, but it concedes that finance should remain private knowledge guarded by privileged hands."
-          simp_chinese: "保留惯例能让短期税收显得安稳，也能避免同根深蒂固的承包人开战，但这等于承认财政仍应是由特权之手守护的私人知识。"
+          english: "Preserving the custom keeps short-term collection comfortable and avoids a fight with entrenched contractors, but it concedes that finance should stay private knowledge guarded by privileged hands."
+          simp_chinese: "保留惯例能让短期税收显得安稳，也避免同根深蒂固的承包人开战；但这等于承认，财政仍应是一份由特权之手守护的私人知识。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -522,20 +522,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Scholar of Interest"
+      english: "A Scholar of Interest"
       simp_chinese: "利息学者"
     desc:
-      english: "A mathematician demonstrates compound interest on a clean slate, and several listeners look as if the chalk has named them personally. What had seemed like merchant habit becomes a law of numbers."
-      simp_chinese: "一位数学家在干净的石板上演示复利，几名听众的神情仿佛粉笔点名点到了自己。原本像商人习惯的东西，忽然变成了数字的法则。"
+      english: "A mathematician works compound interest across a clean slate, and several listeners look as though the chalk has just named them by name. What had passed for a merchant's habit becomes, line by line, a law of numbers."
+      simp_chinese: "一位数学家在干净的石板上一步步推演复利，几名听众的神情，仿佛那支粉笔刚刚点了自己的名。原本被当作商人习性的东西，随着一行行算式，成了数字的法则。"
     options:
       a:
         text:
-          english: "Teach the method."
-          simp_chinese: "讲授这种方法。"
+          english: "The lecture halls take up the reckoning of compound interest."
+          simp_chinese: "讲堂里开始教授复利的算法。"
         progress_delta: 5
         rationale:
-          english: "Teaching compound interest makes credit legible as knowledge rather than mystery, so scholars can defend regulated finance with clearer tools. The gain is modest because clarity also alarms debtors."
-          simp_chinese: "讲授复利把信用从神秘技艺变成可理解的知识，使学者能用更清晰的工具为受监管的金融辩护。推进幅度有限，因为这种清晰同样会让债务人不安。"
+          english: "Teaching compound interest makes credit legible as knowledge rather than mystery, so scholars can defend regulated finance with sharper tools; the gain is modest, since the same clarity alarms debtors."
+          simp_chinese: "讲授复利，把信用从神秘技艺变成可理解的知识，使学者能用更锋利的工具为受监管的金融辩护；推进有限，因为同样的清晰也会让债务人不安。"
         effect_blocks:
           - type: seat_stance
             group: scholarly_community
@@ -546,12 +546,12 @@ random_events:
             dip: 0
       b:
         text:
-          english: "Keep the calculation obscure."
-          simp_chinese: "让计算继续晦涩。"
+          english: "What the debtor cannot count cannot frighten him."
+          simp_chinese: "债务人算不清的账，也就吓不着他。"
         progress_delta: -5
         rationale:
-          english: "Keeping the calculation obscure spares debtors the humiliation of seeing their burden grow by formula, but it also leaves banking reform dependent on private expertise rather than shared rules."
-          simp_chinese: "让计算继续晦涩，可以让债务人免于看见自己的负担被公式放大的羞辱，但这也使银行改革继续依赖私人专家，而不是共同规则。"
+          english: "Keeping the calculation obscure spares debtors the humiliation of watching their burden swell by formula, but it leaves banking reform leaning on private expertise instead of shared rules."
+          simp_chinese: "让计算继续晦涩，能让债务人免于眼看自己的负担被公式撑大的羞辱；但这也让银行改革继续倚靠私人专家，而非共同的规则。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
@@ -565,20 +565,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Merchant Widow Fund"
+      english: "The Merchant Widows' Fund"
       simp_chinese: "商人遗孀基金"
     desc:
-      english: "Burghers propose a pooled fund for sailors' families, failed caravans, and the quiet disasters that follow a broken journey home. The proposal makes risk look less like fate and more like something that can be counted together."
-      simp_chinese: "市民提议设立共同基金，照顾水手家属、失利商队，以及归途断裂后接踵而来的沉默灾难。这个提案让风险不再像命运，而更像某种可以共同计算的东西。"
+      english: "Burghers propose a pooled fund for sailors' families, failed caravans, and the quiet disasters that trail a journey which never came home. The plan makes risk look less like fate and more like something a room of clerks can count together."
+      simp_chinese: "市民提议设立一项共同基金，接济水手的家属、折本的商队，以及那些尾随着一趟再未归来的旅程而至的沉默灾难。这方案让风险不再那么像命运，而更像一屋子书吏可以合起来计算的东西。"
     options:
       a:
         text:
-          english: "Recognize pooled risk."
-          simp_chinese: "承认共同分担风险。"
+          english: "The clerks enroll the pooled fund as a civic protection."
+          simp_chinese: "书吏们将这项共同基金登记为一种公共保障。"
         progress_delta: 10
         rationale:
-          english: "Recognizing pooled risk makes banking reform socially useful instead of merely profitable. Burghers gain satisfaction because their financial institutions are treated as civic protection rather than clever speculation."
-          simp_chinese: "承认共同分担风险，会让银行改革显得具有社会用途，而不只是牟利手段。市民会更满意，因为他们的金融制度被视为公共保护，而不是精巧投机。"
+          english: "Recognizing pooled risk makes banking reform socially useful rather than merely profitable; burghers take satisfaction, since their financial institutions are treated as civic protection instead of clever speculation."
+          simp_chinese: "承认共同分担风险，会让银行改革显得具有社会用途，而不只是牟利手段；市民为此欣慰，因为他们的金融制度被视作公共保障，而非精巧的投机。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -590,12 +590,12 @@ random_events:
               merchant family security: 0.03
       b:
         text:
-          english: "Reject novel liability."
-          simp_chinese: "拒绝新式责任。"
+          english: "A debt belongs to a face, not a fund."
+          simp_chinese: "债，认的是一张脸，不是一只基金。"
         progress_delta: -5
         rationale:
-          english: "Rejecting novel liability reassures conservative lawyers that responsibility should remain attached to visible persons and old contracts, but it weakens the case for banking as organized trust."
-          simp_chinese: "拒绝新式责任会安抚保守法学者，使他们相信责任仍应附着在可见个人和旧契约上，但这会削弱银行作为有组织信任的论证。"
+          english: "Rejecting novel liability reassures conservative lawyers that responsibility should stay fixed to visible persons and old contracts, but it weakens the case for banking as organized trust."
+          simp_chinese: "拒绝新式责任，会安抚保守的法学者，让他们相信责任仍应系在看得见的个人与旧契约之上；但这会削弱银行作为一种有组织的信任的论证。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
@@ -614,17 +614,17 @@ random_events:
       english: "Foreign Banker Arrives"
       simp_chinese: "外国银行家到来"
     desc:
-      english: "A foreign banking house offers expertise, capital, and a contract whose clauses are too neat to be innocent. Supporters see imported knowledge; opponents see the realm's purse learning a foreign accent."
-      simp_chinese: "一家外国银行行号带来专门知识、资本，以及一份条款整齐得不可能天真的契约。支持者看见输入的知识，反对者则看见王国的钱袋开始带上外国口音。"
+      english: "A foreign banking house offers expertise, capital, and a contract whose clauses are too neat to be entirely innocent. Supporters see imported knowledge; opponents see the realm's purse learning to speak with a foreign accent."
+      simp_chinese: "一家外国银行行号带来专门知识、资本，以及一份条款整齐得不可能全然天真的契约。支持者看见的是输入的学问，反对者看见的是王国的钱袋，开始学着操一口外国口音。"
     options:
       a:
         text:
-          english: "Invite them under regulation."
-          simp_chinese: "在监管下邀请他们。"
+          english: "The foreign house is admitted, its every clause under the realm's watch."
+          simp_chinese: "这家外国行号获准入内，其每一条款皆在王国的注视之下。"
         progress_delta: 5
         rationale:
-          english: "Inviting the foreign bankers under regulation accepts outside expertise while claiming that law can domesticate it. The reform advances, but foreign influence becomes more visible inside the debate."
-          simp_chinese: "在监管下邀请外国银行家，等于接受外来专长，同时宣称法律可以驯化它。改革会向前推进，但外国影响也会在辩论中变得更醒目。"
+          english: "Inviting the foreign bankers under regulation accepts outside expertise while insisting the law can tame it; reform advances, but foreign influence grows more visible within the debate."
+          simp_chinese: "在监管下邀请外国银行家，等于接受外来的专长，同时坚称法律能驯服它；改革向前，但外国影响也在辩论中变得更加醒目。"
         effect_blocks:
           - type: seat_stance
             group: foreign_power
@@ -634,12 +634,12 @@ random_events:
             amount: 5
       b:
         text:
-          english: "Keep banking domestic."
-          simp_chinese: "保持银行业本土化。"
+          english: "We keep the realm's purse speaking its own tongue."
+          simp_chinese: "我们让王国的钱袋，只说自己的乡音。"
         progress_delta: -5
         rationale:
-          english: "Keeping banking domestic reassures nobles and protectionists that financial sovereignty remains familiar, but it narrows the debate away from regulated expertise and toward inherited suspicion."
-          simp_chinese: "保持银行业本土化会安抚贵族和保护主义者，让他们相信金融主权仍掌握在熟悉之人手中，但这也会让辩论远离受监管的专长，转向继承下来的猜疑。"
+          english: "Keeping banking domestic reassures nobles and protectionists that financial sovereignty stays in familiar hands, but it narrows the debate away from regulated expertise and back toward inherited suspicion."
+          simp_chinese: "保持银行业本土化，会安抚贵族与保护主义者，让他们相信金融主权仍握在熟人之手；但这也让辩论远离受监管的专长，退回到继承下来的猜疑里。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
@@ -656,17 +656,17 @@ random_events:
       english: "Mint Officer's Confession"
       simp_chinese: "铸币官的供认"
     desc:
-      english: "A tired mint officer admits that the old coinage routine survives on tolerated confusion: clipped weights, private exceptions, and ledgers no one quite dares to reconcile."
-      simp_chinese: "一名疲惫的铸币官承认，旧有铸币流程靠被默许的混乱维持：被削薄的成色、私下通融的例外，以及无人真正敢对清的账册。"
+      english: "A tired mint officer admits that the old coinage survives on tolerated confusion: clipped weights, private exceptions, and ledgers no one has quite dared to reconcile."
+      simp_chinese: "一名疲惫的铸币官承认，旧有的铸币全靠一种被默许的混乱撑着：削薄的成色、私下通融的例外，以及一册册无人真正敢去对平的账。"
     options:
       a:
         text:
-          english: "Publicize the confession."
-          simp_chinese: "公开这份供认。"
+          english: "The confession is printed and posted where the counting houses will read it."
+          simp_chinese: "这份供认被付印张贴，就贴在各家账房会看到的地方。"
         progress_delta: 10
         rationale:
-          english: "Publicizing the confession turns monetary confusion from a technical inconvenience into evidence that banking reform is necessary for public trust. The realm's legitimacy suffers because the Crown appears to have tolerated the confusion for years."
-          simp_chinese: "公开供认会把货币混乱从技术麻烦变成证据，说明银行改革是公共信任所必需。国家正当性会受损，因为王室看起来已经多年容忍这种混乱。"
+          english: "Publicizing the confession turns monetary confusion from a technical nuisance into proof that banking reform is needed for public trust; legitimacy suffers, since the Crown appears to have tolerated the muddle for years."
+          simp_chinese: "公开供认，会把货币混乱从一桩技术麻烦，变成银行改革为公共信任所必需的证据；正当性因此受损，因为王室看起来已经容忍这团乱麻多年。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -677,12 +677,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Retire them quietly."
-          simp_chinese: "让其悄然退休。"
+          english: "Quietly, then; let the old man keep his pension."
+          simp_chinese: "那就悄悄地吧，让这老头留着他的养老金。"
         progress_delta: -10
         rationale:
-          english: "Quiet retirement protects the immediate calm of the mint and lets officials claim the matter was only personal weakness, but it buries the systemic proof reformers needed."
-          simp_chinese: "悄然退休可以保护铸币体系的短期平静，也让官员把问题说成个人失职；但它会埋掉改革派最需要的制度性证据。"
+          english: "Quiet retirement guards the mint's immediate calm and lets officials call the matter mere personal weakness, but it buries the systemic proof reformers were counting on."
+          simp_chinese: "让其悄然退休，能护住铸币体系眼前的平静，也让官员把此事说成个人的失职；但这会埋掉改革派本指望着的那份制度性证据。"
         effect_blocks:
           - type: resource
             resource: stability
@@ -699,17 +699,17 @@ random_events:
       english: "Army Pay Delay"
       simp_chinese: "军饷拖延"
     desc:
-      english: "Soldiers wait outside the pay office while treasurers argue over methods, reserves, and signatures. The debate suddenly has boots, hunger, and a very practical sense of time."
-      simp_chinese: "士兵们等在发饷处外，司库们却仍在争论方法、准备金和签押。抽象辩论忽然有了靴声、饥饿，以及极其现实的时间感。"
+      english: "Soldiers wait outside the pay office while the treasurers argue over methods, reserves, and signatures. The debate suddenly acquires boots, hunger, and a very concrete sense of the hour."
+      simp_chinese: "士兵们等在发饷处外，司库们却还在争论方法、准备金与签押。这场辩论忽然有了靴声、饥饿，以及一种极其具体的时辰感。"
     options:
       a:
         text:
-          english: "Use banking reform to pay them."
-          simp_chinese: "以银行改革解决军饷。"
+          english: "The paymasters settle the wages through the clarified banking practice."
+          simp_chinese: "军需官依着理清后的银行办法，把军饷结清。"
         progress_delta: 10
         rationale:
-          english: "Paying the army through clarified banking practice proves reform can solve a hard state problem instead of merely pleasing merchants. The military becomes a practical ally, though the treasury must absorb the transition."
-          simp_chinese: "通过清晰的银行制度支付军饷，能证明改革不只是讨好商人，而能解决国家最硬的事务。军方会成为务实盟友，但国库必须承担过渡成本。"
+          english: "Paying the army through clarified banking practice proves reform can solve a hard problem of state, not merely please merchants; the military turns practical ally, though the treasury must carry the transition."
+          simp_chinese: "通过理清后的银行办法支付军饷，能证明改革不只是讨好商人，而能解决国家最硬的难题；军方由此成为务实的盟友，只是国库得扛下这段过渡。"
         effect_blocks:
           - type: resource
             resource: gold
@@ -720,12 +720,12 @@ random_events:
             cooldown_months: 18
       b:
         text:
-          english: "Borrow informally again."
-          simp_chinese: "再次私下借款。"
+          english: "We pass the hat among the private lenders one more time."
+          simp_chinese: "我们再向那些私人债主，凑一回份子。"
         progress_delta: -5
         rationale:
-          english: "Another informal loan gets coin into soldiers' hands without admitting the old financial channels are broken. The price is renewed dependence on private creditors who profit from keeping reform unfinished."
-          simp_chinese: "再借一笔私下款项，可以不承认旧财政渠道已经失灵，就把钱发到士兵手中。代价是国家继续依赖从未完成的改革中获利的私人债主。"
+          english: "Another informal loan gets coin into the soldiers' hands without admitting the old channels are broken; the price is renewed dependence on private creditors who profit from leaving reform unfinished."
+          simp_chinese: "再借一笔私下款项，能把钱送到士兵手里，又不必承认旧的财政渠道已经失灵；代价是国家重新依赖那些靠改革半途而废获利的私人债主。"
         effect_blocks:
           - type: seat_stance
             group: burghers
@@ -744,17 +744,17 @@ random_events:
       english: "Contract in Plain Language"
       simp_chinese: "白话契约"
     desc:
-      english: "Reformers bring a financial contract written so ordinary readers can understand what binds them. The lawyers look as if someone has opened a window in winter."
-      simp_chinese: "改革者呈上一份金融契约，普通读者也能看懂自己受何约束。律师们的神情像是有人在寒冬里突然开了窗。"
+      english: "Reformers bring a financial contract written so an ordinary reader can see exactly what binds him. The lawyers look as if someone has thrown open a window in the dead of winter."
+      simp_chinese: "改革者呈上一份金融契约，写得让普通读者一眼就看清自己被什么绑住。律师们的神情，像是有人在隆冬里猛地推开了一扇窗。"
     options:
       a:
         text:
-          english: "Require plain contracts."
-          simp_chinese: "要求契约使用明白文句。"
+          english: "The Academy requires that every contract speak in plain words."
+          simp_chinese: "学院要求每一份契约都用明白的话写成。"
         progress_delta: 5
         rationale:
-          english: "Plain contracts make banking reform visible to people who normally meet finance only as fine print. Public opinion warms because reform now protects comprehension, not just balance sheets."
-          simp_chinese: "明白文句让通常只在细小字句里接触金融的人也能看见银行改革。公众舆论会转向支持，因为改革保护的不只是账面，也包括理解权。"
+          english: "Plain contracts make banking reform visible to people who usually meet finance only as fine print; public opinion warms, because reform now guards comprehension and not just the balance sheet."
+          simp_chinese: "明白的文句，让那些平日只在蝇头小字里碰见金融的人，也看得见银行改革；公众舆论因此转暖，因为改革如今护的不只是账面，还有看懂的权利。"
         effect_blocks:
           - type: seat_stance
             group: public_opinion
@@ -767,12 +767,12 @@ random_events:
               popular trust in banking courts: 0.02
       b:
         text:
-          english: "Keep elite legal forms."
-          simp_chinese: "保留精英法律格式。"
+          english: "We leave the fine print to those trained to read it."
+          simp_chinese: "我们把那些蝇头小字，留给受过训练、读得懂它的人。"
         progress_delta: -5
         rationale:
-          english: "Keeping elite forms preserves professional control and reassures bankers that clever wording will not be overturned by sudden popular scrutiny. The debate loses public force because ordinary debtors remain dependent on interpreters."
-          simp_chinese: "保留精英格式能维护专业阶层的控制，也让银行家相信精巧措辞不会突然遭到大众审视。但普通债务人仍要依赖解释者，辩论因此失去公共力量。"
+          english: "Keeping the elite forms preserves professional control and assures bankers that clever wording will not be upset by sudden public scrutiny; the debate loses its popular force, since ordinary debtors still depend on interpreters."
+          simp_chinese: "保留精英格式，能维护专业阶层的掌控，也让银行家放心，精巧的措辞不会突然遭大众审视推翻；但辩论因此失了公共的力量，因为普通债务人仍得仰仗解释者。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
@@ -786,20 +786,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Bankruptcy Shame"
+      english: "The Shame of Bankruptcy"
       simp_chinese: "破产之耻"
     desc:
-      english: "A ruined merchant argues that orderly bankruptcy saves workshops, creditors, and families better than public disgrace ever has. The moralists hear mercy; the bankers hear salvage."
-      simp_chinese: "一名破产商人辩称，有秩序的破产比公开羞辱更能保住作坊、债权人和家庭。道德家听见的是宽恕，银行家听见的是残值。"
+      english: "A ruined merchant argues that an orderly bankruptcy saves workshops, creditors, and families far better than public disgrace ever managed. The moralists hear mercy; the bankers hear salvage."
+      simp_chinese: "一名破产的商人辩称，一场有秩序的破产，比公开羞辱更能保住作坊、债权人与家庭。道德家听见的是宽恕，银行家听见的是残值。"
     options:
       a:
         text:
-          english: "Legalize orderly bankruptcy."
-          simp_chinese: "使有序破产合法化。"
+          english: "The Academy writes orderly bankruptcy into lawful procedure."
+          simp_chinese: "学院将有序破产写入合法的程序。"
         progress_delta: 10
         rationale:
-          english: "Legal bankruptcy treats failure as a managed financial event rather than a moral collapse, which strengthens the banking argument for predictable rules. Conservative moral authorities object because disgrace loses some disciplinary power."
-          simp_chinese: "合法破产把失败视为可管理的金融事件，而不是单纯的道德崩塌，从而强化银行制度需要可预期规则的主张。保守道德权威会反对，因为耻辱失去了一部分惩戒力量。"
+          english: "Legal bankruptcy treats failure as a managed financial event rather than a moral collapse, which strengthens the banking case for predictable rules; conservative moral authorities object, since disgrace loses some of its disciplinary bite."
+          simp_chinese: "合法破产把失败视作一桩可管理的金融事件，而非一场道德崩塌，从而强化银行制度需要可预期规则的主张；保守的道德权威会反对，因为羞辱失去了一部分惩戒的锋芒。"
         effect_blocks:
           - type: seat_stance
             group: burghers
@@ -815,12 +815,12 @@ random_events:
               commercial recovery confidence: 0.03
       b:
         text:
-          english: "Keep disgrace as punishment."
-          simp_chinese: "保留羞辱作为惩罚。"
+          english: "A ruined name pays what coin cannot."
+          simp_chinese: "败坏了的名声，偿的是钱偿不了的债。"
         progress_delta: -10
         rationale:
-          english: "Keeping disgrace as punishment satisfies those who see debt failure as moral failure, but it leaves trade exposed to panic, concealment, and ruin without procedure."
-          simp_chinese: "保留羞辱作为惩罚，会安抚那些把债务失败视为道德失败的人；但贸易仍会暴露在恐慌、隐瞒和无程序崩坏之中。"
+          english: "Keeping disgrace as punishment satisfies those who read a failed debt as a failed soul, but it leaves trade exposed to panic, concealment, and ruin with no procedure to catch it."
+          simp_chinese: "保留羞辱作为惩罚，会安抚那些把债务失败读作灵魂失败的人；但贸易仍会暴露在恐慌、隐瞒与无程序可循的崩坏之中。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
@@ -837,20 +837,20 @@ random_events:
     issue: banking
     weight: 1
     title:
-      english: "Crown Account Published"
-      simp_chinese: "公布王室账目"
+      english: "The Crown's Accounts"
+      simp_chinese: "王室的账目"
     desc:
-      english: "The Academy proposes a simplified royal account: enough figures to prove confidence, not enough to let every court faction sharpen a knife. The room immediately asks where that line is drawn."
-      simp_chinese: "学院提议公布一份简化的王室账目：数字要足以证明财政自信，却又不能多到让宫廷派系人人磨刀。会场立刻追问，这条界线究竟画在哪里。"
+      english: "The Academy proposes a simplified royal account: figures enough to prove confidence, not so many that every court faction can sharpen a knife on them. The room at once asks where, precisely, that line is to be drawn."
+      simp_chinese: "学院提议公布一份简化的王室账目：数字要多到足以证明底气，又不能多到让每个宫廷派系都能拿去磨刀。会场当即追问：这条线，究竟该画在哪儿。"
     options:
       a:
         text:
-          english: "Publish it."
-          simp_chinese: "公布账目。"
+          english: "We open the Crown's own accounts to the same daylight we demand of others."
+          simp_chinese: "我们把王室自己的账目，摊在向别人索要的同一片日光下。"
         progress_delta: 10
         rationale:
-          english: "Publishing the account makes the Crown model the financial discipline it asks others to accept. The gain for reform is large, but legitimacy is risked because every revealed weakness becomes a political argument."
-          simp_chinese: "公布账目意味着王权以自身示范它要求他人接受的财政纪律。改革因此大获推动，但每一个暴露出的弱点都可能变成政治论据，正当性也随之冒险。"
+          english: "Publishing the account has the Crown model the very financial discipline it asks others to accept; the gain for reform is large, but legitimacy is risked, since every weakness revealed becomes a political argument."
+          simp_chinese: "公布账目，意味着王权以身示范它要求他人接受的那份财政纪律；改革因此大有斩获，但每一个暴露出来的弱点都会变成政治论据，正当性也随之冒险。"
         effect_blocks:
           - type: resource
             resource: legitimacy
@@ -866,12 +866,12 @@ random_events:
               expectation of transparent public finance: 0.03
       b:
         text:
-          english: "Keep accounts closed."
-          simp_chinese: "继续封存账目。"
+          english: "The court keeps its accounts locked and its numbers to itself."
+          simp_chinese: "宫廷把账目锁着，数字也只留给自己。"
         progress_delta: -10
         rationale:
-          english: "Closed accounts protect court management and keep bureaucrats from defending every number in public. They also make banking reform look like a discipline imposed on subjects while the Crown exempts itself."
-          simp_chinese: "继续封存账目可以保护宫廷运作，也让官僚不必公开为每一个数字辩护。但这会让银行改革显得像是只加诸臣民、王权自身却可豁免的纪律。"
+          english: "Closed accounts protect the court's management and spare the bureaucrats from defending every figure in public; they also make banking reform look like a discipline pressed on subjects while the Crown quietly exempts itself."
+          simp_chinese: "继续封存账目，能保护宫廷的运作，也让官僚不必公开为每一个数字辩护；但这会让银行改革显得像一条只加诸臣民、王权自身却悄悄豁免的纪律。"
         effect_blocks:
           - type: seat_stance
             group: court_bureaucrats
