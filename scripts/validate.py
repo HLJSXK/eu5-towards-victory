@@ -640,6 +640,25 @@ def check_event_id_numeric_range(path: Path, content: str) -> None:
         )
 
 
+def check_event_option_effect_blocks(path: Path, content: str) -> None:
+    """Event options execute effects directly; `effect = {}` is parsed as an unknown effect."""
+    rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+    if not (rel.startswith("src/in_game/events/") and path.suffix == ".txt"):
+        return
+
+    for match in re.finditer(r"(?m)^[ \t]*option\s*=\s*\{", content):
+        open_pos = content.find("{", match.start())
+        close_pos = _find_matching_brace(content, open_pos)
+        if open_pos == -1 or close_pos is None:
+            continue
+        for effect_open, _ in _iter_direct_child_blocks(content, open_pos, close_pos, "effect"):
+            issues.append(
+                f"[EVENT_OPTION_EFFECT_BLOCK] {path.relative_to(REPO_ROOT)}:{_line_num(content, effect_open)} -- "
+                "Event option effects must be written directly inside `option = { ... }`; "
+                "`effect = { ... }` is parsed as an unknown effect named `effect`."
+            )
+
+
 def check_wonder_engine_scaled_fixed_modifiers(path: Path, content: str) -> None:
     """Catch wonder modifier values that EU5 displays 1000x larger than written."""
     rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
@@ -1310,6 +1329,7 @@ def main():
                 continue
 
             check_event_id_numeric_range(path, content)
+            check_event_option_effect_blocks(path, content)
 
             is_game_content = (
                 path.is_relative_to(REPO_ROOT / "src")

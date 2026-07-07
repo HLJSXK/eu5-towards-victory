@@ -46,27 +46,33 @@ called directly from event options.
    Re-check all required state in the option effect before applying rewards, building
    effects, or cleanup.
 
-5. Hide application chains when nested tooltips are not needed.
+5. Do not wrap visible option effects in `effect = { ... }`.
+   Event options are already effect lists. Put effect calls directly under
+   `option = { ... }`, next to `name` and optional `trigger`. EU5 parses an
+   `effect = { ... }` child as a command named `effect` and logs
+   `Unknown effect effect`.
+
+6. Hide application chains when nested tooltips are not needed.
    If an event option must initialize temporary state and then call helpers that compare or
    reuse that state, wrap the sequence in `hidden_effect = { ... }`. This hides nested tooltip
    text, but it is not a commit boundary: helpers inside still must read persistent state or use
    literal bounded branches instead of same-chain scratch variables.
 
-6. Do not treat option `hidden_effect` as a performance boundary.
+7. Do not treat option `hidden_effect` as a performance boundary.
    Event option hover can still evaluate hidden effect contents while rendering tooltips. Keep
    option hidden blocks light: guards, simple state checks, or a scheduler/trigger only. Move
    global scans, high-cardinality dispatch, completion broadcasts, map rebuilds, construction
    cleanup, and other heavy work to a `hidden = yes` event's `immediate` block or another
    non-tooltip execution path.
 
-7. Use guarded delayed silent loops for daily hidden work.
+8. Use guarded delayed silent loops for daily hidden work.
    For daily background logic, seed exactly one delayed loop from a lifecycle point:
    `trigger_event_silently = { id = tv_namespace.900 days = 1 }`. The target should be a
    `hidden = yes` country event whose `immediate` checks the feature prerequisite and a
    persistent loop sentinel before doing work and rescheduling itself. Clear that sentinel
    during teardown so already queued events stop naturally instead of scheduling the next day.
 
-8. Keep numeric event IDs below 10000.
+9. Keep numeric event IDs below 10000.
    EU5 accepts event IDs as `<namespace>.<integer>`, but the integer must be `< 10000`.
    For generated high-cardinality systems, do not encode multiple dimensions into the numeric
    event ID if that crosses the limit. Move large wonder/type dispatch before the event fires;

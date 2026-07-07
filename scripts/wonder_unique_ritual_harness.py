@@ -18373,9 +18373,7 @@ def _alhambra_event_source_generator_option_body_lines(option: dict[str, Any]) -
         lines.append("}")
     effect_names = _alhambra_event_source_generator_option_effect_names(option)
     if effect_names:
-        lines.append("effect = {")
         lines.extend(f"{effect_name} = yes" for effect_name in effect_names)
-        lines.append("}")
     lines.append("}")
     return lines
 
@@ -18610,7 +18608,10 @@ def _validate_alhambra_event_source_candidate_text(
                     errors.append(
                         f"Alhambra event source generator event {event_id} missing option localization key ref"
                     )
-                elif "effect = {" not in option_lines:
+                elif not any(
+                    line.endswith("_effect = yes")
+                    for line in option_lines
+                ):
                     errors.append(
                         f"Alhambra event source generator event {event_id} missing option effect handoff"
                     )
