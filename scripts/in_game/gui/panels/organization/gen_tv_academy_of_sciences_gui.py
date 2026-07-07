@@ -90,7 +90,7 @@ organization_panel = {
 \tblockoverride "extra_titles" {}
 \tblockoverride "organization_panel_extra_item" {
 \t\twidget = {
-\t\t\tsize = { 260 150 }
+\t\t\tsize = { 260 120 }
 \t\t\tparentanchor = top|right
 \t\t\twidgetanchor = top|right
 \t\t\tposition = { -12 6 }
@@ -99,8 +99,8 @@ organization_panel = {
 \t\t\tvbox = {
 \t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\tminimumsize = { 260 150 }
-\t\t\t\tmaximumsize = { 260 150 }
+\t\t\t\tminimumsize = { 260 120 }
+\t\t\t\tmaximumsize = { 260 120 }
 \t\t\t\tusing = bg_paper_card_situations
 
 \t\t\t\twidget = {
@@ -128,10 +128,10 @@ organization_panel = {
 \t\t\t\t}
 
 \t\t\t\tvbox = {
-\t\t\t\t\tsize = { 236 94 }
+\t\t\t\t\tsize = { 236 72 }
 \t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\tmargin = { 10 8 }
+\t\t\t\t\tmargin = { 10 4 }
 \t\t\t\t\tignoreinvisible = yes
 \t\t\t\t\tspacing = 8
 
@@ -227,6 +227,7 @@ organization_panel = {
 \t\t\t\t\t\t}
 \t\t\t\t\t}
 \t\t\t\t}
+\t\t\t\texpand = {}
 \t\t\t}
 \t\t}
 \t}
@@ -1382,8 +1383,14 @@ def append_timeline_card(lines: list[str], level: int) -> None:
     emit(lines, level + 1, "}")
     emit(lines, level + 1, 'blockoverride "common_bottom_content" {')
     emit(lines, level + 2, "widget = {")
+    emit(lines, level + 3, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 3, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 3, "minimumsize = { 470 96 }")
+    emit(lines, level + 3, "maximumsize = { 470 96 }")
     emit(lines, level + 3, "size = { 470 96 }")
     emit(lines, level + 3, "widget = {")
+    emit(lines, level + 4, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 4, "layoutpolicy_vertical = fixed")
     emit(lines, level + 4, "position = { 21 24 }")
     emit(lines, level + 4, "size = { 428 18 }")
     emit(lines, level + 4, "progressbar = {")
@@ -1400,6 +1407,7 @@ def append_timeline_card(lines: list[str], level: int) -> None:
     emit(lines, level + 4, "position = { 0 12 }")
     emit(lines, level + 4, "size = { 470 42 }")
     emit(lines, level + 4, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 4, "layoutpolicy_vertical = fixed")
     emit(lines, level + 4, "spacing = 65")
     for slot in range(1, 6):
         append_debate_node_icon(lines, level + 4, slot)
@@ -1408,6 +1416,7 @@ def append_timeline_card(lines: list[str], level: int) -> None:
     emit(lines, level + 4, "position = { 0 60 }")
     emit(lines, level + 4, "size = { 470 24 }")
     emit(lines, level + 4, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 4, "layoutpolicy_vertical = fixed")
     emit(lines, level + 4, "spacing = 65")
     for slot in range(1, 6):
         append_node_year(lines, level + 4, slot)
