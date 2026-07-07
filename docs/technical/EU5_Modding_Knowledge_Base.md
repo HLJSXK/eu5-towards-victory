@@ -1117,6 +1117,8 @@ All text displayed to the player is handled through the localization system. Loc
 
 Keep each localization key/value on one physical line. When a value needs an intentional line break, emit `\n` inside the quoted string; a real newline inside the value makes the next physical line parse as a new key and can produce `Invalid character` / `Missing colon` startup errors.
 
+When using color formatting, put a separator after the color tag before player-facing text or generated placeholders. Use `#Y Text#!`, `#G {group}#!`, or `#R 30#!`, not `#YText#!`, `#G{group}#!`, or `#R30#!`. The localization formatter can otherwise read the adjacent content as part of the formatting tag and drop or mangle the highlighted span.
+
 Event localization scope variables can be read directly from script scopes such as `ROOT` and `THIS`:
 
 ```yaml

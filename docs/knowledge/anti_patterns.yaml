@@ -702,6 +702,17 @@
   source: "EU5 engine error log: pdx_text_formatter.cpp:807: Unknown formatting tag 'y64!'"
   notes: "In EU5 Jomini localization, the color tag name is read from # until the first non-alphanumeric. When a [var] resolves to a number (e.g. 64) and is placed directly after #Y, the parser reads #Y64 as the tag name (unknown). The leading space in '#Y [var]' terminates the tag name at Y."
 
+- id: loc_color_tag_adjacent_text
+  pattern: '#[YGR](?=[^\s#!\[$@+\-])'
+  detectability: lint
+  only_in_paths: ['localization', 'philosophy_debate_codegen.py']
+  bad: "#YText#! / #Y{generated_text}#! — color tag immediately followed by normal text or generated text with no separator"
+  correction: "Insert a separator after the color tag, e.g. #Y Text#!, #G Text#!, or #R Text#!. Do the same in generators before substituting localized names or concept text."
+  category: localization
+  scope: any
+  source: "User-reported display truncation in tv_academy_debate.100, 2026-07-07; vanilla examples use a space such as reference_game_files/game/main_menu/localization/english/events/DHE/flavor_kor_l_english.yml:86"
+  notes: "EU5/Jomini localization does not reliably treat #Y/#G/#R as complete color tags when text or a generated placeholder starts immediately after the tag. The formatter can treat the adjacent content as part of the formatting tag and drop or mangle the highlighted span. A visible space after the tag terminates it."
+
 - id: custom_description_needs_trigger_loc
   pattern: ''
   only_in_paths: ['scripted_triggers']
