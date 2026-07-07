@@ -28,7 +28,9 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    make the helper use `has_variable` / `var:X ?= ...` before direct comparisons, or guard the
    helper so it runs only after persistent prerequisite state exists. This applies even when the
    helper itself sets the display variable to 0 before comparing it; the pre-evaluator may not
-   commit that write before reading the later `var:X` line.
+   commit that write before reading the later `var:X` line. For derived display refreshes,
+   calculate and compare with `set_local_variable` / `change_local_variable` and `local_var:X`
+   first, then mirror the final values into persistent variables for GUI display.
 
 4. Hide cleanup-only helper calls.
    If a generic action effect only clears variables, removes list entries, strips stale modifiers,
@@ -113,6 +115,11 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    variants. Reserve `save_scope_as` for saves written directly inside an effect body (a sibling
    of `limit`, not inside it).
 
+18. Save the owner before reusable helpers compare against IO state.
+   A helper reached from a generic action effect should not assume `root` is still the action
+   actor/current country. Save the current country or actor with `save_scope_as` at effect entry,
+   before entering IO/member iterators, and compare nested state to `scope:<saved_owner>`.
+
 ## Safe Skeleton
 
 ```txt
@@ -186,6 +193,9 @@ rationale.
 - `variable_map_callback_root_in_generic_action` [needs_parser]: A variable-map key callback
   called from a generic-action effect should not rely on `root` to write back to the action actor;
   save the actor/current country as a named scope before the callback.
+- `generic_action_helper_assumes_root_owner` [needs_parser]: A reusable helper reached from a
+  generic action should not compare nested IO state to `root` unless that root was verified; save
+  the current owner as a named scope and compare against `scope:<saved_owner>`.
 - `variable_map_key_iterator_scope_used_for_map_read` [needs_parser]: A key-iterator callback
   should not run `is_key_in_variable_map` on the current numeric key scope; save the map owner,
   copy `this` into a local variable, and check sibling maps from the owner scope.
