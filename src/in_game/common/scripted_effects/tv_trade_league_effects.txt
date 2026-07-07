@@ -27897,6 +27897,12 @@ tv_trade_league_refresh_trade_chain_effect = {
 	hidden_effect = {
 		save_scope_as = tv_trade_chain_leader
 		tv_trade_league_ensure_trade_chain_capital_effect = yes
+		set_local_variable = { name = tv_trade_chain_length_calc value = 0 }
+		set_local_variable = { name = tv_trade_chain_flow_calc value = 0 }
+		set_local_variable = { name = tv_trade_chain_flow_denominator_calc value = 0 }
+		set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 0 }
+		set_local_variable = { name = tv_trade_chain_strength_calc value = 0 }
+		set_local_variable = { name = tv_trade_chain_strength_display_calc value = 0 }
 		set_variable = { name = tv_trade_chain_length value = 0 }
 		set_variable = { name = tv_trade_chain_flow value = 0 }
 		set_variable = { name = tv_trade_chain_flow_denominator value = 0 }
@@ -27906,10 +27912,10 @@ tv_trade_league_refresh_trade_chain_effect = {
 		remove_country_modifier = tv_trade_chain_medium_modifier
 		remove_country_modifier = tv_trade_chain_strong_modifier
 		if = {
-			limit = { var:tv_trade_chain_count > 0 }
+			limit = { var:tv_trade_chain_count ?= { this > 0 } }
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 1
+				var:tv_trade_chain_count ?= { this >= 1 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 1 }
 			}
@@ -27918,11 +27924,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -27935,7 +27941,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 2
+				var:tv_trade_chain_count ?= { this >= 2 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 2 }
 			}
@@ -27944,11 +27950,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -27961,7 +27967,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 3
+				var:tv_trade_chain_count ?= { this >= 3 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 3 }
 			}
@@ -27970,11 +27976,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -27987,7 +27993,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 4
+				var:tv_trade_chain_count ?= { this >= 4 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 4 }
 			}
@@ -27996,11 +28002,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28013,7 +28019,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 5
+				var:tv_trade_chain_count ?= { this >= 5 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 5 }
 			}
@@ -28022,11 +28028,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28039,7 +28045,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 6
+				var:tv_trade_chain_count ?= { this >= 6 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 6 }
 			}
@@ -28048,11 +28054,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28065,7 +28071,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 7
+				var:tv_trade_chain_count ?= { this >= 7 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 7 }
 			}
@@ -28074,11 +28080,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28091,7 +28097,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 8
+				var:tv_trade_chain_count ?= { this >= 8 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 8 }
 			}
@@ -28100,11 +28106,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28117,7 +28123,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 9
+				var:tv_trade_chain_count ?= { this >= 9 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 9 }
 			}
@@ -28126,11 +28132,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28143,7 +28149,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 10
+				var:tv_trade_chain_count ?= { this >= 10 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 10 }
 			}
@@ -28152,11 +28158,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28169,7 +28175,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 11
+				var:tv_trade_chain_count ?= { this >= 11 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 11 }
 			}
@@ -28178,11 +28184,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28195,7 +28201,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 12
+				var:tv_trade_chain_count ?= { this >= 12 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 12 }
 			}
@@ -28204,11 +28210,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28221,7 +28227,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 13
+				var:tv_trade_chain_count ?= { this >= 13 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 13 }
 			}
@@ -28230,11 +28236,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28247,7 +28253,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 14
+				var:tv_trade_chain_count ?= { this >= 14 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 14 }
 			}
@@ -28256,11 +28262,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28273,7 +28279,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 15
+				var:tv_trade_chain_count ?= { this >= 15 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 15 }
 			}
@@ -28282,11 +28288,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28299,7 +28305,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 16
+				var:tv_trade_chain_count ?= { this >= 16 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 16 }
 			}
@@ -28308,11 +28314,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28325,7 +28331,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 17
+				var:tv_trade_chain_count ?= { this >= 17 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 17 }
 			}
@@ -28334,11 +28340,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28351,7 +28357,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 18
+				var:tv_trade_chain_count ?= { this >= 18 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 18 }
 			}
@@ -28360,11 +28366,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28377,7 +28383,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 19
+				var:tv_trade_chain_count ?= { this >= 19 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 19 }
 			}
@@ -28386,11 +28392,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28403,7 +28409,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 		if = {
 			limit = {
-				var:tv_trade_chain_count >= 20
+				var:tv_trade_chain_count ?= { this >= 20 }
 				has_variable_map = tv_trade_chain_market_by_slot
 				is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 20 }
 			}
@@ -28412,11 +28418,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 				scope:tv_trade_chain_leader = {
 					if = {
 						limit = { local_var:tv_trade_chain_slot_capacity <= 0 }
-						set_variable = { name = tv_trade_chain_flow_zero value = 1 }
+						set_local_variable = { name = tv_trade_chain_flow_zero_calc value = 1 }
 					}
 					else = {
-						change_variable = {
-							name = tv_trade_chain_flow_denominator
+						change_local_variable = {
+							name = tv_trade_chain_flow_denominator_calc
 							add = {
 								value = 1
 								divide = local_var:tv_trade_chain_slot_capacity
@@ -28429,11 +28435,11 @@ tv_trade_league_refresh_trade_chain_effect = {
 		}
 			if = {
 				limit = {
-					var:tv_trade_chain_flow_zero <= 0
-					var:tv_trade_chain_flow_denominator > 0
+					local_var:tv_trade_chain_flow_zero_calc <= 0
+					local_var:tv_trade_chain_flow_denominator_calc > 0
 				}
-				set_variable = { name = tv_trade_chain_flow value = var:tv_trade_chain_count }
-				change_variable = { name = tv_trade_chain_flow divide = var:tv_trade_chain_flow_denominator }
+				set_local_variable = { name = tv_trade_chain_flow_calc value = var:tv_trade_chain_count }
+				change_local_variable = { name = tv_trade_chain_flow_calc divide = local_var:tv_trade_chain_flow_denominator_calc }
 			}
 			if = {
 				limit = {
@@ -28444,7 +28450,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28455,7 +28461,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|2)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28466,7 +28472,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|3)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28477,7 +28483,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|4)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28488,7 +28494,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|5)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28499,7 +28505,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|6)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28510,7 +28516,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|7)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28521,7 +28527,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|8)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28532,7 +28538,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|9)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28543,7 +28549,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|10)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28554,7 +28560,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|11)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28565,7 +28571,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|12)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28576,7 +28582,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|13)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28587,7 +28593,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|14)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28598,7 +28604,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|15)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28609,7 +28615,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|16)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28620,7 +28626,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|17)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28631,7 +28637,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|18)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28642,7 +28648,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|19)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
 			else_if = {
 				limit = {
@@ -28653,28 +28659,34 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 				"variable_map(tv_trade_chain_market_by_slot|1)" = { location = { save_scope_as = tv_trade_chain_start_location } }
 				"variable_map(tv_trade_chain_market_by_slot|20)" = { location = { save_scope_as = tv_trade_chain_end_location } }
-				set_variable = { name = tv_trade_chain_length value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
+				set_local_variable = { name = tv_trade_chain_length_calc value = { value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" } }
 			}
-			set_variable = { name = tv_trade_chain_strength value = var:tv_trade_chain_length }
-			change_variable = { name = tv_trade_chain_strength multiply = var:tv_trade_chain_flow }
-			change_variable = { name = tv_trade_chain_strength divide = 1000 }
-			set_variable = { name = tv_trade_chain_strength_display value = var:tv_trade_chain_strength }
+			set_local_variable = { name = tv_trade_chain_strength_calc value = local_var:tv_trade_chain_length_calc }
+			change_local_variable = { name = tv_trade_chain_strength_calc multiply = local_var:tv_trade_chain_flow_calc }
+			change_local_variable = { name = tv_trade_chain_strength_calc divide = 1000 }
+			set_local_variable = { name = tv_trade_chain_strength_display_calc value = local_var:tv_trade_chain_strength_calc }
 			if = {
-				limit = { var:tv_trade_chain_strength_display > 20000 }
-				set_variable = { name = tv_trade_chain_strength_display value = 20000 }
+				limit = { local_var:tv_trade_chain_strength_display_calc > 20000 }
+				set_local_variable = { name = tv_trade_chain_strength_display_calc value = 20000 }
 			}
+			set_variable = { name = tv_trade_chain_length value = local_var:tv_trade_chain_length_calc }
+			set_variable = { name = tv_trade_chain_flow value = local_var:tv_trade_chain_flow_calc }
+			set_variable = { name = tv_trade_chain_flow_denominator value = local_var:tv_trade_chain_flow_denominator_calc }
+			set_variable = { name = tv_trade_chain_flow_zero value = local_var:tv_trade_chain_flow_zero_calc }
+			set_variable = { name = tv_trade_chain_strength value = local_var:tv_trade_chain_strength_calc }
+			set_variable = { name = tv_trade_chain_strength_display value = local_var:tv_trade_chain_strength_display_calc }
 			if = {
-				limit = { var:tv_trade_chain_strength >= 100 }
+				limit = { local_var:tv_trade_chain_strength_calc >= 100 }
 				add_country_modifier = { modifier = tv_trade_chain_medium_modifier days = 60 mode = add_and_extend }
 			}
 			if = {
-				limit = { var:tv_trade_chain_strength >= 1000 }
+				limit = { local_var:tv_trade_chain_strength_calc >= 1000 }
 				add_country_modifier = { modifier = tv_trade_chain_strong_modifier days = 60 mode = add_and_extend }
 			}
 			tv_trade_league_clear_trade_chain_demands_effect = yes
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 20
+					var:tv_trade_chain_count ?= { this >= 20 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 20 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 19 }
@@ -28687,7 +28699,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -28963,7 +28975,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 19
+					var:tv_trade_chain_count ?= { this >= 19 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 19 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 18 }
@@ -28976,7 +28988,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -29238,7 +29250,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 18
+					var:tv_trade_chain_count ?= { this >= 18 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 18 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 17 }
@@ -29251,7 +29263,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -29499,7 +29511,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 17
+					var:tv_trade_chain_count ?= { this >= 17 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 17 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 16 }
@@ -29512,7 +29524,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -29746,7 +29758,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 16
+					var:tv_trade_chain_count ?= { this >= 16 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 16 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 15 }
@@ -29759,7 +29771,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -29979,7 +29991,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 15
+					var:tv_trade_chain_count ?= { this >= 15 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 15 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 14 }
@@ -29992,7 +30004,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -30198,7 +30210,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 14
+					var:tv_trade_chain_count ?= { this >= 14 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 14 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 13 }
@@ -30211,7 +30223,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -30403,7 +30415,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 13
+					var:tv_trade_chain_count ?= { this >= 13 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 13 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 12 }
@@ -30416,7 +30428,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -30594,7 +30606,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 12
+					var:tv_trade_chain_count ?= { this >= 12 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 12 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 11 }
@@ -30607,7 +30619,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -30771,7 +30783,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 11
+					var:tv_trade_chain_count ?= { this >= 11 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 11 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 10 }
@@ -30784,7 +30796,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -30934,7 +30946,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 10
+					var:tv_trade_chain_count ?= { this >= 10 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 10 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 9 }
@@ -30947,7 +30959,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31083,7 +31095,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 9
+					var:tv_trade_chain_count ?= { this >= 9 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 9 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 8 }
@@ -31096,7 +31108,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31218,7 +31230,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 8
+					var:tv_trade_chain_count ?= { this >= 8 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 8 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 7 }
@@ -31231,7 +31243,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31339,7 +31351,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 7
+					var:tv_trade_chain_count ?= { this >= 7 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 7 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 6 }
@@ -31352,7 +31364,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31446,7 +31458,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 6
+					var:tv_trade_chain_count ?= { this >= 6 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 6 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 5 }
@@ -31459,7 +31471,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31539,7 +31551,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 5
+					var:tv_trade_chain_count ?= { this >= 5 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 5 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 4 }
@@ -31552,7 +31564,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31618,7 +31630,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 4
+					var:tv_trade_chain_count ?= { this >= 4 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 4 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 3 }
@@ -31631,7 +31643,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31683,7 +31695,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 3
+					var:tv_trade_chain_count ?= { this >= 3 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 3 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 2 }
@@ -31696,7 +31708,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31734,7 +31746,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 2
+					var:tv_trade_chain_count ?= { this >= 2 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 2 }
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 1 }
@@ -31747,7 +31759,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 						}
 						traded_goods = { save_scope_as = tv_trade_chain_segment_good }
 						set_local_variable = { name = tv_trade_chain_bargaining_add value = trade_volume }
-						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }
+						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }
 						change_local_variable = { name = tv_trade_chain_bargaining_add multiply = 0.0001 }
 						scope:tv_trade_chain_leader = {
 								if = {
@@ -31771,7 +31783,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 1
+					var:tv_trade_chain_count ?= { this >= 1 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_1
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 1 }
@@ -32089,7 +32101,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 2
+					var:tv_trade_chain_count ?= { this >= 2 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_2
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 2 }
@@ -32407,7 +32419,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 3
+					var:tv_trade_chain_count ?= { this >= 3 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_3
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 3 }
@@ -32725,7 +32737,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 4
+					var:tv_trade_chain_count ?= { this >= 4 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_4
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 4 }
@@ -33043,7 +33055,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 5
+					var:tv_trade_chain_count ?= { this >= 5 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_5
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 5 }
@@ -33361,7 +33373,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 6
+					var:tv_trade_chain_count ?= { this >= 6 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_6
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 6 }
@@ -33679,7 +33691,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 7
+					var:tv_trade_chain_count ?= { this >= 7 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_7
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 7 }
@@ -33997,7 +34009,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 8
+					var:tv_trade_chain_count ?= { this >= 8 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_8
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 8 }
@@ -34315,7 +34327,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 9
+					var:tv_trade_chain_count ?= { this >= 9 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_9
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 9 }
@@ -34633,7 +34645,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 10
+					var:tv_trade_chain_count ?= { this >= 10 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_10
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 10 }
@@ -34951,7 +34963,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 11
+					var:tv_trade_chain_count ?= { this >= 11 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_11
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 11 }
@@ -35269,7 +35281,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 12
+					var:tv_trade_chain_count ?= { this >= 12 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_12
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 12 }
@@ -35587,7 +35599,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 13
+					var:tv_trade_chain_count ?= { this >= 13 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_13
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 13 }
@@ -35905,7 +35917,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 14
+					var:tv_trade_chain_count ?= { this >= 14 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_14
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 14 }
@@ -36223,7 +36235,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 15
+					var:tv_trade_chain_count ?= { this >= 15 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_15
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 15 }
@@ -36541,7 +36553,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 16
+					var:tv_trade_chain_count ?= { this >= 16 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_16
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 16 }
@@ -36859,7 +36871,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 17
+					var:tv_trade_chain_count ?= { this >= 17 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_17
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 17 }
@@ -37177,7 +37189,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 18
+					var:tv_trade_chain_count ?= { this >= 18 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_18
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 18 }
@@ -37495,7 +37507,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 19
+					var:tv_trade_chain_count ?= { this >= 19 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_19
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 19 }
@@ -37813,7 +37825,7 @@ tv_trade_league_refresh_trade_chain_effect = {
 			}
 			if = {
 				limit = {
-					var:tv_trade_chain_count >= 20
+					var:tv_trade_chain_count ?= { this >= 20 }
 					has_variable_map = tv_trade_chain_market_by_slot
 					has_variable_map = tv_trade_chain_demand_slot_20
 					is_key_in_variable_map = { name = tv_trade_chain_market_by_slot target = 20 }
@@ -38130,6 +38142,12 @@ tv_trade_league_refresh_trade_chain_effect = {
 				}
 			}
 		}
+		remove_local_variable = tv_trade_chain_length_calc
+		remove_local_variable = tv_trade_chain_flow_calc
+		remove_local_variable = tv_trade_chain_flow_denominator_calc
+		remove_local_variable = tv_trade_chain_flow_zero_calc
+		remove_local_variable = tv_trade_chain_strength_calc
+		remove_local_variable = tv_trade_chain_strength_display_calc
 	}
 }
 

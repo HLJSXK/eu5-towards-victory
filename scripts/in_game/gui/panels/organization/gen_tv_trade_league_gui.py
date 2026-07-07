@@ -844,14 +844,17 @@ def trade_chain_strength_card(chain_data: dict) -> str:
 
 
 def trade_chain_pie_widget(indent: str) -> str:
-    return f"""{indent}piechart = {{
+    return f"""{indent}widget = {{
 {indent}\tsize = {{ 72 72 }}
-{indent}\tusing = piechart_angles
-{indent}\ticon = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = {{ 97% 97% }} parentanchor = center color = {{ 0.20 0.27 0.31 1 }} alpha = 0.32 }}
-{indent}\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self))]" color = {{ 0.82 0.62 0.22 1 }} alpha = 0.85 }}
-{indent}\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self)))]" color = {{ 0.28 0.47 0.56 1 }} alpha = 0.75 }}
-{indent}\ticon = {{ texture = "gfx/interface/icons/flat_icons/market_wealth.dds" size = {{ 34 34 }} parentanchor = center }}
-{indent}\tusing = bg_circle_piechart
+{indent}\tpiechart = {{
+{indent}\t\tsize = {{ 72 72 }}
+{indent}\t\tusing = piechart_angles
+{indent}\t\ticon = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = {{ 97% 97% }} parentanchor = center color = {{ 0.20 0.27 0.31 1 }} alpha = 0.32 }}
+{indent}\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self))]" color = {{ 0.82 0.62 0.22 1 }} alpha = 0.85 }}
+{indent}\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self)))]" color = {{ 0.28 0.47 0.56 1 }} alpha = 0.75 }}
+{indent}\t\ticon = {{ texture = "gfx/interface/icons/flat_icons/market_wealth.dds" size = {{ 34 34 }} parentanchor = center }}
+{indent}\t\tusing = bg_circle_piechart
+{indent}\t}}
 {indent}}}"""
 
 
