@@ -2161,17 +2161,19 @@ tv_govhouse_refresh_governor_display_effect = {
 			limit = { exists = scope:tv_display_region }
 			set_local_variable = { name = tv_display_region_key value = scope:tv_display_region }
 			clear_saved_scope = tv_display_location
-			if = {
-				limit = {
-					is_key_in_variable_map = {
-						name = tv_govhouse_region_to_admin_location_map
-						target = local_var:tv_display_region_key
+			scope:tv_governing_country = {
+				if = {
+					limit = {
+						is_key_in_variable_map = {
+							name = tv_govhouse_region_to_admin_location_map
+							target = local_var:tv_display_region_key
+						}
 					}
-				}
-				"variable_map(tv_govhouse_region_to_admin_location_map|local_var:tv_display_region_key)" = {
-					if = {
-						limit = { owner ?= scope:tv_governing_country }
-						save_scope_as = tv_display_location
+					"variable_map(tv_govhouse_region_to_admin_location_map|local_var:tv_display_region_key)" = {
+						if = {
+							limit = { owner ?= scope:tv_governing_country }
+							save_scope_as = tv_display_location
+						}
 					}
 				}
 			}
@@ -2276,17 +2278,19 @@ tv_govhouse_refresh_governor_display_effect = {
 		save_scope_as = tv_display_region
 		set_local_variable = { name = tv_display_region_key value = scope:tv_display_region }
 		clear_saved_scope = tv_display_location
-		if = {
-			limit = {
-				is_key_in_variable_map = {
-					name = tv_govhouse_region_to_admin_location_map
-					target = local_var:tv_display_region_key
+		scope:tv_governing_country = {
+			if = {
+				limit = {
+					is_key_in_variable_map = {
+						name = tv_govhouse_region_to_admin_location_map
+						target = local_var:tv_display_region_key
+					}
 				}
-			}
-			"variable_map(tv_govhouse_region_to_admin_location_map|local_var:tv_display_region_key)" = {
-				if = {
-					limit = { owner ?= scope:tv_governing_country }
-					save_scope_as = tv_display_location
+				"variable_map(tv_govhouse_region_to_admin_location_map|local_var:tv_display_region_key)" = {
+					if = {
+						limit = { owner ?= scope:tv_governing_country }
+						save_scope_as = tv_display_location
+					}
 				}
 			}
 		}
