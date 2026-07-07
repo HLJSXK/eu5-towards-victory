@@ -188,6 +188,15 @@ tv_govhouse.7 = {
 	}
 }
 
+tv_govhouse.8 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		tv_governor_request_appointment_effect = yes
+	}
+}
+
 tv_govhouse.10 = {
 	type = country_event
 	title = tv_govhouse.10.t

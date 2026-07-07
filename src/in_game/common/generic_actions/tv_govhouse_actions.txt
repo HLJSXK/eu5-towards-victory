@@ -140,9 +140,16 @@ tv_appoint_governor = {
 	}
 
 	effect = {
-		scope:actor = {
-			hidden_effect = {
-				tv_governor_request_appointment_effect = yes
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_APPOINT_GOVERNOR_EFFECT_TT
+				scope:actor = {
+					trigger_event_silently = { id = tv_govhouse.8 }
+				}
 			}
 		}
 	}
@@ -499,9 +506,16 @@ tv_change_governor = {
 	}
 
 	effect = {
-		scope:actor = {
-			hidden_effect = {
-				tv_governor_request_appointment_effect = yes
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_APPOINT_GOVERNOR_EFFECT_TT
+				scope:actor = {
+					trigger_event_silently = { id = tv_govhouse.8 }
+				}
 			}
 		}
 	}
