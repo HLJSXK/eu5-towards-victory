@@ -549,40 +549,50 @@ organization_panel = {
 										}
 									}
 								}
-								hbox = {
-									size = { 470 24 }
+								widget = {
 									layoutpolicy_horizontal = fixed
 									layoutpolicy_vertical = fixed
-									spacing = 65
-									text_single = {
-										size = { 42 22 }
-										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_year').GetValue|0]"
-										fontsize = 13
-										align = center|nobaseline
-									}
-									text_single = {
-										size = { 42 22 }
-										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_year').GetValue|0]"
-										fontsize = 13
-										align = center|nobaseline
-									}
-									text_single = {
-										size = { 42 22 }
-										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_year').GetValue|0]"
-										fontsize = 13
-										align = center|nobaseline
-									}
-									text_single = {
-										size = { 42 22 }
-										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_year').GetValue|0]"
-										fontsize = 13
-										align = center|nobaseline
-									}
-									text_single = {
-										size = { 42 22 }
-										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_year').GetValue|0]"
-										fontsize = 13
-										align = center|nobaseline
+									size = { 470 24 }
+									hbox = {
+										size = { 470 24 }
+										layoutpolicy_horizontal = fixed
+										layoutpolicy_vertical = fixed
+										spacing = 65
+										text_single = {
+											size = { 42 22 }
+											raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_year').GetValue|0]"
+											fontsize = 13
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											size = { 42 22 }
+											raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_year').GetValue|0]"
+											fontsize = 13
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											size = { 42 22 }
+											raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_year').GetValue|0]"
+											fontsize = 13
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											size = { 42 22 }
+											raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_year').GetValue|0]"
+											fontsize = 13
+											autoresize = no
+											align = center|nobaseline
+										}
+										text_single = {
+											size = { 42 22 }
+											raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_year').GetValue|0]"
+											fontsize = 13
+											autoresize = no
+											align = center|nobaseline
+										}
 									}
 								}
 							}
