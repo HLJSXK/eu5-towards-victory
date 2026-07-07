@@ -149,6 +149,28 @@ tv_research_has_unresearched_age_5_frontier_trigger = {
 	}
 }
 
+tv_research_has_unresearched_current_or_earlier_frontier_trigger = {
+	OR = {
+		tv_research_has_unresearched_age_1_frontier_trigger = yes
+		AND = {
+			current_age_or_later = { age = age_2_renaissance }
+			tv_research_has_unresearched_age_2_frontier_trigger = yes
+		}
+		AND = {
+			current_age_or_later = { age = age_3_discovery }
+			tv_research_has_unresearched_age_3_frontier_trigger = yes
+		}
+		AND = {
+			current_age_or_later = { age = age_4_reformation }
+			tv_research_has_unresearched_age_4_frontier_trigger = yes
+		}
+		AND = {
+			current_age_or_later = { age = age_5_absolutism }
+			tv_research_has_unresearched_age_5_frontier_trigger = yes
+		}
+	}
+}
+
 tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = {
 	tv_research_has_unresearched_age_1_frontier_trigger = yes
 }
@@ -174,6 +196,46 @@ tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = {
 		tv_research_has_unresearched_age_2_frontier_trigger = yes
 		tv_research_has_unresearched_age_3_frontier_trigger = yes
 		tv_research_has_unresearched_age_4_frontier_trigger = yes
+	}
+}
+
+tv_research_proposal_includes_age_2_frontier_trigger = {
+	OR = {
+		current_age_or_later = { age = age_2_renaissance }
+		AND = {
+			NOT = { tv_research_has_unresearched_current_or_earlier_frontier_trigger = yes }
+			NOT = { tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = yes }
+		}
+	}
+}
+
+tv_research_proposal_includes_age_3_frontier_trigger = {
+	OR = {
+		current_age_or_later = { age = age_3_discovery }
+		AND = {
+			NOT = { tv_research_has_unresearched_current_or_earlier_frontier_trigger = yes }
+			NOT = { tv_research_has_unresearched_earlier_than_age_3_frontier_trigger = yes }
+		}
+	}
+}
+
+tv_research_proposal_includes_age_4_frontier_trigger = {
+	OR = {
+		current_age_or_later = { age = age_4_reformation }
+		AND = {
+			NOT = { tv_research_has_unresearched_current_or_earlier_frontier_trigger = yes }
+			NOT = { tv_research_has_unresearched_earlier_than_age_4_frontier_trigger = yes }
+		}
+	}
+}
+
+tv_research_proposal_includes_age_5_frontier_trigger = {
+	OR = {
+		current_age_or_later = { age = age_5_absolutism }
+		AND = {
+			NOT = { tv_research_has_unresearched_current_or_earlier_frontier_trigger = yes }
+			NOT = { tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = yes }
+		}
 	}
 }
 
