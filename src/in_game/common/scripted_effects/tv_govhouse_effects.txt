@@ -3435,10 +3435,12 @@ tv_govhouse_clear_pending_local_administration_effect = {
 	remove_variable = tv_govhouse_pending_governor_region
 	remove_variable = tv_govhouse_pending_local_admin_location
 	remove_variable = tv_govhouse_pending_from_automation
+	remove_variable = tv_govhouse_local_admin_construction_completed
 	clear_saved_scope = tv_govhouse_pending_country
 	clear_saved_scope = tv_govhouse_pending_governor_scope
 	clear_saved_scope = tv_govhouse_pending_region_scope
 	clear_saved_scope = tv_govhouse_pending_local_admin_scope
+	clear_saved_scope = tv_govhouse_completed_local_admin_scope
 }
 
 # Reads the stable admin map for scope:tv_govhouse_target_region.
@@ -3572,6 +3574,28 @@ tv_govhouse_request_local_administration_confirmation_effect = {
 	}
 }
 
+# Handles the Local Administration construction completion hook and resumes the
+# pending appointment that opened the construction confirmation event.
+# Scope: country. scope:tv_govhouse_completed_local_admin_scope = built location.
+tv_govhouse_handle_local_administration_construction_ended_effect = {
+	save_scope_as = tv_governing_country
+	if = {
+		limit = {
+			has_variable = tv_govhouse_pending_governor_char
+			has_variable = tv_govhouse_pending_governor_region
+			has_variable = tv_govhouse_pending_local_admin_location
+			exists = scope:tv_govhouse_completed_local_admin_scope
+			var:tv_govhouse_pending_local_admin_location ?= {
+				this = scope:tv_govhouse_completed_local_admin_scope
+			}
+		}
+		set_variable = { name = tv_govhouse_local_admin_construction_completed value = 1 }
+		tv_govhouse_confirm_local_administration_effect = yes
+		remove_variable = tv_govhouse_local_admin_construction_completed
+	}
+	clear_saved_scope = tv_govhouse_completed_local_admin_scope
+}
+
 # Accepts the Local Administration construction confirmation and resumes appointment.
 # Scope: country.
 tv_govhouse_confirm_local_administration_effect = {
@@ -3604,7 +3628,12 @@ tv_govhouse_confirm_local_administration_effect = {
 			scope:tv_govhouse_selected_admin_location = {
 				this = scope:tv_govhouse_pending_local_admin_scope
 				owner ?= scope:tv_governing_country
-				has_building_with_at_least_one_level = tv_govhouse_local_administration
+				OR = {
+					has_building_with_at_least_one_level = tv_govhouse_local_administration
+					scope:tv_governing_country = {
+						has_variable = tv_govhouse_local_admin_construction_completed
+					}
+				}
 			}
 			scope:target = {
 				is_alive = yes

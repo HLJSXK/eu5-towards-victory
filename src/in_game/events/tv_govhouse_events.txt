@@ -131,9 +131,6 @@ tv_govhouse.5 = {
 				instant = yes
 			}
 		}
-		hidden_effect = {
-			trigger_event_silently = { id = tv_govhouse.6 }
-		}
 	}
 
 	option = {
@@ -141,26 +138,6 @@ tv_govhouse.5 = {
 		hidden_effect = {
 			tv_govhouse_clear_pending_local_administration_effect = yes
 		}
-	}
-}
-
-tv_govhouse.6 = {
-	type = country_event
-	outcome = neutral
-	title = empty_text
-	desc = empty_text
-	hidden = yes
-
-	trigger = {
-		hidden_trigger = {
-			has_variable = tv_govhouse_pending_governor_char
-			has_variable = tv_govhouse_pending_governor_region
-			has_variable = tv_govhouse_pending_local_admin_location
-		}
-	}
-
-	immediate = {
-		tv_govhouse_confirm_local_administration_effect = yes
 	}
 }
 
