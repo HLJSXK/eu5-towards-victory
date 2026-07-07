@@ -84,8 +84,11 @@ tv_appoint_governor = {
 			scope:target_1 = {
 				custom_tooltip = {
 					text = TV_GOVHOUSE_REGION_OWNED_TT
-					any_location_in_region = {
-						owner ?= scope:actor
+					scope:actor = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_region_list
+							target = scope:target_1
+						}
 					}
 				}
 			}
@@ -185,9 +188,6 @@ tv_auto_assign_governors = {
 			scope:actor = {
 				any_in_list = { variable = tv_govhouse_region_list
 					save_temporary_scope_as = tv_govhouse_auto_candidate_region
-					any_location_in_region = {
-						owner ?= scope:actor
-					}
 					NOT = {
 						scope:actor = {
 							any_in_list = { variable = tv_governor_list
@@ -367,8 +367,11 @@ tv_remove_governor = {
 			scope:target_1 = {
 				custom_tooltip = {
 					text = TV_GOVHOUSE_REGION_OWNED_TT
-					any_location_in_region = {
-						owner ?= scope:actor
+					scope:actor = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_region_list
+							target = scope:target_1
+						}
 					}
 				}
 			}
@@ -442,8 +445,11 @@ tv_change_governor = {
 			scope:target_1 = {
 				custom_tooltip = {
 					text = TV_GOVHOUSE_REGION_OWNED_TT
-					any_location_in_region = {
-						owner ?= scope:actor
+					scope:actor = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_region_list
+							target = scope:target_1
+						}
 					}
 				}
 			}

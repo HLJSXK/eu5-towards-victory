@@ -1,20 +1,31 @@
 ﻿# Towards Victory — Governor's House on_action hooks
 
-# Monthly maintenance for governor modifiers and display variables.
-tv_govhouse_governor_bonuses_monthly_pulse = {
-	trigger = {
-		custom_tooltip = {
-			text = TV_HAS_GOVHOUSE_MEMBER_TT
-			has_variable = tv_govhouse_member
-		}
-		any_international_organizations_member_of = {
-			international_organization_type = international_organization_type:tv_govhouse
-			leader_country ?= root
-		}
-	}
+tv_govhouse_initialize_on_game_start = {
 	effect = {
 		hidden_effect = {
-			tv_apply_governor_bonuses_effect = yes
+			every_country = {
+				limit = { has_variable = tv_govhouse_member }
+				tv_govhouse_initialize_country_cache_effect = yes
+			}
+		}
+	}
+}
+
+tv_govhouse_initialize_on_game_load = {
+	effect = {
+		hidden_effect = {
+			every_country = {
+				limit = { has_variable = tv_govhouse_member }
+				tv_govhouse_initialize_country_cache_effect = yes
+			}
+		}
+	}
+}
+
+tv_govhouse_capital_moved = {
+	effect = {
+		hidden_effect = {
+			tv_govhouse_handle_capital_moved_effect = yes
 		}
 	}
 }
@@ -223,14 +234,9 @@ tv_govhouse_governor_events_monthly_pulse = {
 			text = TV_HAS_GOVERNOR_LIST_TT
 			has_variable = tv_governor_list
 		}
-		any_in_list = { variable = tv_governor_list
-			is_alive = yes
-			has_variable = tv_governed_region
-			var:tv_governed_region ?= {
-				any_location_in_region = {
-					owner ?= root
-				}
-			}
+		custom_tooltip = {
+			text = TV_HAS_GOVERNOR_LIST_TT
+			has_variable = tv_govhouse_has_valid_governor
 		}
 	}
 	random_events = {
@@ -286,12 +292,7 @@ tv_govhouse_governor_tasks_yearly_pulse = {
 
 tv_govhouse_location_changed_owner = {
 	effect = {
-		scope:loser ?= {
-			tv_govhouse_auto_assign_if_enabled_effect = yes
-		}
-		scope:winner ?= {
-			tv_govhouse_auto_assign_if_enabled_effect = yes
-		}
+		tv_govhouse_handle_location_changed_owner_effect = yes
 	}
 }
 
@@ -309,7 +310,7 @@ tv_govhouse_governor_moved_country = {
 			tv_governor_clear_assignment_effect = yes
 			scope:tv_governing_country = {
 				remove_list_variable = { name = tv_governor_list target = scope:tv_moved_governor }
-				tv_govhouse_refresh_region_list_effect = yes
+				tv_govhouse_refresh_governor_display_effect = yes
 				tv_govhouse_auto_assign_if_enabled_effect = yes
 			}
 		}
@@ -329,7 +330,7 @@ tv_govhouse_new_ruler = {
 			tv_governor_clear_assignment_effect = yes
 		}
 		remove_list_variable = { name = tv_governor_list target = scope:tv_promoted_governor }
-		tv_govhouse_refresh_region_list_effect = yes
+		tv_govhouse_refresh_governor_display_effect = yes
 		tv_govhouse_auto_assign_if_enabled_effect = yes
 	}
 }
@@ -532,7 +533,7 @@ tv_govhouse_governor_death = {
 			tv_governor_clear_assignment_effect = yes
 		}
 		remove_list_variable = { name = tv_governor_list target = scope:tv_dead_governor }
-		tv_govhouse_refresh_region_list_effect = yes
+		tv_govhouse_refresh_governor_display_effect = yes
 		tv_govhouse_auto_assign_if_enabled_effect = yes
 	}
 }

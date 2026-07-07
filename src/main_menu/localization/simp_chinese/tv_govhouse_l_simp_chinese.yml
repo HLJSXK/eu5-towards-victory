@@ -336,8 +336,12 @@
 
  tv_govhouse.5.t: "[tv_local_governor|E]：需要地方行政部门"
  tv_govhouse.5.d: "在[tv_govhouse|E]于[SCOPE.sLocation('tv_govhouse_pending_local_admin_scope').GetName]设立常设地方机构之前，[SCOPE.sCharacter('tv_govhouse_pending_governor_scope').GetShortNameWithNoTooltip]无法治理该区域。首都区域已经受中央总督府直接覆盖，但远方领土需要自己的书记、印信、卫队与档案，地方总督才能以我国名义统治。"
- tv_govhouse.5.a: "花费400杜卡特建设地方行政部门。"
+ tv_govhouse.5.a: "建设地方行政部门。"
  tv_govhouse.5.b: "取消任命。"
+
+ tv_govhouse.7.t: "[tv_local_governor|E]：地方行政部门丢失"
+ tv_govhouse.7.d: "一处区域指定地方机关已经脱离我国控制。那里的档案、印信与吏员不再能承接[tv_govhouse|E]权威；在重新指定行政驻点并完成地方行政部门前，[tv_local_governor|E]无法继续治理该区域。"
+ tv_govhouse.7.a: "重建地方行政。"
 
  # ── 权力失衡负面事件 ───────────────────────────────────────────────────────
  tv_govhouse.10.t: "[tv_govhouse_power_balance|E]：地方怨声"

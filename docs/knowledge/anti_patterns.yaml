@@ -781,6 +781,17 @@
   source: "In-game runtime test, 2026-06-05: tv_engineering_department.200 and .201 rendered dynamic module construct/demolition effects after replacing the same-chain tv_wonder_locked * 10 + part map key with per-part maps keyed directly by tv_wonder_locked; helper-building construction already rendered through tv_wonder_id_to_helper_building_type."
   notes: "The failed chain was set_variable/change_variable of tv_wonder_module_building_key followed by set_local_variable value = global_variable_map(tv_wonder_module_key_to_building_type|var:tv_wonder_module_building_key) and building_type = local_var:tv_wonder_module_building_type. The working chain branches on tv_wonder_last_completed_part, captures from tv_wonder_id_to_<part>_module_building_type keyed by var:tv_wonder_locked, and then runs construct_building/change_building_level_in_location with local_var:tv_wonder_module_building_type. This preserves variable_map/numeric-id architecture without generated per-wonder dispatch tables."
 
+- id: event_building_cost_manual_text_hidden_construction
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['events', 'scripted_effects', 'localization']
+  bad: "Event option text manually states a building cost while the real construction is hidden behind pay_price plus free or silent construct_building"
+  correction: "Put real building construction in the visible option effect chain when the player should see the cost. Let `construct_building` / `change_building_level_in_location` render the building name, price, and modifiers automatically. Use manual `pay_price` and hidden construction only for intentionally hidden or nonstandard funding flows."
+  category: event
+  scope: building
+  source: "tv_govhouse.5 Local Administration confirmation cleanup, 2026-07-07"
+  notes: "The Governor's House local-administration event option said 'Build ... for 400 ducats' while a hidden follow-up paid tv_govhouse_local_administration_price and constructed the building with cost_multiplier = 0. Moving construct_building into the visible option made the engine render the actual building cost and avoids stale duplicated cost text."
+
 - id: generic_action_effect_reads_newly_set_variable
   detectability: needs_parser
   pattern: ''

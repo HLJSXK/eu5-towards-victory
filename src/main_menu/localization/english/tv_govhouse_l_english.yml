@@ -337,8 +337,12 @@
 
  tv_govhouse.5.t: "[tv_local_governor|E]: A Local Administration Is Required"
  tv_govhouse.5.d: "[SCOPE.sCharacter('tv_govhouse_pending_governor_scope').GetShortNameWithNoTooltip] cannot govern this region until the [tv_govhouse|E] establishes a permanent local office at [SCOPE.sLocation('tv_govhouse_pending_local_admin_scope').GetName]. The capital region already answers to the central house, but distant territories require their own clerks, seals, guards, and records before a [tv_local_governor|E] can rule in our name."
- tv_govhouse.5.a: "Build the local administration for 400 ducats."
+ tv_govhouse.5.a: "Build the local administration."
  tv_govhouse.5.b: "Cancel the appointment."
+
+ tv_govhouse.7.t: "[tv_local_governor|E]: Local Administration Lost"
+ tv_govhouse.7.d: "A region's appointed local office has passed out of our control. Its records, seals, and staff can no longer anchor our authority there, and the [tv_govhouse|E] must designate a new administrative point before a [tv_local_governor|E] can govern the region again."
+ tv_govhouse.7.a: "Rebuild the administration."
 
  # ── Balance-of-power backlash events ───────────────────────────────────────
  tv_govhouse.10.t: "[tv_govhouse_power_balance|E]：Murmurs in the District"
