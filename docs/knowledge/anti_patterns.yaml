@@ -2058,6 +2058,18 @@
   source: "runtime error.log, 2026-06: AUTO_MODIFIER_NAME_tv_wonder_auto_pirate_port_unscaled and AUTO_MODIFIER_NAME_tv_wonder_auto_unique_algiers_pirate_port_unscaled"
   notes: "Hidden Country Auto modifiers still load as modifier database entries and the localization system requests their AUTO_MODIFIER_NAME keys during startup."
 
+- id: static_modifier_missing_name_localization
+  pattern: ''
+  detectability: lint
+  validator: check_static_modifier_name_loc_coverage
+  only_in_paths: ['static_modifiers', 'localization']
+  bad: "Emitting a common/static_modifiers id without matching STATIC_MODIFIER_NAME_<id> localization in every supported main-menu language"
+  correction: "Generate or add STATIC_MODIFIER_NAME_<id> for every static modifier id, including generated display-only families used by ShowModifierEffect."
+  category: localization
+  scope: modifier
+  source: "runtime error.log, 2026-07: STATIC_MODIFIER_NAME_tv_trade_chain_strength_display_18980 through _18984 fell back to generated English text"
+  notes: "Static modifiers load as modifier database entries and the localization system requests their STATIC_MODIFIER_NAME keys during startup or GUI display. scripts/validate.py checks static modifiers in both in_game and main_menu common/static_modifiers against all supported main-menu localization languages."
+
 - id: eu5_1_2_cost_modifier_compatibility
   pattern: ''
   detectability: advisory

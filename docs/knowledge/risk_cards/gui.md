@@ -121,7 +121,8 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     If GUI builds modifier ids with `Concatenate(...)`, such as
     `tv_wonder_display_<id>_level_<level>` or
     `tv_wonder_display_<id>_local_level_<level>`, generate matching static
-    display modifiers and an unreachable script block with
+    display modifiers, matching `STATIC_MODIFIER_NAME_<id>` localization in
+    every supported language, and an unreachable script block with
     `if = { limit = { always = no } ... }` that applies every possible country
     or location display modifier through the correct `add_*_modifier` effect.
     Scripted-effect tooltip previews have the same database boundary:

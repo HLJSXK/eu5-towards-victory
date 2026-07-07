@@ -1157,6 +1157,11 @@ tv_reference_display_modifiers_effect = {
 
 The `always = no` guard prevents runtime state changes while leaving static modifier references in a loaded script file.
 
+Every generated static display modifier also needs matching `STATIC_MODIFIER_NAME_<id>`
+localization in each supported `main_menu/localization` language. The modifier database
+requests the name key even when the modifier is display-only; missing keys can fall back to
+generated text such as `STATIC MODIFIER NAME tv trade chain strength display 18980`.
+
 `add_country_modifier` validates against static country modifiers, not `common/auto_modifiers`.
 Country Auto modifiers can drive real automatic country effects through their own
 `potential_trigger`, but their ids are invalid database objects for
