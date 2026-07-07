@@ -352,7 +352,7 @@ organization_panel = {
 										using = progress_bar_blue_alt
 										min = 0
 										max = 100
-										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue]"
+										value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue]"
 									}
 								}
 								hbox = {
@@ -1720,13 +1720,13 @@ organization_panel = {
 													using = progress_bar_blue_alt
 													min = 0
 													max = 100
-													value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue]"
+													value = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue]"
 													tooltip = "TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"
 												}
 											}
 											text_single = {
 												size = { 74 22 }
-												raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue|0]%"
+												raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_academy_philosophy_debate_position').GetValue|0]%"
 												fontsize = 13
 												tooltip = "TV_ACADEMY_DEBATE_LOCAL_PROGRESS_TT"
 												align = right|nobaseline

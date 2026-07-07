@@ -26,6 +26,35 @@ tv_academy_debate_clear_event_state_effect = {
 	remove_variable = tv_academy_debate_recent_war_lost
 }
 
+tv_academy_debate_change_local_progress_effect = {
+	custom_description = {
+		text = tv_academy_debate_change_local_progress_text
+		value = $value$
+		every_international_organizations_member_of = {
+			limit = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
+			change_variable = { name = tv_academy_philosophy_debate_position add = $value$ }
+			clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+		}
+	}
+}
+
+tv_academy_debate_set_local_progress_effect = {
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_academy_of_sciences
+			leader_country ?= root
+		}
+		set_local_variable = { name = tv_academy_debate_local_progress_delta value = $value$ }
+		change_local_variable = { name = tv_academy_debate_local_progress_delta subtract = var:tv_academy_philosophy_debate_position }
+		leader_country ?= {
+			tv_academy_debate_change_local_progress_effect = { value = local_var:tv_academy_debate_local_progress_delta }
+		}
+	}
+}
+
 tv_academy_debate_clear_all_seats_effect = {
 	tv_academy_debate_clear_seat_1_effect = yes
 	tv_academy_debate_clear_seat_2_effect = yes
@@ -107,7 +136,7 @@ tv_academy_debate_initialize_global_maps_effect = {
 
 tv_academy_debate_initialize_debate_effect = {
 	tv_academy_debate_clear_all_seats_effect = yes
-	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+	tv_academy_debate_set_local_progress_effect = { value = 50 }
 }
 
 tv_academy_debate_cleanup_debate_effect = {
@@ -2996,8 +3025,7 @@ tv_academy_debate_apply_monthly_progress_effect = {
 	tv_academy_debate_apply_seat_3_monthly_progress_effect = yes
 	tv_academy_debate_apply_seat_4_monthly_progress_effect = yes
 	tv_academy_debate_apply_seat_5_monthly_progress_effect = yes
-	change_variable = { name = tv_academy_philosophy_debate_position add = var:tv_academy_philosophy_monthly_delta }
-	clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+	tv_academy_debate_change_local_progress_effect = { value = var:tv_academy_philosophy_monthly_delta }
 }
 
 tv_academy_debate_apply_seat_monthly_progress_effect = {
@@ -6383,7 +6411,11 @@ tv_academy_philosophy_check_debate_endpoint_effect = {
 		limit = {
 			var:tv_academy_philosophy_phase ?= 1
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			var:tv_academy_philosophy_debate_position >= 100
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+				var:tv_academy_philosophy_debate_position >= 100
+			}
 		}
 		set_variable = { name = tv_academy_philosophy_result_pending value = 1 }
 		set_variable = { name = tv_academy_philosophy_result_issue value = var:tv_academy_philosophy_current }
@@ -6395,7 +6427,11 @@ tv_academy_philosophy_check_debate_endpoint_effect = {
 		limit = {
 			var:tv_academy_philosophy_phase ?= 1
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			var:tv_academy_philosophy_debate_position <= 0
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+				var:tv_academy_philosophy_debate_position <= 0
+			}
 		}
 		set_variable = { name = tv_academy_philosophy_result_pending value = 1 }
 		set_variable = { name = tv_academy_philosophy_result_issue value = var:tv_academy_philosophy_current }
@@ -6443,7 +6479,10 @@ tv_academy_debate_action_trigger_meritocracy_positive_on_cabinet_assigned_1_effe
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 1
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6451,8 +6490,7 @@ tv_academy_debate_action_trigger_meritocracy_positive_on_cabinet_assigned_1_effe
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6471,7 +6509,10 @@ tv_academy_debate_action_trigger_meritocracy_positive_on_bureaucracy_added_2_eff
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 1
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6479,8 +6520,7 @@ tv_academy_debate_action_trigger_meritocracy_positive_on_bureaucracy_added_2_eff
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6499,7 +6539,10 @@ tv_academy_debate_action_trigger_meritocracy_negative_on_cabinet_removed_1_effec
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 1
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6507,8 +6550,7 @@ tv_academy_debate_action_trigger_meritocracy_negative_on_cabinet_removed_1_effec
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6527,7 +6569,10 @@ tv_academy_debate_action_trigger_meritocracy_negative_on_reform_change_2_effect 
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 1
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6535,8 +6580,7 @@ tv_academy_debate_action_trigger_meritocracy_negative_on_reform_change_2_effect 
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6555,7 +6599,10 @@ tv_academy_debate_action_trigger_renaissance_positive_on_work_of_art_created_1_e
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 2
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6563,8 +6610,7 @@ tv_academy_debate_action_trigger_renaissance_positive_on_work_of_art_created_1_e
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6583,7 +6629,10 @@ tv_academy_debate_action_trigger_renaissance_positive_building_completed_2_effec
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 2
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6591,8 +6640,7 @@ tv_academy_debate_action_trigger_renaissance_positive_building_completed_2_effec
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6611,7 +6659,10 @@ tv_academy_debate_action_trigger_renaissance_negative_on_work_of_art_looted_1_ef
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 2
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6619,8 +6670,7 @@ tv_academy_debate_action_trigger_renaissance_negative_on_work_of_art_looted_1_ef
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6639,7 +6689,10 @@ tv_academy_debate_action_trigger_renaissance_negative_on_location_occupied_2_eff
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 2
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6647,8 +6700,7 @@ tv_academy_debate_action_trigger_renaissance_negative_on_location_occupied_2_eff
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6667,7 +6719,10 @@ tv_academy_debate_action_trigger_renaissance_negative_on_siege_won_3_effect = {
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 2
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6675,8 +6730,7 @@ tv_academy_debate_action_trigger_renaissance_negative_on_siege_won_3_effect = {
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6695,7 +6749,10 @@ tv_academy_debate_action_trigger_banking_positive_on_loan_repaid_1_effect = {
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 3
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6703,8 +6760,7 @@ tv_academy_debate_action_trigger_banking_positive_on_loan_repaid_1_effect = {
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6723,7 +6779,10 @@ tv_academy_debate_action_trigger_banking_positive_on_parliament_passed_2_effect 
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 3
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6731,8 +6790,7 @@ tv_academy_debate_action_trigger_banking_positive_on_parliament_passed_2_effect 
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6751,7 +6809,10 @@ tv_academy_debate_action_trigger_banking_positive_on_policy_changed_3_effect = {
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 3
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6759,8 +6820,7 @@ tv_academy_debate_action_trigger_banking_positive_on_policy_changed_3_effect = {
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6779,7 +6839,10 @@ tv_academy_debate_action_trigger_banking_negative_on_loan_renewed_1_effect = {
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 3
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6787,8 +6850,7 @@ tv_academy_debate_action_trigger_banking_negative_on_loan_renewed_1_effect = {
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6807,7 +6869,10 @@ tv_academy_debate_action_trigger_banking_negative_on_bankruptcy_2_effect = {
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 3
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6815,8 +6880,7 @@ tv_academy_debate_action_trigger_banking_negative_on_bankruptcy_2_effect = {
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6835,7 +6899,10 @@ tv_academy_debate_action_trigger_new_world_positive_on_exploration_success_1_eff
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 4
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6843,8 +6910,7 @@ tv_academy_debate_action_trigger_new_world_positive_on_exploration_success_1_eff
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6863,7 +6929,10 @@ tv_academy_debate_action_trigger_new_world_positive_on_colonial_charter_finished
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 4
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6871,8 +6940,7 @@ tv_academy_debate_action_trigger_new_world_positive_on_colonial_charter_finished
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6891,7 +6959,10 @@ tv_academy_debate_action_trigger_new_world_negative_on_colonial_charter_failed_1
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 4
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6899,8 +6970,7 @@ tv_academy_debate_action_trigger_new_world_negative_on_colonial_charter_failed_1
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6919,7 +6989,10 @@ tv_academy_debate_action_trigger_new_world_negative_on_took_location_in_peace_tr
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 4
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6927,8 +7000,7 @@ tv_academy_debate_action_trigger_new_world_negative_on_took_location_in_peace_tr
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6947,7 +7019,10 @@ tv_academy_debate_action_trigger_printing_press_positive_on_work_of_art_created_
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 5
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6955,8 +7030,7 @@ tv_academy_debate_action_trigger_printing_press_positive_on_work_of_art_created_
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -6975,7 +7049,10 @@ tv_academy_debate_action_trigger_printing_press_positive_building_completed_2_ef
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 5
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -6983,8 +7060,7 @@ tv_academy_debate_action_trigger_printing_press_positive_building_completed_2_ef
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7003,7 +7079,10 @@ tv_academy_debate_action_trigger_printing_press_negative_on_work_of_art_destroye
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 5
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7011,8 +7090,7 @@ tv_academy_debate_action_trigger_printing_press_negative_on_work_of_art_destroye
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7031,7 +7109,10 @@ tv_academy_debate_action_trigger_printing_press_negative_on_work_of_art_looted_2
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 5
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7039,8 +7120,7 @@ tv_academy_debate_action_trigger_printing_press_negative_on_work_of_art_looted_2
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7059,7 +7139,10 @@ tv_academy_debate_action_trigger_printing_press_negative_on_policy_changed_3_eff
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 5
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7067,8 +7150,7 @@ tv_academy_debate_action_trigger_printing_press_negative_on_policy_changed_3_eff
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7087,7 +7169,10 @@ tv_academy_debate_action_trigger_confessionalism_positive_on_religion_changed_1_
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 6
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7095,8 +7180,7 @@ tv_academy_debate_action_trigger_confessionalism_positive_on_religion_changed_1_
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7115,7 +7199,10 @@ tv_academy_debate_action_trigger_confessionalism_positive_on_winning_war_2_effec
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 6
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7123,8 +7210,7 @@ tv_academy_debate_action_trigger_confessionalism_positive_on_winning_war_2_effec
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7143,7 +7229,10 @@ tv_academy_debate_action_trigger_confessionalism_negative_on_losing_war_1_effect
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 6
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7151,8 +7240,7 @@ tv_academy_debate_action_trigger_confessionalism_negative_on_losing_war_1_effect
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7171,7 +7259,10 @@ tv_academy_debate_action_trigger_confessionalism_negative_on_policy_changed_2_ef
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 6
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7179,8 +7270,7 @@ tv_academy_debate_action_trigger_confessionalism_negative_on_policy_changed_2_ef
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7199,7 +7289,10 @@ tv_academy_debate_action_trigger_global_trade_positive_on_took_location_in_peace
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 7
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7207,8 +7300,7 @@ tv_academy_debate_action_trigger_global_trade_positive_on_took_location_in_peace
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7227,7 +7319,10 @@ tv_academy_debate_action_trigger_global_trade_positive_on_policy_changed_2_effec
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 7
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7235,8 +7330,7 @@ tv_academy_debate_action_trigger_global_trade_positive_on_policy_changed_2_effec
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7255,7 +7349,10 @@ tv_academy_debate_action_trigger_global_trade_negative_on_location_occupied_1_ef
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 7
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7263,8 +7360,7 @@ tv_academy_debate_action_trigger_global_trade_negative_on_location_occupied_1_ef
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7283,7 +7379,10 @@ tv_academy_debate_action_trigger_global_trade_negative_on_siege_won_2_effect = {
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 7
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7291,8 +7390,7 @@ tv_academy_debate_action_trigger_global_trade_negative_on_siege_won_2_effect = {
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7311,7 +7409,10 @@ tv_academy_debate_action_trigger_global_trade_negative_on_war_declared_3_effect 
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 7
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7319,8 +7420,7 @@ tv_academy_debate_action_trigger_global_trade_negative_on_war_declared_3_effect 
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7339,7 +7439,10 @@ tv_academy_debate_action_trigger_manufactories_positive_building_completed_1_eff
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 8
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7347,8 +7450,7 @@ tv_academy_debate_action_trigger_manufactories_positive_building_completed_1_eff
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7367,7 +7469,10 @@ tv_academy_debate_action_trigger_manufactories_positive_on_policy_changed_2_effe
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 8
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7375,8 +7480,7 @@ tv_academy_debate_action_trigger_manufactories_positive_on_policy_changed_2_effe
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7395,7 +7499,10 @@ tv_academy_debate_action_trigger_manufactories_negative_on_location_occupied_1_e
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 8
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7403,8 +7510,7 @@ tv_academy_debate_action_trigger_manufactories_negative_on_location_occupied_1_e
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7423,7 +7529,10 @@ tv_academy_debate_action_trigger_manufactories_negative_on_siege_won_2_effect = 
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 8
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7431,8 +7540,7 @@ tv_academy_debate_action_trigger_manufactories_negative_on_siege_won_2_effect = 
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7451,7 +7559,10 @@ tv_academy_debate_action_trigger_manufactories_negative_on_bankruptcy_3_effect =
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 8
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7459,8 +7570,7 @@ tv_academy_debate_action_trigger_manufactories_negative_on_bankruptcy_3_effect =
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7479,7 +7589,10 @@ tv_academy_debate_action_trigger_scientific_revolution_positive_on_cabinet_assig
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 9
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7487,8 +7600,7 @@ tv_academy_debate_action_trigger_scientific_revolution_positive_on_cabinet_assig
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7507,7 +7619,10 @@ tv_academy_debate_action_trigger_scientific_revolution_positive_on_work_of_art_c
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 9
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7515,8 +7630,7 @@ tv_academy_debate_action_trigger_scientific_revolution_positive_on_work_of_art_c
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = 5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = 5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7535,7 +7649,10 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_cabinet_remov
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 9
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7543,8 +7660,7 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_cabinet_remov
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7563,7 +7679,10 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_work_of_art_d
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 9
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7571,8 +7690,7 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_work_of_art_d
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
@@ -7591,7 +7709,10 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_work_of_art_l
 			var:tv_academy_philosophy_phase ?= 1
 			var:tv_academy_debate_current_node_type ?= 1
 			tv_academy_philosophy_has_current_issue_trigger = yes
-			has_variable = tv_academy_philosophy_debate_position
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_academy_of_sciences
+				leader_country ?= root
+			}
 			var:tv_academy_philosophy_current ?= 9
 			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
 			NOT = { has_variable = tv_academy_philosophy_result_pending }
@@ -7599,8 +7720,7 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_work_of_art_l
 		}
 		random_list = {
 			25 = {
-				change_variable = { name = tv_academy_philosophy_debate_position add = -5 }
-				clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }
+				tv_academy_debate_change_local_progress_effect = { value = -5 }
 				tv_academy_philosophy_check_debate_endpoint_effect = yes
 				if = {
 					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }

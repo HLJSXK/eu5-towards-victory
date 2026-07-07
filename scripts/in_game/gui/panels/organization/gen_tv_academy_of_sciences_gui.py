@@ -1219,7 +1219,7 @@ def append_round_table(lines: list[str], level: int, visible_expr: str, table_te
         emit(lines, level + 1, "vbox = {")
         emit(lines, level + 2, "position = { 4 292 }")
         emit(lines, level + 2, "size = { 462 28 }")
-        debate_position = player_var("tv_academy_philosophy_debate_position")
+        debate_position = io_var("tv_academy_philosophy_debate_position")
         append_debate_progress_footer(
             lines,
             level + 2,
@@ -1342,7 +1342,7 @@ def append_current_node_card(lines: list[str], level: int) -> None:
 
 
 def append_timeline_card(lines: list[str], level: int) -> None:
-    debate_position = player_var("tv_academy_philosophy_debate_position")
+    debate_position = io_var("tv_academy_philosophy_debate_position")
     emit(lines, level, "card_common = {")
     emit(lines, level + 1, "maximumsize = { 500 -1 }")
     emit(lines, level + 1, 'blockoverride "common_header_icon_texture" {')
