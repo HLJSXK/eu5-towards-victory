@@ -977,8 +977,20 @@ def trade_chain_effects(goods: list[str], chain_data: dict) -> str:
     strong = int(chain_data["strong_strength_threshold"])
     cap = int(chain_data["strength_display_cap"])
     coefficient = float(chain_data["bargaining_efficiency_per_strength"])
+    display_modifier_references = "\n".join(
+        f"\t\tadd_country_modifier = {{ modifier = tv_trade_chain_strength_display_{strength} years = -1 mode = add_and_extend }}"
+        for strength in range(cap + 1)
+    )
     capacity_blocks = "\n".join(chain_capacity_slot_block(slot, "\t\t") for slot in range(1, max_nodes + 1))
     return f"""\
+tv_trade_league_reference_trade_chain_display_modifiers_effect = {{
+\tif = {{
+\t\tlimit = {{ always = no }}
+\t\t# Static references for dynamic ShowModifierEffect display keys.
+{display_modifier_references}
+\t}}
+}}
+
 tv_trade_league_clear_trade_chain_demands_effect = {{
 \thidden_effect = {{
 \t\tsave_scope_as = tv_trade_chain_leader
