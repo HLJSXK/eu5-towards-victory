@@ -2,9 +2,8 @@
 Generate src/in_game/common/laws/tv_govhouse_laws.txt from data/govhouse_laws.yaml.
 
 Pattern: Governor's House IO laws. Policies define additive country_modifier
-blocks for the leader country and keep IO policy votes enabled, matching the
-Academy of Sciences law flow while keeping the visible policy effects available
-outside vote-recipient tooltip contexts.
+blocks for every member country and route law changes through the vanilla IO
+parliament law-vote path, matching the Diplomatic Alliance flow.
 """
 
 import argparse
@@ -31,7 +30,8 @@ FILE_HEADER = (
     "#\n"
     "# TOWARDS VICTORY - GOVERNOR'S HOUSE LAWS\n"
     "# Governor's House law groups and Local Governor Function policies.\n"
-    "# requires_vote = yes: Governor's House law changes use IO policy votes.\n"
+    "# country_modifier blocks intentionally apply to every member country.\n"
+    "# requires_vote = yes: Governor's House law changes use IO parliament votes.\n"
 )
 
 LAW_DIVIDER = "# ------------------------------------------------------------------------------"
@@ -103,12 +103,6 @@ def gen_policy(policy: dict) -> str:
         lines.append(T * 2 + "}")
     if modifier_lines:
         lines.append(T * 2 + "country_modifier = {")
-        lines.append(T * 3 + "potential_trigger = {")
-        lines.append(T * 4 + "OR = {")
-        lines.append(T * 5 + "NOT = { exists = scope:recipient }")
-        lines.append(T * 5 + "is_leader_of_international_organization = scope:recipient")
-        lines.append(T * 4 + "}")
-        lines.append(T * 3 + "}")
         lines.append(_indent_block(modifier_lines, 3))
         lines.append(T * 2 + "}")
     lines.append(T + "}")
@@ -132,7 +126,7 @@ def gen_law(law: dict, default_law_category: str, io_type: str) -> str:
     lines.append(T * 2 + f"international_organization_type = international_organization_type:{io_type}")
     lines.append(T + "}")
     lines.append(T + "allow = {")
-    lines.append(T * 2 + "always = yes")
+    lines.append(T * 2 + "uses_parliament_for_law_votes_trigger = yes")
     lines.append(T + "}")
     lines.append(T + "locked = {")
     lines.append(T + "}")

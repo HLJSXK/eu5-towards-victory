@@ -11,6 +11,8 @@
  tv_govhouse_supreme_overlord_status_desc: "The leading country of a [tv_govhouse|E]. It commands the Governor's House and extends its administration over the attached subject chain."
  tv_govhouse_subject_status: "Subject"
  tv_govhouse_subject_status_desc: "A subject-chain member attached to a [tv_govhouse|E]."
+ tv_govhouse_assembly: "Governor's Assembly"
+ tv_govhouse_assembly_desc:0 "The [tv_govhouse_assembly|E] is where the [tv_govhouse_supreme_overlord_status|E] proposes [tv_govhouse|E] law changes and attached members vote by strength relative to the Supreme Overlord."
  tv_govhouse_local_administration: "Local Administration"
  tv_govhouse_local_administration_desc: "A regional administrative office that anchors the [tv_govhouse|E]'s authority outside the capital region. It cannot be built or demolished manually."
  tv_govhouse_local_administration_price: "$tv_govhouse_local_administration$"
@@ -59,6 +61,8 @@
 
  # ── Governor's House laws ───────────────────────────────────────────────────
  tv_govhouse_laws: "[tv_govhouse|E] Laws"
+ TV_GOVHOUSE_LAWS_TAB: "Governor Laws"
+ TV_GOVHOUSE_ASSEMBLY_TAB: "Assembly"
  TV_GOVHOUSE_LAWS_LAW_CATEGORY: "[tv_govhouse|E] Laws"
  tv_govhouse_grand_general: "[tv_grand_general|E]"
  TV_GOVHOUSE_GRAND_GENERAL_LAW_CATEGORY: "[tv_grand_general|E]"

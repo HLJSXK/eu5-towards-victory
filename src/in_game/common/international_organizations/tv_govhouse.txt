@@ -38,9 +38,10 @@ tv_govhouse = {
 	disband_if_no_leader = no
 	show_on_diplomatic_map = no
 
-	# Governor's House laws use the vanilla IO Laws tab with policy votes.
-	# Keep the separate IO parliament tab hidden, matching the Academy pattern.
-	has_parliament = no
+# Governor's House laws use the vanilla IO parliament law-vote path.
+	has_parliament = yes
+	parliament_type = tv_govhouse_assembly
+	resolution_widget = parliament
 	special_statuses_implemented = { tv_govhouse_supreme_overlord_status tv_govhouse_subject_status }
 
 	variables = {
@@ -279,11 +280,24 @@ tv_govhouse = {
 		is_leader_of_international_organization = scope:recipient
 	}
 
+	can_vote_in_parliament = {
+		"country_highest_rated_special_status_power(scope:recipient)" > 0
+	}
+
 	on_creation = {
+		set_parliament_type = parliament_type:tv_govhouse_assembly
 		if = {
 			limit = { exists = scope:actor }
 			set_leader_country = scope:actor
+			scope:actor = {
+				capital ?= { save_scope_as = tv_govhouse_parliament_seat }
+			}
+			if = {
+				limit = { exists = scope:tv_govhouse_parliament_seat }
+				set_variable = { name = parliament_seat value = scope:tv_govhouse_parliament_seat }
+			}
 		}
+		clear_saved_scope = tv_govhouse_parliament_seat
 	}
 
 	create_visible_trigger = {
