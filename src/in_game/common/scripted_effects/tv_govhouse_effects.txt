@@ -3323,22 +3323,6 @@ tv_govhouse_confirm_local_administration_effect = {
 		var:tv_govhouse_pending_governor_region ?= {
 			save_scope_as = target_1
 		}
-		var:tv_govhouse_pending_local_admin_location ?= {
-			if = {
-				limit = {
-					NOT = { has_building_with_at_least_one_level = tv_govhouse_local_administration }
-				}
-				scope:tv_governing_country = {
-					pay_price = price:tv_govhouse_local_administration_price
-				}
-				construct_building = {
-					building_type = building_type:tv_govhouse_local_administration
-					cost_multiplier = 0
-					cost_multiplier_reason = "game_concept_event"
-					instant = yes
-				}
-			}
-		}
 		if = {
 			limit = {
 				exists = scope:target

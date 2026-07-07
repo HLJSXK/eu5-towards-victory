@@ -325,6 +325,12 @@ construct_building = {
 
 Omitting `cost_multiplier_reason` logs: `No reason given for the cost multiplier in construct_building effect`. Vanilla event-funded construction commonly uses `game_concept_event`, which is already localized.
 
+When a player-facing event option starts normal building construction, prefer a visible
+`construct_building` / `change_building_level_in_location` effect in that option. The engine
+renders the building name, price, and cost modifiers from the effect tooltip. Do not duplicate
+that with option text like "Spend 400 ducats" plus hidden `pay_price` and free construction
+unless the flow is intentionally event-funded, nonstandard, or hidden.
+
 #### Scripted Trigger Parameters That Add Type Prefixes
 
 When a scripted trigger template adds a type prefix around a parameter, pass the bare database id to that parameter. For example, vanilla `location_and_owner_can_build` expands its argument as `building_type:$building_type$`, so the call must be:

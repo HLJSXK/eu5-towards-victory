@@ -121,6 +121,13 @@ tv_govhouse.5 = {
 			}
 			scope:tv_govhouse_pending_local_admin_scope = {
 				owner ?= scope:tv_govhouse_pending_country
+				NOT = { has_building_with_at_least_one_level = tv_govhouse_local_administration }
+			}
+		}
+		scope:tv_govhouse_pending_local_admin_scope = {
+			construct_building = {
+				building_type = building_type:tv_govhouse_local_administration
+				instant = yes
 			}
 		}
 		hidden_effect = {
