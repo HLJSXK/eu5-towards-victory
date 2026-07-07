@@ -210,14 +210,18 @@ def generate(data: dict) -> str:
     emit(lines, 5, "spacing = 4")
     seat = 1
     for _ in range(5):
-        emit(lines, 5, "hbox = {")
+        emit(lines, 5, "widget = {")
         emit(lines, 6, "layoutpolicy_horizontal = fixed")
-        emit(lines, 6, "size = { 456 42 }")
-        emit(lines, 6, "parentanchor = hcenter")
-        emit(lines, 6, "spacing = 4")
+        emit(lines, 6, "size = { 620 42 }")
+        emit(lines, 6, "hbox = {")
+        emit(lines, 7, "layoutpolicy_horizontal = fixed")
+        emit(lines, 7, "size = { 456 42 }")
+        emit(lines, 7, "parentanchor = hcenter")
+        emit(lines, 7, "spacing = 4")
         for _ in range(10):
-            append_world_seat(lines, 6, seat)
+            append_world_seat(lines, 7, seat)
             seat += 1
+        emit(lines, 6, "}")
         emit(lines, 5, "}")
     emit(lines, 5, "expand = {}")
     append_progress_footer(lines, 5, "TV_ACADEMY_WORLD_DEBATE_STRENGTH_TT", "tv_academy_world_debate_strength")
