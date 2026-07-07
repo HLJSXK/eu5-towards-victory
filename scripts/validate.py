@@ -732,6 +732,34 @@ def check_event_option_effect_blocks(path: Path, content: str) -> None:
             )
 
 
+def check_gui_parentanchor_under_hbox_vbox(path: Path, content: str) -> None:
+    """Catch direct hbox/vbox children trying to position themselves."""
+    if path.suffix != ".gui":
+        return
+
+    for box_name in ("hbox", "vbox"):
+        for box_open, box_close in _iter_named_blocks(content, -1, len(content), box_name):
+            for child_name, child_open, child_close in _iter_direct_child_blocks_any(
+                content,
+                box_open,
+                box_close,
+            ):
+                parentanchor_pos = _find_direct_property(
+                    content,
+                    child_open,
+                    child_close,
+                    "parentanchor",
+                )
+                if parentanchor_pos is None:
+                    continue
+                issues.append(
+                    f"[GUI] {path.relative_to(REPO_ROOT)}:{_line_num(content, parentanchor_pos)} -- "
+                    f"`parentanchor` is unsupported on direct {box_name} child `{child_name}`; "
+                    "hboxes/vboxes arrange their children automatically. Use layout policies, "
+                    "expand spacers, or a nested wrapper for centering."
+                )
+
+
 def check_wonder_engine_scaled_fixed_modifiers(path: Path, content: str) -> None:
     """Catch wonder modifier values that EU5 displays 1000x larger than written."""
     rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
@@ -1040,6 +1068,46 @@ def _iter_direct_child_blocks(content: str, start: int, end: int, name: str):
         if depth < 0:
             depth = 0
         abs_line_start += len(line)
+
+
+def _iter_direct_child_blocks_any(content: str, start: int, end: int):
+    """Yield direct child blocks of any simple GUI/script block name."""
+    depth = 0
+    pattern = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*\{")
+    segment = content[start + 1:end]
+    abs_line_start = start + 1
+    for line in segment.splitlines(keepends=True):
+        code = line.split("#", 1)[0]
+        if depth == 0:
+            match = pattern.match(code)
+            if match:
+                open_pos = content.find("{", abs_line_start + match.start(), abs_line_start + len(line))
+                close_pos = _find_matching_brace(content, open_pos) if open_pos != -1 else None
+                if close_pos is not None and close_pos <= end:
+                    yield match.group(1), open_pos, close_pos
+        depth += _brace_delta(line)
+        if depth < 0:
+            depth = 0
+        abs_line_start += len(line)
+
+
+def _find_direct_property(content: str, start: int, end: int, name: str) -> int | None:
+    """Return the first direct property assignment position inside a block."""
+    depth = 0
+    pattern = re.compile(rf"^\s*{re.escape(name)}\s*=")
+    segment = content[start + 1:end]
+    abs_line_start = start + 1
+    for line in segment.splitlines(keepends=True):
+        code = line.split("#", 1)[0]
+        if depth == 0:
+            match = pattern.match(code)
+            if match:
+                return abs_line_start + match.start()
+        depth += _brace_delta(line)
+        if depth < 0:
+            depth = 0
+        abs_line_start += len(line)
+    return None
 
 
 def _iter_direct_on_action_event_entries(content: str, start: int, end: int):
@@ -1529,6 +1597,7 @@ def main():
             )
             if is_game_content:
                 check_anti_patterns(path, content, lint_patterns)
+                check_gui_parentanchor_under_hbox_vbox(path, content)
                 check_wonder_engine_scaled_fixed_modifiers(path, content)
                 check_generic_action_pre_eval_risks(path, content)
                 check_io_policy_ai_scope_recipient_guard(path, content)

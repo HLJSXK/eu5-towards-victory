@@ -151,7 +151,7 @@ When a new EU5 behavior or recurring AI failure is discovered:
 - Update the relevant `docs/knowledge/risk_cards/*.md` file when the issue belongs to an existing high-risk task domain.
 - If a new high-risk domain needs a card, create it and register it in `scripts/ai_context.py` `DOMAIN_RULES`.
 - If a `needs_parser` rule becomes reliably checkable, add the checker to `scripts/validate.py` and update the anti-pattern's `detectability`.
-- If a `detectability: lint` regex is added or changed, add or update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `scripts/test_lint_rules.py` through the Python Runner Policy.
+- If a `detectability: lint` regex or validator is added or changed, add or update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `scripts/test_lint_rules.py` through the Python Runner Policy.
 - If validation reports a new warning, fix it unless the warning is intentionally accepted. Accepted warnings must be recorded in `data/validation_baseline.yaml` with a rationale.
 - Update `PROJECT_OVERVIEW.md` when a workflow script or AI domain routing changes.
 - Run `scripts/gen_brief.py` through the Python Runner Policy after changing knowledge files.

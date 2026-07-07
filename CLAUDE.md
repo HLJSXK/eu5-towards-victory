@@ -490,7 +490,7 @@ The project assumes humans do not maintain code or AI workflow files manually. A
 - If `docs/knowledge/risk_cards/` changes, ensure the card is listed by `scripts/ai_context.py` when its domain is touched.
 - If `scripts/ai_context.py` domain coverage or output changes, update `CLAUDE.md`, `docs/guides/AI_Tool_Workflow_Prompt.md`, and the script table in `docs/knowledge/PROJECT_OVERVIEW.md`.
 - If `scripts/validate.py` gains a reliable checker for a previous `needs_parser` rule, update the corresponding `anti_patterns.yaml` entry to `detectability: lint`.
-- If a `detectability: lint` regex is added or changed, add/update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\test_lint_rules.py` in managed sandboxes.
+- If a `detectability: lint` regex or validator is added or changed, add/update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\test_lint_rules.py` in managed sandboxes.
 - If `scripts/validate.py` reports a new warning, fix it unless the warning is intentionally accepted. Accepted warnings must be added to `data/validation_baseline.yaml` with a rationale; never baseline a warning just to make validation pass.
 - If a new warning domain appears repeatedly in runtime logs, prefer a risk card plus `ai_context.py` domain routing over adding more long-form prose to `BRIEF.md`.
 - After any change to `anti_patterns.yaml`, `valid_enums.yaml`, `PROJECT_OVERVIEW.md`, or `risk_cards/`, regenerate `BRIEF.md`.
