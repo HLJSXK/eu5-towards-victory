@@ -3870,6 +3870,9 @@ tv_govhouse_confirm_local_administration_effect = {
 
 # Confirms a Local Administration popup using the event's saved scopes. This is
 # what lets automation open one confirmation event per blocked region at once.
+# Called only after the event option has queued visible Local Administration
+# construction; instant construction does not reliably update building-level
+# reads before later hidden effects in the same option.
 # Scope: country event root.
 tv_govhouse_confirm_local_administration_event_scope_effect = {
 	save_scope_as = tv_governing_country
@@ -3893,7 +3896,6 @@ tv_govhouse_confirm_local_administration_event_scope_effect = {
 				scope:tv_govhouse_selected_admin_location = {
 					this = scope:tv_govhouse_pending_local_admin_scope
 					owner ?= scope:tv_governing_country
-					has_building_with_at_least_one_level = tv_govhouse_local_administration
 				}
 				scope:target = {
 					is_alive = yes
