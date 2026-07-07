@@ -1347,7 +1347,7 @@ allow = {
 
 Multiple `custom_tooltip` blocks in `allow` are AND-combined. Each evaluates independently and shows its own green/red state. Source: `estate_buildings.txt`, `capital_buildings.txt`.
 
-Do not use `has_variable = X` as a guard for `var:X = ...` inside generic action `allow` or tooltip logic. The UI evaluator may still fetch direct `var:` links from sibling trigger blocks while building tooltips. For nullable variables, use optional variable links (`var:X ?= ...`) so an absent variable returns false without logging an unset-scope error.
+Do not use `has_variable = X` as a guard for `var:X = ...` or `var:X < N` inside generic action `allow`, `potential`, selector, or tooltip logic. The UI evaluator may still fetch direct `var:` links from sibling trigger blocks while building tooltips or rendering the action card. For nullable variables, use optional variable links (`var:X ?= ...`) so an absent variable returns false without logging an unset-scope error. For bounded less-than checks where no optional threshold syntax is verified, generate literal optional branches (`var:X ?= 0`, `var:X ?= 1`, etc.) plus an explicit unset branch if missing state should pass.
 
 For custom generic-action buttons that call `construct_building`, do not rely on the building type's `max_levels` or a lone `can_build_building` check. Repeat the cap logic in a reusable trigger and call it from the action `allow`, any target picker `visible`/`enabled`, and the final effect guard. Country-wide caps should count queued construction with:
 

@@ -15,7 +15,10 @@ execution time can still spam runtime errors while the mouse is merely hovering 
 1. Keep nullable variable reads optional in player-facing trigger paths.
    Use `var:X ?= ...` inside `allow`, `visible`, `enabled`, `custom_tooltip`, and selector
    filters whenever `X` may be absent. Do not rely on a sibling `has_variable = X` line to
-   protect a later direct `var:X = { ... }` read.
+   protect a later direct `var:X = { ... }` read or `var:X < N` comparison. If no optional
+   threshold operator has been verified, express bounded numeric checks as literal optional
+   branches such as `var:X ?= 0` through `var:X ?= 19`, plus an explicit unset branch when
+   unset should pass.
 
 2. Guard every multi-step selection effect.
    If an action uses `select_trigger` with `target_flag = target`, `target_1`, or `target_2`,

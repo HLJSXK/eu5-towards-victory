@@ -781,6 +781,18 @@ def chain_candidate_trigger(max_nodes: int, indent: str) -> str:
 {indent}}}"""
 
 
+def chain_count_less_than_trigger(max_nodes: int, indent: str) -> str:
+    inner = indent + "\t"
+    count_branches = "\n".join(
+        f"{inner}var:tv_trade_chain_count ?= {count}"
+        for count in range(max_nodes)
+    )
+    return f"""{indent}OR = {{
+{inner}NOT = {{ has_variable = tv_trade_chain_count }}
+{count_branches}
+{indent}}}"""
+
+
 def chain_selector_filter(max_nodes: int, indent: str) -> str:
     inner = indent + "\t"
     return f"""{indent}in_trade_range_of = scope:actor
@@ -788,7 +800,7 @@ def chain_selector_filter(max_nodes: int, indent: str) -> str:
 {indent}location = {{ save_temporary_scope_as = tv_trade_chain_candidate_location }}
 {indent}scope:actor = {{
 {actor_leader_limit(indent=inner)}
-{inner}var:tv_trade_chain_count < {max_nodes}
+{chain_count_less_than_trigger(max_nodes, inner)}
 {chain_candidate_trigger(max_nodes, inner)}
 {indent}}}"""
 
@@ -798,23 +810,18 @@ def trade_chain_add_action(max_nodes: int) -> str:
         chain_add_branch(next_slot, max_nodes, next_slot == 2)
         for next_slot in range(2, max_nodes + 1)
     )
+    actor_indent = "\t\t\t"
     selector_filter = chain_selector_filter(max_nodes, "\t\t\t")
     body = f"""\tpotential = {{
 \t\tscope:actor = {{
 {actor_leader_limit()}
-\t\t\tOR = {{
-\t\t\t\tNOT = {{ has_variable = tv_trade_chain_count }}
-\t\t\t\tvar:tv_trade_chain_count < {max_nodes}
-\t\t\t}}
+{chain_count_less_than_trigger(max_nodes, actor_indent)}
 \t\t}}
 \t}}
 \tallow = {{
 \t\tscope:actor = {{
 {actor_leader_limit()}
-\t\t\tOR = {{
-\t\t\t\tNOT = {{ has_variable = tv_trade_chain_count }}
-\t\t\t\tvar:tv_trade_chain_count < {max_nodes}
-\t\t\t}}
+{chain_count_less_than_trigger(max_nodes, actor_indent)}
 \t\t}}
 \t}}
 \tselect_trigger = {{
