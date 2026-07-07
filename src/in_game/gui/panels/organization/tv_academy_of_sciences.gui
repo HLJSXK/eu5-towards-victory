@@ -343,10 +343,10 @@ organization_panel = {
 							widget = {
 								size = { 470 96 }
 								widget = {
-									position = { 45 26 }
-									size = { 380 18 }
+									position = { 21 24 }
+									size = { 428 18 }
 									progressbar = {
-										size = { 380 14 }
+										size = { 428 14 }
 										parentanchor = vcenter
 										widgetanchor = vcenter
 										using = progress_bar_blue_alt
@@ -356,10 +356,10 @@ organization_panel = {
 									}
 								}
 								hbox = {
-									position = { 36 12 }
-									size = { 398 42 }
+									position = { 0 12 }
+									size = { 470 42 }
 									layoutpolicy_horizontal = fixed
-									spacing = 47
+									spacing = 65
 									widget = {
 										size = { 42 42 }
 										using = bg_circle_piechart
@@ -532,36 +532,36 @@ organization_panel = {
 									}
 								}
 								hbox = {
-									position = { 28 60 }
-									size = { 414 24 }
+									position = { 0 60 }
+									size = { 470 24 }
 									layoutpolicy_horizontal = fixed
-									spacing = 31
+									spacing = 65
 									text_single = {
-										size = { 58 22 }
+										size = { 42 22 }
 										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_1_year').GetValue|0]"
 										fontsize = 13
 										align = center|nobaseline
 									}
 									text_single = {
-										size = { 58 22 }
+										size = { 42 22 }
 										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_2_year').GetValue|0]"
 										fontsize = 13
 										align = center|nobaseline
 									}
 									text_single = {
-										size = { 58 22 }
+										size = { 42 22 }
 										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_3_year').GetValue|0]"
 										fontsize = 13
 										align = center|nobaseline
 									}
 									text_single = {
-										size = { 58 22 }
+										size = { 42 22 }
 										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_4_year').GetValue|0]"
 										fontsize = 13
 										align = center|nobaseline
 									}
 									text_single = {
-										size = { 58 22 }
+										size = { 42 22 }
 										raw_text = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_node_5_year').GetValue|0]"
 										fontsize = 13
 										align = center|nobaseline

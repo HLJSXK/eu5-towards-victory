@@ -760,7 +760,7 @@ tv_academy_world_debate_situation = {{
 \t}}
 
 \tvisible = {{
-\t\thas_variable = tv_academy_io_member
+\t\thas_variable = tv_academy_world_debate_participant
 \t}}
 
 \ton_start = {{

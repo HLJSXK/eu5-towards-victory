@@ -7871,7 +7871,19 @@ tv_academy_world_debate_initialize_effect = {
 	tv_academy_world_debate_clear_seats_effect = yes
 }
 
+tv_academy_world_debate_clear_country_participants_effect = {
+	if = {
+		limit = { has_global_variable_list = tv_academy_world_debate_participants }
+		every_in_global_list = {
+			variable = tv_academy_world_debate_participants
+			remove_variable = tv_academy_world_debate_participant
+			remove_variable = tv_academy_world_debate_stance
+		}
+	}
+}
+
 tv_academy_world_debate_clear_seats_effect = {
+	tv_academy_world_debate_clear_country_participants_effect = yes
 	clear_global_variable_list = tv_academy_world_debate_participants
 	remove_variable = tv_academy_world_debate_seat_1_country
 	remove_variable = tv_academy_world_debate_seat_1_stance
@@ -8057,6 +8069,7 @@ tv_academy_world_debate_refresh_seats_effect = {
 		set_variable = { name = tv_academy_world_debate_next_seat value = 1 }
 		every_country = {
 			limit = { tv_academy_world_debate_country_can_participate_trigger = yes }
+			set_variable = { name = tv_academy_world_debate_participant value = 1 }
 			add_to_global_variable_list = { name = tv_academy_world_debate_participants target = this }
 			set_variable = { name = tv_academy_world_debate_stance value = 3 }
 			if = {
