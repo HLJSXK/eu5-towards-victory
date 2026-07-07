@@ -10,8 +10,8 @@
 # Fields:
 #   id                  Short key used for variable/effect naming (no _advance suffix)
 #   vanilla_advance_id  The vanilla advance key (used in `research_advance = advance_type:X`)
-#   age                 Numeric age (1..6); used by the propose-target effect to prefer
-#                       earlier-age unresearched advances
+#   age                 Numeric age (1..6); used by the propose-target effect to build
+#                       the current-or-earlier pool and the earliest-age fallback pool
 #   research_unlock_var Country script variable set to 1 when unlocked (kept for backward
 #                       compatibility with the propose-target effect's "skip if already
 #                       unlocked via prior cycle" guard)

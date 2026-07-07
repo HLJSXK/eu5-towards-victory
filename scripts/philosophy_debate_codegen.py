@@ -73,6 +73,8 @@ EVENT_SEAT_2 = "tv_academy_debate_event_seat_2"
 EVENT_PRICE = "tv_academy_debate_event_price"
 MONTHLY_DELTA = "tv_academy_philosophy_monthly_delta"
 SEAT_CONTRIB = "tv_academy_debate_seat_contribution"
+LOCAL_DEBATE_PROGRESS_VAR = "tv_academy_philosophy_debate_position"
+LOCAL_DEBATE_PROGRESS_DELTA_LOCAL = "tv_academy_debate_local_progress_delta"
 SELECTED_ARTIST_SCOPE = "tv_academy_debate_selected_artist"
 SELECTED_FOREIGN_SCOPE = "tv_academy_debate_selected_foreign_country"
 SELECTED_SCIENTIST_SCOPE = "tv_academy_debate_selected_scientist"
@@ -709,9 +711,23 @@ def generate_triggers(data: dict) -> str:
         emit(lines, 0, "}")
         emit(lines)
 
+    gen_defection_condition_triggers(lines, data)
     gen_world_debate_triggers(lines, data)
 
     return "\n".join(lines).rstrip() + "\n"
+
+
+def gen_defection_condition_triggers(lines: list[str], data: dict) -> None:
+    for group in groups(data):
+        key = group["key"]
+        emit(lines, 0, f"tv_academy_debate_group_{key}_positive_defection_condition_trigger = {{")
+        emit_defection_condition(lines, 1, group, positive=True)
+        emit(lines, 0, "}")
+        emit(lines)
+        emit(lines, 0, f"tv_academy_debate_group_{key}_negative_defection_condition_trigger = {{")
+        emit_defection_condition(lines, 1, group, positive=False)
+        emit(lines, 0, "}")
+        emit(lines)
 
 
 def gen_world_debate_triggers(lines: list[str], data: dict) -> None:
@@ -779,6 +795,59 @@ def gen_set_group_seated(lines: list[str], level: int, data: dict) -> None:
         emit(lines, level, "}")
 
 
+def emit_owned_academy_io_limit(lines: list[str], level: int, leader_expr: str = "root") -> None:
+    emit(lines, level, "limit = {")
+    emit(lines, level + 1, "international_organization_type = international_organization_type:tv_academy_of_sciences")
+    emit(lines, level + 1, f"leader_country ?= {leader_expr}")
+    emit(lines, level, "}")
+
+
+def emit_owned_academy_io_trigger(lines: list[str], level: int) -> None:
+    emit(lines, level, "any_international_organizations_member_of = {")
+    emit(lines, level + 1, "international_organization_type = international_organization_type:tv_academy_of_sciences")
+    emit(lines, level + 1, "leader_country ?= root")
+    emit(lines, level, "}")
+
+
+def emit_local_debate_progress_threshold(lines: list[str], level: int, operator: str, value: int) -> None:
+    emit(lines, level, "any_international_organizations_member_of = {")
+    emit(lines, level + 1, "international_organization_type = international_organization_type:tv_academy_of_sciences")
+    emit(lines, level + 1, "leader_country ?= root")
+    emit(lines, level + 1, f"var:{LOCAL_DEBATE_PROGRESS_VAR} {operator} {value}")
+    emit(lines, level, "}")
+
+
+def emit_change_local_debate_progress_effect(lines: list[str], level: int, value_expr: str) -> None:
+    emit(lines, level, f"tv_academy_debate_change_local_progress_effect = {{ value = {value_expr} }}")
+
+
+def gen_local_debate_progress_effects(lines: list[str]) -> None:
+    emit(lines, 0, "tv_academy_debate_change_local_progress_effect = {")
+    emit(lines, 1, "custom_description = {")
+    emit(lines, 2, "text = tv_academy_debate_change_local_progress_text")
+    emit(lines, 2, "value = $value$")
+    emit(lines, 2, "every_international_organizations_member_of = {")
+    emit_owned_academy_io_limit(lines, 3)
+    emit(lines, 3, f"change_variable = {{ name = {LOCAL_DEBATE_PROGRESS_VAR} add = $value$ }}")
+    emit(lines, 3, f"clamp_variable = {{ name = {LOCAL_DEBATE_PROGRESS_VAR} min = 0 max = 100 }}")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_set_local_progress_effect = {")
+    emit(lines, 1, "every_international_organizations_member_of = {")
+    emit_owned_academy_io_limit(lines, 2)
+    emit(lines, 2, f"set_local_variable = {{ name = {LOCAL_DEBATE_PROGRESS_DELTA_LOCAL} value = $value$ }}")
+    emit(lines, 2, f"change_local_variable = {{ name = {LOCAL_DEBATE_PROGRESS_DELTA_LOCAL} subtract = var:{LOCAL_DEBATE_PROGRESS_VAR} }}")
+    emit(lines, 2, "leader_country ?= {")
+    emit_change_local_debate_progress_effect(lines, 3, f"local_var:{LOCAL_DEBATE_PROGRESS_DELTA_LOCAL}")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+
 def generate_effects(data: dict) -> str:
     script = "scripts/in_game/common/scripted_effects/gen_tv_academy_philosophy_debate_effects.py"
     lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
@@ -833,6 +902,8 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    gen_local_debate_progress_effects(lines)
+
     emit(lines, 0, "tv_academy_debate_clear_all_seats_effect = {")
     for seat in SEATS:
         emit(lines, 1, f"tv_academy_debate_clear_seat_{seat}_effect = yes")
@@ -855,7 +926,7 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
 
     emit(lines, 0, "tv_academy_debate_initialize_debate_effect = {")
     emit(lines, 1, "tv_academy_debate_clear_all_seats_effect = yes")
-    emit(lines, 1, f"set_variable = {{ name = tv_academy_philosophy_debate_position value = {settings['initial_progress']} }}")
+    emit(lines, 1, f"tv_academy_debate_set_local_progress_effect = {{ value = {settings['initial_progress']} }}")
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1132,7 +1203,7 @@ def gen_prepare_event_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
-    emit(lines, 0, "tv_academy_debate_prepare_great_scientist_request_event_effect = {")
+    emit(lines, 0, "tv_academy_debate_prepare_great_scientist_requests_seat_event_effect = {")
     emit(lines, 1, "tv_academy_debate_clear_event_state_effect = yes")
     emit(lines, 1, "if = {")
     emit(lines, 2, "limit = { tv_academy_debate_great_scientist_available_for_seat_trigger = yes }")
@@ -1468,7 +1539,11 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
     emit(lines, 1, "tv_academy_debate_apply_defections_effect = yes")
     emit(lines, 1, "random_list = {")
     emit(lines, 2, f"{settings['monthly_no_event_weight']} = {{ }}")
-    emit(lines, 2, f"{settings['monthly_event_chance_weight']} = {{ tv_academy_debate_dispatch_monthly_event_effect = yes }}")
+    emit(lines, 2, f"{settings['monthly_event_chance_weight']} = {{ tv_academy_debate_dispatch_monthly_seat_event_effect = yes }}")
+    emit(lines, 1, "}")
+    emit(lines, 1, "random_list = {")
+    emit(lines, 2, f"{settings['monthly_no_event_weight']} = {{ }}")
+    emit(lines, 2, f"{settings['monthly_event_chance_weight']} = {{ tv_academy_debate_dispatch_monthly_progress_event_effect = yes }}")
     emit(lines, 1, "}")
     emit(lines, 1, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
     emit(lines, 1, "tv_academy_debate_dispatch_auto_stance_notifications_effect = yes")
@@ -1516,8 +1591,7 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
     emit(lines, 1, "change_variable = { name = tv_academy_philosophy_monthly_delta add = var:tv_academy_debate_seat_contribution }")
     for seat in SEATS:
         emit(lines, 1, f"tv_academy_debate_apply_seat_{seat}_monthly_progress_effect = yes")
-    emit(lines, 1, "change_variable = { name = tv_academy_philosophy_debate_position add = var:tv_academy_philosophy_monthly_delta }")
-    emit(lines, 1, "clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }")
+    emit_change_local_debate_progress_effect(lines, 1, f"var:{MONTHLY_DELTA}")
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1550,7 +1624,7 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
         emit(lines, 0, "}")
         emit(lines)
 
-    emit(lines, 0, "tv_academy_debate_dispatch_monthly_event_effect = {")
+    emit(lines, 0, "tv_academy_debate_dispatch_monthly_seat_event_effect = {")
     emit(lines, 1, "random_list = {")
     for key, weight in data["event_weights"].items():
         prep = f"tv_academy_debate_prepare_{key}_event_effect"
@@ -1581,6 +1655,12 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
         emit(lines, 3, "}")
         emit(lines, 3, f"{prep} = yes")
         emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_dispatch_monthly_progress_event_effect = {")
+    emit(lines, 1, "random_list = {")
     for event in random_events(data):
         emit(lines, 2, f"{event['weight']} = {{")
         emit(lines, 3, "trigger = {")
@@ -1611,8 +1691,7 @@ def gen_random_event_effects(lines: list[str], level: int, data: dict, event: di
     emit(lines, level + 1, "limit = {")
     gen_random_event_guard(lines, level + 2, data, event)
     emit(lines, level + 1, "}")
-    emit(lines, level + 1, f"change_variable = {{ name = tv_academy_philosophy_debate_position add = {option_data['progress_delta']} }}")
-    emit(lines, level + 1, "clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }")
+    emit_change_local_debate_progress_effect(lines, level + 1, option_data["progress_delta"])
     for block in option_data.get("effect_blocks") or []:
         gen_random_event_effect_block(lines, level + 1, data, block)
     emit(lines, level + 1, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
@@ -1713,17 +1792,6 @@ def random_event_modifier_entries(data: dict) -> list[dict]:
 
 
 def gen_defection_effects(lines: list[str], data: dict) -> None:
-    for group in groups(data):
-        key = group["key"]
-        emit(lines, 0, f"tv_academy_debate_group_{key}_positive_defection_condition_trigger = {{")
-        emit_defection_condition(lines, 1, group, positive=True)
-        emit(lines, 0, "}")
-        emit(lines)
-        emit(lines, 0, f"tv_academy_debate_group_{key}_negative_defection_condition_trigger = {{")
-        emit_defection_condition(lines, 1, group, positive=False)
-        emit(lines, 0, "}")
-        emit(lines)
-
     emit(lines, 0, "tv_academy_debate_apply_defections_effect = {")
     for seat in SEATS:
         emit(lines, 1, f"tv_academy_debate_apply_seat_{seat}_defection_effect = yes")
@@ -1919,7 +1987,7 @@ def gen_endpoint_effects(lines: list[str], data: dict) -> None:
     emit(lines, 2, "limit = {")
     emit(lines, 3, "var:tv_academy_philosophy_phase ?= 1")
     emit(lines, 3, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
-    emit(lines, 3, "var:tv_academy_philosophy_debate_position >= 100")
+    emit_local_debate_progress_threshold(lines, 3, ">=", 100)
     emit(lines, 2, "}")
     emit(lines, 2, f"set_variable = {{ name = {PENDING_RESULT_VAR} value = 1 }}")
     emit(lines, 2, f"set_variable = {{ name = {PENDING_ISSUE_VAR} value = var:tv_academy_philosophy_current }}")
@@ -1931,7 +1999,7 @@ def gen_endpoint_effects(lines: list[str], data: dict) -> None:
     emit(lines, 2, "limit = {")
     emit(lines, 3, "var:tv_academy_philosophy_phase ?= 1")
     emit(lines, 3, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
-    emit(lines, 3, "var:tv_academy_philosophy_debate_position <= 0")
+    emit_local_debate_progress_threshold(lines, 3, "<=", 0)
     emit(lines, 2, "}")
     emit(lines, 2, f"set_variable = {{ name = {PENDING_RESULT_VAR} value = 1 }}")
     emit(lines, 2, f"set_variable = {{ name = {PENDING_ISSUE_VAR} value = var:tv_academy_philosophy_current }}")
@@ -1979,7 +2047,7 @@ def gen_action_trigger_effects(lines: list[str], data: dict) -> None:
         emit(lines, 3, "var:tv_academy_philosophy_phase ?= 1")
         emit(lines, 3, "var:tv_academy_debate_current_node_type ?= 1")
         emit(lines, 3, "tv_academy_philosophy_has_current_issue_trigger = yes")
-        emit(lines, 3, "has_variable = tv_academy_philosophy_debate_position")
+        emit_owned_academy_io_trigger(lines, 3)
         emit(lines, 3, f"var:tv_academy_philosophy_current ?= {trigger['issue_id']}")
         emit(lines, 3, "NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }")
         emit(lines, 3, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
@@ -1987,8 +2055,7 @@ def gen_action_trigger_effects(lines: list[str], data: dict) -> None:
         emit(lines, 2, "}")
         emit(lines, 2, "random_list = {")
         emit(lines, 3, f"{chance} = {{")
-        emit(lines, 4, f"change_variable = {{ name = tv_academy_philosophy_debate_position add = {delta} }}")
-        emit(lines, 4, "clamp_variable = { name = tv_academy_philosophy_debate_position min = 0 max = 100 }")
+        emit_change_local_debate_progress_effect(lines, 4, delta)
         emit(lines, 4, "tv_academy_philosophy_check_debate_endpoint_effect = yes")
         emit(lines, 4, "if = {")
         emit(lines, 5, f"limit = {{ NOT = {{ has_variable = {PENDING_RESULT_VAR} }} }}")
@@ -2568,6 +2635,44 @@ def notification_loc_entries(zh: bool) -> dict[str, str]:
 def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
     zh = lang == "simp_chinese"
     entries: dict[str, str] = {}
+    entries[LOCAL_DEBATE_PROGRESS_VAR] = "本地辩论进度" if zh else "Local Debate Progress"
+    entries[f"{LOCAL_DEBATE_PROGRESS_VAR}_desc"] = (
+        "衡量科学院本地哲学辩论对当前议题的接纳或排斥程度。达到100时议题被接纳，达到0时议题被否决。"
+        if zh
+        else "Measures the Academy's local philosophy debate movement toward acceptance or rejection of the current issue. Reaching 100 accepts the issue; reaching 0 rejects it."
+    )
+    entries["TV_ACADEMY_DEBATE_POSITION_FORMAT"] = "$VAL|0$/100"
+    entries["TV_ACADEMY_DEBATE_POSITION_CHANGE_FORMAT"] = "$KEY$: $VALUE|+=2$"
+    if zh:
+        entries.update({
+            "TV_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "获得$VALUE|+$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_FIRST_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "我们获得$VALUE|+$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_THIRD_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "获得$VALUE|+$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_PAST_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "已获得$VALUE|+$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_FIRST_PAST_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "我们已获得$VALUE|+$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_THIRD_PAST_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "已获得$VALUE|+$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "失去$VALUE|-$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_FIRST_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "我们失去$VALUE|-$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_THIRD_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "失去$VALUE|-$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_PAST_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "已失去$VALUE|-$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_FIRST_PAST_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "我们已失去$VALUE|-$#Y $tv_academy_philosophy_debate_position$#!",
+            "TV_THIRD_PAST_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "已失去$VALUE|-$#Y $tv_academy_philosophy_debate_position$#!",
+        })
+    else:
+        entries.update({
+            "TV_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "Gains $VALUE|+$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_FIRST_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "We gain $VALUE|+$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_THIRD_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "Gains $VALUE|+$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_PAST_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "Gained $VALUE|+$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_FIRST_PAST_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "We gained $VALUE|+$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_THIRD_PAST_ADD_ACADEMY_DEBATE_LOCAL_PROGRESS": "Gained $VALUE|+$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "Loses $VALUE|-$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_FIRST_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "We lose $VALUE|-$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_THIRD_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "Loses $VALUE|-$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_PAST_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "Lost $VALUE|-$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_FIRST_PAST_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "We lost $VALUE|-$ #Y $tv_academy_philosophy_debate_position$#!",
+            "TV_THIRD_PAST_SUBTRACT_ACADEMY_DEBATE_LOCAL_PROGRESS": "Lost $VALUE|-$ #Y $tv_academy_philosophy_debate_position$#!",
+        })
     entries["TV_ACADEMY_DEBATE_STANCE_SUPPORT"] = "支持" if zh else "Support"
     entries["TV_ACADEMY_DEBATE_STANCE_OPPOSE"] = "反对" if zh else "Oppose"
     entries["TV_ACADEMY_DEBATE_STANCE_NEUTRAL"] = "中立" if zh else "Neutral"

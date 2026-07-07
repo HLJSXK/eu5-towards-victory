@@ -74,6 +74,11 @@ called directly from event options.
    cleanup, and other heavy work to a `hidden = yes` event's `immediate` block or another
    non-tooltip execution path.
 
+8. Keep generated trigger helpers in `common/scripted_triggers`.
+   `common/scripted_effects` treats every top-level block as a scripted effect. Do not emit
+   `_trigger = { ... }` definitions there; trigger clauses inside such a block are parsed as
+   effects and produce `Unknown effect ...` load errors.
+
 9. Use guarded delayed silent loops for daily hidden work.
    For daily background logic, seed exactly one delayed loop from a lifecycle point:
    `trigger_event_silently = { id = tv_namespace.900 days = 1 }`. The target should be a

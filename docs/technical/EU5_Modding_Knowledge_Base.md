@@ -200,6 +200,10 @@ every_international_organizations_member_of = {
 
 Using `any_international_organizations_member_of = { limit = { ... } ... }` directly in an effect body logs `Unknown effect any_international_organizations_member_of`.
 
+#### Scripted Trigger and Effect File Boundaries
+
+`common/scripted_triggers` and `common/scripted_effects` are separate top-level databases. EU5 parses every top-level block in a `common/scripted_effects` file as a scripted effect. Do not emit `_trigger = { ... }` definitions into scripted-effect files, even if those blocks are only called from effect `limit` clauses. Move those blocks to `common/scripted_triggers`; otherwise trigger-only clauses such as `has_variable`, `religious_unity`, `always`, or trigger iterators are parsed as effect commands and log `Unknown effect ...` during startup.
+
 #### Random List Branch Filtering
 
 Use `trigger = { ... }` inside weighted `random_list` branches when a branch should only be eligible under some condition:

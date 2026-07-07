@@ -163,7 +163,7 @@ tv_academy_of_sciences_create_effect = {
 		set_variable = { name = tv_med_disp_mil value = 0 }
 		set_variable = { name = tv_academy_philosophy_current value = 1 }
 		set_variable = { name = tv_academy_philosophy_phase value = 0 }
-		set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+		set_variable = { name = tv_academy_debate_initial_progress_pending value = 1 }
 		tv_academy_philosophy_initialize_timeline_effect = yes
 	}
 	if = {
@@ -182,6 +182,11 @@ tv_academy_of_sciences_create_effect = {
 				set_leader_country = prev
 			}
 		}
+	}
+	if = {
+		limit = { has_variable = tv_academy_debate_initial_progress_pending }
+		tv_academy_debate_set_local_progress_effect = { value = 50 }
+		remove_variable = tv_academy_debate_initial_progress_pending
 	}
 }
 

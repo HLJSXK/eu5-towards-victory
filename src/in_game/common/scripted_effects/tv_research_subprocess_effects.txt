@@ -237,10 +237,9 @@ tv_research_concentrated_complete_effect = {
 }
 
 # ── Propose research target ────────────────────────────────────────────────────
-# Strict earliest-age principle: each entry is excluded when (a) the player has already
-# researched this advance via the vanilla path, or (b) any earlier-age Academy target
-# is still unresearched. Among the earliest age with unresearched candidates, selection
-# is uniform random.
+# Candidate pool: prefer any unresearched Academy targets in the current age or earlier,
+# with uniform random selection across that pool. If that pool is exhausted, fall back to
+# the earliest future age with unresearched Academy targets.
 #
 # Enum mirrors data/locked_advances.yaml gui_value values.
 tv_research_propose_target_effect = {
@@ -279,42 +278,42 @@ tv_research_propose_target_effect = {
 			1 = {
 				trigger = {
 					NOT = { has_advance = renaissance_sculptures }
-					NOT = { tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = yes }
+					tv_research_proposal_includes_age_2_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 8 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = crown_power_advance_renaissance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = yes }
+					tv_research_proposal_includes_age_2_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 9 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = dock_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = yes }
+					tv_research_proposal_includes_age_2_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 10 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = standardized_coins }
-					NOT = { tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = yes }
+					tv_research_proposal_includes_age_2_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 11 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = gunpowder_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = yes }
+					tv_research_proposal_includes_age_2_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 12 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = armory_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_2_frontier_trigger = yes }
+					tv_research_proposal_includes_age_2_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 13 }
 			}
@@ -322,42 +321,42 @@ tv_research_propose_target_effect = {
 			1 = {
 				trigger = {
 					NOT = { has_advance = open_sea_exploration }
-					NOT = { tv_research_has_unresearched_earlier_than_age_3_frontier_trigger = yes }
+					tv_research_proposal_includes_age_3_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 14 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = blast_furnace }
-					NOT = { tv_research_has_unresearched_earlier_than_age_3_frontier_trigger = yes }
+					tv_research_proposal_includes_age_3_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 15 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = faceting }
-					NOT = { tv_research_has_unresearched_earlier_than_age_3_frontier_trigger = yes }
+					tv_research_proposal_includes_age_3_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 16 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = paper_workshop_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_3_frontier_trigger = yes }
+					tv_research_proposal_includes_age_3_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 17 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = training_fields_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_3_frontier_trigger = yes }
+					tv_research_proposal_includes_age_3_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 18 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = customs_house_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_3_frontier_trigger = yes }
+					tv_research_proposal_includes_age_3_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 19 }
 			}
@@ -365,42 +364,42 @@ tv_research_propose_target_effect = {
 			1 = {
 				trigger = {
 					NOT = { has_advance = gov_reform_reformation_a }
-					NOT = { tv_research_has_unresearched_earlier_than_age_4_frontier_trigger = yes }
+					tv_research_proposal_includes_age_4_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 20 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = pharmacology_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_4_frontier_trigger = yes }
+					tv_research_proposal_includes_age_4_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 21 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = letters_of_marque }
-					NOT = { tv_research_has_unresearched_earlier_than_age_4_frontier_trigger = yes }
+					tv_research_proposal_includes_age_4_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 22 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = slitting_mills }
-					NOT = { tv_research_has_unresearched_earlier_than_age_4_frontier_trigger = yes }
+					tv_research_proposal_includes_age_4_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 23 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = cannon_workshop_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_4_frontier_trigger = yes }
+					tv_research_proposal_includes_age_4_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 24 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = barracks_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_4_frontier_trigger = yes }
+					tv_research_proposal_includes_age_4_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 25 }
 			}
@@ -408,42 +407,42 @@ tv_research_propose_target_effect = {
 			1 = {
 				trigger = {
 					NOT = { has_advance = ostentatious_clothing }
-					NOT = { tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = yes }
+					tv_research_proposal_includes_age_5_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 26 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = sanitation_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = yes }
+					tv_research_proposal_includes_age_5_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 27 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = coke_blast_furnace }
-					NOT = { tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = yes }
+					tv_research_proposal_includes_age_5_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 28 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = scientific_mapping_advance }
-					NOT = { tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = yes }
+					tv_research_proposal_includes_age_5_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 29 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = artillery_vs_fort_age_5_absolutism }
-					NOT = { tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = yes }
+					tv_research_proposal_includes_age_5_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 30 }
 			}
 			1 = {
 				trigger = {
 					NOT = { has_advance = army_movement_speed_absolutism }
-					NOT = { tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = yes }
+					tv_research_proposal_includes_age_5_frontier_trigger = yes
 				}
 				set_variable = { name = tv_research_proposed_advance value = 31 }
 			}
@@ -478,7 +477,7 @@ tv_academy_philosophy_reset_inspiration_effect = {
 
 tv_academy_philosophy_enter_recess_effect = {
 	set_variable = { name = tv_academy_philosophy_phase value = 0 }
-	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+	tv_academy_debate_set_local_progress_effect = { value = 50 }
 	remove_variable = tv_academy_philosophy_concept_pending
 	remove_variable = tv_academy_philosophy_result_pending
 	remove_variable = tv_academy_philosophy_result_issue
@@ -970,7 +969,7 @@ tv_academy_philosophy_reset_panel_effect = {
 		set_variable = { name = tv_academy_philosophy_current value = 1 }
 	}
 	set_variable = { name = tv_academy_philosophy_phase value = 0 }
-	set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+	tv_academy_debate_set_local_progress_effect = { value = 50 }
 	remove_variable = tv_academy_philosophy_concept_pending
 	remove_variable = tv_academy_philosophy_recess_notice_pending
 	remove_variable = tv_academy_philosophy_result_pending

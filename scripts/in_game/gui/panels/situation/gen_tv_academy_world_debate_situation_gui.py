@@ -15,6 +15,7 @@ OUT_FILE = REPO_ROOT / "src" / "in_game" / "gui" / "panels" / "situation" / "tv_
 
 T = "\t"
 WORLD_SEATS = range(1, 51)
+WORLD_DEBATE_SEAT_SIZE = 42
 
 
 def emit(lines: list[str], level: int, text: str = "") -> None:
@@ -70,11 +71,14 @@ def append_world_seat_tint(lines: list[str], level: int, seat_set: str, stance_v
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f'visible = "[And({seat_set}, {fixed_eq(stance_var, stance)})]"')
     emit(lines, level + 1, "size = { 100% 100% }")
-    emit(lines, level + 1, "using = bg_circle_piechart")
-    emit(lines, level + 1, "modify_texture = {")
-    emit(lines, level + 2, f"using = {texture}")
-    emit(lines, level + 2, "blend_mode = overlay")
-    emit(lines, level + 2, "alpha = 0.85")
+    emit(lines, level + 1, "icon = {")
+    emit(lines, level + 2, "parentanchor = center")
+    emit(lines, level + 2, "size = { 100% 100% }")
+    emit(lines, level + 2, 'texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"')
+    emit(lines, level + 2, "modify_texture = {")
+    emit(lines, level + 3, f"using = {texture}")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "alpha = 0.88")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
@@ -84,8 +88,8 @@ def append_world_seat(lines: list[str], level: int, seat: int) -> None:
     stance_var = situation_var(world_debate_seat_var(seat, "stance"))
     seat_set = f"{country_var}.IsSet"
     emit(lines, level, "widget = {")
-    emit(lines, level + 1, "size = { 28 28 }")
-    emit(lines, level + 1, "using = bg_circle_piechart")
+    emit(lines, level + 1, f"size = {{ {WORLD_DEBATE_SEAT_SIZE} {WORLD_DEBATE_SEAT_SIZE} }}")
+    emit(lines, level + 1, "using = bg_circle_piechart_big")
     emit(lines, level + 1, 'tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"')
     append_world_seat_tint(lines, level + 1, seat_set, stance_var, 1, "color_light_green_texture")
     append_world_seat_tint(lines, level + 1, seat_set, stance_var, 2, "color_red_texture")
@@ -94,17 +98,17 @@ def append_world_seat(lines: list[str], level: int, seat: int) -> None:
     emit(lines, level + 2, f'visible = "[{seat_set}]"')
     emit(lines, level + 2, "parentanchor = center")
     emit(lines, level + 2, "widgetanchor = center")
-    emit(lines, level + 2, "size = { 24 15 }")
+    emit(lines, level + 2, "size = { 36 23 }")
     emit(lines, level + 2, f'datacontext = "[{country_var}.GetCountry]"')
     emit(lines, level + 2, 'tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"')
-    emit(lines, level + 2, "country_flag_small_plus = { size = { 24 15 } }")
+    emit(lines, level + 2, "country_flag_small_plus = { size = { 36 23 } }")
     emit(lines, level + 1, "}")
     emit(lines, level + 1, "text_single = {")
     emit(lines, level + 2, f'visible = "[Not({seat_set})]"')
     emit(lines, level + 2, "parentanchor = center")
     emit(lines, level + 2, "size = { 100% 100% }")
     emit(lines, level + 2, 'raw_text = "@diplomacy!"')
-    emit(lines, level + 2, "fontsize = 11")
+    emit(lines, level + 2, "fontsize = 17")
     emit(lines, level + 2, "align = center|nobaseline")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
@@ -203,14 +207,14 @@ def generate(data: dict) -> str:
     emit(lines, 5, "parentanchor = center")
     emit(lines, 5, "widgetanchor = center")
     emit(lines, 5, "size = { 620 314 }")
-    emit(lines, 5, "spacing = 8")
+    emit(lines, 5, "spacing = 4")
     seat = 1
     for _ in range(5):
         emit(lines, 5, "hbox = {")
         emit(lines, 6, "layoutpolicy_horizontal = fixed")
-        emit(lines, 6, "size = { 352 28 }")
+        emit(lines, 6, "size = { 456 42 }")
         emit(lines, 6, "parentanchor = hcenter")
-        emit(lines, 6, "spacing = 8")
+        emit(lines, 6, "spacing = 4")
         for _ in range(10):
             append_world_seat(lines, 6, seat)
             seat += 1
