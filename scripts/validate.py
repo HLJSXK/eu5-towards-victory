@@ -97,6 +97,7 @@ LOCALIZATION_KEY_PATTERN = re.compile(r"^\s+(\w+)\s*:(?:\d+)?")
 LOCALIZATION_HEADER_PATTERN = re.compile(r"^l_[A-Za-z_]+:\s*$")
 LOCALIZATION_ENTRY_LINE_PATTERN = re.compile(r"^\s+[A-Za-z0-9_.-]+:(?:\d+)?\s+")
 GAME_CONCEPT_DECL_PATTERN = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
+TOP_LEVEL_BLOCK_PATTERN = re.compile(r"(?m)^([A-Za-z]\w*)\s*=\s*\{")
 EVENT_ID_REFERENCE_PATTERN = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\.([1-9][0-9]{4,})\b")
 MONTHLY_PULSE_EVENT_ID_RE = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*\.\d+)\b")
 MONTHLY_PULSE_TRIGGER_EVENT_SIMPLE_RE = re.compile(
@@ -135,6 +136,8 @@ GENERIC_ACTION_HIDDEN_ONLY_EFFECTS = {
 
 issues = []
 warnings = []
+BRACE_MATCH_CACHE: dict[int, tuple[str, dict[int, int]]] = {}
+LINT_PREFILTER_TOKEN_RE = re.compile(r"(?<!\\)[A-Za-z_][A-Za-z0-9_]{2,}")
 
 
 def load_yaml(path: Path):
@@ -147,6 +150,65 @@ def load_yaml(path: Path):
 def load_warning_baseline() -> list[dict]:
     data = load_yaml(VALIDATION_BASELINE_FILE) or {}
     return data.get("warnings", []) or []
+
+
+def _literal_prefilter_tokens(regex: str) -> tuple[str, ...]:
+    """Extract conservative literal substrings used to skip impossible regex scans."""
+    cleaned: list[str] = []
+    in_class = False
+    escaped = False
+    for ch in regex:
+        if escaped:
+            if ch in "AbBdDsSwWZ0123456789":
+                cleaned.append(" ")
+            else:
+                cleaned.append(ch)
+            escaped = False
+            continue
+        if ch == "\\":
+            escaped = True
+            continue
+        if ch == "[":
+            in_class = True
+            cleaned.append(" ")
+            continue
+        if ch == "]" and in_class:
+            in_class = False
+            cleaned.append(" ")
+            continue
+        cleaned.append(" " if in_class else ch)
+
+    tokens: list[str] = []
+    for match in LINT_PREFILTER_TOKEN_RE.finditer("".join(cleaned)):
+        token = match.group(0).lower()
+        if token in {"ms", "multiline", "dotall"}:
+            continue
+        if token not in tokens:
+            tokens.append(token)
+    return tuple(tokens)
+
+
+def compile_anti_patterns(patterns: list[dict]) -> list[dict]:
+    compiled: list[dict] = []
+    for entry in patterns:
+        regex = entry.get("pattern", "")
+        detectability = entry.get("detectability")
+        if detectability is None:
+            detectability = "lint" if regex else "advisory"
+        if detectability != "lint" or not regex:
+            continue
+        try:
+            compiled.append({
+                "entry": entry,
+                "pattern": re.compile(regex, re.MULTILINE | re.IGNORECASE),
+                "only_in": tuple(entry.get("only_in_paths", []) or []),
+                "prefilter_tokens": _literal_prefilter_tokens(regex),
+            })
+        except re.error as exc:
+            warnings.append(
+                f"[LINT_RULE] {entry.get('id', '<unknown>')} -- invalid regex skipped: {exc}"
+            )
+    return compiled
 
 
 def load_modifier_whitelist() -> set[str]:
@@ -210,31 +272,42 @@ def collect_files(target: Path) -> list[Path]:
     ]
 
 
+def _rel_path(path: Path) -> str:
+    return str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+
+
+def _paths_match(
+    rels: set[str],
+    *,
+    prefixes: tuple[str, ...] = (),
+    exact: tuple[str, ...] = (),
+    contains: tuple[str, ...] = (),
+) -> bool:
+    return any(
+        rel in exact
+        or any(rel.startswith(prefix) for prefix in prefixes)
+        or any(fragment in rel for fragment in contains)
+        for rel in rels
+    )
+
+
 def check_anti_patterns(path: Path, content: str, patterns: list[dict]):
     path_str = str(path).replace("\\", "/")
-    for entry in patterns:
-        regex = entry.get("pattern", "")
-        detectability = entry.get("detectability")
-        if detectability is None:
-            detectability = "lint" if regex else "advisory"
-        if detectability != "lint":
-            continue
-        if not regex:
-            continue
-        only_in = entry.get("only_in_paths", [])
+    content_lower = content.lower()
+    for compiled in patterns:
+        entry = compiled["entry"]
+        only_in = compiled["only_in"]
         if only_in and not any(sub in path_str for sub in only_in):
             continue
-        try:
-            for m in re.finditer(regex, content, re.MULTILINE | re.IGNORECASE):
-                line_num = content[: m.start()].count("\n") + 1
-                issues.append(
-                    f"[{entry.get('category', 'pattern').upper()}] "
-                    f"{path.relative_to(REPO_ROOT)}:{line_num} -- "
-                    f"Bad: \"{entry['bad']}\" -> {entry['correction']}"
-                )
-        except re.error as exc:
-            warnings.append(
-                f"[LINT_RULE] {entry.get('id', '<unknown>')} -- invalid regex skipped: {exc}"
+        prefilter_tokens = compiled["prefilter_tokens"]
+        if prefilter_tokens and not any(token in content_lower for token in prefilter_tokens):
+            continue
+        for m in compiled["pattern"].finditer(content):
+            line_num = content[: m.start()].count("\n") + 1
+            issues.append(
+                f"[{entry.get('category', 'pattern').upper()}] "
+                f"{path.relative_to(REPO_ROOT)}:{line_num} -- "
+                f"Bad: \"{entry['bad']}\" -> {entry['correction']}"
             )
 
 
@@ -749,12 +822,89 @@ def check_unique_wonder_ritual_harness(files: list[Path]) -> None:
         issues.append(f"[UNIQUE_RITUAL_HARNESS] {error}")
 
 
+def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[dict]) -> None:
+    rels = {_rel_path(path) for path in files}
+
+    if not use_changed or _paths_match(rels, prefixes=("src/main_menu/common/game_concepts/",)):
+        check_game_concept_duplicate_keys()
+    if not use_changed or _paths_match(rels, prefixes=("src/main_menu/localization/",)):
+        check_loc_physical_lines()
+        check_loc_duplicate_keys()
+        check_loc_coverage()
+    if not use_changed or _paths_match(
+        rels,
+        prefixes=(
+            "src/in_game/common/scripted_triggers/",
+            "src/in_game/common/trigger_localization/",
+        ),
+    ):
+        check_trigger_loc_coverage()
+
+    check_autogenerated_staged()
+
+    check_generated_headers()
+    if not use_changed or _paths_match(
+        rels,
+        exact=(
+            "src/in_game/common/customizable_localization/character_title.txt",
+            "src/main_menu/gui/messagetypes.txt",
+            "reference_game_files/game/in_game/common/customizable_localization/character_title.txt",
+            "reference_game_files/game/main_menu/gui/messagetypes.txt",
+        ),
+    ):
+        check_vanilla_copy_integrity()
+    if not use_changed or _paths_match(
+        rels,
+        exact=(
+            "src/in_game/gui/location_window.gui",
+            "submods/tv_meiou_and_taxes_compat/in_game/gui/location_window.gui",
+            "scripts/in_game/gui/gen_location_window.py",
+            "scripts/compat/gen_tv_meiou_and_taxes_location_window.py",
+        ),
+    ):
+        check_location_window_generated_freshness()
+    if not use_changed or _paths_match(
+        rels,
+        prefixes=(
+            "src/in_game/common/international_organizations/",
+            "src/main_menu/gfx/interface/icons/international_organizations/",
+        ),
+    ):
+        check_tv_io_icon_assets()
+        check_tv_io_monthly_effect_blocks()
+    if not use_changed or _paths_match(
+        rels,
+        exact=("data/pulse_registry.yaml",),
+        prefixes=(
+            "src/in_game/common/on_action/",
+            "src/in_game/common/scripted_effects/",
+        ),
+    ):
+        check_monthly_country_pulse_event_delay()
+
+    if not use_changed or _paths_match(
+        rels,
+        exact=(
+            "docs/knowledge/anti_patterns.yaml",
+            "data/validation_baseline.yaml",
+            "scripts/ai_context.py",
+        ),
+        prefixes=("docs/knowledge/risk_cards/",),
+    ):
+        check_knowledge_maintenance(anti_patterns)
+    check_unique_wonder_ritual_harness(files)
+
+
 def _line_num(content: str, pos: int) -> int:
     return content[:pos].count("\n") + 1
 
 
 def _find_matching_brace(content: str, open_pos: int) -> int | None:
     """Return the matching } for content[open_pos] == {, ignoring strings/comments."""
+    cache_key = id(content)
+    cached = BRACE_MATCH_CACHE.get(cache_key)
+    if cached is not None and cached[0] is content and open_pos in cached[1]:
+        return cached[1][open_pos]
     depth = 0
     in_string = False
     in_comment = False
@@ -782,17 +932,58 @@ def _find_matching_brace(content: str, open_pos: int) -> int | None:
         elif ch == "}":
             depth -= 1
             if depth == 0:
+                if cached is None or cached[0] is not content:
+                    cached = (content, {})
+                    BRACE_MATCH_CACHE[cache_key] = cached
+                cached[1][open_pos] = i
                 return i
     return None
 
 
 def _iter_top_level_blocks(content: str):
-    for match in re.finditer(r"(?m)^([A-Za-z]\w*)\s*=\s*\{", content):
-        open_pos = content.find("{", match.start())
-        close_pos = _find_matching_brace(content, open_pos)
-        if close_pos is None:
+    candidates = {
+        content.find("{", match.start(), match.end()): match.group(1)
+        for match in TOP_LEVEL_BLOCK_PATTERN.finditer(content)
+    }
+    if not candidates:
+        return
+
+    depth = 0
+    active: tuple[str, int] | None = None
+    in_string = False
+    in_comment = False
+    escaped = False
+    for i, ch in enumerate(content):
+        if in_comment:
+            if ch == "\n":
+                in_comment = False
             continue
-        yield match.group(1), open_pos, close_pos
+        if in_string:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == "#":
+            in_comment = True
+        elif ch == '"':
+            in_string = True
+        elif ch == "{":
+            if depth == 0:
+                name = candidates.get(i)
+                active = (name, i) if name else None
+            depth += 1
+        elif ch == "}":
+            if depth <= 0:
+                continue
+            depth -= 1
+            if depth == 0 and active is not None:
+                name, open_pos = active
+                BRACE_MATCH_CACHE.setdefault(id(content), (content, {}))[1][open_pos] = i
+                yield name, open_pos, i
+                active = None
 
 
 def _iter_named_blocks(content: str, start: int, end: int, name: str):
@@ -1275,6 +1466,7 @@ def split_warning_baseline(raw_warnings: list[str], baseline: list[dict]) -> tup
 
 def main():
     anti_patterns = load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
+    lint_patterns = compile_anti_patterns(anti_patterns)
     enum_data = load_yaml(KNOWLEDGE_DIR / "valid_enums.yaml") or {}
     modifier_whitelist = load_modifier_whitelist()
     hardcoded_on_actions = load_hardcoded_on_actions()
@@ -1336,7 +1528,7 @@ def main():
                 or path.is_relative_to(REPO_ROOT / "data")
             )
             if is_game_content:
-                check_anti_patterns(path, content, anti_patterns)
+                check_anti_patterns(path, content, lint_patterns)
                 check_wonder_engine_scaled_fixed_modifiers(path, content)
                 check_generic_action_pre_eval_risks(path, content)
                 check_io_policy_ai_scope_recipient_guard(path, content)
@@ -1344,20 +1536,7 @@ def main():
                 check_enums(path, content, enum_data)
                 check_modifier_names(path, content, modifier_whitelist)
 
-        check_game_concept_duplicate_keys()
-        check_loc_physical_lines()
-        check_loc_duplicate_keys()
-        check_loc_coverage()
-        check_trigger_loc_coverage()
-        check_autogenerated_staged()
-        check_generated_headers()
-        check_vanilla_copy_integrity()
-        check_location_window_generated_freshness()
-        check_tv_io_icon_assets()
-        check_tv_io_monthly_effect_blocks()
-        check_monthly_country_pulse_event_delay()
-        check_knowledge_maintenance(anti_patterns)
-        check_unique_wonder_ritual_harness(files)
+        run_global_checks(files, use_changed, anti_patterns)
 
     if ai_report:
         def _is_autogen_warning(i: str) -> bool:

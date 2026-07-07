@@ -42,6 +42,10 @@ def fixture_files(rule_dir: Path, prefix: str) -> list[Path]:
     return sorted(p for p in rule_dir.iterdir() if p.is_file() and p.name.startswith(prefix))
 
 
+def has_fixture_files(rule_dir: Path) -> bool:
+    return any(p.is_file() for p in rule_dir.iterdir())
+
+
 def main() -> None:
     rules = load_rules()
     if not FIXTURE_ROOT.exists():
@@ -51,6 +55,8 @@ def main() -> None:
     failures: list[str] = []
     tested = 0
     for rule_dir in sorted(p for p in FIXTURE_ROOT.iterdir() if p.is_dir()):
+        if not has_fixture_files(rule_dir):
+            continue
         rule_id = rule_dir.name
         entry = rules.get(rule_id)
         if not entry:
