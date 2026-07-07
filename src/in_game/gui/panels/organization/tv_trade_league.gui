@@ -416,14 +416,17 @@ organization_panel = {
 								size = { 462 90 }
 								spacing = 10
 								margin = { 8 9 }
-								piechart = {
+								widget = {
 									size = { 72 72 }
-									using = piechart_angles
-									icon = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = { 97% 97% } parentanchor = center color = { 0.20 0.27 0.31 1 } alpha = 0.32 }
-									pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self))]" color = { 0.82 0.62 0.22 1 } alpha = 0.85 }
-									pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self)))]" color = { 0.28 0.47 0.56 1 } alpha = 0.75 }
-									icon = { texture = "gfx/interface/icons/flat_icons/market_wealth.dds" size = { 34 34 } parentanchor = center }
-									using = bg_circle_piechart
+									piechart = {
+										size = { 72 72 }
+										using = piechart_angles
+										icon = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = { 97% 97% } parentanchor = center color = { 0.20 0.27 0.31 1 } alpha = 0.32 }
+										pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self))]" color = { 0.82 0.62 0.22 1 } alpha = 0.85 }
+										pieslice = { texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self)))]" color = { 0.28 0.47 0.56 1 } alpha = 0.75 }
+										icon = { texture = "gfx/interface/icons/flat_icons/market_wealth.dds" size = { 34 34 } parentanchor = center }
+										using = bg_circle_piechart
+									}
 								}
 								vbox = {
 									size = { 360 72 }
