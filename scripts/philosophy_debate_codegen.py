@@ -314,6 +314,14 @@ def random_event_loc_key(event: dict, suffix: str) -> str:
     return f"{EVENT_NS}.{event['event_num']}.{suffix}"
 
 
+def group_seated_tooltip_key(group: dict) -> str:
+    return f"tv_academy_debate_group_{group['key']}_seated_text"
+
+
+def group_left_tooltip_key(group: dict) -> str:
+    return f"tv_academy_debate_group_{group['key']}_left_text"
+
+
 def random_event_reason_hint(data: dict, event: dict, lang: str) -> str:
     """Single trailing line explaining why this random debate event appeared.
 
@@ -796,6 +804,17 @@ def gen_set_group_seated(lines: list[str], level: int, data: dict) -> None:
         emit(lines, level, "}")
 
 
+def gen_group_change_tooltip(lines: list[str], level: int, data: dict, change: str) -> None:
+    key_fn = group_seated_tooltip_key if change == "seated" else group_left_tooltip_key
+    for idx, group in enumerate(groups(data)):
+        emit(lines, level, ("if" if idx == 0 else "else_if") + " = {")
+        emit(lines, level + 1, f"limit = {{ {var_eq(EVENT_GROUP, group['id'])} }}")
+        emit(lines, level + 1, "custom_description = {")
+        emit(lines, level + 2, f"text = {key_fn(group)}")
+        emit(lines, level + 1, "}")
+        emit(lines, level, "}")
+
+
 def emit_owned_academy_io_limit(lines: list[str], level: int, leader_expr: str = "root") -> None:
     emit(lines, level, "limit = {")
     emit(lines, level + 1, "international_organization_type = international_organization_type:tv_academy_of_sciences")
@@ -945,6 +964,16 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
 
     emit(lines, 0, "tv_academy_debate_mark_selected_group_seated_effect = {")
     gen_set_group_seated(lines, 1, data)
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_selected_group_seated_tooltip_effect = {")
+    gen_group_change_tooltip(lines, 1, data, "seated")
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_selected_group_left_tooltip_effect = {")
+    gen_group_change_tooltip(lines, 1, data, "left")
     emit(lines, 0, "}")
     emit(lines)
 
@@ -1467,6 +1496,7 @@ def gen_seat_effects(lines: list[str], data: dict) -> None:
         emit(lines, 1, f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_SUPPORT} }}")
         emit(lines, 1, "tv_academy_debate_apply_selected_royal_modifier_effect = yes")
         emit(lines, 1, "tv_academy_debate_pick_seat_for_selected_stance_effect = yes")
+        emit(lines, 1, "tv_academy_debate_selected_group_seated_tooltip_effect = yes")
         emit(lines, 1, "tv_academy_debate_assign_selected_group_to_seat_effect = yes")
         emit(lines, 1, "tv_academy_debate_clear_event_state_effect = yes")
         emit(lines, 0, "}")
@@ -2438,31 +2468,33 @@ def emit_desc(lines: list[str], level: int, data: dict, event_num: int, key: str
 
 def emit_event_options(lines: list[str], level: int, data: dict, event_num: int, key: str) -> None:
     if key == "join":
-        option(lines, level, f"{EVENT_NS}.{event_num}.a", ["tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
+        option(lines, level, f"{EVENT_NS}.{event_num}.a", ["tv_academy_debate_selected_group_seated_tooltip_effect = yes", "tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
     elif key == "leave":
-        option(lines, level, f"{EVENT_NS}.{event_num}.a", ["tv_academy_debate_mark_selected_group_left_effect = yes", "tv_academy_debate_clear_selected_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
+        option(lines, level, f"{EVENT_NS}.{event_num}.a", ["tv_academy_debate_selected_group_left_tooltip_effect = yes", "tv_academy_debate_mark_selected_group_left_effect = yes", "tv_academy_debate_clear_selected_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
     elif key in {"support_price_join", "scientist_bargain_support"}:
-        priced_option(lines, level, data, event_num, "a", ["tv_academy_debate_apply_selected_price_effect = yes", "tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
+        priced_option(lines, level, data, event_num, "a", ["tv_academy_debate_apply_selected_price_effect = yes", "tv_academy_debate_selected_group_seated_tooltip_effect = yes", "tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
         option(lines, level, f"{EVENT_NS}.{event_num}.b", ["tv_academy_debate_clear_event_state_effect = yes"])
     elif key == "oppose_price_stay_out":
-        priced_option(lines, level, data, event_num, "a", ["tv_academy_debate_apply_selected_price_effect = yes", "tv_academy_debate_mark_selected_group_left_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
-        option(lines, level, f"{EVENT_NS}.{event_num}.b", ["tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
+        priced_option(lines, level, data, event_num, "a", ["tv_academy_debate_apply_selected_price_effect = yes", "tv_academy_debate_selected_group_left_tooltip_effect = yes", "tv_academy_debate_mark_selected_group_left_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
+        option(lines, level, f"{EVENT_NS}.{event_num}.b", ["tv_academy_debate_selected_group_seated_tooltip_effect = yes", "tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
     elif key == "quarrel":
         option(lines, level, f"{EVENT_NS}.{event_num}.a", [
             f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_SUPPORT} }}",
             "tv_academy_debate_prepare_selected_special_scope_effect = yes",
+            "tv_academy_debate_selected_group_seated_tooltip_effect = yes",
             "tv_academy_debate_assign_selected_group_to_seat_effect = yes",
             f"set_variable = {{ name = {EVENT_GROUP} value = var:{EVENT_GROUP_2} }}",
             f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_OPPOSE} }}",
             f"remove_variable = {EVENT_SEAT}",
             "tv_academy_debate_prepare_selected_special_scope_effect = yes",
+            "tv_academy_debate_selected_group_seated_tooltip_effect = yes",
             "tv_academy_debate_assign_selected_group_to_seat_effect = yes",
             "tv_academy_debate_clear_event_state_effect = yes",
         ])
     elif key in {"scientist_sways_support", "scientist_angers_oppose"}:
-        option(lines, level, f"{EVENT_NS}.{event_num}.a", ["tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
+        option(lines, level, f"{EVENT_NS}.{event_num}.a", ["tv_academy_debate_selected_group_seated_tooltip_effect = yes", "tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
     elif key == "great_scientist_requests_seat":
-        option(lines, level, f"{EVENT_NS}.{event_num}.a", ["tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
+        option(lines, level, f"{EVENT_NS}.{event_num}.a", ["tv_academy_debate_selected_group_seated_tooltip_effect = yes", "tv_academy_debate_assign_selected_group_to_seat_effect = yes", "tv_academy_debate_clear_event_state_effect = yes"])
         option(lines, level, f"{EVENT_NS}.{event_num}.b", ["tv_academy_debate_clear_event_state_effect = yes"])
     elif key == "royal_appointment":
         for slot in range(1, 4):
@@ -2547,6 +2579,12 @@ def generate_loc(data: dict, language: str) -> str:
     for group in groups(data):
         entries[group_loc_key(group)] = group["loc"][loc_lang]
         entries[group_tt_key(group)] = f"{group['icon']} {group['loc'][loc_lang]}"
+        if loc_lang == "simp_chinese":
+            entries[group_seated_tooltip_key(group)] = f"{group['loc'][loc_lang]}已入席"
+            entries[group_left_tooltip_key(group)] = f"{group['loc'][loc_lang]}已离席"
+        else:
+            entries[group_seated_tooltip_key(group)] = f"Seat filled: {group['loc'][loc_lang]}"
+            entries[group_left_tooltip_key(group)] = f"Seat vacated: {group['loc'][loc_lang]}"
     for price in data["prices"]:
         entries[price_loc_key(price)] = price["loc"][loc_lang]
     entries[f"{EVENT_NS}.1.t"] = "Academy Debate Monthly Tick" if language == "english" else "科学院辩论月度刻"

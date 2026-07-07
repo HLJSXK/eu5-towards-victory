@@ -102,6 +102,7 @@ tv_academy_debate.100 = {
 	}
 	option = {
 		name = tv_academy_debate.100.a
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -197,6 +198,7 @@ tv_academy_debate.101 = {
 	}
 	option = {
 		name = tv_academy_debate.101.a
+		tv_academy_debate_selected_group_left_tooltip_effect = yes
 		tv_academy_debate_mark_selected_group_left_effect = yes
 		tv_academy_debate_clear_selected_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
@@ -295,6 +297,7 @@ tv_academy_debate.102 = {
 		name = tv_academy_debate.102.a_scaled_gold_1
 		trigger = { var:tv_academy_debate_event_price ?= 1 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -302,6 +305,7 @@ tv_academy_debate.102 = {
 		name = tv_academy_debate.102.a_scaled_gold_2
 		trigger = { var:tv_academy_debate_event_price ?= 2 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -309,6 +313,7 @@ tv_academy_debate.102 = {
 		name = tv_academy_debate.102.a_prestige_10
 		trigger = { var:tv_academy_debate_event_price ?= 3 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -316,6 +321,7 @@ tv_academy_debate.102 = {
 		name = tv_academy_debate.102.a_legitimacy_5
 		trigger = { var:tv_academy_debate_event_price ?= 4 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -323,6 +329,7 @@ tv_academy_debate.102 = {
 		name = tv_academy_debate.102.a_stability_7
 		trigger = { var:tv_academy_debate_event_price ?= 5 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -424,6 +431,7 @@ tv_academy_debate.103 = {
 		name = tv_academy_debate.103.a_scaled_gold_1
 		trigger = { var:tv_academy_debate_event_price ?= 1 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_left_tooltip_effect = yes
 		tv_academy_debate_mark_selected_group_left_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -431,6 +439,7 @@ tv_academy_debate.103 = {
 		name = tv_academy_debate.103.a_scaled_gold_2
 		trigger = { var:tv_academy_debate_event_price ?= 2 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_left_tooltip_effect = yes
 		tv_academy_debate_mark_selected_group_left_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -438,6 +447,7 @@ tv_academy_debate.103 = {
 		name = tv_academy_debate.103.a_prestige_10
 		trigger = { var:tv_academy_debate_event_price ?= 3 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_left_tooltip_effect = yes
 		tv_academy_debate_mark_selected_group_left_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -445,6 +455,7 @@ tv_academy_debate.103 = {
 		name = tv_academy_debate.103.a_legitimacy_5
 		trigger = { var:tv_academy_debate_event_price ?= 4 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_left_tooltip_effect = yes
 		tv_academy_debate_mark_selected_group_left_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -452,11 +463,13 @@ tv_academy_debate.103 = {
 		name = tv_academy_debate.103.a_stability_7
 		trigger = { var:tv_academy_debate_event_price ?= 5 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_left_tooltip_effect = yes
 		tv_academy_debate_mark_selected_group_left_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
 	option = {
 		name = tv_academy_debate.103.b
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -554,11 +567,13 @@ tv_academy_debate.104 = {
 		name = tv_academy_debate.104.a
 		set_variable = { name = tv_academy_debate_event_stance value = 1 }
 		tv_academy_debate_prepare_selected_special_scope_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		set_variable = { name = tv_academy_debate_event_group value = var:tv_academy_debate_event_group_2 }
 		set_variable = { name = tv_academy_debate_event_stance value = 2 }
 		remove_variable = tv_academy_debate_event_seat
 		tv_academy_debate_prepare_selected_special_scope_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -654,6 +669,7 @@ tv_academy_debate.105 = {
 	}
 	option = {
 		name = tv_academy_debate.105.a
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -749,6 +765,7 @@ tv_academy_debate.106 = {
 	}
 	option = {
 		name = tv_academy_debate.106.a
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -846,6 +863,7 @@ tv_academy_debate.107 = {
 		name = tv_academy_debate.107.a_scaled_gold_1
 		trigger = { var:tv_academy_debate_event_price ?= 1 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -853,6 +871,7 @@ tv_academy_debate.107 = {
 		name = tv_academy_debate.107.a_scaled_gold_2
 		trigger = { var:tv_academy_debate_event_price ?= 2 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -860,6 +879,7 @@ tv_academy_debate.107 = {
 		name = tv_academy_debate.107.a_prestige_10
 		trigger = { var:tv_academy_debate_event_price ?= 3 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -867,6 +887,7 @@ tv_academy_debate.107 = {
 		name = tv_academy_debate.107.a_legitimacy_5
 		trigger = { var:tv_academy_debate_event_price ?= 4 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -874,6 +895,7 @@ tv_academy_debate.107 = {
 		name = tv_academy_debate.107.a_stability_7
 		trigger = { var:tv_academy_debate_event_price ?= 5 }
 		tv_academy_debate_apply_selected_price_effect = yes
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
@@ -973,6 +995,7 @@ tv_academy_debate.108 = {
 	}
 	option = {
 		name = tv_academy_debate.108.a
+		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
